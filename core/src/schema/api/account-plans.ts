@@ -216,13 +216,13 @@ export function diffPlanList(
 // ---- the table change, for EM-M (no migration is written here) -------------------------------------------------------------------
 
 /**
- * The `plan_doc` change to the live `planner_draft` table (0009), as EM-M writes it in a migration of its own (the number is chosen
+ * The `plan_doc` change to the live `plan_draft` table (0009), as EM-M writes it in a migration of its own (the number is chosen
  * at merge; ACCT-PC's `account_profile` is another migration in flight). Every check below matches the constants of this module and
  * core/src/config/plans.ts, pinned by core/test/plan/plan-doc.test.ts. It absorbs NAV-D's draft cap and the column half of CUS-C.
  */
 export const PLAN_DOC_MIGRATION = {
   slug: "plan_doc",
-  table: "planner_draft",
+  table: "plan_draft",
   /** ids are per user (review-em-s S1): no cross-user existence signal, no squatting of a device copy's id */
   primaryKey: ["user_id", "id"],
   columns: [
@@ -259,7 +259,7 @@ export const PLAN_DOC_MIGRATION = {
   ],
   indexes: ["(user_id, deleted_at, updated_at desc)", "(user_id, source_trip, start) where deleted_at is null"],
   purge:
-    "planner_draft_purge(): delete from planner_draft where deleted_at < now() - interval '30 days', daily as the owner (core/bin/db-purge.ts, .github/workflows/plan-purge.yml); the account-deletion job (F17) deletes every row of the user (core/src/db/plans.ts deletePlans)",
+    "plan_draft_purge(): delete from plan_draft where deleted_at < now() - interval '30 days', daily as the owner (core/bin/db-purge.ts, .github/workflows/plan-purge.yml); the account-deletion job (F17) deletes every row of the user (core/src/db/plans.ts deletePlans)",
   rls: "0009's owner-predicate policies cover the new columns; no new policy. The cross-user suite extends to doc, kind, source_trip, start, days, revision, deleted_at",
   signal: "0010's content-free signal keeps firing on any change and carries none of these columns; sync does not depend on it (EM7)",
 } as const;

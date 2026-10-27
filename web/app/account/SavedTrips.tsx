@@ -28,7 +28,7 @@ function savedLabel(d: Date): string {
 }
 
 /**
- * Saved trips (spec 6.2): the person's `planner_draft` rows, newest first, five then "{n} more". No create box and no live stream
+ * Saved trips (spec 6.2): the person's `plan_draft` rows, newest first, five then "{n} more". No create box and no live stream
  * (ACCT-P1, AD7): the list re-reads through the authenticated `/api/account/drafts/` after each own write and when the window gets focus,
  * so a rename on another device shows here when the person comes back. The page never depends on a stream to show its own writes.
  */

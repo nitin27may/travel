@@ -21,7 +21,7 @@
 --   setup_done_at            set once (finished or skipped), never cleared by an update.
 --   created_at, updated_at   as usual.
 --
--- Owner-only RLS (the planner_draft pattern, 0009). No Realtime signal, no SECURITY DEFINER function, and no foreign key into
+-- Owner-only RLS (the plan_draft pattern, 0009). No Realtime signal, no SECURITY DEFINER function, and no foreign key into
 -- neon_auth (Neon owns that schema). Birth and age data never leave the owner's own requests (spec 10.1).
 
 create table account_profile (

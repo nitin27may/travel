@@ -57,6 +57,27 @@ export function createdTables(sql: string, version?: string): CreatedTable[] {
   return out;
 }
 
+const RENAME_RE = /alter\s+table\s+(?:if\s+exists\s+)?(?:public\.)?([a-z_][a-z0-9_]*)\s+rename\s+to\s+([a-z_][a-z0-9_]*)\s*;/gi;
+
+/** Every `alter table <old> rename to <new>` of one migration's SQL, in order. */
+export function renamedTables(sql: string): { from: string; to: string }[] {
+  return [...stripComments(sql).matchAll(RENAME_RE)].map((m) => ({ from: m[1]!.toLowerCase(), to: m[2]!.toLowerCase() }));
+}
+
+/**
+ * The tables the migrations leave, in order: each migration's `create table`s, then its renames applied to every table created so far
+ * (0013 renames 0009's planner_draft and 0010's signal table; owner decision, 27 Oct 2026). A renamed table keeps its body and the
+ * version that created it.
+ */
+export function schemaTables(migrations: readonly { sql: string; version?: string }[]): CreatedTable[] {
+  const out: CreatedTable[] = [];
+  for (const m of migrations) {
+    out.push(...createdTables(m.sql, m.version));
+    for (const r of renamedTables(m.sql)) for (const t of out) if (t.name === r.from) t.name = r.to;
+  }
+  return out;
+}
+
 /** Every inline foreign key of the given tables. */
 export function tableReferences(tables: readonly CreatedTable[]): TableRef[] {
   const out: TableRef[] = [];

@@ -80,7 +80,7 @@ describe('account write actions', () => {
       // The scoped transaction and the inserted user_id are the verified session id.
       expect(meta.scopedUserId).toBe(OWNER.id);
       expect(calls[0].params[1]).toBe(OWNER.id);
-      expect(calls[0].sql).toMatch(/insert into public\.planner_draft/i);
+      expect(calls[0].sql).toMatch(/insert into public\.plan_draft/i);
     });
 
     it('update and delete carry a user_id predicate bound to the session id', async () => {
@@ -91,7 +91,7 @@ describe('account write actions', () => {
 
       const d = fakeTx();
       await deleteDraft(OWNER.id, { id: ID });
-      expect(d.calls[0].sql).toMatch(/delete from public\.planner_draft d where d\.id = \$1 and d\.user_id = \$2/i);
+      expect(d.calls[0].sql).toMatch(/delete from public\.plan_draft d where d\.id = \$1 and d\.user_id = \$2/i);
       expect(d.calls[0].params).toEqual([ID, OWNER.id]);
     });
 

@@ -3,7 +3,7 @@ import 'server-only';
 // The daily tombstone purge (review-em-s B2 point 4 and S2; edit-my-trip 4.5 and 7: a removed plan's title is gone after 30 days even
 // when its owner never writes again). Vercel Cron calls `GET /api/internal/plan-purge` once a day with `Authorization: Bearer
 // <CRON_SECRET>` (Vercel sends the header itself when the project has a CRON_SECRET). The handler runs migration 0013's
-// `planner_draft_purge()` on the runtime pool's own connection, which logs in as the database owner (core/src/db/client.ts: the app
+// `plan_draft_purge()` on the runtime pool's own connection, which logs in as the database owner (core/src/db/client.ts: the app
 // drops to `travel_app` only inside withUserTransaction), because the function is closed to the app role.
 //
 // OFF until 0013 is applied and the owner switches it on: `PLAN_PURGE_ENABLED=1` and a CRON_SECRET of 32 or more characters, both in

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// db-purge — run migration 0013's planner_draft_purge() once, as the database owner (review-em-s B2 point 4): everyone's plan tombstones
+// db-purge — run migration 0013's plan_draft_purge() once, as the database owner (review-em-s B2 point 4): everyone's plan tombstones
 // older than 30 days (or --days=<n>, at least 1). The scheduled run is the Vercel Cron route /api/internal/plan-purge
 // (web/lib/server/plan-purge.ts); this is the manual and child-branch run.
 //
@@ -24,9 +24,9 @@ async function main(): Promise<void> {
   const days = arg("days") === undefined ? undefined : Number(arg("days"));
   const client = await getClient(url);
   try {
-    const { rows } = await client.query<{ f: string | null }>("select to_regprocedure('planner_draft_purge(integer)')::text as f");
+    const { rows } = await client.query<{ f: string | null }>("select to_regprocedure('plan_draft_purge(integer)')::text as f");
     if (!rows[0]?.f) {
-      console.error("planner_draft_purge(integer) does not exist here: migration 0013 is not applied");
+      console.error("plan_draft_purge(integer) does not exist here: migration 0013 is not applied");
       process.exit(3);
     }
     console.log(`purged ${await purgeAllTombstones(client, days)} tombstones`);

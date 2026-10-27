@@ -91,7 +91,7 @@ export const tripCustom = z.strictObject({
   fromRef: originRef.optional(),
   /** reserved (origin spec 10): the airports the visitor picked */
   gw: gateways.optional(),
-  /** reserved: the public trip's content revision when copied (`planner_draft.source_revision`, overview 5.6) */
+  /** reserved: the public trip's content revision when copied (`plan_draft.source_revision`, overview 5.6) */
   rev: sourceRevision.optional(),
 });
 

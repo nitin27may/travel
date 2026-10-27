@@ -38,7 +38,7 @@ Principles cited by number from [principles.md](../design/foundation/principles.
 | B3 | Wrong label | Opening your own copy shows the party bar as **"Shared plan: family, youngest 6"**, because any `p=` in the URL is read as a shared link | `ProfileBar.tsx` landing (`/[?&](p|a)=/`) | Code path; no test pins the copy case |
 | G1 | Not built (by decision N8) | **Changes made after Open are never saved to the copy.** Open goes to the public page `/trips/<slug>/?p=...&d=...&add=...`; a version swap, an added place or a party change rewrites the URL only. Back in Mine the copy is as it was. The only way to keep them is to Copy again and press Replace | `useTimeline.ts` writes the URL; nothing writes `travel.copies.local` except the copy sheet and Mine | navigation-and-mine N8: "No dated trip view for a device copy in v1" |
 | G2 | Not built (CUS-1, REQ-E) | The plan's own stops cannot be removed, moved, reordered; days cannot be added or dropped; no notes, no title. Only places the visitor added can be removed | `Entry` `onRemove` only for `addedBy === 'visitor'` | trip-overview-and-customisation 5.2; Q96 (removal signed in only) |
-| G3 | Not built (NAV-D, NAV-3, after CUS-C) | **Signed in, copies stay on the device.** `planner_draft` holds a title only; the merge (`planMerge`, `markMerged` in `core/src/schema/copies.ts`) is written but has no route, no migration and no caller | `0009_planner_draft.sql` (id, user_id, title, timestamps); nav 4.2 rule 6 | The account card sentence is that rule's text |
+| G3 | Not built (NAV-D, NAV-3, after CUS-C) | **Signed in, copies stay on the device.** `plan_draft` holds a title only; the merge (`planMerge`, `markMerged` in `core/src/schema/copies.ts`) is written but has no route, no migration and no caller | `0009_plan_draft.sql` (id, user_id, title, timestamps); nav 4.2 rule 6 | The account card sentence is that rule's text |
 
 So nothing that was built is broken except B1 and B2 (and the B3 wording). The owner's expectation, "I copied it, it is
 mine, I can change it and it follows my account", is a planned feature that sits in bundle F today.
@@ -54,12 +54,12 @@ mine, I can change it and it follows my account", is a planned feature that sits
 | Mine › My trips row | **Open** | opens the public page with the copy's choices in the URL | nothing is written back (G1) |
 | Mine › My trips row menu | **Change dates** | start date and travellers only (B1) | the copy, in place, with Undo |
 | Mine › My trips row menu | **Add to calendar**, **Print**, **Remove** | files, print, removal with Undo | the copy |
-| `/account/` (signed in) | titled drafts: New, rename, delete | a title with no content | `planner_draft` (live, Realtime signal) |
+| `/account/` (signed in) | titled drafts: New, rename, delete | a title with no content | `plan_draft` (live, Realtime signal) |
 
 ## 1. The decision in one paragraph
 
 **There is one editable trip document, `plan-draft/1`, for a copy of one of our trips and for a plan from the trip
-builder; one account table, `planner_draft`, extended with a `doc` column; one sync path; one list in Mine.** A copy is a
+builder; one account table, `plan_draft`, extended with a `doc` column; one sync path; one list in Mine.** A copy is a
 draft in **template mode**: it names the public trip it follows and holds only the person's changes (versions, added,
 removed and moved places, days, notes, title, dates, party). A builder plan is a draft in **built mode** (picks, bases,
 edits, the last build). "Open in the builder" turns a template draft into a built draft, one way. Signed in, every
@@ -72,12 +72,12 @@ first (bundle D, flag `accountTrips`)**, with a "changes save to your copy" brid
 | # | Decision | Why | Trade-off |
 |---|---|---|---|
 | EM1 | **One document, `plan-draft/1`, two modes** (`template`, `built`), widened now; `trip-custom/1` retired | `trip-custom/1` and `plan-draft/1` are not stored anywhere yet (CUS-C's migration is not applied, FS-1 has not shipped), so this is the last free moment to merge them; one parser, one privacy rule, one sync path, one Mine list, one export of "my data" | Reverses ISO-6 ("never merged with copies"); a builder bug can now reach a copy's row. Mitigation: mode-specific server checks (EM-C rules R4, R5) and the builder refusing template drafts until converted |
-| EM2 | **One table: `planner_draft` gains `doc`, `kind`, `source_trip`, `start`, `days`, `revision`** (migration slug `plan_doc`) | The table is live in production with RLS, cross-user tests, the content-free signal and the Account UI; a second table (`plan_draft`, bundle E) would delay sync by a bundle and give Mine two reads | Supersedes QI1's own table (if Q-EM2 is yes). The cap counts copies and plans together (50) |
+| EM2 | **One table: `plan_draft` gains `doc`, `kind`, `source_trip`, `start`, `days`, `revision`** (migration slug `plan_doc`) | The table is live in production with RLS, cross-user tests, the content-free signal and the Account UI; a second table (`plan_draft`, bundle E) would delay sync by a bundle and give Mine two reads | Supersedes QI1's own table (if Q-EM2 is yes). The cap counts copies and plans together (50) |
 | EM3 | **A copy follows its template** (a delta), it is not a snapshot | Our research fixes reach the person's copy (a corrected trail time, a closed road); the scheduler already re-flows from the template | A change can stop applying when we edit the published plan; it is listed, never dropped silently (5.6) |
 | EM4 | **Signed in, the account is the truth; the device holds a cache and an outbox** | Works across devices; the device keeps working offline and on a flaky phone | Two places to reason about; the outbox needs a rebase (4.4) |
 | EM5 | **Conflicts rebase the device's pending operations onto the server's latest document**, not whole-document last-write-wins | Two devices editing different days both keep their work; ops already exist with inverses (overview 5.5, `core/src/ops`) | More code than LWW; a rare true conflict (same day reordered on two devices offline) resolves to the later sync, with a notice |
 | EM6 | **Sync before editing**: bundle D ships sync and the save-back bridge; the full editor follows | The owner's screenshot is about sync; the bridge removes G1 for the controls that already exist; both need no new renderer | Remove, reorder and days wait for the editor (EM-4) |
-| EM7 | **No Realtime dependency**: refetch on focus, on `visibilitychange`, after each write and every 60 s while Mine or a copy is open | The `planner_draft_signal` ruling (HANDOVER item 5) is still open and blocks CUS-C; sync must not wait for it | Another device's change appears within a minute or on focus, not instantly. Realtime can be added later with no format change |
+| EM7 | **No Realtime dependency**: refetch on focus, on `visibilitychange`, after each write and every 60 s while Mine or a copy is open | The `plan_draft_signal` ruling (HANDOVER item 5) is still open and blocks CUS-C; sync must not wait for it | Another device's change appears within a minute or on focus, not instantly. Realtime can be added later with no format change |
 | EM8 | **Signed out, a device copy is fully editable** | It is private to the browser; the sign-in gate on editing was a server-cost choice (Q96) that no longer applies to device data | Q96 stands for public links: no `rm=` on `/trips/` |
 
 ```mermaid
@@ -96,7 +96,7 @@ flowchart LR
   DEV["Device: travel.copies.local (now)<br/>travel.plans.local (EM-5)"]:::infra
   OUT["Outbox: pending ops<br/>with base revision"]:::infra
   API["/api/account/plans/**<br/>same-origin, verified session"]:::sec
-  PG[("planner_draft.doc<br/>owner-predicate RLS")]:::data
+  PG[("plan_draft.doc<br/>owner-predicate RLS")]:::data
   M["Mine › My trips"]:::ok
   E["Copy view: bridge now,<br/>/t/id/ editor later"]:::ok
 
@@ -126,7 +126,7 @@ is stored (FS-1 or this spec's sync, whichever ships first); after that every ne
 
 ```jsonc
 {
-  "trip": "canadian-rockies-2029",        // public slug it follows (was planner_draft.source_trip)
+  "trip": "canadian-rockies-2029",        // public slug it follows (was plan_draft.source_trip)
   "rev": "2026-10-27.3",                  // the trip's content revision when last reconciled, or null
   "profile": { "party": "family", "youngest": 6, "pace": "standard", "adults": 2, "walk": null, "split": false },
   "window": null,                          // best-time window id (OVR)
@@ -250,7 +250,7 @@ outbox edit to a tombstoned draft is discarded with the notice "Canadian Rockies
 
 **The purge job** (built 27 Oct 2026, EM-F; review-em-s B2 and S2). Each write route drops the caller's own tombstones older
 than 30 days, and once a day Vercel Cron calls `GET /api/internal/plan-purge` (`web/lib/server/plan-purge.ts`), which runs
-`planner_draft_purge()` on the runtime pool's owner login and answers a count. It is **off** until 0013 is applied: switch it on
+`plan_draft_purge()` on the runtime pool's owner login and answers a count. It is **off** until 0013 is applied: switch it on
 with `PLAN_PURGE_ENABLED=1` and a `CRON_SECRET` of 32 or more characters in Vercel Production, and the cron entry
 `{ "crons": [{ "path": "/api/internal/plan-purge", "schedule": "17 3 * * *" }] }` in the Vercel project's `vercel.json`. Off, or
 without the bearer, the route answers 404. `node core/bin/db-purge.ts` runs it once by hand (the child branch, or a missed
@@ -409,7 +409,7 @@ redirects to it. One renderer, one document.
 
 - The detector (`core/src/privacy/detect.ts`) already fails a public body with `travellers`, `fromRef`, `gw`, `added`;
   EM-C adds `template`, `notes`, `start` under a draft shape.
-- Account deletion (F17) deletes the rows: `delete from planner_draft where user_id = $1` as the owner, in the same manual
+- Account deletion (F17) deletes the rows: `delete from plan_draft where user_id = $1` as the owner, in the same manual
   account-removal steps as `account_profile` until F17 16 (account-profile-and-travellers 9.3; `deletePlans` in
   `core/src/db/plans.ts` for F17). The tombstone purge is its own daily job (4.5).
 - Logs: the routes log fixed codes only, and every line passes `LOG_DENY_KEYS`, which names `doc`, `children`, `start`,
@@ -448,7 +448,7 @@ against 30 h here), so the train grows by about 11 h net.
 **Yes, in bundle D, behind `accountTrips`, if the owner answers Q-EM1 to Q-EM3 by the time D's B2 seat starts its
 contracts.** Reasons: the table and its RLS are live; the merge rule is written and tested in core; no Realtime is
 needed (EM7); the one migration joins D's two (`intake`, `leg_cache_server_write`); the security review EM-S fits D's
-FBK-S slot. It does **not** wait for CUS-C, the `planner_draft_signal` ruling, Q98 or the v0.11 preview, which block
+FBK-S slot. It does **not** wait for CUS-C, the `plan_draft_signal` ruling, Q98 or the v0.11 preview, which block
 customising, not syncing. If it is late, rule B3 ships it dark and turns it on in E.
 
 Not as a patch to BC: a migration and a security review are bundle work (RELEASE-PLAN 0a.1 B4). **EM-B can be a patch.**
@@ -549,8 +549,8 @@ sections 3 to 5.
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
 | Q-EM1 | One document for copies and builder plans: `plan-draft/1` with a template mode, retiring `trip-custom/1` before it is ever stored? | **Yes.** One format, one sync, one list, one export | Reverses ISO-6; a builder defect can reach a copy (mitigated by R4, R5 and per-mode tests) |
-| Q-EM2 | One account table: extend `planner_draft` (live) instead of creating `plan_draft` in bundle E (QI1)? | **Yes.** Sync ships a bundle earlier, Mine reads one table | The 50 cap counts copies and plans together |
-| Q-EM3 | Sync in bundle D behind `accountTrips`, decoupled from CUS-C, the `planner_draft_signal` ruling and Q98, with no Realtime (refetch on focus and every 60 s)? | **Yes** | Another device's change shows within a minute, not instantly |
+| Q-EM2 | One account table: extend `plan_draft` (live) instead of creating `plan_draft` in bundle E (QI1)? | **Yes.** Sync ships a bundle earlier, Mine reads one table | The 50 cap counts copies and plans together |
+| Q-EM3 | Sync in bundle D behind `accountTrips`, decoupled from CUS-C, the `plan_draft_signal` ruling and Q98, with no Realtime (refetch on focus and every 60 s)? | **Yes** | Another device's change shows within a minute, not instantly |
 | Q-EM4 | Store each trip's travellers in the account, children's ages included? | **Yes, ages included**, RLS-only, never logged or public, deleted with the trip or the account; the privacy page says so | Ages of children on our server. Alternative: the youngest age only, which weakens fit checks for older children (the walk limit, the age ceilings) |
 | Q-EM5 | At sign-in, the same trip and start on the device and in the account with different changes: keep both? | **Keep both**, the device one titled "(from this device)" | A duplicate row the person removes by hand, against silently losing edits (nav rule 3 superseded) |
 | Q-EM6 | Sign-out with changes not yet in the account: ask (Try again, or Sign out and discard)? | **Yes, ask** | One more dialog, only in that case |
@@ -599,5 +599,6 @@ sections 3 to 5.
 |---|---|
 | 2026-10-27 | Created (travel-planner, Opus, TRIP-EDIT-I) from the owner's feedback and screenshot of 27 Oct: verdict (B1, B2 bugs, B3 label, G1 to G3 not built), one document and one table, sync in bundle D first, the bridge, the editor later, privacy, tasks EM-B to EM-5, briefs EM-B and EM-C, Q-EM1 to Q-EM12 |
 | 2026-10-27 | EM-C built (travel-builder, Opus, branch `public/EM-C`): `plan-draft/1` template mode, party `trip` with an age-snapshot `travellers`, R1 to R7, ops with inverses and `rebase`, outbox, route shapes and `PLAN_DOC_MIGRATION` for EM-M. **Differs from section 2 and 10:** the builder fence (isolation G1) forbids non-builder files from importing the plan document, so the mapper and the plan-side merge are in `core/src/plan/doc.ts` (`copyToPlanDraft`, `copyToPlanRow`, `planCopyMerge`), not `copies.ts`, and `trip-custom.ts` is retired in place (deprecated, not a re-export); `account-plans.ts` takes the document's parser as an argument. `custom` and `stays` are left to `plan-draft/2` (shapes unspecified). Day numbers in a template block count the published days; an inserted day is named by its op id. Extra ops `setWindow`, `deleteEntry`, `restoreEntry` (the inverse forms). The merge answer has six lists (`inserted`, `already`, `sameTrip`, `both`, `overCap`, `refused`). A start's month is the draft's month; `origin` and `fromRef` are never both set. EM-1 and EM-2 need new extension points in `web/tests/plan/isolation.test.ts` before they import the document |
-| 2026-10-27 | EM-M and EM-1 built (travel-builder, Opus, branch `public/EM-M`): migration `0013_plan_doc.sql` (files only; not applied to any Neon branch) and the routes `/api/account/plans/**` behind `NEXT_PUBLIC_ACCOUNT_TRIPS`. **Differs from sections 3 and 4.1:** a DELETE clears the document and its household columns (`doc`, `kind`, `source_trip`, `start`, `days`); the tombstone keeps id, title and revision, and Undo is a PUT `restore` that sends the document again. A template row's title is the person's own (`doc.title`), else the catalogue's current title; the body's `title` names built drafts only. A create answers 201. Errors are `{ code }` with fixed codes (`NOT_FOUND`, `FORBIDDEN`, `UNAUTHENTICATED`, `BAD_REQUEST`, `UNSUPPORTED_MEDIA_TYPE`, `PAYLOAD_TOO_LARGE`, `VALIDATION_ERROR` with path-only `issues`, `UNSUPPORTED_SCHEMA` 422, `TRIP_NOT_PUBLIC` 422, `PLAN_CAP` 409, `RATE_LIMITED` 429, `SERVICE_UNAVAILABLE` 503); a revision conflict is the bare `accountPlanConflict` body. The merge counts a copy whose id is the caller's own tombstone as `already`. Expired tombstones are dropped by the caller's next write (under RLS) and by `planner_draft_purge()` for an owner-run job. `web/lib/server/plans.ts` is a new builder-fence extension point (X-EM1) |
+| 2026-10-27 | EM-M and EM-1 built (travel-builder, Opus, branch `public/EM-M`): migration `0013_plan_doc.sql` (files only; not applied to any Neon branch) and the routes `/api/account/plans/**` behind `NEXT_PUBLIC_ACCOUNT_TRIPS`. **Differs from sections 3 and 4.1:** a DELETE clears the document and its household columns (`doc`, `kind`, `source_trip`, `start`, `days`); the tombstone keeps id, title and revision, and Undo is a PUT `restore` that sends the document again. A template row's title is the person's own (`doc.title`), else the catalogue's current title; the body's `title` names built drafts only. A create answers 201. Errors are `{ code }` with fixed codes (`NOT_FOUND`, `FORBIDDEN`, `UNAUTHENTICATED`, `BAD_REQUEST`, `UNSUPPORTED_MEDIA_TYPE`, `PAYLOAD_TOO_LARGE`, `VALIDATION_ERROR` with path-only `issues`, `UNSUPPORTED_SCHEMA` 422, `TRIP_NOT_PUBLIC` 422, `PLAN_CAP` 409, `RATE_LIMITED` 429, `SERVICE_UNAVAILABLE` 503); a revision conflict is the bare `accountPlanConflict` body. The merge counts a copy whose id is the caller's own tombstone as `already`. Expired tombstones are dropped by the caller's next write (under RLS) and by `plan_draft_purge()` for an owner-run job. `web/lib/server/plans.ts` is a new builder-fence extension point (X-EM1) |
 | 2026-10-27 | EM-F (travel-builder, Opus, branch `public/EM-F`), the security review's fixes before any apply ([review-em-s-2026-10-27.md](../design/shell/review-em-s-2026-10-27.md)). **Differs from sections 3, 4.1, 4.2, 4.5, 5.2 and 7 as amended there:** key `(user_id, id)`; the tombstone and start CHECKs and the trigger's pins; at most 150 tombstones a user; the list reads live rows then tombstones; `plans:write` gains 600 an hour and 3,000 a day, and a merge costs one per copy; the merge answers `already` for the caller's own tombstone even at the cap, and `refused` never means another account; the daily purge route (off until 0013 is applied); `#mine=` in the fragment; `/account/` Saved trips lists and acts on title-only rows only. Contract changes for EM-2 are in the EM-F hand-back |
+| 2026-10-27 | **Renamed** (owner decision, EM-F, a separate commit): the table `planner_draft` is `plan_draft` and its signal table `plan_draft_signal`; migration 0013 renames both and every object named after them (policies, triggers, functions, indexes, constraints) and writes 0010's signal function again with the new table name. This page uses the new names throughout. **Conflicts with the builder's plan** (trip-builder 15 ISO-6, builder-forward-compat F14): that plan reserved `plan_draft` for a separate builder table; with one table for copies and plans (Q-EM2) the name now belongs to this table, and those two pages need the planner's update |

@@ -259,7 +259,7 @@ Q121 is yes).
 
 ### 5.3 Drafts, favourites and later methods
 
-All private rows (`planner_draft`, planned `account_favourite`, `visitor_submission`, `trip-custom` copies) are keyed by
+All private rows (`plan_draft`, planned `account_favourite`, `visitor_submission`, `trip-custom` copies) are keyed by
 the Better Auth user id. Linking adds an `account` row to the same user, so **nothing moves and nothing merges**.
 Consequences:
 

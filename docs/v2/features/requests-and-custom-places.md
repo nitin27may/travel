@@ -84,7 +84,7 @@ flowchart LR
   GG["Google Places Autocomplete<br/>(primary, server key, place_id only)"]:::ext
   ORS["openrouteservice<br/>autocomplete (fallback 1)"]:::ext
   PH["Photon (fallback 2)"]:::ext
-  C[("planner_draft.doc<br/>trip-custom/1 custom op<br/>RLS owner")]:::data
+  C[("plan_draft.doc<br/>trip-custom/1 custom op<br/>RLS owner")]:::data
   O{"Opt-in ticked?<br/>(category rule)"}:::infra
   S[("visitor_submission<br/>type place, source_ref,<br/>for_trip")]:::data
   Q["Owner: intake.ts list, brief"]:::infra
@@ -191,7 +191,7 @@ validated by the same Zod schema in CUS-C, each with an inverse for undo (overvi
 | Add a day | "Add a free day after Day 6" in the day menu | days renumber; later dates shift by one in exports; the stays evaluator counts one more night at that base ([stay spec](stay-bases-and-optimisation.md) 9.4) and says so |
 | Drop a day | "Remove Day 11" in the day menu, with a confirm naming what moves | its items go to Maybe; bookings on that day are listed ("This day holds a booking: Maligne Lake cruise"); days renumber; undo |
 | Notes | "Add a note" on a day header and in an entry menu; at most 500 characters, 100 notes per copy | private, shown only in the copy and the visitor's own exports and print |
-| Title | the copy's header, inline rename (`planner_draft.title` is the stored copy; `title` in the doc keeps exports in step) | Mine › My trips shows it |
+| Title | the copy's header, inline rename (`plan_draft.title` is the stored copy; `title` in the doc keeps exports in step) | Mine › My trips shows it |
 | Change dates | the copy's header date chip opens the copy sheet's date step (OVR-1 owns that step), writing `start` (NAV-C field) | sun times, closures and booking windows re-run, as on the public page |
 
 Rules: every operation is one step in undo; a stale revision re-applies on conflict (overview 5.5); the existing "2 of
@@ -309,7 +309,7 @@ pin or a leg; two sets of terms to follow.
 
 | Rule | How it is kept |
 |---|---|
-| Store only `place_id` | the copy and the queue hold `source: { provider: "google", id: <place_id> }` and nothing else from Google. No Google name, address, coordinate, rating or type in `planner_draft.doc`, `visitor_submission`, logs or the catalogue. The privacy test greps fixtures for a Google-shaped payload |
+| Store only `place_id` | the copy and the queue hold `source: { provider: "google", id: <place_id> }` and nothing else from Google. No Google name, address, coordinate, rating or type in `plan_draft.doc`, `visitor_submission`, logs or the catalogue. The privacy test greps fixtures for a Google-shaped payload |
 | No Google names or coordinates in our data | the stop's `name` is the visitor's own text: prefilled with what they typed in the search box, editable, never Google's returned string. The point is entered by the visitor (drop a pin, paste coordinates) or taken from an allowed source (an OSM match from the fallback, our towns layer); see the storage table. REQ-G0 asks whether prefilling the picked suggestion's main text counts as storing Google content; until it says yes, the prefill is the typed text |
 | Not on MapLibre maps | the tier 3 list is text only, with Google attribution under it. A Google row never gets a pin on the globe, the planner or any MapLibre map. On the copy's Google trip map (Q51) a stop shows only if it has a visitor-given point; no runtime Place Details lookup in v1 |
 | Research never takes coordinates from Google | unchanged and now louder: the brief for a Google-picked suggestion carries `place_id` as an unchecked hint and the visitor's typed name; research finds the place in OSM or an official source itself, and `point_source` can never be Google |
@@ -346,7 +346,7 @@ Limits and guards (numbers in `core/src/config/geocode.ts`, CONS rule):
 
 What each place stores (rows that assumed provider data may be stored are now split by provider):
 
-| Data | The visitor's copy (`planner_draft.doc`, RLS owner) | The admin queue (`visitor_submission`, only when 5.1's box is ticked) | The public catalogue |
+| Data | The visitor's copy (`plan_draft.doc`, RLS owner) | The admin queue (`visitor_submission`, only when 5.1's box is ticked) | The public catalogue |
 |---|---|---|---|
 | Name | yes, **the visitor's own text** (typed, or edited in the field; 2 to 120). Never a Google-returned string. For an ORS or Photon pick the prefill may be the OSM name (ODbL, with credit) | yes (the existing `name`), the same text | only after research, through the `location` skill, in our words |
 | Point | **Google pick: none from Google.** The visitor may drop a pin, paste "lat, lon", or accept an OSM match; stored as `lat`, `lon` at 5 decimals with `point_origin: "visitor" \| "osm"`. ORS or Photon pick: the OSM point. Else none | as a hint only: the existing `pin_lat`, `pin_lon` at 4 decimals, sent only when `point_origin` is `visitor` or `osm`; never derived from Google | re-derived by research from OSM or an official source, with `point_source` |
@@ -459,7 +459,7 @@ Nobody but the visitor writes to the copy (RQ9). Keep mine dismisses the offer f
 
 | Risk | Control |
 |---|---|
-| A custom stop reaches public output | it lives only in `planner_draft.doc` under the owner predicate; `/t/<id>/` is noindex, `private, no-store`, never under `/trips/`, and another user's id is a 404 (overview 5.7); detector keys (4.4); the privacy scan over every public page, `/api/v1` body and export while drafts with custom stops exist |
+| A custom stop reaches public output | it lives only in `plan_draft.doc` under the owner predicate; `/t/<id>/` is noindex, `private, no-store`, never under `/trips/`, and another user's id is a 404 (overview 5.7); detector keys (4.4); the privacy scan over every public page, `/api/v1` body and export while drafts with custom stops exist |
 | A home address reaches the queue | opt-in default by category (5.1); the "Note to us" is separate from the private note; PII redaction on intake text (visitor 6.4) |
 | The private wishlist leaks through the picker or dedupe | tiers 1 and 2 are public rows only; private matches answer like any other (PRIV1) |
 | Google content in our store | Google is the primary search, so this is a live risk: only `place_id` is stored (4.3 table); no Google name, address, point or type in the copy, the queue, logs or the catalogue; a privacy test greps for Google-shaped payloads; a pasted Google link is parsed for a point only into the visitor's own copy and travels to the queue only as the existing pin hint, which research never stores (visitor 6.5) |
@@ -468,7 +468,7 @@ Nobody but the visitor writes to the copy (RQ9). Keep mine dismisses the offer f
 | The Google or ORS key leaks | server route only; secrets in Vercel; check-all fails if `GOOGLE_PLACES_API_KEY` or `ORS_API_KEY` reaches client output or the repo |
 | Quota exhaustion by one account | per-account and global buckets; ORS then Photon fallback; then "add as your own stop" |
 | Prompt injection through a stop name or note | names and notes in briefs are fenced as untrusted (feedback 8); MCP returns fenced text (MCP spec 6.5) |
-| An admin edits a person's copy | no path exists: no admin route or job writes `planner_draft` rows of another user (RQ9) |
+| An admin edits a person's copy | no path exists: no admin route or job writes `plan_draft` rows of another user (RQ9) |
 
 ## 9. Budgets (P8, P9)
 
@@ -499,7 +499,7 @@ No catalogue store method changes; tiers 1 and 2 use the existing `search` and `
 | Phase | Ships | Tasks | Needs | Effort |
 |---|---|---|---|---|
 | **Day one (R1 of this spec): requests, signed in** | `improve` type (B, C), trip requests answer with what we have and cluster by country (A), place suggestions in a trip context (D, fields only), "Your requests" from Mine, demand stats | FBK-C +1.5 h (Opus), FBK-3 +2 h (Sonnet), REQ-1 6 h (Sonnet), REQ-R1 2 h (Opus), REQ-V1 2 h (Sonnet) | FBK-C, FBK-1, FBK-2, FBK-3 and NAV-1 merged; `reportForm` on; signed-in verified senders only (no mail domain, Q148) | **13.5 h** (Opus 3.5, Sonnet 10) |
-| Phase 2: richer copies and custom stops without a map search | reorder in a day, add and drop a day, notes, title, change dates in the copy (E); Add a place with tiers 1 and 2 and "add as my own" (F, no external search) | CUS-C +2 h (Opus), REQ-E 3 h core (Opus) + 8 h UI (Sonnet), REQ-P 5 h (Sonnet), REQ-R2 2 h (Opus), REQ-V2 2 h (Sonnet) | CUS-1 merged (R-65's own gates: phase 1 owner preview, R-61 HTTPS preview, the `planner_draft_signal` ruling) | **22 h** (Opus 7, Sonnet 15) |
+| Phase 2: richer copies and custom stops without a map search | reorder in a day, add and drop a day, notes, title, change dates in the copy (E); Add a place with tiers 1 and 2 and "add as my own" (F, no external search) | CUS-C +2 h (Opus), REQ-E 3 h core (Opus) + 8 h UI (Sonnet), REQ-P 5 h (Sonnet), REQ-R2 2 h (Opus), REQ-V2 2 h (Sonnet) | CUS-1 merged (R-65's own gates: phase 1 owner preview, R-61 HTTPS preview, the `plan_draft_signal` ruling) | **22 h** (Opus 7, Sonnet 15) |
 | Phase 3: map search and the queue loop | tier 3 search (F), opt-in suggestions, seeding and the upgrade offer (G), `source_ref` dedupe and the custom view in the CLI (H) | REQ-G0 3 h (Opus; Google terms and cost cap check plus the fallback switch), REQ-G 2 h contract (Opus) + 6 h (Sonnet; the Google adapter is added), REQ-S 8 h (Sonnet), REQ-L 3 h (Sonnet), REQ-A 3 h (Sonnet), REQ-R3 2 h (Opus), REQ-V3 2 h (Sonnet) | phase 2; EML-Q's `quota_bucket`; FBK-3 | **29 h** (Opus 7, Sonnet 22) |
 | Later | MCP intake tools (H) | REQ-M 2 h (Opus) + 4 h (Sonnet) | MCP-3, MCP-S, MCP-E | 6 h |
 

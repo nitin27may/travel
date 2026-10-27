@@ -6,7 +6,7 @@
 > | Concern | Now | Status |
 > |---|---|---|
 > | Hosting | **Vercel**, project `travel` (Hobby), root `web`, Node 22; public address `https://travel-beta-tan.vercel.app` (no custom domain, owner 25 Oct) | project created and env set 25 Oct; previews behind Vercel Authentication; **no production deployment**; production needs the owner's approval of a named commit (Q43, R-61) |
-> | Database | **Neon** project `damp-queen-64719841`, Free plan; production branch `br-soft-glade-b4mkqyvd`, child `br-damp-breeze-b41mtvn5` for spikes and DB tests | 10 migrations, RLS on 86 tables plus the ledger; `planner_draft_signal` the one content-free exception (owner ruling still open) |
+> | Database | **Neon** project `damp-queen-64719841`, Free plan; production branch `br-soft-glade-b4mkqyvd`, child `br-damp-breeze-b41mtvn5` for spikes and DB tests | 10 migrations, RLS on 86 tables plus the ledger; `plan_draft_signal` the one content-free exception (owner ruling still open) |
 > | Auth | **Neon Managed Better Auth** (Free plan includes 60,000 monthly active users): email and password built; email codes spiked (EML-0, gate M1 passed); Google with the owner's own OAuth client on both branches (UI not built); Apple **skipped** (no Neon provider, USD 99 a year); one environment (Preview and Production on production values) | R-58 merged into `main` 25 Oct; R-81, R-100, R-101 planned; EML-1 in progress |
 > | Realtime | **Neon Realtime**, only for the private draft signal followed by an RLS re-fetch | built |
 > | Email | Account mail through **Neon's shared sender** in Phase 1; **Resend** (sandbox, owner alerts only; key in Vercel and GitHub secrets) | Phase 1 planned (R-100 to R-107); custom SMTP and templates after a mail domain (Q148) |
@@ -19,7 +19,7 @@
 > **Current stack (updated 24 Oct 2026, R-60).** Selected and provisioned: **Neon** Postgres, **Neon Managed Better
 > Auth** and **Neon Realtime** (owner, 24 Oct; [NEON-SETUP.md](build/public-site/NEON-SETUP.md)). Ten migrations are
 > applied ([NEON-MIGRATIONS.md](build/public-site/NEON-MIGRATIONS.md)): 86 application tables plus the migration ledger
-> have RLS; the one exception is the content-free `planner_draft_signal`, with no app-role grants, approved by the
+> have RLS; the one exception is the content-free `plan_draft_signal`, with no app-role grants, approved by the
 > coordinator. Implemented and verified on the uncommitted session branch (PLAN R-58): email and password accounts, a private account draft (create, rename, delete, persistence)
 > and live invalidation by a sealed per-user Realtime signal followed by an authenticated, RLS-scoped re-fetch. **Not
 > implemented:** the household and trip planner, collaboration and presence, MCP OAuth, and the catalogue in Postgres
@@ -341,7 +341,7 @@ route handlers at `/api/v1` ([mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md) 
    security in Postgres as a second wall: each request runs in a transaction that sets
    `app.user_id`; policies check `trip_member` and `household_member`. Built so far (24 Oct): the
    transaction-local `app.user_id`, a non-owner `NOBYPASSRLS` runtime role, and an owner policy on
-   `planner_draft` only; trip and household tables are RLS-enabled with no policy (deny) until their
+   `plan_draft` only; trip and household tables are RLS-enabled with no policy (deny) until their
    membership policies are written and tested.
 2. MCP tokens carry scopes: `catalog:read`, `trips:read`, `trips:write`, `research:propose`,
    `review` (moderators only). Research scopes can only create changesets. (25 Oct: Neon's OAuth scopes are fixed, so

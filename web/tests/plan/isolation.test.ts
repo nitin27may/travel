@@ -25,7 +25,7 @@ const inside = (r: string, roots: readonly string[]) => roots.some((p) => r === 
  *
  * X-EM1 (edit-my-trip.md EM1 and the EM-C change-log line, "EM-1 and EM-2 need new extension points"; reviewer note for EM-S): the
  * account plan routes' server module parses the whole `plan-draft/1` on every write (R5) and maps device copies with the plan mapper,
- * so it imports core/src/schema/plan-draft.ts and core/src/plan/doc.ts. It is server-only, writes only `planner_draft` (the one table
+ * so it imports core/src/schema/plan-draft.ts and core/src/plan/doc.ts. It is server-only, writes only `plan_draft` (the one table
  * EM2 chose), and holds no builder UI; the route files under web/app/api/account/plans/ import it and nothing of the builder.
  */
 const EXTENSION_IMPORTERS = ['web/app/mine/MineShell.tsx', 'web/lib/client/data.ts', 'core/src/schema/api/index.ts', 'web/lib/server/plans.ts'];
@@ -72,7 +72,7 @@ export const PLAN_KEY = /travel\.plans\./;
 /** ISO-3: any device key literal; inside the builder each must be a `travel.plans.` key. */
 export const DEVICE_KEY = /['"`]travel\.[A-Za-z]/g;
 /** G3: another feature's envelope, key or table. */
-export const OTHER_ENVELOPE = /COPIES_KEY|FAV_KEY|TRIPUI_KEY|writeParty|planner_draft|trip-custom\/1/;
+export const OTHER_ENVELOPE = /COPIES_KEY|FAV_KEY|TRIPUI_KEY|writeParty|plan_draft|trip-custom\/1/;
 /** G4: a bulk or graph file, or a fetch of its own (P8, P9: data reaches components only through lib/client/data.ts). */
 export const BULK_OR_FETCH = /data\/(?:capture|catalogue\/graph)|\bfetch\s*\(/;
 /** G5: a literal colour (ISO-8: colour only from themes.css tokens). */

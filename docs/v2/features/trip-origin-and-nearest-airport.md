@@ -103,7 +103,7 @@ flowchart TD
 
 | Level | Source | Who sees it | Stored where |
 |---|---|---|---|
-| O1 | the copy's `from` (the visitor set it in the copy sheet line or the panel while a copy was open) | the visitor | `copies/1` item, or `trip-custom/1` in `planner_draft` (RLS) |
+| O1 | the copy's `from` (the visitor set it in the copy sheet line or the panel while a copy was open) | the visitor | `copies/1` item, or `trip-custom/1` in `plan_draft` (RLS) |
 | O2 | a trip request's `start` | the owner, in the private brief | `intake.detail` (owner only) |
 | O3 | the device choice from the picker ("Use for every trip", on by default) | the visitor, on this browser | `localStorage` key `travel.origin.local` (`origin/1`) |
 | O4 | the account's saved Starting from (ORG-H, later; Q246) | the account holder | a private table under owner-predicate RLS |

@@ -60,7 +60,7 @@ goes with it.
 | AD5 | **Travellers never leave the person's own requests**: no public output, URL, log, analytics, export to others, MCP or feedback report | Same rule as the device party (trip-and-places 15, trip-builder 7). The privacy detector gains the new field names | none |
 | AD6 | **Name through Neon `update-user`, called server-side only** | One name, in `neon_auth.user.name`, which the header avatar and Account already read. The server SDK sends only `{ name }`; the browser proxy allow-list stays closed (guard MF3) | Depends on the server SDK forwarding the session cookie in a server action; a 1 h spike (ACCT-PS) proves it before the build. Fallback in 4.3. Q-AP5 |
 | AD7 | **No Realtime on Account** | Profile and travellers change on one device at a time; the drafts list does not need live updates on this page; Realtime is experimental and its status line was stuck in production (section 8) | A rename on a phone shows on the laptop after a focus or reload, not live. Favourites already work this way (R-71). Q-AP6 |
-| AD8 | **One row per user, typed by Zod, no Realtime signal** | One read per page; the row is small (under 1 KB); the same owner-predicate RLS as `planner_draft` | A household of two adults with two accounts keeps two rows (F01 households come later) |
+| AD8 | **One row per user, typed by Zod, no Realtime signal** | One read per page; the row is small (under 1 KB); the same owner-predicate RLS as `plan_draft` | A household of two adults with two accounts keeps two rows (F01 households come later) |
 | AD9 | **Remove the create-draft box; keep the user's existing rows** | A title-only draft has nothing to open. Drafts are made by "Copy to my trips" when signed in (TRIP-EDIT-I, CUS-C) and by the builder (`plan_draft`, TB-SY). User rows are never deleted by a migration | The owner deletes the "Nitin" test draft himself (one click). Q-AP7 |
 
 ## 1. User stories
@@ -443,7 +443,7 @@ travellers even on a browser with another party", that is a `plan-draft/2` quest
 
 ### 6.2 What Saved trips shows
 
-`planner_draft` rows, newest first, at most 5, with the existing row (title, "Saved Tue 27 Oct · 1 min ago"), menu
+`plan_draft` rows, newest first, at most 5, with the existing row (title, "Saved Tue 27 Oct · 1 min ago"), menu
 Rename and Delete with Undo. **Only the title-only rows** (`doc is null and deleted_at is null`; amended 27 Oct 2026,
 EM-F, review-em-s B1): a synced copy or plan and a tombstone are Mine's, renamed and removed there through the
 revision-checked routes and their tombstone, so the read and the Rename and Delete actions never reach them. An Undo
@@ -458,9 +458,9 @@ window focus. No live stream.
 
 | Source | When | Table |
 |---|---|---|
-| "Copy to my trips" while signed in | TRIP-EDIT-I / CUS-C | `planner_draft` (doc `trip-custom/1`) |
+| "Copy to my trips" while signed in | TRIP-EDIT-I / CUS-C | `plan_draft` (doc `trip-custom/1`) |
 | The trip builder while signed in | TB-SY | `plan_draft` (its own table, ISO-6) |
-| Copies made on this browser before sign-in | the sign-in merge (NAV-3) | `planner_draft` |
+| Copies made on this browser before sign-in | the sign-in merge (NAV-3) | `plan_draft` |
 
 Until one of those ships, Saved trips is empty for a new person, and AP-30's empty state says so honestly.
 
@@ -516,7 +516,7 @@ rules 1 and 2 conflict. Q-AP8 asks the owner to confirm the snapshot.
 ## 8. The live-updates banner: what it was and the rule from now on
 
 **What it is.** The Account drafts list subscribed to Neon Realtime (experimental) on the content-free
-`planner_draft_signal` table (migration 0010). `AccountDrafts.tsx` showed "Reconnecting to live updates..." whenever the
+`plan_draft_signal` table (migration 0010). `AccountDrafts.tsx` showed "Reconnecting to live updates..." whenever the
 subscription status was `connecting` or `stale`, including the very first connect. When the subscription never reaches
 `live` (Realtime unreachable, the URL env missing, a sealed query refused, or a long-poll held by the network), the
 status stays `connecting` and the banner stays forever. That is what the owner saw.
@@ -592,7 +592,7 @@ Kept until the person removes it or the account is deleted. The owner's manual a
 until F17 16) gain, as the owner, after the person's sessions are revoked:
 
 1. `delete from account_profile where user_id = $1`
-2. `delete from planner_draft where user_id = $1` (amended 27 Oct 2026, EM-F, review-em-s S6: every copy and plan, its
+2. `delete from plan_draft where user_id = $1` (amended 27 Oct 2026, EM-F, review-em-s S6: every copy and plan, its
    document with children's ages, start dates and notes, the title-only drafts and the tombstones;
    `deletePlans(userId)` in `core/src/db/plans.ts` is the same statement for F17)
 3. **Run steps 1 and 2 again five minutes later.** `getSession()` serves the SDK's session-data cookie for up to 299 s
@@ -713,4 +713,4 @@ Removed data leaves our backups when they expire."
 |---|---|
 | 2026-10-27 | Written (ACCT-P), with the owner's screenshots of `/account/` and `/mine/` and the TRIP-EDIT-I cross-reference |
 | 2026-10-27 | Amended (owner, Q-AP1): ages with `age_as_of` and an optional `dob` replace birth month and year; adults' ages optional. Sections 0, AD1, AD2, U2, 2.2, 2.3, 2.4, 2.6, 2.7, 5.1, 5.2, 5.3, 6.5, 6.6, 7, 9, 10, 11, 12, 13 updated. ACCT-PC built the contracts: migration `0012_account_profile.sql`, `core/src/schema/travellers.ts`, `core/src/db/profile.ts`, `core/src/config/account.ts`, the `src` field in `web/lib/storage/partyKey.ts`, the detector keys |
-| 2026-10-27 | EM-F (Opus, branch `public/EM-F`), the security review's fixes before 0012 is applied ([review-em-s-2026-10-27.md](../design/shell/review-em-s-2026-10-27.md)): `travellers_consent_version` and the re-stamp after a removal (9.1, S3); the jsonpath type guards (N4); Saved trips lists and acts on title-only rows (6.2, B1); the removal runbook deletes `planner_draft` rows and runs twice (9.3, S6); the export gap for ACCT-P3 (6.5). **Contract change for ACCT-P2:** `saveTravellers` needs `{ consent: true }` on a save that creates travellers |
+| 2026-10-27 | EM-F (Opus, branch `public/EM-F`), the security review's fixes before 0012 is applied ([review-em-s-2026-10-27.md](../design/shell/review-em-s-2026-10-27.md)): `travellers_consent_version` and the re-stamp after a removal (9.1, S3); the jsonpath type guards (N4); Saved trips lists and acts on title-only rows (6.2, B1); the removal runbook deletes `plan_draft` rows and runs twice (9.3, S6); the export gap for ACCT-P3 (6.5). **Contract change for ACCT-P2:** `saveTravellers` needs `{ consent: true }` on a save that creates travellers |

@@ -1,4 +1,4 @@
-// planner_draft after migration 0013 `plan_doc` (EM-M; edit-my-trip.md 3, 4.1, 4.5) and core/src/db/plans.ts, against a real database.
+// plan_draft after migration 0013 `plan_doc` (EM-M; edit-my-trip.md 3, 4.1, 4.5) and core/src/db/plans.ts, against a real database.
 // Runs only when TEST_DATABASE_URL points at a disposable database (the Docker one of `pnpm db:test`, a throwaway local Postgres, or
 // the Neon child branch), never production:
 //   TEST_DATABASE_URL="postgres://…" pnpm --dir core exec vitest run test/db/plan-doc.test.ts
@@ -25,7 +25,7 @@ const tmpl = (id: string = randomUUID(), over: Partial<PlanDraft> = {}): PlanDra
 /** The columns a write stores, derived as the route derives them. */
 const w = (doc: PlanDraft, title = "Dolomites"): PlanWrite => ({ ...planRowFields(doc), title, doc });
 
-run("planner_draft with plan_doc (database)", () => {
+run("plan_draft with plan_doc (database)", () => {
   let admin: any;
 
   beforeAll(async () => {
@@ -39,8 +39,8 @@ run("planner_draft with plan_doc (database)", () => {
 
   afterAll(async () => {
     if (admin) {
-      await admin.query("delete from planner_draft where user_id like $1", [`itest-pd-${tag}-%`]).catch(() => {});
-      await admin.query("delete from planner_draft_signal where user_id like $1", [`itest-pd-${tag}-%`]).catch(() => {});
+      await admin.query("delete from plan_draft where user_id like $1", [`itest-pd-${tag}-%`]).catch(() => {});
+      await admin.query("delete from plan_draft_signal where user_id like $1", [`itest-pd-${tag}-%`]).catch(() => {});
       await admin.end();
     }
     await closePools();
@@ -49,12 +49,12 @@ run("planner_draft with plan_doc (database)", () => {
   /** As the owner (RLS bypassed): a raw row write, so the CHECKs and triggers are tested without the module. */
   const raw = (sql: string, params: unknown[] = []) => admin.query(sql, params);
   const rawInsert = (user: string, id: string, given: Record<string, unknown>) => {
-    // the start column is the document's start (CHECK planner_draft_start_of_doc), as the route derives it
+    // the start column is the document's start (CHECK plan_draft_start_of_doc), as the route derives it
     const d = given.doc as { start?: unknown } | null | undefined;
     const cols = d && typeof d === "object" && !Array.isArray(d) && !("start" in given) ? { ...given, start: d.start ?? null } : given;
     const names = Object.keys(cols);
     return raw(
-      `insert into planner_draft (id, user_id, title${names.map((n) => `, ${n}`).join("")}) values ($1, $2, 'T'${names.map((_, i) => `, $${i + 3}`).join("")})`,
+      `insert into plan_draft (id, user_id, title${names.map((n) => `, ${n}`).join("")}) values ($1, $2, 'T'${names.map((_, i) => `, $${i + 3}`).join("")})`,
       [id, user, ...names.map((n) => (n === "doc" && cols[n] !== null ? JSON.stringify(cols[n]) : cols[n]))],
     );
   };
@@ -63,9 +63,9 @@ run("planner_draft with plan_doc (database)", () => {
   async function backdate(ids: string[], days: number): Promise<void> {
     await admin.query("begin");
     try {
-      await admin.query("alter table planner_draft disable trigger planner_draft_revision_t");
-      await admin.query(`update planner_draft set deleted_at = now() - make_interval(days => $2::int) where id = any($1::uuid[])`, [ids, days]);
-      await admin.query("alter table planner_draft enable trigger planner_draft_revision_t");
+      await admin.query("alter table plan_draft disable trigger plan_draft_revision_t");
+      await admin.query(`update plan_draft set deleted_at = now() - make_interval(days => $2::int) where id = any($1::uuid[])`, [ids, days]);
+      await admin.query("alter table plan_draft enable trigger plan_draft_revision_t");
       await admin.query("commit");
     } catch (e) {
       await admin.query("rollback");
@@ -77,8 +77,8 @@ run("planner_draft with plan_doc (database)", () => {
   async function tombstones(user: string, ids: string[]): Promise<void> {
     for (let i = 0; i < ids.length; i += 40) {
       const part = ids.slice(i, i + 40);
-      await raw(`insert into planner_draft (id, user_id, title) select x, $2, 'Gone' from unnest($1::uuid[]) as x`, [part, user]);
-      await raw("update planner_draft set deleted_at = now() where user_id = $1 and id = any($2::uuid[])", [user, part]);
+      await raw(`insert into plan_draft (id, user_id, title) select x, $2, 'Gone' from unnest($1::uuid[]) as x`, [part, user]);
+      await raw("update plan_draft set deleted_at = now() where user_id = $1 and id = any($2::uuid[])", [user, part]);
     }
   }
 
@@ -98,7 +98,7 @@ run("planner_draft with plan_doc (database)", () => {
   it("adds the columns of PLAN_DOC_MIGRATION, with their types, nullability and defaults", async () => {
     const { rows } = await raw(
       `select column_name, data_type, is_nullable, column_default from information_schema.columns
-        where table_schema = 'public' and table_name = 'planner_draft' order by ordinal_position`,
+        where table_schema = 'public' and table_name = 'plan_draft' order by ordinal_position`,
     );
     const by = new Map(rows.map((r: any) => [r.column_name, r]));
     const pgType: Record<string, string> = { jsonb: "jsonb", text: "text", date: "date", int: "integer", bigint: "bigint", timestamptz: "timestamp with time zone" };
@@ -114,23 +114,23 @@ run("planner_draft with plan_doc (database)", () => {
   });
 
   it("keeps RLS on, the same four owner policies, grants to travel_app only, and the purge closed to the app role", async () => {
-    const rls = await raw("select rowsecurity from pg_tables where schemaname='public' and tablename='planner_draft'");
+    const rls = await raw("select rowsecurity from pg_tables where schemaname='public' and tablename='plan_draft'");
     expect(rls.rows[0]?.rowsecurity).toBe(true);
-    const pol = await raw("select policyname, cmd, qual, with_check from pg_policies where schemaname='public' and tablename='planner_draft' order by policyname");
+    const pol = await raw("select policyname, cmd, qual, with_check from pg_policies where schemaname='public' and tablename='plan_draft' order by policyname");
     expect(pol.rows.map((p: any) => [p.policyname, p.cmd])).toEqual([
-      ["planner_draft_delete", "DELETE"],
-      ["planner_draft_insert", "INSERT"],
-      ["planner_draft_select", "SELECT"],
-      ["planner_draft_update", "UPDATE"],
+      ["plan_draft_delete", "DELETE"],
+      ["plan_draft_insert", "INSERT"],
+      ["plan_draft_select", "SELECT"],
+      ["plan_draft_update", "UPDATE"],
     ]);
     for (const p of pol.rows) for (const e of [p.qual, p.with_check]) if (e !== null) expect(e).toMatch(/user_id = app_current_user_id\(\)/);
     const grants = await raw(
-      "select grantee, privilege_type from information_schema.role_table_grants where table_schema='public' and table_name='planner_draft' and grantee <> current_user order by 1, 2",
+      "select grantee, privilege_type from information_schema.role_table_grants where table_schema='public' and table_name='plan_draft' and grantee <> current_user order by 1, 2",
     );
     expect(grants.rows).toEqual(["DELETE", "INSERT", "SELECT", "UPDATE"].map((p) => ({ grantee: "travel_app", privilege_type: p })));
-    const exec = await raw("select has_function_privilege('travel_app', 'planner_draft_purge(integer)', 'execute') as app, has_function_privilege('public', 'planner_draft_purge(integer)', 'execute') as pub");
+    const exec = await raw("select has_function_privilege('travel_app', 'plan_draft_purge(integer)', 'execute') as app, has_function_privilege('public', 'plan_draft_purge(integer)', 'execute') as pub");
     expect(exec.rows[0]).toEqual({ app: false, pub: false });
-    await expect(rolledBack(U("x"), [], () => admin.query("select planner_draft_purge(30)"))).rejects.toMatchObject({ code: "42501" });
+    await expect(rolledBack(U("x"), [], () => admin.query("select plan_draft_purge(30)"))).rejects.toMatchObject({ code: "42501" });
   });
 
   it("isolates every new column per user: B cannot list, read, write, take over or remove A's plan", async () => {
@@ -147,20 +147,20 @@ run("planner_draft with plan_doc (database)", () => {
     expect(await deletePlan(b, id, 0)).toEqual({ kind: "not-found" });
     expect(await mergeKeys(b, [{ trip: "dolomites-2027", start: "2027-07-03" }])).toEqual([]);
 
-    const sel = await withUserTransaction(b, async (ctx) => (await ctx.query("select doc, kind, source_trip, start, days, revision, deleted_at from planner_draft")).rows);
+    const sel = await withUserTransaction(b, async (ctx) => (await ctx.query("select doc, kind, source_trip, start, days, revision, deleted_at from plan_draft")).rows);
     expect(sel.result).toEqual([]);
     // no WHERE, so only the UPDATE and DELETE policies apply (a WHERE would add the SELECT policy and could mask a weakened one)
-    const upd = await withUserTransaction(b, async (ctx) => (await ctx.query("update planner_draft set doc = null, kind = null, source_trip = null, deleted_at = now()")).rowCount);
+    const upd = await withUserTransaction(b, async (ctx) => (await ctx.query("update plan_draft set doc = null, kind = null, source_trip = null, deleted_at = now()")).rowCount);
     expect(upd.result).toBe(0);
-    const del = await withUserTransaction(b, async (ctx) => (await ctx.query("delete from planner_draft")).rowCount);
+    const del = await withUserTransaction(b, async (ctx) => (await ctx.query("delete from plan_draft")).rowCount);
     expect(del.result).toBe(0);
     // B cannot plant a row for A (WITH CHECK)
     const bDoc = tmpl();
-    await expect(withUserTransaction(b, (ctx) => ctx.query("insert into planner_draft (id, user_id, title) values ($1, $2, 'x')", [bDoc.id, a]))).rejects.toMatchObject({ code: "42501" });
+    await expect(withUserTransaction(b, (ctx) => ctx.query("insert into plan_draft (id, user_id, title) values ($1, $2, 'x')", [bDoc.id, a]))).rejects.toMatchObject({ code: "42501" });
     // nor move its own row onto A: the trigger keeps user_id (S2), and WITH CHECK would refuse it anyway
     await putPlan(b, bDoc.id, null, false, w(bDoc));
-    await withUserTransaction(b, (ctx) => ctx.query("update planner_draft set user_id = $1", [a]));
-    expect((await raw("select user_id from planner_draft where id = $1", [bDoc.id])).rows).toEqual([{ user_id: b }]);
+    await withUserTransaction(b, (ctx) => ctx.query("update plan_draft set user_id = $1", [a]));
+    expect((await raw("select user_id from plan_draft where id = $1", [bDoc.id])).rows).toEqual([{ user_id: b }]);
 
     const mine = await getPlan(a, id);
     expect(mine).toEqual({ revision: 0, doc: JSON.parse(JSON.stringify(doc)) });
@@ -180,7 +180,7 @@ run("planner_draft with plan_doc (database)", () => {
     await putPlan(a, other.id, null, false, w(other));
     expect(await insertPlans(b, [{ id: other.id, ...w(other) }])).toEqual({ inserted: [other.id], already: [], overCap: [], refused: [] });
     // two rows of one id, one per user; each sees its own
-    expect((await raw("select user_id, title from planner_draft where id = $1 order by user_id", [doc.id])).rows).toEqual([
+    expect((await raw("select user_id, title from plan_draft where id = $1 order by user_id", [doc.id])).rows).toEqual([
       { user_id: a, title: "A's" },
       { user_id: b, title: "B's" },
     ]);
@@ -192,7 +192,7 @@ run("planner_draft with plan_doc (database)", () => {
       `select array_agg(a.attname::text order by k.ord) as cols from pg_index i
          cross join lateral unnest(i.indkey) with ordinality as k(attnum, ord)
          join pg_attribute a on a.attrelid = i.indrelid and a.attnum = k.attnum
-        where i.indrelid = 'planner_draft'::regclass and i.indisprimary`,
+        where i.indrelid = 'plan_draft'::regclass and i.indisprimary`,
     );
     expect(pk.rows[0].cols).toEqual(["user_id", "id"]);
   });
@@ -212,27 +212,27 @@ run("planner_draft with plan_doc (database)", () => {
     });
 
     it("select: B reads A's document only when the SELECT policy is weakened", async () => {
-      const q = () => admin.query("select doc->>'start' as start from planner_draft where id = $1", [id]).then((r: any) => r.rows);
+      const q = () => admin.query("select doc->>'start' as start from plan_draft where id = $1", [id]).then((r: any) => r.rows);
       expect(await rolledBack(b, [], q)).toEqual([]);
-      expect(await rolledBack(b, ["alter policy planner_draft_select on planner_draft using (true)"], q)).toEqual([{ start: "2027-07-03" }]);
+      expect(await rolledBack(b, ["alter policy plan_draft_select on plan_draft using (true)"], q)).toEqual([{ start: "2027-07-03" }]);
     });
 
     it("update: B changes A's row only when the UPDATE policy is weakened", async () => {
-      const q = () => admin.query("update planner_draft set title = 'pwned'").then((r: any) => r.rowCount);
+      const q = () => admin.query("update plan_draft set title = 'pwned'").then((r: any) => r.rowCount);
       expect(await rolledBack(b, [], q)).toBe(0);
-      expect(await rolledBack(b, ["alter policy planner_draft_update on planner_draft using (true) with check (true)"], q)).toBeGreaterThan(0);
+      expect(await rolledBack(b, ["alter policy plan_draft_update on plan_draft using (true) with check (true)"], q)).toBeGreaterThan(0);
     });
 
     it("delete: B removes A's row only when the DELETE policy is weakened", async () => {
-      const q = () => admin.query("delete from planner_draft").then((r: any) => r.rowCount);
+      const q = () => admin.query("delete from plan_draft").then((r: any) => r.rowCount);
       expect(await rolledBack(b, [], q)).toBe(0);
-      expect(await rolledBack(b, ["alter policy planner_draft_delete on planner_draft using (true)"], q)).toBeGreaterThan(0);
+      expect(await rolledBack(b, ["alter policy plan_draft_delete on plan_draft using (true)"], q)).toBeGreaterThan(0);
     });
 
     it("insert: B plants a row for A only when the INSERT policy is weakened", async () => {
-      const q = () => admin.query("insert into planner_draft (id, user_id, title) values ($1, $2, 'planted')", [randomUUID(), a]).then((r: any) => r.rowCount);
+      const q = () => admin.query("insert into plan_draft (id, user_id, title) values ($1, $2, 'planted')", [randomUUID(), a]).then((r: any) => r.rowCount);
       await expect(rolledBack(b, [], q)).rejects.toMatchObject({ code: "42501" });
-      expect(await rolledBack(b, ["alter policy planner_draft_insert on planner_draft with check (true)"], q)).toBe(1);
+      expect(await rolledBack(b, ["alter policy plan_draft_insert on plan_draft with check (true)"], q)).toBe(1);
     });
 
     it("A's row is intact after every rolled-back mutation", async () => {
@@ -243,9 +243,9 @@ run("planner_draft with plan_doc (database)", () => {
   it("shows an unset user nothing and lets it write nothing", async () => {
     const doc = tmpl();
     await putPlan(U("c"), doc.id, null, false, w(doc));
-    expect(await rolledBack(null, [], () => admin.query("select * from planner_draft").then((r: any) => r.rows))).toEqual([]);
-    await expect(rolledBack(null, [], () => admin.query("insert into planner_draft (id, user_id, title) values ($1, $2, 'x')", [randomUUID(), U("c")]))).rejects.toMatchObject({ code: "42501" });
-    expect(await rolledBack(null, [], () => admin.query("update planner_draft set doc = null").then((r: any) => r.rowCount))).toBe(0);
+    expect(await rolledBack(null, [], () => admin.query("select * from plan_draft").then((r: any) => r.rows))).toEqual([]);
+    await expect(rolledBack(null, [], () => admin.query("insert into plan_draft (id, user_id, title) values ($1, $2, 'x')", [randomUUID(), U("c")]))).rejects.toMatchObject({ code: "42501" });
+    expect(await rolledBack(null, [], () => admin.query("update plan_draft set doc = null").then((r: any) => r.rowCount))).toBe(0);
   });
 
   describe("the CHECKs refuse what the route would never write", () => {
@@ -300,12 +300,12 @@ run("planner_draft with plan_doc (database)", () => {
     for (const keep of ["doc", "kind", "source_trip", "start", "days"]) {
       const clear = ["doc", "kind", "source_trip", "start", "days"].filter((k) => k !== keep);
       // keeping kind alone (or the trip alone) also breaks the kind/doc rules; each is still a 23514
-      await expect(raw(`update planner_draft set deleted_at = now(), ${clear.map((k) => `${k} = null`).join(", ")} where id = $1`, [d.id])).rejects.toMatchObject({
+      await expect(raw(`update plan_draft set deleted_at = now(), ${clear.map((k) => `${k} = null`).join(", ")} where id = $1`, [d.id])).rejects.toMatchObject({
         code: "23514",
       });
     }
-    await expect(raw("update planner_draft set deleted_at = now() where id = $1", [d.id])).rejects.toMatchObject({ code: "23514" });
-    await raw("update planner_draft set deleted_at = now(), doc = null, kind = null, source_trip = null, start = null, days = null where id = $1", [d.id]);
+    await expect(raw("update plan_draft set deleted_at = now() where id = $1", [d.id])).rejects.toMatchObject({ code: "23514" });
+    await raw("update plan_draft set deleted_at = now(), doc = null, kind = null, source_trip = null, start = null, days = null where id = $1", [d.id]);
   });
 
   it("S2: pins the id, the user and the tombstone time: none can be moved, backdated or extended by an update", async () => {
@@ -313,19 +313,19 @@ run("planner_draft with plan_doc (database)", () => {
     const d = tmpl();
     await putPlan(user, d.id, null, false, w(d));
     const other = randomUUID();
-    await raw("update planner_draft set id = $2, user_id = 'someone-else' where id = $1", [d.id, other]);
-    expect((await raw("select id::text, user_id from planner_draft where id = any($1::uuid[])", [[d.id, other]])).rows).toEqual([{ id: d.id, user_id: user }]);
+    await raw("update plan_draft set id = $2, user_id = 'someone-else' where id = $1", [d.id, other]);
+    expect((await raw("select id::text, user_id from plan_draft where id = any($1::uuid[])", [[d.id, other]])).rows).toEqual([{ id: d.id, user_id: user }]);
     // tombstoning with a past time: the trigger stamps now()
     await raw(
-      "update planner_draft set deleted_at = '2000-01-01', doc = null, kind = null, source_trip = null, start = null, days = null where id = $1",
+      "update plan_draft set deleted_at = '2000-01-01', doc = null, kind = null, source_trip = null, start = null, days = null where id = $1",
       [d.id],
     );
-    const t1 = (await raw("select deleted_at from planner_draft where id = $1", [d.id])).rows[0].deleted_at as Date;
+    const t1 = (await raw("select deleted_at from plan_draft where id = $1", [d.id])).rows[0].deleted_at as Date;
     expect(Date.now() - t1.getTime()).toBeLessThan(60_000);
     // a later update of the tombstone (past or future) keeps the first time
     for (const when of ["2000-01-01", "2999-01-01"]) {
-      await raw("update planner_draft set deleted_at = $2 where id = $1", [d.id, when]);
-      expect(((await raw("select deleted_at from planner_draft where id = $1", [d.id])).rows[0].deleted_at as Date).toISOString()).toBe(t1.toISOString());
+      await raw("update plan_draft set deleted_at = $2 where id = $1", [d.id, when]);
+      expect(((await raw("select deleted_at from plan_draft where id = $1", [d.id])).rows[0].deleted_at as Date).toISOString()).toBe(t1.toISOString());
     }
   });
 
@@ -333,12 +333,12 @@ run("planner_draft with plan_doc (database)", () => {
     const user = U("rev");
     const d = tmpl();
     await rawInsert(user, d.id, { doc: d, kind: "template", source_trip: "dolomites-2027", revision: 7, deleted_at: "2020-01-01T00:00:00Z" });
-    const first = await raw("select revision, deleted_at, created_at from planner_draft where id = $1", [d.id]);
+    const first = await raw("select revision, deleted_at, created_at from plan_draft where id = $1", [d.id]);
     expect(Number(first.rows[0].revision)).toBe(0);
     expect(first.rows[0].deleted_at).toBeNull();
-    await raw("update planner_draft set revision = 100, created_at = '2000-01-01' where id = $1", [d.id]);
-    await raw("update planner_draft set title = 'Renamed' where id = $1", [d.id]);
-    const after = await raw("select revision, created_at from planner_draft where id = $1", [d.id]);
+    await raw("update plan_draft set revision = 100, created_at = '2000-01-01' where id = $1", [d.id]);
+    await raw("update plan_draft set title = 'Renamed' where id = $1", [d.id]);
+    const after = await raw("select revision, created_at from plan_draft where id = $1", [d.id]);
     expect(Number(after.rows[0].revision)).toBe(2);
     expect(after.rows[0].created_at.toISOString()).toBe(first.rows[0].created_at.toISOString());
   });
@@ -368,7 +368,7 @@ run("planner_draft with plan_doc (database)", () => {
     expect(await deletePlan(user, d.id, 1)).toEqual({ kind: "already", revision: 2 });
     expect(await getPlan(user, d.id)).toBeNull();
     // the tombstone keeps its id and title only: the document and the household columns are gone
-    const tomb = await raw("select doc, kind, source_trip, start, days, deleted_at from planner_draft where id = $1", [d.id]);
+    const tomb = await raw("select doc, kind, source_trip, start, days, deleted_at from plan_draft where id = $1", [d.id]);
     expect(tomb.rows[0]).toMatchObject({ doc: null, kind: null, source_trip: null, start: null, days: null });
     expect(tomb.rows[0].deleted_at).not.toBeNull();
     const list2 = await listPlans(user);
@@ -398,7 +398,7 @@ run("planner_draft with plan_doc (database)", () => {
     it("refuses the 51st with TP001, through the module as `cap`, a titled draft included; another user is not affected", async () => {
       const d = tmpl();
       expect(await putPlan(user, d.id, null, false, w(d))).toEqual({ kind: "cap" });
-      await expect(withUserTransaction(user, (ctx) => ctx.query("insert into planner_draft (id, user_id, title) values ($1, $2, 'x')", [randomUUID(), user]))).rejects.toMatchObject({ code: PLAN_CAP_SQLSTATE });
+      await expect(withUserTransaction(user, (ctx) => ctx.query("insert into plan_draft (id, user_id, title) values ($1, $2, 'x')", [randomUUID(), user]))).rejects.toMatchObject({ code: PLAN_CAP_SQLSTATE });
       const other = tmpl();
       expect((await putPlan(U("cap-other"), other.id, null, false, w(other))).kind).toBe("written");
     });
@@ -438,7 +438,7 @@ run("planner_draft with plan_doc (database)", () => {
       const second = tmpl();
       // the first holds its transaction open after its insert; the second starts inside that window
       const slow = withUserTransaction(u, async (ctx) => {
-        await ctx.query(`insert into planner_draft (id, user_id, title) values ($1, $2, 'first')`, [first.id, u]);
+        await ctx.query(`insert into plan_draft (id, user_id, title) values ($1, $2, 'first')`, [first.id, u]);
         await ctx.query("select pg_sleep(0.6)");
       });
       await new Promise((r) => setTimeout(r, 150));
@@ -446,7 +446,7 @@ run("planner_draft with plan_doc (database)", () => {
       const [s, f] = await Promise.allSettled([slow, fast]);
       expect(s.status).toBe("fulfilled");
       expect(f.status === "fulfilled" && f.value).toEqual({ kind: "cap" });
-      const n = await raw("select count(*)::int as n from planner_draft where user_id = $1 and deleted_at is null", [u]);
+      const n = await raw("select count(*)::int as n from plan_draft where user_id = $1 and deleted_at is null", [u]);
       expect(n.rows[0].n).toBe(PLAN_DOC_LIMITS.accountPlans);
     }, 60000);
   });
@@ -467,14 +467,14 @@ run("planner_draft with plan_doc (database)", () => {
     expect((await listPlans(user)).map((r) => r.id)).toEqual([keep.id]);
     const next = tmpl();
     await putPlan(user, next.id, null, false, w(next));
-    expect((await raw("select 1 from planner_draft where id = $1", [old.id])).rows).toEqual([]);
-    expect((await raw("select 1 from planner_draft where id = $1", [keep.id])).rows).toHaveLength(1);
+    expect((await raw("select 1 from plan_draft where id = $1", [old.id])).rows).toEqual([]);
+    expect((await raw("select 1 from plan_draft where id = $1", [keep.id])).rows).toHaveLength(1);
     // the caller's write purged only its own rows
-    expect((await raw("select 1 from planner_draft where id = $1", [theirs.id])).rows).toHaveLength(1);
+    expect((await raw("select 1 from plan_draft where id = $1", [theirs.id])).rows).toHaveLength(1);
     // the owner's job, through the module (core/bin/db-purge.ts and the cron route run this)
     expect(await purgeAllTombstones(admin, days)).toBeGreaterThanOrEqual(1);
     await expect(purgeAllTombstones(admin, 0)).rejects.toThrow(RangeError);
-    expect((await raw("select 1 from planner_draft where id = $1", [theirs.id])).rows).toEqual([]);
+    expect((await raw("select 1 from plan_draft where id = $1", [theirs.id])).rows).toEqual([]);
   });
 
   it("merge: the keys carry a document only for a matching trip and start; inserts are idempotent and never touch another user's row", async () => {
@@ -501,17 +501,17 @@ run("planner_draft with plan_doc (database)", () => {
     const again = await insertPlans(user, [{ id: fresh.id, ...w(fresh) }]);
     expect(again).toEqual({ inserted: [], already: [fresh.id], overCap: [], refused: [] });
     // the other user's row is untouched
-    expect((await raw("select user_id from planner_draft where id = $1", [theirs.id])).rows[0].user_id).toBe(U("merge-other"));
+    expect((await raw("select user_id from plan_draft where id = $1", [theirs.id])).rows[0].user_id).toBe(U("merge-other"));
   });
 
   it("keeps the content-free signal firing on a plan write, with its three columns only", async () => {
     const user = U("sig");
     const d = tmpl();
     await putPlan(user, d.id, null, false, w(d));
-    const s1 = await raw("select * from planner_draft_signal where user_id = $1", [user]);
+    const s1 = await raw("select * from plan_draft_signal where user_id = $1", [user]);
     expect(Object.keys(s1.rows[0]).sort()).toEqual(["changed_at", "user_id", "version"]);
     await deletePlan(user, d.id, 0);
-    const s2 = await raw("select version from planner_draft_signal where user_id = $1", [user]);
+    const s2 = await raw("select version from plan_draft_signal where user_id = $1", [user]);
     expect(Number(s2.rows[0].version)).toBeGreaterThan(Number(s1.rows[0].version));
   });
 
@@ -558,19 +558,19 @@ run("planner_draft with plan_doc (database)", () => {
     const d = tmpl();
     await putPlan(u, d.id, null, false, w(d));
     expect((await deletePlan(u, d.id, 0)).kind).toBe("deleted");
-    const left = await raw("select id::text from planner_draft where user_id = $1 and deleted_at is not null", [u]);
+    const left = await raw("select id::text from plan_draft where user_id = $1 and deleted_at is not null", [u]);
     expect(left.rows).toHaveLength(PLAN_SYNC.tombstoneCap);
     const kept = new Set(left.rows.map((r: any) => r.id));
     expect(kept.has(d.id)).toBe(true);
     for (const id of ids.slice(0, 5)) expect(kept.has(id)).toBe(false);
     // another user's tombstone is not touched
-    expect((await raw("select 1 from planner_draft where user_id = $1 and id = $2", [other, theirs.id])).rows).toHaveLength(1);
+    expect((await raw("select 1 from plan_draft where user_id = $1 and id = $2", [other, theirs.id])).rows).toHaveLength(1);
   }, 60000);
 
-  it("B1: the /account/ read and its Rename and Delete reach title-only live rows only, before and after 0013", async () => {
+  it("B1: the /account/ read and its Rename and Delete reach title-only live rows only", async () => {
     const u = U("b1");
     const legacy = randomUUID();
-    await raw("insert into planner_draft (id, user_id, title) values ($1, $2, 'Nitin')", [legacy, u]);
+    await raw("insert into plan_draft (id, user_id, title) values ($1, $2, 'Nitin')", [legacy, u]);
     const synced = tmpl();
     await putPlan(u, synced.id, null, false, w(synced));
     const tomb = tmpl();
@@ -582,20 +582,20 @@ run("planner_draft with plan_doc (database)", () => {
     // the actions' statements (web/app/account/actions.ts): a synced plan and a tombstone match nothing
     for (const id of [synced.id, tomb.id]) {
       const ren = await withUserTransaction(u, async (ctx) =>
-        (await ctx.query(`update public.planner_draft d set title = 'x' where d.id = $1 and d.user_id = $2 and ${legacyDraftRow("d")} returning d.id`, [id, u])).rowCount,
+        (await ctx.query(`update public.plan_draft d set title = 'x' where d.id = $1 and d.user_id = $2 and ${legacyDraftRow("d")} returning d.id`, [id, u])).rowCount,
       );
       expect(ren.result).toBe(0);
       const del = await withUserTransaction(u, async (ctx) =>
-        (await ctx.query(`delete from public.planner_draft d where d.id = $1 and d.user_id = $2 and ${legacyDraftRow("d")} returning d.id`, [id, u])).rowCount,
+        (await ctx.query(`delete from public.plan_draft d where d.id = $1 and d.user_id = $2 and ${legacyDraftRow("d")} returning d.id`, [id, u])).rowCount,
       );
       expect(del.result).toBe(0);
     }
     expect(await getPlan(u, synced.id)).toMatchObject({ revision: 0 });
     const ren = await withUserTransaction(u, async (ctx) =>
-      (await ctx.query(`update public.planner_draft d set title = 'Renamed' where d.id = $1 and d.user_id = $2 and ${legacyDraftRow("d")} returning d.id`, [legacy, u])).rowCount,
+      (await ctx.query(`update public.plan_draft d set title = 'Renamed' where d.id = $1 and d.user_id = $2 and ${legacyDraftRow("d")} returning d.id`, [legacy, u])).rowCount,
     );
     expect(ren.result).toBe(1);
-    // before 0013 the columns do not exist: the same predicate reads every row as a legacy row
+    // on a table without the two columns the predicate reads every row as a legacy row (a missing key is null)
     await admin.query("begin");
     try {
       await admin.query("create temp table pre_0013 (id uuid, user_id text, title text)");
@@ -619,7 +619,7 @@ run("planner_draft with plan_doc (database)", () => {
     // the owner holds the row; the user's write waits for the lock timeout, then fails
     await admin.query("begin");
     try {
-      await admin.query("select 1 from planner_draft where id = $1 for update", [d.id]);
+      await admin.query("select 1 from plan_draft where id = $1 for update", [d.id]);
       const t = Date.now();
       await expect(putPlan(u, d.id, 0, false, w(d))).rejects.toMatchObject({ code: "55P03" });
       expect(Date.now() - t).toBeLessThan(10_000);
@@ -643,16 +643,43 @@ run("planner_draft with plan_doc (database)", () => {
       const d = tmpl();
       await putPlan(who, d.id, null, false, w(d));
     }
-    await raw("insert into planner_draft (id, user_id, title) values ($1, $2, 'legacy')", [randomUUID(), u]);
+    await raw("insert into plan_draft (id, user_id, title) values ($1, $2, 'legacy')", [randomUUID(), u]);
     expect(await deletePlans(u)).toBe(3);
-    expect((await raw("select count(*)::int as n from planner_draft where user_id = $1", [u])).rows[0].n).toBe(0);
-    expect((await raw("select count(*)::int as n from planner_draft where user_id = $1", [other])).rows[0].n).toBe(1);
+    expect((await raw("select count(*)::int as n from plan_draft where user_id = $1", [u])).rows[0].n).toBe(0);
+    expect((await raw("select count(*)::int as n from plan_draft where user_id = $1", [other])).rows[0].n).toBe(1);
+  });
+
+  it("renames the table and every object named after it: nothing is left named planner_draft (owner, 27 Oct 2026)", async () => {
+    const old = "planner" + "_draft"; // split so a repository grep for the old name finds only the rename itself
+    const { rows } = await raw(
+      `select 'class' as k, relname::text as n from pg_class where relnamespace = 'public'::regnamespace and relname like $1
+       union all select 'proc', proname::text from pg_proc where pronamespace = 'public'::regnamespace and proname like $1
+       union all select 'policy', polname::text from pg_policy where polname like $1
+       union all select 'trigger', tgname::text from pg_trigger where tgname like $1
+       union all select 'constraint', conname::text from pg_constraint where connamespace = 'public'::regnamespace and conname like $1`,
+      [`${old}%`],
+    );
+    expect(rows).toEqual([]);
+    for (const t of ["plan_draft", "plan_draft_signal"]) expect((await raw("select to_regclass($1) is not null as ok", [`public.${t}`])).rows[0].ok).toBe(true);
+    // the signal function is still the owner's SECURITY DEFINER body, and the app role still has no grant on the signal table
+    const fn = await raw("select prosecdef from pg_proc where proname = 'plan_draft_bump_signal'");
+    expect(fn.rows).toEqual([{ prosecdef: true }]);
+    const g = await raw("select count(*)::int as n from information_schema.role_table_grants where table_name = 'plan_draft_signal' and grantee = 'travel_app'");
+    expect(g.rows[0].n).toBe(0);
+    // the new functions of 0013 are not SECURITY DEFINER (review-em-s 4.4)
+    const own = await raw("select proname::text as n, prosecdef from pg_proc where proname in ('plan_draft_revision', 'plan_draft_cap', 'plan_draft_purge', 'plan_draft_touch') order by 1");
+    expect(own.rows.map((r: any) => [r.n, r.prosecdef])).toEqual([
+      ["plan_draft_cap", false],
+      ["plan_draft_purge", false],
+      ["plan_draft_revision", false],
+      ["plan_draft_touch", false],
+    ]);
   });
 
   it("has the list, merge and purge indexes", async () => {
-    const { rows } = await raw("select indexname from pg_indexes where schemaname='public' and tablename='planner_draft'");
+    const { rows } = await raw("select indexname from pg_indexes where schemaname='public' and tablename='plan_draft'");
     const names = rows.map((r: any) => r.indexname);
-    expect(names).toEqual(expect.arrayContaining(["planner_draft_user_live", "planner_draft_user_trip_start", "planner_draft_tombstones"]));
+    expect(names).toEqual(expect.arrayContaining(["plan_draft_user_live", "plan_draft_user_trip_start", "plan_draft_tombstones"]));
   });
 
   it("pools: the module's transactions run as travel_app, never as the owner", async () => {

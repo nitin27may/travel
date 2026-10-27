@@ -1,4 +1,4 @@
-// The account plans (migration 0013 `plan_doc` on `planner_draft`; edit-my-trip.md 3, 4.1, 4.2, 4.5; tasks EM-M and EM-1): the light
+// The account plans (migration 0013 `plan_doc` on `plan_draft`; edit-my-trip.md 3, 4.1, 4.2, 4.5; tasks EM-M and EM-1): the light
 // list, one document, the revision-checked write, the tombstone, and the sign-in merge's reads and inserts. The only code that reads or
 // writes the document columns.
 //
@@ -13,7 +13,7 @@
 //
 // PRIVACY. Nothing here logs. Errors carry the SQLSTATE through the driver's error, never the document; callers log fixed codes only
 // (edit-my-trip 7). A tombstone keeps its id and title only: the document and its household columns are cleared by the delete (and
-// 0013's CHECK planner_draft_tombstone refuses anything else).
+// 0013's CHECK plan_draft_tombstone refuses anything else).
 //
 // BOUNDS (review-em-s B2). At most ACCOUNT_PLANS_LIMITS.accountPlans live rows (the cap trigger) and PLAN_SYNC.tombstoneCap tombstones
 // per user (deletePlan drops the oldest beyond it in the same transaction); the list reads the live rows and the tombstones apart, so
@@ -24,7 +24,7 @@ import { pgErrorCode } from "./client.ts";
 import { withUserTransaction, type TxContext } from "./tx.ts";
 import type { UserTx } from "./profile.ts";
 
-/** The SQLSTATE the cap trigger raises (0013 `planner_draft_cap`). */
+/** The SQLSTATE the cap trigger raises (0013 `plan_draft_cap`). */
 export const PLAN_CAP_SQLSTATE = "TP001";
 
 /** The columns a write stores: the document and what was derived from it. */
@@ -97,15 +97,15 @@ const rowNow = (r: NowRow | undefined): PlanRowNow | null => (r ? { revision: Nu
 
 /** The caller's own tombstones older than the retention go first (under RLS: only the caller's rows can match). */
 async function purgeOwn(ctx: TxContext, userId: string, days: number): Promise<void> {
-  await ctx.query(`delete from public.planner_draft where user_id = $1 and deleted_at < now() - make_interval(days => $2::int)`, [userId, days]);
+  await ctx.query(`delete from public.plan_draft where user_id = $1 and deleted_at < now() - make_interval(days => $2::int)`, [userId, days]);
 }
 
 /** The caller's tombstones beyond the newest `keep` (B2): dropped, oldest first, so one account's tombstones stay bounded. */
 async function capTombstones(ctx: TxContext, userId: string, keep: number): Promise<void> {
   await ctx.query(
-    `delete from public.planner_draft
+    `delete from public.plan_draft
       where user_id = $1 and deleted_at is not null
-        and id not in (select id from public.planner_draft where user_id = $1 and deleted_at is not null
+        and id not in (select id from public.plan_draft where user_id = $1 and deleted_at is not null
                         order by deleted_at desc, id desc limit $2)`,
     [userId, keep],
   );
@@ -113,7 +113,7 @@ async function capTombstones(ctx: TxContext, userId: string, keep: number): Prom
 
 async function current(ctx: TxContext, userId: string, id: string): Promise<PlanConflict | null> {
   const { rows } = await ctx.query<NowRow & { doc: unknown }>(
-    `select revision, deleted_at, doc from public.planner_draft where user_id = $1 and id = $2`,
+    `select revision, deleted_at, doc from public.plan_draft where user_id = $1 and id = $2`,
     [userId, id],
   );
   const r = rows[0];
@@ -130,14 +130,14 @@ const LIST_COLUMNS = `id::text as id, title, kind, source_trip, to_char(start, '
 export async function listPlans(userId: string, opts: PlansOptions = {}): Promise<AccountPlanRow[]> {
   const { result } = await runner(opts)(userId, async (ctx) => {
     const live = await ctx.query<Record<string, unknown>>(
-      `select ${LIST_COLUMNS} from public.planner_draft
+      `select ${LIST_COLUMNS} from public.plan_draft
          where user_id = $1 and deleted_at is null
          order by updated_at desc, id
          limit $2`,
       [userId, ACCOUNT_PLANS_LIMITS.accountPlans],
     );
     const tombs = await ctx.query<Record<string, unknown>>(
-      `select ${LIST_COLUMNS} from public.planner_draft
+      `select ${LIST_COLUMNS} from public.plan_draft
          where user_id = $1 and deleted_at is not null and deleted_at >= now() - make_interval(days => $2::int)
          order by deleted_at desc, id
          limit $3`,
@@ -162,7 +162,7 @@ export async function listPlans(userId: string, opts: PlansOptions = {}): Promis
 export async function getPlan(userId: string, id: string, opts: PlansOptions = {}): Promise<{ revision: number; doc: unknown } | null> {
   const { result } = await runner(opts)(userId, async (ctx) => {
     const { rows } = await ctx.query<{ revision: number | string; doc: unknown }>(
-      `select revision, doc from public.planner_draft where user_id = $1 and id = $2 and deleted_at is null and doc is not null`,
+      `select revision, doc from public.plan_draft where user_id = $1 and id = $2 and deleted_at is null and doc is not null`,
       [userId, id],
     );
     return rows[0];
@@ -180,13 +180,13 @@ export async function putPlan(userId: string, id: string, base: number | null, r
   try {
     const { result } = await runner(opts)(userId, async (ctx): Promise<PutResult> => {
       await purgeOwn(ctx, userId, keepDays(opts));
-      const found = await ctx.query<NowRow>(`select revision, deleted_at from public.planner_draft where user_id = $1 and id = $2 for update`, [userId, id]);
+      const found = await ctx.query<NowRow>(`select revision, deleted_at from public.plan_draft where user_id = $1 and id = $2 for update`, [userId, id]);
       const decision = decidePut(base, rowNow(found.rows[0]), restore);
       if (decision === "not-found") return { kind: "not-found" };
       if (decision === "conflict") return { kind: "conflict", row: (await current(ctx, userId, id))! };
       if (decision === "insert") {
         const ins = await ctx.query<{ revision: number | string }>(
-          `insert into public.planner_draft (id, user_id, title, doc, kind, source_trip, start, days)
+          `insert into public.plan_draft (id, user_id, title, doc, kind, source_trip, start, days)
              values ($1::uuid, $2, $3, $4::jsonb, $5, $6, $7::date, $8)
            on conflict (user_id, id) do nothing
            returning revision`,
@@ -198,7 +198,7 @@ export async function putPlan(userId: string, id: string, base: number | null, r
         return now ? { kind: "conflict", row: now } : { kind: "not-found" };
       }
       const upd = await ctx.query<{ revision: number | string }>(
-        `update public.planner_draft
+        `update public.plan_draft
             set title = $3, doc = $4::jsonb, kind = $5, source_trip = $6, start = $7::date, days = $8,
                 deleted_at = case when $9::boolean then null else deleted_at end
           where user_id = $10 and id = $1::uuid and revision = $2
@@ -223,14 +223,14 @@ export async function putPlan(userId: string, id: string, base: number | null, r
 export async function deletePlan(userId: string, id: string, base: number, opts: PlansOptions = {}): Promise<DeleteResult> {
   const { result } = await runner(opts)(userId, async (ctx): Promise<DeleteResult> => {
     await purgeOwn(ctx, userId, keepDays(opts));
-    const found = await ctx.query<NowRow>(`select revision, deleted_at from public.planner_draft where user_id = $1 and id = $2 for update`, [userId, id]);
+    const found = await ctx.query<NowRow>(`select revision, deleted_at from public.plan_draft where user_id = $1 and id = $2 for update`, [userId, id]);
     const now = rowNow(found.rows[0]);
     const decision = decideDelete(base, now);
     if (decision === "not-found") return { kind: "not-found" };
     if (decision === "already") return { kind: "already", revision: now!.revision };
     if (decision === "conflict") return { kind: "conflict", row: (await current(ctx, userId, id))! };
     const upd = await ctx.query<{ revision: number | string }>(
-      `update public.planner_draft
+      `update public.plan_draft
           set deleted_at = now(), doc = null, kind = null, source_trip = null, start = null, days = null
         where user_id = $3 and id = $1::uuid and revision = $2 and deleted_at is null
         returning revision`,
@@ -254,7 +254,7 @@ export async function mergeKeys(userId: string, pairs: readonly { trip: string; 
               case when exists (select 1 from unnest($2::text[], $3::date[]) as p(trip, start)
                                  where p.trip = d.source_trip and p.start = d.start)
                    then d.doc end as doc
-         from public.planner_draft d
+         from public.plan_draft d
         where d.user_id = $1 and d.deleted_at is null
         order by d.updated_at desc, d.id`,
       [userId, pairs.map((p) => p.trip), pairs.map((p) => p.start)],
@@ -281,7 +281,7 @@ export async function insertPlans(userId: string, rows: readonly ({ id: string }
   const { result } = await runner(opts)(userId, async (ctx) => {
     await purgeOwn(ctx, userId, keepDays(opts));
     for (const r of rows) {
-      const held = await ctx.query(`select 1 from public.planner_draft where user_id = $1 and id = $2`, [userId, r.id]);
+      const held = await ctx.query(`select 1 from public.plan_draft where user_id = $1 and id = $2`, [userId, r.id]);
       if (held.rows.length > 0) {
         out.already.push(r.id);
         continue;
@@ -289,7 +289,7 @@ export async function insertPlans(userId: string, rows: readonly ({ id: string }
       await ctx.query("savepoint plan_merge_row");
       try {
         const ins = await ctx.query<{ id: string }>(
-          `insert into public.planner_draft (id, user_id, title, doc, kind, source_trip, start, days)
+          `insert into public.plan_draft (id, user_id, title, doc, kind, source_trip, start, days)
              values ($1::uuid, $2, $3, $4::jsonb, $5, $6, $7::date, $8)
            on conflict (user_id, id) do nothing
            returning id::text as id`,
@@ -315,24 +315,24 @@ export async function insertPlans(userId: string, rows: readonly ({ id: string }
  */
 export async function deletePlans(userId: string, opts: PlansOptions = {}): Promise<number> {
   const { result } = await runner(opts)(userId, async (ctx) => {
-    const r = await ctx.query(`delete from public.planner_draft where user_id = $1`, [userId]);
+    const r = await ctx.query(`delete from public.plan_draft where user_id = $1`, [userId]);
     return r.rowCount ?? 0;
   });
   return result;
 }
 
-/** The owner-side purge (review-em-s B2 point 4, S2): what a runner of `planner_draft_purge()` needs. */
+/** The owner-side purge (review-em-s B2 point 4, S2): what a runner of `plan_draft_purge()` needs. */
 export interface PurgeExecutor {
   query<Row extends Record<string, unknown> = Record<string, unknown>>(sql: string, params?: readonly unknown[]): Promise<{ rows: Row[] }>;
 }
 
 /**
- * Everyone's tombstones older than `days` (default PLAN_SYNC.tombstoneDays), through 0013's `planner_draft_purge()`, which only the
+ * Everyone's tombstones older than `days` (default PLAN_SYNC.tombstoneDays), through 0013's `plan_draft_purge()`, which only the
  * table owner may execute: `exec` must be an OWNER connection (the runtime pool's own login, never inside withUserTransaction; or the
  * migration client). Returns the number of rows dropped. Content-free: it reads and returns a count only.
  */
 export async function purgeAllTombstones(exec: PurgeExecutor, days: number = PLAN_SYNC.tombstoneDays): Promise<number> {
   if (!Number.isInteger(days) || days < 1) throw new RangeError("purge: days is a whole number of at least 1");
-  const { rows } = await exec.query<{ n: number | string }>("select planner_draft_purge($1) as n", [days]);
+  const { rows } = await exec.query<{ n: number | string }>("select plan_draft_purge($1) as n", [days]);
   return Number(rows[0]?.n ?? 0);
 }

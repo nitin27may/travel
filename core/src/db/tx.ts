@@ -13,12 +13,12 @@
 //   6. COMMITs and returns the result together with the transaction id (`txid_current()`),
 //      or ROLLBACKs on error.
 //
-// RLS policies on owner-scoped tables (e.g. planner_draft) read `current_setting('app.user_id', true)`,
+// RLS policies on owner-scoped tables (e.g. plan_draft) read `current_setting('app.user_id', true)`,
 // so a transaction can only see and change its own user's rows. Because `set local` is scoped to the
 // transaction, a pooled connection never leaks identity to the next checkout.
 //
 // Realtime: Neon Realtime does NOT enforce application RLS and rejects any subscription to an
-// RLS-enabled relation, so the live path subscribes to the content-free `planner_draft_signal`
+// RLS-enabled relation, so the live path subscribes to the content-free `plan_draft_signal`
 // stream (see `signalLiveQuery`) and re-fetches the drafts through `draftsReadQuery` under RLS.
 
 import { getPool, pgErrorCode, type PgClientLike, type QueryResultLike, type QueryRow } from "./client.ts";
@@ -113,7 +113,7 @@ export function draftsReadQuery(): { sql: string; params: (userId: string) => un
   return {
     sql:
       `select id, user_id, title, created_at, updated_at ` +
-      `from public.planner_draft d where user_id = $1 and ${legacyDraftRow("d")} order by updated_at desc`,
+      `from public.plan_draft d where user_id = $1 and ${legacyDraftRow("d")} order by updated_at desc`,
     params: (userId: string) => [userId],
   };
 }
@@ -121,8 +121,9 @@ export function draftsReadQuery(): { sql: string; params: (userId: string) => un
 /**
  * The rows the `/account/` Saved trips list and its Rename and Delete act on (review-em-s B1): a title with no document that is not a
  * tombstone (`doc is null and deleted_at is null`). Every one of those statements adds it, so none can reach a synced plan or a
- * tombstone. Written through the row as JSON so the same SQL runs before migration 0013 adds the two columns (a missing key reads as
- * null: every row is a legacy row) and after it: the web build can ship ahead of the apply. `alias` names the table in the statement.
+ * tombstone. Written through the row as JSON, so a missing column reads as null (a table without `doc` holds legacy rows only). The
+ * table itself is `plan_draft` only from migration 0013 on (renamed from 0009's name), so a build with this SQL deploys with or after
+ * that apply, never before. `alias` names the table in the statement.
  */
 export function legacyDraftRow(alias: string): string {
   if (!/^[a-z_][a-z0-9_]*$/.test(alias)) throw new Error(`unsafe alias: ${alias}`);
@@ -132,14 +133,14 @@ export function legacyDraftRow(alias: string): string {
 /**
  * Build the Realtime subscription query — the content-free invalidation stream, not the drafts.
  * Neon Realtime (pre-GA) rejects any subscription to an RLS-enabled relation, so the live path reads
- * `planner_draft_signal` (RLS off, no draft content: only user_id + monotonic version). The sealed
+ * `plan_draft_signal` (RLS off, no draft content: only user_id + monotonic version). The sealed
  * `where user_id = $1` predicate is the per-subscriber authorization (the app passes the verified
  * session id). On a version bump the client re-fetches the drafts through `draftsReadQuery` under
  * RLS. A full session change must unload prior-user client state.
  */
 export function signalLiveQuery(): { sql: string; params: (userId: string) => unknown[] } {
   return {
-    sql: `select user_id, version from public.planner_draft_signal where user_id = $1`,
+    sql: `select user_id, version from public.plan_draft_signal where user_id = $1`,
     params: (userId: string) => [userId],
   };
 }

@@ -14,7 +14,7 @@ export { TITLE_MIN, TITLE_MAX, checkTitle, isUuid } from '../drafts-shared';
 export type { DraftRow, SignalRow, TitleCheck } from '../drafts-shared';
 
 // The content-free invalidation stream the Realtime subscription watches (Neon Realtime rejects any
-// RLS-enabled relation, so the live path never reads planner_draft directly). `userId` is always the
+// RLS-enabled relation, so the live path never reads plan_draft directly). `userId` is always the
 // verified session id; the `where user_id = $1` predicate is the only authorization Realtime honours.
 const SIGNAL_QUERY = signalLiveQuery();
 // The RLS-scoped read of the actual drafts, used by the SSR load and the authenticated re-fetch.

@@ -9,7 +9,7 @@ schema is the ten migrations in `core/src/db/migrations/` (inventory and deviati
 [NEON-MIGRATIONS.md](build/public-site/NEON-MIGRATIONS.md)); identities are text Managed Better Auth user ids, not
 `auth.users`. This file explains the shapes and the rules that DDL alone does not show. Applying the tables is not the
 same as building the features: household, trip and planner tables are deny-by-default under RLS, and only the private
-account draft (`planner_draft`) is live today.
+account draft (`plan_draft`) is live today.
 
 ## 1. Four areas
 

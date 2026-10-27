@@ -16,7 +16,7 @@ what is missing or needs to be done."
 | Question | Answer |
 |---|---|
 | Is data migration blocked? | **No technical blocker; it is unbuilt and scheduled late.** Neon Postgres is live with the full schema (migrations 0001 to 0010, 86 tables with RLS). The catalogue, research and projection tables are empty because the JSON-to-Postgres loader, the `PostgresStore`, the parity tests and the cutover have not been written. EXECUTION-PLAN decision D9 and section 4.8 put that work (SRV-0) after the E features and the closure queue, with flags off |
-| Are we using Postgres from Neon? | Yes, for accounts and private drafts only (`app_user`, `planner_draft`, the signal table and Realtime). The public site still reads `JsonStore` over `data/**` |
+| Are we using Postgres from Neon? | Yes, for accounts and private drafts only (`app_user`, `plan_draft`, the signal table and Realtime). The public site still reads `JsonStore` over `data/**` |
 | Do we have seed data? | **Yes, in effect: the JSON in git is the seed** (about 10,500 rows for 0003 to 0007, 5.6 MB of input, section 5). What is missing is the command that turns it into rows. `data/seed/prototype/*.ts` is the old prototype seed for the web snapshot, not a database seed |
 | Did we have a strategy? | **Partly.** The two-tier load (R-55), the loader contract (R-135: idempotent, rollback by run id) and "tests against a real Postgres in Docker or a Neon branch" (04-stack, section 2) are written. **Not written anywhere:** a local Postgres, a `db:seed` that works on any target, a `db:sync` with a diff, a drift gate in `check-all`, CI, the target guard that protects production, and what is never seeded |
 | What needs doing? | Eight tasks (section 8). Four can ship now without the `PostgresStore`: LOCAL-1 (Docker Postgres that matches Neon), LOCAL-C (the seed and target contract), LOCAL-2 (the seed engine for the reference tables), LOCAL-3 (the drift gate). About 34 h new work (Opus 10, Sonnet 24); the existing RIS and SRV-0 tasks are merged in, not duplicated |
@@ -35,10 +35,10 @@ seam flips). No screen is added, so the trip scope scenarios and the keep-from-l
 |---|---|---|---|
 | Neon project and branches | project `damp-queen-64719841` (Free plan, org `org-fancy-dream-16320709`, aws-us-east-2) | live | `neon branches list`: `production` `br-soft-glade-b4mkqyvd` 44.5 MB logical; `srv-migrate-verify` `br-damp-breeze-b41mtvn5` 47.7 MB, child of production; neither protected, neither with an expiry |
 | Postgres version | both branches | 18.6; extensions postgis 3.6.4, pg_trgm 1.6, unaccent 1.1, ltree 1.3 | read-only query on the child, 25 Oct |
-| Schema | `core/src/db/migrations/0001` to `0010` | applied on both branches | [NEON-MIGRATIONS.md](../build/public-site/NEON-MIGRATIONS.md); 86 tables with RLS plus the ledger; `planner_draft_signal` the one content-free exception |
+| Schema | `core/src/db/migrations/0001` to `0010` | applied on both branches | [NEON-MIGRATIONS.md](../build/public-site/NEON-MIGRATIONS.md); 86 tables with RLS plus the ledger; `plan_draft_signal` the one content-free exception |
 | Migration runner | `core/src/db/runner.ts`, `core/bin/db-migrate.ts` | built | versioned, checksummed, advisory-locked, one transaction per file; refuses drift, a missing file or an out-of-order file; `--url=` takes any connection string |
 | Runtime role | `travel_app` (0001) | built | NOLOGIN, NOBYPASSRLS; the owner connection drops to it per transaction (`core/src/db/tx.ts`) |
-| Account and draft path | `planner_draft`, `planner_draft_signal`, Realtime | built and verified | child suite `core/test/db` 29 of 29 on 25 Oct ([NEON-VERIFICATION.md](../build/public-site/NEON-VERIFICATION.md)) |
+| Account and draft path | `plan_draft`, `plan_draft_signal`, Realtime | built and verified | child suite `core/test/db` 29 of 29 on 25 Oct ([NEON-VERIFICATION.md](../build/public-site/NEON-VERIFICATION.md)) |
 | Storage contract | `core/src/schema/rowMeta.ts` (RIS-C) | merged (f5be36a) | [catalogue-intake-and-storage.md](catalogue-intake-and-storage.md) 3.3 |
 | Normaliser | `core/bin/normalise.ts` (RIS-N) | merged (2fa4c6b) | `--report` today: 72 files, 24 would change, 689 changes, 1 error (the refused street address in `canadian-rockies-2029/CS7.json`) |
 | D3a and D4a data | lane files | merged (dc5bdf8) | so RIS-J no longer waits on them |
@@ -47,7 +47,7 @@ seam flips). No screen is added, so the trip scope scenarios and the keep-from-l
 
 Every table of 0003 (catalogue, sources, source tier, suitability and relevance serving), 0005 (reference), 0006 (research
 queue) and 0007 (projections) holds 0 rows on both branches; 0003 says so in its header ("No data is loaded here"). Only
-`app_user`, `planner_draft` and `planner_draft_signal` receive rows, from real sign-ins and the test suites.
+`app_user`, `plan_draft` and `plan_draft_signal` receive rows, from real sign-ins and the test suites.
 
 ### 1.3 What stands between today and a cutover, in order
 
@@ -262,14 +262,14 @@ the same compose file works. Docker Desktop is free for personal use.
 | Needs Neon | Why | Runs on |
 |---|---|---|
 | Managed Better Auth (sign-up, sign-in, codes, Google, sessions) | a hosted service bound to a branch; there is no local Auth | the child branch (its own Auth endpoint) |
-| Neon Realtime (`planner_draft_signal` subscription) | hosted, pre-GA | the child branch |
+| Neon Realtime (`plan_draft_signal` subscription) | hosted, pre-GA | the child branch |
 | EML-0 and EML-Q real-service checks (session revoke after reset, quotas end to end) | need real `neon_auth` rows written by Neon | the child branch |
 | `web/scripts/neon-e2e.mjs` (14 real-service checks) | Auth plus Realtime plus Postgres over HTTPS | the HTTPS preview against production values, as today |
 | Migration and seed rehearsal before production | the real extension versions, roles and data | the child branch, reset from production |
 
 | Runs on Docker | Tests |
 |---|---|
-| everything that is plain Postgres plus RLS | `core/test/db/**` (runner, inventory, integration with `planner_draft` isolation and the signal trigger), RIS-T, the contract kit against `PostgresStore`, the revoke query against the stub, every future ops-on-Postgres test (11-quality: "every op against real Postgres") |
+| everything that is plain Postgres plus RLS | `core/test/db/**` (runner, inventory, integration with `plan_draft` isolation and the signal trigger), RIS-T, the contract kit against `PostgresStore`, the revoke query against the stub, every future ops-on-Postgres test (11-quality: "every op against real Postgres") |
 
 ### 3.6 CI: the first workflow
 
@@ -364,7 +364,7 @@ The engine checks the child's `load_run` for a green run of the same commit befo
 | Our own nightly `pg_dump` | **no**: planned in 04-stack 1.2 and 05-roadmap, no job, no storage selected | BKP-1 |
 | The catalogue | rebuildable from git at any commit | none: the seed is the catalogue's backup |
 
-So only private data needs a backup: accounts (`neon_auth`, provider-owned), `app_user`, `planner_draft`, and later favourites,
+So only private data needs a backup: accounts (`neon_auth`, provider-owned), `app_user`, `plan_draft`, and later favourites,
 submissions and the planner. **Recommendation (Q185): now, a manual Neon snapshot before each production step; before the
 first non-owner account, BKP-1:** a nightly `pg_dump --schema=public` of the private tables, encrypted with an `age` public key
 whose private key never enters the repository, plus a monthly restore into local Docker. **Changed 25 Oct 2026 (owner, Q228,
@@ -382,7 +382,7 @@ workflow and one key for you to keep.
 | Applied migrations are immutable | the runner refuses checksum drift and a missing file |
 | No out-of-order file | the runner refuses a new file numbered below the last applied one |
 | One runner at a time | session advisory lock, fail closed |
-| Numbers | **0011 is taken by EML-1's `0011_quota.sql` (on `public/EML-1`, not yet merged)**, while the customisation, favourites, feedback and storage specs still say "0011 is reserved by CUS-C". Recommendation (Q186): no reservations; a spec names its migration by slug (`planner_draft_doc`, `account_favourite`, `research_meta`), and the number is the next free one when the branch merges. Two branches that both add `0012_*` cannot both merge: the runner's duplicate-version guard fails the second one's tests |
+| Numbers | **0011 is taken by EML-1's `0011_quota.sql` (on `public/EML-1`, not yet merged)**, while the customisation, favourites, feedback and storage specs still say "0011 is reserved by CUS-C". Recommendation (Q186): no reservations; a spec names its migration by slug (`plan_draft_doc`, `account_favourite`, `research_meta`), and the number is the next free one when the branch merges. Two branches that both add `0012_*` cannot both merge: the runner's duplicate-version guard fails the second one's tests |
 | Rehearsed | child first, every time (4.2) |
 | Seed after schema | the engine refuses a target whose `schema_migrations` lacks a version it needs (it reads the ledger read-only first) |
 
@@ -449,7 +449,7 @@ plus a sample, or the project moves to Launch** (storage USD 0.35 per GB-month, 
 | Data | Tables | Rule |
 |---|---|---|
 | Accounts and sessions | `neon_auth.*`, `app_user`, `user_settings`, `mcp_token`, `push_subscription`, `notification_pref`, `inbound_*` | written only by sign-in and the account routes in their own database |
-| Drafts and plans | `planner_draft`, `planner_draft_signal`, `trip` and every 0004 table, `day_state`, `check_dismissal`, `item_memory`, `share_link`, `calendar_feed` | the user's data |
+| Drafts and plans | `plan_draft`, `plan_draft_signal`, `trip` and every 0004 table, `day_state`, `check_dismissal`, `item_memory`, `share_link`, `calendar_feed` | the user's data |
 | Household | `household`, `household_member`, `person`, `membership`, `travel_goal`, `saved_place`, `saved_view`, `saved_source`, `visit`, `collection`, `collection_place` | private (R-55, PRIV1) |
 | Favourites, submissions, reports, quotas | `account_favourite`, the intake tables, `quota_bucket` (future migrations) | private or operational |
 | The owner's list origin | `loc:` and `proto:` keys, saved-post dates and platforms, wishlist status | the privacy detector refuses them in any seeded row |
@@ -480,7 +480,7 @@ Inside one transaction under an advisory lock (a different key from the migratio
 
 1. A dry run on a database at commit A against commit B lists exactly the record ids that differ.
 2. A retired ref keeps its `entity` row (`status = 'retired'`) and its `saved_place` rows.
-3. A private table's rows (a fixture `planner_draft` and `saved_place`) are unchanged after a sync.
+3. A private table's rows (a fixture `plan_draft` and `saved_place`) are unchanged after a sync.
 4. A second sync of the same commit writes 0 rows.
 5. `db:sync --commit A` after B restores the serving tier byte for byte.
 6. `--target production` without `--approve`, with a dirty tree, or with no green child run exits 2 before connecting.
@@ -791,7 +791,7 @@ purpose). `neon_auth` is never touched. Tests (`core/test/seed/contract.test.ts`
   classified table is in the inventory or in `FUTURE_TABLES`;
 - every `create table` in `core/src/db/migrations/*.sql` is classified, so a new migration table fails even if the inventory is
   not updated; a fixture `create table account_secret_thing` shows the failure;
-- no seed table has a `household_id`, `user_id`, `owner_id` or `trip_id` column or references `household`, `trip` or `planner_draft`;
+- no seed table has a `household_id`, `user_id`, `owner_id` or `trip_id` column or references `household`, `trip` or `plan_draft`;
 - `assertSeedTable` throws for every table outside the allowlist; the engine calls it before every statement;
 - `NEVER_READ_INPUTS` refuses the inbox, the migration ledger, the gap budget, local-only relevance inputs, the town anchors
   (`data/reference/towns/anchors.json`: coordinates near the owner's places) and the wishlist; `expandInputs` reports, never

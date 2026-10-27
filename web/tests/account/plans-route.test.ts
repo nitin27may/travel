@@ -655,7 +655,7 @@ describe('answers and logs', () => {
 
   it('a database failure answers 503 and logs the route, a fixed outcome and the SQLSTATE only', async () => {
     const h = harness();
-    const boom = Object.assign(new Error(`relation "planner_draft" ${A.id} Dolomites 2027-07-03`), { code: '57P01' });
+    const boom = Object.assign(new Error(`relation "plan_draft" ${A.id} Dolomites 2027-07-03`), { code: '57P01' });
     h.deps.db.put = async () => { throw boom; };
     h.deps.db.list = async () => { throw boom; };
     const err = vi.spyOn(console, 'error').mockImplementation(() => {});

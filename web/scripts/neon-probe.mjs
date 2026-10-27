@@ -14,16 +14,16 @@ async function checkDb() {
     await client.connect();
     out.dbConnect = true;
     const t = await client.query(
-      "SELECT to_regclass('public.planner_draft') IS NOT NULL AS exists",
+      "SELECT to_regclass('public.plan_draft') IS NOT NULL AS exists",
     );
     out.plannerDraftTable = t.rows[0].exists;
     if (t.rows[0].exists) {
       const cols = await client.query(
-        "SELECT column_name, data_type FROM information_schema.columns WHERE table_name='planner_draft' ORDER BY ordinal_position",
+        "SELECT column_name, data_type FROM information_schema.columns WHERE table_name='plan_draft' ORDER BY ordinal_position",
       );
       out.plannerDraftColumns = cols.rows.map((r) => `${r.column_name}:${r.data_type}`);
       const rls = await client.query(
-        "SELECT relrowsecurity FROM pg_class WHERE oid='public.planner_draft'::regclass",
+        "SELECT relrowsecurity FROM pg_class WHERE oid='public.plan_draft'::regclass",
       );
       out.plannerDraftRls = rls.rows[0]?.relrowsecurity ?? null;
     }

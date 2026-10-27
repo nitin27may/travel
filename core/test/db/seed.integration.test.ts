@@ -206,15 +206,15 @@ suite("seed engine on the local database", () => {
   }, 120000);
 
   it("leaves private tables alone, and the engine refuses to touch one", async () => {
-    await db.query(`insert into planner_draft (user_id, title) values ('itest-seed', 'mine')`);
-    const before = await count("planner_draft");
+    await db.query(`insert into plan_draft (user_id, title) values ('itest-seed', 'mine')`);
+    const before = await count("plan_draft");
     cliRoot("sync");
-    expect(await count("planner_draft")).toBe(before);
-    for (const t of ["planner_draft", "saved_place", "app_user", "household", "trip"]) {
+    expect(await count("plan_draft")).toBe(before);
+    for (const t of ["plan_draft", "saved_place", "app_user", "household", "trip"]) {
       await expect(run(db, t, `delete from ${t}`)).rejects.toBeInstanceOf(SeedContractError);
     }
-    expect(await count("planner_draft")).toBe(before);
-    await db.query(`delete from planner_draft where user_id = 'itest-seed'`);
+    expect(await count("plan_draft")).toBe(before);
+    await db.query(`delete from plan_draft where user_id = 'itest-seed'`);
   });
 
   it("fails closed while another session holds the seed lock", async () => {

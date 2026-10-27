@@ -36,10 +36,10 @@ export async function createDraft(pageUserId: string, raw: { id: unknown; title:
   if (!title.ok) return { kind: 'rejected', reason: 'INVALID_INPUT' };
   try {
     const { result, txid } = await withUserTransaction(user.id, async (ctx) => {
-      // `on conflict do nothing` with no target: the key is (id) before 0013 and (user_id, id) after it, and either way a
-      // replayed Undo, or an id this user already holds as a synced plan, inserts nothing
+      // `on conflict do nothing` with no target: the key is (user_id, id) (0013), so a replayed Undo, or an id this user already
+      // holds as a synced plan, inserts nothing
       const res = await ctx.query(
-        `insert into public.planner_draft (id, user_id, title, created_at, updated_at)
+        `insert into public.plan_draft (id, user_id, title, created_at, updated_at)
          values ($1, $2, $3, now(), now())
          on conflict do nothing
          returning id`,
@@ -68,7 +68,7 @@ export async function renameDraft(pageUserId: string, raw: { id: unknown; title:
   try {
     const { result, txid } = await withUserTransaction(user.id, async (ctx) => {
       const res = await ctx.query(
-        `update public.planner_draft d set title = $3, updated_at = now()
+        `update public.plan_draft d set title = $3, updated_at = now()
          where d.id = $1 and d.user_id = $2 and ${legacyDraftRow('d')}
          returning d.id`,
         [raw.id, user.id, title.title], // only the user's own row
@@ -90,7 +90,7 @@ export async function deleteDraft(pageUserId: string, raw: { id: unknown }): Pro
   try {
     const { result, txid } = await withUserTransaction(user.id, async (ctx) => {
       const res = await ctx.query(
-        `delete from public.planner_draft d where d.id = $1 and d.user_id = $2 and ${legacyDraftRow('d')} returning d.id`,
+        `delete from public.plan_draft d where d.id = $1 and d.user_id = $2 and ${legacyDraftRow('d')} returning d.id`,
         [raw.id, user.id], // only the user's own row
       );
       return res.rows.length > 0;

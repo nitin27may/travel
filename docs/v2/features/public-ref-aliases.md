@@ -407,7 +407,7 @@ Fresh clone of the merged stack, then:
 1. Run the full check chain.
 2. On a local `next start`: curl every `/api/v1` endpoint for every slug and every export format. Run the same output scan
    independently with the exact folder list.
-3. Run read-only SQL counts of dated refs in production `planner_draft`, copies and favourites rows. Report counts only, never
+3. Run read-only SQL counts of dated refs in production `plan_draft`, copies and favourites rows. Report counts only, never
    values.
 4. After the owner deploys, probe production the same way (G3's two URLs must show 0).
 

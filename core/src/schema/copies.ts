@@ -108,7 +108,7 @@ export const copyItem = z.strictObject({
   fromRef: originRef.optional(),
   /** reserved (origin spec 10): the airports the visitor picked */
   gw: gateways.optional(),
-  /** reserved: the public trip's content revision when copied; becomes `planner_draft.source_revision` at the merge */
+  /** reserved: the public trip's content revision when copied; becomes `plan_draft.source_revision` at the merge */
   rev: sourceRevision.optional(),
 });
 
@@ -647,7 +647,7 @@ export interface AccountDraftKey {
 }
 
 /**
- * A `planner_draft` row made from a copy under the RETIRED `trip-custom/1` (nav 4.2 rule 2). Kept only as `planMerge`'s default row
+ * A `plan_draft` row made from a copy under the RETIRED `trip-custom/1` (nav 4.2 rule 2). Kept only as `planMerge`'s default row
  * so stored tests read; the account route maps with `copyToPlanRow` (core/src/plan/doc.ts) instead.
  * @deprecated edit-my-trip EM1: the account row's document is `plan-draft/1`.
  */

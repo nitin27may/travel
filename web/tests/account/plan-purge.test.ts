@@ -36,14 +36,14 @@ describe('plan purge route', () => {
     }
   });
 
-  it('runs planner_draft_purge on the owner connection and answers the count, privately', async () => {
+  it('runs plan_draft_purge on the owner connection and answers the count, privately', async () => {
     const t = deps({ PLAN_PURGE_ENABLED: '1', CRON_SECRET: SECRET });
     const info = vi.spyOn(console, 'info').mockImplementation(() => {});
     const r = await purgeRoute(req(`Bearer ${SECRET}`), t.d);
     expect(r.status).toBe(200);
     expect(await r.json()).toEqual({ purged: 4 });
     expect(r.headers.get('Cache-Control')).toBe('private, no-store');
-    expect(t.queries).toEqual([{ sql: 'select planner_draft_purge($1) as n', params: [30] }]);
+    expect(t.queries).toEqual([{ sql: 'select plan_draft_purge($1) as n', params: [30] }]);
     expect(info).toHaveBeenCalled();
     info.mockRestore();
   });
@@ -52,7 +52,7 @@ describe('plan purge route', () => {
     const err = vi.spyOn(console, 'error').mockImplementation(() => {});
     const d: PurgeDeps = {
       env: () => ({ PLAN_PURGE_ENABLED: '1', CRON_SECRET: SECRET }),
-      owner: async () => ({ query: async () => { throw Object.assign(new Error('relation "planner_draft" user-a'), { code: '42883' }); } }),
+      owner: async () => ({ query: async () => { throw Object.assign(new Error('relation "plan_draft" user-a'), { code: '42883' }); } }),
     };
     const r = await purgeRoute(req(`Bearer ${SECRET}`), d);
     expect(r.status).toBe(503);

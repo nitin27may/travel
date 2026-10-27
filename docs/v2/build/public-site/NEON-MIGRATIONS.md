@@ -1,5 +1,10 @@
 # Neon migrations (database lane)
 
+> **Renamed (owner decision, 27 Oct 2026; EM-F):** migration 0009 created the drafts table as `planner_draft` and 0010 its signal
+> table as `planner_draft_signal`; migration 0013 renames them, with every policy, trigger, function, index and constraint named after
+> them, to `plan_draft` and `plan_draft_signal`. 0009 and 0010 are applied and checksummed, so their files keep the old name; this page
+> uses the new one.
+
 Owner of this file and of `core/src/db/**`, `core/bin/db-*.ts`, `core/test/db/**`: the database /
 migration lane. Supersedes the catalogue-half input of `research/reports/schema-diff-2026-10.md`
 only where this file applies the accepted decisions as real DDL. Written 24 Oct 2026. Model: **Opus**
@@ -12,12 +17,12 @@ only where this file applies the accepted decisions as real DDL. Written 24 Oct 
    (`core/src/db/loader.ts`, `runner.ts`, CLI `core/bin/db-migrate.ts`).
 2. **Nine SQL migrations** that create every application table — the 62 proposal tables of
    `docs/v2/schema.sql` (minus the `auth.users` test stub) **plus** the tables introduced by the
-   accepted schema diff (M1–M15) **plus** the `planner_draft` integration contract — with
+   accepted schema diff (M1–M15) **plus** the `plan_draft` integration contract — with
    **row-level security enabled on every one** before use.
 3. **Text application identities** compatible with Managed Better Auth. The provider schema
    `neon_auth` (`neon_auth.user`, `session`, `account`, …) is **never created or altered here**.
 4. A **least-privilege runtime role** (`travel_app`: non-owner, `NOBYPASSRLS`, no `LOGIN`, no CREATE),
-   **no PUBLIC grants** on application tables, and **owner-predicate RLS** on `planner_draft` keyed on
+   **no PUBLIC grants** on application tables, and **owner-predicate RLS** on `plan_draft` keyed on
    a transaction-local, server-verified identity.
 5. A **shared runtime transaction helper** (`core/src/db/tx.ts`) that the app lane consumes.
 
@@ -75,8 +80,8 @@ node --env-file=.env.local core/bin/db-migrate.ts up       # apply pending
 | 0006 | `research` | research & review queue, `lane`, `trip_type`, `coverage`, `backlog`, `op_event` (RLS, no policy) |
 | 0007 | `projections` | `place_row`, `place_page`, `trip_row`, `trip_page` (public read; empty until the loader runs) |
 | 0008 | `household_private` | `saved_source`, `visit`, `collection`, `collection_place` (RLS, no policy, nothing loaded) |
-| 0009 | `planner_draft` | the integration table, owner-predicate policies, grants, `updated_at` trigger |
-| 0010 | `planner_draft_signal` | a content-free invalidation stream for the live draft list (no RLS on it: the Neon Realtime rule in its header) |
+| 0009 | `plan_draft` | the integration table, owner-predicate policies, grants, `updated_at` trigger |
+| 0010 | `plan_draft_signal` | a content-free invalidation stream for the live draft list (no RLS on it: the Neon Realtime rule in its header) |
 | 0011 | `quota` | fixed-window quota counters for the auth guard and the owner-alert budget (EML-Q); keys are HMACs, never raw |
 
 **Numbers taken:** 0001 to 0011 are on main. A migration added later takes the next free number when its branch merges (MIG-N, PLAN R-146); specs name it by slug, never by number.
@@ -88,7 +93,7 @@ node --env-file=.env.local core/bin/db-migrate.ts up       # apply pending
   `status='approved'`.
 - **Source-tier / internal** tables: RLS on, no policy, no grant (deny).
 - **Household & planner** (37 proposal + 4 private + reference): RLS on, no policy, no grant (deny).
-- **`planner_draft`**: owner-predicate policies for select/insert/update/delete using
+- **`plan_draft`**: owner-predicate policies for select/insert/update/delete using
   `user_id = app_current_user_id()` (insert/update also `with check`), and a `select,insert,update,
   delete` grant to `travel_app`.
 - **No PUBLIC grants** on any application table (asserted in the integration test).
@@ -153,7 +158,7 @@ untouched. The branch connection string is kept only in a local, uncommitted fil
 - **Inventory**: all 86 application tables (62 proposal + 24 new) present, each with
   `rowsecurity = true`. No application table grants to PUBLIC. `travel_app` holds `select` only on the
   serving tier, nothing on `trip`/`household`.
-- **planner_draft isolation** through `withUserTransaction`: user A sees only A's drafts, B only B's;
+- **plan_draft isolation** through `withUserTransaction`: user A sees only A's drafts, B only B's;
   B cannot update/delete A's rows (0 affected) nor forge an A-owned row (RLS `WITH CHECK`, SQLSTATE
   42501); the empty title is rejected (check constraint 23514); the app role is denied any read of a
   household table (42501); each write returns a numeric `txid`.
@@ -184,9 +189,9 @@ Post-application checks against production:
   table), as expected.
 - `travel_app` is confirmed `NOBYPASSRLS` and `NOLOGIN` (`rolbypassrls = f`, `rolcanlogin = f`).
 - `core/test/db/integration.test.ts` run with `TEST_DATABASE_URL` = production (5 cases) passes:
-  inventory, no-PUBLIC-grants, serving-tier-only `select`, `planner_draft` per-user isolation through
+  inventory, no-PUBLIC-grants, serving-tier-only `select`, `plan_draft` per-user isolation through
   `withUserTransaction`, and household deny. Synthetic rows used unique `itest-…` ids and were deleted
-  in teardown; a follow-up count of `planner_draft where user_id like 'itest-%'` returned **0**.
+  in teardown; a follow-up count of `plan_draft where user_id like 'itest-%'` returned **0**.
 
 The runner's drift/missing/out-of-order guards make any re-run safe. Private household, traveller,
 booking and saved-location tables are created empty and receive no public read grant; no private

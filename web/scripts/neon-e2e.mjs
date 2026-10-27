@@ -1,7 +1,7 @@
 // Opt-in, real end-to-end service proof for the Neon account path. NO MOCKS and NO swallowed
 // errors: it drives a real browser against a real `next start` server talking to the real managed
 // Better Auth + Realtime + Postgres, and every step throws on failure. It fails closed (exit 2,
-// BLOCKED) when the shared `planner_draft` table is not yet present, rather than pretending to pass.
+// BLOCKED) when the shared `plan_draft` table is not yet present, rather than pretending to pass.
 //
 // Prerequisites:
 //   - The server is running on $PW_E2E_URL (default http://localhost:3000), built with the Neon env.
@@ -51,9 +51,9 @@ async function requireTable() {
   const client = new Client({ connectionString: url });
   await client.connect();
   try {
-    const r = await client.query("select to_regclass('public.planner_draft') is not null as ok");
+    const r = await client.query("select to_regclass('public.plan_draft') is not null as ok");
     if (!r.rows[0].ok) {
-      console.error('neon-e2e BLOCKED: public.planner_draft does not exist yet. The database lane must apply its migrations to the target branch (core/bin/db-migrate.ts up) before the live-draft E2E can run. The app, auth, sealing and fail-closed paths are verified separately.');
+      console.error('neon-e2e BLOCKED: public.plan_draft does not exist yet. The database lane must apply its migrations to the target branch (core/bin/db-migrate.ts up) before the live-draft E2E can run. The app, auth, sealing and fail-closed paths are verified separately.');
       process.exit(2);
     }
   } finally {
@@ -183,7 +183,7 @@ async function main() {
     // RLS (travel_app role + app.user_id) must hide A's row, so 0 rows change and the title is intact.
     const forgedId = randomUUID();
     const original = `Owned by A ${Date.now()}`;
-    await withUserTransaction(idA, (ctx) => ctx.query('insert into public.planner_draft (id, user_id, title) values ($1, $2, $3)', [forgedId, idA, original]));
+    await withUserTransaction(idA, (ctx) => ctx.query('insert into public.plan_draft (id, user_id, title) values ($1, $2, $3)', [forgedId, idA, original]));
 
     const userB = uniqueUser('b');
     const ctxB = await browser.newContext();
@@ -191,12 +191,12 @@ async function main() {
     synthetic.push(idB);
     check('two distinct user ids', idA !== idB);
 
-    const upd = await withUserTransaction(idB, (ctx) => ctx.query("update public.planner_draft set title = 'hacked' where id = $1 returning id", [forgedId]));
+    const upd = await withUserTransaction(idB, (ctx) => ctx.query("update public.plan_draft set title = 'hacked' where id = $1 returning id", [forgedId]));
     check('user B cannot update user A\'s row (RLS, 0 rows)', upd.result.rows.length === 0);
-    const del = await withUserTransaction(idB, (ctx) => ctx.query('delete from public.planner_draft where id = $1 returning id', [forgedId]));
+    const del = await withUserTransaction(idB, (ctx) => ctx.query('delete from public.plan_draft where id = $1 returning id', [forgedId]));
     check('user B cannot delete user A\'s row (RLS, 0 rows)', del.result.rows.length === 0);
 
-    const still = await withUserTransaction(idA, (ctx) => ctx.query('select title from public.planner_draft where id = $1', [forgedId]));
+    const still = await withUserTransaction(idA, (ctx) => ctx.query('select title from public.plan_draft where id = $1', [forgedId]));
     check("user A's row is intact after the forged attempts", still.result.rows[0]?.title === original);
 
     // User B's own account page shows none of user A's drafts.
@@ -226,12 +226,12 @@ async function main() {
     check('durable write + failed re-fetch keeps the committed row and shows the saved-but-not-refreshed notice', true);
     await pageC.unroute('**/api/account/drafts/**');
     // The write really committed: a fresh read under RLS as the owner returns exactly that row.
-    const durable = await withUserTransaction(idC, (ctx) => ctx.query('select title from public.planner_draft where user_id = $1 and title = $2', [idC, degradedTitle]));
+    const durable = await withUserTransaction(idC, (ctx) => ctx.query('select title from public.plan_draft where user_id = $1 and title = $2', [idC, degradedTitle]));
     check('the degraded-path write is durable in the database', durable.result.rows.length === 1);
   } finally {
     // Targeted cleanup: remove only the synthetic users' own drafts, each as its owner.
     for (const uid of synthetic) {
-      await withUserTransaction(uid, (ctx) => ctx.query('delete from public.planner_draft where user_id = $1', [uid]));
+      await withUserTransaction(uid, (ctx) => ctx.query('delete from public.plan_draft where user_id = $1', [uid]));
     }
     await closePools();
     await browser.close();
