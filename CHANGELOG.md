@@ -5,32 +5,56 @@ Every release of the travel site at https://travel-beta-tan.vercel.app, newest f
 migrations applied and the owner's actions. The release order, gates and checklist are in
 [docs/v2/build/RELEASE-PLAN.md](docs/v2/build/RELEASE-PLAN.md) (section 8 is the convention for this file).
 
-## [Next] - unreleased
+## [A] - pending deploy
 
-Planned for **bundle A** (features v0.2, v0.3 and v0.4; tag `release/A`). Since 26 Oct 2026 releases are bundles of
-features: one entry per bundle, its first line listing the features it carries (see section 0a of the release plan).
-The first deploy since v0.1 waits until Mine is ready.
+Code verified at commit `0743e1ca` (release candidate; this entry is the only change after it). No database migrations.
+This release carries v0.2, v0.3 and v0.4, which were not deployed on their own. Owner actions before the deploy:
+analytics token set for production (done), Maps key restricted, rate limit on the catalogue API, a production database
+snapshot, and approval of the named commit.
 
 ### Added
-- Sign-in reachable on phones: a person icon in the phone header and a sign-in line on Mine.
-- A privacy page that says what the site keeps and what it does not.
-- Anonymous page-view counting (Cloudflare Web Analytics: no cookies, no personal data), named on the privacy page.
-- **Mine:** the trips you copied and the places and trips you saved as favourites, kept on this device with no account,
-  on phones and desktops, with a Mine item in the phone bar.
-- A heart on place and trip pages to save a favourite.
-- Basics for 74 more places (where they are, seasons, points), or an honest "Not checked yet".
-- Link previews: shared links show an image.
+- **Trip tabs.** Trip pages open on a Summary with the headline facts, and Days, Stops, Bookings and Photos are tabs.
+  Print works from Summary, Days and Bookings with the same pages.
+- **Mine.** A new item in the phone bar and a link in the header open Mine: your own trips and favourites in one place.
+  Without an account they stay in this browser.
+- **My trips.** A trip you copy with your own dates appears in Mine with its dates and who is travelling. Open it, add it
+  to your calendar, print it, change the dates or remove it. Copies made earlier move into Mine the first time you open
+  it.
+- **Favourites.** Tap the heart on a place or a trip to keep it in Mine. Cards show a small heart for favourites.
+- **Sign in from a phone.** A person icon in the phone header goes to sign-in, or to your account.
+- **Privacy page.** What the site keeps and what it does not, linked from every page.
+- **Page-view counts.** Anonymous counting by Cloudflare Web Analytics: no cookies, no personal data.
+- **Booking windows on paper.** The printed plan and the CSV list what to book ahead and when.
+- **Link previews.** Sharing a trip or place link shows a preview image.
+- **Weather links.** Official weather and climate links for the 14 public trips.
+- **Basics for 74 more places:** where each is and its seasons, or "Not checked yet".
+
+### Changed
+- Trip pages read as published plans ("Published plan"). They no longer show a finished or past state.
+- Photos load from this site in sizes that fit the screen.
+- On phones the open map key covers at most half the map, and map buttons are easier to tap.
+- A printed travel day shows its breaks and the arrival time, for example the time to be at the airport.
+- A long drive split by a break no longer shows the full distance twice.
+- Three Rockies walks draw their drive as a road route.
+- Every filter option on the places page can be reached on a phone.
 
 ### Fixed
-- Trip pages: booking windows in the printed plan and the CSV, travel-day rows in print, larger tap targets on phones,
-  and the map key on phones takes at most half the map.
+- The home page search and place pages no longer scroll sideways on small phones.
+- Pages no longer fail to load when the browser blocks site data.
+
+### Known limits
+- Mine, copies and favourites stay in this browser; they do not follow you to another device yet, even when you sign in.
+- Clearing browser data, a private window or some browsers' cleanup after a few weeks without a visit removes them.
+- Most trail photos we have researched are not shown yet.
+- Signing in with a code sent by email is not switched on yet.
+- The site has no custom domain yet.
 
 ### Internal
-- A tool that builds the catalogue database from the files in the repository and keeps it in sync. No change for
-  visitors.
-- Test tiers and the gate command (TS-1, TS-2a, TS-2, TS-4); a place-size budget that measures catalogue content only.
-
-Later bundles (B to K) are listed in the release plan, section 0a.
+- Trip identifiers in public pages and the API no longer carry travel months.
+- Budgets at the final check: trip start JS 190.3 KB of 200 KB; place size median 1.2485 of 1.25; shell chrome 3,437 B of
+  5,028 B (public) and 3,761 B of 6,693 B (sign-in on).
+- A read endpoint that resolves renamed and withdrawn pages for Mine; booking windows in the export contract; the image
+  steps run before the build and never fetch from Commons on the build server.
 
 ## [v0.1] - 2026-10-25
 
