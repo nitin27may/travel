@@ -191,7 +191,8 @@ describe("the envelope exposure map (8.1, core/src/schema/exposure.ts)", () => {
   it("holds no household row and sends no internal key to MCP; the detector's private keys are never MCP-public", () => {
     expect(envelopeProblems(ENVELOPE_EXPOSURE)).toEqual([]);
     for (const m of READ_MODELS) for (const [k, e] of Object.entries(ENVELOPE_EXPOSURE[m])) if (PRIVATE_KEYS.includes(k)) expect([m, k, e.mcp]).toEqual([m, k, "none"]);
-    expect(ENVELOPE_EXPOSURE.tripDetail.legacyUrl!.mcp).toBe("none");
+    expect(ENVELOPE_EXPOSURE.tripDetail.legacyUrl).toBeUndefined();
+    expect(ENVELOPE_EXPOSURE.tripDetail.parks!.privacy).toBe("derived");
     expect(ENVELOPE_EXPOSURE.placeDetail.sources!.privacy).toBe("internal");
   });
   it("fails a planted household key and an internal key sent to MCP", () => {

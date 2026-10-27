@@ -526,9 +526,9 @@ R required, R? required when its condition holds, A applicable, Ro required when
 | tripDetail | `fromHubs` | derived | public |
 | tripDetail | `gallery` | public | public |
 | tripDetail | `honesty` | derived | public |
-| tripDetail | `legacyUrl` | internal | none |
 | tripDetail | `lengthClass` | derived | public |
 | tripDetail | `nights` | public | public |
+| tripDetail | `parks` | derived | public |
 | tripDetail | `ref` | public | public |
 | tripDetail | `region` | public | public |
 | tripDetail | `schedule` | derived | none |
