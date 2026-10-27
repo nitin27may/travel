@@ -199,7 +199,7 @@ export const CAP_WARNING_LIST = Object.keys(CAP_WARNING_CODES) as CapWarningCode
 export const PLACE_ERROR_CODES = {
   E_PLACE_AREA: "a place or route has no area_id, or its area_id is not an area, region or country of the locations store",
   E_PLACE_ORPHAN: "an offer or event whose at, on and starts_at (an event's part_of) all fail to reach a place or route",
-  E_PLACE_FAR: "a point lies more than 25 km outside the box of the locations-store places of its area (a wrong area or a swapped lat and lon)",
+  E_PLACE_FAR: "a point lies more than 25 km outside the box of the locations-store places of its area, widened for a park member by the park's point and its other members' points (a wrong area or a swapped lat and lon)",
 } as const;
 export const PLACE_WARNING_CODES = {
   W_PLACE_POINT: "a place or route has no point in either points sidecar (a route may use the point of its starts_at); an error once strict after the migration",

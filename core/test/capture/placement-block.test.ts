@@ -11,7 +11,7 @@ import { PROPERTY_BY_KEY } from "../../src/schema/capture/properties.ts";
 import { PLACE_ERROR_LIST, PLACE_WARNING_LIST } from "../../src/validate/codes.ts";
 import { validateDoc } from "../../src/validate/index.ts";
 import { checkBudget, inStore, levelOf, writeBudget } from "../../src/capture/gapBudget.ts";
-import { defaultPointRole, kmOutside, loadPoints, PLACEMENT_CODES } from "../../src/capture/placementBlock.ts";
+import { defaultPointRole, kmOutside, loadPlacement, loadPoints, parksJudging, placementFindings, PLACEMENT_CODES } from "../../src/capture/placementBlock.ts";
 import { kindOf, recordTier } from "../../src/capture/tiers.ts";
 import { loadWorld } from "../../src/capture/records.ts";
 import { REPO, capDoc, put, scope, scratchRoot } from "./helpers.ts";
@@ -138,6 +138,100 @@ describe("the placement codes (3.7)", () => {
     const searched = { kind: "official", state: "searched_none", query: "Lago di Braies official site", on: "2026-10-21" };
     const t1 = recordTier(loadWorld(r, join(r, LANE), [capDoc([lake({ links: [searched] })]) as never]), "place/lago-di-braies")!;
     expect(t1.requiredMissing).not.toContain("links");
+  });
+});
+
+describe("E_PLACE_FAR and protected areas (PA-R-CA2)", () => {
+  // Banff NP as the locations store knows it: two store places (the park at its town visitor centre, Lake Louise), so the area's box is
+  // judged; Bow Lake and Peyto Lake lie 30 to 40 km north of that box on the Icefields Parkway, inside the park.
+  const PARK_AREA = "CA/AB/banff-national-park";
+  const parkLocations = {
+    schema_version: 3,
+    countries: [{ code: "CA", a3: "CAN", name: "Canada" }],
+    regions: [{ id: "CA/AB", country: "CA", code: "01", name: "Alberta" }],
+    areas: [
+      { id: PARK_AREA, region_id: "CA/AB", slug: "banff-national-park", name: "Banff National Park" },
+      { id: "CA/AB/canmore", region_id: "CA/AB", slug: "canmore", name: "Canmore" },
+    ],
+    places: [
+      { id: `${PARK_AREA}/banff-national-park`, area_id: PARK_AREA, name: "Banff National Park", lat: 51.16667, lon: -115.55 },
+      { id: `${PARK_AREA}/lake-louise`, area_id: PARK_AREA, name: "Lake Louise", lat: 51.41167, lon: -116.22806 },
+    ],
+  };
+  const park = { ref: "place/banff-national-park", type: "nature.protected.national_park", layer: "place", name: "Banff National Park", area_id: PARK_AREA, covers_areas: [PARK_AREA] };
+  const bow = { ref: "place/bow-lake", type: "water.body.lake", layer: "place", name: "Bow Lake", area_id: PARK_AREA };
+  const peyto = { ref: "place/peyto-lake", type: "water.body.lake", layer: "place", name: "Peyto Lake", area_id: PARK_AREA };
+  const parkPoints = {
+    "place/banff-national-park": pt(51.17798, -115.57024),
+    "place/bow-lake": pt(51.66444, -116.44861),
+    "place/peyto-lake": pt(51.725, -116.52222),
+  };
+  const parkRoot = (points: Record<string, unknown> = parkPoints) => scratchRoot({
+    "data/suitability/scope.json": scope(["bow-lake", "peyto-lake"]),
+    "data/capture/operators.json": { schema: "capture-operators/1", updated: "2026-10-27", operators: [] },
+    "data/locations/locations.json": parkLocations,
+    "data/capture/points.json": { schema: "capture-points/1", points },
+  });
+  const farOf = (res: { errors: { code: string; message: string }[] }) => res.errors.filter((e) => e.code === "E_PLACE_FAR");
+
+  it("without the park record, a lake 40 km north of the two store places is flagged (the rule as it was)", () => {
+    const res = inLane(parkRoot(), capDoc([bow, peyto]));
+    expect(farOf(res).map((e) => e.message.split(" ")[3])).toEqual(["place/bow-lake", "place/peyto-lake"]);
+  });
+  it("a member of a big park that covers its area passes: the park's point and its other members' points are the park's extent", () => {
+    const res = inLane(parkRoot(), capDoc([park, bow, peyto]));
+    expect(farOf(res)).toEqual([]);
+    // an explicit part_of a member counts too (the Bow Lake car park): the chain reaches the park
+    const lot = { ref: "part/place/bow-lake#parking", type: "access.park.lot", layer: "place", name: "Bow Lake parking", area_id: PARK_AREA, part_of: ["place/bow-lake"] };
+    const withLot = inLane(parkRoot({ ...parkPoints, "part/place/bow-lake#parking": pt(51.66986, -116.44804) }), capDoc([park, bow, peyto, lot]));
+    expect(farOf(withLot)).toEqual([]);
+  });
+  it("a member with a swapped lat and lon is still flagged, and its own point never widens the box that judges it", () => {
+    const crowfoot = { ...bow, ref: "place/crowfoot-lake", name: "Crowfoot Lake" };
+    const res = inLane(parkRoot({ ...parkPoints, "place/crowfoot-lake": pt(51.63, -116.43), "place/peyto-lake": pt(-116.52222 + 168, 51.725) }), capDoc([park, bow, crowfoot, peyto]));
+    const far = farOf(res);
+    expect(far.map((e) => e.message.split(" ")[3])).toEqual(["place/peyto-lake"]);
+    expect(far[0].message).toMatch(/points of place\/banff-national-park and its members/);
+  });
+  it("a lone member far from every known point of its park is still flagged", () => {
+    expect(farOf(inLane(parkRoot(), capDoc([park, bow]))).map((e) => e.message.split(" ")[3])).toEqual(["place/bow-lake"]);
+  });
+  it("a non-member far point is still flagged: part_of a place that is not a park, or an area the park does not cover", () => {
+    // the container is in an area no park covers, so the chain reaches no park
+    const lodge = { ref: "place/lodge", type: "water.body.lake", layer: "place", name: "A lodge", area_id: "CA/AB/canmore" };
+    const notPark = { ...peyto, part_of: ["place/lodge"] };
+    const crowfoot = { ...bow, ref: "place/crowfoot-lake", name: "Crowfoot Lake" }; // keeps Bow Lake from being a lone member
+    const r = parkRoot({ ...parkPoints, "place/crowfoot-lake": pt(51.63, -116.43), "place/lodge": pt(51.2, -115.6) });
+    expect(farOf(inLane(r, capDoc([park, bow, crowfoot, lodge, notPark]))).map((e) => e.message.split(" ")[3])).toEqual(["place/peyto-lake"]);
+    // part_of the park, but its area_id is another area: membership and area disagree, so the area box alone judges it
+    const canmore = { ...parkLocations, places: [...parkLocations.places, { id: "CA/AB/canmore/canmore", area_id: "CA/AB/canmore", name: "Canmore", lat: 51.089, lon: -115.359 }, { id: "CA/AB/canmore/grassi", area_id: "CA/AB/canmore", name: "Grassi Lakes", lat: 51.07, lon: -115.4 }] };
+    const r2 = scratchRoot({
+      "data/suitability/scope.json": scope(["bow-lake", "peyto-lake"]),
+      "data/capture/operators.json": { schema: "capture-operators/1", updated: "2026-10-27", operators: [] },
+      "data/locations/locations.json": canmore,
+      "data/capture/points.json": { schema: "capture-points/1", points: { ...parkPoints, "place/crowfoot-lake": pt(51.63, -116.43) } },
+    });
+    const res = inLane(r2, capDoc([park, bow, crowfoot, { ...peyto, area_id: "CA/AB/canmore", part_of: ["place/banff-national-park"] }]));
+    expect(farOf(res).map((e) => e.message.split(" ")[3])).toEqual(["place/peyto-lake"]);
+  });
+  it("an approximate member point does not widen the park's extent", () => {
+    const res = inLane(parkRoot({ ...parkPoints, "place/peyto-lake": pt(51.725, -116.52222, { approx: true, approx_note: "map guess" }) }), capDoc([park, bow, peyto]));
+    expect(farOf(res).map((e) => e.message.split(" ")[3])).toEqual(["place/bow-lake"]);
+  });
+  it("the real Rockies: Bow Lake, its parking, Peyto Lake and the Peyto lookout are members of Banff NP and not far; a swapped Peyto is", () => {
+    const refs = ["legacy/canadian-rockies-sept-2029/sights/bow-lake", "part/legacy/canadian-rockies-sept-2029/sights/bow-lake#parking", "legacy/canadian-rockies-sept-2029/sights/peyto-lake", "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout"];
+    const w = loadWorld(REPO);
+    const pw = loadPlacement(REPO, w);
+    expect(pw.tree.boxes.get(PARK_AREA)!.n).toBeGreaterThanOrEqual(2); // the box is judged, so this is the case that needed the rule
+    for (const ref of refs) {
+      const rec = w.cap.get(ref)!.rec;
+      expect(parksJudging(pw, rec), ref).toContain("place/banff-national-park");
+      expect(placementFindings(pw, rec).map((f) => f.code), ref).not.toContain("E_PLACE_FAR");
+    }
+    const swapped = loadPlacement(REPO, w);
+    const p = swapped.points.get(refs[2])!;
+    swapped.points.set(refs[2], { ...p, lat: p.lon + 168, lon: p.lat });
+    expect(placementFindings(swapped, w.cap.get(refs[2])!.rec).map((f) => f.code)).toContain("E_PLACE_FAR");
   });
 });
 

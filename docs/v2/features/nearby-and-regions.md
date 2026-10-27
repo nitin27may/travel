@@ -218,7 +218,7 @@ New codes in the capture validator, run by `bash tools/check-all.sh`:
 | `E_PLACE_ORPHAN` | error | an offer or event whose `at`, `on` and `starts_at` all fail to resolve |
 | `W_PLACE_POINT` | warning, error after migration | a place or route with no point |
 | `W_PLACE_APPROX` | warning | an approximate point with no note |
-| `E_PLACE_FAR` | error | the point lies more than 25 km outside the bounding box of its area (a wrong area or a swapped lat and lon) |
+| `E_PLACE_FAR` | error | the point lies more than 25 km outside the bounding box of its area (a wrong area or a swapped lat and lon). For a member of a protected area (`entity-graph` containment: `part_of`, else `covers_areas`) whose `covers_areas` holds the record's own area, the box also takes the park's point and the exact points of its other such members, since one store place cannot span a park (PA-R-CA2: Bow Lake and Peyto Lake in Banff NP) |
 | `W_PLACE_TOWN` | warning | `near_town` not derived (the derive step was not run) |
 
 Migrated records are pinned by `migration-ledger.json`, so the new checks warn on them until migration step 5 below, then

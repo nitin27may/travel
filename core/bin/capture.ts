@@ -92,7 +92,7 @@ export function placementBlock(node: ResolvedNode, layers: Layer[]): Record<stri
       point: { mark: "R", role: defaultPointRole(node.id, l), home: "data/capture/points.json by ref", fields: "lat, lon, coord_src (osm, wikidata, official, manual), point_source, point_role", sources: "D: OSM node or way, Wikidata P625; F: the land manager's page; manual last. Never Google (W_PLACE_POINT)" },
       approx: "true only for a centroid or a guess, with approx_note saying why (W_PLACE_APPROX); it counts for Where, never for distances",
       near_town: `computed (META-2): the nearest settlement of at least ${PLACEMENT_RULES.townMinPopulation} people within ${PLACEMENT_RULES.townRadiusKm} km, as a town id like ca-on-whitby, with near_town_km; override only when the operator names a town (W_PLACE_TOWN)`,
-      far: `a point more than ${PLACEMENT_RULES.farKm} km outside its area is an error (E_PLACE_FAR)`,
+      far: `a point more than ${PLACEMENT_RULES.farKm} km outside its area is an error (E_PLACE_FAR); for a member of a protected area that covers its area, the park's point and its other members' exact points widen the area`,
     };
   }
   return { note: "Every record you add or touch leaves with this block (capture contract 3.7). New records error on a gap; records pinned in data/capture/gap-budget.json warn.", layers: per };
