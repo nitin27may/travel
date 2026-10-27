@@ -3,7 +3,7 @@
 // siteverify (with the published test secrets and live-style answers). The quota store is the in-memory one with the semantics of
 // quota_take(), the mailer the outbox, and session revocation a spy. Every console line is captured and scanned at the end.
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { AUTH_LIMITS } from '@travel/core/config/auth-limits.ts';
+import { AUTH_GUARD, AUTH_LIMITS } from '@travel/core/config/auth-limits.ts';
 import { createOutboxMailer, ownerOnly, type Mailer, type Outbox } from '@travel/core/mail/index.ts';
 import { createMemoryQuotaStore, type MemoryQuotaStore } from '@travel/core/quota/memory.ts';
 
@@ -11,7 +11,21 @@ const state = vi.hoisted(() => ({
   store: null as unknown as MemoryQuotaStore,
   mailer: null as unknown as Mailer,
   revoke: (async () => 0) as (email: string, before: Date) => Promise<number>,
+  /** The answer hold (SF5): every wait asked for, and a fake monotonic clock, so no test really waits. */
+  holds: [] as number[],
+  clock: 0,
 }));
+
+vi.mock('@/lib/auth/answer-hold', async (importActual) => {
+  const real = await importActual<typeof import('@/lib/auth/answer-hold')>();
+  return {
+    ...real,
+    sleep: async (ms: number) => {
+      state.holds.push(ms);
+    },
+    monotonicMs: () => state.clock,
+  };
+});
 
 vi.mock('@travel/core/quota/pg.ts', () => ({
   createPgQuotaStore: () => ({
@@ -72,6 +86,8 @@ beforeEach(() => {
   outbox = box;
   state.mailer = ownerOnly(box, { ownerEmail: OWNER, mailFrom: undefined });
   state.revoke = vi.fn(async () => 2);
+  state.holds = [];
+  state.clock = 0;
   neonCalls = [];
   cfCalls = [];
   neon = () => Response.json({ success: true });
@@ -714,7 +730,7 @@ describe('hotfix A1: allow-list, flags, origin, fields', () => {
     expect((await call('email-otp/send-verification-otp', { email: 'v@example.test', type: 'email-verification' })).status).toBe(200);
     expect(cfCalls).toHaveLength(1);
     expect(new Set(state.store.rows().map((r) => r.bucket))).toEqual(
-      new Set(['auth:password:addr', 'auth:password:ip', 'auth:send:addr', 'auth:send:ip', 'auth:send:global', 'auth:metric:sent']),
+      new Set(['auth:password:addr_ip', 'auth:password:addr', 'auth:password:ip', 'auth:send:addr', 'auth:send:ip', 'auth:send:global', 'auth:metric:sent']),
     );
   });
 
@@ -723,6 +739,97 @@ describe('hotfix A1: allow-list, flags, origin, fields', () => {
     await sendCode('b@example.test', { 'x-vercel-forwarded-for': '192.0.2.1, 198.51.100.10' });
     await sendCode('c@example.test', { 'x-vercel-forwarded-for': 'garbage' });
     expect(cfCalls.map((f) => f.get('remoteip'))).toEqual(['198.51.100.9', '198.51.100.10', '203.0.113.7']);
+  });
+});
+
+describe('review fixes SF3 and SF5', () => {
+  it('password: a guesser on one network locks out only that network; other networks stop at the address ceiling (SF3)', async () => {
+    neon = () => Response.json({ code: 'INVALID_EMAIL_OR_PASSWORD' }, { status: 401 });
+    const tight = AUTH_LIMITS.passwordAddrIp.windows[0].limit;
+    const ceiling = AUTH_LIMITS.passwordAddr.windows[0].limit;
+    const from = (ip: string) => call('sign-in/email', { email: 'v@example.test', password: 'wrong-password' }, { 'x-real-ip': ip });
+    for (let i = 0; i < tight; i++) expect((await from('198.51.100.1')).status).toBe(401);
+    expect((await from('198.51.100.1')).status).toBe(429);
+    // The owner of the address, on another network, still gets an answer from Neon.
+    expect((await from('192.0.2.200')).status).toBe(401);
+    // Spread over many networks, the address-only ceiling holds.
+    let ok = tight + 1;
+    for (let n = 2; ok < ceiling; n++) for (let i = 0; i < tight && ok < ceiling; i++, ok++) expect((await from(`198.51.100.${n}`)).status).toBe(401);
+    const stopped = await from('198.51.100.250');
+    expect(stopped.status).toBe(429);
+    expect(stopped.headers.get('retry-after')).not.toBeNull();
+  });
+
+  it('code checks: one network is locked out per address, another is not, under the address ceiling (SF3)', async () => {
+    neon = () => Response.json({ code: 'INVALID_OTP' }, { status: 400 });
+    const tight = AUTH_LIMITS.verifyAddrIp.windows[0].limit;
+    const from = (ip: string) => call('sign-in/email-otp', { email: 'v@example.test', otp: '000000' }, { 'x-real-ip': ip });
+    for (let i = 0; i < tight; i++) expect((await from('198.51.100.1')).status).toBe(400);
+    expect((await from('198.51.100.1')).status).toBe(429);
+    expect((await from('192.0.2.200')).status).toBe(400);
+    expect(AUTH_LIMITS.verifyAddr.windows[0].limit).toBeGreaterThan(AUTH_LIMITS.verifyIp.windows[0].limit);
+    expect(AUTH_LIMITS.passwordAddr.windows[0].limit).toBeGreaterThan(AUTH_LIMITS.passwordIp.windows[0].limit);
+  });
+
+  it('the address-and-IP keys are hashes like every other key (no raw address or IP in the store)', async () => {
+    neon = () => Response.json({ code: 'INVALID_EMAIL_OR_PASSWORD' }, { status: 401 });
+    await call('sign-in/email', { email: 'v@example.test', password: 'wrong-password' });
+    const rows = state.store.rows().filter((r) => r.bucket === 'auth:password:addr_ip');
+    expect(rows).toHaveLength(1);
+    expect(rows[0].key).toMatch(/^[0-9a-f]{32}$/);
+  });
+
+  it('holds every send and sign-up answer to the minimum time plus jitter, minus the time already spent (SF5)', async () => {
+    const { answerMinMs, answerJitterMs } = AUTH_GUARD;
+    neon = () => {
+      state.clock += 400; // Neon took 400 ms
+      return Response.json({ success: true });
+    };
+    expect((await sendCode('a@example.test')).status).toBe(200);
+    expect((await call('email-otp/request-password-reset', { email: 'b@example.test' })).status).toBe(200);
+    neon = () => Response.json({ token: null, user: null });
+    expect((await call('sign-up/email', { email: 'c@example.test', password: 'a-long-password' })).status).toBe(200);
+    expect(state.holds).toHaveLength(3);
+    expect(state.holds[0]).toBeGreaterThanOrEqual(answerMinMs - 400);
+    expect(state.holds[0]).toBeLessThan(answerMinMs + answerJitterMs - 400);
+    expect(state.holds[2]).toBeGreaterThanOrEqual(answerMinMs);
+    // Refusals of those routes are held too (a quota answer must not be faster than a send).
+    expect((await sendCode('a@example.test')).status).toBe(429);
+    expect(state.holds).toHaveLength(4);
+    expect(state.holds[3]).toBeGreaterThanOrEqual(answerMinMs);
+  });
+
+  it('a known and an unknown address answer after the same hold however fast Neon is (SF5)', async () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0.5);
+    neon = (_p, body) => {
+      state.clock += body?.email === 'known@example.test' ? 900 : 50; // Neon sends a mail only for the known address
+      return Response.json({ success: true });
+    };
+    const t0 = state.clock;
+    await call('email-otp/request-password-reset', { email: 'known@example.test' });
+    const known = state.clock - t0 + state.holds[0];
+    at('2026-10-25T10:05:30Z');
+    const t1 = state.clock;
+    await call('email-otp/request-password-reset', { email: 'unknown@example.test' }, { 'x-real-ip': '192.0.2.50' });
+    const unknown = state.clock - t1 + state.holds[1];
+    expect(known).toBe(unknown);
+  });
+
+  it('logs the SQLSTATE of a quota store failure, so a missing migration 0011 shows in the logs (SF7)', async () => {
+    const { QuotaUnavailableError } = await vi.importActual<typeof import('@travel/core/quota/pg.ts')>('@travel/core/quota/pg.ts');
+    state.store = { ...state.store, take: async () => Promise.reject(new QuotaUnavailableError('42883')) } as MemoryQuotaStore;
+    const res = await call('sign-in/email', { email: 'v@example.test', password: 'a-long-password' });
+    expect((await res.json()).code).toBe('GUARD_UNAVAILABLE');
+    expect(logs.some((l) => l.includes('"outcome":"quota_unavailable"') && l.includes('"sqlstate":"42883"'))).toBe(true);
+  });
+
+  it('does not hold code checks, password sign-in, the session read or a foreign Origin', async () => {
+    neon = () => Response.json({ code: 'INVALID_OTP' }, { status: 400 });
+    await call('sign-in/email-otp', { email: 'v@example.test', otp: '000000' });
+    await call('sign-in/email', { email: 'v@example.test', password: 'a-long-password' });
+    await GET(req('get-session', null, {}, 'GET'), ctx('get-session'));
+    expect((await sendCode('v@example.test', { origin: 'https://evil.test' })).status).toBe(403);
+    expect(state.holds).toHaveLength(0);
   });
 });
 

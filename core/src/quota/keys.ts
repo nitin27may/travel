@@ -26,6 +26,16 @@ export function addressHash(secret: string, address: string, at: Date): string |
   return key ? hmac(secret, "addr", utcDay(at), key) : null;
 }
 
+/**
+ * The key for an address and a client IP together (review EML-S SF3: the tight per-address limit on checks applies per network, so a
+ * guesser elsewhere cannot keep the owner of the address locked out). Null when the address is not plausible.
+ */
+export function addressIpHash(secret: string, address: string, ip: string, at: Date): string | null {
+  assertSecret(secret);
+  const key = addressKey(address);
+  return key ? hmac(secret, "addr_ip", utcDay(at), `${key}\u0000${ip.trim().toLowerCase() || "unknown"}`) : null;
+}
+
 /** The key for a client IP (`unknown` when the platform gave none: one shared, strict bucket). */
 export function ipHash(secret: string, ip: string, at: Date): string {
   assertSecret(secret);

@@ -522,10 +522,11 @@ Phase 1: only the first three exist, in Neon's own template from the shared send
 | Pre-account hijacking through Google (CVE-2026-53516) | Google spec L1 and L2; E3 makes new password accounts verified | gate there |
 | Mail bombing a third party | per-address send caps and cooldown; Turnstile; no user text in mails; codes expire | Phase 1: 1 per 60 s, 4 per hour, 8 per 24 h per address (5.2) |
 | Exhausting the shared sender's unknown limit, so nobody gets a code (Phase 1) | Turnstile on every send; a global cap far below any plausible limit; owner alert on the first Neon refusal of a day; password and Google keep working | 10 per hour, 30 per 24 h global |
-| Code guessing | Neon attempt cap (U9; Better Auth default 3 per code); our verify buckets | 10 verify calls per hour per address, 20 per hour per IP |
-| Password guessing | our per-IP and per-address buckets on `/sign-in/email`; no lockout (a lockout lets anyone lock out a victim) | 10 per 15 min per address, 20 per 15 min per IP |
+| Using the global cap as a denial of service (review EML-S SF4) | **Residual risk, not removed in Phase 1.** About 30 sends that pass Turnstile (3 hours at 10, or about 5 IPs at 6 an hour) stop code sign-in, sign-up and reset for every visitor until the UTC day ends; until Google ships, a code-only user has no other way in. The first `auth-global-cap` alert of a day mails the owner at once (`guard.ts`, test "global: 10 an hour ... one owner alert a day"), so the owner knows at once and can raise the cap in `auth-limits.ts` and redeploy (not `AUTH_GUARD=off`, which drops every control). **Owner acceptance by name: open** (record the name and date here) | 30 per 24 h |
+| Code guessing | Neon attempt cap (U9; Better Auth default 3 per code); our verify buckets, the tight one keyed on address and IP together, so a guesser on one network cannot lock out the owner of the address on another (SF3) | 10 verify calls per hour per address and IP, 60 per hour per address from all IPs, 20 per hour per IP |
+| Password guessing | our buckets on `/sign-in/email`, the tight one keyed on address and IP together; no lockout one network can renew: locking a victim out takes three or more networks at full rate (SF3) | 10 per 15 min per address and IP, 60 per 15 min per address from all IPs, 20 per 15 min per IP |
 | Scripted sign-ups | Turnstile on sign-up and every send call; per-IP sign-up bucket | 5 per hour, 20 per 24 h per IP |
-| Enumeration | identical body and status for known and unknown addresses on every send call; passwordless step 1 asks nothing; sign-up existing-address mapped to success (U8); timing: the proxy waits for Neon in both cases (no early return on our side) | n/a |
+| Enumeration | identical body and status for known and unknown addresses on every send call; passwordless step 1 asks nothing; sign-up existing-address mapped to success (U8); timing: the proxy waits for Neon in both cases (no early return on our side), and every answer of a send or sign-up route is held to a fixed minimum time plus jitter, so Neon answering faster when it sends nothing does not show (SF5; `AUTH_GUARD.answerMinMs`, measured against Neon in EML-V) | 1.2 s plus up to 0.3 s |
 | Scanners consuming links | E5: the token rides in the fragment of our page; the verify call needs a button press, a custom header and a same-origin fetch | n/a |
 | Open redirect | links in mails are built only from `SITE_ORIGIN` and the token, never from `link_url`'s host or the request `Host`; `next` goes through `return-path.ts`; the proxy strips any `callbackURL` on verify; Neon trusted domains stay exact | n/a |
 | Phishing through our sender | no user text (E8); fixed subjects; only our origin in links; From never changes | n/a |
@@ -549,8 +550,8 @@ sender's real limit, `auth:send:global` is set to at most half of it.
 | `auth:send:ip` | HMAC of the client IP (daily key) | 6 per hour; 20 per 24 h | 10 per hour; 30 per 24 h | 429 |
 | `auth:send:net` | HMAC of the /24 or /48 | not in Phase 1 (the global cap covers it at this size) | 60 per 24 h | 429 |
 | `auth:send:global` | none | 10 per hour; 30 per 24 h | the `mail:auth` share of the Resend budget (section 9) | 503 "We couldn't send the email" plus one owner alert a day |
-| `auth:verify:addr`, `auth:verify:ip` | as above | 10 and 20 per hour | same | 429 |
-| `auth:password:addr`, `auth:password:ip` | as above | 10 and 20 per 15 min | same | 429 "Too many attempts. Wait 15 minutes, or sign in with a code" |
+| `auth:verify:addr_ip`, `auth:verify:addr`, `auth:verify:ip` | HMAC of address and IP together; address; IP | 10, 60 and 20 per hour | same | 429 |
+| `auth:password:addr_ip`, `auth:password:addr`, `auth:password:ip` | as `auth:verify:*` | 10, 60 and 20 per 15 min | same | 429 "Too many attempts. Wait 15 minutes, or sign in with a code" |
 | `auth:signup:ip` | as above | 5 per hour; 20 per 24 h | same | 429 |
 | `auth:metric:sent`, `auth:metric:refused`, `auth:metric:verified` | none (counts per UTC day) | count only, never refuse | same | feeds the owner alerts and `quota.ts stats` (Decision 25 Oct) |
 
@@ -607,7 +608,9 @@ global limit only if each fails fast, which the 3 s Resend timeout ensures.
 ### 5.6 Privacy
 
 - Mails carry no tracking, no images, no remote fonts (E9). Resend tracking stays off (R9).
-- Stored: quota rows hold hashes and counts only, purged after 48 h; the webhook event-id table keeps ids for 24 h;
+- Stored: quota rows hold hashes and counts only; a hashed row is purged by `quota_take()` 48 h after its window ends, so at the
+  next sign-in attempt by anyone after that (up to 72 h for a day window; there is no scheduled purge, review SF6); content-free
+  daily totals after 35 days. `/privacy/` says exactly this. The webhook event-id table keeps ids for 24 h;
   `account_mail_state` (EML-N) holds `welcomed_at` per user under owner-predicate RLS.
 - Phase 1: account mail is sent by Neon (sender, wording and logs are Neon's); Resend receives only owner alerts, which
   carry no visitor address or text. EML-P's "Sign-in emails" section on `/privacy/` (owned by GSI-P) says so in the
@@ -912,11 +915,22 @@ Better Auth, Project Info, Application Name = `Trip Plans`, so Neon's code mails
 ```bash
 neon neon-auth config email-password update --project-id damp-queen-64719841 --branch br-soft-glade-b4mkqyvd \
   --email-verification-method otp --require-email-verification=true \
-  --send-verification-email-on-sign-up=true --send-verification-email-on-sign-in=true
+  --send-verification-email-on-sign-up=true --send-verification-email-on-sign-in=false
 neon neon-auth config email-password get --project-id damp-queen-64719841 --branch br-soft-glade-b4mkqyvd
 ```
 
 Not before EML-1 is live: today's form has no code step, so new and unverified users would be stuck.
+**Send on sign-in stays `false`** (review EML-S MF2): with it on, every password sign-in to an unverified account mails a code
+with no Turnstile and no send bucket. The card asks for that code through the guarded send route instead (hotfix A1).
+
+**O-E1a (before relying on `NEXT_PUBLIC_SIGN_IN=1` in production, 5 minutes; review EML-S SF7).** Release A deployed the guard
+with no database migration, so `0011_quota.sql` may be missing on production. Without it every guarded call answers 503
+`GUARD_UNAVAILABLE`, password sign-in included, and the guard logs `quota_unavailable` with `sqlstate` 42P01 or 42883.
+1. `node --env-file=<owner env file> core/bin/quota.ts check` against production: it reads only the catalogue and prints
+   "quota store ready" (exit 0) or what is missing (exit 1). If missing, apply the migrations, then run `check` and
+   `quota.ts stats` again.
+2. `vercel env ls production`: whether `NEXT_PUBLIC_SIGN_IN` is set, and that `AUTH_GUARD` is **not** listed (it turns every
+   abuse control off; rollback only, 11.2 step 4).
 
 **O-E2 (any time, 10 minutes).** Cloudflare dashboard, Turnstile, add a widget (managed mode), hostnames
 `travel-beta-tan.vercel.app` and `localhost`. One widget serves this spec and the feedback spec. Put the site key in
@@ -1245,6 +1259,7 @@ and EML-E2 append dated entries here, each test with pass or fail.
 | Date | Change |
 |---|---|
 | 2026-10-25 | First version from the owner's request of 25 Oct (magic link, password confirmation, templates, Resend key added; no custom domain, Apple skipped, one environment). R-100 to R-107, BACKLOG 15.100 to 15.107, Q140 to Q147 |
+| 2026-10-27 | EML-F (review EML-S SF3 to SF7): address-and-IP check buckets under address ceilings; the send and sign-up answer hold; the global-cap residual risk in 5.1 (owner acceptance open); retention and privacy wording as built; O-E1 send on sign-in `false`; O-E1a readiness check (`quota.ts check`) |
 | 2026-10-25 | Owner decision "shared sender first" (about 20 to 30 users): new Decision section; Phase 1 (shared sender for all account mail, Resend sandbox for owner alerts only, 28.5 h) and Phase 2 (after a verified domain: custom SMTP first, then magic link, notices, and templates plus webhooks only if Q149, 29 or 42.5 h); quotas resized for the shared sender; budgets per sender; O-E0 waits for EML-0; `OWNER_EMAIL` in Vercel; Q142 superseded, Q143 and Q144 re-scoped, Q148 and Q149 added; reporting requires sign-in in Phase 1 |
 
 ## EML-0 results (25 Oct 2026, child branch, Opus)
