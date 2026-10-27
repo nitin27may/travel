@@ -37,8 +37,9 @@ describe('Summary: the Canadian Rockies', () => {
     expect(html).toMatch(/href="\?view=bookings"/);
     expect(html).toMatch(/href="\?view=photos"/);
     expect(html).toContain('to book ahead');
-    expect(html).toContain('earliest: Parks Canada Lake Louise / Moraine Lake shuttle');
-    expect(html).toContain('7 to book ahead');
+    // the lottery opens in March, before the shuttle's April launch day (PA-R-CA2)
+    expect(html).toContain('earliest: Lake O&#x27;Hara day-use bus (lottery)');
+    expect(html).toContain('8 to book ahead');
     expect(html).not.toMatch(/<a [^>]*class="sum-card"[^>]*>[^]*?<button/);
   });
   it('shows at most eight highlights, four of them behind "Show 4 more" on a phone, each with its day links into Days', () => {

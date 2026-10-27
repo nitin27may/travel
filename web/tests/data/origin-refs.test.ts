@@ -22,7 +22,7 @@ describe('place refs name no wishlist or prototype origin (A24)', () => {
 
   it('every page ref is a capture ref or place/<slug>, distinct, and never an origin key', () => {
     const refs = [...pb.refBySlug.values()];
-    expect(refs.length).toBe(431); // 359 before DATA-D4a folded five offers into their places; 355 before AREA-2 added 76 store places
+    expect(refs.length).toBe(436); // 431 before PA-R-CA added 5 park store places; 359 before DATA-D4a folded five offers into their places; 355 before AREA-2 added 76 store places
     expect(new Set(refs).size).toBe(refs.length);
     for (const [slug, ref] of pb.refBySlug) {
       expect(ref, slug).toMatch(REF_RE);
@@ -30,7 +30,7 @@ describe('place refs name no wishlist or prototype origin (A24)', () => {
     }
   });
 
-  it('the page adapter serves the PUBLIC form of every ref: no dated folder in any page or card, the 431 refs still distinct (public-ref-aliases 5.1 B2)', () => {
+  it('the page adapter serves the PUBLIC form of every ref: no dated folder in any page or card, the 436 refs still distinct (public-ref-aliases 5.1 B2)', () => {
     const table = folderAliases();
     const pub = new Set<string>();
     let moved = 0;
@@ -45,15 +45,15 @@ describe('place refs name no wishlist or prototype origin (A24)', () => {
       expect(r === ref || /legacy\//.test(ref), slug).toBe(true); // only a legacy-folder ref moves
       pub.add(r);
     }
-    expect(pub.size).toBe(431);
+    expect(pub.size).toBe(436);
     expect(moved).toBeGreaterThan(0);
     for (const c of listPlaces()) expect(hasDatedFolder(JSON.stringify(c)), c.slug).toBe(false);
   });
 
-  it('the 191 pages with no capture record (150 wishlist, 41 prototype; 115 and 74 before AREA-2 added 76 store places) hold the ref their origin is pinned to, minted from their slug', () => {
-    expect(pb.originRefs.size).toBe(191);
+  it('the 196 pages minted from their origin (155 wishlist, 41 prototype; 150 wishlist before PA-R-CA added the 5 parks, whose catalogue records share the store ref; 115 and 74 before AREA-2 added 76 store places) hold the ref their origin is pinned to, minted from their slug', () => {
+    expect(pb.originRefs.size).toBe(196);
     const kinds = [...pb.originRefs.keys()].map((k) => k.split(':')[0]);
-    expect(kinds.filter((k) => k === 'loc').length).toBe(150);
+    expect(kinds.filter((k) => k === 'loc').length).toBe(155);
     expect(kinds.filter((k) => k === 'proto').length).toBe(41);
     for (const [origin, ref] of pb.originRefs) {
       expect(origins[origin], ref).toBe(ref);

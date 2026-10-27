@@ -3,7 +3,7 @@
  "source": {
   "name": "GeoNames",
   "dump": "cities1000 (populated places of at least 1,000 people, and seats of administrative divisions) and admin1CodesASCII",
-  "downloaded": "2026-10-25",
+  "downloaded": "2026-10-27",
   "licence": {
    "name": "Creative Commons Attribution 4.0",
    "id": "CC BY 4.0",
@@ -14,15 +14,15 @@
   "files": {
    "admin1CodesASCII.txt": {
     "url": "https://download.geonames.org/export/dump/admin1CodesASCII.txt",
-    "last_modified": "Sun, 25 Oct 2026 11:10:34 GMT",
+    "last_modified": "Tue, 27 Oct 2026 02:50:58 GMT",
     "bytes": 151571,
     "sha256": "2e4867f5397acb056ea26377601b57af37cb4c81399770225018e9e439e91ad3"
    },
    "cities1000.zip": {
     "url": "https://download.geonames.org/export/dump/cities1000.zip",
-    "last_modified": "Sun, 25 Oct 2026 11:10:34 GMT",
-    "bytes": 11082462,
-    "sha256": "b5542441a467eeb6a761e3c10ce27fd25115dc255b96bd6702963a3542889ab2"
+    "last_modified": "Tue, 27 Oct 2026 02:50:58 GMT",
+    "bytes": 11083824,
+    "sha256": "da28572d617c58a98636a561476c5d850f89f2b36996fef3395357bec7ff1f7a"
    }
   }
  },
@@ -41,9 +41,9 @@
   "hub_population_min": 100000,
   "anchors": {
    "file": "anchors.json",
-   "count": 393,
+   "count": 400,
    "decimals": 2,
-   "sha256": "3c4ddaecf155a1cbd5381628bfa670bd67e24344972206be2e0df07c106e6657",
+   "sha256": "31d467a1a2f4cbea36ebf54a0b89fcc510bcb71c45a20ba744aee94b2820a572",
    "from": [
     "data/capture/points.json#points",
     "data/relevance/inputs/points.json#points",
@@ -69,9 +69,9 @@
  ],
  "totals": {
   "parts": 128,
-  "rows": 11759,
-  "bytes": 1016137,
-  "gzip": 366549
+  "rows": 11763,
+  "bytes": 1016449,
+  "gzip": 366649
  },
  "parts": [
   {
@@ -494,10 +494,10 @@
     "st",
     "th"
    ],
-   "rows": 184,
-   "bytes": 15485,
-   "gzip": 6039,
-   "sha256": "80fc12f58bbfe181b280e4437b30847cd68ad9dc74584c8a5509e2a6b61acd02"
+   "rows": 188,
+   "bytes": 15797,
+   "gzip": 6139,
+   "sha256": "6577fd17d8287a67aaefa913f555241d74a7df838ae1bc19787347416fb19e83"
   },
   {
    "file": "fr-ara.json",

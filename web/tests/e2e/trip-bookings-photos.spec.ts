@@ -15,18 +15,23 @@ for (const vp of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
   test.describe(`Bookings tab at ${vp.width}`, () => {
     test.use({ viewport: vp });
 
-    test('Rockies (PA-W): "7 to book ahead", the shuttle dated, the lakeshore lot a check listed and not counted, one prices line, no filter row, the tab count says 7', async ({ page, site }) => {
+    test('Rockies (PA-W, PA-R-CA2): "8 to book ahead", the shuttle dated per ridden day, two passes and the lakeshore check listed and not counted, one prices line, no filter row, the tab count says 8', async ({ page, site }) => {
       await open(page, site, ROCKIES, 'bookings');
       const p = page.locator('#trip-panel-bookings');
-      await expect(p.getByTestId('bk-summary')).toHaveText('7 to book ahead, 1 with a published opening date; also 1 check.');
-      await expect(p.locator('.bk-row')).toHaveCount(8);
+      await expect(p.getByTestId('bk-summary')).toHaveText('8 to book ahead, 4 with a published opening date; also 2 passes, 1 check.');
+      await expect(p.locator('.bk-row')).toHaveCount(11);
+      await expect(p.locator('[data-group="booking"] .bk-row')).toHaveCount(8);
+      await expect(p.locator('[data-group="pass"] .bk-row')).toHaveCount(2);
       await expect(p.locator('[data-group="check"] .bk-row')).toHaveCount(1);
-      await expect(p.locator('.bk-prices')).toHaveText('Prices: not checked yet for these 7.');
-      await expect(p.getByTestId('bk-summary')).not.toContainText(/pass|task/); // only the one check is counted apart (UXB-6F: no kind is named that is not there)
+      await expect(p.locator('.bk-prices')).toHaveText('Prices: not checked yet for the 8 bookings and 2 passes.');
+      await expect(p.getByTestId('bk-summary')).not.toContainText(/task/); // UXB-6F: no kind is named that is not there
       await expect(p.locator('select, [role="combobox"], .facet-pill')).toHaveCount(0);
-      await expect(page.locator('#trip-tab-bookings')).toHaveAttribute('aria-label', 'Bookings, 7');
-      await expect(p.locator('.bk-rule')).toHaveText('Opens 2 days before Day 10 at 08:00 local');
-      await expect(p.getByRole('link', { name: /Booking page for Parks Canada Lake Louise/ })).toHaveAttribute('href', 'https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise');
+      await expect(page.locator('#trip-tab-bookings')).toHaveAttribute('aria-label', 'Bookings, 8');
+      await expect(p.locator('.bk-rule', { hasText: 'then 2 days before Day 10 at 08:00 local (60% of seats)' })).toHaveCount(1);
+      await expect(p.locator('.bk-rule', { hasText: 'then 2 days before Day 11 at 08:00 local (60% of seats)' })).toHaveCount(1);
+      await expect(p.locator('[data-group="pass"]')).toContainText('Buy any time before Day 1');
+      await expect(p.locator('[data-group="pass"]')).toContainText('Buy by 23:59 on Day 12');
+      await expect(p.getByRole('link', { name: /Booking page for Parks Canada Lake Louise/ }).first()).toHaveAttribute('href', /^https:\/\/(?:reservation\.pc\.gc\.ca|parks\.canada\.ca)\//);
     });
 
     test('Dolomites: "Opens 30 days before Day 3", with no dangling "local"', async ({ page, site }) => {

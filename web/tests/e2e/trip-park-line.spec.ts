@@ -14,20 +14,23 @@ for (const vp of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
       await page.goto(`${site.url}${ROCKIES}`);
       const lines = page.getByTestId('park-lines');
       await expect(lines.getByRole('heading', { name: 'Park entry' })).toBeVisible();
-      await expect(lines.locator('.sum-park-line')).toContainText('Entry not checked yet for Upper and Lower Kananaskis Lakes');
+      await expect(lines.locator('.sum-park[data-state="not_checked"] .sum-park-line')).toHaveText('Entry not checked yet for Upper and Lower Kananaskis Lakes');
       await expect(lines.locator('.sum-park[data-state="not_checked"]')).toHaveCount(1);
+      // PA-R-CA2: the real park sentence, and no national park left unchecked
+      await expect(lines.locator('.sum-park-line').first()).toHaveText('Banff National Park, days 1 to 4 and 10 to 11: entry fee each day, or the Parks Canada Discovery Pass covers it (also Jasper and Yoho on this trip)');
+      await expect(lines).not.toContainText(/Entry not checked yet for (?:Banff|Jasper|Yoho|Kootenay)/);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     });
 
     test('the Bookings tab lists the check apart from the bookings and does not count it', async ({ page, site }) => {
       await page.goto(`${site.url}${ROCKIES}?view=bookings`);
       const p = page.locator('#trip-panel-bookings');
-      await expect(p.getByTestId('bk-summary')).toHaveText('7 to book ahead, 1 with a published opening date; also 1 check.');
+      await expect(p.getByTestId('bk-summary')).toHaveText('8 to book ahead, 4 with a published opening date; also 2 passes, 1 check.');
       const check = p.locator('[data-group="check"] .bk-row');
       await expect(check).toHaveCount(1);
       await expect(check).toContainText('Lake Louise Lakeshore parking');
       await expect(check).toContainText('No reservation');
-      await expect(p.locator('[data-group="booking"] .bk-row')).toHaveCount(7);
+      await expect(p.locator('[data-group="booking"] .bk-row')).toHaveCount(8);
     });
 
     test('print carries the park lines above the Book ahead rows, and the kind of a row that is not a booking', async ({ page, site }) => {
@@ -40,7 +43,8 @@ for (const vp of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
       const parks = view.locator('section[aria-label="Park entry"]');
       await expect(parks).toContainText('Entry not checked yet for Upper and Lower Kananaskis Lakes');
       await expect(view.locator('section[aria-label="To check"]')).toContainText('Lake Louise Lakeshore parking and Park and Ride');
-      await expect(view.locator('section[aria-label="Book ahead"]')).toContainText('Opens 2 days before Day 10 at 08:00 local');
+      await expect(view.locator('section[aria-label="Book ahead"]')).toContainText('then 2 days before Day 10 at 08:00 local (60% of seats)');
+      await expect(parks).toContainText('Banff National Park, days 1 to 4 and 10 to 11: entry fee each day, or the Parks Canada Discovery Pass covers it');
       // the park lines come first
       // (the print view is off screen until the browser prints, so it is read by selector, not by role)
       const order = await view.locator('section[aria-label]').evaluateAll((els) => els.map((e) => e.getAttribute('aria-label')));

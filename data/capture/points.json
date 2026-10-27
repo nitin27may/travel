@@ -5262,6 +5262,258 @@
         "review_state": "agent_checked",
         "basis": "community"
       }
+    },
+    "place/banff-national-park": {
+      "lat": 51.17798,
+      "lon": -115.57024,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/430454020",
+        "read": "2026-10-27",
+        "quote": "OSM way/430454020, Banff Visitor Centre: the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/jasper-national-park": {
+      "lat": 52.87734,
+      "lon": -118.08083,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/272517389",
+        "read": "2026-10-27",
+        "quote": "OSM way/272517389, Jasper Park Information Centre: the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/yoho-national-park": {
+      "lat": 51.39798,
+      "lon": -116.49185,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/492008964",
+        "read": "2026-10-27",
+        "quote": "OSM way/492008964, Yoho National Park Visitor Centre: the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/kootenay-national-park": {
+      "lat": 50.61959,
+      "lon": -116.06937,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/390022967",
+        "read": "2026-10-27",
+        "quote": "OSM way/390022967, Kootenay National Park Visitor Centre (Radium Hot Springs): the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/kananaskis-country": {
+      "lat": 51.04822,
+      "lon": -115.02277,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/261038259",
+        "read": "2026-10-27",
+        "quote": "OSM way/261038259, Kananaskis Visitor Information Centre (Barrier Lake): the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/banff-national-park#lake-louise-area": {
+      "lat": 51.4263,
+      "lon": -116.17905,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/1907734438",
+        "read": "2026-10-27",
+        "quote": "OSM node/1907734438, Lake Louise Visitor Centre: the zone's information office in the village"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/yoho-national-park#lake-ohara": {
+      "lat": 51.35579,
+      "lon": -116.33162,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/356689552",
+        "read": "2026-10-27",
+        "quote": "OSM way 356689552, Lake O'Hara (natural=water), centre of the way computed by Overpass: the lake at the heart of the zone"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/banff-national-park#banff-visitor-centre": {
+      "lat": 51.17798,
+      "lon": -115.57024,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/430454020",
+        "read": "2026-10-27",
+        "quote": "OSM way/430454020 (Banff Visitor Centre), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+      },
+      "point_role": "entrance",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/banff-national-park#lake-louise-visitor-centre": {
+      "lat": 51.4263,
+      "lon": -116.17905,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/1907734438",
+        "read": "2026-10-27",
+        "quote": "OSM node/1907734438 (Lake Louise Visitor Centre), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+      },
+      "point_role": "entrance",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/jasper-national-park#jasper-information-centre": {
+      "lat": 52.87734,
+      "lon": -118.08083,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/272517389",
+        "read": "2026-10-27",
+        "quote": "OSM way/272517389 (Jasper Park Information Centre), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+      },
+      "point_role": "entrance",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/yoho-national-park#yoho-visitor-centre": {
+      "lat": 51.39798,
+      "lon": -116.49185,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/492008964",
+        "read": "2026-10-27",
+        "quote": "OSM way/492008964 (Yoho National Park Visitor Centre), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+      },
+      "point_role": "entrance",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/kootenay-national-park#kootenay-visitor-centre": {
+      "lat": 50.61959,
+      "lon": -116.06937,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/390022967",
+        "read": "2026-10-27",
+        "quote": "OSM way/390022967 (Kootenay National Park Visitor Centre (Radium Hot Springs)), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+      },
+      "point_role": "entrance",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/kananaskis-country#kananaskis-visitor-centre": {
+      "lat": 51.04822,
+      "lon": -115.02277,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/261038259",
+        "read": "2026-10-27",
+        "quote": "OSM way/261038259 (Kananaskis Visitor Information Centre (Barrier Lake)), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+      },
+      "point_role": "entrance",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/yoho-national-park#lake-ohara-parking": {
+      "lat": 51.44466,
+      "lon": -116.32938,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/298739416",
+        "read": "2026-10-27",
+        "quote": "OSM way 298739416 named \"lake o'hara parking\", amenity=parking; the official page says the bus departs from the Lake O'Hara parking lot 12 km west of Lake Louise"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
     }
   }
 }

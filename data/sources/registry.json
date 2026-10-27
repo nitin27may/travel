@@ -139,8 +139,8 @@
       "title": "locations store",
       "publisher": "this repo",
       "kind": "reference",
-      "first_read": "2026-10-26",
-      "last_read": "2026-10-26",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
       "used_by": [],
       "licence_note": "Our own file in this repository.",
       "terms_note": "Not a web source; there is no link to check.",
@@ -430,6 +430,43 @@
       }
     },
     {
+      "id": "s-4a4b912dfd",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country",
+      "title": "Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kananaskis-country",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/kananaskis-country",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/kananaskis-country",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-4dfb0161bf",
       "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/peter-lougheed/ptarmigan-cirque-interpretive",
       "title": "Ptarmigan Cirque Interpretive trail report",
@@ -504,6 +541,65 @@
       "link": {
         "status": "redirect",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-107599d5c2",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety",
+      "title": "Advisories and public safety, Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kananaskis-country",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-4ea657975a",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/annual-road-closures",
+      "title": "Annual Road Closures, Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kananaskis-country",
+          "field": "closures"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "place/kananaskis-country",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -598,6 +694,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-a9708c915e",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/wildlife",
+      "title": "Wildlife, Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "place/kananaskis-country",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -1037,6 +1160,11 @@
       "first_read": "2026-10-19",
       "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "offer/place/tre-cime-di-lavaredo-loop#toll",
+          "field": "entry"
+        },
         {
           "file": "data/capture/dolomites-2027/CS7.json",
           "ref": "offer/place/tre-cime-di-lavaredo-loop#toll",
@@ -6264,10 +6392,10 @@
       "id": "s-af92053c73",
       "url": "https://overpass-api.de/api/interpreter",
       "title": "OpenStreetMap data via the Overpass API (is_in admin areas, route relations, huts)",
-      "publisher": "OpenStreetMap contributors (ODbL)",
+      "publisher": "OpenStreetMap contributors",
       "kind": "community",
       "first_read": "2026-10-19",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-27",
       "used_by": [
         {
           "file": "data/capture/catalogue/BA-it.json",
@@ -6323,6 +6451,51 @@
           "file": "data/capture/catalogue/BA-it.json",
           "ref": "place/verona",
           "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/banff-national-park#banff-visitor-centre",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/jasper-national-park#jasper-information-centre",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/yoho-national-park#lake-ohara-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "part/place/jasper-national-park#jasper-information-centre",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+          "field": "wikidata"
         }
       ],
       "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
@@ -7027,6 +7200,63 @@
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
           "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-a800a481b4",
+      "url": "https://parks.canada.ca/pn-np/ab/banff",
+      "title": "Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/banff-national-park#daily-admission",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/banff-national-park#banff-visitor-centre",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/banff-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/banff-national-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/banff-national-park",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "place/banff-national-park",
+          "field": "suitability.access_season"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -8117,14 +8347,46 @@
       }
     },
     {
+      "id": "s-4935b32823",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins",
+      "title": "Important bulletins: Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/banff-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-5a94aedc1d",
       "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/06d4ef61-a3c9-4b65-8dfc-66d056252d6c",
-      "title": "Area Closure: Johnston Canyon Trail and Day Use Area (bulletin)",
+      "title": "Area Closure: Johnston Canyon Trail and Day Use Area",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-27",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/banff-national-park",
+          "field": "closures"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
@@ -8141,6 +8403,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-34170996c4",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/7d9a90ac-8cd6-4a47-9051-e2e41121e93b",
+      "title": "Restricted activity: Travel in Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/banff-national-park#daily-admission",
+          "field": "entry"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -8584,16 +8873,21 @@
     {
       "id": "s-d130768b74",
       "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
-      "title": "Parks Canada shuttle to Lake Louise and Moraine Lake",
+      "title": "Visiting Lake Louise and Moraine Lake",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-27",
       "used_by": [
         {
           "file": "data/base-plans/canadian-rockies-2029.json",
           "ref": "base-plans/canadian-rockies-2029",
           "field": "swaps.minus"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
+          "field": "entry"
         },
         {
           "file": "data/capture/canadian-rockies-2029/CS7.json",
@@ -8619,6 +8913,16 @@
           "file": "data/capture/canadian-rockies-2029/CS7.json",
           "ref": "part/place/lake-louise#shuttle-stop",
           "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/banff-national-park#lake-louise-area",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "part/place/banff-national-park#lake-louise-area",
+          "field": "access_cost"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -8674,14 +8978,29 @@
           "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
           "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile-loop",
           "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "part/place/banff-national-park#lake-louise-area",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "part/place/banff-national-park#lake-louise-area",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "place/banff-national-park",
+          "field": "suitability.hazards"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 180,
-        "fact_type": "seasons_closures"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "ok",
@@ -8758,11 +9077,11 @@
     {
       "id": "s-86d9197647",
       "url": "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes",
-      "title": "Parks Canada",
+      "title": "Park passes, Banff National Park",
       "publisher": "Parks Canada",
-      "kind": "reference",
+      "kind": "official",
       "first_read": "2026-10-25",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-27",
       "used_by": [
         {
           "file": "data/base-plans/canadian-rockies-2029.json",
@@ -8783,6 +9102,66 @@
           "file": "data/base-plans/canadian-rockies-2029.json",
           "ref": "base-plans/canadian-rockies-2029",
           "field": "swaps.plus"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/operator/parks-canada#discovery-pass",
+          "field": "window"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/banff-national-park#daily-admission",
+          "field": "entry"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/banff-national-park#daily-admission",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/banff-national-park#daily-admission",
+          "field": "window"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/jasper-national-park#daily-admission",
+          "field": "entry"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/jasper-national-park#daily-admission",
+          "field": "window"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kootenay-national-park#daily-admission",
+          "field": "entry"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kootenay-national-park#daily-admission",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kootenay-national-park#daily-admission",
+          "field": "window"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#daily-admission",
+          "field": "entry"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#daily-admission",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#daily-admission",
+          "field": "window"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -8922,11 +9301,11 @@
     {
       "id": "s-3f4d276a8b",
       "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
-      "title": "Fees - Banff National Park",
+      "title": "Fees, Banff National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-19",
+      "last_read": "2026-10-27",
       "used_by": [
         {
           "file": "data/capture/canadian-rockies-2029/CS7.json",
@@ -8962,6 +9341,26 @@
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "place/lake-louise",
           "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/operator/parks-canada#discovery-pass",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/banff-national-park#daily-admission",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/banff-national-park#daily-admission",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/banff-national-park",
+          "field": "links"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -8974,6 +9373,58 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-19"
+      }
+    },
+    {
+      "id": "s-f7349eb22d",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper",
+      "title": "Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/jasper-national-park#daily-admission",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/jasper-national-park#jasper-information-centre",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/jasper-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/jasper-national-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/jasper-national-park",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "place/jasper-national-park",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -10142,6 +10593,33 @@
       }
     },
     {
+      "id": "s-21a7ca41a7",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins",
+      "title": "Important bulletins: Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/jasper-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-9d9f8f530b",
       "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins/a8a66ab1-d0db-4300-b227-8eb8f57d88ae",
       "title": "Restricted Activity: Wildlife viewing practices in Jasper National Park (2026)",
@@ -10166,6 +10644,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-c91163e182",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins/f5abd01d-f731-497e-ab08-8425b6e1f000",
+      "title": "Area Closure: Seasonal closures for caribou conservation",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/jasper-national-park",
+          "field": "closures"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -10848,6 +11353,85 @@
       }
     },
     {
+      "id": "s-66b4e4adc2",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees",
+      "title": "Fees, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/jasper-national-park#daily-admission",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/jasper-national-park#daily-admission",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/jasper-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e1d176c419",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees/portes-gates",
+      "title": "Park passes, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/jasper-national-park#daily-admission",
+          "field": "entry"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/jasper-national-park#daily-admission",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kootenay-national-park#daily-admission",
+          "field": "entry"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#daily-admission",
+          "field": "entry"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-60a68064a6",
       "url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving",
       "title": "Scenic drives",
@@ -10895,6 +11479,53 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-b26892ee3f",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay",
+      "title": "Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kootenay-national-park#daily-admission",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "closures"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "unchecked",
@@ -11247,6 +11878,127 @@
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
           "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-2578c99c72",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/services",
+      "title": "Facilities and services, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-a5e2d8c03c",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/tarifs-fees",
+      "title": "Fees, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kootenay-national-park#daily-admission",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kootenay-national-park#daily-admission",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-64c7ce9e9e",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho",
+      "title": "Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#daily-admission",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/yoho-national-park",
+          "field": "closures"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/yoho-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/yoho-national-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "place/yoho-national-park",
+          "field": "suitability.access_season"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -11834,12 +12586,62 @@
     {
       "id": "s-f405313c1a",
       "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit",
-      "title": "Visiting Lake O'Hara, Yoho National Park",
+      "title": "Plan a trip to Lake O'Hara",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-25",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-27",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+          "field": "entry"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+          "field": "window"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/yoho-national-park#lake-ohara",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/yoho-national-park#lake-ohara-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "part/place/yoho-national-park#lake-ohara",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "part/place/yoho-national-park#lake-ohara",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "part/place/yoho-national-park#lake-ohara",
+          "field": "suitability.hazards"
+        },
         {
           "file": "data/windows/canadian-rockies-2029.json",
           "ref": "windows/canadian-rockies-2029",
@@ -11849,6 +12651,33 @@
           "file": "data/windows/canadian-rockies-2029.json",
           "ref": "windows/canadian-rockies-2029",
           "field": "windows.minus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-3110778e5c",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/bulletins",
+      "title": "Important bulletins: Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/yoho-national-park",
+          "field": "links"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -11898,11 +12727,11 @@
     {
       "id": "s-1184e829dd",
       "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/tarifs-fees",
-      "title": "Yoho fees",
+      "title": "Fees, Yoho National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-19",
-      "last_read": "2026-10-19",
+      "last_read": "2026-10-27",
       "used_by": [
         {
           "file": "data/capture/canadian-rockies-2029/migrated.json",
@@ -11913,6 +12742,26 @@
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
           "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#daily-admission",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#daily-admission",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/yoho-national-park",
+          "field": "links"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -12067,6 +12916,58 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-08c121f103",
+      "url": "https://parks.canada.ca/pn-np/mtn/ours-bears/securite-safety",
+      "title": "Bear safety: bears in the mountain national parks",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "part/place/banff-national-park#lake-louise-area",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "part/place/yoho-national-park#lake-ohara",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "place/banff-national-park",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "place/jasper-national-park",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "place/yoho-national-park",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -12426,6 +13327,137 @@
       "recheck": {
         "cadence_days": 180,
         "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-a4ef39e569",
+      "url": "https://parks.canada.ca/termes-terms/reservation",
+      "title": "Reservation policies and pass terms of use",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
+          "field": "entry"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
+          "field": "window"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/operator/parks-canada#discovery-pass",
+          "field": "entry"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/operator/parks-canada#discovery-pass",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+          "field": "entry"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+          "field": "window"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-4242bcf371",
+      "url": "https://parks.canada.ca/voyage-travel/admission",
+      "title": "Admission and passes",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/operator/parks-canada#discovery-pass",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/operator/parks-canada#discovery-pass",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/operator/parks-canada#discovery-pass",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/operator/parks-canada#discovery-pass",
+          "field": "window"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-8807f62cd7",
+      "url": "https://parks.canada.ca/voyage-travel/imprimable-printable",
+      "title": "Printable Discovery Pass",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/operator/parks-canada#discovery-pass",
+          "field": "entry"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -13062,6 +14094,53 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-d49e4503a2",
+      "url": "https://roamtransit.com/fares/reservations/super-pass-reservations",
+      "title": "Super Pass Reservations",
+      "publisher": "Roam Transit (Bow Valley Regional Transit Services Commission)",
+      "kind": "operator",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+          "field": "entry"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+          "field": "window"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "unchecked",
@@ -15352,11 +16431,11 @@
     {
       "id": "s-1a9a52f111",
       "url": "https://www.alberta.ca/kananaskis-conservation-pass",
-      "title": "Government of Alberta",
+      "title": "Kananaskis Conservation Pass",
       "publisher": "Government of Alberta",
-      "kind": "reference",
+      "kind": "official",
       "first_read": "2026-10-25",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-27",
       "used_by": [
         {
           "file": "data/base-plans/canadian-rockies-2029.json",
@@ -15367,14 +16446,74 @@
           "file": "data/base-plans/canadian-rockies-2029.json",
           "ref": "base-plans/canadian-rockies-2029",
           "field": "swaps.plus"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kananaskis-country#conservation-pass-day",
+          "field": "entry"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kananaskis-country#conservation-pass-day",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kananaskis-country#conservation-pass-day",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kananaskis-country#conservation-pass-day",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kananaskis-country#conservation-pass-day",
+          "field": "window"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kananaskis-country#conservation-pass-year",
+          "field": "entry"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kananaskis-country#conservation-pass-year",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kananaskis-country#conservation-pass-year",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kananaskis-country#conservation-pass-year",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "offer/place/kananaskis-country#conservation-pass-year",
+          "field": "window"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kananaskis-country",
+          "field": "links"
+        },
+        {
+          "file": "data/suitability/catalogue/PA-ca.json",
+          "ref": "place/kananaskis-country",
+          "field": "suitability.hazards"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 730,
-        "fact_type": "grades_geography"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "unchecked",
@@ -15518,6 +16657,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-0f0dd45fb7",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/kananaskis-contacts/kananaskis-visitor-information-centre",
+      "title": "Kananaskis Visitor Information Centre",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -18235,6 +19401,27 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-2c3566b66a",
+      "url": "https://www.banfflakelouise.com/park-pass-purchase",
+      "title": "Purchase a Park Pass for Banff National Park",
+      "publisher": "Banff & Lake Louise Tourism",
+      "kind": "editorial",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
       },
       "link": {
         "status": "unchecked",
@@ -31512,6 +32699,98 @@
         {
           "file": "data/relevance/catalogue/R9-it.json",
           "ref": "place/verona",
+          "field": "wikidata"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-d149f81607",
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q41858%7CQ503429%7CQ828404%7CQ903323%7CQ3373468",
+      "title": "Wikidata entities of the five parks (P625, P402, P856, P1435)",
+      "publisher": "Wikidata",
+      "kind": "reference",
+      "first_read": "2026-10-27",
+      "last_read": "2026-10-27",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/banff-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/jasper-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kananaskis-country",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/yoho-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "part/place/banff-national-park#lake-louise-area",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "part/place/yoho-national-park#lake-ohara",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/banff-national-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/jasper-national-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/kananaskis-country",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/yoho-national-park",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/PA-ca.json",
+          "ref": "place/yoho-national-park",
           "field": "wikidata"
         }
       ],

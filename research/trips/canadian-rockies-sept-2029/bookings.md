@@ -163,3 +163,40 @@ read in.
 - Larch Valley group access: GAP stays open. The old official page is 404 and no Group Access bulletin is in force in late
   October. The question is in research/method/operator-questions-2026-10-18.md (D8R-2).
 - Peyto Lake: no booking; no 2026 closure notice found.
+
+## PA-R-CA protected-area records (27 Oct 2026)
+
+Run `pa-r-ca-2026-10-27-rockies-parks` (note: `research/runs/pa-r-ca-2026-10-27-rockies-parks.md`). The D8-R proposals above are
+now records, reshaped by `docs/v2/features/protected-area-entry.md` section 11. Official pages read 2026-10-27, one at a time.
+
+- Parks as places (locations store first, then the catalogue lane `data/capture/catalogue/PA-ca.json`): Banff, Jasper, Yoho and
+  Kootenay national parks and Kananaskis Country, each with `covers_areas` of its AREA-2 area and `run_by` Parks Canada or Alberta
+  Parks. Zones: the Lake Louise area of Banff and the Lake O'Hara area of Yoho.
+  RECORDED place/banff-national-park data/capture/catalogue/PA-ca.json 2026-10-27
+  RECORDED part/place/yoho-national-park#lake-ohara data/capture/catalogue/PA-ca.json 2026-10-27
+- Park admission: GAP CLOSED 2026-10-27. Each park's fees page gives the same daily rates (adult 12.25, senior 10.75, family or
+  group 24.50, youth 17 and under free) and Discovery Pass rates (83.50, 71.50, 167.50); one fee record per park, each covered by
+  the Discovery Pass on the operator. A daily pass is valid until 16:00 the day after purchase and in all eight mountain and
+  prairie parks the Banff page lists. Banff's order of 8 Sep 2026 requires a pass throughout the park except for travel without
+  stopping on Highways 1 and 93 South. Admission was free 19 June to 7 September 2026 (Canada Strong Pass); a 2029 plan pays it.
+  RECORDED offer/operator/parks-canada#discovery-pass data/capture/catalogue/PA-ca.json 2026-10-27
+  RECORDED offer/place/banff-national-park#daily-admission data/capture/catalogue/PA-ca.json 2026-10-27
+- Conflict: the admission page says the Discovery Pass covers "more than 80" places, the Banff and Jasper pass pages "more than
+  100". No count is stored. Banff & Lake Louise Tourism says every visitor needs a pass; the Parks Canada order exempts through
+  travel. The official rule is stored.
+- Moraine Lake and Lake Louise shuttle: the 2026 launch was 15 April at 08:00 MDT (40% of seats), then 60% at 08:00 two days
+  before each departure. The record now carries that as a launch day with a second phase, a one-day ticket (`entry.valid` 1 day,
+  so the trip page gives one row per ridden day) and `at` both lakes.
+  RECORDED offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat data/capture/canadian-rockies-2029/CS7.json 2026-10-27
+- Roam Super Pass: 2026 monthly batches at 09:00 MT (June on 23 Apr, July on 25 May, August on 22 June, September and October on
+  27 July); valid one day; cancellation 25% fee more than 48 h ahead, no refund later.
+  RECORDED offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass data/capture/canadian-rockies-2029/CS7.json 2026-10-27
+- Lake O'Hara bus: 2026 draw 08:00 2 March to 23:59 23 March MDT; leftover seats until 15:30 the day before; bus 25.50 per
+  person return, application 10; buses in at 08:30 and 10:30, out at 09:30 to 18:30; season 19 June to 4 October 2026.
+  RECORDED offer/place/yoho-national-park#lake-ohara-day-use-bus data/capture/catalogue/PA-ca.json 2026-10-27
+- Kananaskis Conservation Pass: day pass 15 per vehicle, buy by 23:59 on the first day; yearly pass 90 for up to three vehicles,
+  365 days from purchase. Exempt: through traffic, status First Nations individuals, arrivals without a vehicle.
+  RECORDED offer/place/kananaskis-country#conservation-pass-day data/capture/catalogue/PA-ca.json 2026-10-27
+- GAP: front-country campsite booking (Banff fees page prices, Lake O'Hara campground launch 10 Feb 2026 08:00 MT) not stored:
+  the stay contract (cost_band, check-in, wheelchair) blocks a campground lodging offer until PA-3C.
+- GAP: the Lake Louise parking offer cannot hold an `entry` block (only access.pass offers may); unchanged.

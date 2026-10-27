@@ -1,0 +1,832 @@
+{
+  "schema": "suitability/1",
+  "trip": "catalogue",
+  "lane": "PA-ca",
+  "researched": "2026-10-27",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/voyage-travel/admission",
+      "title": "Admission and passes",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://parks.canada.ca/voyage-travel/imprimable-printable",
+      "title": "Printable Discovery Pass",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://parks.canada.ca/termes-terms/reservation",
+      "title": "Reservation policies and pass terms of use",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+      "title": "Fees, Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees",
+      "title": "Fees, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/tarifs-fees",
+      "title": "Fees, Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/tarifs-fees",
+      "title": "Fees, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes",
+      "title": "Park passes, Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://parks.canada.ca/pn-np/ab/banff",
+      "title": "Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper",
+      "title": "Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho",
+      "title": "Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay",
+      "title": "Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit",
+      "title": "Plan a trip to Lake O'Hara",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.alberta.ca/kananaskis-conservation-pass",
+      "title": "Kananaskis Conservation Pass",
+      "publisher": "Government of Alberta",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/",
+      "title": "Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/kananaskis-contacts/kananaskis-visitor-information-centre/",
+      "title": "Kananaskis Visitor Information Centre",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees/portes-gates",
+      "title": "Park passes, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins",
+      "title": "Important bulletins: Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins",
+      "title": "Important bulletins: Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/bulletins",
+      "title": "Important bulletins: Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/services",
+      "title": "Facilities and services, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/",
+      "title": "Advisories and public safety, Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/7d9a90ac-8cd6-4a47-9051-e2e41121e93b",
+      "title": "Restricted activity: Travel in Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/06d4ef61-a3c9-4b65-8dfc-66d056252d6c",
+      "title": "Area Closure: Johnston Canyon Trail and Day Use Area",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins/f5abd01d-f731-497e-ab08-8425b6e1f000",
+      "title": "Area Closure: Seasonal closures for caribou conservation",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/annual-road-closures/",
+      "title": "Annual Road Closures, Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://parks.canada.ca/pn-np/mtn/ours-bears/securite-safety",
+      "title": "Bear safety: bears in the mountain national parks",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/wildlife/",
+      "title": "Wildlife, Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+      "title": "Visiting Lake Louise and Moraine Lake",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.banfflakelouise.com/park-pass-purchase",
+      "title": "Purchase a Park Pass for Banff National Park",
+      "publisher": "Banff & Lake Louise Tourism",
+      "kind": "press",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q41858|Q503429|Q828404|Q903323|Q3373468",
+      "title": "Wikidata entities of the five parks (P625, P402, P856, P1435)",
+      "publisher": "Wikidata",
+      "kind": "computed",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "Overpass query: visitor information offices, Lake O'Hara and its car park (Rockies box)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "computed",
+      "read": "2026-10-27",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/banff-national-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Most lakes, viewpoints and short walks are by road or shuttle; Moraine Lake has no cell service, water or lighting.",
+        "on_site_min": {
+          "v": [
+            240,
+            1440
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-27",
+          "note": "Our estimate: from half a day for the town and one lake to a full day for the Lake Louise area alone.",
+          "estimate": true
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wildlife",
+              "note": "Grizzly and black bears live throughout the mountain parks; carry bear spray and keep food stored"
+            },
+            {
+              "category": "remoteness",
+              "note": "Moraine Lake is backcountry: no cell service, running water or lighting"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0027",
+            "src-0029"
+          ],
+          "read": "2026-10-27"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "open year-round; Moraine Lake Road is shuttle-only, June 1 to October 12 in 2026"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-27",
+          "quote": "Banff National Park is open year-round.",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/jasper-national-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Long drives between sights; the town of Jasper has the services. Wildlife is often close to the roads.",
+        "on_site_min": {
+          "v": [
+            480,
+            1440
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-27",
+          "note": "Our estimate: the Maligne Valley alone takes most of a day.",
+          "estimate": true
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wildlife",
+              "note": "Grizzly and black bears live throughout the mountain parks; carry bear spray and keep food stored"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0027"
+          ],
+          "read": "2026-10-27"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "open year-round; peak season June to August"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0010"
+          ],
+          "read": "2026-10-27",
+          "quote": "Open year-round",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/yoho-national-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Emerald Lake, Natural Bridge and the Spiral Tunnels viewpoint are short stops; Lake O'Hara needs the bus and its seats go by lottery.",
+        "on_site_min": {
+          "v": [
+            180,
+            600
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-27",
+          "note": "Our estimate: a half day for the roadside sights, a full day with Lake O'Hara or Takakkaw Falls.",
+          "estimate": true
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wildlife",
+              "note": "Grizzly and black bears live throughout the mountain parks; carry bear spray and keep food stored"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0027"
+          ],
+          "read": "2026-10-27"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "open year-round; visitor services May to early October"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-27",
+          "quote": "Yoho National Park is open year-round. Visitor services are available May to early October.",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/kootenay-national-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Marble Canyon and the Paint Pots are short walks from Highway 93 South; the hot springs are at the south end.",
+        "on_site_min": {
+          "v": [
+            120,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-27",
+          "note": "Our estimate: a drive through with two or three stops takes half a day.",
+          "estimate": true
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wildlife",
+              "note": "Grizzly and black bears live throughout the mountain parks; carry bear spray and keep food stored"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0027"
+          ],
+          "read": "2026-10-27"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "open year-round; visitor services May to mid-October"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-27",
+          "quote": "Kootenay National Park is open year-round. Visitor services are available May to mid-October.",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/kananaskis-country",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Lakes and day-use areas sit along Highway 40; cell service is missing on much of it, so buy the vehicle pass before driving in.",
+        "on_site_min": {
+          "v": [
+            240,
+            600
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-27",
+          "note": "Our estimate: a day for the Kananaskis Lakes and Highway 40.",
+          "estimate": true
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wildlife",
+              "note": "Bears, cougars and elk: be bear smart, cougar alert and elk wary"
+            },
+            {
+              "category": "remoteness",
+              "note": "No reliable cell service along much of Highway 40"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0028",
+            "src-0014"
+          ],
+          "read": "2026-10-27"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-15",
+              "to": "11-30",
+              "status": "open",
+              "via": "road",
+              "note": "Highway 40 open through Peter Lougheed Provincial Park to Highwood House"
+            },
+            {
+              "from": "12-01",
+              "to": "06-14",
+              "status": "limited",
+              "via": "road",
+              "note": "Highway 40 closed south of Peter Lougheed Provincial Park; the north part stays open"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0026"
+          ],
+          "read": "2026-10-27",
+          "quote": "Highway #40 Peter Lougheed Provincial Park to Highwood House Junction Closed December 1 - June 14",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "part/place/banff-national-park#lake-louise-area",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Lake Louise Lakeshore is flat and paved by the hotel; Moraine Lake is reached only by shuttle, Roam or a licensed operator and has pit toilets only.",
+        "on_site_min": {
+          "v": [
+            180,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-27",
+          "note": "Our estimate: both lakes by shuttle in one day, with short walks.",
+          "estimate": true
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wildlife",
+              "note": "Grizzly and black bears live throughout the mountain parks; carry bear spray and keep food stored"
+            },
+            {
+              "category": "remoteness",
+              "note": "Moraine Lake has no cell service, running water or lighting"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0027",
+            "src-0029"
+          ],
+          "read": "2026-10-27"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Lake Louise Lakeshore by car year-round; paid parking May to October"
+            },
+            {
+              "from": "06-01",
+              "to": "10-12",
+              "status": "open",
+              "via": "shuttle",
+              "note": "Moraine Lake by Parks Canada shuttle or Roam only; road closed to personal vehicles all year"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0029"
+          ],
+          "read": "2026-10-27",
+          "quote": "Moraine Lake Road is closed to personal vehicles year-round.",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "part/place/yoho-national-park#lake-ohara",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Children 1 to 16 must be on the bus reservation; until late June many higher routes are snow-bound with avalanche hazard.",
+        "on_site_min": {
+          "v": [
+            300,
+            540
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-27",
+          "note": "Our estimate: the first inbound bus is 08:30 and the last outbound 18:30.",
+          "estimate": true
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Until late June many higher routes are snow-bound and may be subject to avalanche hazard",
+              "season": "spring"
+            },
+            {
+              "category": "wildlife",
+              "note": "Grizzly and black bears live throughout the mountain parks; carry bear spray and keep food stored"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013",
+            "src-0027"
+          ],
+          "read": "2026-10-27"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-19",
+              "to": "10-04",
+              "status": "open",
+              "via": "shuttle",
+              "note": "reserved day-use bus; otherwise an 11 km walk each way on the road"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "read": "2026-10-27",
+          "quote": "From June 19 to October 4, 2026, the Lake O'Hara shuttle takes visitors 11 km up to Lake O'Hara.",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

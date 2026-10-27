@@ -1,8 +1,8 @@
 # Wishlist
 
-Generated from `data/locations/locations.json` on 2026-10-26. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
+Generated from `data/locations/locations.json` on 2026-10-27. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
 
-150 places in 10 countries, 5 collections. By status: idea 142, planned 8.
+155 places in 10 countries, 5 collections. By status: idea 147, planned 8.
 
 Legend: kind · season · status · stats from the source post are unverified until a research lane confirms them.
 
@@ -44,6 +44,9 @@ Legend: kind · season · status · stats from the source post are unverified un
 
 #### Banff National Park
 
+- **Banff National Park** · park · season ? · idea · [map](https://maps.google.com/?q=51.16667,-115.55) [wd](https://www.wikidata.org/wiki/Q41858) [official](https://parks.canada.ca/pn-np/ab/banff)
+  - Canada's first national park; Parks Canada. Protected-area record for PA-R-CA.
+  - <sub>CA/AB/banff-national-park/banff-national-park</sub>
 - **Lake Louise** · lake · Jun,Jul,Aug,Sep · planned · [map](https://maps.google.com/?q=51.41167,-116.22806) [wd](https://www.wikidata.org/wiki/Q1367398) [trip](../canadian-rockies-sept-2029/) · #family #iconic
   - A glacial lake in Banff National Park.
   - <sub>CA/AB/banff-national-park/lake-louise</sub>
@@ -66,6 +69,9 @@ Legend: kind · season · status · stats from the source post are unverified un
 - **Jasper** · town · season ? · idea · [map](https://maps.google.com/?q=52.8731,-118.082) [wd](https://www.wikidata.org/wiki/Q999429) [note](https://www.wikidata.org/wiki/Q999429)
   - Town inside Jasper National Park.
   - <sub>CA/AB/jasper-national-park/jasper</sub>
+- **Jasper National Park** · park · season ? · idea · [map](https://maps.google.com/?q=52.8,-117.9) [wd](https://www.wikidata.org/wiki/Q503429) [official](https://parks.canada.ca/pn-np/ab/jasper)
+  - Largest national park in the Canadian Rockies; Parks Canada.
+  - <sub>CA/AB/jasper-national-park/jasper-national-park</sub>
 - **Maligne Lake** · lake · season ? · idea · [map](https://maps.google.com/?q=52.66444,-117.53361) [wd](https://www.wikidata.org/wiki/Q429646) [note](https://www.wikidata.org/wiki/Q429646)
   - Largest lake in Jasper National Park.
   - <sub>CA/AB/jasper-national-park/maligne-lake</sub>
@@ -86,6 +92,9 @@ Legend: kind · season · status · stats from the source post are unverified un
 - **Highwood Pass** · place · season ? · idea · [map](https://maps.google.com/?q=50.5994,-114.988) [wd](https://www.wikidata.org/wiki/Q5760070) [note](https://www.wikidata.org/wiki/Q5760070)
   - Highest paved pass in Canada, on Highway 40 in Kananaskis Country.
   - <sub>CA/AB/kananaskis-country/highwood-pass</sub>
+- **Kananaskis Country** · park · season ? · idea · [map](https://maps.google.com/?q=50.9,-114.9) [wd](https://www.wikidata.org/wiki/Q3373468) [official](https://www.alberta.ca/kananaskis-conservation-pass)
+  - Provincial park system and public land west of Calgary; Alberta Parks.
+  - <sub>CA/AB/kananaskis-country/kananaskis-country</sub>
 - **Kananaskis Village** · town · season ? · idea · [map](https://maps.google.com/?q=50.91748,-115.1474) [wd](https://www.wikidata.org/wiki/Q6360620) [note](https://www.wikidata.org/wiki/Q6360620)
   - Resort village on Highway 40 in Kananaskis Country.
   - <sub>CA/AB/kananaskis-country/kananaskis-village</sub>
@@ -123,6 +132,9 @@ Legend: kind · season · status · stats from the source post are unverified un
   - <sub>CA/BC/elk-lakes-provincial-park/upper-elk-lake</sub>
 #### Kootenay National Park
 
+- **Kootenay National Park** · park · season ? · idea · [map](https://maps.google.com/?q=50.8831,-116.049) [wd](https://www.wikidata.org/wiki/Q903323) [official](https://parks.canada.ca/pn-np/bc/kootenay) [official](https://www.wikidata.org/wiki/Q903323)
+  - National park along Highway 93 South; Parks Canada.
+  - <sub>CA/BC/kootenay-national-park/kootenay-national-park</sub>
 - **Sinclair Canyon** · canyon · season ? · idea · [map](https://maps.google.com/?q=50.63327,-116.05208) [wd](https://www.wikidata.org/wiki/Q22629068) [note](https://www.wikidata.org/wiki/Q22629068)
   - Canyon at the south-west entrance of Kootenay National Park.
   - <sub>CA/BC/kootenay-national-park/sinclair-canyon</sub>
@@ -147,6 +159,9 @@ Legend: kind · season · status · stats from the source post are unverified un
 - **Field** · town · season ? · idea · [map](https://maps.google.com/?q=51.39667,-116.48583) [wd](https://www.wikidata.org/wiki/Q3071515) [note](https://www.wikidata.org/wiki/Q3071515)
   - Village inside Yoho National Park, on the Trans-Canada Highway.
   - <sub>CA/BC/yoho-national-park/field</sub>
+- **Yoho National Park** · park · season ? · idea · [map](https://maps.google.com/?q=51.3953,-116.487) [wd](https://www.wikidata.org/wiki/Q828404) [official](https://parks.canada.ca/pn-np/bc/yoho) [official](https://www.wikidata.org/wiki/Q828404)
+  - National park on the BC side of the Divide; Parks Canada.
+  - <sub>CA/BC/yoho-national-park/yoho-national-park</sub>
 - **Yoho Valley** · valley · season ? · idea · [map](https://maps.google.com/?q=51.53328,-116.51891) [wd](https://www.wikidata.org/wiki/Q22649377) [note](https://www.wikidata.org/wiki/Q22649377)
   - Valley in Yoho National Park, reached by the Yoho Valley Road.
   - <sub>CA/BC/yoho-national-park/yoho-valley</sub>

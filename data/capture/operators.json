@@ -1,6 +1,6 @@
 {
   "schema": "capture-operators/1",
-  "updated": "2026-10-25",
+  "updated": "2026-10-27",
   "operators": [
     {
       "ref": "operator/3-zinnen-dolomites-lift-operator",
@@ -12,6 +12,19 @@
           "src": "src-0001",
           "publisher": "3 Zinnen Dolomites (lift operator)",
           "url": "https://www.dreizinnen.com/en/the-cable-cars/the-cable-cars/funbob"
+        }
+      ]
+    },
+    {
+      "ref": "operator/alberta-parks",
+      "name": "Alberta Parks",
+      "url": "https://albertaparks.ca/",
+      "derived_from": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "src": "src-0015",
+          "publisher": "Alberta Parks",
+          "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/"
         }
       ]
     },
@@ -221,7 +234,8 @@
           "publisher": "Parks Canada",
           "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/stephen"
         }
-      ]
+      ],
+      "terms_url": "https://parks.canada.ca/termes-terms/reservation"
     },
     {
       "ref": "operator/pursuit-banff-jasper-collection",
@@ -258,6 +272,19 @@
           "src": "src-0003",
           "publisher": "Rafting Club Activ",
           "url": "https://www.rafting-club-activ.com/en/faq/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/roam-transit",
+      "name": "Roam Transit (Bow Valley Regional Transit Services Commission)",
+      "url": "https://roamtransit.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "src": "src-0008",
+          "publisher": "Roam Transit (Bow Valley Regional Transit Services Commission)",
+          "url": "https://roamtransit.com/fares/reservations/super-pass-reservations/"
         }
       ]
     },

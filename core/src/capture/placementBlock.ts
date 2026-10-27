@@ -14,6 +14,7 @@ import type { PointRole } from "../schema/capture/points.ts";
 import type { CaptureRecord } from "../schema/capture/records.ts";
 import { isSystemPass } from "../schema/capture/relations.ts";
 import { haversineKm } from "../geo/distance.ts";
+import { buildContainment } from "./graph.ts";
 import { readJson } from "./records.ts";
 import type { World } from "./records.ts";
 
@@ -226,6 +227,64 @@ export function kmOutside(b: Box, lat: number, lon: number): number {
   return cLat === lat && cLon === lon ? 0 : haversineKm({ lat, lon }, { lat: cLat, lon: cLon });
 }
 
+const widenBox = (b: Box | null, lat: number, lon: number): Box =>
+  b ? { minLat: Math.min(b.minLat, lat), maxLat: Math.max(b.maxLat, lat), minLon: Math.min(b.minLon, lon), maxLon: Math.max(b.maxLon, lon), n: b.n + 1 } : { minLat: lat, maxLat: lat, minLon: lon, maxLon: lon, n: 1 };
+
+/** protected-area ref -> the primary refs of its members (explicit part_of or covers_areas, up the whole containment chain) */
+const parkMembers = new WeakMap<World, Map<string, string[]>>();
+
+function membersByPark(world: World): Map<string, string[]> {
+  const hit = parkMembers.get(world);
+  if (hit) return hit;
+  const contain = buildContainment(world);
+  const out = new Map<string, string[]>();
+  for (const ref of world.cap.keys()) for (const c of contain.containerChain(ref)) {
+    if (!world.cap.get(c)?.rec.covers_areas?.length) continue;
+    out.set(c, [...(out.get(c) ?? []), ref]);
+  }
+  parkMembers.set(world, out);
+  return out;
+}
+
+/**
+ * The protected areas a record belongs to (graph.ts containment: an explicit part_of, else covers_areas by its area_id) that cover the
+ * record's own area_id. Only then do the area and the membership agree, and the park's extent may judge the point.
+ */
+export function parksJudging(pw: PlacementWorld, rec: CaptureRecord): string[] {
+  if (!rec.area_id) return [];
+  const out: string[] = [];
+  for (const [park, members] of membersByPark(pw.world)) {
+    if (!members.includes(rec.ref)) continue;
+    if (pw.world.cap.get(park)?.rec.covers_areas?.includes(rec.area_id)) out.push(park);
+  }
+  return out;
+}
+
+/**
+ * A protected area is one area of the locations store but can run 200 km along a road (Banff NP: the town to the Icefields Parkway),
+ * while the store holds a few places in it. For a member of a park that covers its area, the area's box is widened by the park's own
+ * point and the exact (not approximate) points of its other members: the park's extent as the records know it. A point that is
+ * genuinely elsewhere (a swapped lat and lon, a record of another park) is still far from all of them and still flagged. The record's
+ * own point never widens the box that judges it.
+ */
+function parkBox(pw: PlacementWorld, rec: CaptureRecord, base: Box | null): Box | null {
+  let out = base;
+  const members = membersByPark(pw.world);
+  for (const park of parksJudging(pw, rec)) {
+    const covers = pw.world.cap.get(park)?.rec.covers_areas ?? [];
+    for (const ref of [park, ...(members.get(park) ?? [])]) {
+      if (ref === rec.ref) continue;
+      const r = pw.world.cap.get(ref)?.rec;
+      // a member whose area the park does not cover is judged by its own area, so it does not vouch for the park's extent
+      if (ref !== park && !(r?.area_id && covers.includes(r.area_id))) continue;
+      const hit = r ? pointOf(pw, r)?.point : ownPointOf(pw, ref);
+      if (!hit || hit.approx) continue;
+      out = widenBox(out, hit.lat, hit.lon);
+    }
+  }
+  return out;
+}
+
 /** The box that judges a record's area: the area's own reference points, without the record's own place when it is one of them. */
 function boxFor(pw: PlacementWorld, areaId: string, ref: string): Box | null {
   const b = pw.tree.boxes.get(areaId);
@@ -302,10 +361,13 @@ export function placementFindings(pw: PlacementWorld, rec: CaptureRecord): Findi
   if (p.approx && !p.approx_note) out.push({ code: "W_PLACE_APPROX", key: "point", message: `the point of ${rec.ref} is marked approximate but says not why. Add approx_note: what the point is (a centroid, a guess from the map) and what would fix it. Approximate points count for Where, never for distances.` });
   // far from its area
   if (rec.area_id && pw.tree.ids.has(rec.area_id)) {
-    const box = boxFor(pw, rec.area_id, rec.ref);
+    const area = boxFor(pw, rec.area_id, rec.ref);
+    const box = parkBox(pw, rec, area);
     if (box && box.n >= PLACEMENT_RULES.minBoxPoints) {
       const km = kmOutside(box, p.lat, p.lon);
-      if (km > PLACEMENT_RULES.farKm) out.push({ code: "E_PLACE_FAR", key: "point", message: `the point of ${rec.ref} (${p.lat}, ${p.lon}) lies ${Math.round(km)} km outside ${rec.area_id}, more than ${PLACEMENT_RULES.farKm} km beyond the places the locations store holds there. Check for a wrong area_id or a swapped lat and lon.` });
+      const parks = parksJudging(pw, rec);
+      const beyond = parks.length ? `the places the locations store holds there and the points of ${parks.join(", ")} and its members` : "the places the locations store holds there";
+      if (km > PLACEMENT_RULES.farKm) out.push({ code: "E_PLACE_FAR", key: "point", message: `the point of ${rec.ref} (${p.lat}, ${p.lon}) lies ${Math.round(km)} km outside ${rec.area_id}, more than ${PLACEMENT_RULES.farKm} km beyond ${beyond}. Check for a wrong area_id or a swapped lat and lon.` });
     }
   }
   // nearest town (derived): only a non-approximate point can have one

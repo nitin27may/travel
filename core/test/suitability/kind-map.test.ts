@@ -109,7 +109,8 @@ describe("every record has a subkind of the vocabulary and a profile", () => {
     const dirs = readdirSync(join(REPO, "data", "suitability"), { withFileTypes: true }).filter((e) => e.isDirectory());
     const files = dirs.flatMap((d) => readdirSync(join(REPO, "data", "suitability", d.name)).map((f) => `${d.name}/${f}`));
     const extra = files.filter((f) => !m.docs.has(f));
-    for (const f of extra) expect(f, "only research lane files (R<n>*.json) may sit beside the migration output").toMatch(/^[^/]+\/R\d+[^/]*\.json$/);
+    // a lane is named by its task id: R9-ca (research rounds), PA-ca (protected areas, PA-R-CA); never a lower-case name like the migration's
+    for (const f of extra) expect(f, "only research lane files (R<n>*.json, <LANE>-<cc>.json) may sit beside the migration output").toMatch(/^[^/]+\/(?:R\d+|[A-Z]{2,}\d*-)[^/]*\.json$/);
     for (const f of extra) {
       const r = validateDoc(JSON.parse(readFileSync(join(REPO, "data", "suitability", f), "utf8")), "sidecar", REPO, { kind: "suitability" });
       expect(r.errors, `${f}: ${JSON.stringify(r.errors.slice(0, 2))}`).toEqual([]);

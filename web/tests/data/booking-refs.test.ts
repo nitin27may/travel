@@ -57,10 +57,28 @@ describe('the Rockies rows on the real data', () => {
   const rows = tripBookings(Object.values(trip.categories).flat());
   it('the Moraine Lake and Lake Louise shuttle is a booking with its window and the official page; the lakeshore lot is a check', () => {
     const shuttle = rows.filter((b) => b.ref.startsWith('logistics:shuttle-moraine-lakelouise'));
-    expect(shuttle).toHaveLength(1);
-    expect(shuttle[0]).toMatchObject({ kind: 'booking', rule: 'Opens 2 days before Day 10 at 08:00 local', link: 'https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise' });
-    expect(shuttle[0]!.note).toContain('40% of seats go on sale on a spring launch day');
+    // PA-R-CA: the launch day then the rolling release, valid one day, so one row per ridden day; the window says the 40% itself
+    expect(shuttle.map((b) => [b.ref, b.day])).toEqual([['logistics:shuttle-moraine-lakelouise:d10', 10], ['logistics:shuttle-moraine-lakelouise:d11', 11]]);
+    for (const [i, d] of [[0, 10], [1, 11]] as const) {
+      expect(shuttle[i]).toMatchObject({ kind: 'booking', rule: `Opens on a launch day each year, usually in April, at 08:00 local (40% of seats); then 2 days before Day ${d} at 08:00 local (60% of seats)`, note: null });
+      expect(shuttle[i]!.link).toMatch(/^https:\/\/(?:reservation\.pc\.gc\.ca|parks\.canada\.ca)\//);
+    }
     expect(rows.find((b) => b.ref === 'logistics:lakelouise-lakeshore-parking')).toMatchObject({ kind: 'check', day: 10 });
+  });
+  it('the PA-R-CA rows: the Discovery Pass and the Kananaskis day pass are passes, the Roam batch and the O\'Hara lottery are bookings', () => {
+    const by = (id: string) => rows.find((b) => b.ref === `logistics:${id}`)!;
+    expect(by('pass-discovery')).toMatchObject({ kind: 'pass', rule: 'Buy any time before Day 1', day: 1 });
+    expect(by('moraine-private-access')).toMatchObject({ kind: 'booking', day: 11 });
+    expect(by('moraine-private-access').rule).toMatch(/^Opens in a monthly batch about \d+ days before the month, at 09:00 local$/);
+    expect(by('lake-ohara-bus')).toMatchObject({ kind: 'booking', day: 9, rule: 'Lottery: apply usually in March; seats left after the draw until 15:30 the day before Day 9' });
+    expect(by('kananaskis-pass')).toMatchObject({ kind: 'pass', rule: 'Buy by 23:59 on Day 12', day: 12 });
+    expect(bookingCounts(rows)).toMatchObject({ toBook: 8, pass: 2, check: 1 });
+  });
+  it('the park lines: Banff, Jasper, Yoho and Kananaskis Country say their rule; no national park is "not checked"', () => {
+    const lines = (trip.parks ?? []).map((p) => p.line);
+    expect(lines).toContain('Banff National Park, days 1 to 4 and 10 to 11: entry fee each day, or the Parks Canada Discovery Pass covers it (also Jasper and Yoho on this trip)');
+    expect(lines).toContain('Kananaskis Country, days 12 to 15: vehicle permit each day, or the Kananaskis Conservation Pass (yearly pass) covers it');
+    expect(lines.filter((l) => /^Entry not checked yet/.test(l))).toEqual(['Entry not checked yet for Upper and Lower Kananaskis Lakes']);
   });
   it('"to book ahead" counts the booking rows only: the check is listed, never counted', () => {
     const c = bookingCounts(rows);

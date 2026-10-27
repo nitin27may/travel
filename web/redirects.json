@@ -30,6 +30,11 @@
     "status": 301
   },
   {
+    "from": "/places/CA/AB/banff-national-park/banff-national-park/",
+    "to": "/places/banff-national-park/",
+    "status": 301
+  },
+  {
     "from": "/places/CA/AB/banff-national-park/lake-louise/",
     "to": "/places/lake-louise/",
     "status": 301
@@ -52,6 +57,11 @@
   {
     "from": "/places/CA/AB/jasper-national-park/curly-phillips-boathouse/",
     "to": "/places/curly-phillips-boathouse/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/jasper-national-park/jasper-national-park/",
+    "to": "/places/jasper-national-park/",
     "status": 301
   },
   {
@@ -87,6 +97,11 @@
   {
     "from": "/places/CA/AB/kananaskis-country/highwood-pass/",
     "to": "/places/highwood-pass/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/kananaskis-country/kananaskis-country/",
+    "to": "/places/kananaskis-country/",
     "status": 301
   },
   {
@@ -135,6 +150,11 @@
     "status": 301
   },
   {
+    "from": "/places/CA/BC/kootenay-national-park/kootenay-national-park/",
+    "to": "/places/kootenay-national-park/",
+    "status": 301
+  },
+  {
     "from": "/places/CA/BC/kootenay-national-park/sinclair-canyon/",
     "to": "/places/sinclair-canyon/",
     "status": 301
@@ -162,6 +182,11 @@
   {
     "from": "/places/CA/BC/yoho-national-park/field/",
     "to": "/places/field/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/BC/yoho-national-park/yoho-national-park/",
+    "to": "/places/yoho-national-park/",
     "status": 301
   },
   {

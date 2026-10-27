@@ -1,0 +1,2437 @@
+{
+  "schema": "capture/1",
+  "trip": "catalogue",
+  "lane": "PA-ca",
+  "researched": "2026-10-27",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/voyage-travel/admission",
+      "title": "Admission and passes",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://parks.canada.ca/voyage-travel/imprimable-printable",
+      "title": "Printable Discovery Pass",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://parks.canada.ca/termes-terms/reservation",
+      "title": "Reservation policies and pass terms of use",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+      "title": "Fees, Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees",
+      "title": "Fees, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/tarifs-fees",
+      "title": "Fees, Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/tarifs-fees",
+      "title": "Fees, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes",
+      "title": "Park passes, Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://parks.canada.ca/pn-np/ab/banff",
+      "title": "Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper",
+      "title": "Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho",
+      "title": "Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay",
+      "title": "Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit",
+      "title": "Plan a trip to Lake O'Hara",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.alberta.ca/kananaskis-conservation-pass",
+      "title": "Kananaskis Conservation Pass",
+      "publisher": "Government of Alberta",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/",
+      "title": "Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/kananaskis-contacts/kananaskis-visitor-information-centre/",
+      "title": "Kananaskis Visitor Information Centre",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees/portes-gates",
+      "title": "Park passes, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins",
+      "title": "Important bulletins: Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins",
+      "title": "Important bulletins: Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/bulletins",
+      "title": "Important bulletins: Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/services",
+      "title": "Facilities and services, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/",
+      "title": "Advisories and public safety, Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/7d9a90ac-8cd6-4a47-9051-e2e41121e93b",
+      "title": "Restricted activity: Travel in Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/06d4ef61-a3c9-4b65-8dfc-66d056252d6c",
+      "title": "Area Closure: Johnston Canyon Trail and Day Use Area",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins/f5abd01d-f731-497e-ab08-8425b6e1f000",
+      "title": "Area Closure: Seasonal closures for caribou conservation",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/annual-road-closures/",
+      "title": "Annual Road Closures, Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://parks.canada.ca/pn-np/mtn/ours-bears/securite-safety",
+      "title": "Bear safety: bears in the mountain national parks",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/wildlife/",
+      "title": "Wildlife, Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+      "title": "Visiting Lake Louise and Moraine Lake",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.banfflakelouise.com/park-pass-purchase",
+      "title": "Purchase a Park Pass for Banff National Park",
+      "publisher": "Banff & Lake Louise Tourism",
+      "kind": "press",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q41858|Q503429|Q828404|Q903323|Q3373468",
+      "title": "Wikidata entities of the five parks (P625, P402, P856, P1435)",
+      "publisher": "Wikidata",
+      "kind": "computed",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "Overpass query: visitor information offices, Lake O'Hara and its car park (Rockies box)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "computed",
+      "read": "2026-10-27",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/banff-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Banff National Park",
+      "area_id": "CA/AB/banff-national-park",
+      "osm_ref": "relation/6365995",
+      "covers_areas": [
+        "CA/AB/banff-national-park"
+      ],
+      "run_by": "operator/parks-canada",
+      "price": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "note": "The entry fee is not a price of the place: it is the requirement offer at this park (protected-area-entry 4.6)."
+      },
+      "closures": {
+        "v": [
+          {
+            "from": "2026-10-13",
+            "to": "2026-12-11",
+            "status": "closed",
+            "why": "Johnston Canyon trail, day-use area and P1 lot closed for construction"
+          }
+        ],
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0024"
+        ],
+        "read": "2026-10-27",
+        "quote": "Johnston Canyon Trail and Day Use Area, including washroom facilities and P1 parking lot",
+        "note": "A dated closure read on the bulletins page; standing rules change weekly, so the conditions link is the live source."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "conditions",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0018"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q41858",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0031"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/6365995",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0031"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "place/jasper-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-jasper",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6354954, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Jasper National Park",
+      "area_id": "CA/AB/jasper-national-park",
+      "osm_ref": "relation/6395738",
+      "covers_areas": [
+        "CA/AB/jasper-national-park"
+      ],
+      "run_by": "operator/parks-canada",
+      "price": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "note": "The entry fee is not a price of the place: it is the requirement offer at this park (protected-area-entry 4.6)."
+      },
+      "closures": {
+        "v": [
+          {
+            "from": "11-01",
+            "to": "05-15",
+            "status": "closed",
+            "why": "Tonquin and A la Peche caribou ranges closed to all backcountry use in winter"
+          }
+        ],
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0025"
+        ],
+        "read": "2026-10-27",
+        "quote": "Seasonal closures in the Tonquin and À la Pêche caribou ranges of Jasper National Park take effect on November 1",
+        "note": "Read for 1 November 2026 to 15 May 2027; the order is renewed each winter.",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0010"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "conditions",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0019"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q503429",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0031"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/6395738",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0031"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "place/yoho-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-golden",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 34.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Yoho National Park",
+      "area_id": "CA/BC/yoho-national-park",
+      "osm_ref": "relation/9368703",
+      "covers_areas": [
+        "CA/BC/yoho-national-park"
+      ],
+      "run_by": "operator/parks-canada",
+      "price": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "note": "The entry fee is not a price of the place: it is the requirement offer at this park (protected-area-entry 4.6)."
+      },
+      "closures": {
+        "v": [
+          {
+            "from": "2026",
+            "to": "2027",
+            "status": "limited",
+            "why": "All waterbodies closed to watercraft and angling until 31 March 2027 (aquatic invasive species)"
+          }
+        ],
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0011"
+        ],
+        "read": "2026-10-27",
+        "quote": "All waterbodies in Yoho and Kootenay national parks are closed to watercraft and angling until March 31, 2027",
+        "note": "Year form because the start date is not on the page; the end is 31 March 2027."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0011"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "conditions",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/bulletins",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0020"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q828404",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0031"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/9368703",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0031"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "place/kootenay-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-radium-hot-springs",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6115713, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Kootenay National Park",
+      "area_id": "CA/BC/kootenay-national-park",
+      "osm_ref": "relation/7707395",
+      "covers_areas": [
+        "CA/BC/kootenay-national-park"
+      ],
+      "run_by": "operator/parks-canada",
+      "price": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "note": "The entry fee is not a price of the place: it is the requirement offer at this park (protected-area-entry 4.6)."
+      },
+      "closures": {
+        "v": [
+          {
+            "from": "2026",
+            "to": "2027",
+            "status": "limited",
+            "why": "All waterbodies closed to watercraft and angling until 31 March 2027 (aquatic invasive species)"
+          }
+        ],
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0012"
+        ],
+        "read": "2026-10-27",
+        "quote": "All waterbodies in Yoho and Kootenay national parks are closed to watercraft and angling until March 31, 2027",
+        "note": "Year form because the start date is not on the page; the end is 31 March 2027."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0012"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0007"
+          ]
+        },
+        {
+          "kind": "conditions",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/services",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0021"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q903323",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0031"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/7707395",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0031"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "place/kananaskis-country",
+      "type": "nature.protected.conservation_area",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 23.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Kananaskis Country",
+      "area_id": "CA/AB/kananaskis-country",
+      "covers_areas": [
+        "CA/AB/kananaskis-country"
+      ],
+      "run_by": "operator/alberta-parks",
+      "price": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "note": "The entry fee is not a price of the place: it is the requirement offer at this park (protected-area-entry 4.6)."
+      },
+      "closures": {
+        "v": [
+          {
+            "from": "12-01",
+            "to": "06-14",
+            "status": "closed",
+            "why": "Highway 40 closed from Peter Lougheed Provincial Park to Highwood House Junction"
+          },
+          {
+            "from": "12-01",
+            "to": "05-14",
+            "status": "closed",
+            "why": "Highway 66 closed west of Elbow Falls and the Powderface Trail"
+          }
+        ],
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0026"
+        ],
+        "read": "2026-10-27",
+        "quote": "Highway #40 Peter Lougheed Provincial Park to Highwood House Junction Closed December 1 - June 14",
+        "note": "Annual road closures; other roads and temporary closures are on the advisories page."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0015"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "url": "https://www.alberta.ca/kananaskis-conservation-pass",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0014"
+          ]
+        },
+        {
+          "kind": "conditions",
+          "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0022"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q3373468",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0031"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/banff-national-park#lake-louise-area",
+      "type": "nature.protected.zone",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Lake Louise area",
+      "area_id": "CA/AB/banff-national-park",
+      "part_of": [
+        "place/banff-national-park"
+      ],
+      "run_by": "operator/parks-canada",
+      "price": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Fees and seats are the requirement offers at this zone or its members, not a price of the area."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0029"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/yoho-national-park#lake-ohara",
+      "type": "nature.protected.zone",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-golden",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 44.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Lake O'Hara area",
+      "area_id": "CA/BC/yoho-national-park",
+      "part_of": [
+        "place/yoho-national-park"
+      ],
+      "run_by": "operator/parks-canada",
+      "price": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Fees and seats are the requirement offers at this zone or its members, not a price of the area."
+      },
+      "osm_ref": "way/356689552",
+      "window": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "note": "The booking window is on the day-use bus offer at this zone; the zone itself is not booked."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0013"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/banff-national-park#banff-visitor-centre",
+      "type": "access.amenity.visitor_info",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Banff Visitor Centre",
+      "area_id": "CA/AB/banff-national-park",
+      "osm_ref": "way/430454020",
+      "parks_for": [
+        "place/banff-national-park"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/430454020",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0032"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
+      "type": "access.amenity.visitor_info",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Lake Louise Visitor Centre",
+      "area_id": "CA/AB/banff-national-park",
+      "osm_ref": "node/1907734438",
+      "parks_for": [
+        "part/place/banff-national-park#lake-louise-area"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/1907734438",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0032"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/jasper-national-park#jasper-information-centre",
+      "type": "access.amenity.visitor_info",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-jasper",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6354954, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Jasper Park Information Centre",
+      "area_id": "CA/AB/jasper-national-park",
+      "osm_ref": "way/272517389",
+      "parks_for": [
+        "place/jasper-national-park"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0010"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/272517389",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0032"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+      "type": "access.amenity.visitor_info",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-golden",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 34.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Yoho National Park Visitor Centre",
+      "area_id": "CA/BC/yoho-national-park",
+      "osm_ref": "way/492008964",
+      "parks_for": [
+        "place/yoho-national-park"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0011"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/492008964",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0032"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+      "type": "access.amenity.visitor_info",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-radium-hot-springs",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6115713, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Kootenay National Park Visitor Centre (Radium Hot Springs)",
+      "area_id": "CA/BC/kootenay-national-park",
+      "osm_ref": "way/390022967",
+      "parks_for": [
+        "place/kootenay-national-park"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/services",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0021"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/390022967",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0032"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+      "type": "access.amenity.visitor_info",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 23.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Kananaskis Visitor Information Centre (Barrier Lake)",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": "way/261038259",
+      "parks_for": [
+        "place/kananaskis-country"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/kananaskis-contacts/kananaskis-visitor-information-centre/",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0016"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/261038259",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0032"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/yoho-national-park#lake-ohara-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-golden",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 47.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Lake O'Hara parking lot (bus departure)",
+      "area_id": "CA/BC/yoho-national-park",
+      "osm_ref": "way/298739416",
+      "parks_for": [
+        "part/place/yoho-national-park#lake-ohara"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0013"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/298739416",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0032"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "offer/operator/parks-canada#discovery-pass",
+      "type": "access.pass.park_pass",
+      "layer": "offer",
+      "name": "Parks Canada Discovery Pass",
+      "summary": "Annual Parks Canada pass that covers daily admission at the national parks and historic sites it lists, including Banff, Jasper, Yoho and Kootenay.",
+      "run_by": "operator/parks-canada",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-27",
+        "note": "Sold online and at gates and visitor centres; no sale season is stated."
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 83.5,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64,
+            "applies_to": "2026"
+          },
+          {
+            "amount": 71.5,
+            "currency": "CAD",
+            "per": "person",
+            "age_from": 65,
+            "applies_to": "2026",
+            "note": "senior"
+          },
+          {
+            "amount": 167.5,
+            "currency": "CAD",
+            "per": "family",
+            "applies_to": "2026",
+            "note": "family or group: up to seven people arriving in one vehicle"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 17,
+            "applies_to": "2026",
+            "note": "admission is free for youth 17 and under"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0004",
+          "src-0001"
+        ],
+        "read": "2026-10-27",
+        "quote": "Parks Canada Discovery Pass Adult $ 83.50 Senior $ 71.50 Family/Group $ 167.50",
+        "note": "The fees pages give no year; read in the 2026 season. Same prices on the Jasper, Yoho and Kootenay fees pages.",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001",
+          "src-0008"
+        ],
+        "read": "2026-10-27",
+        "note": "Buy online before the trip, or at a park gate, information centre or campground."
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "person",
+          "valid": {
+            "span": 12,
+            "unit": "month",
+            "from": "purchase"
+          },
+          "channel": [
+            "online",
+            "gate",
+            "visitor_centre"
+          ],
+          "proof": "display",
+          "cancel": {
+            "refund": "none",
+            "note": "Non-refundable; signed by the holder, not transferable."
+          }
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0003",
+          "src-0002"
+        ],
+        "read": "2026-10-27",
+        "quote": "valid for a full 12 months from the date of purchase, expiring on the last day of the month in which it was purchased",
+        "note": "Hang it from the mirror or put it on the driver side dashboard; the holder must be present. Excludes hot springs, backcountry use, parking and camping."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/voyage-travel/admission",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://reservation.pc.gc.ca/store/all?departmentId=-32761&locale=en-CA",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "terms",
+          "url": "https://parks.canada.ca/termes-terms/reservation",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "offer/place/banff-national-park#daily-admission",
+      "type": "access.pass.entry_fee",
+      "layer": "offer",
+      "name": "Banff National Park daily admission",
+      "summary": "A park pass for each day in the park, bought online, at a gate or at a visitor centre. Youth 17 and under enter free.",
+      "at": [
+        "place/banff-national-park"
+      ],
+      "run_by": "operator/parks-canada",
+      "covered_by": [
+        "offer/operator/parks-canada#discovery-pass"
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0009"
+        ],
+        "read": "2026-10-27",
+        "note": "The park is open year-round and the fees page gives no fee season."
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 12.25,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64,
+            "applies_to": "2026"
+          },
+          {
+            "amount": 10.75,
+            "currency": "CAD",
+            "per": "person",
+            "age_from": 65,
+            "applies_to": "2026",
+            "note": "senior"
+          },
+          {
+            "amount": 24.5,
+            "currency": "CAD",
+            "per": "family",
+            "applies_to": "2026",
+            "note": "family or group: up to seven people arriving in one vehicle"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 17,
+            "applies_to": "2026",
+            "note": "youth 17 and under free"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-27",
+        "quote": "ADMISSION Daily Adult $ 12.25 Senior $ 10.75 Youth free Family/Group $ 24.50",
+        "note": "Read in 2026; admission was free 19 June to 7 September 2026 (Canada Strong Pass) and regular fees apply from 8 September 2026.",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-27",
+        "note": "Buy online before the trip, or at a park gate, information centre or campground."
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "person",
+          "valid": {
+            "span": 1,
+            "unit": "day",
+            "from": "purchase"
+          },
+          "channel": [
+            "online",
+            "gate",
+            "visitor_centre"
+          ],
+          "proof": "display",
+          "exemptions": [
+            {
+              "who": "through_traffic",
+              "note": "Through travel without stopping on Highways 1 and 93 South; not on the Icefields or Bow Valley parkways."
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0008",
+          "src-0023"
+        ],
+        "read": "2026-10-27",
+        "quote": "Persons travelling without stopping on the Trans-Canada Highway (1) and the Banff-Windermere Highway (93 South)",
+        "note": "Valid until 16:00 the day after purchase, and in Banff, Jasper, Kootenay, Yoho, Mount Revelstoke, Glacier, Waterton Lakes and Elk Island. A pass is needed for each day of a stay."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://www.banfflakelouise.com/park-pass-purchase",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0008"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "offer/place/jasper-national-park#daily-admission",
+      "type": "access.pass.entry_fee",
+      "layer": "offer",
+      "name": "Jasper National Park daily admission",
+      "summary": "A park pass for each day in the park, bought online, at a gate or at a visitor centre. Youth 17 and under enter free.",
+      "at": [
+        "place/jasper-national-park"
+      ],
+      "run_by": "operator/parks-canada",
+      "covered_by": [
+        "offer/operator/parks-canada#discovery-pass"
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0010"
+        ],
+        "read": "2026-10-27",
+        "note": "The park is open year-round and the fees page gives no fee season."
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 12.25,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64,
+            "applies_to": "2026"
+          },
+          {
+            "amount": 10.75,
+            "currency": "CAD",
+            "per": "person",
+            "age_from": 65,
+            "applies_to": "2026",
+            "note": "senior"
+          },
+          {
+            "amount": 24.5,
+            "currency": "CAD",
+            "per": "family",
+            "applies_to": "2026",
+            "note": "family or group: up to seven people arriving in one vehicle"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 17,
+            "applies_to": "2026",
+            "note": "youth 17 and under free"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-27",
+        "quote": "ADMISSION Daily Adult $ 12.25 Senior $ 10.75 Youth free Family/Group $ 24.50",
+        "note": "Read in 2026; admission was free 19 June to 7 September 2026 (Canada Strong Pass) and regular fees apply from 8 September 2026.",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-27",
+        "note": "Buy online before the trip, or at a park gate, information centre or campground."
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "person",
+          "valid": {
+            "span": 1,
+            "unit": "day",
+            "from": "purchase"
+          },
+          "channel": [
+            "online",
+            "gate",
+            "visitor_centre"
+          ],
+          "proof": "display",
+          "exemptions": [
+            {
+              "who": "through_traffic",
+              "note": "Through travel without stopping on Highways 1 and 93 South; not on the Icefields or Bow Valley parkways."
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0008",
+          "src-0017"
+        ],
+        "read": "2026-10-27",
+        "quote": "Daily passes Valid until 4:00pm on the day after purchase",
+        "note": "Valid until 16:00 the day after purchase, and in Banff, Jasper, Kootenay, Yoho, Mount Revelstoke, Glacier, Waterton Lakes and Elk Island. A pass is needed for each day of a stay."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://www.jasper.travel/parkpass/",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0017"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "offer/place/yoho-national-park#daily-admission",
+      "type": "access.pass.entry_fee",
+      "layer": "offer",
+      "name": "Yoho National Park daily admission",
+      "summary": "A park pass for each day in the park, bought online, at a gate or at a visitor centre. Youth 17 and under enter free.",
+      "at": [
+        "place/yoho-national-park"
+      ],
+      "run_by": "operator/parks-canada",
+      "covered_by": [
+        "offer/operator/parks-canada#discovery-pass"
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0011"
+        ],
+        "read": "2026-10-27",
+        "note": "The park is open year-round and the fees page gives no fee season."
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 12.25,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64,
+            "applies_to": "2026"
+          },
+          {
+            "amount": 10.75,
+            "currency": "CAD",
+            "per": "person",
+            "age_from": 65,
+            "applies_to": "2026",
+            "note": "senior"
+          },
+          {
+            "amount": 24.5,
+            "currency": "CAD",
+            "per": "family",
+            "applies_to": "2026",
+            "note": "family or group: up to seven people arriving in one vehicle"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 17,
+            "applies_to": "2026",
+            "note": "youth 17 and under free"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-27",
+        "quote": "ADMISSION Daily Adult $ 12.25 Senior $ 10.75 Youth free Family/Group $ 24.50",
+        "note": "Read in 2026; admission was free 19 June to 7 September 2026 (Canada Strong Pass) and regular fees apply from 8 September 2026.",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-27",
+        "note": "Buy online before the trip, or at a park gate, information centre or campground."
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "person",
+          "valid": {
+            "span": 1,
+            "unit": "day",
+            "from": "purchase"
+          },
+          "channel": [
+            "online",
+            "gate",
+            "visitor_centre"
+          ],
+          "proof": "display",
+          "exemptions": [
+            {
+              "who": "through_traffic",
+              "note": "Through travel without stopping on Highways 1 and 93 South; not on the Icefields or Bow Valley parkways."
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0008",
+          "src-0017"
+        ],
+        "read": "2026-10-27",
+        "quote": "Daily passes Valid until 4:00pm on the day after purchase",
+        "note": "Valid until 16:00 the day after purchase, and in Banff, Jasper, Kootenay, Yoho, Mount Revelstoke, Glacier, Waterton Lakes and Elk Island. A pass is needed for each day of a stay."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://www.banfflakelouise.com/park-pass-purchase",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0008"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "offer/place/kootenay-national-park#daily-admission",
+      "type": "access.pass.entry_fee",
+      "layer": "offer",
+      "name": "Kootenay National Park daily admission",
+      "summary": "A park pass for each day in the park, bought online, at a gate or at a visitor centre. Youth 17 and under enter free.",
+      "at": [
+        "place/kootenay-national-park"
+      ],
+      "run_by": "operator/parks-canada",
+      "covered_by": [
+        "offer/operator/parks-canada#discovery-pass"
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0012"
+        ],
+        "read": "2026-10-27",
+        "note": "The park is open year-round and the fees page gives no fee season."
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 12.25,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64,
+            "applies_to": "2026"
+          },
+          {
+            "amount": 10.75,
+            "currency": "CAD",
+            "per": "person",
+            "age_from": 65,
+            "applies_to": "2026",
+            "note": "senior"
+          },
+          {
+            "amount": 24.5,
+            "currency": "CAD",
+            "per": "family",
+            "applies_to": "2026",
+            "note": "family or group: up to seven people arriving in one vehicle"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 17,
+            "applies_to": "2026",
+            "note": "youth 17 and under free"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0007"
+        ],
+        "read": "2026-10-27",
+        "quote": "ADMISSION Daily Adult $ 12.25 Senior $ 10.75 Youth free Family/Group $ 24.50",
+        "note": "Read in 2026; admission was free 19 June to 7 September 2026 (Canada Strong Pass) and regular fees apply from 8 September 2026.",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-27",
+        "note": "Buy online before the trip, or at a park gate, information centre or campground."
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "person",
+          "valid": {
+            "span": 1,
+            "unit": "day",
+            "from": "purchase"
+          },
+          "channel": [
+            "online",
+            "gate",
+            "visitor_centre"
+          ],
+          "proof": "display",
+          "exemptions": [
+            {
+              "who": "through_traffic",
+              "note": "Through travel without stopping on Highways 1 and 93 South; not on the Icefields or Bow Valley parkways."
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0008",
+          "src-0017"
+        ],
+        "read": "2026-10-27",
+        "quote": "Daily passes Valid until 4:00pm on the day after purchase",
+        "note": "Valid until 16:00 the day after purchase, and in Banff, Jasper, Kootenay, Yoho, Mount Revelstoke, Glacier, Waterton Lakes and Elk Island. A pass is needed for each day of a stay."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0007"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://www.banfflakelouise.com/park-pass-purchase",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0008"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+      "type": "access.pass.shuttle_seat",
+      "layer": "offer",
+      "name": "Lake O'Hara day-use bus",
+      "summary": "Reserved return bus up the 11 km road to Lake O'Hara; seats by a spring random draw, then leftovers until 15:30 the day before. Walking is 22 km return.",
+      "at": [
+        "part/place/yoho-national-park#lake-ohara"
+      ],
+      "run_by": "operator/parks-canada",
+      "season": {
+        "v": [
+          {
+            "from": "06-19",
+            "to": "10-04",
+            "status": "open",
+            "applies_to": "2026"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0013"
+        ],
+        "read": "2026-10-27",
+        "quote": "Operating from June 19 to October 4, 2026.",
+        "applies_to": "2026"
+      },
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "08:30",
+              "close": "18:30",
+              "from": "06-19",
+              "to": "10-04"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0013"
+        ],
+        "read": "2026-10-27",
+        "quote": "Day-use bus schedule (MDT): 8:30; 10:30 (ingoing) and 9:30; 11:30; 14:30; 16:30; 18:30 (outgoing).",
+        "note": "Inbound buses 08:30 and 10:30; outbound 09:30, 11:30, 14:30, 16:30 and 18:30.",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 25.5,
+            "currency": "CAD",
+            "per": "person",
+            "applies_to": "2026",
+            "note": "return bus fare"
+          },
+          {
+            "amount": 10,
+            "currency": "CAD",
+            "per": "group",
+            "applies_to": "2026",
+            "note": "per random-draw application, non-refundable"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0006",
+          "src-0003"
+        ],
+        "read": "2026-10-27",
+        "quote": "Shuttle - To Lake O'Hara Area and Return Per person $ 25.50",
+        "note": "Plus a reservation fee per booking (3.50 online, 5.50 by phone).",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": {
+          "rule": "lottery",
+          "opens_from": "03-02",
+          "opens_to": "03-23",
+          "opens_time": "08:00",
+          "tz": "America/Edmonton",
+          "then": {
+            "rule": "rolling",
+            "closes_days_before": 1,
+            "closes_time": "15:30"
+          }
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0003",
+          "src-0013"
+        ],
+        "read": "2026-10-27",
+        "quote": "you can make a reservation up until 3:30 pm the day prior to your activity date on the bus",
+        "note": "2026 draw: applications 08:00 2 March to 23:59 23 March MDT, up to six date and time choices; winners have 14 days to claim. That the draw is in March each year is a pattern.",
+        "applies_to": "2026"
+      },
+      "entry": {
+        "v": {
+          "required": "in_season",
+          "needed_for": [
+            "day"
+          ],
+          "unit": "person",
+          "valid": {
+            "span": 1,
+            "unit": "day",
+            "from": "calendar"
+          },
+          "channel": [
+            "online",
+            "phone"
+          ],
+          "quota": {
+            "per": "day",
+            "note": "Seats per bus are limited; at most six people per reservation, children included."
+          },
+          "cancel": {
+            "refund": "full",
+            "until_hours": 72,
+            "note": "Less the reservation and cancellation fees; 50% of the bus fare after that. The draw application fee is never refunded."
+          }
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0003",
+          "src-0013"
+        ],
+        "read": "2026-10-27",
+        "quote": "Maximum 6 people per reservations. Children from 1-16 years old must be included within the reservation.",
+        "note": "Draw applications are online only; after the draw, reservations online or by phone. The cancellation rule is the general day-use rule of the reservation policies."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0013"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://reservation.pc.gc.ca",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0013"
+          ]
+        },
+        {
+          "kind": "terms",
+          "url": "https://parks.canada.ca/termes-terms/reservation#draw",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "offer/place/kananaskis-country#conservation-pass-day",
+      "type": "access.pass.vehicle_permit",
+      "layer": "offer",
+      "name": "Kananaskis Conservation Pass (day pass)",
+      "summary": "Vehicle pass to park at provincial park and public land sites in Kananaskis Country and the Bow Valley. One pass per vehicle; passengers need none.",
+      "at": [
+        "place/kananaskis-country"
+      ],
+      "run_by": "operator/alberta-parks",
+      "covered_by": [
+        "offer/place/kananaskis-country#conservation-pass-year"
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-27",
+        "note": "No season is stated; the pass is sold as a day or yearly pass."
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 15,
+            "currency": "CAD",
+            "per": "vehicle_day",
+            "applies_to": "2026",
+            "note": "personal vehicle; registers one vehicle"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-27",
+        "quote": "Personal vehicles Day pass - $15 (registers one vehicle)",
+        "note": "Read in 2026; commercial vehicles pay more.",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime",
+          "closes_days_before": 0,
+          "closes_time": "23:59",
+          "tz": "America/Edmonton"
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-27",
+        "quote": "You can purchase your pass up until 11:59 pm on the first day of your visit.",
+        "note": "Cell service is patchy in much of Kananaskis; the page advises buying before arriving."
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "vehicle",
+          "valid": {
+            "span": 1,
+            "unit": "day",
+            "from": "calendar"
+          },
+          "channel": [
+            "online",
+            "phone",
+            "visitor_centre"
+          ],
+          "proof": "plate_registered",
+          "exemptions": [
+            {
+              "who": "through_traffic",
+              "note": "Driving through without stopping, or only loading or unloading passengers."
+            },
+            {
+              "who": "indigenous",
+              "note": "First Nations individuals with status, by an exemption applied for online or in person."
+            },
+            {
+              "who": "other",
+              "note": "Arriving without a vehicle: on foot, on horseback or by bicycle."
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-27",
+        "quote": "All personal and commercial vehicles parked in parks and public lands in Kananaskis Country and the Bow Valley corridor",
+        "note": "Passes expire at 23:59 on their last day. Online purchases can be cancelled until 23:59 the day before the pass starts. Camping fees are extra."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.alberta.ca/kananaskis-conservation-pass",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0014"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://conservationpass.alberta.ca/kcp",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0014"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "offer/place/kananaskis-country#conservation-pass-year",
+      "type": "access.pass.park_pass",
+      "layer": "offer",
+      "name": "Kananaskis Conservation Pass (yearly pass)",
+      "summary": "Yearly Kananaskis Conservation Pass for up to three vehicles registered at one address; it replaces the day pass for a year from purchase.",
+      "at": [
+        "place/kananaskis-country"
+      ],
+      "run_by": "operator/alberta-parks",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-27",
+        "note": "No season is stated."
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 90,
+            "currency": "CAD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "personal vehicles; registers up to three vehicles at one address"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-27",
+        "quote": "Yearly pass - $90 (registers up to 3 vehicles)",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-27",
+        "note": "Buy online, by phone or at a Kananaskis visitor information centre."
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "vehicle",
+          "valid": {
+            "span": 365,
+            "unit": "day",
+            "from": "purchase"
+          },
+          "channel": [
+            "online",
+            "phone",
+            "visitor_centre"
+          ],
+          "proof": "plate_registered"
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-27",
+        "quote": "Annual passes are valid for a full calendar year (365 days) from date of purchase.",
+        "note": "Vehicles registered to different addresses cannot share one yearly pass."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.alberta.ca/kananaskis-conservation-pass",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0014"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://conservationpass.alberta.ca/kcp",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0014"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    }
+  ]
+}

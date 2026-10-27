@@ -30,8 +30,8 @@ describe('Summary: Canadian Rockies (the test case)', () => {
     expect(s.counts).toMatchObject({
       bases: 4, stays: 5, sights: 27, activities: 15, photos: 41, highlights: 13,
       trails: { count: 33, km: 183.3, kmKnown: 33, gainM: 8401, gainKnown: 33 },
-      // PA-W: the shuttle's window is a published rule now, so one booking is dated and it is the earliest
-      bookings: { count: 7, dated: 1, earliest: { day: 10, rule: 'Opens 2 days before Day 10 at 08:00 local' } },
+      // PA-R-CA2: the shuttle (two ridden days), the Roam batch and the O'Hara lottery are dated; the lottery (March) opens first
+      bookings: { count: 8, dated: 4, earliest: { day: 9, rule: 'Lottery: apply usually in March; seats left after the draw until 15:30 the day before Day 9' } },
     });
   });
   it('has 13 highlights with days, a route folded into its payoff, photos from the place or the gallery section that names it', () => {
@@ -107,11 +107,11 @@ describe("The trip's shape on the real timelines (spec 4.2)", () => {
   it('Rockies at the default party', () => {
     const sh = tripShapeFor(getTrip('canadian-rockies-2029')!, getPlace)!;
     expect(sh.sets.longDrive).toEqual([1, 4, 5, 8]);
-    expect(sh.sets.booking).toEqual([1, 4, 5, 10, 11]);
+    expect(sh.sets.booking).toEqual([1, 4, 5, 9, 10, 11]);
     expect(sh.sets.warning).toEqual([2, 4, 7, 10, 12, 13]);
     // the spec's table said 7 (no Day 5); Day 5's family version visits Maligne Lake and Spirit Island, a highlight
     expect(sh.sets.highlight).toEqual([3, 4, 5, 8, 9, 10, 11, 14]);
-    expect(sh.countLine).toBe('15 days · 4 long drive days · 5 days with a booking · 8 highlight days · 6 days with a warning');
+    expect(sh.countLine).toBe('15 days · 4 long drive days · 6 days with a booking · 8 highlight days · 6 days with a warning');
     expect(sh.ribbon.map((r) => [r.name, r.nights])).toEqual([['Banff', 2], ['Lake Louise village', 1], ['Jasper townsite', 4], ['Lake Louise village', 4], ['Kananaskis Village / Peter Lougheed PP', 3]]);
     expect(sh.tail).toEqual({ days: [15], label: 'Flight home' });
     expect(sh.rows[5]!.notes.map((n) => n.text)).toEqual(["Adults' hike"]);

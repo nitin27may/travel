@@ -1081,6 +1081,24 @@
       "coord_src": "osm",
       "point_source": "OSM relation/17161840 amenity=parking fee=no, 60 m from the OSM Arches National Park Visitor Center (way/1246899184)"
     },
+    "part/place/banff-national-park#banff-visitor-centre": {
+      "lat": 51.17798,
+      "lon": -115.57024,
+      "coord_src": "osm",
+      "point_source": "OSM way/430454020 (Banff Visitor Centre), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+    },
+    "part/place/banff-national-park#lake-louise-area": {
+      "lat": 51.4263,
+      "lon": -116.17905,
+      "coord_src": "osm",
+      "point_source": "OSM node/1907734438, Lake Louise Visitor Centre: the zone's information office in the village"
+    },
+    "part/place/banff-national-park#lake-louise-visitor-centre": {
+      "lat": 51.4263,
+      "lon": -116.17905,
+      "coord_src": "osm",
+      "point_source": "OSM node/1907734438 (Lake Louise Visitor Centre), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+    },
     "part/place/bentonite-hills#cow-dung-road-approx": {
       "lat": 38.36167,
       "lon": -111.12797,
@@ -1195,6 +1213,18 @@
       "coord_src": "osm",
       "point_source": "OSM way/116860348 amenity=parking name 'Hualapai Hilltop', the trailhead for the Havasupai trail"
     },
+    "part/place/jasper-national-park#jasper-information-centre": {
+      "lat": 52.87734,
+      "lon": -118.08083,
+      "coord_src": "osm",
+      "point_source": "OSM way/272517389 (Jasper Park Information Centre), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+    },
+    "part/place/kananaskis-country#kananaskis-visitor-centre": {
+      "lat": 51.04822,
+      "lon": -115.02277,
+      "coord_src": "osm",
+      "point_source": "OSM way/261038259 (Kananaskis Visitor Information Centre (Barrier Lake)), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+    },
     "part/place/kanarra-falls#town-parking-lot": {
       "lat": 37.53777,
       "lon": -113.17565,
@@ -1206,6 +1236,12 @@
       "lon": -142.94361,
       "coord_src": "osm",
       "point_source": "OSM way/461639604 amenity=parking fee=yes, 100 m from the OSM West Fork Kennicott River gauge at McCarthy (node/12067017967)"
+    },
+    "part/place/kootenay-national-park#kootenay-visitor-centre": {
+      "lat": 50.61959,
+      "lon": -116.06937,
+      "coord_src": "osm",
+      "point_source": "OSM way/390022967 (Kootenay National Park Visitor Centre (Radium Hot Springs)), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
     },
     "part/place/la-martre-lighthouse#parking": {
       "lat": 49.20665,
@@ -1459,6 +1495,24 @@
       "coord_src": "osm",
       "point_source": "OSM relation/14238986 amenity=parking fee=no name 'West Parking', 150 m from the OSM Old Faithful Visitor Center (way/198653447)"
     },
+    "part/place/yoho-national-park#lake-ohara": {
+      "lat": 51.35579,
+      "lon": -116.33162,
+      "coord_src": "osm",
+      "point_source": "OSM way 356689552, Lake O'Hara (natural=water), centre of the way computed by Overpass: the lake at the heart of the zone"
+    },
+    "part/place/yoho-national-park#lake-ohara-parking": {
+      "lat": 51.44466,
+      "lon": -116.32938,
+      "coord_src": "osm",
+      "point_source": "OSM way 298739416 named \"lake o'hara parking\", amenity=parking; the official page says the bus departs from the Lake O'Hara parking lot 12 km west of Lake Louise"
+    },
+    "part/place/yoho-national-park#yoho-visitor-centre": {
+      "lat": 51.39798,
+      "lon": -116.49185,
+      "coord_src": "osm",
+      "point_source": "OSM way/492008964 (Yoho National Park Visitor Centre), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+    },
     "part/place/zion-national-park#visitor-center-lot": {
       "lat": 37.19934,
       "lon": -112.98713,
@@ -1632,6 +1686,12 @@
       "lon": -109.54,
       "coord_src": "wikidata",
       "point_source": "Wikidata Q223969 P625,; a point inside the park, not an entrance"
+    },
+    "place/banff-national-park": {
+      "lat": 51.17798,
+      "lon": -115.57024,
+      "coord_src": "osm",
+      "point_source": "OSM way/430454020, Banff Visitor Centre: the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
     },
     "place/bentonite-hills": {
       "lat": 38.36167,
@@ -1825,6 +1885,18 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata Q5683183 P625,; matches OSM node 602137131 Havasu Falls (attraction)"
     },
+    "place/jasper-national-park": {
+      "lat": 52.87734,
+      "lon": -118.08083,
+      "coord_src": "osm",
+      "point_source": "OSM way/272517389, Jasper Park Information Centre: the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
+    },
+    "place/kananaskis-country": {
+      "lat": 51.04822,
+      "lon": -115.02277,
+      "coord_src": "osm",
+      "point_source": "OSM way/261038259, Kananaskis Visitor Information Centre (Barrier Lake): the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
+    },
     "place/kanarra-falls": {
       "lat": 37.5377,
       "lon": -113.15261,
@@ -1836,6 +1908,12 @@
       "lon": -142.889,
       "coord_src": "wikidata",
       "point_source": "Wikidata Q995915 P625 (Kennecott townsite),; matches OSM node 654578203 Kennecott Mines National Historic Landmark. The trip itself starts at the operator's base in McCarthy (OSM place node 150916666, about 7 km away)."
+    },
+    "place/kootenay-national-park": {
+      "lat": 50.61959,
+      "lon": -116.06937,
+      "coord_src": "osm",
+      "point_source": "OSM way/390022967, Kootenay National Park Visitor Centre (Radium Hot Springs): the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
     },
     "place/la-martre-lighthouse": {
       "lat": 49.20612,
@@ -2268,6 +2346,12 @@
       "lon": -110.5,
       "coord_src": "wikidata",
       "point_source": "Wikidata Q351 P625,; a point inside the park, not an entrance"
+    },
+    "place/yoho-national-park": {
+      "lat": 51.39798,
+      "lon": -116.49185,
+      "coord_src": "osm",
+      "point_source": "OSM way/492008964, Yoho National Park Visitor Centre: the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
     },
     "place/zion-national-park": {
       "lat": 37.20262,

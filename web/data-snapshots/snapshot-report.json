@@ -1,7 +1,7 @@
 {
   "schema": "snapshot-report/1",
   "note": "Dropped from the public view because it carries a calendar date. Rewrite each as a season, a day number or a rule.",
-  "count": 247,
+  "count": 252,
   "items": [
     {
       "where": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre wikidata note",
@@ -774,6 +774,11 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/banff-national-park wikidata note",
+      "text": "Agent-checked 2026-10-27; needs a person's check.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/bonaventure-island wikidata note",
       "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Bonaventure Island', instance of island, P625 inside the OSM park relation 6989318; needs a person's check",
       "why": "agent or review-queue process note; never published"
@@ -812,6 +817,21 @@
       "where": "place/croda-del-becco effort.drivers.gain_m conflict",
       "text": "Computed, not published: the confirmed OSM track (relation 1155861, Lago di Braies to the summit) gives 1,467 m up one way (7.31 km).",
       "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/jasper-national-park wikidata note",
+      "text": "Agent-checked 2026-10-27; needs a person's check.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/kananaskis-country wikidata note",
+      "text": "Agent-checked 2026-10-27; needs a person's check.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/kootenay-national-park wikidata note",
+      "text": "Agent-checked 2026-10-27; needs a person's check.",
+      "why": "agent or review-queue process note; never published"
     },
     {
       "where": "place/la-martre-lighthouse wikidata note",
@@ -876,6 +896,11 @@
     {
       "where": "place/pic-champlain wikidata note",
       "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Pic Champlain', instance of summit, P2044 346 m, P625 0.13 km from OSM peak node 1087473528; the QID is also the OSM wikidata tag; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/yoho-national-park wikidata note",
+      "text": "Agent-checked 2026-10-27; needs a person's check.",
       "why": "agent or review-queue process note; never published"
     },
     {

@@ -59,6 +59,33 @@
       "kind": "operator",
       "read": "2026-10-18",
       "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+      "title": "Visiting Lake Louise and Moraine Lake",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://roamtransit.com/fares/reservations/super-pass-reservations/",
+      "title": "Super Pass Reservations",
+      "publisher": "Roam Transit (Bow Valley Regional Transit Services Commission)",
+      "kind": "operator",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://parks.canada.ca/termes-terms/reservation",
+      "title": "Reservation policies",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
     }
   ],
   "records": [
@@ -71,15 +98,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 5.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Sulphur Mountain",
@@ -125,15 +152,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 3.3,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Sanson's Peak",
@@ -183,15 +210,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 3.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Sulphur Mountain summit boardwalk",
@@ -251,15 +278,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 3.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Sky Bistro",
@@ -303,15 +330,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 45.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Moraine Lake shuttle stop",
@@ -355,15 +382,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 45.7,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Moraine Lake Rockpile",
@@ -410,15 +437,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 45.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Moraine Lake Rockpile loop",
@@ -474,8 +501,10 @@
       "type": "access.pass.shuttle_seat",
       "layer": "offer",
       "name": "Parks Canada shuttle seat to Moraine Lake",
+      "summary": "Reserved Parks Canada shuttle for one day from the Lake Louise Park and Ride to Lake Louise and Moraine Lake, with the Lake Connector. Park entry is extra.",
       "at": [
-        "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+        "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+        "place/lake-louise"
       ],
       "season": {
         "v": [
@@ -535,22 +564,28 @@
       },
       "window": {
         "v": {
-          "rule": "rolling",
-          "days_before": 2,
+          "rule": "fixed_date",
+          "opens_from": "04-15",
+          "opens_to": "04-15",
           "opens_time": "08:00",
           "tz": "America/Edmonton",
-          "sellout": {
-            "kind": "unknown"
-          },
-          "fallback": "40% of seats go on sale on a spring launch day; the other 60% open at 08:00 Mountain time two days before each departure."
+          "share_pct": 40,
+          "then": {
+            "rule": "rolling",
+            "days_before": 2,
+            "opens_time": "08:00",
+            "share_pct": 60
+          }
         },
         "state": "value",
         "basis": "official_rule",
         "src": [
-          "src-0004"
+          "src-0007",
+          "src-0009"
         ],
-        "read": "2026-10-18",
+        "read": "2026-10-27",
         "quote": "The remaining 60% of seats are released at 8 am MDT, two days before each departure day.",
+        "note": "Launch was Wednesday 15 April 2026 at 08:00 MDT; the date is set each year (a pattern). Seats typically sell out well ahead; a seat on the day is not recommended.",
         "applies_to": "2026"
       },
       "links": [
@@ -571,14 +606,219 @@
           "src": [
             "src-0005"
           ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://reservation.pc.gc.ca/create-booking/results?mapId=-2147483634&searchTabGroupId=3&bookingCategoryId=9",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0007"
+          ]
         }
       ],
+      "run_by": "operator/parks-canada",
+      "entry": {
+        "v": {
+          "required": "in_season",
+          "needed_for": [
+            "day"
+          ],
+          "unit": "person",
+          "valid": {
+            "span": 1,
+            "unit": "day",
+            "from": "calendar"
+          },
+          "channel": [
+            "online",
+            "phone"
+          ],
+          "change": {
+            "allowed": "fee",
+            "until_hours": 1,
+            "note": "Change fee 3.50 online or 5.50 by phone; no change within 1 hour of the departure window."
+          },
+          "cancel": {
+            "refund": "full",
+            "until_hours": 1,
+            "note": "Less the reservation and cancellation fees; none within 1 hour of the departure window."
+          },
+          "quota": {
+            "per": "slot",
+            "note": "1-hour departure windows from the Park and Ride; up to 10 seats per reservation."
+          }
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0007",
+          "src-0009"
+        ],
+        "read": "2026-10-27",
+        "quote": "A reservation is required for all Parks Canada shuttles.",
+        "note": "One ticket covers one day: a trip to either lake, the Lake Connector between them and the return to the Park and Ride. Free parking at the Park and Ride for reservation holders."
+      },
       "meta": {
         "schema_version": 1,
         "run_id": "RIS-N",
         "origin": {
           "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
           "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+        }
+      }
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+      "type": "access.pass.shuttle_seat",
+      "layer": "offer",
+      "name": "Roam Reservable Super Pass (Banff to Lake Louise and Moraine Lake)",
+      "summary": "Roam Transit day pass from Banff with a reserved 8X round trip to Lake Louise and the Parks Canada Lake Connector to Moraine Lake. Online only, round trip only.",
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+        "place/lake-louise"
+      ],
+      "run_by": "operator/roam-transit",
+      "alternative_to": [
+        "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat"
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "06-01",
+            "to": "10-12",
+            "status": "open",
+            "applies_to": "2026"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-27",
+        "quote": "Available June 1st – October 12th, 2026, only.",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 30,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 19,
+            "applies_to": "2026",
+            "note": "one-day pass, same-day return"
+          },
+          {
+            "amount": 15,
+            "currency": "CAD",
+            "per": "person",
+            "age_from": 65,
+            "applies_to": "2026",
+            "note": "senior"
+          },
+          {
+            "amount": 15,
+            "currency": "CAD",
+            "per": "person",
+            "age_from": 13,
+            "age_to": 18,
+            "applies_to": "2026",
+            "note": "youth; age 18 only with high-school ID"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 12,
+            "applies_to": "2026",
+            "note": "free, but each child still needs a reservation"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-27",
+        "quote": "Adult +19 Seniors +65 Youth 13-18* ... $30 $15 $15 Children 12 and under are free, however still require a reservation",
+        "note": "Prices are for a same-day return; outbound and return on different dates cost 30 more per person. A 3 reservation fee per booking is non-refundable.",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": {
+          "rule": "monthly_release",
+          "month_lead_days": 36,
+          "opens_time": "09:00",
+          "tz": "America/Edmonton"
+        },
+        "state": "value",
+        "basis": "operator_rule",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-27",
+        "quote": "Reservations for September & October (until the 12th) open at 9 a.m. MT on July 27th",
+        "note": "2026 batches: June opened 23 April, July 25 May, August 22 June, September and October 27 July (36 to 40 days before the month). Usually sold out for much of the summer.",
+        "applies_to": "2026"
+      },
+      "entry": {
+        "v": {
+          "required": "in_season",
+          "needed_for": [
+            "day"
+          ],
+          "unit": "person",
+          "valid": {
+            "span": 1,
+            "unit": "day",
+            "from": "calendar"
+          },
+          "channel": [
+            "online"
+          ],
+          "cancel": {
+            "refund": "partial",
+            "until_hours": 48,
+            "note": "A 25% fee more than 48 hours before departure; no refund within 48 hours; the reservation fee is never refunded."
+          }
+        },
+        "state": "value",
+        "basis": "operator_rule",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-27",
+        "quote": "This pass is valid for one day only and will expire at midnight on the date of travel.",
+        "note": "Moraine Lake only when the journey starts in Banff; arrive 20 minutes early or the reservation is cancelled. The Lake Connector is first come, first served."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://roamtransit.com/fares/reservations/super-pass-reservations/",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0008"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://roamtransit.betterez.com/cart/607a075d39c0361ea1fe027a",
+          "state": "filled",
+          "on": "2026-10-27",
+          "src": [
+            "src-0008"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+          "reason": "PA-R-CA: the second way to reach Moraine Lake without a car (booking row moraine-private-access; D8-R proposal)."
         }
       }
     },
@@ -591,15 +831,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 48.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Sentinel Pass",
@@ -646,15 +886,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 48.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Larch Valley",
@@ -714,15 +954,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 20.6,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Johnston Canyon Lower Falls",
@@ -766,15 +1006,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 20.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Johnston Canyon Upper Falls",
@@ -818,15 +1058,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 21,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Ink Pots",
@@ -873,15 +1113,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 20.3,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Ink Pots trail",
@@ -1000,15 +1240,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 22.3,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Wild Water Adventures River Base",
@@ -1047,8 +1287,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
       },
       "name": "Bow Lake day-use parking",
       "osm_ref": "relation/18335545",
@@ -1083,15 +1323,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 33.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Emerald Lake parking",
@@ -1126,15 +1366,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 32.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Maligne Lake parking",
@@ -1169,15 +1409,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 21.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Mount Lorette Ponds parking",
@@ -1212,15 +1452,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 4.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Pyramid Lake parking",
@@ -1255,15 +1495,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 27.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Wedge Pond parking",
@@ -1297,15 +1537,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 9.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lake Minnewanka parking",
@@ -1340,8 +1580,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
       },
       "name": "Lake Louise Lakeshore parking",
       "osm_ref": "way/26752321",
@@ -1450,8 +1690,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
       },
       "name": "Lake Louise Lakeshore shuttle stop",
       "area_id": "CA/AB/banff-national-park",
