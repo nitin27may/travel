@@ -1,0 +1,23 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "protected-not-top",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/fx-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Fx Lake"
+    },
+    {
+      "ref": "part/place/fx-lake#reserve",
+      "type": "nature.protected.nature_reserve",
+      "layer": "place",
+      "name": "Fx Reserve"
+    }
+  ]
+}

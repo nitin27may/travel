@@ -1,0 +1,14 @@
+{
+  "copied-link.json": { "errors": [], "warnings": ["W_CAP_INHERITED_COPY"] },
+  "derived-typed.json": { "errors": ["E_CAP_REL_DERIVED"], "warnings": [] },
+  "ends-at-twice.json": { "errors": ["E_CAP_REL_CARD"], "warnings": [] },
+  "nested-wrapper.json": { "errors": ["E_CAP_REF"], "warnings": [] },
+  "part-of-cycle.json": { "errors": ["E_CAP_REL_CYCLE"], "warnings": [] },
+  "protected-not-top.json": { "errors": ["E_CAP_REF_TOP"], "warnings": [] },
+  "stage-gap.json": { "errors": [], "warnings": ["W_CAP_STAGE_ORDER"] },
+  "symmetric-twice.json": { "errors": ["E_CAP_REL_SYM"], "warnings": [] },
+  "third-parent.json": { "errors": [], "warnings": ["W_CAP_REL_PARENTS"] },
+  "two-level-variant.json": { "errors": ["E_CAP_VARIANT"], "warnings": [] },
+  "wrong-source-kind.json": { "errors": ["E_CAP_REL_KIND"], "warnings": [] },
+  "wrong-target-kind.json": { "errors": ["E_CAP_REL_TARGET"], "warnings": [] }
+}

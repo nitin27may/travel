@@ -1,0 +1,199 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "park-provincial",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/lakeland-provincial-park",
+      "type": "nature.protected.state_provincial_park",
+      "layer": "place",
+      "name": "Lakeland Provincial Park",
+      "covers_areas": [
+        "ZZ/P1/lakeland"
+      ],
+      "run_by": "operator/beta-parks-agency"
+    },
+    {
+      "ref": "part/place/lakeland-provincial-park#pine-campground",
+      "type": "stay.camp.campground",
+      "layer": "place",
+      "name": "Pine Campground",
+      "part_of": [
+        "place/lakeland-provincial-park"
+      ]
+    },
+    {
+      "ref": "part/place/lakeland-provincial-park#shore-campground",
+      "type": "stay.camp.campground",
+      "layer": "place",
+      "name": "Shore Campground",
+      "part_of": [
+        "place/lakeland-provincial-park"
+      ],
+      "run_by": "operator/lakeside-concessions"
+    },
+    {
+      "ref": "part/place/lakeland-provincial-park#day-use-beach",
+      "type": "access.amenity.picnic_area",
+      "layer": "place",
+      "name": "Beach day-use area",
+      "part_of": [
+        "place/lakeland-provincial-park"
+      ]
+    },
+    {
+      "ref": "place/long-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Long Lake",
+      "part_of": [
+        "place/lakeland-provincial-park"
+      ]
+    },
+    {
+      "ref": "place/narrow-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Narrow Lake",
+      "part_of": [
+        "place/lakeland-provincial-park"
+      ]
+    },
+    {
+      "ref": "place/far-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Far Lake",
+      "part_of": [
+        "place/lakeland-provincial-park"
+      ]
+    },
+    {
+      "ref": "part/place/lakeland-provincial-park#interior-site-9",
+      "type": "stay.camp.backcountry_site",
+      "layer": "place",
+      "name": "Interior site 9",
+      "part_of": [
+        "place/lakeland-provincial-park"
+      ]
+    },
+    {
+      "ref": "part/place/long-lake#launch",
+      "type": "access.transit.boat_launch",
+      "layer": "place",
+      "name": "Long Lake launch",
+      "serves": [
+        "place/long-lake"
+      ]
+    },
+    {
+      "ref": "part/place/lakeland-provincial-park#three-lake-loop",
+      "type": "water.paddle.canoe.canoe_trip",
+      "layer": "route",
+      "name": "Three-lake canoe route",
+      "part_of": [
+        "place/lakeland-provincial-park"
+      ],
+      "starts_at": [
+        "part/place/long-lake#launch"
+      ],
+      "passes": [
+        {
+          "ref": "place/narrow-lake",
+          "at_km": 6
+        },
+        {
+          "ref": "place/far-lake",
+          "at_km": 14
+        }
+      ],
+      "reaches": [
+        "place/far-lake"
+      ],
+      "ends_at": [
+        "part/place/lakeland-provincial-park#interior-site-9"
+      ]
+    },
+    {
+      "ref": "offer/place/lakeland-provincial-park#daily-vehicle-permit",
+      "type": "access.pass.vehicle_permit",
+      "layer": "offer",
+      "name": "Daily vehicle permit",
+      "at": [
+        "place/lakeland-provincial-park"
+      ],
+      "covered_by": [
+        "offer/place/lakeland-provincial-park#annual-pass"
+      ]
+    },
+    {
+      "ref": "offer/place/lakeland-provincial-park#annual-pass",
+      "type": "access.pass.park_pass",
+      "layer": "offer",
+      "name": "Annual park pass",
+      "at": [
+        "place/lakeland-provincial-park"
+      ]
+    },
+    {
+      "ref": "offer/place/lakeland-provincial-park#day-use-reservation",
+      "type": "access.pass.day_use_permit",
+      "layer": "offer",
+      "name": "Beach day-use reservation",
+      "at": [
+        "part/place/lakeland-provincial-park#day-use-beach"
+      ]
+    },
+    {
+      "ref": "offer/place/lakeland-provincial-park#interior-permit",
+      "type": "access.pass.backcountry_permit",
+      "layer": "offer",
+      "name": "Interior camping permit",
+      "at": [
+        "place/lakeland-provincial-park"
+      ],
+      "on": [
+        {
+          "ref": "part/place/lakeland-provincial-park#three-lake-loop",
+          "from_km": 0,
+          "to_km": 20
+        }
+      ]
+    },
+    {
+      "ref": "offer/place/lakeland-provincial-park#pine-site",
+      "type": "stay.camp.campground",
+      "layer": "offer",
+      "name": "Pine campsite",
+      "at": [
+        "part/place/lakeland-provincial-park#pine-campground"
+      ]
+    },
+    {
+      "ref": "offer/place/lakeland-provincial-park#shore-site",
+      "type": "stay.camp.campground",
+      "layer": "offer",
+      "name": "Shore campsite",
+      "at": [
+        "part/place/lakeland-provincial-park#shore-campground"
+      ],
+      "includes": [
+        "offer/place/lakeland-provincial-park#daily-vehicle-permit"
+      ]
+    },
+    {
+      "ref": "offer/place/long-lake#canoe-rental",
+      "type": "water.paddle.canoe.rental",
+      "layer": "offer",
+      "name": "Canoe rental",
+      "at": [
+        "place/long-lake"
+      ],
+      "run_by": "operator/lakeside-concessions"
+    }
+  ]
+}

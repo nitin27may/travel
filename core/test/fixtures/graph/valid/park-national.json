@@ -1,0 +1,294 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "park-national",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/ridgeback-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "name": "Ridgeback National Park",
+      "covers_areas": [
+        "ZZ/N1/ridgeback"
+      ],
+      "run_by": "operator/alpha-parks-service"
+    },
+    {
+      "ref": "part/place/ridgeback-national-park#north-valley",
+      "type": "nature.protected.zone",
+      "layer": "place",
+      "name": "North Valley zone",
+      "part_of": [
+        "place/ridgeback-national-park"
+      ]
+    },
+    {
+      "ref": "part/place/ridgeback-national-park#glacier-basin",
+      "type": "nature.protected.zone",
+      "layer": "place",
+      "name": "Glacier Basin (gated sub-area)",
+      "part_of": [
+        "place/ridgeback-national-park"
+      ]
+    },
+    {
+      "ref": "place/mirror-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Mirror Lake",
+      "part_of": [
+        "part/place/ridgeback-national-park#north-valley"
+      ]
+    },
+    {
+      "ref": "place/tarn-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Tarn Lake",
+      "part_of": [
+        "part/place/ridgeback-national-park#glacier-basin"
+      ]
+    },
+    {
+      "ref": "place/ridge-pass",
+      "type": "nature.landform.pass",
+      "layer": "place",
+      "name": "Ridge Pass",
+      "part_of": [
+        "part/place/ridgeback-national-park#north-valley"
+      ]
+    },
+    {
+      "ref": "part/place/mirror-lake#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Mirror Lake parking",
+      "parks_for": [
+        "place/mirror-lake"
+      ]
+    },
+    {
+      "ref": "part/place/mirror-lake#shuttle-stop",
+      "type": "access.transit.shuttle_stop",
+      "layer": "place",
+      "name": "Mirror Lake shuttle stop",
+      "serves": [
+        "place/mirror-lake"
+      ]
+    },
+    {
+      "ref": "part/place/mirror-lake#ridge-loop",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Ridge Loop",
+      "starts_at": [
+        "part/place/mirror-lake#shuttle-stop"
+      ],
+      "passes": [
+        {
+          "ref": "place/tarn-lake",
+          "at_km": 3.5
+        }
+      ],
+      "reaches": [
+        "place/ridge-pass"
+      ],
+      "ends_at": [
+        "part/place/mirror-lake#shuttle-stop"
+      ]
+    },
+    {
+      "ref": "part/place/mirror-lake#ridge-loop-short",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Ridge Loop, short way",
+      "variant_of": "part/place/mirror-lake#ridge-loop",
+      "reaches": [
+        "place/mirror-lake"
+      ]
+    },
+    {
+      "ref": "part/place/ridgeback-national-park#camp-one",
+      "type": "stay.camp.backcountry_site",
+      "layer": "place",
+      "name": "Camp One",
+      "part_of": [
+        "place/ridgeback-national-park"
+      ]
+    },
+    {
+      "ref": "part/place/ridgeback-national-park#camp-two",
+      "type": "stay.camp.backcountry_site",
+      "layer": "place",
+      "name": "Camp Two",
+      "part_of": [
+        "place/ridgeback-national-park"
+      ]
+    },
+    {
+      "ref": "part/place/ridgeback-national-park#camp-three",
+      "type": "stay.camp.backcountry_site",
+      "layer": "place",
+      "name": "Camp Three",
+      "part_of": [
+        "place/ridgeback-national-park"
+      ]
+    },
+    {
+      "ref": "part/place/ridgeback-national-park#far-trailhead",
+      "type": "access.start.trailhead",
+      "layer": "place",
+      "name": "Far trailhead",
+      "part_of": [
+        "place/ridgeback-national-park"
+      ]
+    },
+    {
+      "ref": "part/place/ridgeback-national-park#high-traverse",
+      "type": "nature.trek.backpacking_route",
+      "layer": "route",
+      "name": "High Traverse (whole route)",
+      "part_of": [
+        "place/ridgeback-national-park"
+      ],
+      "reaches": [
+        "part/place/ridgeback-national-park#far-trailhead"
+      ]
+    },
+    {
+      "ref": "part/place/ridgeback-national-park#traverse-stage-1",
+      "type": "nature.trek.trek_stage",
+      "layer": "route",
+      "name": "Traverse stage 1",
+      "part_of": [
+        "part/place/ridgeback-national-park#high-traverse"
+      ],
+      "starts_at": [
+        "part/place/mirror-lake#parking"
+      ],
+      "ends_at": [
+        "part/place/ridgeback-national-park#camp-one"
+      ]
+    },
+    {
+      "ref": "part/place/ridgeback-national-park#traverse-stage-2",
+      "type": "nature.trek.trek_stage",
+      "layer": "route",
+      "name": "Traverse stage 2",
+      "part_of": [
+        "part/place/ridgeback-national-park#high-traverse"
+      ],
+      "starts_at": [
+        "part/place/ridgeback-national-park#camp-one"
+      ],
+      "ends_at": [
+        "part/place/ridgeback-national-park#camp-two"
+      ]
+    },
+    {
+      "ref": "part/place/ridgeback-national-park#traverse-stage-3",
+      "type": "nature.trek.trek_stage",
+      "layer": "route",
+      "name": "Traverse stage 3",
+      "part_of": [
+        "part/place/ridgeback-national-park#high-traverse"
+      ],
+      "starts_at": [
+        "part/place/ridgeback-national-park#camp-two"
+      ],
+      "ends_at": [
+        "part/place/ridgeback-national-park#far-trailhead"
+      ]
+    },
+    {
+      "ref": "offer/place/ridgeback-national-park#entry-fee",
+      "type": "access.pass.entry_fee",
+      "layer": "offer",
+      "name": "Park entry fee",
+      "at": [
+        "place/ridgeback-national-park"
+      ]
+    },
+    {
+      "ref": "offer/place/ridgeback-national-park#vehicle-permit",
+      "type": "access.pass.vehicle_permit",
+      "layer": "offer",
+      "name": "Vehicle permit",
+      "at": [
+        "place/ridgeback-national-park"
+      ]
+    },
+    {
+      "ref": "offer/place/ridgeback-national-park#basin-timed-entry",
+      "type": "access.pass.timed_entry",
+      "layer": "offer",
+      "name": "Glacier Basin timed entry",
+      "at": [
+        "part/place/ridgeback-national-park#glacier-basin"
+      ]
+    },
+    {
+      "ref": "offer/place/ridgeback-national-park#traverse-permit",
+      "type": "access.pass.activity_permit",
+      "layer": "offer",
+      "name": "High Traverse permit",
+      "at": [
+        "place/ridgeback-national-park"
+      ],
+      "on": [
+        {
+          "ref": "part/place/ridgeback-national-park#high-traverse"
+        }
+      ]
+    },
+    {
+      "ref": "offer/place/ridgeback-national-park#guided-ridge",
+      "type": "mountain.alpine.guided_summit",
+      "layer": "offer",
+      "name": "Guided ridge hike",
+      "at": [
+        "place/ridgeback-national-park"
+      ],
+      "on": [
+        {
+          "ref": "part/place/mirror-lake#ridge-loop",
+          "from_km": 0,
+          "to_km": 9
+        }
+      ],
+      "run_by": "operator/ridge-guides-co",
+      "starts_at": [
+        "part/place/mirror-lake#parking"
+      ],
+      "includes": [
+        "offer/place/ridgeback-national-park#entry-fee"
+      ]
+    },
+    {
+      "ref": "offer/place/mirror-lake#canoe-rental",
+      "type": "water.paddle.canoe.rental",
+      "layer": "offer",
+      "name": "Canoe rental",
+      "at": [
+        "place/mirror-lake"
+      ],
+      "run_by": "operator/ridge-guides-co"
+    },
+    {
+      "ref": "offer/place/ridgeback-national-park#lodge-night",
+      "type": "stay.camp.campground",
+      "layer": "offer",
+      "name": "Lodge night with park fee",
+      "at": [
+        "place/ridgeback-national-park"
+      ],
+      "includes": [
+        "offer/place/ridgeback-national-park#entry-fee"
+      ]
+    }
+  ]
+}
