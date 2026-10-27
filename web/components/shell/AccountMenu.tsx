@@ -3,6 +3,7 @@
 import { Menu } from '@/components/ui/Menu';
 import { getAuthClient } from '@/lib/auth/client';
 import { leaveSession } from '@/lib/auth/session-lost';
+import { initialOf } from '@/lib/account/name';
 
 export type HeaderUser = { id: string; email: string; name?: string | null };
 
@@ -13,7 +14,8 @@ export type HeaderUser = { id: string; email: string; name?: string | null };
  * no `data-base-ui` in the list/place start chunks). Only mounts once a session is confirmed.
  */
 export function AccountMenu({ user }: { user: HeaderUser }) {
-  const initial = (user.name || user.email || '?').trim().charAt(0).toUpperCase();
+  // the name is re-read through displayName and its first grapheme taken, never charAt(0) (review ACCT-PSEC S5)
+  const initial = initialOf(user.name, user.email);
   return (
     <Menu
       triggerClassName="avatar-btn"

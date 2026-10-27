@@ -13,7 +13,7 @@ import { Stepper } from '@/components/ui/Stepper';
 import { PERSON_COPY, blankPerson, hasIssues, issuesOf, toTravellers, type PersonForm, type PersonIssue, type TravellersForm } from '@/lib/account/travellers-form';
 
 /** AP-15: what is stored, said once beside the Save that stores it (spec AD3: the explicit Save is the opt-in). */
-export const STORED_NOTE = "We save the number of adults and each child's age, and a date of birth only if you add one. No names. Only you can see it, and you can remove it at any time.";
+export const STORED_NOTE = "We save the number of adults, each child's age, adults' ages if you add them, and a date of birth only if you add one. No names. Only you can see it, and you can remove it at any time.";
 
 const AGES = Array.from({ length: CHILD_MAX_AGE + 1 }, (_, i) => i);
 

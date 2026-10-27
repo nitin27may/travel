@@ -18,6 +18,8 @@ import { DEFAULT_RETURN, returnPath } from '@/lib/auth/return-path';
 import { readDrafts, type DraftRow } from '@/lib/server/drafts';
 import { loadProfile, type AccountProfile } from '@travel/core/db/profile.ts';
 import { isoDay } from '@travel/core/schema/travellers.ts';
+import { accountHash } from '@travel/core/favourites/account.ts';
+import { displayName } from '@/lib/account/name';
 import { safeError } from '@/lib/server/safe-error';
 import { pageMetadata } from '@/lib/site';
 import { AccountSection } from './AccountSections';
@@ -85,7 +87,9 @@ async function readSaved(userId: string): Promise<{ kind: 'ok'; rows: DraftRow[]
 async function AccountBody({ next, added, step }: { next: string; added: boolean; step: SetupStep }) {
   // Request time only. During `next build` connection() never resolves, so nothing below runs at build.
   await connection();
-  const user = await getUser();
+  // Fresh at Neon, not the 300 s session cookie (review ACCT-PSEC S1): a revoked session shows signed out and a name saved on another
+  // device shows at once. A Server Component cannot write the renewed cookie, so a throw falls back to the cached read for display.
+  const user = await getUser(undefined, { fresh: true, cachedOnThrow: true });
   // Fails closed: no session (or auth unconfigured/unreachable) shows the signed-out state, never a list.
   if (!user) return <SignedOut />;
   const landing = await accountLanding(user);
@@ -97,6 +101,10 @@ async function AccountBody({ next, added, step }: { next: string; added: boolean
 
   // Each read fails on its own: a page that cannot read one section still shows the others (spec 2.5).
   const [profile, drafts] = await Promise.all([readProfile(user.id), readSaved(user.id)]);
+  // The name as rendered (spec 4.3, review S5): it can reach the session without our checks (Google, a direct update-user call).
+  const name = displayName(user.name);
+  // The owner tag of the party this page writes to the browser (review B2): a hash, never the id.
+  const owner = await accountHash(user.id);
 
   return (
     <div className="account-page">
@@ -127,17 +135,18 @@ async function AccountBody({ next, added, step }: { next: string; added: boolean
       ) : profile.kind === 'ok' && profile.profile.setupDoneAt === null ? (
         // First run (spec 2.3): the card is the Profile and Travellers sections until it is finished or skipped. Only a successful read
         // shows it: a failed read never asks a set-up person again, and a database without migration 0012 never reaches this branch.
-        <SetupCard userId={user.id} initialName={user.name ?? ''} revision={profile.profile.revision} initialStep={step} />
+        <SetupCard userId={user.id} owner={owner} initialName={name} revision={profile.profile.revision} initialStep={step} />
       ) : (
         <>
           <AccountSection id="profile" title="Profile">
-            <ProfileSection userId={user.id} initialName={user.name ?? ''} />
+            <ProfileSection userId={user.id} initialName={name} />
           </AccountSection>
           {profile.kind === 'ok' ? (
             <AccountSection id="travellers" title="Travellers">
               <TravellersSection
                 key={profile.profile.revision}
                 userId={user.id}
+                owner={owner}
                 travellers={profile.profile.travellers}
                 invalid={profile.profile.travellersInvalid}
                 revision={profile.profile.revision}

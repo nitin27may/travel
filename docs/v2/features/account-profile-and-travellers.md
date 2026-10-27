@@ -250,7 +250,7 @@ nitin27may@gmail.com" with today's privacy wording until F17's delete button shi
 | AP-12 | steppers | Adults · Children (dec/inc labels "Fewer adults", "More adults", "Fewer children", "More children") · Add adults' ages (optional) · Adult {n} |
 | AP-13 | child group | Child {n} · Age · Age (placeholder) · Under 1 · Add date of birth · Date of birth (optional) · Remove date of birth |
 | AP-14 | derived age | {n}, from the date of birth · Under 1, from the date of birth |
-| AP-15 | privacy line | We save the number of adults and each child's age, and a date of birth only if you add one. No names. Only you can see it, and you can remove it at any time. |
+| AP-15 | privacy line | We save the number of adults, each child's age, adults' ages if you add them, and a date of birth only if you add one. No names. Only you can see it, and you can remove it at any time. (Adults' ages added 27 Oct 2026, review ACCT-PSEC S2.) |
 | AP-16 | step 2 buttons | Save travellers · Skip for now |
 | AP-17 | done | All set · Trips now plan for {party} wherever you sign in. · Browse trips · Close |
 | AP-18 | done, skipped travellers | All set · You can add travellers here at any time. |

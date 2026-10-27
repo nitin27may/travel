@@ -2,6 +2,7 @@
 // ACCT-P2 in a real browser: the Travellers editor, the settled section with its notices, and the first-run setup card. The real
 // components run under Vite in Chromium with the server actions stubbed at their boundary, so no credentials, session or database are
 // needed. The clock is fixed at 27 Oct 2026 (the spec's acceptance date). Screenshots go to test-results/shots/ACCT-P2/.
+import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import AxeBuilder from '@axe-core/playwright';
@@ -18,6 +19,11 @@ mkdirSync(shots, { recursive: true });
 
 const TODAY = '2026-10-27';
 const PARTY_KEY = 'travel.party';
+// The owner tag (review ACCT-PSEC B2): accountHash(user id), the first 16 hex of SHA-256. The page is loaded for 'u1'; 'user-a' is the
+// person who used this browser before.
+const tag = (id: string) => createHash('sha256').update(id).digest('hex').slice(0, 16);
+const OWNER = tag('u1');
+const PREVIOUS = tag('user-a');
 
 type Doc = { schema: 'travellers/1'; adults: number; children: { age: number; age_as_of: string; dob?: string }[]; adult_ages?: { age: number; age_as_of: string; dob?: string }[] };
 const family = (extra: Partial<Doc> = {}): Doc => ({ schema: 'travellers/1', adults: 2, children: [{ age: 7, age_as_of: TODAY }, { age: 9, age_as_of: TODAY }], ...extra });
@@ -58,8 +64,8 @@ beforeAll(async () => {
               import {SetupCard} from '/app/account/SetupCard.tsx';
               const p = window.__props;
               const body = p.mode === 'setup'
-                ? h(SetupCard, {userId: 'u1', initialName: p.name, revision: p.revision, initialStep: p.step})
-                : h(AccountSection, {id: 'travellers', title: 'Travellers'}, h(TravellersSection, {userId: 'u1', travellers: p.travellers, invalid: !!p.invalid, revision: p.revision, today: p.today}));
+                ? h(SetupCard, {userId: 'u1', owner: p.owner, initialName: p.name, revision: p.revision, initialStep: p.step})
+                : h(AccountSection, {id: 'travellers', title: 'Travellers'}, h(TravellersSection, {userId: 'u1', owner: p.owner, travellers: p.travellers, invalid: !!p.invalid, revision: p.revision, today: p.today}));
               flushSync(() => createRoot(document.getElementById('root')).render(h(ToastProvider, null, body)));
               document.documentElement.dataset.ready = 'true';`;
           }
@@ -84,7 +90,7 @@ interface Setup {
   revision?: number;
   name?: string;
   step?: 'name' | 'travellers';
-  device?: { v: 1; adults: number; children: (number | null)[]; src?: 'account' } | null;
+  device?: { v: 1; adults: number; children: (number | null)[]; src?: 'account'; by?: string } | null;
   width?: number;
   theme?: 'light' | 'dark';
   /** answers by action name; default: saved at revision + 1 */
@@ -100,7 +106,7 @@ async function open(s: Setup = {}): Promise<{ page: Page; context: BrowserContex
     const url = new URL(route.request().url());
     if (/^\/fonts\/[\w.-]+\.woff2$/.test(url.pathname)) return route.fulfill({ body: readFileSync(new URL(`public${url.pathname}`, web)), contentType: 'font/woff2' });
     if (url.hostname === 'account.test' && url.pathname === '/account/') {
-      const props = JSON.stringify({ mode: s.mode ?? 'section', travellers: s.travellers ?? null, invalid: s.invalid, revision: s.revision ?? 0, name: s.name ?? '', step: s.step ?? 'name', today: TODAY });
+      const props = JSON.stringify({ mode: s.mode ?? 'section', travellers: s.travellers ?? null, invalid: s.invalid, revision: s.revision ?? 0, name: s.name ?? '', step: s.step ?? 'name', today: TODAY, owner: OWNER });
       return route.fulfill({
         contentType: 'text/html; charset=utf-8',
         body: `<!doctype html><html lang="en" data-theme="${s.theme ?? 'light'}"><head><title>Account</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>${styles}</style></head><body><main id="main" class="page"><div class="account-page" id="root"></div></main><script>window.__props=${props}</script></body></html>`,
@@ -120,7 +126,8 @@ async function open(s: Setup = {}): Promise<{ page: Page; context: BrowserContex
     return { kind: 'saved', revision: (arg.revision ?? 0) + 1 };
   });
   if (s.device !== undefined && s.device !== null) {
-    await page.addInitScript(([k, v]) => localStorage.setItem(k, v), [PARTY_KEY, JSON.stringify(s.device)]);
+    // only on the Account page: the home page a 401 leaves for must see what the page left behind
+    await page.addInitScript(([k, v]) => { if (location.pathname === '/account/') localStorage.setItem(k, v); }, [PARTY_KEY, JSON.stringify(s.device)]);
   }
   await page.goto('http://account.test/account/');
   await page.addScriptTag({ type: 'module', url: 'http://account.test/harness.js' });
@@ -146,11 +153,11 @@ describe('Travellers editor: 2 adults, 2 children and each child\'s age', () => 
       await page.getByRole('button', { name: 'More children' }).click();
       await be(page.getByLabel('Age').nth(1)).toBeFocused();
       await page.getByLabel('Age').nth(1).selectOption('9');
-      await be(page.getByText('We save the number of adults and each child')).toBeVisible();
+      await be(page.getByText("We save the number of adults, each child's age, adults' ages if you add them, and a date of birth only if you add one.")).toBeVisible();
       await save(page).click();
       await be(page.getByText('2 adults · 2 children (7, 9)')).toBeVisible();
       expect(calls.saveTravellers).toEqual([{ doc: family(), revision: 0 }]);
-      expect(await party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account' });
+      expect(await party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
       await be(page.getByRole('button', { name: 'Edit travellers' })).toBeFocused();
     } finally { await context.close(); }
   });
@@ -260,12 +267,12 @@ describe('Travellers section: the device seed and the notices', () => {
     const { page, context } = await open({ travellers: family() });
     try {
       await be(page.getByText('2 adults · 2 children (7, 9)')).toBeVisible();
-      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account' });
+      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
       await be(page.getByText('This browser plans for')).toHaveCount(0);
     } finally { await context.close(); }
     const same = await open({ travellers: family(), device: { v: 1, adults: 2, children: [7, 9] } });
     try {
-      await be.poll(() => party(same.page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account' });
+      await be.poll(() => party(same.page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
     } finally { await same.context.close(); }
   });
 
@@ -281,14 +288,14 @@ describe('Travellers section: the device seed and the notices', () => {
       await page.getByRole('button', { name: 'Cancel' }).click();
       await page.getByRole('button', { name: 'Use saved travellers here' }).click();
       await be(page.getByText('This browser plans for')).toHaveCount(0);
-      expect(await party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account' });
+      expect(await party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
     } finally { await context.close(); }
   });
 
   it('a party an earlier seed wrote is brought up to date (a change on another device)', async () => {
-    const { page, context } = await open({ travellers: family(), device: { v: 1, adults: 1, children: [], src: 'account' } });
+    const { page, context } = await open({ travellers: family(), device: { v: 1, adults: 1, children: [], src: 'account', by: OWNER } });
     try {
-      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account' });
+      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
       await be(page.getByText('This browser plans for')).toHaveCount(0);
     } finally { await context.close(); }
   });
@@ -327,7 +334,7 @@ describe('Travellers section: the device seed and the notices', () => {
   it('Remove asks first, keeps the browser\'s party as its own, toasts, and Undo saves the same document back', async () => {
     const { page, context, calls } = await open({ travellers: family(), revision: 4 });
     try {
-      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account' });
+      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
       await page.getByRole('button', { name: 'More' }).click();
       await page.getByRole('menuitem', { name: 'Remove saved travellers' }).click();
       await be(page.getByText('Remove your saved travellers? This browser keeps its party until you change it.')).toBeVisible();
@@ -399,7 +406,7 @@ describe('Setup card', () => {
       await be(page.getByRole('heading', { name: 'All set' })).toBeFocused();
       await be(page.getByText('Trips now plan for 2 adults and 2 children (6, 9) wherever you sign in.')).toBeVisible();
       expect(calls.saveTravellers).toEqual([{ doc: family({ children: [{ age: 6, age_as_of: TODAY }, { age: 9, age_as_of: TODAY }] }), revision: 0, finishSetup: true }]);
-      expect(await party(page)).toEqual({ v: 1, adults: 2, children: [6, 9], src: 'account' });
+      expect(await party(page)).toEqual({ v: 1, adults: 2, children: [6, 9], src: 'account', by: OWNER });
       await shot(page, 'setup-done-1440-light');
       await be(page.getByRole('link', { name: 'Browse trips' })).toBeVisible();
       await page.getByRole('button', { name: 'Close' }).click();
@@ -417,6 +424,62 @@ describe('Setup card', () => {
       expect(calls.finishSetup.length).toBe(1);
       expect(calls.saveTravellers).toEqual([]);
       expect(await party(page)).toBeNull();
+    } finally { await context.close(); }
+  });
+});
+
+describe('two accounts on one browser (review ACCT-PSEC B2)', () => {
+  const previous = { v: 1 as const, adults: 2, children: [7, 9], src: 'account' as const, by: PREVIOUS };
+
+  it('B with nothing saved: A\'s party is removed on load and "Add travellers" offers nothing from it', async () => {
+    const { page, context } = await open({ travellers: null, device: previous });
+    try {
+      await be(page.getByText('No travellers saved.')).toBeVisible();
+      await be.poll(() => party(page)).toBeNull();
+      await page.getByRole('button', { name: 'Add travellers' }).click();
+      await be(page.getByRole('group', { name: 'Who usually travels with you?' })).toBeVisible();
+      await be(page.getByText('Filled in from this browser')).toHaveCount(0);
+      await be(page.getByLabel('Age')).toHaveCount(0);
+    } finally { await context.close(); }
+  });
+
+  it('B with saved travellers: A\'s party is replaced with B\'s, and no "differs" notice offers A\'s ages', async () => {
+    const { page, context } = await open({ travellers: family({ adults: 1, children: [] }), device: previous });
+    try {
+      await be.poll(() => party(page)).toEqual({ v: 1, adults: 1, children: [], src: 'account', by: OWNER });
+      await be(page.getByText('This browser plans for')).toHaveCount(0);
+      await be(page.getByText('7, 9')).toHaveCount(0);
+    } finally { await context.close(); }
+  });
+
+  it('setup step 2 never prefills A\'s party for B, and removes it', async () => {
+    const { page, context } = await open({ mode: 'setup', step: 'travellers', device: previous });
+    try {
+      await be(page.getByRole('heading', { name: 'Who usually travels with you?' })).toBeVisible();
+      await be(page.getByText('Filled in from this browser')).toHaveCount(0);
+      await be.poll(() => party(page)).toBeNull();
+    } finally { await context.close(); }
+  });
+
+  it('a save answered 401 (session expired or revoked) removes the account\'s party before leaving, not only Sign out', async () => {
+    const { page, context } = await open({ travellers: family(), reply: { saveTravellers: () => ({ kind: 'rejected', reason: 'UNAUTHENTICATED' }) } });
+    try {
+      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
+      await page.getByRole('button', { name: 'Edit travellers' }).click();
+      await save(page).click();
+      await page.waitForURL('http://account.test/');
+      expect(await party(page)).toBeNull();
+    } finally { await context.close(); }
+  });
+
+  it('a 401 keeps a party this browser chose itself', async () => {
+    const { page, context } = await open({ travellers: family(), device: { v: 1, adults: 1, children: [4] }, reply: { saveTravellers: () => ({ kind: 'rejected', reason: 'UNAUTHENTICATED' }) } });
+    try {
+      await be(page.getByText('This browser plans for')).toBeVisible();
+      await page.getByRole('button', { name: 'Edit travellers' }).click();
+      await save(page).click();
+      await page.waitForURL('http://account.test/');
+      expect(await party(page)).toEqual({ v: 1, adults: 1, children: [4] });
     } finally { await context.close(); }
   });
 });
