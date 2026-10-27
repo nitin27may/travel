@@ -10,6 +10,7 @@ const state = vi.hoisted(() => ({ landing: 'returning' as string }));
 vi.mock('next/server', () => ({ connection: async () => undefined }));
 vi.mock('next/navigation', () => ({
   usePathname: () => '/account/',
+  useRouter: () => ({ refresh: () => undefined }),
   redirect: (to: string) => {
     throw Object.assign(new Error('NEXT_REDIRECT'), { to });
   },
@@ -23,7 +24,7 @@ vi.mock('@/lib/auth/ways-server', async () => {
   return { accountWays: async () => [{ providerId: 'google', createdAt: Date.parse('2026-10-26T09:00:00Z') }], googleAddedNow: (added: boolean, rows: { providerId: string; createdAt: number }[] | null) => added && rows !== null && googleJustAdded(rows, Date.now()) };
 });
 vi.mock('@/lib/server/drafts', () => ({ readDrafts: async () => [] }));
-vi.mock('@travel/core/db/profile.ts', () => ({ loadProfile: async () => ({ exists: false, travellers: null, travellersInvalid: false, travellersSavedAt: null, travellersConsentedAt: null, setupDoneAt: null, revision: 0 }) }));
+vi.mock('@travel/core/db/profile.ts', () => ({ loadProfile: async () => ({ exists: false, travellers: null, travellersInvalid: false, travellersSavedAt: null, travellersConsentedAt: null, setupDoneAt: '2026-10-20T00:00:00.000Z', revision: 0 }) }));
 vi.mock('@/app/account/actions', () => ({ createDraft: vi.fn(), renameDraft: vi.fn(), deleteDraft: vi.fn(), saveName: vi.fn() }));
 
 beforeEach(() => {

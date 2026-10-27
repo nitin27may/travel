@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { Icon } from '@/components/ui/Icon';
 import { ButtonLink } from '@/components/ui/Button';
 import { ErrorState } from '@/components/ui/ErrorState';
-import { EmptyState } from '@/components/ui/EmptyState';
 import { RowSkeleton } from '@/components/ui/Skeleton';
 import { capabilities } from '@/lib/capabilities';
 import { getUser } from '@/lib/auth/server';
@@ -18,13 +17,14 @@ import { PRIVACY_CONTACT } from '@/app/privacy/PrivacyBody';
 import { DEFAULT_RETURN, returnPath } from '@/lib/auth/return-path';
 import { readDrafts, type DraftRow } from '@/lib/server/drafts';
 import { loadProfile, type AccountProfile } from '@travel/core/db/profile.ts';
-import { partyText } from '@travel/core/trips/partyWords.ts';
-import { partyOf, isoDay } from '@travel/core/schema/travellers.ts';
+import { isoDay } from '@travel/core/schema/travellers.ts';
 import { safeError } from '@/lib/server/safe-error';
 import { pageMetadata } from '@/lib/site';
 import { AccountSection } from './AccountSections';
 import { ProfileSection } from './ProfileSection';
 import { SavedTrips } from './SavedTrips';
+import { SetupCard, type SetupStep } from './SetupCard';
+import { TravellersSection } from './TravellersSection';
 import { YourData } from './YourData';
 import { SignInMethods } from './SignInMethods';
 import { SignInNotice } from './SignInNotice';
@@ -82,32 +82,7 @@ async function readSaved(userId: string): Promise<{ kind: 'ok'; rows: DraftRow[]
   }
 }
 
-/**
- * Travellers (spec 2.4), read-only until ACCT-P2 adds the editor, the setup card and the seed: the saved party in words, or the empty
- * state with the spec's copy (AP-24). No "Add travellers" action yet: a button that opens nothing would be worse than none.
- */
-function TravellersSlot({ profile }: { profile: AccountProfile }) {
-  const party = profile.travellers ? partyOf(profile.travellers, isoDay(new Date())) : null;
-  return (
-    <AccountSection id="travellers" title="Travellers">
-      {party ? (
-        <div className="acct-card">
-          <div className="acct-row">
-            <div className="acct-row-main">
-              <span className="acct-label">Party</span>
-              <span className="acct-value">{partyText(party)}</span>
-              <span className="acct-note">Ages today. Trips use these, and you can change the party on any trip.</span>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <EmptyState glyph="user" as="h3" title="No travellers saved." why="Add who usually travels with you, and every trip starts from it." />
-      )}
-    </AccountSection>
-  );
-}
-
-async function AccountBody({ next, added }: { next: string; added: boolean }) {
+async function AccountBody({ next, added, step }: { next: string; added: boolean; step: SetupStep }) {
   // Request time only. During `next build` connection() never resolves, so nothing below runs at build.
   await connection();
   const user = await getUser();
@@ -149,12 +124,27 @@ async function AccountBody({ next, added }: { next: string; added: boolean }) {
             }
           />
         </AccountSection>
+      ) : profile.kind === 'ok' && profile.profile.setupDoneAt === null ? (
+        // First run (spec 2.3): the card is the Profile and Travellers sections until it is finished or skipped. Only a successful read
+        // shows it: a failed read never asks a set-up person again, and a database without migration 0012 never reaches this branch.
+        <SetupCard userId={user.id} initialName={user.name ?? ''} revision={profile.profile.revision} initialStep={step} />
       ) : (
         <>
           <AccountSection id="profile" title="Profile">
             <ProfileSection userId={user.id} initialName={user.name ?? ''} />
           </AccountSection>
-          {profile.kind === 'ok' ? <TravellersSlot profile={profile.profile} /> : null}
+          {profile.kind === 'ok' ? (
+            <AccountSection id="travellers" title="Travellers">
+              <TravellersSection
+                key={profile.profile.revision}
+                userId={user.id}
+                travellers={profile.profile.travellers}
+                invalid={profile.profile.travellersInvalid}
+                revision={profile.profile.revision}
+                today={isoDay(new Date())}
+              />
+            </AccountSection>
+          ) : null}
         </>
       )}
 
@@ -194,6 +184,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
   const params = await searchParams;
   const next = returnPath(params.next);
   const added = params[AUTH_WAYS.addedParam] === GOOGLE_SIGN_IN.provider;
+  const step: SetupStep = params.setup === 'travellers' ? 'travellers' : 'name';
   if (next !== DEFAULT_RETURN) {
     const user = await getUser();
     if (user && (await accountLanding(user)) === 'returning') redirect(next);
@@ -218,7 +209,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
         </div>
       }
     >
-      <AccountBody next={next} added={added} />
+      <AccountBody next={next} added={added} step={step} />
     </Suspense>
   );
 }

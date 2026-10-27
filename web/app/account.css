@@ -172,7 +172,8 @@
   border-top: 1px solid var(--line);
   animation: acct-open var(--d-base) var(--e-out);
 }
-.acct-editor input {
+.acct-editor input,
+.acct-setup-body input {
   min-height: var(--touch-min);
 }
 .acct-editor-actions {
@@ -531,4 +532,163 @@
 }
 .ways-address {
   white-space: nowrap;
+}
+
+/* Travellers and the setup card (ACCT-P2; spec 2.3, 2.4, 2.6). Tokens only; reduced motion is the .acct-editor rule above. */
+.acct-row-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+.acct-more {
+  position: relative;
+}
+.acct-trav {
+  gap: var(--s-4);
+}
+.acct-trav-set,
+.acct-person {
+  display: grid;
+  gap: var(--s-3);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.acct-trav-legend {
+  padding: 0;
+  margin-bottom: var(--s-3);
+  font: var(--t-card);
+}
+.acct-person {
+  padding: var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--surface-2);
+}
+.acct-person-legend {
+  padding: 0 var(--s-1);
+  font: var(--t-mono);
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.acct-person-row {
+  display: grid;
+  grid-template-columns: minmax(0, 12rem) auto;
+  align-items: end;
+  gap: var(--s-3);
+}
+.acct-person .field {
+  min-width: 0;
+}
+.acct-derived {
+  display: flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  margin: 0;
+  font: var(--t-body);
+  font-weight: 600;
+  color: var(--ink);
+}
+.acct-dob {
+  max-width: 14rem;
+}
+.acct-person .selbox,
+.acct-person .input,
+.acct-person .selbox select {
+  min-height: var(--touch-min);
+}
+.acct-person input[type='number'] {
+  appearance: textfield;
+}
+.acct-link-btn,
+.acct-dob-toggle {
+  position: relative;
+  justify-self: start;
+  color: var(--accent-text);
+}
+.acct-stored {
+  max-width: 36rem;
+}
+.acct-notice {
+  flex-wrap: wrap;
+}
+.acct-notice .ban-text {
+  flex: 1 1 14rem;
+  min-width: 0;
+  text-wrap: pretty;
+}
+.acct-notice .ban-action {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-left: auto;
+}
+
+/* The setup card: an eyebrow row with the step counter, a heading that takes focus, then the step. */
+.acct-setup {
+  border-top: 0;
+  padding-top: 0;
+}
+.acct-setup-card {
+  gap: var(--s-3);
+  padding: var(--s-4);
+  border-color: var(--line);
+}
+.acct-setup-top {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+.acct-setup-h {
+  font: var(--t-card);
+  scroll-margin-top: var(--s-6);
+}
+.acct-setup-h:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+.acct-setup-body {
+  display: grid;
+  gap: var(--s-3);
+}
+
+@media (max-width: 639px) {
+  .acct-row-actions .btn {
+    position: relative;
+  }
+  .acct-row-actions .btn::after,
+  .acct-link-btn::after,
+  .acct-dob-toggle::after,
+  .acct-notice .btn::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: max(100%, var(--touch-min));
+    height: max(100%, var(--touch-min));
+    transform: translate(-50%, -50%);
+  }
+  .acct-notice .ban-action {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    margin-left: 0;
+    padding-left: calc(16px + var(--s-3));
+    gap: var(--s-3);
+  }
+  /* The step's actions stay in thumb reach: sticky above the phone bottom bar, clear of the safe-area inset (S8). */
+  .acct-sticky {
+    position: sticky;
+    bottom: var(--phone-bottombar-h);
+    z-index: 1;
+    margin-inline: calc(var(--s-3) * -1);
+    padding: var(--s-3) var(--s-3) calc(var(--s-3) + env(safe-area-inset-bottom, 0px));
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+  }
+}
+@media (max-width: 479px) {
+  .acct-person-row {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
 }

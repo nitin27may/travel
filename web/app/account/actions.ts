@@ -9,6 +9,7 @@ import { checkTitle, isUuid } from '@/lib/drafts-shared';
 import { safeError } from '@/lib/server/safe-error';
 import { checkName } from '@/lib/account/name';
 import { takeNameChange } from '@/lib/account/name-quota';
+import { finishSetup as finishSetupRow, removeTravellers as removeTravellersRow, saveTravellers as saveTravellersRow } from '@travel/core/db/profile.ts';
 
 /**
  * Typed results, not throws: in production Next.js hides a thrown error's message. Each write
@@ -120,6 +121,63 @@ export async function saveName(pageUserId: string, raw: { name: unknown }): Prom
     return { kind: 'saved', name: checked.name };
   } catch (e) {
     console.error('[account] profile_name_failed', safeError(e));
+    return { kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' };
+  }
+}
+
+// ---- Travellers and the setup card (ACCT-P2; spec 2.3, 2.4, 6.6) ------------------------------------------------------------------
+// The user id is the session's, never the body's. Answers are typed, not thrown. Logs carry fixed codes only: never an age, a date of
+// birth or a document.
+
+export type TravellersResult =
+  | { kind: 'saved'; revision: number }
+  | { kind: 'conflict' }
+  | { kind: 'rejected'; reason: 'INVALID_INPUT'; issues: string[] }
+  | { kind: 'rejected'; reason: 'UNAUTHENTICATED' | 'SERVICE_UNAVAILABLE' };
+
+/** Save the travellers document at the revision the page loaded (a guarded write). `finishSetup` also ends the setup card. */
+export async function saveTravellers(pageUserId: string, raw: { doc: unknown; revision: unknown; finishSetup?: unknown }): Promise<TravellersResult> {
+  const user = await getUser(pageUserId);
+  if (!user) return { kind: 'rejected', reason: 'UNAUTHENTICATED' };
+  if (typeof raw?.revision !== 'number' || !Number.isInteger(raw.revision)) return { kind: 'rejected', reason: 'INVALID_INPUT', issues: ['$: revision'] };
+  try {
+    const res = await saveTravellersRow(user.id, raw.doc, raw.revision, { finishSetup: raw.finishSetup === true });
+    if (res.kind === 'rejected') return { kind: 'rejected', reason: 'INVALID_INPUT', issues: res.issues };
+    if (res.kind === 'conflict') return { kind: 'conflict' };
+    console.info('[account] travellers_saved');
+    return { kind: 'saved', revision: res.revision };
+  } catch (e) {
+    console.error('[account] travellers_save_failed', safeError(e));
+    return { kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' };
+  }
+}
+
+/** Remove the saved travellers (guarded by revision). Undo is a `saveTravellers` of the same document. */
+export async function removeTravellers(pageUserId: string, raw: { revision: unknown }): Promise<TravellersResult> {
+  const user = await getUser(pageUserId);
+  if (!user) return { kind: 'rejected', reason: 'UNAUTHENTICATED' };
+  if (typeof raw?.revision !== 'number' || !Number.isInteger(raw.revision)) return { kind: 'rejected', reason: 'INVALID_INPUT', issues: ['$: revision'] };
+  try {
+    const res = await removeTravellersRow(user.id, raw.revision);
+    if (res.kind === 'rejected') return { kind: 'rejected', reason: 'INVALID_INPUT', issues: res.issues };
+    if (res.kind === 'conflict') return { kind: 'conflict' };
+    console.info('[account] travellers_removed');
+    return { kind: 'saved', revision: res.revision };
+  } catch (e) {
+    console.error('[account] travellers_remove_failed', safeError(e));
+    return { kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' };
+  }
+}
+
+/** Skip or Close on the setup card: the card never shows again, on any device. */
+export async function finishSetup(pageUserId: string): Promise<{ kind: 'done' } | { kind: 'rejected'; reason: 'UNAUTHENTICATED' | 'SERVICE_UNAVAILABLE' }> {
+  const user = await getUser(pageUserId);
+  if (!user) return { kind: 'rejected', reason: 'UNAUTHENTICATED' };
+  try {
+    await finishSetupRow(user.id);
+    return { kind: 'done' };
+  } catch (e) {
+    console.error('[account] setup_finish_failed', safeError(e));
     return { kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' };
   }
 }

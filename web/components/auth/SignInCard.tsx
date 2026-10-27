@@ -201,8 +201,15 @@ export function SignInCard({ mode, codeOn, googleOn = false, siteKey }: SignInCa
     if (reply.status === 429 && (action === 'send' || action === 'sign-up')) setWait({ address: email, until: later(reply.retryAfterS ?? 60), kind: 'limited' });
   };
 
-  const finish = (method: Method) => {
+  const finish = async (method: Method) => {
     rememberMethod(method);
+    // The account's travellers seed this browser's party before the next page loads (account-profile-and-travellers.md 5.2). A lazy
+    // chunk, never waited on past SEED_TIMEOUT_MS, never able to fail the sign-in.
+    try {
+      await (await import('@/lib/account/seed-party')).seedForSession();
+    } catch {
+      /* sign-in does not depend on it */
+    }
     window.location.assign(returnPathFromSearch(window.location.search));
   };
 

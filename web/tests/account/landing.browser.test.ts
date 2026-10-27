@@ -11,7 +11,7 @@ import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 // so its after-mount read of the round trip (string 24), the live region and the theme toggle run for real. No Neon, no Google.
 const state = vi.hoisted(() => ({ landing: 'new' as 'new' | 'linked' }));
 vi.mock('next/server', () => ({ connection: async () => undefined }));
-vi.mock('next/navigation', () => ({ usePathname: () => '/account/', redirect: () => undefined }));
+vi.mock('next/navigation', () => ({ usePathname: () => '/account/', useRouter: () => ({ refresh: () => undefined }), redirect: () => undefined }));
 vi.mock('next/dynamic', () => ({ default: () => () => null }));
 vi.mock('@/lib/capabilities', () => ({ capabilities: { signIn: true } }));
 vi.mock('@/lib/auth/server', () => ({ getUser: async () => ({ id: 'landing-user', email: 'nitin.landing-regression@gmail.com' }) }));

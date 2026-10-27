@@ -88,8 +88,10 @@ export function MineShell({ signIn }: { signIn: boolean }) {
     void import('@/lib/auth/client')
       .then(({ getAuthClient }) => getAuthClient().getSession())
       .then((r) => {
-        const u = (r as { data?: { user?: { email?: string } } } | null)?.data?.user;
+        const u = (r as { data?: { user?: { id?: string; email?: string } } } | null)?.data?.user;
         if (live && u?.email) setEmail(u.email);
+        // signed in: seed this browser's party from the account (ACCT-P2, spec 5.2); a lazy chunk that Mine alone loads
+        if (live && u?.id) void import('@/lib/account/seed-party').then((m) => m.seedFromAccount(u.id as string));
       })
       .catch(() => {});
     return () => {

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { getAuthClient } from '@/lib/auth/client';
+import { clearAccountParty } from '@/lib/account/seed-party';
 import { leaveSession } from '@/lib/auth/session-lost';
 
 /**
@@ -23,6 +24,8 @@ export function SignOutButton() {
         } catch {
           /* leave anyway: the session change must unload client state regardless */
         }
+        // a shared computer shows nothing of the previous person: a party the account put here goes, the browser's own stays (spec 5.4)
+        clearAccountParty();
         leaveSession();
       }}
     >
