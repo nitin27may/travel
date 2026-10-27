@@ -9,6 +9,13 @@
 > **UX fixes (26 Oct):** design approved (G-UXA passed, ANSWERS-6; Q293 to Q307 answered); UXB-N, UXB-C, UXB-W merged,
 > UXB-1 built and reviewed, UXB-1F in its worktree; the rest ride **bundle C**, first in its B1 queue, before R59-1 and
 > PHO-R ([trip-and-places-ux-fixes.md](../features/trip-and-places-ux-fixes.md) 12 and 13; PLAN R-260 to R-266).
+>
+> **27 Oct 2026 (BUILDER-DEPS): the builder program is placed here.** Trip builder (TB-P1 to TB-P5), trip kinds and the
+> interest profile (TK), the driving time model (DT), sources (SRC), data coverage (DC) and My map (WM): 945 h in bundles
+> (963 h with 18 h later), 27 h absorbed by tasks already planned; program 2,295.5 h. New seat B3 (builder paths only) and
+> data seat 2 (Q-DEP1, Q-DC7). TB-P1 (the first slice FS-1) in D, TB-P2 in E, TB-P3 and TB-P4 in F; no bundle G2 unless B3
+> is refused. Rows: section 0, 3.10, 4.1, 4.3, 4.4, 4.6, 5.1, 5.3, 5.4a, C20. Dependency hierarchy, per-task table,
+> overlaps, readiness gates, dates and questions: [builder-dependency-map.md](builder-dependency-map.md).
 
 Written 25 Oct 2026 by travel-planner (Opus 5.5) on `public/MASTER-ORDER`, branched from `main` 09784bc (rewritten public
 history; `main` has since gained ed0056d, an e2e-only commit). **Planned only: no product code changed.** Requirement PLAN
@@ -52,18 +59,18 @@ each added to bundle C on their own and none to the total ([alignment](alignment
 | A | v0.2 phone sign-in, privacy, page counts, 74 places; v0.3 Mine, copies and favourites on this device; v0.4 trip-page go-live fixes, share images; **PRIV-TD** (no household-derived status on public trips). First deploy waits for Mine | 59 | 20 | 5 | **84** | PRIV-TD 2.5 | none |
 | B | v0.5 emailed-code sign-in, backups; v0.9 Continue with Google; Internal CAT-1 catalogue load and the database cross-check. Two deploys | 37.5 | 8 | 36.5 | **82** | | `backup_reader`, `research_meta` |
 | C | v0.6 places near a town, closure queue; v0.7 photos; v0.8 links beside every stop, getting there; **UX fixes** (trip tabs and Summary, party bar, shape, when to go, Table view, Bookings and Photos, place pages show what is known); **parks P1** (entry standard, Book ahead kinds); **graph contract and index** (Internal). Cut rule Q309 | 214.5 | 10 | 77 | **301.5** | UXB 67, EG 23, PA 31 | `relation_kinds` |
-| D | v0.10 report and suggest; v0.11 request forms; Internal: property matrix (PM-C, PM-G, PM-F) | 104.75 | 13 | 13.5 | **131.25** | PM 13 | `intake` |
-| E | v0.12 best time and overview; v0.13 Where to stay; v0.14 trips from data; **place context** (graph read model, EG); **parks P2** (park page, members); facts read model (API-P) | 155 | 0 | 58 | **213** | EG 15, PA 23.5, API-P 6 | none |
-| F | v0.14.1 field slimming; v0.15 customise; v0.16 account sync | 100.75 | 0 | 0 | **100.75** | | `custom_draft`, `draft_cap`, `account_favourite`, `account_start` |
-| G | v0.17 more edits; v0.18 map search for stops; **parks P3** (plan a visit, camping); Internal: API for MCP (API-G, API-T, API-S, API-V, MTH-G, MTH-1) | 93 | 22.5 | 4 | **119.5** | PA 21, API 22.5 | none |
-| H | v0.19 public MCP (MP1); v0.20 private MCP, read (MP2). Two deploys | 81 | 0 | 0 | **81** | +25 | `mcp_access`, token tables |
-| H2 | v0.20a "Plan with your AI" (MP3, user writes, MCP Apps views); v0.20b "Research and admin" (MP4, staging, owner only). Two deploys. **Only if QX2 is yes** | 115 | 0 | 0 | **115** | new | `user_place`, `research_stage` |
+| D | v0.10 report and suggest; v0.11 request forms; Internal: property matrix (PM-C, PM-G, PM-F); **(27 Oct) v0.11a My map, v0.11b plan a day out or a short stay (TB-P1 = FS-1, kinds and activities, drive model wave 0 core); Internal: sources and gazetteer pipeline** | 265.25 | 79 | 21.5 | **365.75** | PM 13; 27 Oct +234.5 (TB 58, TK 28.5, DT 31, WM 51, SRC 24, DC 42) | `intake`, `leg_cache_server_write` |
+| E | v0.12 best time and overview; v0.13 Where to stay; v0.14 trips from data; **place context** (graph read model, EG); **parks P2** (park page, members); facts read model (API-P); **(27 Oct) v0.14a build a trip in a country (TB-P2, interest profile), v0.14b My map ties; DT wave 0 modifiers; gazetteer from Postgres (DC-SRV) and wave 0 data** | 238 | 14 | 260 | **512** | EG 15, PA 23.5, API-P 6; 27 Oct +299 (TB 40, TK 28, DT 16, WM 24, DC 191) | `plan_draft` |
+| F | v0.14.1 field slimming; v0.15 customise; v0.16 account sync; **(27 Oct) v0.16a suggested bases and getting there (TB-P3, TB-P4); interests and map follow the account; wave 1 at T0** | 188.75 | 0 | 112.5 | **301.25** | 27 Oct +200.5 (TB 73.5, TK 4, WM 18, DC 105) | `custom_draft`, `draft_cap`, `account_favourite`, `account_start`, `account_interests`, visit tables |
+| G | v0.17 more edits; v0.18 map search for stops; **parks P3** (plan a visit, camping); Internal: API for MCP (API-G, API-T, API-S, API-V, MTH-G, MTH-1); **(27 Oct) drive model wave 1, wave 1 T1 data, SRC-O** | 92 | 22.5 | 202 | **316.5** | PA 21, API 22.5; 27 Oct +197 (DT 28, DC 170, SRC-O 1, REQ-G0 and REQ-G −2) | none |
+| H | v0.19 public MCP (MP1); v0.20 private MCP, read (MP2). Two deploys; (27 Oct) `get_my_map` | 83.5 | 0 | 0 | **83.5** | +25; 27 Oct +2.5 | `mcp_access`, token tables |
+| H2 | v0.20a "Plan with your AI" (MP3, user writes, MCP Apps views); v0.20b "Research and admin" (MP4, staging, owner only). Two deploys. **Only if QX2 is yes**; (27 Oct) plans write `plan-draft/1` (UPL −5), TK-MCP, `mark_visited` | 114.5 | 0 | 0 | **114.5** | new; 27 Oct −0.5 | `user_place`, `research_stage` |
 | I | v0.21 domain and Email Phase 2, on the Q148 trigger | 29 or 42.5 | 0 | 0 | **29 or 42.5** | | mail tables |
-| J | v0.22 UI and UX audit and fixes; after H2 (covers the MCP views and the approval page) | 70.5 | 0 | 0 | **70.5** | | none |
-| K | v1.0 to v1.2 Postgres cutover, three seam flips | 23 | 0 | 0 | **23** | | none expected |
-| **All** (I at 29) | | **1,083** | **73.5** | **194** | **1,350.5** | **+364.5** | |
+| J | v0.22 UI and UX audit and fixes; after H2 (covers the MCP views and the approval page); (27 Oct) builder polish TB-P5, learned suggestions, holidays | 84.5 | 0 | 2 | **86.5** | 27 Oct +16 | none |
+| K | v1.0 to v1.2 Postgres cutover, three seam flips | 19 | 0 | 0 | **19** | 27 Oct −4 (SRV-0 reuses DC-SRV) | none expected |
+| **All** (I at 29) | | **1,425.5** | **153.5** | **716.5** | **2,295.5** | **+364.5; 27 Oct +945** | |
 
-Without H2 (QX2 no) the total is 1,235.5 h. Critical path: section 5.4 (B1, about 511 h left).
+Without H2 (QX2 no) the total is 2,181 h (was 1,235.5 h before 27 Oct). Later, in no bundle: DT-W23 6, DT-X 4, SRC-G 7, CTRY-L 1 (18 h). If seat B3 is refused (Q-DEP1), TB-P2 moves to G and TB-P3, TB-P4 to a bundle G2 between G and H ([builder-dependency-map.md](builder-dependency-map.md) 6.3). Critical path: section 5.4 (B1, about 511 h left).
 
 ## 1. Decision in one paragraph
 
@@ -349,6 +356,27 @@ or **blocked: <what>**. The MCP product's phases M1 to M5 are written **MP1 to M
 | **MP4** | v0.20b "Research and admin": STG-C 6, STG-1 8, STG-P 7, MCP-3 10, REQ-M 6, MCP-A 6, MCP-P2 3, MCP-S4 6, MCP-EV3 2, MCP-E4 1 | 55 | Opus (STG-C, MCP-3 4, REQ-M 2, MCP-A 2, MCP-S4), Sonnet | B2 contracts; B1 STG-1, STG-P, MCP-P2 | `research-batch/1`, migration `research_stage`, admin routes, `core/bin/stage.ts` | staging 2 | blocked: QX2, QX3, QX4, QX11; MP3 shipped | H2 |
 | MP5 | Public research toolkit, directory listings, export over MCP | not sized | | | | packaging 3 | later (QX12, QM10) | after v1.0 |
 
+### 3.10 Added 27 Oct 2026: the builder program (BUILDER-DEPS)
+
+Every task of the six 27 Oct specs, with hours after overlaps, model, risk tier, seat, owned files, dependencies, what it
+unlocks and its bundle, is in [builder-dependency-map.md](builder-dependency-map.md) section 2 (not repeated here). By bundle:
+
+| Bundle | Seat B3 (builder paths) | B2 (contracts, hooks) | Data seats | Reviewer, verifier |
+|---|---|---|---|---|
+| now (beside B+C, new files only) | DT-C, DT-1a, DT-P0, TB-C files, TB-L code, TB-E1, TB-G1, TB-API routes, TK-C files, TK-V, WM-C files, WM-G, WM-1 | none | DC-L, SRC-AU counting (planner, Haiku) | TB-N, TK-N, WM-DR |
+| D | TB-W1, DT-K, DT-1b (at its slot), DT-UI, TK-R5, TK-Ea, TK-W1a, WM-2, WM-4, WM-5, SRC-A (Sonnet), SRC-T | hooks TB-C, WM-C, TK-C3 after FBK-C; TK-C2, DC-C, SRC-C, SRC-A (Opus) in the capture chain; TK-C5 before PA-DV | D1: DT-T0. D2: DC-6, DC-1 to DC-4, SRC-L, SRC-AU | TB-R1/V1, TK-R1/V1 (half), DT-V, WM-R/V, WM-R2/V2 |
+| E | TB-E2, TB-W2, TB-SY, TB-P5b, TK-Eb, TK-G, TK-W1b, TK-S (code), DT-S0 and DT-F0 code, WM-T, WM-F, WM-B, WM-A, WM-Q | DC-SRV contract half | D1: TB-RG, TK-L, TK-S rules, DT-S0 and DT-F0 research, DC-5. D2: DC-SRV build half, DC-W0. PL: DC-RB | TB-R2/V2, TK-R1/V1 (half), WM-R3/V3 |
+| F | TB-E3, TB-E4, TB-G3, TB-W3, TB-E5, TB-W4, WM-S | TK-SY, WM-D, WM-X | D1: TB-BL, TB-D4. D2: DC-W1 T0 | TB-R3/V3, TB-R4/V4, WM-SR, WM-V4 |
+| G | | SRC-O (with REQ-G0) | D1: DT-W1. D2: DC-W1 T1 | |
+| H, H2 | | | | B1 (lane X): WM-M, TK-MCP |
+| J | TB-P5a, TB-P5c, TK-W2 | | D1: TK-H | TK-R2/V2 |
+
+**Credits to existing rows (overlaps O1 to O23 of the map):** REQ-G0 3 to 2 h (SRC-O takes the terms check), REQ-G 6 to 5
+h (`PlaceSearch` scaffolding in SRC-A), UPL-C 6 to 4 h and UPL-1 8 to 5 h (one own-plan model, `plan-draft/1` in
+`plan_draft`; UPL-C drops `user-plan/1` and `planner_draft.kind`), SRV-0 21 to 17 h (reuses DC-SRV's Postgres methods);
+NAV-3's F3 tab registry (+0.5 h) moves to WM-2. Builder questions QB1 to QB10 are written Q-TB1 to Q-TB10 and builder
+phases TB-P1 to TB-P5 in plan pages (map section 8).
+
 ## 4. Conflict map
 
 ### 4.1 Hot spots and their rule
@@ -356,9 +384,9 @@ or **blocked: <what>**. The MCP product's phases M1 to M5 are written **MP1 to M
 | Hot spot | Kind | Tasks that write it | Rule |
 |---|---|---|---|
 | `web/components/trips/**` | folder | OVR-0, FAV-1 (mount), TRP-GL (all three done), **PRIV-TD (cover, end), UXB-1, UXB-2, UXB-3, UXB-4 (serial), UXB-5, UXB-6 (disjoint files, may run beside UXB-2 to UXB-4), PA-W**, R59-1, ORG-1, OVR-1, OVR-2, OVR-3, STY-1, FBK-2 (mount), CUS-1 (`custom/**`), R59-3 UI, PA-3 | one task at a time, in that order (ALIGN 26 Oct: the UXB round and PA-W go before R59-1); `web/styles/timeline.css` blocks appended per task, never edited across tasks |
-| `web/components/actions/CopySheet.tsx` and `actions/**` | file | NAV-2, TRP-GL (print, CSV), ORG-2, OVR-1 (week) | never in parallel; order NAV-2, TRP-GL, ORG-2, OVR-1 |
+| `web/components/actions/CopySheet.tsx` and `actions/**` | file | NAV-2, TRP-GL (print, CSV), ORG-2, OVR-1 (week) | never in parallel; order NAV-2, TRP-GL, ORG-2, OVR-1, **TB-W2 (X7 seed link, 27 Oct)** |
 | `web/components/shell/**` | folder | ACCT-PH-F, GSI-P (`SiteFooter.tsx`), NAV-1 (`BottomBar.tsx`, `SiteHeader.tsx`, `MineLink.tsx`), FBK-2 (`ReportLink.tsx`) | file-disjoint, so parallel builds are allowed; merges one at a time (shell chrome budget) |
-| `web/components/mine/**`, `web/lib/mine/**` | folder | NAV-1, NAV-2, FAV-1, ORG-2, NAV-3 | serial |
+| `web/components/mine/**`, `web/lib/mine/**` | folder | NAV-1, NAV-2, FAV-1, ORG-2, **WM-2 (tab registry, F3), TB-W1 (X6), WM-T, TK-W1b (27 Oct)**, NAV-3 | serial |
 | `web/components/intake/**` | folder | FBK-2, REQ-1, REQ-F2, REQ-F1, REQ-F3 | serial (feedback 10.3, intake fields 12) |
 | `web/app/t/**` | folder | CUS-1, CUS-2, REQ-E UI, REQ-P, STY-2, REQ-S, REQ-L | serial; REQ-E never beside CUS-2 |
 | `web/components/auth/SignInCard.tsx` | file | GSI-1, MCP-O (one hook) | GSI-1 first |
@@ -368,7 +396,7 @@ or **blocked: <what>**. The MCP product's phases M1 to M5 are written **MP1 to M
 | `web/lib/capabilities.ts` | file | NAV-1, FAV-1, FBK-2, ORG-1, FAV-2, REQ-F, CUS-1 | append only; rebase, never reorder |
 | `web/lib/client/data.ts` | file | FAV-1, OVR-Cb, FBK-2, REQ-RF, ORG-A, STY-Cb | append a section per task; merges serial |
 | `core/src/catalogue/store.ts`, `core/src/schema/api/**`, OpenAPI | contract | FAV-C, LST2b-C, R59-C, ORG-C, FBK-C (removes `report`), REQ-RF-C, OVR-Ca, STY-Ca | one contract author (B2); order in 4.3 |
-| `core/src/privacy/detect.ts` | contract | NAV-C, FAV-C, ORG-C, FBK-C, CUS-C, MCP-G | one at a time, same order |
+| `core/src/privacy/detect.ts` | contract | NAV-C, FAV-C, ORG-C, FBK-C, **TB-C, WM-C, TK-C3 (hooks, 27 Oct)**, CUS-C, MCP-G | one at a time, same order |
 | `trip-custom/1` (`core/src/schema/trip-custom.ts`) | contract | NAV-C (creates the skeleton), CUS-C (full), STY-2C (stays), ORG (`from`, `gw` reserved in NAV-C) | NAV-C names the file `trip-custom.ts` (the OVR brief's `custom.ts` is superseded); each widening lands before its migration is applied |
 | `core/src/schedule/profileCodec.ts` | contract | ORG-C (`from`, `gw`), OVR-1 (`w`), STY-1 (`st`, `sw`) | serial; each adds keys only |
 | `core/src/schedule/**` engine | contract | CUS-C (`removeItem`), REQ-E-C, R59-3C | serial, scheduler bundle test each time |
@@ -394,6 +422,15 @@ or **blocked: <what>**. The MCP product's phases M1 to M5 are written **MP1 to M
 | `core/src/capture/generate.ts`, generated matrix (added 26 Oct) | generated contract | PM-G | one writer; MTH-G and API-T read it |
 | `tools/check-all.sh`, `tools/gate/map.json` (26 Oct additions) | file | EG-I (graph step, map row), PM-G (matrix check inside `capture.ts build`) | append only; serial merges |
 | `web/mcp-views/**` (added 26 Oct) | folder | MCP-UI | B1; design review and verifier as any UI |
+| (27 Oct) `core/src/schedule/legs.ts`, `core/src/geo/bands.ts`, `core/src/config/nearby.ts` | contract (schedule engine) | DT-1b | after the B+C commit, before CUS-C; alone in its stack (public drive numbers change) |
+| (27 Oct) `core/src/relevance/derive.ts` | contract | TK-C5 (`contextFit` export), PA-DV | TK-C5 first |
+| (27 Oct) `web/lib/storage/keys.ts` | contract | TK-C3 (`travel.interests`, extension X10) | append only |
+| (27 Oct) `core/bin/capture.ts` | file | RIS-S, DC-4, TK-L | one at a time |
+| (27 Oct) `data/reference/region-groups.json` | data | TB-RG (creates), DC-5 | TB-RG first; one writer |
+| (27 Oct) `tools/globe_data.py`, `web/public/globe/data/countries.json` | generated data | WM-C, WM-G | WM-C first |
+| (27 Oct) builder paths `core/src/{plan,drive,providers}/**`, `web/{app,components,lib}/plan/**`, `web/app/mine/map/**`, `web/components/world-map/**` | folders | seat B3 only | isolation greps G1 to G6 (trip-builder 15.4) in every B3 hand-back |
+| (27 Oct) services | service | ORS adds TB-L (runtime) and DT-K; Geofabrik downloads DC-1, TB-BL; Wikidata DC-1, DC-3; Commons DC T1 photos after D5c | one runner each |
+| (27 Oct) `web/lib/capabilities.ts`, `web/lib/client/data.ts`, `tools/check-all.sh` | files | `planBuilder` (TB-C hook), `worldMap` (WM-1); `data.ts` TB-API after REQ-RF, TB-SY; check-all DT-K, SRC-T, DC-4 | append only, serial merges |
 
 ### 4.2 Pairwise matrix of the UI hot spots
 
@@ -431,12 +468,14 @@ while a contract task runs; each merges before the task that needs it starts. Bo
 | 1 | A (done) | NAV-C, FAV-C, FAV-1W, NAV-2C, TRP-GL-C (with TRP-GL-CF), **UXB-C** | merged |
 | 2 | A | **PRIV-TD** | next author of `trip.ts`; before bundle A's deploy |
 | 3 | C | LST2b-C → PHO-C → **RIS-H → EG-C → PA-C → PA-X** → R59-C → ORG-C | RIS-H starts now; EG-C waits for QG1, QG3, QG4, QG5; PA-X before R59-C on `trip.ts`. **EG-M** (migration) runs in the data seat after EG-C and RIS-L |
-| 4 | C (end) to D | CAT-Q → FBK-C (every widening inside it before `intake` is applied) → **PM-C** → **PM-G** (data seat, one writer of `generate.ts`) → REQ-RF-C → **EG-Q** → OVR-Ca | PM-C after PA-C, before STY-P; EG-Q takes the slot after REQ-RF-C (entity-graph 13), OVR-Ca follows; **PM-F** in B1 after UXB-7 and PM-C |
+| 4 | C (end) to D | CAT-Q → FBK-C (every widening inside it before `intake` is applied) → **PM-C** → **PM-G** (data seat, one writer of `generate.ts`) → **(27 Oct) TB-C hook → WM-C hook → TK-C3 hook** (first B2 items after the B+C release commit is named) → REQ-RF-C → **EG-Q** → OVR-Ca → **TK-C5** (before PA-DV); **DT-1b** on the schedule engine before CUS-C | PM-C after PA-C, before STY-P; EG-Q takes the slot after REQ-RF-C (entity-graph 13), OVR-Ca follows; **PM-F** in B1 after UXB-7 and PM-C |
 | 5 | E | STY-P → STY-Ca → STY-E → **PA-Q** → **API-P** → TD-1 | PA-Q after EG-Q (same `store.ts`, `place.ts`); API-P after PA-Q and PM-F |
 | 6 | F | CUS-C (invite-only check inside, Q229b; after FA-D and the `planner_draft_signal` ruling) → NAV-D, FAV-D | FA-4 (field slimming) edits `properties.ts` after PM-C and STY-P |
 | 7 | G | STY-2C, REQ-E-C, R59-3C → **PA-3C** → REQ-G-C → **API-G** (alone in its stack) → **API-T, API-S, API-V, MTH-G** | MTH-1 (Sonnet) after MTH-G and API-G |
 | 8 | H | MCP-C → MCP-G | MCP-C needs AU-D's `expose.mcp` overrides |
 | 9 | H2 (if QX2) | **UPL-C** → **STG-C** | `user_place`, `research_stage` migrations |
+| 4b | D (27 Oct) | capture contract chain: PM-C (done) → **TK-C2 → DC-C → SRC-C** (with SRC-A's interfaces after) → STY-P (E) | B2; the store and API chain of row 4 runs between them, one task at a time |
+| 0 | now (27 Oct) | off-chain, new files only: **DT-C, TB-C files, TK-C files, WM-C files** | an Opus agent in seat B3; no 4.1 file; their shared lines are the hooks of row 4 |
 
 The paragraph below is the 25 Oct order, kept for its notes; the table above wins where they differ.
 
@@ -462,6 +501,9 @@ wait for.
 | assigned at merge (MIG-N) | `user_place` (and `planner_draft.kind`) (26 Oct, ALIGN) | UPL-C | H2 v0.20a (if QX2) |
 | assigned at merge (MIG-N) | `research_stage` (and decisions) (26 Oct, ALIGN) | STG-C | H2 v0.20b (if QX2) |
 | assigned at merge (MIG-N) | `research_meta` | RIS-M | **v0.5** (was v1.0; after `backup_reader` when both merge for v0.5; [CATALOGUE-EARLY](CATALOGUE-EARLY.md) 7) |
+| assigned at merge (MIG-N) | `leg_cache_server_write` (server grant and DT-L columns on `leg_cache`) (27 Oct) | TB-L | D |
+| assigned at merge (MIG-N) | `plan_draft` (owner-predicate RLS) (27 Oct) | TB-SY | E |
+| assigned at merge (MIG-N) | `account_interests`; visit tables (27 Oct) | TK-SY; WM-D | F |
 | on trigger | `account_mail_state`, `mail_suppression` (+ `hook_event` if Q149) | EML Phase 2 | v0.21 |
 
 No two branches share a number because none holds one: the coordinator assigns it at merge (MIG-N). Two migrations in
@@ -509,6 +551,11 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | (26 Oct) QM5, QX8, QX9 | API-T, API-S; MTH-G, MTH-1; API-V | G |
 | (26 Oct) QX1, QX7, QM4, QM6, QM8, QM9, QM10, QX10 (API keys for evals), QX12, Q-B1 | MCP-C, MP1, MP2 | H |
 | (26 Oct) QX2 first, then QX3, QX4, QX5, QX6, QX11, Q-B2, Q-B3 | all of H2 | H2 |
+| (27 Oct) Q-TB1, QI2, QI3, Q-TB5 (with Q-DT1, Q-DT2, Q-DT4, Q-DT5), Q-DT3, Q-DEP1, Q-DEP4, Q-DEP5; TB-N mocks approved; ORS key in the Vercel server environment; env rows `NEXT_PUBLIC_PLAN_BUILDER`, `PLAN_BUILDER_PAUSED` | FS-1 (TB-P1 and DT wave 0 core) | D |
+| (27 Oct) Q-TK1, Q-TK6; TK-N mocks; Q-WM1 to Q-WM8 and WM-DR | TK kinds and activities; My map | D |
+| (27 Oct) Q-DC2 to Q-DC8 (Q-DC1 superseded by Q-SRC1), Q-SRC1 to Q-SRC5 | gazetteer pipeline and wave 0 | D, E |
+| (27 Oct) QI1, Q-DEP3, Q-TB7, Q-TK2 to Q-TK5, Q-DEP2; the profile screenshot round | TB-P2, the profile | E |
+| (27 Oct) Q-TB8; Q-SRC6 (no) | TB-P4; SRC-G | F; later |
 | the publish of the public repository (scrub 6), Q182 and Q266 (answered) | LOCAL-4, E2E-YML | I-track |
 
 ## 5. Lanes, sequence points and the release train
@@ -526,6 +573,12 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | S, server | data seat for the early half (26 Oct, Q286): RIS-M with an Opus builder, the rest Sonnet; B2 for CAT-Q and SRV-0 | `core/src/catalogue/postgres/**`, loader, `tools/db/**` rehearse and drift | LOCAL-3, RIS-M, RIS-L, RIS-T, LOCAL-5, CAT-V, CAT-1 (v0.5); CAT-Q (before FBK-C); SRV-0, seams (v1.x) |
 | H, docs | coordinator, Haiku, planner | `docs/**`, `HANDOVER.md` | H0, H2, H1, then J1: H3, H4, H8, D610, H5, H9 |
 | V, verify and review | verifier (Sonnet), design reviewer (Opus) | notes only | each UI task, in merge order |
+
+**Seat changes, 27 Oct (BUILDER-DEPS; Q-DEP1, Q-DC7).** A fifth seat **B3** (Sonnet, Opus for engines and new-file
+contracts) owns only the builder, drive, providers and world-map paths of 4.1's 27 Oct rows; it touches a shared file only
+through a hook B2 lands. **Data seat 2** (Sonnet and Haiku) runs the gazetteer; its Opus work uses the one Opus research
+lane's spare windows. "Four working seats at most" (section 1) becomes five plus data seat 2. B3's UI builds share the
+two-build limit with B1. Detail: [builder-dependency-map.md](builder-dependency-map.md) 4.3.
 
 **Seat changes, 26 Oct (ALIGN).** B1 adds the UXB tasks, PRIV-TD's web half (if B2 is busy), PA-W, PA-2, PA-3, EG-W, PM-F
 (it holds `sections.ts` after UXB-7), and **from bundle G onward the Sonnet builds of lane X** (MCP-1, MCP-M, MCP-GR,
@@ -598,6 +651,14 @@ RELEASE-PLAN 0a.2; data tasks per bundle are in [DATA-PLAN.md](DATA-PLAN.md) 2.
 | **v0.21** [v0.17] | **I** | Own domain and Email Phase 2 (on the Q148 trigger only; its number is taken when it ships) | as RELEASE-PLAN | 29 or 42.5 | mail tables | unchanged |
 | **v0.22** [new, audits; 26 Oct] | **J** | UI and UX audit and fixes, run once on the whole product just before the Postgres cutover | UA-0 5, AU-GU 0.5, UA-1 4, UA-P 3, UA-W 4.5, UA-A 0.5, UA-2 8, UA-3 6, UA-T 3, UA-D owner, UA-FX 24 (placeholder), UA-FX-R 10, UA-AF 2 | 70.5 | none | owner decision 26 Oct: the audit waits until everything is built; gate G-UI after v0.20 (and v0.21 if shipped; **after v0.20b too when QX2 is yes**, ALIGN); reads [UI-NOTES.md](UI-NOTES.md); v1.0 waits for its fixes |
 | **v1.0 to v1.2** | **K** | Postgres cutover, one seam per release, from a production catalogue loaded since v0.5 | SRV-0 21, R-9 2 | 23 (was 47: RIS-M, RIS-L, RIS-T, LOCAL-3, LOCAL-5 and the load moved to v0.5, CAT-Q to v0.10) | none expected | seams flip only after 4 clean weekly CAT-V runs and parity ([CATALOGUE-EARLY](CATALOGUE-EARLY.md) 6) |
+| **v0.11a** [27 Oct] | **D** | My map on this device, cities, share image (flag `worldMap`) | WM-DR 2, WM-C 5, WM-G 4, WM-1 14, WM-2 8.5, WM-R/V 3, WM-4 6, WM-5 6, WM-R2/V2 2.5 | 51 | none | world-map-scratch 5.1; B3 |
+| **v0.11b** [27 Oct] | **D** | Plan a day out or a short stay: FS-1 (TB-P1, flag `planBuilder`), drive model wave 0 core, kinds and activities | TB-P1 58; DT-C 4, DT-1a 5, DT-1b 3, DT-P0 5, DT-T0 3, DT-K 5, DT-L 3, DT-UI 1.5, DT-V 1.5; TK-N 4, TK-C 6, TK-V 4, TK-R5 3.5, TK-Ea 3, TK-W1a 5.5, TK-R1/V1 2.5 | 117.5 | `leg_cache_server_write` | the first slice on today's data (QB2, QB3); ships dark if late |
+| (27 Oct) | **D** (Internal) | Sources and the gazetteer pipeline | SRC-C 6, SRC-A 8, SRC-T 4, SRC-L 4, SRC-AU 2; DC-C 6, DC-L 2, DC-6 3, DC-1 15, DC-2 6, DC-3 5, DC-4 5 | 66 | none | no visitor change |
+| **v0.14a** [27 Oct] | **E** | Build a trip in a country (TB-P2: regions, chosen bases, sync, seeds) and the interest profile | TB-RG 6, TB-E2 6, TB-W2 16, TB-SY 5, TB-P5b 1, TB-R2/V2 6; TK-Eb 3, TK-G 6, TK-W1b 5.5, TK-R1/V1 2.5, TK-S 4, TK-L 7; DT-S0 8, DT-F0 8 | 84 | `plan_draft` | needs OVR-1 (seed link), QI1 |
+| **v0.14b** [27 Oct] | **E** | My map ties: past copies, favourites offer, builder hand-off, subdivisions, goal | WM-T 4, WM-F 3, WM-B 2, WM-A 9, WM-Q 2, WM-R3/V3 4 | 24 | none | |
+| (27 Oct) | **E** (Internal, data) | Gazetteer from Postgres, wave 0 data | DC-5 2, DC-RB 3, DC-SRV 14, DC-W0 172 | 191 | none | no gazetteer record merges before DC-SRV |
+| **v0.16a** [27 Oct] | **F** | Suggested bases and getting there (TB-P3, TB-P4); interests and map follow the account; wave 1 at T0 | TB-E3 12, TB-E4 8, TB-BL 3.5, TB-G3 5, TB-W3 16, TB-R3/V3 7, TB-E5 4, TB-W4 10, TB-D4 4, TB-R4/V4 4; TK-SY 4; WM-P 3, WM-D 4, WM-S 7, WM-X 1, WM-SR 2, WM-V4 1; DC-W1 T0 105 | 200.5 | `account_interests`, visit tables | needs STY-E (E); replaces the spec's bundle G2 |
+| (27 Oct) | **G** | Drive model wave 1; wave 1 T1 data | DT-W1 28, DC-W1 T1 170, SRC-O 1 | 199 | none | |
 | I (Internal, any release) | per RELEASE-PLAN 0a.2 | Test strategy and CI | TS-1 to TS-8 35, LOCAL-4 5, E2E-YML 3, RIS-S 3, RIS-H 3, CAT-Q 6 (before FBK-C) | 55 | none | ride the next release; LOCAL-3 is counted in v0.5 |
 
 **Audits (25 Oct, amended 26 Oct, [AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md), Q270 to Q279; Q271 answered by the 26 Oct decision).** v0.14.1 (field slimming) is the only patch release, between v0.14 and v0.15. The UI and UX audit is the new release v0.22 between v0.21 and v1.0; it moved from v0.14.2 on the owner's decision of 26 Oct 2026 (the audit waits until everything is built). No other release or task is renumbered. CUS-C waits for FA-D (the owner's field approval); CUS-1 no longer waits for any UI audit (the 25 Oct note that it waits for UA-D is removed). The field tool (FA-1, B2 around v0.11 to v0.12) rides earlier as internal; the sweep harness UA-0 moved from v0.14 to just before v0.22. UI issues found during the build are appended to [UI-NOTES.md](UI-NOTES.md) so the audit starts from known items, and REC-2 keeps a screenshot set for every release because the audit compares them.
@@ -649,6 +710,20 @@ PA-W in row 6 (about 50 B1 hours into C). If the QG answers come later than abou
 the parks P1 rows ship dark under Q309's cut. LOCAL-4 and E2E-YML go in when the public repository exists; Email Phase 2
 only on its trigger; GLB2b when the owner approves the globe mock.
 
+### 5.4a Builder program beside 5.4 (27 Oct 2026, BUILDER-DEPS)
+
+B1's chain of 5.4 is unchanged (+10 h: WM-P in F, WM-M and TK-MCP in H and H2). Seat B3 and data seat 2 run beside it; the
+gates are B2's hooks and the bundle T3s, not B3's hours (about 290 h in all).
+
+| 5.4 rows | Seat B3 | B2 additions | Data seat 1 additions | Data seat 2 |
+|---|---|---|---|---|
+| 2 to 11 (C) | FS-1 core on new files: DT-C, DT-1a, DT-P0, TB-C files, TB-L, TB-E1, TB-G1, TB-API; TK-C files, TK-V; WM-C files, WM-G, WM-1; then TB-W1 after mock approval | none | none | DC-L, SRC-AU counting (if seated) |
+| 12 to 14 (D) | DT-K, DT-1b, DT-UI, TK-R5, TK-Ea, TK-W1a, WM-2, WM-4, WM-5, SRC-A Sonnet, SRC-T | TB-C, WM-C, TK-C3 hooks; TK-C2, DC-C, SRC-C, SRC-A Opus; TK-C5 | DT-T0 | DC-6, DC-1 to DC-4, SRC-L |
+| 15 to 17 (E) | TB-E2, TB-W2, TB-SY, TB-P5b, TK-Eb, TK-G, TK-W1b, TK-S, DT-S0 and DT-F0 code, WM-T, WM-F, WM-B, WM-A, WM-Q | DC-SRV contract | TB-RG, TK-L, DT-S0 and DT-F0 research, DC-5 | DC-SRV build, DC-W0 |
+| 18 to 19 (F) | TB-E3, TB-E4, TB-G3, TB-W3, TB-E5, TB-W4, WM-S | TK-SY, WM-D, WM-X | TB-BL, TB-D4 | DC-W1 T0 |
+| 20 to 21 (G) | | SRC-O | DT-W1 | DC-W1 T1 |
+| 24 (J) | TB-P5a, TB-P5c, TK-W2 | | TK-H | |
+
 ### 5.5 Corrections made to RELEASE-PLAN (each also in RELEASE-PLAN section 0)
 
 | # | Correction | Reason |
@@ -672,6 +747,7 @@ only on its trigger; GLB2b when the owner approves the globe mock.
 | C17 | (26 Oct) Bundling findings: ACCT-PH-F dropped and ACCT-PH-RV narrowed (the interim item never deploys); B and H deploy in two steps on one commit (O-E1 before Google; Q225 public before private); C's data batches merge before PHO-R; D10 splits before REQ-RF; OVR-Ca one B2 row earlier; K flips one seam per redeploy | RELEASE-PLAN 0a.3 |
 | C18 | (26 Oct) Every pending research task gets a bundle and its hours count in that bundle: track fetcher TRK-1 and runs, trip records D10, trail relevance TRL-REL, offers OFR-1, store gaps STO-1, overview-trip stops OVT, the database cross-check DV-1 and DV-2 | owner follow-up 26 Oct; [DATA-PLAN.md](DATA-PLAN.md) |
 | C15 | (26 Oct) The catalogue load moves from v1.0 to v0.5 as Internal (CAT-1): LOCAL-3, RIS-M, RIS-L, RIS-T, LOCAL-5 and the new CAT-V in the data seat, CAT-Q before FBK-C; v1.0 keeps SRV-0 and R-9 | owner decision 26 Oct; [CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) |
+| C20 | (27 Oct, BUILDER-DEPS) The builder program placed: D +234.5 h (FS-1 = TB-P1, kinds and activities, drive model wave 0 core, My map, sources and gazetteer pipeline), E +299 h, F +200.5 h, G +197 h, H +2.5, H2 −0.5, J +16, K −4; all 2,295.5 h; seat B3 and data seat 2; no bundle G2 unless B3 is refused; new hooks in 4.3, rows in 4.1 and 4.4 | [builder-dependency-map.md](builder-dependency-map.md) |
 | C19 | (26 Oct evening, ALIGN) Bundle hours rewritten (C 301.5 h, all 1,350.5 h); new bundle H2 if QX2; PRIV-TD in A; the 26 Oct contract tasks placed in one order (4.3); PM-G to the data seat, PM-F and lane X Sonnet builds to B1; MCP phases written MP1 to MP5 | [alignment-2026-10-26.md](alignment-2026-10-26.md) |
 
 ## 6. What starts first
@@ -885,6 +961,7 @@ TEST-STRATEGY once TS-5 runs.
 
 | Date | Change |
 |---|---|
+| 2026-10-27 (BUILDER-DEPS) | Builder program placed ([builder-dependency-map.md](builder-dependency-map.md), R-279 reserved): header note; section 0 rows D to K, All (2,295.5 h; 2,181 h without H2) and the later line; new 3.10; 4.1 rows (detector, Mine and CopySheet orders; nine 27 Oct rows); 4.3 rows 0, 4 and 4b; 4.4 three rows; 4.6 five rows; 5.1 seat B3 and data seat 2; 5.3 eight rows; new 5.4a; C20. Owner decisions untouched |
 | 2026-10-26 (ALIGN, evening) | One ordering again ([alignment-2026-10-26.md](alignment-2026-10-26.md), R-256): section 0 bundle table rewritten (C 301.5 h; H 81 h; new H2 115 h if QX2; total 1,350.5 h); 3.0 merged-today table; 3.2 "H2 (housekeeping)"; 3.5 MCP-C blocked and resized; 3.8 MCP rows resized and pointed to 3.9; new 3.9 (PRIV-TD, UXB, EG, PA, PM, API, MTH, MP1 to MP5); 4.1 new hot spots; 4.3 the one contract order; 4.4 `relation_kinds`, `user_place`, `research_stage`; 4.5 budgets after A; 4.6 new owner gates; 5.1 seat changes; 5.3 new rows (v0.20a, v0.20b and the 26 Oct additions per bundle); 5.4 rewritten (B1 about 511 h left); C19; 7.3 points to the consolidated questions. Owner decisions untouched |
 | 2026-10-26 (ANSWERS-5) | Owner answered every remaining open question with a written recommendation (yes, as recommended): section 7.3 rewritten with the new list "Owner inputs still needed"; 4.6 and 3.x gates updated (FAV-1 no longer gated by Q101 to Q108; D1b rulings answered; Q182 answered). Nothing else changed |
 | 2026-10-26 (PLAN-CONSOLIDATE job 4) | MCP rule (R-252): MCP-C (+0.5 h for the no-database test and the tool-to-route table), MCP-G, MCP-1 and the private MCP rows; [mcp/README](../mcp/README.md) 1.1 |
