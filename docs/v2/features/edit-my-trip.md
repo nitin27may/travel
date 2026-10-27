@@ -1,7 +1,7 @@
 # Edit my trip: one editable trip, saved on the device and synced to the account
 
 Status: **spec, planned only** (27 Oct 2026, travel-planner, Opus, task TRIP-EDIT-I). No app code. Owner feedback of
-27 Oct 2026, two parts. TODO row of 27 Oct 2026; BACKLOG 15.348 to 15.351; owner questions Q-EM1 to Q-EM12 (section 11).
+27 Oct 2026, two parts. TODO row of 27 Oct 2026; BACKLOG 15.349 to 15.352; owner questions Q-EM1 to Q-EM12 (section 11).
 
 Principles cited by number from [principles.md](../design/foundation/principles.md) (P1 to P9). Rules from
 [trip-scope-scenarios.md](../design/trip-scope-scenarios.md) (rules 1 to 9) and
