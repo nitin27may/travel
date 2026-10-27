@@ -1,5 +1,7 @@
 # Trip builder: build your own trip, from a country or from home
 
+> **Amended 27 Oct 2026 (edit my trip, TRIP-EDIT-I; pending Q-EM1 and Q-EM2):** one document and one table for copies and plans. ISO-6 is superseded: copies and customised trips are `plan-draft/1` in template mode, stored with builder drafts in `planner_draft.doc` (the separate `plan_draft` table of QI1 and TB-SY is not created); builder routes refuse a template draft until "Open in the builder" converts it (ISO-7 kept, one way). `plan-draft/1` gains optional `template`, `start`, `travellers` and `party: "trip"` in task EM-C, which must land before FS-1 stores a draft. See [edit-my-trip.md](edit-my-trip.md) 2, 3, 6.
+
 Status: **spec, planned only** (27 Oct 2026, travel-planner, Opus). No app code, no new HTML. Owner request of 27 Oct
 2026, recorded as **the target state of the whole application**. TODO row of 27 Oct 2026; BACKLOG 15.340; owner
 questions QB1 to QB10 (section 11). Wireframes: [design/trip-builder/](../design/trip-builder/README.md) (phone and
