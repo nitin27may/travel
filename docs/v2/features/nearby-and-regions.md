@@ -611,6 +611,10 @@ build-side `nearbyForPlace(slug)` lives in `lib/public/nearby.ts`.
 
 ## 6. The smart trip builder (8.5, 8.6)
 
+> **Superseded 27 Oct 2026 by [trip-builder.md](trip-builder.md)** (owner request of the same day: the builder is the
+> target state of the app). The ranking rule of 6.2 and the guest-first rule of 6.3 are kept there; this section's
+> single-base flow becomes its near mode and step 5; lanes SB1 and SB2 are replaced by the TB tasks (trip-builder 9).
+
 ### 6.1 The idea, in steps
 
 1. **Where.** "I want to visit Banff" or "Quebec City". The field resolves through the parser to a town, area or place,
