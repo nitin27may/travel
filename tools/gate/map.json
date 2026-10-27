@@ -212,6 +212,12 @@
       "run": ["the screenshot sweep of the changed screens at 1440 and 390, light and dark (verifier and design reviewer)"],
       "cost": "m", "group": "visual", "always_at": 3, "slot": "e2e",
       "inputs": ["web/**", "!web/tests/**"]
+    },
+    "data.drive": {
+      "run": ["node core/bin/drive-calibrate.ts --check --root ."],
+      "cost": "s", "group": "core-data", "always_at": 2,
+      "inputs": ["data/reference/drive/**", "data/schedules/legs/**", "data/locations/**", "research/runs/DATA-D9R/**", "core/test/fixtures/drive/**", "core/src/drive/**", "core/src/config/drive.ts", "core/src/config/nearby.ts", "core/src/geo/**", "core/bin/drive-calibrate.ts"],
+      "steps": ["drive model data and calibration"]
     }
   },
 
@@ -348,7 +354,10 @@
       "paths": ["docs/v2/build/public-site/README.md"], "suites": ["hardcode", "web.unit"], "tests": ["web/tests/cons/env-table.test.ts"] },
     { "id": "docs-schema-sql", "why": "core/src/db/inventory.ts pins the 62 tables of the proposal", "paths": ["docs/v2/schema.sql"],
       "suites": ["core.unit", "db.local"], "tests": ["core/test/db/inventory.test.ts"] },
-    { "id": "root-config", "paths": [".mcp.json", ".gitignore", ".vercelignore", "neon.ts"], "suites": ["core.generated", "hardcode", "links"] }
+    { "id": "root-config", "paths": [".mcp.json", ".gitignore", ".vercelignore", "neon.ts"], "suites": ["core.generated", "hardcode", "links"] },
+    { "id": "drive-model", "why": "DT-C and DT-1a: the drive model's data, golden set and calibration (driving-time-model.md 4.5)",
+      "paths": ["core/src/drive/**", "core/src/config/drive.ts", "core/bin/drive-calibrate.ts", "data/reference/drive/**", "data/schedules/legs/**", "core/test/fixtures/drive/**", "research/runs/DATA-D9R/**"],
+      "suites": ["core.types", "core.unit", "data.drive", "hardcode"] }
   ],
 
   "full": [

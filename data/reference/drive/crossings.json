@@ -1,0 +1,5 @@
+{
+  "schema": "drive-crossings/1",
+  "about": "Ferry-needed and closed-in-season area pairs for the L2 model (driving-time-model.md 5.4). Authored by the road-trips research lane (DT-F0, DT-S0); no sourced row yet: our routed legs hold no ferry or border pair.",
+  "rows": []
+}

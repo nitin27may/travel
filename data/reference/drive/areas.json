@@ -1,0 +1,86 @@
+{
+  "schema": "drive-areas/1",
+  "about": "Terrain class per area id of the locations store (driving-time-model.md 5.3). Authored; seed rows for the areas of the routed legs (DT-C). A point outside every listed area takes its subdivision's, else its country's, terrain.",
+  "rows": [
+    {
+      "area": "CA/AB/banff-national-park",
+      "terrain": "mountain",
+      "basis": "measured",
+      "unpavedShare": 0,
+      "winterFactor": null,
+      "note": "Rockies valley highways (Trans-Canada, Icefields Parkway); road / line median 1.37 on 168 routed pairs (spec 2.2)"
+    },
+    {
+      "area": "CA/AB/jasper-national-park",
+      "terrain": "mountain",
+      "basis": "measured",
+      "unpavedShare": 0,
+      "winterFactor": null,
+      "note": "same Rockies measurement as Banff (spec 2.2)"
+    },
+    {
+      "area": "CA/AB/kananaskis-country",
+      "terrain": "mountain",
+      "basis": "measured",
+      "unpavedShare": 0,
+      "winterFactor": null,
+      "note": "same Rockies measurement (spec 2.2)"
+    },
+    {
+      "area": "CA/BC/yoho-national-park",
+      "terrain": "mountain",
+      "basis": "measured",
+      "unpavedShare": 0,
+      "winterFactor": null,
+      "note": "same Rockies measurement (spec 2.2)"
+    },
+    {
+      "area": "CA/BC/kootenay-national-park",
+      "terrain": "mountain",
+      "basis": "prior",
+      "unpavedShare": 0,
+      "winterFactor": null,
+      "note": "Rockies valley highway 93; not in the routed pairs yet"
+    },
+    {
+      "area": "CA/BC/mount-robson-provincial-park",
+      "terrain": "mountain",
+      "basis": "measured",
+      "unpavedShare": 0,
+      "winterFactor": null,
+      "note": "Yellowhead Highway; in the Rockies routed pairs (spec 2.2)"
+    },
+    {
+      "area": "CA/BC/columbia-shuswap-regional-district",
+      "terrain": "mountain",
+      "basis": "prior",
+      "unpavedShare": 0,
+      "winterFactor": null,
+      "note": "Golden and the Columbia valley; the Trans-Canada through the Rockies and Selkirks"
+    },
+    {
+      "area": "IT/trentino-alto-adige/bolzano",
+      "terrain": "alpine",
+      "basis": "measured",
+      "unpavedShare": 0,
+      "winterFactor": null,
+      "note": "Dolomites passes; road / line median 1.82 on 33 routed pairs (spec 2.2)"
+    },
+    {
+      "area": "IT/veneto/belluno",
+      "terrain": "alpine",
+      "basis": "measured",
+      "unpavedShare": 0,
+      "winterFactor": null,
+      "note": "Dolomites (Cortina, Cadore); same measurement as Bolzano (spec 2.2)"
+    },
+    {
+      "area": "IT/trentino-alto-adige/provincia-di-trento",
+      "terrain": "alpine",
+      "basis": "prior",
+      "unpavedShare": 0,
+      "winterFactor": null,
+      "note": "Dolomites of Trentino (Fassa, Fiemme); not separately measured"
+    }
+  ]
+}
