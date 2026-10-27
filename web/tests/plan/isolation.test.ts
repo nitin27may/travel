@@ -22,8 +22,13 @@ const inside = (r: string, roots: readonly string[]) => roots.some((p) => r === 
 /**
  * The only other files that may import builder code: the extension points X2 (data.ts) and X6 (MineShell) of 15.2, and X3's one export
  * line in the API index. A new entry needs an extension point in the spec first.
+ *
+ * X-EM1 (edit-my-trip.md EM1 and the EM-C change-log line, "EM-1 and EM-2 need new extension points"; reviewer note for EM-S): the
+ * account plan routes' server module parses the whole `plan-draft/1` on every write (R5) and maps device copies with the plan mapper,
+ * so it imports core/src/schema/plan-draft.ts and core/src/plan/doc.ts. It is server-only, writes only `planner_draft` (the one table
+ * EM2 chose), and holds no builder UI; the route files under web/app/api/account/plans/ import it and nothing of the builder.
  */
-const EXTENSION_IMPORTERS = ['web/app/mine/MineShell.tsx', 'web/lib/client/data.ts', 'core/src/schema/api/index.ts'];
+const EXTENSION_IMPORTERS = ['web/app/mine/MineShell.tsx', 'web/lib/client/data.ts', 'core/src/schema/api/index.ts', 'web/lib/server/plans.ts'];
 
 function files(roots: readonly string[]): { rel: string; text: string }[] {
   const out: { rel: string; text: string }[] = [];

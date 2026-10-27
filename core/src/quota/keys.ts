@@ -85,3 +85,13 @@ export function ipHash(secret: string, ip: string, at: Date): string {
   assertSecret(secret);
   return hmac(secret, "ip", utcDay(at), ipNetwork(ip));
 }
+
+/**
+ * The key for a signed-in user (the per-user write buckets, `plans:write`; edit-my-trip 4.1). The id is the verified session's id,
+ * never a request body; like an address it never reaches the database raw, and the day in the input unlinks it across days.
+ */
+export function userHash(secret: string, userId: string, at: Date): string {
+  assertSecret(secret);
+  if (typeof userId !== "string" || userId.length === 0) throw new Error("userHash needs a user id");
+  return hmac(secret, "user", utcDay(at), userId);
+}
