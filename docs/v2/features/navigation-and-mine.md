@@ -368,6 +368,10 @@ Rules:
 
 ### 4.3 What changes on `/account/`
 
+> **Amended 27 Oct 2026 (ACCT-P, [account-profile-and-travellers.md](account-profile-and-travellers.md) 2 and 6):** the draft create box and the live
+> subscription leave `/account/` now, before NAV-3. Account leads with Profile and Travellers, then Ways to sign in, Saved
+> trips (the 5 newest, refreshed on focus) and Your data. NAV-3 still moves the full list to Mine.
+
 The draft list (`AccountDrafts`) moves to Mine › My trips as the "Your plans" rows, with New plan, rename and delete
 unchanged. `/account/` keeps identity, ways to sign in (R-82), connected apps (R-152), export and delete (F17), the
 favourites section of the visitor spec (count, Export, Remove all) and a link "Your trips and favourites" to `/mine/`.

@@ -277,7 +277,7 @@ Consequences:
 | Data | Asked | Stored where | Used by the app |
 |---|---|---|---|
 | Email, verified flag | `email` scope | `neon_auth.user` (Neon-managed) | sign-in identity; shown on Account |
-| Name | `profile` scope | `neon_auth.user.name` | the name on Account; editable later (F17 settings) |
+| Name | `profile` scope | `neon_auth.user.name` | the name on Account; editable on Account from a server action (ACCT-P, [account-profile-and-travellers.md](account-profile-and-travellers.md) 4) |
 | Google subject id | `openid` | `neon_auth.account.account_id` | linking only |
 | Profile photo URL | comes with `profile` | likely `neon_auth.user.image` (U6) | **never read, never rendered, never copied**; no avatar from it (the header avatar stays the initial) |
 | Access, id and refresh tokens | issued by Google | likely `neon_auth.account` (U6) | never read; we call no Google API |

@@ -703,6 +703,10 @@ bottom bar. UXB-V2 re-checks it on the places pages after UXB-7.
 
 ### 10.2 Device storage
 
+> **Amended 27 Oct 2026 (ACCT-P, [account-profile-and-travellers.md](account-profile-and-travellers.md) 5.2):** `travel.party` gains an optional
+> `src: "account"` (version stays 1) when a signed-in person's saved travellers seed it; the party editor and copy sheet
+> drop it on write; sign-out removes an account-seeded party. The trip page code does not change.
+
 | Key | Shape | Holds | Cap |
 |---|---|---|---|
 | `travel.party` | `{ v: 1, adults: 1..12, children: (0..17)[] max 8 }` | household party | one |
