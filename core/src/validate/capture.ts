@@ -264,6 +264,12 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
       E_("E_CAP_REL_DERIVED", `/records/${i}/${k}`, derivedMessage(k));
       delete r[k];
     }
+    // a window phase is one level deep (protected-area-entry C3): report a nested `then` here, then parse without it
+    const win = isObj(r) && isObj(r.window) && isObj(r.window.v) ? (r.window.v as Row) : null;
+    if (win && isObj(win.then) && "then" in win.then) {
+      E_("E_WINDOW_THEN", `/records/${i}/window/v/then/then`, `a window's "then" is one second phase and has no "then" of its own. Keep a third phase in the window's fallback text (protected-area-entry, Gotchas).`);
+      delete (win.then as Row).then;
+    }
     // the keep rule (spec 2): a key that is no registry property, no capture/1 schema key and not meta is reported once, then dropped
     if (isObj(r)) for (const k of unknownRecordKeys(r)) {
       E_("E_KEEP_UNKNOWN", `/records/${i}/${k}`, `"${k}" is not a registry property, a capture/1 schema key or meta. Store a fact only as a property that serves K1 to K7 (node core/bin/capture.ts fields --type <id>); row facts go in meta; reasoning stays in research/runs/.`);
@@ -320,13 +326,25 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
   // covers_areas membership (6.1 rule 2): area id -> the protected areas that cover it
   const coverIdx = new Map<string, string[]>();
   for (const { rec } of full.cap.values()) for (const a of rec.covers_areas ?? []) coverIdx.set(a, [...(coverIdx.get(a) ?? []), rec.ref]);
-  /** the direct containers of a record: its explicit part_of (6.1 rule 1, which wins), else the protected areas covering its area */
+  /**
+   * The direct containers of a record: its explicit part_of (6.1 rule 1, which wins), else the protected areas covering its area. A
+   * record that itself has covers_areas is never an area member of another protected area (EG-R0 M1): only its explicit part_of
+   * places it, so two parks over one area (a peace park over a national park) do not contain each other.
+   * TODO(EG-I): replace with the one containment function EG-I exports from its graph module (a follow-up merge task unifies
+   * them); it must keep this rule.
+   */
   const containersOf = (ref: string): string[] => {
     const x = recOf(ref);
     if (!x) return [];
     // a self-link is E_CAP_REL_REF already, so it is not a loop here
-    if (x.part_of && x.part_of.length > 0) return x.part_of.map(primaryOf).filter((p) => p !== x.ref);
+    if (x.part_of && x.part_of.length > 0) return [...new Set(x.part_of.map(primaryOf))].filter((p) => p !== x.ref);
+    if ((x.covers_areas?.length ?? 0) > 0) return [];
     return x.area_id ? (coverIdx.get(x.area_id) ?? []).filter((p) => p !== x.ref) : [];
+  };
+  /** the requirement offers (access.pass) at or on a record */
+  const requirementsAt = (ref: string): string[] => {
+    const inc = full.incoming.get(ref);
+    return [...(inc?.offers_at ?? []), ...(inc?.offers_on ?? [])].filter((o) => typeUnder(recOf(o)?.type ?? "", "access.pass"));
   };
   /** every container up the chain, nearest first, without the record itself */
   const ancestorsOf = (ref: string): string[] => {
@@ -375,6 +393,17 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
     }
     return out;
   };
+  /**
+   * W_PARK_AREA (protected-area-entry 4.1): the store area named after a protected area, or null. Named after it means the area's own
+   * slug (the last part of its id) is the park's page slug or its name as a slug, in the same country as the park's area_id.
+   */
+  const parkAreaNamed = (x: CaptureRecord): string | null => {
+    const slugs = new Set([x.ref, ...(x.aliases ?? [])].flatMap((ref) => /^place\/([a-z0-9-]+)$/.exec(ref)?.[1] ?? []));
+    if (x.name) slugs.add(x.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""));
+    const cc = x.area_id?.split("/")[0];
+    for (const a of pw.tree.areaIds) if (slugs.has(a.split("/").pop() ?? "") && (!cc || a.split("/")[0] === cc)) return a;
+    return null;
+  };
   const hintOf = (rel: string, layer: string): string => {
     if ((rel === "parks_for" || rel === "serves") && layer === "offer") return " A meeting place or launch of an offer is the offer's starts_at, not a parks_for of the place.";
     if (rel === "on" && layer === "place") return " An offer on a river or lake place is at it; on is for routes.";
@@ -415,14 +444,40 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
     if (r.layer === "route" && !r.route_is_attraction && full.rel.has(r.ref)) E_("E_CAP_DRAW_LAYER", `${base}/route_is_attraction`, `${r.ref} is a route with a relevance record (draw, class). Draw belongs to the place the route reaches: move the record to it, or set route_is_attraction: true with attraction_reason when the route is itself the experience.`);
     // the ref grammar's top-level rule for protected areas (4.4 rule 4)
     const top = protectedRefRule(r.type, [r.ref, ...(r.aliases ?? [])]);
-    if (top) emit("E_CAP_REF_TOP", [r.ref, ...(r.aliases ?? [])], `${base}/ref`, `${r.ref} (${r.type}): ${top}.`);
+    // a zone names the protected area it sits in (E_PARK_ZONE); when its ref already breaks the zone branch of E_CAP_REF_TOP, that one
+    // finding says both, so a zone is never reported twice
+    const zoneParent = r.type === "nature.protected.zone" ? (r.part_of ?? []).some((p) => typeUnder(recOf(p)?.type ?? "", "nature.protected")) : true;
+    const zoneFix = "name the protected area it sits in with part_of (a nature.protected record)";
+    if (top) emit("E_CAP_REF_TOP", [r.ref, ...(r.aliases ?? [])], `${base}/ref`, `${r.ref} (${r.type}): ${top}${zoneParent ? "" : `; also ${zoneFix}`}.`);
+    else if (!zoneParent) E_("E_PARK_ZONE", `${base}/part_of`, `${r.ref} is a protected-area zone but ${(r.part_of ?? []).length ? `none of its part_of (${(r.part_of ?? []).join(", ")}) is a protected area` : "it has no part_of"}: ${zoneFix}. Example: "part_of": ["place/yoho-national-park"].`);
+    if (r.layer === "place" && typeUnder(r.type, "nature.protected") && r.type !== "nature.protected.zone") {
+      const named = parkAreaNamed(r);
+      if (named && !(r.covers_areas ?? []).includes(named)) W("W_PARK_AREA", `${base}/covers_areas`, `the locations store has the area ${named}, named after ${r.ref}, but covers_areas does not name it. Add it, so every record in that area is a member of the park; or give the records explicit part_of if the area is wider than the park.`);
+    }
+    // the requirement's own blocks (protected-area-entry 5.1 C1, C2, C3)
+    if (r.summary !== undefined && r.layer !== "offer") E_("E_CAP_SCHEMA", `${base}/summary`, `summary on the capture record is for offers only (they have no relevance record). A ${r.layer}'s summary is the "why" of its relevance record.`);
+    if (r.entry && !(r.layer === "offer" && typeUnder(r.type, "access.pass"))) E_("E_ENTRY_SCHEMA", `${base}/entry`, `entry is the block of a requirement: an access.pass offer (entry fee, pass, permit, timed entry, seat). ${r.ref} is ${an(r.layer)} of type ${r.type}. Store the requirement as its own access.pass offer at this record.`);
+    for (const [j, t] of (r.entry?.v?.for_types ?? []).entries()) if (!tree.byId.has(t)) E_("E_ENTRY_SCHEMA", `${base}/entry/v/for_types/${j}`, `for_types names "${t}", which is not a node of data/vocab/types.json. Give a type prefix the permit applies to. Example: "water.fishing".`);
+    const wv = r.window?.state === "value" ? r.window.v : null;
+    if (wv?.then && (wv.rule === "anytime" || wv.rule === "on_arrival")) E_("E_WINDOW_THEN", `${base}/window/v/then`, `a window with rule ${wv.rule} has no second phase: it is open the whole time. Remove "then", or give the first phase its own rule (fixed_date, lottery, monthly_release, rolling, same_day).`);
+    // a member's own sourced "nothing needed" hides what it would inherit (entity-graph 5.2, 7.1): listed for review
+    const ac = full.rel.get(r.ref)?.rec.access_cost;
+    if (ac?.state === "no_limit" && (ac.src?.length ?? 0) > 0) {
+      const inherited = ancestorsOf(r.ref).flatMap((a) => requirementsAt(a).map((o) => `${o} (at ${a})`));
+      if (inherited.length > 0) W("W_ENTRY_OVERRIDE", base, `${r.ref} says, with a source, that no entry fee or permit is needed (access_cost no_limit), which removes ${inherited.length} requirement${inherited.length > 1 ? "s" : ""} it would inherit: ${inherited.slice(0, 4).join(", ")}${inherited.length > 4 ? `, +${inherited.length - 4} more` : ""}. Check the source; if the record is outside the park, give it part_of instead.`);
+    }
     // relations (RELATION_RULES, entity-graph 5.1 and 5.2)
     const own0 = [r.ref, ...(r.aliases ?? [])];
     const me = facts(r);
     for (const rule of RELATION_RULES) {
       const f = rule.key;
-      const targets = targetsOf(row, f);
-      if (targets.length === 0) continue;
+      const all = targetsOf(row, f);
+      if (all.length === 0) continue;
+      // one link per target (EG-R0 S10): a repeat, by ref or by alias, is reported and never counts toward cardinality
+      const firstOf = new Map<string, string>();
+      for (const tg of all) if (!firstOf.has(primaryOf(tg))) firstOf.set(primaryOf(tg), tg);
+      const targets = [...firstOf.values()];
+      if (targets.length < all.length) W("W_CAP_REL_DUP", `${base}/${f}`, `"${f}" names the same record more than once (${all.filter((t, j) => all.findIndex((u) => primaryOf(u) === primaryOf(t)) !== j).join(", ")}, counting aliases). Keep one.`);
       if (!sourceAllowed(rule, me)) E_("E_CAP_REL_KIND", `${base}/${f}`, `"${f}" is not allowed on ${an(r.layer)} of type ${r.type}. It is a relation of ${describeEndpoints(rule.source)} (entity-graph 5.1).`);
       for (const m of rule.max) {
         if (m.layer && m.layer !== r.layer) continue;
@@ -432,11 +487,15 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
         else W(m.code, `${base}/${f}`, msg);
       }
       for (const tg of targets) {
-        if (tg === r.ref) {
-          E_("E_CAP_REL_REF", `${base}/${f}`, `"${f}" points at the record itself.`);
+        // the record itself, by its ref or one of its aliases (EG-R0 S5)
+        if (primaryOf(tg) === r.ref || own0.includes(tg)) {
+          E_("E_CAP_REL_REF", `${base}/${f}`, `"${f}" points at the record itself${tg !== r.ref ? ` (${tg} is its own alias)` : ""}.`);
           continue;
         }
-        if (rule.shape === "areas") continue; // area ids: checked against the store by the parks contract (PA-C)
+        if (rule.shape === "areas") {
+          if (!pw.tree.areaIds.has(tg)) E_("E_PARK_AREA", `${base}/${f}`, `covers_areas names "${tg}", which is not an area of data/locations/locations.json${pw.tree.ids.has(tg) ? " (it is a country or region: a park covers areas, never a whole region)" : ""}. Use an area id of the store, or add the area there first (the location skill). Example: "CA/AB/banff-national-park".`);
+          continue;
+        }
         if (f === "run_by") {
           if (!w.operators.has(tg)) E_("E_CAP_OPERATOR", `${base}/run_by`, `operator "${tg}" is not in data/capture/operators.json. Add it there (name and URL), or leave run_by out.`);
           continue;
@@ -487,7 +546,7 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
       if (a === r.ref) E_("E_CAP_REF", `${base}/aliases`, `alias "${a}" is the record's own ref.`);
     }
     // values: sources and states
-    const vals: [string, unknown][] = [["geonames_id", r.geonames_id], ["near_town", r.near_town], ["near_town_km", r.near_town_km], ["season", r.season], ["best_window", r.best_window], ["best_time", r.best_time], ["hours", r.hours], ["duration_min", r.duration_min], ["activity_min", r.activity_min], ["check_in_out", r.check_in_out], ["price", r.price], ["window", r.window], ["book_url", r.book_url], ["fills_by", r.fills_by], ["closures", r.closures], ["groceries", r.groceries]];
+    const vals: [string, unknown][] = [["geonames_id", r.geonames_id], ["near_town", r.near_town], ["near_town_km", r.near_town_km], ["season", r.season], ["best_window", r.best_window], ["best_time", r.best_time], ["hours", r.hours], ["duration_min", r.duration_min], ["activity_min", r.activity_min], ["check_in_out", r.check_in_out], ["price", r.price], ["window", r.window], ["entry", r.entry], ["book_url", r.book_url], ["fills_by", r.fills_by], ["closures", r.closures], ["groceries", r.groceries]];
     for (const [k, v] of vals) {
       if (!v) continue;
       const x = v as { v: unknown; state: string; basis: string | null; src: string[]; on?: string; tried?: string[] };
@@ -565,6 +624,11 @@ export function stageChainProblem(stages: readonly CaptureRecord[], primary: (re
   }
   const branched = stages.find((a) => (next.get(a.ref) ?? []).length > 1);
   if (branched) return `${branched.ref} ends where ${(next.get(branched.ref) ?? []).length} stages start`;
+  // a merge (EG-R0 S4): two stages end where one starts, as in A to B, B to C and C back to B
+  const prevs = new Map<string, string[]>();
+  for (const a of stages) for (const b of next.get(a.ref) ?? []) prevs.set(b.ref, [...(prevs.get(b.ref) ?? []), a.ref]);
+  const merged = stages.find((b) => (prevs.get(b.ref) ?? []).length > 1);
+  if (merged) return `${merged.ref} starts where ${(prevs.get(merged.ref) ?? []).length} stages end (${(prevs.get(merged.ref) ?? []).join(", ")})`;
   const hasPrev = new Set(stages.flatMap((a) => (next.get(a.ref) ?? []).map((b) => b.ref)));
   const heads = stages.filter((s) => !hasPrev.has(s.ref));
   if (heads.length !== 1) {

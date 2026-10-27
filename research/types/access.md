@@ -50,6 +50,22 @@ Links: official; R? booking; A status, webcam.
 
 Records: offer. No suitability profile. Effort: none, time is shown. Sources, in order: F D C.
 
-**offer (access)**: R name, type, summary, access_cost, price, window, links, at; R? season (operates), hours (operates), closures (status_page); A names, transit, on, run_by, cancellation.
+**offer (access)**: R name, type, summary, price, window, links, entry, at; R? season (operates), closures (status_page); A names, hours, transit, covered_by, on, run_by, cancellation.
+
+Links: official; R? booking; A status, webcam.
+
+### Timed entry (`access.pass.timed_entry`)
+
+Records: offer. No suitability profile. Effort: none, time is shown. Sources, in order: F D C.
+
+**offer (access)**: R name, type, summary, price, window, links, entry, at; R? season (operates), hours (operates), closures (status_page); A names, transit, covered_by, on, run_by, cancellation.
+
+Links: official; R? booking; A status, webcam.
+
+### Lift pass (`access.pass.lift_pass`)
+
+Records: offer. No suitability profile. Effort: none, time is shown. Sources, in order: F D C.
+
+**offer (access)**: R name, type, summary, price, window, links, at; R? season (operates), closures (status_page); A names, hours, transit, entry, covered_by, on, run_by, cancellation.
 
 Links: official; R? booking; A status, webcam.

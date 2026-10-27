@@ -128,7 +128,7 @@ Links: official; R? none; A osm, wikidata, wikipedia, commons.
 
 Records: place. Suitability profile `area` (never, extension area). Effort: none, time is shown. Sources, in order: F.
 
-**place**: R name, type, point, area_id, wikidata, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, wikidata, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of, covers_areas, run_by.
 
 Suitability: R kid_note, on_site_min, hazards, access_season; R when operated none; A group_min, stroller, stroller_extent, wheelchair, accessible_toilet, limited_capacity_note, toilets, water, food, signal, picnic, baby_change, altitude_m, ext.area.pass, ext.area.access_road, ext.area.stay_on_site, ext.area.child_trails.
 

@@ -268,6 +268,9 @@ async function main(argv: string[]): Promise<number> {
       const { PLACE_ERROR_LIST, PLACE_WARNING_LIST, PLACE_ERROR_CODES, PLACE_WARNING_CODES } = await import("../src/validate/codes.ts");
       for (const c of PLACE_ERROR_LIST) out(`${c}\t${PLACE_ERROR_CODES[c]}`);
       for (const c of PLACE_WARNING_LIST) out(`${c}\t${PLACE_WARNING_CODES[c]}`);
+      const { PARK_ERROR_LIST, PARK_WARNING_LIST, PARK_ERROR_CODES, PARK_WARNING_CODES } = await import("../src/validate/codes.ts");
+      for (const c of PARK_ERROR_LIST) out(`${c}\t${PARK_ERROR_CODES[c]}`);
+      for (const c of PARK_WARNING_LIST) out(`${c}\t${PARK_WARNING_CODES[c]}`);
       return 0;
     }
     default:

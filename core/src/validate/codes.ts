@@ -158,7 +158,23 @@ export const CAP_WARNING_CODES = {
   W_CAP_REL_CARD: "a relation holds more targets than its rule expects (a route with more than one starts_at)",
   W_CAP_STAGE_ORDER: "the stages of one route (routes part_of it) do not chain by ends_at to starts_at, so their order cannot be derived",
   W_CAP_INHERITED_COPY: "a record stores a fact it already inherits from a container: a conditions, status or booking link with the same URL, or a requirement offer of the same type and booking page as one up its containment chain",
+  W_CAP_REL_DUP: "a relation names the same target twice (by ref or by alias); the repeat never counts toward cardinality",
 } as const;
+// The parks contract (protected-area-entry 5.1 C10, entity-graph 5.2; PA-C), checked by core/src/validate/capture.ts on capture/1
+// sidecars, each with a failing and a passing case in core/test/capture/entry-validate.test.ts. A block of its own beside the capture
+// codes (their names keep the E_CAP_ prefix). E_PLACE_ORPHAN's system-pass exemption (QP1) lives in the placement block.
+export const PARK_ERROR_CODES = {
+  E_ENTRY_SCHEMA: "an entry block sits on a record that is not an access.pass offer, or its for_types names a type that is not in data/vocab/types.json",
+  E_WINDOW_THEN: "a booking window's second phase (then) has a then of its own, or follows a rule that has no phases (anytime, on_arrival)",
+  E_PARK_ZONE: "a protected-area zone (nature.protected.zone) names no protected area in part_of; a zone whose ref also breaks E_CAP_REF_TOP is reported there once",
+  E_PARK_AREA: "covers_areas names an id that is not an area of the locations store (a country or region is refused: a park covers areas)",
+} as const;
+export const PARK_WARNING_CODES = {
+  W_PARK_AREA: "the locations store has an area named after a protected area (its slug is the park's slug or name) and covers_areas does not name it",
+  W_ENTRY_OVERRIDE: "a record's own sourced access_cost no_limit removes requirement offers it would inherit from a container (entity-graph 7.1); listed for review",
+} as const;
+export const PARK_ERROR_LIST = Object.keys(PARK_ERROR_CODES) as (keyof typeof PARK_ERROR_CODES)[];
+export const PARK_WARNING_LIST = Object.keys(PARK_WARNING_CODES) as (keyof typeof PARK_WARNING_CODES)[];
 // capture-supersedes/1 codes (contract 9.7), tested in core/test/capture/supersede.test.ts
 export const SUP_ERROR_CODES = {
   E_SUP_BASIS: "a supersede entry's basis is not official or operator, or none of its sources is an official or operator page",

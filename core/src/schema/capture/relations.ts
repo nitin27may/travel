@@ -242,7 +242,24 @@ export function describeEndpoints(list: readonly Endpoint[] | "same"): string {
 export function nestedWrapper(ref: string): string | null {
   const m = /^(part|offer)\/(part|offer)\//.exec(ref);
   if (!m) return null;
-  return `it wraps a ${m[2]}/ ref inside a ${m[1]}/ ref. One wrapper only: anchor a child of a child at the same root (part/<root>#<slug>, offer/<root>#<product>, where the root is a place/, legacy/ or trip/ ref)`;
+  return `it wraps a ${m[2]}/ ref inside a ${m[1]}/ ref. One wrapper only: anchor a child of a child at the same root (part/<root>#<slug>, offer/<root>#<product>, where the root is a place/, legacy/ or trip/ ref, or operator/<slug> for a system pass)`;
+}
+
+/** A system pass's ref (4.4 rule 6): `offer/operator/<operator slug>#<product>`. Group 1 is the operator slug. */
+export const SYSTEM_PASS_REF_RE = /^offer\/operator\/([a-z0-9]+(?:-[a-z0-9]+)*)#[^#\s]+$/;
+
+/**
+ * Whether a record is a system pass (protected-area-entry QP1, entity-graph 4.4 rule 6): one `access.pass.park_pass` offer held on the
+ * operator that runs it (`offer/operator/<slug>#<product>`, `run_by: operator/<slug>`), naming no place (`at`, `on`, `starts_at` all
+ * empty), with at least one requirement that names it in `covered_by` (`covers`, the count of those). Such a pass is exempt from the
+ * rule that an offer names its place (E_PLACE_ORPHAN, the `at` mark of the offer layer); each park's fee reaches it instead.
+ */
+export function isSystemPass(rec: { ref: string; type: string; layer: string; run_by?: string; at?: readonly unknown[]; on?: readonly unknown[]; starts_at?: readonly unknown[] }, covers: number): boolean {
+  if (rec.layer !== "offer" || !typeUnder(rec.type, "access.pass.park_pass")) return false;
+  const m = SYSTEM_PASS_REF_RE.exec(rec.ref);
+  if (!m || rec.run_by !== `operator/${m[1]}`) return false;
+  if ((rec.at?.length ?? 0) + (rec.on?.length ?? 0) + (rec.starts_at?.length ?? 0) > 0) return false;
+  return covers > 0;
 }
 
 /**

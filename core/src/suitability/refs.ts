@@ -47,6 +47,7 @@ export class RefResolver {
   private places: Set<string>;
   private refs: Set<string>;
   private legacy = new Map<string, Set<string>>();
+  private operators: Set<string> | null = null;
 
   private root: string;
 
@@ -71,6 +72,14 @@ export class RefResolver {
     } catch {
       return null;
     }
+  }
+
+  /** The operator refs of data/capture/operators.json, read once. */
+  private operatorRefs(): Set<string> {
+    if (this.operators) return this.operators;
+    const doc = readJson<{ operators?: { ref?: unknown }[] }>(join(this.root, "data", "capture", "operators.json"));
+    this.operators = new Set((doc?.operators ?? []).map((o) => String(o.ref)));
+    return this.operators;
   }
 
   /** null when the ref resolves, else the reason it does not. */
@@ -104,6 +113,11 @@ export class RefResolver {
     if (form === "offer") {
       const parent = rest.split("#")[0] ?? "";
       if (!rest.includes("#")) return "an offer ref is offer/<parent ref>#<product>";
+      // a system pass (entity-graph 4.4 rule 6, protected-area-entry QP1): offer/operator/<slug>#<product>, the operator in operators.json
+      if (parent.startsWith("operator/")) {
+        if ((rest.split("#")[1] ?? "").trim() === "") return "a system pass ref is offer/operator/<slug>#<product>, and the product is not empty";
+        return this.operatorRefs().has(parent) ? null : `operator "${parent}" is not in data/capture/operators.json (add it there first)`;
+      }
       return this.why(parent);
     }
     return `unknown ref form "${form}"`;

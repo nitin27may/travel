@@ -1,0 +1,51 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "two-parks-one-area",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/delta-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "name": "Delta National Park",
+      "area_id": "ZZ/S1/delta",
+      "covers_areas": [
+        "ZZ/S1/delta"
+      ]
+    },
+    {
+      "ref": "place/delta-peace-park",
+      "type": "nature.protected.nature_reserve",
+      "layer": "place",
+      "name": "Delta Peace Park",
+      "area_id": "ZZ/S1/delta",
+      "covers_areas": [
+        "ZZ/S1/delta"
+      ]
+    },
+    {
+      "ref": "place/delta-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Delta Lake",
+      "area_id": "ZZ/S1/delta"
+    },
+    {
+      "ref": "place/delta-inner-reserve",
+      "type": "nature.protected.nature_reserve",
+      "layer": "place",
+      "name": "Delta Inner Reserve",
+      "area_id": "ZZ/S1/delta",
+      "covers_areas": [
+        "ZZ/S1/delta"
+      ],
+      "part_of": [
+        "place/delta-national-park"
+      ]
+    }
+  ]
+}

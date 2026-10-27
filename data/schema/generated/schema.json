@@ -4732,6 +4732,11 @@
                   "type": "string"
                 }
               },
+              "summary": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
               "aliases": {
                 "type": "array",
                 "items": {
@@ -6774,7 +6779,8 @@
                                 "night",
                                 "room",
                                 "boat",
-                                "weight"
+                                "weight",
+                                "person_night"
                               ]
                             },
                             "age_from": {
@@ -6788,6 +6794,14 @@
                             "applies_to": {
                               "type": "string",
                               "pattern": "^\\d{4}$"
+                            },
+                            "residency": {
+                              "type": "string",
+                              "enum": [
+                                "resident",
+                                "national",
+                                "foreign"
+                              ]
                             },
                             "note": {
                               "type": "string"
@@ -6899,7 +6913,8 @@
                                   "night",
                                   "room",
                                   "boat",
-                                  "weight"
+                                  "weight",
+                                  "person_night"
                                 ]
                               },
                               "age_from": {
@@ -6913,6 +6928,14 @@
                               "applies_to": {
                                 "type": "string",
                                 "pattern": "^\\d{4}$"
+                              },
+                              "residency": {
+                                "type": "string",
+                                "enum": [
+                                  "resident",
+                                  "national",
+                                  "foreign"
+                                ]
                               },
                               "note": {
                                 "type": "string"
@@ -7000,6 +7023,31 @@
                             "type": "string",
                             "minLength": 1
                           },
+                          "opens_from": {
+                            "type": "string",
+                            "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                          },
+                          "opens_to": {
+                            "type": "string",
+                            "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                          },
+                          "month_lead_days": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "closes_days_before": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "closes_time": {
+                            "type": "string",
+                            "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                          },
+                          "share_pct": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100
+                          },
                           "sellout": {
                             "type": "object",
                             "properties": {
@@ -7026,6 +7074,91 @@
                           },
                           "fallback": {
                             "type": "string"
+                          },
+                          "then": {
+                            "type": "object",
+                            "properties": {
+                              "rule": {
+                                "type": "string",
+                                "enum": [
+                                  "fixed_date",
+                                  "rolling",
+                                  "monthly_release",
+                                  "lottery",
+                                  "same_day",
+                                  "anytime",
+                                  "on_arrival"
+                                ]
+                              },
+                              "days_before": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "opens_time": {
+                                "type": "string",
+                                "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                              },
+                              "tz": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "opens_from": {
+                                "type": "string",
+                                "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                              },
+                              "opens_to": {
+                                "type": "string",
+                                "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                              },
+                              "month_lead_days": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "closes_days_before": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "closes_time": {
+                                "type": "string",
+                                "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                              },
+                              "share_pct": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100
+                              },
+                              "sellout": {
+                                "type": "object",
+                                "properties": {
+                                  "kind": {
+                                    "type": "string",
+                                    "enum": [
+                                      "never",
+                                      "minutes",
+                                      "days",
+                                      "weeks",
+                                      "months",
+                                      "unknown"
+                                    ]
+                                  },
+                                  "lead": {
+                                    "type": "integer",
+                                    "minimum": 0
+                                  }
+                                },
+                                "required": [
+                                  "kind"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "fallback": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "rule"
+                            ],
+                            "additionalProperties": false
                           }
                         },
                         "required": [
@@ -7131,6 +7264,31 @@
                               "type": "string",
                               "minLength": 1
                             },
+                            "opens_from": {
+                              "type": "string",
+                              "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                            },
+                            "opens_to": {
+                              "type": "string",
+                              "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                            },
+                            "month_lead_days": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "closes_days_before": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "closes_time": {
+                              "type": "string",
+                              "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                            },
+                            "share_pct": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 100
+                            },
                             "sellout": {
                               "type": "object",
                               "properties": {
@@ -7157,10 +7315,645 @@
                             },
                             "fallback": {
                               "type": "string"
+                            },
+                            "then": {
+                              "type": "object",
+                              "properties": {
+                                "rule": {
+                                  "type": "string",
+                                  "enum": [
+                                    "fixed_date",
+                                    "rolling",
+                                    "monthly_release",
+                                    "lottery",
+                                    "same_day",
+                                    "anytime",
+                                    "on_arrival"
+                                  ]
+                                },
+                                "days_before": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                },
+                                "opens_time": {
+                                  "type": "string",
+                                  "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                                },
+                                "tz": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "opens_from": {
+                                  "type": "string",
+                                  "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                                },
+                                "opens_to": {
+                                  "type": "string",
+                                  "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                                },
+                                "month_lead_days": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                },
+                                "closes_days_before": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                },
+                                "closes_time": {
+                                  "type": "string",
+                                  "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                                },
+                                "share_pct": {
+                                  "type": "number",
+                                  "minimum": 0,
+                                  "maximum": 100
+                                },
+                                "sellout": {
+                                  "type": "object",
+                                  "properties": {
+                                    "kind": {
+                                      "type": "string",
+                                      "enum": [
+                                        "never",
+                                        "minutes",
+                                        "days",
+                                        "weeks",
+                                        "months",
+                                        "unknown"
+                                      ]
+                                    },
+                                    "lead": {
+                                      "type": "integer",
+                                      "minimum": 0
+                                    }
+                                  },
+                                  "required": [
+                                    "kind"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                "fallback": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "rule"
+                              ],
+                              "additionalProperties": false
                             }
                           },
                           "required": [
                             "rule"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "operator_info"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "estimate": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "entry": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "required": {
+                            "type": "string",
+                            "enum": [
+                              "always",
+                              "in_season",
+                              "some_days",
+                              "advised"
+                            ]
+                          },
+                          "needed_for": {
+                            "minItems": 1,
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": [
+                                "day",
+                                "overnight_front",
+                                "overnight_back",
+                                "through"
+                              ]
+                            }
+                          },
+                          "unit": {
+                            "type": "string",
+                            "enum": [
+                              "person",
+                              "vehicle",
+                              "group",
+                              "site",
+                              "boat"
+                            ]
+                          },
+                          "valid": {
+                            "type": "object",
+                            "properties": {
+                              "span": {
+                                "type": "integer",
+                                "minimum": 1
+                              },
+                              "unit": {
+                                "type": "string",
+                                "enum": [
+                                  "hour",
+                                  "day",
+                                  "night",
+                                  "month",
+                                  "year",
+                                  "entry",
+                                  "slot"
+                                ]
+                              },
+                              "from": {
+                                "type": "string",
+                                "enum": [
+                                  "purchase",
+                                  "first_use",
+                                  "slot_start",
+                                  "calendar"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "span",
+                              "unit",
+                              "from"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "channel": {
+                            "minItems": 1,
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": [
+                                "online",
+                                "phone",
+                                "gate",
+                                "visitor_centre",
+                                "on_board",
+                                "machine"
+                              ]
+                            }
+                          },
+                          "proof": {
+                            "type": "string",
+                            "enum": [
+                              "carry",
+                              "display",
+                              "plate_registered",
+                              "id_check"
+                            ]
+                          },
+                          "exemptions": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "who": {
+                                  "type": "string",
+                                  "enum": [
+                                    "resident",
+                                    "pass_holder",
+                                    "camper",
+                                    "through_traffic",
+                                    "disability",
+                                    "indigenous",
+                                    "school_group",
+                                    "other"
+                                  ]
+                                },
+                                "note": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 200
+                                }
+                              },
+                              "required": [
+                                "who"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "change": {
+                            "type": "object",
+                            "properties": {
+                              "allowed": {
+                                "type": "string",
+                                "enum": [
+                                  "free",
+                                  "fee",
+                                  "no"
+                                ]
+                              },
+                              "until_hours": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "note": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 200
+                              }
+                            },
+                            "required": [
+                              "allowed"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "cancel": {
+                            "type": "object",
+                            "properties": {
+                              "refund": {
+                                "type": "string",
+                                "enum": [
+                                  "full",
+                                  "partial",
+                                  "none"
+                                ]
+                              },
+                              "until_hours": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "note": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 200
+                              }
+                            },
+                            "required": [
+                              "refund"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "quota": {
+                            "type": "object",
+                            "properties": {
+                              "per": {
+                                "type": "string",
+                                "enum": [
+                                  "day",
+                                  "night",
+                                  "slot"
+                                ]
+                              },
+                              "note": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 200
+                              }
+                            },
+                            "required": [
+                              "per"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "for_types": {
+                            "minItems": 1,
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+){0,3}$"
+                            }
+                          }
+                        },
+                        "required": [
+                          "required",
+                          "needed_for",
+                          "unit",
+                          "channel"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap",
+                      "no_limit"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "operator_info"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "object",
+                          "properties": {
+                            "required": {
+                              "type": "string",
+                              "enum": [
+                                "always",
+                                "in_season",
+                                "some_days",
+                                "advised"
+                              ]
+                            },
+                            "needed_for": {
+                              "minItems": 1,
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "enum": [
+                                  "day",
+                                  "overnight_front",
+                                  "overnight_back",
+                                  "through"
+                                ]
+                              }
+                            },
+                            "unit": {
+                              "type": "string",
+                              "enum": [
+                                "person",
+                                "vehicle",
+                                "group",
+                                "site",
+                                "boat"
+                              ]
+                            },
+                            "valid": {
+                              "type": "object",
+                              "properties": {
+                                "span": {
+                                  "type": "integer",
+                                  "minimum": 1
+                                },
+                                "unit": {
+                                  "type": "string",
+                                  "enum": [
+                                    "hour",
+                                    "day",
+                                    "night",
+                                    "month",
+                                    "year",
+                                    "entry",
+                                    "slot"
+                                  ]
+                                },
+                                "from": {
+                                  "type": "string",
+                                  "enum": [
+                                    "purchase",
+                                    "first_use",
+                                    "slot_start",
+                                    "calendar"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "span",
+                                "unit",
+                                "from"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "channel": {
+                              "minItems": 1,
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "enum": [
+                                  "online",
+                                  "phone",
+                                  "gate",
+                                  "visitor_centre",
+                                  "on_board",
+                                  "machine"
+                                ]
+                              }
+                            },
+                            "proof": {
+                              "type": "string",
+                              "enum": [
+                                "carry",
+                                "display",
+                                "plate_registered",
+                                "id_check"
+                              ]
+                            },
+                            "exemptions": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "who": {
+                                    "type": "string",
+                                    "enum": [
+                                      "resident",
+                                      "pass_holder",
+                                      "camper",
+                                      "through_traffic",
+                                      "disability",
+                                      "indigenous",
+                                      "school_group",
+                                      "other"
+                                    ]
+                                  },
+                                  "note": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 200
+                                  }
+                                },
+                                "required": [
+                                  "who"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "change": {
+                              "type": "object",
+                              "properties": {
+                                "allowed": {
+                                  "type": "string",
+                                  "enum": [
+                                    "free",
+                                    "fee",
+                                    "no"
+                                  ]
+                                },
+                                "until_hours": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                },
+                                "note": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 200
+                                }
+                              },
+                              "required": [
+                                "allowed"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "cancel": {
+                              "type": "object",
+                              "properties": {
+                                "refund": {
+                                  "type": "string",
+                                  "enum": [
+                                    "full",
+                                    "partial",
+                                    "none"
+                                  ]
+                                },
+                                "until_hours": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                },
+                                "note": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 200
+                                }
+                              },
+                              "required": [
+                                "refund"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "quota": {
+                              "type": "object",
+                              "properties": {
+                                "per": {
+                                  "type": "string",
+                                  "enum": [
+                                    "day",
+                                    "night",
+                                    "slot"
+                                  ]
+                                },
+                                "note": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 200
+                                }
+                              },
+                              "required": [
+                                "per"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "for_types": {
+                              "minItems": 1,
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+){0,3}$"
+                              }
+                            }
+                          },
+                          "required": [
+                            "required",
+                            "needed_for",
+                            "unit",
+                            "channel"
                           ],
                           "additionalProperties": false
                         },

@@ -292,7 +292,7 @@ The rules read `RELATION_RULES` (new file `core/src/schema/capture/relations.ts`
 | Code | When | Severity |
 |---|---|---|
 | `E_CAP_REL_KIND` (exists) | the source layer or type is not allowed for the relation | error |
-| `E_CAP_REL_TARGET` (new) | the target's layer or type is not allowed (an offer `parks_for`, an offer `on` a place, a route `starts_at` a route) | by the gap budget: pinned records warn, new records error (contract 3.7.3) |
+| `E_CAP_REL_TARGET` (new) | the target's layer or type is not allowed (an offer `parks_for`, an offer `on` a place, a route `starts_at` a route) | by the gap budget's `known` list only (EG-R0 S1, PA-C): a listed fault warns, every other link in the store errors, on a pinned record too; a code in `strict` errors on listed faults; a draft outside the store warns. `gaps --budget --check` fails on a `known` entry that matches no live finding (S2) |
 | `E_CAP_REL_CYCLE` (new) | `part_of` or `variant_of` loops, counting `covers_areas` membership | error |
 | `E_CAP_REL_SYM` (new) | a symmetric relation is stored on both records | error |
 | `E_CAP_VARIANT` (new) | `variant_of` names another layer or category, or a record that is itself a variant | error |
@@ -662,3 +662,5 @@ either side; the index committed and checked; `includes` added now with `covered
 
 - 26 Oct 2026: written (travel-planner, Opus) from the owner's request of the same day; protected-area-entry.md rewritten as
   an instance of it.
+- 26 Oct 2026 (PA-C, Opus): 5.2 `E_CAP_REL_TARGET` severity decided by the gap budget's `known` list only (EG-R0 S1); stale
+  `known` entries fail the budget check (S2).

@@ -38,3 +38,11 @@ The place records are stubs: the validator also reports non-graph findings on th
 | `copied-link.json` | a member repeats its park's conditions link | warning `W_CAP_INHERITED_COPY` |
 
 Add a fixture by adding the file and its `expected.json` row; the test fails if the two lists differ.
+
+## eg-r0/ (the EG-R0 review fixes, PA-C; test: `core/test/capture/relations-eg-r0.test.ts`)
+
+| File | Shape | Outcome |
+|---|---|---|
+| `two-parks-one-area.json` | two protected areas covering one area (a peace park over a national park), a lake in it, and a reserve that covers it too but sits `part_of` the national park | no `E_CAP_REL_CYCLE` (M1: a record with `covers_areas` is never an area member); the lake has both parks as containers |
+| `merge-loop.json` | stages A to B, B to C and C back to B | warning `W_CAP_STAGE_ORDER` (S4: two stages end where one starts) |
+| `alias-self.json` | a lake `part_of` its own alias; a pond naming one park three times, once through an alias | error `E_CAP_REL_REF` (S5) and warning `W_CAP_REL_DUP` without `W_CAP_REL_PARENTS` (S10) |
