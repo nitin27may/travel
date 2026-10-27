@@ -26,6 +26,19 @@ const loopback = (() => {
 })();
 const suite = describe.skipIf(!url || !loopback);
 
+// Row counts are read from the data at run time, never pinned: a new type leaf, class, tag, operator or source must not break this test.
+// The files give the counts of the vocab tables directly; the seed builder (the engine's own, no database) gives the rest and the total.
+const readData = (rel: string) => JSON.parse(readFileSync(path.join(REPO, rel), "utf8"));
+const DATA_COUNTS = {
+  type_node: readData("data/vocab/types.json").nodes.length as number,
+  tag: readData("data/vocab/tags.json").tags.length as number,
+  relevance_class: readData("data/vocab/relevance-classes.json").classes.length as number,
+  operator: readData("data/capture/operators.json").operators.length as number,
+  source: readData("data/sources/registry.json").entries.length as number,
+};
+let built: Record<string, number> = {};
+let builtTotal = 0;
+
 const CLI = path.join(REPO, "core", "bin", "db-seed.ts");
 const SENTINEL = "sentinel-pw-7c1e";
 
@@ -75,6 +88,9 @@ suite("seed engine on the local database", () => {
     const loc = JSON.parse(readFileSync(path.join(REPO, "data/locations/locations.json"), "utf8"));
     mkdirSync(dataPath("data/locations"), { recursive: true });
     writeFileSync(dataPath("data/locations/locations.json"), JSON.stringify({ countries: loc.countries, regions: loc.regions, areas: loc.areas }));
+    const tables = buildSeed(fsSource(tmp), COMMIT);
+    built = Object.fromEntries(tables.map((t) => [t.spec.table, t.rows.length]));
+    builtTotal = tables.reduce((a, t) => a + t.rows.length, 0);
   }, 180000);
 
   afterAll(async () => {
@@ -89,15 +105,17 @@ suite("seed engine on the local database", () => {
   it("seeds an empty database and writes every row (db:seed, exit 0)", async () => {
     const r = cliRoot("seed");
     expect(r.code, r.out).toBe(0);
-    expect(r.out).toMatch(/wrote 5542 row\(s\) in \d+ ms/);
+    expect(r.out).toMatch(new RegExp(`wrote ${builtTotal} row\\(s\\) in \\d+ ms`));
     const loc = JSON.parse(readFileSync(dataPath("data/locations/locations.json"), "utf8"));
-    expect(await count("type_node")).toBe(398);
-    expect(await count("tag")).toBe(81);
-    expect(await count("relevance_class")).toBe(57);
-    expect(await count("area")).toBe(249 + loc.regions.length + loc.areas.length);
-    expect(await count("town")).toBe(4223);
-    expect(await count("operator")).toBe(23);
-    expect(await count("source")).toBe(423);
+    for (const [t, n] of Object.entries(DATA_COUNTS)) expect(built[t], `${t}: the builder reads every row of its file`).toBe(n);
+    expect(await count("type_node")).toBe(DATA_COUNTS.type_node);
+    expect(await count("tag")).toBe(DATA_COUNTS.tag);
+    expect(await count("relevance_class")).toBe(DATA_COUNTS.relevance_class);
+    expect(await count("area")).toBe(built.area);
+    expect(built.area).toBeGreaterThanOrEqual(loc.regions.length + loc.areas.length);
+    expect(await count("town")).toBe(built.town);
+    expect(await count("operator")).toBe(DATA_COUNTS.operator);
+    expect(await count("source")).toBe(DATA_COUNTS.source);
     expect((await sql(`select value from catalogue_meta where key = 'seed_commit'`))[0].value).toMatch(/^[0-9a-f]{40}$/);
   }, 120000);
 
@@ -134,8 +152,8 @@ suite("seed engine on the local database", () => {
     await db.query("begin");
     try {
       await db.query(`set local role travel_app`);
-      expect(Number((await db.query(`select count(*)::int as n from town`)).rows[0].n)).toBe(4223);
-      expect(Number((await db.query(`select count(*)::int as n from source`)).rows[0].n)).toBe(423);
+      expect(Number((await db.query(`select count(*)::int as n from town`)).rows[0].n)).toBe(built.town);
+      expect(Number((await db.query(`select count(*)::int as n from source`)).rows[0].n)).toBe(DATA_COUNTS.source);
       await db.query("savepoint s");
       await expect(db.query(`select 1 from trip limit 1`)).rejects.toThrow();
       await db.query("rollback to savepoint s");
@@ -165,13 +183,13 @@ suite("seed engine on the local database", () => {
     editData("data/vocab/relevance-classes.json", (d) => { d.classes.pop(); });
     const dry = cliRoot("sync", "--dry-run");
     expect(dry.code, dry.out).toBe(3);
-    expect(dry.out).toMatch(/town\s+\+0\s+~0\s+-0\s+x0\s+=4223 \(1 retained\)/);
+    expect(dry.out).toMatch(new RegExp(`town\\s+\\+0\\s+~0\\s+-0\\s+x0\\s+=${built.town} \\(1 retained\\)`));
     expect(dry.out).toMatch(/tag\s+\+0\s+~0\s+-0\s+x1/);
     expect(dry.out).toMatch(/relevance_class\s+\+0\s+~0\s+-0\s+x1/);
     expect(cliRoot("sync").code).toBe(0);
     expect(await count("town")).toBe(towns);
-    expect(await count("tag")).toBe(80);
-    expect(await count("relevance_class")).toBe(56);
+    expect(await count("tag")).toBe(DATA_COUNTS.tag - 1);
+    expect(await count("relevance_class")).toBe(DATA_COUNTS.relevance_class - 1);
     const after = cliRoot("sync", "--dry-run");
     expect(after.code, after.out).toBe(0);
     expect(cliRoot("verify").code).toBe(0);

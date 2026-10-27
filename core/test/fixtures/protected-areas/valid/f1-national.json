@@ -1,0 +1,514 @@
+{
+  "schema": "capture/1",
+  "trip": "park-fixture",
+  "lane": "f1-national",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://example.org/source-src-0001",
+      "title": "Fixture page src-0001",
+      "publisher": "Fixture publisher",
+      "kind": "official",
+      "read": "2026-10-26",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/highcrest-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "name": "Highcrest National Park",
+      "area_id": "ZZ/Q1/highcrest",
+      "covers_areas": [
+        "ZZ/Q1/highcrest"
+      ],
+      "run_by": "operator/alpha-parks-service"
+    },
+    {
+      "ref": "part/place/highcrest-national-park#glacier-basin",
+      "type": "nature.protected.zone",
+      "layer": "place",
+      "name": "Glacier Basin",
+      "area_id": "ZZ/Q1/highcrest",
+      "part_of": [
+        "place/highcrest-national-park"
+      ],
+      "run_by": "operator/alpha-parks-service"
+    },
+    {
+      "ref": "offer/operator/alpha-parks-service#explorer-pass",
+      "type": "access.pass.park_pass",
+      "layer": "offer",
+      "name": "explorer pass",
+      "summary": "The explorer pass requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/explorer-pass",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "run_by": "operator/alpha-parks-service",
+      "price": {
+        "v": [
+          {
+            "amount": 140,
+            "currency": "ZZD",
+            "per": "family"
+          },
+          {
+            "amount": 70,
+            "currency": "ZZD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "group",
+          "channel": [
+            "online",
+            "gate",
+            "visitor_centre"
+          ],
+          "valid": {
+            "span": 12,
+            "unit": "month",
+            "from": "purchase"
+          },
+          "proof": "display"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "offer/place/highcrest-national-park#daily-admission",
+      "type": "access.pass.entry_fee",
+      "layer": "offer",
+      "name": "daily admission",
+      "summary": "The daily admission requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/daily-admission",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/highcrest-national-park"
+      ],
+      "run_by": "operator/alpha-parks-service",
+      "covered_by": [
+        "offer/operator/alpha-parks-service#explorer-pass"
+      ],
+      "price": {
+        "v": [
+          {
+            "amount": 11,
+            "currency": "ZZD",
+            "per": "adult",
+            "age_from": 18
+          },
+          {
+            "amount": 0,
+            "currency": "ZZD",
+            "per": "child",
+            "age_to": 17,
+            "note": "children are free"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "person",
+          "channel": [
+            "online",
+            "gate"
+          ],
+          "valid": {
+            "span": 1,
+            "unit": "day",
+            "from": "calendar"
+          },
+          "exemptions": [
+            {
+              "who": "through_traffic",
+              "note": "no stop on the main road"
+            },
+            {
+              "who": "pass_holder"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "offer/place/highcrest-national-park#basin-lottery-bus",
+      "type": "access.pass.shuttle_seat",
+      "layer": "offer",
+      "name": "basin lottery bus",
+      "summary": "The basin lottery bus requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "06-19",
+            "to": "10-04",
+            "status": "open",
+            "applies_to": "2026"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "lottery",
+          "opens_from": "03-01",
+          "opens_to": "03-21",
+          "opens_time": "08:00",
+          "tz": "Etc/UTC",
+          "closes_days_before": 1,
+          "then": {
+            "rule": "rolling",
+            "closes_days_before": 1,
+            "closes_time": "15:30",
+            "share_pct": 100
+          }
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/basin-lottery-bus",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "part/place/highcrest-national-park#glacier-basin"
+      ],
+      "run_by": "operator/alpha-parks-service",
+      "price": {
+        "v": [
+          {
+            "amount": 12,
+            "currency": "ZZD",
+            "per": "adult",
+            "age_from": 18
+          },
+          {
+            "amount": 6,
+            "currency": "ZZD",
+            "per": "child",
+            "age_to": 17
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "in_season",
+          "needed_for": [
+            "day"
+          ],
+          "unit": "person",
+          "channel": [
+            "online"
+          ],
+          "quota": {
+            "per": "day"
+          },
+          "change": {
+            "allowed": "no"
+          }
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "offer/place/highcrest-national-park#valley-shuttle",
+      "type": "access.pass.shuttle_seat",
+      "layer": "offer",
+      "name": "valley shuttle",
+      "summary": "The valley shuttle requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "06-01",
+            "to": "10-12",
+            "status": "open",
+            "applies_to": "2026"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "fixed_date",
+          "opens_from": "05-01",
+          "opens_to": "05-07",
+          "opens_time": "09:00",
+          "tz": "Etc/UTC",
+          "then": {
+            "rule": "rolling",
+            "days_before": 2,
+            "opens_time": "08:00"
+          }
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/valley-shuttle",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/highcrest-national-park"
+      ],
+      "run_by": "operator/alpha-parks-service",
+      "price": {
+        "v": [
+          {
+            "amount": 10,
+            "currency": "ZZD",
+            "per": "adult",
+            "age_from": 18
+          },
+          {
+            "amount": 0,
+            "currency": "ZZD",
+            "per": "child",
+            "age_to": 12
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "in_season",
+          "needed_for": [
+            "day"
+          ],
+          "unit": "person",
+          "channel": [
+            "online"
+          ],
+          "cancel": {
+            "refund": "partial",
+            "until_hours": 48
+          }
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "offer/place/highcrest-national-park#front-campsite",
+      "type": "stay.camp.campground",
+      "layer": "offer",
+      "name": "front campsite",
+      "summary": "A campsite booking, in our words.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/front-campsite",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/highcrest-national-park"
+      ],
+      "run_by": "operator/alpha-parks-service",
+      "price": {
+        "v": [
+          {
+            "amount": 30,
+            "currency": "ZZD",
+            "per": "night"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "fixed_date",
+          "opens_from": "01-15",
+          "opens_to": "02-28",
+          "opens_time": "08:00",
+          "tz": "Etc/UTC"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "check_in_out": {
+        "v": {
+          "check_in": "14:00",
+          "check_out": "11:00"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    }
+  ]
+}
