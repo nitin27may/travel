@@ -310,6 +310,22 @@ Turnstile, and a guard test for each refusal; the GSI-SEC reviewer signs it off.
 shows the saved value from the action's answer and the header initial catches up on the next session refresh (written
 as a gotcha, not fixed).
 
+**ACCT-PS result (27 Oct 2026, Sonnet 5.5): works; the fallback is not needed.** Run on the Neon child branch
+`br-damp-breeze-b41mtvn5` only, on `next dev` with the real `getAuth()` (the SDK as in `web/lib/auth/server.ts`) and a
+throwaway route handler (not committed), against a synthetic `@travel-e2e.invalid` user (deleted afterwards; the branch
+holds 0 users). Evidence: [research/runs/ACCT-PS-spike.md](../../../research/runs/ACCT-PS-spike.md); call shape pinned by
+`web/tests/auth/update-user-shape.test.ts`.
+
+- (a) `getAuth().updateUser({ name })` in a Next request answered `{ data: { status: true }, error: null }` in 163 ms
+  (the answer carries no user, so the action returns the name it validated), while `POST /api/auth/update-user/` through
+  the browser proxy with the same signed-in cookie still answered 404. Neon's own `get-session` (session token only)
+  then returned the new name.
+- (b) The SDK rewrites both cookies in the same response (`__Secure-neon-auth.local.session_data`, 299 s, and
+  `session_token`), so the next request from that browser reads the new name. Inside the same request `getSession()`
+  still returns the old name (it reads the cached cookie), and a second device or an unrefreshed cookie keeps the old
+  name for up to 299 s. So the action must return the saved name itself and must not re-read the session to show it.
+- (c) Our code passes exactly `{ name }` (unit test, `toStrictEqual`).
+
 ## 5. Travellers
 
 ### 5.1 The document
