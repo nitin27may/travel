@@ -50,10 +50,11 @@ export function openQuery(c: CopyItem): string {
   const youngest = c.profile ? c.profile.youngest : c.children.length ? Math.min(...c.children) : null;
   const family = c.profile ? c.profile.party === 'family' : c.children.length > 0;
   const out: string[] = [];
-  if (family) out.push(`p=family-${youngest ?? 0}`);
+  // the party keys are always written (EM-B, B2): a link without them lands on the party kept on this device, and a copy has its own
+  out.push(family ? `p=family-${youngest ?? 0}` : 'p=adults');
   if (c.profile && c.profile.pace !== 'standard') out.push(`pace=${c.profile.pace}`);
-  // the sheet's adults wins; `a=<n>` for 1 to 12, the codec's default 2 left out (Q296)
-  if (c.adults !== 2 && c.adults >= 1 && c.adults <= 12) out.push(`a=${c.adults}`);
+  // the sheet's adults wins; `a=<n>` for 1 to 12, written even at the codec's default 2 (Q296)
+  out.push(`a=${Math.min(12, Math.max(1, c.adults))}`);
   if (c.profile && c.profile.walk !== null && [5, 8, 12].includes(c.profile.walk)) out.push(`walk=${c.profile.walk}`);
   if (c.profile?.split) out.push('split=1');
   const d = Object.entries(c.overrides).map(([n, k]) => [Number(n), k] as const).sort((x, y) => x[0] - y[0]);
@@ -61,6 +62,8 @@ export function openQuery(c: CopyItem): string {
   if (c.added.length) out.push(`add=${c.added.map((a) => `${a.day}.${a.placeSlug}`).join(',')}`);
   // a copy opens on its days, not the Summary (UXB-1 made the Summary the default tab); `view` follows the profile keys, as the trip page writes it
   out.push('view=day');
+  // a marker only (EM-B, B3): the party bar reads "Your copy" instead of "Shared plan"; EM-3 puts the copy's id here
+  out.push('mine=1');
   return out.join('&');
 }
 

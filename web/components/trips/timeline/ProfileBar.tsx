@@ -58,6 +58,8 @@ export function ProfileBar({ model, api, edit, setEdit }: { model: TimelineModel
   /** The party this visitor is working with (kept on the device, or set in the editor); null while the plan's own or a link's party stands. */
   const [work, setWork] = useState<Party | null>(null);
   const [mode, setMode] = useState<Mode>('written');
+  /** Opened from Mine (`mine=1`): the shared plan is the visitor's own copy. */
+  const [own, setOwn] = useState(false);
   const [offer, setOffer] = useState<Party | null>(null);
   const [kept, setKept] = useState(true);
   const [need, setNeed] = useState(false);
@@ -75,6 +77,7 @@ export function ProfileBar({ model, api, edit, setEdit }: { model: TimelineModel
   useEffect(() => {
     const shared = /[?&](p|a)=/.test(window.location.search);
     if (shared) setMode('shared');
+    if (/[?&]mine=1(&|$)/.test(window.location.search)) setOwn(true);
     if (shared || DEVICE_KEYS.some((k) => readLocal(k) !== null)) setNeed(true);
   }, []);
   // the logic loads when something needs words other than the server's: a changed plan, a shared link, a kept party, the editor
@@ -131,9 +134,9 @@ export function ProfileBar({ model, api, edit, setEdit }: { model: TimelineModel
   // the sticky day rail says the same party, in its own words (it owns them)
   const railKey = JSON.stringify(party);
   useEffect(() => {
-    setRailParty({ ...(JSON.parse(railKey) as Party), pace: p.pace, shared });
+    setRailParty({ ...(JSON.parse(railKey) as Party), pace: p.pace, shared, own: shared && own });
     return () => setRailParty(null);
-  }, [railKey, p.pace, shared]);
+  }, [railKey, p.pace, shared, own]);
 
   /** A profile change from the editor, the offer or the copy sheet: push on the first of an editing session, replace after (review UXB-2 S2). */
   const writeProfile = (patch: Partial<Profile>) => {
@@ -211,8 +214,8 @@ export function ProfileBar({ model, api, edit, setEdit }: { model: TimelineModel
           Plan it for{work ? <span className="pb-yours"> · Your party</span> : null}
         </h2>
         <p className="pb-val num" data-testid="party-line" data-pending={pending || undefined} aria-live="polite" aria-atomic="true">
-          <span className="pb-long" suppressHydrationWarning>{logic ? logic.barWords(shared, party, p, p.pace, false) : server(false)}</span>
-          <span className="pb-short" suppressHydrationWarning>{logic ? logic.barWords(shared, party, p, p.pace, true) : server(true)}</span>
+          <span className="pb-long" suppressHydrationWarning>{logic ? logic.barWords(shared, party, p, p.pace, false, own) : server(false)}</span>
+          <span className="pb-short" suppressHydrationWarning>{logic ? logic.barWords(shared, party, p, p.pace, true, own) : server(true)}</span>
         </p>
         {shared ? null : (
           <p className="pb-note">

@@ -10,6 +10,8 @@ export interface RailParty {
   pace: Pace;
   /** The plan is a shared link's: the rail says so instead of a party (review UXB-2 S3). */
   shared?: boolean;
+  /** The shared plan is the owner's own copy, opened from Mine (EM-B). */
+  own?: boolean;
 }
 
 /** Set by the rail's Edit just before it opens the editor, so the close returns focus there (review S5). */

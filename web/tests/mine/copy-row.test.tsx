@@ -15,7 +15,7 @@ const html = (o: { unlisted?: boolean; chip?: boolean } = {}) => renderToStaticM
 describe('a My trips row', () => {
   it('is one link named with its date, countdown, length and party, and has a menu button named for the trip', () => {
     const h = html();
-    expect(h).toMatch(/href="\/trips\/dolomites-2027\/?\?p=family-6&(?:amp;)?view=day"/);
+    expect(h).toMatch(/href="\/trips\/dolomites-2027\/?\?p=family-6&(?:amp;)?a=2&(?:amp;)?view=day&(?:amp;)?mine=1"/);
     expect(h).toContain('aria-label="Dolomites, from Sat 3 Jul 2027, in 251 days, 14 days, 2 adults, 1 child"');
     expect(h).toContain('aria-label="Actions for Dolomites"');
     expect(h).not.toContain('On this device');
