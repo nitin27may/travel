@@ -13,6 +13,7 @@ E2E globs (a rule's "e2e") match the spec's file name inside web/tests/e2e/, nev
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 from dataclasses import dataclass, field
@@ -254,6 +255,8 @@ def select(m: dict, changed: list[str], *, check_all_old: str | None = None, che
             sel.full_reasons.append(f"{p} (full: {g})")
             hit = True
         for r in m["rules"]:
+            if r.get("runner") == "ci" and os.environ.get("GATE_RUNNER") != "ci":
+                continue  # a rule for the hosted runner's jobs only (WF-3b): the Mac's selection is unchanged
             if not match_any(r["paths"], p):
                 continue
             hit = True

@@ -42,6 +42,7 @@ jobs:
       groups: ${{ steps.sel.outputs.groups }}
       mac_only: ${{ steps.sel.outputs.mac_only }}
       ci_excluded: ${{ steps.sel.outputs.ci_excluded }}
+      ci_skips: ${{ steps.sel.outputs.ci_skips }}
       base: ${{ steps.sel.outputs.base }}
       tier: ${{ steps.sel.outputs.tier }}
       suites_links: ${{ steps.sel.outputs.suites_links }}
@@ -101,7 +102,7 @@ jobs:
       - run: bash tools/ci/guard_env.sh
       # gate.map lists the vitest projects, so the links group needs the workspace installed.
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with: { node-version: '>=22.23 <23' }
+        with: { node-version: '>=22.23 <23', package-manager-cache: false }
       - run: corepack enable && pnpm install --frozen-lockfile
       - run: tools/gate.sh --tier "$TIER" --base "$BASE" --group links --expect "$SUITES" --out ci-out/links.json
         env:
@@ -128,7 +129,7 @@ jobs:
         with: { fetch-depth: 0, persist-credentials: false }
       - run: bash tools/ci/guard_env.sh
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with: { node-version: '>=22.23 <23' }
+        with: { node-version: '>=22.23 <23', package-manager-cache: false }
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0 (v7.1.0 is under 14 days old)
         with: { python-version: '3.13' }
       - run: corepack enable && pnpm install --frozen-lockfile
@@ -161,7 +162,7 @@ jobs:
         with: { fetch-depth: 0, persist-credentials: false }
       - run: bash tools/ci/guard_env.sh
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with: { node-version: '>=22.23 <23' }
+        with: { node-version: '>=22.23 <23', package-manager-cache: false }
       - run: corepack enable && pnpm install --frozen-lockfile
       # Caches (D9): restored on every run, saved on main only, so a pull request or an int/ branch cannot poison them.
       - id: next-cache
@@ -186,6 +187,10 @@ jobs:
           TIER: ${{ needs.plan.outputs.tier }}
           BASE: ${{ needs.plan.outputs.base }}
           SUITES: ${{ needs.plan.outputs.suites_web }}
+      # A test file that skipped is not a pass (WF-3 review S3): fail on any skip the map's `ci_skips` does not allow; the allowed ones are
+      # listed by the summary as owed on the Mac.
+      - name: No unexpected skipped test file
+        run: python3 tools/ci/vitest_ran.py --no-skips --map tools/gate/map.json "$(git rev-parse --absolute-git-dir)"/gate-logs/*.log
       - name: Budget report (start JS, chrome, search chunks) as the job summary
         if: always() && hashFiles('web/.next/BUILD_ID') != ''
         run: |
@@ -218,7 +223,7 @@ jobs:
     # The db.local suite (core/test/db, core/test/seed) on the repository's own Postgres 18 + PostGIS 3.6 image, built by
     # tools/ci/db_up.sh on a base pinned by digest. Not a `services:` container: the suite needs PostGIS, the neondb_owner role, the
     # neon_auth stub and travel_template (tools/db/init/*), and a service container starts before the checkout. The passwords are
-    # throwaway "ci-" values in the job env, not secrets; the server lives and dies with the job. guard_env.sh refuses any other
+    # throwaway "ci-" values in the job env, not secrets; the server lives and dies with the job (hosted runners only). guard_env.sh refuses any other
     # database URL.
     needs: plan
     if: contains(format(',{0},', needs.plan.outputs.groups), ',db,')
@@ -237,7 +242,7 @@ jobs:
         with: { fetch-depth: 0, persist-credentials: false }
       - run: bash tools/ci/guard_env.sh
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with: { node-version: '>=22.23 <23' }
+        with: { node-version: '>=22.23 <23', package-manager-cache: false }
       - run: corepack enable && pnpm install --frozen-lockfile
       - run: bash tools/ci/db_up.sh
       - run: tools/gate.sh --tier "$TIER" --base "$BASE" --group db --expect "$SUITES" --out ci-out/db.json
@@ -249,8 +254,13 @@ jobs:
       # A skipped database test is not a pass (core/test/db/seed.integration.test.ts says so): these files must have run, not skipped.
       - name: The database tests ran, none skipped
         run: |
-          python3 tools/ci/vitest_ran.py "$(git rev-parse --absolute-git-dir)"/gate-logs/*.log \
+          python3 tools/ci/vitest_ran.py "$(git rev-parse --absolute-git-dir)"/gate-logs/*.log -- \
             test/db/integration.test.ts test/db/seed.integration.test.ts test/db/stub.test.ts test/db/quota.test.ts
+      # ... and nothing else skipped either, unless the map allows it. test/db/localReset.test.ts (opt-in LOCAL_DB_RESET_TEST) is allowed:
+      # it drives `docker compose` (container travel-localdb, volume travel_pg18, port 54329, an unpinned base), which would clash with this
+      # pinned throwaway server, so it stays owed on the Mac (tools/gate/map.json ci_skips).
+      - name: No unexpected skipped test file
+        run: python3 tools/ci/vitest_ran.py --no-skips --map tools/gate/map.json "$(git rev-parse --absolute-git-dir)"/gate-logs/*.log
       # LOCAL-3 (the whole-catalogue drift stage, tools/db/seed-check.mjs) has not landed. Until it does, the drift the doc describes
       # (migrate a throwaway database, seed, verify, a second sync writes 0 rows) is what seed.integration.test.ts proves above.
       - name: Seed drift stage (LOCAL-3)
@@ -293,6 +303,7 @@ jobs:
           GROUPS_PLANNED: ${{ needs.plan.outputs.groups }}
           MAC_ONLY: ${{ needs.plan.outputs.mac_only }}
           CI_EXCLUDED: ${{ needs.plan.outputs.ci_excluded }}
+          CI_SKIPS: ${{ needs.plan.outputs.ci_skips }}
           SHA: ${{ github.sha }}
         run: |
           fail=0
@@ -323,11 +334,13 @@ jobs:
             echo
             echo "Pending on the Mac, suites CI never runs: ${MAC_ONLY:-none}"
             echo
-            echo "Pending on the Mac, test files left out of a CI suite (no photo cache, no real home point; the reason is in tools/gate/map.json): ${CI_EXCLUDED:-none}"
+            echo "Pending on the Mac, test files left out of a CI suite (no photo cache, no real home point; the reason and expiry are in tools/gate/map.json): ${CI_EXCLUDED:-none}"
+            echo
+            echo "Owed on the Mac, tests that skip in CI and are allowed to (tools/gate/map.json ci_skips; the privacy scrub of the private terms is one of them): ${CI_SKIPS:-none}"
             echo
             if [ "$fail" != 0 ]; then echo "Overall: RED"
             elif [ -n "$pending" ]; then echo "Overall: partial (not run in CI:$pending); this is NOT a green verdict for those groups"
-            elif [ -n "$MAC_ONLY$CI_EXCLUDED" ]; then echo "Overall: green for everything CI runs; the Mac-only checks above are still owed (T3 needs them)"
+            elif [ -n "$MAC_ONLY$CI_EXCLUDED$CI_SKIPS" ]; then echo "Overall: green for everything CI runs; the Mac-only checks above are still owed (T3 needs them)"
             else echo "Overall: green"; fi
           } | tee -a "$GITHUB_STEP_SUMMARY"
           exit "$fail"

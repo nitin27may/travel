@@ -23,10 +23,13 @@ Rules
   runner       `runs-on` is one plain `ubuntu-*`, `macos-*` or `windows-*` label: no self-hosted, group, labels or list
   injection    no `${{ }}` in a `run:` or `script:` block except needs.*.outputs, matrix.*, steps.*.outputs, env.* (pass anything else
                through `env:`); this is the script-injection rule (github.head_ref, github.event.*.title ...)
-  image        every container image (`image:` of a service, a `*_IMAGE` value) is pinned by `@sha256:<64 hex>` (WF-3)
-  ports        a service's published port binds 127.0.0.1 (WF-3)
-  cache        only `actions/cache/restore` and `actions/cache/save`; a save step runs on main only (`if:` names refs/heads/main); no
-               `cache:` input on setup-node or setup-python, which saves in its post step on any branch (D9, WF-3)
+  image        every container image (`image:` of a service, `container:` in both forms, any `*_IMAGE` value, any value that names an image)
+               is pinned by `@sha256:<64 hex>`; only a bare `${{ env.X }}` is exempt (X is linted where it is set) (WF-3, WF-3b)
+  ports        a service's `ports:` entries are all `127.0.0.1:<host>:<container>` (a short or bare port binds every interface);
+               `options:` must not carry -p, -P or --publish (WF-3, WF-3b)
+  cache        only `actions/cache/restore` and `actions/cache/save`; a save step's `if:` has the exact comparison
+               `github.ref == 'refs/heads/main'` and no `||` or negation; no `cache:` input on setup-node or setup-python, which saves
+               in its post step on any branch; every setup-node sets `package-manager-cache: false` (D9, WF-3, WF-3b)
   escape       no backslash escape in a double-quoted scalar (a hex escape inside a key hides a word from every other rule)
 """
 from __future__ import annotations
@@ -40,6 +43,11 @@ AUTHORS = ("actions/", "github/")
 BAD_TRIGGERS = ("pull_request_target", "workflow_run", "issue_comment")
 RUNNER_RE = re.compile(r"(?:ubuntu|macos|windows)-[\w.-]+")
 SAFE_EXPR = re.compile(r"(?:needs\.[\w-]+\.outputs\.[\w-]+|matrix\.[\w.-]+|steps\.[\w-]+\.outputs\.[\w-]+|env\.\w+)")
+DIGEST_RE = re.compile(r"@sha256:[0-9a-f]{64}\s*$")
+# a value that names a container image even under an odd key: a registry host path, or one of the common Docker Hub images with a tag
+IMAGE_LIKE = re.compile(
+    r"(?:(?:[a-z0-9-]+\.)+[a-z]{2,}(?::\d+)?/[\w./-]+(?::[\w.-]+)?(?:@sha256:\w+)?"
+    r"|(?:library/|postgis/)?(?:postgres|postgis|node|redis|mysql|mariadb|mongo|ubuntu|debian|alpine|python|nginx|memcached|rabbitmq|busybox|golang|ruby|httpd|elasticsearch|minio|mailhog)(?::[\w.-]+)?(?:@sha256:\w+)?)")
 BLOCK_RE = re.compile(r":\s*[|>][+-]?\d*\s*$")
 
 
@@ -162,19 +170,33 @@ def lint_text(name: str, text: str) -> list[str]:
             if not any(re.search(r"persist-credentials\s*:\s*false\b", x) for x in lines[s:e]):
                 bad(i, "checkout", "actions/checkout needs `persist-credentials: false`")
 
-    # --- images, ports (WF-3)
+    # --- images, ports (WF-3, WF-3b)
     for i, ln in enumerate(lines):
         if inblock[i]:
             continue
-        m = re.match(r"^\s*(?:- )?(?:image|[A-Z][A-Z0-9_]*_IMAGE)\s*:\s*(.+)$", ln)
-        if m and not re.search(r"@sha256:[0-9a-f]{64}\s*$", m.group(1).strip()) and not m.group(1).strip().startswith("${{"):
-            bad(i, "image", "a container image must be pinned by digest (name@sha256:<64 hex>)")
+        m = re.match(r"^\s*(?:- )?([\w-]+)\s*:\s*(.+)$", ln)
+        if m and m.group(1) not in ("uses", "run", "script", "if", "name", "with"):
+            key, val = m.group(1), m.group(2).strip()
+            if re.fullmatch(r"\$\{\{\s*env\.\w+\s*\}\}", val):
+                pass  # the variable it names is itself linted where it is set
+            elif key == "image" or key.endswith("_IMAGE") or key == "container" or IMAGE_LIKE.fullmatch(val):
+                if key == "container" and val.startswith("${{"):
+                    bad(i, "image", "`container:` must be a mapping with a digest-pinned image, or a digest-pinned image name")
+                elif not DIGEST_RE.search(val):
+                    bad(i, "image", "a container image (an `image:`, `container:` or any value that names one) must be pinned by digest (name@sha256:<64 hex>)")
+        m = re.match(r"^\s*options\s*:\s*(.*)$", ln)
+        if m and re.search(r"(?:^|\s)(?:-p\b|-p\d|-P\b|--publish(?:-all)?\b)", m.group(1)):
+            bad(i, "ports", "`options:` must not publish a port (-p, -P, --publish); use `ports:` with 127.0.0.1")
         if re.match(r"^\s*ports\s*:", ln):
             e = block_end(lines, i)
-            body = " ".join([ln.split(":", 1)[1], *lines[i + 1:e]])
-            for port in re.findall(r"""[\[,\s-]\s*['"]?([0-9][^\s,\]'"]*:[0-9]+)""", body):
-                if not port.startswith("127.0.0.1:"):
-                    bad(i, "ports", f"published port {port} must bind 127.0.0.1")
+            first = ln.split(":", 1)[1].strip()
+            if first.startswith("["):
+                entries = [x for x in re.split(r"[,\]\[]", " ".join([first, *lines[i + 1:e]]))]
+            else:
+                entries = [re.sub(r"^\s*-\s*", "", x) for x in lines[i + 1:e] if re.match(r"^\s*-", x)]
+            for port in (x.strip() for x in entries):
+                if port and not re.fullmatch(r"127\.0\.0\.1:\d+:\d+(?:/\w+)?", port):
+                    bad(i, "ports", f"published port `{port[:30]}` must be 127.0.0.1:<host>:<container> (a bare or short port binds every interface)")
 
     # --- caches (D9, WF-3)
     for i, ln in enumerate(lines):
@@ -185,13 +207,17 @@ def lint_text(name: str, text: str) -> list[str]:
             s0, e0 = step_bounds(lines, i)
             if m.group(1) is None:
                 bad(i, "cache", "use actions/cache/restore and, on main only, actions/cache/save; a plain actions/cache saves from every branch")
-            elif m.group(1) == "/save" and not any(re.search(r"\bif\s*:.*refs/heads/main", x) for x in lines[s0:e0]):
-                bad(i, "cache", "an actions/cache/save step must have `if: ... refs/heads/main ...` (caches are saved from main only)")
-        m = re.search(r"\buses\s*:\s*actions/setup-(?:node|python)@", ln)
+            elif m.group(1) == "/save":
+                conds = [x for x in lines[s0:e0] if re.match(r"^\s*(?:- )?if\s*:", x)]
+                if not conds or not all(re.search(r"\bgithub\.ref\s*==\s*refs/heads/main\b", c) and "||" not in c and not re.search(r"!\s*\(|\bnot\b", c) for c in conds):
+                    bad(i, "cache", "an actions/cache/save step must have `if: github.ref == 'refs/heads/main' && ...` (exactly that comparison, no `||`, `!=` or startsWith): caches are saved from main only")
+        m = re.search(r"\buses\s*:\s*actions/setup-(node|python)@", ln)
         if m:
             s0, e0 = step_bounds(lines, i)
             if any(re.search(r"(?:^|[\s{,])cache\s*:\s*\S", x) for x in lines[s0 + 1:e0]):
                 bad(i, "cache", "setup-node/setup-python `cache:` saves in its post step on every branch; use actions/cache/restore and save")
+            if m.group(1) == "node" and not any(re.search(r"package-manager-cache\s*:\s*false\b", x) for x in lines[s0 + 1:e0]):
+                bad(i, "cache", "setup-node needs `package-manager-cache: false` (its automatic cache would save from every branch if a release extends it to pnpm)")
 
     # --- top-level keys
     top = {m.group(1): i for i, ln in enumerate(lines) if (m := re.match(r"^([A-Za-z_-]+)\s*:", ln))}

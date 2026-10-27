@@ -344,3 +344,24 @@ def test_vitest_really_leaves_the_excluded_files_out_on_a_ci_runner_and_only_the
         excluded = set(M["suites"][sid]["ci_exclude"])
         assert excluded <= listed(project, None), "off CI the whole project runs"
         assert not excluded & listed(project, "ci"), "on CI the excluded files are out"
+
+
+# ----- WF-3b: ci_skips -------------------------------------------------------------------------------------------------------------
+def test_ci_skips_are_listed_for_the_group_whose_log_would_show_them():
+    rows = [{"suite": "web.fixture", "group": "web"}]
+    skips = ["web/tests/data/public-privacy.test.ts", "core/test/db/localReset.test.ts"]
+    assert po.outputs({"suites": rows, "ci_skips": skips})["ci_skips"] == "web/tests/data/public-privacy.test.ts"
+    both = rows + [{"suite": "db.local", "group": "db"}]
+    assert po.outputs({"suites": both, "ci_skips": skips})["ci_skips"] == ",".join(skips)
+    assert po.outputs({"suites": [{"suite": "links", "group": "links"}], "ci_skips": skips})["ci_skips"] == ""
+    assert po.outputs({"suites": rows})["ci_skips"] == ""
+
+
+def test_ci_skips_are_sanitised_like_every_other_output():
+    rows = [{"suite": "web.fixture", "group": "web"}]
+    assert po.outputs({"suites": rows, "ci_skips": ["web/a.test.ts\nx=1", "web/ok.test.ts", 5]})["ci_skips"] == "web/ok.test.ts"
+
+
+def test_the_ci_plan_document_carries_the_maps_ci_skips(monkeypatch):
+    doc = ci_plan(["tools/gate/gate.py"], monkeypatch=monkeypatch)
+    assert "web/tests/data/public-privacy.test.ts" in doc["ci_skips"]

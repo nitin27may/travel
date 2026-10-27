@@ -13,7 +13,7 @@ M5  rules name known suites; every glob (each brace alternative) matches a file;
     14 days long and name a BACKLOG row; "not_tests", "release_only" and "allow_unmatched_globs" entries are live
 M6  the web vitest suites (unit, built, fixture, timing) own every web unit test file exactly once, and the projects of
     web/vitest.config.ts (asked with `vitest list --filesOnly`; `--no-vitest` skips it) resolve to exactly those files
-M8  a suite's `mac_only` is a reason; a vitest suite's `ci_exclude` ({test file: reason}) names existing tests of that suite, with
+M8  a suite's `mac_only` is a reason; a vitest suite's `ci_exclude` ({test file: {reason, row, added, expires}}: a BACKLOG row and a date, at most 100 days; M9 holds `ci_skips` to the same) names existing tests of that suite, with
     reasons, and never all of them (WF-3)
 """
 from __future__ import annotations
@@ -90,6 +90,30 @@ def vitest_project_files(root: Path = gm.ROOT) -> dict[str, list[str]]:
         rows = json.loads(r.stdout[start:])
         files = sorted({Path(row["file"]).resolve().relative_to(root.resolve()).as_posix() for row in rows})
         out[name] = files
+    return out
+
+
+MAX_CI_DAYS = 100
+
+
+def entry_errors(tag: str, e: object, today: dt.date, backlog_text: str) -> list[str]:
+    """An exclusion or an allowed skip is a debt, not a setting (WF-3 review S1): a reason, a BACKLOG row, and a date it expires."""
+    if not isinstance(e, dict):
+        return [f"{tag}: must be {{reason, row, added, expires}}"]
+    out: list[str] = []
+    if not str(e.get("reason", "")).strip():
+        out.append(f"{tag} has no reason")
+    row = str(e.get("row", "")).strip()
+    if not row or row not in backlog_text:
+        out.append(f"{tag}: names no BACKLOG row found in {BACKLOG}")
+    try:
+        added, expires = dt.date.fromisoformat(e["added"]), dt.date.fromisoformat(e["expires"])
+    except (KeyError, ValueError, TypeError):
+        return out + [f"{tag}: needs ISO dates \"added\" and \"expires\""]
+    if expires < today:
+        out.append(f"{tag}: expired on {expires}; fix the cause or renew with a reason")
+    if (expires - added).days > MAX_CI_DAYS:
+        out.append(f"{tag}: {(expires - added).days} days; at most {MAX_CI_DAYS}")
     return out
 
 
@@ -242,9 +266,8 @@ def check(m: dict, files: list[str], check_all_text: str, root: Path = gm.ROOT, 
             errs.append(f"M8 {sid}: ci_exclude only applies to a suite with a vitest project (it becomes --exclude)")
         if s.get("mac_only"):
             errs.append(f"M8 {sid}: mac_only already drops the whole suite; ci_exclude on it does nothing")
-        for path, why in ex.items():
-            if not (isinstance(why, str) and why.strip()):
-                errs.append(f"M8 {sid}: ci_exclude {path} has no reason")
+        for path, e in ex.items():
+            errs += entry_errors(f"M8 {sid}: ci_exclude {path}", e, today, backlog_text)
             if path not in fs:
                 errs.append(f"M8 {sid}: ci_exclude {path} is not a file in the repository")
             elif not gm.match_any(s.get("tests", []), path):
@@ -252,6 +275,15 @@ def check(m: dict, files: list[str], check_all_text: str, root: Path = gm.ROOT, 
         own = [p for p in tests if gm.match_any(s.get("tests", []), p)]
         if own and set(own) <= set(ex):
             errs.append(f"M8 {sid}: ci_exclude drops every test of the suite; mark the suite mac_only instead")
+    # M9 (WF-3b): the tests allowed to skip in CI, owed on the Mac, with the same expiry and row as an exclusion ------------
+    sk = m.get("ci_skips", {})
+    if not isinstance(sk, dict):
+        errs.append("M9 ci_skips must be a {test file: {reason, row, added, expires}} object")
+        sk = {}
+    for path, e in sk.items():
+        errs += entry_errors(f"M9 ci_skips {path}", e, today, backlog_text)
+        if path not in fs or not gm.is_test_file(m, path):
+            errs.append(f"M9 ci_skips {path} is not a test file in the repository")
     return errs
 
 

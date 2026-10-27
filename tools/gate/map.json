@@ -125,9 +125,9 @@
       "vitest": { "dir": "web", "project": "unit" },
       "cost": "m", "group": "web", "always_at": 2, "related": true,
       "ci_exclude": {
-        "web/tests/api/adapters.test.ts": "one test compares photos with the renditions the build cut from the photo cache, which CI does not seed (Q-W5); the other tests of the file wait for the Mac with it",
-        "web/tests/api/images.test.ts": "needs the photo renditions the web build cuts from the photo cache (web/.og-cache), which CI does not seed (Q-W5)",
-        "web/tests/data/legs-files.test.ts": "one test needs the real home point (the CI decoy is open ocean, so no leg is within the household radius); the other tests of the file wait for the Mac with it"
+        "web/tests/api/adapters-renditions.test.ts": { "reason": "compares photos with the renditions the build cuts from the photo cache, which CI does not seed (Q-W5)", "row": "15.333", "added": "2026-10-27", "expires": "2027-01-25" },
+        "web/tests/api/images.test.ts": { "reason": "needs the photo renditions the web build cuts from the photo cache (web/.og-cache), which CI does not seed (Q-W5)", "row": "15.333", "added": "2026-10-27", "expires": "2027-01-25" },
+        "web/tests/data/legs-home-radius.test.ts": { "reason": "needs the real home point (the CI decoy is open ocean, so no leg is within the household radius)", "row": "15.333", "added": "2026-10-27", "expires": "2027-01-25" }
       },
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "docs/v2/build/public-site/README.md", "pnpm-lock.yaml"],
       "tests": ["web/tests/**/*.test.{ts,tsx}",
@@ -147,8 +147,8 @@
       "vitest": { "dir": "web", "project": "built" },
       "cost": "m", "group": "web", "always_at": 2, "needs": ["web.build"],
       "ci_exclude": {
-        "web/tests/images.test.ts": "needs the photo renditions the web build cuts from the photo cache (web/.og-cache), which CI does not seed (Q-W5)",
-        "web/tests/data/place-size.test.ts": "the S13 baseline was measured with photo renditions in the pages; a CI build has none, so the pages are smaller and a pass proves nothing (WORKFLOW-EFFICIENCY 4.2, Q-W5)"
+        "web/tests/images.test.ts": { "reason": "needs the photo renditions the web build cuts from the photo cache (web/.og-cache), which CI does not seed (Q-W5)", "row": "15.333", "added": "2026-10-27", "expires": "2027-01-25" },
+        "web/tests/data/place-size.test.ts": { "reason": "the S13 baseline was measured with photo renditions in the pages; a CI build has none, so the pages are smaller and a pass proves nothing (WORKFLOW-EFFICIENCY 4.2, Q-W5)", "row": "15.333", "added": "2026-10-27", "expires": "2027-01-25" }
       },
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
       "tests": ["web/tests/api/openapi-routes.test.ts", "web/tests/budget.test.ts", "web/tests/data/globe-data-renditions.test.ts",
@@ -324,7 +324,7 @@
 
     { "id": "ci-workflows", "why": "the workflow lint reads .github/workflows; the CI scripts have pytest tests (tools/tests/test_ci_*.py). A workflow change is an R4 path: the owner reads it",
       "paths": [".github/**", "tools/ci/**"], "suites": ["ci", "py.tools", "links", "hardcode"] },
-    { "id": "ci-jobs", "why": "a workflow or CI script change can break the web and db-local jobs, which run only when their group is planned (WF-3); selecting their suites makes the change exercise them",
+    { "id": "ci-jobs", "runner": "ci", "why": "a workflow or CI script change can break the web and db-local jobs, which run only when their group is planned (WF-3); selecting their suites makes the change exercise them",
       "paths": [".github/**", "tools/ci/{db_up.sh,vitest_ran.py,guard_env.sh}"], "suites": ["web.types", "web.unit", "web.build", "web.built", "web.serve", "db.local"] },
     { "id": "tools-python", "paths": ["tools/**", "publish.sh"], "suites": ["py.tools", "hardcode"] },
     { "id": "tools-locations", "paths": ["tools/{locations,location_views,migrate_locations_v2,migrate_locations_v3}.py"], "suites": ["locations"] },
@@ -366,6 +366,11 @@
   "quiet": ["docs/**", "**/*.md", "research/**", ".claude/**", "LICENSE", "NOTICE"],
 
   "review": ["tools/gate/**", "tools/gate.sh", "tools/check-all.sh", ".github/**", "tools/ci/**"],
+
+  "ci_skips": {
+    "web/tests/data/public-privacy.test.ts": { "reason": "the PUBLIC-SCRUB tests skip without .private-terms (a CI clone has none by design) and the GeoNames test skips without the dump: CI does NOT prove the private terms are scrubbed", "row": "15.333", "added": "2026-10-27", "expires": "2027-01-25" },
+    "core/test/db/localReset.test.ts": { "reason": "opt-in (LOCAL_DB_RESET_TEST): it drives docker compose (container travel-localdb, volume travel_pg18, port 54329 on an unpinned base), which would clash with the pinned CI database", "row": "15.333", "added": "2026-10-27", "expires": "2027-01-25" }
+  },
 
   "quarantine": [],
 

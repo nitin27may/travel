@@ -9,6 +9,7 @@ raw, so a path with odd characters cannot inject another output):
   specs      comma list of the e2e specs of `e2e.mapped` (file names), empty when none
   mac_only   comma list of suites that CI never runs (they are pending on the Mac): the plan rows the gate marks `mac_only`
   ci_excluded  comma list of the test files CI leaves out of a planned vitest suite (the map's `ci_exclude`; pending on the Mac too)
+  ci_skips   comma list of the test files the map allows to skip in CI (`ci_skips`); owed on the Mac, listed only when the group that would show the skip runs (web/ files: web; core/test/db/ files: db)
   full       true when the plan is a full run
   docs_only  true when the only group is links
   suites     comma list of every suite id in the plan
@@ -58,11 +59,15 @@ def outputs(plan: dict) -> dict[str, str]:
         if sid == "e2e.mapped":
             specs = [Path(f).name for f in r.get("files", [])]
     ordered = [g for g in GROUPS if g in groups]
+    skips = plan.get("ci_skips", [])
+    owner = {"web/": "web", "core/test/db/": "db"}  # the job whose log the allow-listed skip would show in
+    skips = [f for f in skips if isinstance(f, str) and any(f.startswith(k) and v in groups for k, v in owner.items())] if isinstance(skips, list) else []
     return {
         "groups": safe_list(ordered),
         "specs": safe_list(specs),
         "mac_only": safe_list(macs),
         "ci_excluded": safe_list(skipped),
+        "ci_skips": safe_list(skips),
         "full": "true" if plan.get("full") else "false",
         "docs_only": "true" if ordered and set(ordered) <= {"links"} else "false",
         "suites": safe_list(ids),

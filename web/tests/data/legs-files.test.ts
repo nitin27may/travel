@@ -7,7 +7,7 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { encodePolyline5 } from '@travel/core/schema/api/legs.ts';
 import { API_LIMITS } from '@travel/core/schema/api/limits.ts';
-import { checkLegsFile, LEG_SIMPLIFY_M, refusedGeometries, simplifyPolyline, TRIP_LEGS_MAX_CHARS, type RoutePair } from '../../scripts/legs/lib';
+import { checkLegsFile, LEG_SIMPLIFY_M, simplifyPolyline, TRIP_LEGS_MAX_CHARS, type RoutePair } from '../../scripts/legs/lib';
 import { routePairs } from '../../scripts/legs/pairs';
 import { getStore } from '@/lib/server/store';
 
@@ -83,14 +83,6 @@ describe('checkLegsFile', () => {
     expect(checkLegsFile(long, 't', null).problems[0]).toMatch(/does not parse/);
     const many = Array.from({ length: 12 }, (_, i) => ({ ...good().legs[0]!, from: `a${i}`, to: `b${i}`, geometry: '?'.repeat(API_LIMITS.tripLegs.polylineChars) }));
     expect(checkLegsFile(good({ legs: many }), 't', null).problems.join()).toMatch(/over the total cap/);
-  });
-  it('counts a geometry within the household radius, and the file may not hold it', () => {
-    const home = good({ legs: [{ ...good().legs[0]!, geometry: encodePolyline5([[-78.95, 43.87], [-78.9, 43.9]]) }] });
-    expect(refusedGeometries(home.legs as { geometry?: string }[])).toBe(1);
-    const rep = checkLegsFile(home, 't', null);
-    expect(rep.refused).toBe(1);
-    expect(rep.problems.join()).toMatch(/within the household radius/);
-    expect(JSON.stringify(rep)).not.toMatch(/78\.9|43\.8/); // the report holds the count, never the leg
   });
 });
 
