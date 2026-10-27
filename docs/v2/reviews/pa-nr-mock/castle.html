@@ -2,29 +2,31 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Castle Provincial Park, basics only (PA-NR mock of PA-N states.md 2)</title>
+<title>Castle Provincial Park, basics only (PA-NR2 mock of revised PA-N states.md 2)</title>
 <link rel="stylesheet" href="../../../../web/app/themes.css">
 <link rel="stylesheet" href="mock.css">
 <script>try{if(localStorage.getItem('travel:v1:theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
-<style>.cover{height:auto;background:var(--well);color:var(--ink);padding:56px 0 18px}.cover .in{position:static}.cover .kicker{color:var(--muted)}.crumb{color:var(--ink-2)}.crumb a{color:var(--accent-text)}.compl,.compl a{color:var(--ink-2)}.band{height:120px;display:grid;place-items:center;font:var(--t-meta);color:var(--muted)}</style>
+<style>.cover{height:auto;background:var(--well);color:var(--ink);padding:56px 0 18px}.cover .in{position:static}.cover .kicker{color:var(--muted)}.crumb{color:var(--ink-2)}.crumb a{color:var(--accent-text)}.compl,.compl a{color:var(--ink-2)}</style>
 </head>
 <body>
 <header class="hdr"><span class="brand">TRIP PLANS</span><nav><span>Trips</span><span class="cur">Places</span><span>Globe</span></nav><span class="sp"></span>
 <button id="theme" aria-label="Switch theme" onclick="var r=document.documentElement;var n=r.dataset.theme==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem('travel:v1:theme',n)}catch(e){}">Theme</button></header>
 <div class="cover">
   <div class="crumb"><a href="#">Parks</a> · Canada · Alberta</div>
-  <div class="in"><div class="kicker">Provincial park · Alberta</div><div class="title">Castle Provincial Park</div><div class="compl"><span class="chip gap">Basics only</span></div></div>
+  <div class="in"><div class="kicker">Provincial park · Alberta</div><div class="title">Castle Provincial Park</div><div class="compl"><span class="chip gap">Basics only</span> <span class="meta">No licensed photo yet</span></div></div>
 </div>
-<div class="actions"><div class="btns"><a class="btn" href="#">Directions</a><a class="btn pri" href="#">Save to a trip</a><a class="btn" href="#">Share</a><a class="btn" href="#">&#9825;</a></div></div>
+<div class="actions"><div class="btns"><a class="btn pri" href="#">Save to a trip</a><a class="btn" href="#">Directions</a><a class="btn ic" href="#" aria-label="Share Castle Provincial Park">&#8599;</a><a class="btn ic" href="#" aria-label="Favourite">&#9825;</a></div></div>
 <div class="wrap">
   <div class="grid">
-    <main>
+    <main style="max-width:760px">
       <section id="entry"><h2>Entry and bookings</h2>
         <p><span class="chip gap">Entry not checked yet</span> &nbsp;<a href="#">Check the official page</a></p></section>
+      <div class="phonemap"><div class="map"><span class="pin" style="left:50%;top:50%"></span></div><p class="meta"><a href="#">Open map</a></p></div>
       <section><h2>Places inside</h2><div class="counts"><a class="count" href="#"><b>2 trails</b><span>Show all</span></a><a class="count" href="#"><b>1 lake</b><span>Show</span></a></div></section>
-      <section id="not-checked"><div class="cap">Not researched yet</div><p class="cov">Season, entry and pass, camping, safety and wildlife, getting there, summary, photo</p><p><a href="#">Ask us to research this park</a></p></section>
+      <div class="phonemap"><div class="cap">In public trips</div><p><a href="#">Canadian Rockies</a> · Day 14</p></div>
+      <section id="not-checked"><div class="cap">Not researched yet</div><p class="cov">Season, entry and pass, camping, safety and wildlife, getting there, summary, photo</p></section>
     </main>
-    <aside class="side"><div><div class="map"><span class="pin" style="left:50%;top:50%"></span></div></div><div><div class="cap">In public trips</div><p><a href="#">Canadian Rockies</a> · Day 14</p></div><div class="links"><div class="cap">Links</div><p><a href="#">Official</a></p></div></aside>
+    <aside class="side"><div><div class="map"><span class="pin" style="left:50%;top:50%"></span></div></div><div class="trips"><div class="cap">In public trips</div><p><a href="#">Canadian Rockies</a> · Day 14</p></div><div class="links"><div class="cap">Links</div><p><a href="#">Official</a></p></div></aside>
   </div>
 </div>
 </body></html>
