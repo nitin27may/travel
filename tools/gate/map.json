@@ -320,7 +320,7 @@
     { "id": "web-auth", "paths": ["web/app/{account,sign-in,sign-up}/**", "web/app/api/{account,auth}/**", "web/components/auth/**", "web/lib/auth/**", "web/lib/account/**", "web/public/brand/**", "web/styles/auth-page.css"],
       "suites": ["web.fixture"], "e2e": ["auth-email*.spec.ts", "auth-google*.spec.ts", "shell-report.spec.ts"] },
     { "id": "web-mine", "why": "the Mine page, the bar item and the dot read the copies and favourites envelopes from storage",
-      "paths": ["web/app/mine/**", "web/app/favourites/**", "web/lib/mine/**", "web/lib/favourites/**", "web/components/mine/**"], "suites": ["web.fixture"], "e2e": ["mine-shell.spec.ts", "mine-trips.spec.ts", "storage-blocked.spec.ts", "favourites.spec.ts"] },
+      "paths": ["web/app/mine/**", "web/app/favourites/**", "web/lib/mine/**", "web/lib/favourites/**", "web/components/mine/**"], "suites": ["web.fixture"], "e2e": ["mine-shell.spec.ts", "mine-trips.spec.ts", "mine-sync.spec.ts", "mine-sync.shots.spec.ts", "storage-blocked.spec.ts", "favourites.spec.ts"] },
     { "id": "web-api", "paths": ["web/app/api/**"],
       "suites": ["web.timing"], "e2e": ["api-default.spec.ts", "gb-fixes.spec.ts"] },
     { "id": "web-export", "paths": ["web/lib/export/**", "web/components/actions/Export*.tsx"], "e2e": ["export.spec.ts"] },

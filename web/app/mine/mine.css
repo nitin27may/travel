@@ -51,3 +51,6 @@
 @media (max-width: 639px) { .mine-notice .ban-action { flex-basis: 100%; padding-left: 28px; } }
 /* 32 px between the panel and the device notice (the body gap is 24; NAV-R1 P1) */
 .mine-panel ~ .mine-notice { margin-top: var(--s-2); }
+
+/* the account card's sentence when changes wait to be sent (edit-my-trip 4.6, session expired) */
+.mine-card-note[data-warn] { color: var(--warn); }

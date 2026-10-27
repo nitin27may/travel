@@ -55,3 +55,18 @@ a.crow-link:focus-visible { outline: var(--focus-ring); outline-offset: -3px; }
   .crow, .mt-fold, .mt-caret, .mt-fold > .mt-list { transition: none; }
   .crow[data-restored] { animation: none; }
 }
+
+/* signed in with the account on (edit-my-trip 4.7): the chip follows the sync state */
+.crow-chip[data-sync] { gap: var(--s-1); }
+.crow-spin { width: 11px; height: 11px; border-width: 1.5px; flex: none; }
+.crow-chip[data-sync='offline'] > svg { flex: none; }
+/* Retry is a 44 px button beside the link (a button cannot sit inside a link); the link keeps a 44 px line free for it */
+.crow-link[data-retry] { padding-bottom: calc(var(--touch-min) + 4px); }
+.crow-retry {
+  position: absolute; left: calc(56px + var(--s-3)); bottom: 0; display: inline-flex; align-items: center;
+  min-height: var(--touch-min); padding: 0 var(--s-1) 0 0; margin: 0; border: 0; background: none; color: var(--warn); cursor: pointer; font: inherit;
+}
+.crow-retry:focus-visible { outline: var(--focus-ring); outline-offset: -3px; border-radius: var(--r-2); }
+.crow-retry:hover .chip { filter: brightness(0.96); }
+.mt-notices { display: grid; gap: var(--s-2); }
+.mt-notices .ban-action { display: inline-flex; gap: var(--s-2); }

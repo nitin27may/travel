@@ -11,3 +11,9 @@ export const SEEN_KEY = 'travel.mine.seen';
 export const CHANGED_EVENT = 'travel:mine-changed';
 /** The one-shot print hand-off (sessionStorage, spec 5.2): Mine writes the trip's slug, the trip page's export menu reads it once and removes it. */
 export const PRINT_KEY = 'travel.mine.print';
+/**
+ * Signed-in sync (edit-my-trip 4.3, task EM-2): the account's trips cached on this device for offline reading, and the changes not yet
+ * sent. `<h>` is `accountHash(user id)` (16 hex characters). Both are household data: cleared at sign-out (4.6) and at a user switch.
+ */
+export const ACCT_KEY_PREFIX = 'travel.mine.acct.';
+export const OUTBOX_KEY_PREFIX = 'travel.mine.outbox.';
