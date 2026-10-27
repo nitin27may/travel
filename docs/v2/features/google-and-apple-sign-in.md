@@ -722,3 +722,65 @@ Built on `public/GSI-2` to the copy page (strings 23 to 25 and 27; W3, Q-GC3). W
 - Tests: `web/tests/auth/landing.test.ts`, `web/tests/auth/memory.test.ts`, `web/tests/account/sign-in-notice.test.tsx`,
   `web/tests/account/landing.browser.test.ts` (320, 390, 1440, light and dark, with the real component mounted), `next.test.ts`
   (the stop, and query parameters cannot skip it), and two e2e cases in `auth-google.spec.ts`.
+
+### GSI-WAYS build notes: Ways to sign in on Account (27 Oct 2026, Opus 5.5)
+
+Built on `public/GSI-WAYS` to the copy page (strings 26 and 29 to 51; section 4, Account column; L4 to L6). Where the build differs from
+the copy page and section 13:
+
+- **Section and placement.** `app/account/SignInMethods.tsx`, under the drafts (the drafts stay the page's main job, P7). Rows: Email
+  always (A1), Password when Neon keeps a `credential` row, Google with "Added {date}" (UTC, `d MMM yyyy`), or Add Google with help 34.
+  Remove opens an inline confirm under the Google row (patterns 4.4: in place, Keep Google first and focused, Esc returns to Remove,
+  200 ms open, none under reduced motion). After a removal focus goes to Add Google (46). String 26 now follows notice 25.
+- **Three guard routes**, an appended block in `lib/auth/guard.ts` (one dispatch line in `handle`): `list-accounts` (GET), `link-social`
+  and `unlink-account` (POST, both behind `NEXT_PUBLIC_SIGN_IN_GOOGLE`, so the rows are read-only with it off, string 50). Each: method,
+  flag, same origin (a POST must carry Origin; a GET may omit it, but a foreign Origin or a cross-site `Sec-Fetch-Site` is refused), 4 KB
+  body cap and shape, the session cookie (401 before Neon), a per-IP bucket (`AUTH_WAYS` in `core/src/config/auth-limits.ts`: reads 30 a
+  minute and 300 an hour, writes 5 a minute and 20 an hour; fail closed without the store in production), then Neon with a fresh request:
+  the allow-listed path, no query string of the browser's, a body built here.
+  - `list-accounts` answers `{ accounts: [{ providerId, createdAt }] }`: Neon's row id, Google subject, user id and scopes never leave
+    the server.
+  - `link-social` sends Neon only `{ provider: 'google', callbackURL, errorCallbackURL }`, both `<origin>/account/?added=google`, where
+    origin is `SITE_ORIGIN` (the request origin only in development and test without it; 503 otherwise) and a request from any other
+    origin is refused (403). It refuses when Google is already a row (409 `ALREADY_ADDED`). Only Google's address (checked to be
+    `https://accounts.google.com`) and Neon's cookies go back.
+  - `unlink-account` takes `{ providerId: 'google' }` and nothing else from the browser. It reads the session from Neon past the SDK's
+    cookie cache and refuses a sign-in older than `AUTH_WAYS.removeFreshS` (one day, Better Auth's `freshAge` default) with 403
+    `REAUTH_REQUIRED` (the re-authentication; the confirm is the second step), reads the rows, refuses to remove the last one (409
+    `LAST_METHOD`) or a missing Google (409 `NOT_LINKED`), then removes each Google row by its row id. Neon's own
+    `FAILED_TO_UNLINK_LAST_ACCOUNT` and `SESSION_NOT_FRESH` map to the same two answers.
+- **The return of Add Google** lands on `/account/?added=google`. `added` only picks the wording: with a Google row from the last 10
+  minutes the page shows 35 in the section instead of the landing notice 25; a crafted `added` without such a row changes nothing. An
+  `error` on the return is shown (section 4, Account column) only after a press from this tab in the last 10 minutes
+  (`sessionStorage` `auth.googleAdd`, a timestamp only, removed when read); `added`, `error`, `error_description` and the verifier leave
+  the address at once. Better Auth 1.7.6 writes `email_does_not_match`; both it and the copy page's `email_doesn't_match` map to 37.
+- **String 47 is shipped as its first sentence only**, and as a standing line on a Google-only account (Remove is not offered there),
+  not only as an answer. The copy page's second sentence ("Sign in once with an emailed code, then try again") is not true on Better
+  Auth 1.7.6: an emailed-code sign-in adds no account row, so the account stays Google-only (tested in `ways-contract.test.ts`). A reset
+  by code ("Forgot password") does add the `credential` row that makes Google removable; EML-3's Set password is the proper way.
+  Planner and GSI-R to confirm the wording.
+- **Three proposed strings, not in the copy page** (planner and GSI-R to approve): `removeSignInAgain` "For your safety, sign out and
+  sign in again, then remove Google." (403 `REAUTH_REQUIRED`); `unreadable` "We couldn't check your other ways to sign in. Reload the
+  page to try again." (rows unreadable: Email only, nothing to add or remove); `rateLimited` "Too many attempts. Wait {wait}, then try
+  again." (string 14 without "or use your email below", which means nothing on Account).
+- **Set password is not built**: the copy page keeps Password read-only in v0.9 (string 31; EML-3 adds Set and Change).
+- **Rows read once per request**, shared by the landing and the section (`lib/auth/account-rows.ts`); `landing-server.ts` now uses it.
+- Tests: `web/tests/auth/ways.test.ts` (strings, readers, rules), `ways-routes.test.ts` (the routes through the real SDK proxy with a fake
+  Neon; log scan), `ways-contract.test.ts` (the real Better Auth 1.7.6 server code that `@neondatabase/auth` 0.7.0-beta pins, in memory),
+  `web/tests/account/sign-in-methods.test.tsx` (server render), `ways.browser.test.ts` (real Chromium: focus, confirm, calls, return
+  notices, 320, 390 and 1440, light and dark).
+
+**UC3 answered for Better Auth 1.7.6** (`ways-contract.test.ts`): `list-accounts` returns, per row, `id`, `providerId`, `accountId`,
+`userId`, `createdAt` and `updatedAt` (ISO strings with milliseconds) and `scopes`; GSI-2's `googleLanding` reads it as `linked` for a
+Google row added after the user. An emailed-code account has **no** row at all.
+
+**What the owner must confirm against real Neon** (child branch first, with a password test user and test Gmail A; no production change):
+
+| # | Check | How | Pass |
+|---|---|---|---|
+| W1 | `list-accounts` shape on Neon (UC3) | Signed in on `L/account/`, DevTools console: `await (await fetch('/api/auth/list-accounts/')).json()` | `{ accounts: [{ providerId: 'credential', createdAt: <number> }] }`; Account shows "Password · Set". A 502 means Neon's rows lack `id`, `providerId` or a readable `createdAt` |
+| W2 | `unlink-account` takes the row id (`{ accountId: <row id> }`, Better Auth 1.7) | Copy page 2.11: Remove Google on an account with a password | String 46 and the row gone. A 400 `VALIDATION_ERROR` from Neon means Neon still expects `{ providerId }` (Better Auth 1.6 or older): stop and report |
+| W3 | Add Google returns to `/account/?added=google` with a session, no bounce to `/sign-in/` | Copy page 2.11, Add Google as A | String 35 in the section, the address bar `/account/` only. If Neon adds a verifier on a link and the proxy bounces it, the press shows 39 |
+| W4 | Neon's error codes on the Add return | Add Google as B (different address), then Cancel on Google's screen | 37 for B; 36 for Cancel. Record the raw `error=` values seen (U4) |
+| W5 | Neon's `freshAge` and our one day agree | On an account signed in more than a day ago, Remove | String "For your safety, sign out and sign in again ...". If Neon's `freshAge` is shorter than a day, removal from a younger sign-in also reads it (from Neon's SESSION_NOT_FRESH): record the value |
+| W6 | A Google-only account (UC1) | Copy page 2.12 as B | Remove not offered; string 47's sentence. Then "Forgot password" on `/sign-in/` as B, and Account shows Password and Remove |

@@ -10,12 +10,17 @@ import { capabilities } from '@/lib/capabilities';
 import { getUser } from '@/lib/auth/server';
 import { maskAddress } from '@/lib/auth/auth-errors';
 import { accountLanding } from '@/lib/auth/landing-server';
+import { authFlags } from '@/lib/auth/flags';
+import { accountWays, googleAddedNow } from '@/lib/auth/ways-server';
+import { AUTH_WAYS, GOOGLE_SIGN_IN } from '@travel/core/config/auth-limits.ts';
+import { PRIVACY_CONTACT } from '@/app/privacy/PrivacyBody';
 import { DEFAULT_RETURN, returnPath } from '@/lib/auth/return-path';
 import { loadDrafts } from '@/lib/server/drafts';
 import { safeError } from '@/lib/server/safe-error';
 import { dataEnv } from '@/lib/server/neon-env';
 import { pageMetadata } from '@/lib/site';
 import { AccountDrafts } from './AccountDrafts';
+import { SignInMethods } from './SignInMethods';
 import { SignInNotice } from './SignInNotice';
 import { SignOutButton } from './SignOutButton';
 
@@ -42,13 +47,18 @@ function SignedOut() {
   );
 }
 
-async function AccountBody({ next }: { next: string }) {
+async function AccountBody({ next, added }: { next: string; added: boolean }) {
   // Request time only. During `next build` connection() never resolves, so nothing below runs at build.
   await connection();
   const user = await getUser();
   // Fails closed: no session (or auth unconfigured/unreachable) shows the signed-out state, never a list.
   if (!user) return <SignedOut />;
   const landing = await accountLanding(user);
+  // GSI-WAYS: the rows of "Ways to sign in" (the same list-accounts read as the landing). The return of Add Google (`?added=google`)
+  // with a Google row from the last minutes says string 35 in the section instead of the landing notice 25: the parameter only picks
+  // the wording, the rows decide that Google was added.
+  const ways = await accountWays(user);
+  const justAdded = googleAddedNow(added, ways);
 
   let loaded: Awaited<ReturnType<typeof loadDrafts>> | null = null;
   let failed = false;
@@ -72,7 +82,7 @@ async function AccountBody({ next }: { next: string }) {
         <SignOutButton />
       </header>
 
-      {landing === 'new' || landing === 'linked' ? (
+      {!justAdded && (landing === 'new' || landing === 'linked') ? (
         <SignInNotice kind={landing} masked={maskAddress(user.email)} next={next === DEFAULT_RETURN ? null : next} />
       ) : null}
 
@@ -89,6 +99,8 @@ async function AccountBody({ next }: { next: string }) {
       ) : (
         <AccountDrafts userId={user.id} initialRows={loaded.rows} sealedQuery={loaded.sealedQuery} realtimeUrl={dataEnv().realtimeUrl} />
       )}
+
+      <SignInMethods rows={ways} masked={maskAddress(user.email)} googleOn={authFlags.signInGoogle} justAdded={justAdded} contact={PRIVACY_CONTACT} />
     </div>
   );
 }
@@ -103,7 +115,9 @@ async function AccountBody({ next }: { next: string }) {
  */
 export default async function AccountPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   if (!capabilities.signIn) return <SignedOut />;
-  const next = returnPath((await searchParams).next);
+  const params = await searchParams;
+  const next = returnPath(params.next);
+  const added = params[AUTH_WAYS.addedParam] === GOOGLE_SIGN_IN.provider;
   if (next !== DEFAULT_RETURN) {
     const user = await getUser();
     if (user && (await accountLanding(user)) === 'returning') redirect(next);
@@ -125,7 +139,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
         </div>
       }
     >
-      <AccountBody next={next} />
+      <AccountBody next={next} added={added} />
     </Suspense>
   );
 }

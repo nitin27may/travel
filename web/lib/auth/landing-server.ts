@@ -1,6 +1,7 @@
 import 'server-only';
 import { cache } from 'react';
-import { authErrorCode, getAuth, type SessionUser } from './server';
+import { accountRows } from './account-rows';
+import type { SessionUser } from './server';
 import { googleLanding, type Landing } from './landing';
 
 /**
@@ -11,20 +12,12 @@ import { googleLanding, type Landing } from './landing';
  * on Account instead of following `next`, so a link is never passed over in silence. Logs a fixed code only.
  */
 const landingFor = cache(async (userId: string, userCreatedAt: string | number | null): Promise<Landing> => {
-  void userId; // the cache key: one answer per user per request
-  try {
-    const res = await getAuth().listAccounts();
-    if (res.error) {
-      console.warn('[account] list-accounts failed', authErrorCode(res.error));
-      return 'unknown';
-    }
-    const landing = googleLanding({ userCreatedAt, accounts: res.data, now: Date.now() });
-    if (landing === 'unknown') console.warn('[account] list-accounts answer unreadable');
-    return landing;
-  } catch (e) {
-    console.warn('[account] list-accounts threw', (e as Error)?.name);
-    return 'unknown';
-  }
+  // The rows are read once per request and shared with "Ways to sign in" (GSI-WAYS, account-rows.ts); it logs its own failures.
+  const res = await accountRows(userId);
+  if (!res.ok) return 'unknown';
+  const landing = googleLanding({ userCreatedAt, accounts: res.data, now: Date.now() });
+  if (landing === 'unknown') console.warn('[account] list-accounts answer unreadable');
+  return landing;
 });
 
 /** `createdAt` of the session user, as a cache-friendly primitive (`SessionUser` does not declare it; Neon sends it). */

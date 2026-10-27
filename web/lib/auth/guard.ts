@@ -391,6 +391,9 @@ export function createAuthGuard(deps: GuardDeps) {
   async function handle(request: Request, ctx: RouteCtx): Promise<Response> {
     const { path } = await ctx.params;
     const flags = deps.flags();
+    // GSI-WAYS: the three Account routes of "Ways to sign in" (their own block at the end of this file).
+    const ways = flags.signIn ? waysRoute(path ?? []) : null;
+    if (ways) return waysHandle(deps, request, ways, flags);
     const found = flags.signIn ? classify(path ?? []) : null;
     const method = request.method.toUpperCase();
     if (!found || ('open' in found ? found.open !== method : method !== 'POST')) {
@@ -600,4 +603,262 @@ export function createAuthGuard(deps: GuardDeps) {
   }
 
   return { handle };
+}
+
+// ===== Ways to sign in on Account (GSI-WAYS) ===========================================================================================
+// A separate block, appended: the allow-list entries and the handler of the three Account routes behind "Ways to sign in" (copy page
+// 2.5, strings 29 to 51; Google spec 5.1 L4 to L6). `handle` above sends them here before its own allow-list, with one line.
+//
+//   list-accounts  GET   rows of the signed-in user, cut to `{ providerId, createdAt }` (no row id, Google subject, user id or scopes)
+//   link-social    POST  Add Google: `{ provider: 'google' }` in, Google's address out; behind NEXT_PUBLIC_SIGN_IN_GOOGLE
+//   unlink-account POST  Remove Google: `{ providerId: 'google' }` in; the guard picks the rows itself; behind NEXT_PUBLIC_SIGN_IN_GOOGLE
+//
+// Every call, in order: method, flag, same origin (a POST must carry Origin; a GET may omit it, as browsers do, but a foreign Origin or
+// a cross-site Sec-Fetch-Site is refused), body cap and shape, the session cookie (401 before Neon without it), the per-IP bucket
+// (AUTH_WAYS, fail closed without the store in production), then Neon with the path the allow-list names, never the browser's query
+// string and never a body field the browser chose. `link-social` builds both callback URLs from SITE_ORIGIN (the request origin only in
+// development and test without it) and refuses a request from any other origin. `unlink-account` reads the session (a sign-in at most
+// AUTH_WAYS.removeFreshS ago, else 403 REAUTH_REQUIRED) and the rows, and refuses to remove the last one (409 LAST_METHOD) before Neon
+// is asked; Neon's own refusal (FAILED_TO_UNLINK_LAST_ACCOUNT) maps to the same answer. Neon's error text is never passed on, only a
+// plain code; logs carry fixed codes only.
+import { AUTH_WAYS as WAYS_LIMITS, GOOGLE_SIGN_IN as WAYS_GOOGLE } from '@travel/core/config/auth-limits.ts';
+import { googleAuthorizeUrl as waysGoogleUrl } from '@/lib/auth/google';
+import { parseNeonRows, publicRows, removalPlan, sessionFresh, type NeonWayRow } from '@/lib/auth/ways';
+import { siteOrigin } from '@/lib/site';
+
+export interface WaysRoute {
+  path: 'list-accounts' | 'link-social' | 'unlink-account';
+  id: 'list_accounts' | 'link_social' | 'unlink_account';
+  method: 'GET' | 'POST';
+  /** Answers 404 unless NEXT_PUBLIC_SIGN_IN_GOOGLE is on (rows stay read-only when it is off, copy string 50). */
+  google: boolean;
+  /** Takes from the write bucket instead of the read one. */
+  write: boolean;
+}
+
+const WAYS: Record<string, WaysRoute> = {
+  'list-accounts': { path: 'list-accounts', id: 'list_accounts', method: 'GET', google: false, write: false },
+  'link-social': { path: 'link-social', id: 'link_social', method: 'POST', google: true, write: true },
+  'unlink-account': { path: 'unlink-account', id: 'unlink_account', method: 'POST', google: true, write: true },
+};
+
+/** The Account route a path names, or null (then `classify` decides, and anything else is 404). */
+export function waysRoute(path: readonly string[]): WaysRoute | null {
+  if (path.length !== 1) return null;
+  const p = path[0].toLowerCase();
+  return Object.hasOwn(WAYS, p) ? WAYS[p] : null;
+}
+
+/** The session cookie is present (its value is Neon's to check). */
+function hasSessionCookie(request: Request): boolean {
+  const raw = request.headers.get('cookie') ?? '';
+  return raw.split(';').some((part) => {
+    const eq = part.indexOf('=');
+    return eq > 0 && part.slice(0, eq).trim() === WAYS_LIMITS.sessionCookie && part.slice(eq + 1).trim() !== '';
+  });
+}
+
+/** A GET may omit Origin (browsers do on same-origin reads); a present one must be ours, and a cross-site fetch is refused. */
+function readOriginOk(request: Request): boolean {
+  if (!sameOrigin(request)) return false;
+  const site = request.headers.get('sec-fetch-site');
+  return site === null || site === 'same-origin';
+}
+
+/** The origin both Add Google callbacks use: SITE_ORIGIN, or the request's own in development and test without it; null: not set. */
+function callbackOrigin(requestOrigin: string, nodeEnv: string | undefined): string | null {
+  if (process.env.SITE_ORIGIN?.trim()) {
+    try {
+      return new URL(siteOrigin()).origin;
+    } catch {
+      return null;
+    }
+  }
+  return nodeEnv === 'development' || nodeEnv === 'test' ? requestOrigin : null;
+}
+
+async function waysHandle(deps: GuardDeps, request: Request, route: WaysRoute, flags: AuthFlags): Promise<Response> {
+  const done = (level: 'info' | 'warn' | 'error', outcome: string, extra: Record<string, LogValue> = {}) =>
+    guardLog(level, { event: 'auth_guard', route: route.id, outcome, ...extra });
+  const env = deps.env();
+  const local = env.NODE_ENV === 'test' || env.NODE_ENV === 'development';
+
+  if (request.method.toUpperCase() !== route.method) {
+    done('info', 'not_offered');
+    return answer(404, 'NOT_FOUND');
+  }
+  if (route.google && !flags.signInGoogle) {
+    done('info', 'google_off');
+    return answer(404, 'NOT_FOUND');
+  }
+  if (route.method === 'POST' ? !originOk(request) : !readOriginOk(request)) {
+    done('warn', 'origin');
+    return answer(403, 'FORBIDDEN');
+  }
+
+  let body: Record<string, unknown> = {};
+  if (route.method === 'POST') {
+    const raw = await readCapped(request, AUTH_GUARD.bodyMaxBytes);
+    if (raw === null) {
+      done('warn', 'body_too_large');
+      return answer(413, 'BODY_TOO_LARGE');
+    }
+    try {
+      const parsed: unknown = JSON.parse(raw);
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('not an object');
+      body = parsed as Record<string, unknown>;
+    } catch {
+      done('info', 'bad_body');
+      return answer(400, 'VALIDATION_ERROR');
+    }
+    const named = route.id === 'link_social' ? body.provider : body.providerId;
+    if (named !== WAYS_GOOGLE.provider) {
+      done('info', 'bad_provider');
+      return answer(400, 'VALIDATION_ERROR');
+    }
+  }
+
+  if (!hasSessionCookie(request)) {
+    done('info', 'no_session');
+    return answer(401, 'UNAUTHORIZED');
+  }
+
+  // The per-IP bucket, with the guarded routes' fail-closed rule; AUTH_GUARD=off (rollback) skips it.
+  if (env.AUTH_GUARD !== 'off') {
+    const secret = env.AUTH_QUOTA_SECRET;
+    const store = deps.quota();
+    if (!store || !secret || secret.length < 16) {
+      if (!local) {
+        done('error', 'quota_not_configured');
+        return answer(503, 'GUARD_UNAVAILABLE');
+      }
+      done('warn', 'quota_skipped_locally');
+    } else {
+      const take = rules(route.write ? WAYS_LIMITS.writeIp : WAYS_LIMITS.readIp, ipHash(secret, clientIp(request), deps.now()));
+      let result;
+      try {
+        result = await store.take(take);
+      } catch {
+        done('error', 'quota_unavailable');
+        return answer(503, 'GUARD_UNAVAILABLE');
+      }
+      if (!result.allowed) {
+        done('info', 'rate_limited', { bucket: take[result.failed].bucket, window: take[result.failed].windowS });
+        return answer(429, 'RATE_LIMITED', { 'Retry-After': String(result.retryAfterS) });
+      }
+    }
+  }
+
+  // Neon, by the path the allow-list names: a fresh request with no query string of the browser's and our own body.
+  const call = async (path: string, method: 'GET' | 'POST', payload?: Record<string, unknown>, search = ''): Promise<Response> => {
+    const url = new URL(`/api/auth/${path}/`, request.url);
+    url.search = search;
+    const headers = new Headers(request.headers);
+    headers.delete('content-length');
+    if (payload) headers.set('content-type', 'application/json');
+    try {
+      return await deps.upstream(new Request(url, { method, headers, body: payload ? JSON.stringify(payload) : undefined }), { params: Promise.resolve({ path: [path] }) });
+    } catch {
+      return Response.json({ code: 'UPSTREAM_ERROR' }, { status: 502 });
+    }
+  };
+  const refused = async (upstream: Response, outcome: string): Promise<Response> => {
+    const status = upstream.status;
+    const code = status === 401 ? 'UNAUTHORIZED' : safeCode(await jsonOf(upstream), status >= 500 ? 'SERVICE_UNAVAILABLE' : 'VALIDATION_ERROR');
+    done(status >= 500 ? 'warn' : 'info', outcome, { upstream: status, code });
+    const headers = status === 429 ? { ...NO_STORE, 'Retry-After': String(AUTH_GUARD.upstreamRetryAfterS) } : NO_STORE;
+    return Response.json({ code, message: code }, { status, headers });
+  };
+
+  // Removal is the sensitive one: a recent sign-in first (the re-authentication), read from Neon past the SDK's 5-minute cookie cache.
+  if (route.id === 'unlink_account') {
+    const s = await call('get-session', 'GET', undefined, '?disableCookieCache=true');
+    const json = s.ok ? await jsonOf(s) : null;
+    const session = json?.session && typeof json.session === 'object' ? (json.session as Record<string, unknown>) : null;
+    if (!session) {
+      if (s.ok || s.status === 401) {
+        done('info', 'no_session', { upstream: s.status });
+        return answer(401, 'UNAUTHORIZED');
+      }
+      return refused(s, 'neon_rejected');
+    }
+    if (!sessionFresh(session.createdAt, deps.now().getTime())) {
+      done('info', 'reauth_required');
+      return answer(403, 'REAUTH_REQUIRED');
+    }
+  }
+
+  const listed = await call('list-accounts', 'GET');
+  if (!listed.ok) return refused(listed, 'list_rejected');
+  let rawRows: unknown = null;
+  try {
+    rawRows = await listed.clone().json();
+  } catch {
+    rawRows = null;
+  }
+  const rows: NeonWayRow[] | null = parseNeonRows(rawRows);
+  if (!rows) {
+    done('warn', 'rows_unreadable');
+    return answer(502, 'SERVICE_UNAVAILABLE');
+  }
+
+  if (route.id === 'list_accounts') {
+    done('info', 'ok', { rows: rows.length });
+    return Response.json({ accounts: publicRows(rows) }, { status: 200, headers: NO_STORE });
+  }
+
+  if (route.id === 'link_social') {
+    if (rows.some((r) => r.providerId === WAYS_GOOGLE.provider)) {
+      done('info', 'already_added');
+      return answer(409, 'ALREADY_ADDED');
+    }
+    // originOk passed, so Origin is present and equals this host.
+    const requestOrigin = new URL(request.headers.get('origin') as string).origin;
+    const origin = callbackOrigin(requestOrigin, env.NODE_ENV);
+    if (!origin) {
+      done('error', 'origin_not_configured');
+      return answer(503, 'GUARD_UNAVAILABLE');
+    }
+    if (origin !== requestOrigin) {
+      done('warn', 'origin_mismatch');
+      return answer(403, 'FORBIDDEN');
+    }
+    const back = `${origin}${WAYS_GOOGLE.landingPath}?${WAYS_LIMITS.addedParam}=${WAYS_GOOGLE.provider}`;
+    const upstream = await call('link-social', 'POST', { provider: WAYS_GOOGLE.provider, callbackURL: back, errorCallbackURL: back });
+    if (!upstream.ok) return refused(upstream, 'neon_rejected');
+    const url = waysGoogleUrl(await jsonOf(upstream));
+    if (!url) {
+      done('warn', 'bad_url', { upstream: upstream.status });
+      return answer(502, 'SERVICE_UNAVAILABLE');
+    }
+    // Only Google's address goes back, with Neon's cookies (the OAuth state); nothing else of Neon's answer.
+    const headers = new Headers(NO_STORE);
+    for (const cookie of upstream.headers.getSetCookie()) headers.append('set-cookie', cookie);
+    done('info', 'ok', { upstream: upstream.status });
+    return Response.json({ url }, { status: 200, headers });
+  }
+
+  // unlink_account: the rows are chosen here, never by the browser; the last one is never removed.
+  const plan = removalPlan(rows);
+  if (!plan.ok) {
+    done('info', plan.reason);
+    return answer(409, plan.reason === 'last_method' ? 'LAST_METHOD' : plan.reason === 'not_linked' ? 'NOT_LINKED' : 'VALIDATION_ERROR');
+  }
+  for (const id of plan.ids) {
+    // Better Auth 1.7: the body is the account row's `id` (spec 18, owner check W2).
+    const upstream = await call('unlink-account', 'POST', { accountId: id });
+    if (upstream.ok) continue;
+    const code = safeCode(await jsonOf(upstream), '');
+    if (code === 'FAILED_TO_UNLINK_LAST_ACCOUNT') {
+      done('info', 'last_method', { upstream: upstream.status });
+      return answer(409, 'LAST_METHOD');
+    }
+    if (code === 'SESSION_NOT_FRESH') {
+      done('info', 'reauth_required', { upstream: upstream.status });
+      return answer(403, 'REAUTH_REQUIRED');
+    }
+    return refused(upstream, 'neon_rejected');
+  }
+  done('info', 'removed', { rows: plan.ids.length });
+  return Response.json({ ok: true }, { status: 200, headers: NO_STORE });
 }

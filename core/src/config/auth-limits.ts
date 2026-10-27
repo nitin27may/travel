@@ -148,3 +148,31 @@ export const GOOGLE_SIGN_IN = {
    */
   inAppAgents: ["Instagram", "FBAN/", "FBAV/", "FB_IAB", " Line/", "musical_ly", "BytedanceWebview", "TikTok"],
 } as const;
+
+// ----- Ways to sign in on Account (GSI-WAYS) ---------------------------------------------------------------------------------------------
+
+/**
+ * The guard's three Account routes for "Ways to sign in" (GSI-WAYS; copy page 2.5, strings 29 to 51): `list-accounts` (GET),
+ * `link-social` and `unlink-account` (POST). Each needs a signed-in session, so the buckets key on the client IP only (an address is
+ * never read here). Reads are what the section does after a change; writes are an Add Google press (each makes Neon store an OAuth
+ * state row, review GSI-S B2) or a removal.
+ */
+export const AUTH_WAYS = {
+  /** `list-accounts`: 30 a minute, 300 an hour per client IP. */
+  readIp: { bucket: "auth:ways_read:ip", windows: [{ windowS: MINUTE, limit: 30 }, { windowS: HOUR, limit: 300 }] },
+  /** `link-social` and `unlink-account` together: 5 a minute, 20 an hour per client IP. */
+  writeIp: { bucket: "auth:ways_write:ip", windows: [{ windowS: MINUTE, limit: 5 }, { windowS: HOUR, limit: 20 }] },
+  /**
+   * Removing Google needs a sign-in at most this long ago (the re-authentication; Better Auth's own `freshAge` default is one day, and
+   * Neon refuses an older session with SESSION_NOT_FRESH anyway). Older: "sign out and sign in again" first.
+   */
+  removeFreshS: DAY,
+  /** The SDK's session cookie (`@neondatabase/auth` NEON_AUTH_SESSION_COOKIE_NAME): without it the routes answer 401 before Neon. */
+  sessionCookie: "__Secure-neon-auth.session_token",
+  /** The return of Add Google lands on `/account/?added=google`; it only chooses the wording (string 35 over 25), never whether to tell. */
+  addedParam: "added",
+  /** Most Google rows one removal clears (normally one; more would be two Google accounts with the same address). */
+  maxGoogleRows: 3,
+  /** Most rows read from `list-accounts`; more is not an answer we understand (fail closed). */
+  maxRows: 50,
+} as const;
