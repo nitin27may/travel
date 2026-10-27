@@ -501,7 +501,8 @@ run("plan_draft with plan_doc (database)", () => {
     const again = await insertPlans(user, [{ id: fresh.id, ...w(fresh) }]);
     expect(again).toEqual({ inserted: [], already: [fresh.id], overCap: [], refused: [] });
     // the other user's row is untouched
-    expect((await raw("select user_id from plan_draft where id = $1", [theirs.id])).rows[0].user_id).toBe(U("merge-other"));
+    // the key is (user_id, id), so the same id can exist once per user: ask for the other user's row by both
+    expect((await raw("select user_id from plan_draft where id = $1 and user_id = $2", [theirs.id, U("merge-other")])).rows.map((r: any) => r.user_id)).toEqual([U("merge-other")]);
   });
 
   it("keeps the content-free signal firing on a plan write, with its three columns only", async () => {
@@ -651,12 +652,13 @@ run("plan_draft with plan_doc (database)", () => {
 
   it("renames the table and every object named after it: nothing is left named planner_draft (owner, 27 Oct 2026)", async () => {
     const old = "planner" + "_draft"; // split so a repository grep for the old name finds only the rename itself
+    // Postgres 18 stores NOT NULL as named constraints (`<table>_<column>_not_null`) that a table rename leaves alone: they are the engine's own names, not ours
     const { rows } = await raw(
       `select 'class' as k, relname::text as n from pg_class where relnamespace = 'public'::regnamespace and relname like $1
        union all select 'proc', proname::text from pg_proc where pronamespace = 'public'::regnamespace and proname like $1
        union all select 'policy', polname::text from pg_policy where polname like $1
        union all select 'trigger', tgname::text from pg_trigger where tgname like $1
-       union all select 'constraint', conname::text from pg_constraint where connamespace = 'public'::regnamespace and conname like $1`,
+       union all select 'constraint', conname::text from pg_constraint where connamespace = 'public'::regnamespace and conname like $1 and conname not like '%\\_not\\_null'`,
       [`${old}%`],
     );
     expect(rows).toEqual([]);
