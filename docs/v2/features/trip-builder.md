@@ -774,4 +774,4 @@ pnpm --dir web budget:report
 - 2026-10-27: section 15 added (BUILDER-ISOLATION, travel-planner, Opus) from the owner's direction that the builder stay
   separate and independent: ten isolation rules, nine extension points, bundle sequencing, reviewer greps, QI1 to QI3.
   Supersedes the `store.ts` `plan*` methods (now `PlanService`) and the `doc_kind` column (now a `plan_draft` table).
-  Checklist for current work: [build/builder-forward-compat.md](../build/builder-forward-compat.md). BACKLOG 15.342.
+  Checklist for current work: [build/builder-forward-compat.md](../build/builder-forward-compat.md). BACKLOG 15.343.

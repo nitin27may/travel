@@ -1,6 +1,6 @@
 # Builder forward-compatibility: a checklist for current work
 
-Status: binding from 27 Oct 2026 (owner direction; BACKLOG 15.342). Every builder, designer and reviewer of a task that is
+Status: binding from 27 Oct 2026 (owner direction; BACKLOG 15.343). Every builder, designer and reviewer of a task that is
 **not** a trip-builder (TB) task reads this page before starting. The trip builder
 ([features/trip-builder.md](../features/trip-builder.md)) is coming: visitors will create their own trips, not only copy
 ours. Its isolation rules are trip-builder.md section 15; this page says what current work must do, or avoid, so the
