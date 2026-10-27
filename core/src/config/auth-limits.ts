@@ -17,7 +17,8 @@ const DAY = 86400;
 
 /**
  * Phase 1 buckets (spec 5.2). `addr` buckets key on the hashed address, `addr_ip` on the hash of the address and the client IP
- * together, `ip` on the hashed client IP, `global` on nothing.
+ * together, `ip` on the hashed client IP, `global` on nothing. An IP is keyed on its network: IPv4 as is, IPv6 on its /64
+ * (core/src/quota/keys.ts, review GSI-S S3).
  *
  * Checks (code and password) key the tight per-address limit on address + IP (review EML-S SF3): someone guessing from their own
  * network renews only their own lockout, never the owner's of that address on another network. The address-only bucket is a ceiling
@@ -32,22 +33,30 @@ export const AUTH_LIMITS = {
   /** Every visitor together: 10 an hour, 30 a day, far below any plausible shared-sender limit (set to at most half of it if found). */
   sendGlobal: { bucket: "auth:send:global", windows: [{ windowS: HOUR, limit: 10 }, { windowS: DAY, limit: 30 }] },
   /**
-   * Code checks (sign in by code, verify, reset): 10 an hour per address from one IP, 20 per IP, and a ceiling of 60 an hour per
-   * address from every IP together (three IPs at their full rate). Neon also deletes a code after 3 wrong tries, and every new code
-   * draws from `sendAddr`.
+   * Code checks (sign in by code, verify, reset): 10 an hour and 30 a day per address from one network, 20 an hour per network, and a
+   * ceiling per address from every network together of 60 an hour (three networks at their full rate) and 150 a day (five networks at
+   * their full day, review GSI-S S4). Neon also deletes a code after 3 wrong tries, and every new code draws from `sendAddr`.
    */
-  verifyAddrIp: { bucket: "auth:verify:addr_ip", windows: [{ windowS: HOUR, limit: 10 }] },
-  verifyAddr: { bucket: "auth:verify:addr", windows: [{ windowS: HOUR, limit: 60 }] },
+  verifyAddrIp: { bucket: "auth:verify:addr_ip", windows: [{ windowS: HOUR, limit: 10 }, { windowS: DAY, limit: 30 }] },
+  verifyAddr: { bucket: "auth:verify:addr", windows: [{ windowS: HOUR, limit: 60 }, { windowS: DAY, limit: 150 }] },
   verifyIp: { bucket: "auth:verify:ip", windows: [{ windowS: HOUR, limit: 20 }] },
   /**
-   * Password sign-in: 10 per 15 minutes per address from one IP, 20 per IP, and a ceiling of 60 per 15 minutes per address from every
-   * IP together (three IPs at their full rate). No lockout one network can renew for everyone (SF3).
+   * Password sign-in: 10 per 15 minutes and 40 a day per address from one network, 20 per 15 minutes per network, and a ceiling per
+   * address from every network together of 60 per 15 minutes (three networks at their full rate) and 200 a day (review GSI-S S4: the
+   * quarter ceiling alone allowed 5,760 guesses a day at one address). The day ceiling is five networks' full day, so one network can
+   * never use it up and lock the owner out (SF3); a guesser on many networks stops at 200 a day.
    */
-  passwordAddrIp: { bucket: "auth:password:addr_ip", windows: [{ windowS: QUARTER, limit: 10 }] },
-  passwordAddr: { bucket: "auth:password:addr", windows: [{ windowS: QUARTER, limit: 60 }] },
+  passwordAddrIp: { bucket: "auth:password:addr_ip", windows: [{ windowS: QUARTER, limit: 10 }, { windowS: DAY, limit: 40 }] },
+  passwordAddr: { bucket: "auth:password:addr", windows: [{ windowS: QUARTER, limit: 60 }, { windowS: DAY, limit: 200 }] },
   passwordIp: { bucket: "auth:password:ip", windows: [{ windowS: QUARTER, limit: 20 }] },
   /** Password sign-up per IP: 5 an hour, 20 a day. */
   signupIp: { bucket: "auth:signup:ip", windows: [{ windowS: HOUR, limit: 5 }, { windowS: DAY, limit: 20 }] },
+  /**
+   * The Google start (`sign-in/social`, review GSI-S B2) per network: 10 a minute, 40 an hour. It sends no mail, but every call makes
+   * Neon write an OAuth state row in our project and wakes the compute, and Neon's own limiter sees only Vercel's egress address, so
+   * one abuser would trip it for every visitor. No Turnstile: the button stays one press.
+   */
+  socialIp: { bucket: "auth:social:ip", windows: [{ windowS: MINUTE, limit: 10 }, { windowS: HOUR, limit: 40 }] },
 } as const satisfies Record<string, { bucket: string; windows: readonly Window[] }>;
 
 /**

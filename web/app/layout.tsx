@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { Beacon } from '@/components/shell/Beacon';
 import { BottomBar } from '@/components/shell/BottomBar';
 import { SiteFooter } from '@/components/shell/SiteFooter';
 import { SiteHeader } from '@/components/shell/SiteHeader';
@@ -19,8 +20,6 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
-
-const BEACON_TOKEN = process.env.NEXT_PUBLIC_CF_BEACON_TOKEN;
 
 // The two faces that paint first: Big Shoulders for titles, Source Serif roman for body (tokens 6).
 const PRELOAD = ['big-shoulders-display-latin-wght-normal.woff2', 'source-serif-4-latin-wght-normal.woff2'];
@@ -46,9 +45,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <SiteFooter />
           <BottomBar />
         </ToastProvider>
-        {BEACON_TOKEN ? (
-          <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: BEACON_TOKEN })} />
-        ) : null}
+        <Beacon />
       </body>
     </html>
   );

@@ -5,6 +5,7 @@
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { AUTH_GUARD, AUTH_LIMITS } from '@travel/core/config/auth-limits.ts';
 import { createOutboxMailer, ownerOnly, type Mailer, type Outbox } from '@travel/core/mail/index.ts';
+import { ipHash } from '@travel/core/quota/keys.ts';
 import { createMemoryQuotaStore, type MemoryQuotaStore } from '@travel/core/quota/memory.ts';
 
 const state = vi.hoisted(() => ({
@@ -60,8 +61,10 @@ const CODE = '482913';
 
 // ----- fake network ----------------------------------------------------------------------------------------------------------------
 
-type NeonCall = { path: string; body: Record<string, unknown> | null; headers: Headers };
+type NeonCall = { path: string; body: Record<string, unknown> | null; headers: Headers; search: string };
 let neonCalls: NeonCall[] = [];
+/** The query string of every session read the proxy forwarded (S2). */
+let sessionSearches: string[] = [];
 let neon: (path: string, body: Record<string, unknown> | null) => Response | Promise<Response>;
 let cloudflare: (form: URLSearchParams) => Response | Promise<Response>;
 let cfCalls: URLSearchParams[] = [];
@@ -89,6 +92,7 @@ beforeEach(() => {
   state.holds = [];
   state.clock = 0;
   neonCalls = [];
+  sessionSearches = [];
   cfCalls = [];
   neon = () => Response.json({ success: true });
   cloudflare = cfTestKeys;
@@ -113,8 +117,11 @@ beforeEach(() => {
       const path = url.pathname.replace(/^\/neondb\/auth\//, '');
       const text = typeof init.body === 'string' ? init.body : '';
       const body = text ? (JSON.parse(text) as Record<string, unknown>) : null;
-      if (path === 'get-session') return Response.json(null);
-      neonCalls.push({ path, body, headers: new Headers(init.headers) });
+      if (path === 'get-session') {
+        sessionSearches.push(url.search);
+        return Response.json(null);
+      }
+      neonCalls.push({ path, body, headers: new Headers(init.headers), search: url.search });
       return neon(path, body);
     }
     throw new Error(`unexpected fetch to ${url.host}`);
@@ -775,7 +782,8 @@ describe('review fixes SF3 and SF5', () => {
     neon = () => Response.json({ code: 'INVALID_EMAIL_OR_PASSWORD' }, { status: 401 });
     await call('sign-in/email', { email: 'v@example.test', password: 'wrong-password' });
     const rows = state.store.rows().filter((r) => r.bucket === 'auth:password:addr_ip');
-    expect(rows).toHaveLength(1);
+    expect(rows).toHaveLength(AUTH_LIMITS.passwordAddrIp.windows.length);
+    expect(new Set(rows.map((r) => r.key)).size).toBe(1);
     expect(rows[0].key).toMatch(/^[0-9a-f]{32}$/);
   });
 
@@ -901,7 +909,8 @@ describe('GSI-1: the Google start (sign-in/social)', () => {
     expect((await res.json()).url).toBe(GOOGLE_URL);
     expect(res.headers.get('set-cookie')).toContain('session_chal');
     expect(cfCalls).toHaveLength(0);
-    expect(state.store.rows()).toHaveLength(0);
+    // B2: the only quota row is the per-network Google start bucket.
+    expect(state.store.rows().map((r) => r.bucket)).toEqual(AUTH_LIMITS.socialIp.windows.map(() => AUTH_LIMITS.socialIp.bucket));
   });
 
   it('keeps sign-up as the error page, and drops a next it refuses', async () => {
@@ -939,6 +948,190 @@ describe('GSI-1: the Google start (sign-in/social)', () => {
     const down = await start(card);
     expect(down.status).toBe(503);
     expect((await down.json()).code).toBe('SERVICE_UNAVAILABLE');
+  });
+});
+
+describe('review GSI-S: the Google start bucket (B2), the site origin (S1), query strings (S2)', () => {
+  const GOOGLE_URL = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=x&state=s&code_challenge=c&code_challenge_method=S256';
+  const card = { provider: 'google', callbackURL: '/account/', errorCallbackURL: '/sign-in/' };
+  const start = (headers: Record<string, string> = {}) => call('sign-in/social', card, headers);
+  const SECRET = 'quota-secret-0123456789abcdef';
+  /** The same request with a query string on its URL. */
+  const withQuery = (path: string, query: string, body: unknown, headers: Record<string, string> = {}, method = 'POST') => {
+    const r = req(path, body, headers, method);
+    return new Request(`${r.url}${query}`, { method, headers: r.headers, body: method === 'GET' ? undefined : JSON.stringify(body) });
+  };
+  const production = () => {
+    vi.stubEnv('NODE_ENV', 'production');
+    vi.stubEnv('SITE_ORIGIN', 'https://travel.test');
+  };
+  beforeEach(() => {
+    vi.stubEnv('NEXT_PUBLIC_SIGN_IN_GOOGLE', '1');
+    neon = (path) => (path === 'sign-in/social' ? Response.json({ url: GOOGLE_URL, redirect: true }) : Response.json({ success: true }));
+  });
+
+  it('B2: a network gets 10 starts a minute, then 429 RATE_LIMITED with a Retry-After, before Neon; another network still starts', async () => {
+    const minute = AUTH_LIMITS.socialIp.windows[0].limit;
+    for (let i = 0; i < minute; i++) expect((await start()).status).toBe(200);
+    const limited = await start();
+    expect(limited.status).toBe(429);
+    expect((await limited.json()).code).toBe('RATE_LIMITED');
+    expect(Number(limited.headers.get('retry-after'))).toBeGreaterThan(0);
+    expect(neonCalls).toHaveLength(minute);
+    expect((await start({ 'x-real-ip': '192.0.2.200' })).status).toBe(200);
+    expect(logs.some((l) => l.includes('"route":"sign_in_social"') && l.includes('"outcome":"rate_limited"'))).toBe(true);
+  });
+
+  it('B2: and 40 an hour, whatever the minute', async () => {
+    const [minute, hour] = AUTH_LIMITS.socialIp.windows;
+    for (let m = 0; m * minute.limit < hour.limit; m++) {
+      at(`2026-10-25T10:${String(m + 1).padStart(2, '0')}:30Z`);
+      for (let i = 0; i < minute.limit; i++) expect((await start()).status).toBe(200);
+    }
+    at('2026-10-25T10:30:30Z');
+    const limited = await start();
+    expect(limited.status).toBe(429);
+    expect(Number(limited.headers.get('retry-after'))).toBe(29 * 60 + 30);
+  });
+
+  it('B2: the bucket key is the hash of the client network, never the IP or an address', async () => {
+    await start();
+    const rows = state.store.rows();
+    expect(rows.length).toBeGreaterThan(0);
+    for (const r of rows) {
+      expect(r.bucket).toBe('auth:social:ip');
+      expect(r.key).toBe(ipHash(SECRET, '203.0.113.7', new Date()));
+      expect(r.key).not.toContain('203');
+    }
+  });
+
+  it('B2 with S3: one IPv6 host rotating addresses inside its /64 shares one bucket; the next /64 does not', async () => {
+    const minute = AUTH_LIMITS.socialIp.windows[0].limit;
+    for (let i = 0; i < minute; i++) expect((await start({ 'x-real-ip': `2001:db8:0:1::${(i + 1).toString(16)}` })).status).toBe(200);
+    expect((await start({ 'x-real-ip': '2001:db8:0:1:ffff:ffff:ffff:fffe' })).status).toBe(429);
+    expect((await start({ 'x-real-ip': '2001:db8:0:2::1' })).status).toBe(200);
+  });
+
+  it('B2: fails closed in production without the quota store or secret, and when the store is down; AUTH_GUARD=off skips it', async () => {
+    production();
+    vi.stubEnv('AUTH_QUOTA_SECRET', '');
+    const noSecret = await start();
+    expect(noSecret.status).toBe(503);
+    expect((await noSecret.json()).code).toBe('GUARD_UNAVAILABLE');
+    vi.stubEnv('AUTH_QUOTA_SECRET', SECRET);
+    vi.stubEnv('DATABASE_URL', '');
+    expect((await start()).status).toBe(503);
+    vi.stubEnv('DATABASE_URL', 'postgres://fake/db');
+    const real = state.store;
+    state.store = { ...real, take: async () => Promise.reject(new Error('quota_take failed (sqlstate=42P01)')) } as MemoryQuotaStore;
+    const down = await start();
+    expect(down.status).toBe(503);
+    expect((await down.json()).code).toBe('GUARD_UNAVAILABLE');
+    expect(logs.some((l) => l.includes('"route":"sign_in_social"') && l.includes('"sqlstate":"42P01"'))).toBe(true);
+    expect(neonCalls).toHaveLength(0);
+    state.store = real;
+    vi.stubEnv('AUTH_GUARD', 'off');
+    expect((await start()).status).toBe(200);
+    expect(state.store.rows()).toHaveLength(0);
+  });
+
+  it('B2: skips the bucket only under NODE_ENV test or development when unconfigured', async () => {
+    vi.stubEnv('AUTH_QUOTA_SECRET', '');
+    for (let i = 0; i < AUTH_LIMITS.socialIp.windows[0].limit + 1; i++) expect((await start()).status).toBe(200);
+    expect(state.store.rows()).toHaveLength(0);
+  });
+
+  it('S1: in production both callback URLs are built from SITE_ORIGIN', async () => {
+    production();
+    vi.stubEnv('SITE_ORIGIN', 'https://travel.test/');
+    expect((await start()).status).toBe(200);
+    expect(neonCalls[0].body).toEqual({ provider: 'google', callbackURL: 'https://travel.test/account/', errorCallbackURL: 'https://travel.test/sign-in/' });
+  });
+
+  it('S1: in production another deployment URL is refused 403 and a missing SITE_ORIGIN fails closed, before the bucket and Neon', async () => {
+    production();
+    const preview = await start({ origin: 'https://travel-git-branch.vercel.app', host: 'travel-git-branch.vercel.app' });
+    expect(preview.status).toBe(403);
+    expect((await preview.json()).code).toBe('FORBIDDEN');
+    vi.stubEnv('SITE_ORIGIN', '');
+    const unset = await start();
+    expect(unset.status).toBe(503);
+    expect((await unset.json()).code).toBe('GUARD_UNAVAILABLE');
+    vi.stubEnv('SITE_ORIGIN', 'not a url');
+    expect((await start()).status).toBe(503);
+    expect(neonCalls).toHaveLength(0);
+    expect(state.store.rows()).toHaveLength(0);
+    expect(logs.some((l) => l.includes('"outcome":"site_origin"'))).toBe(true);
+  });
+
+  it('S1: under NODE_ENV test the request origin is used (local HTTP and preview checks keep working)', async () => {
+    vi.stubEnv('SITE_ORIGIN', 'https://elsewhere.example');
+    await start();
+    expect((neonCalls[0].body as Record<string, string>).callbackURL).toBe('https://travel.test/account/');
+  });
+
+  it.each([
+    ['sign-in/social', card],
+    ['sign-up/email', { email: 'v@example.test', password: 'a-long-password' }],
+    ['sign-in/email', { email: 'v@example.test', password: 'a-long-password' }],
+    ['email-otp/send-verification-otp', { email: 'v@example.test', type: 'sign-in' }],
+  ])('S2: a query string on %s never reaches Neon', async (path, body) => {
+    const q = '?callbackURL=https%3A%2F%2Fevil.example%2F&currentURL=https%3A%2F%2Fevil.example%2F';
+    await POST(withQuery(path, q, body), ctx(path));
+    expect(neonCalls).toHaveLength(1);
+    expect(neonCalls[0].search).toBe('');
+  });
+
+  it('S2: the session read keeps only disableCookieCache; sign-out keeps nothing', async () => {
+    await GET(withQuery('get-session', '?disableCookieCache=true&callbackURL=https%3A%2F%2Fevil.example%2F', null, {}, 'GET'), ctx('get-session'));
+    await GET(withQuery('get-session', '?callbackURL=https%3A%2F%2Fevil.example%2F', null, {}, 'GET'), ctx('get-session'));
+    expect(sessionSearches).toEqual(['?disableCookieCache=true', '']);
+    const out = await POST(withQuery('sign-out', '?callbackURL=https%3A%2F%2Fevil.example%2F', {}), ctx('sign-out'));
+    expect(out.status).toBe(200);
+    expect(neonCalls.map((c) => [c.path, c.search])).toEqual([['sign-out', '']]);
+  });
+
+  it('N3: sign-out takes the same 4 KB body cap', async () => {
+    const res = await POST(req('sign-out', { pad: 'x'.repeat(AUTH_GUARD.bodyMaxBytes) }), ctx('sign-out'));
+    expect(res.status).toBe(413);
+    expect(neonCalls).toHaveLength(0);
+  });
+});
+
+describe('review GSI-S S4: the day ceilings on checks', () => {
+  it('password: one network stops at its day budget for an address; the address stops at its day ceiling across networks', async () => {
+    neon = () => Response.json({ code: 'INVALID_EMAIL_OR_PASSWORD' }, { status: 401 });
+    const [quarter, day] = AUTH_LIMITS.passwordAddrIp.windows;
+    const ceiling = AUTH_LIMITS.passwordAddr.windows[1].limit;
+    const from = (ip: string) => call('sign-in/email', { email: 'v@example.test', password: 'wrong-password' }, { 'x-real-ip': ip });
+    // One network, a quarter at a time, reaches its day budget for this address and no more.
+    let tried = 0;
+    for (let q = 0; tried < day.limit; q++) {
+      at(new Date(Date.parse('2026-10-25T10:00:30Z') + q * quarter.windowS * 1000).toISOString());
+      for (let i = 0; i < quarter.limit && tried < day.limit; i++, tried++) expect((await from('198.51.100.1')).status).toBe(401);
+    }
+    at('2026-10-25T13:00:30Z');
+    expect((await from('198.51.100.1')).status).toBe(429);
+    // The day budget of one network is well under the address ceiling: one network cannot lock the owner out for the day (SF3).
+    expect(day.limit * 4).toBeLessThan(ceiling);
+    expect((await from('192.0.2.200')).status).toBe(401);
+    tried += 1;
+    // Many networks together stop at the day ceiling.
+    for (let n = 2; tried < ceiling; n++) {
+      at(new Date(Date.parse('2026-10-25T14:00:30Z') + n * quarter.windowS * 1000).toISOString());
+      for (let i = 0; i < quarter.limit && tried < ceiling; i++, tried++) expect((await from(`198.51.100.${n}`)).status).toBe(401);
+    }
+    const stopped = await from('198.51.100.250');
+    expect(stopped.status).toBe(429);
+    expect(Number(stopped.headers.get('retry-after'))).toBeGreaterThan(quarter.windowS);
+  });
+
+  it('code checks: a day budget per address and network, and a day ceiling per address', () => {
+    const [, addrIpDay] = AUTH_LIMITS.verifyAddrIp.windows;
+    const [, addrDay] = AUTH_LIMITS.verifyAddr.windows;
+    expect(addrIpDay.windowS).toBe(86400);
+    expect(addrDay.windowS).toBe(86400);
+    expect(addrIpDay.limit * 4).toBeLessThan(addrDay.limit);
   });
 });
 

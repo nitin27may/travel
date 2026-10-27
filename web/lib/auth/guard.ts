@@ -50,16 +50,24 @@ import { turnstilePassed, verifyTurnstile } from '@/lib/server/turnstile';
  *
  * Flags (MF4): with `NEXT_PUBLIC_SIGN_IN` off every path answers 404; with `NEXT_PUBLIC_SIGN_IN_CODE` off a code send of type
  * `sign-in` and `sign-in/email-otp` answer 404, so turning a flag off and redeploying really turns the server side off (spec 11.2).
- * Likewise `sign-in/social` answers 404 unless `NEXT_PUBLIC_SIGN_IN_GOOGLE` is on (Google spec 11, rollback step 1).
+ * Likewise `sign-in/social` answers 404 unless `NEXT_PUBLIC_SIGN_IN_GOOGLE` is on (Google spec 11, rollback step 1). That turns off our
+ * button and this route only: Neon's own `sign-in/social` stays callable while the Google provider exists on the branch, so deleting
+ * the provider in the Neon console is the real off switch (review GSI-S S5, spec 11 step 2).
  *
  * Continue with Google (GSI-1): `sign-in/social` takes the same origin check (a missing Origin refused) and body cap, then the body is
  * rebuilt by `googleCallbacks` (lib/auth/google.ts): provider `google` only, `callbackURL` always `<origin>/account/` with the checked
- * `next`, `errorCallbackURL` the starting page; no scope or other field passes. It sends no mail and creates no account by itself (Neon
- * does that after Google answers), so it takes no Turnstile and no quota; Neon's 429 keeps a Retry-After. Neon's success answer (Google's
- * address and the challenge cookie) is passed on unchanged; an error answer carries Neon's code only.
+ * `next`, `errorCallbackURL` the starting page; no scope or other field passes. Outside NODE_ENV test and development `<origin>` is
+ * SITE_ORIGIN, never the request's, and a request on any other host (another `*.vercel.app` URL of the project) is refused 403
+ * (review GSI-S S1). It sends no mail, so no Turnstile (the button stays one press), but every call makes Neon write a state row in
+ * our project, so it takes one per-network bucket (`socialIp`, review GSI-S B2) with the same fail-closed rule as the guarded routes.
+ * Neon's 429 keeps a Retry-After. Neon's success answer (Google's address and the challenge cookie) is passed on unchanged; an error
+ * answer carries Neon's code only.
  *
  * Bodies (SF1): each guarded body is rebuilt from that route's own field list (string values only); anything else, `callbackURL`
- * included (spec 5.1), never reaches Neon, and sign-up always sends `name: ''` (rule E8).
+ * included (spec 5.1), never reaches Neon, and sign-up always sends `name: ''` (rule E8). Query strings (review GSI-S S2): the SDK
+ * proxy copies the request's query onto Neon's URL, and Better Auth reads some values from it, so every forwarded request is rebuilt
+ * without one; only `get-session` keeps `disableCookieCache` (QUERY_KEEP). The OAuth verifier exchange is not here: it runs in
+ * `proxy.ts` on `/account/*` only.
  *
  * Password sign-in never sends mail through us (MF2): it takes no send bucket and needs no Turnstile, so the Neon setting "Send
  * verification email on sign-in" must stay false. The card asks for a confirmation code through the guarded send route instead.
@@ -112,8 +120,11 @@ const ROUTES: Record<string, GuardedRoute> = {
 /** Unguarded routes the site itself uses (the session read and sign-out), with the one method each accepts. */
 const OPEN: Record<string, 'GET' | 'POST'> = { 'get-session': 'GET', 'sign-out': 'POST' };
 
-/** The Google start (GSI-1), POST only, behind `signInGoogle`. Its own branch in `handle`: no address, no Turnstile, no quota. */
+/** The Google start (GSI-1), POST only, behind `signInGoogle`. Its own branch in `handle`: no address, no Turnstile, one IP bucket. */
 const SOCIAL = 'sign-in/social';
+
+/** The query parameters an open route may pass to Neon (S2); every other one, on every route, is dropped. */
+const QUERY_KEEP: Record<string, readonly string[]> = { 'get-session': ['disableCookieCache'] };
 
 /** The `type` values the send route accepts (spec 4.5); `change-email` is not offered. */
 const OTP_TYPES = new Set(['sign-in', 'email-verification', 'forget-password']);
@@ -171,13 +182,42 @@ function hostname(request: Request): string {
   }
 }
 
-/** A request for Neon with the rewritten body; the Turnstile token stays here. */
+/** The request's URL without its query, keeping only the `keep` parameters (S2: the SDK proxy copies the query onto Neon's URL). */
+export function upstreamUrl(url: string, keep: readonly string[] = []): string {
+  const u = new URL(url);
+  const kept = new URLSearchParams();
+  for (const k of keep) {
+    const v = u.searchParams.get(k);
+    if (v !== null) kept.set(k, v);
+  }
+  u.search = kept.toString();
+  u.hash = '';
+  return u.href;
+}
+
+/** A request for Neon with the rewritten body and no query string; the Turnstile token stays here. */
 function rebuild(request: Request, body: string): Request {
   const headers = new Headers(request.headers);
   headers.delete('content-length');
   headers.delete('x-turnstile-token');
   headers.set('content-type', 'application/json');
-  return new Request(request.url, { method: request.method, headers, body });
+  return new Request(upstreamUrl(request.url), { method: request.method, headers, body });
+}
+
+/** The SQLSTATE of a quota store failure only (pg.ts puts nothing else in the message): 42P01 or 42883 mean migration 0011 is missing (SF7). */
+function sqlstateOf(e: unknown): string | undefined {
+  return /sqlstate=([0-9A-Za-z]{5})\)/.exec(e instanceof Error ? e.message : '')?.[1];
+}
+
+/** SITE_ORIGIN as an origin, or null when it is unset or not a URL (S1: production never falls back to the request's host). */
+function configuredOrigin(raw: string | undefined): string | null {
+  if (!raw?.trim()) return null;
+  try {
+    const origin = new URL(raw.trim()).origin;
+    return origin === 'null' ? null : origin;
+  } catch {
+    return null;
+  }
 }
 
 /** The pending sign-up answer, built fresh: no header of Neon's (a cookie or request id on one branch only) can tell addresses apart (SF2). */
@@ -232,7 +272,7 @@ export interface GuardDeps {
   mailer(): Mailer;
   ownerEmail(): string | undefined;
   revokeSessions(email: string, before: Date): Promise<number>;
-  env(): { NODE_ENV?: string; AUTH_GUARD?: string; AUTH_QUOTA_SECRET?: string; TURNSTILE_SECRET_KEY?: string };
+  env(): { NODE_ENV?: string; AUTH_GUARD?: string; AUTH_QUOTA_SECRET?: string; TURNSTILE_SECRET_KEY?: string; SITE_ORIGIN?: string };
   now(): Date;
   /** The sign-in flags (lib/auth/flags.ts), read per call. */
   flags(): AuthFlags;
@@ -258,6 +298,7 @@ export function defaultGuardDeps(upstream: GuardDeps['upstream']): GuardDeps {
       AUTH_GUARD: process.env.AUTH_GUARD,
       AUTH_QUOTA_SECRET: process.env.AUTH_QUOTA_SECRET,
       TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY,
+      SITE_ORIGIN: process.env.SITE_ORIGIN,
     }),
     now: () => new Date(),
     flags: authFlagsNow,
@@ -339,7 +380,10 @@ export function createAuthGuard(deps: GuardDeps) {
     if (hour >= ALERT_AFTER.failuresPerHour) await alert(store, { kind: 'auth-send-failures', failures: hour });
   }
 
-  /** The Google start (GSI-1): flag, origin, body cap, the body rebuilt from scratch, then Neon's answer. */
+  /**
+   * The Google start (GSI-1): flag, origin, the configured site origin (S1), body cap, the body rebuilt from scratch, the per-network
+   * bucket (B2), then Neon's answer.
+   */
   async function social(request: Request, canonical: RouteCtx, flags: AuthFlags): Promise<Response> {
     const done = (level: 'info' | 'warn' | 'error', outcome: string, extra: Record<string, LogValue> = {}) =>
       guardLog(level, { event: 'auth_guard', route: 'sign_in_social', outcome, ...extra });
@@ -350,6 +394,23 @@ export function createAuthGuard(deps: GuardDeps) {
     if (!originOk(request)) {
       done('warn', 'origin');
       return answer(403, 'FORBIDDEN');
+    }
+    const env = deps.env();
+    const local = env.NODE_ENV === 'test' || env.NODE_ENV === 'development';
+    // originOk passed, so the Origin header is present and is this host's own origin. Outside test and development the callback URLs
+    // come from SITE_ORIGIN only (S1): another deployment URL of the project is refused, and no SITE_ORIGIN fails closed.
+    let origin = new URL(request.headers.get('origin') as string).origin;
+    if (!local) {
+      const site = configuredOrigin(env.SITE_ORIGIN);
+      if (!site) {
+        done('error', 'site_origin_not_configured');
+        return answer(503, 'GUARD_UNAVAILABLE');
+      }
+      if (site !== origin) {
+        done('warn', 'site_origin');
+        return answer(403, 'FORBIDDEN');
+      }
+      origin = site;
     }
     const raw = await readCapped(request, AUTH_GUARD.bodyMaxBytes);
     if (raw === null) {
@@ -365,11 +426,36 @@ export function createAuthGuard(deps: GuardDeps) {
       done('info', 'bad_body');
       return answer(400, 'VALIDATION_ERROR');
     }
-    // originOk passed, so the Origin header is present and is this host's own origin.
-    const rebuilt = googleCallbacks(body, new URL(request.headers.get('origin') as string).origin);
+    const rebuilt = googleCallbacks(body, origin);
     if (!rebuilt) {
       done('info', 'bad_provider');
       return answer(400, 'VALIDATION_ERROR');
+    }
+    // B2: one per-network bucket, fail closed like the guarded routes; AUTH_GUARD=off (rollback) skips it.
+    if (env.AUTH_GUARD !== 'off') {
+      const secret = env.AUTH_QUOTA_SECRET;
+      const store = deps.quota();
+      if (!store || !secret || secret.length < 16) {
+        if (!local) {
+          done('error', 'quota_not_configured');
+          return answer(503, 'GUARD_UNAVAILABLE');
+        }
+        done('warn', 'quota_skipped_locally');
+      } else {
+        const take = rules(AUTH_LIMITS.socialIp, ipHash(secret, clientIp(request), deps.now()));
+        let result;
+        try {
+          result = await store.take(take);
+        } catch (e) {
+          done('error', 'quota_unavailable', { sqlstate: sqlstateOf(e) });
+          return answer(503, 'GUARD_UNAVAILABLE');
+        }
+        if (!result.allowed) {
+          const hit = take[result.failed];
+          done('info', 'rate_limited', { bucket: hit.bucket, window: hit.windowS });
+          return answer(429, 'RATE_LIMITED', { 'Retry-After': String(result.retryAfterS) });
+        }
+      }
     }
     let upstream: Response;
     try {
@@ -400,11 +486,21 @@ export function createAuthGuard(deps: GuardDeps) {
     // Neon gets the canonical (lower-case) path the allow-list matched, never the raw one.
     const canonical: RouteCtx = { params: Promise.resolve({ path: found.path.split('/') }) };
     if ('open' in found) {
-      if (method !== 'GET' && !originOk(request)) {
+      const url = upstreamUrl(request.url, QUERY_KEEP[found.path]);
+      if (method === 'GET') return deps.upstream(new Request(url, { method, headers: request.headers }), canonical);
+      if (!originOk(request)) {
         guardLog('warn', { event: 'auth_guard', route: found.path, outcome: 'origin' });
         return answer(403, 'FORBIDDEN');
       }
-      return deps.upstream(request, canonical);
+      // Sign-out: the same body cap as every other POST (review GSI-S N3), and no query (S2).
+      const raw = await readCapped(request, AUTH_GUARD.bodyMaxBytes);
+      if (raw === null) {
+        guardLog('warn', { event: 'auth_guard', route: found.path, outcome: 'body_too_large' });
+        return answer(413, 'BODY_TOO_LARGE');
+      }
+      const headers = new Headers(request.headers);
+      headers.delete('content-length');
+      return deps.upstream(new Request(url, { method, headers, body: raw }), canonical);
     }
     if ('social' in found) return social(request, canonical, flags);
     const route = found.route;
@@ -506,9 +602,7 @@ export function createAuthGuard(deps: GuardDeps) {
         try {
           result = await store.take(take);
         } catch (e) {
-          // The SQLSTATE only (pg.ts puts nothing else in the message): 42P01 or 42883 mean migration 0011 is not applied (SF7).
-          const sqlstate = /sqlstate=([0-9A-Za-z]{5})\)/.exec(e instanceof Error ? e.message : '')?.[1];
-          done('error', 'quota_unavailable', { sqlstate });
+          done('error', 'quota_unavailable', { sqlstate: sqlstateOf(e) });
           return answer(503, 'GUARD_UNAVAILABLE');
         }
         if (!result.allowed) {

@@ -317,7 +317,7 @@ user to remove the app at myaccount.google.com/permissions if they want Google t
 | Threat | Control | Owner of the control | Test |
 |---|---|---|---|
 | Pre-account hijacking (F9): attacker registers victim's email with a password; victim later uses Google | Neon's server refuses implicit links to unverified rows (U1); Q121 verification for new password accounts | Neon; GSI-0 gate | 10.3 L1 |
-| Login CSRF and code injection | `state` and PKCE on the Google leg (U5); the challenge cookie plus verifier exchange on ours (F6) | Neon, SDK | 10.2 R1, R3 |
+| Login CSRF and code injection | `state` and PKCE on the Google leg (U5); the challenge cookie plus verifier exchange on ours (F6). The SDK only checks that *a* challenge cookie is present; whether the verifier belongs to *that* cookie is Neon's check (GSI-S S6) | Neon, SDK | 10.2 R1, R3, R3b |
 | Open redirect via `callbackURL` | Neon trusted domains (exact origins only) | owner (O-4) | 10.2 R2 |
 | Open redirect via our `next` | sanitiser, 7.4 | GSI-1 | 10.1 table |
 | Forged cross-site POSTs to `/api/auth/*` | Better Auth's origin check against trusted origins; cookies SameSite=Lax | Neon, SDK | 10.2 R4 |
@@ -325,8 +325,9 @@ user to remove the app at myaccount.google.com/permissions if they want Google t
 | Token theft from our DB role | no `travel_app` grant on `neon_auth.*` | GSI-0, GSI-S | 6.2 |
 | A rogue Vercel app trusted by Neon | never `https://*.vercel.app`; only our exact alias or our own domain | owner (O-4) | domain list review in GSI-S |
 | Account creation spam through Google | bounded by Google accounts; per-account quotas already planned for intake (R-74); admission by Q120 | | |
+| Google start flood (state rows and compute hours in our Neon project; Neon's limiter sees only Vercel's egress, GSI-S B2) | our own per-network bucket `auth:social:ip` (10 a minute, 40 an hour; IPv6 keyed on its /64), failing closed (503) without the quota store in production; no Turnstile, so the button stays one press | GSI-SEC | `guard.test.ts` B2 cases |
 | Brute force on sign-in endpoints | Better Auth's built-in limiter on Neon (assumed, not confirmed); Vercel Hobby's single rate-limit rule stays reserved for GB-A-9 (`/api/v1/*`) | Neon | none now; note in GSI-S |
-| Leaked verifier in logs or analytics | `proxy.ts` strips it with a 302 before any page renders; no analytics on `/account/`; logs never print URLs | SDK, GSI-1 | log-scan test |
+| Leaked verifier in logs or analytics | On success the SDK's exchange in `proxy.ts` redirects to `/account/` without it before any page renders. On a failed exchange the SDK bounces to `/sign-in/` copying the query; `proxy.ts` empties the verifier's value on that redirect (the empty parameter still tells the card "didn't finish"). The Cloudflare beacon is not served on `/account/*`, `/sign-in/` or `/sign-up/` (`web/lib/beacon.ts`); it can still count an in-app move to those pages from a page that loaded it, which carries no verifier. Our logs never print URLs. **Accepted:** the one `/account/?neon_auth_session_verifier=...` request Neon sends the browser to is in Vercel's request log with its full URL; the verifier is single-use and, if R3b holds on Neon, useless without the browser's challenge cookie | SDK, GSI-1, GSI-SEC | `verifier.test.ts`, `beacon.test.ts`, `analytics.test.ts`, log-scan test |
 
 ### 7.2 Origins, cookies and the same-origin guard
 
@@ -337,7 +338,10 @@ user to remove the app at myaccount.google.com/permissions if they want Google t
 - Cookies are the SDK's `__Secure-neon-auth.*`: Secure, HttpOnly, SameSite=Lax, host-only (no `Domain` attribute).
   Keep host-only on the final domain so the preview alias and production never share a session. Do not set a cookie
   domain.
-- `SITE_ORIGIN` must be set per Vercel environment before any OAuth test (HANDOVER item 3).
+- `SITE_ORIGIN` must be set per Vercel environment before any OAuth test (HANDOVER item 3). Outside `NODE_ENV` test and
+  development the guard builds both Google callback URLs from `SITE_ORIGIN`, never from the request, and refuses a Google start
+  that arrives on any other host with 403 (GSI-S S1): every `*.vercel.app` deployment URL of the project other than the one
+  `SITE_ORIGIN` names gets no Google. Without `SITE_ORIGIN` the start answers 503. On a preview, `SITE_ORIGIN` is the stable alias.
 - `127.0.0.1` is not a Neon trusted origin (F5) and is not added: local OAuth uses `http://localhost:3000` only.
 
 ### 7.3 Per-environment allowlists
@@ -491,6 +495,10 @@ under Authorised domains, set homepage, privacy policy (`/privacy/`) and logo, p
   `scope` exactly `openid email profile` (order free), a `state`, and a `code_challenge` with method `S256` (U5).
 - R2: the same call with `callbackURL` `https://evil.example/` is refused by Neon.
 - R3: `GET /account/?neon_auth_session_verifier=x` without the challenge cookie sets no session.
+- R3b (GSI-S S6): start a flow in browser A and stop at Neon's redirect; open `/account/?neon_auth_session_verifier=<A's verifier>`
+  in browser B, which holds its own, different challenge cookie from an earlier press. Pass: no session in B. Our side is pinned by
+  `web/tests/auth/verifier.test.ts` (the exchange reaches Neon with A's verifier and B's cookie; when Neon refuses, B gets no session
+  cookie and lands on `/sign-in/` with the verifier's value emptied); that Neon really binds the two is GSI-E's check on the preview.
 - R4: `POST /api/auth/sign-in/social` with `Origin: https://evil.example` is refused.
 - `proxy.ts` matcher still lists `/account/:path*` (a pin, so nobody narrows it and breaks the exchange).
 - Banner rendering from `?error=` for each 4.6 row, focused on load.
@@ -537,13 +545,17 @@ Verification evidence for every UI task: `tsc --noEmit`, the vitest suites above
 | Flag | Build variable | Server also needs | Off means |
 |---|---|---|---|
 | `signIn` (existing) | `NEXT_PUBLIC_SIGN_IN=1` | Neon Auth | as today |
-| `signInGoogle` (new) | `NEXT_PUBLIC_SIGN_IN_GOOGLE=1`, only with `signIn` | Google configured on the Neon branch (not checkable from the app; the owner's step O-3) | no button; email only; Account shows existing Google links read-only with no "Add Google" |
+| `signInGoogle` (new) | `NEXT_PUBLIC_SIGN_IN_GOOGLE=1`, only with `signIn` | Google configured on the Neon branch (not checkable from the app; the owner's step O-3) | no button and our `sign-in/social` route answers 404; email only; Account shows existing Google links read-only with no "Add Google". **Not a server kill switch:** Neon's own `sign-in/social` stays callable while the provider exists (GSI-S S5) |
 | `signInApple` (reserved) | `NEXT_PUBLIC_SIGN_IN_APPLE=1` | Apple on the branch | not built |
 
 Rollback, fastest first:
-1. Set `NEXT_PUBLIC_SIGN_IN_GOOGLE=0` and redeploy: the button disappears. Existing Google users still sign in only if
-   the provider stays configured, so step 2 is a separate decision.
-2. `neon neon-auth oauth-provider delete --provider-id google --branch <branch>`: Google sign-in stops at Neon. Users
+1. Set `NEXT_PUBLIC_SIGN_IN_GOOGLE=0` and redeploy: this removes our button and our proxy route only. Neon's Auth base
+   URL is public, so while the provider is configured anyone can still call Neon's `sign-in/social` directly with a
+   `callbackURL` on a trusted origin, and Neon still runs its callback: user creation and implicit linking keep working
+   whatever the flag says (GSI-S S5, B1). The flag is a UI switch, not a security control.
+2. **The real off switch:** `neon neon-auth oauth-provider delete --provider-id google --branch <branch>`: Google sign-in,
+   Google account creation and implicit linking stop at Neon. Keep the production provider deleted whenever Google is
+   meant to be off (and until L1 passes, B1). Users
    with only Google lose access until they set a password through "Forgot password" (OTP works with Neon's shared
    mailer). Count them first: `select count(*) from neon_auth.account a where provider_id = 'google' and not exists
    (select 1 from neon_auth.account b where b.user_id = a.user_id and b.provider_id = 'credential')` as the owner role
@@ -722,3 +734,28 @@ Built on `public/GSI-2` to the copy page (strings 23 to 25 and 27; W3, Q-GC3). W
 - Tests: `web/tests/auth/landing.test.ts`, `web/tests/auth/memory.test.ts`, `web/tests/account/sign-in-notice.test.tsx`,
   `web/tests/account/landing.browser.test.ts` (320, 390, 1440, light and dark, with the real component mounted), `next.test.ts`
   (the stop, and query parameters cannot skip it), and two e2e cases in `auth-google.spec.ts`.
+
+### GSI-SEC build notes: the review's code findings (27 Oct 2026, Opus 5.5)
+
+Built on `public/GSI-SEC` against `docs/v2/design/shell/review-gsi-s-2026-10-27.md` (B2, S1 to S4, S7 in code; S5, S6 here):
+
+- **B2.** `sign-in/social` takes one bucket, `AUTH_LIMITS.socialIp` (`auth:social:ip`: 10 a minute, 40 an hour per network), after
+  the origin, site-origin and body checks. Without the quota store or `AUTH_QUOTA_SECRET` it answers 503 `GUARD_UNAVAILABLE` outside
+  `NODE_ENV` test and development, as do a store failure (SQLSTATE logged) and the guarded routes; `AUTH_GUARD=off` skips it. A full
+  bucket answers 429 `RATE_LIMITED` with a Retry-After, which the card shows as string 14. No Turnstile.
+- **S1.** Outside test and development both callback URLs come from `SITE_ORIGIN`; a start whose (same-origin) request is on another
+  host answers 403, and a missing or unparsable `SITE_ORIGIN` answers 503 (no fallback to the request or the old default host).
+- **S2.** Every request the guard forwards is rebuilt without a query string; `get-session` keeps only `disableCookieCache`.
+  `sign-out` now takes the 4 KB body cap too (N3). The verifier exchange is not on this path (it runs in `proxy.ts`).
+- **S3.** `core/src/quota/keys.ts` keys every IP on its network: IPv6 on its /64, IPv4-mapped IPv6 on the IPv4 address, anything
+  that is not an IP on the shared `unknown` key. Every per-IP and address-and-IP bucket inherits it.
+- **S4.** Day windows: `passwordAddrIp` 40 and `passwordAddr` 200 a day; `verifyAddrIp` 30 and `verifyAddr` 150 a day. One network's
+  day budget for an address is a fifth of the address's day ceiling, so a single network still cannot lock the owner out (SF3), and
+  a guesser on many networks stops at 200 password tries a day (5,760 before).
+- **S7.** The beacon is a client component (`components/shell/Beacon.tsx`, rule in `lib/beacon.ts`) left out of `/account/*`,
+  `/sign-in/` and `/sign-up/`, also in their server HTML; it is now `async`, so it loads on an in-app move to a page that has it.
+  `proxy.ts` empties the verifier's value on the SDK's bounce to `/sign-in/` (`lib/auth/verifier.ts`); the parameter stays, so the
+  card's "didn't finish" still works. The Vercel log line of the successful return is accepted (7.1).
+- **S5 and S6** are this page: 11 rollback step 1 and the flag row, 7.1, and R3b in 10.2 with its mocked test.
+- Not closed here: B1 (L1, provider deletion, Require Verification) and S8 are owner and GSI-E work on Neon; items 6 to 12 of the
+  review's section 4 are owner settings.
