@@ -5,7 +5,7 @@ import { sendOwnerAlert } from "../../src/mail/alert.ts";
 import { ownerOnly } from "../../src/mail/mailer.ts";
 import { createOutboxMailer } from "../../src/mail/outbox.ts";
 import { quotaAlertBudget } from "../../src/quota/alert-budget.ts";
-import { addressHash, addressIpHash, assertSecret, ipHash, utcDay } from "../../src/quota/keys.ts";
+import { addressHash, addressIpHash, assertSecret, ipHash, ipNetwork, utcDay } from "../../src/quota/keys.ts";
 import { createMemoryQuotaStore } from "../../src/quota/memory.ts";
 import { assertRules, secondsLeft, windowStart, type QuotaRule } from "../../src/quota/store.ts";
 
@@ -73,6 +73,28 @@ describe("keys", () => {
     expect(addressIpHash(SECRET, "a@b.com", "", d)).toBe(addressIpHash(SECRET, "a@b.com", "unknown", d));
     expect(addressIpHash(SECRET, "not an address", "203.0.113.7", d)).toBeNull();
     expect(() => addressIpHash("", "a@b.com", "203.0.113.7", d)).toThrow();
+  });
+
+  it("keys an IPv6 address on its /64 and an IPv4-mapped one on its IPv4 address (review GSI-S S3)", () => {
+    expect(ipNetwork("2001:db8:0:1::1")).toBe("2001:db8:0:1::/64");
+    expect(ipNetwork(" 2001:0DB8:0000:0001:ffff:ffff:ffff:ffff ")).toBe("2001:db8:0:1::/64");
+    expect(ipNetwork("2001:db8:0:1:a:b:192.0.2.1")).toBe("2001:db8:0:1::/64");
+    expect(ipNetwork("2001:db8:0:2::1")).toBe("2001:db8:0:2::/64");
+    expect(ipNetwork("fe80::1%en0")).toBe("fe80:0:0:0::/64");
+    expect(ipNetwork("::")).toBe("0:0:0:0::/64");
+    expect(ipNetwork("::ffff:203.0.113.7")).toBe("203.0.113.7");
+    expect(ipNetwork("::ffff:cb00:7107")).toBe("203.0.113.7");
+    expect(ipNetwork("203.0.113.7")).toBe("203.0.113.7");
+    for (const bad of ["", "unknown", "garbage", "2001:db8::1::2", "1:2:3:4:5:6:7:8:9", "203.0.113.256", "::ffff:999.0.0.1"]) expect(ipNetwork(bad), bad).toBe("unknown");
+    const d = at("2026-10-25T10:00:00Z");
+    // every address inside one /64 shares one key, for the IP bucket and the address-and-IP bucket alike
+    const hosts = ["2001:db8:0:1::1", "2001:db8:0:1:dead:beef:0:7", "2001:DB8:0:1:FFFF::"];
+    expect(new Set(hosts.map((h) => ipHash(SECRET, h, d))).size).toBe(1);
+    expect(new Set(hosts.map((h) => addressIpHash(SECRET, "v@example.test", h, d))).size).toBe(1);
+    expect(ipHash(SECRET, "2001:db8:0:2::1", d)).not.toBe(ipHash(SECRET, hosts[0], d));
+    expect(ipHash(SECRET, "::ffff:203.0.113.7", d)).toBe(ipHash(SECRET, "203.0.113.7", d));
+    expect(ipHash(SECRET, "203.0.113.8", d)).not.toBe(ipHash(SECRET, "203.0.113.7", d));
+    expect(ipHash(SECRET, "garbage", d)).toBe(ipHash(SECRET, "unknown", d));
   });
 
   it("refuses a missing or short secret", () => {
