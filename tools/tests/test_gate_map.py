@@ -331,27 +331,43 @@ def test_replay_of_recent_merges_misses_no_changed_test(real: tuple[dict, list[s
 
 
 # ----- M8 (WF-3): mac_only and ci_exclude ---------------------------------------------------------------------------------------------------
+def ent(**over: object) -> dict:
+    return {"reason": "needs the photo cache", "row": "15.333", "added": "2026-10-26", "expires": "2027-01-20", **over}
+
+
 def m8(tmp_path: Path, suite: str, **keys: object) -> list[str]:
     m = mutate()
     m["suites"][suite].update(keys)
-    return [e for e in run(tmp_path, m=m) if e.startswith("M8")]
+    return [e for e in run(tmp_path, m=m, backlog="| 15.333 | WF |") if e.startswith("M8")]
 
 
 def test_m8_a_good_ci_exclude_and_mac_only_pass(tmp_path: Path) -> None:
-    assert m8(tmp_path, "web.unit", ci_exclude={"web/tests/c.test.tsx": "needs the photo cache"}) == []
+    assert m8(tmp_path, "web.unit", ci_exclude={"web/tests/c.test.tsx": ent()}) == []
     assert m8(tmp_path, "web.built", mac_only="wall-clock thresholds") == []
 
 
 def test_m8_ci_exclude_needs_a_reason_a_real_file_and_the_suites_own_test(tmp_path: Path) -> None:
-    assert any("has no reason" in e for e in m8(tmp_path, "web.unit", ci_exclude={"web/tests/c.test.tsx": " "}))
-    assert any("not a file" in e for e in m8(tmp_path, "web.unit", ci_exclude={"web/tests/gone.test.ts": "x"}))
-    assert any("not one of the suite's own tests" in e for e in m8(tmp_path, "web.unit", ci_exclude={"web/tests/b.test.ts": "x"}))
+    assert any("has no reason" in e for e in m8(tmp_path, "web.unit", ci_exclude={"web/tests/c.test.tsx": ent(reason=" ")}))
+    assert any("must be {reason" in e for e in m8(tmp_path, "web.unit", ci_exclude={"web/tests/c.test.tsx": "a bare string is not enough"}))
+    assert any("not a file" in e for e in m8(tmp_path, "web.unit", ci_exclude={"web/tests/gone.test.ts": ent()}))
+    assert any("not one of the suite's own tests" in e for e in m8(tmp_path, "web.unit", ci_exclude={"web/tests/b.test.ts": ent()}))
+
+
+def test_m8_ci_exclude_needs_a_backlog_row_and_an_expiry_like_a_quarantine(tmp_path: Path) -> None:
+    """WF-3 review S1: an exclusion hid a failing file with no expiry and no row."""
+    f = "web/tests/c.test.tsx"
+    assert any("names no BACKLOG row" in e for e in m8(tmp_path, "web.unit", ci_exclude={f: ent(row="15.999")}))
+    assert any("names no BACKLOG row" in e for e in m8(tmp_path, "web.unit", ci_exclude={f: ent(row="")}))
+    assert any("needs ISO dates" in e for e in m8(tmp_path, "web.unit", ci_exclude={f: {"reason": "x", "row": "15.333"}}))
+    assert any("needs ISO dates" in e for e in m8(tmp_path, "web.unit", ci_exclude={f: ent(expires="soon")}))
+    assert any("expired on 2026-10-25" in e for e in m8(tmp_path, "web.unit", ci_exclude={f: ent(expires="2026-10-25")}))
+    assert any("at most 100" in e for e in m8(tmp_path, "web.unit", ci_exclude={f: ent(expires="2027-06-01")}))
 
 
 def test_m8_ci_exclude_cannot_drop_a_whole_suite_or_sit_on_a_non_vitest_suite(tmp_path: Path) -> None:
-    both = {"web/tests/a.test.ts": "x", "web/tests/c.test.tsx": "x"}
+    both = {"web/tests/a.test.ts": ent(), "web/tests/c.test.tsx": ent()}
     assert any("drops every test" in e for e in m8(tmp_path, "web.unit", ci_exclude=both))
-    assert any("only applies to a suite with a vitest project" in e for e in m8(tmp_path, "core.unit", ci_exclude={"core/test/c.test.ts": "x"}))
+    assert any("only applies to a suite with a vitest project" in e for e in m8(tmp_path, "core.unit", ci_exclude={"core/test/c.test.ts": ent()}))
 
 
 def test_m8_mac_only_is_a_reason_not_a_flag(tmp_path: Path) -> None:
@@ -359,8 +375,47 @@ def test_m8_mac_only_is_a_reason_not_a_flag(tmp_path: Path) -> None:
     assert any("mac_only must be the reason" in e for e in m8(tmp_path, "web.built", mac_only=""))
 
 
+def m9(tmp_path: Path, skips: object) -> list[str]:
+    m = mutate()
+    m["ci_skips"] = skips
+    return [e for e in run(tmp_path, m=m, backlog="| 15.333 | WF |") if e.startswith("M9")]
+
+
+def test_m9_an_allowed_ci_skip_is_held_to_the_same_row_and_expiry(tmp_path: Path) -> None:
+    assert m9(tmp_path, {"web/tests/b.test.ts": ent()}) == []
+    assert any("names no BACKLOG row" in e for e in m9(tmp_path, {"web/tests/b.test.ts": ent(row="15.999")}))
+    assert any("expired on" in e for e in m9(tmp_path, {"web/tests/b.test.ts": ent(expires="2026-10-01")}))
+    assert any("not a test file" in e for e in m9(tmp_path, {"web/tests/gone.test.ts": ent()}))
+    assert any("must be a" in e for e in m9(tmp_path, ["web/tests/b.test.ts"]))
+
+
 def test_the_real_map_marks_the_timing_suite_mac_only_and_the_photo_tests_ci_excluded() -> None:
     suites = gm.load_map()["suites"]
     assert suites["web.timing"]["mac_only"].strip()
     assert "web/tests/data/place-size.test.ts" in suites["web.built"]["ci_exclude"]
-    assert all(why.strip() for s in suites.values() for why in s.get("ci_exclude", {}).values())
+    assert all(e["reason"].strip() and e["row"] and e["expires"] for s in suites.values() for e in s.get("ci_exclude", {}).values())
+
+
+def test_s2_only_the_dependent_test_of_a_split_file_is_excluded() -> None:
+    """WF-3 review S2: 23 unrelated tests never ran in CI because one test per file needed the Mac."""
+    ex = gm.load_map()["suites"]["web.unit"]["ci_exclude"]
+    assert "web/tests/api/adapters.test.ts" not in ex and "web/tests/data/legs-files.test.ts" not in ex
+    assert "web/tests/api/adapters-renditions.test.ts" in ex and "web/tests/data/legs-home-radius.test.ts" in ex
+
+
+def test_the_real_map_allows_the_privacy_and_reset_skips_with_a_row_and_an_expiry() -> None:
+    sk = gm.load_map()["ci_skips"]
+    assert {"web/tests/data/public-privacy.test.ts", "core/test/db/localReset.test.ts"} <= set(sk)
+    assert all(e["reason"].strip() and e["row"] and e["expires"] for e in sk.values())
+
+
+# ----- S6 (WF-3b): the ci-jobs rule applies on a hosted runner only ---------------------------------------------------------------------
+def test_the_ci_jobs_rule_selects_the_web_and_db_suites_on_ci_only(monkeypatch) -> None:
+    m = gm.load_map()
+    web = {"web.unit", "web.build", "web.built", "web.serve", "db.local"}
+    monkeypatch.delenv("GATE_RUNNER", raising=False)
+    local = gm.select(m, [".github/workflows/check.yml"], specs=[])
+    assert "ci-jobs" not in local.rules and not web & set(local.suites)
+    monkeypatch.setenv("GATE_RUNNER", "ci")
+    ci = gm.select(m, [".github/workflows/check.yml"], specs=[])
+    assert "ci-jobs" in ci.rules and web <= set(ci.suites)

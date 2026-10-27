@@ -9,7 +9,7 @@ and the gate's code.
 |---|---|
 | `map.json` | the map, as data: suites, rules, the `full` and `quiet` lists, quarantine, review paths |
 | `gatemap.py` | loads the map, matches globs, parses check-all steps, and `select()`s suites for a change set (TS-2 imports it) |
-| `check_map.py` | checks M1 to M8 (TEST-STRATEGY 4.3; M7 is the `uncacheable` list, M8 the `mac_only` and `ci_exclude` entries); a step of `tools/check-all.sh`; about one second |
+| `check_map.py` | checks M1 to M9 (TEST-STRATEGY 4.3; M7 is the `uncacheable` list, M8 the `mac_only` and `ci_exclude` entries, M9 the `ci_skips`); a step of `tools/check-all.sh`; about one second |
 | `gate.py` | the gate: plan, run, summary (`tools/gate.sh` is its wrapper) |
 | `cache.py` | the result cache (TS-3): key, store under `<git-common-dir>/gate-cache/`, expiry, stats |
 | `locks.py` | mkdir slots under the git common dir, so worktrees of one clone never run two builds or two Playwright runs at once |
@@ -124,10 +124,21 @@ tools/gate.sh --cache-stats                 # entries, size, age, hits so far, s
 - **`uncacheable`**: suites the cache never serves or stores (see Cache); M7 checks each exists.
 - **`mac_only`** (on a suite, WF-3): the reason CI cannot answer for it (`web.timing`: shared runners are noisy). In CI mode the suite
   is `MAC_ONLY`, never run, and listed as pending on the Mac.
-- **`ci_exclude`** (on a vitest suite, WF-3): `{ "<test file>": "<reason>" }`. In CI mode `web/vitest.config.ts` leaves each
-  file out of the project (a CLI `--exclude` does not reach a project's own config) and the CI summary lists it as pending on the Mac (`ci_excluded` output of `tools/ci/plan_to_outputs.py`). Used for the checks that need
-  the photo cache (CI does not seed it, Q-W5) or the real home point. Off CI nothing is excluded. M8 checks the reasons, that each file
-  is one of the suite's own tests, and that a suite never excludes all of its tests (that is `mac_only`).
+- **`ci_exclude`** (on a vitest suite, WF-3, WF-3b): `{ "<test file>": { "reason", "row", "added", "expires" } }`. In CI mode
+  `web/vitest.config.ts` leaves each file out of the project (a CLI `--exclude` does not reach a project's own config) and the CI
+  summary lists it as pending on the Mac (`ci_excluded` output of `tools/ci/plan_to_outputs.py`). Used for checks that need the photo
+  cache (CI does not seed it, Q-W5) or the real home point; exclude a whole file only when the whole file depends on it (split the
+  one dependent test into its own file otherwise). Off CI nothing is excluded. M8 checks that each entry has a reason, a BACKLOG
+  `row` that exists and a date it `expires` (at most 100 days after `added`, so an exclusion is a debt like a quarantine), that
+  the file is one of the suite's own tests, and that a suite never excludes all of its tests (that is `mac_only`).
+- **`ci_skips`** (top level, WF-3b): the test files that may skip inside a CI job, same entry shape and M9 checks. The web and db jobs
+  run `tools/ci/vitest_ran.py --no-skips --map tools/gate/map.json` on the gate logs: a skipped or todo test file that is not here fails
+  the job, and the ones that are here are listed in the summary as "owed on the Mac". Today: `public-privacy.test.ts` (no
+  `.private-terms` in CI, so the PUBLIC-SCRUB checks are not proven there) and `localReset.test.ts` (opt-in; it drives `docker compose`
+  on the port the CI database uses).
+- **`runner: "ci"`** (on a rule, WF-3b): the rule applies only when `GATE_RUNNER=ci`. `ci-jobs` uses it: a workflow edit selects the
+  web build and db suites on a hosted runner, and on the Mac its selection is what it was before WF-3 (`check_map.py --explain
+  .github/workflows/check.yml` shows `ci-workflows` only).
 - **`quiet`**: paths that may match no rule (docs, Markdown, research prose, `.claude/`). A quiet path that also matches a
   rule still selects that rule's suites: `research/runs/**` runs the data checks, because `validate` checks every
   `research_refs` path and `normalise` reads the prose links.

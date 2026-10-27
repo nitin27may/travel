@@ -164,3 +164,48 @@ def test_summary_is_red_when_a_planned_job_failed_was_skipped_or_cancelled(tmp_p
 def test_summary_is_red_when_an_unplanned_job_failed_anyway(tmp_path):
     code, out = summarise(tmp_path, WEB="failure", GROUPS_PLANNED="links", LINKS="success")
     assert code == 1
+
+
+# ----- WF-3b: pull retry with a backoff (S8), the summary lists allowed skips, plan output ---------------------------------------------
+FAKE_PULL = FAKE.replace('case "$1" in', '''case "$1" in
+  pull) n=$(cat "$FAKE_PULLS" 2>/dev/null || echo 0); echo $((n+1)) > "$FAKE_PULLS"; [ "$n" -lt "${FAKE_PULL_FAILS:-0}" ] && exit 1 ;;''', 1)
+
+
+def run_pull(tmp_path: Path, fails: int) -> subprocess.CompletedProcess:
+    bindir = tmp_path / "bin"
+    bindir.mkdir(exist_ok=True)
+    (bindir / "docker").write_text(FAKE_PULL)
+    (bindir / "docker").chmod(0o755)
+    env = {"PATH": f"{bindir}:{os.environ['PATH']}", "FAKE_LOG": str(tmp_path / "docker.log"), "FAKE_DOCKERFILE": str(tmp_path / "Dockerfile.seen"),
+           "FAKE_PULLS": str(tmp_path / "pulls"), "FAKE_PULL_FAILS": str(fails), "CI_DB_PULL_BACKOFF": "0", "PG_BASE_IMAGE": BASE,
+           "CI_DB_SUPERUSER_PASSWORD": "ci-a", "CI_DB_OWNER_PASSWORD": "ci-b"}
+    return subprocess.run(["bash", str(SCRIPT)], capture_output=True, text=True, env=env, timeout=60)
+
+
+def test_a_rate_limited_pull_is_retried_and_the_job_goes_on(tmp_path):
+    r = run_pull(tmp_path, fails=2)
+    assert r.returncode == 0, r.stdout
+    assert (tmp_path / "pulls").read_text().strip() == "3" and r.stdout.count("pulling the base image failed") == 2
+
+
+def test_a_pull_that_never_works_fails_after_four_attempts_before_any_build(tmp_path):
+    r = run_pull(tmp_path, fails=99)
+    assert r.returncode == 1 and "could not pull the pinned base image in 4 attempts" in r.stdout
+    assert (tmp_path / "pulls").read_text().strip() == "4"
+    assert "build" not in (tmp_path / "docker.log").read_text()
+
+
+def test_summary_lists_the_allowed_skips_as_owed_on_the_mac(tmp_path):
+    code, out = summarise(tmp_path, WEB="success", GROUPS_PLANNED="web", CI_SKIPS="web/tests/data/public-privacy.test.ts")
+    assert code == 0 and "Owed on the Mac, tests that skip in CI" in out and "public-privacy.test.ts" in out
+    assert "Overall: green for everything CI runs; the Mac-only checks above are still owed" in out
+    code, out = summarise(tmp_path, WEB="success", GROUPS_PLANNED="web")
+    assert "Overall: green" in out and "still owed" not in out
+
+
+def test_the_web_and_db_jobs_fail_on_an_unexpected_skip_and_pass_the_separator():
+    for name in ("web", "db-local"):
+        assert "vitest_ran.py --no-skips --map tools/gate/map.json" in job(name), name
+    db = job("db-local")
+    assert re.search(r"gate-logs/\*\.log -- \\\n\s+test/db/integration", db), "the files after the log glob need `--` (S7)"
+    assert "LOCAL_DB_RESET_TEST" not in re.sub(r"#[^\n]*", "", db)  # it drives docker compose on the same port; allow-listed instead

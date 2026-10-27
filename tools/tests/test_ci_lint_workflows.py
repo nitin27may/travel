@@ -266,4 +266,78 @@ def test_setup_action_cache_input_is_refused(action):
     assert "cache" in rules(with_step(step))
     block = f"      - uses: actions/{action}@{SHA}\n        with:\n          cache: pnpm\n"
     assert "cache" in rules(with_step(block))
-    assert rules(with_step(f"      - uses: actions/{action}@{SHA}\n        with: {{ node-version: 22 }}\n")) == []
+    ok = "package-manager-cache: false" if action == "setup-node" else "python-version: 3"
+    assert rules(with_step(f"      - uses: actions/{action}@{SHA}\n        with: {{ node-version: 22, {ok} }}\n")) == []
+
+
+# ----- WF-3b: the 8 probes the WF-3 review found missed (S4) and package-manager-cache (S5) ----------------------------------------
+SAVE = f"      - uses: actions/cache/save@{CACHE_SHA}\n"
+WITH = "        with: { path: x, key: k }\n"
+
+
+@pytest.mark.parametrize("cond", [
+    "github.ref != 'refs/heads/main'",
+    "startsWith(github.ref, 'refs/heads/main')",
+    "always() || github.ref == 'refs/heads/main'",
+    "github.ref == 'refs/heads/main' || success()",
+    "!(github.ref == 'refs/heads/main')",
+    "contains(github.ref, 'refs/heads/main')",
+])
+def test_probe13_cache_save_if_must_be_the_exact_main_comparison(cond):
+    assert "cache" in rules(with_step(SAVE + f"        if: {cond}\n" + WITH))
+
+
+def test_probe13_the_good_save_forms_still_pass():
+    for cond in ("github.ref == 'refs/heads/main'", "github.ref == 'refs/heads/main' && success()", "success() && github.ref == 'refs/heads/main'"):
+        assert rules(with_step(SAVE + f"        if: {cond}\n" + WITH)) == []
+
+
+def test_probe14_an_image_given_as_an_expression_is_refused_unless_it_is_a_bare_env_value():
+    assert "image" in rules(job_with("    env:\n      PG_BASE_IMAGE: ${{ format('postgres:{0}', '18') }}\n"))
+    assert "image" in rules(job_with("    services:\n      db:\n        image: ${{ inputs.image }}\n"))
+    assert rules(job_with("    services:\n      db:\n        image: ${{ env.base_image }}\n")) == []
+
+
+@pytest.mark.parametrize("value", ["postgres:18", "postgres", "ghcr.io/someone/pg:18", "node:22-bookworm", "docker.io/library/postgres:18"])
+def test_probe15_an_image_in_a_variable_with_any_name_must_be_pinned(value):
+    assert "image" in rules(job_with(f"    env:\n      DB_BASE: {value}\n"))
+    assert rules(job_with(f"    env:\n      DB_BASE: {value}@{DIGEST}\n")) == []
+
+
+def test_probe15_ordinary_values_are_not_taken_for_images():
+    extra = "    env:\n      A: ubuntu-24.04\n      B: postgres://u:p@127.0.0.1:1/db\n      C: node-version\n      D: '22.23'\n      E: next-Linux-abc\n"
+    assert rules(job_with(extra)) == []
+
+
+def test_probe16_container_short_form_must_be_pinned():
+    assert "image" in rules(job_with("    container: node:22\n"))
+    assert "image" in rules(job_with("    container: ${{ inputs.c }}\n"))
+    assert rules(job_with(f"    container: node:22@{DIGEST}\n")) == []
+    assert "image" in rules(job_with("    container:\n      image: node:22\n"))  # the long form is the existing rule
+    assert rules(job_with(f"    container:\n      image: node:22@{DIGEST}\n")) == []
+
+
+@pytest.mark.parametrize("ports", ["['5432']", "[5432]", "\n          - 5432", "\n          - '5432'", "['127.0.0.1:5432']", "['127.0.0.1:54329:5432', 5432]"])
+def test_probe17_a_port_without_a_host_part_is_refused(ports):
+    assert "ports" in rules(job_with(f"    services:\n      db:\n        ports: {ports}\n"))
+
+
+def test_probe17_a_loopback_port_in_block_form_passes():
+    assert rules(job_with("    services:\n      db:\n        ports:\n          - 127.0.0.1:54329:5432\n")) == []
+
+
+@pytest.mark.parametrize("opt", ["-p 5432:5432", "--publish 5432:5432", "--publish=5432:5432", "-p5432:5432", "-P", "--health-cmd x -p 1:1"])
+def test_probe18_options_must_not_publish_a_port(opt):
+    assert "ports" in rules(job_with(f"    services:\n      db:\n        image: x@{DIGEST}\n        options: {opt}\n"))
+    assert "ports" in rules(job_with(f"    container:\n      image: x@{DIGEST}\n      options: {opt}\n"))
+
+
+def test_probe18_other_options_are_fine():
+    assert rules(job_with(f"    services:\n      db:\n        image: x@{DIGEST}\n        options: --health-cmd pg_isready --health-retries 5\n")) == []
+
+
+def test_s5_setup_node_must_turn_the_package_manager_cache_off():
+    assert "cache" in rules(with_step(f"      - uses: actions/setup-node@{SHA}\n        with: {{ node-version: 22 }}\n"))
+    assert "cache" in rules(with_step(f"      - uses: actions/setup-node@{SHA}\n        with: {{ node-version: 22, package-manager-cache: true }}\n"))
+    assert rules(with_step(f"      - uses: actions/setup-node@{SHA}\n        with:\n          node-version: 22\n          package-manager-cache: false\n")) == []
+

@@ -634,6 +634,7 @@ def to_json(plan: Plan, results: list[Result], *, base: str, head: str, log_path
             row["ci_exclude"] = sorted(ci_excluded(meta(m, row["suite"])))
             if row["suite"] == "e2e.mapped":
                 row["files"] = files.get("e2e.mapped", [])
+        doc["ci_skips"] = sorted(m.get("ci_skips") or {})  # test files allowed to skip in CI (vitest_ran.py --no-skips); owed on the Mac
     return doc
 
 
@@ -642,8 +643,8 @@ def mac_only(s: dict, sid: str) -> bool:
     return bool(s.get("mac_only"))
 
 
-def ci_excluded(s: dict) -> dict[str, str]:
-    """Test files of a vitest suite that CI does not run, with the reason: the map's `ci_exclude` ({repo path: reason}). Empty off CI."""
+def ci_excluded(s: dict) -> dict[str, dict]:
+    """Test files of a vitest suite that CI does not run: the map's `ci_exclude` ({repo path: {reason, row, added, expires}}). Empty off CI."""
     return dict(s.get("ci_exclude") or {}) if is_ci() else {}
 
 

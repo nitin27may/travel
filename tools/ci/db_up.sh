@@ -27,6 +27,17 @@ sed -i.bak "s|^FROM postgres:18-trixie\$|FROM $base|" "$ctx/Dockerfile"
 rm -f "$ctx/Dockerfile.bak"
 grep -qx "FROM $base" "$ctx/Dockerfile" || { echo "db_up: could not pin the base image"; exit 1; }
 
+# Docker Hub's anonymous pull limit is shared by every job on a runner IP (WF-3 review S8): pull the base first, with a backoff, so one
+# refusal does not fail the job. If pulls keep failing, point the digest at mirror.gcr.io/library/postgres (same index digest).
+# CI_DB_PULL_BACKOFF is the base delay in seconds; the wait before retry n is base * n * n (10, 40, 90).
+pulled=0
+for attempt in 1 2 3 4; do
+  if docker pull --quiet "$base" >/dev/null 2>&1; then pulled=1; break; fi
+  echo "db_up: pulling the base image failed (attempt $attempt of 4; Docker Hub rate limits are per runner IP)"
+  [[ "$attempt" -lt 4 ]] && sleep "$(( ${CI_DB_PULL_BACKOFF:-10} * attempt * attempt ))"
+done
+[[ "$pulled" == 1 ]] || { echo "db_up: could not pull the pinned base image in 4 attempts"; exit 1; }
+
 docker build --quiet --tag travel-pg18:ci "$ctx" >/dev/null
 docker rm -f "$name" >/dev/null 2>&1 || true
 docker run --detach --name "$name" \
