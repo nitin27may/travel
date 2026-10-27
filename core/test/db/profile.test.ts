@@ -2,7 +2,10 @@
 // a document that does not validate never reaches the database, and the answers map as spec 6.6 says. The real RLS and trigger
 // behaviour is core/test/db/account-profile.test.ts.
 import { describe, expect, it } from "vitest";
+import { TRAVELLERS_CONSENT_VERSION, TRAVELLERS_CONSENT_VERSIONS } from "../../src/config/account.ts";
+import { loadMigrations } from "../../src/db/loader.ts";
 import {
+  CONSENT_REQUIRED_SQLSTATE,
   deleteProfile,
   EMPTY_PROFILE,
   finishSetup,
@@ -50,7 +53,7 @@ describe("loadProfile", () => {
   });
 
   it("parses the stored document and maps the row", async () => {
-    const f = fake([[{ travellers: DOC, travellers_saved_at: NOW, travellers_consented_at: NOW, setup_done_at: null, revision: "3" }]]);
+    const f = fake([[{ travellers: DOC, travellers_saved_at: NOW, travellers_consented_at: NOW, travellers_consent_version: "ap15-2026-10-27", setup_done_at: null, revision: "3" }]]);
     const p = await loadProfile("user-a", { tx: f.tx, now: NOW });
     expect(p).toEqual({
       exists: true,
@@ -58,6 +61,7 @@ describe("loadProfile", () => {
       travellersInvalid: false,
       travellersSavedAt: NOW.toISOString(),
       travellersConsentedAt: NOW.toISOString(),
+      travellersConsentVersion: "ap15-2026-10-27",
       setupDoneAt: null,
       revision: 3,
     });
@@ -92,21 +96,44 @@ describe("saveTravellers", () => {
     expect(f.users).toEqual(["user-a"]);
     expect(f.calls[0].sql).toMatch(/insert into public\.account_profile/);
     expect(f.calls[0].sql).toMatch(/where p\.revision = 0/);
-    expect(f.calls[0].params).toEqual(["user-a", JSON.stringify(DOC), true]);
+    // no consent asked for: the version is null, and the trigger refuses it if this save would create travellers
+    expect(f.calls[0].params).toEqual(["user-a", JSON.stringify(DOC), true, null]);
   });
 
   it("a later revision updates that revision only; no row back is a conflict", async () => {
     const f = fake([[]]);
     expect(await saveTravellers("user-a", DOC, 4, { tx: f.tx, now: NOW })).toEqual({ kind: "conflict" });
     expect(f.calls[0].sql).toMatch(/^update public\.account_profile/);
-    expect(f.calls[0].sql).toMatch(/where user_id = \$1 and revision = \$4/);
-    expect(f.calls[0].params).toEqual(["user-a", JSON.stringify(DOC), false, 4]);
+    expect(f.calls[0].sql).toMatch(/where user_id = \$1 and revision = \$5/);
+    expect(f.calls[0].params).toEqual(["user-a", JSON.stringify(DOC), false, null, 4]);
   });
 
   it("stores exactly the parsed document (strict: nothing else rides along)", async () => {
     const f = fake([[{ revision: 2 }]]);
     await saveTravellers("user-a", DOC, 1, { tx: f.tx, now: NOW });
     expect(JSON.parse(f.calls[0].params[1] as string)).toEqual(DOC);
+  });
+
+  it("S3: consent sends the server's wording, never a client value; the trigger's refusal is a rejection, not a throw", async () => {
+    const f = fake([[{ revision: 1 }]]);
+    await saveTravellers("user-a", DOC, 0, { tx: f.tx, now: NOW, consent: true });
+    expect(f.calls[0].params[3]).toBe(TRAVELLERS_CONSENT_VERSION);
+    const refusing: UserTx = async () => {
+      throw Object.assign(new Error("CONSENT_REQUIRED"), { code: CONSENT_REQUIRED_SQLSTATE });
+    };
+    expect(await saveTravellers("user-a", DOC, 0, { tx: refusing, now: NOW })).toEqual({ kind: "rejected", issues: ["$: consent_required"] });
+    const down: UserTx = async () => {
+      throw Object.assign(new Error("x"), { code: "57P01" });
+    };
+    await expect(saveTravellers("user-a", DOC, 0, { tx: down, now: NOW, consent: true })).rejects.toMatchObject({ code: "57P01" });
+  });
+
+  it("S3: 0012's CHECK allows exactly the wordings of TRAVELLERS_CONSENT_VERSIONS", () => {
+    const sql = loadMigrations().find((m) => m.name === "account_profile")!.sql;
+    const m = /travellers_consent_version text check \(travellers_consent_version in \(([^)]*)\)\)/.exec(sql);
+    expect(m).not.toBeNull();
+    expect(m![1]!.split(",").map((x) => x.trim().replace(/^'|'$/g, ""))).toEqual([...TRAVELLERS_CONSENT_VERSIONS]);
+    expect(TRAVELLERS_CONSENT_VERSIONS).toContain(TRAVELLERS_CONSENT_VERSION);
   });
 
   it.each([-1, 1.5, Number.NaN])("answers conflict for a nonsense revision %s without a query", async (rev) => {

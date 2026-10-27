@@ -6,7 +6,9 @@
 //   3. drops to the non-owner, NOBYPASSRLS application role for the transaction
 //      (`set local role "travel_app"`), so row-level security actually applies,
 //   4. sets the transaction-local identity `app.user_id` from the *server-verified* session id
-//      (never a request body) with `set_config('app.user_id', <uid>, true)`,
+//      (never a request body) with `set_config('app.user_id', <uid>, true)`, and, in the same statement, transaction-local
+//      statement, lock and idle-in-transaction timeouts (USER_TX_TIMEOUTS; review-em-s S4), so a stuck request cannot hold a
+//      row lock or the per-user cap lock, or a pooled connection, until the platform kills the function,
 //   5. runs the caller's function,
 //   6. COMMITs and returns the result together with the transaction id (`txid_current()`),
 //      or ROLLBACKs on error.
@@ -26,6 +28,18 @@ export const APP_ROLE = "travel_app";
 
 /** GUC that carries the transaction-local, server-verified user id. */
 export const USER_ID_SETTING = "app.user_id";
+
+/**
+ * Every user transaction's limits (review-em-s S4), set transaction-local so a pooled connection keeps nothing. A statement that runs
+ * longer fails with SQLSTATE 57014, a lock wait (a row `for update`, the cap's advisory lock) with 55P03, and a transaction left idle
+ * is ended by the server (25P03); the routes answer each with 503, as any database failure. Generous for these small, indexed,
+ * per-user queries; a Neon cold start is paid at connect, before the first statement.
+ */
+export const USER_TX_TIMEOUTS = {
+  statement: "5s",
+  lock: "3s",
+  idleInTransaction: "10s",
+} as const;
 
 export interface TxContext {
   /** Run a query inside the user transaction. */
@@ -63,7 +77,11 @@ export async function withUserTransaction<T>(
     await client.query("begin");
     // Drop privilege for this transaction so RLS applies, then bind the verified identity.
     await client.query(`set local role ${quoteIdent(APP_ROLE)}`);
-    await client.query(`select set_config($1, $2, true)`, [USER_ID_SETTING, userId]);
+    await client.query(
+      `select set_config($1, $2, true), set_config('statement_timeout', $3, true), set_config('lock_timeout', $4, true),
+              set_config('idle_in_transaction_session_timeout', $5, true)`,
+      [USER_ID_SETTING, userId, USER_TX_TIMEOUTS.statement, USER_TX_TIMEOUTS.lock, USER_TX_TIMEOUTS.idleInTransaction],
+    );
     const ctx: TxContext = { query: (sql, params) => client.query(sql, params) };
     const result = await fn(ctx);
     const { rows } = await client.query<{ txid: string }>(`select txid_current()::text as txid`);
@@ -85,14 +103,30 @@ export async function withUserTransaction<T>(
  * Build the RLS-scoped READ query for a user's planner drafts. Used by the SSR load and the
  * authenticated re-fetch, both inside `withUserTransaction` (travel_app role + app.user_id), so RLS
  * authorizes the read. The user id is bound as a parameter.
+ *
+ * Only the TITLE-ONLY live rows (`doc is null and deleted_at is null`; LEGACY_DRAFT_ROW), the ones the
+ * old `/account/` box made (review-em-s B1). A synced copy or plan (0013's `doc`) and a tombstone belong
+ * to Mine and the account plan routes: the `/account/` Rename and Delete know nothing of their revision
+ * or their tombstone, so they never see them.
  */
 export function draftsReadQuery(): { sql: string; params: (userId: string) => unknown[] } {
   return {
     sql:
       `select id, user_id, title, created_at, updated_at ` +
-      `from public.planner_draft where user_id = $1 order by updated_at desc`,
+      `from public.planner_draft d where user_id = $1 and ${legacyDraftRow("d")} order by updated_at desc`,
     params: (userId: string) => [userId],
   };
+}
+
+/**
+ * The rows the `/account/` Saved trips list and its Rename and Delete act on (review-em-s B1): a title with no document that is not a
+ * tombstone (`doc is null and deleted_at is null`). Every one of those statements adds it, so none can reach a synced plan or a
+ * tombstone. Written through the row as JSON so the same SQL runs before migration 0013 adds the two columns (a missing key reads as
+ * null: every row is a legacy row) and after it: the web build can ship ahead of the apply. `alias` names the table in the statement.
+ */
+export function legacyDraftRow(alias: string): string {
+  if (!/^[a-z_][a-z0-9_]*$/.test(alias)) throw new Error(`unsafe alias: ${alias}`);
+  return `(to_jsonb(${alias}) ->> 'doc') is null and (to_jsonb(${alias}) ->> 'deleted_at') is null`;
 }
 
 /**

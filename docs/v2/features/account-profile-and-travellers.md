@@ -444,7 +444,11 @@ travellers even on a browser with another party", that is a `plan-draft/2` quest
 ### 6.2 What Saved trips shows
 
 `planner_draft` rows, newest first, at most 5, with the existing row (title, "Saved Tue 27 Oct · 1 min ago"), menu
-Rename and Delete with Undo. A sixth row or more shows "{n} more" which expands the list in place (no pagination at this
+Rename and Delete with Undo. **Only the title-only rows** (`doc is null and deleted_at is null`; amended 27 Oct 2026,
+EM-F, review-em-s B1): a synced copy or plan and a tombstone are Mine's, renamed and removed there through the
+revision-checked routes and their tombstone, so the read and the Rename and Delete actions never reach them. An Undo
+that meets the account's cap of 50 says "Your account already holds 50 trips, the most it can. Remove one in Mine,
+then try again." instead of "Couldn't restore the trip." A sixth row or more shows "{n} more" which expands the list in place (no pagination at this
 size; P1 caps: NAV-D's 50). After NAV-3, the section shows the 5 newest and "See all in Mine", and editing moves there.
 
 Rows refresh after each own write (the server action returns; the page re-reads through `/api/account/drafts/`) and on
@@ -469,8 +473,11 @@ Delete; there is nothing to open. No migration deletes user rows. The owner dele
 
 `GET /api/account/export/` (session required, `private, no-store`, `Content-Disposition: attachment;
 filename="travel-account.json"`): `{ exportedAt, email, name, travellers (travellers/1 or null, with every age, its
-`age_as_of` and any `dob`, as stored), travellersSavedAt, travellersConsentedAt, setupDoneAt, drafts: [{ id, title,
-createdAt, updatedAt }] }`. GSI-WAYS adds its ways-to-sign-in list when it ships (google spec 6.4). This is the first piece
+`age_as_of` and any `dob`, as stored), travellersSavedAt, travellersConsentedAt, travellersConsentVersion, setupDoneAt,
+drafts: [{ id, title, createdAt, updatedAt }] }`. **Gap for ACCT-P3 (EM-F, review-em-s S6):** once 0013 is live,
+`drafts` must also carry each live row's `kind`, `source_trip`, `start`, `days`, `revision` and its whole `doc` (the
+person's own data, GDPR access), through the same private responder; a tombstone exports its id, title and
+`deletedAt` only. GSI-WAYS adds its ways-to-sign-in list when it ships (google spec 6.4). This is the first piece
 of F17 15; the full zip stays F17's. The body is the person's own data and carries keys the privacy detector refuses in
 public output (`travellers`, `dob`, `age_as_of`): the route answers through a private responder, never the public
 `respond()`, which would fail closed (amended 27 Oct 2026).
@@ -540,7 +547,8 @@ another migration lands first). The file is the source of truth; in short:
 | `user_id` | text, primary key, 1 to 255 characters | the caller, from the verified session only |
 | `travellers` | jsonb, `travellers/1` or null | `saveTravellers`, `removeTravellers` |
 | `travellers_saved_at` | timestamptz | the trigger, when `travellers` changes |
-| `travellers_consented_at` | timestamptz | the trigger, on the first document ever saved; kept after a removal |
+| `travellers_consented_at` | timestamptz | the trigger, on a save that creates travellers (the first ever, or the first after a removal) and names its consent wording; kept by later saves and by a removal |
+| `travellers_consent_version` | text, CHECK in an allow-list (`ap15-2026-10-27`) | the save action, from the server constant `TRAVELLERS_CONSENT_VERSION` (`core/src/config/account.ts`), only with `saveTravellers(..., { consent: true })`; the trigger keeps it on every other write (EM-F, review-em-s S3) |
 | `setup_done_at` | timestamptz | `finishSetup` or a save with `finishSetup`; the trigger never lets an update clear it |
 | `revision` | integer, default 0 | the trigger: 0 or 1 on insert (no travellers or travellers), +1 on each change of `travellers` (6.6) |
 | `created_at`, `updated_at` | timestamptz | the trigger |
@@ -552,7 +560,11 @@ another migration lands first). The file is the source of truth; in short:
   as one CASE so a cast never meets the wrong type, and with jsonpath for the entries. Date logic that needs "today"
   (no future `dob`, `dob` agrees with `age`) is Zod's alone.
 - **Trigger `account_profile_touch_t`** (before insert or update) owns the bookkeeping in the table above, so no caller
-  can forge a revision or a consent time.
+  can forge a revision or a consent time. A save that would create travellers without a consent wording raises SQLSTATE
+  `TC001` (answered `rejected` with `$: consent_required`), so the seed and "Looks right" paths can never make a consent
+  where none exists: Save travellers and the Undo of a removal (both beside the AP-15 line) pass `consent: true`;
+  "Looks right" and an edit of stored travellers need not. The CHECK's entry filters test each leaf's `.type()` first,
+  because lax jsonpath unwraps an array for `like_regex` (`"dob": ["2010-01-01", "x"]` matched before; review N4).
 - **RLS**: four owner policies (`select`, `insert`, `update`, `delete`, each `user_id = app_current_user_id()`, update
   with the same WITH CHECK). `revoke all from public`; `grant select, insert, update, delete to travel_app`. No Realtime
   signal, no SECURITY DEFINER function, no foreign key into `neon_auth` (Neon owns that schema). Classified as never
@@ -577,8 +589,17 @@ runs). `account_profile` is in the inventory's "every application table has RLS"
 ### 9.3 Delete and retention
 
 Kept until the person removes it or the account is deleted. The owner's manual account-removal steps (privacy page,
-until F17 16) gain `delete from account_profile where user_id = $1`. Encrypted nightly backups (R-145) hold a removed
-row until they age out; the privacy page says so in one clause.
+until F17 16) gain, as the owner, after the person's sessions are revoked:
+
+1. `delete from account_profile where user_id = $1`
+2. `delete from planner_draft where user_id = $1` (amended 27 Oct 2026, EM-F, review-em-s S6: every copy and plan, its
+   document with children's ages, start dates and notes, the title-only drafts and the tombstones;
+   `deletePlans(userId)` in `core/src/db/plans.ts` is the same statement for F17)
+3. **Run steps 1 and 2 again five minutes later.** `getSession()` serves the SDK's session-data cookie for up to 299 s
+   (section 4), so a revoked session can still write for about five minutes; the second run removes anything written in
+   that window.
+
+Encrypted nightly backups (R-145) hold a removed row until they age out; the privacy page says so in one clause.
 
 ### 9.4 Later: F01 households
 
@@ -692,3 +713,4 @@ Removed data leaves our backups when they expire."
 |---|---|
 | 2026-10-27 | Written (ACCT-P), with the owner's screenshots of `/account/` and `/mine/` and the TRIP-EDIT-I cross-reference |
 | 2026-10-27 | Amended (owner, Q-AP1): ages with `age_as_of` and an optional `dob` replace birth month and year; adults' ages optional. Sections 0, AD1, AD2, U2, 2.2, 2.3, 2.4, 2.6, 2.7, 5.1, 5.2, 5.3, 6.5, 6.6, 7, 9, 10, 11, 12, 13 updated. ACCT-PC built the contracts: migration `0012_account_profile.sql`, `core/src/schema/travellers.ts`, `core/src/db/profile.ts`, `core/src/config/account.ts`, the `src` field in `web/lib/storage/partyKey.ts`, the detector keys |
+| 2026-10-27 | EM-F (Opus, branch `public/EM-F`), the security review's fixes before 0012 is applied ([review-em-s-2026-10-27.md](../design/shell/review-em-s-2026-10-27.md)): `travellers_consent_version` and the re-stamp after a removal (9.1, S3); the jsonpath type guards (N4); Saved trips lists and acts on title-only rows (6.2, B1); the removal runbook deletes `planner_draft` rows and runs twice (9.3, S6); the export gap for ACCT-P3 (6.5). **Contract change for ACCT-P2:** `saveTravellers` needs `{ consent: true }` on a save that creates travellers |

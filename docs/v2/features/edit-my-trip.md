@@ -172,11 +172,16 @@ Migration slug `plan_doc` (number at merge; it absorbs NAV-D's `draft-cap` and t
 | `start` | date null | for Upcoming, Past and No date without reading `doc` |
 | `days` | int null | for line 3 of the row |
 | `revision` | bigint not null default 0 | optimistic concurrency; bumped by the update trigger |
-| `deleted_at` | timestamptz null | tombstone for 30 days, so a device that was offline learns of a removal (4.5) |
+| `deleted_at` | timestamptz null | tombstone for 30 days, so a device that was offline learns of a removal (4.5); set to the time of the removal by the trigger, never by a caller |
 
 - The existing owner-predicate RLS (`0009`) covers the new columns; tests extend the cross-user suite to them.
 - A cap trigger: at most 50 live rows per user (Q204), raced on the child branch (NAV-D's test, kept).
-- `id` stays client-made (UUID v4): the merge and every offline create are idempotent on it.
+- `id` stays client-made (UUID v4): the merge and every offline create are idempotent on it. **The key is `(user_id, id)`**
+  (amended 27 Oct 2026, EM-F, review-em-s S1): ids are per account, so no answer depends on whether another account holds
+  an id (no existence signal), and nobody can take a device copy's id before its owner signs in.
+- A tombstone holds no household data: a CHECK refuses `doc`, `kind`, `source_trip`, `start` or `days` on a row with
+  `deleted_at` set, and another makes `start` equal the document's start (S2). The trigger keeps `id` and `user_id`.
+- At most 150 tombstones per account: a removal drops the oldest beyond that in the same transaction (B2).
 - The content-free signal (`0010`) keeps firing on any change; it carries no content and EM7 does not depend on it.
 
 ## 4. Sync
@@ -185,15 +190,17 @@ Migration slug `plan_doc` (number at merge; it absorbs NAV-D's `draft-cap` and t
 
 | Method and path | Body | Answer | Notes |
 |---|---|---|---|
-| `GET /api/account/plans` | none | light rows: `id, title, kind, source_trip, start, days, revision, updated_at, deleted` (tombstones of the last 30 days) | never the doc (P8); at most 50 live rows |
-| `GET /api/account/plans/{id}` | none | `{ revision, doc }` | 404 for another user's id (no existence leak) |
-| `PUT /api/account/plans/{id}` | `{ base: revision or null, doc, title }` | `{ revision }`, or `409 { revision, doc }` | `base: null` creates (insert on conflict do nothing); a stale `base` returns the current row |
-| `DELETE /api/account/plans/{id}` | `{ base }` | `{ revision }` or 409 | sets `deleted_at`; a purge job drops rows after 30 days |
+| `GET /api/account/plans` | none | light rows: `id, title, kind, source_trip, start, days, revision, updated_at, deleted` (tombstones of the last 30 days) | never the doc (P8); every live row first (at most 50), then the newest tombstones (at most 150), read apart so a tombstone never pushes a live row out (B2) |
+| `GET /api/account/plans/{id}` | none | `{ revision, doc }` | 404 for an id the caller does not hold (ids are per account) |
+| `PUT /api/account/plans/{id}` | `{ base: revision or null, doc, title }` | `{ revision }`, or `409 { revision, doc }` | `base: null` creates (insert on conflict do nothing); a stale `base` returns the current row. A create answers 201 whatever other accounts hold |
+| `DELETE /api/account/plans/{id}` | `{ base }` | `{ revision }` or 409 | sets `deleted_at`; the daily purge job drops rows after 30 days |
 | `POST /api/account/plans/merge` | the device's `copies/1` items (at most 20) | `{ inserted, already, both }` | replaces nav's `/api/account/copies/merge`; `planMerge` with rule M3 below |
 
 Every write re-reads the trip title from the catalogue by `source_trip` and refuses a slug that is not a public, listed
 trip (as NAV-3 planned). Bodies capped at 16 KB (one doc) and 84 KB (the merge). Rate limit: a new bucket `plans:write` in the existing
-`quota_take` function (`0011_quota`, HMAC-keyed user id), 120 writes a minute a user.
+`quota_take` function (`0011_quota`, HMAC-keyed user id): 120 writes a minute, 600 an hour and 3,000 a day a user (the hour and
+day windows added 27 Oct 2026, review-em-s B2). A PUT or DELETE costs one; a merge costs one per copy it carries (S5). `ACCOUNT_TRIPS_WRITES=0` (server-only, read per
+request) turns every write off with a 503 while reads stay up, without the rebuild the `NEXT_PUBLIC_` flag needs (N9).
 
 ### 4.2 Sign-in: the merge (automatic, idempotent)
 
@@ -201,7 +208,7 @@ Runs on `/mine/` and `/account/` (nav rule 1), whenever the device holds copies 
 
 | # | Rule |
 |---|---|
-| M1 | Idempotent on the copy id: `insert ... on conflict (id) do nothing returning id`. A crash between the write and emptying the device is safe |
+| M1 | Idempotent on the copy id: an id the account already holds (live or removed) is `already` without an insert, else `insert ... on conflict (user_id, id) do nothing returning id`. A crash between the write and emptying the device is safe. `refused` means a CHECK refused the row or the trip is not public; never "another account holds the id" (ids are per account) |
 | M2 | The device list is emptied only of ids the server confirmed (`markMerged`, unchanged) |
 | M3 | **Same trip and same start as an account row:** identical content is skipped; **different content keeps both**, the device one titled "Canadian Rockies (from this device)". **Supersedes nav 4.2 rule 3** ("the account wins"), which would silently drop edits now that copies are editable |
 | M4 | Over the 50 cap: the newest copies go first; the rest stay on the device with the chip "On this device" and the card line "3 trips did not fit in your account (50 at most)" |
@@ -240,6 +247,14 @@ any case).
 Remove is a tombstone (`deleted_at`). A device that held the draft drops it from its cache on the next list read; an
 outbox edit to a tombstoned draft is discarded with the notice "Canadian Rockies was removed on another device." and an
 **Undo** that restores the row within 30 days (a `PUT` with `deleted_at` cleared).
+
+**The purge job** (built 27 Oct 2026, EM-F; review-em-s B2 and S2). Each write route drops the caller's own tombstones older
+than 30 days, and once a day Vercel Cron calls `GET /api/internal/plan-purge` (`web/lib/server/plan-purge.ts`), which runs
+`planner_draft_purge()` on the runtime pool's owner login and answers a count. It is **off** until 0013 is applied: switch it on
+with `PLAN_PURGE_ENABLED=1` and a `CRON_SECRET` of 32 or more characters in Vercel Production, and the cron entry
+`{ "crons": [{ "path": "/api/internal/plan-purge", "schedule": "17 3 * * *" }] }` in the Vercel project's `vercel.json`. Off, or
+without the bearer, the route answers 404. `node core/bin/db-purge.ts` runs it once by hand (the child branch, or a missed
+day).
 
 ### 4.6 Sign-out
 
@@ -292,8 +307,10 @@ your account holds 50."
 
 ### 5.2 Where the copy is edited
 
-**Bundle D, the bridge (EM-3).** Open from Mine goes to `/trips/<slug>/?mine=<id>&view=day` (no profile keys: the copy
-supplies them, which also fixes B2 and B3). `mine` is a random id that means nothing on another device; the page loads
+**Bundle D, the bridge (EM-3).** Open from Mine goes to `/trips/<slug>/?view=day#mine=<id>` (no profile keys: the copy
+supplies them, which also fixes B2 and B3). **The id rides in the fragment, never the query** (amended 27 Oct 2026,
+review-em-s S1): a fragment is never sent to a server, so the id stays out of server logs, Referer headers and path-level
+analytics; wherever this page says `mine=`, read the fragment. `mine` is a random id that means nothing on another device; the page loads
 the copy only from this device's store or this account, so a forwarded link opens the plain public trip. When `mine`
 resolves, a lazy chunk (not in the start bundle; the trip page has under 1 KB of start-JS headroom) shows the **copy
 bar** and routes the page's existing edits (party bar, version menu, add and remove) to the copy instead of the URL.
@@ -392,7 +409,12 @@ redirects to it. One renderer, one document.
 
 - The detector (`core/src/privacy/detect.ts`) already fails a public body with `travellers`, `fromRef`, `gw`, `added`;
   EM-C adds `template`, `notes`, `start` under a draft shape.
-- Account deletion (F17) deletes the rows; the tombstone purge runs on the same job.
+- Account deletion (F17) deletes the rows: `delete from planner_draft where user_id = $1` as the owner, in the same manual
+  account-removal steps as `account_profile` until F17 16 (account-profile-and-travellers 9.3; `deletePlans` in
+  `core/src/db/plans.ts` for F17). The tombstone purge is its own daily job (4.5).
+- Logs: the routes log fixed codes only, and every line passes `LOG_DENY_KEYS`, which names `doc`, `children`, `start`,
+  `notes`, `template`, `fromRef` and `gw` (S7); a log-scan test plants a child's age, a start and a note in a PUT and a merge
+  and finds none in any log on 200, 400, 409, 413, 429 or 503.
 - The privacy page gets one paragraph: "When you are signed in, your trips, their dates and who is going (adults and
   children's ages) are kept in your account so you can open them on any device. Only you can read them. Delete a trip
   or your account to remove them."
@@ -578,3 +600,4 @@ sections 3 to 5.
 | 2026-10-27 | Created (travel-planner, Opus, TRIP-EDIT-I) from the owner's feedback and screenshot of 27 Oct: verdict (B1, B2 bugs, B3 label, G1 to G3 not built), one document and one table, sync in bundle D first, the bridge, the editor later, privacy, tasks EM-B to EM-5, briefs EM-B and EM-C, Q-EM1 to Q-EM12 |
 | 2026-10-27 | EM-C built (travel-builder, Opus, branch `public/EM-C`): `plan-draft/1` template mode, party `trip` with an age-snapshot `travellers`, R1 to R7, ops with inverses and `rebase`, outbox, route shapes and `PLAN_DOC_MIGRATION` for EM-M. **Differs from section 2 and 10:** the builder fence (isolation G1) forbids non-builder files from importing the plan document, so the mapper and the plan-side merge are in `core/src/plan/doc.ts` (`copyToPlanDraft`, `copyToPlanRow`, `planCopyMerge`), not `copies.ts`, and `trip-custom.ts` is retired in place (deprecated, not a re-export); `account-plans.ts` takes the document's parser as an argument. `custom` and `stays` are left to `plan-draft/2` (shapes unspecified). Day numbers in a template block count the published days; an inserted day is named by its op id. Extra ops `setWindow`, `deleteEntry`, `restoreEntry` (the inverse forms). The merge answer has six lists (`inserted`, `already`, `sameTrip`, `both`, `overCap`, `refused`). A start's month is the draft's month; `origin` and `fromRef` are never both set. EM-1 and EM-2 need new extension points in `web/tests/plan/isolation.test.ts` before they import the document |
 | 2026-10-27 | EM-M and EM-1 built (travel-builder, Opus, branch `public/EM-M`): migration `0013_plan_doc.sql` (files only; not applied to any Neon branch) and the routes `/api/account/plans/**` behind `NEXT_PUBLIC_ACCOUNT_TRIPS`. **Differs from sections 3 and 4.1:** a DELETE clears the document and its household columns (`doc`, `kind`, `source_trip`, `start`, `days`); the tombstone keeps id, title and revision, and Undo is a PUT `restore` that sends the document again. A template row's title is the person's own (`doc.title`), else the catalogue's current title; the body's `title` names built drafts only. A create answers 201. Errors are `{ code }` with fixed codes (`NOT_FOUND`, `FORBIDDEN`, `UNAUTHENTICATED`, `BAD_REQUEST`, `UNSUPPORTED_MEDIA_TYPE`, `PAYLOAD_TOO_LARGE`, `VALIDATION_ERROR` with path-only `issues`, `UNSUPPORTED_SCHEMA` 422, `TRIP_NOT_PUBLIC` 422, `PLAN_CAP` 409, `RATE_LIMITED` 429, `SERVICE_UNAVAILABLE` 503); a revision conflict is the bare `accountPlanConflict` body. The merge counts a copy whose id is the caller's own tombstone as `already`. Expired tombstones are dropped by the caller's next write (under RLS) and by `planner_draft_purge()` for an owner-run job. `web/lib/server/plans.ts` is a new builder-fence extension point (X-EM1) |
+| 2026-10-27 | EM-F (travel-builder, Opus, branch `public/EM-F`), the security review's fixes before any apply ([review-em-s-2026-10-27.md](../design/shell/review-em-s-2026-10-27.md)). **Differs from sections 3, 4.1, 4.2, 4.5, 5.2 and 7 as amended there:** key `(user_id, id)`; the tombstone and start CHECKs and the trigger's pins; at most 150 tombstones a user; the list reads live rows then tombstones; `plans:write` gains 600 an hour and 3,000 a day, and a merge costs one per copy; the merge answers `already` for the caller's own tombstone even at the cap, and `refused` never means another account; the daily purge route (off until 0013 is applied); `#mine=` in the fragment; `/account/` Saved trips lists and acts on title-only rows only. Contract changes for EM-2 are in the EM-F hand-back |

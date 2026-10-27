@@ -1,6 +1,8 @@
 // The `plan_doc` migration (EM-M) against the contract it implements, without a database: PLAN_DOC_MIGRATION in
 // core/src/schema/api/account-plans.ts and the numbers in core/src/config/plans.ts. The behaviour is tested against Postgres in
 // plan-doc.test.ts (skipped without TEST_DATABASE_URL); this file runs everywhere, so a constant changed on one side fails here.
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { PLAN_DOC_LIMITS, PLAN_SYNC } from "../../src/config/plans.ts";
 import { loadMigrations } from "../../src/db/loader.ts";
@@ -63,6 +65,31 @@ describe("migration plan_doc", () => {
     expect(flat).toContain(`planner_draft_purge(p_days integer default ${PLAN_SYNC.tombstoneDays})`);
     expect(flat).toContain("revoke all on function planner_draft_purge(integer) from public");
     expect(flat).not.toMatch(/grant execute on function planner_draft_purge/);
+  });
+
+  it("keys the table per user (S1): the old key is dropped and (user_id, id) added; every module statement names the user", () => {
+    expect(flat).toContain("alter table planner_draft drop constraint planner_draft_pkey");
+    expect(flat).toContain(`add constraint planner_draft_pkey primary key (${PLAN_DOC_MIGRATION.primaryKey.join(", ")})`);
+    const mod = readFileSync(fileURLToPath(new URL("../../src/db/plans.ts", import.meta.url)), "utf8");
+    expect(mod).not.toMatch(/on conflict \(id\)/);
+    // every statement that names an id names the user too
+    for (const m of mod.matchAll(/`([^`]*\bplanner_draft\b[^`]*)`/g)) {
+      const q = m[1]!;
+      if (/\bid = \$/.test(q)) expect(q, q).toMatch(/user_id = \$/);
+    }
+  });
+
+  it("pins the bookkeeping in the trigger (S2): the id, the user, and a tombstone time the caller cannot choose", () => {
+    expect(flat).toContain("new.id := old.id;");
+    expect(flat).toContain("new.user_id := old.user_id;");
+    expect(flat).toContain("if old.deleted_at is null and new.deleted_at is not null then new.deleted_at := now();");
+    expect(flat).toContain("elsif old.deleted_at is not null and new.deleted_at is not null then new.deleted_at := old.deleted_at;");
+    expect(flat).toContain(PLAN_DOC_MIGRATION.columns.find((c) => c.name === "start")!.check!);
+  });
+
+  it("bounds the list (B2): every live row and the newest tombstones fit one answer", () => {
+    expect(ACCOUNT_PLANS_LIMITS.listRows).toBe(PLAN_DOC_LIMITS.accountPlans + ACCOUNT_PLANS_LIMITS.listTombstones);
+    expect(ACCOUNT_PLANS_LIMITS.listTombstones).toBe(PLAN_SYNC.tombstoneCap);
   });
 
   it("creates the contract's indexes", () => {

@@ -15,3 +15,13 @@ export const TRAVELLERS = {
   /** The whole document, as UTF-8 JSON (and as `pg_column_size` in 0012). */
   maxBytes: 2048,
 } as const;
+
+/**
+ * The AP-15 wording a travellers save is made under (account-profile-and-travellers.md 3, string AP-15; review-em-s S3). The Account
+ * page's Save travellers (and the Undo of a removal, shown beside the same wording) passes it through `saveTravellers(..., { consent:
+ * true })`; the value itself never comes from a client. Migration 0012 stores it with the consent time and its CHECK holds the
+ * allow-list, so a new wording is a new constant here AND a migration that widens the CHECK (core/test/db/profile.test.ts pins both).
+ */
+export const TRAVELLERS_CONSENT_VERSION = "ap15-2026-10-27";
+/** Every wording 0012's CHECK accepts, oldest first. */
+export const TRAVELLERS_CONSENT_VERSIONS: readonly string[] = [TRAVELLERS_CONSENT_VERSION];

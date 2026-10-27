@@ -10,8 +10,13 @@
 //
 // PRIVACY. Nothing here logs. Errors carry the SQLSTATE through the driver's error, never the document; callers log fixed codes only
 // (spec 10.1).
+import { TRAVELLERS_CONSENT_VERSION } from "../config/account.ts";
 import { parseTravellers, isoDay, type Travellers } from "../schema/travellers.ts";
+import { pgErrorCode } from "./client.ts";
 import { withUserTransaction, type TxContext, type TxOutcome } from "./tx.ts";
+
+/** The SQLSTATE 0012's trigger raises for a save that would create travellers without a consent wording (review-em-s S3). */
+export const CONSENT_REQUIRED_SQLSTATE = "TC001";
 
 /** What the Account page, the seed route and the export read. */
 export interface AccountProfile {
@@ -24,6 +29,8 @@ export interface AccountProfile {
   /** ISO timestamps, or null */
   travellersSavedAt: string | null;
   travellersConsentedAt: string | null;
+  /** the AP-15 wording that consent was given under (TRAVELLERS_CONSENT_VERSION), or null; optional so older fakes still type */
+  travellersConsentVersion?: string | null;
   setupDoneAt: string | null;
   /** send it back with the next save or removal */
   revision: number;
@@ -35,6 +42,7 @@ export const EMPTY_PROFILE: AccountProfile = {
   travellersInvalid: false,
   travellersSavedAt: null,
   travellersConsentedAt: null,
+  travellersConsentVersion: null,
   setupDoneAt: null,
   revision: 0,
 };
@@ -63,12 +71,13 @@ interface Row {
   travellers: unknown;
   travellers_saved_at: unknown;
   travellers_consented_at: unknown;
+  travellers_consent_version?: unknown;
   setup_done_at: unknown;
   revision: number | string;
   [k: string]: unknown;
 }
 
-const COLUMNS = "travellers, travellers_saved_at, travellers_consented_at, setup_done_at, revision";
+const COLUMNS = "travellers, travellers_saved_at, travellers_consented_at, travellers_consent_version, setup_done_at, revision";
 
 function toProfile(row: Row | undefined, day: string): AccountProfile {
   if (!row) return { ...EMPTY_PROFILE };
@@ -79,6 +88,7 @@ function toProfile(row: Row | undefined, day: string): AccountProfile {
     travellersInvalid: parsed !== null && !parsed.success,
     travellersSavedAt: iso(row.travellers_saved_at),
     travellersConsentedAt: iso(row.travellers_consented_at),
+    travellersConsentVersion: typeof row.travellers_consent_version === "string" ? row.travellers_consent_version : null,
     setupDoneAt: iso(row.setup_done_at),
     revision: Number(row.revision),
   };
@@ -95,44 +105,61 @@ export async function loadProfile(userId: string, opts: ProfileOptions = {}): Pr
 
 /**
  * Save the travellers document (Save travellers, Undo of a removal, "Looks right"). `revision` is the one the page loaded (0 for no
- * row or nothing saved yet). The first save creates the row; the trigger records consent on the first document ever saved.
- * `finishSetup` also marks the setup card done in the same write (spec 2.3 rule 6).
+ * row or nothing saved yet). The first save creates the row. `finishSetup` also marks the setup card done in the same write (spec 2.3
+ * rule 6).
+ *
+ * CONSENT (review-em-s S3). `consent: true` says the AP-15 wording was on screen beside the button the person pressed (Save
+ * travellers; the Undo of a removal). It sends the server's TRAVELLERS_CONSENT_VERSION, never a client value. A save that creates
+ * travellers (none stored: the first ever, or after a removal) needs it: the trigger stamps the consent time and version, and refuses
+ * the save without it, answered `rejected` with the issue `$: consent_required`. A save over stored travellers ("Looks right", an
+ * edit) keeps the existing consent whatever it sends.
  */
 export async function saveTravellers(
   userId: string,
   doc: unknown,
   revision: number,
-  opts: ProfileOptions & { finishSetup?: boolean } = {},
+  opts: ProfileOptions & { finishSetup?: boolean; consent?: boolean } = {},
 ): Promise<SaveResult> {
   const checked = parseTravellers(doc, today(opts));
   if (!checked.success) return { kind: "rejected", issues: checked.issues };
   if (!Number.isInteger(revision) || revision < 0) return { kind: "conflict" };
   const body = JSON.stringify(checked.data);
   const done = opts.finishSetup === true;
-  const { result } = await runner(opts)(userId, async (ctx) => {
+  const version = opts.consent === true ? TRAVELLERS_CONSENT_VERSION : null;
+  let outcome: TxOutcome<{ revision: number | string } | undefined>;
+  try {
+    outcome = await runner(opts)(userId, async (ctx) => {
     // revision 0: the row may not exist yet. Insert it, or update a row that has never held travellers (a skipped setup).
     // Any other revision: update only that revision of an existing row; a deleted row is a conflict, not a silent re-create.
-    const sql =
-      revision === 0
-        ? `insert into public.account_profile as p (user_id, travellers, setup_done_at)
-             values ($1, $2::jsonb, case when $3::boolean then now() end)
-           on conflict (user_id) do update
-             set travellers = excluded.travellers, setup_done_at = coalesce(p.setup_done_at, excluded.setup_done_at)
-             where p.revision = 0
-           returning revision`
-        : `update public.account_profile
-             set travellers = $2::jsonb, setup_done_at = coalesce(setup_done_at, case when $3::boolean then now() end)
-             where user_id = $1 and revision = $4
-           returning revision`;
-    const params = revision === 0 ? [userId, body, done] : [userId, body, done, revision];
-    const { rows } = await ctx.query<{ revision: number | string }>(sql, params);
-    return rows[0];
-  });
+      const sql =
+        revision === 0
+          ? `insert into public.account_profile as p (user_id, travellers, setup_done_at, travellers_consent_version)
+               values ($1, $2::jsonb, case when $3::boolean then now() end, $4)
+             on conflict (user_id) do update
+               set travellers = excluded.travellers, setup_done_at = coalesce(p.setup_done_at, excluded.setup_done_at),
+                   travellers_consent_version = excluded.travellers_consent_version
+               where p.revision = 0
+             returning revision`
+          : `update public.account_profile
+               set travellers = $2::jsonb, setup_done_at = coalesce(setup_done_at, case when $3::boolean then now() end),
+                   travellers_consent_version = $4
+               where user_id = $1 and revision = $5
+             returning revision`;
+      const params = revision === 0 ? [userId, body, done, version] : [userId, body, done, version, revision];
+      const { rows } = await ctx.query<{ revision: number | string }>(sql, params);
+      return rows[0];
+    });
+  } catch (e) {
+    if (pgErrorCode(e) === CONSENT_REQUIRED_SQLSTATE) return { kind: "rejected", issues: ["$: consent_required"] };
+    throw e;
+  }
+  const result = outcome.result;
   return result ? { kind: "saved", revision: Number(result.revision) } : { kind: "conflict" };
 }
 
 /**
- * Remove the saved travellers (the row and its setup state stay; consent time stays as a record of the first save). Guarded like a
+ * Remove the saved travellers (the row and its setup state stay; the consent time and wording stay as the record of the last
+ * agreement, and the next save that creates travellers needs a fresh consent). Guarded like a
  * save. Removing when nothing is saved is a no-op that answers `saved` with the current revision.
  */
 export async function removeTravellers(userId: string, revision: number, opts: ProfileOptions = {}): Promise<SaveResult> {

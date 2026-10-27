@@ -7,11 +7,11 @@
 import { randomBytes, randomUUID } from "node:crypto";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { PLAN_DOC_LIMITS, PLAN_SYNC } from "../../src/config/plans.ts";
-import { closePools, getPool, withUserTransaction } from "../../src/db/index.ts";
-import { deletePlan, getPlan, insertPlans, listPlans, mergeKeys, PLAN_CAP_SQLSTATE, putPlan, type PlanWrite } from "../../src/db/plans.ts";
+import { closePools, draftsReadQuery, getPool, legacyDraftRow, USER_TX_TIMEOUTS, withUserTransaction } from "../../src/db/index.ts";
+import { deletePlan, deletePlans, getPlan, purgeAllTombstones, insertPlans, listPlans, mergeKeys, PLAN_CAP_SQLSTATE, putPlan, type PlanWrite } from "../../src/db/plans.ts";
 import { migrate } from "../../src/db/runner.ts";
 import { planRowFields } from "../../src/plan/doc.ts";
-import { parseAccountPlanList, PLAN_DOC_MIGRATION } from "../../src/schema/api/account-plans.ts";
+import { ACCOUNT_PLANS_LIMITS, diffPlanList, parseAccountPlanList, PLAN_DOC_MIGRATION } from "../../src/schema/api/account-plans.ts";
 import type { PlanDraft } from "../../src/schema/plan-draft.ts";
 import { templateDraft } from "../plan/doc-helpers.ts";
 
@@ -48,13 +48,39 @@ run("planner_draft with plan_doc (database)", () => {
 
   /** As the owner (RLS bypassed): a raw row write, so the CHECKs and triggers are tested without the module. */
   const raw = (sql: string, params: unknown[] = []) => admin.query(sql, params);
-  const rawInsert = (user: string, id: string, cols: Record<string, unknown>) => {
+  const rawInsert = (user: string, id: string, given: Record<string, unknown>) => {
+    // the start column is the document's start (CHECK planner_draft_start_of_doc), as the route derives it
+    const d = given.doc as { start?: unknown } | null | undefined;
+    const cols = d && typeof d === "object" && !Array.isArray(d) && !("start" in given) ? { ...given, start: d.start ?? null } : given;
     const names = Object.keys(cols);
     return raw(
       `insert into planner_draft (id, user_id, title${names.map((n) => `, ${n}`).join("")}) values ($1, $2, 'T'${names.map((_, i) => `, $${i + 3}`).join("")})`,
       [id, user, ...names.map((n) => (n === "doc" && cols[n] !== null ? JSON.stringify(cols[n]) : cols[n]))],
     );
   };
+
+  /** Backdate tombstones as the owner: the revision trigger pins deleted_at (S2), so only with it off, inside one transaction. */
+  async function backdate(ids: string[], days: number): Promise<void> {
+    await admin.query("begin");
+    try {
+      await admin.query("alter table planner_draft disable trigger planner_draft_revision_t");
+      await admin.query(`update planner_draft set deleted_at = now() - make_interval(days => $2::int) where id = any($1::uuid[])`, [ids, days]);
+      await admin.query("alter table planner_draft enable trigger planner_draft_revision_t");
+      await admin.query("commit");
+    } catch (e) {
+      await admin.query("rollback");
+      throw e;
+    }
+  }
+
+  /** `ids` as title-only tombstones of `user`, as the owner, 40 at a time (the cap counts live rows on insert). */
+  async function tombstones(user: string, ids: string[]): Promise<void> {
+    for (let i = 0; i < ids.length; i += 40) {
+      const part = ids.slice(i, i + 40);
+      await raw(`insert into planner_draft (id, user_id, title) select x, $2, 'Gone' from unnest($1::uuid[]) as x`, [part, user]);
+      await raw("update planner_draft set deleted_at = now() where user_id = $1 and id = any($2::uuid[])", [user, part]);
+    }
+  }
 
   /** One transaction as the app role for `user`, after `before` ran as the owner in the same transaction; always rolled back. */
   async function rolledBack<T>(user: string | null, before: string[], fn: () => Promise<T>): Promise<T> {
@@ -116,12 +142,10 @@ run("planner_draft with plan_doc (database)", () => {
 
     expect(await listPlans(b)).toEqual([]);
     expect(await getPlan(b, id)).toBeNull();
-    expect(await putPlan(b, id, null, false, w(doc))).toEqual({ kind: "not-found" });
     expect(await putPlan(b, id, 0, false, w(doc))).toEqual({ kind: "not-found" });
     expect(await putPlan(b, id, 0, true, w(doc))).toEqual({ kind: "not-found" });
     expect(await deletePlan(b, id, 0)).toEqual({ kind: "not-found" });
     expect(await mergeKeys(b, [{ trip: "dolomites-2027", start: "2027-07-03" }])).toEqual([]);
-    expect(await insertPlans(b, [{ id, ...w(doc) }])).toEqual({ inserted: [], already: [], overCap: [], refused: [id] });
 
     const sel = await withUserTransaction(b, async (ctx) => (await ctx.query("select doc, kind, source_trip, start, days, revision, deleted_at from planner_draft")).rows);
     expect(sel.result).toEqual([]);
@@ -130,14 +154,47 @@ run("planner_draft with plan_doc (database)", () => {
     expect(upd.result).toBe(0);
     const del = await withUserTransaction(b, async (ctx) => (await ctx.query("delete from planner_draft")).rowCount);
     expect(del.result).toBe(0);
-    // B cannot plant a row for A (WITH CHECK), nor move its own row onto A
+    // B cannot plant a row for A (WITH CHECK)
     const bDoc = tmpl();
     await expect(withUserTransaction(b, (ctx) => ctx.query("insert into planner_draft (id, user_id, title) values ($1, $2, 'x')", [bDoc.id, a]))).rejects.toMatchObject({ code: "42501" });
+    // nor move its own row onto A: the trigger keeps user_id (S2), and WITH CHECK would refuse it anyway
     await putPlan(b, bDoc.id, null, false, w(bDoc));
-    await expect(withUserTransaction(b, (ctx) => ctx.query("update planner_draft set user_id = $1", [a]))).rejects.toMatchObject({ code: "42501" });
+    await withUserTransaction(b, (ctx) => ctx.query("update planner_draft set user_id = $1", [a]));
+    expect((await raw("select user_id from planner_draft where id = $1", [bDoc.id])).rows).toEqual([{ user_id: b }]);
 
     const mine = await getPlan(a, id);
     expect(mine).toEqual({ revision: 0, doc: JSON.parse(JSON.stringify(doc)) });
+  });
+
+  it("S1: ids are per user: B can hold the same id as A, every answer is the same as if A held nothing, and A's row is untouched", async () => {
+    const a = U("s1a");
+    const b = U("s1b");
+    const c = U("s1c");
+    const doc = tmpl();
+    await putPlan(a, doc.id, null, false, w(doc, "A's"));
+    // B's create of A's id answers exactly what C's create of a fresh id answers
+    const fresh = tmpl();
+    expect(await putPlan(b, doc.id, null, false, w(doc, "B's"))).toEqual(await putPlan(c, fresh.id, null, false, w(fresh, "C's")));
+    // and the merge too: inserted, never refused
+    const other = tmpl();
+    await putPlan(a, other.id, null, false, w(other));
+    expect(await insertPlans(b, [{ id: other.id, ...w(other) }])).toEqual({ inserted: [other.id], already: [], overCap: [], refused: [] });
+    // two rows of one id, one per user; each sees its own
+    expect((await raw("select user_id, title from planner_draft where id = $1 order by user_id", [doc.id])).rows).toEqual([
+      { user_id: a, title: "A's" },
+      { user_id: b, title: "B's" },
+    ]);
+    expect((await deletePlan(b, doc.id, 0)).kind).toBe("deleted");
+    expect(await getPlan(a, doc.id)).toMatchObject({ revision: 0 });
+    expect((await listPlans(a)).map((r) => [r.id, r.deleted_at])).toEqual(expect.arrayContaining([[doc.id, null]]));
+    // the key is (user_id, id)
+    const pk = await raw(
+      `select array_agg(a.attname::text order by k.ord) as cols from pg_index i
+         cross join lateral unnest(i.indkey) with ordinality as k(attnum, ord)
+         join pg_attribute a on a.attrelid = i.indrelid and a.attnum = k.attnum
+        where i.indrelid = 'planner_draft'::regclass and i.indisprimary`,
+    );
+    expect(pk.rows[0].cols).toEqual(["user_id", "id"]);
   });
 
   // Mutation checks: each policy, weakened inside a rolled-back transaction, lets B reach A's row. So the isolation test above fails
@@ -223,12 +280,53 @@ run("planner_draft with plan_doc (database)", () => {
       ["a slug that is not a slug", (c: any) => ({ ...c, source_trip: "Dolomites 2027" })],
       ["zero days", (c: any) => ({ ...c, days: 0 })],
       ["100 days", (c: any) => ({ ...c, days: 100 })],
+      // S2: the start column is the document's
+      ["a start that is not the document's", (c: any) => ({ ...c, start: "2027-07-04" })],
+      ["no start beside a dated document", (c: any) => ({ ...c, start: null })],
+      ["a start beside an undated document", (c: any) => ({ ...c, doc: { ...c.doc, start: undefined } })],
     ])("refuses %s (23514)", async (_name, change) => {
       const { d, cols } = good();
       const c = change(cols);
-      if (c.doc && typeof c.doc === "object" && !Array.isArray(c.doc) && c.doc.id === undefined) delete c.doc.id;
+      if (c.doc && typeof c.doc === "object" && !Array.isArray(c.doc)) for (const k of ["id", "start"]) if (c.doc[k] === undefined) delete c.doc[k];
       await expect(rawInsert(user, d.id, c)).rejects.toMatchObject({ code: "23514" });
     });
+  });
+
+  it("S2: a tombstone holds no household data, whoever writes it (CHECK, 23514)", async () => {
+    const user = U("tombchk");
+    const d = tmpl();
+    await rawInsert(user, d.id, { doc: d, kind: "template", source_trip: "dolomites-2027", days: 14 });
+    // a tombstone that keeps any of the document, its kind, its trip, its start or its days is refused
+    for (const keep of ["doc", "kind", "source_trip", "start", "days"]) {
+      const clear = ["doc", "kind", "source_trip", "start", "days"].filter((k) => k !== keep);
+      // keeping kind alone (or the trip alone) also breaks the kind/doc rules; each is still a 23514
+      await expect(raw(`update planner_draft set deleted_at = now(), ${clear.map((k) => `${k} = null`).join(", ")} where id = $1`, [d.id])).rejects.toMatchObject({
+        code: "23514",
+      });
+    }
+    await expect(raw("update planner_draft set deleted_at = now() where id = $1", [d.id])).rejects.toMatchObject({ code: "23514" });
+    await raw("update planner_draft set deleted_at = now(), doc = null, kind = null, source_trip = null, start = null, days = null where id = $1", [d.id]);
+  });
+
+  it("S2: pins the id, the user and the tombstone time: none can be moved, backdated or extended by an update", async () => {
+    const user = U("pin");
+    const d = tmpl();
+    await putPlan(user, d.id, null, false, w(d));
+    const other = randomUUID();
+    await raw("update planner_draft set id = $2, user_id = 'someone-else' where id = $1", [d.id, other]);
+    expect((await raw("select id::text, user_id from planner_draft where id = any($1::uuid[])", [[d.id, other]])).rows).toEqual([{ id: d.id, user_id: user }]);
+    // tombstoning with a past time: the trigger stamps now()
+    await raw(
+      "update planner_draft set deleted_at = '2000-01-01', doc = null, kind = null, source_trip = null, start = null, days = null where id = $1",
+      [d.id],
+    );
+    const t1 = (await raw("select deleted_at from planner_draft where id = $1", [d.id])).rows[0].deleted_at as Date;
+    expect(Date.now() - t1.getTime()).toBeLessThan(60_000);
+    // a later update of the tombstone (past or future) keeps the first time
+    for (const when of ["2000-01-01", "2999-01-01"]) {
+      await raw("update planner_draft set deleted_at = $2 where id = $1", [d.id, when]);
+      expect(((await raw("select deleted_at from planner_draft where id = $1", [d.id])).rows[0].deleted_at as Date).toISOString()).toBe(t1.toISOString());
+    }
   });
 
   it("owns the revision and the tombstone on insert and update, whatever a caller sends", async () => {
@@ -364,7 +462,7 @@ run("planner_draft with plan_doc (database)", () => {
       await deletePlan(u, d.id, 0);
     }
     const days = PLAN_SYNC.tombstoneDays;
-    await raw(`update planner_draft set deleted_at = now() - make_interval(days => $2::int + 1) where id = any($1::uuid[])`, [[old.id, theirs.id], days]);
+    await backdate([old.id, theirs.id], days + 1);
 
     expect((await listPlans(user)).map((r) => r.id)).toEqual([keep.id]);
     const next = tmpl();
@@ -373,12 +471,13 @@ run("planner_draft with plan_doc (database)", () => {
     expect((await raw("select 1 from planner_draft where id = $1", [keep.id])).rows).toHaveLength(1);
     // the caller's write purged only its own rows
     expect((await raw("select 1 from planner_draft where id = $1", [theirs.id])).rows).toHaveLength(1);
-    const purged = await raw("select planner_draft_purge($1) as n", [days]);
-    expect(purged.rows[0].n).toBeGreaterThanOrEqual(1);
+    // the owner's job, through the module (core/bin/db-purge.ts and the cron route run this)
+    expect(await purgeAllTombstones(admin, days)).toBeGreaterThanOrEqual(1);
+    await expect(purgeAllTombstones(admin, 0)).rejects.toThrow(RangeError);
     expect((await raw("select 1 from planner_draft where id = $1", [theirs.id])).rows).toEqual([]);
   });
 
-  it("merge: the keys carry a document only for a matching trip and start; inserts are idempotent and never take another user's id", async () => {
+  it("merge: the keys carry a document only for a matching trip and start; inserts are idempotent and never touch another user's row", async () => {
     const user = U("merge");
     const match = tmpl();
     const other = tmpl(randomUUID(), { start: "2027-09-01", month: 9 } as never);
@@ -397,7 +496,8 @@ run("planner_draft with plan_doc (database)", () => {
     await putPlan(user, tomb.id, null, false, w(tomb));
     await deletePlan(user, tomb.id, 0);
     const r = await insertPlans(user, [fresh, match, theirs, tomb].map((d) => ({ id: d.id, ...w(d) })));
-    expect(r).toEqual({ inserted: [fresh.id], already: [match.id, tomb.id], overCap: [], refused: [theirs.id] });
+    // an id another user holds is this user's own new row (S1): never refused, never a signal
+    expect(r).toEqual({ inserted: [fresh.id, theirs.id], already: [match.id, tomb.id], overCap: [], refused: [] });
     const again = await insertPlans(user, [{ id: fresh.id, ...w(fresh) }]);
     expect(again).toEqual({ inserted: [], already: [fresh.id], overCap: [], refused: [] });
     // the other user's row is untouched
@@ -413,6 +513,140 @@ run("planner_draft with plan_doc (database)", () => {
     await deletePlan(user, d.id, 0);
     const s2 = await raw("select version from planner_draft_signal where user_id = $1", [user]);
     expect(Number(s2.rows[0].version)).toBeGreaterThan(Number(s1.rows[0].version));
+  });
+
+  it("N2: at the cap, a merge of a copy the person removed in the account is `already`, not `overCap`", async () => {
+    const u = U("n2");
+    const gone = tmpl();
+    await putPlan(u, gone.id, null, false, w(gone));
+    expect((await deletePlan(u, gone.id, 0)).kind).toBe("deleted");
+    for (let i = 0; i < PLAN_DOC_LIMITS.accountPlans; i++) {
+      const d = tmpl();
+      await rawInsert(u, d.id, { doc: d, kind: "template", source_trip: "dolomites-2027" });
+    }
+    const fresh = tmpl();
+    expect(await insertPlans(u, [gone, fresh].map((d) => ({ id: d.id, ...w(d) })))).toEqual({ inserted: [], already: [gone.id], overCap: [fresh.id], refused: [] });
+  }, 60000);
+
+  it("B2: the list reads live rows apart from tombstones, so 150 recent removals never hide a live row", async () => {
+    const u = U("b2list");
+    const live = tmpl();
+    await putPlan(u, live.id, null, false, w(live));
+    // 160 tombstones, all newer than the live row
+    const ids = Array.from({ length: 160 }, () => randomUUID());
+    await tombstones(u, ids);
+    const list = await listPlans(u);
+    expect(list[0]).toMatchObject({ id: live.id, deleted_at: null });
+    expect(list.filter((r) => r.deleted_at !== null)).toHaveLength(ACCOUNT_PLANS_LIMITS.listTombstones);
+    expect(list.length).toBeLessThanOrEqual(ACCOUNT_PLANS_LIMITS.listRows);
+    expect(parseAccountPlanList({ items: list }).success).toBe(true);
+    // the device that holds the live copy keeps it
+    expect(diffPlanList([{ id: live.id, revision: 0 }], list).drop).toEqual([]);
+  }, 60000);
+
+  it("B2: a delete keeps the newest PLAN_SYNC.tombstoneCap tombstones of the user and drops the older ones", async () => {
+    const u = U("b2cap");
+    const other = U("b2cap-other");
+    const ids = Array.from({ length: PLAN_SYNC.tombstoneCap + 5 }, () => randomUUID());
+    await tombstones(u, ids);
+    // the five oldest
+    await backdate(ids.slice(0, 5), 2);
+    const theirs = tmpl();
+    await putPlan(other, theirs.id, null, false, w(theirs));
+    await deletePlan(other, theirs.id, 0);
+    await backdate([theirs.id], 3);
+    const d = tmpl();
+    await putPlan(u, d.id, null, false, w(d));
+    expect((await deletePlan(u, d.id, 0)).kind).toBe("deleted");
+    const left = await raw("select id::text from planner_draft where user_id = $1 and deleted_at is not null", [u]);
+    expect(left.rows).toHaveLength(PLAN_SYNC.tombstoneCap);
+    const kept = new Set(left.rows.map((r: any) => r.id));
+    expect(kept.has(d.id)).toBe(true);
+    for (const id of ids.slice(0, 5)) expect(kept.has(id)).toBe(false);
+    // another user's tombstone is not touched
+    expect((await raw("select 1 from planner_draft where user_id = $1 and id = $2", [other, theirs.id])).rows).toHaveLength(1);
+  }, 60000);
+
+  it("B1: the /account/ read and its Rename and Delete reach title-only live rows only, before and after 0013", async () => {
+    const u = U("b1");
+    const legacy = randomUUID();
+    await raw("insert into planner_draft (id, user_id, title) values ($1, $2, 'Nitin')", [legacy, u]);
+    const synced = tmpl();
+    await putPlan(u, synced.id, null, false, w(synced));
+    const tomb = tmpl();
+    await putPlan(u, tomb.id, null, false, w(tomb));
+    await deletePlan(u, tomb.id, 0);
+    const q = draftsReadQuery();
+    const read = await withUserTransaction(u, async (ctx) => (await ctx.query(q.sql, q.params(u))).rows.map((r) => r.id));
+    expect(read.result).toEqual([legacy]);
+    // the actions' statements (web/app/account/actions.ts): a synced plan and a tombstone match nothing
+    for (const id of [synced.id, tomb.id]) {
+      const ren = await withUserTransaction(u, async (ctx) =>
+        (await ctx.query(`update public.planner_draft d set title = 'x' where d.id = $1 and d.user_id = $2 and ${legacyDraftRow("d")} returning d.id`, [id, u])).rowCount,
+      );
+      expect(ren.result).toBe(0);
+      const del = await withUserTransaction(u, async (ctx) =>
+        (await ctx.query(`delete from public.planner_draft d where d.id = $1 and d.user_id = $2 and ${legacyDraftRow("d")} returning d.id`, [id, u])).rowCount,
+      );
+      expect(del.result).toBe(0);
+    }
+    expect(await getPlan(u, synced.id)).toMatchObject({ revision: 0 });
+    const ren = await withUserTransaction(u, async (ctx) =>
+      (await ctx.query(`update public.planner_draft d set title = 'Renamed' where d.id = $1 and d.user_id = $2 and ${legacyDraftRow("d")} returning d.id`, [legacy, u])).rowCount,
+    );
+    expect(ren.result).toBe(1);
+    // before 0013 the columns do not exist: the same predicate reads every row as a legacy row
+    await admin.query("begin");
+    try {
+      await admin.query("create temp table pre_0013 (id uuid, user_id text, title text)");
+      await admin.query("insert into pre_0013 values (gen_random_uuid(), 'u', 't')");
+      const r = await admin.query(`select count(*)::int as n from pre_0013 d where ${legacyDraftRow("d")}`);
+      expect(r.rows[0].n).toBe(1);
+    } finally {
+      await admin.query("rollback");
+    }
+    expect(() => legacyDraftRow("d; drop table x")).toThrow();
+  });
+
+  it("S4: every user transaction runs with the statement, lock and idle timeouts, and a lock wait fails fast (55P03)", async () => {
+    const u = U("s4");
+    const r = await withUserTransaction(u, async (ctx) =>
+      (await ctx.query("select current_setting('statement_timeout') as s, current_setting('lock_timeout') as l, current_setting('idle_in_transaction_session_timeout') as i")).rows[0],
+    );
+    expect(r.result).toEqual({ s: USER_TX_TIMEOUTS.statement, l: USER_TX_TIMEOUTS.lock, i: USER_TX_TIMEOUTS.idleInTransaction });
+    const d = tmpl();
+    await putPlan(u, d.id, null, false, w(d));
+    // the owner holds the row; the user's write waits for the lock timeout, then fails
+    await admin.query("begin");
+    try {
+      await admin.query("select 1 from planner_draft where id = $1 for update", [d.id]);
+      const t = Date.now();
+      await expect(putPlan(u, d.id, 0, false, w(d))).rejects.toMatchObject({ code: "55P03" });
+      expect(Date.now() - t).toBeLessThan(10_000);
+    } finally {
+      await admin.query("rollback");
+    }
+    // the pool's next transaction is clean: no timeout leaks onto the connection
+    const pool = await getPool(url);
+    const c = await pool.connect();
+    try {
+      expect((await c.query("select current_setting('lock_timeout') as l")).rows[0]).toEqual({ l: "0" });
+    } finally {
+      c.release();
+    }
+  }, 20000);
+
+  it("S6: deletePlans removes every row of the user, and only theirs", async () => {
+    const u = U("s6");
+    const other = U("s6-other");
+    for (const who of [u, u, other]) {
+      const d = tmpl();
+      await putPlan(who, d.id, null, false, w(d));
+    }
+    await raw("insert into planner_draft (id, user_id, title) values ($1, $2, 'legacy')", [randomUUID(), u]);
+    expect(await deletePlans(u)).toBe(3);
+    expect((await raw("select count(*)::int as n from planner_draft where user_id = $1", [u])).rows[0].n).toBe(0);
+    expect((await raw("select count(*)::int as n from planner_draft where user_id = $1", [other])).rows[0].n).toBe(1);
   });
 
   it("has the list, merge and purge indexes", async () => {

@@ -10,12 +10,15 @@ import 'server-only';
 //   2. same origin (the account routes' rule, lib/server/same-origin.ts);
 //   3. a verified session (`getUser()`); the user id comes ONLY from it, never from a path, a query or a body;
 //   4. writes: `application/json` only, the body read in pieces up to its cap (16 KB + 1 KB for a PUT, 256 B for a DELETE, 84 KB for
-//      the merge), then one take from the per-user `plans:write` bucket (HMAC of the user id; fail closed in production);
+//      the merge), then the per-user `plans:write` bucket (HMAC of the user id; a minute, an hour and a day window; fail closed in
+//      production): one unit for a PUT or DELETE, one per copy for a merge (review-em-s S5), taken before any database work;
 //   5. the WHOLE document parsed on every write (R5), its id equal to the path's, its light columns derived from it here, a template's
 //      trip re-read from the catalogue (public and listed, else refused) and its row title taken from there unless the person set one;
-//   6. owner-only RLS underneath (core/src/db/tx.ts): another user's id is 404, never "exists".
+//   6. owner-only RLS underneath (core/src/db/tx.ts), and ids per user (0013's key is (user_id, id); review-em-s S1): no answer depends
+//      on another account's rows, so none says whether another account holds an id.
 // Answers are `private, no-store`, carry fixed codes only, and are never routed through the public respond() (no allow-list, ETag or
-// cache there knows these bodies). Logs name the route, the outcome and at most a SQLSTATE: never a user id, a title or a document.
+// cache there knows these bodies). Logs name the route, the outcome and at most a SQLSTATE: never a user id, a title or a document,
+// and every log line passes LOG_DENY_KEYS (core/src/privacy/detect.ts) as a second net (review-em-s S7).
 // No Realtime: the device refetches (EM7).
 //
 // This file imports the plan document and the plan mapper, so it is one of the builder fence's extension points
@@ -27,6 +30,7 @@ import { sameOrigin } from './same-origin';
 import { getStore } from './store';
 import { publicRef } from '@travel/core/catalogue/alias.ts';
 import { PLANS_LIMITS } from '@travel/core/config/auth-limits.ts';
+import { LOG_DENY_KEYS } from '@travel/core/privacy/detect.ts';
 import {
   deletePlan,
   getPlan,
@@ -97,7 +101,7 @@ export interface PlansDeps {
   };
   /** The quota store, or null when DATABASE_URL is unset. */
   quota(): QuotaStore | null;
-  env(): { NODE_ENV?: string; AUTH_QUOTA_SECRET?: string };
+  env(): { NODE_ENV?: string; AUTH_QUOTA_SECRET?: string; ACCOUNT_TRIPS_WRITES?: string };
   /** The public, listed trips by slug. */
   trips(): Promise<ReadonlyMap<string, PublicTripFacts>>;
   /** A dated legacy folder as its public alias (public-ref-aliases 4); anything else unchanged. */
@@ -130,9 +134,13 @@ const fail = (status: number, code: PlanCode, extra: Record<string, unknown> = {
 
 type RouteName = 'list' | 'get' | 'put' | 'delete' | 'merge';
 
-/** One log line: the route, a fixed outcome, at most a SQLSTATE (safeError). Never a user id, a title or a document. */
+const DENY = new Set(LOG_DENY_KEYS.map((k) => k.toLowerCase()));
+
+/** One log line: the route, a fixed outcome, at most a SQLSTATE (safeError). Never a user id, a title or a document; a deny-listed key is dropped. */
 function log(level: 'warn' | 'error', route: RouteName, outcome: string, e?: unknown): void {
-  console[level]('[account-plans]', JSON.stringify({ route, outcome, ...(e === undefined ? {} : { error: safeError(e) }) }));
+  const fields: Record<string, unknown> = { route, outcome, ...(e === undefined ? {} : { error: safeError(e) }) };
+  for (const k of Object.keys(fields)) if (DENY.has(k.toLowerCase())) delete fields[k];
+  console[level]('[account-plans]', JSON.stringify(fields));
 }
 
 // ----- the gates -------------------------------------------------------------------------------------------------------------------------
@@ -192,9 +200,20 @@ async function jsonBody(request: Request, max: number): Promise<{ value: unknown
   }
 }
 
-/** One take from the user's `plans:write` bucket; null to go on, or the answer. Fails closed in production. */
-async function takeWrite(route: RouteName, userId: string, deps: PlansDeps): Promise<Response | null> {
+/**
+ * `units` takes from the user's `plans:write` bucket (every window each time); null to go on, or the answer. A merge passes one per copy
+ * (S5), so it costs what the writes it may make would cost: the quota store takes one unit per call, so the units are taken one after
+ * another, stopping at the first refusal (the units already counted stay counted: a refused merge is not free). Fails closed in
+ * production.
+ */
+async function takeWrite(route: RouteName, userId: string, deps: PlansDeps, units = 1): Promise<Response | null> {
   const env = deps.env();
+  // The runtime kill switch (review-em-s N9): the flag is inlined at build, so turning writes off without a rebuild is this
+  // server-only variable, read per request. Reads stay up; every write answers 503 before any database work.
+  if (env.ACCOUNT_TRIPS_WRITES === '0') {
+    log('warn', route, 'writes_off');
+    return fail(503, PLAN_CODES.unavailable);
+  }
   const secret = env.AUTH_QUOTA_SECRET;
   const store = deps.quota();
   if (!store || !secret || secret.length < 16) {
@@ -206,10 +225,13 @@ async function takeWrite(route: RouteName, userId: string, deps: PlansDeps): Pro
   }
   const { bucket, windows } = PLANS_LIMITS.write;
   const key = userHash(secret, userId, deps.now());
+  const rules = windows.map((w) => ({ bucket, key, windowS: w.windowS, limit: w.limit }));
   try {
-    const r = await store.take(windows.map((w) => ({ bucket, key, windowS: w.windowS, limit: w.limit })));
-    if (r.allowed) return null;
-    return fail(429, PLAN_CODES.rateLimited, {}, { 'Retry-After': String(r.retryAfterS) });
+    for (let i = 0; i < units; i++) {
+      const r = await store.take(rules);
+      if (!r.allowed) return fail(429, PLAN_CODES.rateLimited, {}, { 'Retry-After': String(r.retryAfterS) });
+    }
+    return null;
   } catch (e) {
     log('error', route, 'quota_unavailable', e);
     return fail(503, PLAN_CODES.unavailable);
@@ -248,7 +270,7 @@ export async function listRoute(request: Request, deps: PlansDeps = defaultPlans
   }
 }
 
-/** `GET /api/account/plans/{id}`: `{ revision, doc }`; 404 for an id that is not the caller's, a tombstone, or a titled draft. */
+/** `GET /api/account/plans/{id}`: `{ revision, doc }`; 404 for an id the caller does not hold, a tombstone, or a titled draft. */
 export async function getRoute(request: Request, id: string, deps: PlansDeps = defaultPlansDeps()): Promise<Response> {
   const user = await gate(request, deps);
   if (user instanceof Response) return user;
@@ -345,7 +367,7 @@ export async function mergeRoute(request: Request, deps: PlansDeps = defaultPlan
   if (user instanceof Response) return user;
   const body = await jsonBody(request, ACCOUNT_PLANS_LIMITS.mergeBodyBytes);
   if (body instanceof Response) return body;
-  const limited = await takeWrite('merge', user.id, deps);
+  const limited = await takeWrite('merge', user.id, deps, mergeUnits(body.value));
   if (limited) return limited;
   const copies = parseCopyList(body.value);
   if (!copies.success) return fail(400, PLAN_CODES.invalid, issues(copies.issues));
@@ -395,6 +417,12 @@ export async function mergeRoute(request: Request, deps: PlansDeps = defaultPlan
   }
 }
 
+/** What a merge costs in `plans:write` units (S5): one per copy it carries, at least one, at most the copies one merge may hold. */
+export function mergeUnits(body: unknown): number {
+  const n = Array.isArray(body) ? body.length : 1;
+  return Math.min(Math.max(1, n), ACCOUNT_PLANS_LIMITS.mergeCopies);
+}
+
 /** A stored document's M3 content key: null for no document, one that no longer parses, or a built draft. */
 function contentOf(doc: unknown): string | null {
   if (doc === null || doc === undefined) return null;
@@ -441,7 +469,7 @@ export function defaultPlansDeps(): PlansDeps {
       insert: (u, rows) => insertPlans(u, rows),
     },
     quota: () => (process.env.DATABASE_URL ? (pgStore ??= createPgQuotaStore()) : null),
-    env: () => ({ NODE_ENV: process.env.NODE_ENV, AUTH_QUOTA_SECRET: process.env.AUTH_QUOTA_SECRET }),
+    env: () => ({ NODE_ENV: process.env.NODE_ENV, AUTH_QUOTA_SECRET: process.env.AUTH_QUOTA_SECRET, ACCOUNT_TRIPS_WRITES: process.env.ACCOUNT_TRIPS_WRITES }),
     trips: readTrips,
     aliasOf: (s) => publicRef(s, folderAliases()),
     now: () => new Date(),

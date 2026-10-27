@@ -33,8 +33,10 @@ export const ACCOUNT_PLANS_LIMITS = {
   mergeCopies: DEVICE_COPY_CAP,
   /** live rows per user (the cap trigger is the rule; this is the list's check) */
   accountPlans: PLAN_DOC_LIMITS.accountPlans,
-  /** rows one list answer may hold: the live ones and the tombstones of the last PLAN_SYNC.tombstoneDays */
-  listRows: PLAN_DOC_LIMITS.accountPlans * 4,
+  /** rows one list answer may hold: every live one, then the newest tombstones of the last PLAN_SYNC.tombstoneDays */
+  listRows: PLAN_DOC_LIMITS.accountPlans + PLAN_SYNC.tombstoneCap,
+  /** tombstones one list answer may hold (read apart from the live rows, so they never push a live row out; review-em-s B2) */
+  listTombstones: PLAN_SYNC.tombstoneCap,
   /** the row title column's check (0009) */
   titleMax: 160,
   /** writes a minute per user, in the `plans:write` quota bucket */
@@ -221,6 +223,8 @@ export function diffPlanList(
 export const PLAN_DOC_MIGRATION = {
   slug: "plan_doc",
   table: "planner_draft",
+  /** ids are per user (review-em-s S1): no cross-user existence signal, no squatting of a device copy's id */
+  primaryKey: ["user_id", "id"],
   columns: [
     {
       name: "doc",
@@ -237,22 +241,25 @@ export const PLAN_DOC_MIGRATION = {
       check: "kind is null or kind in ('template', 'built')",
     },
     { name: "source_trip", type: "text", nullable: true, note: "the template's public trip slug; null for a built draft", check: "source_trip is null or source_trip ~ '^[a-z0-9][a-z0-9-]{0,99}$'" },
-    { name: "start", type: "date", nullable: true, note: "the doc's start; household data", check: null },
+    { name: "start", type: "date", nullable: true, note: "the doc's start; household data; equal to the document's (S2)", check: "doc is null or to_char(start, 'YYYY-MM-DD') is not distinct from (doc->>'start')" },
     { name: "days", type: "int", nullable: true, note: "the doc's nights plus one", check: "days is null or days between 1 and 99" },
     { name: "revision", type: "bigint", nullable: false, default: "0", note: "optimistic concurrency; bumped by the update trigger, never by the client", check: "revision >= 0" },
-    { name: "deleted_at", type: "timestamptz", nullable: true, note: "the tombstone (4.5); purged after 30 days", check: null },
+    { name: "deleted_at", type: "timestamptz", nullable: true, note: "the tombstone (4.5); set to now() by the trigger, never a caller's time (S2); purged after 30 days, at most PLAN_SYNC.tombstoneCap per user", check: null },
   ],
   /** row-level consistency between the derived columns and the document */
   checks: [
     "(doc is null) = (kind is null)",
     "kind is null or ((kind = 'template') = (source_trip is not null))",
+    // a tombstone holds no household data (S2)
+    "deleted_at is null or (doc is null and kind is null and source_trip is null and start is null and days is null)",
   ],
   triggers: [
-    "revision: before update, new.revision := old.revision + 1 (beside 0009's updated_at touch)",
+    "revision: before update, new.revision := old.revision + 1 (beside 0009's updated_at touch); id and user_id kept; deleted_at set to now() when a row is tombstoned and kept as it is on a tombstone (S2)",
     "cap: before insert, and before an update that clears deleted_at, at most 50 rows with deleted_at null per user_id, else raise a PLAN_CAP error the route answers 409; raced on the child branch (NAV-D's test, kept)",
   ],
   indexes: ["(user_id, deleted_at, updated_at desc)", "(user_id, source_trip, start) where deleted_at is null"],
-  purge: "delete from planner_draft where deleted_at < now() - interval '30 days'; the account-deletion job (F17) deletes every row of the user",
+  purge:
+    "planner_draft_purge(): delete from planner_draft where deleted_at < now() - interval '30 days', daily as the owner (core/bin/db-purge.ts, .github/workflows/plan-purge.yml); the account-deletion job (F17) deletes every row of the user (core/src/db/plans.ts deletePlans)",
   rls: "0009's owner-predicate policies cover the new columns; no new policy. The cross-user suite extends to doc, kind, source_trip, start, days, revision, deleted_at",
   signal: "0010's content-free signal keeps firing on any change and carries none of these columns; sync does not depend on it (EM7)",
 } as const;
