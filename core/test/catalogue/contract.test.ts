@@ -9,6 +9,7 @@ import { StubStore, STUB_ALIASED, STUB_MERGED, STUB_RETIRED, STUB_SOURCES, STUB_
 import { CONTRACT_TABLES, type ContractFacts, type ContractTarget, type Planted } from "./contract/index.ts";
 import { runContractTargets } from "./contract/run.ts";
 import { STUB_CARD_ORDER } from "./contract/cardOrder.golden.ts";
+import { publicTarget } from "./planted-dated.ts";
 
 const PHASE_E_NEAR = "phase E, N2 (nearby-and-regions.md section 7): near and nearbyForPlace answer not_available until then";
 
@@ -89,6 +90,11 @@ export const TARGETS: ContractTarget[] = [
     notApplicable: { "K10.mtime": IN_MEMORY },
   },
 ];
+
+// public-ref-aliases 5.1 (REF-C A5): the whole kit through publicStore, over the stub with a record under a dated legacy folder. K7 reads
+// the dated-folder rule, so this target fails if any method's answer escapes the wrapper. JsonStore on the real data runs through
+// publicStore in web/tests/api (REF-W wires web/lib/server/store.ts).
+TARGETS.push(publicTarget(TARGETS[0]!));
 
 const tally = runContractTargets(TARGETS);
 

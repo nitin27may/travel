@@ -7,25 +7,41 @@
 import { z } from "zod";
 import { POINT_ROLE } from "../enums.ts";
 import { TOWN_ID_RE } from "../capture/points.ts";
+import { NO_DATED_FOLDER_RE } from "../../catalogue/alias.ts";
+
+/**
+ * No dated legacy folder (a month next to a year, `canadian-rockies-sept-2029`) anywhere in a public ref (public-ref-aliases 5.2, owner
+ * ruling of 27 Oct 2026). A JSON-Schema-safe pattern (no flags; case spelled out), so OpenAPI states the refusal too.
+ */
+export { NO_DATED_FOLDER_RE };
 
 // ---- identity ------------------------------------------------------------------------------------------------------------------
 
 /**
  * A ref inside a page model (a section, a suitability or relevance block, an access point, a payoff link): the capture or research
- * ref the block was drawn from, verbatim. Some research refs are plain names (`Lake Louise`), so this carries length rules only.
+ * ref the block was drawn from, through `publicRef` (core/src/catalogue/alias.ts): verbatim, except that a dated legacy folder is replaced
+ * by its pinned alias (public-ref-aliases 4). Some research refs are plain names (`Lake Louise`), so this carries length rules and the
+ * dated-folder refusal only.
  */
 export const REF_MAX = 160;
-export const apiRef = z.string().min(1).max(REF_MAX).meta({ description: "The capture or research ref a block was drawn from, verbatim" });
+export const apiRef = z
+  .string()
+  .min(1)
+  .max(REF_MAX)
+  .regex(NO_DATED_FOLDER_RE, "a public ref holds no month and year (public-ref-aliases 4)")
+  .meta({ description: "Public ref of the capture or research record a block was drawn from: its ref with any dated folder replaced by its alias (public-ref-aliases 4)" });
 
 /**
- * The stable id of a row or detail (D-B2, owner Q74: `entity.id` is the ref). The capture ref verbatim when the page is built from a
- * capture record (`route/johnston-canyon`, `part/...#centre`, `trip/<id>/sight:ragged falls`: spaces, `:` and `#` occur), otherwise
- * `place/<slug>`, minted once from the page's first pinned slug (store.ts A24). Every page ref is a lower-case layer word, a slash, then
- * the rest, so a ref names no private origin; the privacy detector (core/src/privacy/detect.ts) enforces the same on every body. Any URL
- * that carries one encodes it.
+ * The stable public id of a row or detail (D-B2, owner Q74 as amended by public-ref-aliases 5.2: `entity.id` is the INTERNAL ref, and the
+ * public `ref` is that ref through `publicRef`). For a page built from a capture record it is the capture ref (`route/johnston-canyon`,
+ * `part/...#centre`, `trip/<id>/sight:ragged falls`: spaces, `:` and `#` occur) with any dated legacy folder replaced by its pinned alias
+ * (the folder `canadian-rockies-sept-2029` inside a ref is served as `canadian-rockies-2029`); for every other ref the two are identical.
+ * A page with no capture record is `place/<slug>`, minted once from the page's first pinned slug (store.ts A24). Every page ref is a
+ * lower-case layer word, a slash, then the rest, so a ref names no private origin and no month and year; the privacy detector
+ * (core/src/privacy/detect.ts) enforces the same on every body. Any URL that carries one encodes it.
  */
 export const REF_RE = /^[a-z][a-z0-9-]*\/./;
-export const apiPlaceRef = apiRef.regex(REF_RE).meta({ description: "Stable id of a place: its capture ref (<layer>/...), or place/<slug> for a page built from no capture record" });
+export const apiPlaceRef = apiRef.regex(REF_RE).meta({ description: "Stable public id of a place: its capture ref (<layer>/...) with any dated folder replaced by its alias (public-ref-aliases 4), or place/<slug> for a page built from no capture record" });
 
 /** A URL slug: lower-case words joined by single hyphens (patterns 1.2). */
 export const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
