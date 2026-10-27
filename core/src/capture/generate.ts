@@ -118,7 +118,7 @@ function sectionTable(): Obj[] {
 function contractFile(file: TypesFile): Output {
   const props: Obj = {};
   for (const p of PROPERTIES) {
-    props[p.key] = { label: p.label, group: p.group, value: p.value, ...(p.unit ? { unit: p.unit } : {}), gap: p.gap, section: p.section, display: p.display, ...(p.trigger ? { trigger: p.trigger } : {}), home: p.home, ...(p.layers ? { layers: p.layers } : {}) };
+    props[p.key] = { label: p.label, group: p.group, value: p.value, ...(p.unit ? { unit: p.unit } : {}), gap: p.gap, section: p.section, display: p.display, ...(p.trigger ? { trigger: p.trigger } : {}), home: p.home, ...(p.homeByLayer ? { home_by_layer: p.homeByLayer } : {}), ...(p.layers ? { layers: p.layers } : {}) };
   }
   const facets: Obj[] = PROPERTIES.filter((p) => p.filter).map((p) => ({ property: p.key, scopes: p.filter!.scopes, control: p.filter!.control, label: p.filter!.label, ...(p.filter!.band ? { band: p.filter!.band } : {}), ...(p.filter!.promote ? { promote: p.filter!.promote } : {}) }));
   const lines = [

@@ -162,6 +162,10 @@
       "label": "A city park"
     },
     {
+      "key": "park/protected-area",
+      "label": "A national, state or provincial park, reserve or other protected area visited for its landscape as a whole"
+    },
+    {
       "key": "peak/summit",
       "label": "A summit climb"
     },

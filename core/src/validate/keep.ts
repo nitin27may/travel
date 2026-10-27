@@ -117,6 +117,8 @@ export function keepFindings(doc: unknown, root: string | null): KeepFinding[] {
       if (!isObj(r)) return;
       // the public summary: the relevance `why` (registry summary home) is the one sentence a card shows
       if (doc.schema === "relevance/1" && typeof r.why === "string" && r.why.length > SUMMARY_MAX) push("E_SUMMARY_LONG", `/records/${i}/why`, `the summary is ${r.why.length} characters; the limit is ${SUMMARY_MAX}. One sentence in our own words.`);
+      // an offer's summary lives on its capture record (protected-area-entry C1): the same public limit
+      if (doc.schema === "capture/1" && typeof r.summary === "string" && r.summary.length > SUMMARY_MAX) push("E_SUMMARY_LONG", `/records/${i}/summary`, `the summary is ${r.summary.length} characters; the limit is ${SUMMARY_MAX}. One sentence in our own words.`);
       if (META_KEY in r) meta(r.meta, `/records/${i}/meta`, doc.schema === "capture/1" ? captureTable(r) : fam.table);
     });
   } else if (fam.at === "points{}" && isObj(doc.points)) {

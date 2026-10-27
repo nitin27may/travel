@@ -12,6 +12,11 @@ import type { PlacementWorld } from "./placementBlock.ts";
 import { loadWorld, readJson } from "./records.ts";
 import type { World } from "./records.ts";
 import { recordTier } from "./tiers.ts";
+import { RULE_BY_KEY, targetAllowed, targetsOf } from "../schema/capture/relations.ts";
+import type { NodeFacts, OfferClass, RuleKey } from "../schema/capture/relations.ts";
+import type { CaptureRecord } from "../schema/capture/records.ts";
+import { resolveNode } from "./resolve.ts";
+import { categoryOf, loadTypes, treeOf } from "./tree.ts";
 
 export const GAP_BUDGET_PATH = "data/capture/gap-budget.json";
 export const GAP_BUDGET_SCHEMA = "capture-gap-budget/1";
@@ -60,12 +65,42 @@ export function severityOf(root: string, townsLayer: boolean): Severity {
 }
 
 /**
- * error or warning for a relation finding on one link: a known fault (the budget's `known` list) warns unless its code is strict;
- * otherwise as levelOf (a pinned record warns, a new record errors, a draft warns).
+ * error or warning for a relation finding on one link, decided by the budget's `known` list only (EG-R0 S1): a known fault warns unless
+ * its code is strict; every other link in the store errors, on a pinned record too, so no record can gain a new wrong link; a draft
+ * outside the store warns. `known` already lists every fault that existed when the rule landed, so the pinned path is not needed.
  */
 export function levelOfLink(code: string, refs: string[], rel: string, target: string, store: boolean, sev: Severity): "error" | "warning" {
-  if (store && !sev.strict.has(code) && refs.some((r) => sev.known?.has(knownKey(code, r, rel, target)))) return "warning";
-  return levelOf(code, refs, store, sev);
+  if (!store) return "warning";
+  if (!sev.strict.has(code) && refs.some((r) => sev.known?.has(knownKey(code, r, rel, target)))) return "warning";
+  return "error";
+}
+
+/**
+ * The `known` entries that no longer match a live fault (EG-R0 S2): the record is gone, it no longer holds the link, or the target is
+ * now allowed. A stale entry would silently allow the same wrong link again, so `gaps --budget --check` fails on one. Reads the same
+ * table as the validator (RELATION_RULES: targetAllowed, and `same` for a cross-layer alternative_to). A target with no capture record
+ * is not a live fault (the validator skips it too).
+ */
+export function staleKnown(world: World, known: readonly KnownFault[]): KnownFault[] {
+  const types = loadTypes(world.root);
+  const tree = treeOf(types);
+  const primary = (ref: string): string => world.alias.get(ref) ?? ref;
+  const facts = (x: CaptureRecord): NodeFacts => ({
+    layer: x.layer, type: x.type,
+    offerClass: (x.offer_class as OfferClass | undefined) ?? (x.layer === "offer" ? ((resolveNode(x.type, types)?.layers.offer?.offer_class ?? null) as OfferClass | null) : null),
+  });
+  const live = (k: KnownFault): boolean => {
+    const rule = RULE_BY_KEY.get(k.rel as RuleKey);
+    const src = world.cap.get(primary(k.ref))?.rec;
+    if (!rule || !src || k.code !== "E_CAP_REL_TARGET") return false;
+    if (!targetsOf(src as unknown as Record<string, unknown>, k.rel).includes(k.target)) return false;
+    const tg = world.cap.get(primary(k.target))?.rec;
+    if (!tg) return false;
+    if (!targetAllowed(rule, facts(tg), src.layer)) return true;
+    if (rule.same && !rule.oneLevel) return tg.layer !== src.layer || (!!rule.same.category && categoryOf(tree, tg.type) !== categoryOf(tree, src.type));
+    return false;
+  };
+  return known.filter((k) => !live(k));
 }
 
 /** Whether a file is a capture sidecar in the store (data/capture/<trip>/<lane>.json); a draft outside it only gets warnings. */
@@ -111,6 +146,7 @@ export function checkBudget(root: string, world?: World): BudgetCheck {
   const b = loadBudget(root);
   if (!b) return { ok: false, rows: [], issues: [...issues, `${GAP_BUDGET_PATH} is missing. Write it with: node core/bin/capture.ts gaps --budget --write`] };
   if (b.schema !== GAP_BUDGET_SCHEMA) issues.push(`${GAP_BUDGET_PATH}: schema must be "${GAP_BUDGET_SCHEMA}".`);
+  for (const k of staleKnown(w, b.known ?? [])) issues.push(`${GAP_BUDGET_PATH}: the known fault ${k.code} ${k.ref} ${k.rel} -> ${k.target} matches no live finding (the link was fixed or removed). Remove the entry, so the same wrong link cannot come back as a warning.`);
   const now = budgetCounts(pw);
   const rows = [...BUDGET_CODES, TIER_KEYS_COUNT].map((code) => {
     const budget = b.counts?.[code] ?? 0;

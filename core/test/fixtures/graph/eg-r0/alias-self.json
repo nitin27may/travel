@@ -1,0 +1,43 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "alias-self",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/alias-park",
+      "type": "nature.protected.state_provincial_park",
+      "layer": "place",
+      "name": "Alias Park",
+      "aliases": [
+        "place/alias-park-old"
+      ]
+    },
+    {
+      "ref": "place/alias-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Alias Lake",
+      "aliases": [
+        "place/alias-lake-old"
+      ],
+      "part_of": [
+        "place/alias-lake-old"
+      ]
+    },
+    {
+      "ref": "place/alias-pond",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Alias Pond",
+      "part_of": [
+        "place/alias-park",
+        "place/alias-park-old",
+        "place/alias-park"
+      ]
+    }
+  ]
+}

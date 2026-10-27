@@ -3,7 +3,8 @@
 // checkRecord), given the marks of the contract; the kind-profile checks (draft, usable, complete) are the lists the generator
 // writes from these marks. So a property is counted once: the suitability paths in the suitability slice, everything else here.
 import type { Mark } from "../schema/capture/properties.ts";
-import { PROPERTY_BY_KEY } from "../schema/capture/properties.ts";
+import { homeOf, PROPERTY_BY_KEY } from "../schema/capture/properties.ts";
+import { isSystemPass, typeUnder } from "../schema/capture/relations.ts";
 import type { CaptureRecord } from "../schema/capture/records.ts";
 import type { TypesFile } from "../schema/capture/typesFile.ts";
 import type { RelevanceRecord } from "../schema/relevance.ts";
@@ -72,7 +73,19 @@ export function readProperty(world: World, key: string, ref: string, cap: Captur
     case "name": return cap.name ? "firm" : "gap";
     case "type": return "firm";
     case "point": return world.points[ref] ? "firm" : "gap";
-    case "summary": return rel?.why ? "firm" : "gap";
+    case "at":
+      // a system pass names no place (QP1): its fees reach it through covered_by, so the offer layer's `at` is answered
+      if (isSystemPass(cap, inc.covers.length)) return "firm";
+      break;
+    case "summary":
+      // an offer's summary is on its capture record (C1, C7); an offer that draws on its own and so has a relevance record
+      // (relevance 3.7: a lift ticket, a coaster) is answered by that record's why, which is the same sentence
+      if (cap.layer === "offer" && !cap.summary && rel?.why) return "firm";
+      break;
+    case "access_cost":
+      // C11: a protected area with requirement offers (fees, permits, seats at it) has a firm answer; the offers are the answer (4.6)
+      if (cap.layer === "place" && typeUnder(cap.type, "nature.protected") && inc.offers_at.some((o) => typeUnder(world.cap.get(o)?.rec.type ?? "", "access.pass"))) return "firm";
+      break;
     case "access_points": return (cap.starts_at?.length ?? 0) + inc.parks_for.length + inc.serves.length + inc.starts_here.length > 0 ? "firm" : "gap";
     case "links": {
       const l = (cap.links ?? []).filter((x) => x.kind === "official");
@@ -88,16 +101,18 @@ export function readProperty(world: World, key: string, ref: string, cap: Captur
     }
     default: break;
   }
-  if (def.home.in === "capture") {
-    const v = (cap as unknown as Record<string, unknown>)[def.home.path ?? key];
+  // the home on this record's layer: an offer's summary is on the capture record, everyone else's is the relevance `why` (C7)
+  const home = homeOf(def, cap.layer);
+  if (home.in === "capture") {
+    const v = (cap as unknown as Record<string, unknown>)[home.path ?? key];
     if (v === undefined || v === null) return "gap";
     if (Array.isArray(v)) return v.length > 0 ? "firm" : "gap";
     if (typeof v === "object") return firm(v);
     return "firm";
   }
-  if (def.home.in === "relevance") {
+  if (home.in === "relevance") {
     if (!rel) return "gap";
-    const v = (rel as unknown as Record<string, unknown>)[def.home.path ?? key];
+    const v = (rel as unknown as Record<string, unknown>)[home.path ?? key];
     if (v === undefined || v === null) return "gap";
     if (key === "signals") {
       const s = v as Record<string, unknown>;

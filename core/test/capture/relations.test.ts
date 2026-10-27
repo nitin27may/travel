@@ -178,12 +178,12 @@ describe("validator: source and target kinds", () => {
     // covered_by a shuttle seat: not a pass that covers
     expect(errs(inLane(r, capDoc([park(), offer("seat", "access.pass.shuttle_seat"), offer("fee", "access.pass.entry_fee", { covered_by: ["offer/place/banff-national-park#seat"] })])))).toEqual(["E_CAP_REL_TARGET"]);
   });
-  it("E_CAP_REL_TARGET severity: a pinned record warns, a known fault warns, strict makes both errors", () => {
+  it("E_CAP_REL_TARGET severity: decided by the known list only (EG-R0 S1): a known fault warns, a pinned record's new fault errors, strict makes both errors", () => {
     const raft = { ref: "offer/place/moraine-lake#raft", type: "water.river.rafting", layer: "offer", name: "Raft", at: ["place/moraine-lake"] };
     const doc = capDoc([lake(), raft, parking({ parks_for: ["offer/place/moraine-lake#raft"] })]);
     const pinned = inLane(root({ pinned: ["part/place/moraine-lake#parking"] }), doc);
-    expect(errs(pinned)).toEqual([]);
-    expect(warns(pinned)).toEqual(["E_CAP_REL_TARGET"]);
+    expect(errs(pinned)).toEqual(["E_CAP_REL_TARGET"]);
+    expect(warns(pinned)).toEqual([]);
     const fault = { code: "E_CAP_REL_TARGET", ref: "part/place/moraine-lake#parking", rel: "parks_for", target: "offer/place/moraine-lake#raft" };
     const known = inLane(root({ known: [fault] }), doc);
     expect(errs(known)).toEqual([]);

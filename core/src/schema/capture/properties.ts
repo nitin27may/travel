@@ -24,10 +24,13 @@ export type Group =
 export type ValueType =
   | "text" | "enum" | "bool" | "number" | "range" | "duration" | "names" | "qid" | "point" | "ref" | "type_id"
   | "season_rows" | "hours" | "price_list" | "window" | "limit" | "grade" | "relation_list" | "link_list" | "photo_list"
-  | "object" | "object_list" | "enum_list";
+  | "object" | "object_list" | "enum_list"
+  /** locations-store area ids, not record refs (covers_areas): no reader may treat them as relation targets */
+  | "area_list";
 
 export type HomeIn = "suitability" | "relevance" | "capture" | "tracks" | "none";
 export interface Home { in: HomeIn; path?: string }
+export type RecordLayer = "place" | "route" | "offer" | "event";
 
 export interface FilterDef {
   /** type ids (any depth) or intent names whose result lists get the facet */
@@ -63,6 +66,11 @@ export interface PropertyDef {
   /** the named condition of an `R?` mark (core/src/capture/triggers.ts) */
   trigger?: string;
   home: Home;
+  /**
+   * Where the value lives on one layer when that differs from `home` (protected-area-entry C7): an offer has no relevance record
+   * (contract 3.3), so its `summary` lives on the capture record. Read through homeOf, never `home` alone.
+   */
+  homeByLayer?: Partial<Record<RecordLayer, Home>>;
   filter?: FilterDef;
   /** the record layers that can carry it; absent means all */
   layers?: ("place" | "route" | "offer" | "event")[];
@@ -74,7 +82,7 @@ const GAP_DEFAULT = "Not recorded";
 
 interface Row {
   key: string; group: Group; label: string; value: ValueType; section: SectionId; display: Display[]; base: Mark;
-  unit?: string; gap?: string; trigger?: string; home?: Home; filter?: FilterDef; layers?: PropertyDef["layers"];
+  unit?: string; gap?: string; trigger?: string; home?: Home; homeByLayer?: PropertyDef["homeByLayer"]; filter?: FilterDef; layers?: PropertyDef["layers"];
   /** an explicit keep list; absent: derived by keepOf */
   keep?: Keep[];
 }
@@ -91,8 +99,8 @@ interface Row {
 // K7 freshness: none today; read dates, applies_to and review state are Val and RowMeta fields, not properties.
 // An explicit `keep` on a row replaces the derived list (none does today; RIS-H added homes and needed no explicit list).
 const CHECK_TRIGGERS: ReadonlySet<string> = new Set(["operates", "bookable", "sells", "status_page", "derived", "no_door_access"]);
-const CHECK_KEYS: ReadonlySet<string> = new Set(["point", "near_town", "near_town_km", "access_cost", "window", "hours", "season", "access_season", "closures", "check_in_out", "last_transport", "fills_by", "ext.lift.last_up", "ext.lift.last_down", "participation.weather_cancel", "participation.medical", "participation.waiver", "geometry"]);
-const MONEY_KEYS: ReadonlySet<string> = new Set(["price", "access_cost", "cost_band", "deposit", "cancellation", "included", "tourist_tax", "variants", "ext.area.pass"]);
+const CHECK_KEYS: ReadonlySet<string> = new Set(["entry", "point", "near_town", "near_town_km", "access_cost", "window", "hours", "season", "access_season", "closures", "check_in_out", "last_transport", "fills_by", "ext.lift.last_up", "ext.lift.last_down", "participation.weather_cancel", "participation.medical", "participation.waiver", "geometry"]);
+const MONEY_KEYS: ReadonlySet<string> = new Set(["entry", "price", "access_cost", "cost_band", "deposit", "cancellation", "included", "tourist_tax", "variants", "ext.area.pass"]);
 const DECISION_GROUPS: ReadonlySet<Group> = new Set(["when", "time", "effort", "limits", "suits", "safety", "water", "participation", "offer"]);
 const DECISION_KEYS: ReadonlySet<string> = new Set(["transit", "reservation", "book_url", "pairs_with", "combo_with", "alternative_to", "parks_for", "visit_mode", "indoor", "why_stay", "groceries", "crowds", "queue_note"]);
 const PROOF_KEYS: ReadonlySet<string> = new Set(["wikidata", "osm_ref", "geonames_id", "links", "signals", "gpx_licence"]);
@@ -112,7 +120,7 @@ const def = (r: Row): PropertyDef => {
   const p: Omit<PropertyDef, "keep"> = {
     key: r.key, group: r.group, label: r.label, value: r.value, ...(r.unit ? { unit: r.unit } : {}), gap: r.gap ?? GAP_DEFAULT,
     section: r.section, display: r.display, base: r.base, ...(r.trigger ? { trigger: r.trigger } : {}),
-    home: r.home ?? { in: "none" }, ...(r.filter ? { filter: r.filter } : {}), ...(r.layers ? { layers: r.layers } : {}),
+    home: r.home ?? { in: "none" }, ...(r.homeByLayer ? { homeByLayer: r.homeByLayer } : {}), ...(r.filter ? { filter: r.filter } : {}), ...(r.layers ? { layers: r.layers } : {}),
   };
   return { ...p, keep: r.keep ?? keepOf(p) };
 };
@@ -143,7 +151,8 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "near_town", group: "identity", label: "Nearest town", value: "ref", section: "access", display: ["rest"], base: "R?", trigger: "derived", gap: "Nearest town not worked out yet", home: cap("near_town"), layers: ["place", "route"] }),
   def({ key: "near_town_km", group: "identity", label: "Distance to the nearest town", value: "number", unit: "km", section: "access", display: ["detail"], base: "N", home: cap("near_town_km"), layers: ["place", "route"] }),
   def({ key: "geonames_id", group: "identity", label: "GeoNames", value: "text", section: "sources", display: ["detail"], base: "A", gap: "Not linked to GeoNames yet", home: cap("geonames_id"), layers: ["place"] }),
-  def({ key: "summary", group: "identity", label: "Summary", value: "text", section: "cover", display: ["rest", "card"], base: "R", gap: "Summary not written yet", home: rel("why") }),
+  // an offer has no relevance record (contract 3.3): its summary lives on the capture record (protected-area-entry C1, C7)
+  def({ key: "summary", group: "identity", label: "Summary", value: "text", section: "cover", display: ["rest", "card"], base: "R", gap: "Summary not written yet", home: rel("why"), homeByLayer: { offer: cap("summary") } }),
 
   // When
   def({ key: "season", group: "when", label: "Operating season", value: "season_rows", section: "when", display: ["rest", "card", "filter"], base: "R?", trigger: "operates", gap: "Season not published; ask the operator", home: cap("season"), filter: { scopes: ["play", "snow", "intent:do"], control: "enum", label: "Season", band: "season_band" } }),
@@ -160,6 +169,8 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "access_cost", group: "access", label: "Permit or booking", value: "object_list", section: "warnings", display: ["rest!"], base: "R", gap: "Permit or booking not checked yet", home: rel("access_cost") }),
   def({ key: "price", group: "access", label: "Price", value: "price_list", section: "options", display: ["rest", "card", "filter"], base: "R?", trigger: "sells", gap: "Price not published", home: cap("price"), filter: { scopes: ["intent:do", "culture", "play", "snow"], control: "enum", label: "Price band", promote: { "culture": 2, "animals.see": 2, "play": 2 }, band: "price_band" } }),
   def({ key: "window", group: "access", label: "Booking window", value: "window", section: "options", display: ["rest!", "filter"], base: "R?", trigger: "bookable", gap: "Booking window not published; book as early as possible", home: cap("window"), filter: { scopes: ["intent:do", "culture"], control: "enum", label: "Booking needed", band: "booking" } }),
+  // a requirement's own facts: who it applies to, validity, channel, exemptions, change and cancel, quota (protected-area-entry 3.2, 5.1)
+  def({ key: "entry", group: "access", label: "Entry requirement", value: "object", section: "options", display: ["rest!"], base: "N", gap: "Entry rules not checked yet", home: cap("entry"), layers: ["offer"] }),
   def({ key: "book_url", group: "access", label: "Booking page", value: "text", section: "links", display: ["detail"], base: "N", gap: "Booking page not checked yet", home: cap("book_url"), layers: ["offer"] }),
   def({ key: "reservation", group: "access", label: "Reservation", value: "enum", section: "options", display: ["rest"], base: "N", layers: ["offer", "place"] }),
   def({ key: "cost_band", group: "access", label: "Cost band", value: "enum", section: "options", display: ["card"], base: "N" }),
@@ -200,11 +211,11 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "serves", group: "relations", label: "Serves", value: "relation_list", section: "access", display: ["rest"], base: "N", home: cap("serves"), layers: ["place"] }),
   def({ key: "combo_with", group: "relations", label: "Combines with", value: "relation_list", section: "around", display: ["detail"], base: "N", home: cap("combo_with") }),
   def({ key: "alternative_to", group: "relations", label: "Alternative to", value: "relation_list", section: "around", display: ["detail"], base: "N", home: cap("alternative_to"), layers: ["place", "route", "offer"] }),
-  def({ key: "variant_of", group: "relations", label: "Variant of", value: "relation_list", section: "options", display: ["detail"], base: "N", home: cap("variant_of"), layers: ["route", "offer"] }),
+  def({ key: "variant_of", group: "relations", label: "Variant of", value: "ref", section: "options", display: ["detail"], base: "N", home: cap("variant_of"), layers: ["route", "offer"] }),
   def({ key: "covered_by", group: "relations", label: "Covered by", value: "relation_list", section: "options", display: ["rest!"], base: "N", gap: "Passes that cover it not checked yet", home: cap("covered_by"), layers: ["offer"] }),
   def({ key: "includes", group: "relations", label: "Includes", value: "relation_list", section: "options", display: ["rest"], base: "N", home: cap("includes"), layers: ["offer"] }),
   // drives membership (the read model); never displayed as a value (property-display-matrix: page none, api none)
-  def({ key: "covers_areas", group: "relations", label: "Areas that are the park", value: "relation_list", section: "around", display: [], base: "N", gap: "Park areas not set yet", home: cap("covers_areas"), layers: ["place"], keep: ["check"] }),
+  def({ key: "covers_areas", group: "relations", label: "Areas that are the park", value: "area_list", section: "around", display: [], base: "N", gap: "Park areas not set yet", home: cap("covers_areas"), layers: ["place"], keep: ["check"] }),
 
   // Route facts no suitability field holds
   def({ key: "geometry", group: "type_facts", label: "Track", value: "object", section: "activity", display: ["detail"], base: "N", gap: "Track not recorded yet", home: { in: "tracks", path: "data/tracks" }, layers: ["route"] }),
@@ -355,6 +366,9 @@ export const SUITABILITY_PROPERTIES: PropertyDef[] = APPLICABILITY_PATHS.map(sui
 export const PROPERTIES: PropertyDef[] = [...BASE_PROPERTIES, ...SUITABILITY_PROPERTIES];
 
 export const PROPERTY_BY_KEY: ReadonlyMap<string, PropertyDef> = new Map(PROPERTIES.map((p) => [p.key, p]));
+
+/** Where a property's value lives on a record of `layer`: the layer's own home when the registry gives one, else `home`. */
+export const homeOf = (def: PropertyDef, layer: RecordLayer): Home => def.homeByLayer?.[layer] ?? def.home;
 export const isSuitabilityProperty = (key: string): boolean => PROPERTY_BY_KEY.get(key)?.home.in === "suitability";
 
 /** The paths of SUIT_ROWS that APPLICABILITY_PATHS does not know: a typo guard for the registry test. */

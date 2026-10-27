@@ -4,12 +4,14 @@
 //
 //   1. A file in data/<kind>/<lane>/ says `"trip": "<lane>"`, and a file that says so sits there (a trip's folder cannot hold it).
 //   2. Every record hangs off a stored place: its ref, unwrapped from part/ and offer/, is `place/<slug>` pinned in
-//      data/catalogue/slugs.json (REF1). A merged or withdrawn key is refused: write the survivor's ref.
+//      data/catalogue/slugs.json (REF1). A merged or withdrawn key is refused: write the survivor's ref. The one exception is a
+//      system pass, `offer/operator/<slug>#<product>` (protected-area-entry QP1): it hangs off an operator of operators.json.
 //   3. No private origin key (`loc:<locations id>`, `proto:<id>`) anywhere in the file (store.ts A24, PRIV1).
 import { join, relative, resolve, sep } from "node:path";
 import { isTriplessLane, rootRef, TRIPLESS_KINDS, TRIPLESS_LANE, triplessDir } from "../capture/lane.ts";
 import type { TriplessKind } from "../capture/lane.ts";
-import { readJson } from "../capture/records.ts";
+import { OPERATORS_PATH, readJson } from "../capture/records.ts";
+import { SYSTEM_PASS_REF_RE } from "../schema/capture/relations.ts";
 import { ORIGIN_KEY_RE, PLACE_REF_RE, SLUG_REGISTRY_PATH } from "../catalogue/slugs.ts";
 import { ORIGIN_REF } from "../privacy/detect.ts";
 import type { SlugRegistry } from "../catalogue/slugs.ts";
@@ -55,8 +57,15 @@ export function validateLane(doc: unknown, kind: TriplessKind, ctx: Ctx): void {
 
   const reg = readJson<SlugRegistry>(join(root, SLUG_REGISTRY_PATH));
   const records = Array.isArray(doc.records) ? doc.records : [];
+  let operators: Set<string> | null = null;
   records.forEach((r, i) => {
     if (!isObj(r) || typeof r.ref !== "string") return;
+    if (kind === "capture" && SYSTEM_PASS_REF_RE.test(r.ref)) {
+      operators ??= new Set((readJson<{ operators?: { ref?: unknown }[] }>(join(root, OPERATORS_PATH))?.operators ?? []).map((o) => String(o.ref)));
+      const op = rootRef(r.ref);
+      if (!operators.has(op)) err(ctx, LANE_CODE, `/records/${i}/ref`, `ref "${r.ref}" is a system pass of "${op}", which is not in ${OPERATORS_PATH}. Add the operator there first.`);
+      return;
+    }
     const place = rootRef(r.ref);
     if (!PLACE_REF_RE.test(place)) {
       err(ctx, LANE_CODE, `/records/${i}/ref`, `ref "${r.ref}" is not about a stored place. A record of the trip-less lane is place/<slug>, or a part/ or offer/ of one, with the slug pinned in ${SLUG_REGISTRY_PATH}; a trip's item goes in that trip's lane files.`);
