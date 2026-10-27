@@ -360,12 +360,12 @@ reviewed frames (`shots-TBN2R/` and FLOW's wireframes).
 | ID | Question (short) | Status | Settled by, or recommendation |
 |---|---|---|---|
 | Q-TB-N1 | Focused flow on phones | **Settled, extended** | FLOW section 7 keeps it (TB-N C3) and TF18 carries it into the editor with one bar, Settings · Review (review TB-N2 M4) |
-| Q-TB-N2 | No "Plan" header tab in P1; entry from Home, Mine, the copy sheet and the world map | **Owner to answer** | Recommend **yes**: four tabs at most and the 90% first (P7); trip-builder 15 extension points X7 and X8 and review TB-N2 (P7 row) already assume it. Trade-off: the builder is harder to find until usage data says otherwise |
+| Q-TB-N2 | No "Plan" header tab in P1; entry from Home, Mine, the copy sheet and the world map | **Answered yes** (owner, 27 Oct 2026: take as recommended) | Recommend **yes**: four tabs at most and the 90% first (P7); trip-builder 15 extension points X7 and X8 and review TB-N2 (P7 row) already assume it. Trade-off: the builder is harder to find until usage data says otherwise |
 | Q-TB-N3 | No drive-time rings; spokes and minutes in the list | **Settled** | FLOW intro (TB-N visual decisions kept) and section 11 (T5); review TB-N2 T5 row |
 | Q-TB-N4 | No swipe to pick in v1 | **Settled** | FLOW intro; review TB-N2 section 7 ("No swipe") |
 | Q-TB-N5 | Phone counts only asking steps; desktop rail shows all | **Settled, changed** | FLOW 2.1 and TF1: the phone counts stages 1 to 4 that ask (2, 3, 4, 4, 4, 4); the rail shows stages 0 to 4 and ends with "Your plan" (FLOW 7, L6), not eight steps |
 | Q-TB-N6 | Must see as a tray toggle, not a second tap | **Settled** | FLOW intro and section 3 factor 4c ("3 tray Must see") |
-| Q-TB-N7 | Picked uses the active-filter look (amber well, border, "Picked" and a check) | **Owner to answer** | Recommend **yes**: amber already means "selected"; one pill on phone and desktop. Trade-off: the 1 px `--accent` border is 2.52:1 in light, so the word and check carry the state (components 9.2) |
+| Q-TB-N7 | Picked uses the active-filter look (amber well, border, "Picked" and a check) | **Answered yes** (owner, 27 Oct 2026: take as recommended) | Recommend **yes**: amber already means "selected"; one pill on phone and desktop. Trade-off: the 1 px `--accent` border is 2.52:1 in light, so the word and check carry the state (components 9.2) |
 | Q-TB-N8 | Kind first, nothing pre-selected | **Settled** | FLOW TF2 (six tiles, a tap advances, L4) and stage 0 Defaults ("No tile marked on a first visit") |
 | Q-TB-N9 | Days, pace and bases on one desktop screen | **Superseded** | FLOW TF1 (review TB-N2 M1): there is no bases step; stage 4 Days and driving is its own screen (W4) and bases are the plan's collapsed card |
 | Q-TB-N10 | Desktop primary at the right end of the step rail | **Settled** | FLOW section 7 (stages 0 to 4, "primary at the right end"); inside the plan the trip header holds one Settings button |
