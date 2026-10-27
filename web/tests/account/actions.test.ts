@@ -4,12 +4,15 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // Postgres. The transaction helper (role switch + app.user_id + RLS) is owned and tested by the
 // database lane (@travel/core); here we verify the app-lane adapter: session checks, input
 // validation, that the session user id scopes every statement, and the committed/unchanged mapping.
-vi.mock('@/lib/auth/server', () => ({ getUser: vi.fn() }));
+const sdk = vi.hoisted(() => ({ updateUser: vi.fn(async (_b: Record<string, unknown>) => ({ data: { status: true }, error: null as unknown })) }));
+const quota = vi.hoisted(() => ({ take: vi.fn(async (_id: string) => 'ok' as 'ok' | 'limited' | 'unavailable') }));
+vi.mock('@/lib/auth/server', () => ({ getUser: vi.fn(), getAuth: () => ({ updateUser: sdk.updateUser }), authErrorCode: () => 'unknown' }));
+vi.mock('@/lib/account/name-quota', () => ({ takeNameChange: quota.take }));
 vi.mock('@travel/core/db/index.ts', () => ({ withUserTransaction: vi.fn() }));
 
 import { getUser } from '@/lib/auth/server';
 import { withUserTransaction } from '@travel/core/db/index.ts';
-import { createDraft, renameDraft, deleteDraft } from '@/app/account/actions';
+import { createDraft, renameDraft, deleteDraft, saveName } from '@/app/account/actions';
 
 const OWNER = { id: 'user-owner', email: 'owner@example.test' };
 const ID = '3f2504e0-4f89-41d3-9a0c-0305e82c3301';
@@ -105,5 +108,52 @@ describe('account write actions', () => {
       (withUserTransaction as unknown as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('connection refused'));
       expect(await createDraft(OWNER.id, { id: ID, title: 'Hi' })).toEqual({ kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' });
     });
+  });
+});
+
+describe('saveName (ACCT-P1, spec 4.3)', () => {
+  beforeEach(() => {
+    (getUser as ReturnType<typeof vi.fn>).mockResolvedValue(OWNER);
+    sdk.updateUser.mockResolvedValue({ data: { status: true }, error: null });
+    quota.take.mockResolvedValue('ok');
+  });
+  it('refuses with no session before the quota or the SDK', async () => {
+    (getUser as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+    expect(await saveName('x', { name: 'Nitin' })).toEqual({ kind: 'rejected', reason: 'UNAUTHENTICATED' });
+    expect(quota.take).not.toHaveBeenCalled();
+    expect(sdk.updateUser).not.toHaveBeenCalled();
+  });
+  it('refuses an invalid name before the quota is spent', async () => {
+    expect(await saveName(OWNER.id, { name: '<b>' })).toEqual({ kind: 'rejected', reason: 'INVALID_INPUT', field: 'chars' });
+    expect(await saveName(OWNER.id, { name: 'x'.repeat(61) })).toMatchObject({ field: 'too_long' });
+    expect(quota.take).not.toHaveBeenCalled();
+    expect(sdk.updateUser).not.toHaveBeenCalled();
+  });
+  it('answers RATE_LIMITED and never calls the SDK when over the limit', async () => {
+    quota.take.mockResolvedValue('limited');
+    expect(await saveName(OWNER.id, { name: 'Nitin' })).toEqual({ kind: 'rejected', reason: 'RATE_LIMITED' });
+    expect(sdk.updateUser).not.toHaveBeenCalled();
+  });
+  it('fails closed when the quota is unavailable', async () => {
+    quota.take.mockResolvedValue('unavailable');
+    const log = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    expect(await saveName(OWNER.id, { name: 'Nitin' })).toEqual({ kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' });
+    log.mockRestore();
+  });
+  it('sends exactly { name } for the session user and returns the validated name (no session re-read)', async () => {
+    expect(await saveName(OWNER.id, { name: '  Nitin   Singh ' })).toEqual({ kind: 'saved', name: 'Nitin Singh' });
+    expect(sdk.updateUser).toHaveBeenCalledTimes(1);
+    expect(sdk.updateUser.mock.calls[0][0]).toStrictEqual({ name: 'Nitin Singh' });
+    expect(quota.take).toHaveBeenCalledWith(OWNER.id);
+    expect(getUser).toHaveBeenCalledTimes(1);
+  });
+  it('maps an SDK error answer and a throw to SERVICE_UNAVAILABLE and logs no name', async () => {
+    const log = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    sdk.updateUser.mockResolvedValueOnce({ data: null as never, error: { code: 'X', message: 'Nitin Secret' } });
+    expect(await saveName(OWNER.id, { name: 'Nitin Secret' })).toEqual({ kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' });
+    sdk.updateUser.mockRejectedValueOnce(new Error('Nitin Secret'));
+    expect(await saveName(OWNER.id, { name: 'Nitin Secret' })).toEqual({ kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' });
+    expect(JSON.stringify(log.mock.calls)).not.toContain('Nitin Secret');
+    log.mockRestore();
   });
 });

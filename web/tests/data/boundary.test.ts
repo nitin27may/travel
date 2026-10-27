@@ -20,7 +20,8 @@ const ADAPTERS = ['lib/client/api.ts', 'lib/client/static.ts'];
  */
 const NOT_CATALOGUE: Record<string, string> = {
   'components/map/MapLibreMap.tsx': 'the map library worker script',
-  'app/account/AccountDrafts.tsx': 'per-user account live-query renewal and authenticated drafts re-fetch (not catalogue data; RLS-scoped, same-origin)',
+  'app/account/SavedTrips.tsx': 'per-user authenticated saved-trips re-fetch after a write and on focus (not catalogue data; RLS-scoped, same-origin)',
+  'app/account/ways-api.ts': 'the Ways to sign in section calling the same-origin auth proxy (GSI-WAYS; no catalogue data)',
   'components/auth/api.ts': 'the sign-in card posting to the same-origin auth proxy /api/auth/* (EML-1; no catalogue data)',
 };
 

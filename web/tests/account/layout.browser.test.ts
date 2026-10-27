@@ -15,7 +15,8 @@ vi.mock('@/lib/capabilities', () => ({ capabilities: { signIn: true } }));
 vi.mock('@/lib/auth/server', () => ({
   getUser: async () => ({ id: 'layout-user', email: 'account-layout-regression@travel-e2e.invalid' }),
 }));
-vi.mock('@/lib/server/drafts', () => ({ loadDrafts: vi.fn() }));
+vi.mock('@/lib/server/drafts', () => ({ readDrafts: vi.fn() }));
+vi.mock('@travel/core/db/profile.ts', () => ({ loadProfile: async () => ({ exists: false, travellers: null, travellersInvalid: false, travellersSavedAt: null, travellersConsentedAt: null, setupDoneAt: null, revision: 0 }) }));
 // GSI-2: a returning sign-in (no notice); the stop has its own layout test, landing.browser.test.ts.
 vi.mock('@/lib/auth/landing-server', () => ({ accountLanding: async () => 'returning' }));
 // GSI-WAYS: the rows of "Ways to sign in" (an email-code account with Google added); its own tests are ways*.test.ts.
@@ -23,15 +24,10 @@ vi.mock('@/lib/auth/ways-server', async () => {
   const { googleJustAdded } = await import('@/lib/auth/ways');
   return { accountWays: async () => [{ providerId: 'google', createdAt: Date.parse('2026-10-26T09:00:00Z') }], googleAddedNow: (added: boolean, rows: { providerId: string; createdAt: number }[] | null) => added && rows !== null && googleJustAdded(rows, Date.now()) };
 });
-vi.mock('@/lib/server/neon-env', () => ({ dataEnv: () => ({ realtimeUrl: 'https://realtime.invalid' }) }));
-vi.mock('@/app/account/actions', () => ({ createDraft: vi.fn(), renameDraft: vi.fn(), deleteDraft: vi.fn() }));
-vi.mock('@/app/account/RealtimeRoot', () => ({ RealtimeRoot: ({ children }: { children: ReactNode }) => children }));
-vi.mock('@neon/realtime-react', () => ({
-  useLiveQuery: () => ({ data: [], status: 'live', utils: {} }),
-}));
+vi.mock('@/app/account/actions', () => ({ createDraft: vi.fn(), renameDraft: vi.fn(), deleteDraft: vi.fn(), saveName: vi.fn() }));
 
 import AccountPage from '@/app/account/page';
-import { loadDrafts } from '@/lib/server/drafts';
+import { readDrafts } from '@/lib/server/drafts';
 import { SiteHeader } from '@/components/shell/SiteHeader';
 import { SiteFooter } from '@/components/shell/SiteFooter';
 import { BottomBar } from '@/components/shell/BottomBar';
@@ -88,15 +84,15 @@ afterAll(async () => {
   await themeServer?.close();
 });
 
-for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
+for (const viewport of [{ width: 320, height: 640 }, { width: 390, height: 844 }, { width: 1440, height: 900 }]) {
   for (const theme of ['light', 'dark']) {
     describe(`account layout ${viewport.width} ${theme}`, () => {
-      for (const state of ['empty', 'loaded', 'degraded'] as const) {
+      for (const state of ['empty', 'loaded', 'many', 'degraded'] as const) {
         it(`${state}: no horizontal overflow and sign-out remains reachable`, async () => {
-          const load = vi.mocked(loadDrafts);
+          const load = vi.mocked(readDrafts);
           load.mockReset();
           if (state === 'degraded') load.mockRejectedValue(new Error('Layout fixture: service unavailable'));
-          else load.mockResolvedValue({ rows: state === 'loaded' ? [row] : [], sealedQuery: {} as Awaited<ReturnType<typeof loadDrafts>>['sealedQuery'] });
+          else load.mockResolvedValue(state === 'many' ? Array.from({ length: 7 }, (_, i) => ({ ...row, id: `layout-draft-${i}`, title: `${row.title} ${i + 1}`, updated_at: new Date(Date.parse('2026-10-24T12:00:00Z') - i * 3_600_000) })) : state === 'loaded' ? [row] : []);
 
           // Resolve the request-time server child of Suspense, then SSR its real client components.
           // This tests AccountBody's markup too, rather than maintaining a duplicate header fixture.
@@ -111,7 +107,7 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 900 
             createElement(SiteFooter),
             createElement(BottomBar),
           ));
-          const context = await browser.newContext({ viewport, deviceScaleFactor: 2, colorScheme: 'light', hasTouch: viewport.width === 390 });
+          const context = await browser.newContext({ viewport, deviceScaleFactor: 2, colorScheme: 'light', hasTouch: viewport.width < 640 });
           try {
             await context.route('**/*', async (route) => {
               const pathname = new URL(route.request().url()).pathname;
@@ -141,7 +137,7 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 900 
               expect(await page.evaluate(() => localStorage.getItem('travel:v1:theme'))).toBe('dark');
             }
             await page.evaluate(() => document.fonts.ready);
-            const marker = state === 'empty' ? 'No drafts yet.' : state === 'loaded' ? row.title : "We couldn't load your drafts.";
+            const marker = state === 'empty' ? 'No saved trips yet.' : state === 'loaded' ? row.title : state === 'many' ? '2 more' : "We couldn't load your saved trips.";
             await browserExpect(page.getByText(marker, { exact: true })).toBeVisible();
             expect(await page.evaluate(() => ({
               document: document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -158,7 +154,7 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 900 
             expect(button!.x + button!.width).toBeLessThanOrEqual(viewport.width);
             expect(identity!.x + identity!.width).toBeLessThanOrEqual(button!.x);
             expect(button!.height).toBe(38); // Preserve the existing secondary-button size.
-            if (viewport.width === 390) {
+            if (viewport.width < 640) {
               // Pseudo-elements do not change boundingBox(): measure the target and hit-test both
               // extended edges outside the visible face so a cosmetic 44px box cannot pass.
               const target = await signOut.evaluate((el) => {
@@ -185,7 +181,7 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 900 
               clipped: el.scrollWidth > el.clientWidth,
               ellipsis: getComputedStyle(el).textOverflow,
             }));
-            expect(email).toEqual({ clipped: viewport.width === 390, ellipsis: 'ellipsis' });
+            expect(email).toEqual({ clipped: viewport.width < 640, ellipsis: 'ellipsis' });
             const shots = new URL('test-results/shots/account-overflow/', web);
             mkdirSync(shots, { recursive: true });
             await page.screenshot({

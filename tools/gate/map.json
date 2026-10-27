@@ -317,7 +317,7 @@
     { "id": "web-pages", "why": "static pages the privacy scan of the built output reads (GSI-P changed privacy.test.ts with them)",
       "paths": ["web/app/{about,privacy,terms}/**"], "suites": ["web.fixture"],
       "e2e": ["privacy.spec.ts", "sweep-swa.spec.ts", "a11y.spec.ts"] },
-    { "id": "web-auth", "paths": ["web/app/{account,sign-in,sign-up}/**", "web/app/api/{account,auth}/**", "web/components/auth/**", "web/lib/auth/**", "web/public/brand/**", "web/styles/auth-page.css"],
+    { "id": "web-auth", "paths": ["web/app/{account,sign-in,sign-up}/**", "web/app/api/{account,auth}/**", "web/components/auth/**", "web/lib/auth/**", "web/lib/account/**", "web/public/brand/**", "web/styles/auth-page.css"],
       "suites": ["web.fixture"], "e2e": ["auth-email*.spec.ts", "auth-google*.spec.ts", "shell-report.spec.ts"] },
     { "id": "web-mine", "why": "the Mine page, the bar item and the dot read the copies and favourites envelopes from storage",
       "paths": ["web/app/mine/**", "web/app/favourites/**", "web/lib/mine/**", "web/lib/favourites/**", "web/components/mine/**"], "suites": ["web.fixture"], "e2e": ["mine-shell.spec.ts", "mine-trips.spec.ts", "storage-blocked.spec.ts", "favourites.spec.ts"] },

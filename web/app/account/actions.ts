@@ -1,12 +1,14 @@
 'use server';
 
-import { getUser } from '@/lib/auth/server';
+import { authErrorCode, getAuth, getUser } from '@/lib/auth/server';
 // The shared runtime transaction helper (non-owner `travel_app` role + `app.user_id` identity,
 // RLS enforced) is owned by the database lane and consumed from @travel/core. It returns the
 // Postgres transaction id, which the client holds its optimistic change against.
 import { withUserTransaction } from '@travel/core/db/index.ts';
 import { checkTitle, isUuid } from '@/lib/drafts-shared';
 import { safeError } from '@/lib/server/safe-error';
+import { checkName } from '@/lib/account/name';
+import { takeNameChange } from '@/lib/account/name-quota';
 
 /**
  * Typed results, not throws: in production Next.js hides a thrown error's message. Each write
@@ -83,6 +85,41 @@ export async function deleteDraft(pageUserId: string, raw: { id: unknown }): Pro
     return result ? { kind: 'committed', txid } : { kind: 'unchanged' };
   } catch (e) {
     console.error('[account] deleteDraft failed', safeError(e));
+    return { kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' };
+  }
+}
+
+/** The display name (ACCT-P1; spec 4.3). The saved name is the validated one: the SDK's answer carries no user, and `getSession()` still serves the old name for this request. */
+export type SaveNameResult =
+  | { kind: 'saved'; name: string }
+  | { kind: 'rejected'; reason: 'INVALID_INPUT'; field: 'empty' | 'too_long' | 'chars' }
+  | { kind: 'rejected'; reason: 'UNAUTHENTICATED' | 'RATE_LIMITED' | 'SERVICE_UNAVAILABLE' };
+
+/**
+ * Save the signed-in person's display name through Neon's `update-user`, called here on the server so the browser proxy keeps answering
+ * 404 for that route. Only `{ name }` is ever passed. Logs fixed codes, never the name.
+ */
+export async function saveName(pageUserId: string, raw: { name: unknown }): Promise<SaveNameResult> {
+  const user = await getUser(pageUserId); // proxy.ts skips actions: the session is checked here
+  if (!user) return { kind: 'rejected', reason: 'UNAUTHENTICATED' };
+  const checked = checkName(raw?.name);
+  if (!checked.ok) return { kind: 'rejected', reason: 'INVALID_INPUT', field: checked.reason };
+  const quota = await takeNameChange(user.id);
+  if (quota === 'limited') return { kind: 'rejected', reason: 'RATE_LIMITED' };
+  if (quota === 'unavailable') {
+    console.error('[account] profile_name_quota_unavailable');
+    return { kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' };
+  }
+  try {
+    const res = await getAuth().updateUser({ name: checked.name });
+    if (res.error) {
+      console.error('[account] profile_name_failed', authErrorCode(res.error));
+      return { kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' };
+    }
+    console.info('[account] profile_name_saved');
+    return { kind: 'saved', name: checked.name };
+  } catch (e) {
+    console.error('[account] profile_name_failed', safeError(e));
     return { kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' };
   }
 }

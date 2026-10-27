@@ -87,40 +87,139 @@
   gap: var(--s-3);
 }
 
-/* Create form */
-.account-drafts {
-  display: grid;
-  gap: var(--s-4);
+/* Sections (ACCT-P1; spec 2.1 and 2.2): a hairline above each, one rhythm, an h2 in the section style. "Ways to sign in" draws its own
+   frame (GSI-WAYS) and takes the same hairline and spacing here. */
+.account-page {
+  gap: var(--s-6);
 }
-.draft-create {
+.acct-section,
+.account-ways {
   display: grid;
-  grid-template-columns: 1fr auto;
   gap: var(--s-3);
-  align-items: end;
+  align-content: start;
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
 }
-.draft-create-field {
-  min-width: 0;
+.acct-h {
+  font: var(--t-card);
+  text-transform: uppercase;
 }
-@media (max-width: 480px) {
-  .draft-create {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Live status line: a quiet muted dot + the word "Live" (review C1: never green, never ok). */
-.draft-status {
+.acct-h-count {
   font: var(--t-mono);
   color: var(--muted);
-  min-height: 1.2em;
-  display: flex;
+  text-transform: none;
+}
+.acct-note {
+  font: var(--t-small);
+  color: var(--muted);
+  text-wrap: pretty;
+}
+.acct-note a {
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.acct-line {
+  margin: 0;
+}
+.acct-link {
+  color: var(--accent-text);
+}
+
+/* A summary row: label and value at the left, the Edit button at the right; the editor opens in place under it (P5). */
+.acct-card {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-3);
+  background: var(--surface);
+}
+.acct-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
+  column-gap: var(--s-3);
+  min-height: 40px;
+}
+.acct-row-main {
+  display: grid;
+  gap: var(--s-1);
+  min-width: 0;
+}
+.acct-label {
+  font: var(--t-mono);
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.acct-value {
+  font: var(--t-body);
+  font-weight: 600;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.acct-value-empty {
+  font-weight: 400;
+  color: var(--muted);
+}
+.acct-row-action {
+  position: relative;
+  justify-self: end;
+}
+.acct-editor {
+  display: grid;
+  gap: var(--s-3);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+  animation: acct-open var(--d-base) var(--e-out);
+}
+.acct-editor input {
+  min-height: var(--touch-min);
+}
+.acct-editor-actions {
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--s-2);
 }
-.live-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--muted);
+.acct-more {
+  justify-self: start;
+}
+@keyframes acct-open {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .acct-editor {
+    animation: none;
+  }
+}
+@media (max-width: 639px) {
+  /* The summary row stacks: label, value, then Edit (spec 2.2). Keep the button face; extend only its interactive target. */
+  .acct-row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--s-2);
+  }
+  .acct-row-action {
+    justify-self: start;
+  }
+  .acct-row-action::after,
+  .acct-editor-actions .btn::after,
+  .acct-more::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: max(100%, var(--touch-min));
+    height: max(100%, var(--touch-min));
+    transform: translate(-50%, -50%);
+  }
+  .acct-editor-actions {
+    gap: var(--s-3);
+  }
 }
 
 /* Draft list rows */
