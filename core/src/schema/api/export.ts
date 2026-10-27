@@ -2,6 +2,7 @@
 import { z } from "zod";
 import { apiSlug } from "./common.ts";
 import { tripProfile } from "./trip.ts";
+import { BOOKING_KINDS, EXPORT_MODEL_VERSION } from "../../export/types.ts";
 
 export const EXPORT_TYPES = ["trip", "place"] as const;
 /**
@@ -117,8 +118,8 @@ export const exportStop = z.strictObject({
  * or store it.
  *
  * Contract note (review F11): `bookings` is required on `tripExportModel` (`[]` when none), a breaking change for an older reader of the
- * json body, accepted because the API is not deployed (PLAN R-8). Before go-live the model gets a named OpenAPI component schema and a
- * `version` field (BACKLOG 15.223c).
+ * json body, accepted because the API is not deployed (PLAN R-8). The model has a `version` (2 since PA-X) and is the named OpenAPI
+ * component `ExportModel` (BACKLOG 15.223c item 3).
  */
 export const exportBooking = z.strictObject({
   name: z.string().min(1),
@@ -126,10 +127,23 @@ export const exportBooking = z.strictObject({
   note: z.string().min(1).nullable(),
   day: z.int().min(0).nullable(),
   ref: z.string().min(1),
+  /**
+   * What the row is (protected-area-entry 6.2, owner QP3): `booking` (the only kind counted "to book ahead"), `pass` (bought any time
+   * before the day), `check` (listed, never counted), `task` (the trip's own row). Model version 2.
+   */
+  kind: z.enum(BOOKING_KINDS),
+  /** The park or zone name the row is needed for; a name, never a record ref. */
+  park: z.string().min(1).nullable(),
+  /** The requirement's booking page. */
+  link: z.string().min(1).nullable(),
 });
+
+/** The export model's version (BACKLOG 15.223c item 3): 2 since PA-X added the booking kinds. */
+const modelVersion = z.literal(EXPORT_MODEL_VERSION);
 
 export const tripExportModel = z.strictObject({
   type: z.literal("trip"),
+  version: modelVersion,
   slug: apiSlug,
   title: z.string(),
   url: z.string(),
@@ -149,6 +163,7 @@ export const tripExportModel = z.strictObject({
 
 export const placeExportModel = z.strictObject({
   type: z.literal("place"),
+  version: modelVersion,
   slug: apiSlug,
   title: z.string(),
   url: z.string(),

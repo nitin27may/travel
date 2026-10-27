@@ -62,8 +62,8 @@ const TRIP_ROW: Record<string, EnvelopeExposure> = {
 
 const TRIP_DETAIL: Record<string, EnvelopeExposure> = {
   ref: P, slug: P, title: P, subtitle: P, depth: P, visibility: internal("publication state"), nights: P, daysCount: P,
-  seasonNotSet: internal("an editorial flag"), region: P, cover: P, season: P, firstBase: P, legacyUrl: internal("the old site's address"),
-  honesty: D, tags: P, lengthClass: D,
+  seasonNotSet: internal("an editorial flag"), region: P, cover: P, season: P, firstBase: P,
+  parks: D, honesty: D, tags: P, lengthClass: D,
   fromHubs: { privacy: "derived", mcp: "public", note: "the trip's public hubs, never the visitor's origin (OR2)" },
   schedule: { privacy: "derived", mcp: "none", note: "the scheduler's open shapes (looseObject) and timelines never reach MCP" },
   bases: P, days: { privacy: "public", mcp: "public", note: "without scheduleInput" }, categories: P, gallery: P, effort: D, ageFit: D,

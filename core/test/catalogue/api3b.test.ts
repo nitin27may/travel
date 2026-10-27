@@ -15,7 +15,7 @@ const row = (name: string, ref = `place/${name.toLowerCase()}`, over: Partial<Pl
 describe("printText", () => {
   const point = { lat: 51.3, lon: -116.1, pointSource: "osm_node:1", pointChecked: null, sourceLicence: "ODbL" };
   const trip: ExportModel = {
-    type: "trip", slug: "t", title: "A trip", url: "https://x.invalid/trips/t/", depth: "full", nights: 1, tz: null, seasonLabel: null, skipped: 0, waypoints: [], lines: [], bookings: [],
+    type: "trip", version: 2, slug: "t", title: "A trip", url: "https://x.invalid/trips/t/", depth: "full", nights: 1, tz: null, seasonLabel: null, skipped: 0, waypoints: [], lines: [], bookings: [],
     days: [{ n: 1, title: "Arrive", base: "Banff" }, { n: 2, title: "Nothing planned", base: null }],
     stops: [
       { day: 1, order: 0, id: "a", name: "Scenic Drive", kind: "sight", category: null, area: null, time: "09:00", durationMin: null, lane: null, note: null, placeSlug: null, links: [], point },
@@ -35,7 +35,7 @@ describe("printText", () => {
     expect(privacyHits(printText(trip))).toEqual([]);
   });
   it("lays out a place as kind, area and location, and says when the pin is approximate", () => {
-    const place: ExportModel = { type: "place", slug: "p", title: "Lake", url: "https://x.invalid/places/p/", kind: "lake", skipped: 0, lines: [], waypoints: [{ id: "place:0:p", name: "Lake", kind: "lake", role: "place", day: null, note: null, url: null, point: { ...point, pointSource: "prototype_approx" } }] };
+    const place: ExportModel = { type: "place", version: 2, slug: "p", title: "Lake", url: "https://x.invalid/places/p/", kind: "lake", skipped: 0, lines: [], waypoints: [{ id: "place:0:p", name: "Lake", kind: "lake", role: "place", day: null, note: null, url: null, point: { ...point, pointSource: "prototype_approx" } }] };
     expect(printText(place, { area: "Bow Valley, Canada" })).toContain("Area: Bow Valley, Canada");
     expect(printText(place)).toContain(`Area: ${PRINT_GAP}`);
     expect(printText(place)).toContain("Location: (51.30000, -116.10000, approximate)");

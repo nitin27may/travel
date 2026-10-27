@@ -114,7 +114,7 @@ describe('count cards and the lines', () => {
     expect(none.map((c) => c.key)).not.toContain('photos');
   });
   it('know before you go: three at rest, every safety line at rest, the rest counted behind a disclosure', () => {
-    const b = (name: string, note: string) => ({ name, note, rule: null, day: 1, ref: name });
+    const b = (name: string, note: string) => ({ name, note, rule: null, day: 1, ref: name, kind: 'booking' as const, park: null, link: null });
     const k = knowBeforeYouGo([b('A', 'Book early'), b('B', 'Buy on site'), b('C', 'Cash only'), b('D', 'Pay at the desk'), b('E', 'Road closed to private cars in season')]);
     expect(k.atRest.map((l) => l.name)).toEqual(['A', 'B', 'C', 'E']);
     expect(k.more.map((l) => l.name)).toEqual(['D']);

@@ -461,6 +461,23 @@ export interface ExportBooking { name: string; rule: string | null; note: string
 OpenAPI `exportModel` get a model `version` bump (15.223c item 3 asks for one before go-live). The CSV's Kind column takes
 the four row kinds.
 
+**As built (PA-X, 26 Oct 2026).** Differences from the sketch above, all additive:
+
+- `BookRuleInput` is a `BookRulePhase` plus `then`; a phase also carries `sharePct` (from `share_pct`, worded "(40% of seats)").
+  `closes` applies to any phase ("Opens 3 days before Day 5, until 18:00 the day before Day 5"). A `rolling` capture window with
+  no `days_before` but a close (the seats left after a lottery draw, 2.4 E) maps to `anytime` with `closes`; with neither it gives
+  no rule. The mapper is `bookRuleFromWindow` (`core/src/export/requirements.ts`); rows from requirement records are
+  `requirementRows` (kind by 6.2, one row per ridden day, link from `book_url`, then the `booking`, then the `official` link).
+- `ExportBooking.park` is the park or zone **name**, never a ref. `bookingCounts` gives `toBook` (booking rows only).
+  `CategoryItem` gains optional `bookKind`, `park`, `link`; a row with no `bookKind` reads as before (a `booking`, or a `check`
+  when its rule is `on_arrival`), and only a row with an explicit kind survives a "nothing to book" note.
+- The model `version` (2) is on the json body (`tripExportModel`, `placeExportModel`), not on `ExportFile`; the body is the named
+  OpenAPI component `ExportModel`.
+- `parkVisits` (6.1) is `core/src/parks/visits.ts`; the park line is `tripParks` in `core/src/parks/line.ts`, whose `TripPark`
+  adds `kind`, `parent`, `state` (4.5), `line` and `saving` to the 6.5 sketch; `needs` are the park's or zone's **own**
+  requirements (a member's, such as the Moraine Lake shuttle, are rows, not the line), and a zone with none is left out.
+  `tripDetail.parks` is optional until PA-W fills it. `tripDetail.legacyUrl` is gone (PRIV-TD2 follow-up).
+
 ## 6. Trip, places, Book ahead, export, API
 
 ### 6.1 Park visits (derived)
@@ -796,3 +813,4 @@ and the graph tasks it now depends on are entity-graph QG4.
   membership and the `park` facet point to the general model; refs of zones and campgrounds corrected; contract rows C4, C6,
   part of C7 and C8's leaves moved to EG-C; `entry.for_types` and `access.pass.activity_permit` added; PA-C, PA-D, PA-Q
   resized (P1 31 h, P2 23.5 h, all 75.5 h); conflicts rows added. QP1 to QP6 unchanged.
+- 26 Oct 2026 (PA-X): 5.2 "As built" note: the export and API contract as shipped.

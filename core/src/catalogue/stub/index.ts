@@ -13,6 +13,7 @@ import { publicTownLayer, safeLine, type PublicGazetteer, type PublicTownsHolder
 import { printText } from "../printText.ts";
 import { approxNote } from "../../export/licence.ts";
 import { tripBookings, withStopBookings } from "../../export/bookings.ts";
+import { EXPORT_MODEL_VERSION } from "../../export/types.ts";
 import { tripCsv } from "../../export/csv.ts";
 import { revisionOf, servedSnapshot } from "../revision.ts";
 import { fail, ok, type Result } from "../result.ts";
@@ -517,7 +518,7 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
       if (!p) return null;
       const pt = p.detail.point;
       const waypoints = open(pt) ? [{ id: `place:0:${slug}`, name: p.detail.name, kind: p.detail.kind, role: "place" as const, day: null, note: null, url: `/places/${slug}/`, point: exportPoint(pt) }] : [];
-      return { type: "place", slug, title: p.detail.name, url: `/places/${slug}/`, kind: p.detail.kind, waypoints, lines: [], skipped: pt && !open(pt) ? 1 : 0 };
+      return { type: "place", version: EXPORT_MODEL_VERSION, slug, title: p.detail.name, url: `/places/${slug}/`, kind: p.detail.kind, waypoints, lines: [], skipped: pt && !open(pt) ? 1 : 0 };
     }
     const t = this.tripBySlug.get(slug);
     if (!t) return null;
@@ -539,7 +540,7 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
       }
     }
     return {
-      type: "trip", slug, title: t.detail.title, url: `/trips/${slug}/`, depth: t.detail.depth, nights: t.detail.nights ?? 0,
+      type: "trip", version: EXPORT_MODEL_VERSION, slug, title: t.detail.title, url: `/trips/${slug}/`, depth: t.detail.depth, nights: t.detail.nights ?? 0,
       // the booking windows as the web store fills them (build.server.ts): the trip's list, and each on the stop whose place and day it names
       days: t.detail.days.map((d) => ({ n: d.n, title: d.title, base: d.base })), stops: withStopBookings(stops, rows), bookings: tripBookings(rows),
       waypoints, lines: [], tz: null, seasonLabel: t.detail.season?.label ?? null, ...(t.detail.season?.months?.length ? { seasonMonths: [...t.detail.season.months] } : {}), skipped,

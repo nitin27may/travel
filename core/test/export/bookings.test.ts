@@ -95,14 +95,14 @@ describe("tripBookings", () => {
   });
   it("a rule keeps its row even when its note says there is nothing more to book", () => {
     const [b] = tripBookings([row({ key: "logistics:r", name: "R", days: [2], bookRule: { daysBefore: 2, dayN: 2, time: null, tz: null }, bookNote: "INFERENCE 2029: no booking expected beyond the seat." })]);
-    expect(b).toEqual({ name: "R", rule: "Opens 2 days before Day 2", note: "No booking expected beyond the seat.", day: 2, ref: "logistics:r" });
+    expect(b).toEqual({ name: "R", rule: "Opens 2 days before Day 2", note: "No booking expected beyond the seat.", day: 2, ref: "logistics:r", kind: "booking", park: null, link: null });
   });
   it("is in day order (first day it is for), a booking with no day last", () => {
     expect(out.map((b) => b.day)).toEqual([1, 3, 5, null]);
   });
   it("carries the page's name, the rule in words, and the note", () => {
-    expect(out[1]).toEqual({ name: "Toll road slot", rule: "Opens 30 days before Day 3", note: null, day: 3, ref: "logistics:slot" });
-    expect(out[0]).toEqual({ name: "Park pass", rule: null, note: "Buy online before the first park gate.", day: 1, ref: "logistics:pass" });
+    expect(out[1]).toEqual({ name: "Toll road slot", rule: "Opens 30 days before Day 3", note: null, day: 3, ref: "logistics:slot", kind: "booking", park: null, link: null });
+    expect(out[0]).toEqual({ name: "Park pass", rule: null, note: "Buy online before the first park gate.", day: 1, ref: "logistics:pass", kind: "booking", park: null, link: null });
   });
   it("each booking parses as the contract's exportBooking, and none holds a calendar date", () => {
     for (const b of out) {
@@ -124,7 +124,7 @@ describe("withStopBookings: a window rides on the stop whose place and day it na
 
 describe("tripCsv: the 'Book ahead' column", () => {
   const model: TripExport = {
-    type: "trip", slug: "t", title: "T", url: "https://x.invalid/trips/t/", depth: "full", nights: 4, tz: null, seasonLabel: null, skipped: 0, waypoints: [], lines: [],
+    type: "trip", version: 2, slug: "t", title: "T", url: "https://x.invalid/trips/t/", depth: "full", nights: 4, tz: null, seasonLabel: null, skipped: 0, waypoints: [], lines: [],
     days: [1, 2, 3, 4, 5].map((n) => ({ n, title: `Day ${n}`, base: null })),
     stops: withStopBookings([stop({ id: "Loop", day: 3, placeSlug: "loop", time: "~09:00", order: 0 }), stop({ id: "Ridge", day: 5, placeSlug: "ridge", time: "08:30", order: 1 })], ROWS),
     bookings: tripBookings(ROWS),
