@@ -57,6 +57,43 @@ const hostOf = (u: string): string => {
 };
 const linkOnly = (u: string): string | null => LINK_ONLY_HOSTS.find(([re]) => re.test(hostOf(u)))?.[1] ?? null;
 
+/** The value keys a record may hold only where its type asks for them (W_CAP_NA_FIELD). */
+const HELD_VALUE_KEYS = ["season", "hours", "price", "window", "best_window", "best_time", "duration_min", "activity_min", "book_url", "check_in_out", "fills_by", "closures", "groceries"] as const;
+
+/** The order of two closure dates of the same form (YYYY, YYYY-MM, YYYY-MM-DD or MM-DD); null when the forms differ. */
+const closureOrder = (from: string, to: string): number | null => {
+  const recurring = (d: string): boolean => /^\d{2}-\d{2}$/.test(d);
+  if (recurring(from) !== recurring(to)) return null;
+  if (recurring(from)) return 0; // MM-DD may wrap the year (12-01 to 03-31): a valid winter closure, so any order is allowed
+  const n = Math.min(from.length, to.length);
+  return from.slice(0, n) <= to.slice(0, n) ? 0 : -1;
+};
+
+/**
+ * What the schema cannot say about the values RIS-H gave a home (catalogue-intake 5.3): a range is low to high, the time on the
+ * activity fits inside the door-to-door time, a one-off closure does not end before it starts, and a booking page is the
+ * operator's own, never a link-only platform. Each finding names the fix. Exported for the unit tests.
+ */
+export function homedValueFindings(r: CaptureDoc["records"][number]): { code: string; key: string; message: string }[] {
+  const out: { code: string; key: string; message: string }[] = [];
+  const range = (k: "duration_min" | "activity_min"): [number, number] | null => (r[k]?.state === "value" && r[k]?.v ? (r[k]!.v as [number, number]) : null);
+  for (const k of ["duration_min", "activity_min"] as const) {
+    const v = range(k);
+    if (v && v[0] > v[1]) out.push({ code: "E_CAP_SCHEMA", key: k, message: `"${k}" is [${v[0]}, ${v[1]}]: the low end is above the high end. Give minutes low to high. Example: [120, 180] for "2 to 3 hours".` });
+  }
+  const d = range("duration_min"), a = range("activity_min");
+  if (d && a && a[1] > d[1]) out.push({ code: "E_CAP_SCHEMA", key: "activity_min", message: `"activity_min" (up to ${a[1]} min) is longer than "duration_min" (up to ${d[1]} min). The time on the activity is part of the door-to-door time; check both against the operator page.` });
+  if (r.closures?.state === "value") for (const [j, c] of (r.closures.v ?? []).entries()) {
+    if (c.to !== undefined && closureOrder(c.from, c.to) === -1) out.push({ code: "E_CAP_SCHEMA", key: `closures/v/${j}`, message: `closure ${j} ends (${c.to}) before it starts (${c.from}). Leave "to" out for an open-ended closure.` });
+    if (c.to !== undefined && closureOrder(c.from, c.to) === null) out.push({ code: "E_CAP_SCHEMA", key: `closures/v/${j}`, message: `closure ${j} mixes a yearly MM-DD date with a calendar date (${c.from} to ${c.to}). Use MM-DD at both ends for a closure that recurs every year, a calendar date at both ends otherwise.` });
+  }
+  if (r.book_url?.state === "value" && typeof r.book_url.v === "string") {
+    const hit = linkOnly(r.book_url.v);
+    if (hit) out.push({ code: "E_CAP_LINK_ONLY", key: "book_url", message: `book_url points at ${hit}, a link-only platform. Give the operator's own booking page; keep the platform as a link.` });
+  }
+  return out;
+}
+
 function describeIssue(issue: z.core.$ZodIssue): string {
   const path = "/" + issue.path.join("/");
   const field = String(issue.path[issue.path.length - 1] ?? "the file");
@@ -310,7 +347,7 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
       if (a === r.ref) E_("E_CAP_REF", `${base}/aliases`, `alias "${a}" is the record's own ref.`);
     }
     // values: sources and states
-    const vals: [string, unknown][] = [["geonames_id", r.geonames_id], ["near_town", r.near_town], ["near_town_km", r.near_town_km], ["season", r.season], ["best_window", r.best_window], ["best_time", r.best_time], ["hours", r.hours], ["duration_min", r.duration_min], ["activity_min", r.activity_min], ["price", r.price], ["window", r.window], ["book_url", r.book_url]];
+    const vals: [string, unknown][] = [["geonames_id", r.geonames_id], ["near_town", r.near_town], ["near_town_km", r.near_town_km], ["season", r.season], ["best_window", r.best_window], ["best_time", r.best_time], ["hours", r.hours], ["duration_min", r.duration_min], ["activity_min", r.activity_min], ["check_in_out", r.check_in_out], ["price", r.price], ["window", r.window], ["book_url", r.book_url], ["fills_by", r.fills_by], ["closures", r.closures], ["groceries", r.groceries]];
     for (const [k, v] of vals) {
       if (!v) continue;
       const x = v as { v: unknown; state: string; basis: string | null; src: string[]; on?: string; tried?: string[] };
@@ -321,6 +358,7 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
       for (const s of x.src) if (!ids.has(s)) E_("E_CAP_SRC", `${path}/src`, `src names ${JSON.stringify(s)}, which is not in this file's sources. Add it there or remove it. Example: "src-0001".`);
       if (x.state === "value" && x.src.length === 0 && x.basis !== "our_inference") E_("E_CAP_SRC", path, `"${k}" has a value but no source. Cite the page it came from, or use basis our_inference with a note.`);
     }
+    for (const f of homedValueFindings(r)) E_(f.code, `${base}/${f.key}`, f.message);
     for (const [j, l] of (r.links ?? []).entries()) {
       for (const s of l.src ?? []) if (!ids.has(s)) E_("E_CAP_SRC", `${base}/links/${j}/src`, `src names ${JSON.stringify(s)}, which is not in this file's sources.`);
       if ((E.CAP_LINK_ONLY_KIND as readonly string[]).includes(l.kind) && l.state === "filled" && l.url && !l.on) W("W_CAP_NA_FIELD", `${base}/links/${j}`, `a ${l.kind} link is link-only: record the date it was found (found_in_search with "on"), and never read its figures.`);
@@ -349,7 +387,7 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
     }
     // present but not asked
     const rl = node.layers[r.layer];
-    if (rl) for (const k of ["season", "hours", "price", "window", "best_window", "best_time", "duration_min", "activity_min", "book_url"] as const) {
+    if (rl) for (const k of HELD_VALUE_KEYS) {
       if ((r as unknown as Row)[k] !== undefined && !(k in rl.base)) W("W_CAP_NA_FIELD", `${base}/${k}`, `${r.type} (${r.layer}) never asks for "${k}", but the record holds one. Remove it, or correct the type.`);
     }
   });
