@@ -1,6 +1,6 @@
 # Trip kinds, activity-first selection and the interest profile
 
-> **Amended 27 Oct 2026 (TB-FLOW, [FLOW.md](../design/trip-builder/FLOW.md) TF2, TF3):** stage 0 shows six tiles over the five kinds: "A week by car" is the week kind in near mode and "A week by air" the week kind in trip mode; the kind stays derived, never stored. Q-TK1 decided: weekend 1 to 2 nights, long weekend 3 to 4. Who and when are asked at FLOW stage 1 for every kind; the budget band stays out of v1 (FLOW TF16, known costs only).
+> **Amended 27 Oct 2026 (TB-FLOW, [FLOW.md](../design/trip-builder/FLOW.md) TF2, TF3):** stage 0 shows six tiles over the five kinds: "A week by car" is the week kind in near mode and "A week by air" the week kind in trip mode; the kind stays derived, never stored. Q-TK1 decided: weekend 1 to 2 nights, long weekend 3 to 4. Who and when are asked at FLOW stage 1 for every kind; the budget band stays out of v1 (owner, F-Q5: known costs only, a Free chip and "N of M priced"). The kind tiles say "by car" for the near kinds (FLOW TF17).
 
 Status: **spec, planned only** (27 Oct 2026, travel-planner, Opus). No app code, no new HTML. Owner direction of 27 Oct
 2026. TODO row of 27 Oct 2026; BACKLOG 15.345; owner questions Q-TK1 to Q-TK6 (section 10).

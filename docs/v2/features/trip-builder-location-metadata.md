@@ -143,7 +143,7 @@ counts `on_site_min` or `adult_time_min`.
 **Reading:** the Dolomites and the Rockies have enough places and durations to build; they lack travel-region rows,
 gateways at region level, best time and drive anchors, so first builds order days by drive only ("Shortest drive order",
 trip-builder 4.9) and route to the place point, not the car park. **Ontario is not builder-ready** (4 records); FS-1 shows
-it as Thin with "Ask us" (FLOW F-Q1).
+its thin count on stage 1 before Pick, with "Ask us" (owner decision F-Q1: research later; launch on the trips by air).
 
 ### 5.2 Order of fill for the pilots
 
@@ -153,7 +153,7 @@ it as Thin with "Ask us" (FLOW F-Q1).
 | 2 | `starts_at` for trails and viewpoints (car park or trailhead), from OSM and agency pages | Dolomites, Rockies | Sonnet | 6 |
 | 3 | `best_time` where a source states it; `fills_by` for the busy car parks | Dolomites, Rockies | Sonnet, Opus sample | 4 |
 | 4 | season and age band to the bar | Dolomites | Sonnet | 3 |
-| 5 | Ontario: the 4 h batch | Ontario | per QB3 / F-Q1 | coverage plan |
+| 5 | Ontario: the 4 h batch | Ontario | later (owner, F-Q1) | coverage plan |
 
 These rows go to DATA-PLAN through BACKLOG 15.353; they do not start before TB-MD lands the schema.
 

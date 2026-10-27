@@ -1,6 +1,6 @@
 # Destination data coverage: tiers, country waves, legal sources and bulk ingestion
 
-> **Amended 27 Oct 2026 (TB-FLOW):** the per-location metadata the builder reads, its true additions (two-level region groups with gateways and transport notes; `on_site_min` on towns) and the per-travel-region audit are in [trip-builder-location-metadata.md](trip-builder-location-metadata.md); DC-5 and TB-RG become one file `region-groups/1`. QB9 is decided no: T0 records appear only in a "Not researched yet" group and never enter the engine (FLOW TF15).
+> **Amended 27 Oct 2026 (TB-FLOW):** the per-location metadata the builder reads, its true additions (two-level region groups with gateways and transport notes; `on_site_min` on towns) and the per-travel-region audit are in [trip-builder-location-metadata.md](trip-builder-location-metadata.md); DC-5 and TB-RG become one file `region-groups/1`. QB9 is decided no and QB3 is "research later" (owner, 27 Oct 2026): T0 records appear only in a "Not researched yet" group and never enter the engine (FLOW TF15).
 
 Status: **planned only (docs), 27 Oct 2026.** Task DATACOVER-SPEC, planner (Opus). Nothing here is built.
 Owner questions Q-DC1 to Q-DC8 are open (section 10).

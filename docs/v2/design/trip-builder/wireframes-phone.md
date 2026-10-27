@@ -8,96 +8,120 @@ Everything else is illustrative.
 Phone rules (all frames): the step header is fixed at the top (52 px); the primary action sits in the bottom bar (64 px,
 inside the thumb zone); sheets open from the bottom; nothing important is under the top 20% of the screen only (T2).
 
-## Stage frames (TB-FLOW, 27 Oct 2026)
+## Stage frames (TB-FLOW, 27 Oct 2026; revised after review TB-N2)
 
-The flow is [FLOW.md](FLOW.md): stages 0 to 8, one document, copy enters at stage 7. These frames replace P1, P1b, P2,
-P3, P4, P5, P6, P6a, P7 and P8 below (kept for history under "Earlier frames"); P3f, P3m and P9 stay as drawn. They apply
-TB-N's findings (branch `public/TB-N`): kind first, focused flow (the step header and action bar replace the public
-header and bottom bar while `/plan/` is open), Pick and Picked only with Must see in the tray, kids chip first, no swipe,
-no drive-time rings, every Next names its destination. The step count counts only the stages a kind asks (FLOW 2.1).
+The flow is [FLOW.md](FLOW.md). These frames replace P1, P1b, P2, P3, P4, P5, P6, P6a, P7 and P8 below (kept for
+history under "Earlier frames"); P3f, P3m and P9 stay as drawn. TB-N's findings apply (focused flow, Pick and Picked
+with Must see in the tray, kids chip first, no swipe, no rings, every Next names its stage). Review TB-N2 is applied:
+the first build lands in the editor (E0), Getting there is a card on Day 1 and the last day, hand edits are "Placed by
+you", the reach is changeable on stage 3, and the editor has one bottom bar. The step count counts stages 1 to 4 that
+ask (FLOW 2.1). The Review primary is a placeholder until the owner chooses F-Q4.
 
-| Old frame | New frame | Why |
-|---|---|---|
-| P1, P1b | F0 Kind, F1 Start | kind first (TB-N C1); from where, who and when for every kind (FLOW TF4) |
-| P2 | F2 Where, F2n near envelope | macro-region, then travel regions (TF5) |
-| P3 | F3 Pick, F3s near what you picked | towns then places; nearby on every pick (TF6) |
-| P4, P5 | F4 Days and driving, F5 Build | driving per day and suggestions (TF7); bases inside the build (TF1) |
-| P6, P6a | E1 to E6 | the editor (FLOW 7.1) |
-| P7 | F6 | unchanged in substance |
-| P8 | F8 Review and prepare | after Customise; known costs, book ahead (TF16) |
-| none | C1 to C3 | copy and customise (FLOW 5) |
+| Old frame | New frame |
+|---|---|
+| P1, P1b | F0 Kind, F1 Start |
+| P2 | F2 Where, F2n near reach |
+| P3 | F3 Pick, F3s near what you picked |
+| P4, P5, P6, P6a, P7 | F4 Days and driving; E0 just built (bases, checks, Day 1 getting-there card); E1 to E7 the editor |
+| P8 | F8 Review and prepare |
+| none | C1 to C3 copy; X1 empty and error states |
 
 ## F0. Stage 0: kind, and the ways in
 
 ```
 +--------------------------------------+
-| x  Plan a trip                       |   step header (focused flow); x keeps drafts
+| x  Plan a trip                       |   focused flow; x keeps plans
 |--------------------------------------|
 |  WHAT KIND OF TRIP?                  |
-|  ( ) Day trip                        |   56 px tiles, radio + words
-|  ( ) Weekend          1 or 2 nights  |
-|  ( ) Long weekend     3 or 4 nights  |
-|  ( ) A week by car    from home      |
-|  ( ) A week by air    fly somewhere  |
-|  ( ) Longer holiday   10 to 21 nights|
+|  [ Day trip             by car    > ]|   tiles are buttons: a tap advances
+|  [ Weekend   1 or 2 nights · by car >]|
+|  [ Long weekend 3 or 4 · by car    > ]|
+|  [ A week by car   from home       > ]|
+|  [ A week by air   fly somewhere   > ]|
+|  [ Longer holiday  10 to 21 nights > ]|
 |                                      |
-|  YOUR DRAFTS                         |
-|  Italy · 9 places · Build      Open >|   resumes at its stage (TF14)
-|  Rockies (your copy) · 15 days Open >|
+|  YOUR PLANS                          |
+|  Italy · 9 places · ready to build > |
+|  Rockies · your copy · built,        |
+|    edited today                    > |
+|  Algonquin · 3 places · ready to   > |
+|    build                             |
+|  All plans in Mine                 > |   three at most (P1)
 |                                      |
 |  OR START FROM                       |
-|  A place you saved             >     |
-|  One of our trips              >     |
-|  Surprise me                   >     |
-|--------------------------------------|
-|          [ Next: Start ]  (disabled) |   one tap on a tile enables it
+|  A place you saved  ·  One of our    |
+|  trips  ·  Surprise me               |
 +--------------------------------------+
 ```
 
 ## F1. Stage 1: from where, who, when
 
+Weekend (near kind):
+
 ```
 +--------------------------------------+
-| <  Weekend                  1 of 4   |
+| <  Weekend                  1 of 3   |
 |--------------------------------------|
 |  STARTING FROM                       |
-|  [ Toronto (public hub)        v ]   |   one picker (OR11)
+|  [ Toronto (public hub)        v ]   |
 |  Use my location (stays on phone)    |
 |                                      |
 |  WHO IS GOING                        |
-|  2 adults · 1 child (6)       Edit   |   device party, seeded from Account
+|  2 adults · 1 child (6)       Edit   |
 |                                      |
 |  WHEN?                               |
 |  (*Next weekend*)(This weekend)      |
 |  (A month v)(Summer)(Dates...)       |
-|  (Not sure yet)                      |   a gap is never "open": scored unknown
+|  (Not sure yet)                      |
 |--------------------------------------|
-| 9 places within 3 h ≈ · Oct          |   live count (near kinds)
-|               [ Next: Discover ]     |   Where is shown done for Weekend
+| [ 4 places within 3 h so far ≈ v ]   |   a button: opens the reach control
+|   Ask us for more                    |   thin state (F-Q1); else "9 places
+|               [ Next: Pick ]         |    within 3 h ≈ · Oct"
 +--------------------------------------+
 ```
 
-For air kinds the header reads "A week by air · 1 of 6", the count line is absent, and Starting from offers "Decide
-later". Underneath: "We use this to suggest the airport to fly into."
+A week by air:
+
+```
++--------------------------------------+
+| <  A week by air            1 of 4   |
+|--------------------------------------|
+|  STARTING FROM                       |
+|  [ Toronto                     v ]   |
+|  Fly from Toronto Pearson (YYZ)      |
+|  35 min ≈ from you · Change          |   alternates: YTZ, BUF (origin 4.2)
+|  We use this for your flights; the   |
+|  airport you land at comes from      |
+|  where you go. We plan a hire car    |
+|  from the airport.                   |
+|                                      |
+|  WHO IS GOING                        |
+|  2 adults · 1 child (6)       Edit   |
+|  WHEN?  (*July*)(A month v)(Dates...)|
+|         (Not sure yet)               |
+|--------------------------------------|
+|               [ Next: Where ]        |
++--------------------------------------+
+```
 
 ## F2. Stage 2: where (trip mode)
 
 ```
 +--------------------------------------+
-| <  Italy                    2 of 6   |
+| <  Italy                    2 of 4   |
 |--------------------------------------|
 | [ Italy                        x ]   |
-| [ map peek 170 px: macro areas ]     |   tap = tick; count is text below
+| [ map peek 170 px: macro areas ]     |
 |--------------------------------------|
-| (*Northern Italy 74*)(Central 2)     |   macro chips, counts in text
+| (*Northern Italy 74*)(Central 2)     |
 | (Southern Italy 3)(Islands 0)        |
 |                                      |
 | NORTHERN ITALY · pick one or more    |
 | [x] Dolomites                 69     |
 |     Val Gardena, Cortina, Braies     |
+|     Fly into VCE or VRN · car needed |
 | [ ] Lake Garda       Thin: 3 places  |
-| [ ] Venice                     2     |
-| [ ] Lombardy lakes   Not researched  |   45%, gap chip
+| [ ] Lombardy lakes   Not researched  |
 |     yet · Ask us to research it  >   |
 |--------------------------------------|
 | 1 region · 69 places                 |
@@ -105,14 +129,14 @@ later". Underneath: "We use this to suggest the airport to fly into."
 +--------------------------------------+
 ```
 
-## F2n. Stage 2: where (near mode, long weekend and week by car)
+## F2n. Stage 2: where (Long weekend, A week by car)
 
 ```
 +--------------------------------------+
-| <  Long weekend             2 of 5   |
+| <  Long weekend             2 of 4   |
 |--------------------------------------|
-|  HOW FAR FROM TORONTO, EACH WAY?     |
-|  ( 2 h )( 3 h )(*4 h*)( 6 h )        |
+|  LONGEST DRIVE FROM HOME, EACH WAY   |
+|  ( 2 h )( 3 h )(*4 h*)( 6 h )( 8 h ) |
 |                                      |
 |  Within 4 h ≈: 14 places             |
 |  Narrow to (optional)                |
@@ -125,162 +149,154 @@ later". Underneath: "We use this to suggest the airport to fly into."
 +--------------------------------------+
 ```
 
-## F3. Stage 3: pick (towns, then places)
+## F3. Stage 3: pick
 
 ```
 +--------------------------------------+
-| <  Pick                     3 of 6   |
+| <  Pick                     2 of 3   |   Weekend
 |--------------------------------------|
-| (Filters 2)(Looking for: Hikes v)    |
-| (Kids 6+ v)(July v)                  |
-| 41 places · July · fits age 6  Clear |
+| (Within 3 h ≈ v)(Filters 2)          |   reach pill first for Day trip and
+| (Looking for v)(Kids 6+ v)(Oct v)    |    Weekend (M3)
+| 9 places · Oct · fits age 6   Clear  |
 |--------------------------------------|
 | TOWNS AND CITIES                     |
-| Ortisei     Town · Val Gardena       |
-|   (Fits 6)(Worth a detour)  [Picked] |
-|   [x] Stay here                      |   pins a base (TB2)
-| Cortina     Town · 1 h 10 ≈ east  [Pick]|
-| Show 4 more towns  v                 |
+| Huntsville  Town · 2 h 20 ≈ N [Picked]|
+|   [x] Stay here                      |   only on a picked town
+| Dwight      Town · 2 h 35 ≈ N  [Pick]|
 |--------------------------------------|
 | PLACES                               |
-| [ph] Seceda ridge             [Pick] |
-|  Lift + walk · 2 h · 8 km from Ortisei|
-|  (Fits 6)(Book ahead: lift slot)     |   kids chip first, safety never drops
-| [ph] Lago di Braies         [Picked] |
-|  Lake · walk 1 h 30                  |
-|  NEAR WHAT YOU PICKED (3)        v   |   F3s opens here, under the pick
-|              ( Map )                 |
+| [ph] Lake of Two Rivers       [Pick] |
+|  Lake · 3 h 05 ≈ · N                 |
+|  (Fits 6)(Day permit: book ahead)    |
+| [ph] Arrowhead Prov. Park   [Picked] |
+|  Park · 2 h 20 ≈ · N                 |
+|  3 places near Arrowhead · Show  v   |   F3s; one strip, collapsed
+| [ph] Algonquin Logging Museum [Pick] |
+|  Museum · 3 h ≈                      |
+|                                      |   72 px bottom padding
 |======================================|
-| 6 picked · Must see 1 · about 5 days≈|   tray peek; tap = tray sheet
-|               [ Next: Days ]         |
+| Map | 2 picked · about 2 days ≈      |   Map in the bar (S7)
+|     |            [ Next: Days ]      |
 +--------------------------------------+
 ```
 
-## F3s. Near what you picked (strip under a picked row)
+## F3s. Near what you picked (expanded)
 
 ```
-|  NEAR LAGO DI BRAIES                 |
-|  Prato Piazza   25 min ≈   [ Pick ]  |
-|  Lago di Dobbiaco 15 min ≈ [ Pick ]  |
-|  Tre Cime loop  50 min ≈   [ Pick ]  |
-|  (Book ahead: toll road slot)        |
-|  Hide these                          |
+|  NEAR ARROWHEAD (3)            Hide  |
+|  Huntsville Lookout          [ Pick ]|
+|    10 min ≈ from Arrowhead           |
+|    (Fits 6)                          |
+|  Limberlost trails           [ Pick ]|
+|    20 min ≈ from Arrowhead           |
+|    (Fits 6)(Moderate)                |
+|  Muskoka Heritage Place      [ Pick ]|
+|    15 min ≈ from Arrowhead           |
 ```
 
-Up to six rows, the day-trip radius of the pick, ranked by score; announced "3 places near Lago di Braies". Our T0
-records never appear here (QB9).
+Same query as the list (kids, month, Looking for): unfit or closed places never appear. When the next pick is made this
+strip moves into the tray sheet under "Near your picks". Announced "3 places near Arrowhead".
 
 ## F4. Stage 4: days and driving
 
+A week by air (three controls plus Moves); a Weekend shows only Nights and Pace.
+
 ```
 +--------------------------------------+
-| <  Days and driving         4 of 6   |
+| <  Days and driving         4 of 4   |
 |--------------------------------------|
-| Your 9 picks need about 6 days ≈     |
-| Nights      [ - ]  9  [ + ]          |
-| Driving per day                      |
-| ( 2 h )( 3 h )(*4 h*)( 6 h )         |   driveDayMin (TF7)
+| Your 9 picks need about 6 days       |
+| (5 nights) ≈                         |
+| Nights · 10 days  [ - ]  9  [ + ]    |
+| Driving on a day out from your base, |
+| in total                             |
+| ( 2 h )( 3 h )(*4 h*)( 6 h )         |
 | Pace    ( Relaxed )(*Standard*)(Full)|
 | Moves   (*Fewer*)( Balanced )(Shorter)|
-| We plan by car.                      |   TF17
 |--------------------------------------|
 | ALSO WITHIN YOUR DRIVING (12)        |
-| Alpe di Siusi   35 min ≈ from Seceda |
-|   (Fits 6)(Worth the journey)  [ + ] |
-| Val di Funes    40 min ≈       [ + ] |
+| Alpe di Siusi                  [ + ] |
+|   35 min ≈ from Seceda               |
+|   (Fits 6)(Worth the journey)        |
+| Val di Funes                   [ + ] |
+|   40 min ≈ from Seceda · (Fits 6)    |
 | Show 10 more                    v    |
 |--------------------------------------|
 |               [ Build my days ]      |
 +--------------------------------------+
 ```
 
-## F5. Stage 5: build (result)
+With nights below the estimate the card reads "Your 9 picks need about 6 days (5 nights); 3 nights will leave about 5
+places out".
+
+## E0. The plan, just built (stage 5 lands in the editor)
 
 ```
 +--------------------------------------+
-| <  Your 10 days             5 of 6   |
+| [id] Italy · 10 days · July      ... |   identity colour or first pick photo
+| 2 adults · 1 child (6) · On phone    |   ... = Undo, Redo, Rebuild, Close plan
 |--------------------------------------|
-| YOUR BASES · 1 MOVE                  |
-| A Ortisei  5 nights [- +]  Keep base |
-|   5 picks · avg 35 min ≈ · why  v    |
-| B Cortina  4 nights [- +]  Swap town |
-| Other ways: 1 base Bolzano +1 h 40/day|
-|--------------------------------------|
-| CHECKS                               |
-| Driving 1 h 25 a day ≈ · 1 move      |
-| Book ahead 3 · Warnings 1 · Did not  |
-| fit 1 · Known costs EUR 74 + 4 not   |
-| priced                          v    |
-|--------------------------------------|
-| (1)(2A)(3A)(4A)(5A)(6B)(7B)(8B)(9B)  |   day chips with base letters
-| Day 2 · A Ortisei · 1 h 10 driving ≈ |
-|  08:25  Seceda lift and ridge  2 h   |
-|         (Book ahead: lift slot)      |
-|         drive 20 min ≈               |
-|  12:30  Lunch                        |
-|  14:00  Alpe di Siusi walk     2 h   |
-|  17:30  Back at Ortisei              |
-|======================================|
-| Map ^       [ Next: Getting there ]  |   near kinds: [ Edit my plan ]
-+--------------------------------------+
-```
-
-Building state: the checks block is a progress card "Working out drive times · 12 of 30"; Next disabled.
-
-## F6. Stage 6: getting there (air kinds)
-
-```
-+--------------------------------------+
-| <  Getting there            6 of 6   |
-|--------------------------------------|
-| From  [ Toronto (YYZ)          v ]   |
-| Fly into  Venice (VCE)  2 h 30 ≈ to A|   region gateway beats nearest (OR3)
-|   or Verona (VRN) · Innsbruck (INN)  |
-| Home from Venice (same airport)      |
-|   or open jaw: out of Milan (MXP)    |
-|   saves 1 h 10 ≈ on Day 10           |
-| (Fares not shown)  Search flights ^  |
-| Car  Pick up at VCE · one-way fees:  |
-|      ask the rental company          |
-| Day 1 is now an arrival day.         |
-|--------------------------------------|
-|               [ Edit my plan ]       |
-+--------------------------------------+
-```
-
-## E1. Stage 7: the editor (a day)
-
-```
-+--------------------------------------+
-| [ph] Italy · 10 days · July    ...   |   trip header (scenario rule 1)
-| 2 adults · 1 child (6) · On device   |   sync state word (edit-my-trip 4.7)
+| Built 10 days · 1 did not fit ·      |   status line, announced once
+| 1 warning                            |
+| 2 bases: Ortisei 5, Cortina 4    v   |   collapsed; expands in place
+| 1 h 25 a day ≈ · 1 move · Book ahead |
+| 3 · 5 of 9 priced                v   |
 |--------------------------------------|
 | (1)(2A)(3A)(4A)(5A)(6B)(7B)(8B)(9B)  |
-| Day 2 · A Ortisei · 1 h 10 ≈    ...  |   day menu: add a day, drop, note
-|  = 08:25 Seceda lift and ridge  2 h  |   = handle; tap row = E2
+| Day 1 · Arrive · A Ortisei           |
+| +----------------------------------+ |
+| | Fly into Venice (VCE)            | |   Day 1 getting-there card
+| | 2 h 30 ≈ to Ortisei · hire car   | |   expanded on the first build only
+| | at VCE              Change       | |
+| +----------------------------------+ |
+| = 15:30 Ortisei village walk  1 h    |   handles live from the first second
+| = 17:00 Check in                     |
+| + Add a place to Day 1               |
+|======================================|
+| Settings               Review >      |   the only bottom bar (M4)
++--------------------------------------+
+```
+
+URL becomes `/t/<id>/` (before ED: `/plan/?draft=<id>&s=plan`) by `replaceState`. The last day ends with "Fly home from
+Venice (VCE) · Change".
+
+## E1. The editor (a day)
+
+```
++--------------------------------------+
+| [id] Italy · 10 days · July      ... |
+| 2 adults · 1 child (6) · In account  |
+|--------------------------------------|
+| (1)(2A)(3A)(4A)(5A)(6B)(7B)(8B)(9B)  |
+| Day 2 · A Ortisei · 1 h 10 ≈    ...  |
+|  = 08:25 Seceda lift and ridge  2 h  |
 |          (Locked to Day 2)           |
+|  = 11:00 Lago di Braies       1 h 30 |
+|          (Placed by you · Day 2)     |
 |  = 14:00 Alpe di Siusi walk     2 h  |
-|  ! Day ends 40 min after sunset      |   W_DAYLIGHT with a fix
+|  ! Day ends 40 min after sunset      |
 |    [ Move Siusi to Day 3 ]           |
-|  + Add a place to Day 2              |   E4
+|  + Add a place to Day 2              |
 |  Add a note                          |
 |======================================|
-| Undo  Settings  Review >             |   Settings opens stages 1, 2, 4, 6
+| Settings               Review >      |
 +--------------------------------------+
+toast above the bar: "Moved Lago di Braies to Day 2 and kept there · Undo"
 ```
 
 ## E2. Item sheet
 
 ```
 +--------------------------------------+
-| Alpe di Siusi walk                   |
-| Day 2 · 14:00 · 2 h                  |
+| Lago di Braies                       |
+| Day 2 · 11:00 · 1 h 30               |
+| Placed by you                        |
 |--------------------------------------|
-| Move up                              |
-| Move down                            |
-| Move to day ...                   >  |   E3
+| Move to day ...                   >  |   first (L8)
+| Order in the day     [ Up ] [ Down ] |   one row, two 44 px buttons
 | Swap with ...                     >  |
-| Swap for a nearby place           >  |   the stop's near strip
+| Swap for a nearby place           >  |
+| Let the plan move it                 |   only on Placed by you
 | Locked to Day 2             [ off ]  |
 | Must see                    [ off ]  |
 | Details                           >  |
@@ -312,48 +328,69 @@ Building state: the checks block is a progress card "Working out drive times · 
 +--------------------------------------+
 | Add to Day 2                    x    |
 | [ Search places               ]      |
+| (Near Day 2)( Rainy day )            |   Rainy day filters on indoor (TF20)
 |--------------------------------------|
-| NEAR DAY 2                           |
 | Val di Funes                  [ + ]  |
 |   fits after Siusi · +15 min ≈ ·     |
-|   day ends 17:55                     |
+|   day ends 17:55 · (Fits 6)          |
 | Resciesa lift                 [ + ]  |
 |   Day full: try Day 3                |
-| Seiser Alm hut lunch          [ + ]  |
-|   fits at 12:30 · +5 min ≈           |
+| Museum Gherdëina              [ + ]  |   with Rainy day on
+|   indoor · fits at 15:00 · +5 min ≈  |
 +--------------------------------------+
 ```
 
-## E5. Rebuild confirm and what moved
+## E5. After a rebuild or a settings change
+
+No dialog (L5). The settings sheet's Apply states the effect; then:
 
 ```
-+--------------------------------------+
-| Rebuild unlocked days?               |
-| 3 locked stops stay where they are.  |
-| [ Rebuild ]            [ Cancel ]    |
-+--------------------------------------+
-
-after:
-| Days 3 to 5 rebuilt · 2 stops moved  |   toast with Undo; rows marked
+| Days 3 to 5 rebuilt · 2 stops moved ·|   toast
+| 3 locked and 2 placed by you stayed  |
 |                    [ Undo ] [ Show ] |
 ```
 
-## E6. Settings sheet (a stage reopened from the editor)
+## E6. Settings sheet
 
 ```
 +--------------------------------------+
-| Driving and pace                x    |
+| Settings                        x    |
 |--------------------------------------|
-| Driving per day ( 3 h )(*4 h*)( 6 h )|
-| Pace  ( Relaxed )(*Standard*)( Full )|
-| Nights  [ - ] 9 [ + ]                |
-|--------------------------------------|
-| Changes rebuild unlocked days.       |
-| [ Apply ]                            |
+| Make it yours (copies only)       >  |
+| Start: Toronto · 2 adults, 1 child · |
+|   July                            >  |
+| Where: Dolomites                  >  |
+| Days and driving: 9 nights · 4 h ·   |
+|   Standard                        >  |
+| Getting there: VCE in and out     >  |
 +--------------------------------------+
+
+opened row (Days and driving):
+| Nights · 10 days [ - ] 9 [ + ]       |
+| Driving on a day out ( 3 h )(*4 h*)  |
+| Pace ( Relaxed )(*Standard*)( Full ) |
+| [ Rebuild 6 days · 3 locked and 2    |
+|   placed by you stay ]               |   one button that states the effect
 ```
 
-The same sheet form hosts Start (from, who, when), Where and Getting there.
+## E7. Getting there sheet (from the Day 1 card)
+
+```
++--------------------------------------+
+| Getting there                   x    |
+|--------------------------------------|
+| From  Toronto Pearson (YYZ)  Change  |
+| Arrive  (*Venice (VCE)*)( Verona )   |
+| Leave   (*Venice (VCE)*)( Milan MXP )|
+|   Out of MXP adds 2 h 10 ≈ on Day 10 |   bases locked: warning (S11)
+|   [ Reverse the bases ]              |
+| (Fares not shown)  Search flights ^  |
+| Car  pick up at VCE · one-way fees:  |
+|      ask the rental company          |
+|--------------------------------------|
+| [ Apply · base order re-checked ]    |
++--------------------------------------+
+```
 
 ## F8. Stage 8: review and prepare
 
@@ -363,25 +400,28 @@ The same sheet form hosts Start (from, who, when), Where and Getting there.
 |--------------------------------------|
 | Italy · 10 days · July · 2 bases     |
 | 1 move · 9 places · 1 h 25 a day ≈   |
+| In Mine · on this phone              |   state line, not a button
 |--------------------------------------|
 | BOOK AHEAD (3)                       |
-| Seceda lift slot   by 1 Jun   Link ^ |
-| Tre Cime toll road by 15 Jun  Link ^ |
-| Ortisei stay       now (July) Link ^ |
+| Seceda lift slot                     |
+|   by about 1 Jun ≈ (for early July) ^|   month only; dated plans: exact date
+| Tre Cime toll road                   |
+|   by about 15 Jun ≈               ^  |
 | WARNINGS (1)  Day 7 ends after sunset|
 | DID NOT FIT (1)  Sorapis lake  >     |
 | KNOWN COSTS                          |
-| EUR 74 known · lodging, car, food    |
-| and 4 activities not priced          |
-| Check entry rules for Italy      ^   |   trips abroad only
+| EUR 74 for 5 of 9 places priced      |
+| (Free) Lago di Braies, Val di Funes  |
+| Check entry rules for Italy      ^   |
 |--------------------------------------|
-| [ Keep in Mine ]                     |   F-Q4; short kinds: Add to calendar
-| [ Copy link ] [ Calendar ] [ PDF ]   |
-| Kept on this phone. Sign in to have  |
-| it on every device. The link carries |
-| the places, never who is going.      |
+| [ Primary action (F-Q4) ]            |   owner to choose (FLOW 10)
+| [ Copy link ]  [ PDF ]  Edit my plan |
+| Sign in to keep it on every device   |
 +--------------------------------------+
 ```
+
+"Not sure yet" plans show "Add dates to see book-by dates" with the item names. A shared link with refs the recipient
+cannot see: "2 places in this plan are not public · showing 7".
 
 ## C1. Copy from a public trip
 
@@ -396,33 +436,55 @@ The same sheet form hosts Start (from, who, when), Where and Getting there.
 +--------------------------------------+
 ```
 
-## C2. Make it yours (first open of a copy, stage 7)
+## C2. Make it yours (non-modal card on first open)
 
 ```
 +--------------------------------------+
-| Make it yours                   x    |
+| [id] Dolomites · your copy       ... |
+| Tue 13 Jul 2027 · 2 adults, 1 child  |
 |--------------------------------------|
-| Keep it as it is                  >  |
-| Change dates and who              >  |
-| Change where you start            >  |
-| Change places or regions          >  |   stage 3, trip's places ticked
-| Rebuild with my driving and pace  >  |   stage 4
-|--------------------------------------|
-| You can do all of this later from    |
-| Settings.                            |
+| (1)(2)(3)(4)(5)(6)(7)(8)(9)(10)      |
+| +----------------------------------+ |
+| | MAKE IT YOURS                    | |   inline at the top of Day 1
+| | Change places  ·  Your driving   | |
+| | and pace  ·  Where you start     | |
+| | Keep it as it is                 | |   dismiss
+| +----------------------------------+ |
+| Day 1 · Arrive · Ortisei             |
+| ...                                  |
+|======================================|
+| Settings               Review >      |
 +--------------------------------------+
 ```
 
-## C3. Converting a copy into your own plan (first engine action)
+## C3. Converting a copy into your own plan (inline notice)
 
 ```
-+--------------------------------------+
-| This makes it your own plan.         |
-| Our later updates to the Dolomites   |
-| trip will no longer change it.       |
+| This makes it your own plan. Our     |
+| later updates to the Dolomites trip  |
+| will no longer change it. You can    |
+| undo this until you leave the page.  |
 | [ Continue ]           [ Cancel ]    |
-+--------------------------------------+
-after: toast "Now your own plan" [ Undo ]
+after: toast "Now your own plan · Undo"; Mine: "Dolomites · your plan · from our Dolomites trip"
+```
+
+## X1. Empty and error states (S12)
+
+```
+Device cap (F0):
+| 20 plans on this device. Delete one  |
+| or sign in to keep more.             |
+| [ Open Mine ]  [ Sign in ]           |
+
+Stale place on resume (E1, top of the plan):
+| 1 place is no longer in our list:    |
+| Old Mill viewpoint · [ Remove it ]   |   also listed in Did not fit
+
+Resume with picks and no build: opens F4 with [ Build my days ]; never builds by itself.
+
+Shared link (F8 and E1):
+| 2 places in this plan are not public |
+| · showing 7                          |
 ```
 
 ## Earlier frames (27 Oct 2026, first pass)

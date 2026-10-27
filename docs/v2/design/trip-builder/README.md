@@ -14,8 +14,9 @@ Principles cited by number from [foundation/principles.md](../foundation/princip
 
 ## 1. The flow
 
-**Superseded by [FLOW.md](FLOW.md) (TB-FLOW, 27 Oct 2026):** nine stages 0 to 8 (Kind, Start, Where, Pick, Days and
-driving, Build, Getting there, Customise, Review and prepare), one document for create and edit, copy entering at stage 7,
+**Superseded by [FLOW.md](FLOW.md) (TB-FLOW, 27 Oct 2026):** stages 0 to 8 (Kind, Start, Where, Pick, Days and
+driving, then the plan, where the first build lands in the editor with getting there as Day 1 and last-day cards, then
+Review and prepare; revised after review TB-N2), one document for create and edit, copies opening in the same editor,
 the editor interaction model and the planning factors. The eight-step diagram that stood here (Where, Regions, Discover,
 Days and pace, Bases, Build, Getting there, Review) is kept in git history. Sections 2 to 7 below still apply; where they
 name a step number, read the FLOW stage of the same name.
