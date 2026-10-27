@@ -134,6 +134,10 @@ changes (wireframe D4).
 
 ### 2.4 State model: what is stored where
 
+> **Amended 27 Oct 2026 (ACCT-P, [account-profile-and-travellers.md](account-profile-and-travellers.md) 5.5):** for a signed-in person the device party
+> is seeded from the account's saved travellers. The rule here is unchanged: the draft names `party: "device"`, the build
+> reads `readParty()`, the POST body carries ages, and no builder code reads the account table.
+
 | State | Where | Who sees it | Notes |
 |---|---|---|---|
 | The draft: mode, country, regions, picks (with must flags), days, pace, moves preference, month, pinned and accepted bases, locks, edits to the order, `from` | `localStorage` key `travel.plans.local`, envelope `plan-draft/1`, at most 10 drafts and 16 KB each | the visitor, on this device | validated by Zod in `core/src/schema/plan-draft.ts` on every read; a bad or newer envelope is left untouched (as `copies/1`) |

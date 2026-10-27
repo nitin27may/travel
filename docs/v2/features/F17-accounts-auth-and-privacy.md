@@ -6,6 +6,11 @@ Know who is planning, keep each household's and trip's data private, let chat cl
 user safely, and let anyone take their data out or delete it. Built on Managed Better Auth (Neon)
 with Neon Postgres row-level security, plus the operation layer's own checks.
 
+> **Amended 27 Oct 2026 (ACCT-P, [account-profile-and-travellers.md](account-profile-and-travellers.md) 9 and 10):** a new
+> private data class **travellers** (an adult count and each child's birth month and year, no names) in `account_profile`,
+> owner-only under RLS; never in guest links, templates, exports to others, logs or MCP. Export (15) and delete (16)
+> include it; Account offers "Download my data" as the first piece of 15.
+
 > **Amended 25 Oct 2026 (favourites and suggestions):** two planned private tables join this page's export and delete
 > rules: `account_favourite` (owner-predicate RLS, like `planner_draft`) and the submitter's rows of
 > `visitor_submission` (read through a security-invoker view). Sign-out deletes the browser's account cache of
