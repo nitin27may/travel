@@ -8,6 +8,7 @@ import { tripSummary, type Audience, type HighlightCandidate, type SummaryInput,
 import type { DayTimeline } from '@travel/core/schedule/types.ts';
 import { TRIP_COUNTRY } from './globe';
 import { normName } from './places';
+import { TRIP_SLUGS } from './slugs';
 import type { CategoryItem, DayItem, PublicPlace, PublicTrip } from './types';
 
 type Lookup = (slug: string) => PublicPlace | null;
@@ -28,8 +29,10 @@ const countryName = (cc: string): string => regionNames?.of(cc.toUpperCase()) ??
 const allItems = (trip: PublicTrip): { day: number; item: DayItem }[] =>
   trip.days.flatMap((d) => [...d.items, ...(d.tracks ?? []).flatMap((t) => t.items)].map((item) => ({ day: d.n, item })));
 
-/** The legacy folder of a trip, from its frozen legacy URL ("/canadian-rockies-sept-2029/"). */
-const folderOf = (trip: PublicTrip): string => trip.legacyUrl.replace(/^\/|\/$/g, '');
+const FOLDER_OF_SLUG = new Map(Object.entries(TRIP_SLUGS).map(([folder, slug]) => [slug, folder]));
+
+/** The legacy folder of a trip, from its slug: `legacyUrl` is in public form (the adapter aliases it, public-ref-aliases 5.1), so it no longer names the folder. */
+const folderOf = (trip: PublicTrip): string => FOLDER_OF_SLUG.get(trip.slug) ?? trip.legacyUrl.replace(/^\/|\/$/g, '');
 
 /** The places the default profile's timelines visit, in the order they first appear (a region or park is named only from these). */
 export function visitedSlugs(timelines: readonly Pick<DayTimeline, 'entries'>[]): string[] {

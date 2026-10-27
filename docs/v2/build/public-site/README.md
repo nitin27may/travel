@@ -319,6 +319,7 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `GATE_TSBUILDINFO` | tools `gate/gate.py`, `gate/locks.py` | Where the gate keeps the incremental typecheck build info | no |
 | `GATE_VISUAL_CMD` | tools `gate/gate.py`, `gate/locks.py` | Command the gate runs as the visual suite; unset, the suite is deferred | no |
 | `SITE_ORIGIN` | web `lib/site.ts`, `lib/export/share.ts` | Canonical origin for links, sitemap and share images; defaults to the live host | no |
+| `OWN_HOSTS_EXTRA` | web `lib/config/product.ts` | Comma-separated extra hosts that are ours for the privacy detector's dated-folder rule (public-ref-aliases 6.1); the old and beta hosts and the `SITE_ORIGIN` host are always included | no |
 | `HUB_TODAY` | web `lib/data/root.ts`, `tools/hub.py`, the staging tool | Pins "today" (`YYYY-MM-DD`) for badges, so builds and diffs repeat | no |
 | `TRAVEL_TODAY` | core `bin/mcp.ts`, `src/ops/run.ts` | Pins today for checks, ops and the MCP server | no |
 | `TRAVEL_NOW` | core `src/ops/run.ts` | Pins the operation clock (ISO datetime) | no |

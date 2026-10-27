@@ -1,3 +1,4 @@
+import { publicModel } from './aliases';
 import { buildGlobe, globePathsOf } from './globe';
 import { buildPlaces } from './places';
 import { buildTrips } from './trips';
@@ -102,12 +103,15 @@ const data = () => (shared ??= createPublicData());
 /** The one dataset of this process: the pages, the prerendered JSON routes and the API store (web/lib/server/store.ts) all read it, so none can disagree. */
 export const sharedPublicData = (): ReturnType<typeof createPublicData> => data();
 
-export const listTrips = (): PublicTripCard[] => data().listTrips();
-export const getTrip = (slug: string): PublicTrip | null => data().getTrip(slug);
+// Every getter below returns the PUBLIC form (public-ref-aliases 5.1 B2): refs with a dated trip folder carry its alias, so element ids,
+// row ids, RSC payloads, data-* attributes and keys built from a ref never hold a month. `sharedPublicData()` and `createPublicData()` stay
+// internal (the JsonStore, wrapped by publicStore in lib/server/store.ts, aliases their answers at the API boundary).
+export const listTrips = (): PublicTripCard[] => publicModel(data().listTrips());
+export const getTrip = (slug: string): PublicTrip | null => publicModel(data().getTrip(slug));
 export const tripSlugs = (): string[] => data().tripSlugs();
-export const listPlaces = (): PublicPlaceCard[] => data().listPlaces();
-export const getPlace = (slug: string): PublicPlace | null => data().getPlace(slug);
+export const listPlaces = (): PublicPlaceCard[] => publicModel(data().listPlaces());
+export const getPlace = (slug: string): PublicPlace | null => publicModel(data().getPlace(slug));
 export const placeSlugs = (): string[] => data().placeSlugs();
-export const globeIndex = () => data().globeIndex();
+export const globeIndex = () => publicModel(data().globeIndex());
 export const globePaths = (): string[][] => data().globePaths();
-export const legacyPlaceRedirects = () => data().legacyPlaceRedirects();
+export const legacyPlaceRedirects = () => publicModel(data().legacyPlaceRedirects());
