@@ -1,0 +1,35 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "wrong-target-kind",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/fx-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Fx Lake"
+    },
+    {
+      "ref": "offer/place/fx-lake#raft",
+      "type": "water.river.rafting",
+      "layer": "offer",
+      "name": "Raft",
+      "at": [
+        "place/fx-lake"
+      ]
+    },
+    {
+      "ref": "part/place/fx-lake#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Parking",
+      "parks_for": [
+        "offer/place/fx-lake#raft"
+      ]
+    }
+  ]
+}

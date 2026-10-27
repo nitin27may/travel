@@ -1,0 +1,110 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "park-straddle",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/twin-rivers-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "name": "Twin Rivers National Park",
+      "covers_areas": [
+        "ZZ/E1/twin-rivers",
+        "ZZ/E2/twin-rivers"
+      ],
+      "run_by": "operator/delta-parks-east"
+    },
+    {
+      "ref": "place/east-bank-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "East Bank Lake",
+      "area_id": "ZZ/E1/twin-rivers"
+    },
+    {
+      "ref": "place/west-bank-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "West Bank Lake",
+      "area_id": "ZZ/E2/twin-rivers"
+    },
+    {
+      "ref": "place/border-overlook",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Border Overlook",
+      "part_of": [
+        "place/twin-rivers-national-park"
+      ]
+    },
+    {
+      "ref": "part/place/east-bank-lake#shore-walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "East shore walk",
+      "area_id": "ZZ/E1/twin-rivers",
+      "reaches": [
+        "place/east-bank-lake"
+      ],
+      "alternative_to": [
+        "part/place/west-bank-lake#shore-walk"
+      ]
+    },
+    {
+      "ref": "part/place/west-bank-lake#shore-walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "West shore walk",
+      "area_id": "ZZ/E2/twin-rivers",
+      "reaches": [
+        "place/west-bank-lake"
+      ]
+    },
+    {
+      "ref": "place/east-bank-hub",
+      "type": "access.start.trailhead",
+      "layer": "place",
+      "name": "East hub",
+      "part_of": [
+        "place/twin-rivers-national-park"
+      ],
+      "combo_with": [
+        "place/border-overlook"
+      ]
+    },
+    {
+      "ref": "offer/place/twin-rivers-national-park#east-entry",
+      "type": "access.pass.entry_fee",
+      "layer": "offer",
+      "name": "East entrance fee",
+      "at": [
+        "place/twin-rivers-national-park"
+      ],
+      "run_by": "operator/delta-parks-east"
+    },
+    {
+      "ref": "offer/place/twin-rivers-national-park#west-entry",
+      "type": "access.pass.entry_fee",
+      "layer": "offer",
+      "name": "West entrance fee",
+      "at": [
+        "place/twin-rivers-national-park"
+      ],
+      "run_by": "operator/delta-parks-west"
+    },
+    {
+      "ref": "offer/place/twin-rivers-national-park#timed-entry",
+      "type": "access.pass.timed_entry",
+      "layer": "offer",
+      "name": "Timed entry (east gate)",
+      "at": [
+        "place/twin-rivers-national-park"
+      ],
+      "run_by": "operator/delta-parks-east"
+    }
+  ]
+}

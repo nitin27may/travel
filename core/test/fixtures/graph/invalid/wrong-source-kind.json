@@ -1,0 +1,24 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "wrong-source-kind",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/fx-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Fx Lake"
+    },
+    {
+      "ref": "place/fx-lake-2",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Fx Lake 2",
+      "run_by": "operator/alpha-parks-service"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schema": "capture-operators/1",
+  "updated": "2026-10-26",
+  "operators": [
+    {
+      "ref": "operator/alpha-parks-service",
+      "name": "Alpha Parks Service",
+      "url": "https://example.org/alpha-parks-service"
+    },
+    {
+      "ref": "operator/ridge-guides-co",
+      "name": "Ridge Guides Co",
+      "url": "https://example.org/ridge-guides-co"
+    },
+    {
+      "ref": "operator/beta-parks-agency",
+      "name": "Beta Parks Agency",
+      "url": "https://example.org/beta-parks-agency"
+    },
+    {
+      "ref": "operator/lakeside-concessions",
+      "name": "Lakeside Concessions",
+      "url": "https://example.org/lakeside-concessions"
+    },
+    {
+      "ref": "operator/gamma-park-system",
+      "name": "Gamma Park System",
+      "url": "https://example.org/gamma-park-system"
+    },
+    {
+      "ref": "operator/delta-parks-east",
+      "name": "Delta Parks East",
+      "url": "https://example.org/delta-parks-east"
+    },
+    {
+      "ref": "operator/delta-parks-west",
+      "name": "Delta Parks West",
+      "url": "https://example.org/delta-parks-west"
+    }
+  ]
+}

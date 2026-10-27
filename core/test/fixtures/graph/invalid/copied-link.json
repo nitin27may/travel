@@ -1,0 +1,43 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "copied-link",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/fx-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "name": "Fx Park",
+      "covers_areas": [
+        "ZZ/X/fx"
+      ],
+      "links": [
+        {
+          "kind": "conditions",
+          "url": "https://example.org/fx/conditions",
+          "state": "filled"
+        }
+      ]
+    },
+    {
+      "ref": "place/fx-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Fx Lake",
+      "part_of": [
+        "place/fx-park"
+      ],
+      "links": [
+        {
+          "kind": "conditions",
+          "url": "https://example.org/fx/conditions",
+          "state": "filled"
+        }
+      ]
+    }
+  ]
+}

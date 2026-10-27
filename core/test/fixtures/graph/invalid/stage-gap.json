@@ -1,0 +1,77 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "stage-gap",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/fx-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Fx Lake"
+    },
+    {
+      "ref": "place/fx-a",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "A"
+    },
+    {
+      "ref": "place/fx-b",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "B"
+    },
+    {
+      "ref": "place/fx-c",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "C"
+    },
+    {
+      "ref": "place/fx-d",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "D"
+    },
+    {
+      "ref": "part/place/fx-lake#whole",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "whole"
+    },
+    {
+      "ref": "part/place/fx-lake#s1",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "s1",
+      "part_of": [
+        "part/place/fx-lake#whole"
+      ],
+      "starts_at": [
+        "place/fx-a"
+      ],
+      "ends_at": [
+        "place/fx-b"
+      ]
+    },
+    {
+      "ref": "part/place/fx-lake#s2",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "s2",
+      "part_of": [
+        "part/place/fx-lake#whole"
+      ],
+      "starts_at": [
+        "place/fx-c"
+      ],
+      "ends_at": [
+        "place/fx-d"
+      ]
+    }
+  ]
+}
