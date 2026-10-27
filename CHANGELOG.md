@@ -5,9 +5,9 @@ Every release of the travel site at https://travel-beta-tan.vercel.app, newest f
 migrations applied and the owner's actions. The release order, gates and checklist are in
 [docs/v2/build/RELEASE-PLAN.md](docs/v2/build/RELEASE-PLAN.md) (section 8 is the convention for this file).
 
-## [A] - pending deploy
+## [A] - 27 Oct 2026
 
-Code verified at commit `0743e1ca` (release candidate; this entry is the only change after it). No database migrations.
+Deployed commit `a0867e4e` (code verified at `0743e1ca`; the changelog entry is the only change after it), deployment `travel-m99ylm9bq`, tag `release/A`. No database migrations.
 This release carries v0.2, v0.3 and v0.4, which were not deployed on their own. Owner actions before the deploy:
 analytics token set for production (done), Maps key restricted, rate limit on the catalogue API, a production database
 snapshot, and approval of the named commit.
