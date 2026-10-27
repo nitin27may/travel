@@ -3,7 +3,6 @@ import { bookingCounts, tripBookings } from '@travel/core/export/bookings.ts';
 import { showTabBar, tripTabsFor, type TripTab } from '@travel/core/trips/tabs.ts';
 import { ExportData } from '@/components/actions/ExportData';
 import { Banner } from '@/components/ui/Banner';
-import { SeasonBand } from '@/components/trips/SeasonBand';
 import { TripCover } from '@/components/trips/TripCover';
 import { TripEnd } from '@/components/trips/TripEnd';
 import { TripPlan } from '@/components/trips/TripPlan';
@@ -14,12 +13,14 @@ import { PhotosPanel } from '@/components/trips/tabs/PhotosPanel';
 import { highlightCards } from '@/components/trips/summary/highlights';
 import { shapeFactsFor } from '@/components/trips/summary/shapeData';
 import { SummaryBottom, SummaryTop } from '@/components/trips/summary/Summary';
+import { WhenToGo } from '@/components/trips/summary/WhenToGo';
 import { PHOTOS_TAB_MIN } from '@/components/trips/summary/text';
 import { buildTripPageModel } from '@/components/trips/model';
 import type { PlaceLookup } from '@/components/trips/model';
 import { tripExportFor } from '@/lib/export/build.server';
 import { getPlace, getTrip, listPlaces, tripSlugs } from '@/lib/public';
 import { tripSummaryFor } from '@/lib/public/summary';
+import { tripWeatherFor } from '@/lib/public/weatherLinks';
 import { ogImageFor } from '@/lib/og';
 import { currentSlugOf, retiredSlugs } from '@/lib/server/moved';
 import { absoluteUrl, pageMetadata } from '@/lib/site';
@@ -75,7 +76,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
   const top = <SummaryTop trip={trip} summary={summary} link={link} highlights={highlights} galleryGroups={galleryGroups} />;
   const bottom = <SummaryBottom trip={trip} summary={summary} bookings={bookings} />;
   const photosPanel = <PhotosPanel photos={model.gallery} rows={rows.map((r) => ({ name: r.name, placeSlug: r.placeSlug && getPlace(r.placeSlug) ? r.placeSlug : null, days: r.days }))} />;
-  const season = trip.season || !overview ? <SeasonBand trip={trip} /> : null;
+  const season = trip.season || !overview ? <WhenToGo season={trip.season} weather={tripWeatherFor(slug)} /> : null;
   return (
     <article className="trip-page" data-depth={trip.depth}>
       <TripCover trip={trip} url={url} />

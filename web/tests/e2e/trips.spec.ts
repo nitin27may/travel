@@ -65,14 +65,15 @@ test.describe('trip page', () => {
     await page.goto(`${site.url}/trips/switzerland-2027/`);
     // an overview with a season (D6a-W) shows the season band and the "not converted" banner; the no-season notice is for an overview with none
     await expect(page.getByText('This plan has not been converted to days yet')).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'This plan is valid for' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'When to go', exact: true })).toBeVisible();
     await expect(page.getByText('Last week of July to the second week of August').first()).toBeVisible();
     await expect(page.getByText('Overview only. No days and no season are written down yet')).toHaveCount(0);
     // a plan-only window says so: the hero stat, one line in the band and the strip's name (D6a-W review M2)
     await expect(page.locator('.trip-glance dt', { hasText: 'Planned for' })).toBeVisible();
     await expect(page.locator('.trip-glance dt', { hasText: 'Valid for' })).toHaveCount(0);
-    await expect(page.getByText('The window this plan was written for. Other months and opening dates have not been checked yet.')).toBeVisible();
-    await expect(page.getByRole('img', { name: 'Months this plan covers: July, August' })).toBeVisible();
+    await expect(page.getByText('The window this plan was written for', { exact: true })).toBeVisible();
+    await expect(page.getByText('Other months and opening dates have not been checked yet.')).toBeVisible();
+    await expect(page.getByText('July, one of the plan\'s months')).toBeVisible();
     await expect(page.locator('.cat-chip')).toHaveCount(0);
     await expect(page.getByText('Season not set yet')).toHaveCount(0);
   });
