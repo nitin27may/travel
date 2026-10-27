@@ -58,6 +58,19 @@ describe("googleAuthorizeUrl: the card follows only Google's own address", () =>
     const url = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=x&scope=openid%20email%20profile&state=s&code_challenge_method=S256';
     expect(googleAuthorizeUrl({ url, redirect: true })).toBe(url);
   });
+  it("accepts Neon Auth's own first hop (what production answers, 27 Oct 2026)", () => {
+    const url = 'https://ep-quiet-leaf-b4oz2a4v.neonauth.c-6.us-east-2.aws.neon.tech/neondb/auth/sign-in/social/init?token=t';
+    expect(googleAuthorizeUrl({ url, redirect: true })).toBe(url);
+  });
+  it.each([
+    'http://ep-x.neonauth.c-6.us-east-2.aws.neon.tech/neondb/auth/sign-in/social/init?token=t',
+    'https://ep-x.neonauth.c-6.us-east-2.aws.neon.tech/neondb/auth/get-session',
+    'https://neon.tech.evil.example/neondb/auth/sign-in/social/init?token=t',
+    'https://evil.example/neondb/auth/sign-in/social/init?token=t',
+    'https://user:pw@ep-x.neonauth.c-6.us-east-2.aws.neon.tech/neondb/auth/sign-in/social/init',
+  ])('refuses a look-alike Neon address %j', (url) => {
+    expect(googleAuthorizeUrl({ url })).toBeNull();
+  });
   it.each([
     'http://accounts.google.com/o/oauth2/v2/auth',
     'https://accounts.google.com.evil.example/',

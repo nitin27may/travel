@@ -134,6 +134,12 @@ export const GOOGLE_SIGN_IN = {
   provider: "google",
   /** The card follows Neon's answer only to this host, over HTTPS (anything else reads "We couldn't open Google"). */
   authorizeHost: "accounts.google.com",
+  /**
+   * Neon Auth's managed service answers `sign-in/social` with its own first hop, `https://<id>.neonauth.<region>.aws.neon.tech/<db>/auth/sign-in/social/init?token=...`,
+   * which then sends the browser on to Google (seen on production, 27 Oct 2026). The card follows that hop only on a Neon host and that path.
+   */
+  neonInitHostSuffix: ".neon.tech",
+  neonInitPathSuffix: "/auth/sign-in/social/init",
   /** Where every Google sign-in lands: `proxy.ts` runs the verifier exchange on `/account/*` only (spec 3, gotcha 16). */
   landingPath: "/account/",
   /** The pages that may start it, and so may be its `errorCallbackURL`. */

@@ -76,13 +76,16 @@ export function googleCallbacks(body: Record<string, unknown>, origin: string): 
   };
 }
 
-/** Google's address from Neon's answer, only when it is HTTPS on Google's sign-in host; null otherwise (string 13). */
+/** The next address from Neon's answer: Google's sign-in host, or Neon Auth's own first hop that leads to it; HTTPS only; null otherwise (string 13). */
 export function googleAuthorizeUrl(body: Record<string, unknown> | null): string | null {
   const raw = body?.url;
   if (typeof raw !== 'string' || raw.length > 4096) return null;
   try {
     const url = new URL(raw);
-    return url.protocol === 'https:' && url.hostname === GOOGLE_SIGN_IN.authorizeHost && !url.username && !url.password ? url.href : null;
+    if (url.protocol !== 'https:' || url.username || url.password) return null;
+    const google = url.hostname === GOOGLE_SIGN_IN.authorizeHost;
+    const neonHop = url.hostname.endsWith(GOOGLE_SIGN_IN.neonInitHostSuffix) && url.pathname.endsWith(GOOGLE_SIGN_IN.neonInitPathSuffix);
+    return google || neonHop ? url.href : null;
   } catch {
     return null;
   }
