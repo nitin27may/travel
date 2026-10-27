@@ -157,6 +157,8 @@ a.sum-card:focus-visible { outline: var(--focus-ring); outline-offset: var(--foc
   .bk-row { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.6fr) 10.5rem; align-items: start; gap: var(--s-1) var(--s-5); }
   .bk-park { display: block; margin-top: 2px; }
   .bk-foot { flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 0; }
+  /* the 44 px box stays; its text lines up with the first line of the name and the window (UXB-6F P1) */
+  .bk-day a, .bk-link a { align-items: flex-start; padding-top: 2px; }
 }
 
 /* ---------- Photos panel (UXB-6; spec 3.2, W8): the credit line under each tile at rest ---------- */
@@ -166,7 +168,10 @@ a.sum-card:focus-visible { outline: var(--focus-ring); outline-offset: var(--foc
 .ph-group-meta { font: var(--t-meta); color: var(--muted); }
 .ph-group-meta a { display: inline-flex; align-items: center; min-height: var(--touch-min); color: var(--accent-text); }
 .gal.gal-rest .gal-item { overflow: visible; border-radius: 0; }
-.gal.gal-rest .gal-credit { position: static; display: block; opacity: 1; padding: var(--s-1) 0 0; background: none; color: var(--muted); font: var(--t-chip); }
+.gal.gal-rest .gal-credit { position: static; display: flex; min-width: 0; opacity: 1; padding: var(--s-1) 0 0; background: none; color: var(--muted); font: var(--t-chip); white-space: pre; }
+/* the author gives way first; the licence, which the reader needs to reuse a photo, is never cut (UXB-6F M2) */
+.gal-credit-by { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gal-credit-sep, .gal-credit-lic { flex: none; }
 @media (prefers-reduced-motion: reduce) { .gal.gal-rest .gal-credit { transition: none; } }
 
 /* ---------- pre-paint (prepaint.ts, UXB-1F M3): a deep link to Days or Bookings paints that panel at once ---------- */

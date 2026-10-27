@@ -37,7 +37,7 @@ describe('Summary: the Canadian Rockies', () => {
     expect(html).toMatch(/href="\?view=bookings"/);
     expect(html).toMatch(/href="\?view=photos"/);
     expect(html).toContain('to book ahead');
-    expect(html).toContain('none has a published opening date yet');
+    expect(html).toContain('none with a published opening date yet');
     expect(html).not.toMatch(/<a [^>]*class="sum-card"[^>]*>[^]*?<button/);
   });
   it('shows at most eight highlights, four of them behind "Show 4 more" on a phone, each with its day links into Days', () => {
