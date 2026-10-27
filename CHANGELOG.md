@@ -5,6 +5,21 @@ Every release of the travel site at https://travel-beta-tan.vercel.app, newest f
 migrations applied and the owner's actions. The release order, gates and checklist are in
 [docs/v2/build/RELEASE-PLAN.md](docs/v2/build/RELEASE-PLAN.md) (section 8 is the convention for this file).
 
+## [A.1] - 27 Oct 2026
+
+Hotfix on release A. Deployed commit `4b5274d2`, deployment `travel-k7cz9cplo`, tag `release/A.1`. No database migrations.
+Owner actions done: Allow Localhost off and the organization plugin disabled on the production Neon Auth branch.
+
+### Fixed
+- Sign-in routes: only the routes this site uses are reachable; every other path answers "not found" and every
+  change request must come from this site.
+- The sign-in switches now really turn the sign-in routes off when a switch is off.
+- Signing in with an unverified email asks for a code through the same protected step as everything else.
+- Sign-up and sign-in forms pass only the fields they need; the sign-up answer no longer copies the provider's headers.
+
+### Internal
+- The auth error log carries a plain code only, and the visitor's network address is read from the platform header.
+
 ## [A] - 27 Oct 2026
 
 Deployed commit `a0867e4e` (code verified at `0743e1ca`; the changelog entry is the only change after it), deployment `travel-m99ylm9bq`, tag `release/A`. No database migrations.
