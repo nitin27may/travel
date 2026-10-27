@@ -85,6 +85,22 @@ UI (non-text) pairs: `--line-2` on `--surface` 3.67 light / 3.42 dark; `--line-2
 `--accent` on `--header` 6.38 / 7.53; `--accent` on `--bg` 2.33 / 7.22 (so in light the accent never
 stands alone as a thin indicator; the selected tab is also bold ink and the picked route has an ink casing).
 
+### 2.3 Third-party brand marks
+
+A third party's control may require its own colours (added 27 Oct 2026 by GSI-1; GSI-T and the design review confirm). They live
+in `tokens.json` `color.brand.<party>`, are generated as `--brand-<party>-<part>` per theme (sunlight takes the light set), and
+are used by that one control only, never as a product role. The mark itself (a logo) is the party's own file, unmodified, in
+`web/public/brand/`, so its colours never pass through our CSS. The no-green rule covers our colours, not a third party's mark.
+
+| Token | Light | Dark | Used by |
+|---|---|---|---|
+| `--brand-google-fill` | `#FFFFFF` | `#131314` | Continue with Google (Google spec 4.2) |
+| `--brand-google-stroke` | `#747775` | `#8E918F` | its 1 px border |
+| `--brand-google-ink` | `#1F1F1F` | `#E3E3E3` | its label |
+
+Ratios: label 16.48 light, 14.47 dark (AAA); stroke 4.53 on `--surface` and 4.19 on `--bg` in light, 5.17 and 5.71 in dark
+(above 3:1 for a control boundary). The "G" is `web/public/brand/google-g.svg`, rendered `<img alt="">`.
+
 ## 3. Accent, status and semantic colours
 
 One hue, one meaning. Fills and text are separate tokens because a fill carries dark text and a text

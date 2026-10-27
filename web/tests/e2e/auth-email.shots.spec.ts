@@ -31,7 +31,7 @@ interface State {
 
 const email = (address = 'nitin@example.com') => async (page: Page) => {
   await page.getByLabel('Email').fill(address);
-  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
 };
 const code = async (page: Page) => {
   await email()(page);

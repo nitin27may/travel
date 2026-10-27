@@ -169,6 +169,9 @@
   --map-route-dim: color-mix(in srgb, var(--map-route) 28%, transparent);
   --map-stop: var(--ink);
   --map-select-ring: var(--accent);
+  --brand-google-fill: #FFFFFF;
+  --brand-google-stroke: #747775;
+  --brand-google-ink: #1F1F1F;
   --img: 1;
 }
 
@@ -239,6 +242,9 @@
   --map-route-dim: color-mix(in srgb, var(--map-route) 28%, transparent);
   --map-stop: var(--ink);
   --map-select-ring: var(--accent);
+  --brand-google-fill: #131314;
+  --brand-google-stroke: #8E918F;
+  --brand-google-ink: #E3E3E3;
   --img: 0.92;
 }
 
@@ -309,6 +315,9 @@
   --map-route-dim: color-mix(in srgb, var(--map-route) 28%, transparent);
   --map-stop: var(--ink);
   --map-select-ring: var(--accent);
+  --brand-google-fill: #FFFFFF;
+  --brand-google-stroke: #747775;
+  --brand-google-ink: #1F1F1F;
   --img: 1;
 }
 

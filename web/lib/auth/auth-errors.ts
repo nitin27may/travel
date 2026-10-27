@@ -26,6 +26,8 @@ export interface ProblemContext {
   page: AuthPage;
   /** The code option is on this card. */
   codeOn?: boolean;
+  /** Continue with Google is on this card (strings 52 to 55 of the Google copy page offer it as the way out). Never on the reset page. */
+  googleOn?: boolean;
 }
 
 export interface AuthProblem {
@@ -47,6 +49,11 @@ export const COPY = {
   browserCheck: "We couldn't confirm this browser. Please try again.",
   sendFailed: "We couldn't send the email. Try again shortly, or use your password.",
   sendFailedNoAlternative: "We couldn't send the email. Try again shortly.",
+  /** Google copy page 54 and 55: the same, with Google on (sign-in, sign-up). */
+  sendFailedOrGoogle: "We couldn't send the email. Try again shortly, or use your password or Google.",
+  sendFailedOnlyGoogle: "We couldn't send the email. Try again shortly, or use Google.",
+  /** Google copy page 9: `navigator.cookieEnabled === false`, every method. */
+  cookiesOff: 'Your browser is blocking cookies for this site. Sign-in needs them to keep you signed in.',
   badEmail: 'Enter an email address, like name@example.com.',
   wrongCode: "That code didn't work. Check it, or send a new one.",
   tooManyTries: 'Too many tries. Send a new code.',
@@ -92,12 +99,15 @@ export function waitPhrase(seconds: number | null): string {
   return `${Math.round(min / 60)} hours`;
 }
 
-function tooMany(action: AuthAction, retry: number | null, codeOn: boolean, page: AuthPage): string {
+function tooMany(action: AuthAction, retry: number | null, codeOn: boolean, page: AuthPage, googleOn: boolean): string {
   const wait = waitPhrase(retry);
   if (wait === 'a minute') return 'Please wait a minute, then try again.';
   switch (action) {
     case 'send':
-      return page === 'sign-in' ? `You've asked for several codes. Wait ${wait}, or use your password.` : `You've asked for several codes. Wait ${wait}, then try again.`;
+      // Google copy page 52 and 53: with Google on, it is a way out on both card pages (it draws on no send bucket).
+      if (page === 'sign-in') return googleOn ? `You've asked for several codes. Wait ${wait}, or use your password or Google.` : `You've asked for several codes. Wait ${wait}, or use your password.`;
+      if (page === 'sign-up' && googleOn) return `You've asked for several codes. Wait ${wait}, or use Google.`;
+      return `You've asked for several codes. Wait ${wait}, then try again.`;
     case 'password':
       return codeOn ? `Too many attempts. Wait ${wait}, or sign in with a code.` : `Too many attempts. Wait ${wait}, then try again.`;
     case 'verify':
@@ -113,12 +123,16 @@ export function authProblem(answer: AuthAnswer, action: AuthAction, ctx: Problem
   const { status, code } = answer;
   const page = ctx.page;
   const codeOn = ctx.codeOn ?? true;
+  const googleOn = page !== 'reset' && (ctx.googleOn ?? false);
   if (status >= 200 && status < 300) return null;
   const banner = (message: string, tone: AuthProblem['tone'] = 'notice'): AuthProblem => ({ where: 'banner', tone, message });
   if (status === 0) return code === 'OFFLINE' ? banner(COPY.offline, 'offline') : banner(COPY.service);
-  if (status === 429) return banner(tooMany(action, answer.retryAfterS, codeOn, page), 'urgent');
+  if (status === 429) return banner(tooMany(action, answer.retryAfterS, codeOn, page, googleOn), 'urgent');
   if (code === 'TURNSTILE_FAILED' || code === 'TURNSTILE_UNAVAILABLE') return banner(COPY.browserCheck);
-  if (code === 'SEND_FAILED' || code === 'SEND_UNAVAILABLE') return banner(page === 'sign-in' ? COPY.sendFailed : COPY.sendFailedNoAlternative);
+  if (code === 'SEND_FAILED' || code === 'SEND_UNAVAILABLE') {
+    if (page === 'sign-in') return banner(googleOn ? COPY.sendFailedOrGoogle : COPY.sendFailed);
+    return banner(page === 'sign-up' && googleOn ? COPY.sendFailedOnlyGoogle : COPY.sendFailedNoAlternative);
+  }
   if (code === 'INVALID_EMAIL') return { where: 'field', field: 'email', tone: 'urgent', message: COPY.badEmail };
   if (code === 'INVALID_OTP') return { where: 'field', field: 'code', tone: 'urgent', message: COPY.wrongCode };
   if (code === 'TOO_MANY_ATTEMPTS') return { where: 'field', field: 'code', tone: 'urgent', message: COPY.tooManyTries, clearCode: true, deadCode: code };

@@ -6,18 +6,22 @@
  * - `signInCode` (Phase 1): "Email me a code" on the card. Needs `signIn` and `NEXT_PUBLIC_SIGN_IN_CODE=1`; off by default until the
  *   owner turns it on (O-E1 order: after this card is live).
  * - `signInLink` (Phase 2, not built): needs `signInCode` too, so a link can never be offered without the code fallback.
+ * - `signInGoogle` (GSI-1, Google spec 11): "Continue with Google" on the card, and the guard's `sign-in/social` route. Needs `signIn`
+ *   and `NEXT_PUBLIC_SIGN_IN_GOOGLE=1`. Off means no button and a 404 from the proxy for the Google start (spec 11 rollback step 1).
  */
 export interface AuthFlags {
   signIn: boolean;
   signInCode: boolean;
   signInLink: boolean;
+  signInGoogle: boolean;
 }
 
-export function authFlagsFrom(env: { signIn?: string; code?: string; link?: string }): AuthFlags {
+export function authFlagsFrom(env: { signIn?: string; code?: string; link?: string; google?: string }): AuthFlags {
   const signIn = env.signIn === '1';
   const signInCode = signIn && env.code === '1';
   const signInLink = signInCode && env.link === '1';
-  return { signIn, signInCode, signInLink };
+  const signInGoogle = signIn && env.google === '1';
+  return { signIn, signInCode, signInLink, signInGoogle };
 }
 
 /**
@@ -30,6 +34,7 @@ export function authFlagsNow(): AuthFlags {
     signIn: process.env.NEXT_PUBLIC_SIGN_IN,
     code: process.env.NEXT_PUBLIC_SIGN_IN_CODE,
     link: process.env.NEXT_PUBLIC_SIGN_IN_LINK,
+    google: process.env.NEXT_PUBLIC_SIGN_IN_GOOGLE,
   });
 }
 

@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { connection } from 'next/server';
+import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { Icon } from '@/components/ui/Icon';
 import { ButtonLink } from '@/components/ui/Button';
@@ -7,6 +8,7 @@ import { ErrorState } from '@/components/ui/ErrorState';
 import { RowSkeleton } from '@/components/ui/Skeleton';
 import { capabilities } from '@/lib/capabilities';
 import { getUser } from '@/lib/auth/server';
+import { DEFAULT_RETURN, returnPath } from '@/lib/auth/return-path';
 import { loadDrafts } from '@/lib/server/drafts';
 import { safeError } from '@/lib/server/safe-error';
 import { dataEnv } from '@/lib/server/neon-env';
@@ -83,8 +85,16 @@ async function AccountBody() {
   );
 }
 
-export default function AccountPage() {
+/**
+ * `next` (GSI-1; Google spec 3 and 7.4): Continue with Google always lands here, because only `/account/*` runs the verifier exchange in
+ * `proxy.ts`, with the page it started from as `next`. Once `getUser()` returns a user, a checked `next` other than this page is
+ * followed at once; a refused value is never echoed and leaves the visitor here. GSI-2 adds its stop before this redirect: a new account
+ * or Google just added to an existing one stays here with its notice and a Continue button (copy page W3, Q-GC3).
+ */
+export default async function AccountPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   if (!capabilities.signIn) return <SignedOut />;
+  const next = returnPath((await searchParams).next);
+  if (next !== DEFAULT_RETURN && (await getUser())) redirect(next);
   return (
     <Suspense
       fallback={

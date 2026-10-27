@@ -11,6 +11,7 @@ import type { QuotaRule, QuotaStore } from '@travel/core/quota/store.ts';
 import { isIP } from 'node:net';
 import { answerHoldMs, monotonicMs, sleep } from '@/lib/auth/answer-hold';
 import { authFlagsNow, type AuthFlags } from '@/lib/auth/flags';
+import { googleCallbacks } from '@/lib/auth/google';
 import { revokeSessionsBefore } from '@/lib/auth/revoke';
 import { clientIp } from '@/lib/server/client-ip';
 import { getMailer, ownerEmail } from '@/lib/server/mailer';
@@ -39,8 +40,9 @@ import { turnstilePassed, verifyTurnstile } from '@/lib/server/turnstile';
  * Code and password checks key their tight per-address bucket on the address and the IP together, under a higher address-only
  * ceiling (SF3), so a guesser on one network cannot keep the owner of an address locked out.
  *
- * Allow-list (hotfix A1, review MF3): only the routes this site calls are proxied: `get-session` (GET), `sign-out` (POST) and the
- * seven routes of the sign-in card (ROUTES). Every other path and method answers 404 here, whatever plugins are switched on in the
+ * Allow-list (hotfix A1, review MF3): only the routes this site calls are proxied: `get-session` (GET), `sign-out` (POST), the
+ * seven routes of the sign-in card (ROUTES) and, with the Google flag on, `sign-in/social` (SOCIAL, GSI-1). Every other path and method
+ * answers 404 here, whatever plugins are switched on in the
  * Neon console (`organization`, `update-user`, `delete-user`, `forget-password`, `change-email`, ...). Every non-GET call must carry
  * a same-origin `Origin` header: a missing one is refused too (MF1), because a browser always sends it on a POST. This guards our
  * proxy only: Neon's Auth base URL is public and can be called directly, so the production branch must have Better Auth "Allow
@@ -48,6 +50,13 @@ import { turnstilePassed, verifyTurnstile } from '@/lib/server/turnstile';
  *
  * Flags (MF4): with `NEXT_PUBLIC_SIGN_IN` off every path answers 404; with `NEXT_PUBLIC_SIGN_IN_CODE` off a code send of type
  * `sign-in` and `sign-in/email-otp` answer 404, so turning a flag off and redeploying really turns the server side off (spec 11.2).
+ * Likewise `sign-in/social` answers 404 unless `NEXT_PUBLIC_SIGN_IN_GOOGLE` is on (Google spec 11, rollback step 1).
+ *
+ * Continue with Google (GSI-1): `sign-in/social` takes the same origin check (a missing Origin refused) and body cap, then the body is
+ * rebuilt by `googleCallbacks` (lib/auth/google.ts): provider `google` only, `callbackURL` always `<origin>/account/` with the checked
+ * `next`, `errorCallbackURL` the starting page; no scope or other field passes. It sends no mail and creates no account by itself (Neon
+ * does that after Google answers), so it takes no Turnstile and no quota; Neon's 429 keeps a Retry-After. Neon's success answer (Google's
+ * address and the challenge cookie) is passed on unchanged; an error answer carries Neon's code only.
  *
  * Bodies (SF1): each guarded body is rebuilt from that route's own field list (string values only); anything else, `callbackURL`
  * included (spec 5.1), never reaches Neon, and sign-up always sends `name: ''` (rule E8).
@@ -102,6 +111,9 @@ const ROUTES: Record<string, GuardedRoute> = {
 
 /** Unguarded routes the site itself uses (the session read and sign-out), with the one method each accepts. */
 const OPEN: Record<string, 'GET' | 'POST'> = { 'get-session': 'GET', 'sign-out': 'POST' };
+
+/** The Google start (GSI-1), POST only, behind `signInGoogle`. Its own branch in `handle`: no address, no Turnstile, no quota. */
+const SOCIAL = 'sign-in/social';
 
 /** The `type` values the send route accepts (spec 4.5); `change-email` is not offered. */
 const OTP_TYPES = new Set(['sign-in', 'email-verification', 'forget-password']);
@@ -276,14 +288,15 @@ function rulesFor(kind: Kind, addr: string, ip: string, addrIp: string): QuotaRu
   }
 }
 
-export type Classified = { path: string; route: GuardedRoute } | { path: string; open: 'GET' | 'POST' } | null;
+export type Classified = { path: string; route: GuardedRoute } | { path: string; open: 'GET' | 'POST' } | { path: string; social: true } | null;
 
-/** What a path is: a guarded route, an open one (with its method), or null: not offered here, 404 (MF3). */
+/** What a path is: a guarded route, an open one (with its method), the Google start, or null: not offered here, 404 (MF3). */
 export function classify(path: readonly string[]): Classified {
   if (path.length === 0 || path.some((s) => s === '' || s === '.' || s === '..')) return null;
   const p = path.join('/').toLowerCase();
   if (Object.hasOwn(ROUTES, p)) return { path: p, route: ROUTES[p] };
   if (Object.hasOwn(OPEN, p)) return { path: p, open: OPEN[p] };
+  if (p === SOCIAL) return { path: p, social: true };
   return null;
 }
 
@@ -326,6 +339,55 @@ export function createAuthGuard(deps: GuardDeps) {
     if (hour >= ALERT_AFTER.failuresPerHour) await alert(store, { kind: 'auth-send-failures', failures: hour });
   }
 
+  /** The Google start (GSI-1): flag, origin, body cap, the body rebuilt from scratch, then Neon's answer. */
+  async function social(request: Request, canonical: RouteCtx, flags: AuthFlags): Promise<Response> {
+    const done = (level: 'info' | 'warn' | 'error', outcome: string, extra: Record<string, LogValue> = {}) =>
+      guardLog(level, { event: 'auth_guard', route: 'sign_in_social', outcome, ...extra });
+    if (!flags.signInGoogle) {
+      done('info', 'google_off');
+      return answer(404, 'NOT_FOUND');
+    }
+    if (!originOk(request)) {
+      done('warn', 'origin');
+      return answer(403, 'FORBIDDEN');
+    }
+    const raw = await readCapped(request, AUTH_GUARD.bodyMaxBytes);
+    if (raw === null) {
+      done('warn', 'body_too_large');
+      return answer(413, 'BODY_TOO_LARGE');
+    }
+    let body: Record<string, unknown>;
+    try {
+      const parsed: unknown = JSON.parse(raw);
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('not an object');
+      body = parsed as Record<string, unknown>;
+    } catch {
+      done('info', 'bad_body');
+      return answer(400, 'VALIDATION_ERROR');
+    }
+    // originOk passed, so the Origin header is present and is this host's own origin.
+    const rebuilt = googleCallbacks(body, new URL(request.headers.get('origin') as string).origin);
+    if (!rebuilt) {
+      done('info', 'bad_provider');
+      return answer(400, 'VALIDATION_ERROR');
+    }
+    let upstream: Response;
+    try {
+      upstream = await deps.upstream(rebuild(request, JSON.stringify(rebuilt)), canonical);
+    } catch {
+      upstream = Response.json({ code: 'UPSTREAM_ERROR' }, { status: 502 });
+    }
+    const status = upstream.status;
+    if (upstream.ok) {
+      done('info', 'ok', { upstream: status });
+      return upstream;
+    }
+    const code = safeCode(await jsonOf(upstream), status >= 500 ? 'SERVICE_UNAVAILABLE' : 'VALIDATION_ERROR');
+    done(status >= 500 ? 'warn' : 'info', 'neon_rejected', { upstream: status, code });
+    const headers = status === 429 ? { ...NO_STORE, 'Retry-After': String(AUTH_GUARD.upstreamRetryAfterS) } : NO_STORE;
+    return Response.json({ code, message: code }, { status, headers });
+  }
+
   async function handle(request: Request, ctx: RouteCtx): Promise<Response> {
     const { path } = await ctx.params;
     const flags = deps.flags();
@@ -344,6 +406,7 @@ export function createAuthGuard(deps: GuardDeps) {
       }
       return deps.upstream(request, canonical);
     }
+    if ('social' in found) return social(request, canonical, flags);
     const route = found.route;
     if (route.codeOnly && !flags.signInCode) {
       guardLog('info', { event: 'auth_guard', route: route.id, outcome: 'code_off' });

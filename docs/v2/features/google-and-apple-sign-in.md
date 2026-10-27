@@ -668,3 +668,26 @@ Apple button and first-authorisation details in section 14 are not confirmed fro
 
 Empty until GSI-0. GSI-0, GSI-S and GSI-E append dated entries here: each unknown U1 to U11 with its answer and
 evidence, each test with pass or fail.
+
+### GSI-1 build notes (27 Oct 2026, Opus 5.5)
+
+Built on `public/GSI-1` to the copy page (strings 1 to 22, 52 to 55; section 4 map). Where the build differs from sections 4, 7 and 13:
+
+- **The proxy builds the callback addresses.** The card sends paths only; the guard's new `sign-in/social` route (allow-list entry,
+  behind `NEXT_PUBLIC_SIGN_IN_GOOGLE`, same-origin with a missing Origin refused, 4 KB cap) rebuilds `callbackURL` as
+  `<request origin>/account/` plus the checked `next` and `errorCallbackURL` as `/sign-in/` or `/sign-up/` plus the same `next`, and
+  drops every other field (`scopes`, `newUserCallbackURL`, ...). It takes no Turnstile and no quota (no mail, no account until Google
+  answers); Neon's 429 keeps a Retry-After. `lib/auth/guard.ts` was edited for this (MF3 named "the Google routes" as GSI-1's), so
+  GSI-S reviews it. The card follows Neon's answer only to `https://accounts.google.com`.
+- **Brand tokens** (GSI-T's part, done here so the button has colours): `color.brand.google` in `tokens.json`, `--brand-google-*` in
+  `themes.css`, tokens.md 2.3, and `web/public/brand/google-g.svg`. GSI-T still reviews them and adds components.md 2.1's entry.
+- **Config** in `core/src/config/auth-limits.ts` (`GOOGLE_SIGN_IN`: provider, Google's host, landing and start paths, the 10-minute
+  pending mark, in-app user agents).
+- **"Didn't finish" (string 16)** shows on a return only: a back-forward load, a page restored from the cache, or a verifier the proxy
+  bounced to `/sign-in/` (it copies the query, so `neon_auth_session_verifier` arrives there when the challenge cookie is missing). The
+  card removes `error`, `error_description` and the verifier from the address on load.
+- **`auth.lastMethod` is written `google` at the press**, since success lands on a page without the card. GSI-2's string 24 ("this
+  browser had a lastMethod before") therefore cannot read the previous value after a Google press; GSI-2 decides how to keep it.
+- **`/account/` follows a checked `next` at once** for any signed-in load (the page is now async and reads `searchParams`). GSI-2 must
+  add its stop for a new account or a link (W3, Q-GC3) before Google is switched on: until then a link would be silent.
+- Not built (no evidence yet): string 5 (host note, U7), string 19 is mapped but unverified (UC4).

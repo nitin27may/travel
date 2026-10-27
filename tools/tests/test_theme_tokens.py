@@ -89,3 +89,18 @@ def test_minimum_text_size_is_11_5():
     tokens = tt.load()
     sizes = [t["size"] for k, t in tokens["type"].items() if k != "rules"]
     assert min(sizes) >= 11.5
+
+
+def test_brand_marks_are_emitted_per_theme_and_readable():
+    # tokens.md 2.3: --brand-google-* in light, dark and sunlight (the light set); label AA on its fill, stroke 3:1 on the card
+    tokens = tt.load()
+    out = tt.render(tokens)
+    g = tokens["color"]["brand"]["google"]
+    for selector, key in ((':root,\n[data-theme="light"]', "light"), ('[data-theme="dark"]', "dark"), ('[data-theme="sunlight"]', "light")):
+        css = block_of(out, selector)
+        for part, value in g[key].items():
+            assert f"--brand-google-{part}: {value};" in css, (selector, part)
+    for key in ("light", "dark"):
+        assert contrast(g[key]["ink"], g[key]["fill"]) >= 4.5, key
+        for ground in ("surface", "bg"):
+            assert contrast(g[key]["stroke"], tokens["color"][key][ground]) >= 3.0, (key, ground)

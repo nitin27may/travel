@@ -93,7 +93,7 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 900 
 
           // Resolve the request-time server child of Suspense, then SSR its real client components.
           // This tests AccountBody's markup too, rather than maintaining a duplicate header fixture.
-          const suspense = AccountPage();
+          const suspense = (await AccountPage({ searchParams: Promise.resolve({}) })) as ReactElement<{ children: ReactNode }>;
           const body = suspense.props.children as ReactElement<unknown, () => Promise<ReactNode>>;
           const log = vi.spyOn(console, 'error').mockImplementation(() => undefined);
           let content: ReactNode;

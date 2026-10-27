@@ -373,6 +373,7 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `NEXT_PUBLIC_SIGN_IN` | web `lib/capabilities.ts` | `1` enables the account sign-in capability in the browser bundle | yes |
 | `NEXT_PUBLIC_SIGN_IN_CODE` | web `lib/auth/flags.ts` | `1` (with `NEXT_PUBLIC_SIGN_IN`) offers "Email me a code" on the sign-in card (email spec 11.1). Off by default until the owner turns it on | yes |
 | `NEXT_PUBLIC_SIGN_IN_LINK` | web `lib/auth/flags.ts` | Phase 2: `1` (with `NEXT_PUBLIC_SIGN_IN_CODE`) would offer a magic link; nothing reads it yet | yes |
+| `NEXT_PUBLIC_SIGN_IN_GOOGLE` | web `lib/auth/flags.ts` | `1` (with `NEXT_PUBLIC_SIGN_IN`) shows Continue with Google on the sign-in card and opens the proxy's `sign-in/social` route (GSI-1, Google spec 11). Off, the button is gone and the route answers 404. A build flag, not a secret: never mark it sensitive in Vercel (prebuilt deploys would inline a placeholder) | yes |
 | `AUTH_SHOTS_DIR` | web e2e `auth-email.shots.spec.ts` | Folder the opt-in sign-in card screenshots are written to; unset, the spec skips | no |
 | `AUTH_SHOTS_ONLY` | web e2e `auth-email.shots.spec.ts` | A pattern of state names to shoot (for example `^(04|13|2\d|3\d)-`); unset, every state | no |
 | `RESEND_API_KEY` | web `lib/server/mailer.ts` | Send-only Resend key for owner alerts (EML-M). Unset, the mailer is disabled and refuses every send | no |

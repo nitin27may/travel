@@ -98,9 +98,20 @@ def map_decls(theme: str, tokens: dict) -> list[tuple[str, str]]:
     return decls
 
 
+def brand_decls(theme: str, tokens: dict) -> list[tuple[str, str]]:
+    # tokens.md 2.3: third-party brand marks, --brand-<party>-<part>; sunlight takes the light set
+    key = "dark" if theme == "dark" else "light"
+    out: list[tuple[str, str]] = []
+    for party, sets in tokens["color"].get("brand", {}).items():
+        if party == "rule":
+            continue
+        out += [(f"--brand-{party}-{k}", v) for k, v in sets[key].items()]
+    return out
+
+
 def theme_block(theme: str, tokens: dict) -> str:
     selector = ':root,\n[data-theme="light"]' if theme == "light" else f'[data-theme="{theme}"]'
-    decls = colour_decls(theme, theme, tokens) + elevation_decls(theme, tokens) + map_decls(theme, tokens)
+    decls = colour_decls(theme, theme, tokens) + elevation_decls(theme, tokens) + map_decls(theme, tokens) + brand_decls(theme, tokens)
     decls.append(("--img", "0.92" if theme == "dark" else "1"))
     return block(selector, decls)
 
