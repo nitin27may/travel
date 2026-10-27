@@ -64,14 +64,14 @@ test.describe('trip page polish (TRP, stage 4)', () => {
   });
 
   // Season: data/seasons/switzerland-2027.json (D6a-W, 15.113) gave the overview a "Planned for" window, so the page no longer says
-  // "Season not set yet"; the overview notice and the "This plan is valid for" band are each said once.
+  // "Season not set yet"; the overview notice and the "When to go" section are each said once.
   test('the Switzerland overview says copy only when a Copy button exists, says it is an overview once, and has no season gap (R4-T3)', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/switzerland-2027/`);
     await expect(page.getByRole('button', { name: /copy to my trips/i })).toHaveCount(0);
     await expect(page.getByText(/copy it to plan/i)).toHaveCount(0);
     await expect(page.getByText(/season not set yet/i)).toHaveCount(0);
     await expect(page.getByText(/This plan has not been converted to days yet\./)).toHaveCount(1); // the Summary's lead says it once
-    await expect(page.getByRole('heading', { name: /this plan is valid for/i })).toHaveCount(1);
+    await expect(page.getByRole('heading', { name: 'When to go', exact: true })).toHaveCount(1);
   });
 
   test('a limits chip lists stated limits only (R4-T4)', async ({ page, site }) => {
@@ -119,7 +119,7 @@ test.describe('trip page polish (TRP, stage 4)', () => {
   test('"Plan it for" sits above the season band, and the sticky bar names the profile (checks 7, 11)', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}`);
     const y = (sel: string) => page.locator(sel).first().evaluate((e) => e.getBoundingClientRect().top + window.scrollY);
-    expect(await y('#plan-for')).toBeLessThan(await y('.trip-season')); // the band is "When to go" in the Summary now, below the party bar
+    expect(await y('#plan-for')).toBeLessThan(await y('#when-to-go')); // the band is "When to go" in the Summary now, below the party bar
     await page.goto(`${site.url}${ROCKIES}?view=day`);
     await expect(page.locator('.tl-planbar-who')).toHaveText('2 adults, 1 child · Standard') // the family default opens on a 10-year-old (FAMAGE10); the plan's written-for age stays 6;
     await expect(page.locator('.tl-planbar')).not.toContainText('Plan as written');

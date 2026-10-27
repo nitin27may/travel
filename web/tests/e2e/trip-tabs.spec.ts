@@ -287,7 +287,7 @@ test.describe('the Summary', () => {
     await expect(p.locator('.sum-cards')).toContainText('10 nights');
     await expect(p.locator('.sum-cards')).toContainText('photos');
     await expect(p.locator('[data-card="bookings"], [data-card="trails"], #trip-shape')).toHaveCount(0);
-    await expect(p.getByRole('heading', { name: 'This plan is valid for' })).toBeVisible(); // the season band, until UXB-4 redesigns it
+    await expect(p.getByRole('heading', { name: 'When to go' })).toBeVisible(); // UXB-4: the season band is When to go
   });
 
   test('printing shows the Summary even when Photos is the tab on screen, and never the Photos', async ({ page, site }) => {
@@ -376,7 +376,7 @@ test.describe('phone Summary', () => {
     expect(cols).toBe(2);
     await p.getByText('Show 4 more').click();
     await expect(p.locator('.sum-hl:visible')).toHaveCount(8);
-    await p.getByText('Show fewer').click();
+    await p.locator('.sum-hl-more').getByText('Show fewer').click();
     await expect(p.locator('.sum-hl:visible')).toHaveCount(4);
     const lead = p.locator('.sum-lead-text');
     const clamped = (await lead.boundingBox())!.height;
