@@ -1,7 +1,8 @@
 // The party as the trip page's "Plan it for" bar holds it (trip-and-places-ux-fixes.md 5.2 to 5.4, D6; Q295, Q296). Pure, with no
 // runtime import: the collapsed bar reads it in the trip page's start chunk.
 //
-// The party is household data. It lives on this device only (`travel.party`, web/lib/storage/keys.ts) and in a copy's `adults` and
+// The party is household data. It lives on this device (`travel.party`, web/lib/storage/keys.ts), seeded from the account when signed
+// in (`src: "account"`, account-profile-and-travellers.md 5.2; the account keeps ages in `travellers/1`), and in a copy's `adults` and
 // `children[]` (`copies/1`, `trip-custom/1` `travellers`: shapes unchanged). A link carries two numbers derived from it and nothing
 // else: the youngest age (`p=family-<n>`) and the adult count (`a=<n>`, 1 to 12). Children's ages never enter a URL, the export,
 // the share text or analytics (navigation-and-mine.md 2.3; spec 15 "Party storage is household data").

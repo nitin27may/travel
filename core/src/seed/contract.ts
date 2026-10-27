@@ -220,6 +220,7 @@ export const NOT_SEEDED: Readonly<Record<string, NotSeeded>> = {
   notification_pref: { class: "account", reason: "a user's notification choices" },
   inbound_address: { class: "account", reason: "a user's inbound mail address" },
   inbound_email: { class: "account", reason: "a user's forwarded mail" },
+  account_profile: { class: "account", reason: "a user's saved travellers (ages, optional dates of birth) and setup state (ACCT-PC, 0012)" },
   // plans and drafts
   planner_draft: { class: "plan", reason: "a user's private draft" },
   planner_draft_signal: { class: "plan", reason: "the content-free live signal of a user's draft" },

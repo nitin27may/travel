@@ -206,3 +206,35 @@ describe("privacy detector: dated trip folders (public-ref-aliases 6.1, REF-C A3
     expect(DATED_FOLDER.flags).toContain("i");
   });
 });
+
+// ACCT-PC (account-profile-and-travellers 10.1, amended 27 Oct 2026): the account's saved travellers never pass a served body.
+describe("privacy detector: the account's travellers", () => {
+  const whys = (x: unknown) => privacyHits(x).map((h) => h.why);
+  it.each([
+    ["dob", { kids: [{ dob: "2019-03-15" }] }],
+    ["born", { born: "2019-03" }],
+    ["birthDate", { birthDate: "2019-03-15" }],
+    ["birth_year", { p: { birth_year: 2019 } }],
+    ["BirthMonth", { BirthMonth: 3 }],
+    ["age_as_of", { age_as_of: "2026-10-27" }],
+    ["ageAsOf", { ageAsOf: "2026-10-27" }],
+    ["ages", { ages: [7, 9] }],
+    ["adult_ages", { adult_ages: [] }],
+    ["travellers_consented_at", { travellers_consented_at: "2026-10-27T10:00:00Z" }],
+    ["travellersSavedAt", { travellersSavedAt: "2026-10-27T10:00:00Z" }],
+  ])("flags the key %s as private", (_k, body) => {
+    expect(whys(body)).toEqual(["a private key"]);
+  });
+  it("flags the document's schema name wherever it sits, and inside a JSON string", () => {
+    expect(whys({ schema: "travellers/1" })).toEqual(["a private document (the account's travellers)"]);
+    expect(whys({ a: [{ b: " travellers/2 " }] })).toEqual(["a private document (the account's travellers)"]);
+    expect(privacyHits({ body: JSON.stringify({ schema: "travellers/1", adults: 2, children: [] }) }).length).toBeGreaterThan(0);
+  });
+  it("names the path, never the value", () => {
+    expect(privacyHits({ kids: [{ dob: "2019-03-15" }] })).toEqual([{ where: "$.kids[0].dob", why: "a private key" }]);
+  });
+  it("leaves public words alone: a birthplace in prose, a party of plain ages, an age band", () => {
+    expect(whys({ text: "The birthplace of the park system", party: { adults: 2, children: [7, 9] }, minAge: 6, ageBand: "6+" })).toEqual([]);
+    expect(whys({ title: "Travellers' guide", schema: "trip/1" })).toEqual([]);
+  });
+});

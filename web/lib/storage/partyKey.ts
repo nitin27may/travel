@@ -1,5 +1,6 @@
-// The device party (`travel.party`): see keys.ts for the contract. Split from tripUi.ts so that the code which only remembers a tab
-// (the trip page's lazy tab-state chunk) does not carry core party.ts, which Turbopack does not tree-shake (UXB-2 review S6).
+// The device party (`travel.party`): see keys.ts for the contract, plus the optional `src: 'account'` of ACCT-PC (below). Split from
+// tripUi.ts so that the code which only remembers a tab (the trip page's lazy tab-state chunk) does not carry core party.ts, which
+// Turbopack does not tree-shake (UXB-2 review S6).
 import { cleanParty, type Party } from '@travel/core/trips/party.ts';
 import { readLocal, removeLocal, writeLocal } from './safe';
 
@@ -28,11 +29,24 @@ export function readParty(): Party | null {
   return cleanParty(v);
 }
 
-/** Keeps the party on this device. False when storage is blocked or full (the page keeps working from the URL). */
-export function writeParty(p: Party): boolean {
+/**
+ * Where a kept party came from (account-profile-and-travellers.md 5.2): `account` when the account seeded it (sign-in, Account, Mine),
+ * absent when this browser chose it (the party editor, the copy sheet). `v` stays 1: `cleanParty` and `readParty` ignore the field,
+ * so an old reader keeps working.
+ */
+export type PartySource = 'account';
+
+/**
+ * Keeps the party on this device. False when storage is blocked or full (the page keeps working from the URL). `src: 'account'` is
+ * written only by the account seed (ACCT-P2's seed module, spec 5.2); every other write leaves it out, so the party becomes this
+ * browser's own. This is the only writer of `src`.
+ */
+export function writeParty(p: Party, opts: { src?: PartySource } = {}): boolean {
   const clean = cleanParty(p);
   if (!clean) return false;
-  const ok = writeLocal(PARTY_KEY, JSON.stringify({ v: 1, adults: clean.adults, children: clean.children }));
+  const value: { v: 1; adults: number; children: (number | null)[]; src?: PartySource } = { v: 1, adults: clean.adults, children: clean.children };
+  if (opts.src === 'account') value.src = 'account';
+  const ok = writeLocal(PARTY_KEY, JSON.stringify(value));
   if (ok) {
     try {
       window.dispatchEvent(new Event(PARTY_CHANGED_EVENT));
@@ -41,6 +55,13 @@ export function writeParty(p: Party): boolean {
     }
   }
   return ok;
+}
+
+/** `account` when the kept party was seeded from the account and not changed on this browser since; null otherwise (or blocked). */
+export function readPartySource(): PartySource | null {
+  const v = parse(readLocal(PARTY_KEY));
+  if (!isObj(v) || v.v !== 1 || cleanParty(v) === null) return null;
+  return v.src === 'account' ? 'account' : null;
 }
 
 export const clearParty = (): boolean => removeLocal(PARTY_KEY);

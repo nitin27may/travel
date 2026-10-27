@@ -46,6 +46,18 @@ export const ORIGIN_REF = /\b(?:loc|proto):[^\s"]/;
 export const TRIP_VALUE_KEYS: readonly string[] = ["trip", "trips", "tripId", "trip_id", "tripSlug", "trip_slug"];
 export const TRIPLESS_REF = new RegExp(`\\btrip/${TRIPLESS_LANE}\\b`);
 /**
+ * The account's saved travellers (`travellers/1`, ACCT-PC; account-profile-and-travellers 5.1 and 10.1, amended 27 Oct 2026): a date of
+ * birth, the day an age was entered, a list of ages, the adults' ages, and the row's consent and save times. With `travellers` (already
+ * private) they make every shape of the document private, and BIRTH_KEY adds any key that starts with `birth` (`birthDate`,
+ * `birth_year`, `birthMonth`). `born` is the spec's first draft (birth month and year), refused too. No served body carries one: the
+ * device party and a copy hold plain ages under `children` only.
+ */
+export const ACCOUNT_TRAVELLER_KEYS: readonly string[] = ["dob", "born", "age_as_of", "ageAsOf", "ages", "adult_ages", "travellers_consented_at", "travellersConsentedAt", "travellers_saved_at", "travellersSavedAt"];
+/** Any key that names a birth date, year or month. */
+export const BIRTH_KEY = /^birth/i;
+/** The schema name of the account's travellers document: a string that equals it marks the document wherever it sits. */
+export const PRIVATE_SCHEMA_VALUE = /^\s*travellers\/\d+\s*$/;
+/**
  * Keys that carry household data in any output (the owner's save metadata since PRIV1, traveller details, payments), and the internal
  * research columns no served body may hold (RI-6, RIS-C): `meta` (RowMeta), `notes_private` (owner Q173) and `doc` (the verbatim
  * capture record of 0003, owner Q172). `notes` stays public (a trip or track note), so only `notes_private` is listed. A visitor's copy
@@ -53,7 +65,7 @@ export const TRIPLESS_REF = new RegExp(`\\btrip/${TRIPLESS_LANE}\\b`);
  * stored name of the URL's `from`; owner 26 Oct 2026) and `gw` (the airports picked, origin spec 10); `added` was already here.
  * `isDone` was a trip status computed from the household's real trip date (PRIV-TD, owner Q308); no public payload carries it.
  */
-export const PRIVATE_KEYS: readonly string[] = ["isDone", "height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added", "meta", "notes_private", "doc", "copiedAt", "travellers", "fromRef", "gw", "favouredAt", "favourites"];
+export const PRIVATE_KEYS: readonly string[] = ["isDone", "height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added", "meta", "notes_private", "doc", "copiedAt", "travellers", "fromRef", "gw", "favouredAt", "favourites", ...ACCOUNT_TRAVELLER_KEYS];
 /**
  * The visitor's origin under the URL's name (origin spec 8.1 rule 1). Copies store it as `fromRef`, a private key whatever its value;
  * this rule stays as a second net. `from` is a common public key (a window `{from, to}`, an age band, a leg), so it is private only
@@ -89,6 +101,13 @@ export const LOG_DENY_KEYS: readonly string[] = [
   "cookie",
   "set-cookie",
   "authorization",
+  // the account's saved travellers (ACCT-PC): never in a log line, whatever the route
+  "travellers",
+  "dob",
+  "born",
+  "age_as_of",
+  "ages",
+  "adult_ages",
 ];
 
 /** Keys whose gazetteer town id makes the object a town: its point, outline, `name` and `label` are read against that town (A33). */
@@ -335,6 +354,7 @@ export function privacyHits(body: unknown, limit = 20, opts: DetectOptions = {})
         if (parsed !== undefined) walk(parsed, `${at}<json>`, { key: null, owners: [], labelOwners: [], city: false, echo: false, depth: c.depth + 1 });
         if (hits.length > before) return;
       }
+      if (PRIVATE_SCHEMA_VALUE.test(x)) hits.push({ where: at, why: "a private document (the account's travellers)" });
       textHits(text, at, hits, homeTownText, dated);
     } else if (Array.isArray(x)) {
       // a coordinate: [lon, lat] or [lat, lon], with an optional height; public only as an exact vertex of the owning town's outline
@@ -356,7 +376,7 @@ export function privacyHits(body: unknown, limit = 20, opts: DetectOptions = {})
         hits.push({ where: at, why: "a point near the home town" });
       }
       for (const [k, y] of Object.entries(o)) {
-        if (PRIVATE_KEYS.includes(k) || (k === "status" && typeof y === "string" && STATUS_WORDS.includes(y))) hits.push({ where: `${at}.${k}`, why: "a private key" });
+        if (PRIVATE_KEYS.includes(k) || BIRTH_KEY.test(k) || (k === "status" && typeof y === "string" && STATUS_WORDS.includes(y))) hits.push({ where: `${at}.${k}`, why: "a private key" });
         if (ORIGIN_VALUE_KEYS.includes(k) && isOriginValue(y)) hits.push({ where: `${at}.${k}`, why: "a visitor's origin" });
         // a map keyed by ref (refSlugs, citations) would carry an origin key as a key; the path omits the key so the hit cannot leak it
         if (ORIGIN_REF.test(k)) hits.push({ where: `${at}[key]`, why: "a private origin key (wishlist or prototype id)" });
