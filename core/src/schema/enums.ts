@@ -204,12 +204,19 @@ export const WEATHER_CAUSE = [
 export const CAP_LAYER = ["place", "route", "offer", "event"] as const;
 /** Offer classes (2.2): the class decides the offer base contract (3.3). */
 export const OFFER_CLASS = ["experience", "rental", "ticket", "access", "lodging"] as const;
-/** Stored relations (CC5). `reached_by` is the derived inverse of `reaches` and is never stored. */
+/**
+ * Stored relations (CC5; entity-graph 5.1, EG-C). Their rules (source and target kinds, cardinality, inverse) are RELATION_RULES in
+ * core/src/schema/capture/relations.ts. `covers_areas` names areas, not records, so it is a rule there but not a relation kind here.
+ */
 export const CAP_RELATION = [
   "reaches", "passes", "part_of", "on", "at", "run_by", "starts_at", "ends_at", "parks_for", "serves", "combo_with", "alternative_to", "variant_of",
+  "covered_by", "includes",
 ] as const;
-/** Derived relations: typing one in a file is E_CAP_REL_DERIVED. */
-export const CAP_RELATION_DERIVED = ["reached_by"] as const;
+/** Derived relations (entity-graph 5.2): every inverse of RELATION_RULES, the closure and the requirements. Typing one is E_CAP_REL_DERIVED. */
+export const CAP_RELATION_DERIVED = [
+  "reached_by", "members", "passed_by", "starts_here", "ends_here", "offers_at", "offers_on", "access_points", "operator_of", "covers",
+  "included_in", "variants", "members_all", "requirements",
+] as const;
 /** The one link vocabulary (3.4). `navigation` is generated at render time and `google-maps` is gone. */
 export const CAP_LINK_KIND = [
   "official", "hours_rates", "booking", "conditions", "status", "timetable", "terms", "waiver", "safety", "accessibility", "menu",

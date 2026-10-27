@@ -10,6 +10,7 @@ import { HOME_POINT_ENV, HomePointUnsetError, parseHomePoint, resolveHomePoint }
 import { HOME_RADIUS_KM } from "../../src/config/nearby.ts";
 import { PUBLIC_START_CITY, nearHome } from "../../src/privacy/home.ts";
 import { scrubOrigin, publicOrigin } from "../../src/privacy/origin.ts";
+import { DECOY_HOME_POINT } from "../setup/home-point.ts";
 import { HOME_PROBE as HOME } from "./probe.ts";
 
 /** The pre-CONS-2 formula, verbatim in behaviour: radius 2 km, earth radius 6371. */
@@ -86,7 +87,10 @@ describe("the home point comes only from the environment (PUBLIC-SCRUB)", () => 
     expect(resolveHomePoint(set, dir)).toEqual({ lat: 1.5, lon: -2.5 });
   });
 
-  it("no tracked file holds both values of the configured point (audit GB-C-1)", () => {
+  // The decoy is public by design (CI and fresh clones use it, and docs and the workflow name it), so this scan means something only
+  // when the real point is configured: on the owner's machine and in the verifier's run (ENGINEERING-STANDARD, decoy rule).
+  const decoyConfigured = HOME.lat === DECOY_HOME_POINT.lat && HOME.lon === DECOY_HOME_POINT.lon;
+  it.skipIf(decoyConfigured)("no tracked file holds both values of the configured point (audit GB-C-1)", () => {
     const root = new URL("../../..", import.meta.url).pathname;
     const files = execFileSync("git", ["ls-files", "-z"], { cwd: root, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 }).split("\0").filter(Boolean);
     const num = (n: number) => new RegExp(`(?<![\\d.])${String(n).replace(".", "\\.")}(?![\\d])`);

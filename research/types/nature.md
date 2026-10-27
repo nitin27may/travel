@@ -150,7 +150,7 @@ Records: place, offer. Suitability profile `wildlife` (flag, extension wildlife)
 
 **place**: R name, type, point, area_id, summary, best_window, best_time, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), season (operates), hours (operates), access_points (no_door_access), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, geonames_id, transit, pairs_with, photos, part_of.
 
-**offer (experience)**: R name, type, summary, season, best_window, best_time, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, transit, pairs_with, photos, part_of, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, best_window, best_time, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, transit, pairs_with, photos, on, variants, cancellation, included.
 
 Suitability: R age_band, kid_note, on_site_min, hazards, access_season, ext.wildlife.min_distance_m, ext.wildlife.best_time; R when operated min_age, adult_required, participation.wear, participation.weather_cancel; A carrier_ok, stroller, stroller_extent, stroller_on_board, wheelchair, limited_capacity_note, effort.drivers.distance_km, toilets, walk_m, ext.wildlife.stay_in_vehicle, ext.wildlife.sightings, ext.wildlife.quiet_needed, ext.wildlife.peak_months.
 
@@ -190,7 +190,7 @@ Links: official; R? none; A conditions, safety.
 
 Records: offer. Suitability profile `wildlife` (flag, extension wildlife). Effort: none, time is shown. Sources, in order: F O.
 
-**offer (experience)**: R name, type, summary, season, best_window, best_time, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, transit, pairs_with, photos, part_of, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, best_window, best_time, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, transit, pairs_with, photos, on, variants, cancellation, included.
 
 Suitability: R age_band, kid_note, on_site_min, hazards, access_season, ext.wildlife.min_distance_m, ext.wildlife.best_time; R when operated min_age, adult_required, participation.wear, participation.weather_cancel; A carrier_ok, stroller, stroller_extent, stroller_on_board, wheelchair, limited_capacity_note, effort.drivers.distance_km, toilets, walk_m, ext.wildlife.stay_in_vehicle, ext.wildlife.sightings, ext.wildlife.quiet_needed, ext.wildlife.peak_months.
 
@@ -200,7 +200,7 @@ Links: official; R? none; A conditions, safety.
 
 Records: offer. Suitability profile `wildlife` (flag, extension wildlife). Effort: none, time is shown. Sources, in order: F O.
 
-**offer (experience)**: R name, type, summary, season, best_window, best_time, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, transit, pairs_with, photos, part_of, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, best_window, best_time, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, transit, pairs_with, photos, on, variants, cancellation, included.
 
 Suitability: R age_band, kid_note, on_site_min, hazards, access_season, ext.wildlife.min_distance_m, ext.wildlife.best_time; R when operated min_age, adult_required, participation.wear, participation.weather_cancel; A carrier_ok, stroller, stroller_extent, stroller_on_board, wheelchair, limited_capacity_note, effort.drivers.distance_km, toilets, walk_m, ext.wildlife.stay_in_vehicle, ext.wildlife.sightings, ext.wildlife.quiet_needed, ext.wildlife.peak_months.
 
