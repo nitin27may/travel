@@ -1,0 +1,37 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "two-level-variant",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/fx-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Fx Lake"
+    },
+    {
+      "ref": "part/place/fx-lake#main",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "main"
+    },
+    {
+      "ref": "part/place/fx-lake#short",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "short",
+      "variant_of": "part/place/fx-lake#main"
+    },
+    {
+      "ref": "part/place/fx-lake#shorter",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "shorter",
+      "variant_of": "part/place/fx-lake#short"
+    }
+  ]
+}

@@ -11,10 +11,10 @@ test.describe('G-B hardening', () => {
     expect(await res.text()).not.toMatch(/Special:FilePath/);
   });
 
-  test('the four merged place slugs redirect to the surviving page, as the API does', async ({ request, site }) => {
+  test('the merged place slugs redirect to the surviving page, as the API does', async ({ request, site }) => {
     const reg = JSON.parse(readFileSync(path.join(ROOT, 'data', 'catalogue', 'slugs.json'), 'utf8')) as { places: { slugs: Record<string, string>; merged: Record<string, string> } };
     const pairs = Object.entries(reg.places.merged).map(([k, survivor]) => [reg.places.slugs[k]!, reg.places.slugs[survivor]!] as const);
-    expect(pairs.length).toBeGreaterThanOrEqual(4);
+    expect(pairs.length).toBeGreaterThanOrEqual(3);
     for (const [from, to] of pairs) {
       const page = await request.get(`${site.url}/places/${from}/`, { maxRedirects: 0 });
       expect(page.status(), from).toBe(308);

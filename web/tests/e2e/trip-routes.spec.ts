@@ -61,6 +61,8 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
   const errors: string[] = [];
 
   test.beforeAll(async () => {
+    // a `next build` runs here; the 60 s default hook timeout flaked on a loaded machine
+    test.setTimeout(300_000);
     rmSync(path.join(WEB, DIST), { recursive: true, force: true });
     const status = await new Promise<{ code: number | null; err: string }>((resolve) => {
       const child = execFile(process.execPath, [path.join(WEB, 'node_modules', 'next', 'dist', 'bin', 'next'), 'build'], {

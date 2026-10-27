@@ -1,0 +1,84 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "park-system",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/cedar-point-park",
+      "type": "nature.protected.state_provincial_park",
+      "layer": "place",
+      "name": "Cedar Point Park",
+      "covers_areas": [
+        "ZZ/S1/cedar-point"
+      ],
+      "run_by": "operator/gamma-park-system"
+    },
+    {
+      "ref": "place/alder-bay-park",
+      "type": "nature.protected.state_provincial_park",
+      "layer": "place",
+      "name": "Alder Bay Park",
+      "covers_areas": [
+        "ZZ/S1/alder-bay"
+      ],
+      "run_by": "operator/gamma-park-system"
+    },
+    {
+      "ref": "offer/place/cedar-point-park#system-pass",
+      "type": "access.pass.park_pass",
+      "layer": "offer",
+      "name": "System-wide annual pass",
+      "at": [
+        "place/cedar-point-park",
+        "place/alder-bay-park"
+      ],
+      "run_by": "operator/gamma-park-system"
+    },
+    {
+      "ref": "offer/place/cedar-point-park#day-fee",
+      "type": "access.pass.entry_fee",
+      "layer": "offer",
+      "name": "Cedar Point day fee",
+      "at": [
+        "place/cedar-point-park"
+      ],
+      "covered_by": [
+        "offer/place/cedar-point-park#system-pass"
+      ]
+    },
+    {
+      "ref": "offer/place/alder-bay-park#day-fee",
+      "type": "access.pass.entry_fee",
+      "layer": "offer",
+      "name": "Alder Bay day fee",
+      "at": [
+        "place/alder-bay-park"
+      ],
+      "covered_by": [
+        "offer/place/cedar-point-park#system-pass"
+      ]
+    },
+    {
+      "ref": "place/cedar-point",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Cedar Pond",
+      "part_of": [
+        "place/cedar-point-park"
+      ]
+    },
+    {
+      "ref": "place/alder-cove",
+      "type": "water.body.sea_bay_fjord",
+      "layer": "place",
+      "name": "Alder Cove",
+      "part_of": [
+        "place/alder-bay-park"
+      ]
+    }
+  ]
+}

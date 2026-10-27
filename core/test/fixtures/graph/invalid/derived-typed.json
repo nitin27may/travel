@@ -1,0 +1,26 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "derived-typed",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/fx-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Fx Lake",
+      "members": [
+        "place/fx-lake-2"
+      ]
+    },
+    {
+      "ref": "place/fx-lake-2",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Fx Lake 2"
+    }
+  ]
+}

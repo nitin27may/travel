@@ -4,122 +4,126 @@
   "suites": {
     "links": {
       "run": ["python3 tools/relink.py check", "python3 tools/tree_check.py"],
-      "cost": "s", "always_at": 1, "inputs": ["**"],
+      "cost": "s", "group": "links", "always_at": 1, "inputs": ["**"],
       "steps": ["folder contract"]
     },
     "gate.map": {
       "run": ["python3 tools/gate/check_map.py"],
-      "cost": "s", "always_at": 1, "inputs": ["**"],
+      "cost": "s", "group": "links", "always_at": 1, "inputs": ["**"],
       "steps": ["gate map"]
+    },
+    "ci": {
+      "run": ["python3 tools/ci/lint_workflows.py .github/workflows"],
+      "cost": "s", "group": "links", "always_at": 2, "inputs": [".github/**", "tools/ci/**"]
     },
     "hardcode": {
       "run": ["python3 tools/cons/hardcode_scan.py --check"],
-      "cost": "s", "always_at": 2,
+      "cost": "s", "group": "links", "always_at": 2,
       "inputs": ["web/**", "core/**", "tools/**", "docs/v2/build/public-site/README.md", "legacy/MANIFEST.json", ".gitignore"],
       "steps": ["no new hard-coded values"]
     },
     "py.tools": {
       "run": ["python3 -m pytest tools/tests -q"],
-      "cost": "s", "always_at": 2, "requires": ["venv"],
+      "cost": "s", "group": "core-data", "always_at": 2, "requires": ["venv"],
       "inputs": ["tools/**", "legacy/**", "data/**", "docs/v2/design/foundation/tokens.json", "web/app/themes.css", "publish.sh",
                  "research/README.md", "research/tools.md", "research/method/**", ".claude/agents/*.md", ".claude/skills/*/SKILL.md", "core/src/relevance/signals.ts"],
-      "tests": ["tools/tests/**/test_*.py"],
+      "tests": ["tools/tests/**/test_*.py", "tools/tests/conftest.py"],
       "steps": ["python tests"]
     },
     "locations": {
       "run": ["python3 tools/locations.py validate", "python3 tools/locations.py build --check"],
-      "cost": "s", "always_at": 2,
+      "cost": "s", "group": "core-data", "always_at": 2,
       "inputs": ["data/locations/**", "data/vocab/**", "tools/locations.py", "tools/location_views.py", "legacy/locations/**", "legacy/globe/assets/data/**", "legacy/_system/site/**"],
       "steps": ["locations validate", "locations build --check"]
     },
     "core.types": {
       "run": ["pnpm --dir core typecheck"],
-      "cost": "s", "always_at": 2, "inputs": ["core/**", "pnpm-lock.yaml"],
+      "cost": "s", "group": "core-data", "always_at": 2, "inputs": ["core/**", "pnpm-lock.yaml"],
       "steps": ["core typecheck"]
     },
     "core.unit": {
       "run": ["pnpm --dir core test"],
-      "cost": "m", "always_at": 2, "related": true,
+      "cost": "m", "group": "core-data", "always_at": 2, "related": true,
       "inputs": ["core/**", "data/**", "research/**", "legacy/**", "tools/hooks/**", "docs/v2/schema.sql", "pnpm-lock.yaml"],
       "tests": ["core/test/**/*.test.ts"],
       "steps": ["core tests"]
     },
     "core.generated": {
       "run": ["node core/bin/schema.ts generate --check --root .", "node core/bin/capture.ts build --check --root .", "node core/bin/openapi.ts --check --root .", "node core/bin/ops.ts --list", "the MCP initialize line of tools/check-all.sh"],
-      "cost": "s", "always_at": 2,
+      "cost": "s", "group": "core-data", "always_at": 2,
       "inputs": ["core/src/**", "core/bin/**", "data/vocab/**", "data/schema/**", "research/types/**"],
       "steps": ["mcp server answers initialize", "ops CLI lists the catalogue", "generated schema is up to date", "capture contract", "OpenAPI is current"]
     },
     "data.capture": {
-      "run": ["node core/bin/capture.ts gaps --budget --check --root .", "node core/bin/capture.ts derive-near --check --root .", "node core/bin/capture.ts derive-area --check --root .", "node core/bin/validate.ts --all --root .", "node core/bin/normalise.ts --budget --check --root ."],
-      "cost": "s", "always_at": 2,
+      "run": ["node core/bin/capture.ts gaps --budget --check --root .", "node core/bin/capture.ts derive-near --check --root .", "node core/bin/capture.ts derive-area --check --root .", "node core/bin/graph.ts build --check --root .", "node core/bin/validate.ts --all --root .", "node core/bin/normalise.ts --budget --check --root ."],
+      "cost": "s", "group": "core-data", "always_at": 2,
       "inputs": ["data/**", "research/**", "legacy/**", "core/src/**", "core/bin/**"],
-      "steps": ["capture gap budget", "nearest town", "area", "validate every data file", "normaliser budget"]
+      "steps": ["capture gap budget", "nearest town", "area", "graph index", "validate every data file", "normaliser budget"]
     },
     "data.towns": {
       "run": ["python3 tools/towns.py --check"],
-      "cost": "s", "always_at": 2,
+      "cost": "s", "group": "core-data", "always_at": 2,
       "inputs": ["data/reference/**", "tools/towns.py", "tools/towns_admin1.json"],
       "steps": ["towns layer"]
     },
     "data.suit": {
       "run": ["pnpm --dir web exec vitest run -c ../tools/suitability-scope/vitest.config.mts", "git diff --exit-code -- data/suitability/scope.json", "node core/bin/suitability.ts check --root ."],
-      "cost": "s", "always_at": 2,
+      "cost": "s", "group": "core-data", "always_at": 2,
       "inputs": ["data/**", "legacy/**", "core/src/**", "core/bin/suitability.ts", "web/lib/public/**", "tools/suitability-scope/**"],
       "tests": ["tools/suitability-scope/**/*.test.ts"],
       "steps": ["suitability scope manifest matches the public adapter", "suitability sidecars"]
     },
     "data.relevance": {
       "run": ["node core/bin/relevance.ts check --root .", "node core/bin/relevance.ts derive --check --root ."],
-      "cost": "s", "always_at": 2,
+      "cost": "s", "group": "core-data", "always_at": 2,
       "inputs": ["data/**", "legacy/**", "core/src/**", "core/bin/relevance.ts"],
       "steps": ["relevance sidecars", "relevance derived files are current"]
     },
     "data.sources": {
       "run": ["node core/bin/sources.ts check --root ."],
-      "cost": "s", "always_at": 2,
+      "cost": "s", "group": "core-data", "always_at": 2,
       "inputs": ["data/**", "research/method/**", "core/src/**", "core/bin/sources.ts"],
       "steps": ["source registry is current and valid"]
     },
     "data.slugs": {
       "run": ["node core/bin/slugs.ts --check --root ."],
-      "cost": "s", "always_at": 2,
+      "cost": "s", "group": "core-data", "always_at": 2,
       "inputs": ["data/**", "legacy/**", "core/src/**", "core/bin/slugs.ts"],
       "steps": ["catalogue slugs are pinned"]
     },
     "web.snapshot": {
       "run": ["pnpm --dir web snapshot:check"],
-      "cost": "s", "always_at": 2,
+      "cost": "s", "group": "web", "always_at": 2,
       "inputs": ["data/seed/**", "web/data-snapshots/**", "web/redirects.json", "web/scripts/snapshot*", "web/scripts/snapshot/**", "core/src/**"],
       "tests": ["web/scripts/snapshot/*.test.ts"],
       "steps": ["prototype snapshot is current"]
     },
     "web.vocab": {
       "run": ["node web/scripts/search-vocab.mjs --check"],
-      "cost": "s", "always_at": 2,
+      "cost": "s", "group": "web", "always_at": 2,
       "inputs": ["data/**", "web/lib/search/**", "web/public/search/**", "web/scripts/search-vocab.mjs", "core/src/**"],
       "steps": ["search vocabulary"]
     },
     "web.types": {
       "run": ["pnpm --dir web typecheck"],
-      "cost": "s", "always_at": 2, "inputs": ["web/**", "core/src/**", "pnpm-lock.yaml"],
+      "cost": "s", "group": "web", "always_at": 2, "inputs": ["web/**", "core/src/**", "pnpm-lock.yaml"],
       "steps": ["web typecheck"]
     },
     "web.lint": {
       "run": ["pnpm --dir web lint"],
-      "cost": "s", "always_at": 2, "inputs": ["web/**", "pnpm-lock.yaml"],
+      "cost": "s", "group": "web", "always_at": 2, "inputs": ["web/**", "pnpm-lock.yaml"],
       "steps": ["web lint"]
     },
     "web.build": {
       "run": ["pnpm --dir web build", "the ^Error: and ORS_API_KEY checks of tools/check-all.sh"],
-      "cost": "l", "always_at": 2, "slot": "build",
+      "cost": "l", "group": "web", "always_at": 2, "slot": "build",
       "inputs": ["web/**", "!web/tests/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
       "steps": ["web build"]
     },
     "web.unit": {
       "run": ["pnpm --dir web test:unit"],
       "vitest": { "dir": "web", "project": "unit" },
-      "cost": "m", "always_at": 2, "related": true,
+      "cost": "m", "group": "web", "always_at": 2, "related": true,
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "docs/v2/build/public-site/README.md", "pnpm-lock.yaml"],
       "tests": ["web/tests/**/*.test.{ts,tsx}",
                 "!web/tests/analytics.test.ts", "!web/tests/api/openapi-routes.test.ts", "!web/tests/budget.test.ts",
@@ -136,7 +140,7 @@
     "web.built": {
       "run": ["SKIP_WEB_BUILD=1 pnpm --dir web test:built"],
       "vitest": { "dir": "web", "project": "built" },
-      "cost": "m", "always_at": 2, "needs": ["web.build"],
+      "cost": "m", "group": "web", "always_at": 2, "needs": ["web.build"],
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
       "tests": ["web/tests/api/openapi-routes.test.ts", "web/tests/budget.test.ts", "web/tests/data/globe-data-renditions.test.ts",
                 "web/tests/data/light-data.test.ts", "web/tests/data/link-only-facts.test.ts", "web/tests/data/photo-credits-clean.test.ts",
@@ -149,7 +153,7 @@
     "web.fixture": {
       "run": ["SKIP_WEB_BUILD=1 pnpm --dir web test:fixture"],
       "vitest": { "dir": "web", "project": "fixture" },
-      "cost": "l", "always_at": 2, "slot": "build", "needs": ["web.build"],
+      "cost": "l", "group": "web", "always_at": 2, "slot": "build", "needs": ["web.build"],
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
       "tests": ["web/tests/analytics.test.ts", "web/tests/data/public-privacy.test.ts", "web/tests/data/shell-size.test.ts",
                 "web/tests/no-hex.test.ts", "web/tests/og.test.ts", "web/tests/privacy.test.ts"],
@@ -158,7 +162,7 @@
     "web.timing": {
       "run": ["pnpm --dir web test:timing"],
       "vitest": { "dir": "web", "project": "timing" },
-      "cost": "s", "always_at": 2, "slot": "timing", "serial": true,
+      "cost": "s", "group": "web", "always_at": 2, "slot": "timing", "serial": true,
       "inputs": ["web/lib/**", "web/public/search/**", "core/src/**", "data/**", "web/tests/**"],
       "tests": ["web/tests/api/revision-timing.test.ts", "web/tests/search/budget.test.ts", "web/tests/home/search.test.ts",
                 "web/tests/search/split.test.ts"],
@@ -166,37 +170,37 @@
     },
     "web.serve": {
       "run": ["the next start smoke block of tools/check-all.sh (GET /, /api/v1/health, /api/v1/openapi.json)"],
-      "cost": "s", "always_at": 2, "needs": ["web.build"],
+      "cost": "s", "group": "web", "always_at": 2, "needs": ["web.build"],
       "inputs": ["web/**", "!web/tests/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
       "steps": ["web server answers"]
     },
     "e2e.mapped": {
       "run": ["pnpm --dir web exec playwright test <specs> --project=chromium (SKIP_WEB_BUILD=1)"],
-      "cost": "m", "always_at": 2, "slot": "e2e", "needs": ["web.build"],
+      "cost": "m", "group": "e2e", "always_at": 2, "slot": "e2e", "needs": ["web.build"],
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
       "tests": ["web/tests/e2e/*.spec.ts"]
     },
     "e2e.smoke": {
       "run": ["pnpm --dir web exec playwright test cross-browser.spec.ts --project=chromium (SKIP_WEB_BUILD=1)"],
-      "cost": "m", "always_at": 2, "slot": "e2e", "needs": ["web.build"],
+      "cost": "m", "group": "e2e", "always_at": 2, "slot": "e2e", "needs": ["web.build"],
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
       "tests": ["web/tests/e2e/cross-browser.spec.ts"]
     },
     "e2e.full": {
       "run": ["pnpm --dir web e2e"],
-      "cost": "xl", "always_at": 3, "slot": "e2e", "needs": ["web.build"],
+      "cost": "xl", "group": "e2e", "always_at": 3, "slot": "e2e", "needs": ["web.build"],
       "inputs": ["**"],
       "tests": ["web/tests/e2e/*.spec.ts"]
     },
     "db.local": {
       "run": ["pnpm db:test"],
-      "cost": "m", "always_at": 3, "requires": ["docker"],
+      "cost": "m", "group": "db", "always_at": 3, "requires": ["docker"],
       "inputs": ["core/src/db/**", "core/src/seed/**", "core/bin/db-*.ts", "core/test/db/**", "core/test/seed/**", "tools/db/**", "data/schema/generated/**"],
       "tests": ["core/test/db/**/*.test.ts", "core/test/seed/**/*.test.ts"]
     },
     "visual": {
       "run": ["the screenshot sweep of the changed screens at 1440 and 390, light and dark (verifier and design reviewer)"],
-      "cost": "m", "always_at": 3, "slot": "e2e",
+      "cost": "m", "group": "visual", "always_at": 3, "slot": "e2e",
       "inputs": ["web/**", "!web/tests/**"]
     }
   },
@@ -308,6 +312,8 @@
     { "id": "web-config", "why": "configs that are not on the full list: only the report config and the git ignore of web",
       "paths": ["web/vitest.report.config.ts", "web/.gitignore"], "suites": ["web.unit", "links", "hardcode"] },
 
+    { "id": "ci-workflows", "why": "the workflow lint reads .github/workflows; the CI scripts have pytest tests (tools/tests/test_ci_*.py). A workflow change is an R4 path: the owner reads it",
+      "paths": [".github/**", "tools/ci/**"], "suites": ["ci", "py.tools", "links", "hardcode"] },
     { "id": "tools-python", "paths": ["tools/**", "publish.sh"], "suites": ["py.tools", "hardcode"] },
     { "id": "tools-locations", "paths": ["tools/{locations,location_views,migrate_locations_v2,migrate_locations_v3}.py"], "suites": ["locations"] },
     { "id": "tools-towns", "paths": ["tools/towns.py", "tools/towns_admin1.json"], "suites": ["data.towns"] },
@@ -347,7 +353,7 @@
 
   "quiet": ["docs/**", "**/*.md", "research/**", ".claude/**", "LICENSE", "NOTICE"],
 
-  "review": ["tools/gate/**", "tools/gate.sh", "tools/check-all.sh"],
+  "review": ["tools/gate/**", "tools/gate.sh", "tools/check-all.sh", ".github/**", "tools/ci/**"],
 
   "quarantine": [],
 

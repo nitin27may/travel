@@ -75,6 +75,52 @@ export const windowSpec = z.strictObject({
   fallback: z.string().optional(),
 });
 
+// ---- RIS-H homes (docs/v2/features/catalogue-intake-and-storage.md 5.3; DATA-PLAN row 24) ----------------------------------------
+
+/** A booking page: an http(s) URL. A link-only platform (OTA, reseller) is refused by the validator (E_CAP_LINK_ONLY). */
+export const BOOK_URL_RE = /^https?:\/\/[^\s]+$/;
+
+/**
+ * A closure date: a calendar date or year-month or year (a one-off closure, a decommissioning year), or MM-DD (a closure that
+ * recurs every year, as in `hours.closures`). Both ends of one row use the same form; the validator checks the order.
+ */
+export const CLOSURE_DATE_RE = /^(\d{4}(-(0[1-9]|1[0-2])(-(0[1-9]|[12]\d|3[01]))?)?|(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/;
+
+/**
+ * One closure or restriction the land manager or operator publishes (capture contract 3.4 "Safety"; freshness class `closures`).
+ * `to` absent: open-ended (closed until further notice, or decommissioned). `status: limited` is a restriction, not a closure
+ * (group minimums in larch season, one side of a loop shut).
+ */
+export const closureRow = z.strictObject({
+  from: z.string().regex(CLOSURE_DATE_RE),
+  to: z.string().regex(CLOSURE_DATE_RE).optional(),
+  status: z.enum(["closed", "limited"]),
+  why: z.string().min(1).max(200),
+});
+
+/** Check-in and check-out of a lodging offer, local times (freshness class `hours`). */
+export const checkInOut = z.strictObject({
+  check_in: hhmm,
+  check_out: hhmm,
+  /** the latest check-in when the property names one (a front desk that closes) */
+  check_in_until: hhmm.optional(),
+  note: z.string().min(1).max(200).optional(),
+});
+
+/**
+ * When a car park is usually full (freshness class `booking-windows`): a local time, or `sunrise` when the source says "before
+ * sunrise". `days` and `months` narrow it when the source does.
+ */
+export const fillsBy = z.strictObject({
+  by: z.union([hhmm, z.literal("sunrise")]),
+  days: z.enum(["every_day", "weekends", "holidays"]).optional(),
+  months: z.array(int.min(1).max(12)).min(1).optional(),
+  note: z.string().min(1).max(200).optional(),
+});
+
+/** The nearest food shop of a base, in our own words (a name and its hours, or "none in town; Canmore 25 min"). */
+export const GROCERIES_MAX = 200;
+
 export const entityLink = z.strictObject({
   kind: z.enum(E.CAP_LINK_KIND),
   url: z.string().min(1).optional(),
@@ -124,7 +170,7 @@ export const capRecord = z.strictObject({
   geonames_id: val(z.string().regex(GEONAMES_ID_RE)).optional(),
   near_town: val(nearTownValue).optional(),
   near_town_km: val(z.number().min(0)).optional(),
-  // relations (2.5); `reached_by` is derived and is rejected (E_CAP_REL_DERIVED)
+  // relations (2.5; the rules are RELATION_RULES in relations.ts, entity-graph 5.1). Every inverse is derived and rejected (E_CAP_REL_DERIVED)
   reaches: z.array(ref).optional(),
   passes: z.array(passesRel).optional(),
   part_of: z.array(ref).optional(),
@@ -137,17 +183,31 @@ export const capRecord = z.strictObject({
   serves: z.array(ref).optional(),
   combo_with: z.array(ref).optional(),
   alternative_to: z.array(ref).optional(),
+  /** a route or offer of the same layer and category; the target is the primary (one level, E_CAP_VARIANT) */
   variant_of: ref.optional(),
+  /** a requirement (access.pass offer) names the passes or lodging offers that satisfy it (EG-C, from protected-area-entry C4) */
+  covered_by: z.array(ref).optional(),
+  /** a tour, ticket or lodging offer names the requirement offers it includes (EG-C) */
+  includes: z.array(ref).optional(),
+  /** a protected area names the locations-store areas that are the park: every record with that area_id is a member (EG-C, C4) */
+  covers_areas: z.array(z.string().min(1)).optional(),
   // base-contract values, each with its provenance (Val)
   season: val(z.array(seasonRow)).optional(),
   best_window: val(z.array(bestWindowRow)).optional(),
   best_time: val(z.array(bestTimeRow)).optional(),
   hours: val(hours).optional(),
-  duration_min: val(z.tuple([int.min(0), int.min(0)])).optional(),
-  activity_min: val(z.tuple([int.min(0), int.min(0)])).optional(),
+  /** door-to-door minutes of an offer, [low, high] (RIS-H); low <= high and activity_min within it (validator) */
+  duration_min: val(z.tuple([int.min(1), int.min(1)])).optional(),
+  /** minutes on the activity itself (on the water, on the glacier), [low, high] (RIS-H) */
+  activity_min: val(z.tuple([int.min(1), int.min(1)])).optional(),
+  check_in_out: val(checkInOut).optional(),
   price: val(z.array(priceRow)).optional(),
   window: val(windowSpec).optional(),
-  book_url: val(z.string().min(1)).optional(),
+  book_url: val(z.string().regex(BOOK_URL_RE)).optional(),
+  fills_by: val(fillsBy).optional(),
+  /** a value lists at least one row; "no closures published" is state none_stated or searched_none, never an empty list (M1) */
+  closures: val(z.array(closureRow).min(1)).optional(),
+  groceries: val(z.string().min(1).max(GROCERIES_MAX)).optional(),
   links: z.array(entityLink).optional(),
   photos: z.array(photo).optional(),
   /** owner and researchers only (spec 3.1); the privacy detector fails any served body that holds it */

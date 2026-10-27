@@ -59,12 +59,15 @@ describe("the properties without a home (TODO data, not code)", () => {
     expect(todo.schema).toBe("homeless-properties/1");
     const homeless = PROPERTIES.filter((p) => p.home.in === "none").map((p) => p.key).sort();
     expect(todo.properties.map((p) => p.key).sort()).toEqual(homeless);
-    // 43 on 25 Oct 2026 (spec 1.1): may only fall
-    expect(homeless.length).toBeLessThanOrEqual(43);
+    // 43 on 25 Oct 2026 (spec 1.1), 36 after RIS-H (26 Oct): may only fall
+    expect(homeless.length).toBeLessThanOrEqual(36);
   });
-  it("the seven of spec 5.3 are planned for RIS-H; every entry has a plan", () => {
-    const rish = todo.properties.filter((p) => p.plan === "RIS-H").map((p) => p.key).sort();
-    expect(rish).toEqual(["book_url", "check_in_out", "closures", "fills_by", "groceries", "last_transport", "transit"].filter((k) => todo.properties.some((p) => p.key === k)));
+  it("RIS-H homed its seven (DATA-PLAN row 24); transit and last_transport wait as later; every entry has a plan", () => {
+    for (const k of ["duration_min", "activity_min", "book_url", "closures", "check_in_out", "fills_by", "groceries"]) {
+      expect(PROPERTY_BY_KEY.get(k)!.home, k).toEqual({ in: "capture", path: k });
+      expect(todo.properties.some((p) => p.key === k), k).toBe(false);
+    }
+    expect(todo.properties.filter((p) => p.plan === "RIS-H")).toEqual([]);
     for (const p of todo.properties) expect(["RIS-H", "later"], p.key).toContain(p.plan);
   });
 });

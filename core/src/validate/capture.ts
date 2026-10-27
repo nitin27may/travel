@@ -4,7 +4,9 @@
 import { z } from "zod";
 import * as E from "../schema/enums.ts";
 import { PROPERTIES, PROPERTY_BY_KEY } from "../schema/capture/properties.ts";
-import type { CaptureDoc, CaptureOperator } from "../schema/capture/records.ts";
+import type { CaptureDoc, CaptureOperator, CaptureRecord } from "../schema/capture/records.ts";
+import { RELATION_RULES, describeEndpoints, nestedWrapper, protectedRefRule, sourceAllowed, targetAllowed, targetsOf, typeUnder } from "../schema/capture/relations.ts";
+import type { NodeFacts, OfferClass } from "../schema/capture/relations.ts";
 import { captureRun } from "../schema/capture/records.ts";
 import type { TypesFile } from "../schema/capture/typesFile.ts";
 import { tableOf } from "../schema/index.ts";
@@ -13,13 +15,13 @@ import { unknownRecordKeys } from "./keep.ts";
 import { completeness } from "../capture/engine.ts";
 import { loadWorld } from "../capture/records.ts";
 import { checkSupersedes } from "../capture/supersedeCheck.ts";
-import { inStore, levelOf, severityOf } from "../capture/gapBudget.ts";
+import { inStore, levelOf, levelOfLink, severityOf } from "../capture/gapBudget.ts";
 import { loadPlacement, placementFindings } from "../capture/placementBlock.ts";
 import { recordTier } from "../capture/tiers.ts";
 import type { SupersedesFile } from "../schema/capture/records.ts";
 import type { World } from "../capture/records.ts";
 import { resolveNode } from "../capture/resolve.ts";
-import { checkTree, loadTypes, treeOf } from "../capture/tree.ts";
+import { categoryOf, checkTree, loadTypes, treeOf } from "../capture/tree.ts";
 import { loadMap } from "../suitability/map.ts";
 import { APPLICABILITY_PATHS, EXT_KINDS } from "../suitability/paths.ts";
 import { RefResolver } from "../suitability/refs.ts";
@@ -56,6 +58,43 @@ const hostOf = (u: string): string => {
   }
 };
 const linkOnly = (u: string): string | null => LINK_ONLY_HOSTS.find(([re]) => re.test(hostOf(u)))?.[1] ?? null;
+
+/** The value keys a record may hold only where its type asks for them (W_CAP_NA_FIELD). */
+const HELD_VALUE_KEYS = ["season", "hours", "price", "window", "best_window", "best_time", "duration_min", "activity_min", "book_url", "check_in_out", "fills_by", "closures", "groceries"] as const;
+
+/** The order of two closure dates of the same form (YYYY, YYYY-MM, YYYY-MM-DD or MM-DD); null when the forms differ. */
+const closureOrder = (from: string, to: string): number | null => {
+  const recurring = (d: string): boolean => /^\d{2}-\d{2}$/.test(d);
+  if (recurring(from) !== recurring(to)) return null;
+  if (recurring(from)) return 0; // MM-DD may wrap the year (12-01 to 03-31): a valid winter closure, so any order is allowed
+  const n = Math.min(from.length, to.length);
+  return from.slice(0, n) <= to.slice(0, n) ? 0 : -1;
+};
+
+/**
+ * What the schema cannot say about the values RIS-H gave a home (catalogue-intake 5.3): a range is low to high, the time on the
+ * activity fits inside the door-to-door time, a one-off closure does not end before it starts, and a booking page is the
+ * operator's own, never a link-only platform. Each finding names the fix. Exported for the unit tests.
+ */
+export function homedValueFindings(r: CaptureDoc["records"][number]): { code: string; key: string; message: string }[] {
+  const out: { code: string; key: string; message: string }[] = [];
+  const range = (k: "duration_min" | "activity_min"): [number, number] | null => (r[k]?.state === "value" && r[k]?.v ? (r[k]!.v as [number, number]) : null);
+  for (const k of ["duration_min", "activity_min"] as const) {
+    const v = range(k);
+    if (v && v[0] > v[1]) out.push({ code: "E_CAP_SCHEMA", key: k, message: `"${k}" is [${v[0]}, ${v[1]}]: the low end is above the high end. Give minutes low to high. Example: [120, 180] for "2 to 3 hours".` });
+  }
+  const d = range("duration_min"), a = range("activity_min");
+  if (d && a && a[1] > d[1]) out.push({ code: "E_CAP_SCHEMA", key: "activity_min", message: `"activity_min" (up to ${a[1]} min) is longer than "duration_min" (up to ${d[1]} min). The time on the activity is part of the door-to-door time; check both against the operator page.` });
+  if (r.closures?.state === "value") for (const [j, c] of (r.closures.v ?? []).entries()) {
+    if (c.to !== undefined && closureOrder(c.from, c.to) === -1) out.push({ code: "E_CAP_SCHEMA", key: `closures/v/${j}`, message: `closure ${j} ends (${c.to}) before it starts (${c.from}). Leave "to" out for an open-ended closure.` });
+    if (c.to !== undefined && closureOrder(c.from, c.to) === null) out.push({ code: "E_CAP_SCHEMA", key: `closures/v/${j}`, message: `closure ${j} mixes a yearly MM-DD date with a calendar date (${c.from} to ${c.to}). Use MM-DD at both ends for a closure that recurs every year, a calendar date at both ends otherwise.` });
+  }
+  if (r.book_url?.state === "value" && typeof r.book_url.v === "string") {
+    const hit = linkOnly(r.book_url.v);
+    if (hit) out.push({ code: "E_CAP_LINK_ONLY", key: "book_url", message: `book_url points at ${hit}, a link-only platform. Give the operator's own booking page; keep the platform as a link.` });
+  }
+  return out;
+}
 
 function describeIssue(issue: z.core.$ZodIssue): string {
   const path = "/" + issue.path.join("/");
@@ -190,15 +229,23 @@ export function validateCaptureRun(doc: unknown, ctx: Ctx): void {
 }
 
 // ---------------------------------------------------------------------------------------------------- capture sidecar
-const RELATION_FIELDS = ["reaches", "passes", "part_of", "starts_at", "ends_at", "on", "at", "run_by", "parks_for", "serves", "combo_with", "alternative_to", "variant_of"] as const;
-
-function targetsOf(rec: Row, field: string): string[] {
-  const v = rec[field];
-  if (v === undefined) return [];
-  if (typeof v === "string") return [v];
-  if (!Array.isArray(v)) return [];
-  return v.map((x) => (typeof x === "string" ? x : isObj(x) && typeof x.ref === "string" ? x.ref : "")).filter((x) => x !== "");
+/** Why a derived name is never stored, and where its value comes from. */
+function derivedMessage(k: string): string {
+  if (k === "reached_by") return `reached_by is the derived inverse of reaches and is never stored. Remove it; the place's "How to get there" is computed from the routes that reach it.`;
+  if (k === "members_all") return `members_all is the containment closure, computed by the graph index. Remove it; name the container on each member with part_of.`;
+  if (k === "requirements") return `requirements are computed from the record's chain (entity-graph 7.2). Remove them; store each fee or permit as an access offer at the container that imposes it.`;
+  const rule = RELATION_RULES.find((r) => r.inverse === k);
+  return `${k} is the derived inverse of ${rule ? rule.key : "a stored relation"} and is never stored. Remove it; store the link once, as ${rule ? rule.key : "the relation"} on the other record (entity-graph 5.1).`;
 }
+
+const an = (layer: string): string => (/^[aeiou]/.test(layer) ? `an ${layer}` : `a ${layer}`);
+
+/** A record's booking page: its book_url value, else its first booking link. */
+const bookingPage = (r: CaptureRecord): string | null =>
+  (r.book_url?.state === "value" && typeof r.book_url.v === "string" ? r.book_url.v : null) ?? r.links?.find((l) => l.kind === "booking" && l.url)?.url ?? null;
+
+/** The link kinds a member inherits from its container by fallback (entity-graph 7.1): a copy of the container's is W_CAP_INHERITED_COPY. */
+const INHERITED_LINK_KINDS = ["conditions", "status", "booking"];
 
 export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
   const root = ctx.refs.root;
@@ -209,12 +256,13 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
     ctx.schemaBroken = true;
     return;
   }
-  // reached_by is derived: report it, then parse without it
+  // derived inverses (entity-graph 5.2): report each, then parse without it
   const clone = structuredClone(doc) as Row;
   (Array.isArray(clone.records) ? (clone.records as unknown[]) : []).forEach((r, i) => {
-    if (isObj(r) && "reached_by" in r) {
-      E_("E_CAP_REL_DERIVED", `/records/${i}/reached_by`, `reached_by is the derived inverse of reaches and is never stored. Remove it; the place's "How to get there" is computed from the routes that reach it.`);
-      delete r.reached_by;
+    if (isObj(r)) for (const k of E.CAP_RELATION_DERIVED) {
+      if (!(k in r)) continue;
+      E_("E_CAP_REL_DERIVED", `/records/${i}/${k}`, derivedMessage(k));
+      delete r[k];
     }
     // the keep rule (spec 2): a key that is no registry property, no capture/1 schema key and not meta is reported once, then dropped
     if (isObj(r)) for (const k of unknownRecordKeys(r)) {
@@ -259,12 +307,89 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
     if (own.has(ref) || w.cap.has(ref) || w.alias.has(ref) || w.suit.has(ref) || w.rel.has(ref)) return null;
     return resolver.why(ref);
   };
+  // ---- the graph helpers the relation rules need (entity-graph 5 and 6) ----
+  const primaryOf = (ref: string): string => full.alias.get(ref) ?? ref;
+  const recOf = (ref: string): CaptureRecord | null => full.cap.get(primaryOf(ref))?.rec ?? null;
+  const classOf = new Map<string, OfferClass | null>();
+  const facts = (x: CaptureRecord): NodeFacts => {
+    if (!classOf.has(x.type)) classOf.set(x.type, (resolveNode(x.type, loadTypes(root))?.layers.offer?.offer_class ?? null) as OfferClass | null);
+    return { layer: x.layer, type: x.type, offerClass: (x.offer_class as OfferClass | undefined) ?? (x.layer === "offer" ? classOf.get(x.type) ?? null : null) };
+  };
+  /** a target fault warns on a pinned record or a known fault (the gap budget's `known`), unless the code is strict; a draft warns */
+  const relLevel = (code: string, refs: string[], rel: string, tg: string): "error" | "warning" => levelOfLink(code, refs, rel, tg, store, sev);
+  // covers_areas membership (6.1 rule 2): area id -> the protected areas that cover it
+  const coverIdx = new Map<string, string[]>();
+  for (const { rec } of full.cap.values()) for (const a of rec.covers_areas ?? []) coverIdx.set(a, [...(coverIdx.get(a) ?? []), rec.ref]);
+  /** the direct containers of a record: its explicit part_of (6.1 rule 1, which wins), else the protected areas covering its area */
+  const containersOf = (ref: string): string[] => {
+    const x = recOf(ref);
+    if (!x) return [];
+    // a self-link is E_CAP_REL_REF already, so it is not a loop here
+    if (x.part_of && x.part_of.length > 0) return x.part_of.map(primaryOf).filter((p) => p !== x.ref);
+    return x.area_id ? (coverIdx.get(x.area_id) ?? []).filter((p) => p !== x.ref) : [];
+  };
+  /** every container up the chain, nearest first, without the record itself */
+  const ancestorsOf = (ref: string): string[] => {
+    const out: string[] = [];
+    const seenA = new Set([ref]);
+    const queue = containersOf(ref);
+    while (queue.length > 0) {
+      const a = queue.shift()!;
+      if (seenA.has(a)) continue;
+      seenA.add(a);
+      out.push(a);
+      queue.push(...containersOf(a));
+    }
+    return out;
+  };
+  /** a loop back to `start` through `next`, as the path, or null */
+  const cycleOf = (start: string, next: (x: string) => string[]): string[] | null => {
+    const stack: [string, string[]][] = [[start, [start]]];
+    const visited = new Set<string>();
+    while (stack.length > 0) {
+      const [x, path] = stack.pop()!;
+      for (const y of next(x)) {
+        if (y === start) return [...path, y];
+        if (visited.has(y)) continue;
+        visited.add(y);
+        stack.push([y, [...path, y]]);
+      }
+    }
+    return null;
+  };
+  /** W_CAP_INHERITED_COPY (7.1): links and requirement offers a container already holds */
+  const inheritedCopies = (r: CaptureRecord): string[] => {
+    const out: string[] = [];
+    const anc = ancestorsOf(r.ref);
+    for (const l of r.links ?? []) {
+      if (!l.url || !INHERITED_LINK_KINDS.includes(l.kind)) continue;
+      const from = anc.find((a) => (recOf(a)?.links ?? []).some((x) => x.kind === l.kind && x.url === l.url));
+      if (from) out.push(`the ${l.kind} link ${l.url} is the same as the one on ${from}, which this record inherits (entity-graph 7.1). Remove it here.`);
+    }
+    if (r.layer === "offer" && typeUnder(r.type, "access.pass")) {
+      const page = bookingPage(r);
+      if (page) for (const t of r.at ?? []) for (const a of ancestorsOf(primaryOf(t))) {
+        const twin = (full.incoming.get(a)?.offers_at ?? []).find((o) => o !== r.ref && recOf(o)?.type === r.type && bookingPage(recOf(o)!) === page);
+        if (twin) out.push(`${r.ref} repeats ${twin} (same type ${r.type} and booking page ${page}), which is at ${a} up the chain of ${t}; members inherit it (entity-graph 7.2). Remove the copy.`);
+      }
+    }
+    return out;
+  };
+  const hintOf = (rel: string, layer: string): string => {
+    if ((rel === "parks_for" || rel === "serves") && layer === "offer") return " A meeting place or launch of an offer is the offer's starts_at, not a parks_for of the place.";
+    if (rel === "on" && layer === "place") return " An offer on a river or lake place is at it; on is for routes.";
+    if (rel === "starts_at" && layer === "route") return " Start at a place: the lift's top or bottom station, not the line.";
+    return "";
+  };
+
   const seen = new Map<string, number>();
   d.records.forEach((r, i) => {
     const base = `/records/${i}`;
     const row = r as unknown as Row;
     const why = resolver.why(r.ref);
     if (why) E_("E_CAP_REF", `${base}/ref`, `ref "${r.ref}" does not resolve: ${why}. A new record cut out of another is part/<parent ref>#<slug> or offer/<parent ref>#<product>.`);
+    const nested = nestedWrapper(r.ref);
+    if (nested) E_("E_CAP_REF", `${base}/ref`, `ref "${r.ref}" ${nested}.`);
     const first = seen.get(r.ref);
     if (first !== undefined) E_("E_CAP_DUP_REF", `${base}/ref`, `ref "${r.ref}" appears in records ${first} and ${i} of this file. Keep one record per ref.`);
     else seen.set(r.ref, i);
@@ -288,29 +413,81 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
     if (r.route_is_attraction && r.layer !== "route") E_("E_CAP_DRAW_LAYER", `${base}/route_is_attraction`, `route_is_attraction is for routes; ${r.ref} is a ${r.layer}.`);
     if (r.route_is_attraction && !r.attraction_reason) E_("E_CAP_DRAW_LAYER", `${base}/attraction_reason`, `route_is_attraction needs attraction_reason: say why the route itself is the thing visited (a circuit, a scenic drive, a ride).`);
     if (r.layer === "route" && !r.route_is_attraction && full.rel.has(r.ref)) E_("E_CAP_DRAW_LAYER", `${base}/route_is_attraction`, `${r.ref} is a route with a relevance record (draw, class). Draw belongs to the place the route reaches: move the record to it, or set route_is_attraction: true with attraction_reason when the route is itself the experience.`);
-    // relations
-    for (const f of RELATION_FIELDS) {
+    // the ref grammar's top-level rule for protected areas (4.4 rule 4)
+    const top = protectedRefRule(r.type, [r.ref, ...(r.aliases ?? [])]);
+    if (top) emit("E_CAP_REF_TOP", [r.ref, ...(r.aliases ?? [])], `${base}/ref`, `${r.ref} (${r.type}): ${top}.`);
+    // relations (RELATION_RULES, entity-graph 5.1 and 5.2)
+    const own0 = [r.ref, ...(r.aliases ?? [])];
+    const me = facts(r);
+    for (const rule of RELATION_RULES) {
+      const f = rule.key;
       const targets = targetsOf(row, f);
       if (targets.length === 0) continue;
-      const def = PROPERTY_BY_KEY.get(f);
-      if (def?.layers && !def.layers.includes(r.layer)) E_("E_CAP_REL_KIND", `${base}/${f}`, `"${f}" is not allowed on a ${r.layer}. It is a relation of ${def.layers.join(" or ")} records (capture contract 2.5).`);
+      if (!sourceAllowed(rule, me)) E_("E_CAP_REL_KIND", `${base}/${f}`, `"${f}" is not allowed on ${an(r.layer)} of type ${r.type}. It is a relation of ${describeEndpoints(rule.source)} (entity-graph 5.1).`);
+      for (const m of rule.max) {
+        if (m.layer && m.layer !== r.layer) continue;
+        if (targets.length <= m.n) continue;
+        const msg = `"${f}" names ${targets.length} records; ${m.layer ? `a ${m.layer}` : "a record"} holds at most ${m.n}${m.code === "W_CAP_REL_PARENTS" ? " (the first is the breadcrumb default; a third parent usually means one is an area member already)" : ""}.`;
+        if (m.code.startsWith("E_")) E_(m.code, `${base}/${f}`, msg);
+        else W(m.code, `${base}/${f}`, msg);
+      }
       for (const tg of targets) {
-        if (tg === r.ref) E_("E_CAP_REL_REF", `${base}/${f}`, `"${f}" points at the record itself.`);
-        else if (f === "run_by") {
+        if (tg === r.ref) {
+          E_("E_CAP_REL_REF", `${base}/${f}`, `"${f}" points at the record itself.`);
+          continue;
+        }
+        if (rule.shape === "areas") continue; // area ids: checked against the store by the parks contract (PA-C)
+        if (f === "run_by") {
           if (!w.operators.has(tg)) E_("E_CAP_OPERATOR", `${base}/run_by`, `operator "${tg}" is not in data/capture/operators.json. Add it there (name and URL), or leave run_by out.`);
-        } else {
-          const k = known(tg);
-          if (k) E_("E_CAP_REL_REF", `${base}/${f}`, `"${f}" names ${tg}, which resolves to nothing: ${k}.`);
+          continue;
+        }
+        const k = known(tg);
+        if (k) {
+          E_("E_CAP_REL_REF", `${base}/${f}`, `"${f}" names ${tg}, which resolves to nothing: ${k}.`);
+          continue;
+        }
+        const tr = recOf(tg);
+        if (!tr) continue; // a scope item or legacy row with no capture record: its kind is not known yet
+        const tf = facts(tr);
+        if (!targetAllowed(rule, tf, r.layer)) {
+          const code = "E_CAP_REL_TARGET";
+          const msg = `"${f}" names ${tg}, ${an(tr.layer)} (${tr.type}); ${f} points at ${describeEndpoints(rule.target)}.${hintOf(f, tr.layer)}`;
+          if (relLevel(code, own0, f, tg) === "error") E_(code, `${base}/${f}`, msg);
+          else W(code, `${base}/${f}`, msg);
+        }
+        if (rule.same) {
+          const sameLayer = tr.layer === r.layer;
+          const sameCat = !rule.same.category || categoryOf(tree, tr.type) === categoryOf(tree, r.type);
+          if (!sameLayer || !sameCat) {
+            const code = rule.oneLevel ? "E_CAP_VARIANT" : "E_CAP_REL_TARGET";
+            const msg = `"${f}" names ${tg}, ${an(tr.layer)} of category ${categoryOf(tree, tr.type)}; ${f} joins records of the same layer${rule.same.category ? " and category" : ""} (this is ${an(r.layer)} of ${categoryOf(tree, r.type)}).`;
+            if (code === "E_CAP_VARIANT" || relLevel(code, own0, f, tg) === "error") E_(code, `${base}/${f}`, msg);
+            else W(code, `${base}/${f}`, msg);
+          }
+        }
+        if (rule.oneLevel && tr.variant_of) E_("E_CAP_VARIANT", `${base}/${f}`, `"${f}" names ${tg}, which is itself a variant of ${tr.variant_of}. One level only: point at the primary, ${tr.variant_of}.`);
+        if (rule.symmetric && targetsOf(tr as unknown as Row, f).some((x) => primaryOf(x) === r.ref || (r.aliases ?? []).includes(x))) {
+          E_("E_CAP_REL_SYM", `${base}/${f}`, `"${f}" is stored on both ${r.ref} and ${tg}. A symmetric link is stored once, on either side; remove one.`);
         }
       }
     }
+    // loops (part_of counting covers_areas membership, variant_of)
+    const loop = cycleOf(r.ref, (x) => containersOf(x));
+    if (loop) E_("E_CAP_REL_CYCLE", `${base}/part_of`, `containment loops: ${loop.join(" -> ")}. A container never sits inside its own member; remove one part_of, or set part_of on the record that sits in the wrong covered area.`);
+    const vloop = cycleOf(r.ref, (x) => {
+      const v = recOf(x)?.variant_of;
+      return v && primaryOf(v) !== x ? [primaryOf(v)] : [];
+    });
+    if (vloop) E_("E_CAP_REL_CYCLE", `${base}/variant_of`, `variant_of loops: ${vloop.join(" -> ")}. One record is the primary and has no variant_of.`);
+    // facts copied from a container (7.1: fallback links, requirements up the chain)
+    for (const msg of inheritedCopies(r)) W("W_CAP_INHERITED_COPY", base, msg);
     for (const a of r.aliases ?? []) {
       const k = resolver.why(a);
       if (k) E_("E_CAP_REF", `${base}/aliases`, `alias "${a}" does not resolve: ${k}.`);
       if (a === r.ref) E_("E_CAP_REF", `${base}/aliases`, `alias "${a}" is the record's own ref.`);
     }
     // values: sources and states
-    const vals: [string, unknown][] = [["geonames_id", r.geonames_id], ["near_town", r.near_town], ["near_town_km", r.near_town_km], ["season", r.season], ["best_window", r.best_window], ["best_time", r.best_time], ["hours", r.hours], ["duration_min", r.duration_min], ["activity_min", r.activity_min], ["price", r.price], ["window", r.window], ["book_url", r.book_url]];
+    const vals: [string, unknown][] = [["geonames_id", r.geonames_id], ["near_town", r.near_town], ["near_town_km", r.near_town_km], ["season", r.season], ["best_window", r.best_window], ["best_time", r.best_time], ["hours", r.hours], ["duration_min", r.duration_min], ["activity_min", r.activity_min], ["check_in_out", r.check_in_out], ["price", r.price], ["window", r.window], ["book_url", r.book_url], ["fills_by", r.fills_by], ["closures", r.closures], ["groceries", r.groceries]];
     for (const [k, v] of vals) {
       if (!v) continue;
       const x = v as { v: unknown; state: string; basis: string | null; src: string[]; on?: string; tried?: string[] };
@@ -321,6 +498,7 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
       for (const s of x.src) if (!ids.has(s)) E_("E_CAP_SRC", `${path}/src`, `src names ${JSON.stringify(s)}, which is not in this file's sources. Add it there or remove it. Example: "src-0001".`);
       if (x.state === "value" && x.src.length === 0 && x.basis !== "our_inference") E_("E_CAP_SRC", path, `"${k}" has a value but no source. Cite the page it came from, or use basis our_inference with a note.`);
     }
+    for (const f of homedValueFindings(r)) E_(f.code, `${base}/${f.key}`, f.message);
     for (const [j, l] of (r.links ?? []).entries()) {
       for (const s of l.src ?? []) if (!ids.has(s)) E_("E_CAP_SRC", `${base}/links/${j}/src`, `src names ${JSON.stringify(s)}, which is not in this file's sources.`);
       if ((E.CAP_LINK_ONLY_KIND as readonly string[]).includes(l.kind) && l.state === "filled" && l.url && !l.on) W("W_CAP_NA_FIELD", `${base}/links/${j}`, `a ${l.kind} link is link-only: record the date it was found (found_in_search with "on"), and never read its figures.`);
@@ -349,9 +527,56 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
     }
     // present but not asked
     const rl = node.layers[r.layer];
-    if (rl) for (const k of ["season", "hours", "price", "window", "best_window", "best_time", "duration_min", "activity_min", "book_url"] as const) {
+    if (rl) for (const k of HELD_VALUE_KEYS) {
       if ((r as unknown as Row)[k] !== undefined && !(k in rl.base)) W("W_CAP_NA_FIELD", `${base}/${k}`, `${r.type} (${r.layer}) never asks for "${k}", but the record holds one. Remove it, or correct the type.`);
     }
   });
+  // stage order (4.6): the stages of a route chain by ends_at to starts_at; once per whole route, at its first stage in this file
+  const wholes = new Map<string, number>();
+  d.records.forEach((r, i) => {
+    if (r.layer !== "route") return;
+    for (const p of r.part_of ?? []) if (recOf(p)?.layer === "route" && !wholes.has(primaryOf(p))) wholes.set(primaryOf(p), i);
+  });
+  if (wholes.size > 0) {
+    const stagesOf = new Map<string, CaptureRecord[]>();
+    for (const { rec } of full.cap.values()) {
+      if (rec.layer !== "route") continue;
+      for (const p of new Set((rec.part_of ?? []).map(primaryOf))) if (wholes.has(p)) stagesOf.set(p, [...(stagesOf.get(p) ?? []), rec]);
+    }
+    for (const [whole, i] of wholes) {
+      const why = stageChainProblem(stagesOf.get(whole) ?? [], primaryOf);
+      if (why) W("W_CAP_STAGE_ORDER", `/records/${i}/part_of`, `the stages of ${whole} do not chain: ${why}. Give each stage starts_at and ends_at so that one stage's end is the next one's start (entity-graph 4.6); the page lists them by name until then.`);
+    }
+  }
+}
+
+/**
+ * Why the stages of one route do not form one chain (entity-graph 4.6), or null when they do: stage n's ends_at equals stage n+1's
+ * starts_at, one first stage, no branches, every stage on the chain. Exported for the unit tests.
+ */
+export function stageChainProblem(stages: readonly CaptureRecord[], primary: (ref: string) => string = (x) => x): string | null {
+  if (stages.length < 2) return null;
+  const start = (s: CaptureRecord): string | null => (s.starts_at?.[0] ? primary(s.starts_at[0]) : null);
+  const end = (s: CaptureRecord): string | null => (s.ends_at?.[0] ? primary(s.ends_at[0]) : null);
+  const next = new Map<string, CaptureRecord[]>();
+  for (const a of stages) {
+    const e = end(a);
+    next.set(a.ref, e ? stages.filter((b) => b !== a && start(b) === e) : []);
+  }
+  const branched = stages.find((a) => (next.get(a.ref) ?? []).length > 1);
+  if (branched) return `${branched.ref} ends where ${(next.get(branched.ref) ?? []).length} stages start`;
+  const hasPrev = new Set(stages.flatMap((a) => (next.get(a.ref) ?? []).map((b) => b.ref)));
+  const heads = stages.filter((s) => !hasPrev.has(s.ref));
+  if (heads.length !== 1) {
+    const loose = heads.filter((h) => !end(h) || !start(h)).map((h) => h.ref);
+    return heads.length === 0 ? "they form a loop with no first stage" : `${heads.length} stages have no stage before them${loose.length ? ` (${loose.join(", ")} lack starts_at or ends_at)` : ""}`;
+  }
+  let at: CaptureRecord | undefined = heads[0];
+  const walked = new Set<string>();
+  while (at && !walked.has(at.ref)) {
+    walked.add(at.ref);
+    at = (next.get(at.ref) ?? [])[0];
+  }
+  return walked.size === stages.length ? null : `only ${walked.size} of ${stages.length} stages follow on from ${heads[0]!.ref}`;
 }
 

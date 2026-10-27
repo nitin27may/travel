@@ -521,6 +521,10 @@ names the CI run.
 
 ### 4.5 A red CI cannot be ignored
 
+**Phase 1 note (WF-2, review M2).** Until WF-3 adds the `web` and `db-local` jobs and WF-6 the e2e jobs, `check / summary` prints
+`Overall: partial (not run in CI: ...)` for any change whose plan includes a group that has no job yet, and `green` only when
+nothing planned was left out. Do not make it a required status check on `main` before WF-3 lands (WF-10 does that).
+
 | Guard | How |
 |---|---|
 | Required check on `main` | a ruleset on `main` requires the `check / summary` status. A pushed commit must already carry a green status, so the coordinator pushes `int/stack-*`, waits for green, then fast-forwards `main` to that exact commit (TEST-STRATEGY 9.2 step 3 already moves `main` this way). Bypass: the owner only. Q-W2 |

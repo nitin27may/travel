@@ -20,7 +20,7 @@ Records: place, offer. Suitability profile `access` (never). Effort: none, time 
 
 **place**: R name, type, point, area_id, links, parks_for; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, transit, pairs_with, part_of, serves.
 
-**offer (access)**: R name, type, price, window, links, at; R? season (operates), hours (operates), closures (status_page); A names, transit, part_of, on, run_by, cancellation.
+**offer (access)**: R name, type, price, window, links, at; R? season (operates), hours (operates), closures (status_page); A names, transit, on, run_by, cancellation.
 
 Suitability: R none; R when operated none; A accessible_parking, walk_m, limited_capacity_note, access_season, wheelchair, toilets, accessible_toilet, food, water, shade, altitude_m.
 
@@ -50,6 +50,6 @@ Links: official; R? booking; A status, webcam.
 
 Records: offer. No suitability profile. Effort: none, time is shown. Sources, in order: F D C.
 
-**offer (access)**: R name, type, summary, access_cost, price, window, links, at; R? season (operates), hours (operates), closures (status_page); A names, transit, part_of, on, run_by, cancellation.
+**offer (access)**: R name, type, summary, access_cost, price, window, links, at; R? season (operates), hours (operates), closures (status_page); A names, transit, on, run_by, cancellation.
 
 Links: official; R? booking; A status, webcam.

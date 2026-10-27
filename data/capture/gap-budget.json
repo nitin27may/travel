@@ -1,7 +1,7 @@
 {
   "schema": "capture-gap-budget/1",
-  "note": "The gap budget of the placement block and the tiers (research/method/capture-contract.md 3.7). `counts` are today's records per code (W_TIER_REQUIRED.keys: required keys unanswered over all records); `node core/bin/capture.ts gaps --budget --check` (tools/check-all.sh) fails when one rises. Counts may only fall: lower them with `gaps --budget --write`; a rise needs `--reason`, which is logged in `raised`. `pinned.refs` are the records that existed when the rule landed: their findings warn, every new record in data/capture errors. A code in `strict` errors on pinned records too (W_PLACE_POINT after META-1). `baseline` is the measured record of 21 Oct, never checked. Lowered by lane META-2 (23 Oct): W_PLACE_TOWN 259 to 0, because `capture.ts derive-near` wrote near_town and near_town_km on every record with a non-approximate point.",
-  "updated": "2026-10-26",
+  "note": "The gap budget of the placement block and the tiers (research/method/capture-contract.md 3.7). `counts` are today's records per code (W_TIER_REQUIRED.keys: required keys unanswered over all records); `node core/bin/capture.ts gaps --budget --check` (tools/check-all.sh) fails when one rises. Counts may only fall: lower them with `gaps --budget --write`; a rise needs `--reason`, which is logged in `raised`. `pinned.refs` are the records that existed when the rule landed: their findings warn, every new record in data/capture errors. A code in `strict` errors on pinned records too (W_PLACE_POINT after META-1). `baseline` is the measured record of 21 Oct, never checked. Lowered by lane META-2 (23 Oct): W_PLACE_TOWN 259 to 0, because `capture.ts derive-near` wrote near_town and near_town_km on every record with a non-approximate point. `known` (EG-C, 26 Oct 2026) lists the relation faults that existed when E_CAP_REL_TARGET landed (entity-graph 11.2): each warns until EG-D fixes the link and removes the entry; never add one to silence a new record.",
+  "updated": "2026-10-27",
   "strict": [],
   "counts": {
     "E_PLACE_AREA": 28,
@@ -10,10 +10,82 @@
     "W_PLACE_APPROX": 0,
     "E_PLACE_FAR": 0,
     "W_PLACE_TOWN": 0,
-    "W_TIER_REQUIRED": 384,
-    "W_TIER_REQUIRED.keys": 3723
+    "W_TIER_REQUIRED": 383,
+    "W_TIER_REQUIRED.keys": 3694
   },
   "raised": [],
+  "known": [
+    {
+      "code": "E_CAP_REL_TARGET",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa",
+      "rel": "parks_for",
+      "target": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+      "why": "a meeting place or launch parks_for its offer; EG-D makes it the offer's starts_at (entity-graph 11.2)"
+    },
+    {
+      "code": "E_CAP_REL_TARGET",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch",
+      "rel": "parks_for",
+      "target": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "why": "a meeting place or launch parks_for its offer; EG-D makes it the offer's starts_at (entity-graph 11.2)"
+    },
+    {
+      "code": "E_CAP_REL_TARGET",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting",
+      "rel": "parks_for",
+      "target": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "why": "a meeting place or launch parks_for its offer; EG-D makes it the offer's starts_at (entity-graph 11.2)"
+    },
+    {
+      "code": "E_CAP_REL_TARGET",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport",
+      "rel": "parks_for",
+      "target": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "why": "a meeting place or launch parks_for its offer; EG-D makes it the offer's starts_at (entity-graph 11.2)"
+    },
+    {
+      "code": "E_CAP_REL_TARGET",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport",
+      "rel": "parks_for",
+      "target": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+      "why": "a meeting place or launch parks_for its offer; EG-D makes it the offer's starts_at (entity-graph 11.2)"
+    },
+    {
+      "code": "E_CAP_REL_TARGET",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start",
+      "rel": "parks_for",
+      "target": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+      "why": "a meeting place or launch parks_for its offer; EG-D makes it the offer's starts_at (entity-graph 11.2)"
+    },
+    {
+      "code": "E_CAP_REL_TARGET",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom",
+      "rel": "parks_for",
+      "target": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+      "why": "a meeting place or launch parks_for its offer; EG-D makes it the offer's starts_at (entity-graph 11.2)"
+    },
+    {
+      "code": "E_CAP_REL_TARGET",
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#wild-water",
+      "rel": "on",
+      "target": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
+      "why": "an offer on a river place; EG-D makes it at the place (entity-graph 11.2)"
+    },
+    {
+      "code": "E_CAP_REL_TARGET",
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#hydra",
+      "rel": "on",
+      "target": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
+      "why": "an offer on a river place; EG-D makes it at the place (entity-graph 11.2)"
+    },
+    {
+      "code": "E_CAP_REL_TARGET",
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "rel": "starts_at",
+      "target": "place/lagazuoi-cable-car-and-tunnels",
+      "why": "a route starts_at a lift line; EG-D points it at the top station place (entity-graph 11.2)"
+    }
+  ],
   "baseline": {
     "measured": "2026-10-21 on main 36e4da7 (META-0); method: capture.ts gaps --placement and --tier, and a read-only createPublicData() run for pages",
     "pages": 359,

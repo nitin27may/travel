@@ -2,12 +2,13 @@
 import { describe, expect, it } from "vitest";
 import { bandsOf, bookingOf, priceBandOf, timeBandOf, walkBandOf } from "../../src/capture/bands.ts";
 import { BAND_KEYS, MAX_FLAGS, NO_BANDS } from "../../src/capture/bandKeys.ts";
+import { emptyIncoming } from "../../src/capture/records.ts";
 import type { Incoming, World } from "../../src/capture/records.ts";
 import type { CaptureRecord } from "../../src/schema/capture/records.ts";
 import type { SuitabilityRecord } from "../../src/schema/suitability.ts";
 import { sg, v, walk } from "../suitability/helpers.ts";
 
-const noInc = (): Incoming => ({ at: [], on: [], parks_for: [], serves: [], children: [], reached_by: [], starts_here: [] });
+const noInc = (): Incoming => emptyIncoming();
 const cv = <T>(x: T) => ({ v: x, state: "value" as const, basis: "operator_rule" as const, src: ["src-0001"] });
 
 function world(caps: CaptureRecord[], suits: SuitabilityRecord[]): World {

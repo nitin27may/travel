@@ -74,16 +74,31 @@ async function legacyCount(page: Page, base: string, params: string): Promise<nu
   return settled(page, async () => Number((await page.locator('#count').textContent())?.trim()));
 }
 
+// The API caps `ids` at 2,000 characters (400 invalid_input above it) and the saved slugs are about 2,500, so the saved places are asked in
+// chunks of at most 100 ids and the counts are summed: every filter works per place, so the sum is the count of the whole set.
+const ID_CHUNK = 100;
+const idChunks = Array.from({ length: Math.ceil(savedSlugs.length / ID_CHUNK) }, (_v, i) => savedSlugs.slice(i * ID_CHUNK, (i + 1) * ID_CHUNK));
+
 async function appCount(page: Page, base: string, params: string, onlySaved = true): Promise<number> {
-  const all = [params, onlySaved ? `ids=${savedSlugs.join(',')}` : ''].filter(Boolean).join('&');
+  if (!onlySaved) return appCountFor(page, base, params, null);
+  let sum = 0;
+  for (const chunk of idChunks) sum += await appCountFor(page, base, params, chunk);
+  return sum;
+}
+
+async function appCountFor(page: Page, base: string, params: string, chunk: string[] | null): Promise<number> {
+  const onlySaved = chunk !== null;
+  const all = [params, chunk ? `ids=${chunk.join(',')}` : ''].filter(Boolean).join('&');
   await page.goto(`${base}/places/${all ? `?${all}` : ''}`);
   const strong = page.locator('.filter-bar .count strong');
-  await expect(strong).toBeVisible();
+  const countBox = page.locator('.filter-bar .count');
+  // a chunk with no match shows "No places" and no number
+  await expect(countBox).toBeVisible();
   // the count grows as the country shards arrive and can sit still between two of them under load: the filter buttons are disabled until every row is in
   await expect(page.locator('[role="group"][aria-label="Filters"] button[disabled]')).toHaveCount(0);
-  const read = async () => Number((await strong.textContent())?.trim());
+  const read = async () => ((await countBox.textContent())?.trim() === 'No places' ? 0 : Number((await strong.textContent({ timeout: 2_000 }))?.trim()));
   // `ids=` limits the list to the saved places, so any larger count is the unfiltered list shown before the URL's filters were applied
-  if (onlySaved) await expect.poll(read, { message: 'the URL filters were never applied' }).toBeLessThanOrEqual(store.places.length);
+  if (onlySaved) await expect.poll(read, { message: 'the URL filters were never applied' }).toBeLessThanOrEqual(chunk!.length);
   return settled(page, read);
 }
 

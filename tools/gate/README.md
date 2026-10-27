@@ -71,6 +71,14 @@ Flags: `--json` (one JSON object), `--keep-going` / `--fail-fast` (T0 and T1 sto
   `PATH` when it exists. Source the home point yourself (`set -a; source ~/.config/travel-secrets/home-point.env; set +a`): a
   unit run without it fails the privacy tests.
 
+## CI mode (WF-2, `.github/workflows/check.yml`)
+
+`GATE_RUNNER=ci` is a hosted runner: no machine slots, no cache, and a suite on the `timing` slot is `MAC_ONLY` (neither a pass
+nor a failure; the CI summary lists it as pending on the Mac). Any other value is refused. Each suite has a `group` in the map
+(`links`, `core-data`, `web`, `db`, `e2e`, `visual`); `--group G` keeps one group, `--out FILE` also writes the JSON document,
+which in CI mode carries each suite's `group` and the specs of `e2e.mapped`. `tools/ci/plan_to_outputs.py` turns a dry-run plan
+into the job outputs. A new suite needs a `group` (`tools/tests/test_ci_plan_to_outputs.py` fails without one).
+
 ## Cache (TS-3, `cache.py`)
 
 A suite that passed on byte-identical inputs is not run again: its row is `CACHED 0.0s core.types  was 9.7s on 54404107` and

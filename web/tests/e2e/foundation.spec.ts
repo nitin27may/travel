@@ -29,7 +29,9 @@ test.describe('shell', () => {
   test('public header: three tabs with aria-current, search, theme, and no Sign in while the flag is off', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
     const nav = page.getByRole('navigation', { name: 'Main', exact: true });
-    await expect(nav.getByRole('link')).toHaveText(['Trips', 'Places', 'Globe', 'Mine']);
+    await expect(nav.getByRole('link')).toHaveText(['Trips', 'Places', 'Globe']);
+    // Mine sits in the header tools, outside the Main nav
+    await expect(page.locator('header.site-header').getByRole('link', { name: 'Mine' })).toBeVisible();
     await expect(nav.getByRole('link', { name: 'Places' })).toHaveAttribute('aria-current', 'page');
     await expect(page.getByRole('button', { name: 'Search', exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Sign in' })).toHaveCount(0);

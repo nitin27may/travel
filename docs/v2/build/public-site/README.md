@@ -313,6 +313,8 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `GATE_LOAD_PER_CORE` | tools `gate/gate.py`, `gate/locks.py` | Load per core above which `web.timing` is deferred (default 1.5) | no |
 | `GATE_LOAD_LIMIT` | tools `gate/gate.py`, `gate/locks.py` | Load per core above which a Tier 3 run is refused | no |
 | `GATE_LOCK_TIMEOUT`, `GATE_LOCK_POLL` | tools `gate/gate.py`, `gate/locks.py` | Seconds a suite waits for a shared slot (build, e2e, timing) before it is deferred (default 1200), and the poll interval | no |
+| `GITHUB_EVENT_NAME` | tools `gate/gate.py` | Set by GitHub Actions. In CI mode on a `pull_request` run the gate reads the `Gate: full` trailer from the PR head commit, not the merge commit | no |
+| `GATE_RUNNER` | tools `gate/gate.py`, `.github/workflows/check.yml` | `ci` on a hosted runner (WF-2): no machine slots, no result cache, timing suites are `MAC_ONLY`; any other value is refused | no |
 | `GATE_SUITE_TIMEOUT` | tools `gate/gate.py`, `gate/locks.py` | Per-suite wall-clock limit in seconds | no |
 | `GATE_TSBUILDINFO` | tools `gate/gate.py`, `gate/locks.py` | Where the gate keeps the incremental typecheck build info | no |
 | `GATE_VISUAL_CMD` | tools `gate/gate.py`, `gate/locks.py` | Command the gate runs as the visual suite; unset, the suite is deferred | no |
