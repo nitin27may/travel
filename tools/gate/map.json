@@ -27,7 +27,7 @@
       "cost": "s", "group": "core-data", "always_at": 2, "requires": ["venv"],
       "inputs": ["tools/**", "legacy/**", "data/**", "docs/v2/design/foundation/tokens.json", "web/app/themes.css", "publish.sh",
                  "research/README.md", "research/tools.md", "research/method/**", ".claude/agents/*.md", ".claude/skills/*/SKILL.md", "core/src/relevance/signals.ts"],
-      "tests": ["tools/tests/**/test_*.py"],
+      "tests": ["tools/tests/**/test_*.py", "tools/tests/conftest.py"],
       "steps": ["python tests"]
     },
     "locations": {
