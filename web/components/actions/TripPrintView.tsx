@@ -1,7 +1,7 @@
 import { fmtHM } from '@travel/core/schedule/rules.ts';
 import type { TimelineEntry } from '@travel/core/schedule/types.ts';
 import { printTime } from '@travel/core/export/plan.ts';
-import { bookAheadText } from '@travel/core/export/bookings.ts';
+import { bookAheadText, bookingCounts } from '@travel/core/export/bookings.ts';
 import type { TimelineSession } from '@/lib/export/timelineState';
 import { sourceLine } from '@/lib/export/licence';
 import type { ExportStop, TripExport } from '@/lib/export/types';
@@ -54,13 +54,27 @@ export function TripPrintView({ data, session = null }: { data: TripExport; sess
         {data.url} · {plural(data.nights, 'night')} · {data.seasonLabel ?? `Season: ${GAP}`}
       </p>
       {session ? <p>Planned for {profileLine(session.profile)}</p> : null}
-      {data.bookings.length ? (
+      {bookingCounts(data.bookings).toBook ? (
         <section className="print-model-book" aria-label="Book ahead">
           <h2>Book ahead</h2>
           <ul>
-            {data.bookings.map((b) => (
+            {data.bookings.filter((b) => b.kind === 'booking').map((b) => (
               <li key={b.ref}>
                 <b>{b.name}</b>
+                {b.day ? <span> · Day {b.day}</span> : null}
+                {bookAheadText(b) ? <span className="print-model-note">{bookAheadText(b)}</span> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+      {data.bookings.some((b) => b.kind !== 'booking') ? (
+        <section className="print-model-book" aria-label="Passes, checks and tasks">
+          <h2>Passes, checks and tasks</h2>
+          <ul>
+            {data.bookings.filter((b) => b.kind !== 'booking').map((b) => (
+              <li key={b.ref}>
+                <b>{b.name}</b> · {b.kind}
                 {b.day ? <span> · Day {b.day}</span> : null}
                 {bookAheadText(b) ? <span className="print-model-note">{bookAheadText(b)}</span> : null}
               </li>

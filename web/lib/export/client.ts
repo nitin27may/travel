@@ -1,5 +1,6 @@
 'use client';
 
+import { bookingCounts } from '@travel/core/export/bookings.ts';
 import { buildGpx } from './gpx';
 import type { GpxSource } from './gpx';
 import { buildKml } from './kml';
@@ -44,7 +45,8 @@ export function downloadTripCsv(d: TripExport): Generated {
   const name = fileName(d.slug, 'csv');
   saveFile(name, 'csv', tripCsv(d));
   // the file's own rows: its stops, and the trip's bookings when it has any (MUST-6)
-  return { name, summary: `${d.stops.length} stops${d.bookings.length ? `, ${d.bookings.length} to book ahead` : ''}` };
+  const toBook = bookingCounts(d.bookings).toBook;
+  return { name, summary: `${d.stops.length} stops${toBook ? `, ${toBook} to book ahead` : ''}` };
 }
 export function downloadIcs(d: TripExport, startDate: string, timeline?: IcsTimeline): Generated {
   const name = fileName(d.slug, 'ics');
