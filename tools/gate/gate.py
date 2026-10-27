@@ -8,6 +8,11 @@ Selection is `gatemap.select()` over `git diff <base>...HEAD`, the working tree 
 (tools/gate/map.json) is the single source of suites, costs, slots and `run` commands; this file only knows how to execute the
 few suites whose `run` entry is prose (build, serve, MCP line, e2e, db, visual).
 
+GATE_RUNNER=ci (WF-2, .github/workflows/check.yml): a hosted runner. No machine slots, no result cache, and a suite on the timing slot is
+MAC_ONLY (neither a pass nor a failure: the summary lists it as pending on the Mac). `--group G` keeps one group of the map's
+suites ("group" per suite: links, core-data, web, db, e2e, visual); `--out FILE` also writes the --json document to FILE. In CI
+mode the JSON carries each suite's group and the specs of e2e.mapped (tools/ci/plan_to_outputs.py reads them).
+
 Exit codes: 0 pass; 1 a suite failed (or was skipped because a failure stopped the run); 2 refused, or something was DEFERRED
 (a deferred suite is never a pass); 3 the gate itself broke.
 Caching (TS-3, tools/gate/cache.py): a suite that passed on identical inputs prints CACHED and is not run again; --no-cache,
@@ -51,6 +56,13 @@ T3_EXTRA = ["check-all", "e2e.full", "db.local"]
 
 class Refused(Exception):
     pass
+
+
+def is_ci() -> bool:
+    v = os.environ.get("GATE_RUNNER", "")
+    if v not in ("", "ci"):
+        raise Refused(f"GATE_RUNNER={v} is not known (only 'ci')")
+    return v == "ci"
 
 
 # ----- git -------------------------------------------------------------------------------------------------------------------------------
@@ -465,6 +477,9 @@ def run_job(m: dict, job: Job, *, root: Path, lock_root: Path, label: str, log: 
             res.status, res.seconds, res.note = "CACHED", 0.0, f"was {float(hit.get('seconds', 0)):.1f}s on {hit.get('head', '?')}"
             log(f"CACHED {sid} key {ckey[:12]} {res.note}")
             return res
+    if is_ci() and (s.get("slot") == "timing" or sid == "web.timing"):
+        res.status, res.note = "MAC_ONLY", "timing suites run on the Mac (shared runners are noisy)"
+        return res
     if s.get("slot") == "timing" or sid == "web.timing":
         load = load_per_core()
         if load > float(os.environ.get("GATE_LOAD_LIMIT", LOAD_LIMIT)):
@@ -483,7 +498,7 @@ def run_job(m: dict, job: Job, *, root: Path, lock_root: Path, label: str, log: 
     start = time.monotonic()
     holder: Slot | None = None
     try:
-        if slot:
+        if slot and not is_ci():  # a hosted runner is one job on one machine: nothing to share
             holder = Slot(lock_root, slot, label, note=note)
             holder.acquire()
         timeout = float(os.environ.get("GATE_SUITE_TIMEOUT", TIMEOUT[s.get("cost", "s")]))
@@ -554,7 +569,8 @@ def verdict(results: list[Result]) -> tuple[str, int]:
     if "FAIL" in st or "SKIPPED" in st:
         return "FAIL", 1
     if "DEFERRED" in st:
-        return "DEFERRED (not a pass)", 2  # CACHED and UNNEEDED are passes: a stored pass on identical inputs
+        return "DEFERRED (not a pass)", 2
+    # MAC_ONLY (CI mode) is neither: the summary lists it as pending, so it does not turn a green run red  # CACHED and UNNEEDED are passes: a stored pass on identical inputs
     return "PASS", 0
 
 
@@ -567,7 +583,7 @@ def render(plan: Plan, results: list[Result], *, base: str, head: str, dry: bool
         return [f"REFUSED: {refused}", head_lines[0]]
     rows = []
     for r in results:
-        why = r.note if r.status in ("DEFERRED", "SKIPPED", "CACHED", "UNNEEDED") else r.why
+        why = r.note if r.status in ("DEFERRED", "SKIPPED", "CACHED", "UNNEEDED", "MAC_ONLY") else r.why
         if r.status == "DEFERRED":
             why = f"{r.suite}: {why}"
             rows.append(f"DEFERRED {why[:110]}")
@@ -580,6 +596,8 @@ def render(plan: Plan, results: list[Result], *, base: str, head: str, dry: bool
     else:
         v, _ = verdict(results)
         total = f"{v}: {counts['PASS']} pass, {counts['CACHED']} cached, {counts['FAIL']} fail, {counts['SKIPPED']} skipped, {counts['DEFERRED']} deferred, {seconds:.0f}s"
+        mac = sum(1 for r in results if r.status == "MAC_ONLY")
+        total += f", {mac} mac-only" if mac else ""
     tail = [total] + ([f"log: {log_path}"] if log_path else [])
     fixed = len(head_lines) + len(rows) + len(tail)
     budget = max(0, limit - fixed)
@@ -598,11 +616,22 @@ def render(plan: Plan, results: list[Result], *, base: str, head: str, dry: bool
     return lines
 
 
-def to_json(plan: Plan, results: list[Result], *, base: str, head: str, log_path: str | None, code: int, dry: bool) -> dict:
-    return {"tier": plan.tier, "base": base, "head": head, "dry_run": dry, "exit": code, "full": plan.full, "full_reasons": plan.full_reasons[:5],
+def to_json(plan: Plan, results: list[Result], *, base: str, head: str, log_path: str | None, code: int, dry: bool, m: dict | None = None) -> dict:
+    doc = {"tier": plan.tier, "base": base, "head": head, "dry_run": dry, "exit": code, "full": plan.full, "full_reasons": plan.full_reasons[:5],
             "changed": len(plan.changed), "rules": plan.rules, "log": log_path,
             "suites": [{"suite": r.suite, "status": "WOULD" if dry else r.status, "seconds": round(r.seconds, 1), "why": r.why.split(","),
                         "note": r.note, "excerpt": r.excerpt[:10]} for r in results]}
+    if m is not None and is_ci():  # CI mode only, so the local document stays as it was
+        files = {j.suite: j.files for j in plan.jobs}
+        for row in doc["suites"]:
+            row["group"] = suite_group(m, row["suite"])
+            if row["suite"] == "e2e.mapped":
+                row["files"] = files.get("e2e.mapped", [])
+    return doc
+
+
+def suite_group(m: dict, sid: str) -> str:
+    return meta(m, sid).get("group", "other")
 
 
 # ----- main ------------------------------------------------------------------------------------------------------------------------------
@@ -622,6 +651,8 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     ap.add_argument("--no-cache", action="store_true", help="ignore and do not write the result cache")
     ap.add_argument("--verifier", action="store_true", help="the verifier's run: never uses the cache (also GATE_VERIFIER=1)")
     ap.add_argument("--cache-stats", action="store_true", help="print the cache store (entries, age, hits) and exit")
+    ap.add_argument("--group", default=None, help="keep only the suites of this group of the map (CI jobs: links, core-data, web, db, e2e, visual)")
+    ap.add_argument("--out", default=None, metavar="FILE", help="also write the --json document to FILE")
     ap.add_argument("--visual", action="store_true", help="T3: include the visual-sweep hook (GATE_VISUAL_CMD)")
     return ap.parse_args(argv)
 
@@ -639,6 +670,7 @@ def main(argv: list[str] | None = None, root: Path = ROOT) -> int:
     base, head, gitdir = args.base, "?", None
     plan = Plan(args.tier, [])
     try:
+        is_ci()  # refuses an unknown GATE_RUNNER before anything runs
         head = git("rev-parse", "--short", "HEAD", root=root).strip()
         gitdir = Path(git("rev-parse", "--absolute-git-dir", root=root).strip())
         common = Path(git("rev-parse", "--path-format=absolute", "--git-common-dir", root=root).strip())
@@ -654,6 +686,11 @@ def main(argv: list[str] | None = None, root: Path = ROOT) -> int:
         only = [s for s in (args.only or "").split(",") if s] or None
         plan = make_plan(m, args.tier, changed, old_ca=old_ca, new_ca=new_ca, force_full=force_full, only=only,
                          reuse_build=args.reuse_build, visual=args.visual, root=root)
+        if args.group:
+            known = {meta(m, s).get("group", "other") for s in m["suites"]}
+            if args.group not in known:
+                raise Refused(f"unknown group {args.group} (known: {', '.join(sorted(known))})")
+            plan.jobs = [j for j in plan.jobs if suite_group(m, j.suite) == args.group]
         refusal = None
         if args.tier >= 2 and args.changed is None and not args.allow_dirty and is_dirty(root):
             refusal = f"T{args.tier} needs a clean tree (results must name a commit); commit, or pass --allow-dirty"
@@ -690,6 +727,7 @@ def main(argv: list[str] | None = None, root: Path = ROOT) -> int:
             log(f"select {j.suite}: {','.join(j.why)}" + (f" files={j.files}" if j.files else ""))
         try:
             why_not = gcache.bypass_reason(no_cache=args.no_cache, verifier=gcache.is_verifier(args.verifier), tier=args.tier)
+            why_not = why_not or ("CI runner (GATE_RUNNER=ci: a fresh machine every run)" if is_ci() else None)
             log("cache: " + (f"off ({why_not})" if why_not else "on"))
             results = run_plan(m, plan, keep_going=keep, root=root, lock_root=common / "gate-locks", label=f"{root.name} T{args.tier}", log=log,
                                note=lambda msg: log("NOTE " + msg), cache=None if why_not else gcache.Cache(root, store=common / "gate-cache"), head=head)
@@ -697,8 +735,11 @@ def main(argv: list[str] | None = None, root: Path = ROOT) -> int:
             fh.close()
         _v, code = verdict(results)
         (gitdir / "gate-logs" / "last.json").write_text(json.dumps(to_json(plan, results, base=base, head=head, log_path=log_path, code=code, dry=False)), encoding="utf-8")
+    if args.out:
+        Path(args.out).parent.mkdir(parents=True, exist_ok=True)
+        Path(args.out).write_text(json.dumps(to_json(plan, results, base=base, head=head, log_path=log_path, code=code, dry=args.dry_run, m=m)), encoding="utf-8")
     if args.json:
-        print(json.dumps(to_json(plan, results, base=base, head=head, log_path=log_path, code=code, dry=args.dry_run)))
+        print(json.dumps(to_json(plan, results, base=base, head=head, log_path=log_path, code=code, dry=args.dry_run, m=m)))
     else:
         print("\n".join(render(plan, results, base=base, head=head, dry=args.dry_run, log_path=log_path, seconds=time.monotonic() - t0)))
     return code

@@ -1,6 +1,7 @@
 {
  "top_level_folders": [
   ".claude",
+  ".github",
   "core",
   "data",
   "docs",
