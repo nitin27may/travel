@@ -1,6 +1,6 @@
 # Trip builder: desktop wireframes (1440 px)
 
-Spec: [features/trip-builder.md](../../features/trip-builder.md). Index and shared rules: [README.md](README.md).
+Spec: [features/trip-builder.md](../../features/trip-builder.md). Index and shared rules: [README.md](README.md). **Reviewed:** [design-note-TBN.md](design-note-TBN.md) supersedes these frames where they differ (kind first, no rings, no swipe, focused flow on phones, primary in the rail on desktop).
 Grid: foundation tokens section 10 (12 columns, 32 px gutters, max content 1376; the map goes full-bleed). Desktop uses the
 whole width: at every step after step 2, filters or the outline, the main list, the map and the tray or itinerary are on
 screen at once, so nothing needs a modal to compare (P3, P5).

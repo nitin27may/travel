@@ -1,11 +1,13 @@
 # Trip builder: design notes and wireframes (index)
 
 Status: wireframes for the spec [features/trip-builder.md](../../features/trip-builder.md), 27 Oct 2026, travel-planner
-(Opus). Not reviewed yet: the first build task (TB-N) is a `travel-design-reviewer` pass that turns these frames into a
-design note and mocks the owner approves before any UI is built.
+(Opus). Reviewed by TB-N on 27 Oct 2026: [design-note-TBN.md](design-note-TBN.md) holds the design and mocks the owner approves
+before any UI is built; where it differs from these frames, it wins. A1 to A9 are now written as proposed components in
+[components.md](../foundation/components.md) 9 (rings in A7 dropped, see C2).
 
 | File | What it holds |
 |---|---|
+| [design-note-TBN.md](design-note-TBN.md) | **The design for owner approval (TB-N, 27 Oct 2026):** findings on these wireframes, the screen-by-screen design, states, contrast, mock image index, owner questions Q-TB-N1 to Q-TB-N10. Wins where it differs from the wireframes |
 | [wireframes-phone.md](wireframes-phone.md) | Every key screen at 390 px: stepper, bottom sheets, thumb zone, map as a sheet, swipe and its button alternative |
 | [wireframes-desktop.md](wireframes-desktop.md) | Every key screen at 1440 px: multi-pane (filters, list, map, tray or itinerary at once), drag and drop, keyboard |
 | this page | The flow diagram, what changes between phone and desktop, shared components, foundation additions, accessibility, budgets, slow and offline network |

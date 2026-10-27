@@ -51,6 +51,7 @@ means a public, read-only page.
 | Globe, basemap feature | any globe URL plus `?f=<class>:<id>` (class in river, lake, sea, peak, range, park, city; id the Wikidata QID or the name): the feature card floats, the level does not change. `replaceState`, optional, never needed to resolve the page | `/globe/it?f=lake:Q13364` |
 | Mine | `/mine/`; `?show=trips` or `?show=favourites` selects the tab (`replaceState`); Favourites adds `kind`, `country`, `sort`, `page` in the list-state order; `/favourites/` redirects to `/mine/?show=favourites`. Private, noindex, never under `/trips/` | `/mine/?show=favourites&kind=lake` |
 | Globe, filters | `?show=trips` or `?show=places`, and `?kind=trail,lake` when places are shown; list-state order rule below | `/globe/ca?show=places&kind=trail` |
+| Plan builder (proposed, TB-N; behind `planBuilder`) | `/plan/` only, noindex, out of the sitemap; the step and mode are query keys, never path segments (trip-builder 2.5, ISO-1): `m`, `cc`, `rg`, `from`, `r`, `n`, `p`, `f`, `act`, `sea`, `d`, `pace`, `mv`, `mo`, `b`, `o`, `gw`, `s`, `draft`, `seed`. Party, interests and device location never appear | `/plan/?m=near&from=hub-toronto&r=180&n=2&s=3`, `/plan/?seed=dolomites-2027` |
 | Planner home | `/home`; `?view=year` for the Year view; `?due=week` for Needs-you, all trips | `/home?view=year` |
 | Trip (last tab) | `/t/<trip-slug>` redirects to that trip's remembered tab | `/t/patagonia-2027` |
 | Trip tab | `/t/<trip-slug>/<tab>` with `tab` in plan · today · bookings · tasks · budget · share | `/t/patagonia-2027/bookings` |
@@ -392,6 +393,41 @@ Links by group: tabs only when two or more groups hold links; one group is a pla
 **Basics-only pages** (the `basics` level) use the compact template: identity, actions, map, nearby, trips and one "Not
 researched yet" line. Principles: P2 (safety gaps at rest), P3, P6 (facts where they matter), P8 (the page shrinks).
 
+### 3.12 Plan builder (`/plan/`), proposed (TB-N, pending owner approval)
+
+Spec [features/trip-builder.md](../../features/trip-builder.md) and kinds
+[trip-kinds-and-interest-profile.md](../../features/trip-kinds-and-interest-profile.md) 1; design, findings and mocks
+[trip-builder/design-note-TBN.md](../trip-builder/design-note-TBN.md); components 9.
+
+1. **One flow, eight steps**, kind first: Where or Start · Regions · Discover · Days (or Nights) · Bases (or Base) · Build
+   · Getting there · Review. A kind skips steps (design note 2): the phone counts only steps that ask; the desktop rail
+   shows every step, skipped ones done with their value.
+2. **Phone: a focused flow.** Under 640 px the step header (components 9.1) replaces the public header and the action bar
+   (9.4) replaces the public bottom bar while `/plan/` is open. Close keeps the draft and returns to the page the visitor
+   came from (or `/`). One step per screen; the primary is always in the action bar, in the thumb zone (T2). Lists, map,
+   filters and tray are sheets (9.3). No swipe gestures.
+3. **Desktop: everything at once.** Header, the step rail (9.1) with the one primary at its right end, then panes:
+   Discover is filters 232 · list 500 · map fluid · tray 300; Days and Bases share one screen (settings and bases 480 ·
+   map); Build is the Plan grid (outline 256 · day 620 to 640 · map). Hovering a row lifts its pin and the reverse (P5).
+4. **Live counts everywhere** (P4): the count line on Discover, "Show n places" on the start and filters, the tray's
+   "about n days ≈". A zero count suggests the nearest match (6.1).
+5. **Honesty**: every estimate carries ≈; thin and empty regions are shown with their count and "Ask us"; nothing
+   unresearched is added; Did not fit lists every left-out pick with its reason and one fix (9.6).
+6. **State**: the draft is on the device (`plan-draft/1`), the URL carries public keys only (1.2). Edits raise the Undo
+   toast; Back goes to the previous asking step.
+7. **States**: building (status card with progress, skeleton days), failed build (urgent banner, Try again, draft kept),
+   offline (dashed notice, last build opens), estimates only (notice), paused (`PLAN_BUILDER_PAUSED`: notice, drafts
+   read-only, Next disabled), no results, no picks, thin supply (design note 4).
+8. **Review primary by kind** (P7): Add to calendar for day trips, weekends and long weekends; Save to Mine for a week or
+   longer.
+9. **Budget** (ISO-9): `/plan/` start JS at most 90 KB gzip; each step, the map and the editor are lazy chunks; no other
+   page changes by a byte.
+
+Principles: P1 (paged candidates, counts, park rows), P2 (safety and booking chips at rest), P3 (one step per screen on
+a phone, everything at once on desktop), P4 (kind tiles, plain labels, live counts), P5 (linked list and map, no jump),
+P6 (reasons where the choice is made), P7 (no header tab; the 90% pages unchanged), P8 and P9 (light rows, one data
+boundary, no bulk).
+
 ## 4. Planner templates
 
 ### 4.1 Home (signed in)
@@ -525,6 +561,8 @@ A screen uses one density per region and never a third.
 | Heart toggled, Mine dot appears | heart fills and scales 1 to 1.15 to 1; dot scales from 0 | fill 120 ms, scale 200 ms `--e-out`; dot 200 ms `--e-out`; reduced motion: no scale |
 | Theme switch | surfaces cross-fade; images do not flash | 200 ms |
 | Trip page tab change (3.10) | the underline slides; the panel swaps without animation; the page keeps the tab bar at its sticky line | underline `--d-fast` `--e-std`; reduced motion: jump |
+| Plan builder step change (3.12, proposed) | the new step cross-fades; header, rail and action bar stay; focus moves to the step heading; the rail's underline slides | `--d-page` `--e-out`; underline `--d-fast` `--e-std`; reduced motion: jump |
+| Pick toggled; tray count | the pill fills; the bar's numbers count to the new values | fill `--d-fast`; counts `--d-count`; reduced motion: no count animation |
 | Disclosure open or close (components 6.4); the party editor; the shape's table | content grows or shrinks in place (grid rows 0fr to 1fr); the chevron turns | `--d-base` `--e-std`; reduced motion: jump |
 
 Never animated: text and border colour on status change, table rows, the trip bar, form validation.

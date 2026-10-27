@@ -1,6 +1,6 @@
 # Trip builder: phone wireframes (390 px)
 
-Spec: [features/trip-builder.md](../../features/trip-builder.md). Index and shared rules: [README.md](README.md).
+Spec: [features/trip-builder.md](../../features/trip-builder.md). Index and shared rules: [README.md](README.md). **Reviewed:** [design-note-TBN.md](design-note-TBN.md) supersedes these frames where they differ (kind first, no rings, no swipe, focused flow on phones, primary in the rail on desktop).
 Counts in the frames are **measured on 27 Oct 2026** where they name our data (Italy: 69 records in the Nord-Est group,
 8 in the rest of the country; Ontario: 4 records), so the frames show the honest thin-data states the build must handle.
 Everything else is illustrative.

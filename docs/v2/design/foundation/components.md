@@ -737,3 +737,110 @@ Decision: **no infinite scroll.** Lists show 48 cards or 100 rows per page with 
 "‹ 1 2 3 ›", current `--accent`) and the count ("49 to 64 of 64"); the URL carries `?page=`. Reason: the
 public site is read and shared by link, the footer (credits, attribution) must stay reachable, and the
 table's CSV export and group collapse need a bounded set. Collapsed country groups load on expand.
+
+## 9. Plan builder (`/plan/`), proposed (TB-N, 27 Oct 2026, pending owner approval)
+
+From [trip-builder/design-note-TBN.md](../trip-builder/design-note-TBN.md) (mocks and findings there). Additions A1 to
+A9 of [trip-builder/README.md](../trip-builder/README.md) 4, plus two small builder parts. **No new token.** Generic ones
+(A1, A3, A5, A8) go to `web/components/ui/` as new files with their own CSS; the rest live in `web/components/plan/`
+(trip-builder ISO-8). Ratios light / dark.
+
+### 9.1 Step header (phone) and step rail (desktop) (A1)
+
+- **Step header**, under 640 px on `/plan/` only (patterns 3.12 focused flow): 58 px, `--header`, 2 px `--accent` bottom
+  rule, `--z-header`. Back (44 x 44 ghost, `back` glyph), the title block (step name in `--t-row` uppercase
+  `--header-ink`, 14.82 / 17.49; under it mono `--t-chip` `--header-mute` "Step 3 of 8 · Italy, north-east", 8.98 /
+  10.60, one truncating line), the theme toggle and Close (both 44 x 44). Under it a progress row of 4 px segments, 3 px
+  apart, 14 px side margins: done `--ink-2`, current `--accent`, ahead `--line`; `aria-hidden` (the text carries the
+  step). The count is the number of steps that **ask** for the kind (design note 2).
+- **Step rail**, 640 px and up: 56 px, `--surface`, 1 px `--line` bottom, sticky under the header. Left: the draft's
+  name in `--t-row` and a mono sub-line, divided by a 1 px `--line`. Then an ordered list: a 20 px number disc and the
+  label in `--t-tab`. Done: disc `--surface-2` with a check, label `--ink-2`, a link. Current: disc `--ink` with
+  `--surface` numeral, label `--ink` 600, a 3 px `--accent-text` underline as page tabs (1.6), `aria-current="step"`.
+  Not reached: `--muted`, not a link. Skipped for the kind: done look plus its value in mono ("Regions · within 3 h").
+  Right end: the step's tools (ghost and secondary buttons) and **the one primary**, which names the next step.
+- Tablet (640 to 1023): the rail scrolls sideways with the current step kept in view (as `CategoryStrip`); the primary
+  stays pinned at the right.
+
+### 9.2 Pick control (A2)
+
+A pill button with two states and a constant name ("Pick Lago di Braies") plus `aria-pressed`. Phone 44 px tall, desktop
+32 px (44 px hit). Rest: `--surface`, 1 px `--line-2` (3.67 / 3.42), `plus` glyph and "Pick" in `--ink` mono 13. Picked:
+`--accent-soft` fill, 1 px `--accent` border, `check` glyph and "Picked" in `--accent-text` 600 (5.56 / 7.26); the word
+and glyph carry the state, not the border (2.52:1 on light `--surface`). Under 360 px the word is visually hidden and the
+button is 44 x 44 (glyph and fill carry the state). Toggling raises no toast; the tray count updates in a polite live
+region. No swipe gesture. Never a third state: "Must see" is the tray's toggle (9.4).
+
+### 9.3 Bottom sheet snap points (A3, extends 5.5)
+
+Snap points **peek 120 px** (as 5.5: grab bar and one summary line), **half** (50% of the viewport), **full** (under the step
+header). Scroll handoff: while the sheet is below full, a vertical drag on its content moves the sheet; at full, the
+content scrolls, and a downward drag at scroll top moves the sheet again. "Expand" and "Collapse" buttons for keyboard
+and switch users; Escape collapses one step. The map sheet holds the list over a full-screen map (the map is never
+required, T2). Motion `--d-sheet` `--e-out`; reduced motion jumps.
+
+### 9.4 Action bar, tray peek, tray column and tray sheet (A4)
+
+- **Action bar** (phone, replaces the public bottom bar on `/plan/`): `--surface`, 1 px `--line-2` top, 12 px 14 px 30 px
+  padding (home inset), height about 84 px. Left: a two-line summary, line 1 mono 13/600 `--ink` ("6 picked · Must see
+  1"), line 2 `--t-meta` `--muted` ("about 5 days ≈ · 4 h 50 driving ≈"); both truncate, never wrap. Right: the primary,
+  `lg` 50 px, naming the next step. At the build step the left slot is a secondary "Map" button instead. Tap on the
+  summary opens the tray sheet.
+- **Tray sheet**: "YOUR PICKS (6)", the estimate sentence, rows (title, kind and time on site, the **Must see** toggle,
+  Remove). Must see: 44 px pill, `star` glyph and "Must see"; pressed `--accent` fill, `--accent-ink` (6.96).
+- **Tray column** (desktop, 280 to 320 px, right of the map): header with the cap label, "About 5 days ≈" in `--t-title`
+  and the driving line; rows 48 px with an icon-only Must see (named "Must see Lago di Braies", `aria-pressed`) and
+  Remove; a footer line with the drag and Space hints. Empty: the 6.1 empty state, "Nothing picked yet".
+
+### 9.5 Reason chips and "Why this?" (A5)
+
+Reason chips are neutral chips (2.8) with a glyph: draw (`route`, the relevance badge; "Worth the journey" has a 1 px
+`--ink` border and 600 weight as on Places), season (`cal`), theme, distance (`car`). Order on any row: **kids or fit
+chip, safety and booking chips, then reasons** in the order draw, season, theme, distance. Phone shows one reason at
+rest, desktop two; safety and booking never drop. A reason is drawn only when it carries a number or a source
+(trip-builder 4.9). "Why this?" is a text button (mono 12.5, underlined) that opens a live disclosure (6.4) under the row
+listing the score parts in words; on phones it is in the place sheet.
+
+### 9.6 Did not fit block (A6)
+
+A `--warn-soft` well, radius 12, padding 12 14: cap label "DID NOT FIT (n)" in `--warn` (6.11 / 7.84), then per item the
+name in `--t-title` `--ink` (14.17 / 13.05) and the reason as a mono line with the triangle in `--warn` ("No room: days 6
+to 9 are at the standard pace's limit"), then **one or two fixes** as small secondary buttons on `--surface` ("Add 1
+day", "Swap with…", "Add a base near it", "Change month"). Phone: after the last day; desktop: at the foot of the
+outline. A fix reruns the engine and confirms with a toast with Undo. Words come from trip-builder 4.7.
+
+### 9.7 Base letter, base pin and pick spokes (A7)
+
+- **Base letter** (lists, outline, day heads): a 22 px `--ink` square, radius 6, the letter mono 12/600 `--surface`
+  (16.06 / 13.83); picked base `--accent` with `--accent-ink` (6.96).
+- **Base pin** (map): `--map-base` (26 px `--ink` rounded square) with the **letter** instead of the house glyph, mono 13/600
+  `--surface`, 1.5 px `--map-halo` edge, the town name in `--t-sign-s` with halo; picked base `--map-base-pick`.
+- **Spokes**: on the bases step only, a dashed (3 3) 1 px line from each pick (`--map-stop` dot) to its base, `--ink` at
+  55% (3.52 / 5.03 on `--map-land`). **No drive-time rings** (T5; design note C2). The minutes are in the base card.
+
+### 9.8 Lock affordance (A8)
+
+On an item: the switch "Locked to day 2" in the item sheet or row menu; when on, a neutral chip with the `lock` glyph and
+the words "Locked to day 2" (`--ink` on `--surface`, 16.06 / 13.83) leads the item's chip row (on phones never in a right
+column). On desktop rows an icon button (`unlock` at rest, `--muted`; locked shows the chip) toggles it; key `L`. On a
+base: "Keep this base" (secondary, `unlock` glyph) becomes "Kept" with the `lock` glyph; a kept base is never moved by a
+rebuild. State is in words, never in colour.
+
+### 9.9 Region chooser (A9)
+
+Group rows 52 px on `--surface`: checkbox (2.5), name `--t-title`, the areas it covers as meta, the count right (mono 13
+`--ink-2`), a chevron that expands its regions (44 px rows, indented 46 px, serif 16). Checking a group checks its
+regions; a partly checked group shows the indeterminate bar. Thin groups say "Thin: n places" in meta; a region with no
+researched places is at 45% with the gap chip "Not researched yet" and an "Ask us to research it" link to the request
+form (TB9). The map beside or above it uses admin-1 shapes: rest `--map-land`, coverage as `--ink` at 4% and 14% (a hint
+only, 1.31:1, never the only carrier), hover and selected as the globe's shape states (7.2, tokens 5.1).
+
+### 9.10 Kind tile and day chips (builder parts)
+
+- **Kind tile**: `--surface`, 1 px `--line-2`, radius 12, at least 56 px tall (phone, stacked) or 84 px (desktop, five in
+  a row); radio (2.5), the kind in `--t-row` uppercase (`--t-sign-s` on desktop), nights in mono meta. Selected:
+  `--accent-soft` fill, 2 px `--accent` border, filled radio; name `--ink` (14.11 / 12.57), meta `--ink-2` (10.62 /
+  9.77). `role="radiogroup"` named "What kind of trip?".
+- **Day chips** (phone build): 44 x 44 minimum cells, radius 8, 1 px `--line-2`, `--surface`; the day in `--t-sign-s`,
+  the base letter in mono 11.5 under it; current `--accent` fill with `--accent-ink`. A sideways strip with snap and the
+  current day kept in view; tap jumps (P5, no reload).
