@@ -51,10 +51,10 @@
       "steps": ["mcp server answers initialize", "ops CLI lists the catalogue", "generated schema is up to date", "capture contract", "OpenAPI is current"]
     },
     "data.capture": {
-      "run": ["node core/bin/capture.ts gaps --budget --check --root .", "node core/bin/capture.ts derive-near --check --root .", "node core/bin/capture.ts derive-area --check --root .", "node core/bin/validate.ts --all --root .", "node core/bin/normalise.ts --budget --check --root ."],
+      "run": ["node core/bin/capture.ts gaps --budget --check --root .", "node core/bin/capture.ts derive-near --check --root .", "node core/bin/capture.ts derive-area --check --root .", "node core/bin/graph.ts build --check --root .", "node core/bin/validate.ts --all --root .", "node core/bin/normalise.ts --budget --check --root ."],
       "cost": "s", "always_at": 2,
       "inputs": ["data/**", "research/**", "legacy/**", "core/src/**", "core/bin/**"],
-      "steps": ["capture gap budget", "nearest town", "area", "validate every data file", "normaliser budget"]
+      "steps": ["capture gap budget", "nearest town", "area", "graph index", "validate every data file", "normaliser budget"]
     },
     "data.towns": {
       "run": ["python3 tools/towns.py --check"],
