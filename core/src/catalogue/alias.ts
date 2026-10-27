@@ -104,9 +104,35 @@ export function publicRef(s: string, table: FolderAliases): string {
   const c = compile(table);
   if (!c.forward) return s;
   c.forward.lastIndex = 0;
-  if (!c.forward.test(s)) return s;
+  if (c.forward.test(s)) {
+    c.forward.lastIndex = 0;
+    return s.replace(c.forward, (m) => c.toAlias.get(m.toLowerCase()) ?? m);
+  }
+  if (!s.includes("%")) return s;
+  // S2: the detector reads the text URL-decoded (up to twice: `%252F`, `%2D`), so the rewrite must too, or such an input fails closed
+  // instead of being aliased. The decoded text is rewritten; only the characters that would change a URL's shape are escaped again.
+  const d = decodeTwice(s);
+  if (d === s) return s;
   c.forward.lastIndex = 0;
-  return s.replace(c.forward, (m) => c.toAlias.get(m.toLowerCase()) ?? m);
+  if (!c.forward.test(d)) return s;
+  c.forward.lastIndex = 0;
+  return d.replace(c.forward, (m) => c.toAlias.get(m.toLowerCase()) ?? m).replace(/[%&#?+ ]/g, (ch) => `%${ch.charCodeAt(0).toString(16).toUpperCase().padStart(2, "0")}`);
+}
+
+/** Percent-escapes decoded up to twice, leniently (the detector's `hasDatedFolder` does the same, so the two cannot disagree). */
+function decodeTwice(s: string): string {
+  let t = s;
+  for (let i = 0; i < 2 && t.includes("%"); i++) {
+    let d: string;
+    try {
+      d = decodeURIComponent(t);
+    } catch {
+      d = t.replace(/%[0-7][0-9A-Fa-f]/g, (e) => String.fromCharCode(parseInt(e.slice(1), 16)));
+    }
+    if (d === t) break;
+    t = d;
+  }
+  return t;
 }
 
 /**

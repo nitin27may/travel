@@ -381,3 +381,37 @@ describe("privacy detector: planted favourites (visitor spec 8.3)", () => {
     expect(whys({ items: [resolveOne(INDEX, light, "place:moraine-lake")] })).toEqual([]);
   });
 });
+
+describe("M1: a favourite stored before public aliases (a dated ref) reads, and heals on the next resolve", () => {
+  const DATED = "legacy/canadian-rockies-sept-2029/sights/bow-lake";
+  const planted = (): string => {
+    const base = emptyFavourites();
+    const item = (slug: string, ref: string | null) => ({ space: "place", slug, ref, name: "Bow Lake", kind: "sight", cc: "CA", favouredAt: "2026-10-20T10:00:00Z", unlistedAt: null });
+    return JSON.stringify({
+      ...base,
+      items: [item("bow-lake", DATED), item("johnston-canyon", "legacy/canadian-rockies-2029/sights/johnston-canyon"), item("moraine-lake", null)],
+      pending: [{ op: "add", space: "place", slug: "bow-lake", ref: DATED, at: "2026-10-20T10:00:00Z" }],
+    });
+  };
+  it("a dated ref becomes null on read (not invalid); a public ref and null are kept; the rest of the envelope is untouched", () => {
+    const r = readFavourites(planted());
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.envelope.items.map((i) => i.ref)).toEqual([null, "legacy/canadian-rockies-2029/sights/johnston-canyon", null]);
+    expect(r.envelope.items.map((i) => i.slug)).toEqual(["bow-lake", "johnston-canyon", "moraine-lake"]);
+    expect(r.envelope.pending.map((p) => p.ref)).toEqual([null]);
+    expect(JSON.stringify(r.envelope)).not.toMatch(/sept-2029/);
+  });
+  it("the writer never stores a dated ref: the cleaned envelope is written, and a hand-built one with a dated ref is refused", () => {
+    const s = memoryStorage();
+    s.setItem(FAV_LOCAL_KEY, planted());
+    const done = updateFavourites(s, FAV_LOCAL_KEY, (e) => {
+      const a = addFavourite(e, { space: "place", slug: "athabasca-falls", ref: null, name: "Athabasca Falls", kind: "sight", cc: "CA" }, { now: NOW });
+      return { envelope: a.ok ? a.envelope : null, value: 1 };
+    });
+    expect(done.ok).toBe(true);
+    expect(s.getItem(FAV_LOCAL_KEY)).not.toMatch(/sept-2029/);
+    const bad = { ...emptyFavourites(), items: [{ space: "place", slug: "bow-lake", ref: DATED, name: null, kind: null, cc: null, favouredAt: "2026-10-20T10:00:00Z", unlistedAt: null }] } as FavouritesEnvelope;
+    expect(writeFavourites(memoryStorage(), FAV_LOCAL_KEY, bad, null)).toEqual({ ok: false, reason: "invalid" });
+  });
+});

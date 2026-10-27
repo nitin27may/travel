@@ -10,7 +10,7 @@ import {
   folderAliasProblems, folderAliasWarnings, folderAliasesOf, legacyFoldersIn, pinFolderAliases,
   type SlugRegistry, type SlugSnapshot, type SlugSpace,
 } from "../../src/catalogue/slugs.ts";
-import { main } from "../../bin/slugs.ts";
+import { baseRef, main } from "../../bin/slugs.ts";
 
 const ROOT = resolve(import.meta.dirname, "..", "..", "..");
 const space = (slugs: Record<string, string>, extra: Partial<SlugSpace> = {}): SlugSpace => ({ slugs, retired: {}, merged: {}, withdrawn: {}, ...extra });
@@ -556,5 +556,42 @@ describe("node core/bin/slugs.ts: folder aliases", () => {
     expect(check()).toBe(1);
     expect(main(["build", "--root", root, "--snapshot", sf])).toBe(0);
     expect(folderAliasesOf(readReg(root))["z-may-2027"]).toBe("z-2027");
+  });
+
+  it("S5: --check compares with origin/main by default, so a removal that is committed on the branch still fails; HEAD would pass it", () => {
+    const root = tmpRoot();
+    const git = (...a: string[]) => spawnSync("git", ["-C", root, "-c", "user.email=t@t", "-c", "user.name=t", ...a], { encoding: "utf8" });
+    const sf = write(root, "snap.json", s);
+    expect(main(["build", "--root", root, "--snapshot", sf])).toBe(0);
+    git("init", "-q", "-b", "main");
+    git("add", SLUG_REGISTRY_PATH);
+    git("commit", "-q", "-m", "registry");
+    git("update-ref", "refs/remotes/origin/main", "HEAD");
+    const t = (table: Record<string, string>) => (r: SlugRegistry): SlugRegistry => ({ ...r, trips: { ...r.trips, folderAliases: table } });
+    edit(root, t({}));
+    git("commit", "-q", "-am", "remove the alias");
+    expect(baseRef(root, []).ref).toBe("origin/main");
+    // the "removed" half of E_SLUG_ALIAS_PINNED needs a base that still holds the alias: HEAD (the commit under test) has lost it
+    const run = (...extra: string[]): { code: number; text: string } => {
+      let text = "";
+      const w = process.stderr.write.bind(process.stderr);
+      process.stderr.write = ((c: string | Uint8Array) => ((text += String(c)), true)) as typeof process.stderr.write;
+      try {
+        return { code: main(["--check", "--root", root, "--snapshot", sf, ...extra]), text };
+      } finally {
+        process.stderr.write = w;
+      }
+    };
+    expect(run("--base", "HEAD").text).not.toMatch(/was removed; a pinned alias is permanent/);
+    const dflt = run();
+    expect(dflt.code).toBe(1);
+    expect(dflt.text).toMatch(/was removed; a pinned alias is permanent/); // the default (origin/main) closes the hole
+    expect(run("--base", "no-such-ref").code).toBe(1); // an unreadable explicit base is an error, not a skip
+    process.env.SLUGS_BASE = "HEAD";
+    try {
+      expect(baseRef(root, []).ref).toBe("HEAD");
+    } finally {
+      delete process.env.SLUGS_BASE;
+    }
   });
 });

@@ -31,8 +31,16 @@ const allItems = (trip: PublicTrip): { day: number; item: DayItem }[] =>
 
 const FOLDER_OF_SLUG = new Map(Object.entries(TRIP_SLUGS).map(([folder, slug]) => [slug, folder]));
 
-/** The legacy folder of a trip, from its slug: `legacyUrl` is in public form (the adapter aliases it, public-ref-aliases 5.1), so it no longer names the folder. */
-const folderOf = (trip: PublicTrip): string => FOLDER_OF_SLUG.get(trip.slug) ?? trip.legacyUrl.replace(/^\/|\/$/g, '');
+/**
+ * The legacy folder of a trip, from its slug: `legacyUrl` is in public form (the adapter aliases it, public-ref-aliases 5.1), so it no longer
+ * names the folder. A trip missing from TRIP_SLUGS throws: falling back to the alias would read a folder that does not exist and drop the
+ * trip's legacy data without a word (REF-REVIEW S6).
+ */
+const folderOf = (trip: PublicTrip): string => {
+  const f = FOLDER_OF_SLUG.get(trip.slug);
+  if (!f) throw new Error(`trip "${trip.slug}" is not in TRIP_SLUGS (web/lib/public/slugs.ts): no legacy folder to read its summary from`);
+  return f;
+};
 
 /** The places the default profile's timelines visit, in the order they first appear (a region or park is named only from these). */
 export function visitedSlugs(timelines: readonly Pick<DayTimeline, 'entries'>[]): string[] {

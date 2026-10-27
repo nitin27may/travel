@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterAll, describe, expect, it } from "vitest";
+import { slugNamesMonthYear } from "../src/validate/trip.ts";
 import { ERROR_CODE_LIST, allFiles, detect, validateDoc, validateFile } from "../src/validate/index.ts";
 
 const REPO = fileURLToPath(new URL("../../", import.meta.url));
@@ -146,12 +147,21 @@ describe("references", () => {
       d.trip.slug = slug;
       return validateDoc(d, "trip", root);
     };
-    for (const bad of ["niagara-day-aug-2026", "patagonia-feb-mar-2027", "rockies-september-2029"]) {
+    for (const bad of ["niagara-day-aug-2026", "patagonia-feb-mar-2027", "rockies-september-2029", "sept-2029", "rockies-sept2029", "rockies-2029-09"]) {
       const r = withSlug(bad);
       expect(codes(r), bad).toEqual(["E_SLUG"]);
       expect(r.errors[0]!.message).toMatch(/month and a year/);
     }
     for (const good of ["niagara-day-2026", "vermont-fall-2026", "norway-summer-2028"]) expect(withSlug(good).errors, good).toEqual([]);
+  });
+
+  it("S4: slugNamesMonthYear reads every spelling of a month next to a year, and leaves years and seasons alone", () => {
+    for (const bad of ["sept-2029", "rockies-sept2029", "rockies-2029-09", "rockies_sept_2029", "rockies sept 2029", "rockies-septembre-2029", "dolomiten-juli-2027", "alpes-juillet-2027", "peru-agosto-2028", "rockies\u2011sept\u20112029", "rockies\u2013sept\u20132029", "rockies-09-2029", "2029-sept-rockies", "Rockies.Sept.2029", "rockies-feb-mar-2027", "mai-2029"]) {
+      expect(slugNamesMonthYear(bad), bad).toBe(true);
+    }
+    for (const good of ["niagara-day-2026", "vermont-fall-2026", "norway-summer-2028", "canadian-rockies-2029", "march-madness-trail-2026", "marco-polo-2028", "decor-2027", "utah-five-parks", "route-66-2027"]) {
+      expect(slugNamesMonthYear(good), good).toBe(false);
+    }
   });
 
   it("checks the folder name for files under data/trips/<slug>/trip.json", () => {

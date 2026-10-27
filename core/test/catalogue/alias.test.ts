@@ -47,9 +47,13 @@ function allRefs(): Set<string> {
       }
     }
   };
-  for (const d of ["data/capture", "data/suitability", "data/relevance", "data/catalogue/graph"]) {
+  // data/trips/** too (REF-REVIEW): the `trip/<folder>` keys of base-points.json and stop-refs.json, and the ref of every data trip
+  // (`data/trips/<id>/` is `trip/<id>`). When TD-3 creates `data/trips/canadian-rockies-2029/`, `trip/canadian-rockies-2029` meets the folder
+  // key `trip/canadian-rockies-sept-2029`, whose alias is the same string: the injectivity test then fails, which is the point.
+  for (const d of ["data/capture", "data/suitability", "data/relevance", "data/catalogue/graph", "data/trips"]) {
     for (const f of jsonFiles(join(ROOT, d))) visit(JSON.parse(readFileSync(f, "utf8")));
   }
+  for (const e of readdirSync(join(ROOT, "data/trips"), { withFileTypes: true })) if (e.isDirectory()) out.add(`trip/${e.name}`);
   return out;
 }
 
@@ -87,6 +91,15 @@ describe("publicRef and privateRef on the shapes refs take (4.1)", () => {
     ["Canadian-Rockies-Sept-2029", "canadian-rockies-2029"],
     ["legacy/patagonia-feb-mar-2027/x", "legacy/patagonia-2027/x"],
   ];
+  it("S2: reads the encodings the detector reads (%252F, %2D) and rewrites them instead of leaving a dated ref", () => {
+    for (const i of [`legacy%252F${F}%252Fsights`, "legacy%2Fcanadian%2Drockies%2Dsept%2D2029%2Fsights", "x?u=legacy%252Fcanadian%252Drockies%252Dsept%252D2029"]) {
+      const o = publicRef(i, TABLE);
+      expect(isDated(decodeURIComponent(decodeURIComponent(o))), i).toBe(false);
+      expect(isDated(o), i).toBe(false);
+      expect(publicRef(o, TABLE), i).toBe(o); // idempotent
+    }
+    expect(publicRef("a%20b%26c", TABLE)).toBe("a%20b%26c"); // no folder: untouched, not re-encoded
+  });
   it("replaces a pinned folder as a whole token, in every wrapper, encoded or in any case", () => {
     for (const [i, o] of cases) expect(publicRef(i, TABLE), i).toBe(o);
   });

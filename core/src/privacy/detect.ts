@@ -154,18 +154,28 @@ function isOriginValue(y: unknown, depth = 0): boolean {
 /** True when a pair of numbers is a point near home, in either order (lat, lon or lon, lat). */
 const pairNearHome = (a: number, b: number): boolean => nearHome(a, b) || nearHome(b, a);
 
-const ABS_URL = /\bhttps?:\/\/([^/\s"'<>?#\\]+)[^\s"'<>]*/gi;
+/**
+ * A link with an authority: `http(s)://host/...`, a protocol-relative `//host/...` and a scheme-less `www.host/...` (S1, review
+ * REF-REVIEW). The lookbehind keeps `a//b` in a path and `x.www.y` out of it.
+ */
+const ABS_URL = /(?:\bhttps?:\/\/|(?<![\w:/.%-])\/\/|(?<![\w.-])www\.)([^/\s"'<>?#\\]+)[^\s"'<>]*/gi;
 
 /** The host of a URL's authority, without user info or port, lower case. */
 const hostOf = (authority: string): string => authority.replace(/^[^@]*@/, "").replace(/:\d*$/, "").toLowerCase();
 
-/** A string with every absolute link to a host that is not ours removed (6.1). */
+/**
+ * A string with every link to a host that is not ours removed (6.1). A link to another host that WRAPS one of our hosts anywhere in its
+ * path or query (an archive.org snapshot, a redirect `?u=`) is kept, so the dated-folder rule reads the wrapped URL (S3). The text is
+ * expected decoded (hasDatedFolder does that first).
+ */
 export function withoutOtherHosts(text: string, ownHosts: readonly string[] = OWN_HOSTS): string {
-  if (!/https?:\/\//i.test(text)) return text;
+  if (!/https?:\/\/|\/\/|www\./i.test(text)) return text;
   const own = ownHosts.map((h) => h.toLowerCase());
   return text.replace(ABS_URL, (url, authority: string) => {
     const h = hostOf(authority);
-    return own.some((o) => h === o || h.endsWith(`.${o}`)) ? url : " ";
+    if (own.some((o) => h === o || h.endsWith(`.${o}`))) return url;
+    const low = url.toLowerCase();
+    return own.some((o) => low.includes(o)) ? url : " ";
   });
 }
 
@@ -190,7 +200,36 @@ export function hasDatedFolder(text: string, ownHosts: readonly string[] = OWN_H
     if (d === t) break;
     t = d;
   }
-  return DATED_FOLDER.test(withoutOtherHosts(t, ownHosts));
+  return datedHit(withoutOtherHosts(t, ownHosts));
+}
+
+/**
+ * Words before an ambiguous month that make the token plain English (`you-may-2020`, `we-march-2020`): the modal and the pronouns.
+ * Only a single `may` or `march` is ambiguous; every other month word (`sept`, `july`, `feb-mar`) is read wherever it stands.
+ */
+const PROSE_LEAD = new Set(["you", "we", "they", "he", "she", "it", "i", "who", "that", "which", "will", "can", "could", "might", "must", "should"]);
+const DATED_GLOBAL = new RegExp(DATED_FOLDER.source, "gi");
+const AMBIGUOUS_MONTH = /-(?:may|march?)-(?:19|20)\d\d$/i;
+
+/**
+ * True when the text holds a dated trip folder (S1). A match is an id when it stands in an id context (after `/`, `#`, `=`, or the whole
+ * string, or carries `legacy` or `trip`); an ambiguous single month (`may`, `march`) in free text, or after a pronoun or modal, is prose
+ * (`you-may-2020`, `covid-march-2020` in a sentence) and is left alone. Conservative: any other month word is always a hit.
+ */
+export function datedHit(text: string): boolean {
+  DATED_GLOBAL.lastIndex = 0;
+  for (const m of text.matchAll(DATED_GLOBAL)) {
+    const tok = m[0];
+    if (!AMBIGUOUS_MONTH.test(tok)) return true;
+    const words = tok.toLowerCase().split("-");
+    if (words.includes("legacy") || words[0] === "trip") return true;
+    if (words.some((w) => PROSE_LEAD.has(w))) continue;
+    const before = text[m.index! - 1];
+    const after = text[m.index! + tok.length];
+    const wholeString = text.trim() === tok;
+    if (wholeString || before === "/" || before === "#" || before === "=" || after === "/" || after === "#") return true;
+  }
+  return false;
 }
 
 /** Text and number pairs inside a string: an export body (GPX attributes, KML coordinates, CSV, the json model) is one string. */

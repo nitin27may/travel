@@ -16,6 +16,25 @@ const dayNumber = (iso: string): number => {
   return Date.UTC(y, m - 1, d) / 86400000;
 };
 
+/** Month words a trip id must not put next to a year (S4): English, with the short forms, and the common French, Spanish, Italian, German and Portuguese names. */
+const MONTH_WORDS_ANY = "jan|janv|january|janvier|januar|enero|gennaio|janeiro|feb|febr|february|fev|fevr|fevrier|februar|febrero|febbraio|fevereiro|mar|mars|march|marz|marzo|marco|apr|avr|april|avril|abril|aprile|may|mai|mayo|maggio|maio|jun|june|juin|juni|junio|giugno|junho|jul|july|juil|juillet|juli|julio|luglio|julho|aug|august|aout|agosto|sep|sept|september|septembre|septiembre|setiembre|settembre|setembro|oct|october|octobre|oktober|octubre|ottobre|outubro|nov|november|novembre|noviembre|novembro|dec|december|decembre|dezember|diciembre|dicembre|dezembro";
+const MONTH_YEAR_PATTERNS: RegExp[] = [
+  new RegExp(`(?:^|-)(?:${MONTH_WORDS_ANY})(?:-(?:${MONTH_WORDS_ANY}))?-?(?:19|20)\\d\\d(?!\\d)`), // sept-2029, sept2029, feb-mar-2027, a leading month
+  new RegExp(`(?:^|-)(?:19|20)\\d\\d-?(?:0[1-9]|1[0-2])(?![0-9])`), // 2029-09
+  new RegExp(`(?:^|-)(?:0[1-9]|1[0-2])-(?:19|20)\\d\\d(?!\\d)`), // 09-2029
+  new RegExp(`(?:^|-)(?:19|20)\\d\\d-?(?:${MONTH_WORDS_ANY})(?![a-z])`), // 2029-sept
+];
+
+/**
+ * True when a trip id puts a month next to a year in any spelling a person could type (S4, REF-REVIEW): underscores, spaces and dots read as
+ * hyphens, every Unicode dash (U+2011 and the rest), accents folded, a joined `sept2029`, a numeric `2029-09`, a month with no word before it,
+ * and the months of five other languages. Stricter than DATED_FOLDER_RE on purpose: a trip id is a new public id.
+ */
+export function slugNamesMonthYear(slug: string): boolean {
+  const t = slug.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[\p{Pd}\u2212_\s.]+/gu, "-");
+  return MONTH_YEAR_PATTERNS.some((re) => re.test(t));
+}
+
 export function shapeForNights(n: number): string {
   if (n <= 0) return "day-trip";
   if (n <= 2) return "weekend";
@@ -93,7 +112,7 @@ export function validateTrip(doc: unknown, ctx: Ctx, folder: string | null): voi
     err(ctx, "E_SLUG", "/trip/slug", `"${slug}" is a reserved name because it is also a page of the app. Pick another slug. Example: "${slug}-trip".`);
   }
   // a trip id is a public id: a month next to a year is private (public-ref-aliases 2, owner 27 Oct 2026); a year or a season is fine
-  if (DATED_FOLDER_RE.test(slug)) {
+  if (DATED_FOLDER_RE.test(slug) || slugNamesMonthYear(slug)) {
     err(ctx, "E_SLUG", "/trip/slug", `"${slug}" names a month and a year; a trip id is public, so it may carry the year or a season only. Example: "niagara-day-2026" or "vermont-fall-2026".`);
   }
   if (slug !== doc.id) {
