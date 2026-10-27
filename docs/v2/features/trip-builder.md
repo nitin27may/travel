@@ -1,5 +1,7 @@
 # Trip builder: build your own trip, from a country or from home
 
+> **Amended 27 Oct 2026 (TB-FLOW, [design/trip-builder/FLOW.md](../design/trip-builder/FLOW.md)):** the step lists of 2.1 and 2.2 are superseded by FLOW's nine stages (Kind, Start, Where, Pick, Days and driving, Build, Getting there, Customise, Review and prepare); bases sit inside Build; Review comes after Customise. QB1 to QB10 are decided as recommended with QB9 no (FLOW TF15; QB3 per FLOW F-Q1). The account table is one `plan_draft` table for copies and plans, made by renaming `planner_draft` in EM-M (FLOW TF12). Stage 7 (the editor) is one action layer for copies and plans, at `/t/<id>/` once task ED ships (FLOW TF9: amends ISO-1 and ISO-2, new extension point X10 `web/app/t/[id]/` mounting `web/components/plan/editor/**`). `plan-draft/1` gains optional `driveDayMin`, near-mode `where.regions` and top-level `notes` (TB-C2). Per-location data: [trip-builder-location-metadata.md](trip-builder-location-metadata.md).
+
 > **Amended 27 Oct 2026 (edit my trip, TRIP-EDIT-I; pending Q-EM1 and Q-EM2):** one document and one table for copies and plans. ISO-6 is superseded: copies and customised trips are `plan-draft/1` in template mode, stored with builder drafts in `planner_draft.doc` (the separate `plan_draft` table of QI1 and TB-SY is not created); builder routes refuse a template draft until "Open in the builder" converts it (ISO-7 kept, one way). `plan-draft/1` gains optional `template`, `start`, `travellers` and `party: "trip"` in task EM-C, which must land before FS-1 stores a draft. See [edit-my-trip.md](edit-my-trip.md) 2, 3, 6.
 
 Status: **spec, planned only** (27 Oct 2026, travel-planner, Opus). No app code, no new HTML. Owner request of 27 Oct
@@ -627,6 +629,8 @@ planning (MCP bundle H2 covers it); infinite scroll (P4 decision).
 
 ## 11. Owner questions (QB1 to QB10)
 
+**Decided 27 Oct 2026** (approved plan, Lane A; [FLOW.md](../design/trip-builder/FLOW.md) TF15): QB1, QB2, QB4 to QB8 and QB10 yes as recommended; **QB9 no**, with Q-DC5: our own T0 records only in a "Not researched yet" group, a pick files a request and never enters the engine. QB3: the owner's recorded answer "research later" (builder-dependency-map 7) is kept until confirmed (FLOW F-Q1). QI1: one table named `plan_draft` for copies and plans (FLOW TF12).
+
 | ID | Question | Recommended answer |
 |---|---|---|
 | QB1 | The builder is public with no sign-in, drafts on the device like Mine, synced after sign-in? (The 18 Oct direction said the planner is signed in, with guest planning "decided later".) | **Yes.** Mine already set the device-first rule; most visitors never sign in |
@@ -781,3 +785,4 @@ pnpm --dir web budget:report
   separate and independent: ten isolation rules, nine extension points, bundle sequencing, reviewer greps, QI1 to QI3.
   Supersedes the `store.ts` `plan*` methods (now `PlanService`) and the `doc_kind` column (now a `plan_draft` table).
   Checklist for current work: [build/builder-forward-compat.md](../build/builder-forward-compat.md). BACKLOG 15.343.
+- 2026-10-27: TB-FLOW (travel-planner, Opus): amendment note at the top; QB decisions recorded in section 11; the end-to-end flow, editor and copy journey in [FLOW.md](../design/trip-builder/FLOW.md); location metadata in [trip-builder-location-metadata.md](trip-builder-location-metadata.md). BACKLOG 15.353.

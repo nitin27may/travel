@@ -5,6 +5,139 @@ Grid: foundation tokens section 10 (12 columns, 32 px gutters, max content 1376;
 whole width: at every step after step 2, filters or the outline, the main list, the map and the tray or itinerary are on
 screen at once, so nothing needs a modal to compare (P3, P5).
 
+## Stage frames (TB-FLOW, 27 Oct 2026)
+
+The flow is [FLOW.md](FLOW.md). These frames replace D1, D2, D4, D6 and D7 below and extend D3, D5 and D8 (kept, under
+"Earlier frames"). TB-N's desktop decisions apply: the step rail shows all nine stages with done ones as links; the
+primary action sits at the right end of the rail; no drive-time rings; the map draws only what we hold (T5).
+
+| Old frame | New frame | Why |
+|---|---|---|
+| D1 | W0 Kind, W1 Start | kind first; from where, who, when (FLOW TF4) |
+| D2 | W2 Where | macro-region, then travel regions (TF5) |
+| D3 | W3 (D3 plus towns and the near strip) | TF6 |
+| D4 | W4 Days and driving with suggestions; bases move to W5 | TF1, TF7 |
+| D5 | W5 Build and WE editor | FLOW 7.1 |
+| D6, D7 | W6, W8 | Review after Customise (TF1) |
+| none | WC copy and Make it yours | FLOW 5 |
+
+## W0 and W1. Kind, then start (one screen on desktop)
+
+```
++----------------------------------------------------------------------------------------------------------------------+
+| Plan a trip   [0 Kind] 1 Start > 2 Where > 3 Pick > 4 Days > 5 Build > 6 Getting there > 7 Edit > 8 Review  [Next: Where] |
+|----------------------------------------------------------------------------------------------------------------------|
+| WHAT KIND OF TRIP?                                                |                                                  |
+| [Day trip] [Weekend 1-2] [Long wknd 3-4] [Week by car] [*Week by air*] [Longer 10-21]  |   [ globe: countries we   |
+|                                                                   |     hold, shaded by count;                       |
+| STARTING FROM  [ Toronto (YYZ)            v ]  Use my location    |     start point as a town ]                      |
+| WHO IS GOING   2 adults · 1 child (6)                      Edit   |                                                  |
+| WHEN?          (Next weekend)(A month v)(*July*)(Dates...)(Not sure)|                                                |
+|                                                                   |                                                  |
+| YOUR DRAFTS                         OR START FROM                 |                                                  |
+| Italy · 9 places · Build    Open    A place you saved             |                                                  |
+| Rockies (your copy) · 15 d  Open    One of our trips · Surprise me|                                                  |
++----------------------------------------------------------------------------------------------------------------------+
+```
+
+## W2. Where
+
+```
++----------------------------------------------------------------------------------------------------------------------+
+| Italy · July   0 Kind > 1 Start > [2 Where] > 3 Pick > ...                                              [Next: Pick] |
+|-------------------------------------------+--------------------------------------------------------------------------|
+| [ Italy                            x ]    |                                                                          |
+| (*Northern Italy 74*)(Central 2)          |   [ map: macro areas outlined; travel regions filled when ticked        |
+| (Southern Italy 3)(Islands 0)             |     (cased amber edge, TB-N I8); hover a row outlines its areas ]       |
+|                                           |                                                                          |
+| [x] Dolomites                      69     |                                                                          |
+|     Val Gardena, Cortina, Braies          |                                                                          |
+|     Fly into VCE, VRN · car needed        |   gateways and transport note (metadata M3, M5)                         |
+| [ ] Lake Garda          Thin: 3 places    |                                                                          |
+| [ ] Lombardy lakes  Not researched yet    |                                                                          |
+|     Ask us to research it                 |                                                                          |
+|-------------------------------------------|                                                                          |
+| 1 region · 69 places                      |                                                                          |
++-------------------------------------------+--------------------------------------------------------------------------+
+```
+
+Near mode: the left pane holds the reach control and the optional region chips of F2n; the map shows the start town and
+the places inside the reach as dots, never a ring.
+
+## W3. Pick (D3 with towns and the near strip)
+
+Four panes as D3. The list pane starts with **Towns and cities** (five rows, each with Pick and "Stay here"), then
+**Places**. The tray column shows each pick with its Must see star and, under the most recent pick, **Near what you
+picked** (six rows with drive ≈ and "+"); those rows are outlined pins on the map.
+
+## W4. Days and driving, with suggestions
+
+```
++----------------------------------------------------------------------------------------------------------------------+
+| Italy · Dolomites · 9 picks   ... > [4 Days] > 5 Build > ...                                           [Build my days] |
+|------------------------------------------+---------------------------------------------------------------------------|
+| Your 9 picks need about 6 days ≈         |                                                                           |
+| Nights     [ - ] 9 [ + ]                 |   [ map: picks as filled dots; suggestions as outlined dots; hover a      |
+| Driving per day  2 h | 3 h |*4 h*| 6 h   |     suggestion = the nearest pick and the minutes in a label ]            |
+| Pace       Relaxed |*Standard*| Full     |                                                                           |
+| Moves      *Fewer* | Balanced | Shorter  |                                                                           |
+| We plan by car.                          |                                                                           |
+|------------------------------------------|                                                                           |
+| ALSO WITHIN YOUR DRIVING (12)            |                                                                           |
+| Alpe di Siusi  35 min ≈ from Seceda  [+] |                                                                           |
+| Val di Funes   40 min ≈              [+] |                                                                           |
+| ...                                      |                                                                           |
++------------------------------------------+---------------------------------------------------------------------------+
+```
+
+## W5. Build result (bases, checks, days)
+
+D5's three panes with the outline headed by **Your bases** (A, B with nights steppers, Keep base, Swap town, why) and
+**Other ways** (D4's compare table moved here), and a **Checks** block at the foot of the outline: driving a day,
+moves, Book ahead, warnings, Did not fit, known costs. Settings from stage 4 collapse into one line above the day
+document ("9 nights · 4 h driving a day · Standard · Fewer moves · Change").
+
+## WE. The editor (stage 7)
+
+```
++----------------------------------------------------------------------------------------------------------------------+
+| [ph] Italy · 10 days · July · 2 adults, 1 child (6) · In your account      Undo Redo Rebuild Settings  [Review]      |
+|-------------------+---------------------------------------------------+----------------------------------------------|
+| A Ortisei 1-5     | Day 2 · A Ortisei · 1 h 10 driving ≈          ... |                                              |
+|  1 Arrive         | = 08:25 Seceda lift and ridge   2 h  [Locked]     |   [ map: day 2 stops numbered, route over     |
+|  2 Seceda  !      |         (Book ahead: lift slot by 1 Jun)          |     casing; other days faint ]                |
+|  3 Funes          |   drive 20 min ≈                                  |                                              |
+|  4 Siusi          | = 14:00 Alpe di Siusi walk      2 h               |                                              |
+|  5 Rest           |   ! Ends 40 min after sunset [Move to Day 3]      |                                              |
+| B Cortina 6-9     | + Add a place to Day 2   (fits-here list opens    |                                              |
+|  ...              |   in a side sheet; drag from the map works too)   |                                              |
+|-------------------| Add a note                                        |                                              |
+| Checks            |                                                   |                                              |
+| Did not fit (1)   |                                                   |                                              |
++-------------------+---------------------------------------------------+----------------------------------------------+
+```
+
+Interactions and keys: FLOW 7.1 (supersedes the "Desktop interactions" table below where they differ: `A` adds, `Shift+M`
+toggles Must see, `R` rebuilds with one confirm). Settings opens a 420 px side panel over the map with the stage's
+controls (W1, W2, W4 or W6 content); the day document stays visible.
+
+## W6 and W8. Getting there; Review and prepare
+
+W6 is D6 unchanged in layout, with the arrival airport from the travel region's gateway first (metadata M3). W8 replaces
+D7: the summary line, then Book ahead, Warnings, Did not fit, Known costs ("EUR 74 known; lodging, car, food and 4
+activities not priced"), "Check entry rules for Italy", and the actions with the kind's primary ("Keep in Mine" or
+"Add to calendar"), Copy link, Calendar, PDF, "Edit my plan".
+
+## WC. Copy and Make it yours
+
+The trip page's copy sheet (side sheet) ends with "Copy and make it mine". The copy opens in WE with a **Make it yours**
+side panel over the map (the five choices of C2), closable; afterwards a header button "Make it yours". The first engine
+action shows the C3 notice as an inline banner above the day with Continue and Cancel.
+
+## Earlier frames (27 Oct 2026, first pass)
+
+Superseded by the stage frames above except where a stage frame says it extends one.
+
 ## D1. Start (where, or near mode)
 
 ```

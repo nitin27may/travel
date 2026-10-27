@@ -1,5 +1,7 @@
 # Edit my trip: one editable trip, saved on the device and synced to the account
 
+> **Amended 27 Oct 2026 (TB-FLOW, [FLOW.md](../design/trip-builder/FLOW.md) TF9, TF10, TF12):** Q-EM1 yes. The one account table is named `plan_draft`: EM-M renames `planner_draft` and adds the columns of section 3 (+1 h). A copy opens in the editor with "Make it yours"; the first engine action converts it to a built draft **in place** with Undo (supersedes Q-EM11's "new draft"; FLOW F-Q3). EM-4 merges with TB-W3's editor half into task ED: one action layer `web/components/plan/editor/**`, mounted at `/t/<id>/` for copies and plans.
+
 Status: **spec, planned only** (27 Oct 2026, travel-planner, Opus, task TRIP-EDIT-I). No app code. Owner feedback of
 27 Oct 2026, two parts. TODO row of 27 Oct 2026; BACKLOG 15.349 to 15.352; owner questions Q-EM1 to Q-EM12 (section 11).
 
