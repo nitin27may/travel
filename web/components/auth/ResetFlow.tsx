@@ -6,7 +6,7 @@ import { ButtonLink } from '@/components/ui/Button';
 import { canonicalAddress } from '@travel/core/mail/address.ts';
 import { EMAIL_CODE, PASSWORD } from '@travel/core/config/auth-limits.ts';
 import { authProblem, COPY, resentMessage, type AuthProblem } from '@/lib/auth/auth-errors';
-import { DEFAULT_RETURN, returnPathFromSearch } from '@/lib/auth/return-path';
+import { DEFAULT_RETURN, linkKeepingNext, returnPathFromSearch } from '@/lib/auth/return-path';
 import { authCall } from './api';
 import { CodeStep } from './CodeStep';
 import { EmailStep } from './EmailStep';
@@ -176,9 +176,11 @@ export function ResetFlow({ siteKey }: { siteKey: string | null }) {
           onSubmit={(v) => void submitEmail(v)}
           onFirstFocus={prime}
           footer={
-            <p className="auth-alt">
-              Remembered it? <Link href="/sign-in/">Back to sign in</Link>
-            </p>
+            <div className="auth-foot">
+              <p className="auth-alt">
+                Remembered it? <Link href={linkKeepingNext('/sign-in/', window.location.search)}>Back to sign in</Link>
+              </p>
+            </div>
           }
         />
       ) : (

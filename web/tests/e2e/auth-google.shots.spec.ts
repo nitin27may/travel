@@ -35,6 +35,8 @@ interface State {
   overrides?: Record<string, Override>;
   init?: string;
   userAgent?: string;
+  /** Install Playwright's clock before loading (the start timeout, GSI-R S3). */
+  clock?: boolean;
   steps?: (page: Page) => Promise<void>;
 }
 
@@ -97,9 +99,45 @@ const STATES: State[] = [
       await p.locator('.auth-card .ban').waitFor();
     },
   },
+  {
+    name: 'g16-sign-in-too-many-codes',
+    path: '/sign-in/',
+    overrides: { 'email-otp/send-verification-otp': answer(429, { code: 'RATE_LIMITED' }, { 'retry-after': '900' }) },
+    steps: async (p) => {
+      await p.getByLabel('Email').fill('nitin@example.com');
+      await p.getByRole('button', { name: 'Continue', exact: true }).click();
+      await p.getByRole('button', { name: 'Email me a code' }).click();
+      await p.getByRole('button', { name: 'Use Google instead' }).waitFor();
+    },
+  },
+  {
+    name: 'g17-use-google-instead',
+    path: '/sign-up/',
+    overrides: { 'email-otp/send-verification-otp': answer(503, { code: 'SEND_FAILED' }) },
+    steps: async (p) => {
+      await p.getByLabel('Email').fill('nitin@example.com');
+      await p.getByRole('button', { name: 'Continue', exact: true }).click();
+      await p.getByRole('button', { name: 'Email me a code' }).click();
+      await p.getByRole('button', { name: 'Use Google instead' }).click();
+      await expect(google(p)).toBeFocused();
+    },
+  },
+  {
+    name: 'g18-start-timed-out',
+    path: '/sign-in/',
+    clock: true,
+    steps: async (p) => {
+      await p.route('**/api/auth/sign-in/social/', () => new Promise(() => {}));
+      await google(p).click();
+      await p.clock.fastForward(15_100);
+      await p.locator('.auth-card .ban').waitFor();
+    },
+  },
 ];
 
-for (const state of STATES) {
+const ONLY = process.env.AUTH_SHOTS_ONLY ? new RegExp(process.env.AUTH_SHOTS_ONLY) : null;
+
+for (const state of STATES.filter((st) => !ONLY || ONLY.test(st.name))) {
   for (const size of SIZES) {
     for (const theme of THEMES) {
       test(`${state.name} ${theme} ${size.width}`, async ({ browser }) => {
@@ -110,6 +148,7 @@ for (const state of STATES) {
         await page.route('https://accounts.google.com/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: '<h1>Google</h1>' }));
         await setTheme(page, theme);
         if (state.init) await page.addInitScript(state.init);
+        if (state.clock) await page.clock.install();
         await page.goto(`${site.url}${state.path}`);
         await google(page).waitFor();
         await page.evaluate(() => document.fonts.ready);

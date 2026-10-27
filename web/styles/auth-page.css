@@ -1,0 +1,50 @@
+/* The centred sign-in frame (GSI-UX; components 3.1 card surface, 2.1 links; tokens only, no colour values). Loaded by the sign-in,
+   sign-up and reset pages through AuthFrame, so no other page carries it. `.auth-screen .auth-page` outranks the shared
+   `.auth-page, .account-page` rule of account.css, which the account page keeps. The card inside (auth.css) draws no frame. */
+
+.auth-screen {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: var(--s-4);
+  padding-top: clamp(var(--s-5), 7vh, var(--s-12));
+}
+
+.auth-screen .auth-page {
+  width: 100%;
+  max-width: 28rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-6);
+  padding: var(--s-6) var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  background: var(--surface);
+}
+@media (min-width: 640px) {
+  .auth-screen .auth-page { padding: var(--s-8); }
+}
+
+.auth-screen .auth-head { display: grid; gap: var(--s-2); text-align: center; }
+.auth-screen .auth-head h1 { font: var(--t-section); text-transform: uppercase; letter-spacing: 0.01em; color: var(--ink); }
+.auth-screen .auth-sub { margin: 0 auto; max-width: 34ch; color: var(--ink-2); font: var(--t-body); text-wrap: balance; }
+
+/* Privacy and terms under the panel: quiet mono links with a 44 px target (padding out, the same margin back in). */
+.auth-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0 var(--s-2);
+  font: var(--t-meta);
+  color: var(--muted);
+}
+.auth-legal a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  padding: 0 var(--s-1);
+  color: var(--muted);
+  text-underline-offset: 3px;
+}
+.auth-legal a:hover { color: var(--ink); }

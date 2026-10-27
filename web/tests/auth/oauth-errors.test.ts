@@ -28,8 +28,9 @@ describe('GOOGLE_COPY: the exact words of strings 1 to 22', () => {
     expect(GOOGLE_COPY[key]).toBe(text);
   });
 
-  it('string 9 (cookies) and 12 (offline) are the card-wide copy', () => {
-    expect(COPY.cookiesOff).toBe('Your browser is blocking cookies for this site. Sign-in needs them to keep you signed in.');
+  it('string 9 (cookies, as GSI-R S4 words it: what happened, then what to do) and 12 (offline) are the card-wide copy', () => {
+    expect(COPY.cookiesOff).toBe('Your browser is blocking cookies for this site. Sign-in needs them. Allow cookies for this site, then reload this page.');
+    expect(COPY.cookiesOff.length).toBeLessThanOrEqual(120);
     expect(COPY.offline).toBe("You're offline. Sign-in needs a connection.");
   });
 

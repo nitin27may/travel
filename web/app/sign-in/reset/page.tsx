@@ -1,3 +1,4 @@
+import { AuthFrame } from '@/components/auth/AuthFrame';
 import { ButtonLink } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import { ResetFlowLazy } from '@/components/auth/AuthLazy';
@@ -28,12 +29,8 @@ export default function ResetPassword() {
     );
   }
   return (
-    <div className="auth-page">
-      <header className="auth-head">
-        <h1>Reset your password</h1>
-        <p className="auth-sub">We email you a code, then you choose a new password. Your trip drafts stay as they are.</p>
-      </header>
+    <AuthFrame title="Reset your password" sub="We email you a code, then you choose a new password. Your trip drafts stay as they are.">
       <ResetFlowLazy siteKey={turnstileSiteKey} />
-    </div>
+    </AuthFrame>
   );
 }

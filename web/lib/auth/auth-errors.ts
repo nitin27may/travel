@@ -41,6 +41,8 @@ export interface AuthProblem {
   clearCode?: boolean;
   /** The code is dead (`TOO_MANY_ATTEMPTS` or `OTP_EXPIRED`): the field locks until a new one is sent (review M4). */
   deadCode?: string;
+  /** The message offers Google as the way out (strings 52 to 55): the banner carries "Use Google instead" back to step 1 (GSI-R S1). */
+  google?: boolean;
 }
 
 export const COPY = {
@@ -52,8 +54,12 @@ export const COPY = {
   /** Google copy page 54 and 55: the same, with Google on (sign-in, sign-up). */
   sendFailedOrGoogle: "We couldn't send the email. Try again shortly, or use your password or Google.",
   sendFailedOnlyGoogle: "We couldn't send the email. Try again shortly, or use Google.",
-  /** Google copy page 9: `navigator.cookieEnabled === false`, every method. */
-  cookiesOff: 'Your browser is blocking cookies for this site. Sign-in needs them to keep you signed in.',
+  /** Google copy page 9, as GSI-R S4 words it (what happened, then what to do): `navigator.cookieEnabled === false`, every method. */
+  cookiesOff: 'Your browser is blocking cookies for this site. Sign-in needs them. Allow cookies for this site, then reload this page.',
+  /** The text button on a banner that offers Google (strings 52 to 55; GSI-R S1): back to step 1, focus on the Google button. */
+  useGoogle: 'Use Google instead',
+  /** Under Continue on step 1 when the code option is on (GSI-UX): what the next step offers, so the one field is not a dead end. */
+  nextSteps: 'Next, choose a code we email you or a password.',
   badEmail: 'Enter an email address, like name@example.com.',
   wrongCode: "That code didn't work. Check it, or send a new one.",
   tooManyTries: 'Too many tries. Send a new code.',
@@ -127,11 +133,14 @@ export function authProblem(answer: AuthAnswer, action: AuthAction, ctx: Problem
   if (status >= 200 && status < 300) return null;
   const banner = (message: string, tone: AuthProblem['tone'] = 'notice'): AuthProblem => ({ where: 'banner', tone, message });
   if (status === 0) return code === 'OFFLINE' ? banner(COPY.offline, 'offline') : banner(COPY.service);
-  if (status === 429) return banner(tooMany(action, answer.retryAfterS, codeOn, page, googleOn), 'urgent');
+  if (status === 429) {
+    const message = tooMany(action, answer.retryAfterS, codeOn, page, googleOn);
+    return { ...banner(message, 'urgent'), ...(googleOn && message.endsWith('Google.') ? { google: true } : {}) };
+  }
   if (code === 'TURNSTILE_FAILED' || code === 'TURNSTILE_UNAVAILABLE') return banner(COPY.browserCheck);
   if (code === 'SEND_FAILED' || code === 'SEND_UNAVAILABLE') {
-    if (page === 'sign-in') return banner(googleOn ? COPY.sendFailedOrGoogle : COPY.sendFailed);
-    return banner(page === 'sign-up' && googleOn ? COPY.sendFailedOnlyGoogle : COPY.sendFailedNoAlternative);
+    if (googleOn) return { ...banner(page === 'sign-in' ? COPY.sendFailedOrGoogle : COPY.sendFailedOnlyGoogle), google: true };
+    return banner(page === 'sign-in' ? COPY.sendFailed : COPY.sendFailedNoAlternative);
   }
   if (code === 'INVALID_EMAIL') return { where: 'field', field: 'email', tone: 'urgent', message: COPY.badEmail };
   if (code === 'INVALID_OTP') return { where: 'field', field: 'code', tone: 'urgent', message: COPY.wrongCode };

@@ -168,7 +168,8 @@ test('says when sending fails, on the sign-in page with the password as the way 
     'Sign-in is unavailable right now. Try again shortly.',
   ]) {
     await send.click();
-    await expect(page.locator('.auth-card .ban')).toHaveText(text);
+    // A banner that offers Google carries "Use Google instead" under its words (GSI-R S1); the words read out are the same.
+    await expect(page.locator('.auth-card .ban')).toHaveText(text.endsWith('Google.') ? `${text}Use Google instead` : text);
     // Notices are read through the one live region, not a status node that arrives full (review M2).
     await expect(live(page)).toHaveText(text);
   }
@@ -198,7 +199,7 @@ test('a long wait reads in minutes, and editing the address drops it', async ({ 
   await mockAuth(page, { 'email-otp/send-verification-otp': (b) => (b.email === 'nitin@example.com' ? { status: 429, body: { code: 'RATE_LIMITED' }, headers: { 'retry-after': '900' } } : undefined) });
   await toChooser(page);
   await page.getByRole('button', { name: 'Email me a code' }).click();
-  await expect(page.locator('.auth-card').getByRole('alert')).toHaveText("You've asked for several codes. Wait 15 minutes, or use your password or Google."); // Google copy page 52
+  await expect(page.locator('.auth-card').getByRole('alert')).toHaveText("You've asked for several codes. Wait 15 minutes, or use your password or Google.Use Google instead"); // Google copy page 52, and GSI-R S1
   await expect(page.getByRole('button', { name: /^Email me a code \(in 1[45] min\)$/ })).toBeDisabled();
   await page.getByRole('button', { name: 'Change email address' }).click();
   await page.getByLabel('Email').fill('other@example.com');

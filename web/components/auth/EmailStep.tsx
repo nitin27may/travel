@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useId, useRef, type ReactNode } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Field, Input } from '@/components/ui/Input';
 import type { AuthProblem } from '@/lib/auth/auth-errors';
@@ -20,12 +20,15 @@ interface Props {
   onSubmit: (email: string) => void;
   /** First focus of the field: start loading Turnstile (spec 3.4). */
   onFirstFocus: () => void;
+  /** A muted line under the submit that says what comes next (GSI-UX); it describes the submit button. */
+  hint?: string;
   footer?: ReactNode;
 }
 
 /** Step 1: the email only. Nothing is sent and nothing about the address is revealed here (spec 3.1). */
-export function EmailStep({ email, problem, focus, pending, submitLabel = 'Continue', submitDisabled, onEdit, onSubmit, onFirstFocus, footer }: Props) {
+export function EmailStep({ email, problem, focus, pending, submitLabel = 'Continue', submitDisabled, onEdit, onSubmit, onFirstFocus, hint, footer }: Props) {
   const ref = useRef<HTMLInputElement>(null);
+  const hintId = useId();
   useEffect(() => {
     if (focus) ref.current?.focus();
   }, [focus]);
@@ -60,10 +63,15 @@ export function EmailStep({ email, problem, focus, pending, submitLabel = 'Conti
         )}
       </Field>
       <div className="auth-actions">
-        <Button type="submit" variant="primary" loading={pending} disabled={submitDisabled}>
+        <Button type="submit" variant="primary" loading={pending} disabled={submitDisabled} aria-describedby={hint ? hintId : undefined}>
           {submitLabel}
         </Button>
       </div>
+      {hint ? (
+        <p className="auth-help auth-next" id={hintId}>
+          {hint}
+        </p>
+      ) : null}
       {footer}
     </form>
   );

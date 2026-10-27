@@ -18,7 +18,7 @@ test.afterAll(() => site?.stop());
 const GOOGLE = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=test&scope=openid%20email%20profile&state=s1&code_challenge=c1&code_challenge_method=S256';
 const S = {
   consent: 'Google shares your name, email address and profile photo link with us. Never your password or contacts.',
-  cookies: 'Your browser is blocking cookies for this site. Sign-in needs them to keep you signed in.',
+  cookies: 'Your browser is blocking cookies for this site. Sign-in needs them. Allow cookies for this site, then reload this page.',
   inApp: "Google doesn't allow sign-in inside this app's browser. Open this page in Safari or Chrome, or use your email below.",
   offline: "You're offline. Sign-in needs a connection.",
   startFailed: "We couldn't open Google. Try again, or use your email below.",
@@ -170,6 +170,24 @@ test.describe('the press (strings 10 to 14)', () => {
     expect(calls.find((c) => c.path === 'sign-in/social')?.turnstile).toBeNull();
   });
 
+  test('a start that never answers ends after 15 s with string 13, the button ready and the email way open (GSI-R S3)', async ({ page }) => {
+    await page.clock.install();
+    await mockAuth(page);
+    await page.route('**/api/auth/sign-in/social/', () => new Promise(() => {})); // held, as hotel wifi does
+    await page.goto(`${site.url}/sign-in/`);
+    await google(page).click();
+    await expect(google(page)).toHaveAttribute('aria-busy', 'true');
+    await expect(page.getByLabel('Email')).toBeDisabled();
+    await page.clock.fastForward(14_000);
+    await expect(google(page)).toHaveAttribute('aria-busy', 'true');
+    await page.clock.fastForward(1_100);
+    await expect(banner(page)).toHaveText(S.startFailed);
+    await expect(live(page)).toHaveText(S.startFailed);
+    await expect(google(page)).not.toHaveAttribute('aria-busy', 'true');
+    await expect(page.getByLabel('Email')).toBeEnabled();
+    expect(await page.evaluate(() => sessionStorage.getItem('auth.googlePending'))).toBeNull();
+  });
+
   test('offline: string 12, and no call', async ({ page, context }) => {
     const calls = await mockAuth(page);
     await page.goto(`${site.url}/sign-in/`);
@@ -278,6 +296,100 @@ test.describe('back on the card from Neon (strings 15 to 22)', () => {
     await page.goto(`${site.url}/sign-in/`);
     await expect(google(page)).toBeVisible();
     await expect(banner(page)).toHaveCount(0);
+  });
+});
+
+test.describe('"Use Google instead" on the banners that offer Google (strings 52 to 55, GSI-R S1)', () => {
+  const cases: [string, string, Record<string, Override>, string, (p: Page) => Promise<void>][] = [
+    ['sign-up, the code send failed (55)', '/sign-up/', { 'email-otp/send-verification-otp': social({ status: 503, body: { code: 'SEND_FAILED' } }) }, "We couldn't send the email. Try again shortly, or use Google.", async () => {}],
+    ['sign-in, too many codes (52)', '/sign-in/', { 'email-otp/send-verification-otp': social({ status: 429, body: { code: 'RATE_LIMITED' }, headers: { 'retry-after': '900' } }) }, "You've asked for several codes. Wait 15 minutes, or use your password or Google.", async () => {}],
+  ];
+  for (const [name, path, overrides, text] of cases) {
+    test(`${name}: the banner keeps its words and carries the button back to step 1, focus on Google`, async ({ page }) => {
+      await mockAuth(page, overrides);
+      await page.goto(`${site.url}${path}`);
+      await page.getByLabel('Email').fill('nitin@example.com');
+      await page.getByRole('button', { name: 'Continue', exact: true }).click();
+      await page.getByRole('button', { name: 'Email me a code' }).click();
+      const ban = page.locator('.auth-card .ban');
+      await expect(ban.locator('.ban-text')).toContainText(text);
+      const back = ban.getByRole('button', { name: 'Use Google instead' });
+      await expect(back).toBeVisible();
+      expect((await back.boundingBox())!.height).toBeGreaterThanOrEqual(43.9);
+      await back.click();
+      await expect(google(page)).toBeFocused();
+      await expect(page.locator('.auth-card .ban')).toHaveCount(0);
+      // The address typed before stays in the field.
+      await expect(page.getByLabel('Email')).toHaveValue('nitin@example.com');
+    });
+  }
+
+  test('a banner without Google in its words has no such button', async ({ page }) => {
+    await mockAuth(page, { 'email-otp/send-verification-otp': social({ status: 403, body: { code: 'TURNSTILE_FAILED' } }) });
+    await page.goto(`${site.url}/sign-in/`);
+    await page.getByLabel('Email').fill('nitin@example.com');
+    await page.getByRole('button', { name: 'Continue', exact: true }).click();
+    await page.getByRole('button', { name: 'Email me a code' }).click();
+    await expect(page.locator('.auth-card .ban')).toHaveText("We couldn't confirm this browser. Please try again.");
+    await expect(page.getByRole('button', { name: 'Use Google instead' })).toHaveCount(0);
+  });
+});
+
+test.describe('the centred frame (GSI-UX)', () => {
+  for (const width of [1440, 390, 320]) {
+    test(`at ${width}: one panel centred on the page, the title inside it, privacy and terms under it`, async ({ browser }) => {
+      const context = await browser.newContext({ viewport: { width, height: 900 } });
+      const page = await context.newPage();
+      await page.route((url) => !/^(127\.0\.0\.1|localhost)$/.test(url.hostname), (route) => route.abort());
+      await mockAuth(page);
+      for (const path of ['/sign-in/', '/sign-up/', '/sign-in/reset/']) {
+        await page.goto(`${site.url}${path}`);
+        await page.locator('.auth-card').waitFor();
+        const panel = (await page.locator('.auth-page').boundingBox())!;
+        expect(Math.abs(panel.x + panel.width / 2 - width / 2), path).toBeLessThan(2);
+        const h1 = (await page.locator('.auth-head h1').boundingBox())!;
+        expect(h1.y).toBeGreaterThan(panel.y);
+        expect(Math.abs(h1.x + h1.width / 2 - width / 2)).toBeLessThan(2);
+        const card = (await page.locator('.auth-card').boundingBox())!;
+        expect(card.y + card.height).toBeLessThanOrEqual(panel.y + panel.height);
+        const legal = page.getByRole('navigation', { name: 'Privacy and terms' });
+        await expect(legal.getByRole('link', { name: 'Privacy' })).toHaveAttribute('href', '/privacy/#accounts');
+        await expect(legal.getByRole('link', { name: 'Terms and copyright' })).toHaveAttribute('href', '/terms/');
+        expect((await legal.boundingBox())!.y).toBeGreaterThan(panel.y + panel.height);
+        expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+      }
+      await context.close();
+    });
+  }
+
+  test('sign-in step 1: what comes next, "Forgot password?" and "Create an account", each keeping next', async ({ page }) => {
+    await mockAuth(page);
+    await page.goto(`${site.url}/sign-in/?next=%2Fmine%2F`);
+    const cont = page.getByRole('button', { name: 'Continue', exact: true });
+    await expect(page.locator('.auth-next')).toHaveText('Next, choose a code we email you or a password.');
+    expect(await cont.getAttribute('aria-describedby')).toBe(await page.locator('.auth-next').getAttribute('id'));
+    await expect(page.getByRole('link', { name: 'Forgot password?' })).toHaveAttribute('href', '/sign-in/reset/?next=%2Fmine%2F');
+    await expect(page.getByRole('link', { name: 'Create an account' })).toHaveAttribute('href', '/sign-up/?next=%2Fmine%2F');
+    // The address typed so far goes with "Forgot password?" to the reset page.
+    await page.getByLabel('Email').fill('Nitin@Example.com');
+    await page.getByRole('link', { name: 'Forgot password?' }).click();
+    await page.waitForURL(`${site.url}/sign-in/reset/?next=%2Fmine%2F`);
+    await expect(page.getByLabel('Email')).toHaveValue('nitin@example.com');
+    await expect(page.getByRole('link', { name: 'Back to sign in' })).toHaveAttribute('href', '/sign-in/?next=%2Fmine%2F');
+  });
+
+  test('sign-up step 1: "Sign in" keeps next, and there is no "Forgot password?"', async ({ page }) => {
+    await mockAuth(page);
+    await page.goto(`${site.url}/sign-up/?next=%2Fplaces%2Flake-louise%2F`);
+    await expect(page.locator('.auth-card').getByRole('link', { name: 'Sign in', exact: true })).toHaveAttribute('href', '/sign-in/?next=%2Fplaces%2Flake-louise%2F');
+    await expect(page.locator('.auth-card').getByRole('link', { name: 'Forgot password?' })).toHaveCount(0);
+  });
+
+  test('a hostile next is never carried into the links', async ({ page }) => {
+    await mockAuth(page);
+    await page.goto(`${site.url}/sign-in/?next=https%3A%2F%2Fevil.example%2F`);
+    await expect(page.getByRole('link', { name: 'Create an account' })).toHaveAttribute('href', '/sign-up/');
+    await expect(page.getByRole('link', { name: 'Forgot password?' })).toHaveAttribute('href', '/sign-in/reset/');
   });
 });
 

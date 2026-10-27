@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_RETURN, returnPath, returnPathFromSearch } from '@/lib/auth/return-path';
+import { DEFAULT_RETURN, linkKeepingNext, returnPath, returnPathFromSearch } from '@/lib/auth/return-path';
 
 describe('returnPath (Google spec 7.4)', () => {
   it.each([
@@ -83,5 +83,22 @@ describe('returnPath (Google spec 7.4)', () => {
     expect(returnPathFromSearch('?next=https%3A%2F%2Fevil.example')).toBe(DEFAULT_RETURN);
     expect(returnPathFromSearch('')).toBe(DEFAULT_RETURN);
     expect(returnPathFromSearch('?other=1')).toBe(DEFAULT_RETURN);
+  });
+});
+
+describe('linkKeepingNext (links between the sign-in pages, GSI-UX)', () => {
+  it('keeps a checked next, encoded', () => {
+    expect(linkKeepingNext('/sign-up/', '?next=%2Fplaces%2Fx%2F')).toBe('/sign-up/?next=%2Fplaces%2Fx%2F');
+    expect(linkKeepingNext('/sign-in/reset/', '?next=/mine/')).toBe('/sign-in/reset/?next=%2Fmine%2F');
+  });
+  it('adds nothing when next is absent, refused or the default', () => {
+    expect(linkKeepingNext('/sign-in/', '')).toBe('/sign-in/');
+    expect(linkKeepingNext('/sign-in/', '?other=1')).toBe('/sign-in/');
+    expect(linkKeepingNext('/sign-in/', '?next=https%3A%2F%2Fevil.example')).toBe('/sign-in/');
+    expect(linkKeepingNext('/sign-in/', '?next=%2F%2Fevil.example')).toBe('/sign-in/');
+    expect(linkKeepingNext('/sign-in/', '?next=%2Faccount%2F')).toBe('/sign-in/');
+  });
+  it('never echoes a refused value', () => {
+    expect(linkKeepingNext('/sign-up/', '?next=javascript%3Aalert(1)')).not.toContain('javascript');
   });
 });

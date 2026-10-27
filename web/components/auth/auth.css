@@ -1,16 +1,10 @@
 /* The sign-in card (email spec 3; components 2.1, 2.2, 5.4). Tokens only, no colour values. Loaded with the lazy card chunk, so
-   pages without the card never download it. Mobile first: one column, 44 px targets, inputs 16 px. */
+   pages without the card never download it. Mobile first: one column, 44 px targets, inputs 16 px. The frame (surface, line,
+   radius, padding) is the page's centred panel (AuthFrame, styles/auth-page.css, GSI-UX); the card is its content only. */
 
 .auth-card {
   width: 100%;
-  max-width: 420px;
-  padding: var(--s-5);
-  border: 1px solid var(--line);
-  border-radius: var(--r-4);
-  background: var(--surface);
-}
-@media (min-width: 640px) {
-  .auth-card { padding: var(--s-6); }
+  min-width: 0;
 }
 
 .auth-step {
@@ -34,6 +28,7 @@
 .auth-step-title {
   font: var(--t-title);
   color: var(--ink);
+  text-align: center;
 }
 .auth-step-title:focus { outline: none; }
 .auth-step-title:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
@@ -74,7 +69,26 @@
 .auth-choices .btn { width: 100%; min-height: var(--touch-min); }
 .auth-choices { display: grid; gap: var(--s-3); }
 
-.auth-alt-actions { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); margin-top: calc(-1 * var(--s-2)); }
+.auth-alt-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-1) var(--s-6); margin-top: calc(-1 * var(--s-2)); }
+
+/* Step 1's way on (GSI-UX): the next-steps line under Continue, then "Forgot password?", then a hairline and the other page's line. */
+.auth-next { margin-top: calc(-1 * var(--s-2)); text-align: center; }
+.auth-foot { display: grid; justify-items: center; gap: var(--s-3); text-align: center; }
+.auth-forgot { display: flex; justify-content: center; margin-top: calc(-1 * var(--s-2)); }
+.auth-foot .auth-alt { width: 100%; padding-top: var(--s-4); border-top: 1px solid var(--line); }
+.auth-foot .auth-alt a {
+  display: inline-block;
+  padding-block: calc((var(--touch-min) - 1lh) / 2);
+  margin-block: calc((1lh - var(--touch-min)) / 2);
+  color: var(--accent-text);
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+.auth-foot .auth-alt a:hover { color: var(--ink); }
+
+/* "Use Google instead" inside a banner (GSI-R S1): its own line under the words, in the banner's own colour (contrast as the text). */
+.auth-ban-action { display: flex; margin-top: var(--s-1); }
+.ban .auth-ban-action .auth-link { margin: 0 0 0 calc(-1 * var(--s-2)); min-height: var(--touch-min); color: inherit; }
 
 /* Text actions: Change, Forgot password?, Send a new code. 44 px tall, accent text, never a fill. */
 .auth-link {
@@ -134,8 +148,9 @@
   cursor: pointer;
   transition: box-shadow var(--d-fast) var(--e-std), transform var(--d-fast) var(--e-std);
 }
+/* 46 px on phones, never below the 44 px touch target from 640 px (GSI-R S2): it matches Continue under it. */
 @media (min-width: 640px) {
-  .auth-google { min-height: 42px; }
+  .auth-google { min-height: var(--touch-min); }
 }
 .auth-google:hover { box-shadow: 0 0 0 1px var(--brand-google-stroke); }
 .auth-google:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }

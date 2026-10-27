@@ -8,7 +8,7 @@ import { PrivacyBody } from '@/app/privacy/PrivacyBody';
 import { sitemapInput } from '@/lib/sitemap';
 import { WEB } from '../helpers/built';
 
-const render = (google: boolean) => renderToStaticMarkup(createElement(PrivacyBody, { google }));
+const render = (google: boolean, googleSignIn = false) => renderToStaticMarkup(createElement(PrivacyBody, { google, googleSignIn }));
 const strip = (h: string) => h.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').replace(/\u2019/g, "'");
 const html = render(false);
 const text = strip(html);
@@ -24,7 +24,7 @@ describe('the privacy page (GSI-P)', () => {
     for (const t of [
       'Cloudflare Web Analytics', 'sets no cookies', 'which site linked to them', 'country, browser, operating system and kind of device', 'It runs only on the live site',
       'Reading the site sets no cookies', 'Signing in sets cookies', 'Vercel', 'request logs', 'deletes them after a limited time', 'Neon', 'trip drafts you save',
-      'your name if you give one', 'scrambled form', 'Turnstile',
+      'your name if you give one', 'your password, if you set one, in a scrambled form', 'Turnstile',
       'Resend only to send alerts to the site owner', 'The pages hold no household data', 'Removing your account', 'Last changed 27 October 2026',
     ]) expect(text, t).toContain(t);
     expect(text).toContain('email nitin27may@gmail.com');
@@ -51,6 +51,33 @@ describe('the privacy page (GSI-P)', () => {
     const on = render(true);
     expect(strip(on)).toContain('Trip maps use Google Maps');
     expect(on).toContain('href="https://policies.google.com/privacy"');
+  });
+
+  it('"What we keep" lands on the Accounts heading (copy page 63)', () => {
+    expect(html).toContain('<h2 id="accounts">Accounts</h2>');
+  });
+
+  it('lists the sign-in notes kept on this device, never a password, a code or (in storage) an address beyond the reset hand-off', () => {
+    for (const t of ['auth.lastMethod', 'auth.resetEmail', 'never your address', 'never a password or a code', 'when you close the tab']) expect(text, t).toContain(t);
+    expect(text).not.toContain('auth.google');
+  });
+
+  it('with Continue with Google on: what Google sends, what we keep, and how to stop it (copy page 59 to 62, GSI-R M1)', () => {
+    const on = render(false, true);
+    const t = strip(on);
+    expect(t).toContain(
+      'If you use Continue with Google, Google tells us your name, your email address, whether Google has confirmed it, and a link to your Google profile photo. We keep them with your account. We do not show your name on any page and we do not use the photo. We never see your Google password, contacts, calendar or files, and we ask Google for nothing else.',
+    );
+    expect(t).toContain('To stop Google sharing your details with us, remove Trip Plans at myaccount.google.com/permissions (opens in a new tab) . That does not delete your account here; see "Removing your account" below.'.replace(/"/g, '\u201c').replace('\u201cRemoving your account\u201c', '\u201cRemoving your account\u201d'));
+    expect(on).toContain('href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer"');
+    for (const k of ['auth.lastMethod', 'auth.resetEmail', 'auth.googlePending', 'auth.googleBefore', 'an emailed code, a password or Google']) expect(t, k).toContain(k);
+    // String 61 (Neon keeps Google's tokens) waits for U6.
+    expect(t).not.toContain('sign-in tokens');
+    expect(on).toContain('<h2 id="accounts">Accounts</h2>');
+  });
+
+  it('the privacy page passes the Google sign-in flag through', () => {
+    expect(readFileSync(path.join(WEB, 'app', 'privacy', 'page.tsx'), 'utf8')).toContain('googleSignIn={authFlags.signInGoogle}');
   });
 
   it('does not claim owner approval', () => {

@@ -1,13 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { canonicalAddress } from '@travel/core/mail/address.ts';
 import { EMAIL_CODE, PASSWORD } from '@travel/core/config/auth-limits.ts';
 import { authProblem, COPY, resentMessage, type AuthAction, type AuthProblem } from '@/lib/auth/auth-errors';
-import { didNotFinish, googleAuthorizeUrl, googleStartBody, inAppBrowser, pendingFresh, readReturn } from '@/lib/auth/google';
+import { didNotFinish, GOOGLE_START_TIMEOUT_MS, googleAuthorizeUrl, googleStartBody, inAppBrowser, pendingFresh, readReturn } from '@/lib/auth/google';
 import { GOOGLE_COPY, googleReturnNotice, googleStartNotice, type GoogleNotice } from '@/lib/auth/oauth-errors';
-import { returnPathFromSearch } from '@/lib/auth/return-path';
+import { linkKeepingNext, returnPathFromSearch } from '@/lib/auth/return-path';
 import { authCall, type AuthReply } from './api';
 import { ChooserStep } from './ChooserStep';
 import { CodeStep } from './CodeStep';
@@ -15,7 +15,7 @@ import { EmailStep } from './EmailStep';
 import { GoogleStart } from './GoogleButton';
 import { useAnnouncer, useCountdown } from './live';
 import { clearGooglePending, handOffEmail, lastMethod, markGooglePending, peekGooglePending, rememberMethod, undoGooglePress, type Method } from './memory';
-import { CardBanner } from './parts';
+import { CardBanner, UseGoogleContext } from './parts';
 import { PasswordStep } from './PasswordStep';
 import { useTurnstile } from './TurnstileLazy';
 import './auth.css';
@@ -95,6 +95,8 @@ export function SignInCard({ mode, codeOn, googleOn = false, siteKey }: SignInCa
   const [notice, setNotice] = useState<string | null>(null);
   const [challenged, setChallenged] = useState(false);
   const [moved, setMoved] = useState(false);
+  // "Use Google instead" (GSI-R S1): back on step 1, focus goes to the Google button rather than into the email field.
+  const [toGoogle, setToGoogle] = useState(false);
   // The card renders only in the browser (no server render), so storage is readable on the first render. The return from Google is
   // read first: a press that came back here did not sign in, so the way in remembered before it is put back (GSI-2) before `last`.
   const [returned] = useState(() => {
@@ -172,7 +174,8 @@ export function SignInCard({ mode, codeOn, googleOn = false, siteKey }: SignInCa
     }
     setGoogleBusy(true);
     announce(GOOGLE_COPY.opening);
-    const reply = await authCall('sign-in/social', googleStartBody(page, new URLSearchParams(window.location.search).get('next')));
+    // A start that never answers ends after GOOGLE_START_TIMEOUT_MS with string 13, so the email way opens again (GSI-R S3).
+    const reply = await authCall('sign-in/social', googleStartBody(page, new URLSearchParams(window.location.search).get('next')), null, { timeoutMs: GOOGLE_START_TIMEOUT_MS });
     const url = reply.status === 200 ? googleAuthorizeUrl(reply.body) : null;
     if (!url) {
       setGoogleBusy(false);
@@ -195,7 +198,21 @@ export function SignInCard({ mode, codeOn, googleOn = false, siteKey }: SignInCa
     setProblem(null);
     setNotice(null);
     setMoved(true);
+    setToGoogle(false);
     setStep(next);
+  };
+
+  /** "Use Google instead" on a banner of steps 2 and 3 (strings 52 to 55): step 1, focus on the Google button. */
+  const backToGoogle = () => {
+    go('email');
+    setToGoogle(true);
+  };
+
+  /** "Forgot password?" on step 1: hand the address typed so far (if any) to the reset page, as the password step does. */
+  const forgotFromEmail = (e: MouseEvent<HTMLAnchorElement>) => {
+    const field = e.currentTarget.closest('form')?.querySelector<HTMLInputElement>('input[name="email"]');
+    const typed = canonicalAddress(field?.value ?? '');
+    if (typed) handOffEmail(typed);
   };
 
   const fail = (reply: AuthReply, action: AuthAction): void => {
@@ -316,36 +333,51 @@ export function SignInCard({ mode, codeOn, googleOn = false, siteKey }: SignInCa
     if (problem) setProblem(null);
   };
 
+  // Links between the sign-in pages keep the checked `next`, so switching page still returns where the person started.
+  const search = window.location.search;
+  const signUpHref = linkKeepingNext('/sign-up/', search);
+  const signInHref = linkKeepingNext('/sign-in/', search);
+  const resetHref = linkKeepingNext('/sign-in/reset/', search);
+
   return (
+    <UseGoogleContext.Provider value={googleOn ? backToGoogle : null}>
     <div className="auth-card">
       {cookiesOff ? <CardBanner kind="notice">{COPY.cookiesOff}</CardBanner> : null}
       {step === 'email' && googleNotice ? <CardBanner kind={googleNotice.tone}>{googleNotice.message}</CardBanner> : null}
       {step === 'email' && inApp ? <CardBanner kind="notice">{GOOGLE_COPY.inApp}</CardBanner> : null}
       {step === 'email' && flagOff ? <CardBanner kind="notice">{GOOGLE_COPY.flagOff}</CardBanner> : null}
-      {step === 'email' && googleOn ? <GoogleStart busy={googleBusy} onPress={() => void startGoogle()} lastUsed={last === 'google'} /> : null}
+      {step === 'email' && googleOn ? <GoogleStart busy={googleBusy} onPress={() => void startGoogle()} lastUsed={last === 'google'} focus={toGoogle} /> : null}
       {step === 'email' ? (
         <fieldset className="auth-fieldset" disabled={googleBusy || undefined}>
           <EmailStep
             email={email}
             problem={problem}
-            focus={moved || focusEmail}
+            focus={(moved || focusEmail) && !toGoogle}
             onSubmit={submitEmail}
             onEdit={editEmail}
             onFirstFocus={prime}
+            hint={codeOn ? COPY.nextSteps : undefined}
             footer={
-              <p className="auth-alt">
-                {signUp ? (
-                  <>
-                    Already have an account? <Link href="/sign-in/">Sign in</Link>
-                  </>
-                ) : codeOn ? (
-                  <>New here? The same steps create your account.</>
-                ) : (
-                  <>
-                    New here? <Link href="/sign-up/">Create an account</Link>
-                  </>
+              <div className="auth-foot">
+                {signUp ? null : (
+                  <p className="auth-forgot">
+                    <Link className="auth-link" href={resetHref} onClick={forgotFromEmail}>
+                      Forgot password?
+                    </Link>
+                  </p>
                 )}
-              </p>
+                <p className="auth-alt">
+                  {signUp ? (
+                    <>
+                      Already have an account? <Link href={signInHref}>Sign in</Link>
+                    </>
+                  ) : (
+                    <>
+                      New here? <Link href={signUpHref}>Create an account</Link>
+                    </>
+                  )}
+                </p>
+              </div>
             }
           />
         </fieldset>
@@ -402,5 +434,6 @@ export function SignInCard({ mode, codeOn, googleOn = false, siteKey }: SignInCa
       <div ref={slotRef} className="auth-turnstile" />
       {region}
     </div>
+    </UseGoogleContext.Provider>
   );
 }

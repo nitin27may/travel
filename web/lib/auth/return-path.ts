@@ -44,3 +44,19 @@ export function returnPathFromSearch(search: string): string {
     return DEFAULT_RETURN;
   }
 }
+
+/**
+ * A link between the sign-in pages (sign in, create an account, reset) that keeps the checked `next` of the current address, so a
+ * person who switches page still lands where they started (GSI-UX). A refused or absent `next` adds nothing.
+ */
+export function linkKeepingNext(path: string, search: string): string {
+  let raw: string | null = null;
+  try {
+    raw = new URLSearchParams(search).get('next');
+  } catch {
+    raw = null;
+  }
+  if (!raw) return path;
+  const next = returnPath(raw);
+  return next === DEFAULT_RETURN ? path : `${path}?next=${encodeURIComponent(next)}`;
+}

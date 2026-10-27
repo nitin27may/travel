@@ -1,3 +1,4 @@
+import { authFlags } from '@/lib/auth/flags';
 import { placePageFamily, tripPageFamily } from '@/lib/map/family';
 import { pageMetadata } from '@/lib/site';
 import { PrivacyBody } from './PrivacyBody';
@@ -10,5 +11,5 @@ export const metadata = pageMetadata({
 
 /** Copy drafted for GSI-P; owner approval is recorded in docs/v2/PLAN.md (not yet). */
 export default function PrivacyPage() {
-  return <PrivacyBody google={tripPageFamily() === 'google-js' || placePageFamily() === 'google-js'} />;
+  return <PrivacyBody google={tripPageFamily() === 'google-js' || placePageFamily() === 'google-js'} googleSignIn={authFlags.signInGoogle} />;
 }
