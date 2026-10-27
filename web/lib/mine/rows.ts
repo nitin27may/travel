@@ -45,20 +45,22 @@ export function countdown(start: string, days: number | null, today: string): { 
   return { text: ago === 1 ? 'ended yesterday' : `ended ${ago} days ago`, group: 'past' };
 }
 
-/** The codec's query for a copy (profile codec 3.8): keys in its order, defaults left out, never the children's ages (only the youngest band). */
+/** The codec's query for a copy (profile codec 3.8): keys in its order, defaults left out, never the children's ages (only the youngest band), then `view=day`. */
 export function openQuery(c: CopyItem): string {
   const youngest = c.profile ? c.profile.youngest : c.children.length ? Math.min(...c.children) : null;
   const family = c.profile ? c.profile.party === 'family' : c.children.length > 0;
   const out: string[] = [];
   if (family) out.push(`p=family-${youngest ?? 0}`);
   if (c.profile && c.profile.pace !== 'standard') out.push(`pace=${c.profile.pace}`);
-  // the sheet's adults wins; the codec only carries 1 or "2 and more"
-  if (c.adults === 1) out.push('a=1');
+  // the sheet's adults wins; `a=<n>` for 1 to 12, the codec's default 2 left out (Q296)
+  if (c.adults !== 2 && c.adults >= 1 && c.adults <= 12) out.push(`a=${c.adults}`);
   if (c.profile && c.profile.walk !== null && [5, 8, 12].includes(c.profile.walk)) out.push(`walk=${c.profile.walk}`);
   if (c.profile?.split) out.push('split=1');
   const d = Object.entries(c.overrides).map(([n, k]) => [Number(n), k] as const).sort((x, y) => x[0] - y[0]);
   if (d.length) out.push(`d=${d.map(([n, k]) => `${n}${k}`).join(',')}`);
   if (c.added.length) out.push(`add=${c.added.map((a) => `${a.day}.${a.placeSlug}`).join(',')}`);
+  // a copy opens on its days, not the Summary (UXB-1 made the Summary the default tab); `view` follows the profile keys, as the trip page writes it
+  out.push('view=day');
   return out.join('&');
 }
 

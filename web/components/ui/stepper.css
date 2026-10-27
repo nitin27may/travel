@@ -1,0 +1,13 @@
+/* Stepper (components 2.12). Tokens only. The buttons are 44 x 44 on every width: they sit in a form, not a dense toolbar. */
+.stepper { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); min-width: 0; }
+.stepper-label { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
+.stepper-ctl { display: inline-flex; align-items: center; gap: var(--s-2); }
+.stepper-btn {
+  display: grid; place-items: center; width: var(--touch-min); height: var(--touch-min); padding: 0; cursor: pointer;
+  border: 1px solid var(--line-2); border-radius: var(--r-3); background: var(--surface); color: var(--ink);
+}
+.stepper-btn:hover:not([aria-disabled='true']) { border-color: var(--ink); background: color-mix(in srgb, var(--surface-2) 60%, transparent); }
+.stepper-btn:active:not([aria-disabled='true']) { transform: translateY(1px); }
+.stepper-btn:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.stepper-btn[aria-disabled='true'] { opacity: 0.45; cursor: not-allowed; }
+.stepper-val { display: inline-block; min-width: 2.5rem; text-align: center; font: var(--t-tab); font-weight: 600; color: var(--ink); }

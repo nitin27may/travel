@@ -191,13 +191,21 @@ describe('Open', () => {
     expect(state.added).toEqual([{ day: 5, slug: 'moraine-lake' }]);
     expect(decodeURIComponent(href)).not.toContain('6,9');
   });
+  it('writes a=<adults> from 3 to 12, leaves the default 2 out, and never a child age', () => {
+    const st = m();
+    saveCopy(st, input('c', { adults: 5, children: [3, 8] }));
+    expect(openHref(read(st).items[0]!)).toBe('/trips/c/?p=family-3&a=5&view=day');
+    const st2 = m();
+    saveCopy(st2, input('d', { adults: 2, children: [8] }));
+    expect(openHref(read(st2).items[0]!)).toBe('/trips/d/?p=family-8&view=day');
+  });
   it('a copy with no stored profile opens on the default with the youngest child as the band', () => {
     const st = m();
     saveCopy(st, input('a', { children: [4, 11] }));
-    expect(openHref(read(st).items[0]!)).toBe('/trips/a/?p=family-4');
+    expect(openHref(read(st).items[0]!)).toBe('/trips/a/?p=family-4&view=day');
     const st2 = m();
     saveCopy(st2, input('b'));
-    expect(openHref(read(st2).items[0]!)).toBe('/trips/b/');
+    expect(openHref(read(st2).items[0]!)).toBe('/trips/b/?view=day');
   });
 });
 
@@ -206,6 +214,8 @@ describe('Open writes the profile codec\'s format itself (so the Mine chunk does
     {},
     { children: [4, 11] },
     { adults: 1 },
+    { adults: 3 },
+    { adults: 12, children: [5, 7, 9] },
     { children: [0], profile: { party: 'family', youngest: 0, pace: 'full', adults: 2, walk: 12, split: false } },
     { adults: 1, profile: { party: 'adults', youngest: null, pace: 'relaxed', adults: 1, walk: 5, split: true }, overrides: { '12': 'B', '3': 'A' }, added: [{ day: 2, placeSlug: 'a-b' }, { day: 9, placeSlug: 'c' }] },
     { profile: { party: 'family', youngest: 17, pace: 'standard', adults: 2, walk: 8, split: false } },
@@ -219,12 +229,14 @@ describe('Open writes the profile codec\'s format itself (so the Mine chunk does
       profile: {
         ...DEFAULT_PROFILE,
         ...(item.profile ? { party: item.profile.party, youngest: item.profile.youngest, pace: item.profile.pace, walkKm: item.profile.walk, split: item.profile.split } : item.children.length ? { party: 'family' as const, youngest: Math.min(...item.children) } : {}),
-        adults: item.adults === 1 ? 1 : 2,
+        adults: item.adults,
       },
       overrides: Object.fromEntries(Object.entries(item.overrides).map(([k, v]) => [Number(k), v])),
       added: item.added.map((a) => ({ day: a.day, slug: a.placeSlug })),
     });
-    expect(openQuery(item)).toBe(expected);
+    // the codec's keys, then the tab the trip page opens a copy on (UXB-2): the Summary is the default tab since UXB-1
+    expect(openQuery(item)).toBe([expected, 'view=day'].filter(Boolean).join('&'));
     expect(serialiseTimelineUrl(url)).toBe(expected);
+    expect(url.profile.adults).toBe(item.adults);
   });
 });

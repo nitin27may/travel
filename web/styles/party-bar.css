@@ -1,0 +1,49 @@
+/* The party bar, collapsed (UXB-2; spec trip-and-places-ux-fixes.md 5.2, wireframe W3) and the sticky rail's party words.
+   Tokens only (no hex): see tests/no-hex.test.ts. Loaded with the trip page's start chunk, so it stays small; the editor's styles are party-editor.css. */
+.pb { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-3); margin: 0 0 var(--s-5); scroll-margin-top: calc(var(--header-h) + var(--s-4)); }
+.pb-row { display: flex; align-items: center; gap: var(--s-4); min-height: 56px; padding: var(--s-2) var(--s-4); }
+.pb-label { flex: none; font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
+.pb-val { flex: 1 1 auto; min-width: 0; font: var(--t-row); color: var(--ink); }
+.pb-short { display: none; }
+.pb-note { flex: none; font: var(--t-small); color: var(--muted); }
+.pb-actions { flex: none; display: inline-flex; align-items: center; gap: var(--s-3); margin-left: auto; }
+.pb-reset { min-height: var(--touch-min); padding: 0 var(--s-2); }
+.pb-offer {
+  flex: none; min-height: var(--touch-min); padding: 0 var(--s-3); cursor: pointer; border: 1px solid var(--accent-text); border-radius: var(--r-3);
+  background: none; color: var(--accent-text); font: var(--t-small); font-weight: 600;
+}
+.pb-offer:hover { background: var(--surface-2); }
+.pb-offer:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.pb-loading { padding: var(--s-4); font: var(--t-small); color: var(--muted); }
+
+/* the editor grows from the bar: grid rows 0fr to 1fr in --d-base; closed content is invisible and inert, so it is neither seen nor tabbed */
+.pb-body { display: grid; grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows var(--d-base) var(--e-std), visibility 0s linear var(--d-base); }
+.pb-body[data-open] { grid-template-rows: 1fr; visibility: visible; transition: grid-template-rows var(--d-base) var(--e-std), visibility 0s; }
+.pb-body-in { min-height: 0; overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { .pb-body, .pb-body[data-open] { transition: none; } }
+
+@media (max-width: 899px) { .pb-note { display: none; } }
+@media (max-width: 639px) {
+  .pb-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'label actions' 'val actions' 'offer offer'; column-gap: var(--s-3); row-gap: 2px; padding: var(--s-3) var(--s-4); }
+  .pb-label { grid-area: label; }
+  .pb-val { grid-area: val; font: var(--t-small); font-weight: 600; }
+  .pb-actions { grid-area: actions; margin-left: 0; }
+  .pb-offer { grid-area: offer; justify-self: start; margin-top: var(--s-2); }
+  .pb-long { display: none; }
+  .pb-short { display: inline; }
+}
+@media print { .pb { display: none; } }
+
+/* ---- the sticky day rail: "2 adults, 1 child · Standard · Edit"; the pace truncates first ---- */
+.tl-planbar .tl-planbar-line { display: flex; align-items: center; gap: var(--s-2); min-width: 0; max-width: 24rem; overflow: visible; white-space: nowrap; }
+.tl-planbar-who { display: inline-flex; min-width: 0; gap: var(--s-1); }
+.tl-planbar-party { flex: none; }
+.tl-planbar-pace { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.tl-railedit {
+  position: relative; flex: none; display: inline-flex; align-items: center; gap: var(--s-1); min-height: 28px; padding: 0 var(--s-2); cursor: pointer;
+  border: 0; border-radius: var(--r-2); background: none; color: var(--accent-text); font: var(--t-meta); font-weight: 600;
+}
+.tl-railedit::after { content: ''; position: absolute; inset: 50% auto auto 50%; width: max(100%, var(--touch-min)); height: var(--touch-min); transform: translate(-50%, -50%); }
+.tl-railedit:hover { background: var(--surface-2); color: var(--ink); }
+.tl-railedit:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+@media (max-width: 639px) { .tl-planbar .tl-planbar-line { max-width: none; } }

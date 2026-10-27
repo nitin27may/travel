@@ -1,0 +1,28 @@
+/* The party editor (UXB-2; spec 5.3, wireframes W3). Its own chunk with PartyEditor.tsx. Tokens only. */
+.pe { display: grid; gap: var(--s-4); padding: var(--s-4); border-top: 1px solid var(--line); }
+.pe-sub { font: var(--t-small); color: var(--muted); }
+.pe-grid { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--s-5) var(--s-8); }
+.pe-label { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
+.pe-hint { font: var(--t-meta); color: var(--muted); max-width: 26rem; }
+.pe-field { display: grid; gap: var(--s-2); align-content: start; min-width: 0; }
+.pe-pace { flex: 1 1 20rem; }
+.pe-ages { display: grid; gap: var(--s-2); flex: 1 1 18rem; min-width: 0; }
+.pe-age-list { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-4); }
+.pe-age { display: grid; gap: var(--s-1); }
+.pe-age-l { font: var(--t-meta); color: var(--ink-2); }
+.pe .selbox { min-width: 9rem; }
+.pe-line { font: var(--t-small); color: var(--ink-2); max-width: 52rem; }
+.pe .tl-more { min-height: var(--touch-min); align-self: start; justify-self: start; }
+.pe-more-w { margin-left: var(--s-2); color: var(--muted); }
+.pe-more { display: flex; flex-wrap: wrap; gap: var(--s-5) var(--s-8); padding-top: var(--s-3); border-top: 1px solid var(--line); animation: tl-rise var(--d-base) var(--e-out); }
+.pe-device { font: var(--t-meta); color: var(--muted); max-width: 52rem; }
+@media (min-width: 900px) { .pe .stepper { flex-direction: column; align-items: flex-start; gap: var(--s-2); } }
+@media (max-width: 899px) { .pe-grid { display: grid; gap: var(--s-4); } .pe-pace { flex: none; } }
+@media (max-width: 639px) {
+  .pe { padding: var(--s-4) var(--s-4) var(--s-3); }
+  .pe-age-list { display: grid; gap: var(--s-3); }
+  .pe-age { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); }
+  .pe .selbox { min-height: 46px; min-width: 10rem; }
+  .pe-sub { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .pe-more { animation: none; } }
