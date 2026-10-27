@@ -38,15 +38,15 @@ describe("table inventory", () => {
     expect(PROPOSAL_TABLES).not.toContain("users");
   });
 
-  it("adds planner_draft and the accepted schema-diff tables, with no overlap", () => {
-    expect(NEW_TABLES).toContain("planner_draft");
+  it("adds plan_draft and the accepted schema-diff tables, with no overlap", () => {
+    expect(NEW_TABLES).toContain("plan_draft");
     const overlap = NEW_TABLES.filter((t) => (PROPOSAL_TABLES as readonly string[]).includes(t));
     expect(overlap).toEqual([]);
     expect(new Set(ALL_APP_TABLES).size).toBe(ALL_APP_TABLES.length);
   });
 
-  it("marks only serving-tier tables as public-read (planner_draft is not public)", () => {
-    expect(PUBLIC_READ_TABLES).not.toContain("planner_draft");
+  it("marks only serving-tier tables as public-read (plan_draft is not public)", () => {
+    expect(PUBLIC_READ_TABLES).not.toContain("plan_draft");
     expect(PUBLIC_READ_TABLES).not.toContain("trip");
     expect(PUBLIC_READ_TABLES).not.toContain("household");
     expect(PUBLIC_READ_TABLES).toContain("entity");
@@ -55,10 +55,10 @@ describe("table inventory", () => {
 
   it("exempts exactly one content-free relation from RLS (the invalidation stream)", () => {
     // The coordinator exception is a single, named, content-free table — not a general escape hatch.
-    expect(RLS_EXEMPT_TABLES).toEqual(["planner_draft_signal"]);
+    expect(RLS_EXEMPT_TABLES).toEqual(["plan_draft_signal"]);
     // It is NOT an RLS-on application table, and it carries no draft content.
-    expect(ALL_APP_TABLES).not.toContain("planner_draft_signal");
-    expect(PUBLIC_READ_TABLES).not.toContain("planner_draft_signal");
+    expect(ALL_APP_TABLES).not.toContain("plan_draft_signal");
+    expect(PUBLIC_READ_TABLES).not.toContain("plan_draft_signal");
     expect(SIGNAL_COLUMNS).toEqual(["user_id", "version", "changed_at"]);
     // Guard against ever leaking private draft fields into the non-RLS stream.
     for (const content of ["title", "created_at", "id", "body", "note"]) {

@@ -505,9 +505,9 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 |---|---|
 | Goal | A signed-in visitor makes a private copy at `/t/<id>/` and adds, removes, moves and parks items, with undo and autosave |
 | Contents | CUS-C 6 h + 2 h widening (`title`, `moved`, `days`, `notes`, `custom` before its migration is applied) + 0.25 h (`from` and `gw`, origin spec 10), CUS-1 20 h, CUS-2 3 h, CUS-R 3 h. Total 34.25 h |
-| Dependencies | v0.10's owner preview; the `planner_draft_signal` ruling; Q98 (who may customise: invite-only recommended) and Q67, Q103, Q120 (sign-up policy) |
+| Dependencies | v0.10's owner preview; the `plan_draft_signal` ruling; Q98 (who may customise: invite-only recommended) and Q67, Q103, Q120 (sign-up policy) |
 | Owner actions | the rulings above; approve |
-| Migrations | `custom-draft` (`planner_draft` gains `source_trip`, `source_revision`, `doc`, `revision`; same RLS) |
+| Migrations | `custom-draft` (`plan_draft` gains `source_trip`, `source_revision`, `doc`, `revision`; same RLS) |
 | Risks | **Planning gap:** Q98's invite-only answer needs a server-side allow check, and no sized task builds one (EML-0 found Neon's flag does not gate code sign-in). Q229 asks to put it inside CUS-C. Cross-user isolation (another user's copy is a 404) |
 | Extra gate | RLS and isolation tests on the child branch; CUS-R privacy audit; real-service CUS-2 on production with test users deleted |
 | Smoke | sign in, Customise the Rockies trip, remove one stop, reload, undo; a second test user gets 404 on the first user's `/t/<id>/` |
@@ -901,7 +901,7 @@ R-178, R-179 and Q219 stay unused. The parallel REQ-FORM task took R-190 to R-19
 | Q228 | Run BKP-1 outside this repository's Actions: from a private companion repository (free private minutes) or the owner's Mac, with the encrypted dump stored privately | ~~Private companion repository~~ **CHANGED (owner, 25 Oct 2026): run BKP-1 from this machine as a local scheduled job** (launchd, section 7.6), not from GitHub Actions and not from a companion repository | Backups run only when the Mac is on; a second, encrypted offsite copy is a later option |
 | Q229 | Two planning gaps: (a) add the `e2e.yml` nightly workflow as a LOCAL-4 follow-up (unsized; its brief sizes it); (b) build the invite-only check Q98 implies for customisation inside CUS-C (unsized) | **Yes to both** (ANSWERED 25 Oct 2026: yes, as recommended.) | (a) Actions time each night (the full three-project e2e takes about 41 minutes on the Mac; Chromium alone is less), free on a public repository; (b) CUS-C grows |
 
-Open questions this train waited on: Q101 to Q108, Q130 to Q137, Q93 to Q100, Q67, Q98, Q103, Q120, Q160 to Q167, Q190 to Q198, Q148 and Q149 were **answered 26 Oct 2026, yes as recommended** (ANSWERS-5; PLAN section 5, answered table). Q148 means the v0.17 domain release ships only on a trigger, and a domain name and price are owner input needed. Still open: the `planner_draft_signal` ruling. The owner inputs are listed once in [MASTER-ORDER.md](MASTER-ORDER.md) 7.3. Q280 to Q286 (CAT-1) were answered 26 Oct: yes, as recommended; Q183 is superseded.
+Open questions this train waited on: Q101 to Q108, Q130 to Q137, Q93 to Q100, Q67, Q98, Q103, Q120, Q160 to Q167, Q190 to Q198, Q148 and Q149 were **answered 26 Oct 2026, yes as recommended** (ANSWERS-5; PLAN section 5, answered table). Q148 means the v0.17 domain release ships only on a trigger, and a domain name and price are owner input needed. Still open: the `plan_draft_signal` ruling. The owner inputs are listed once in [MASTER-ORDER.md](MASTER-ORDER.md) 7.3. Q280 to Q286 (CAT-1) were answered 26 Oct: yes, as recommended; Q183 is superseded.
 
 ## 10. Gotchas
 

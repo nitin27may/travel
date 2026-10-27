@@ -170,7 +170,7 @@ Answered by MCP-0 on 25 Oct: see section 13, which numbers the checks as the MCP
 | X1 | Whether the plugin can be enabled on our project at all (N9) | Option A depends on it |
 | X2 | Whether Neon's metadata advertises `client_id_metadata_document_supported: true`, `none` in `token_endpoint_auth_methods_supported`, `code_challenge_methods_supported: ["S256"]` and `authorization_response_iss_parameter_supported` | Claude picks CIMD only with the first two (C2); with DCR off, Claude cannot connect otherwise |
 | X3 | Which discovery URL Neon actually serves for our path issuer, and whether Claude finds it (M6) | Discovery failure looks like "Couldn't reach the MCP server" |
-| X4 | Whether the access token's `sub` equals the Managed Better Auth user id that `planner_draft` and `app.user_id` use | RLS mapping |
+| X4 | Whether the access token's `sub` equals the Managed Better Auth user id that `plan_draft` and `app.user_id` use | RLS mapping |
 | X5 | Whether `@neondatabase/auth` 0.7.0-beta in our proxy forwards `/oauth2/*` and handles `oauth_query` as the guide says | Login and consent pages |
 | X6 | Whether Neon has a token revocation endpoint, and whether revoking a user's sessions revokes OAuth refresh tokens | Revocation design (section 6.3) |
 | X7 | Whether `@modelcontextprotocol/sdk` 1.32.1 (in `core/`) speaks protocol 2026-07-28 or only 2025-11-25 | Header and session rules (M8) |
@@ -328,7 +328,7 @@ stay, renamed **capabilities**, and live in our database:
 The resource server never queries with the owner role. `withUserTransaction` from `core/src/db/tx.ts` is the only door,
 so a tool that forgets a check still meets the policies (two walls, F17 item 6). Grants and tokens are read through two
 `security definer` functions owned by the migration role with `search_path` pinned, returning only what the guard needs;
-`travel_app` has no direct `select` on `mcp_token` or `mcp_client_grant`. Today only `planner_draft` has owner policies;
+`travel_app` has no direct `select` on `mcp_token` or `mcp_client_grant`. Today only `plan_draft` has owner policies;
 every private tool added later needs its table's policies and a cross-user test first (F17 acceptance 1).
 
 ## 6. Security design

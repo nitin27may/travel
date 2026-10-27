@@ -222,8 +222,8 @@ export const NOT_SEEDED: Readonly<Record<string, NotSeeded>> = {
   inbound_email: { class: "account", reason: "a user's forwarded mail" },
   account_profile: { class: "account", reason: "a user's saved travellers (ages, optional dates of birth) and setup state (ACCT-PC, 0012)" },
   // plans and drafts
-  planner_draft: { class: "plan", reason: "a user's private draft" },
-  planner_draft_signal: { class: "plan", reason: "the content-free live signal of a user's draft" },
+  plan_draft: { class: "plan", reason: "a user's private draft" },
+  plan_draft_signal: { class: "plan", reason: "the content-free live signal of a user's draft" },
   trip: { class: "plan", reason: "a user's trip (the public trip pages are the trip_row and trip_page projections)" },
   trip_member: { class: "plan", reason: "who is on a trip" },
   traveller: { class: "plan", reason: "a trip's travellers" },

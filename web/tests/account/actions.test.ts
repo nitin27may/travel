@@ -8,7 +8,10 @@ const sdk = vi.hoisted(() => ({ updateUser: vi.fn(async (_b: Record<string, unkn
 const quota = vi.hoisted(() => ({ take: vi.fn(async (_id: string) => 'ok' as 'ok' | 'limited' | 'unavailable') }));
 vi.mock('@/lib/auth/server', () => ({ getUser: vi.fn(), getAuth: () => ({ updateUser: sdk.updateUser }), authErrorCode: () => 'unknown' }));
 vi.mock('@/lib/account/name-quota', () => ({ takeNameChange: quota.take }));
-vi.mock('@travel/core/db/index.ts', () => ({ withUserTransaction: vi.fn() }));
+vi.mock('@travel/core/db/index.ts', async () => {
+  const tx = await vi.importActual<typeof import('@travel/core/db/tx.ts')>('@travel/core/db/tx.ts');
+  return { withUserTransaction: vi.fn(), legacyDraftRow: tx.legacyDraftRow, PLAN_CAP_SQLSTATE: 'TP001' };
+});
 
 import { getUser } from '@/lib/auth/server';
 import { withUserTransaction } from '@travel/core/db/index.ts';
@@ -77,19 +80,30 @@ describe('account write actions', () => {
       // The scoped transaction and the inserted user_id are the verified session id.
       expect(meta.scopedUserId).toBe(OWNER.id);
       expect(calls[0].params[1]).toBe(OWNER.id);
-      expect(calls[0].sql).toMatch(/insert into public\.planner_draft/i);
+      expect(calls[0].sql).toMatch(/insert into public\.plan_draft/i);
     });
 
     it('update and delete carry a user_id predicate bound to the session id', async () => {
       const r = fakeTx();
       await renameDraft(OWNER.id, { id: ID, title: 'New name' });
-      expect(r.calls[0].sql).toMatch(/where id = \$1 and user_id = \$2/i);
+      expect(r.calls[0].sql).toMatch(/where d\.id = \$1 and d\.user_id = \$2/i);
       expect(r.calls[0].params).toEqual([ID, OWNER.id, 'New name']);
 
       const d = fakeTx();
       await deleteDraft(OWNER.id, { id: ID });
-      expect(d.calls[0].sql).toMatch(/delete from public\.planner_draft where id = \$1 and user_id = \$2/i);
+      expect(d.calls[0].sql).toMatch(/delete from public\.plan_draft d where d\.id = \$1 and d\.user_id = \$2/i);
       expect(d.calls[0].params).toEqual([ID, OWNER.id]);
+    });
+
+    it('B1: rename and delete reach title-only live rows only, never a synced plan or a tombstone', async () => {
+      const r = fakeTx();
+      await renameDraft(OWNER.id, { id: ID, title: 'New name' });
+      const d = fakeTx();
+      await deleteDraft(OWNER.id, { id: ID });
+      for (const sql of [r.calls[0].sql, d.calls[0].sql]) {
+        expect(sql).toContain("(to_jsonb(d) ->> 'doc') is null");
+        expect(sql).toContain("(to_jsonb(d) ->> 'deleted_at') is null");
+      }
     });
   });
 
@@ -103,6 +117,12 @@ describe('account write actions', () => {
       fakeTx([]);
       expect(await deleteDraft(OWNER.id, { id: ID })).toEqual({ kind: 'unchanged' });
       expect(await renameDraft(OWNER.id, { id: ID, title: 'x' })).toEqual({ kind: 'unchanged' });
+    });
+    it('B1: the Undo at the account cap answers CAP (a reason the page words), not SERVICE_UNAVAILABLE', async () => {
+      (withUserTransaction as unknown as ReturnType<typeof vi.fn>).mockRejectedValue(Object.assign(new Error('PLAN_CAP'), { code: 'TP001' }));
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      expect(await createDraft(OWNER.id, { id: ID, title: 'Hi' })).toEqual({ kind: 'rejected', reason: 'CAP' });
+      expect(warn).toHaveBeenCalled();
     });
     it('fails closed to SERVICE_UNAVAILABLE when the transaction throws', async () => {
       (withUserTransaction as unknown as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('connection refused'));

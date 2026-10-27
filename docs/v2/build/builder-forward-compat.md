@@ -45,7 +45,7 @@ In the page source, `\|` inside a table cell is the markdown escape for `|`; typ
 | CUS-C, CUS-1 (customise) | F | `trip-custom/1` additive only; no plan fields; "Open in the builder" is a later link in `web/app/t/**` that the TB task adds after CUS-2 | F4, F14 |
 | NAV-3, NAV-D (signed-in Mine, sync) | F | Mine tabs as a list (F3); the sign-in merge keyed by envelope `schema`, so `plan-draft/1` adds a branch and changes nothing else | F3, F4 |
 | REQ-F1, REQ-F2, REQ-E | D, G | Request forms accept pre-filled country, regions and refs from a query (the builder's "Ask us"); own stops (REQ-E) as refs a plan can hold | F2, F4 |
-| MCP-C, UPL-C (MCP, user places) | H, H2 | Plan tools later call the same `/api/v1/plan/**` routes and write `plan-draft/1`; `user_place` refs usable as picks; UPL-C's `planner_draft.kind` is not used for plans (trip-builder QI1) | F14, F4 |
+| MCP-C, UPL-C (MCP, user places) | H, H2 | Plan tools later call the same `/api/v1/plan/**` routes and write `plan-draft/1`; `user_place` refs usable as picks; UPL-C's `plan_draft.kind` is not used for plans (trip-builder QI1) | F14, F4 |
 | WM (world map) | after F | "Plan a trip here" is a plain link to `/plan/?cc=<ISO>`; `visits/1` stays device-only and is read, never written, by the builder | F4, F14 |
 
 ## Change log

@@ -1,5 +1,10 @@
 # Neon database, identity and live updates
 
+> **Renamed (owner decision, 27 Oct 2026; EM-F):** migration 0009 created the drafts table as `planner_draft` and 0010 its signal
+> table as `planner_draft_signal`; migration 0013 renames them, with every policy, trigger, function, index and constraint named after
+> them, to `plan_draft` and `plan_draft_signal`. 0009 and 0010 are applied and checksummed, so their files keep the old name; this page
+> uses the new one.
+
 Owner decision, 24 Oct 2026: replace the planned Supabase backend with the existing
 Neon project "Travel Planner", provision Postgres, Managed Better Auth and Realtime,
 wire the services into this app, and migrate all application tables.
@@ -20,7 +25,7 @@ requirements. Public browsing remains available without an account.
    additive migrations to production. Record table inventory, checksums and RLS
    coverage. No drops or destructive reset.
 4. Enable RLS before use on every private-content application table. The sole
-   exception is the content-free `planner_draft_signal` required for Neon
+   exception is the content-free `plan_draft_signal` required for Neon
    Realtime, as specified below. Private household, traveller, booking and
    saved-location tables start empty and receive no public read grant.
    Do not upload private repository documents, coordinates or wishlist provenance.
@@ -34,7 +39,7 @@ requirements. Public browsing remains available without an account.
 
 ## Shared integration contract
 
-Application table `planner_draft`: `id uuid primary key`, `user_id text not null`,
+Application table `plan_draft`: `id uuid primary key`, `user_id text not null`,
 `title text not null` (1 to 160 characters), `created_at timestamptz not null`,
 `updated_at timestamptz not null`. User identity always comes from the verified
 server session, never a request body. This bounded draft title proves persistence
@@ -94,18 +99,18 @@ seal-on-server + client-subscribe harness, run then removed):
 | Relation subscribed | Realtime result |
 |---|---|
 | Plain table, **no RLS** | `live` |
-| `planner_draft`-shaped table, **RLS on** (even a permissive `using(true)` policy) | `upstream_rejected` |
+| `plan_draft`-shaped table, **RLS on** (even a permissive `using(true)` policy) | `upstream_rejected` |
 | **View** over the RLS table (default **security-definer**) | `upstream_rejected` |
 | **View** over the RLS table (**`security_invoker = true`**) | `upstream_rejected` |
 
 So a view/authorized-query "escape" **does not exist**: Realtime resolves the view to its RLS base
-and rejects. `planner_draft` (migration 0009) enables RLS, so its live list cannot be read by
+and rejects. `plan_draft` (migration 0009) enables RLS, so its live list cannot be read by
 Realtime directly. The non-Realtime paths are unaffected and stay fully RLS-enforced: the SSR read
 and all writes run through `withUserTransaction` under the `NOBYPASSRLS` `travel_app` role.
 
 ### Assumptions
 
-1. RLS on `planner_draft` (and every private source table) is **non-negotiable and stays on**. We do
+1. RLS on `plan_draft` (and every private source table) is **non-negotiable and stays on**. We do
    not drop RLS, do not add `BYPASSRLS`, and do not replace the owner-predicate policies with a
    write-only trigger (that would drop read-side RLS).
 2. Realtime is **pinned to the production branch compute**; the child verify branch has no Realtime
@@ -121,16 +126,16 @@ and all writes run through `withUserTransaction` under the `NOBYPASSRLS` `travel
 
 **Invalidation-only stream + authenticated re-fetch.**
 
-- `planner_draft` is **unchanged** — RLS stays on, all content stays private.
-- A new migration (`0010_planner_draft_signal`) adds `planner_draft_signal (user_id text primary
+- `plan_draft` is **unchanged** — RLS stays on, all content stays private.
+- A new migration (`0010_plan_draft_signal`) adds `plan_draft_signal (user_id text primary
   key, version bigint not null default 0, changed_at timestamptz not null default now())`. It holds
   **no draft content** — only a per-user monotonic counter. It is the *only* relation with RLS off,
   and only because Realtime requires that.
-- A `SECURITY DEFINER` trigger on `planner_draft` (AFTER INSERT/UPDATE/DELETE), owned by the schema
-  owner, upserts `planner_draft_signal` for the row's `user_id` and increments `version`. `travel_app`
+- A `SECURITY DEFINER` trigger on `plan_draft` (AFTER INSERT/UPDATE/DELETE), owned by the schema
+  owner, upserts `plan_draft_signal` for the row's `user_id` and increments `version`. `travel_app`
   gets **no SELECT and no direct DML** on the signal table; only the definer trigger writes it, so the
   app role can never enumerate other users' ids.
-- Realtime subscribes to a sealed `select user_id, version from planner_draft_signal where
+- Realtime subscribes to a sealed `select user_id, version from plan_draft_signal where
   user_id = $1` (server-verified id; same sealing authorization as today).
 - On each signal change the client calls the existing authenticated, same-origin
   `/api/account/live-query`-style endpoint to **re-fetch the drafts** through the RLS-scoped
@@ -141,10 +146,10 @@ What leaks vs. what stays private:
 
 | Data | Where | Protection |
 |---|---|---|
-| Draft **titles / content** | `planner_draft` | **RLS on** — never leaves the RLS path; Realtime never reads it |
-| `user_id` + change counter | `planner_draft_signal` | RLS off (Realtime requirement); sealed `where user_id=$1` scopes each subscriber to their own row; no `travel_app` read/DML; definer-only writes |
+| Draft **titles / content** | `plan_draft` | **RLS on** — never leaves the RLS path; Realtime never reads it |
+| `user_id` + change counter | `plan_draft_signal` | RLS off (Realtime requirement); sealed `where user_id=$1` scopes each subscriber to their own row; no `travel_app` read/DML; definer-only writes |
 
-Rejected alternatives: drop RLS on `planner_draft` (forbidden); write-only trigger replacing RLS
+Rejected alternatives: drop RLS on `plan_draft` (forbidden); write-only trigger replacing RLS
 (drops read-side RLS — forbidden); mirror titles into a non-RLS table (copies private content —
 defeats the point); wait for Realtime RLS GA (not available now).
 
@@ -153,20 +158,20 @@ defeats the point); wait for Realtime RLS GA (not available now).
 - **G1 — evidence accepted.** The probe table above is reproduced and the view-escape is confirmed
   dead. *(Met: run `neon-realtime-view-probe-20261024-1055`.)*
 - **G2 — security exception approved.** Owner/coordinator sign off that a single non-RLS,
-  content-free `planner_draft_signal` relation is acceptable, with the role constraints above.
+  content-free `plan_draft_signal` relation is acceptable, with the role constraints above.
   *(Approved by the coordinator 24 Oct 2026 as a coordinator exception — see Status below.)*
 
 ### Ordered steps (execute strictly in order, only after G2; each ships its tests; stop on first red)
 
-1. **DB — migration `0010_planner_draft_signal`.** Signal table (RLS off), definer trigger on
-   `planner_draft`, grants (no `travel_app` SELECT/DML on the signal table). `core/src/db` gains a
+1. **DB — migration `0010_plan_draft_signal`.** Signal table (RLS off), definer trigger on
+   `plan_draft`, grants (no `travel_app` SELECT/DML on the signal table). `core/src/db` gains a
    `signalLiveQuery()` (Realtime subscription) + `draftsReadQuery()` (RLS read) and the inventory
    lists the one intentional RLS-off relation (`RLS_EXEMPT_TABLES`) with a guard test asserting
    *exactly* one content-free non-RLS application relation.
 2. **DB verification on the child branch** `br-damp-breeze-b41mtvn5`: migrate up, assert
-   `planner_draft` still `rowsecurity=true`; a write as user A bumps only A's signal row; `travel_app`
-   is denied SELECT on the signal table; cross-user isolation on `planner_draft` unchanged.
-3. **Web server** — swap the sealed subscription from `planner_draft` to `planner_draft_signal`; add
+   `plan_draft` still `rowsecurity=true`; a write as user A bumps only A's signal row; `travel_app`
+   is denied SELECT on the signal table; cross-user isolation on `plan_draft` unchanged.
+3. **Web server** — swap the sealed subscription from `plan_draft` to `plan_draft_signal`; add
    the authenticated re-fetch endpoint/action that reads drafts via `withUserTransaction`; keep the
    fail-closed 401 and same-origin gate.
 4. **Web client** — `AccountDrafts`/`RealtimeRoot` subscribe to the signal stream, re-fetch on
@@ -182,7 +187,7 @@ defeats the point); wait for Realtime RLS GA (not available now).
 
 | Layer | Must pass | Failure path tested |
 |---|---|---|
-| **Backend (core)** | `0010` applies idempotently on the child branch; `planner_draft.rowsecurity=true` after; inventory guard asserts exactly one RLS-off app relation (the signal table); trigger bumps only the acting user's signal `version`; `signalLiveQuery()`/`draftsReadQuery()` fingerprints match server + renewal | `travel_app` denied SELECT/INSERT/UPDATE/DELETE on `planner_draft_signal` (SQLSTATE 42501); user B cannot read A's signal row; forging A-owned `planner_draft` still rejected (RLS `WITH CHECK`, 42501) |
+| **Backend (core)** | `0010` applies idempotently on the child branch; `plan_draft.rowsecurity=true` after; inventory guard asserts exactly one RLS-off app relation (the signal table); trigger bumps only the acting user's signal `version`; `signalLiveQuery()`/`draftsReadQuery()` fingerprints match server + renewal | `travel_app` denied SELECT/INSERT/UPDATE/DELETE on `plan_draft_signal` (SQLSTATE 42501); user B cannot read A's signal row; forging A-owned `plan_draft` still rejected (RLS `WITH CHECK`, 42501) |
 | **Backend (web)** | `tsc --noEmit` clean; re-fetch endpoint returns A's drafts via RLS read; seal uses the signal query | anonymous re-fetch → 401; cross-origin → 403; sign-out mid-stream → 401 and client unloads prior-user state |
 | **UI (unit)** | `tests/account/*` green; on a signal event the list re-fetches and reconciles; optimistic add/rename/delete hold until `awaitTxId`; loading / empty / reconnecting / error render | re-fetch failure → "Live updates stopped" error block, drafts still listed from last good read; title > max rejected before submit |
 | **E2E (`neon-e2e.mjs`, real services)** | same-user second context sees a live insert/rename/delete with no reload (now via signal + re-fetch); draft survives full reload; sign-in UI reaches `/account/` | anonymous `/account/` → `/sign-in/`; renewal after sign-out → 401; user B sees none of A's drafts and cannot update/delete A's row (0 rows) |
@@ -191,14 +196,14 @@ defeats the point); wait for Realtime RLS GA (not available now).
 ### Status
 
 - G1 **met** (evidence above). G2 **approved by the coordinator** (24 Oct 2026) as a *coordinator
-  exception*, not an owner authorization: a single non-RLS, content-free `planner_draft_signal`
-  relation is accepted with the role constraints above; `planner_draft` and every other private/app
+  exception*, not an owner authorization: a single non-RLS, content-free `plan_draft_signal`
+  relation is accepted with the role constraints above; `plan_draft` and every other private/app
   table keep RLS. Implementation of the ordered steps is therefore unblocked. The non-RLS auxiliary
   signal remains a documented security-model deviation; an independent verifier and docs/spec
   alignment follow as separate tasks before this is treated as settled for production.
 
 - **Verified end to end (24 Oct 2026).** Migration 0010 is applied to the production branch
-  (`br-soft-glade-b4mkqyvd`): `planner_draft` keeps RLS, `planner_draft_signal` is RLS-off /
+  (`br-soft-glade-b4mkqyvd`): `plan_draft` keeps RLS, `plan_draft_signal` is RLS-off /
   content-free / no `travel_app` grant, with the same-transaction `SECURITY DEFINER` bump trigger.
   The real browser E2E (`neon-e2e.mjs`, real Neon auth + Realtime + Postgres, no mocks) passes
   **12/12**, including same-user live insert/rename/delete propagation via signal + authenticated
@@ -387,9 +392,9 @@ system, not a new roadmap or permission to provision services.
 ### Verified baseline every edited spec must use
 
 - Neon Postgres, Managed Better Auth and Neon Realtime are provisioned; 10
-  migrations are applied. `planner_draft` and 86 other application tables, plus
+  migrations are applied. `plan_draft` and 86 other application tables, plus
   the migration ledger, retain RLS.
-- `planner_draft_signal` is the sole content-free, non-RLS application relation:
+- `plan_draft_signal` is the sole content-free, non-RLS application relation:
   no app-role grants, definer-trigger updates, and a server-sealed per-user
   Realtime query followed by an authenticated RLS-scoped draft re-fetch. This
   remains a **coordinator-approved exception**, not explicit owner security

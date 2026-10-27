@@ -12,9 +12,13 @@ import { createDraft, renameDraft, deleteDraft, type WriteResult } from './actio
 import { checkTitle, TITLE_MAX, type DraftRow } from '@/lib/drafts-shared';
 import { applyOptimistic, commitAction, newestFirst, fetchDrafts, type OptimisticAction, type OptimisticDraft } from '@/lib/drafts-ui';
 import { leaveSession } from '@/lib/auth/session-lost';
+import { PLAN_DOC_LIMITS } from '@travel/core/config/plans.ts';
 
 /** Rows shown before "{n} more" (spec 6.2). */
 const SHOWN = 5;
+
+/** The Undo of a delete met the account's cap (0013's trigger; edit-my-trip 3): say why, not "couldn't". */
+export const CAP_NOTICE = `Your account already holds ${PLAN_DOC_LIMITS.accountPlans} trips, the most it can. Remove one in Mine, then try again.`;
 
 function savedLabel(d: Date): string {
   const date = d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' });
@@ -24,7 +28,7 @@ function savedLabel(d: Date): string {
 }
 
 /**
- * Saved trips (spec 6.2): the person's `planner_draft` rows, newest first, five then "{n} more". No create box and no live stream
+ * Saved trips (spec 6.2): the person's `plan_draft` rows, newest first, five then "{n} more". No create box and no live stream
  * (ACCT-P1, AD7): the list re-reads through the authenticated `/api/account/drafts/` after each own write and when the window gets focus,
  * so a rename on another device shows here when the person comes back. The page never depends on a stream to show its own writes.
  */
@@ -90,7 +94,7 @@ export function SavedTrips({ userId, initialRows }: { userId: string; initialRow
         }
         if (result.kind === 'rejected') {
           if (result.reason === 'UNAUTHENTICATED') leaveSession();
-          else setNotice(failure);
+          else setNotice(result.reason === 'CAP' ? CAP_NOTICE : failure);
           clear();
           return;
         }

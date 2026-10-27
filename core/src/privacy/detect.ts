@@ -92,8 +92,9 @@ export const ORIGIN_REFERENCE_VALUE = /^\s*(?:iata|hub|town|gn):/i;
 
 /**
  * Keys whose values never go into a server log (email spec 5.1, F17 item 14): sign-in codes, tokens, passwords, addresses, names, IPs,
- * cookies and signatures. The auth guard (web/lib/auth/guard.ts) drops these keys before it logs, and its log-scan test asserts that no
- * address, code or IP appears in the captured logs.
+ * cookies and signatures, the saved travellers and the plan document's household keys. The auth guard (web/lib/auth/guard.ts) and the
+ * account plan routes (web/lib/server/plans.ts) drop these keys before they log, and their log-scan tests assert that no address, code,
+ * IP, child's age, start date or note appears in the captured logs.
  */
 export const LOG_DENY_KEYS: readonly string[] = [
   "otp",
@@ -122,6 +123,16 @@ export const LOG_DENY_KEYS: readonly string[] = [
   "age_as_of",
   "ages",
   "adult_ages",
+  // the plan document's household keys (edit-my-trip 7; review-em-s S7): a whole document, its children's ages, its start, its notes,
+  // its template (which holds the notes and the person's changes), its origin and its airports. The account plan routes
+  // (web/lib/server/plans.ts) drop these before they log, as the auth guard does; both log fixed codes only in the first place.
+  "doc",
+  "children",
+  "start",
+  "notes",
+  "template",
+  "fromRef",
+  "gw",
 ];
 
 /** Keys whose gazetteer town id makes the object a town: its point, outline, `name` and `label` are read against that town (A33). */

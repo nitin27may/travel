@@ -33,7 +33,7 @@ any new build starts."
   old to new numbers; RELEASE-PLAN section 0 points here). The gate, smoke list, rollback, checklist and CI plan of
   RELEASE-PLAN sections 4 to 8 stand unchanged.
 - [briefs/OVR.md](public-site/briefs/OVR.md): OVR-0 "after OVR-Cb" (OVR-0 has no dependency, Q223), and `pickPhotos`
-  ownership (moves from OVR-3 to the photos task PHO-C), and the CUS owned migration `planner_draft_doc` (number assigned at merge; 0011 is
+  ownership (moves from OVR-3 to the photos task PHO-C), and the CUS owned migration `plan_draft_doc` (number assigned at merge; 0011 is
   `quota`; numbers at merge, MIG-N).
 - [local-database-and-seed-sync.md](../features/local-database-and-seed-sync.md) 8: BKP-1 "depends on LOCAL-4" (it is a
   local launchd job since Q228) and "no migration" (its read-only role needs one).
@@ -209,7 +209,7 @@ STY-P (B2, contract lane) stays in 3.5's order with STY-Ca; RIS-H moved from I (
 | STY-Ca | `trip-base-plans/1`, `tripBasePlans`, `tripBasePlanDays`, `tripLegs` strategy | 5 | Opus | stays 15 | blocked: OVR-Ca (same `trip.ts`) | v0.13 |
 | STY-E | Evaluator and messages | 6 | Opus | stays 15 | blocked: STY-Ca | v0.13 |
 | TD-1 | `items.ref`, sub-regions, cover format in the core trip schema | 6 | Opus | SKILLS-AND-DATA-ONLY 5 | blocked: Q267 | v0.14 |
-| CUS-C | Migration `custom-draft`, full `trip-custom/1` (+2 widening, +0.25 origin), account route contract, `removeItem`, and the invite-only allow check (Q229b, +2 new) | 10.25 | Opus | OVR brief CUS; requests 11.4 | blocked: v0.11 owner preview, `planner_draft_signal` ruling, Q98 | v0.15 |
+| CUS-C | Migration `custom-draft`, full `trip-custom/1` (+2 widening, +0.25 origin), account route contract, `removeItem`, and the invite-only allow check (Q229b, +2 new) | 10.25 | Opus | OVR brief CUS; requests 11.4 | blocked: v0.11 owner preview, `plan_draft_signal` ruling, Q98 | v0.15 |
 | NAV-D | Migration `draft-cap` | 2 | Opus | navigation 10 | blocked: CUS-C | v0.16 |
 | FAV-D | Migration `account_favourite` | 4 | Opus | visitor 15 | blocked: CUS-C | v0.16 |
 | STY-2C | `trip-custom/1` `stays` operations | 2 | Opus | stays 15 | blocked: CUS-C | v0.17 |
@@ -373,7 +373,7 @@ unlocks and its bundle, is in [builder-dependency-map.md](builder-dependency-map
 
 **Credits to existing rows (overlaps O1 to O23 of the map):** REQ-G0 3 to 2 h (SRC-O takes the terms check), REQ-G 6 to 5
 h (`PlaceSearch` scaffolding in SRC-A), UPL-C 6 to 4 h and UPL-1 8 to 5 h (one own-plan model, `plan-draft/1` in
-`plan_draft`; UPL-C drops `user-plan/1` and `planner_draft.kind`), SRV-0 21 to 17 h (reuses DC-SRV's Postgres methods);
+`plan_draft`; UPL-C drops `user-plan/1` and `plan_draft.kind`), SRV-0 21 to 17 h (reuses DC-SRV's Postgres methods);
 NAV-3's F3 tab registry (+0.5 h) moves to WM-2. Builder questions QB1 to QB10 are written Q-TB1 to Q-TB10 and builder
 phases TB-P1 to TB-P5 in plan pages (map section 8).
 
@@ -470,7 +470,7 @@ while a contract task runs; each merges before the task that needs it starts. Bo
 | 3 | C | LST2b-C → PHO-C → **RIS-H → EG-C → PA-C → PA-X** → R59-C → ORG-C | RIS-H starts now; EG-C waits for QG1, QG3, QG4, QG5; PA-X before R59-C on `trip.ts`. **EG-M** (migration) runs in the data seat after EG-C and RIS-L |
 | 4 | C (end) to D | CAT-Q → FBK-C (every widening inside it before `intake` is applied) → **PM-C** → **PM-G** (data seat, one writer of `generate.ts`) → **(27 Oct) TB-C hook → WM-C hook → TK-C3 hook** (first B2 items after the B+C release commit is named) → REQ-RF-C → **EG-Q** → OVR-Ca → **TK-C5** (before PA-DV); **DT-1b** on the schedule engine before CUS-C | PM-C after PA-C, before STY-P; EG-Q takes the slot after REQ-RF-C (entity-graph 13), OVR-Ca follows; **PM-F** in B1 after UXB-7 and PM-C |
 | 5 | E | STY-P → STY-Ca → STY-E → **PA-Q** → **API-P** → TD-1 | PA-Q after EG-Q (same `store.ts`, `place.ts`); API-P after PA-Q and PM-F |
-| 6 | F | CUS-C (invite-only check inside, Q229b; after FA-D and the `planner_draft_signal` ruling) → NAV-D, FAV-D | FA-4 (field slimming) edits `properties.ts` after PM-C and STY-P |
+| 6 | F | CUS-C (invite-only check inside, Q229b; after FA-D and the `plan_draft_signal` ruling) → NAV-D, FAV-D | FA-4 (field slimming) edits `properties.ts` after PM-C and STY-P |
 | 7 | G | STY-2C, REQ-E-C, R59-3C → **PA-3C** → REQ-G-C → **API-G** (alone in its stack) → **API-T, API-S, API-V, MTH-G** | MTH-1 (Sonnet) after MTH-G and API-G |
 | 8 | H | MCP-C → MCP-G | MCP-C needs AU-D's `expose.mcp` overrides |
 | 9 | H2 (if QX2) | **UPL-C** → **STG-C** | `user_place`, `research_stage` migrations |
@@ -498,7 +498,7 @@ wait for.
 | (with v0.16) | `account_start` | ORG-H (if Q246) | v0.16 |
 | assigned at merge (MIG-N) | `relation_kinds` (relation CHECK follows `CAP_RELATION`; `entity.run_by`) (26 Oct, ALIGN) | EG-M | C: child in C's window, production at C's release before the step 9a sync (QG5) |
 | assigned at merge (MIG-N) | `mcp_access`, MCP-T token tables | MCP-G, MCP-T | v0.20 |
-| assigned at merge (MIG-N) | `user_place` (and `planner_draft.kind`) (26 Oct, ALIGN) | UPL-C | H2 v0.20a (if QX2) |
+| assigned at merge (MIG-N) | `user_place` (and `plan_draft.kind`) (26 Oct, ALIGN) | UPL-C | H2 v0.20a (if QX2) |
 | assigned at merge (MIG-N) | `research_stage` (and decisions) (26 Oct, ALIGN) | STG-C | H2 v0.20b (if QX2) |
 | assigned at merge (MIG-N) | `research_meta` | RIS-M | **v0.5** (was v1.0; after `backup_reader` when both merge for v0.5; [CATALOGUE-EARLY](CATALOGUE-EARLY.md) 7) |
 | assigned at merge (MIG-N) | `leg_cache_server_write` (server grant and DT-L columns on `leg_cache`) (27 Oct) | TB-L | D |
@@ -537,7 +537,7 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | Q93 to Q100 (answered 26 Oct); the phase 1 owner preview | OVR, CUS | v0.12 |
 | Q109 to Q116, DD-6 (answered 26 Oct) | STY-1 | v0.13 |
 | Q267 | TD-1 | v0.14 |
-| Q98, Q67, Q103, Q120 (answered 26 Oct), `planner_draft_signal` (still open) | CUS-C | v0.15 |
+| Q98, Q67, Q103, Q120 (answered 26 Oct), `plan_draft_signal` (still open) | CUS-C | v0.15 |
 | Google Cloud Places setup | REQ-G | v0.18 |
 | Q160 to Q167, Q190 to Q198 (answered 26 Oct), O-M2 to O-M6 | MCP | v0.19, v0.20 |
 | Q270 to Q279 (answered 26 Oct: yes as recommended), O-AU1 (analytics export), FA-D, UA-D | the audits, CUS-C (FA-D), MCP-C (AU-D, narrowed to the MCP field list), v0.22 (G-UI, UA-D) | v0.14.1, v0.22 |
@@ -925,7 +925,7 @@ Each row is a value or a step only the owner has. The decision behind it is reco
 | 3 | **Dolomites base split** (3 or 2 bases) and **Switzerland pass choice** | DATA-PLAN 2.3 | D9, STY-1 | E |
 | 4 | **Siusi: which plateau walk is meant**, and **Grand-Sault: which of the 3 candidates** | DATA-PLAN 2.3 | TRK-DO (Siusi); STO-1 holds only Grand-Sault | C, D |
 | 5 | **GB-C-6 (15.26): keep the two-decimal home point, or store a finer one** (no recommendation was written) | PLAN section 5 | nothing blocks; a privacy-circle precision choice | any |
-| 6 | **`planner_draft_signal`: approve as built** (not in the 26 Oct list) | PLAN section 5, HANDOVER item 5 | CUS-C | v0.15 |
+| 6 | **`plan_draft_signal`: approve as built** (not in the 26 Oct list) | PLAN section 5, HANDOVER item 5 | CUS-C | v0.15 |
 | 7 | **Google console steps (Q89):** Map ID with POIs off; add `http://127.0.0.1:3476/*` and `:3488/*` to the key's referrers (`google-map-note.md` 2.2) | Q89 | the M1 map; Q-A | before M1 |
 | 8 | **Neon dashboard: remove the shared Google credentials from production (Q123, O-0);** the test Gmail address and a recovery second owner for the Google project (Q119) | Q119, Q123 | GSI-E | v0.9 (B) |
 | 9 | **Vercel: `IMAGES_OFFLINE=1` in Production and Preview (Q292, O5)**; `HOME_POINT_*`, the beacon token and the Firewall rule as listed in 4.6 | Q292, 4.6 | the bundle A deploy | A |
