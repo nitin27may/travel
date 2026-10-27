@@ -24,6 +24,11 @@ bundles and their rules are [RELEASE-PLAN](RELEASE-PLAN.md) 0a.
 > (they still count in D and E). Data hours: **194 h**. Seat schedule 2.2 rewritten to MASTER-ORDER 5.4.
 > [alignment-2026-10-26.md](alignment-2026-10-26.md) 2.4.
 
+> **27 Oct 2026 (BUILDER-DEPS):** rows 51 to 63 add the builder program's data work (drive model, region groups, lodging,
+> transport notes, landscapes, holidays) to **data seat 1** (67.5 h over D to J) and the gazetteer (509 h) to a new **data seat
+> 2** (Q-DC7). DT-P0 moved to seat B3 (a code-run import). Seat 1's queue order is unchanged; the new rows use its spare
+> in D, E and F. Detail: [builder-dependency-map.md](builder-dependency-map.md).
+
 ## 0. Decision in one paragraph
 
 **One data seat runs a single ordered queue (section 2): the early half of the catalogue load first (bundle B's Internal,
@@ -115,8 +120,21 @@ data-seat row of [MASTER-ORDER](MASTER-ORDER.md) 5.4. Ids marked (new) had no ta
 | 48 | PA-R-CA (26 Oct) | Rockies parks (Banff, Jasper, Yoho, Kootenay, Kananaskis Country) through the locations store first, 2 zones, every entry requirement reshaped from the D8-R proposals, the Tre Cime toll ([protected-area-entry](../features/protected-area-entry.md) 11) | 6 | Opus researcher | PA-C; not beside D10-RO on the Rockies lane files | QP1 to QP6 answered | C | row 5 |
 | 49 | PA-MUS (26 Oct) | US park fees off the place onto `#entrance-fee` offers, `covered_by` the national pass | 2.5 | Sonnet, Opus review 0.5 | PA-C | | E | row 17 |
 | 50 | PA-R-ON (26 Oct) | Algonquin pilot: minimal park, two campgrounds, backcountry permit | 4 | Opus researcher | PA-3C | | G | row 20 |
+| 51 | DT-T0 (27 Oct) | Terrain classes and wave 0 `data/reference/drive/areas.json` (about 25 areas) | 3 | Opus | DT-C | | D | D window |
+| 52 | DT-S0 research (27 Oct) | Wave 0 seasonal roads and passes (code half in seat B3) | 5 | Opus | DT-1a | | E | E window |
+| 53 | DT-F0 research (27 Oct) | Wave 0 ferries and CA-US crossings (code half in seat B3) | 5 | Opus | DT-1a | | E | E window |
+| 54 | TB-RG (27 Oct) | Region groups for IT, CA, US, FR, IS (`data/reference/region-groups.json`, new) | 6 | Opus 3, Sonnet 3 | LST2b-C | Q-TB7 | E | E window |
+| 55 | TK-S rules (27 Oct) | Type default seasons per category (code half in seat B3) | 2 | Opus | TK-C | | E | E window |
+| 56 | TK-L (27 Oct) | `derive-landscape`: DEM relief, Natural Earth coast, type rules (one at a time on `core/bin/capture.ts`) | 7 | Sonnet 6, Opus review 1 | TK-C2, DC-L | Q-TK5 | E | E window |
+| 57 | DC-5 (27 Oct) | Region groups for wave 1 countries over 25 first-level units (extends row 54's file) | 2 | Opus | TB-RG, DC-C | | E | E window |
+| 58 | TB-BL (27 Oct) | Lodging counts per candidate town from DC-1's Geofabrik extracts, ODbL class | 3.5 | Sonnet, Haiku check | DC-1, SRC-A | Q-SRC1 | F | F window |
+| 59 | TB-D4 (27 Oct) | Region transport notes with a source for the offered regions | 4 | Opus | TB-RG | Q-TB8 | F | F window |
+| 60 | DT-W1 (27 Oct) | Drive model wave 1: profiles reviewed, terrain for seven T1 countries, ferries, borders, passes, recalibration | 28 | Opus 23, Sonnet 5 | DT wave 0 accepted, wave 1 list | | G | G window |
+| 61 | TK-H (27 Oct) | Public-holiday reference for long-weekend chips | 2 | Sonnet | DC-L | | J | after row 20 |
+| 62 | DC-W0 (27 Oct, data seat 2) | Wave 0: ON, QC, NY, VT, NH, ME, MA to T2; Italy T1 with Lombardy and the Dolomites at T2; Canada T1; US T0. Credits rows 33 (Algonquin, Vermont), 40 (Quebec, Niagara, New Hampshire stops), 50 (entry rules), 59 | 172 | Sonnet, Haiku; Opus about 25 | DC-1 to DC-4, DC-6, **DC-SRV merged first**, D5c done | Q-DC2 to Q-DC6 | E (lands E to F) | seat 2 |
+| 63 | DC-W1 (27 Oct, data seat 2) | Wave 1: 28 countries and 2 SARs at T0 (105 h, F); T1 for CH, IS, AR, CL, NO, CR, FR (170 h, G) | 275 | mixed | DC-W0 accepted | Q-DC2 | F, G | seat 2 |
 
-Totals by bundle (hours counted in RELEASE-PLAN 0a.2): A 5, B 36.5, C 62.5, D 13.5, E 55.5; 173 h with DP and L5 outside. **With rows 45 to 50 (26 Oct, ALIGN): A 5, B 36.5, C 77, D 13.5, E 58, G 4; 194 h.** PM-G (5 h, Sonnet builder in this seat during D's window) is counted as D's Infra, not here.
+Totals by bundle (hours counted in RELEASE-PLAN 0a.2): A 5, B 36.5, C 62.5, D 13.5, E 55.5; 173 h with DP and L5 outside. **With rows 45 to 50 (26 Oct, ALIGN): A 5, B 36.5, C 77, D 13.5, E 58, G 4; 194 h.** **With rows 51 to 63 (27 Oct, BUILDER-DEPS): seat 1 adds D 3, E 27, F 7.5, G 28, J 2 (67.5 h, of which DT-P0's 5 h moved to seat B3 is not counted here); seat 2 adds E 172, F 105, G 170 (447 h). The gazetteer pipeline code (DC-6, DC-1 to DC-4, SRC-L, SRC-AU; D) and DC-SRV's build half (E) run in seat 2 but count as Infra.** PM-G (5 h, Sonnet builder in this seat during D's window) is counted as D's Infra, not here.
 Of these, the work no task covered before today: TRK-1 7, TRK-CA 5, TRK-DO 2, TRK-RW 2, D10 18.5, TRL-REL 3.5, OFR-1 3.5,
 STO-1 1.5, OVT 7, DV-1 6, DV-2 3 (59 h). The report's 29 h becomes 34 h here because each D10 split carries its Opus
 10-record review (3.5 h) and OFR-1 adds the 25 offers RIS-H unblocks (1.5 h).
@@ -156,6 +174,8 @@ not started, so it runs at the head of C's window.
 | E (15 to 17) | 91 | RIS-A; D9, OVT; PA-MUS; DP (optional) | 30 | 61 | E |
 | G (20, 21) | 66 | PA-R-ON | 4 | | G |
 | F onward | | L5 requests, re-measures, any slipped batch | | | next bundle |
+| (27 Oct) D, E, F, G, J additions to seat 1 | | D: DT-T0. E: DT-S0 and DT-F0 research, TB-RG, TK-S rules, TK-L, DC-5. F: TB-BL, TB-D4. G: DT-W1. J: TK-H | 3; 27; 7.5; 28; 2 | E's spare 61 h falls to about 34 h | D to J |
+| (27 Oct) **data seat 2** (Q-DC7) | | D: DC-6, DC-1 to DC-4, SRC-L, SRC-AU (Sonnet builder). E: DC-SRV build half, then DC-W0 once DC-SRV merges. F: DC-W0 rest, DC-W1 T0. G: DC-W1 T1 | about 509 h with the code | Opus work only in the Opus lane's spare | E, F, G |
 
 **Where it can slip, and what happens** (25 Oct text; since ALIGN lane S runs at the head of C's window, so bundle B's CAT-1 waits for it or rides C, and C has 22 h spare). Window A has no spare: if lane S runs over, ORPH-7 moves to C and CAT-1 rides
 C (RELEASE-PLAN 0a.3 row 3). Window C has 12 h: Overpass outages (the CA split of D2b lost an hour to 502s) or the Opus
@@ -401,6 +421,7 @@ merge.
 
 | Date | Change |
 |---|---|
+| 2026-10-27 (BUILDER-DEPS) | Banner; 2.1 rows 51 to 63 and the totals sentence; 2.2 seat 1 additions and data seat 2. [builder-dependency-map.md](builder-dependency-map.md) |
 | 2026-10-26 (ALIGN, evening) | Banner; rows 3, 10, 12, 15 marked done; rows 45 to 50 (UXB-W, EG-M, EG-D, PA-R-CA, PA-MUS, PA-R-ON); totals 194 h; 2.2 rewritten to MASTER-ORDER 5.4 (lane S at the head of C's window; D10 splits and D8-R facts pulled into C; PM-G built in this seat). [alignment-2026-10-26.md](alignment-2026-10-26.md) |
 | 2026-10-26 (ANSWERS-5) | Section 2.3 rewritten: D1B-Q 1 to 5, Sepaq fees, DD-3, Q99, Q109 to Q116, DD-6 and Q290 answered as recommended; the tasks that waited on them are ready; the values still needed (Siusi, Grand-Sault, Utah, Norway and Peru dates, Dolomites base split, Switzerland pass) point to MASTER-ORDER 7.3. Nothing else changed |
 | 2026-10-26 | First version (PLAN-CONSOLIDATE job 3, planned only): state from the coverage report; every pending data and research task in one order with hours, blockers, owner decisions, bundle and seat row; the 384 draft records by trip and kind; the seat schedule by window with capacity; owner decisions by the bundle they unblock; the load and verify pipeline; the database cross-check X1 to X9; the scoreboard and its targets per bundle; the data policy; briefs TRK-1, DV-1, DV-2; Q290. New tasks: TRK-1, TRK-CA, TRK-DO, TRK-RW, D10 splits, TRL-REL, OFR-1, STO-1, OVT, DV-1, DV-2 |

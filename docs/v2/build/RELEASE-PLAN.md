@@ -7,6 +7,12 @@
 > [alignment-2026-10-26.md](alignment-2026-10-26.md). The UX design is approved (G-UXA passed 26 Oct) and its build is in
 > C's queue.
 
+> **27 Oct 2026 (BUILDER-DEPS):** the builder program (trip builder TB-P1 to TB-P5, kinds and profile, drive model,
+> sources, data coverage, My map) adds 945 h to bundles D to K (program 2,295.5 h; 2,181 h without H2). D carries the first
+> slice FS-1 (feature v0.11b) and My map (v0.11a); E the country flow (v0.14a) and map ties (v0.14b); F suggested bases and
+> getting there (v0.16a). No bundle G2 unless the new seat B3 is refused. 0a.2, 0a.3 rows 15 to 19, 0a.4; detail in
+> [builder-dependency-map.md](builder-dependency-map.md).
+
 > **26 Oct 2026: releases are bundles A to K (section 0a, owner decision).** The v0.x numbers below are feature labels.
 
 Written 25 Oct 2026 by travel-planner (Opus) at `main` 52339a0. Planned only: nothing here is built or deployed by this
@@ -68,18 +74,18 @@ the 26 Oct additions are named in the last column. The morning's version of this
 | **A** | v0.2 + v0.3 + v0.4 | sign-in reachable on phones, the privacy page, page-view counts, basics for the 74 stored places, Mine with copies and favourites on this device, trip-page go-live fixes, share images; no "Finished plan" from household dates (PRIV-TD). **The first deploy since v0.1 waits for Mine** | 59 | 20 | 5 | **84** | PRIV-TD 2.5 | none | the Opus privacy audit at T3 | 1 |
 | **B** | v0.5 + v0.9 | sign in by emailed code, verified accounts, backups, Continue with Google; Internal: the catalogue in Neon (CAT-1) and the database cross-check | 37.5 | 8 | 36.5 | **82** | | `backup_reader`, `research_meta` | EML-S, GSI-S, BKP-1 gate | 2 (B9) |
 | **C** | v0.6 + v0.7 + v0.8, UX fixes, parks P1, graph (Internal) | trip tabs with a Summary, party bar, the trip's shape, when to go, Table view, Bookings and Photos tabs; place pages that show what is known; park entry requirements in Book ahead; places near a town, the closure queue; photos on trail and stop pages; links and directions beside every stop; getting there | 214.5 | 10 | 77 | **301.5** | UXB 67, EG 23, PA 31 | `relation_kinds` | none | 1 (cut rule Q309) |
-| **D** | v0.10 + v0.11, property matrix (Internal) | report a problem, suggest an improvement or a place, ask for a trip with research-ready detail and "What we already have" | 104.75 | 13 | 13.5 | **131.25** | PM 13 | `intake` | FBK-S | 1 |
-| **E** | v0.12 + v0.13 + v0.14, place context, parks P2, facts model | best time to go and the trip overview, Where to stay on every trip, trips written as data get pages; "In Banff National Park", ways to do a trail, how to get there; park pages | 155 | 0 | 58 | **213** | EG 15, PA 23.5, API-P 6 | none | none | 1 |
-| **F** | v0.14.1 + v0.15 + v0.16 | field slimming, customise a trip (signed in), copies and favourites follow you into your account | 100.75 | 0 | 0 | **100.75** | | `custom_draft`, `draft_cap`, `account_favourite`, `account_start` | CUS-R | 1 |
-| **G** | v0.17 + v0.18, parks P3, API for MCP (Internal) | more edits, your own stops, base tweaks; search the map for a stop we do not have; plan a park visit and camping | 93 | 22.5 | 4 | **119.5** | PA 21, API 22.5 | none | REQ-G key and terms check | 1 |
-| **H** | v0.19 + v0.20 (MP1, MP2) | public MCP (21 tools, method resources, validate, typed payloads with view hints), then private MCP (your plans, read) and Connected apps | 81 | 0 | 0 | **81** | +25 | `mcp_access`, token tables | MCP-S1, MCP-S | 2 (B9) |
-| **H2** | v0.20a + v0.20b (MP3, MP4); **only if QX2 is yes** | plan with your AI: copy, customise, own plans with private places, MCP Apps views; research and admin: staged batches approved on our site (owner only) | 115 | 0 | 0 | **115** | new | `user_place`, `research_stage` | MCP-S3, MCP-S4 | 2 (B11) |
+| **D** | v0.10 + v0.11, property matrix (Internal); **v0.11a, v0.11b; sources and gazetteer pipeline (Internal)** | report a problem, suggest an improvement or a place, ask for a trip with research-ready detail and "What we already have"; **plan a day out or a short stay from a hub, an airport or your location, with honest drive times (FS-1); My map** | 265.25 | 79 | 21.5 | **365.75** | PM 13; 27 Oct +234.5 | `intake`, `leg_cache_server_write` | FBK-S; Opus privacy check of `/plan/` (party and start never stored) | 1 |
+| **E** | v0.12 + v0.13 + v0.14, place context, parks P2, facts model; **v0.14a, v0.14b; gazetteer from Postgres and wave 0 data** | best time to go and the trip overview, Where to stay on every trip, trips written as data get pages; "In Banff National Park", ways to do a trail, how to get there; park pages; **build a trip in a country by regions, your interests, plans in your account; map ties** | 238 | 14 | 260 | **512** | EG 15, PA 23.5, API-P 6; 27 Oct +299 | `plan_draft` | TB-SY review (RLS) | 1 |
+| **F** | v0.14.1 + v0.15 + v0.16; **v0.16a** | field slimming, customise a trip (signed in), copies and favourites follow you into your account; **suggested bases, getting there; interests and map in the account; wave 1 at T0** | 188.75 | 0 | 112.5 | **301.25** | 27 Oct +200.5 | `custom_draft`, `draft_cap`, `account_favourite`, `account_start`, `account_interests`, visit tables | CUS-R, WM-SR | 1 |
+| **G** | v0.17 + v0.18, parks P3, API for MCP (Internal); **drive model wave 1, wave 1 T1 data** | more edits, your own stops, base tweaks; search the map for a stop we do not have; plan a park visit and camping | 92 | 22.5 | 202 | **316.5** | PA 21, API 22.5; 27 Oct +197 | none | REQ-G key and terms check (SRC-O) | 1 |
+| **H** | v0.19 + v0.20 (MP1, MP2) | public MCP (21 tools, method resources, validate, typed payloads with view hints), then private MCP (your plans, read) and Connected apps; `get_my_map` | 83.5 | 0 | 0 | **83.5** | +25; 27 Oct +2.5 | `mcp_access`, token tables | MCP-S1, MCP-S | 2 (B9) |
+| **H2** | v0.20a + v0.20b (MP3, MP4); **only if QX2 is yes** | plan with your AI: copy, customise, own plans (as `plan-draft/1`, 27 Oct) with private places, MCP Apps views; research and admin: staged batches approved on our site (owner only) | 114.5 | 0 | 0 | **114.5** | new; 27 Oct −0.5 | `user_place`, `research_stage` | MCP-S3, MCP-S4 | 2 (B11) |
 | **I** | v0.21 | own domain and Email Phase 2, only on the Q148 trigger | 29 or 42.5 | 0 | 0 | **29 or 42.5** | | mail tables | EML-S2 | 1 |
-| **J** | v0.22 | the UI and UX audit and its fixes, once, on the finished product (after H2) | 70.5 | 0 | 0 | **70.5** | | none | none | 1 |
-| **K** | v1.0 to v1.2 | the public catalogue served from Postgres, one seam at a time | 23 | 0 | 0 | **23** | | none expected | parity per method | 3 flips (B9) |
-| | | **All, I at 29 h** | **1,083** | **73.5** | **194** | **1,350.5** | **+364.5** | | | |
+| **J** | v0.22; builder polish (TB-P5) | the UI and UX audit and its fixes, once, on the finished product (after H2), including `/plan/` and `/mine/map/` | 84.5 | 0 | 2 | **86.5** | | none | none | 1 |
+| **K** | v1.0 to v1.2 | the public catalogue served from Postgres, one seam at a time | 19 | 0 | 0 | **19** | | none expected | parity per method | 3 flips (B9) |
+| | | **All, I at 29 h** | **1,425.5** | **153.5** | **716.5** | **2,295.5** | **+364.5; 27 Oct +945** | | | |
 
-Without H2 (QX2 no): 1,235.5 h. The morning's table (A 81.5, C 180.5, D 118.25, E 168.5, G 76, H 56; 986 h) is superseded.
+Without H2 (QX2 no): 2,181 h (1,235.5 h before 27 Oct). Later, in no bundle: DT-W23, DT-X, SRC-G, CTRY-L (18 h). The morning's table (A 81.5, C 180.5, D 118.25, E 168.5, G 76, H 56; 986 h) is superseded.
 
 Not in a bundle: LOCAL-4 (5 h) and E2E-YML (3 h) wait for the repository to be public and ride the next bundle after it;
 DP (4 h, optional), new areas (L5, sized per request), GLB2b (25 h, on the globe mock approval), TD-4, TD-6, 7.11 and the
@@ -98,6 +104,10 @@ How the hours were counted, per bundle:
   D8-R 8, D8 8, D7 16, D9 8.5, RIS-A 8, OVT 7.
 - **F.** v0.14.1 27.5, v0.15 36.25, v0.16 37. **G.** v0.17 47, v0.18 29. **H.** MCP-C 5.5 (with the database-import test of
   [mcp/README.md](../mcp/README.md) 1.1), MCP-1 6, MCP-S1 1.5, ORG-MCP 1.5, v0.20 38.5, AU-D 3. **J, K, I** as MASTER-ORDER 5.3.
+- **27 Oct additions (BUILDER-DEPS; task by task in [builder-dependency-map.md](builder-dependency-map.md) 2).** D: build TB-P1 58, TK 28.5, DT 23, WM 51; data DT-P0 5,
+  DT-T0 3; infra SRC 24, DC pipeline 42. E: build TB 34, TK 19, DT 6, WM 24; infra DC-SRV 14; data TB-RG 6, TK 9, DT 10, DC-5 2,
+  DC-RB 3, DC-W0 172. F: build TB 66, TK-SY 4, WM 18; data TB-BL 3.5, TB-D4 4, DC-W1 T0 105. G: data DT-W1 28, DC-W1 T1 170;
+  build SRC-O 1, REQ-G0 −1, REQ-G −1. H: WM-M 2.5. H2: TK-MCP 2, WM-M 2.5, UPL −5. J: build TB-P5 8, TK 6; data TK-H 2. K: SRV-0 −4.
 - **26 Oct additions (ALIGN).** A: PRIV-TD 2.5 (build). C: UXB 67 (build 64; data UXB-W 3), EG 23 (build EG-C 6, EG-R0 1,
   EG-FX 2.5, EG-I 6, EG-DOC 2; data EG-M 2.5, EG-D 3), PA P1 31 (build PA-C 6, PA-FX 3, PA-X 4, PA-D 3.5, PA-W 4, PA-M 1.5,
   PA-R1/V1 3; data PA-R-CA 6). D: infra PM-C 4, PM-G 5, PM-F 4. E: EG-N 2, EG-Q 4, EG-W 6, EG-R/V 3; PA-N 3, PA-Q 2, PA-2 10,
@@ -127,6 +137,11 @@ and owner gates (4.6). Ten findings; each is fixed here and in the page named.
 | 12 | C | parks P1 needs the graph contract (same files, one author) and the migration `relation_kinds` before C's sync | contract chain RIS-H, EG-C, PA-C, PA-X (MASTER-ORDER 4.3); EG-M on the child in C's window, on production at C's release before step 9a |
 | 13 | A | the live site prints "Finished plan" from the household's real trip date (BACKLOG 15.310) | PRIV-TD rides A, merged before T3 |
 | 14 | H, H2 | MCP-C needs the API tasks of G (API-G, API-T, API-S, API-V) and the matrix (D); H2 needs CUS-C, TD-1, REQ-E-C, FAV-D, FBK-1 | all land in D to G first; checked in MASTER-ORDER 4.3; J follows H2 |
+| 15 | D (27 Oct) | D grows to 365.75 h with features that do not share D's intake files; one slow builder or map task would hold D | cut rule as Q309: D cuts when v0.10, v0.11 and the property matrix are verified; v0.11a and v0.11b ship dark if late (B3) and turn on in E |
+| 16 | D | the builder's shared lines (flag, OpenAPI, detector keys, `data.ts`, Mine registry) would collide with C's contract chain | they are hooks landed by B2 after the B+C release commit is named (MASTER-ORDER 4.3 row 4); builder new files may merge earlier, inert |
+| 17 | D | DT-1b changes drive times on public trip and place pages | alone in its stack, before and after table in the hand-back, before CUS-C on the schedule engine (Q-DEP5) |
+| 18 | E | gazetteer records would enter the static build and `JsonStore`'s cold start (P8, P9) | no gazetteer record merges before DC-SRV (E); wave 0 data that is not merged by E's T3 rides F |
+| 19 | E, F | the seed link needs OVR-1 on the CopySheet (E); TB-P3 needs STY-E (E) | TB-W2 after OVR-1 inside E; TB-P3 and TB-P4 in F, after E is live |
 
 Checked with no problem: A (OVR-0 before every other trip-page consumer; NAV-C and FAV-C merged; TRP-GL after FAV-1; IMG-1
 before PHO-R in C); B (EML-P after GSI-P, merged; BKP-1 before the first non-owner account); C (LST2b after A; the closure
@@ -153,6 +168,10 @@ photo 60 of 355. Targets are measured at the bundle's T3 with the commands of DA
 | G | no new data; gap budget does not rise | ships |
 | H | MCP publishes only the fields AU-D kept; exposure parity 0; required tier 90% or more overall | ships |
 | C additions (26 Oct) | parks P1: the 5 Rockies parks and 2 zones at the required tier with every requirement; `graph.ts build --check` green; `E_CAP_REL_TARGET` strict after EG-D; Summary highlights have licensed photos for the Rockies (D5c) | parks rows ship dark; highlights fall back to the gallery by name |
+| D (27 Oct) | FS-1 on today's data (QB2, QB3): a region or drive band under the slice bar shows its true count and "Ask us"; DT golden legs: mean error at most 22% overall, Canada 20%, Italy 33%; wave 0 country profiles CA, US, IT present | builder ships with greyed regions; never padded |
+| E (27 Oct) | DC-SRV merged before any gazetteer record; wave 0 T0 for the 7 slice regions with A1 to A6 green; DT wave 0 ferries, CA-US crossings and passes; region groups for IT, CA, US, FR, IS | the rest of wave 0 rides F |
+| F (27 Oct) | wave 0 slice at T2 (DC 2.3 bar) for Ontario and Quebec; Italy T1; lodging signal for the offered regions; transport notes; wave 1 at T0 begun | TB-P3 runs on the regions that meet the bar; others greyed |
+| G (27 Oct) | wave 1 at T0 accepted; T1 for the six trip countries and France begun; DT wave 1 profiles | ships partial |
 | H2 | user places and staged batches carry only registry properties; the staging export passes every validator on the then-current tree | ships dark |
 | I, J | none | |
 | K | CAT-V clean for the last 4 weekly runs and the last bundle; the database cross-check green on production; parity per method | the seam does not flip |
@@ -903,6 +922,7 @@ Open questions this train waited on: Q101 to Q108, Q130 to Q137, Q93 to Q100, Q6
 
 | Date | Change |
 |---|---|
+| 2026-10-27 (BUILDER-DEPS) | Banner; 0a.2 rows D to K, All (2,295.5 h) and the count lines; 0a.3 findings 15 to 19; 0a.4 lines for D to G. [builder-dependency-map.md](builder-dependency-map.md) |
 | 2026-10-26 (ALIGN, evening) | Banner rewritten (G-UXA passed); 0a.1 rule B11 (bundle H2, if QX2); 0a.2 table rewritten with the 26 Oct additions (C 301.5 h, H 81 h, H2 115 h, 1,350.5 h) and their counting; 0a.3 findings 11 to 14; 0a.4 rows for C additions and H2. [alignment-2026-10-26.md](alignment-2026-10-26.md) |
 | 2026-10-26 (ANSWERS-5) | Section 9's open-questions paragraph updated: Q101 to Q108, Q93 to Q100, Q130 to Q137, Q160 to Q168, Q190 to Q198, Q148 and Q149 answered 26 Oct 2026, yes as recommended; bundle A's tag is `release/A` (Q290). Nothing else changed |
 | 2026-10-26 (PLAN-CONSOLIDATE job 3) | Section 3 note and two Data work rows point to [DATA-PLAN.md](DATA-PLAN.md) instead of repeating it |
