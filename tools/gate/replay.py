@@ -14,6 +14,7 @@ from __future__ import annotations
 
 # merges whose test-only change had no source path to select it; each needs a reason (the replay's author signal is a guard, not a law)
 WAIVERS = {
+    "f57fa13f": "PA-R-CA3: a data-only area fix changed the park-line spec expectation with it; the data paths select the built scans, not that e2e spec",
     "b7f16785": "STACK-FIX: only pins and a scanner test changed (test_user_agents.py built its sample address at run time); no source path exists to select py.tools",
 }
 

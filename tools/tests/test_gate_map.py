@@ -150,7 +150,7 @@ def test_needs_pull_in_the_build(real: tuple[dict, list[str]]) -> None:
 def test_an_e2e_helper_runs_the_specs_that_import_it(real: tuple[dict, list[str]]) -> None:
     m, _ = real
     sel = gm.select(m, ["web/tests/e2e/auth-mock.ts"])
-    assert sel.specs == {"auth-email.spec.ts", "auth-email.shots.spec.ts"}
+    assert sel.specs == {"auth-email.spec.ts", "auth-email.shots.spec.ts", "auth-google.spec.ts", "auth-google.shots.spec.ts"}
 
 
 def test_appending_a_check_all_step_runs_its_suite(real: tuple[dict, list[str]]) -> None:
