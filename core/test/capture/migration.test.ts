@@ -195,7 +195,8 @@ describe("the committed migration (each kind of split)", () => {
       const r = cap(ref)!;
       expect([r.layer, r.type.startsWith("nature.trail."), r.starts_at]).toEqual(["route", true, [ref.split("#")[0]!.slice("part/".length)]]);
     }
-    expect(cap("part/place/lagazuoi-cable-car-and-tunnels#tunnels")!.starts_at).toEqual(["place/lagazuoi-cable-car-and-tunnels"]);
+    // EG-D (entity-graph 11.2): the tunnel walk starts at the lift's top station place, not at the lift line (a route)
+    expect(cap("part/place/lagazuoi-cable-car-and-tunnels#tunnels")!.starts_at).toEqual(["part/place/lagazuoi-cable-car-and-tunnels#top"]);
   });
 });
 

@@ -1,0 +1,141 @@
+{
+  "schema": "capture-changeset/1",
+  "run": "eg-d-2026-10-27-relation-fixes",
+  "by": "travel-researcher (EG-D, opus)",
+  "on": "2026-10-27",
+  "sources": [],
+  "changes": [
+    {
+      "file": "data/capture/canadian-rockies-2029/migrated.json",
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#wild-water",
+      "op": "remove",
+      "path": "on",
+      "why": "The Wild Water Adventures trip runs on the Kicking Horse River, held as a place; on is for routes, so the link moves to at (entity-graph 5.1, 11.2)."
+    },
+    {
+      "file": "data/capture/canadian-rockies-2029/migrated.json",
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#wild-water",
+      "op": "set",
+      "path": "at",
+      "value": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place"
+      ],
+      "why": "The Wild Water Adventures trip happens at the Kicking Horse River place; at names the place an offer happens at (entity-graph 5.1, 11.2)."
+    },
+    {
+      "file": "data/capture/canadian-rockies-2029/migrated.json",
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#hydra",
+      "op": "remove",
+      "path": "on",
+      "why": "The Hydra River Guides trip runs on the Kicking Horse River, held as a place; on is for routes, so the link moves to at (entity-graph 5.1, 11.2)."
+    },
+    {
+      "file": "data/capture/canadian-rockies-2029/migrated.json",
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#hydra",
+      "op": "set",
+      "path": "at",
+      "value": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place"
+      ],
+      "why": "The Hydra River Guides trip happens at the Kicking Horse River place; at names the place an offer happens at (entity-graph 5.1, 11.2)."
+    },
+    {
+      "file": "data/capture/dolomites-2027/migrated.json",
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "op": "set",
+      "path": "starts_at",
+      "value": [
+        "part/place/lagazuoi-cable-car-and-tunnels#top"
+      ],
+      "why": "The tunnel walk starts at the cable car's top station place, not at the lift line, which is a route (entity-graph 5.1, 11.2)."
+    },
+    {
+      "file": "data/capture/canadian-rockies-2029/migrated.json",
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "op": "set",
+      "path": "starts_at",
+      "value": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch"
+      ],
+      "why": "The party meets at the launch at the base of Bow Falls (ORPH-7, operator or official page) and goes on from there; starts_at is the meeting place (entity-graph 4.7, adventure kind profile)."
+    },
+    {
+      "file": "data/capture/canadian-rockies-2029/migrated.json",
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "op": "set",
+      "path": "starts_at",
+      "value": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting"
+      ],
+      "why": "The party meets at the Yoho visitor centre in Field (ORPH-7, operator or official page) and goes on from there; starts_at is the meeting place (entity-graph 4.7, adventure kind profile)."
+    },
+    {
+      "file": "data/capture/canadian-rockies-2029/migrated.json",
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "op": "set",
+      "path": "starts_at",
+      "value": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport"
+      ],
+      "why": "The party meets at the Canmore heliport base (ORPH-7, operator or official page) and goes on from there; starts_at is the meeting place (entity-graph 4.7, adventure kind profile)."
+    },
+    {
+      "file": "data/capture/canadian-rockies-2029/migrated.json",
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+      "op": "set",
+      "path": "starts_at",
+      "value": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport"
+      ],
+      "why": "The party meets at the Canmore heliport base (ORPH-7, operator or official page) and goes on from there; starts_at is the meeting place (entity-graph 4.7, adventure kind profile)."
+    },
+    {
+      "file": "data/capture/canadian-rockies-2029/migrated.json",
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+      "op": "set",
+      "path": "starts_at",
+      "value": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start"
+      ],
+      "why": "The party meets at the start at the top of the North American Chair (ORPH-7, operator or official page) and goes on from there; starts_at is the meeting place (entity-graph 4.7, adventure kind profile)."
+    },
+    {
+      "file": "data/capture/canadian-rockies-2029/migrated.json",
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+      "op": "set",
+      "path": "starts_at",
+      "value": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom"
+      ],
+      "why": "The party meets at the operator's Canmore classroom (ORPH-7, operator or official page) and goes on from there; starts_at is the meeting place (entity-graph 4.7, adventure kind profile)."
+    },
+    {
+      "file": "data/capture/canadian-rockies-2029/migrated.json",
+      "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
+      "op": "set",
+      "path": "covers_areas",
+      "value": [
+        "CA/AB/beauvais-lake-provincial-park"
+      ],
+      "why": "The locations store area of the same name is this park, so its records are members of it (W_PARK_AREA, protected-area-entry 4.1)."
+    },
+    {
+      "file": "data/capture/canadian-rockies-2029/migrated.json",
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+      "op": "set",
+      "path": "covers_areas",
+      "value": [
+        "CA/BC/elk-lakes-provincial-park"
+      ],
+      "why": "The locations store area of the same name is this park, so its records are members of it (W_PARK_AREA, protected-area-entry 4.1)."
+    },
+    {
+      "file": "data/capture/canadian-rockies-2029/migrated.json",
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+      "op": "set",
+      "path": "area_id",
+      "value": "CA/BC/elk-lakes-provincial-park",
+      "why": "The park is the store area of the same name (its covers_areas); derive-area places by nearby labelled points and found none, so the area is set from the park itself."
+    }
+  ]
+}

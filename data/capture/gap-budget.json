@@ -4,14 +4,14 @@
   "updated": "2026-10-27",
   "strict": [],
   "counts": {
-    "E_PLACE_AREA": 28,
+    "E_PLACE_AREA": 27,
     "E_PLACE_ORPHAN": 0,
     "W_PLACE_POINT": 1,
     "W_PLACE_APPROX": 0,
     "E_PLACE_FAR": 0,
     "W_PLACE_TOWN": 0,
     "W_TIER_REQUIRED": 383,
-    "W_TIER_REQUIRED.keys": 3664
+    "W_TIER_REQUIRED.keys": 3663
   },
   "raised": [],
   "known": [
@@ -63,27 +63,6 @@
       "rel": "parks_for",
       "target": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
       "why": "a meeting place or launch parks_for its offer; EG-D makes it the offer's starts_at (entity-graph 11.2)"
-    },
-    {
-      "code": "E_CAP_REL_TARGET",
-      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#wild-water",
-      "rel": "on",
-      "target": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
-      "why": "an offer on a river place; EG-D makes it at the place (entity-graph 11.2)"
-    },
-    {
-      "code": "E_CAP_REL_TARGET",
-      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#hydra",
-      "rel": "on",
-      "target": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
-      "why": "an offer on a river place; EG-D makes it at the place (entity-graph 11.2)"
-    },
-    {
-      "code": "E_CAP_REL_TARGET",
-      "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
-      "rel": "starts_at",
-      "target": "place/lagazuoi-cable-car-and-tunnels",
-      "why": "a route starts_at a lift line; EG-D points it at the top station place (entity-graph 11.2)"
     }
   ],
   "baseline": {

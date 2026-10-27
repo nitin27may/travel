@@ -4285,12 +4285,10 @@
       "layer": "offer",
       "name": "Wild Water Adventures: Gentle Kicking Horse",
       "offer_class": "experience",
-      "on": [
-        {
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place"
-        }
-      ],
       "run_by": "operator/wild-water-adventures",
+      "at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place"
+      ],
       "variant_of": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
       "starts_at": [
         "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base"
@@ -4310,12 +4308,10 @@
       "layer": "offer",
       "name": "Hydra River Guides: Family Whitewater",
       "offer_class": "experience",
-      "on": [
-        {
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place"
-        }
-      ],
       "run_by": "operator/hydra-river-guides",
+      "at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place"
+      ],
       "variant_of": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
       "meta": {
         "schema_version": 1,
@@ -6421,6 +6417,9 @@
       },
       "at": [
         "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch"
+      ],
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch"
       ]
     },
     {
@@ -6547,6 +6546,9 @@
         "quote": "7:00 am to 2:30 pm"
       },
       "run_by": "operator/parks-canada",
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting"
+      ],
       "window": {
         "v": {
           "rule": "fixed_date",
@@ -6929,6 +6931,9 @@
         "quote": "25 minutes"
       },
       "run_by": "operator/alpine-helicopters",
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport"
+      ],
       "window": {
         "v": null,
         "state": "none_stated",
@@ -7055,6 +7060,9 @@
         "note": "2-3 hours of walking"
       },
       "run_by": "operator/white-mountain-adventures",
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport"
+      ],
       "window": {
         "v": null,
         "state": "none_stated",
@@ -7765,6 +7773,9 @@
         "note": "the range across the five routes"
       },
       "run_by": "operator/banff-norquay",
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start"
+      ],
       "window": {
         "v": null,
         "state": "none_stated",
@@ -8060,6 +8071,9 @@
         ]
       },
       "run_by": "operator/yamnuska-mountain-adventures",
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom"
+      ],
       "window": {
         "v": null,
         "state": "none_stated",
@@ -8225,7 +8239,10 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Beauvais Lake Provincial Park"
+      "name": "Beauvais Lake Provincial Park",
+      "covers_areas": [
+        "CA/AB/beauvais-lake-provincial-park"
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/berg-lake",
@@ -8345,6 +8362,10 @@
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Elk Lakes Provincial Park",
+      "covers_areas": [
+        "CA/BC/elk-lakes-provincial-park"
+      ],
+      "area_id": "CA/BC/elk-lakes-provincial-park",
       "links": [
         {
           "kind": "official",
