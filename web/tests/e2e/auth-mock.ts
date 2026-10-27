@@ -63,7 +63,7 @@ const TURNSTILE_JS = `window.turnstile = { n: 0, cb: null,
 
 /** Fake Turnstile that asks for a person first: no token until the test calls `window.__solveTurnstile()`. */
 const TURNSTILE_CHALLENGE_JS = `window.turnstile = { n: 0, o: null,
-  render(el, o) { this.o = o; const box = document.createElement('div'); box.className = 'fake-turnstile-box'; box.textContent = 'Verify you are human'; box.style.height = '65px'; el.appendChild(box);
+  render(el, o) { this.o = o; const box = document.createElement('div'); box.className = 'fake-turnstile-box'; box.textContent = 'Verify you are human'; box.style.width = '300px'; box.style.height = '65px'; el.appendChild(box);
     setTimeout(() => o['before-interactive-callback'] && o['before-interactive-callback'](), 20); return 'w1'; },
   reset() { const t = 'cf-token-' + (++this.n); setTimeout(() => this.o && this.o.callback(t), 20); },
   remove() { this.o = null; } };

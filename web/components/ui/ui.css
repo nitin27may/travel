@@ -474,6 +474,10 @@ td[data-align='right'] { text-align: right; font: var(--t-mono); }
 /* ---------- banners (5.4) ---------- */
 .ban { display: flex; align-items: center; gap: var(--s-3); padding: 10px 14px; border: 1px solid var(--line); border-radius: var(--r-3); background: var(--surface); color: var(--ink); font: var(--t-body); font-size: 15.5px; }
 .ban > svg { flex: none; }
+/* A banner of words only: the icon marks the message, so it sits on the first line of text however many lines follow (components
+   5.4; GSI-UX-R S2). A banner with a separate action keeps the centred row, so its one-line text stays level with the button. */
+.ban:not(:has(> .ban-action)) { align-items: flex-start; }
+.ban:not(:has(> .ban-action)) > svg { margin-top: calc((1lh - 16px) / 2); }
 .ban-text { min-width: 0; }
 .ban-action { margin-left: auto; flex: none; }
 .ban-next { font: var(--t-mono); }

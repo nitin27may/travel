@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { Icon } from '@/components/ui/Icon';
 import { Field, Input } from '@/components/ui/Input';
-import { COPY, maskAddress, type AuthProblem } from '@/lib/auth/auth-errors';
+import { COPY, maskAddress, splitAtAddress, type AuthProblem } from '@/lib/auth/auth-errors';
 import { PASSWORD } from '@travel/core/config/auth-limits.ts';
 
 /** The step heading. It takes focus when the step changes in place (spec 3.1, P5), so a screen reader hears where it is. */
@@ -50,6 +50,32 @@ export function ProblemBanner({ problem }: { problem: AuthProblem | null }) {
     <CardBanner kind={problem.tone} action={action}>
       {problem.message}
     </CardBanner>
+  );
+}
+
+/** A message that names the masked address, with the address kept on one line (GSI-UX-R S3). */
+export function KeepAddress({ text, email }: { text: string; email: string }) {
+  const parts = splitAtAddress(text, email);
+  if (!parts) return <>{text}</>;
+  return (
+    <>
+      {parts.before}
+      <span className="auth-nowrap">{parts.masked}</span>
+      {parts.after}
+    </>
+  );
+}
+
+/** A sentence with one phrase kept on one line ("6-digit" must not break at its hyphen once the line is centred, GSI-UXF). */
+export function KeepPhrase({ text, phrase }: { text: string; phrase: string }) {
+  const at = phrase ? text.indexOf(phrase) : -1;
+  if (at < 0) return <>{text}</>;
+  return (
+    <>
+      {text.slice(0, at)}
+      <span className="auth-nowrap">{phrase}</span>
+      {text.slice(at + phrase.length)}
+    </>
   );
 }
 

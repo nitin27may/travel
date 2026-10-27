@@ -37,6 +37,14 @@
 .auth-lead + .auth-address { margin-top: calc(-1 * var(--s-2)); }
 .auth-note,
 .auth-help { font: var(--t-small); color: var(--muted); }
+/* One alignment rule for the panel (GSI-UX-R M2): page text is centred, field text is left-aligned. The leads, the sender note, the
+   chooser's help line and the Google consent line are page text; labels, field help and errors (inside .field), the masked-address
+   well and banner text belong to an input or a message and stay left. */
+.auth-lead,
+.auth-note,
+.auth-step > .auth-help,
+.auth-choices > .auth-help,
+.auth-google-consent { text-align: center; text-wrap: pretty; }
 
 .auth-address {
   display: flex;
@@ -52,6 +60,8 @@
   font: var(--t-body);
 }
 .auth-masked { font: var(--t-mono); font-size: 13.5px; overflow-wrap: anywhere; }
+/* An address inside a sentence stays on one line (GSI-UX-R S3). */
+.auth-nowrap { white-space: nowrap; }
 
 .auth-card .input { background: var(--bg); min-height: 46px; }
 @media (min-width: 640px) {
@@ -72,7 +82,8 @@
 .auth-alt-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-1) var(--s-6); margin-top: calc(-1 * var(--s-2)); }
 
 /* Step 1's way on (GSI-UX): the next-steps line under Continue, then "Forgot password?", then a hairline and the other page's line. */
-.auth-next { margin-top: calc(-1 * var(--s-2)); text-align: center; }
+/* Balanced, so the last word never sits alone under Continue at 390 or 320 (GSI-UX-R S5). */
+.auth-next { margin-top: calc(-1 * var(--s-2)); text-align: center; text-wrap: balance; }
 .auth-foot { display: grid; justify-items: center; gap: var(--s-3); text-align: center; }
 .auth-forgot { display: flex; justify-content: center; margin-top: calc(-1 * var(--s-2)); }
 .auth-foot .auth-alt { width: 100%; padding-top: var(--s-4); border-top: 1px solid var(--line); }
@@ -119,13 +130,17 @@
 }
 
 .auth-turnstile:empty { display: none; }
-.auth-turnstile { margin-top: var(--s-3); }
+/* The human check sits on the panel's axis like everything else (GSI-UX-R S4); Turnstile's widget is a fixed-width box. */
+.auth-turnstile { display: flex; justify-content: center; margin-top: var(--s-3); }
 /* A banner outside the step (the Turnstile challenge line) keeps the step's rhythm. */
 .auth-card > .ban { margin-top: var(--s-4); }
 
 /* The reset page's server-rendered sub-line explains the steps ("We email you a code, then you choose a new password"); once the
    password is set it no longer applies, so the done state hides it and its own card says what happened (EML-V F2). */
 .auth-page:has(.auth-done) .auth-head .auth-sub { display: none; }
+/* Steps 2 and later carry their own heading, so the page's sub-line (instructions already followed) gives way to it and the step's
+   button stays above the phone keyboard (GSI-UX-R S1; P3, P6). Step 1 has no step heading and keeps the sub-line. */
+.auth-page:has(.auth-step-title) .auth-head .auth-sub { display: none; }
 
 /* Continue with Google (GSI-1; Google spec 4.2 to 4.4, copy page 2.1). Google's light or dark button theme through the brand tokens
    (tokens.md 2.3), never our accent; our radius, input heights and focus ring. Hover changes the stroke only (Google's fill stays);

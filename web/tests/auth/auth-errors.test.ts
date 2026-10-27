@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { authProblem, COPY, deadCodeMessage, maskAddress, resentMessage, waitPhrase, type AuthAction, type AuthPage } from '@/lib/auth/auth-errors';
+import { authProblem, COPY, deadCodeMessage, maskAddress, resentMessage, splitAtAddress, waitPhrase, type AuthAction, type AuthPage } from '@/lib/auth/auth-errors';
 import { timeLeft } from '@/components/auth/live';
 import { authFlagsFrom } from '@/lib/auth/flags';
 import { clock, codeDigits } from '@/components/auth/CodeStep';
@@ -57,6 +57,12 @@ describe('auth answer copy (spec 3.3)', () => {
   it('acknowledges a resend with the masked address only (review M5)', () => {
     expect(resentMessage('nitin@gmail.com')).toBe('We sent a new code to n…@gmail.com. Use the newest email.');
     expect(resentMessage('nitin@gmail.com')).not.toContain('nitin@');
+  });
+
+  it('cuts the resend notice around the masked address, so the banner keeps it on one line (GSI-UX-R S3)', () => {
+    expect(splitAtAddress(resentMessage('nitin@example.com'), 'nitin@example.com')).toEqual({ before: 'We sent a new code to ', masked: 'n…@example.com', after: '. Use the newest email.' });
+    expect(splitAtAddress('Tick the box below to continue.', 'nitin@example.com')).toBeNull();
+    expect(splitAtAddress('anything', '')).toBeNull();
   });
 
   it('puts the time left in a button label (review M3)', () => {

@@ -6,7 +6,7 @@ import { Field, Input } from '@/components/ui/Input';
 import { COPY, deadCodeMessage, type AuthProblem } from '@/lib/auth/auth-errors';
 import { EMAIL_CODE } from '@travel/core/config/auth-limits.ts';
 import { clock, useCountdown } from './live';
-import { AddressLine, CardBanner, fieldError, ProblemBanner, StepHeading, TextButton } from './parts';
+import { AddressLine, CardBanner, fieldError, KeepAddress, ProblemBanner, StepHeading, TextButton } from './parts';
 
 export { clock } from './live';
 
@@ -124,12 +124,16 @@ export function CodeStep(props: Props) {
       <StepHeading focus={false}>Check your email</StepHeading>
       {intro ? <p className="auth-lead">{intro}</p> : null}
       <p className="auth-lead" id={leadId}>
-        We sent a {EMAIL_CODE.length}-digit code to
+        We sent a <span className="auth-nowrap">{EMAIL_CODE.length}-digit</span> code to
       </p>
       <AddressLine email={email} onChange={onChangeEmail} id={addrId} />
       <p className="auth-note">{COPY.senderNote}</p>
       <ProblemBanner problem={problem} />
-      {notice ? <CardBanner kind="notice">{notice}</CardBanner> : null}
+      {notice ? (
+        <CardBanner kind="notice">
+          <KeepAddress text={notice} email={email} />
+        </CardBanner>
+      ) : null}
       <Field label="Code" required error={error} help={COPY.codeLifetime}>
         {(a) => (
           <Input
