@@ -4,9 +4,9 @@ import { createElement, type ReactElement, type ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-const state = vi.hoisted(() => ({ profile: 'ok' as 'ok' | 'saved' | 'missing' | 'throws', drafts: 'ok' as 'ok' | 'throws', name: 'Nitin' as string | null }));
+const state = vi.hoisted(() => ({ profile: 'ok' as 'ok' | 'saved' | 'missing' | 'throws', setup: true, drafts: 'ok' as 'ok' | 'throws', name: 'Nitin' as string | null }));
 vi.mock('next/server', () => ({ connection: async () => undefined }));
-vi.mock('next/navigation', () => ({ usePathname: () => '/account/', redirect: () => undefined }));
+vi.mock('next/navigation', () => ({ usePathname: () => '/account/', useRouter: () => ({ refresh: () => undefined }), redirect: () => undefined }));
 vi.mock('next/dynamic', () => ({ default: () => () => null }));
 vi.mock('@/lib/auth/server', () => ({ getUser: async () => ({ id: 'u1', email: 'nitin.test@gmail.com', name: state.name }) }));
 vi.mock('@/lib/auth/landing-server', () => ({ accountLanding: async () => 'returning' }));
@@ -22,7 +22,7 @@ vi.mock('@travel/core/db/profile.ts', () => ({
     if (state.profile === 'throws') throw new Error('db down');
     if (state.profile === 'missing') throw Object.assign(new Error('relation "account_profile" does not exist'), { code: '42P01' });
     const travellers = state.profile === 'saved' ? { schema: 'travellers/1', adults: 2, children: [{ age: 7, age_as_of: new Date().toISOString().slice(0, 10) }] } : null;
-    return { exists: travellers !== null, travellers, travellersInvalid: false, travellersSavedAt: null, travellersConsentedAt: null, setupDoneAt: null, revision: travellers ? 1 : 0 };
+    return { exists: travellers !== null, travellers, travellersInvalid: false, travellersSavedAt: null, travellersConsentedAt: null, setupDoneAt: state.setup ? '2026-10-20T00:00:00.000Z' : null, revision: travellers ? 1 : 0 };
   },
 }));
 vi.mock('@/app/account/actions', () => ({ createDraft: vi.fn(), renameDraft: vi.fn(), deleteDraft: vi.fn(), saveName: vi.fn() }));
@@ -34,7 +34,7 @@ beforeEach(() => {
 afterEach(() => {
   vi.unstubAllEnvs();
   vi.restoreAllMocks();
-  Object.assign(state, { profile: 'ok', drafts: 'ok', name: 'Nitin' });
+  Object.assign(state, { setup: true, profile: 'ok', drafts: 'ok', name: 'Nitin' });
 });
 
 async function html(): Promise<string> {
@@ -44,6 +44,33 @@ async function html(): Promise<string> {
   return renderToStaticMarkup(createElement('main', null, await child.type(child.props)));
 }
 const h2s = (h: string) => [...h.matchAll(/<h2[^>]*>(.*?)<\/h2>/g)].map((m) => m[1].replace(/<[^>]+>/g, '').replace(/&#x27;/g, "'").replace(/&middot;|·/g, '·').trim());
+
+describe('first run (ACCT-P2, spec 2.3)', () => {
+  it('shows the setup card instead of Profile and Travellers when the row was read and setup is not done', async () => {
+    state.setup = false;
+    const h = await html();
+    expect(h).toContain('Set up your account');
+    expect(h).toContain('Step 1 of 2');
+    expect(h2s(h)).toEqual(expect.arrayContaining(['What should we call you?', 'Ways to sign in', 'Your data']));
+    expect(h2s(h)).not.toContain('Profile');
+    expect(h2s(h)).not.toContain('Travellers');
+  });
+  it('never shows the card after a failed read or without the table (fail closed)', async () => {
+    state.setup = false;
+    for (const profile of ['throws', 'missing'] as const) {
+      state.profile = profile;
+      vi.spyOn(console, 'error').mockImplementation(() => undefined);
+      vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+      expect(await html()).not.toContain('Set up your account');
+    }
+  });
+  it('a finished setup shows the settled Travellers section', async () => {
+    state.profile = 'saved';
+    const h = await html();
+    expect(h).not.toContain('Set up your account');
+    expect(h).toContain('2 adults · 1 child (7)');
+  });
+});
 
 describe('the page', () => {
   it('sections in the order of spec 2.1, one h1, one h2 each', async () => {
@@ -60,11 +87,12 @@ describe('the page', () => {
   it('keeps the old test drafts as rows', async () => {
     expect(await html()).toContain('Old test draft');
   });
-  it('Travellers: the empty state with the spec copy and no editor; a saved party reads in words', async () => {
+  it('Travellers: the empty state with the spec copy and its Add button; a saved party reads in words', async () => {
     let h = await html();
     expect(h).toContain('No travellers saved.');
     expect(h).toContain('Add who usually travels with you, and every trip starts from it.');
-    expect(h).not.toContain('Add travellers');
+    expect(h).toContain('Add travellers');
+    expect(h).not.toContain('Save travellers'); // the editor opens on a click
     state.profile = 'saved';
     h = await html();
     expect(h).toContain('2 adults · 1 child (7)');

@@ -13,7 +13,7 @@ import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 const DAY = 86_400_000;
 const state = vi.hoisted(() => ({ rows: [] as { providerId: string; createdAt: number }[] | null, google: '1' }));
 vi.mock('next/server', () => ({ connection: async () => undefined }));
-vi.mock('next/navigation', () => ({ usePathname: () => '/account/', redirect: () => undefined }));
+vi.mock('next/navigation', () => ({ usePathname: () => '/account/', useRouter: () => ({ refresh: () => undefined }), redirect: () => undefined }));
 vi.mock('next/dynamic', () => ({ default: () => () => null }));
 vi.mock('@/lib/capabilities', () => ({ capabilities: { signIn: true } }));
 vi.mock('@/lib/auth/flags', () => ({ authFlags: { signIn: true, signInCode: true, signInLink: false, get signInGoogle() { return state.google === '1'; } } }));

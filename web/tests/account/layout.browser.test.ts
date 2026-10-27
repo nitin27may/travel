@@ -9,7 +9,7 @@ import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 // Render the actual account components, replacing only request/service boundaries. No credentials,
 // synthetic database writes or live services are needed for a browser layout regression.
 vi.mock('next/server', () => ({ connection: async () => undefined }));
-vi.mock('next/navigation', () => ({ usePathname: () => '/account/' }));
+vi.mock('next/navigation', () => ({ usePathname: () => '/account/', useRouter: () => ({ refresh: () => undefined }) }));
 vi.mock('next/dynamic', () => ({ default: () => () => null }));
 vi.mock('@/lib/capabilities', () => ({ capabilities: { signIn: true } }));
 vi.mock('@/lib/auth/server', () => ({

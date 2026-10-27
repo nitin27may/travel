@@ -31,6 +31,12 @@ export function AccountMenu({ user }: { user: HeaderUser }) {
             } catch {
               /* unload client state regardless */
             }
+            // lazy: this chunk loads on every signed-in public page, and the party code is not needed until sign-out (spec 5.4)
+            try {
+              (await import('@/lib/account/seed-party')).clearAccountParty();
+            } catch {
+              /* leave anyway */
+            }
             leaveSession();
           },
         },
