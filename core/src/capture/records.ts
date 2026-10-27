@@ -8,6 +8,8 @@ import type { SuitabilityDoc, SuitabilityRecord } from "../schema/suitability.ts
 import type { PointsFile } from "../relevance/inputs.ts";
 import type { SupersedeEntry } from "../schema/capture/records.ts";
 import { applySupersedes, loadSupersedes } from "./supersede.ts";
+import { RELATION_RULES, targetsOf } from "../schema/capture/relations.ts";
+import type { RuleKey } from "../schema/capture/relations.ts";
 
 export const CAPTURE_DIR = "data/capture";
 /** Folders of data/capture that hold something other than a trip's capture sidecars. */
@@ -44,19 +46,52 @@ export function captureFiles(root: string, onlyTrip?: string | null): string[] {
   return sidecarFiles(root, "capture").filter((f) => !onlyTrip || f.includes(`/capture/${onlyTrip}/`));
 }
 
+/**
+ * The derived inverses of one record (entity-graph 5.1), built from RELATION_RULES: for each stored relation, the records whose link
+ * names this one, under the relation's inverse name. A symmetric relation's reverse keeps the relation's own name (`alternative_to`,
+ * `combo_with`: the records that list this one). Area membership (`covers_areas`) and the closure (`members_all`) are the graph index's
+ * (EG-I), not this per-process map.
+ *
+ * Legacy names (spec 15), kept until their readers move: `at` is `offers_at`, `on` is `offers_on` and `children` is `members` (the same
+ * arrays); `parks_for` and `serves` are the two halves of `access_points`.
+ */
 export interface Incoming {
-  /** offers whose `at` names this record */
-  at: string[];
-  /** offers whose `on` names this record */
-  on: string[];
-  parks_for: string[];
-  serves: string[];
-  /** records that are `part_of` this one */
-  children: string[];
-  /** routes that `reach` this record: the derived inverse, never stored */
+  /** records that are `part_of` this one (direct members; a stage's whole route) */
+  members: string[];
+  /** routes that `reach` this record */
   reached_by: string[];
+  /** routes that `pass` this record */
+  passed_by: string[];
   /** routes and offers that start here */
   starts_here: string[];
+  /** routes that end here */
+  ends_here: string[];
+  /** offers whose `at` names this record */
+  offers_at: string[];
+  /** offers whose `on` names this record */
+  offers_on: string[];
+  /** access places whose `parks_for` or `serves` names this record */
+  access_points: string[];
+  /** records an operator runs (keyed by the operator ref) */
+  operator_of: string[];
+  /** requirements this pass or lodging offer covers */
+  covers: string[];
+  /** products that include this requirement */
+  included_in: string[];
+  /** variants of this primary */
+  variants: string[];
+  alternative_to: string[];
+  combo_with: string[];
+  /** legacy alias of offers_at (same array) */
+  at: string[];
+  /** legacy alias of offers_on (same array) */
+  on: string[];
+  /** legacy alias of members (same array) */
+  children: string[];
+  /** legacy: the parks_for half of access_points */
+  parks_for: string[];
+  /** legacy: the serves half of access_points */
+  serves: string[];
 }
 
 export interface World {
@@ -75,7 +110,19 @@ export interface World {
   supersedes?: Map<string, SupersedeEntry>;
 }
 
-const emptyIncoming = (): Incoming => ({ at: [], on: [], parks_for: [], serves: [], children: [], reached_by: [], starts_here: [] });
+/** An empty Incoming, with the legacy names sharing their arrays. */
+export function emptyIncoming(): Incoming {
+  const members: string[] = [], offers_at: string[] = [], offers_on: string[] = [];
+  return {
+    members, reached_by: [], passed_by: [], starts_here: [], ends_here: [], offers_at, offers_on, access_points: [], operator_of: [], covers: [],
+    included_in: [], variants: [], alternative_to: [], combo_with: [], at: offers_at, on: offers_on, children: members, parks_for: [], serves: [],
+  };
+}
+
+/** Where each record-to-record rule's reverse lands in Incoming (covers_areas names areas, so it has no entry). */
+const INVERSE_SLOT: Readonly<Partial<Record<RuleKey, keyof Incoming>>> = Object.fromEntries(
+  RELATION_RULES.filter((r) => r.shape !== "areas").map((r) => [r.key, (r.inverse ?? r.key) as keyof Incoming]),
+);
 
 /** `exclude` leaves one capture file out, so the validator can compare it with the others. `opts.supersede: false` gives the raw lane values. */
 export function loadWorld(root: string, exclude?: string, extra: CaptureDoc[] = [], opts: { supersede?: boolean } = {}): World {
@@ -131,13 +178,16 @@ export function loadWorld(root: string, exclude?: string, extra: CaptureDoc[] = 
   };
   const primary = (ref: string): string => alias.get(ref) ?? ref;
   for (const { rec } of cap.values()) {
-    for (const t of rec.at ?? []) get(primary(t)).at.push(rec.ref);
-    for (const t of rec.on ?? []) get(primary(t.ref)).on.push(rec.ref);
-    for (const t of rec.parks_for ?? []) get(primary(t)).parks_for.push(rec.ref);
-    for (const t of rec.serves ?? []) get(primary(t)).serves.push(rec.ref);
-    for (const t of rec.part_of ?? []) get(primary(t)).children.push(rec.ref);
-    for (const t of rec.reaches ?? []) get(primary(t)).reached_by.push(rec.ref);
-    for (const t of rec.starts_at ?? []) get(primary(t)).starts_here.push(rec.ref);
+    const row = rec as unknown as Record<string, unknown>;
+    for (const rule of RELATION_RULES) {
+      const slot = INVERSE_SLOT[rule.key];
+      if (!slot) continue;
+      for (const t of targetsOf(row, rule.key)) {
+        const x = get(primary(t));
+        x[slot].push(rec.ref);
+        if (rule.key === "parks_for" || rule.key === "serves") x[rule.key].push(rec.ref);
+      }
+    }
   }
   const world: World = { root, cap, suit, rel, points: pts?.points ?? {}, operators, alias, incoming, trips, supersedes: new Map() };
   // 9.7: an official re-read may replace a pre-migration value as the shown value; the files on disk are not touched

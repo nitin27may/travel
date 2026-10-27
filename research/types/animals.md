@@ -8,7 +8,7 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 Records: offer. Suitability profile `horse` (always, extension horse). Effort: operator. Sources, in order: O.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, part_of, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, on, variants, cancellation, included.
 
 Suitability: R min_age, min_weight_kg, max_weight_kg, limit_reason, adult_required, age_band, kid_note, on_site_min, access_season, participation.wear, participation.pregnancy, participation.waiver, ext.horse.lead_rein; R when operated none; A effort.drivers.distance_km, toilets, exposure, participation.kit_provided, participation.medical, participation.weigh_in, participation.weather_cancel, ext.horse.share_horse, ext.horse.pace, ext.horse.pony_option.
 
@@ -20,7 +20,7 @@ Records: place, offer. Suitability profile `sight` (never). Effort: none, time i
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of.
 
-**offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
+**offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, on, run_by, variants, included.
 
 Suitability: R kid_note, stroller, wheelchair, on_site_min; R when operated none; A min_age, adult_required, age_band, carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, picnic, baby_change, access_season.
 
@@ -32,7 +32,7 @@ Records: place, offer. Suitability profile `play` (flag). Effort: none, time is 
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of.
 
-**offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
+**offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, on, run_by, variants, included.
 
 Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season; R when operated min_age, adult_required; A carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, signal, exposure, hazards.
 

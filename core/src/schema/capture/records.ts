@@ -170,7 +170,7 @@ export const capRecord = z.strictObject({
   geonames_id: val(z.string().regex(GEONAMES_ID_RE)).optional(),
   near_town: val(nearTownValue).optional(),
   near_town_km: val(z.number().min(0)).optional(),
-  // relations (2.5); `reached_by` is derived and is rejected (E_CAP_REL_DERIVED)
+  // relations (2.5; the rules are RELATION_RULES in relations.ts, entity-graph 5.1). Every inverse is derived and rejected (E_CAP_REL_DERIVED)
   reaches: z.array(ref).optional(),
   passes: z.array(passesRel).optional(),
   part_of: z.array(ref).optional(),
@@ -183,7 +183,14 @@ export const capRecord = z.strictObject({
   serves: z.array(ref).optional(),
   combo_with: z.array(ref).optional(),
   alternative_to: z.array(ref).optional(),
+  /** a route or offer of the same layer and category; the target is the primary (one level, E_CAP_VARIANT) */
   variant_of: ref.optional(),
+  /** a requirement (access.pass offer) names the passes or lodging offers that satisfy it (EG-C, from protected-area-entry C4) */
+  covered_by: z.array(ref).optional(),
+  /** a tour, ticket or lodging offer names the requirement offers it includes (EG-C) */
+  includes: z.array(ref).optional(),
+  /** a protected area names the locations-store areas that are the park: every record with that area_id is a member (EG-C, C4) */
+  covers_areas: z.array(z.string().min(1)).optional(),
   // base-contract values, each with its provenance (Val)
   season: val(z.array(seasonRow)).optional(),
   best_window: val(z.array(bestWindowRow)).optional(),

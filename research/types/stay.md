@@ -10,7 +10,7 @@ Records: place, offer. Suitability profile `stay` (never). Effort: none, time is
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, window, pairs_with, photos, part_of.
 
-**offer (lodging)**: R name, type, summary, access_cost, price, links, at, check_in_out, cost_band; R? none; A names, transit, window, pairs_with, photos, part_of, on, run_by, cancellation.
+**offer (lodging)**: R name, type, summary, access_cost, price, links, at, check_in_out, cost_band; R? none; A names, transit, window, pairs_with, photos, on, run_by, cancellation.
 
 Suitability: R wheelchair; R when operated none; A min_age, kid_note, stroller, stroller_extent, access_detail, accessible_toilet, accessible_parking, baby_change, access_season.
 
@@ -22,7 +22,7 @@ Records: place, offer. Suitability profile `stay` (never). Effort: none, time is
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, window, pairs_with, photos, part_of.
 
-**offer (lodging)**: R name, type, summary, access_cost, price, links, at, check_in_out, cost_band; R? none; A names, transit, window, pairs_with, photos, part_of, on, run_by, cancellation.
+**offer (lodging)**: R name, type, summary, access_cost, price, links, at, check_in_out, cost_band; R? none; A names, transit, window, pairs_with, photos, on, run_by, cancellation.
 
 Suitability: R wheelchair; R when operated none; A min_age, kid_note, stroller, stroller_extent, access_detail, accessible_toilet, accessible_parking, baby_change, access_season.
 
@@ -34,7 +34,7 @@ Records: place, offer. Suitability profile `stay` (never). Effort: none, time is
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, window, pairs_with, photos, part_of.
 
-**offer (lodging)**: R name, type, summary, access_cost, price, links, at, check_in_out, cost_band; R? none; A names, transit, window, pairs_with, photos, part_of, on, run_by, cancellation.
+**offer (lodging)**: R name, type, summary, access_cost, price, links, at, check_in_out, cost_band; R? none; A names, transit, window, pairs_with, photos, on, run_by, cancellation.
 
 Suitability: R wheelchair; R when operated none; A min_age, kid_note, stroller, stroller_extent, access_detail, accessible_toilet, accessible_parking, baby_change, access_season.
 
@@ -46,7 +46,7 @@ Records: place, offer. Suitability profile `stay` (never). Effort: none, time is
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, window, pairs_with, photos, part_of.
 
-**offer (lodging)**: R name, type, summary, access_cost, price, links, at, check_in_out, cost_band; R? none; A names, transit, window, pairs_with, photos, part_of, on, run_by, cancellation.
+**offer (lodging)**: R name, type, summary, access_cost, price, links, at, check_in_out, cost_band; R? none; A names, transit, window, pairs_with, photos, on, run_by, cancellation.
 
 Suitability: R wheelchair; R when operated none; A min_age, kid_note, stroller, stroller_extent, access_detail, accessible_toilet, accessible_parking, baby_change, access_season.
 

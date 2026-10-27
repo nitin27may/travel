@@ -30,7 +30,7 @@ Records: place, offer. Suitability profile `theme_park` (always). Effort: none, 
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
 
-**offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
+**offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, transit, pairs_with, closures, photos, on, run_by, variants, included.
 
 Suitability: R min_height_cm, adult_required, age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season, participation.pregnancy, participation.weather_cancel; R when operated none; A min_age, max_age, max_height_cm, min_weight_kg, max_weight_kg, limit_reason, solo, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, hazards, participation.medical, participation.waiver.
 
@@ -42,7 +42,7 @@ Records: place, offer. Suitability profile `coaster` (always, extension coaster)
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
 
-**offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
+**offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, transit, pairs_with, closures, photos, on, run_by, variants, included.
 
 Suitability: R min_age, min_height_cm, max_height_cm, min_weight_kg, max_weight_kg, adult_required, solo, age_band, kid_note, on_site_min, access_season, participation.pregnancy, participation.weather_cancel, ext.coaster.max_riders, ext.coaster.max_load_kg, ext.coaster.driver_rule; R when operated none; A limit_reason, wheelchair, toilets, participation.medical, ext.coaster.brake.
 
@@ -54,7 +54,7 @@ Records: place, offer. Suitability profile `zipline` (always, extension zip). Ef
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable); A names, transit, pairs_with, closures, photos, part_of, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable); A names, transit, pairs_with, closures, photos, on, variants, cancellation, included.
 
 Suitability: R min_age, min_height_cm, max_height_cm, min_weight_kg, max_weight_kg, limit_reason, adult_required, age_band, kid_note, on_site_min, access_season, participation.wear, participation.pregnancy, participation.waiver, participation.weather_cancel, ext.zip.braking; R when operated none; A wheelchair, limited_capacity_note, toilets, participation.fitness, participation.medical, participation.weigh_in, ext.zip.lines, ext.zip.tandem_under_kg, ext.zip.kids_course, ext.zip.between_lines.
 
@@ -66,7 +66,7 @@ Records: place, offer. Suitability profile `theme_park` (always). Effort: none, 
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable); A names, transit, pairs_with, closures, photos, part_of, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable); A names, transit, pairs_with, closures, photos, on, variants, cancellation, included.
 
 Suitability: R min_height_cm, adult_required, age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season, participation.pregnancy, participation.weather_cancel; R when operated none; A min_age, max_age, max_height_cm, min_weight_kg, max_weight_kg, limit_reason, solo, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, hazards, participation.medical, participation.waiver.
 
@@ -78,7 +78,7 @@ Records: place, offer. Suitability profile `play` (flag). Effort: none, time is 
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
 
-**offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
+**offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, transit, pairs_with, closures, photos, on, run_by, variants, included.
 
 Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season; R when operated min_age, adult_required; A carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, signal, exposure, hazards.
 

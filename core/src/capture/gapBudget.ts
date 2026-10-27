@@ -22,6 +22,12 @@ export type BudgetCode = (typeof BUDGET_CODES)[number];
 export const TIER_KEYS_COUNT = "W_TIER_REQUIRED.keys";
 
 export interface Raise { on: string; code: string; from: number; to: number; reason: string }
+/**
+ * A relation fault that existed when its rule landed (E_CAP_REL_TARGET, EG-C, 26 Oct 2026): it warns like a pinned record until the
+ * data is fixed, even when its source record was born after the pins (21 Oct). Listed once, when the rule lands; never added to
+ * silence a new record. A code in `strict` errors on these too. EG-D removes each entry as it fixes the link.
+ */
+export interface KnownFault { code: string; ref: string; rel: string; target: string; why?: string }
 export interface GapBudget {
   schema: typeof GAP_BUDGET_SCHEMA;
   note: string;
@@ -30,6 +36,7 @@ export interface GapBudget {
   strict: string[];
   counts: Record<string, number>;
   raised: Raise[];
+  known?: KnownFault[];
   baseline?: Record<string, unknown>;
 }
 
@@ -41,11 +48,24 @@ export interface Severity {
   pinned: Set<string>;
   strict: Set<string>;
   townsLayer: boolean;
+  /** `code|ref|rel|target` of the known relation faults */
+  known?: Set<string>;
 }
+
+const knownKey = (code: string, ref: string, rel: string, target: string): string => `${code}|${ref}|${rel}|${target}`;
 
 export function severityOf(root: string, townsLayer: boolean): Severity {
   const b = loadBudget(root);
-  return { pinned: new Set(b?.pinned?.refs ?? []), strict: new Set(b?.strict ?? []), townsLayer };
+  return { pinned: new Set(b?.pinned?.refs ?? []), strict: new Set(b?.strict ?? []), townsLayer, known: new Set((b?.known ?? []).map((k) => knownKey(k.code, k.ref, k.rel, k.target))) };
+}
+
+/**
+ * error or warning for a relation finding on one link: a known fault (the budget's `known` list) warns unless its code is strict;
+ * otherwise as levelOf (a pinned record warns, a new record errors, a draft warns).
+ */
+export function levelOfLink(code: string, refs: string[], rel: string, target: string, store: boolean, sev: Severity): "error" | "warning" {
+  if (store && !sev.strict.has(code) && refs.some((r) => sev.known?.has(knownKey(code, r, rel, target)))) return "warning";
+  return levelOf(code, refs, store, sev);
 }
 
 /** Whether a file is a capture sidecar in the store (data/capture/<trip>/<lane>.json); a draft outside it only gets warnings. */
@@ -119,6 +139,7 @@ export function writeBudget(root: string, opts: { today: string; reason?: string
     strict: old?.strict ?? [],
     counts: now,
     raised: [...(old?.raised ?? []), ...rose.map((code) => ({ on: opts.today, code, from: old?.counts?.[code] ?? 0, to: now[code] ?? 0, reason: opts.reason! }))],
+    ...(old?.known ? { known: old.known } : {}),
     ...(opts.baseline ?? old?.baseline ? { baseline: opts.baseline ?? old!.baseline } : {}),
     // the long list last, so the counts stay at the top of the file
     pinned: opts.pin || !old ? { on: opts.today, note: old?.pinned?.note ?? "", refs } : old.pinned,
