@@ -5,10 +5,11 @@ import { sendOwnerAlert, type AlertEvent } from '@travel/core/mail/alert.ts';
 import type { Mailer } from '@travel/core/mail/mailer.ts';
 import { LOG_DENY_KEYS } from '@travel/core/privacy/detect.ts';
 import { quotaAlertBudget } from '@travel/core/quota/alert-budget.ts';
-import { addressHash, ipHash } from '@travel/core/quota/keys.ts';
+import { addressHash, addressIpHash, ipHash } from '@travel/core/quota/keys.ts';
 import { createPgQuotaStore } from '@travel/core/quota/pg.ts';
 import type { QuotaRule, QuotaStore } from '@travel/core/quota/store.ts';
 import { isIP } from 'node:net';
+import { answerHoldMs, monotonicMs, sleep } from '@/lib/auth/answer-hold';
 import { authFlagsNow, type AuthFlags } from '@/lib/auth/flags';
 import { revokeSessionsBefore } from '@/lib/auth/revoke';
 import { clientIp } from '@/lib/server/client-ip';
@@ -31,7 +32,12 @@ import { turnstilePassed, verifyTurnstile } from '@/lib/server/turnstile';
  *      - a successful reset by code signs out every older session (EML-0 W2: Neon keeps them);
  *      - Neon's 429 keeps a Retry-After (the SDK proxy drops Neon's `x-retry-after`);
  *      - a send Neon refuses (429 or 5xx) is counted and becomes SEND_FAILED, with owner alerts (first refusal of a day, three
- *        failures in an hour); our own global cap becomes SEND_UNAVAILABLE with an alert once a day.
+ *        failures in an hour); our own global cap becomes SEND_UNAVAILABLE with an alert once a day;
+ *   6. every answer of a send or sign-up route, refusals from step 2 on included, is held to a fixed minimum time plus jitter
+ *      (AUTH_GUARD.answerMinMs, review SF5), so Neon answering faster when it sends nothing cannot tell addresses apart.
+ *
+ * Code and password checks key their tight per-address bucket on the address and the IP together, under a higher address-only
+ * ceiling (SF3), so a guesser on one network cannot keep the owner of an address locked out.
  *
  * Allow-list (hotfix A1, review MF3): only the routes this site calls are proxied: `get-session` (GET), `sign-out` (POST) and the
  * seven routes of the sign-in card (ROUTES). Every other path and method answers 404 here, whatever plugins are switched on in the
@@ -220,6 +226,10 @@ export interface GuardDeps {
   flags(): AuthFlags;
   /** Cloudflare's siteverify (tests inject a fake). */
   turnstileFetch?: typeof fetch;
+  /** The answer hold (SF5): a monotonic clock in ms, a wait, and a random number in [0, 1) for the jitter. */
+  clockMs(): number;
+  sleep(ms: number): Promise<void>;
+  random(): number;
 }
 
 let pgStore: QuotaStore | undefined;
@@ -239,6 +249,9 @@ export function defaultGuardDeps(upstream: GuardDeps['upstream']): GuardDeps {
     }),
     now: () => new Date(),
     flags: authFlagsNow,
+    clockMs: monotonicMs,
+    sleep,
+    random: () => Math.random(),
   };
 }
 
@@ -248,7 +261,7 @@ function rules(limit: { bucket: string; windows: readonly Window[] }, key: strin
   return limit.windows.map((w) => ({ bucket: limit.bucket, key, windowS: w.windowS, limit: w.limit }));
 }
 
-function rulesFor(kind: Kind, addr: string, ip: string): QuotaRule[] {
+function rulesFor(kind: Kind, addr: string, ip: string, addrIp: string): QuotaRule[] {
   switch (kind) {
     case 'send':
       return [...rules(AUTH_LIMITS.sendAddr, addr), ...rules(AUTH_LIMITS.sendIp, ip), ...rules(AUTH_LIMITS.sendGlobal, '')];
@@ -257,9 +270,9 @@ function rulesFor(kind: Kind, addr: string, ip: string): QuotaRule[] {
       return [...rules(AUTH_LIMITS.signupIp, ip), ...rules(AUTH_LIMITS.sendAddr, addr), ...rules(AUTH_LIMITS.sendGlobal, '')];
     case 'verify':
     case 'reset':
-      return [...rules(AUTH_LIMITS.verifyAddr, addr), ...rules(AUTH_LIMITS.verifyIp, ip)];
+      return [...rules(AUTH_LIMITS.verifyAddrIp, addrIp), ...rules(AUTH_LIMITS.verifyAddr, addr), ...rules(AUTH_LIMITS.verifyIp, ip)];
     case 'password':
-      return [...rules(AUTH_LIMITS.passwordAddr, addr), ...rules(AUTH_LIMITS.passwordIp, ip)];
+      return [...rules(AUTH_LIMITS.passwordAddrIp, addrIp), ...rules(AUTH_LIMITS.passwordAddr, addr), ...rules(AUTH_LIMITS.passwordIp, ip)];
   }
 }
 
@@ -337,17 +350,25 @@ export function createAuthGuard(deps: GuardDeps) {
       return answer(404, 'NOT_FOUND');
     }
 
+    // 1. Origin, before anything else (no quota is spent on a forged cross-site call); a missing Origin is refused too.
+    if (!originOk(request)) {
+      guardLog('warn', { event: 'auth_guard', route: route.id, outcome: 'origin' });
+      return answer(403, 'FORBIDDEN');
+    }
+
+    // 6. The answer hold (SF5) wraps steps 2 to 5 of the send and sign-up routes, whatever the outcome.
+    const t0 = deps.clockMs();
+    const res = await guarded(request, route, flags, canonical);
+    if (route.kind === 'send' || route.kind === 'signup') await deps.sleep(answerHoldMs(deps.clockMs() - t0, deps.random()));
+    return res;
+  }
+
+  async function guarded(request: Request, route: GuardedRoute, flags: AuthFlags, canonical: RouteCtx): Promise<Response> {
     const started = deps.now();
     const env = deps.env();
     const local = env.NODE_ENV === 'test' || env.NODE_ENV === 'development';
     const done = (level: 'info' | 'warn' | 'error', outcome: string, extra: Record<string, LogValue> = {}) =>
       guardLog(level, { event: 'auth_guard', route: route.id, outcome, ...extra });
-
-    // 1. Origin, before anything else (no quota is spent on a forged cross-site call); a missing Origin is refused too.
-    if (!originOk(request)) {
-      done('warn', 'origin');
-      return answer(403, 'FORBIDDEN');
-    }
 
     // 2. Body: capped, JSON, the address canonical.
     const raw = await readCapped(request, AUTH_GUARD.bodyMaxBytes);
@@ -412,16 +433,19 @@ export function createAuthGuard(deps: GuardDeps) {
         store = candidate;
         const now = deps.now();
         const addr = addressHash(secret, email, now);
-        if (!addr) {
+        const addrIp = addressIpHash(secret, email, ip, now);
+        if (!addr || !addrIp) {
           done('info', 'bad_email');
           return answer(400, 'INVALID_EMAIL');
         }
-        const take = rulesFor(route.kind, addr, ipHash(secret, ip, now));
+        const take = rulesFor(route.kind, addr, ipHash(secret, ip, now), addrIp);
         let result;
         try {
           result = await store.take(take);
-        } catch {
-          done('error', 'quota_unavailable');
+        } catch (e) {
+          // The SQLSTATE only (pg.ts puts nothing else in the message): 42P01 or 42883 mean migration 0011 is not applied (SF7).
+          const sqlstate = /sqlstate=([0-9A-Za-z]{5})\)/.exec(e instanceof Error ? e.message : '')?.[1];
+          done('error', 'quota_unavailable', { sqlstate });
           return answer(503, 'GUARD_UNAVAILABLE');
         }
         if (!result.allowed) {

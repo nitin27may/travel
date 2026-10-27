@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 /** Where to write to ask a question or have an account removed, until the delete-account button ships (owner decision, 26 Oct 2026). */
 export const PRIVACY_CONTACT = 'nitin27may@gmail.com';
-export const PRIVACY_CHANGED = '26 October 2026';
+export const PRIVACY_CHANGED = '27 October 2026';
 
 /** The page body. `google` is true when a Google map family is on, so the page names Google Maps only when it is in use. */
 export function PrivacyBody({ google }: { google: boolean }) {
@@ -62,18 +62,21 @@ export function PrivacyBody({ google }: { google: boolean }) {
           and to show you your drafts, and for nothing else.
         </p>
         <p>
-          To stop repeated guessing of passwords and codes, we count attempts for each email address and each network for one day. We keep only a
-          scrambled form that cannot be turned back into the address or the IP, and we delete it within two days.
+          To stop repeated guessing of passwords and codes, we count attempts for each email address, for each IP address, and for the two
+          together, over periods of up to one day. We keep only a scrambled form that cannot be turned back into the address or the IP. Each count
+          is deleted at the next sign-in attempt by anyone once it is two days past its period, so at most three days after your attempt while the
+          site is in use. Daily totals that hold no address or IP, such as how many codes were sent, are kept for 35 days.
         </p>
         <p>
-          Cloudflare Turnstile runs on the sign-in and sign-up forms to tell a person from a bot. To do that, Cloudflare looks at your browser. It never
-          runs on trip or place pages.
+          Cloudflare Turnstile runs on the sign-in and sign-up forms to tell a person from a bot. To do that, Cloudflare looks at your browser, and our
+          server sends Cloudflare your IP address with the check. It never runs on trip or place pages.
         </p>
 
         <h2>Email</h2>
         <p>
-          Sign-in and password reset codes are sent by Neon, the service that runs our sign-in. We use Resend only to send alerts to the site owner; it
-          never sends you anything. Neither is used for newsletters or marketing.
+          Sign-in, confirmation and password reset emails are sent by Neon, which runs our sign-in, from auth@mail.myneon.app under the name Neon
+          Auth. They use Neon&rsquo;s standard wording. We don&rsquo;t send these emails ourselves yet. We use Resend only to send alerts to the site
+          owner; it never sends you anything. Neither is used for newsletters or marketing.
         </p>
 
         <h2>Removing your account</h2>

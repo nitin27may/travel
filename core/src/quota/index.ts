@@ -5,7 +5,7 @@ export type { QuotaRule, QuotaStore, TakeResult } from "./store.ts";
 export { createMemoryQuotaStore } from "./memory.ts";
 export type { MemoryQuotaStore } from "./memory.ts";
 export { createPgQuotaStore, QuotaUnavailableError } from "./pg.ts";
-export { addressHash, assertSecret, ipHash, utcDay } from "./keys.ts";
+export { addressHash, addressIpHash, assertSecret, ipHash, utcDay } from "./keys.ts";
 export { quotaAlertBudget } from "./alert-budget.ts";
 export { dailyCounts, deliverySignal, formatStats, statsQuery } from "./stats.ts";
 export type { DayCounts, Signal, StatsRow } from "./stats.ts";

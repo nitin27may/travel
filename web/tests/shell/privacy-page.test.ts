@@ -24,11 +24,26 @@ describe('the privacy page (GSI-P)', () => {
     for (const t of [
       'Cloudflare Web Analytics', 'sets no cookies', 'which site linked to them', 'country, browser, operating system and kind of device', 'It runs only on the live site',
       'Reading the site sets no cookies', 'Signing in sets cookies', 'Vercel', 'request logs', 'deletes them after a limited time', 'Neon', 'trip drafts you save',
-      'your name if you give one', 'scrambled form', 'within two days', 'Turnstile', 'Sign-in and password reset codes are sent by Neon',
-      'Resend only to send alerts to the site owner', 'The pages hold no household data', 'Removing your account', 'Last changed 26 October 2026',
+      'your name if you give one', 'scrambled form', 'Turnstile',
+      'Resend only to send alerts to the site owner', 'The pages hold no household data', 'Removing your account', 'Last changed 27 October 2026',
     ]) expect(text, t).toContain(t);
     expect(text).toContain('email nitin27may@gmail.com');
     expect(html).toContain('href="mailto:nitin27may@gmail.com"');
+  });
+
+  it('says what the sign-in guard keeps and sends, as the code does it (review EML-S SF6)', () => {
+    for (const t of [
+      // Keys are the address, the IP and the two together (core/src/quota/keys.ts), not a network range.
+      'for each email address, for each IP address, and for the two together',
+      // quota_take() purges keyed rows 48 h after their window ends, only when it runs (0011_quota.sql); day windows make that 72 h.
+      'deleted at the next sign-in attempt by anyone once it is two days past its period', 'at most three days after your attempt',
+      'are kept for 35 days',
+      // lib/server/turnstile.ts sends remoteip to siteverify.
+      'our server sends Cloudflare your IP address with the check',
+      // The EML-P wording of "Decision 25 Oct" (email spec).
+      "Sign-in, confirmation and password reset emails are sent by Neon, which runs our sign-in, from auth@mail.myneon.app under the name Neon Auth. They use Neon's standard wording. We don't send these emails ourselves yet.",
+    ]) expect(text, t).toContain(t);
+    for (const t of ['each network', 'within two days']) expect(text, t).not.toContain(t);
   });
 
   it('names Google Maps only when a Google map family is on', () => {

@@ -78,3 +78,50 @@ export function formatStats(days: readonly DayCounts[]): string {
   );
   return lines.join("\n");
 }
+
+// ----- readiness (review EML-S SF7) ------------------------------------------------------------------------------------------------
+// Release A deployed the guard with "no database migrations", so production may lack 0011_quota.sql; then every guarded call answers
+// 503 GUARD_UNAVAILABLE, password sign-in included. `quota.ts check` reads only the catalogue (no row of quota_bucket) and says which
+// part is missing. Read only.
+
+export interface ReadinessRow {
+  table_ok: boolean;
+  take_ok: boolean;
+  peek_ok: boolean;
+  role_ok: boolean;
+  grant_ok: boolean | null;
+}
+
+/** The catalogue query: the table, both functions, the app role and its execute grant on quota_take. `appRole` is a parameter. */
+export function readinessQuery(appRole: string): { sql: string; params: unknown[] } {
+  const take = "to_regprocedure('public.quota_take(text[],text[],integer[],integer[])')";
+  return {
+    sql:
+      "select to_regclass('public.quota_bucket') is not null as table_ok, " +
+      `${take} is not null as take_ok, ` +
+      "to_regprocedure('public.quota_peek(text,integer,timestamptz)') is not null as peek_ok, " +
+      "exists (select 1 from pg_roles where rolname = $1) as role_ok, " +
+      `case when ${take} is not null and exists (select 1 from pg_roles where rolname = $1) ` +
+      `then has_function_privilege($1, ${take}::oid, 'execute') end as grant_ok`,
+    params: [appRole],
+  };
+}
+
+/** What is missing, in fixed words; empty when the quota store is ready. */
+export function readinessProblems(row: ReadinessRow | undefined): string[] {
+  if (!row) return ["no answer from the database"];
+  const out: string[] = [];
+  if (!row.table_ok) out.push("table quota_bucket is missing (apply core/src/db/migrations/0011_quota.sql)");
+  if (!row.take_ok) out.push("function quota_take is missing (0011_quota.sql)");
+  if (!row.peek_ok) out.push("function quota_peek is missing (0011_quota.sql)");
+  if (!row.role_ok) out.push("the app role is missing (an earlier migration)");
+  else if (row.take_ok && row.grant_ok !== true) out.push("the app role cannot execute quota_take (0011_quota.sql grants)");
+  return out;
+}
+
+/** The printed readiness report. */
+export function formatReadiness(problems: readonly string[]): string {
+  return problems.length === 0
+    ? "quota store ready: quota_bucket, quota_take and quota_peek exist and the app role may call them"
+    : ["quota store NOT ready; every guarded sign-in call answers 503 GUARD_UNAVAILABLE until this is fixed:", ...problems.map((p) => `- ${p}`)].join("\n");
+}

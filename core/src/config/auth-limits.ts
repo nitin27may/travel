@@ -15,7 +15,15 @@ const QUARTER = 15 * 60;
 const HOUR = 3600;
 const DAY = 86400;
 
-/** Phase 1 buckets (spec 5.2). `addr` buckets key on the hashed address, `ip` on the hashed client IP, `global` on nothing. */
+/**
+ * Phase 1 buckets (spec 5.2). `addr` buckets key on the hashed address, `addr_ip` on the hash of the address and the client IP
+ * together, `ip` on the hashed client IP, `global` on nothing.
+ *
+ * Checks (code and password) key the tight per-address limit on address + IP (review EML-S SF3): someone guessing from their own
+ * network renews only their own lockout, never the owner's of that address on another network. The address-only bucket is a ceiling
+ * well above what one IP may try (`verifyIp`, `passwordIp`), so locking a victim out takes several networks at once, while a guesser
+ * spread over many networks still stops there.
+ */
 export const AUTH_LIMITS = {
   /** Every call that makes Neon send a code: per address 1 a minute, 4 an hour, 8 a day. */
   sendAddr: { bucket: "auth:send:addr", windows: [{ windowS: MINUTE, limit: 1 }, { windowS: HOUR, limit: 4 }, { windowS: DAY, limit: 8 }] },
@@ -23,11 +31,20 @@ export const AUTH_LIMITS = {
   sendIp: { bucket: "auth:send:ip", windows: [{ windowS: HOUR, limit: 6 }, { windowS: DAY, limit: 20 }] },
   /** Every visitor together: 10 an hour, 30 a day, far below any plausible shared-sender limit (set to at most half of it if found). */
   sendGlobal: { bucket: "auth:send:global", windows: [{ windowS: HOUR, limit: 10 }, { windowS: DAY, limit: 30 }] },
-  /** Code checks (sign in by code, verify, reset): 10 an hour per address, 20 per IP. Neon also deletes a code after 3 wrong tries. */
-  verifyAddr: { bucket: "auth:verify:addr", windows: [{ windowS: HOUR, limit: 10 }] },
+  /**
+   * Code checks (sign in by code, verify, reset): 10 an hour per address from one IP, 20 per IP, and a ceiling of 60 an hour per
+   * address from every IP together (three IPs at their full rate). Neon also deletes a code after 3 wrong tries, and every new code
+   * draws from `sendAddr`.
+   */
+  verifyAddrIp: { bucket: "auth:verify:addr_ip", windows: [{ windowS: HOUR, limit: 10 }] },
+  verifyAddr: { bucket: "auth:verify:addr", windows: [{ windowS: HOUR, limit: 60 }] },
   verifyIp: { bucket: "auth:verify:ip", windows: [{ windowS: HOUR, limit: 20 }] },
-  /** Password sign-in: 10 per 15 minutes per address, 20 per IP. No lockout: a lockout would let anyone lock out a victim. */
-  passwordAddr: { bucket: "auth:password:addr", windows: [{ windowS: QUARTER, limit: 10 }] },
+  /**
+   * Password sign-in: 10 per 15 minutes per address from one IP, 20 per IP, and a ceiling of 60 per 15 minutes per address from every
+   * IP together (three IPs at their full rate). No lockout one network can renew for everyone (SF3).
+   */
+  passwordAddrIp: { bucket: "auth:password:addr_ip", windows: [{ windowS: QUARTER, limit: 10 }] },
+  passwordAddr: { bucket: "auth:password:addr", windows: [{ windowS: QUARTER, limit: 60 }] },
   passwordIp: { bucket: "auth:password:ip", windows: [{ windowS: QUARTER, limit: 20 }] },
   /** Password sign-up per IP: 5 an hour, 20 a day. */
   signupIp: { bucket: "auth:signup:ip", windows: [{ windowS: HOUR, limit: 5 }, { windowS: DAY, limit: 20 }] },
@@ -61,6 +78,14 @@ export const AUTH_GUARD = {
   bodyMaxBytes: 4096,
   /** Neon's own limiter answers 429 with `x-retry-after: 10` (EML-0 R1), which the SDK proxy drops; the guard sends this instead. */
   upstreamRetryAfterS: 10,
+  /**
+   * Every answer of a send or sign-up route is held until at least `answerMinMs` plus a random share of `answerJitterMs` after the
+   * guard started on it (review EML-S SF5): Neon answers faster when it sends nothing (an unknown address on a reset request, an
+   * existing one on sign-up), and the hold hides that. Neon's answer time is not measured yet (EML-V); if it is often above
+   * `answerMinMs`, raise it here.
+   */
+  answerMinMs: 1200,
+  answerJitterMs: 300,
 } as const;
 
 /** Cloudflare Turnstile (spec 5.3). */

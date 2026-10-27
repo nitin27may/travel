@@ -8,6 +8,8 @@ import { migrate } from "../../src/db/runner.ts";
 import { closePools } from "../../src/db/client.ts";
 import { createPgQuotaStore } from "../../src/quota/pg.ts";
 import { ipHash } from "../../src/quota/keys.ts";
+import { readinessProblems, readinessQuery } from "../../src/quota/stats.ts";
+import { APP_ROLE } from "../../src/db/tx.ts";
 
 const url = process.env.TEST_DATABASE_URL;
 const run = describe.skipIf(!url);
@@ -47,6 +49,15 @@ run("quota_bucket (database)", () => {
       await admin.end();
     }
     await closePools();
+  });
+
+  it("reports the quota store ready once 0011 is applied (quota.ts check, review SF7)", async () => {
+    const q = readinessQuery(APP_ROLE);
+    const { rows } = await admin.query(q.sql, q.params);
+    expect(readinessProblems(rows[0])).toEqual([]);
+    const none = readinessQuery(`no_such_role_${tag}`);
+    const missing = await admin.query(none.sql, none.params);
+    expect(readinessProblems(missing.rows[0])).toEqual(["the app role is missing (an earlier migration)"]);
   });
 
   it("has RLS on and no grant of any kind to the app role", async () => {

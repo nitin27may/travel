@@ -5,7 +5,7 @@ import { sendOwnerAlert } from "../../src/mail/alert.ts";
 import { ownerOnly } from "../../src/mail/mailer.ts";
 import { createOutboxMailer } from "../../src/mail/outbox.ts";
 import { quotaAlertBudget } from "../../src/quota/alert-budget.ts";
-import { addressHash, assertSecret, ipHash, utcDay } from "../../src/quota/keys.ts";
+import { addressHash, addressIpHash, assertSecret, ipHash, utcDay } from "../../src/quota/keys.ts";
 import { createMemoryQuotaStore } from "../../src/quota/memory.ts";
 import { assertRules, secondsLeft, windowStart, type QuotaRule } from "../../src/quota/store.ts";
 
@@ -58,6 +58,21 @@ describe("keys", () => {
     expect(ipHash(SECRET, "203.0.113.7", d)).not.toContain("203");
     expect(ipHash(SECRET, "", d)).toBe(ipHash(SECRET, "unknown", d));
     expect(ipHash(SECRET, "2001:DB8::1", d)).toBe(ipHash(SECRET, "2001:db8::1", d));
+  });
+
+  it("hashes an address and an IP together, apart from either alone (review EML-S SF3)", () => {
+    const d = at("2026-10-25T10:00:00Z");
+    const k = addressIpHash(SECRET, "First.Last+x@gmail.com", "203.0.113.7", d);
+    expect(k).toMatch(/^[0-9a-f]{32}$/);
+    expect(addressIpHash(SECRET, "firstlast@gmail.com", " 203.0.113.7 ", d)).toBe(k);
+    expect(addressIpHash(SECRET, "firstlast@gmail.com", "203.0.113.8", d)).not.toBe(k);
+    expect(addressIpHash(SECRET, "other@gmail.com", "203.0.113.7", d)).not.toBe(k);
+    expect(addressIpHash(SECRET, "firstlast@gmail.com", "203.0.113.7", at("2026-10-26T10:00:00Z"))).not.toBe(k);
+    expect(k).not.toBe(addressHash(SECRET, "firstlast@gmail.com", d));
+    expect(k).not.toBe(ipHash(SECRET, "203.0.113.7", d));
+    expect(addressIpHash(SECRET, "a@b.com", "", d)).toBe(addressIpHash(SECRET, "a@b.com", "unknown", d));
+    expect(addressIpHash(SECRET, "not an address", "203.0.113.7", d)).toBeNull();
+    expect(() => addressIpHash("", "a@b.com", "203.0.113.7", d)).toThrow();
   });
 
   it("refuses a missing or short secret", () => {

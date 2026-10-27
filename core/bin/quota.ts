@@ -2,14 +2,29 @@
 // quota — sender monitoring for the auth guard (EML-Q; email spec "Decision 25 Oct" point 5).
 //
 //   node --env-file=<env file> core/bin/quota.ts stats [--days 7]
+//   node --env-file=<env file> core/bin/quota.ts check
 //
 // Prints, per UTC day, the code sends Neon accepted, the sends Neon refused (429 or 5xx) and the codes verified, then the weekly
 // deliverability signal (10 or more sends with fewer than half verified: mail may be landing in spam; Q148). Reads only the content-free
 // global counters of `quota_bucket` (empty key); no address, hash or IP is read or printed. Connects with DATABASE_URL (the owner
 // connection, which bypasses the table's deny-all RLS). Read only.
+//
+// `check` (review EML-S SF7) reads only the catalogue: is migration 0011 applied (table, quota_take, quota_peek) and may the app role
+// call quota_take? Exit 0 when ready, 1 when not. Run it against production before NEXT_PUBLIC_SIGN_IN=1 is relied on: without the
+// migration every guarded call answers 503 GUARD_UNAVAILABLE, password sign-in included.
 import { getClient } from "../src/db/client.ts";
 import { DELIVERY_SIGNAL } from "../src/config/auth-limits.ts";
-import { dailyCounts, formatStats, statsQuery, type StatsRow } from "../src/quota/stats.ts";
+import { APP_ROLE } from "../src/db/tx.ts";
+import {
+  dailyCounts,
+  formatReadiness,
+  formatStats,
+  readinessProblems,
+  readinessQuery,
+  statsQuery,
+  type ReadinessRow,
+  type StatsRow,
+} from "../src/quota/stats.ts";
 
 function days(argv: string[]): number {
   const i = argv.indexOf("--days");
@@ -20,8 +35,8 @@ function days(argv: string[]): number {
 
 async function main(): Promise<void> {
   const [cmd = "stats", ...rest] = process.argv.slice(2);
-  if (cmd !== "stats") {
-    console.error(`unknown command: ${cmd} (use: stats [--days N])`);
+  if (cmd !== "stats" && cmd !== "check") {
+    console.error(`unknown command: ${cmd} (use: stats [--days N] | check)`);
     process.exit(2);
   }
   const url = process.env.DATABASE_URL;
@@ -29,9 +44,21 @@ async function main(): Promise<void> {
     console.error("set DATABASE_URL (load the env file with node --env-file=...)");
     process.exit(2);
   }
+  const client = await getClient(url);
+  if (cmd === "check") {
+    try {
+      const q = readinessQuery(APP_ROLE);
+      const { rows } = await client.query<ReadinessRow & Record<string, unknown>>(q.sql, q.params);
+      const problems = readinessProblems(rows[0]);
+      console.log(formatReadiness(problems));
+      process.exitCode = problems.length === 0 ? 0 : 1;
+    } finally {
+      await client.end();
+    }
+    return;
+  }
   const n = days(rest);
   const today = new Date();
-  const client = await getClient(url);
   try {
     const q = statsQuery(n, today);
     const { rows } = await client.query<StatsRow & Record<string, unknown>>(q.sql, q.params);
@@ -44,6 +71,6 @@ async function main(): Promise<void> {
 main().catch((err) => {
   // Never the connection string: only the message of our own errors, or the SQLSTATE of a database one.
   const code = (err as { code?: unknown })?.code;
-  console.error(typeof code === "string" && /^[0-9A-Z]{5}$/.test(code) ? `quota stats failed (sqlstate=${code})` : String((err as Error)?.message ?? err));
+  console.error(typeof code === "string" && /^[0-9A-Z]{5}$/.test(code) ? `quota command failed (sqlstate=${code})` : String((err as Error)?.message ?? err));
   process.exit(1);
 });
