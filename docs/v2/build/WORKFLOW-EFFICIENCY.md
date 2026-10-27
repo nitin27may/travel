@@ -747,6 +747,8 @@ an agent without a brief.
 
 ## 10. Owner questions
 
+Answered by the owner on 26 Oct 2026, one at a time, all as recommended: Q-W1 (the coordinator pushes stack branches), Q-W2 (required CI check on main after one green week), Q-W3 (risk tiers replace "design review then verifier on every UI round"; the owner updates the CLAUDE.md line, the coordinator drafts it), Q-W4 (production secrets move to a production-deploy environment, owner step), Q-W5 (no photo cache seeding for now), Q-W6 (the owner applies the GitHub settings from commands the coordinator lists).
+
 | # | Question | Recommended answer | Trade-off |
 |---|---|---|---|
 | Q-W1 | May the coordinator (never a worker) push `int/*` stack branches to the public origin, so CI runs before `main` moves? | **Yes** | work-in-progress branches are visible publicly for a few hours; they hold the same code that lands on `main` an hour later, and the pre-push scan (STD-6, STD-9) runs first |
