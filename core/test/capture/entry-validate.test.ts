@@ -28,11 +28,11 @@ describe("acceptance (12, PA-C row): the D8-R proposals validate with no relevan
     const offerPaths = D8R_OFFERS.map((_, i) => `/records/${PLACE_RECORDS.length + i}`);
     expect(res.warnings.filter((w) => offerPaths.some((p) => w.path === p || w.path.startsWith(`${p}/`)))).toEqual([]);
   });
-  it("the frontcountry campsite (a lodging offer) has its summary answered; it waits only on the stay contract (access_cost, cost_band, wheelchair: PA-3C)", () => {
+  it("the frontcountry campsite (a lodging offer) has its summary answered; it waits only on the stay contract (cost_band, wheelchair: PA-3C; access_cost left the offer layers with QM7, PM-C)", () => {
     const res = inLane(parksRoot(), doc([...PLACE_RECORDS, D8R_CAMPSITE]));
     const tier = res.errors.filter((e) => e.code === "W_TIER_REQUIRED");
     expect(tier).toHaveLength(1);
-    expect(tier[0]!.message).toMatch(/unanswered: access_cost, cost_band, wheelchair\./);
+    expect(tier[0]!.message).toMatch(/unanswered: cost_band, wheelchair\./);
     expect(codesOf(res.errors)).toEqual(["W_TIER_REQUIRED"]);
   });
 });

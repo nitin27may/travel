@@ -54,11 +54,11 @@
   "layers": {
     "route": {"R": ["geometry", "starts_at"], "A": ["passes", "high_point_m", "turnaround_points", "gpx_licence", "snow_free_window"], "N": ["hours", "season", "run_by", "at", "on"]},
     "place": {"N": ["reaches", "passes", "starts_at", "ends_at", "on", "at", "run_by"]},
-    "offer": {"R": ["at"], "A": ["on", "run_by"], "N": ["reaches", "passes", "parks_for", "serves", "geometry"]},
-    "event": {"R": ["name", "type", "season"], "N": ["hours", "price", "window"]},
-    "offer.experience": {"R": ["run_by", "at", "season", "hours", "duration_min", "activity_min", "price", "book_url"], "A": ["variants", "cancellation", "included"], "N": ["point", "wikidata", "area_id", "osm_ref", "access_points"]},
-    "offer.rental": {"R": ["run_by", "at", "season", "hours", "price"], "A": ["variants", "cancellation", "included", "deposit"], "N": ["point", "wikidata", "area_id", "osm_ref", "access_points", "window", "class_key", "draw", "standing", "distinction", "easy_payoff", "weather", "why", "signals"]},
-    "offer.ticket": {"R": ["price"], "A": ["variants", "included"], "N": ["point", "wikidata", "area_id", "osm_ref", "access_points", "class_key", "draw", "standing", "distinction", "easy_payoff", "weather", "why", "signals"]},
+    "offer": {"R": ["at"], "A": ["on", "run_by"], "N": ["reaches", "passes", "parks_for", "serves", "geometry", "access_cost"]},
+    "event": {"R": ["name", "type", "season"], "N": ["hours", "price", "window", "access_cost"]},
+    "offer.experience": {"R": ["run_by", "at", "season", "hours", "duration_min", "activity_min", "price", "book_url"], "A": ["cancellation", "included"], "N": ["point", "wikidata", "area_id", "osm_ref", "access_points"]},
+    "offer.rental": {"R": ["run_by", "at", "season", "hours", "price"], "A": ["cancellation", "included", "deposit"], "N": ["point", "wikidata", "area_id", "osm_ref", "access_points", "window", "class_key", "draw", "standing", "distinction", "easy_payoff", "weather", "why", "signals"]},
+    "offer.ticket": {"R": ["price"], "A": ["included"], "N": ["point", "wikidata", "area_id", "osm_ref", "access_points", "class_key", "draw", "standing", "distinction", "easy_payoff", "weather", "why", "signals"]},
     "offer.access": {"R": ["window", "price"], "A": ["cancellation"], "N": ["point", "wikidata", "area_id", "osm_ref", "access_points", "photos", "class_key", "draw", "standing", "distinction", "easy_payoff", "weather", "why", "signals", "pairs_with", "best_window", "best_time"]},
     "offer.lodging": {"R": ["check_in_out", "cost_band"], "A": ["cancellation"], "N": ["point", "wikidata", "area_id", "osm_ref", "access_points", "class_key", "draw", "standing", "distinction", "easy_payoff", "weather", "why", "signals", "season", "hours"]}
   },

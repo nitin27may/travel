@@ -10,7 +10,7 @@ Records: route, offer. Suitability profile `lift` (always, extension lift). Effo
 
 **route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, reaches, geometry, starts_at; R? near_town (derived), closures (status_page), part_of (part_of_something); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
-**offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, on; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, at, run_by, variants, included.
+**offer (ticket)**: R name, type, summary, season, hours, price, links, on; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, at, run_by, included.
 
 Suitability: R stroller_on_board, wheelchair, on_site_min, access_season, participation.weather_cancel, ext.lift.cabin, ext.lift.last_up, ext.lift.last_down; R when operated none; A min_age, min_height_cm, max_height_cm, limit_reason, adult_required, solo, age_band, kid_note, carrier_ok, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, altitude_m, ext.lift.ride_min.
 
@@ -22,7 +22,7 @@ Records: route, offer. Suitability profile `lift` (always, extension lift). Effo
 
 **route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, reaches, geometry, starts_at; R? near_town (derived), closures (status_page), part_of (part_of_something); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
-**offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, on; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, at, run_by, variants, included.
+**offer (ticket)**: R name, type, summary, season, hours, price, links, on; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, at, run_by, included.
 
 Suitability: R stroller_on_board, wheelchair, on_site_min, access_season, participation.weather_cancel, ext.lift.cabin, ext.lift.last_up, ext.lift.last_down; R when operated none; A min_age, min_height_cm, max_height_cm, limit_reason, adult_required, solo, age_band, kid_note, carrier_ok, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, altitude_m, ext.lift.ride_min.
 
@@ -34,7 +34,7 @@ Records: place, offer. Suitability profile `lift` (always, extension lift). Effo
 
 **place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable), closures (status_page), part_of (part_of_something); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos.
 
-**offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, run_by, variants, included.
+**offer (ticket)**: R name, type, summary, season, hours, price, links, at; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, run_by, included.
 
 Suitability: R stroller_on_board, wheelchair, on_site_min, access_season, participation.weather_cancel, ext.lift.cabin, ext.lift.last_up, ext.lift.last_down; R when operated none; A min_age, min_height_cm, max_height_cm, limit_reason, adult_required, solo, age_band, kid_note, carrier_ok, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, altitude_m, ext.lift.ride_min.
 

@@ -1,0 +1,2735 @@
+{
+ "name": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "row:name",
+   "search"
+  ],
+  "export": [
+   "print",
+   "csv",
+   "gpx"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "names": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [
+   "search"
+  ],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "type": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "row:type",
+   "row:kind",
+   "search"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "point": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "row:lat",
+   "row:lon",
+   "row:approx"
+  ],
+  "export": [
+   "print",
+   "gpx"
+  ],
+  "api": "row",
+  "mcp": "public",
+  "lanes": [
+   "D",
+   "F"
+  ]
+ },
+ "area_id": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day",
+   "sum"
+  ],
+  "list": [
+   "row:area",
+   "row:region",
+   "row:country",
+   "search"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "wikidata": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "osm_ref": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "near_town": {
+  "privacy": "derived",
+  "page": "no",
+  "trip": [],
+  "list": [
+   "row:nearTown"
+  ],
+  "export": [],
+  "api": "row",
+  "mcp": "public",
+  "lanes": [
+   "X"
+  ]
+ },
+ "near_town_km": {
+  "privacy": "derived",
+  "page": "no",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none",
+  "lanes": [
+   "X"
+  ]
+ },
+ "geonames_id": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "summary": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "search"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "season": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day",
+   "sum"
+  ],
+  "list": [
+   "row:season",
+   "facet"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "best_window": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "best_time": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [
+   "row:best_time",
+   "facet"
+  ],
+  "export": [
+   "print"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "hours": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "facet"
+  ],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "duration_min": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "row:time_band",
+   "facet"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "activity_min": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "recurrence": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "sum"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "check_in_out": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "book"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "access_points": {
+  "privacy": "derived",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print",
+   "gpx"
+  ],
+  "api": "detail",
+  "mcp": "public",
+  "lanes": [
+   "X"
+  ]
+ },
+ "transit": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "access_cost": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "book",
+   "sum"
+  ],
+  "list": [],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "price": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day",
+   "book"
+  ],
+  "list": [
+   "row:price_band",
+   "facet"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "window": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "book"
+  ],
+  "list": [
+   "row:booking",
+   "facet"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "entry": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "book"
+  ],
+  "list": [],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "book_url": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "book"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "reservation": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "book"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "none",
+  "mcp": "none"
+ },
+ "cost_band": {
+  "privacy": "public",
+  "page": "card",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "none",
+  "mcp": "none"
+ },
+ "included": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [
+   "csv"
+  ],
+  "api": "none",
+  "mcp": "none"
+ },
+ "cancellation": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "book"
+  ],
+  "list": [],
+  "export": [
+   "csv"
+  ],
+  "api": "none",
+  "mcp": "none"
+ },
+ "deposit": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [
+   "csv"
+  ],
+  "api": "none",
+  "mcp": "none"
+ },
+ "variants": {
+  "privacy": "derived",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "detail",
+  "mcp": "public",
+  "lanes": [
+   "X"
+  ]
+ },
+ "class_key": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [
+   "rank"
+  ],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "none"
+ },
+ "draw": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "row:badge",
+   "sort"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "standing": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [
+   "rank"
+  ],
+  "export": [],
+  "api": "detail",
+  "mcp": "none"
+ },
+ "distinction": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [
+   "rank"
+  ],
+  "export": [],
+  "api": "detail",
+  "mcp": "none"
+ },
+ "easy_payoff": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [
+   "rank"
+  ],
+  "export": [],
+  "api": "detail",
+  "mcp": "none"
+ },
+ "weather": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [
+   "rank"
+  ],
+  "export": [],
+  "api": "detail",
+  "mcp": "none"
+ },
+ "why": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "search"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "signals": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "sum"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "pairs_with": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "closures": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "links": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "book"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "photos": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "row:image"
+  ],
+  "export": [],
+  "api": "row",
+  "mcp": "public"
+ },
+ "reaches": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "passes": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "part_of": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "sum"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "starts_at": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print",
+   "gpx"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ends_at": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "gpx"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "on": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "book"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "at": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "book"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "run_by": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "book"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "parks_for": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "serves": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "combo_with": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "alternative_to": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "variant_of": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "covered_by": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "book"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "includes": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "book"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "covers_areas": {
+  "privacy": "public",
+  "page": "no",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "geometry": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "gpx"
+  ],
+  "api": "detail",
+  "mcp": "none",
+  "lanes": [
+   "D"
+  ]
+ },
+ "high_point_m": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "gpx_licence": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "snow_free_window": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "none",
+  "mcp": "none"
+ },
+ "turnaround_points": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "bearing": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "crowds": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "photo_spot": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "visit_mode": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "none",
+  "mcp": "none"
+ },
+ "indoor": {
+  "privacy": "public",
+  "page": "card",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "facet"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "none",
+  "mcp": "none"
+ },
+ "dress_code": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "photo_rules": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "languages": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "queue_note": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "seat_side": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "fills_by": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "capacity": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "rv_limits": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "ev_charging": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "overflow": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "kids_menu": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [
+   "facet"
+  ],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "high_chairs": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "dietary": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "family_rooms": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [
+   "facet"
+  ],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "pitches": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "quiet_hours": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "why_stay": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "none",
+  "mcp": "none"
+ },
+ "groceries": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "last_transport": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "tourist_tax": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [
+   "csv"
+  ],
+  "api": "none",
+  "mcp": "none"
+ },
+ "sun_loss": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "none",
+  "mcp": "none"
+ },
+ "min_age": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "max_age": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "min_height_cm": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "max_height_cm": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "min_weight_kg": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "max_weight_kg": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "limit_reason": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "adult_required": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "solo": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "group_min": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "age_band": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "row:kids_from",
+   "row:kid_fit",
+   "row:kids_basis",
+   "facet"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "kid_note": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "carrier_ok": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "stroller": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "facet"
+  ],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "stroller_extent": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "stroller_on_board": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "wheelchair": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "facet"
+  ],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "access_detail": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "accessible_toilet": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "accessible_parking": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "limited_capacity_note": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "effort.source_grade": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "row:effort",
+   "facet"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "effort.drivers.distance_km": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "row:km",
+   "facet"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "effort.drivers.gain_m": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "row:gain_m",
+   "facet"
+  ],
+  "export": [
+   "print"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "effort.drivers.surface": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "effort.drivers.scrambling": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "effort.drivers.fixed_aids": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "effort.drivers.loss_m": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "effort.drivers.max_grade_pct": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "adult_time_min": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "row:time_band",
+   "facet"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "child_time_min": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "on_site_min": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "row:time_band",
+   "facet"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "toilets": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [
+   "facet"
+  ],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "water": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "food": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "shade": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "bail_out": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "signal": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "change_rooms": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [
+   "facet"
+  ],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "showers": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "picnic": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "baby_change": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "exposure": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "facet"
+  ],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "altitude_m": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "hazards": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "walk_m": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "row:walk_band",
+   "facet"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "water_safety.class": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "water_safety.lifejacket": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "water_safety.child_sizes_from_kg": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "water_safety.swim_ability": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "water_safety.lifeguard": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "facet"
+  ],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "water_safety.entry": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "water_safety.water_temp_c": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "facet"
+  ],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "water_safety.current_or_tide": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "access_season": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [
+   "sum"
+  ],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "participation.guide": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [
+   "facet"
+  ],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "participation.kit_provided": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "participation.wear": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "participation.min_shoe_eu": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "participation.fitness": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "participation.medical": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "participation.pregnancy": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "participation.waiver": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "participation.weigh_in": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "participation.weather_cancel": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [
+   "facet"
+  ],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "participation.driver": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.trail.shape": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [
+   "row:shape",
+   "facet"
+  ],
+  "export": [
+   "print"
+  ],
+  "api": "row",
+  "mcp": "public"
+ },
+ "ext.trail.navigation": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.trail.water_crossings": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.trail.snowfields_until": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.trail.dogs": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [
+   "facet"
+  ],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ride.bike_hire": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ride.traffic": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ride.min_rider_age": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ride.one_way_return": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ride.lift_served": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ride.e_bike": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ride.kids_bike_sizes": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ride.skills_park": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ride.trail_mix": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.paddle.craft": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.paddle.class_at_level": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.paddle.sections": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.paddle.on_water_min": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.paddle.wind_exposure": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.paddle.portages": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.paddle.craft_capacity": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.paddle.guided": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.paddle.trip_style": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ferrata.kit": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ferrata.kit_weight_note": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ferrata.child_harness": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ferrata.approach_min": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.ferrata.descent": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.water.swimming": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [
+   "facet"
+  ],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.water.clarity": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.water.floats_required_under": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.water.boating": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public",
+  "lanes": [
+   "F",
+   "O"
+  ]
+ },
+ "ext.cave.air_temp_c": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.cave.steps": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.cave.squeeze": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.cave.darkness": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.cave.wet": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.cave.carry_child": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.cave.tour_m": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.snow.ski_school_min_age": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.snow.magic_carpet": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [
+   "facet"
+  ],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.snow.lift_child_rules": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.lift.cabin": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.lift.last_up": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.lift.last_down": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.lift.ride_min": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.boat.vessel": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.boat.sea_state": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.boat.seasick_risk": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.boat.landing": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.zip.braking": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.zip.lines": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.zip.tandem_under_kg": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.zip.kids_course": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.zip.between_lines": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.jump.height_m": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.jump.tandem": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.jump.harness": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.coaster.max_riders": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.coaster.max_load_kg": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.coaster.driver_rule": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.coaster.brake": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.horse.lead_rein": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.horse.share_horse": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.horse.pace": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.horse.pony_option": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.glacier.traction": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.glacier.boots": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.glacier.ice_min": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.flight.flight_min": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.flight.weight_by_slot": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.flight.takeoff_run_m": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.flight.seat_weight_rule": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.wildlife.min_distance_m": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.wildlife.stay_in_vehicle": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.wildlife.best_time": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.wildlife.sightings": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.wildlife.quiet_needed": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.wildlife.peak_months": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.area.pass": {
+  "privacy": "public",
+  "page": "rest!",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print",
+   "csv"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.area.access_road": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.area.stay_on_site": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.area.child_trails": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.drive.vehicle_limits": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.drive.road_surface": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [],
+  "list": [],
+  "export": [
+   "print"
+  ],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.drive.drive_min": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.drive.fuel_gap_km": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ },
+ "ext.drive.winding": {
+  "privacy": "public",
+  "page": "detail",
+  "trip": [],
+  "list": [],
+  "export": [],
+  "api": "detail",
+  "mcp": "public"
+ }
+}

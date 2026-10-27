@@ -6747,6 +6747,192 @@
                 ],
                 "additionalProperties": false
               },
+              "recurrence": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "pattern": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200
+                          },
+                          "months": {
+                            "minItems": 1,
+                            "maxItems": 12,
+                            "type": "array",
+                            "items": {
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 12
+                            }
+                          },
+                          "basis": {
+                            "type": "string",
+                            "enum": [
+                              "fixed_date",
+                              "calendar_rule",
+                              "natural"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "pattern",
+                          "months",
+                          "basis"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap",
+                      "no_limit"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "operator_info"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "object",
+                          "properties": {
+                            "pattern": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 200
+                            },
+                            "months": {
+                              "minItems": 1,
+                              "maxItems": 12,
+                              "type": "array",
+                              "items": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 12
+                              }
+                            },
+                            "basis": {
+                              "type": "string",
+                              "enum": [
+                                "fixed_date",
+                                "calendar_rule",
+                                "natural"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "pattern",
+                            "months",
+                            "basis"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "operator_info"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "estimate": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
               "price": {
                 "type": "object",
                 "properties": {
@@ -27426,6 +27612,142 @@
                                 "v": {
                                   "type": "integer",
                                   "minimum": 0
+                                },
+                                "basis": {
+                                  "type": "string",
+                                  "enum": [
+                                    "operator_rule",
+                                    "official_rule",
+                                    "official_grade",
+                                    "official_info",
+                                    "community",
+                                    "our_inference",
+                                    "operator_info"
+                                  ]
+                                },
+                                "src": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "note": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "v",
+                                "basis",
+                                "src"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "estimate": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "v",
+                          "state",
+                          "basis",
+                          "src"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "boating": {
+                        "type": "object",
+                        "properties": {
+                          "v": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "none",
+                                  "non_motor",
+                                  "electric_only",
+                                  "motor"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "state": {
+                            "type": "string",
+                            "enum": [
+                              "value",
+                              "none_stated",
+                              "searched_none",
+                              "not_applicable",
+                              "gap",
+                              "no_limit"
+                            ]
+                          },
+                          "basis": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "operator_rule",
+                                  "official_rule",
+                                  "official_grade",
+                                  "official_info",
+                                  "community",
+                                  "our_inference",
+                                  "operator_info"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "src": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "read": {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          "quote": {
+                            "type": "string",
+                            "maxLength": 300
+                          },
+                          "note": {
+                            "type": "string"
+                          },
+                          "tried": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "on": {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          "applies_to": {
+                            "type": "string",
+                            "pattern": "^\\d{4}$"
+                          },
+                          "conflicts": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "v": {
+                                  "type": "string",
+                                  "enum": [
+                                    "none",
+                                    "non_motor",
+                                    "electric_only",
+                                    "motor"
+                                  ]
                                 },
                                 "basis": {
                                   "type": "string",
@@ -49181,6 +49503,142 @@
                                       "v": {
                                         "type": "integer",
                                         "minimum": 0
+                                      },
+                                      "basis": {
+                                        "type": "string",
+                                        "enum": [
+                                          "operator_rule",
+                                          "official_rule",
+                                          "official_grade",
+                                          "official_info",
+                                          "community",
+                                          "our_inference",
+                                          "operator_info"
+                                        ]
+                                      },
+                                      "src": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "note": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "v",
+                                      "basis",
+                                      "src"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "v",
+                                "state",
+                                "basis",
+                                "src"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "boating": {
+                              "type": "object",
+                              "properties": {
+                                "v": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "none",
+                                        "non_motor",
+                                        "electric_only",
+                                        "motor"
+                                      ]
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "state": {
+                                  "type": "string",
+                                  "enum": [
+                                    "value",
+                                    "none_stated",
+                                    "searched_none",
+                                    "not_applicable",
+                                    "gap",
+                                    "no_limit"
+                                  ]
+                                },
+                                "basis": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "operator_rule",
+                                        "official_rule",
+                                        "official_grade",
+                                        "official_info",
+                                        "community",
+                                        "our_inference",
+                                        "operator_info"
+                                      ]
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "src": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "read": {
+                                  "type": "string",
+                                  "format": "date"
+                                },
+                                "quote": {
+                                  "type": "string",
+                                  "maxLength": 300
+                                },
+                                "note": {
+                                  "type": "string"
+                                },
+                                "tried": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "on": {
+                                  "type": "string",
+                                  "format": "date"
+                                },
+                                "applies_to": {
+                                  "type": "string",
+                                  "pattern": "^\\d{4}$"
+                                },
+                                "conflicts": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "v": {
+                                        "type": "string",
+                                        "enum": [
+                                          "none",
+                                          "non_motor",
+                                          "electric_only",
+                                          "motor"
+                                        ]
                                       },
                                       "basis": {
                                         "type": "string",

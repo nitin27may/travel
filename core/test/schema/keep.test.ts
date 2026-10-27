@@ -59,8 +59,8 @@ describe("the properties without a home (TODO data, not code)", () => {
     expect(todo.schema).toBe("homeless-properties/1");
     const homeless = PROPERTIES.filter((p) => p.home.in === "none").map((p) => p.key).sort();
     expect(todo.properties.map((p) => p.key).sort()).toEqual(homeless);
-    // 43 on 25 Oct 2026 (spec 1.1), 36 after RIS-H (26 Oct): may only fall
-    expect(homeless.length).toBeLessThanOrEqual(36);
+    // 43 on 25 Oct 2026 (spec 1.1), 36 after RIS-H, 34 after PM-C (access_points and variants derived): may only fall
+    expect(homeless.length).toBeLessThanOrEqual(34);
   });
   it("RIS-H homed its seven (DATA-PLAN row 24); transit and last_transport wait as later; every entry has a plan", () => {
     for (const k of ["duration_min", "activity_min", "book_url", "closures", "check_in_out", "fills_by", "groceries"]) {
