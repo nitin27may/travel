@@ -7,12 +7,8 @@
   "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park": ["place","nature.protected.state_provincial_park",null,"castle-provincial-park"],
   "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive": ["route","wheels.drive.scenic_drive",null,"icefields-parkway-scenic-drive"],
   "legacy/canadian-rockies-sept-2029/sights/lake-magog": ["place","nature.protected.nature_reserve",null,"lake-magog-and-assiniboine-core-area"],
-  "legacy/canadian-rockies-sept-2029/sights/marble-canyon": ["place","nature.landform.canyon",null,"marble-canyon"],
-  "legacy/canadian-rockies-sept-2029/sights/paint-pots": ["place","culture.heritage.landmark",null,"paint-pots"],
   "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls": ["place","water.falls.waterfall",null,"sunwapta-falls"],
   "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp": ["place","nature.protected.state_provincial_park",null,"top-of-the-world-provincial-park"],
-  "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk": ["route","nature.trail.walk",null,"marble-canyon-walk"],
-  "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk": ["route","nature.trail.walk",null,"paint-pots-walk"],
   "legacy/canadian-rockies-sept-2029/trails/parker-ridge": ["route","nature.trail.hike",null,"parker-ridge"],
   "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque": ["route","nature.trail.hike",null,"ptarmigan-cirque"],
   "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout": ["route","nature.trail.walk",null,"rockwall-lookout-rockwall-fen"],
@@ -37,14 +33,12 @@
  },
  "chain": {
   "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter": ["legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter","legacy/canadian-rockies-sept-2029/sights/lake-magog"],
-  "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk": ["legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk","legacy/canadian-rockies-sept-2029/sights/marble-canyon"],
   "place/rafting-on-the-rienza": ["place/rafting-on-the-rienza","part/place/rafting-on-the-rienza#place"],
   "trip/patagonia-2027/lake:beagle channel boat": ["trip/patagonia-2027/lake:beagle channel boat","part/trip/patagonia-2027/lake:beagle channel boat#place"]
  },
  "containers": {},
  "inv": {
   "legacy/canadian-rockies-sept-2029/sights/lake-magog": {"offers_at":["legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter"]},
-  "legacy/canadian-rockies-sept-2029/sights/marble-canyon": {"reached_by":["legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk"]},
   "offer/operator/parks-canada#discovery-pass": {"covers":["offer/place/banff-national-park#daily-admission","offer/place/jasper-national-park#daily-admission","offer/place/kootenay-national-park#daily-admission","offer/place/yoho-national-park#daily-admission"]},
   "operator/3-zinnen-dolomites-lift-operator": {"operator_of":["place/funbob-monte-baranci"]},
   "operator/alberta-parks": {"operator_of":["offer/place/kananaskis-country#conservation-pass-day","offer/place/kananaskis-country#conservation-pass-year","place/kananaskis-country"]},
