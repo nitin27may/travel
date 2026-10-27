@@ -369,7 +369,19 @@
 
   "ci_skips": {
     "web/tests/data/public-privacy.test.ts": { "reason": "the PUBLIC-SCRUB tests skip without .private-terms (a CI clone has none by design) and the GeoNames test skips without the dump: CI does NOT prove the private terms are scrubbed", "row": "15.333", "added": "2026-10-27", "expires": "2027-01-25" },
-    "core/test/db/localReset.test.ts": { "reason": "opt-in (LOCAL_DB_RESET_TEST): it drives docker compose (container travel-localdb, volume travel_pg18, port 54329 on an unpinned base), which would clash with the pinned CI database", "row": "15.333", "added": "2026-10-27", "expires": "2027-01-25" }
+    "web/tests/api/contract.test.ts": {
+    "reason": "pending contract-kit cases (todo until phase E: the near and nearbyForPlace tables) make vitest report the file as skipped; they are declared pending, not conditional skips; every other case runs on the Mac and in CI",
+    "row": "15.333",
+    "added": "2026-10-27",
+    "expires": "2027-01-25"
+  },
+  "web/tests/api/contract-store.test.ts": {
+    "reason": "pending contract-kit cases (todo until phase E: the near and nearbyForPlace tables) make vitest report the file as skipped; they are declared pending, not conditional skips; every other case runs on the Mac and in CI",
+    "row": "15.333",
+    "added": "2026-10-27",
+    "expires": "2027-01-25"
+  },
+  "core/test/db/localReset.test.ts": { "reason": "opt-in (LOCAL_DB_RESET_TEST): it drives docker compose (container travel-localdb, volume travel_pg18, port 54329 on an unpinned base), which would clash with the pinned CI database", "row": "15.333", "added": "2026-10-27", "expires": "2027-01-25" }
   },
 
   "quarantine": [],
