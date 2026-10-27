@@ -33,6 +33,8 @@ step "nearest town: every exact point has its near_town (META-2: capture.ts deri
 node "$ROOT/core/bin/capture.ts" derive-near --check --root "$ROOT" >/dev/null
 step "area: every place and route the rule can place has its area_id (capture.ts derive-area --check: the parent, else the sourced point)"
 node "$ROOT/core/bin/capture.ts" derive-area --check --root "$ROOT" >/dev/null
+step "graph index: data/catalogue/graph matches the capture world (EG-I: graph.ts build --check)"
+node "$ROOT/core/bin/graph.ts" build --check --root "$ROOT"
 step "validate every data file"
 node "$ROOT/core/bin/validate.ts" --all --root "$ROOT"
 step "normaliser budget: no count of what the research JSON still needs to reach the storage contract rose (RIS-N; RIS-J brings it to zero)"
