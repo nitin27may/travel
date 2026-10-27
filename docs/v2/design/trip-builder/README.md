@@ -1,50 +1,32 @@
 # Trip builder: design notes and wireframes (index)
 
 Status: wireframes for the spec [features/trip-builder.md](../../features/trip-builder.md), 27 Oct 2026, travel-planner
-(Opus). Not reviewed yet: the first build task (TB-N) is a `travel-design-reviewer` pass that turns these frames into a
-design note and mocks the owner approves before any UI is built.
+(Opus). **Precedence (27 Oct 2026, PLAN-SYNC):** [FLOW.md](FLOW.md) is the source of truth for the flow (stages 0 to 8,
+step counts, the editor, copy, Review). [design-note-TBN.md](design-note-TBN.md) (TB-N, folded in from branch
+`public/TB-N`) holds the visual decisions FLOW keeps: focused flow on phones, no drive-time rings, no swipe, Must see in
+the tray, kids chip first, the primary at the right end of the step rail. Its own step list (section 2) is superseded by
+FLOW 2.1. A1 to A9 are written as **proposed** components in [components.md](../foundation/components.md) 9 and the
+template in [patterns.md](../foundation/patterns.md) 3.12, both aligned with FLOW and reviews TB-N2 and TB-N2R and both
+pending owner approval.
 
 | File | What it holds |
 |---|---|
+| [FLOW.md](FLOW.md) | **The flow** (TB-FLOW, revised after TB-N2): stages, decisions TF1 to TF20, the editor model, owner decisions F-Q1 to F-Q6 |
+| [design-note-TBN.md](design-note-TBN.md) | **The visual design for owner approval (TB-N, 27 Oct 2026):** findings on the first wireframes, screens, states, contrast, mock image index, Q-TB-N1 to Q-TB-N10 and their status after FLOW (section 12) |
 | [wireframes-phone.md](wireframes-phone.md) | Every key screen at 390 px: stepper, bottom sheets, thumb zone, map as a sheet, swipe and its button alternative |
 | [wireframes-desktop.md](wireframes-desktop.md) | Every key screen at 1440 px: multi-pane (filters, list, map, tray or itinerary at once), drag and drop, keyboard |
 | this page | The flow diagram, what changes between phone and desktop, shared components, foundation additions, accessibility, budgets, slow and offline network |
 
 Principles cited by number from [foundation/principles.md](../foundation/principles.md) (P1 to P9, T1 to T5).
 
-## 1. The flow (both platforms, same steps, same URL keys)
+## 1. The flow
 
-```mermaid
-flowchart LR
-  classDef step fill:#1F4E79,stroke:#163A5A,color:#FFFFFF
-  classDef engine fill:#2A7F8F,stroke:#1E5F6B,color:#FFFFFF
-  classDef ext fill:#B7791F,stroke:#8A5A12,color:#FFFFFF
-  classDef out fill:#5A6772,stroke:#3E4850,color:#FFFFFF
-
-  S1["1 Where<br/>country, or near a start point"]:::step
-  S2["2 Regions<br/>multi-select, grouped"]:::step
-  S3["3 Discover and pick<br/>filters, list + map, shortlist"]:::step
-  S4["4 Days and pace<br/>pre-filled from the picks"]:::step
-  S5["5 Bases<br/>suggested, accept or override"]:::step
-  S6["6 Build<br/>day by day: move, swap, drop, lock"]:::step
-  S7["7 Getting there<br/>from your city or airport"]:::step
-  S8["8 Review<br/>save to Mine, share, export"]:::out
-  E1["Score and filter<br/>(server)"]:::engine
-  E2["Suggest bases<br/>(server)"]:::engine
-  E3["Pack and order days<br/>(server, then scheduler)"]:::engine
-  ORS["ORS matrix<br/>via leg cache"]:::ext
-
-  S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7 --> S8
-  S1 -. "near mode skips 2" .-> S3
-  S3 --- E1
-  S5 --- E2
-  S6 --- E3
-  E2 --- ORS
-  E3 --- ORS
-```
-
-Near mode (day trips and short stays) is the same flow with step 1 asking "from where, how far, how many nights" and
-step 2 skipped; with 0 nights step 5 is skipped too.
+**Superseded by [FLOW.md](FLOW.md) (TB-FLOW, 27 Oct 2026):** stages 0 to 8 (Kind, Start, Where, Pick, Days and
+driving, then the plan, where the first build lands in the editor with getting there as Day 1 and last-day cards, then
+Review and prepare; revised after review TB-N2), one document for create and edit, copies opening in the same editor,
+the editor interaction model and the planning factors. The eight-step diagram that stood here (Where, Regions, Discover,
+Days and pace, Bases, Build, Getting there, Review) is kept in git history. Sections 2 to 7 below still apply; where they
+name a step number, read the FLOW stage of the same name.
 
 ## 2. Phone-native versus desktop-native (what changes, and why)
 
@@ -59,6 +41,10 @@ step 2 skipped; with 0 nights step 5 is skipped too.
 | Editing | Tap an item for a sheet: Move, Swap, Lock, Drop, Details | Hover tools on the row, a right-click menu, and keys (section 6) | P4 |
 | Thumb zone | Primary action always in the bottom 120 px; destructive actions never in the bottom-right corner | Primary action top right of the active pane and bottom of the tray | T2 |
 | Density | One card per row, three chips at most per card at rest | Table-like rows, five chips at rest, the reasons line visible | P3, P6 |
+
+**Superseded rows (TB-N, kept in FLOW):** no swipe to pick (design note I1), no drive-time rings (C2; spokes and the
+minutes in the list instead), the phone uses the focused flow (C3, FLOW TF18), the desktop primary sits at the right end
+of the step rail (I4), and bases are a collapsed card in the plan, not a step (FLOW TF1).
 
 **What is shared, unchanged:** the URL keys, the engine output, the data each card shows (the light row, P8), the copy
 and chip wording, the order of steps, the honesty markers, the empty and error states. Only layout, gestures and how
@@ -83,6 +69,9 @@ many panes are visible differ.
 
 ## 4. Foundation additions needed (to be written by TB-N, the design reviewer)
 
+Written by TB-N as proposed components 9.1 to 9.13 (pending owner approval). Superseded here: A2's must-see state (Must
+see is the tray's toggle) and A7's rings (dropped).
+
 | # | Addition | Why it is new |
 |---|---|---|
 | A1 | **Flow step header (phone) and step rail (desktop)**: label, count, back, the next step's name | no multi-step flow exists today; the copy sheet is one step |
@@ -99,7 +88,7 @@ many panes are visible differ.
 
 - **Dragging has a non-drag path** (WCAG 2.2, 2.5.7): every drag (pick into tray, item between days, base on map) has a
   button or menu alternative, and keyboard moves (section 6 of the desktop file).
-- **Swipe has a button.** Swipe right to pick is a shortcut only; the "+" control is always there.
+- **No swipe** (TB-N I1). The Pick button is the one way to pick on a phone.
 - **The map is never required.** Every fact on the map is in the list: distance and direction chips, base letters,
   day drive totals (T5).
 - **Live regions** announce counts and engine results: "24 places, 6 picked", "Built 7 days, 2 places did not fit".

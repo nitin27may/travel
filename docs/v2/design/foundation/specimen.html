@@ -420,6 +420,29 @@ kbd{font:500 12px var(--mono);border:1px solid var(--line-2);border-radius:4px;p
 .gapb{max-width:640px}.gapb h4{font:600 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 .gapb dl{display:grid;grid-template-columns:120px 1fr;gap:6px 12px}.gapb dt{font:500 12px var(--mono);color:var(--ink-2)}.gapb dd{font:400 14.5px/1.4 var(--serif);color:var(--muted)}
 .credl{font:500 11.5px var(--mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:200px;margin-top:4px}
+/* plan builder, proposed (components 9, TB-N) */
+.pb-shdr{width:390px;height:58px;background:var(--header);color:var(--header-ink);border-bottom:2px solid var(--accent);display:flex;align-items:center;padding:0 6px;gap:2px;border-radius:12px 12px 0 0}
+.pb-shdr .t{flex:1;min-width:0}.pb-shdr b{display:block;font:800 21px/1 var(--display);text-transform:uppercase}.pb-shdr span{display:block;font:500 11.5px/1 var(--mono);color:var(--header-mute);margin-top:4px}
+.pb-hib{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;color:var(--header-ink)}
+.pb-prog{width:390px;display:flex;gap:3px;padding:6px 14px 0}.pb-prog i{flex:1;height:4px;border-radius:2px;background:var(--line)}.pb-prog i.d{background:var(--ink-2)}.pb-prog i.c{background:var(--accent)}
+.pb-rail{display:flex;align-items:stretch;height:56px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 16px;max-width:1000px}
+.pb-rail ol{display:flex;list-style:none;margin:0;padding:0}.pb-rail li{display:flex;align-items:center;gap:7px;padding:0 10px;font:500 13.5px/1 var(--mono);color:var(--muted);position:relative;white-space:nowrap}
+.pb-rail li .n{width:20px;height:20px;border-radius:999px;border:1px solid var(--line-2);display:inline-flex;align-items:center;justify-content:center;font:500 11.5px var(--mono)}
+.pb-rail li.d{color:var(--ink-2)}.pb-rail li.d .n{background:var(--surface-2)}.pb-rail li.c{color:var(--ink);font-weight:600}.pb-rail li.c .n{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.pb-rail li.c::after{content:"";position:absolute;left:10px;right:10px;bottom:0;height:3px;background:var(--accent-text)}.pb-rail .sp{flex:1}.pb-rail .btn{align-self:center}
+.pb-pick{height:44px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);display:inline-flex;align-items:center;gap:6px;font:500 13px var(--mono);color:var(--ink);background:var(--surface)}
+.pb-pick.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-text);font-weight:600}.pb-pick.must{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}.pb-pick.ic{width:44px;padding:0;justify-content:center}
+.pb-bar{width:390px;background:var(--surface);border:1px solid var(--line-2);border-radius:0 0 12px 12px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+.pb-bar .s{flex:1;min-width:0}.pb-bar .s b{display:block;font:600 13px/1.2 var(--mono)}.pb-bar .s small{display:block;font:400 12.5px/1.45 var(--mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pb-dnf{background:var(--warn-soft);border-radius:12px;padding:12px 14px;max-width:360px}.pb-dnf .c{font:600 11.5px var(--mono);letter-spacing:.06em;color:var(--warn)}.pb-dnf b{display:block;font:600 17px/1.25 var(--serif);margin-top:6px}.pb-dnf small{display:block;font:400 12.5px/1.45 var(--mono);color:var(--warn)}
+.pb-bl{width:22px;height:22px;border-radius:6px;background:var(--ink);color:var(--surface);font:600 12px/1 var(--mono);display:inline-flex;align-items:center;justify-content:center}.pb-bl.pk{background:var(--accent);color:var(--accent-ink)}
+.pb-tile{border:1px solid var(--line-2);border-radius:12px;background:var(--surface);padding:12px 14px;display:flex;align-items:center;gap:12px;min-height:56px;width:260px}
+.pb-tile b{font:800 21px/1 var(--display);text-transform:uppercase}.pb-tile small{display:block;font:400 12.5px var(--mono);color:var(--muted);margin-top:4px}.pb-tile.on{border:2px solid var(--accent);background:var(--accent-soft)}.pb-tile.on small{color:var(--ink-2)}
+.pb-radio{width:20px;height:20px;border-radius:999px;border:1.5px solid var(--line-2);display:inline-flex;align-items:center;justify-content:center;background:var(--surface)}.pb-radio.on::after{content:"";width:10px;height:10px;border-radius:999px;background:var(--ink)}
+.pb-dc{min-width:44px;height:44px;border-radius:8px;border:1px solid var(--line-2);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;font:800 15px/1 var(--display);background:var(--surface)}.pb-dc small{font:500 11.5px var(--mono);color:var(--muted);margin-top:2px}.pb-dc.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}.pb-dc.on small{color:var(--accent-ink)}
+.pb-rg{display:flex;align-items:center;gap:12px;padding:0 14px;min-height:52px;border-bottom:1px solid var(--line);background:var(--surface);width:390px}.pb-rg .n{flex:1;font:600 17px/1.25 var(--serif)}.pb-rg .n small{display:block;font:400 12.5px var(--mono);color:var(--muted)}.pb-rg .c{font:500 13px var(--mono);color:var(--ink-2)}
+.pb-cb{width:20px;height:20px;border-radius:4px;border:1.5px solid var(--line-2);background:var(--surface);display:inline-flex;align-items:center;justify-content:center;color:var(--surface)}.pb-cb.on{background:var(--ink);border-color:var(--ink)}.pb-cb.dis{opacity:.45}
+.chip.gap{border-style:dashed;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -806,6 +829,29 @@ kbd{font:500 12px var(--mono);border:1px solid var(--line-2);border-radius:4px;p
 <div class="tag">highlight cards 3.7 (photo, or the glyph well with "No licensed photo yet"; day signs are their own links) · Photos tab tile with its credit line at rest (4.5)</div>
 <div class="gapb"><h4>Not checked yet</h4><dl><dt>Route</dt><dd>track high point, turnaround points</dd><dt>When to go</dt><dd>best weeks, best time of day, snow-free window</dd><dt>Facilities</dt><dd>toilets, drinking water, shade, phone signal</dd></dl></div>
 <div class="tag">"Not checked yet" block 6.5: one block at the end of a place page; safety gaps keep their own rows</div>
+</div>
+</section>
+
+<section>
+<h2 class="sec">PLAN BUILDER (PROPOSED, TB-N)</h2>
+<div class="tag">components 9 and patterns 3.12; pending owner approval; step names and counts follow ../trip-builder/FLOW.md; mocks and findings in ../trip-builder/design-note-TBN.md</div>
+<div class="row" style="align-items:flex-start;gap:24px;margin-top:10px">
+<div><div class="pb-shdr"><span class="pb-hib"><svg class="ic" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></span><div class="t"><b>Pick</b><span>3 of 4 · July · On this phone</span></div><span class="pb-hib"><svg class="ic" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></div><div class="pb-prog"><i class="d"></i><i class="d"></i><i class="c"></i><i></i></div>
+<div style="height:12px"></div><div class="pb-bar"><div class="s"><b>6 picked · Must see 1</b><small>about 5 days (4 nights) ≈</small></div><button class="btn primary" style="height:50px">Next: Days</button></div>
+<div class="tag">9.1 step header (phone, focused flow) · 9.4 action bar with the tray peek</div></div>
+<div style="display:grid;gap:10px"><div class="row"><button class="pb-pick"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Pick</button><button class="pb-pick on" aria-pressed="true"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Picked</button><button class="pb-pick ic on" aria-pressed="true" aria-label="Pick Lago di Braies"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button><button class="pb-pick must" aria-pressed="true"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>Must see</button></div>
+<div class="tag">9.2 pick control (rest, picked, under 360 px) · 9.4 Must see in the tray</div>
+<div class="row"><span class="chip ok"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Fits age 8</span><span class="chip">Book ahead: lift slot</span><span class="chip" style="border-color:var(--ink);color:var(--ink);font-weight:600">Worth the journey</span><span class="chip"><svg class="ic" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Kept on Day 2</span></div>
+<div class="tag">9.5 chip order: kids or fit, safety and booking, then reasons · 9.8 kept chip (one switch, Keep on Day n)</div>
+<div class="row"><span class="pb-bl">A</span><span class="pb-bl pk">B</span><span class="pb-dc">01<small>A</small></span><span class="pb-dc on">02<small>A</small></span><span class="pb-dc">06<small>B</small></span></div>
+<div class="tag">9.7 base letters (rest, picked) · 9.10 day chips</div></div>
+</div>
+<div class="pb-rail" style="margin-top:18px"><ol><li class="d"><span class="n"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Where</li><li class="d"><span class="n"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Where</li><li class="c"><span class="n">3</span>Pick</li><li><span class="n">4</span>Days and driving</li><li><span class="n">5</span>Your plan</li></ol><span class="sp"></span><button class="btn primary">Next: Days and driving</button></div>
+<div class="tag">9.1 step rail (desktop): done steps are links, the current has the 3 px --accent-text underline, the one primary at the right end</div>
+<div class="row" style="align-items:flex-start;gap:24px;margin-top:14px">
+<div><div class="pb-tile on"><span class="pb-radio on"></span><div><b>Weekend</b><small>1 or 2 nights, by car</small></div></div><div style="height:8px"></div><div class="pb-tile"><span class="pb-radio"></span><div><b>Day trip</b><small>Out and back the same day</small></div></div><div class="tag">9.10 kind tiles</div></div>
+<div><div class="pb-rg"><span class="pb-cb on"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div class="n">Northern Italy, east<small>Dolomites, Venice, Lake Garda</small></div><span class="c">69</span></div><div class="pb-rg"><span class="pb-cb dis"></span><div class="n" style="color:var(--muted)">Islands</div><span class="chip gap">Not researched yet</span></div><div class="tag">9.9 region chooser rows</div></div>
+<div><div class="pb-dnf"><span class="c">DID NOT FIT (1)</span><b>Sorapis lake</b><small>No room: days 6 to 9 are at the standard pace's limit</small><div class="row" style="margin-top:10px"><button class="btn" style="height:30px;background:var(--surface)">Add 1 day</button><button class="btn" style="height:30px;background:var(--surface)">Swap with…</button></div></div><div class="tag">9.6 Did not fit</div></div>
 </div>
 </section>
 

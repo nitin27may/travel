@@ -76,6 +76,11 @@ reached (7:1). No other text pair is allowed; add a row here before using one.
 | `--info` on `--surface` | 7.16 | AAA | 8.26 | AAA |
 | `--info` on `--info-soft` | 5.91 | AA | 7.61 | AAA |
 | `--toast-ink` on `--toast-bg` | 14.85 | AAA | 15.28 | AAA |
+| `--ink` on `--accent-soft` (selected kind tile name; TB-N) | 14.11 | AAA | 12.57 | AAA |
+| `--ink-2` on `--accent-soft` (selected kind tile meta; TB-N) | 10.62 | AAA | 9.77 | AAA |
+| `--ink` on `--warn-soft` (caution banner text, Did not fit names; TB-N) | 14.17 | AAA | 13.05 | AAA |
+| `--ink` on `--crit-soft` (urgent banner text; TB-N) | 13.24 | AAA | 12.55 | AAA |
+| `--ink` on `--info-soft` (notice banner text; TB-N) | 13.24 | AAA | 12.74 | AAA |
 | pin numeral `--surface` on `--ink` | 16.06 | AAA | 13.83 | AAA |
 | picked pin numeral `--accent-ink` on `--accent` | 6.96 | AA | 6.96 | AA |
 | `--kicker-on-photo` (`--header-ink` at 80%) on the cover and drawer gradient (darkest band `rgba(11,17,25,.85)` over any photo) | ≥ 7.0 | AAA | same | |
@@ -83,7 +88,10 @@ reached (7:1). No other text pair is allowed; add a row here before using one.
 
 UI (non-text) pairs: `--line-2` on `--surface` 3.67 light / 3.42 dark; `--line-2` on `--bg` 3.39 / 3.78;
 `--accent` on `--header` 6.38 / 7.53; `--accent` on `--bg` 2.33 / 7.22 (so in light the accent never
-stands alone as a thin indicator; the selected tab is also bold ink and the picked route has an ink casing).
+stands alone as a thin indicator; the selected tab is also bold ink and the picked route has an ink casing);
+`--accent` on `--surface` 2.52 / 6.54 (the plan builder's Picked pill and selected kind tile borders, where the word,
+the check and the filled radio carry the state, TB-N); `--ink` at 55% dashed on `--map-land` 3.52 / 5.03 (pick-to-base
+spokes, components 9.7).
 
 ### 2.3 Third-party brand marks
 
