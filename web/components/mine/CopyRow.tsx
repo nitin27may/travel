@@ -2,9 +2,9 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
-import { Icon } from '@/components/ui/Icon';
 import { Menu } from '@/components/ui/Menu';
 import type { MenuEntry } from '@/components/ui/Menu';
+import { MineThumb } from './MineThumb';
 import type { RowModel } from '@/lib/mine/rows';
 
 export interface CopyRowActions {
@@ -47,16 +47,8 @@ export function CopyRow({ row, unlisted, collapsing, restored, chip, onCalendar,
     { label: 'Change dates', icon: 'pencil', onSelect: () => onChangeDates(row) },
     { label: 'Remove', icon: 'close', destructive: true, separatorBefore: true, onSelect: () => onRemove(row) },
   ];
-  const photo = (
-    <span className="crow-photo" data-missing={item.photo && !unlisted ? undefined : ''} aria-hidden="true">
-      {item.photo && !unlisted ? (
-        // eslint-disable-next-line @next/next/no-img-element -- a same-origin rendition path from the copy's snapshot
-        <img src={item.photo} alt="" width={52} height={38} loading="lazy" decoding="async" />
-      ) : (
-        <Icon name={unlisted ? 'warn' : 'route'} size={22} />
-      )}
-    </span>
-  );
+  // the copy's own snapshot photo first; a copy made before photos were kept asks the trip's small card file as the row nears the screen
+  const photo = <MineThumb space="trip" slug={item.slug} known={item.photo} off={unlisted} icon={unlisted ? 'warn' : 'route'} area="photo" />;
   return (
     <li className="crow" data-copy-id={item.id} data-collapsing={collapsing || undefined} data-restored={restored || undefined}>
       <div className="crow-inner">

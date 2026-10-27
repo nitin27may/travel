@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
-import { Icon, kindIcon } from '@/components/ui/Icon';
+import { kindIcon } from '@/components/ui/Icon';
 import { HeartGlyph } from '@/lib/favourites/glyph';
 import { hrefOf, rowMeta, rowName } from '@/lib/favourites/panel';
+import { MineThumb } from './MineThumb';
 import type { FavItem } from '@travel/core/schema/favourites.ts';
 import '@/lib/favourites/heart.css';
 
@@ -19,18 +20,15 @@ interface Props {
 
 /**
  * (The row link does not prefetch: 48 rows would be 48 page requests, and a page that has just been withdrawn answers 404.)
- * One Favourites row (mine-and-bar-spec 5.3): the kind glyph, never a photo (the snapshot has none, P8); the name, "Lake · Canada" under
+ * One Favourites row (mine-and-bar-spec 5.3): a thumbnail of the page's photo (looked up from the page's own small card file as the row
+ * nears the screen, never stored in the snapshot, P8; the kind glyph stands in until it arrives and when there is none); the name, "Lake · Canada" under
  * it; the heart at the right, pressed, which removes the row with Undo. A page that is no longer listed keeps its name, reads "No longer
  * listed" and is not a link; its heart is a Remove button. A row is never removed silently (visitor spec 4.5).
  */
 export function FavouritesRow({ item, collapsing, restored, onRemove }: Props) {
   const name = rowName(item);
   const gone = item.unlistedAt !== null;
-  const glyph = (
-    <span className="frow-glyph" aria-hidden="true">
-      <Icon name={gone ? 'warn' : item.space === 'trip' ? 'route' : kindIcon(item.kind ?? 'place')} size={22} />
-    </span>
-  );
+  const glyph = <MineThumb space={item.space} slug={item.slug} off={gone} icon={gone ? 'warn' : item.space === 'trip' ? 'route' : kindIcon(item.kind ?? 'place')} area="glyph" />;
   return (
     <li className="frow" data-handle={`${item.space}:${item.slug}`} data-collapsing={collapsing || undefined} data-restored={restored || undefined}>
       <div className="frow-inner">
