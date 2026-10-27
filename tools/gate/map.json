@@ -30,6 +30,12 @@
       "tests": ["tools/tests/**/test_*.py", "tools/tests/conftest.py"],
       "steps": ["python tests"]
     },
+    "proto.shared": {
+      "run": ["bash docs/v2/prototypes/tests/run.sh"],
+      "cost": "m", "group": "web", "always_at": 3,
+      "inputs": ["docs/v2/prototypes/**", "core/src/sun/**", "core/bin/sun.ts"],
+      "tests": ["docs/v2/prototypes/shared/tests/*.{test,spec}.js"]
+    },
     "locations": {
       "run": ["python3 tools/locations.py validate", "python3 tools/locations.py build --check"],
       "cost": "s", "group": "core-data", "always_at": 2,
@@ -350,6 +356,8 @@
       "suites": ["py.tools", "locations", "data.capture", "data.suit", "data.relevance", "data.slugs", "core.unit", "web.unit", "web.build", "web.built", "web.serve"],
       "e2e": ["places.spec.ts", "trips.spec.ts", "globe.spec.ts"] },
 
+    { "id": "prototypes-shared", "why": "the throwaway prototypes share sun, contract, ics, map and engine code with their own Playwright tests; sun.js is checked against core/bin/sun.ts",
+      "paths": ["docs/v2/prototypes/**", "core/src/sun/**", "core/bin/sun.ts"], "suites": ["proto.shared"] },
     { "id": "docs-inputs", "why": "documents a test or a check reads",
       "paths": ["docs/v2/build/public-site/README.md"], "suites": ["hardcode", "web.unit"], "tests": ["web/tests/cons/env-table.test.ts"] },
     { "id": "docs-schema-sql", "why": "core/src/db/inventory.ts pins the 62 tables of the proposal", "paths": ["docs/v2/schema.sql"],

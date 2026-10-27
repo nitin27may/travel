@@ -8,6 +8,7 @@ The owner called them "an OK starting point, not what he is looking for" (PLAN R
 |---|---|---|
 | `parks-app/` | `/parks` index and the park page template (Banff, Lake O'Hara, Castle, Algonquin) | `design/park-page/` |
 | `builder/` | Trip Builder: kind, start, where, pick, days and driving, build, editor, review, copy | `design/trip-builder/FLOW.md` |
+| `shared/` | Pieces all three apps use: `sun.js` (port of `core/src/sun`), `contract.js` (`proto.trips` and `proto.requests`: normalise, validate, store helpers), `ics.js` (timed and all-day calendar events), `map.js` (SVG map), `engine.js` (builder engine, API in `shared/engine-api.md`), `tests/` | phase 0 of the fix plan |
 | `planner/` | My trips, trip home, today view, print | `features/edit-my-trip.md`, `features/navigation-and-mine.md` |
 
 Findings, known gaps and the enhancement list from testing: [FINDINGS-2026-10-27.md](FINDINGS-2026-10-27.md); the plan to fix them: [FIX-PLAN-2026-10-27.md](FIX-PLAN-2026-10-27.md).
@@ -22,9 +23,23 @@ python3 docs/v2/prototypes/serve.py 4300
 
 then open `http://127.0.0.1:4300/`. The three apps share `localStorage` (`proto.trips`, `proto.saved`, `proto.draft`), so serve them from one origin.
 
+## Test
+
+```
+bash docs/v2/prototypes/tests/run.sh                 # all shared tests (about 20 s)
+bash docs/v2/prototypes/tests/run.sh -g sun          # one group (Playwright -g)
+PROTO_STRICT=1 bash docs/v2/prototypes/tests/run.sh  # the page sweep also fails on contrast, focus traps, unnamed controls
+```
+
+Uses Playwright from `web/node_modules` (no new dependency) and starts `serve.py` on a free port. `shared/tests/` holds the unit tests
+(`sun`, `contract`, `ics`), the map and engine specs, and the helpers to reuse in later phases: `serve.js`, `contrast.js`
+(`checkContrast(page)`, light and dark), `keyboard.js` (`walkKeyboard(page)`), `a11y.js` (`dumpA11y(page, file)`). The page sweep
+writes findings and accessibility-tree dumps to `docs/v2/prototypes/test-results/sweep/` (ignored).
+
 ## Gotchas
 - All data is placeholder: places, drive times, airports, prices and counts. Drive minutes come from coordinates and a factor, not routing.
 - `themes.css` is a snapshot of `web/app/themes.css`; regenerate it from there, never edit it here.
 - Builder deep links: `?m=near&n=0|1|2&p=<park>`, `?m=trip&cc=CA&p=<park>`, `?add=<park>--<place>&p=<park>`, `?saved=1`, `?copy=dolomites`, `?edit=<id>`, `?review=<id>`; `?fast` skips the build delay.
+- Every app reads and writes `proto.trips` and `proto.requests` through `shared/contract.js`; `shared/sun.js` is the only source of sunrise and sunset.
 - Demo trips are seeded into `proto.trips` only when it is empty. The planner's "Reseed" and "Clear" replace every trip in the browser.
 - Walkthrough screenshots are not committed (repo rule: shots only when a spec names them).

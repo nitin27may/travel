@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shared pieces harness (test page)</title>
+<link rel="stylesheet" href="/themes.css">
+<style>
+ body{margin:0;background:var(--bg);color:var(--ink);font:var(--t-body,16px/1.5 sans-serif);font-family:var(--font-body)}
+ main{padding:var(--s-4);max-width:var(--max-content,1100px);margin:0 auto}
+ h1{font-family:var(--font-display);font-size:24px;margin:0 0 var(--s-3)}
+ p{color:var(--ink-2)}
+ #out{color:var(--muted)}
+ .row{display:flex;gap:var(--s-2);margin:var(--s-3) 0;flex-wrap:wrap}
+ button{min-height:var(--touch-min,44px);padding:0 var(--s-4);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);border-radius:var(--r-2);font:inherit}
+ button:focus-visible,[role=button]:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+ input{min-height:var(--touch-min,44px);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);border-radius:var(--r-2);padding:0 var(--s-3);font:inherit}
+ input:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+ #map{border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<main>
+ <h1>Shared pieces</h1>
+ <p>Test page for the map, the contrast checker and the keyboard walker.</p>
+ <div class="row"><label for="q">Place</label><input id="q" placeholder="Search"><button id="b1" type="button">Add</button><button id="b2" type="button">Remove</button></div>
+ <div id="map" style="width:100%"></div>
+ <p id="out" role="status">No pin chosen</p>
+</main>
+<script src="/shared/map.js"></script>
+<script>
+ var demo={days:[
+  {n:1,points:[{id:'a',lat:51.18,lon:-115.57,label:'Banff'},{id:'b',lat:51.42,lon:-116.18,label:'Lake Louise'},{id:'c',lat:51.33,lon:-116.0,label:'Johnston Canyon'}]},
+  {n:2,points:[{id:'d',lat:51.18,lon:-115.57,label:'Banff'},{id:'e',lat:51.05,lon:-115.35,label:'Canmore'}]},
+  {n:3,points:[{id:'f',lat:51.6,lon:-116.4,label:'Peyto Lake'},{id:'g',lat:51.9,lon:-116.7,label:'Bow Summit'}]}],
+  extras:[{id:'home',lat:51.05,lon:-114.07,label:'Calgary base'}],
+  outline:[[51.0,-116.6],[51.9,-116.9],[51.95,-115.9],[51.2,-115.0]],label:'Test map'};
+ window.handle=ProtoMap.render(document.getElementById('map'),Object.assign({},demo,{selected:'b',onPin:function(id){document.getElementById('out').textContent='Opened '+id;window.lastPin=id}}));
+</script>
+</body>
+</html>

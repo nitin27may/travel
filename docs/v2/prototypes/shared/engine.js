@@ -173,3 +173,36 @@ function toTrip(S){const p=S.plan;const st=p?planStats(p,S):null;const w=whenInf
  return{id,title:S.title,kind:S.kind,mode:KINDS[S.kind].mode,start:{city:S.origin.name,airport:KINDS[S.kind].mode==='trip'?S.airFrom:undefined},party:S.party.map(t=>({name:t.name||undefined,type:t.type,age:t.type==='child'?t.age:undefined,needs:t.needs||[]})),
   dates:{from:y.type==='dates'?y.from:undefined,to:y.type==='dates'?y.to:undefined,month:w.month||undefined,flexible:y.type==='flex'||undefined},nights:S.nights,identity:S.identity,inMine:true,updated:new Date().toISOString(),
   days:tripD,gettingThere:KINDS[S.kind].mode==='trip'?{from:S.airFrom,arrive:S.arrive,leave:S.leave,mode:S.flyMode}:{from:S.origin.name,mode:'drive'},bookings:bk,checklist:cl,costs}}
+
+/* ---- public API (see engine-api.md). Globals above stay for builder.js; the planner uses window.ProtoEngine. ---- */
+/** Does place `pid` fit on plan day `di` without breaking the day's drive, visiting or closure limits? Pure: changes nothing.
+    Returns {ok, reasons:[string], legMin, backMin, durMin}. */
+function fits(S,plan,di,pid,opts){opts=opts||{};const d=plan.days[di],p=PL[pid];
+ if(!d||!p)return{ok:false,reasons:['Unknown day or place'],legMin:0,backMin:0,durMin:0};
+ const E=eff(S),n=plan.days.length,slack=opts.relax?1.5:1;
+ const last=d.items.length?PL[d.items[d.items.length-1].pid]:(d.moveFrom||d.base);
+ const leg=drive(last,p),back=drive(p,d.base),dur=Math.round(p.dur*E.P.mult/5)*5*(opts.half?.5:1);
+ const lim=(S.kind==='day'?Math.max(E.driveDay,S.reachH*120+30):E.driveDay)*slack;
+ const driveNow=d.drive-(d.endLeg||0),reasons=[];
+ if(driveNow+leg+back>lim+(n>1?10:0))reasons.push('Drive would pass '+fd(lim)+' a day');
+ if((d.visit||0)+dur>E.P.vis*1.15*slack)reasons.push('Visiting would pass '+fd(E.P.vis*1.15*slack)+' a day');
+ if(closedIn(S,p))reasons.push('Closed this month');
+ const m=misfit(S,p);if(m.length)reasons.push(m.join(', '));
+ return{ok:!reasons.length,reasons,legMin:leg,backMin:back,durMin:dur}}
+/** Fill empty days (no items, not arrival or departure). Pass 1 is strict (light stop within 30 min of the base);
+    pass 2 relaxes radius and duration (nearest unused place that fits, half a day allowed). Mutates plan, returns
+    {plan, filled:[dayIndex], stillEmpty:[dayIndex]}. Never touches items the person placed or locked. */
+function fillFree(S,plan){const filled=[];
+ const used=()=>new Set(S.picks.concat(plan.days.flatMap(d=>d.items.map(i=>i.pid))));
+ const pool=()=>PLACES.filter(p=>p.type!=='town'&&(S.area?p.park===S.area:S.regions.includes(p.reg)||KINDS[S.kind].mode==='near'&&drive(S.origin,p)<=S.reachH*60+60));
+ plan.days.forEach((d,di)=>{if(d.items.length||d.kind)return;
+  const ex=used();const strict=lightStop(S,d.base,ex);
+  if(strict&&fits(S,plan,di,strict.id).ok){d.items.push({pid:strict.id,auto:true});filled.push(di);recalc(plan,S);return}
+  const cands=pool().filter(p=>!ex.has(p.id)).map(p=>({p,m:drive(d.base,p)})).sort((a,b)=>a.m-b.m);
+  for(const c of cands){const r=fits(S,plan,di,c.p.id,{relax:true,half:true});if(r.ok){d.items.push({pid:c.p.id,auto:true,half:r.durMin<c.p.dur*.75||undefined});filled.push(di);recalc(plan,S);return}}});
+ recalc(plan,S);
+ return{plan,filled,stillEmpty:plan.days.map((d,i)=>(!d.items.length&&!d.kind)?i:-1).filter(i=>i>=0)}}
+/** Build a plan from nothing; rebuild keeps what was placed or locked in `prev`. */
+function build(S){return buildPlan(S,null)}
+function rebuild(S,prev){return buildPlan(S,prev)}
+window.ProtoEngine={build,rebuild,fillFree,fits,recalc,freeDays,planStats,bookAhead,toTrip,whenInfo,drive,hav,fd,hm,eff,misfit,closedIn,lightStop,KINDS,PACE};
