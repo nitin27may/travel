@@ -3,6 +3,8 @@ export { withUserTransaction, draftsReadQuery, signalLiveQuery, APP_ROLE, USER_I
 export type { TxContext, TxOutcome } from "./tx.ts";
 export { loadProfile, saveTravellers, removeTravellers, finishSetup, deleteProfile, EMPTY_PROFILE } from "./profile.ts";
 export type { AccountProfile, SaveResult, ProfileOptions, UserTx } from "./profile.ts";
+export { listPlans, getPlan, putPlan, deletePlan, mergeKeys, insertPlans, PLAN_CAP_SQLSTATE } from "./plans.ts";
+export type { PlanWrite, PlanConflict, PutResult, DeleteResult, PlanMergeKey, MergeInsertResult, PlansOptions } from "./plans.ts";
 export { getPool, getClient, closePools, connectionString, loadPg } from "./client.ts";
 export { migrate, planAgainst, plan, MigrationError } from "./runner.ts";
 export type { Executor, MigrationPlan, RunResult, AppliedRow } from "./runner.ts";

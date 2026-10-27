@@ -198,3 +198,15 @@ export const AUTH_WAYS = {
  * in the sign-in guard reads it.
  */
 export const PROFILE_NAME = { bucket: "account:profile_name", windows: [{ windowS: HOUR, limit: 10 }] } as const satisfies { bucket: string; windows: readonly Window[] };
+
+// ----- Account plans (EM-1) --------------------------------------------------------------------------------------------------------------
+
+/**
+ * The account plan routes' write bucket (edit-my-trip 4.1; route contract core/src/schema/api/account-plans.ts). Every PUT, DELETE and
+ * merge of `/api/account/plans/**` takes one from it, keyed on the HMAC of the verified session's user id (`userHash`), never on an IP:
+ * a household behind one address shares nothing. The limit is PLAN_SYNC.writesPerMinute (core/src/config/plans.ts, pinned equal by
+ * web/tests/account/plans-route.test.ts). Reads (the list, one document) take nothing: the device refetches on focus and every 60 s (EM7).
+ */
+export const PLANS_LIMITS = {
+  write: { bucket: "plans:write", windows: [{ windowS: MINUTE, limit: 120 }] },
+} as const satisfies Record<string, { bucket: string; windows: readonly Window[] }>;
