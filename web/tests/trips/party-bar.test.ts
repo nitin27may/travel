@@ -36,6 +36,11 @@ describe('the party bar words (spec 5.2)', () => {
     expect(sharedWords({ ...base, party: 'adults', youngest: null, adults: 1 })).toBe('Shared plan: adults only, 1 adult');
     expect(barWords(true, partyFromProfile(base), { ...base, youngest: 6 }, 'full', true)).toBe('Shared plan: family, youngest 6 · Full');
   });
+  it('EM-B: the owner\'s own copy says so, not "Shared plan"', () => {
+    expect(sharedWords({ ...base, youngest: 6 }, true)).toBe('Your copy: family, youngest 6');
+    expect(sharedWords({ ...base, party: 'adults', youngest: null, adults: 3 }, true)).toBe('Your copy: adults only, 3 adults');
+    expect(barWords(true, partyFromProfile(base), { ...base, youngest: 6 }, 'full', true, true)).toBe('Your copy: family, youngest 6 · Full');
+  });
   it('sameWho compares the three fields the link carries', () => {
     const other: Profile = { ...base, pace: 'full', walkKm: 5, split: true };
     expect(sameWho(base, other)).toBe(true);

@@ -40,15 +40,15 @@ export function effectiveParty(work: Party | null, profile: Profile): Party {
   return work && sameWho(profileForParty(work, profile), profile) ? work : partyFromProfile(profile);
 }
 
-/** "Shared plan: family, youngest 6" (the link's own words; the adults only when the link says other than 2). */
-export function sharedWords(p: Who): string {
+/** "Shared plan: family, youngest 6", or "Your copy: ..." for the owner's own copy opened from Mine (`mine=1`) (the link's own words; the adults only when the link says other than 2). */
+export function sharedWords(p: Who, own = false): string {
   const { adults, youngest } = partyOfProfile(p);
-  return `Shared plan: ${[youngest === null ? 'adults only' : `family, youngest ${youngest}`, adults === 2 ? '' : adultsText(adults)].filter(Boolean).join(', ')}`;
+  return `${own ? 'Your copy' : 'Shared plan'}: ${[youngest === null ? 'adults only' : `family, youngest ${youngest}`, adults === 2 ? '' : adultsText(adults)].filter(Boolean).join(', ')}`;
 }
 
 /** The collapsed bar's line, long (desktop) and short (phone): "2 adults · 1 child (10) · Standard pace". */
-export function barWords(shared: boolean, party: Party, profile: Profile, pace: Pace, short: boolean): string {
-  return shared ? `${sharedWords(profile)} · ${PACE_WORD[pace]}${short ? '' : ' pace'}` : partyLine(party, pace, short);
+export function barWords(shared: boolean, party: Party, profile: Profile, pace: Pace, short: boolean, own = false): string {
+  return shared ? `${sharedWords(profile, own)} · ${PACE_WORD[pace]}${short ? '' : ' pace'}` : partyLine(party, pace, short);
 }
 
 /** "2 adults, 1 child": the short form for the offer button. */

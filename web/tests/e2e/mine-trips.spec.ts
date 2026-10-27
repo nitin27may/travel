@@ -42,7 +42,7 @@ test.describe('My trips rows', () => {
     await expect(page.getByRole('menuitem')).toHaveText([/Open/, /Add to calendar/, /Print/, /Change dates/, /Remove/]);
     await page.keyboard.press('Escape');
     await row.locator('a.crow-link').click();
-    await expect(page).toHaveURL(/\/trips\/dolomites-2027\/\?p=family-6&pace=relaxed&d=5C&view=day$/);
+    await expect(page).toHaveURL(/\/trips\/dolomites-2027\/\?p=family-6&pace=relaxed&a=2&d=5C&view=day&mine=1$/);
     expect(page.url()).not.toMatch(/adults|children|copiedAt/);
   });
 

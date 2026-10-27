@@ -3,6 +3,7 @@ import { COPIES_KEY, DEVICE_COPY_CAP, LEGACY_COPIES_KEY, LEGACY_MOVED_KEY, memor
 import type { CopyInput, StorageLike } from '@travel/core/schema/copies.ts';
 import { parseTimelineUrl, serialiseTimelineUrl } from '@travel/core/schedule/profileCodec.ts';
 import { DEFAULT_PROFILE } from '@travel/core/schedule/types.ts';
+import { landingFor } from '@travel/core/trips/party.ts';
 import {
   changeDates, moveLegacyOnce, partyText, removeById, saveCopy, undoChange, undoRemove, undoSave,
 } from '@/lib/mine/copies';
@@ -191,21 +192,21 @@ describe('Open', () => {
     expect(state.added).toEqual([{ day: 5, slug: 'moraine-lake' }]);
     expect(decodeURIComponent(href)).not.toContain('6,9');
   });
-  it('writes a=<adults> from 3 to 12, leaves the default 2 out, and never a child age', () => {
+  it('writes a=<adults> from 1 to 12, 2 included, and never a child age', () => {
     const st = m();
     saveCopy(st, input('c', { adults: 5, children: [3, 8] }));
-    expect(openHref(read(st).items[0]!)).toBe('/trips/c/?p=family-3&a=5&view=day');
+    expect(openHref(read(st).items[0]!)).toBe('/trips/c/?p=family-3&a=5&view=day&mine=1');
     const st2 = m();
     saveCopy(st2, input('d', { adults: 2, children: [8] }));
-    expect(openHref(read(st2).items[0]!)).toBe('/trips/d/?p=family-8&view=day');
+    expect(openHref(read(st2).items[0]!)).toBe('/trips/d/?p=family-8&a=2&view=day&mine=1');
   });
   it('a copy with no stored profile opens on the default with the youngest child as the band', () => {
     const st = m();
     saveCopy(st, input('a', { children: [4, 11] }));
-    expect(openHref(read(st).items[0]!)).toBe('/trips/a/?p=family-4&view=day');
+    expect(openHref(read(st).items[0]!)).toBe('/trips/a/?p=family-4&a=2&view=day&mine=1');
     const st2 = m();
     saveCopy(st2, input('b'));
-    expect(openHref(read(st2).items[0]!)).toBe('/trips/b/?view=day');
+    expect(openHref(read(st2).items[0]!)).toBe('/trips/b/?p=adults&a=2&view=day&mine=1');
   });
 });
 
@@ -235,8 +236,71 @@ describe('Open writes the profile codec\'s format itself (so the Mine chunk does
       added: item.added.map((a) => ({ day: a.day, slug: a.placeSlug })),
     });
     // the codec's keys, then the tab the trip page opens a copy on (UXB-2): the Summary is the default tab since UXB-1
-    expect(openQuery(item)).toBe([expected, 'view=day'].filter(Boolean).join('&'));
+    // the codec leaves default party keys out; a copy always writes them (EM-B), in the codec's order, then the tab and the marker
+    const q = new URLSearchParams(expected);
+    q.set('p', q.get('p') ?? 'adults');
+    q.set('a', q.get('a') ?? '2');
+    const order = ['p', 'pace', 'a', 'walk', 'split', 'd', 'add'];
+    const withParty = order.filter((k) => q.has(k)).map((k) => `${k}=${q.get(k)}`).join('&').replace(/%2C/g, ',');
+    expect(openQuery(item)).toBe([withParty, 'view=day', 'mine=1'].join('&'));
     expect(serialiseTimelineUrl(url)).toBe(expected);
     expect(url.profile.adults).toBe(item.adults);
+  });
+});
+
+describe('EM-B: a copy opens with its own party', () => {
+  const dev = { adults: 2, children: [6] };
+  const fam = { party: 'family', youngest: 6, pace: 'standard', adults: 2, walk: null, split: false } as const;
+  const defaults = { ...DEFAULT_PROFILE };
+  const land = (c: CopyInput) => {
+    const st = memoryStorage();
+    saveCopy(st, c);
+    const q = openQuery(read(st).items[0]!);
+    const state = parseTimelineUrl(q);
+    return { q, state, landing: landingFor({ query: q, device: dev, defaults, urlProfile: state.profile }) };
+  };
+  it('B1: Change dates to adults only rewrites the profile, so Open asks for p=adults', () => {
+    const st = memoryStorage();
+    saveCopy(st, input('t', { children: [6], profile: fam }));
+    const id = read(st).items[0]!.id;
+    expect(openQuery(read(st).items[0]!)).toContain('p=family-6');
+    const r = changeDates(st, id, { start: '2027-08-01', adults: 2, children: [] });
+    expect(r.ok).toBe(true);
+    const item = read(st).items[0]!;
+    expect(item.profile).toMatchObject({ party: 'adults', youngest: null, adults: 2, pace: 'standard' });
+    expect(openQuery(item)).toContain('p=adults');
+    expect(openQuery(item)).not.toContain('family');
+  });
+  it('B1: a new child set moves the youngest, and the adults follow; pace, walk and split are kept', () => {
+    const st = memoryStorage();
+    saveCopy(st, input('t', { children: [6], profile: { ...fam, pace: 'relaxed', walk: 8, split: true } }));
+    const id = read(st).items[0]!.id;
+    const first = read(st).items[0]!;
+    const r = changeDates(st, id, { start: '2027-08-01', adults: 3, children: [12, 9] });
+    expect(read(st).items[0]!.profile).toEqual({ party: 'family', youngest: 9, pace: 'relaxed', adults: 3, walk: 8, split: true });
+    if (r.ok) undoChange(st, r.before);
+    expect(read(st).items[0]).toEqual(first);
+  });
+  it('B1: a copy with no stored profile stays without one (its party follows the travellers)', () => {
+    const st = memoryStorage();
+    saveCopy(st, input('t'));
+    changeDates(st, read(st).items[0]!.id, { start: '2027-08-01', adults: 2, children: [5] });
+    expect(read(st).items[0]!.profile).toBeNull();
+    expect(openQuery(read(st).items[0]!)).toContain('p=family-5');
+  });
+  it.each([
+    ['adults only', {}, 'adults', 2],
+    ['a family', { children: [6], profile: fam }, 'family', 2],
+    ['three adults', { adults: 3 }, 'adults', 3],
+  ] as const)('B2: %s always writes the party keys and lands on the link, never the device party', (_n, c, party, adults) => {
+    const { q, state, landing } = land(input('t', c as Partial<CopyInput>));
+    expect(q).toMatch(/(^|&)p=/);
+    expect(q).toMatch(/(^|&)a=\d+/);
+    expect(state.profile).toMatchObject({ party, adults });
+    expect(landing.mode).toBe('shared');
+    expect(landing.apply).toBeNull();
+  });
+  it('B3: a copy carries the marker mine=1 after view=day', () => {
+    expect(land(input('t')).q.endsWith('&view=day&mine=1')).toBe(true);
   });
 });

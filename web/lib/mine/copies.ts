@@ -103,7 +103,10 @@ export function changeDates(storage: StorageLike, id: string, c: DatesChange): {
   const r = updateCopies(storage, (env) => {
     const before = env.items.find((x) => x.id === id);
     if (!before) return { envelope: null, value: null };
-    const after: CopyItem = { ...before, start: c.start, adults: c.adults, children: c.children };
+    // the plan's party follows the travellers (EM-B, B1): Open reads the profile first, so a stale one would plan for people who were removed
+    const youngest = c.children.length ? Math.min(...c.children) : null;
+    const profile = before.profile ? { ...before.profile, adults: c.adults, party: youngest === null ? ('adults' as const) : ('family' as const), youngest } : null;
+    const after: CopyItem = { ...before, start: c.start, adults: c.adults, children: c.children, profile };
     return { envelope: { ...env, items: env.items.map((x) => (x.id === id ? after : x)) }, value: { before, after } };
   });
   if (r.ok && r.value) {

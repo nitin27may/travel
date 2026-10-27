@@ -269,10 +269,26 @@ test.describe('Mine opens a copy on its days with the adults', () => {
     await seed(page, { 'travel.copies.local': copies });
     await page.goto(`${site.url}/mine/`);
     await page.locator('a.crow-link').click();
-    await expect(page).toHaveURL(/\/trips\/dolomites-2027\/\?p=family-6&a=3&view=day$/);
+    await expect(page).toHaveURL(/\/trips\/dolomites-2027\/\?p=family-6&a=3&view=day&mine=1$/);
     await expect(page.locator('[role="tab"][aria-selected="true"]')).toHaveText(/^Days/);
-    await expect(long(page)).toHaveText('Shared plan: family, youngest 6, 3 adults · Standard pace');
+    await expect(long(page)).toHaveText('Your copy: family, youngest 6, 3 adults · Standard pace');
     expect(new URL(page.url()).search).not.toMatch(/9|children/);
+  });
+});
+
+test.describe('EM-B: a copy opens with its own party', () => {
+  test('an adults-only copy opens as adults on a device that keeps a family, and says it is the visitor\'s copy', async ({ page, site }) => {
+    const copies = JSON.stringify({
+      schema: 'copies/1',
+      items: [{ id: '6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b', slug: 'dolomites-2027', title: 'Dolomites', days: 14, cc: 'IT', photo: null, start: '2027-07-03', adults: 2, children: [], profile: null, overrides: {}, added: [], copiedAt: '2026-10-20T10:00:00.000Z' }],
+      noteSeen: null, snoozedUntil: null, merged: {},
+    });
+    await seed(page, { 'travel.copies.local': copies, [PARTY_KEY]: party(2, [7, 10]) });
+    await page.goto(`${site.url}/mine/`);
+    await page.locator('a.crow-link').click();
+    await expect(page).toHaveURL(/\/trips\/dolomites-2027\/\?p=adults&a=2&view=day&mine=1$/);
+    await expect(long(page)).toHaveText('Your copy: adults only · Standard pace');
+    await expect(page).toHaveURL(/p=adults/); // the kept family party was not applied over it
   });
 });
 
