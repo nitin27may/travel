@@ -1,5 +1,7 @@
 # Trip origin and the nearest airport: where getting there starts
 
+> **Amended 27 Oct 2026 (TB-FLOW):** the trip builder asks Starting from at its stage 1 for every kind and confirms airports at stage 6 ([FLOW.md](../design/trip-builder/FLOW.md)); for builder plans a travel region's researched `gateways` play the O5 role ([trip-builder-location-metadata.md](trip-builder-location-metadata.md) M3).
+
 Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements PLAN R-200 to R-207, BACKLOG 15.200 to
 15.208, owner questions Q240 to Q249 (all answered 25 Oct 2026, yes as recommended). Nothing here is built. This page owns one rule, "where does a trip start
 for this visitor", and every surface that reads it. It does not repeat what its neighbours own:

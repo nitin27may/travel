@@ -1,5 +1,7 @@
 # Driving time model: distance and drive time anywhere, by layers
 
+> **Amended 27 Oct 2026 (TB-FLOW):** the builder adds an explicit driving-per-day input (`driveDayMin`, default the pace's `driveLimitMin`) that sets the day-trip radius (half, capped at 2 h one way) and the "Also within your driving" suggestions ([FLOW.md](../design/trip-builder/FLOW.md) TF7, stage 4). Drive targets are a record's access point when it has one (metadata M14).
+
 Status: **spec, planned only** (27 Oct 2026, travel-planner, Opus). No app code. Owner request of 27 Oct 2026; TODO row of
 27 Oct 2026; BACKLOG 15.342; owner questions Q-DT1 to Q-DT5 (section 11). Part of the trip planner
 ([trip-builder.md](trip-builder.md)); it owns how every drive figure in the product is computed, labelled and stored.

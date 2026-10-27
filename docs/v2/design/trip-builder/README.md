@@ -12,39 +12,14 @@ design note and mocks the owner approves before any UI is built.
 
 Principles cited by number from [foundation/principles.md](../foundation/principles.md) (P1 to P9, T1 to T5).
 
-## 1. The flow (both platforms, same steps, same URL keys)
+## 1. The flow
 
-```mermaid
-flowchart LR
-  classDef step fill:#1F4E79,stroke:#163A5A,color:#FFFFFF
-  classDef engine fill:#2A7F8F,stroke:#1E5F6B,color:#FFFFFF
-  classDef ext fill:#B7791F,stroke:#8A5A12,color:#FFFFFF
-  classDef out fill:#5A6772,stroke:#3E4850,color:#FFFFFF
-
-  S1["1 Where<br/>country, or near a start point"]:::step
-  S2["2 Regions<br/>multi-select, grouped"]:::step
-  S3["3 Discover and pick<br/>filters, list + map, shortlist"]:::step
-  S4["4 Days and pace<br/>pre-filled from the picks"]:::step
-  S5["5 Bases<br/>suggested, accept or override"]:::step
-  S6["6 Build<br/>day by day: move, swap, drop, lock"]:::step
-  S7["7 Getting there<br/>from your city or airport"]:::step
-  S8["8 Review<br/>save to Mine, share, export"]:::out
-  E1["Score and filter<br/>(server)"]:::engine
-  E2["Suggest bases<br/>(server)"]:::engine
-  E3["Pack and order days<br/>(server, then scheduler)"]:::engine
-  ORS["ORS matrix<br/>via leg cache"]:::ext
-
-  S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7 --> S8
-  S1 -. "near mode skips 2" .-> S3
-  S3 --- E1
-  S5 --- E2
-  S6 --- E3
-  E2 --- ORS
-  E3 --- ORS
-```
-
-Near mode (day trips and short stays) is the same flow with step 1 asking "from where, how far, how many nights" and
-step 2 skipped; with 0 nights step 5 is skipped too.
+**Superseded by [FLOW.md](FLOW.md) (TB-FLOW, 27 Oct 2026):** stages 0 to 8 (Kind, Start, Where, Pick, Days and
+driving, then the plan, where the first build lands in the editor with getting there as Day 1 and last-day cards, then
+Review and prepare; revised after review TB-N2), one document for create and edit, copies opening in the same editor,
+the editor interaction model and the planning factors. The eight-step diagram that stood here (Where, Regions, Discover,
+Days and pace, Bases, Build, Getting there, Review) is kept in git history. Sections 2 to 7 below still apply; where they
+name a step number, read the FLOW stage of the same name.
 
 ## 2. Phone-native versus desktop-native (what changes, and why)
 
