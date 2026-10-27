@@ -230,6 +230,10 @@
    }
   },
   "site-host": {
+   "core/src/privacy/detect.ts": {
+    "count": 1,
+    "reason": "REF-C: the privacy detector's default own hosts (public-ref-aliases 6.1): a link to our old site's dated folder fails, another host's does not; web passes its configured list as opts.ownHosts"
+   },
    "core/src/relevance/signals.ts": {
     "count": 1,
     "reason": "CONS-3: the host appears only in web/lib/site.ts and the UA modules"
@@ -247,10 +251,6 @@
     "reason": "CONS-3: the host appears only in web/lib/site.ts and the UA modules"
    },
    "tools/locations.py": {
-    "count": 1,
-    "reason": "CONS-3: the host appears only in web/lib/site.ts and the UA modules"
-   },
-   "web/lib/export/share.ts": {
     "count": 1,
     "reason": "CONS-3: the host appears only in web/lib/site.ts and the UA modules"
    },
@@ -293,7 +293,7 @@
     "reason": "CONS-3: slug tables derived from legacy/MANIFEST.json and trip data"
    },
    "core/src/validate/trip.ts": {
-    "count": 3,
+    "count": 2,
     "reason": "CONS-3: slug tables derived from legacy/MANIFEST.json and trip data"
    },
    "web/lib/public/globe.ts": {

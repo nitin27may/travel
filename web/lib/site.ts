@@ -4,6 +4,12 @@ const DEFAULT_ORIGIN = 'https://nks-travel.pages.dev';
 
 /** The public origin; never hard-code the host elsewhere (plan section 14). */
 export function siteOrigin(): string {
+  // REF-REVIEW S7: the default is the OLD site, whose home page links every dated trip folder. A production deploy (VERCEL_ENV=production) or
+  // a build that asks for it (REQUIRE_SITE_ORIGIN=1) must name its own origin, or the build fails rather than write canonical, sitemap and
+  // export URLs on the old host. Dev, test and the e2e builds keep the default.
+  if (!process.env.SITE_ORIGIN?.trim() && (process.env.VERCEL_ENV === 'production' || process.env.REQUIRE_SITE_ORIGIN === '1')) {
+    throw new Error('SITE_ORIGIN is not set: a production build must name the public origin (docs/v2/build/public-site/README.md, Environment variables)');
+  }
   const raw = (process.env.SITE_ORIGIN || DEFAULT_ORIGIN).trim();
   return raw.replace(/\/+$/, '');
 }

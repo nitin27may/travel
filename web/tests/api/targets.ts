@@ -2,7 +2,9 @@ import { existsSync, readdirSync, statSync, utimesSync } from 'node:fs';
 import path from 'node:path';
 import { JsonStore } from '@travel/core/catalogue/json/index.ts';
 import type { JsonSource } from '@travel/core/catalogue/json/source.ts';
-import { registryProblems, type SlugRegistry } from '@travel/core/catalogue/slugs.ts';
+import { folderAliasesOf, registryProblems, type SlugRegistry } from '@travel/core/catalogue/slugs.ts';
+import { publicRef, publicStore } from '@travel/core/catalogue/public-store.ts';
+import type { CatalogueStore } from '@travel/core/catalogue/store.ts';
 import { sortKey } from '@travel/core/catalogue/sortKey.ts';
 import type { TownRow } from '@travel/core/derive/townsData.ts';
 import type { ContractFacts, ContractTarget, Planted } from '../../../core/test/catalogue/contract/index.ts';
@@ -14,6 +16,10 @@ import { registryIds } from '@/lib/server/sources';
 // The contract kit's `json` target on the real data (API-1b): a JsonStore over createPublicData(), with the registry COPIED and one
 // rename, one merge, one withdrawal, one former key, one retired trip slug and one ambiguous region alias planted in the copy (C4), so
 // the cases that need history run on real pages. Phase E layers are pending exactly as on the stub-before-E target.
+//
+// Every store of this target is read through publicStore (public-ref-aliases 5.1 B1, REF-C acceptance A5: K7 and every shape case green on
+// the real data through the wrapper; the real data holds dated legacy refs, which the schemas and the detector refuse). REF-W wires the
+// same wrapper into web/lib/server/store.ts for the routes.
 const PLANT = { old: 'planted-old-slug', mergedKey: 'planted/merged-record', mergedSlug: 'planted-merged-slug', withdrawnKey: 'planted/withdrawn-record', withdrawnSlug: 'planted-withdrawn-slug', formerKey: 'planted/former-key', oldTrip: 'planted-old-trip', ambiguous: 'AB-AMBIG' };
 
 export const PHASE_E = 'phase E, N2 (nearby-and-regions.md section 7): near and nearbyForPlace answer not_available until then';
@@ -63,7 +69,8 @@ export function jsonTarget(): { target: ContractTarget; reads: () => number; sou
   const tagId = [...counts].filter(([, n]) => n >= 1 && n <= 12).sort((x, y) => y[1] - x[1])[0]![0];
   const bySortKey = new Map<string, string[]>();
   for (const r of base.placeRows) bySortKey.set(sortKey(r.name), [...(bySortKey.get(sortKey(r.name)) ?? []), r.ref]);
-  const tie = [...bySortKey.values()].find((v) => v.length >= 2)?.sort();
+  // the pair as served: public refs (public-ref-aliases 4), in the order the served refs sort
+  const tie = [...bySortKey.values()].find((v) => v.length >= 2)?.map((r) => publicRef(r, folderAliasesOf(registry))).sort();
   const alberta = registry.regions['ca/alberta']!;
   // a public trip with a legs file (K27; API-3a): the file names no trip in this test
   const legsDir = path.join(travelRoot(), 'data', 'schedules', 'legs');
@@ -96,7 +103,8 @@ export function jsonTarget(): { target: ContractTarget; reads: () => number; sou
     ...(legsTrip ? { legs: { trip: legsTrip, geometry: false } } : {}),
   };
   /** A store with `p` planted (K26, globePins.cap): towns added to the real layer, a country's pins cloned up to n. */
-  const plant = (p: Planted): JsonStore => {
+  const pub = (s: JsonStore): CatalogueStore => publicStore(s, folderAliasesOf(registry));
+  const plant = (p: Planted): CatalogueStore => {
     // resolveRefs.private: keys pinned in a copy of the planted registry with no public row behind them (a page made private)
     const hidden = p.hidden ? structuredClone(registry) : null;
     if (hidden && p.hidden?.place) hidden.places.slugs[p.hidden.place.key] = p.hidden.place.slug;
@@ -105,17 +113,17 @@ export function jsonTarget(): { target: ContractTarget; reads: () => number; sou
     const src: JsonSource = p.towns?.length
       ? { ...withTowns, towns: () => [...(base.towns?.() ?? []), ...p.towns!.map((t): TownRow => ({ id: t.id, name: t.name, lat: t.lat, lon: t.lon, pop: t.pop ?? 0, admin1: t.id.split('-')[1]!, ascii: t.name, geonamesId: 0, cc: t.cc, admin1Name: null }))] }
       : withTowns;
-    if (!p.pins) return new JsonStore(src);
+    if (!p.pins) return pub(new JsonStore(src));
     const { cc, n } = p.pins;
     const pins = base.globe.pins(cc) ?? [];
     const many = Array.from({ length: Math.max(n, pins.length) }, (_, i) => (i < pins.length ? pins[i]! : { ...pins[0]!, slug: `${pins[0]!.slug}-p${i}` }));
-    return new JsonStore({ ...src, globe: { ...src.globe, pins: (c: string) => (c === cc ? many : base.globe.pins(c)) } });
+    return pub(new JsonStore({ ...src, globe: { ...src.globe, pins: (c: string) => (c === cc ? many : base.globe.pins(c)) } }));
   };
   const target: ContractTarget = {
     name: 'json',
-    make: () => new JsonStore(spy()),
+    make: () => pub(new JsonStore(spy())),
     // K10: one INPUT file's hash changes (the revision is computed from the inputs, A30), not a served value
-    makeChanged: () => new JsonStore({ ...wrap(base), revisionInputs: () => { const i = base.revisionInputs(); return { ...i, files: i.files.map((f, n) => (n === 0 ? { ...f, sha256: '0'.repeat(64) } : f)) }; } }),
+    makeChanged: () => pub(new JsonStore({ ...wrap(base), revisionInputs: () => { const i = base.revisionInputs(); return { ...i, files: i.files.map((f, n) => (n === 0 ? { ...f, sha256: '0'.repeat(64) } : f)) }; } })),
     touch: () => touchAll(path.join(travelRoot(), 'data')),
     registry: () => registry,
     rowReads: () => reads,

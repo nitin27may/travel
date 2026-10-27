@@ -1,3 +1,5 @@
+import { OWN_HOSTS as CORE_OWN_HOSTS } from '@travel/core/privacy/detect.ts';
+
 /**
  * Product settings that are not secrets. CONS-1 extends this file.
  *
@@ -34,3 +36,23 @@ export const GLOBE_HTML_BUDGET_KB = 200;
 
 /** How long a favourites toast stays, in ms: the first-save note, and a toast with an Undo (components 5.3). */
 export const FAVOURITES_TOAST_TIMES = { first: 8000, undo: 6000 } as const;
+
+/**
+ * The hosts that are ours, for the privacy detector's dated-folder rule (public-ref-aliases 6.1): a link to any other host (a third
+ * party's page named `Bench-July-2022.html`) is not read as a dated trip folder of ours, a link to one of ours is. Core's default list
+ * (`OWN_HOSTS`: the old site and the beta host) plus the host of the configured `SITE_ORIGIN` and any hosts in the comma-separated
+ * `OWN_HOSTS_EXTRA` env value (read at call time, so a new host needs no code change).
+ */
+export function ownHosts(env: Record<string, string | undefined> = process.env): string[] {
+  const hostOf = (v: string | undefined): string | null => {
+    const raw = (v ?? '').trim();
+    if (!raw) return null;
+    try {
+      return new URL(/^[a-z]+:\/\//i.test(raw) ? raw : `https://${raw}`).hostname.toLowerCase();
+    } catch {
+      return null;
+    }
+  };
+  const extra = (env.OWN_HOSTS_EXTRA ?? '').split(',').map(hostOf);
+  return [...new Set([...CORE_OWN_HOSTS, hostOf(env.SITE_ORIGIN), ...extra].filter((h): h is string => !!h))];
+}

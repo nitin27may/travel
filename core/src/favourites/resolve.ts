@@ -6,11 +6,18 @@
 // Privacy: the registry is never served. A row names a slug, ref or snapshot only when the target has a public light row now; a key
 // that is pinned but not public (a trip made private) answers `unknown`, exactly like a slug that never existed, and errors never echo
 // an input. A private origin key (`loc:`, `proto:`) is not a handle or a public ref, so it is `invalid_input`.
+//
+// Public refs (public-ref-aliases 5.3, QR4): a ref is asked and answered in its PUBLIC form. The registry's keys are internal refs, so an
+// asked ref goes through `fromPublicInput` (its alias back to the dated folder, through the registry's `trips.folderAliases`) and every
+// answered `ref` through `publicRef`. A ref that itself holds a dated folder answers `unknown` with no space, exactly like a ref that
+// never existed, whether or not the month is the right one: twelve guesses must not reveal the month (G6).
+import { fromPublicInput, publicRef, type FolderAliases } from "../catalogue/alias.ts";
 import { fail, ok, type Result } from "../catalogue/result.ts";
-import type { SlugRegistry, SpaceName } from "../catalogue/slugs.ts";
+import { folderAliasesOf, type SlugRegistry, type SpaceName } from "../catalogue/slugs.ts";
 import { REF_RE } from "../schema/api/common.ts";
 import {
   favRef,
+  favRefShape,
   HANDLE_RE,
   RESOLVE_MAX,
   resolveQuery,
@@ -45,6 +52,8 @@ export interface ResolveIndex {
   bySlug: Record<SpaceName, Map<string, string>>;
   /** per space: withdrawn slug -> its key */
   withdrawnBySlug: Record<SpaceName, Map<string, string>>;
+  /** the pinned folder aliases (public-ref-aliases 4.3): asked refs are read and answered in their public form */
+  aliases: FolderAliases;
 }
 
 export function buildResolveIndex(reg: SlugRegistry): ResolveIndex {
@@ -53,6 +62,7 @@ export function buildResolveIndex(reg: SlugRegistry): ResolveIndex {
     reg,
     bySlug: { places: rev(reg.places.slugs), trips: rev(reg.trips.slugs) },
     withdrawnBySlug: { places: rev(reg.places.withdrawn), trips: rev(reg.trips.withdrawn) },
+    aliases: folderAliasesOf(reg),
   };
 }
 
@@ -74,8 +84,9 @@ function liveRow(ix: ResolveIndex, light: LightLookup, asked: string, space: Spa
   const fs = FAV_SPACE[space];
   const slug = ix.reg[space].slugs[key];
   const row = slug ? light(fs, key) : null;
-  if (!slug || !row || !favRef.safeParse(key).success) return unknownRow(asked, fs);
-  return { asked, state, space: fs, slug, ref: key, name: row.name, kind: fs === "trip" ? null : row.kind, cc: row.cc };
+  const ref = publicRef(key, ix.aliases);
+  if (!slug || !row || !favRef.safeParse(ref).success) return unknownRow(asked, fs);
+  return { asked, state, space: fs, slug, ref, name: row.name, kind: fs === "trip" ? null : row.kind, cc: row.cc };
 }
 
 /** Where a key stands: withdrawn, merged into a survivor, or live (`stateIfLive` for a live key: current, or moved for an alias). */
@@ -111,8 +122,10 @@ function resolveHandle(ix: ResolveIndex, light: LightLookup, asked: string, fs: 
  * keeps its space on `unknown`: the space is the asker's own word, not the registry's.
  */
 function resolvePublicRef(ix: ResolveIndex, light: LightLookup, asked: string): ResolveRow {
-  const former = ix.reg.formerKeys[asked];
-  const key = former ?? asked;
+  const internal = fromPublicInput(asked, ix.aliases);
+  if (internal === null) return unknownRow(asked, null);
+  const former = ix.reg.formerKeys[internal];
+  const key = former ?? internal;
   for (const space of ["places", "trips"] as const) {
     const s = ix.reg[space];
     if (key in s.slugs || key in s.withdrawn) {
@@ -129,7 +142,8 @@ export function resolveOne(ix: ResolveIndex, light: LightLookup, asked: string):
   return h ? resolveHandle(ix, light, asked, h[1] as FavSpace, h[2]!) : resolvePublicRef(ix, light, asked);
 }
 
-const isAskable = (v: string): boolean => HANDLE_RE.test(v) || (REF_RE.test(v) && favRef.safeParse(v).success);
+/** A handle, or anything shaped like a ref: a dated ref is askable (and answers `unknown`), so it is never told apart by `invalid_input`. */
+const isAskable = (v: string): boolean => HANDLE_RE.test(v) || (REF_RE.test(v) && favRefShape.safeParse(v).success);
 
 /**
  * The whole method as a store answers it: validation, the cap, then one row per value. `input` is unchecked (a handler passes the

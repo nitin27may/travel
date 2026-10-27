@@ -8,6 +8,7 @@
 import { isQuotaError, type StorageLike } from "../schema/copies.ts";
 import { byteLength, issuesOf, type Checked } from "../schema/trip-custom.ts";
 import { z } from "zod";
+import { NO_DATED_FOLDER_RE } from "../catalogue/alias.ts";
 import {
   accountFavourite,
   ENVELOPE_MAX_BYTES,
@@ -120,6 +121,23 @@ function versionOf(x: unknown): number | null {
 }
 
 /**
+ * A device that stored a favourite before public aliases (REF-REVIEW M1) holds a capture ref with a dated folder
+ * (`legacy/canadian-rockies-sept-2029/...`), which `favRef` now refuses; read as it is, the whole list would be `invalid` and every write
+ * refused. A dated ref in an item or a pending write is set to `null` instead (the field means "no resolve has answered yet"), so the
+ * next resolve fills in the public ref. Nothing else is touched; the next write stores the cleaned envelope, so the writer never keeps a
+ * dated ref (writeFavourites still validates with the refusing schema).
+ */
+export function withoutDatedRefs(x: unknown): unknown {
+  if (!x || typeof x !== "object" || Array.isArray(x)) return x;
+  const env = x as Record<string, unknown>;
+  const dated = (r: unknown): boolean => !!r && typeof r === "object" && !Array.isArray(r) && typeof (r as { ref?: unknown }).ref === "string" && !NO_DATED_FOLDER_RE.test((r as { ref: string }).ref);
+  const clean = (rows: unknown): unknown => (Array.isArray(rows) && rows.some(dated) ? rows.map((r) => (dated(r) ? { ...(r as object), ref: null } : r)) : rows);
+  const items = clean(env.items);
+  const pending = clean(env.pending);
+  return items === env.items && pending === env.pending ? x : { ...env, items, pending };
+}
+
+/**
  * Reads the stored text of either key. Absent: a fresh envelope. Not JSON: `corrupt`. `favourites/2` from a newer tab: `newer`. Anything
  * else that fails: `invalid`. A failed read never writes; the caller shows the error state and leaves the value as it is.
  */
@@ -133,7 +151,7 @@ export function readFavourites(raw: string | null): FavReadResult {
   }
   const v = versionOf(x);
   if (v !== null && v > 1) return { ok: false, reason: "newer", issues: [`$.schema: favourites/${v}`] };
-  const r = parseFavourites(x);
+  const r = parseFavourites(withoutDatedRefs(x));
   return r.success ? { ok: true, envelope: r.data, fresh: false } : { ok: false, reason: "invalid", issues: r.issues };
 }
 

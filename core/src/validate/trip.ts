@@ -2,6 +2,7 @@ import { RESERVED_SLUGS } from "../schema/enums.ts";
 import { SLUG_RE } from "../schema/meta.ts";
 import { TRIP_TABLES } from "../schema/trip.ts";
 import { TRIP_SCHEMA_VERSION } from "../schema/trip.ts";
+import { DATED_FOLDER_RE } from "../catalogue/alias.ts";
 import { checkForeignKeys, checkSources } from "./fk.ts";
 import { checkTable, err, isObj } from "./rows.ts";
 import type { Ctx, Row } from "./rows.ts";
@@ -14,6 +15,25 @@ const dayNumber = (iso: string): number => {
   const [y, m, d] = iso.split("-").map(Number) as [number, number, number];
   return Date.UTC(y, m - 1, d) / 86400000;
 };
+
+/** Month words a trip id must not put next to a year (S4): English, with the short forms, and the common French, Spanish, Italian, German and Portuguese names. */
+const MONTH_WORDS_ANY = "jan|janv|january|janvier|januar|enero|gennaio|janeiro|feb|febr|february|fev|fevr|fevrier|februar|febrero|febbraio|fevereiro|mar|mars|march|marz|marzo|marco|apr|avr|april|avril|abril|aprile|may|mai|mayo|maggio|maio|jun|june|juin|juni|junio|giugno|junho|jul|july|juil|juillet|juli|julio|luglio|julho|aug|august|aout|agosto|sep|sept|september|septembre|septiembre|setiembre|settembre|setembro|oct|october|octobre|oktober|octubre|ottobre|outubro|nov|november|novembre|noviembre|novembro|dec|december|decembre|dezember|diciembre|dicembre|dezembro";
+const MONTH_YEAR_PATTERNS: RegExp[] = [
+  new RegExp(`(?:^|-)(?:${MONTH_WORDS_ANY})(?:-(?:${MONTH_WORDS_ANY}))?-?(?:19|20)\\d\\d(?!\\d)`), // sept-2029, sept2029, feb-mar-2027, a leading month
+  new RegExp(`(?:^|-)(?:19|20)\\d\\d-?(?:0[1-9]|1[0-2])(?![0-9])`), // 2029-09
+  new RegExp(`(?:^|-)(?:0[1-9]|1[0-2])-(?:19|20)\\d\\d(?!\\d)`), // 09-2029
+  new RegExp(`(?:^|-)(?:19|20)\\d\\d-?(?:${MONTH_WORDS_ANY})(?![a-z])`), // 2029-sept
+];
+
+/**
+ * True when a trip id puts a month next to a year in any spelling a person could type (S4, REF-REVIEW): underscores, spaces and dots read as
+ * hyphens, every Unicode dash (U+2011 and the rest), accents folded, a joined `sept2029`, a numeric `2029-09`, a month with no word before it,
+ * and the months of five other languages. Stricter than DATED_FOLDER_RE on purpose: a trip id is a new public id.
+ */
+export function slugNamesMonthYear(slug: string): boolean {
+  const t = slug.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[\p{Pd}\u2212_\s.]+/gu, "-");
+  return MONTH_YEAR_PATTERNS.some((re) => re.test(t));
+}
 
 export function shapeForNights(n: number): string {
   if (n <= 0) return "day-trip";
@@ -28,7 +48,7 @@ const str = (v: unknown): string | null => (typeof v === "string" ? v : null);
 
 export function validateTrip(doc: unknown, ctx: Ctx, folder: string | null): void {
   if (!isObj(doc)) {
-    err(ctx, "E_SCHEMA", "", "the file must be one JSON object with schema_version, id, updated and the trip tables. Example: {\"schema_version\": 1, \"id\": \"niagara-day-aug-2026\", ...}.");
+    err(ctx, "E_SCHEMA", "", "the file must be one JSON object with schema_version, id, updated and the trip tables. Example: {\"schema_version\": 1, \"id\": \"niagara-day-2026\", ...}.");
     ctx.schemaBroken = true;
     return;
   }
@@ -41,7 +61,7 @@ export function validateTrip(doc: unknown, ctx: Ctx, folder: string | null): voi
     ctx.schemaBroken = true;
   }
   if (typeof doc.id !== "string" || !SLUG_RE.test(doc.id)) {
-    err(ctx, "E_SLUG", "/id", `"id" must be the trip slug in lower-case words joined by hyphens, got ${JSON.stringify(doc.id)}. Example: "niagara-day-aug-2026".`);
+    err(ctx, "E_SLUG", "/id", `"id" must be the trip slug in lower-case words joined by hyphens, got ${JSON.stringify(doc.id)}. Example: "niagara-day-2026".`);
   }
   if (typeof doc.updated !== "string" || !ISO_DATE.test(doc.updated)) {
     err(ctx, "E_SCHEMA", "/updated", `"updated" must be an ISO date, got ${JSON.stringify(doc.updated)}. Example: "2026-10-17".`);
@@ -90,6 +110,10 @@ export function validateTrip(doc: unknown, ctx: Ctx, folder: string | null): voi
   const slug = String(trip.slug);
   if ((RESERVED_SLUGS as readonly string[]).includes(slug)) {
     err(ctx, "E_SLUG", "/trip/slug", `"${slug}" is a reserved name because it is also a page of the app. Pick another slug. Example: "${slug}-trip".`);
+  }
+  // a trip id is a public id: a month next to a year is private (public-ref-aliases 2, owner 27 Oct 2026); a year or a season is fine
+  if (DATED_FOLDER_RE.test(slug) || slugNamesMonthYear(slug)) {
+    err(ctx, "E_SLUG", "/trip/slug", `"${slug}" names a month and a year; a trip id is public, so it may carry the year or a season only. Example: "niagara-day-2026" or "vermont-fall-2026".`);
   }
   if (slug !== doc.id) {
     err(ctx, "E_SLUG", "/id", `the root "id" (${JSON.stringify(doc.id)}) must equal trip.slug (${JSON.stringify(slug)}).`);

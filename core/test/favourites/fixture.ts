@@ -1,5 +1,6 @@
 // A small slug registry and light index for the favourites tests: one of every resolve state in both spaces, a ref with a space and a
-// colon (`trip/<id>/sight:...`), an alias, a page pinned but not public, and a slug shared by a place and a trip.
+// colon (`trip/<id>/sight:...`), an alias, a page pinned but not public, a slug shared by a place and a trip, and a record under a dated
+// legacy folder with its pinned folder alias (public-ref-aliases 4: asked and answered as `legacy/canadian-rockies-2029/...`).
 import { slugRegistry, SLUG_REGISTRY_SCHEMA, type SlugRegistry } from "../../src/catalogue/slugs.ts";
 import { ok } from "../../src/catalogue/result.ts";
 import { buildResolveIndex, resolveRefsResult, type LightLookup, type ResolveRefsMethod } from "../../src/favourites/resolve.ts";
@@ -17,6 +18,7 @@ export const REGISTRY: SlugRegistry = slugRegistry.parse({
       "trip/algonquin/sight:ragged falls": "ragged-falls",
       "route/bow-falls-new": "bow-falls",
       "place/hidden-place": "hidden-place",
+      "legacy/canadian-rockies-sept-2029/sights/bow-lake": "bow-lake",
     },
     retired: { "lake-agnes": "place/lake-agnes", "louise-sightseeing-old": "sight/lake-louise-sightseeing" },
     merged: { "sight/lake-louise-sightseeing": "sight/lake-louise-gondola" },
@@ -27,6 +29,7 @@ export const REGISTRY: SlugRegistry = slugRegistry.parse({
     retired: { "iceland-old": "trip/iceland" },
     merged: {},
     withdrawn: { "trip/gone": "gone-trip" },
+    folderAliases: { "canadian-rockies-sept-2029": "canadian-rockies-2029" },
   },
   formerKeys: { "route/bow-falls-old": "route/bow-falls-new" },
   regions: {},
@@ -40,6 +43,7 @@ const LIGHT: Record<string, LightRow & { space: FavSpace }> = {
   "sight/lake-louise-gondola": { space: "place", name: "Lake Louise Gondola", kind: "lift", cc: "CA" },
   "trip/algonquin/sight:ragged falls": { space: "place", name: "Ragged Falls", kind: "waterfall", cc: "CA" },
   "route/bow-falls-new": { space: "place", name: "Bow Falls", kind: "waterfall", cc: "CA" },
+  "legacy/canadian-rockies-sept-2029/sights/bow-lake": { space: "place", name: "Bow Lake", kind: "lake", cc: "CA" },
   "trip/dolomites-2027": { space: "trip", name: "Dolomites", kind: null, cc: "IT" },
   "trip/iceland": { space: "trip", name: "Iceland", kind: null, cc: "IS" },
   "trip/moraine-lake": { space: "trip", name: "Moraine Lake weekend", kind: null, cc: "CA" },

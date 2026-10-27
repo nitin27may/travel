@@ -24,7 +24,7 @@
 // Snapshot fields are `name`, `kind` and `cc` only (P8: no facts, links, times or suitability). `favouredAt` is private: the detector
 // fails a public body holding `favouredAt` or `favourites` (visitor spec 8.3).
 import { z } from "zod";
-import { REF_MAX, REF_RE } from "./api/common.ts";
+import { NO_DATED_FOLDER_RE, REF_MAX, REF_RE } from "./api/common.ts";
 import { SLUG } from "./trip-custom.ts";
 
 export const FAVOURITES_SCHEMA = "favourites/1";
@@ -64,10 +64,17 @@ const slug = z.string().regex(SLUG);
 /** A private origin key anywhere in a ref (store.ts A24; the detector's ORIGIN_REF). */
 const NO_ORIGIN_KEY = /^(?![\s\S]*\b(?:loc|proto):)/;
 /**
- * A public ref as rows carry it (D-B2): a layer word, a slash, the rest; spaces, `:` and `#` occur (`trip/<id>/sight:ragged falls`), so
- * only length, no control characters and no private origin key are checked.
+ * The SHAPE of a ref (D-B2): a layer word, a slash, the rest; spaces, `:` and `#` occur (`trip/<id>/sight:ragged falls`), so only length,
+ * no control characters and no private origin key are checked. Internal: what the resolver accepts as a question, so a dated ref asked
+ * answers `unknown` like any other unknown ref (public-ref-aliases 5.3, QR4) rather than `invalid_input`.
  */
-export const favRef = z.string().min(3).max(REF_MAX).regex(REF_RE, "a public ref").regex(NO_ORIGIN_KEY, "a public ref").regex(/^[^\u0000-\u001f\u007f]+$/, "no control characters");
+export const favRefShape = z.string().min(3).max(REF_MAX).regex(REF_RE, "a public ref").regex(NO_ORIGIN_KEY, "a public ref").regex(/^[^\u0000-\u001f\u007f]+$/, "no control characters");
+/**
+ * A public ref as rows carry it: the shape above, and no dated legacy folder (public-ref-aliases 5.2: a month next to a year is never in
+ * a public id; the public form carries the folder alias, `canadian-rockies-2029`). A stored favourite or account row holding a dated ref
+ * fails here, so a leak cannot be written back.
+ */
+export const favRef = favRefShape.regex(NO_DATED_FOLDER_RE, "a public ref (no month and year)");
 /** A place kind word. Loose on purpose: a new kind in the catalogue must never turn a stored envelope invalid. */
 const kindWord = z.string().regex(/^[a-z][a-z0-9_-]{0,39}$/);
 const name = z.string().min(1).max(120).regex(/\S/, "not blank");

@@ -6,6 +6,9 @@
 //     because those two are checked by the meta pass instead;
 //   - S3 conflicts: every Val.conflicts is counted and kept; a shown value whose basis is weaker than a losing reading's is reported.
 import { privacyHits } from "../privacy/detect.ts";
+
+/** Capture rows are internal: their real ids are dated refs, which only public output must not hold (public-ref-aliases 6.1). */
+const INTERNAL = { datedFolders: false } as const;
 import { keepFindings, unknownRecordKeys } from "../validate/keep.ts";
 import { Sink, eachVal, isObj, seg, type Obj } from "./common.ts";
 import { unreadKeys } from "./tripLevel.ts";
@@ -42,7 +45,7 @@ export function checkDocument(doc: Obj, family: Family, root: string | null, sin
     rows.push(["", rest]);
   }
   for (const [at, row] of rows) {
-    for (const h of privacyHits(withoutOwn(row), 3)) {
+    for (const h of privacyHits(withoutOwn(row), 3, INTERNAL)) {
       // the planning-note rule also reads a business's street address; text already in a source file is a warning, any other hit is an error
       const soft = h.why === "a household planning note";
       sink.find(soft ? "W_NORM_PRIVACY" : "E_NORM_PRIVACY", soft ? "warn" : "error", `${at}${h.where.replace(/^\$/, "")}`, `the privacy detector: ${h.why}`);

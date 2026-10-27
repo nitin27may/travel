@@ -18,10 +18,10 @@ const { target, source } = jsonTarget();
 const through = {
   ...target,
   name: 'json through respond()',
-  make: () => new HandlerStore(target.make() as JsonStore),
-  makeChanged: () => new HandlerStore(target.makeChanged!() as JsonStore),
+  make: async () => new HandlerStore(await target.make()),
+  makeChanged: async () => new HandlerStore(await target.makeChanged!()),
   rowReads: undefined,
-  plant: async (p: Parameters<NonNullable<typeof target.plant>>[0]) => new HandlerStore((await target.plant!(p)) as JsonStore),
+  plant: async (p: Parameters<NonNullable<typeof target.plant>>[0]) => new HandlerStore(await target.plant!(p)),
   pending: Object.fromEntries([...CONTRACT_TABLES.near!, ...CONTRACT_TABLES.nearbyForPlace!].map((c) => [`${c.method}:${c.id}`, PHASE_E])),
 };
 runContractTargets([through], { handlerLayer: true });
@@ -74,7 +74,7 @@ describe('respond() fails closed', () => {
 
 describe('K7 home point on the real data (C6)', () => {
   it('no served point lies within 2 km of the home point, and no unlisted trip is served', async () => {
-    const store = new HandlerStore(target.make() as JsonStore);
+    const store = new HandlerStore(await target.make());
     const hits: string[] = [];
     for (const r of source.placeRows) {
       const d = source.placeDetail(r.slug)!;
@@ -108,14 +108,14 @@ describe('respond() request limits and headers', () => {
     expect((await respond('report', new Request('http://api.test/api/v1/report/?x=1', { method: 'POST', body: '{"page":"/x/"}' }), {}, store)).status).toBe(400);
   });
   it('keeps the query on a 308 for a moved trip and its legs (GB-A-13, store.ts A32)', async () => {
-    const store = new HandlerStore(target.make() as JsonStore);
+    const store = new HandlerStore(await target.make());
     const { from, to } = target.facts.tripRetired!;
     const moved = await store.request(`/api/v1/trips/${from}/?p=family&split=1`);
     expect(moved.status).toBe(308);
     expect(moved.headers.get('location')).toBe(`/api/v1/trips/${to}/?p=family&split=1`);
   });
   it('answers the API-3 reads with 200 and the contract shapes (parsed counts, unchecked rows, card search, trip legs)', async () => {
-    const store = new HandlerStore(target.make() as JsonStore);
+    const store = new HandlerStore(await target.make());
     const word = source.placeRows[0]!.name.split(/[^A-Za-z]+/).sort((a, b) => b.length - a.length)[0]!;
     for (const path of ['/api/v1/places/unchecked/?season=7', `/api/v1/places/cards/?q=${encodeURIComponent(word)}`, `/api/v1/trips/${target.facts.tripSlug}/legs/`, '/api/v1/places/counts/?parsed.kind=lake']) {
       const res = await store.request(path);

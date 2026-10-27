@@ -17,12 +17,16 @@
 //      `notYet`, `terms` or `asked` (or an array under one), or an `href` query parameter, whose folded text is contained in one of the
 //      request's strings is not read as text: it carries nothing the request did not bring, and refusing it would make the search box
 //      (or the resolve endpoint, FAV-1X) an oracle (one word answering 500). Every other field holding the same words is still read.
-//   3. Nothing else. Encoded polylines under `geometry` are decoded (A34, A39), and a string that is JSON (the `json` export body) is
+//   3. LINKS TO OTHER PEOPLE'S SITES, for the dated-folder rule only (public-ref-aliases 6.1): an absolute http(s) URL whose host is not
+//      one of ours (`opts.ownHosts`) is removed before that rule reads a string, because a third party's page name may hold a month and a
+//      year (`on-top.ca/.../Indefatigable-Bench-July-2022.html`). A link to our own old site's dated folder still fails.
+//   4. Nothing else. Encoded polylines under `geometry` are decoded (A34, A39), and a string that is JSON (the `json` export body) is
 //      also parsed and walked, so a line or a point inside it is read like any other (review API3-R-6).
 import { decodePolyline5, POLYLINE5_RE } from "../schema/api/legs.ts";
 import { HOME_TOWN_RE, nearHome } from "./home.ts";
 import type { PublicGazetteer } from "./towns.ts";
 import { TRIPLESS_LANE } from "../capture/lane.ts";
+import { DATED_FOLDER_RE } from "../catalogue/alias.ts";
 
 /** The household's planning notes: a plan link, a stay idea, a base camp (dateless.ts HOUSEHOLD_TEXT, without its loose address rule). */
 export const PLANNING_NOTE = /\bplanned as\b|\b(?:hotel|stay|lodging|airbnb|accommodation|campsite|hut)\s+(?:idea|ideas|choice|pick|booked)\b|\bbase camp:/i;
@@ -101,6 +105,19 @@ export const TOWN_LABEL_MAX = 80;
  */
 export const ECHO_KEYS: readonly string[] = ["query", "q", "unused", "notYet", "terms", "asked"];
 
+/**
+ * A month (or two) next to a year inside an id, path, key or URL of ours (owner, 27 Oct 2026; public-ref-aliases 6.1): a dated legacy
+ * trip folder such as `canadian-rockies-sept-2029`. Public ids carry its alias (`canadian-rockies-2029`, core/src/catalogue/alias.ts).
+ * Read on every string (after links to other hosts are removed, and again URL-decoded) and on every object key.
+ */
+export const DATED_FOLDER = DATED_FOLDER_RE;
+export const DATED_FOLDER_WHY = "a dated trip folder (month and year)";
+/**
+ * The hosts that are ours (6.1): a link to one of them (or a subdomain, such as a Cloudflare preview) is read by the dated-folder rule;
+ * a link to any other host is not. The web passes its configured list (web/lib/config/product.ts) as `opts.ownHosts`.
+ */
+export const OWN_HOSTS: readonly string[] = ["nks-travel.pages.dev", "travel-beta-tan.vercel.app"];
+
 export interface Hit {
   where: string;
   why: string;
@@ -111,6 +128,13 @@ export interface DetectOptions {
   gazetteer?: PublicGazetteer | null;
   /** the request's own strings (query parameter values): what an echo key may repeat */
   echo?: readonly string[];
+  /** the hosts that are ours for the dated-folder rule; default OWN_HOSTS */
+  ownHosts?: readonly string[];
+  /**
+   * False ONLY for internal records (the normalise checks read capture rows, whose real ids are dated refs): the dated-folder rule is
+   * for public output. Default true; every served body, export and published file keeps it.
+   */
+  datedFolders?: boolean;
 }
 
 const NUM_PAIR = /(-?\d{1,3}\.\d{2,})\D{1,12}?(-?\d{1,3}\.\d{2,})/g;
@@ -130,8 +154,87 @@ function isOriginValue(y: unknown, depth = 0): boolean {
 /** True when a pair of numbers is a point near home, in either order (lat, lon or lon, lat). */
 const pairNearHome = (a: number, b: number): boolean => nearHome(a, b) || nearHome(b, a);
 
+/**
+ * A link with an authority: `http(s)://host/...`, a protocol-relative `//host/...` and a scheme-less `www.host/...` (S1, review
+ * REF-REVIEW). The lookbehind keeps `a//b` in a path and `x.www.y` out of it.
+ */
+const ABS_URL = /(?:\bhttps?:\/\/|(?<![\w:/.%-])\/\/|(?<![\w.-])www\.)([^/\s"'<>?#\\]+)[^\s"'<>]*/gi;
+
+/** The host of a URL's authority, without user info or port, lower case. */
+const hostOf = (authority: string): string => authority.replace(/^[^@]*@/, "").replace(/:\d*$/, "").toLowerCase();
+
+/**
+ * A string with every link to a host that is not ours removed (6.1). A link to another host that WRAPS one of our hosts anywhere in its
+ * path or query (an archive.org snapshot, a redirect `?u=`) is kept, so the dated-folder rule reads the wrapped URL (S3). The text is
+ * expected decoded (hasDatedFolder does that first).
+ */
+export function withoutOtherHosts(text: string, ownHosts: readonly string[] = OWN_HOSTS): string {
+  if (!/https?:\/\/|\/\/|www\./i.test(text)) return text;
+  const own = ownHosts.map((h) => h.toLowerCase());
+  return text.replace(ABS_URL, (url, authority: string) => {
+    const h = hostOf(authority);
+    if (own.some((o) => h === o || h.endsWith(`.${o}`))) return url;
+    const low = url.toLowerCase();
+    return own.some((o) => low.includes(o)) ? url : " ";
+  });
+}
+
+/** Percent-escapes decoded, leniently: a malformed escape is left as it is (decodeURIComponent would throw on the whole string). */
+function looseDecode(text: string): string {
+  try {
+    return decodeURIComponent(text);
+  } catch {
+    return text.replace(/%[0-7][0-9A-Fa-f]/g, (e) => String.fromCharCode(parseInt(e.slice(1), 16)));
+  }
+}
+
+/**
+ * True when a string, or a key, holds a dated folder of ours. The text is URL-decoded first (up to twice, for `%252F`), so an encoded
+ * ref of ours is read and an encoded link to another host is recognised as a link; then links to other hosts are removed. Decoding only
+ * ever adds characters a dated token could hold, so the decoded form misses nothing the raw form has.
+ */
+export function hasDatedFolder(text: string, ownHosts: readonly string[] = OWN_HOSTS): boolean {
+  let t = text;
+  for (let i = 0; i < 2 && t.includes("%"); i++) {
+    const d = looseDecode(t);
+    if (d === t) break;
+    t = d;
+  }
+  return datedHit(withoutOtherHosts(t, ownHosts));
+}
+
+/**
+ * Words before an ambiguous month that make the token plain English (`you-may-2020`, `we-march-2020`): the modal and the pronouns.
+ * Only a single `may` or `march` is ambiguous; every other month word (`sept`, `july`, `feb-mar`) is read wherever it stands.
+ */
+const PROSE_LEAD = new Set(["you", "we", "they", "he", "she", "it", "i", "who", "that", "which", "will", "can", "could", "might", "must", "should"]);
+const DATED_GLOBAL = new RegExp(DATED_FOLDER.source, "gi");
+const AMBIGUOUS_MONTH = /-(?:may|march?)-(?:19|20)\d\d$/i;
+
+/**
+ * True when the text holds a dated trip folder (S1). A match is an id when it stands in an id context (after `/`, `#`, `=`, or the whole
+ * string, or carries `legacy` or `trip`); an ambiguous single month (`may`, `march`) in free text, or after a pronoun or modal, is prose
+ * (`you-may-2020`, `covid-march-2020` in a sentence) and is left alone. Conservative: any other month word is always a hit.
+ */
+export function datedHit(text: string): boolean {
+  DATED_GLOBAL.lastIndex = 0;
+  for (const m of text.matchAll(DATED_GLOBAL)) {
+    const tok = m[0];
+    if (!AMBIGUOUS_MONTH.test(tok)) return true;
+    const words = tok.toLowerCase().split("-");
+    if (words.includes("legacy") || words[0] === "trip") return true;
+    if (words.some((w) => PROSE_LEAD.has(w))) continue;
+    const before = text[m.index! - 1];
+    const after = text[m.index! + tok.length];
+    const wholeString = text.trim() === tok;
+    if (wholeString || before === "/" || before === "#" || before === "=" || after === "/" || after === "#") return true;
+  }
+  return false;
+}
+
 /** Text and number pairs inside a string: an export body (GPX attributes, KML coordinates, CSV, the json model) is one string. */
-function textHits(text: string, at: string, hits: Hit[], homeTownText = true): void {
+function textHits(text: string, at: string, hits: Hit[], homeTownText = true, dated: readonly string[] | null = OWN_HOSTS): void {
+  if (dated && hasDatedFolder(text, dated)) hits.push({ where: at, why: DATED_FOLDER_WHY });
   if (ORIGIN_REF.test(text)) hits.push({ where: at, why: "a private origin key (wishlist or prototype id)" });
   if (TRIPLESS_REF.test(text)) hits.push({ where: at, why: "the trip-less lane id" });
   if (homeTownText && HOME_TOWN_RE.test(text)) hits.push({ where: at, why: "the home town" });
@@ -182,6 +285,8 @@ interface Ctx {
 export function privacyHits(body: unknown, limit = 20, opts: DetectOptions = {}): Hit[] {
   const gz = opts.gazetteer ?? null;
   const echoes = (opts.echo ?? []).map(fold).filter(Boolean);
+  /** the dated-folder rule's own hosts, or null when the rule is off (internal records only) */
+  const dated: readonly string[] | null = opts.datedFolders === false ? null : (opts.ownHosts ?? OWN_HOSTS);
   const hits: Hit[] = [];
   const inGz = (x: unknown): x is string => !!gz && typeof x === "string" && gz.has(x);
   const isEcho = (s: string): boolean => {
@@ -230,7 +335,7 @@ export function privacyHits(body: unknown, limit = 20, opts: DetectOptions = {})
         if (parsed !== undefined) walk(parsed, `${at}<json>`, { key: null, owners: [], labelOwners: [], city: false, echo: false, depth: c.depth + 1 });
         if (hits.length > before) return;
       }
-      textHits(text, at, hits, homeTownText);
+      textHits(text, at, hits, homeTownText, dated);
     } else if (Array.isArray(x)) {
       // a coordinate: [lon, lat] or [lat, lon], with an optional height; public only as an exact vertex of the owning town's outline
       if ((x.length === 2 || x.length === 3) && isNum(x[0]) && isNum(x[1]) && pairNearHome(x[0], x[1])) {
@@ -255,6 +360,8 @@ export function privacyHits(body: unknown, limit = 20, opts: DetectOptions = {})
         if (ORIGIN_VALUE_KEYS.includes(k) && isOriginValue(y)) hits.push({ where: `${at}.${k}`, why: "a visitor's origin" });
         // a map keyed by ref (refSlugs, citations) would carry an origin key as a key; the path omits the key so the hit cannot leak it
         if (ORIGIN_REF.test(k)) hits.push({ where: `${at}[key]`, why: "a private origin key (wishlist or prototype id)" });
+        // the same for a dated folder in a key (refSlugs is keyed by ref): the path omits the key
+        if (dated && hasDatedFolder(k, dated)) hits.push({ where: `${at}[key]`, why: DATED_FOLDER_WHY });
         if (TRIP_VALUE_KEYS.includes(k) && (y === TRIPLESS_LANE || (Array.isArray(y) && y.includes(TRIPLESS_LANE)))) hits.push({ where: `${at}.${k}`, why: "the trip-less lane id" });
         walk(y, `${at}.${k}`, { key: k, owners, labelOwners: own, city: false, echo: false, depth: c.depth });
       }

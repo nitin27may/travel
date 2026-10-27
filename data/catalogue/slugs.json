@@ -471,7 +471,17 @@
   },
   "retired": {},
   "merged": {},
-  "withdrawn": {}
+  "withdrawn": {},
+  "folderAliases": {
+   "algonquin-muskoka-oct-2026": "algonquin-muskoka-2026",
+   "canadian-rockies-sept-2029": "canadian-rockies-2029",
+   "chamonix-mont-blanc-sept-2028": "chamonix-mont-blanc-2028",
+   "costa-rica-feb-2027": "costa-rica-2027",
+   "dolomites-july-2027": "dolomites-2027",
+   "niagara-day-aug-2026": "niagara-day-2026",
+   "patagonia-feb-mar-2027": "patagonia-2027",
+   "quebec-sept-2026": "quebec-2026"
+  }
  },
  "formerKeys": {},
  "regions": {

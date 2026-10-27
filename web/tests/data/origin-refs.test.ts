@@ -3,6 +3,10 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { ORIGIN_KEYS_PATH, SLUG_REGISTRY_PATH, parseRegistry } from '@travel/core/catalogue/slugs.ts';
 import { REF_RE } from '@travel/core/schema/api/common.ts';
+import { publicRef } from '@travel/core/catalogue/alias.ts';
+import { folderAliases } from '@/lib/public/aliases';
+import { hasDatedFolder } from '@travel/core/privacy/detect.ts';
+import { getPlace, listPlaces, sharedPublicData } from '@/lib/public';
 import { createJsonSource } from '@/lib/server/source';
 import { buildPlaces, readOriginKeys } from '@/lib/public/places';
 import { loadSources } from '@/lib/public/sources';
@@ -24,6 +28,26 @@ describe('place refs name no wishlist or prototype origin (A24)', () => {
       expect(ref, slug).toMatch(REF_RE);
       expect(ref, slug).not.toMatch(ORIGIN);
     }
+  });
+
+  it('the page adapter serves the PUBLIC form of every ref: no dated folder in any page or card, the 431 refs still distinct (public-ref-aliases 5.1 B2)', () => {
+    const table = folderAliases();
+    const pub = new Set<string>();
+    let moved = 0;
+    for (const [slug, ref] of pb.refBySlug) {
+      const raw = JSON.stringify(sharedPublicData().getPlace(slug));
+      const page = JSON.stringify(getPlace(slug));
+      expect(hasDatedFolder(page), slug).toBe(false);
+      expect(page, slug).toBe(publicRef(raw, table)); // exactly the alias rewrite, nothing else moved
+      if (page !== raw) moved++;
+      const r = publicRef(ref, table);
+      expect(publicRef(r, table), slug).toBe(r); // idempotent: already public
+      expect(r === ref || /legacy\//.test(ref), slug).toBe(true); // only a legacy-folder ref moves
+      pub.add(r);
+    }
+    expect(pub.size).toBe(431);
+    expect(moved).toBeGreaterThan(0);
+    for (const c of listPlaces()) expect(hasDatedFolder(JSON.stringify(c)), c.slug).toBe(false);
   });
 
   it('the 191 pages with no capture record (150 wishlist, 41 prototype; 115 and 74 before AREA-2 added 76 store places) hold the ref their origin is pinned to, minted from their slug', () => {

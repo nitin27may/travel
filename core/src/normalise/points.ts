@@ -15,6 +15,9 @@
 // Rows are converted all or none per file (a /2 file needs point_src on every row), and a file with a row that fails the privacy or
 // meta checks is left on /1 and reported.
 import { privacyHits } from "../privacy/detect.ts";
+
+/** Capture rows are internal: their real ids are dated refs, which only public output must not hold (public-ref-aliases 6.1). */
+const INTERNAL = { datedFolders: false } as const;
 import { metaFindings } from "../validate/rowMeta.ts";
 import { PROPERTY_BY_KEY } from "../schema/capture/properties.ts";
 import { Sink, isObj, seg, type Obj } from "./common.ts";
@@ -152,8 +155,8 @@ export function normalisePoints(doc: Obj, sink: Sink, pinned: ReadonlySet<string
     // refuse on a private-list key or any other hard hit (it is never carried into the new shape), and on a soft hit the conversion
     // would ADD; a planning-note hit already in the source text (a business street address) stays a warning (checks.ts)
     const { meta: _m, ...visible } = next;
-    const after = privacyHits(visible, 10);
-    const hits = after.some((h) => h.why !== SOFT) || after.length > privacyHits(row, 10).length ? [1] : [];
+    const after = privacyHits(visible, 10, INTERNAL);
+    const hits = after.some((h) => h.why !== SOFT) || after.length > privacyHits(row, 10, INTERNAL).length ? [1] : [];
     if (bad.length > 0 || hits.length > 0) {
       sink.find("E_NORM_REFUSED", "error", path, `the converted row would fail ${bad.map((b) => b.code).concat(hits.length ? ["the privacy detector"] : []).join(", ")}; the file stays on capture-points/1`);
       return false;
