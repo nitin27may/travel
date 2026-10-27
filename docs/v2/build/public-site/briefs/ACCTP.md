@@ -7,6 +7,10 @@
   there), P5 (editors open in place, focus kept), P6 (ages where the party is used), P7 (the page's primary action is
   setup, then nothing), P8 and P9 (no new public load; one data boundary for account data), T4 (families first).
 - **Tasks:** seven, below. Total about 23 h. Each task is a separate branch and a separate agent run.
+- **Amendment, 27 Oct 2026 (owner, Q-AP1):** travellers are stored by **age** (`age` plus `age_as_of`, the date entered),
+  with an optional date of birth (`dob`) from which the age is then derived; adults stay a count with optional ages. No
+  birth month and year anywhere. The spec is amended to match (its amendment note and change log); the task sections below
+  are updated, and ACCT-PC records what was built.
 
 ## Order and dependencies
 
@@ -107,27 +111,33 @@ party's `src` field, and the privacy detector keys (spec 5.1, 5.2, 9, 10.1).
 
 **Files you own.**
 - `core/src/db/migrations/00NN_account_profile.sql` (new; the next free number at merge, 0012 if nothing lands first)
-- `core/src/account/travellers.ts` (new), `core/src/account/package.json` if the package layout needs it
-- `core/src/db/profile.ts` (new), one export line in `core/src/db/index.ts`
-- `core/test/account/travellers.test.ts`, `core/test/db/account-profile.test.ts` (new)
+- `core/src/schema/travellers.ts` (new; placed beside the other Zod documents, `copies.ts`, `plan-draft.ts`, by the
+  coordinator's task of 27 Oct 2026), `core/src/config/account.ts` (new: the numbers that are not the party's)
+- `core/src/db/profile.ts` (new), the export lines in `core/src/db/index.ts`, `account_profile` in
+  `core/src/db/inventory.ts` (the RLS pin) and in `core/src/seed/contract.ts` `NOT_SEEDED` (class `account`)
+- `core/test/schema/travellers.test.ts`, `core/test/db/profile.test.ts`, `core/test/db/account-profile.test.ts` (new)
 - `core/src/privacy/detect.ts` (append keys only), its test file (append cases only)
-- `web/lib/storage/partyKey.ts` (the `src` field: `writeParty(p, { src })`, `readPartySource()`), its tests
+- `web/lib/storage/partyKey.ts` (the `src` field: `writeParty(p, { src })`, `readPartySource()`), its test
+  `web/tests/storage/party-src.test.ts`
 - `core/src/trips/party.ts` (header comment only: "on this device, and seeded from the account when signed in")
 
 **Do not touch.** The common list, plus `web/app/**`, `web/components/**`.
 
 **Steps.**
 1. Migration exactly as spec 9.1 (table, check, touch trigger, RLS four policies, revoke, grant). No signal, no FK.
-2. `travellers.ts`: Zod `travellers/1` (strict, JSON-Schema subset), `parseTravellers`, `ageOn(born, date)`,
-   `partyOf`, `travellersFromParty`, `sameAsParty`; limits imported from `core/src/trips/party.ts`. Pure, no I/O.
-3. `profile.ts`: `loadProfile(userId)`, `saveTravellers(userId, doc, revision)` (upsert on first save, setting
-   `travellers_consented_at` when null; update guarded by revision afterwards; returns `{ kind: 'saved', revision } |
-   { kind: 'conflict' }`), `removeTravellers`, `finishSetup`, `deleteProfile`; all through `withUserTransaction`, the
-   user id from the argument only (callers pass the session id).
+2. `travellers.ts`: Zod `travellers/1` (strict, JSON-Schema subset; spec 5.1 as amended), `parseTravellers(x, today)`,
+   `ageOn(dob, date)`, `ageNow(entry, date)`, `partyOf`, `travellersFromParty`, `sameAsParty`, `grownUp`,
+   `ageNeedsCheck`, `refreshAges`; limits imported from `core/src/trips/party.ts`. Pure, no I/O.
+3. `profile.ts`: `loadProfile(userId)`, `saveTravellers(userId, doc, revision, { finishSetup })` (upsert at revision 0,
+   update guarded by revision afterwards; returns `{ kind: 'saved', revision } | { kind: 'conflict' } | { kind:
+   'rejected', issues }`), `removeTravellers(userId, revision)`, `finishSetup`, `deleteProfile`; all through
+   `withUserTransaction`, the user id from the argument only (callers pass the session id). As built, the trigger (not
+   this module) records `travellers_consented_at`, `travellers_saved_at` and the revision (spec 9.1).
 4. `partyKey.ts`: `writeParty` keeps writing `{ v: 1, adults, children }` and adds `src: "account"` only when asked;
    `readParty` unchanged; new `readPartySource(): "account" | null`. A test proves `cleanParty` and `readParty` ignore
    `src` and an old value without it.
-5. `detect.ts`: `born`, `travellers/1`, `travellers_consented_at` forbidden in public output; tests plant each.
+5. `detect.ts`: `dob`, `born`, any `birth*` key, `age_as_of`, `ages`, `adult_ages`, the consent and save times, and the
+   value `travellers/<n>` forbidden in public output; `LOG_DENY_KEYS` gains the document's keys; tests plant each.
 6. DB tests (Docker; then the child branch): the RLS four cases, unset user, the check refusals, revision guard, touch
    trigger, and the "every application table has RLS" pin updated.
 
@@ -136,13 +146,29 @@ party's `src` field, and the privacy detector keys (spec 5.1, 5.2, 9, 10.1).
 | # | Check |
 |---|---|
 | 1 | `pnpm --dir core test` green; the RLS cases fail when a policy is removed (mutation check by hand, noted) |
-| 2 | `ageOn('2019-03', 2026-10-27) = 7`, `ageOn('2026-10', 2026-10-27) = 0`, `ageOn('2019-11', 2026-10-27) = 6` |
-| 3 | `parseTravellers` refuses 13 adults, 9 children, `born` in the future, `born` 18 years back, unknown keys |
+| 2 | `ageOn('2019-03-15', '2026-10-27') = 7`, `ageOn('2026-10-01', '2026-10-27') = 0`, `ageOn('2019-11-01', '2026-10-27') = 6`; `ageNow({ age: 6, age_as_of: '2026-01-10' }, '2027-01-10') = 7` |
+| 3 | `parseTravellers` refuses 13 adults, 9 children, a `dob` in the future, a `dob` that disagrees with the age, a child of 18 on `age_as_of`, unknown keys (a name, a `born`) |
 | 4 | The migration applies on Docker and on the child branch; `\dp account_profile` shows only `travel_app` |
 | 5 | `git grep -n "src" web/lib/storage/partyKey.ts` shows the only writer of `src` |
 | 6 | `git diff --name-only main...HEAD` lists owned paths only |
 
 **Verification.** The core and web unit suites, `tools/check-all.sh`. No screenshots (no UI).
+
+**What ACCT-P1 and ACCT-P2 can rely on (as built, 27 Oct 2026).**
+- `@travel/core/db/profile.ts` (also re-exported from `@travel/core/db/index.ts`): `loadProfile(userId)` answers an
+  `AccountProfile` (`exists`, `travellers` parsed or null, `travellersInvalid`, `travellersSavedAt`,
+  `travellersConsentedAt`, `setupDoneAt`, `revision`), `EMPTY_PROFILE` for no row, and throws when the database cannot be
+  read (fail closed: no setup card, spec 2.5). Show the setup card only when the read succeeded and `setupDoneAt` is null.
+- `saveTravellers(userId, doc, revision, { finishSetup: true })` for the setup card's Save; without the option for the
+  settled editor, Undo of a removal and "Looks right". `removeTravellers(userId, revision)`; `finishSetup(userId)` for Skip
+  and Close. `revision` is the one `loadProfile` returned; every guarded write returns the next one.
+- `@travel/core/schema/travellers.ts`: the document type and `parseTravellers(x, today)` for the editor's own validation
+  (issue strings are `$.children[0].dob: future` and similar: map them to AP-25); `ageNow` for any age shown; `partyOf`
+  for the device party; `sameAsParty`, `grownUp`, `ageNeedsCheck`, `refreshAges`, `travellersFromParty` for the notices
+  and prefill; `isoDay(new Date())` for the server's today (the client uses its local date).
+- `@/lib/storage/partyKey`: `writeParty(p, { src: 'account' })` from the seed only; `readPartySource()` for the
+  "differs" notice and sign-out; `readParty`, `clearParty` unchanged.
+- The export route must answer through a private responder (spec 6.5): the public `respond()` refuses the document.
 
 ---
 
@@ -219,14 +245,16 @@ seed, the sign-in card seed, and sign-out.
 unchanged), `core/**`, `web/lib/storage/**` (use ACCT-PC's API).
 
 **Steps.**
-1. The editor: Stepper for adults and children (limits from `core/src/trips/party.ts`), per child a fieldset with month
-   and year selects (years from `thisYear - 17` to `thisYear`), the derived age (AP-14), the privacy line (AP-15),
-   errors only after Save (AP-25), focus rules of 2.6.
-2. Server actions: session check, `parseTravellers`, `saveTravellers` with the loaded revision; answers `saved`,
-   `conflict`, `rejected`. Logs fixed codes only.
+1. The editor: Stepper for adults and children (limits from `core/src/trips/party.ts`), per child a fieldset with an Age
+   select (Under 1, 1 to 17) and an optional date of birth behind "Add date of birth" (spec 2.3 rule 3), optional adults'
+   ages, the derived age (AP-14), the privacy line (AP-15), errors only after Save (AP-25), focus rules of 2.6. Build the
+   document with `age_as_of` = today; validate with `parseTravellers`; read ages with `ageNow` only.
+2. Server actions: session check, then `saveTravellers(session.userId, doc, loadedRevision, { finishSetup })` (it runs
+   `parseTravellers` itself with the server's UTC day); answers `saved`, `conflict`, `rejected`. Logs fixed codes only.
 3. The setup card with `?setup=` steps (2.3 rules 1 to 8), shown only when the row has no `setup_done_at` and the row
    was read successfully.
-4. The settled section with the four notices of 2.4 and Remove with Undo.
+4. The settled section with the five notices of 2.4 (including "Are these ages still right?", `ageNeedsCheck` and
+   `refreshAges`) and Remove with Undo.
 5. `seed-party.ts`: the rules of 5.2 exactly; Account and Mine call it after hydration; the sign-in card calls it after
    success and before navigating, with a 1.5 s timeout (never blocks sign-in). The route answers ages only.
 6. Sign-out: remove `travel.party` when `readPartySource() === 'account'`, toast AP-32.
@@ -237,14 +265,14 @@ unchanged), `core/**`, `web/lib/storage/**` (use ACCT-PC's API).
 |---|---|
 | 1 | Spec acceptance 1 to 6 as e2e tests (fixtures: a fixed clock of 27 Oct 2026) |
 | 2 | Party bar, copy sheet and builder code unchanged (`git diff --stat main...HEAD -- web/components/trips web/components/actions web/app/plan web/lib/plan` prints nothing) and still prefilled (spec acceptance 3, e2e) |
-| 3 | The route's body has no `born` (test); a forged `userId` answers 401 |
+| 3 | The route's body has no `dob` or `age_as_of` (test); a forged `userId` answers 401 |
 | 4 | Network log on the trip page shows no account request (P9) |
 | 5 | Axe clean and 44 px targets in every state of 2.3 and 2.4 at 320, 390 and 1440, light and dark; reduced motion |
 | 6 | `budget:report`: every public page +0 B; the sign-in card's chunk grows by at most the dynamic import stub |
 | 7 | Owned paths only |
 
-**Verification.** The common block; screenshots: setup steps 1, 2 (empty, prefilled from device, with a missing month
-error), done; settled Travellers; each notice; Remove confirm; at 1440, 390 and 320, light and dark.
+**Verification.** The common block; screenshots: setup steps 1, 2 (empty, prefilled from device, with a missing age
+error, with a date of birth open), done; settled Travellers; each notice; Remove confirm; at 1440, 390 and 320, light and dark.
 
 ---
 
@@ -257,8 +285,9 @@ error), done; settled Travellers; each notice; Remove confirm; at 1440, 390 and 
 `web/app/account/AccountSections.tsx` (switch the link on).
 
 **Steps.** 1. Replace and add the paragraphs of 10.2 word for word; bump `PRIVACY_CHANGED`. 2. The export route:
-session, `private, no-store`, attachment, the shape of 6.5, `safeError` logging. 3. Test: signed out 401, signed in the
-exact keys, another user's data never present.
+session, `private, no-store`, attachment, the shape of 6.5 (through a private responder: the public `respond()` refuses
+the document's keys), `safeError` logging. 3. Test: signed out 401, signed in the exact keys, another user's data never
+present.
 
 **Acceptance.** The privacy page text matches 10.2; the export downloads with the 6.5 keys; owned paths only; shots of
 `/privacy/` at 1440 and 390, light and dark.
@@ -268,7 +297,7 @@ exact keys, another user's data never present.
 ## ACCT-PSEC: security and privacy review (Opus, 1.5 h)
 
 Read the diffs of ACCT-PC to ACCT-P3. Check: RLS and grants; `user_id` only from the session in every action and route;
-no `born` or name in any log line, URL, public payload or feedback path (run the detector and log-scan tests and one
+no `dob`, `age_as_of` or name in any log line, URL, public payload or feedback path (run the detector and log-scan tests and one
 manual grep); the name path against spec 4.3 (or the fallback guard entry, with a test per refusal); the export route's
 headers; the sign-out clear on a shared computer. Write `docs/v2/design/auth/review-acct-p-security-<date>.md` with
 must-fix items. Commit the review only.
