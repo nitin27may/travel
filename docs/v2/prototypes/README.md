@@ -10,6 +10,8 @@ The owner called them "an OK starting point, not what he is looking for" (PLAN R
 | `builder/` | Trip Builder: kind, start, where, pick, days and driving, build, editor, review, copy | `design/trip-builder/FLOW.md` |
 | `planner/` | My trips, trip home, today view, print | `features/edit-my-trip.md`, `features/navigation-and-mine.md` |
 
+Findings, known gaps and the enhancement list from testing: [FINDINGS-2026-10-27.md](FINDINGS-2026-10-27.md).
+
 ## Run
 
 Plain HTML, CSS and JS, no build, no network calls. Pages use absolute paths (`/themes.css`, `/fonts/`), so serve this folder as the site root with the script, which maps `/fonts/` to `docs/v2/design/redesign/fonts/` (no font is copied, folder contract rule 7):
