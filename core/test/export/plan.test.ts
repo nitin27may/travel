@@ -20,7 +20,7 @@ const stop = (over: Partial<ExportStop> & Pick<ExportStop, "id" | "day">): Expor
   order: 0, name: over.id, kind: "visit", category: null, area: null, time: null, durationMin: null, lane: null, note: null, placeSlug: null, links: [], point: null, ...over,
 });
 const model = (stops: ExportStop[]): TripExport => ({
-  type: "trip", slug: "t", title: "T", url: "https://x.invalid/trips/t/", depth: "full", nights: 2, tz: null, seasonLabel: null, skipped: 0, waypoints: [], lines: [], bookings: [],
+  type: "trip", version: 2, slug: "t", title: "T", url: "https://x.invalid/trips/t/", depth: "full", nights: 2, tz: null, seasonLabel: null, skipped: 0, waypoints: [], lines: [], bookings: [],
   days: [1, 2, 3].map((n) => ({ n, title: `Day ${n}`, base: null })),
   stops: stops.map((s, order) => ({ ...s, order })),
 });

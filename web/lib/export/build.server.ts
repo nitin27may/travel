@@ -3,6 +3,7 @@ import type { PublicPlace, PublicTrip } from '@/lib/public';
 import { absoluteUrl } from '@/lib/site';
 import { tripBookings, withStopBookings } from '@travel/core/export/bookings.ts';
 import { forTimeline } from '@travel/core/export/plan.ts';
+import { EXPORT_MODEL_VERSION } from '@travel/core/export/types.ts';
 import { checkPoint, lineExportable } from './licence';
 import { zoneByName, zoneNear } from './tz';
 import type { ExportLine, ExportStop, ExportWaypoint, PlaceExport, TripExport } from './types';
@@ -95,6 +96,7 @@ export function buildTripExport(trip: PublicTrip, lookup: (slug: string) => Publ
   const tz = rows.map((c) => c.bookRule?.tz).find((t): t is string => !!t) ?? null;
   return {
     type: 'trip',
+    version: EXPORT_MODEL_VERSION,
     slug: trip.slug,
     title: trip.title,
     url: tripUrl(trip.slug),
@@ -138,7 +140,7 @@ export function buildPlaceExport(place: PublicPlace): PlaceExport {
   if (place.point) add(place.slug, place.name, place.kind, 'place', null, place.point);
   if (place.access?.trailhead) add('th', place.access.trailhead.name, 'trailhead', 'trailhead', place.access.trailhead.note, place.access.trailhead);
   for (const [i, p] of (place.access?.parking ?? []).entries()) add(`p${i}`, p.name, 'parking', 'parking', p.note, p);
-  return { type: 'place', slug: place.slug, title: place.name, url: placeUrl(place.slug), kind: place.kind, waypoints, lines: place.lines.map(lineOf), skipped };
+  return { type: 'place', version: EXPORT_MODEL_VERSION, slug: place.slug, title: place.name, url: placeUrl(place.slug), kind: place.kind, waypoints, lines: place.lines.map(lineOf), skipped };
 }
 
 export const tripExportFor = (slug: string): TripExport | null => {

@@ -28,6 +28,8 @@ const pascal = (m: string): string => m[0]!.toUpperCase() + m.slice(1);
 
 export function buildOpenApi(): Json {
   const components: Record<string, Json> = { ApiError: schemaOf("ApiError", S.apiError, {}) };
+  // the body of a `format=json` export (a string inside ExportFile), published as its own named schema (BACKLOG 15.223c item 3; PA-X)
+  components.ExportModel = schemaOf("ExportModel", S.exportModel, components);
   const paths: Record<string, Json> = {};
   const errorBody = { content: { "application/json": { schema: { type: "object", required: ["error"], properties: { error: { $ref: "#/components/schemas/ApiError" } } } } } };
   for (const m of Object.keys(CATALOGUE_CONTRACT).sort() as CatalogueMethod[]) {

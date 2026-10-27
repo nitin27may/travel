@@ -13,7 +13,8 @@
 // HH:MM chronologically.
 //
 // "Book ahead" (MUST-6, T1, P6): a stop's own booking text (`ExportStop.bookAhead`) on its row, and each of the trip's bookings as its own
-// row ("booking" in Kind) at the head of its day, so a window tied to no stop is still in the file. Dateless, as the page words it.
+// row at the head of its day, so a window tied to no stop is still in the file. Dateless, as the page words it. The Kind column of a
+// booking row is its row kind (PA-X; protected-area-entry 6.4 "Print and CSV"): booking, pass, check or task.
 import { bookAheadText } from './bookings.ts';
 import { toCsv } from './csvText.ts';
 import { approxNote, checkPoint, sourceLine } from './licence.ts';
@@ -34,7 +35,7 @@ export function tripCsv(trip: TripExport): string {
       const row: Cell[] = [s.day, s.time, s.name, s.kind, s.category ? CATEGORY_LABEL[s.category as Category] : '', s.area, p ? p.lat : '', p ? p.lon : '', p && approxNote(p) ? 'yes' : '', s.links.join(' '), s.bookAhead ?? ''];
       return { day: s.day, row };
     });
-  const bookings = trip.bookings.map((b) => ({ day: b.day, row: [b.day, '', b.name, 'booking', '', '', '', '', '', '', bookAheadText(b)] as Cell[] }));
+  const bookings = trip.bookings.map((b) => ({ day: b.day, row: [b.day, '', b.name, b.kind, '', '', '', '', '', '', bookAheadText(b)] as Cell[] }));
   const rows: Cell[][] = [];
   const days = [...new Set([...bookings.flatMap((b) => (b.day === null ? [] : [b.day])), ...stops.map((s) => s.day)])].sort((a, b) => a - b);
   for (const d of days) rows.push(...bookings.filter((b) => b.day === d).map((b) => b.row), ...stops.filter((s) => s.day === d).map((s) => s.row));

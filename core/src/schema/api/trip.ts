@@ -4,6 +4,7 @@ import { z } from "zod";
 import { apiPoint, apiSlug } from "./common.ts";
 import { API_LIMITS } from "./limits.ts";
 import { HONESTY_IDS, PLACE_CATEGORIES, placeQuery, tripSortSpec } from "./place.ts";
+import { BOOK_RULE_KINDS, BOOKING_KINDS } from "../../export/types.ts";
 
 export const TRIP_DEPTHS = ["full", "summary", "overview"] as const;
 
@@ -158,6 +159,25 @@ const publicDay = z.strictObject({
   flight: z.boolean().optional(),
 });
 
+const month = z.int().min(1).max(12);
+/**
+ * One phase of a booking window, dateless (core/src/export/bookings.ts `BookRulePhase`; protected-area-entry 5.2). `kind` absent is
+ * `rolling`, so every row written before PA-X parses unchanged. `months` is a yearly band ("usually in March"), never a year.
+ */
+const bookRulePhase = z.strictObject({
+  kind: z.enum(BOOK_RULE_KINDS).optional(),
+  daysBefore: z.int(),
+  dayN: z.int().nullable(),
+  time: z.string().nullable(),
+  tz: z.string().nullable(),
+  months: z.tuple([month, month]).nullable().optional(),
+  monthLeadDays: z.int().min(0).nullable().optional(),
+  closes: z.strictObject({ daysBefore: z.int().min(0), time: z.string().nullable() }).nullable().optional(),
+  sharePct: z.number().min(0).max(100).nullable().optional(),
+});
+/** `CategoryItem.bookRule`: a phase and an optional second phase (a launch day, then a rolling release). One level only. */
+export const bookRule = bookRulePhase.extend({ then: bookRulePhase.nullable().optional() });
+
 const categoryItem = z.strictObject({
   key: z.string(),
   category: z.enum(PLACE_CATEGORIES),
@@ -169,8 +189,37 @@ const categoryItem = z.strictObject({
   areaLabel: z.string().nullable(),
   detail: z.string().nullable(),
   nights: z.int().min(0).nullable(),
-  bookRule: z.strictObject({ daysBefore: z.int(), dayN: z.int().nullable(), time: z.string().nullable(), tz: z.string().nullable() }).nullable(),
+  bookRule: bookRule.nullable(),
   bookNote: z.string().nullable(),
+  /** The Book ahead row kind when the row knows it (protected-area-entry 6.2); absent reads as before PA-X (`bookingKindOf`). */
+  bookKind: z.enum(BOOKING_KINDS).nullable().optional(),
+  /** The park or zone name the row is needed for. */
+  park: z.string().min(1).nullable().optional(),
+  /** The requirement's booking page. */
+  link: z.string().min(1).nullable().optional(),
+});
+
+const VISIT_MODES = ["day", "overnight_front", "overnight_back", "through"] as const;
+export const PARK_KINDS = ["national", "state_provincial", "conservation", "reserve", "forest", "dark_sky", "zone"] as const;
+
+/**
+ * A park or zone the trip enters (protected-area-entry 6.1, 6.2, 6.5 `TripPark`), derived from the trip's stops and bases through the
+ * graph index (core/src/parks). Dateless: day and night numbers only. Names and slugs, never a record ref. `line` is the park line the
+ * Summary and Bookings tabs and the print show; `saving` the "pass is likely cheaper" line, only with comparable price units (QP5).
+ */
+export const tripPark = z.strictObject({
+  slug: apiSlug.nullable(),
+  name: z.string().min(1),
+  kind: z.enum(PARK_KINDS),
+  parent: z.strictObject({ slug: apiSlug.nullable(), name: z.string().min(1) }).nullable(),
+  days: z.array(z.int().min(0)),
+  nights: z.array(z.int().min(0)),
+  modes: z.array(z.enum(VISIT_MODES)),
+  state: z.enum(["requirements", "none_needed", "not_checked"]),
+  needs: z.array(z.strictObject({ name: z.string().min(1), kind: z.enum(BOOKING_KINDS), text: z.string() })),
+  coveredBy: z.string().min(1).nullable(),
+  line: z.string().min(1),
+  saving: z.string().min(1).nullable(),
 });
 
 const tripTags = z.strictObject({
@@ -215,7 +264,7 @@ export const tripDetail = z.strictObject({
     weather: z.strictObject({ tempC: z.string(), rain: z.string(), daylight: z.string(), notes: z.array(z.string()) }),
   }).nullable(),
   firstBase: z.string().nullable(),
-  legacyUrl: z.string(),
+  // `legacyUrl` left the contract (PA-X, the PRIV-TD2 follow-up): it served the old folder names, which encode real travel months.
   honesty: z.array(honesty),
   tags: tripTags,
   lengthClass: z.string().nullable(),
@@ -235,6 +284,8 @@ export const tripDetail = z.strictObject({
   effort: z.string().nullable(),
   ageFit: z.number().nullable(),
   driveAvgMin: z.number().nullable(),
+  /** The parks and zones the trip enters, in the order first entered (PA-X contract; PA-W fills it). Absent until wired. */
+  parks: z.array(tripPark).optional(),
 });
 
 export const tripSlugInput = z.strictObject({ slug: apiSlug, profile: tripProfile.optional() });
@@ -249,3 +300,5 @@ export type TripQuery = z.infer<typeof tripQuery>;
 export type TripProfile = z.infer<typeof tripProfile>;
 export type TripDetail = z.infer<typeof tripDetail>;
 export type TripLookup = z.infer<typeof tripLookup>;
+export type TripPark = z.infer<typeof tripPark>;
+export type BookRule = z.infer<typeof bookRule>;
