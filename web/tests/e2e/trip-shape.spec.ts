@@ -9,6 +9,8 @@ const ROCKIES = '/trips/canadian-rockies-2029/';
 const DOLOMITES = '/trips/dolomites-2027/';
 const ALGONQUIN = '/trips/algonquin-muskoka-2026/';
 const COSTA_RICA = '/trips/costa-rica-2027/';
+const ICELAND = '/trips/iceland-ring-road-2027/';
+const PATAGONIA = '/trips/patagonia-2027/';
 
 const shape = (page: Page) => page.locator('#trip-shape');
 const toggle = (page: Page) => shape(page).locator('.shape-toggle');
@@ -27,7 +29,7 @@ test.describe('closed by default', () => {
     await page.goto(`${site.url}${ROCKIES}`);
     await expect(shape(page).getByRole('heading', { name: "The trip's shape" })).toBeVisible();
     await expect(shape(page).getByRole('list', { name: 'Where you sleep' }).getByRole('listitem')).toHaveCount(5);
-    await expect(shape(page).locator('.shape-count')).toHaveText('15 days · 4 long drive days · 5 days with a booking · 8 highlight days · 6 days with a warning');
+    await expect(shape(page).locator('.shape-count')).toHaveText('15 days · 4 long drive days · 5 days with a booking · 8 highlight days · 6 days with a warning', { useInnerText: true });
     await expect(toggle(page)).toHaveText('Show all 15 days');
     await expect(toggle(page)).toHaveAttribute('aria-expanded', 'false');
     await expect(shape(page).locator('.shape-table')).toBeHidden();
@@ -170,6 +172,75 @@ test.describe('other trips', () => {
   });
 });
 
+test.describe('the second review (UXB-3F)', () => {
+  test.use({ viewport: { width: 1440, height: 900 } });
+
+  test('M3: with the chunk preloaded, the body starts to grow within 150 ms of the press and "Loading the days" never shows', async ({ page, site }) => {
+    await page.goto(`${site.url}${ROCKIES}`);
+    await toggle(page).hover();
+    await page.waitForTimeout(700);
+    const t = await page.evaluate(
+      () =>
+        new Promise<{ ms: number; loading: boolean }>((resolve) => {
+          const body = document.querySelector<HTMLElement>('.shape-body')!;
+          const t0 = performance.now();
+          let loading = false;
+          const tick = () => {
+            if (document.querySelector('.shape-loading')) loading = true;
+            if (body.getBoundingClientRect().height > 8) return resolve({ ms: performance.now() - t0, loading });
+            if (performance.now() - t0 > 3000) return resolve({ ms: 3000, loading });
+            requestAnimationFrame(tick);
+          };
+          document.querySelector<HTMLElement>('.shape-toggle')!.click();
+          requestAnimationFrame(tick);
+        }),
+    );
+    expect(t.loading).toBe(false);
+    expect(t.ms).toBeLessThan(150);
+  });
+
+  test('M2: names read whole where they fit (Banff, Jasper townsite), and Iceland has a names line with every stay in order', async ({ page, site }) => {
+    await page.goto(`${site.url}${ROCKIES}`);
+    const banff = shape(page).locator('.shape-seg').first();
+    await expect(banff.locator('.shape-seg-n .shape-full')).toBeVisible();
+    await expect(banff.locator('.shape-seg-n .shape-full')).toHaveText('Banff');
+    await page.goto(`${site.url}${ICELAND}`);
+    const names = shape(page).locator('.shape-names');
+    await expect(names).toBeVisible();
+    await expect(names).toContainText('Reykjavik');
+    expect(((await names.innerText()).match(/ · /g) ?? []).length).toBe((await shape(page).locator('.shape-seg').count()) - 1);
+    // no word is clipped: every visible name fits its segment
+    const clipped = await shape(page).locator('.shape-seg').evaluateAll((els) => els.filter((e) => [...e.querySelectorAll<HTMLElement>('.shape-seg-n, .shape-seg-k')].some((c) => c.offsetParent && c.scrollWidth > c.clientWidth + 1)).length);
+    expect(clipped).toBe(0);
+  });
+
+  test('C1: no Light day on the Lagazuoi day or a flight day; walking unknown says so', async ({ page, site }) => {
+    await page.goto(`${site.url}${DOLOMITES}`);
+    await toggle(page).click();
+    await expect(shape(page).getByRole('table')).toBeVisible();
+    await expect(rows(page).nth(6)).not.toContainText('Light day');
+    await page.goto(`${site.url}${PATAGONIA}`);
+    await expect(toggle(page)).toBeVisible();
+    if ((await toggle(page).getAttribute('aria-expanded')) !== 'true') await toggle(page).click();
+    await expect(shape(page).getByRole('table')).toBeVisible();
+    for (const d of [1, 2, 13]) await expect(shape(page).locator(`tr[data-day="${d}"]`)).not.toContainText('Light day');
+    await expect(shape(page).locator('tr[data-day="2"] .shape-foot')).toContainText('Not checked yet');
+  });
+
+  test('S3: each row link is named with its day, base and plan; a warning has a glyph as well as a word', async ({ page, site }) => {
+    await page.goto(`${site.url}${ROCKIES}`);
+    await toggle(page).click();
+    await expect(shape(page).getByRole('link', { name: /^Day 06, Jasper townsite: Kinney Lake.*open in Days$/ })).toHaveCount(1);
+    await expect(shape(page).locator('tr[data-day="2"] .shape-note[data-kind="warning"] svg')).toHaveCount(1);
+  });
+
+  test('polish: the live region says what is shown, in the order a reader wants it', async ({ page, site }) => {
+    await page.goto(`${site.url}${ROCKIES}`);
+    await shape(page).locator('[data-phrase="booking"]').click();
+    await expect(shape(page).locator('p[role="status"].sr-only')).toHaveText('Showing 5 of 15 days: 5 days with a booking');
+  });
+});
+
 test.describe('phones', () => {
   for (const width of [320, 390]) {
     test(`at ${width}: no sideways scroll, 44 px controls, one row a day with its notes`, async ({ page, site }) => {
@@ -183,6 +254,14 @@ test.describe('phones', () => {
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
       const r = (await rows(page).first().boundingBox())!;
       expect(r.height).toBeGreaterThanOrEqual(44);
+      // S1: a row is three lines at most for a short plan, the notes line leads with the walking, and the bases line up
+      const left = await rows(page).evaluateAll((rs) => rs.slice(0, 8).map((x) => Math.round(x.querySelector('.shape-base')!.getBoundingClientRect().left)));
+      expect(new Set(left).size).toBe(1);
+      await expect(rows(page).first().locator('.shape-notes')).toContainText('1.9 km on foot');
+      // S2: short phrases, no more than two rows of them
+      await expect(shape(page).locator('.shape-phrase')).toHaveText(['15 days', '4 long drives', '5 with a booking', '8 highlights', '6 warnings'], { useInnerText: true });
+      const pills = await shape(page).locator('.shape-phrase').evaluateAll((els) => new Set(els.map((e) => Math.round(e.getBoundingClientRect().top))).size);
+      expect(pills).toBeLessThanOrEqual(width === 320 ? 3 : 2);
       await expect(rows(page).first()).toContainText('Long drive');
       // the ribbon keeps a name or a short one in every segment, none clipped
       const clipped = await shape(page).locator('.shape-seg').evaluateAll((els) => els.filter((e) => [...e.querySelectorAll<HTMLElement>('.shape-seg-n, .shape-seg-k')].some((c) => c.offsetParent && c.scrollWidth > c.clientWidth + 1)).length);

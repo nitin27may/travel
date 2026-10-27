@@ -1,6 +1,6 @@
 'use client';
 
-import { lazy, Suspense, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useId, useMemo, useRef, useState, useTransition } from 'react';
 import { tripShape } from '@travel/core/trips/shape.ts';
 import type { DayTimeline } from '@travel/core/schedule/types.ts';
 import { Icon } from '@/components/ui/Icon';
@@ -36,7 +36,7 @@ export function buildShape(days: TimelineDayModel[], facts: ShapeFacts, timeline
   return tripShape({
     days: days.map((d) => {
       const key = byDay.get(d.n)?.variant.key;
-      return { n: d.n, title: d.variants.find((v) => v.key === key)?.title ?? d.title, base: d.base, plannedDriveMin: facts.planned[d.n] ?? null, variants: d.variants };
+      return { n: d.n, title: d.variants.find((v) => v.key === key)?.title ?? d.title, base: d.base, plannedDriveMin: facts.planned[d.n] ?? null, variants: d.variants, flight: d.flight };
     }),
     bases: facts.bases,
     timelines,
@@ -60,6 +60,8 @@ export function TripShape({ slug, facts, days, timelines, changedDays }: Props) 
   const [wanted, setWanted] = useState(false);
   const [ready, setReady] = useState(false);
   const [msg, setMsg] = useState('');
+  const [pending, start] = useTransition();
+  const [slow, setSlow] = useState(false);
   const touched = useRef(false);
 
   // landing: this trip's remembered state, unless the visitor has already pressed something
@@ -79,16 +81,28 @@ export function TripShape({ slug, facts, days, timelines, changedDays }: Props) 
   const f: Filter | null = filter && model.sets[filter].length ? filter : null;
   const intent = useCallback(() => void loadRows(), []);
   const onReady = useCallback(() => setReady(true), []);
+  // the press changes state inside a transition: while the rows chunk loads the closed shape stays on screen, with no fallback to reveal late
+  // (review UXB-3 M3); "Loading the days" shows only when the wait is long (a slow network)
   const set = (next: boolean, to: Filter | null) => {
     touched.current = true;
-    setAnimate(true);
-    setFilter(to);
-    setOpen(next);
-    if (next) setWanted(true);
+    start(() => {
+      setAnimate(true);
+      setFilter(to);
+      setOpen(next);
+      if (next) setWanted(true);
+    });
     remember(slug, next);
     const of = to ? model.phrases.find((p) => p.key === to)?.text : null;
-    setMsg(!next ? 'The days are hidden' : of ? `Showing ${of} of ${model.days} days` : `Showing all ${model.days} days`);
+    setMsg(!next ? 'The days are hidden' : of ? `Showing ${model.sets[to!].length} of ${model.days} days: ${of}` : `Showing all ${model.days} days`);
   };
+  useEffect(() => {
+    if (!pending) return;
+    const t = window.setTimeout(() => setSlow(true), 300);
+    return () => {
+      window.clearTimeout(t);
+      setSlow(false);
+    };
+  }, [pending]);
   const phrase = (key: ShapePhraseKey) => {
     const to = key === 'days' ? null : key;
     set(!(open && f === to), to);
@@ -121,7 +135,7 @@ export function TripShape({ slug, facts, days, timelines, changedDays }: Props) 
           ) : null}
         </div>
       </div>
-      {open && !ready ? (
+      {slow ? (
         <p role="status" className="shape-loading" data-print="hide">
           Loading the days
         </p>

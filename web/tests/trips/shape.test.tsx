@@ -6,7 +6,7 @@ import { buildTripPageModel } from '@/components/trips/model';
 import { shapeFactsFor } from '@/components/trips/summary/shapeData';
 import { buildShape, TripShape } from '@/components/trips/summary/TripShape';
 import TripShapeRows from '@/components/trips/summary/TripShapeRows';
-import { shortName, tailText } from '@/components/trips/summary/ShapeParts';
+import { fitOf, shortName, tailText } from '@/components/trips/summary/ShapeParts';
 import { DEFAULT_TRIP_UI_ENTRY, patchTripUi, readTripEntry, writeTripEntry } from '@/lib/storage/tripUi';
 
 // UXB-3: the trip's shape on real trips (spec trip-and-places-ux-fixes.md 4.2 to 4.5, W5).
@@ -43,14 +43,14 @@ describe('the shape on the Canadian Rockies', () => {
     const t = text(html);
     expect(t).toContain('The trip&#x27;s shape');
     expect(t).toContain('Show all 15 days');
-    for (const p of model.phrases) expect(html).toContain(`>${p.text}</button>`);
+    for (const p of model.phrases) expect(html).toContain(`<span class="shape-long">${p.text}</span><span class="shape-brief">${p.short}</span>`);
     expect((html.match(/<button[^>]*class="shape-phrase"[^>]*aria-expanded="false"/g) ?? []).length).toBe(5);
     expect(html).toMatch(/<button[^>]*class="shape-toggle"[^>]*aria-expanded="false"[^>]*aria-controls="/);
     expect(html).not.toContain('<table');
     expect(html).not.toMatch(/The trip at a glance|The plan.s day|tl-trip|tl-bar/);
     // a name and its nights are text, and a screen reader gets the whole name
     expect(html).toContain('Jasper townsite, 4 nights');
-    expect(html).toContain('Kan');
+    expect(html).toContain('data-fit="xl"');
   });
 
   it('the controls point at one region that is in the page while the shape is closed', () => {
@@ -117,15 +117,19 @@ describe('the shape on the other trips', () => {
   });
 });
 
-describe('ribbon names under 64 px', () => {
-  it('keeps three letters of a long first word and the initials of two short ones', () => {
-    expect(shortName('Kananaskis Village')).toBe('Kan');
+describe('ribbon names (review UXB-3 M2)', () => {
+  it('a single word keeps up to six letters whole, a longer one takes four and a full stop; two or more words take initials', () => {
+    expect(shortName('Banff')).toBe('Banff');
+    expect(shortName('Myvatn')).toBe('Myvatn');
+    expect(shortName('Grundarfjordur')).toBe('Grun.');
+    expect(shortName('Kananaskis Village')).toBe('KV');
     expect(shortName('Lake Louise village')).toBe('LL');
-    expect(shortName('Banff')).toBe('Ban');
-    expect(shortName('Ubud')).toBe('Ubud');
-    expect(shortName('El Chalten')).toBe('Cha');
-    expect(shortName('El Calafate')).toBe('Cal');
-    expect(shortName('Jasper townsite')).toBe('Jas');
+    expect(shortName('Jasper townsite')).toBe('JT');
+    expect(shortName('El Chalten')).toBe('Chal.');
+    expect(shortName('El Calafate')).toBe('Cala.');
+  });
+  it('the room a whole name needs follows its length', () => {
+    expect(['Vik', 'Selfoss', 'Reykjavik area', 'Kananaskis Village / Peter Lougheed PP'].map(fitOf)).toEqual(['s', 'm', 'l', 'xl']);
   });
   it('words the tail by what it is', () => {
     expect(tailText({ days: [15], label: 'Flight home' })).toBe('+ the flight home on Day 15');
@@ -146,5 +150,25 @@ describe('remembered per trip (travel.tripui)', () => {
     // node has no localStorage: the safe wrappers answer null / false instead of throwing
     expect(readTripEntry('canadian-rockies-2029').shapeOpen).toBe(false);
     expect(writeTripEntry('canadian-rockies-2029', { shapeOpen: true })).toBe(false);
+  });
+});
+
+describe('Light day is claimed only where the page knows the day (review UXB-3 C1)', () => {
+  const light = (slug: string): number[] => {
+    const { facts, tm } = shapeOf(slug);
+    return buildShape(tm!.days, facts!, tm!.defaultTimelines, new Set()).sets.light;
+  };
+  it('never on a condensed day, a flight day or the first day: Patagonia Days 1, 2, 13; Chamonix Days 2, 4, 7, 8; Vermont Day 2', () => {
+    const p = light('patagonia-2027');
+    for (const d of [1, 2, 13]) expect(p, `patagonia ${d}`).not.toContain(d);
+    const c = light('chamonix-mont-blanc-2028');
+    for (const d of [2, 4, 7, 8]) expect(c, `chamonix ${d}`).not.toContain(d);
+    expect(light('vermont-fall-2026')).not.toContain(2);
+  });
+  it('not on the Lagazuoi day: 3 h 30 in the tunnels and 2 h at Rifugio Scotoni are not a light day', () => {
+    expect(light('dolomites-2027')).not.toContain(7);
+  });
+  it('on the Rockies day that really is light: Day 11 (a boat and 75 min on foot); Day 10 adds a gondola and a lakeshore hike, 3 h of stops', () => {
+    expect(light('canadian-rockies-2029')).toEqual([11]);
   });
 });

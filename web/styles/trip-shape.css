@@ -14,7 +14,7 @@
 /* ---- the bases ribbon: one segment a stay, wide by its nights, name and nights in text ---- */
 .shape-ribbon-w { margin: 0 0 var(--s-3); }
 .shape-ribbon { display: flex; margin: 0; padding: 0; list-style: none; overflow: hidden; border-radius: var(--r-3); background: var(--surface-2); }
-/* each segment is its own container: under 96 px wide (border included) it keeps a short name and the number of nights (spec 4.4) */
+/* each segment is its own container: the query below asks how wide this segment is (spec 4.4, review M2) */
 .shape-seg {
   overflow: hidden; container-type: inline-size; flex: 1 1 0; min-width: 28px; box-sizing: border-box; display: grid; align-content: center; gap: 2px; min-height: 56px; padding: 0;
   background: var(--surface-2); color: var(--ink);
@@ -23,13 +23,19 @@
 .shape-seg-n, .shape-seg-k { display: block; padding: 0 var(--s-2); }
 .shape-seg-n { padding-top: var(--s-2); font: var(--t-small); font-weight: 600; }
 .shape-seg-k { padding-bottom: var(--s-2); font: var(--t-meta); color: var(--ink-2); }
-.shape-short { display: none; }
-/* the spec's 64 px is too narrow to set a word like "village" beside 8 px padding; a name goes short under 96 px */
-@container (max-width: 95.99px) {
-  .shape-full { display: none; }
-  .shape-short { display: inline; }
-  .shape-seg-n, .shape-seg-k { padding-left: var(--s-1); padding-right: var(--s-1); text-align: center; }
-}
+.shape-short, .shape-nshort { display: none; }
+/* A name is shortened only when it does not fit its segment (review UXB-3 M2): the room the whole name needs follows its length (data-fit), the
+   short form is initials or four letters and a full stop, and a segment too thin for either shows its nights only. Never a clipped word. */
+@container (max-width: 71.99px) { .shape-nfull { display: none; } .shape-nshort { display: inline; } }
+@container (max-width: 95.99px) { .shape-seg[data-fit='m'] .shape-full { display: none; } .shape-seg[data-fit='m'] .shape-short { display: inline; } }
+@container (max-width: 139.99px) { .shape-seg[data-fit='l'] .shape-full { display: none; } .shape-seg[data-fit='l'] .shape-short { display: inline; } }
+@container (max-width: 199.99px) { .shape-seg[data-fit='xl'] .shape-full { display: none; } .shape-seg[data-fit='xl'] .shape-short { display: inline; } }
+@container (max-width: 47.99px) { .shape-seg-n { display: none; } .shape-seg-k { padding-top: var(--s-2); text-align: center; } }
+@container (max-width: 95.99px) { .shape-seg-n, .shape-seg-k { padding-left: var(--s-1); padding-right: var(--s-1); } }
+/* the names line: more than six stays, or a stay too thin to name (under 12% of the nights on a phone, 7% anywhere) */
+.shape-names { display: none; margin: var(--s-2) 0 0; font: var(--t-meta); color: var(--muted); }
+.shape-ribbon-w[data-names='all'] .shape-names { display: block; }
+@media (max-width: 639px) { .shape-ribbon-w[data-names='phone'] .shape-names { display: block; } }
 .shape-tail { margin: var(--s-1) 0 0; font: var(--t-meta); color: var(--muted); }
 
 /* ---- the count line: every phrase is a button that opens the days, filtered to those days ---- */
@@ -43,6 +49,7 @@
 .shape-phrase:hover { color: var(--ink); }
 /* the open phrase is told by weight and a solid line as well as by colour */
 .shape-phrase[aria-expanded='true'] { color: var(--ink); font-weight: 600; text-decoration-style: solid; }
+.shape-brief { display: none; }
 .shape-print { display: none; margin: 0; font: var(--t-body); color: var(--ink); }
 .shape-loading { margin: var(--s-2) 0 0; font: var(--t-meta); color: var(--muted); }
 
@@ -80,10 +87,12 @@
 .shape-note[data-kind='warning'] { color: var(--warn); font-weight: 600; }
 .shape-note[data-kind='long-drive'], .shape-note[data-kind='highlight'] { color: var(--ink); }
 
-/* ---- phones: one row a day on up to three lines (day, base and drive; the plan; the notes); the table stays a table underneath ---- */
+/* ---- phones: one row a day on three lines (day, base and drive; the plan; walking and notes); the table stays a table underneath ---- */
 @media (max-width: 639px) {
   .shape-count { gap: var(--s-2); }
   .shape-count .shape-dot { display: none; }
+  .shape-long { display: none; }
+  .shape-brief { display: inline; }
   .shape-phrase {
     padding: 0 var(--s-3); border: 1px solid var(--line-2); border-radius: var(--r-full); background: var(--surface); font: var(--t-small); text-decoration: none;
   }
@@ -91,20 +100,24 @@
   .shape-table, .shape-table tbody, .shape-table th, .shape-table td { display: block; }
   .shape-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
   .shape-row {
-    display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: 'day plan drive' '. notes notes'; column-gap: var(--s-3); row-gap: var(--s-1);
-    align-items: start; min-height: var(--touch-min); padding: var(--s-3) var(--s-3); border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: 60px minmax(0, 1fr) auto; grid-template-areas: 'day base drive' 'title title title' 'notes notes notes'; column-gap: var(--s-3); row-gap: var(--s-1);
+    align-items: center; min-height: var(--touch-min); padding: var(--s-3); border-top: 1px solid var(--line);
   }
   .shape-table th, .shape-table td { padding: 0; border: 0; }
-  .shape-table .shape-day { grid-area: day; width: auto; padding-top: 1px; }
-  .shape-table .shape-plan { grid-area: plan; }
-  .shape-table .shape-drive { grid-area: drive; display: flex; align-items: center; gap: var(--s-1); justify-content: flex-end; padding-top: 1px; }
+  .shape-table .shape-day { grid-area: day; width: auto; }
+  /* the plan cell gives its two lines to the row's grid: the base beside the day sign, the title under both */
+  .shape-table .shape-plan { display: contents; }
+  .shape-base { grid-area: base; }
+  .shape-title { grid-area: title; }
+  .shape-table .shape-drive { grid-area: drive; display: flex; align-items: center; gap: var(--s-1); justify-content: flex-end; }
   .shape-table .shape-foot { display: none; }
   .shape-table .shape-notes { grid-area: notes; display: block; white-space: normal; }
-  .shape-table .shape-row[data-quiet] .shape-notes { display: none; }
   .shape-bar { display: none; }
   .shape-go { display: block; flex: none; }
   .shape-table caption { display: block; padding-bottom: var(--s-1); }
 }
+@media (min-width: 640px) { .shape-foot-m { display: none; } }
+.shape-warn { display: inline-block; margin-right: 3px; vertical-align: -2px; }
 
 @media (prefers-reduced-motion: reduce) {
   .shape-body, .shape-body[data-open], .shape-chev, .shape-row { transition: none; }

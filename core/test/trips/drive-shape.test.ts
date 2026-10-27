@@ -77,3 +77,36 @@ describe("the trip's shape (spec 4.2, W5)", () => {
     expect(quiet.rows[3]!.notes.map((n) => n.text)).toEqual(["Last day"]);
   });
 });
+
+describe("Light day is claimed only where the day is known (review UXB-3 C1)", () => {
+  const variants = [{ key: "B", label: "Whole family", audience: "family" }];
+  const mk = (title: string, timelines: DayTimeline[], flight = false): ShapeInput => ({
+    days: timelines.map((t, i) => ({ n: t.day, title: i === 1 ? title : `Day ${t.day}`, base: "X", plannedDriveMin: null, variants, flight: i === 1 && flight })),
+    bases: [{ name: "X", nights: 3, days: [1, 2, 3] }], timelines, bookingDays: [], highlightSlugs: [],
+  });
+  const quiet = (day: number, entries: TimelineEntry[] = [e("visit", { durationMin: 40 })], o: Partial<DayTimeline> = {}) => tl(day, 20, entries, o);
+  const light = (i: ShapeInput) => tripShape(i).sets.light;
+  it("is claimed for a timed day with little on foot, in the middle of the trip", () => {
+    expect(light(mk("Slow day", [quiet(1), quiet(2), quiet(3)]))).toEqual([2]);
+  });
+  it("is not claimed on a condensed day, whatever its totals say", () => {
+    expect(light(mk("Slow day", [quiet(1), quiet(2, [], { blocks: true }), quiet(3)]))).toEqual([]);
+  });
+  it("is not claimed on a flight day: the schedule's flag, a flight leg, or the words (no airport codes)", () => {
+    expect(light(mk("Slow day", [quiet(1), quiet(2), quiet(3)], true))).toEqual([]);
+    expect(light(mk("Slow day", [quiet(1), quiet(2, [e("leg", { leg: { mode: "flight", km: null, basis: "plan", breaks: 0 } })]), quiet(3)]))).toEqual([]);
+    expect(light(mk("Fly to Ushuaia", [quiet(1), quiet(2), quiet(3)]))).toEqual([]);
+    expect(light(mk("Slow day near YYC", [quiet(1), quiet(2), quiet(3)]))).toEqual([2]);
+  });
+  it("counts every timed stop on foot, not only trails (Lagazuoi tunnels 3 h 30 and Scotoni 2 h)", () => {
+    const heavy = [e("visit", { durationMin: 210, title: "Lagazuoi tunnels" }), e("visit", { durationMin: 120, title: "Rifugio Scotoni" })];
+    expect(light(mk("Slow day", [quiet(1), quiet(2, heavy), quiet(3)]))).toEqual([]);
+  });
+  it("is never the first day", () => {
+    expect(light(mk("Slow day", [quiet(1), quiet(2), quiet(3)]))).not.toContain(1);
+  });
+  it("gives each count phrase a short form for a phone", () => {
+    const s = tripShape({ ...mk("x", [quiet(1), quiet(2), quiet(3)]), bookingDays: [2], highlightSlugs: [] });
+    expect(s.phrases.map((p) => p.short)).toEqual(["3 days", "1 with a booking"]);
+  });
+});

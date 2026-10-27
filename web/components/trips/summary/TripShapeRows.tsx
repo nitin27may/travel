@@ -35,11 +35,16 @@ function driveCell(r: ShapeRow, max: number) {
   );
 }
 
+const km = (n: number): string => `${n >= 10 ? Math.round(n) : Math.round(n * 10) / 10} km`;
+
 function footCell(r: ShapeRow, condensed: boolean) {
   if (condensed) return <span className="shape-unknown">{UNKNOWN}</span>;
   if (r.walkKm <= 0) return <span className="shape-none">No walk planned</span>;
-  return <span className="num">{r.walkKm >= 10 ? Math.round(r.walkKm) : Math.round(r.walkKm * 10) / 10} km</span>;
+  return <span className="num">{km(r.walkKm)}</span>;
 }
+
+/** The phone's walking words, first on the notes line: the On foot column is not drawn there (spec 4.4), and walking is what a family asks of a day. */
+const footWords = (r: ShapeRow, condensed: boolean): string => (condensed ? 'Walk not checked yet' : r.walkKm <= 0 ? 'No walk planned' : `${km(r.walkKm)} on foot`);
 
 function Notes({ notes }: { notes: ShapeNote[] }) {
   if (!notes.length) return <span className="sr-only">No notes</span>;
@@ -53,6 +58,7 @@ function Notes({ notes }: { notes: ShapeNote[] }) {
             </span>
           ) : null}
           <span className="shape-note" data-kind={n.kind}>
+            {n.kind === 'warning' ? <Icon name="warn" size={14} className="shape-warn" /> : null}
             {n.text}
           </span>
         </Fragment>
@@ -93,10 +99,16 @@ export default function TripShapeRows({ model, timelines, filter, onClear, onRea
       </thead>
       <tbody role="rowgroup">
         {rows.map((r) => (
-          <tr key={r.n} className="shape-row" role="row" data-day={r.n} data-quiet={r.notes.length ? undefined : ''}>
+          <tr key={r.n} className="shape-row" role="row" data-day={r.n}>
             <th scope="row" role="rowheader" className="shape-day">
               <a className="shape-link" href={`?view=day#day-${r.n}`} data-tab-link="">
-                <DaySign n={r.n} size="s" />
+                <span aria-hidden="true">
+                  <DaySign n={r.n} size="s" />
+                </span>
+                <span className="sr-only">
+                  Day {String(r.n).padStart(2, '0')}, {r.base ? `${r.base}: ` : ''}
+                  {r.title}, open in Days
+                </span>
               </a>
             </th>
             <td className="shape-plan" role="cell">
@@ -111,6 +123,12 @@ export default function TripShapeRows({ model, timelines, filter, onClear, onRea
               {footCell(r, condensed.has(r.n))}
             </td>
             <td className="shape-notes" role="cell">
+              <span className="shape-foot-m">{footWords(r, condensed.has(r.n))}</span>
+              {r.notes.length ? (
+                <span className="shape-dot shape-foot-m" aria-hidden="true">
+                  {' · '}
+                </span>
+              ) : null}
               <Notes notes={r.notes} />
             </td>
           </tr>

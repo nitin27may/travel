@@ -335,8 +335,8 @@ Wireframe: W5. Lives in the Summary.
   colour per base; `--surface-2` with `--line-2` dividers. Rockies: Banff 2 · Lake Louise village 1 · Jasper townsite 4 ·
   Lake Louise village 4 · Kananaskis Village 3 (+ the flight home on Day 15).
 - **Count line**, each phrase a button that expands the list filtered to those days: "15 days · 4 long drive days · 5 days
-  with a booking · 7 highlight days · 6 days with a warning". Rockies: long drives Days 1, 4, 5, 8; bookings Days 1, 4, 5,
-  10, 11; highlights Days 3, 4, 8, 9, 10, 11, 14; warnings Days 2, 4, 7, 10, 12, 13.
+  with a booking · 8 highlight days · 6 days with a warning". Rockies: long drives Days 1, 4, 5, 8; bookings Days 1, 4, 5,
+  10, 11; highlights Days 3, 4, 5, 8, 9, 10, 11, 14 (Day 5 holds the Spirit Island cruise); warnings Days 2, 4, 7, 10, 12, 13.
 - **Expanded list**: a real table, caption "The trip's shape, 15 days", columns Day · Base and plan · Driving · On foot ·
   Notes. Driving is a bar (`--ink-2` on `--well`) scaled to the trip's longest drive day with the value written beside it;
   On foot is the day's `walkKm` for the current party; Notes are words: Long drive (2 h 30 or more), Book n, Highlight,
@@ -356,8 +356,11 @@ Button: `aria-expanded`, `aria-controls`; the table grows in `--d-base`, reduced
 
 ### 4.4 Phone
 
-W5 390: the ribbon shortens a name only when its segment is under 64 px (full names in the list); the expanded list is one
-three-line row per day (day, base, drive · title · notes), the whole row a link.
+W5 390: the ribbon shortens a name only when it does not fit its segment (decided per segment from the name's length: up to 6 letters needs
+56 px, 10 needs 96, 16 needs 140, longer 200; the short form is initials for two or more words, up to 6 letters whole for one word, else 4 letters and a
+full stop; a segment under 48 px shows its nights only; full names in the list). A trip with more than 6 stays, or a stay under 7% of the nights (12% on
+a phone), adds a names line under the ribbon ("Reykjavik 1 · Selfoss 1 · ..."). The count phrases read short on a phone ("4 long drives"). The expanded list is one
+three-line row per day (day and base and drive; the title; walking and notes, e.g. "1.9 km on foot · Long drive · Book 2"), the whole row a link named with its day, base and plan.
 
 ### 4.5 Data
 
@@ -943,10 +946,11 @@ another task's files. No green, no purple, tokens only. UI issues outside the ta
   `web/tests/trips/shape.test.ts` (new).
 - **Steps.** 1. Ribbon from bases. 2. Count line with the 2 h 30 long-drive rule, light-day rule, booking days, highlight
   days, warnings. 3. The expanded table, filterable by a count phrase. 4. Remembered state. 5. Remove the clock strip.
-- **Acceptance.** Rockies count line reads "15 days · 4 long drive days · 5 days with a booking · 7 highlight days · 6 days
+- **Acceptance.** Rockies count line reads "15 days · 4 long drive days · 5 days with a booking · 8 highlight days · 6 days
   with a warning" at the default party; the expanded table is a `<table>` with a caption; no "The plan's day" anywhere; a
   row opens Days at that day.
 - **UXB-N notes (26 Oct).** Per [uxb-components-2026-10-26.md](../design/trip-page/uxb-components-2026-10-26.md) 3 and components 6.4: the shape and each count phrase are live disclosure buttons; print shows the ribbon and the count line, not the per-day table.
+- **UXB-3F notes (27 Oct).** Review `review-uxb-3-2026-10-27.md`: Light day only on a timed, known, ordinary day (not condensed, first, last, check-in, check-out or flight; every trail and visit counted on foot, a boat, errands, a hot spring and the car pick-up not); one set of ribbon fit rules and the names line (owner Q310, option B); the first open moves state inside a transition so the body grows without a fallback.
 - **Commit.** `web(UXB-3): the trip's shape replaces the clock chart (P2, P3, P6)`.
 
 ### 13.7 UXB-4: when to go (B1, Sonnet, 4 h)
