@@ -188,9 +188,9 @@ test.describe('Mine > Favourites', () => {
     await expect(panel.locator('.frow')).toHaveCount(4);
     await expect(panel.locator('.frow[data-handle^="trip:"]')).toHaveCount(1);
     await expect(page.getByRole('tab', { name: 'Favourites, 4' })).toBeVisible();
-    // list rows with a kind glyph, never a photo
-    await expect(panel.locator('.frow img')).toHaveCount(0);
-    await expect(panel.locator('.frow-glyph')).toHaveCount(4);
+    // list rows: a thumbnail slot each (a photo when the page has one, else the kind glyph)
+    await expect(panel.locator('.frow img[alt=""]')).not.toHaveCount(5);
+    await expect(panel.locator('.mthumb')).toHaveCount(4);
     // the filters: All 4 · Places 3 · Trips 1
     const scope = panel.getByRole('radiogroup', { name: 'Show' });
     await expect(scope.getByRole('radio')).toHaveText(['All 4', 'Places 3', 'Trips 1']);

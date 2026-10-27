@@ -21,10 +21,9 @@
 .frow[data-restored] { animation: frow-in 200ms var(--e-std) both; }
 @keyframes frow-in { from { grid-template-rows: 0fr; opacity: 0; } to { grid-template-rows: 1fr; opacity: 1; } }
 
-.frow-link { display: grid; grid-template-columns: 40px minmax(0, 1fr); grid-template-areas: 'glyph name' 'glyph meta'; column-gap: var(--s-3); row-gap: 1px; align-content: center; min-height: 64px; padding: 12px 0; color: var(--ink); text-decoration: none; }
+.frow-link { display: grid; grid-template-columns: 56px minmax(0, 1fr); grid-template-areas: 'glyph name' 'glyph meta'; column-gap: var(--s-3); row-gap: 1px; align-content: center; min-height: 64px; padding: 12px 0; color: var(--ink); text-decoration: none; }
 a.frow-link:hover { background: var(--surface-2); }
 a.frow-link:focus-visible { outline: var(--focus-ring); outline-offset: -3px; }
-.frow-glyph { grid-area: glyph; align-self: center; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--well); color: var(--ink); }
 .frow-name { grid-area: name; padding-right: 52px; font: var(--t-title); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .frow-meta { grid-area: meta; font: var(--t-meta); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .frow-meta:has(.chip) { overflow: visible; }

@@ -68,7 +68,11 @@ async function read<T>(method: string, url: string, init?: RequestInit): Promise
 /** Like `read`, but a 404 is "there is none". */
 async function readOrNull<T>(method: string, url: string): Promise<T | null> {
   const r = await fetch(url);
-  if (r.status === 404) return null;
+  if (r.status === 404) {
+    // release the connection: an unread body leaves the request in flight (the page never reaches network idle)
+    await r.body?.cancel().catch(() => undefined);
+    return null;
+  }
   if (!r.ok) throw new Error(`${url}: ${r.status}`);
   const data = (await r.json()) as T;
   await check(method, data);
