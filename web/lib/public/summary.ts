@@ -32,8 +32,7 @@ const allItems = (trip: PublicTrip): { day: number; item: DayItem }[] =>
 const FOLDER_OF_SLUG = new Map(Object.entries(TRIP_SLUGS).map(([folder, slug]) => [slug, folder]));
 
 /**
- * The legacy folder of a trip, from its slug: `legacyUrl` is in public form (the adapter aliases it, public-ref-aliases 5.1), so it no longer
- * names the folder. A trip missing from TRIP_SLUGS throws: falling back to the alias would read a folder that does not exist and drop the
+ * The legacy folder of a trip, from its slug: the trip page model no longer carries a legacy URL (the alias would make it a dead link), so the slug is the key. A trip missing from TRIP_SLUGS throws: falling back to the alias would read a folder that does not exist and drop the
  * trip's legacy data without a word (REF-REVIEW S6).
  */
 const folderOf = (trip: PublicTrip): string => {

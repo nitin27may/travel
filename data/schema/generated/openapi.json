@@ -4871,9 +4871,6 @@
                             "null"
                           ]
                         },
-                        "legacyUrl": {
-                          "type": "string"
-                        },
                         "honesty": {
                           "type": "array",
                           "items": {
@@ -7125,7 +7122,6 @@
                         "cover",
                         "season",
                         "firstBase",
-                        "legacyUrl",
                         "honesty",
                         "tags",
                         "lengthClass",

@@ -347,7 +347,6 @@ export interface PublicTripCard {
   season: Season | null;
   /** First base, for the globe pin and the card. */
   firstBase: string | null;
-  legacyUrl: string;
   honesty: Honesty[];
   /** Derived tags for the card and the Trips filters (L3b). Overview trips carry Where, Length and When only. */
   tags: TripTags;

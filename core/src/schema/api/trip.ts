@@ -215,7 +215,6 @@ export const tripDetail = z.strictObject({
     weather: z.strictObject({ tempC: z.string(), rain: z.string(), daylight: z.string(), notes: z.array(z.string()) }),
   }).nullable(),
   firstBase: z.string().nullable(),
-  legacyUrl: z.string(),
   honesty: z.array(honesty),
   tags: tripTags,
   lengthClass: z.string().nullable(),

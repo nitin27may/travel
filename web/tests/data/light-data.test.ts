@@ -18,7 +18,7 @@ import { builtOutDir } from '../helpers/built';
 /** Keys that mean "the researched content". None may appear in a list row, a search record or a list page's payload. */
 const CONTENT_KEYS = [
   'facts', 'links', 'linksNone', 'hazards', 'access', 'lines', 'seasonNote', 'minAge', 'booking', 'notes', 'note', 'summary', 'subtitle', 'stats',
-  'elevationM', 'wikidata', 'sources', 'durationMin', 'timeHours', 'driveAvgMin', 'bases', 'categories', 'gallery', 'legacyUrl',
+  'elevationM', 'wikidata', 'sources', 'durationMin', 'timeHours', 'driveAvgMin', 'bases', 'categories', 'gallery',
   'suitability', 'tooltip', 'reason', 'passed', 'failed', 'hint', 'effort_level', 'stroller', 'height_cm', 'weight_kg', 'min_height_cm', 'max_age', 'time', 'times', 'hours', 'photos', 'location_status',
 ];
 

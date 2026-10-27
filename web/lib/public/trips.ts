@@ -431,7 +431,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
     const built1: PublicTrip = {
       schedule,
       slug, title, subtitle, depth, visibility: vis, nights, daysCount: days.length || (nights !== null ? nights + 1 : null), seasonNotSet: !season, region, cover, season,
-      firstBase: bases[0]?.name ?? (region.split(',')[0]?.trim() || null), legacyUrl: `/${folder}/`, honesty: uniqueHonesty(h),
+      firstBase: bases[0]?.name ?? (region.split(',')[0]?.trim() || null), honesty: uniqueHonesty(h),
       bases, days, categories, gallery, effort, ageFit: statedAge(pub?.ageFit ?? null, schedule), driveAvgMin: scheduledDrive ?? pub?.driveAvgMin ?? null,
     };
     // no research marker reaches a public string (spec 5.1); the timeline's own strings were cleaned as they were made

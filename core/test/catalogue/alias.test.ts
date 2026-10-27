@@ -1,6 +1,6 @@
 // Public ref aliases (public-ref-aliases 4.1, 4.3; REF-C acceptance A1): the eight pinned pairs, and the four properties of `publicRef`
 // over EVERY ref in data/capture, data/suitability, data/relevance and data/catalogue/graph (total, injective, invertible, idempotent).
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
@@ -51,6 +51,7 @@ function allRefs(): Set<string> {
   // (`data/trips/<id>/` is `trip/<id>`). When TD-3 creates `data/trips/canadian-rockies-2029/`, `trip/canadian-rockies-2029` meets the folder
   // key `trip/canadian-rockies-sept-2029`, whose alias is the same string: the injectivity test then fails, which is the point.
   for (const d of ["data/capture", "data/suitability", "data/relevance", "data/catalogue/graph", "data/trips"]) {
+    if (!existsSync(join(ROOT, d))) continue; // data/catalogue/graph arrives with EG-I, which is not in every branch
     for (const f of jsonFiles(join(ROOT, d))) visit(JSON.parse(readFileSync(f, "utf8")));
   }
   for (const e of readdirSync(join(ROOT, "data/trips"), { withFileTypes: true })) if (e.isDirectory()) out.add(`trip/${e.name}`);

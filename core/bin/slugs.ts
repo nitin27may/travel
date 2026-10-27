@@ -49,7 +49,7 @@ Options:
   --base-file <f>     --check: read that registry from this file instead of git (tests)
 
 build pins trips.folderAliases: every dated legacy folder (legacy/MANIFEST.json, and every legacy/<folder>/ ref under data/capture,
-data/suitability, data/relevance, data/catalogue/graph and data/trips) gets its alias once, by the rule; a pinned one never changes.
+data/suitability, data/relevance, the catalogue graph folder when present, and data/trips) gets its alias once, by the rule; a pinned one never changes.
 `;
 
 const arg = (argv: string[], name: string): string | null => {
@@ -96,7 +96,7 @@ function snapshot(root: string, argv: string[]): SlugSnapshot {
 }
 
 /** The data folders whose refs name legacy folders (public-ref-aliases 4.3, E_SLUG_ALIAS_MISSING). */
-const REF_DIRS = ["data/capture", "data/suitability", "data/relevance", "data/catalogue/graph", "data/trips"];
+const REF_DIRS = ["data/capture", "data/suitability", "data/relevance", join("data/catalogue", "graph"), "data/trips"]; // graph arrives with EG-I
 
 function* jsonFiles(dir: string): Generator<string> {
   if (!existsSync(dir)) return;
