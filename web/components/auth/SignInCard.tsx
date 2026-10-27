@@ -21,7 +21,7 @@ import './auth.css';
  * The passwordless-first sign-in card (email spec 3, Phase 1). One card on `/sign-in/` and `/sign-up/`:
  *
  *   email ─► chooser ─► code  (sign in or create an account by an emailed code; Neon creates the account on first use)
- *                   └─► password ─► (sign up, or an unverified account) code to confirm the email
+ *                   └─► password ─► (sign up, or an unverified account: a guarded send first) code to confirm the email
  *
  * The step changes in place, the address stays visible with "Change", and focus moves to the new step's heading, or into the code
  * field on the code step (P3, P5; review S1). Every call goes through the guarded proxy; every answer maps to the copy of
@@ -163,6 +163,16 @@ export function SignInCard({ mode, codeOn, siteKey }: SignInCardProps) {
     go('code');
   };
 
+  /**
+   * Password sign-in to an unverified account: Neon sends nothing on sign-in (its "send verification email on sign-in" setting stays
+   * off, review MF2), so the card asks for a confirmation code through the guarded send route (Turnstile and every send bucket). A
+   * confirmation code sent to this address in the last minute is still good: go back to it without a call.
+   */
+  const confirmUnverified = async () => {
+    if (mine?.kind === 'sent' && mine.until > Date.now() && purpose === 'verify') return toVerify(COPY.confirmFirst);
+    if (await sendCode('email-verification', 'send')) toVerify(COPY.confirmFirst);
+  };
+
   const submitCode = async (otp: string) => {
     setBusy('code');
     setProblem(null);
@@ -195,7 +205,7 @@ export function SignInCard({ mode, codeOn, siteKey }: SignInCardProps) {
     const reply = await authCall('sign-in/email', { email, password });
     if (reply.status === 200) return finish('password');
     setBusy(null);
-    if (reply.status === 403 && reply.code === 'EMAIL_NOT_VERIFIED') return toVerify(COPY.confirmFirst);
+    if (reply.status === 403 && reply.code === 'EMAIL_NOT_VERIFIED') return confirmUnverified();
     fail(reply, 'password');
   };
 
