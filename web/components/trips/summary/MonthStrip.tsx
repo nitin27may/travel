@@ -27,14 +27,14 @@ export function MonthStrip({ states, idBase = 'wtg' }: { states: readonly MonthS
       {checked ? (
         <ul className="mstrip-legend" aria-label="What the cells mean">
           {legend.map((s) => (
-            <li key={s}>
+            <li key={s} className="mstrip-legend-state">
               <i className="mstrip-key" data-state={s} aria-hidden="true" />
               {STATE_LEGEND[s]}
             </li>
           ))}
           <li>
             <i className="mstrip-key" data-state="none" aria-hidden="true" />
-            Blank: not checked
+            Blank: not checked for this plan
           </li>
         </ul>
       ) : null}

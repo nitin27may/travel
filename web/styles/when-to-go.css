@@ -1,6 +1,9 @@
 /* ---------- When to go, in the Summary (spec trip-and-places-ux-fixes.md 6.2, W4; components 4.7). Tokens only; no colour carries a state alone. ---------- */
 .wtg { max-width: 62rem; }
 .wtg-hero { margin-top: var(--s-2); }
+.wtg-head { margin: 0; }
+.wtg-head > h2, .wtg-head > p { display: inline; }
+.wtg-dot { font: var(--t-cap); color: var(--muted); }
 .wtg-kick { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
 .wtg-window { margin-top: var(--s-2); font: var(--t-trip); line-height: 1.05; text-transform: uppercase; color: var(--accent-text); overflow-wrap: anywhere; }
 .wtg-why { margin-top: var(--s-3); max-width: 46rem; font: var(--t-body-l); color: var(--ink-2); }
@@ -8,7 +11,7 @@
 .wtg-basis svg { flex: none; transform: translateY(3px); }
 
 /* the month strip: the layout follows its own width, so it is right in a narrow column and on a desktop alike */
-.mstrip { container-type: inline-size; margin-top: var(--s-5); max-width: 705px; }
+.mstrip { container-type: inline-size; margin-top: var(--s-5); }
 .mstrip-list { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 3px; margin: 0; padding: 0; list-style: none; }
 .mstrip-cell { position: relative; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 2px; height: 44px; padding-top: 6px; overflow: hidden; border: 1px solid var(--line-2); border-radius: var(--r-1); background: var(--surface); color: var(--muted); font: var(--t-chip); letter-spacing: 0; }
 .mstrip-w { display: none; font-size: 10.5px; line-height: 1; }
@@ -25,16 +28,16 @@
 .mstrip-key { position: relative; box-sizing: border-box; flex: none; width: 22px; height: 16px; overflow: hidden; border: 1px solid var(--line-2); border-radius: var(--r-1); background: var(--surface); }
 .mstrip-key[data-state='best'] { background: var(--ink); border-color: var(--ink); }
 .mstrip-key[data-state='plan'] { border: 2px solid var(--ink); }
-/* under 340 px: 6 x 2 with the word in the cell; the legend is not needed */
-@container (max-width: 339px) {
+/* under 400 px (every phone): 6 x 2 with the word in the cell (3-letter names fill 26 px cells edge to edge in 12 x 1, and 6 x 2 is no taller than 12 x 1 plus its legend) */
+@container (max-width: 399px) {
   .mstrip-list { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .mstrip-w { display: block; }
-  .mstrip-legend { display: none; }
+  .mstrip-legend .mstrip-legend-state { display: none; }
 }
-/* desktop: the word is in the cell again, at a fixed 56 px per cell */
+/* desktop: the word is in the cell again; the strip spans the section, so it lines up with the cards */
 @container (min-width: 705px) {
   .mstrip-w { display: block; }
-  .mstrip-legend { display: none; }
+  .mstrip-legend .mstrip-legend-state { display: none; }
 }
 
 .wtg-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); margin: var(--s-5) 0 0; padding: 0; list-style: none; }
@@ -42,6 +45,7 @@
 .wtg-card { min-width: 0; padding: var(--s-3) var(--s-4); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-3); }
 .wtg-card-k { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
 .wtg-card-v { margin-top: var(--s-1); font: var(--t-body); color: var(--ink); overflow-wrap: anywhere; }
+.wtg-card-sub { margin-top: var(--s-1); font: var(--t-small); color: var(--muted); }
 .wtg-gap { display: inline-flex; align-items: center; min-height: 24px; padding: 2px 10px; border: 1px dashed var(--line-2); border-radius: var(--r-full); color: var(--muted); font: var(--t-chip); white-space: nowrap; }
 
 .wtg-sub { margin-top: var(--s-6); }
@@ -50,6 +54,12 @@
 .wtg-quiet { color: var(--muted); }
 .wtg-note { margin-top: var(--s-2); max-width: 46rem; font: var(--t-small); color: var(--muted); }
 
+.wtg-weeks { display: grid; gap: var(--s-4); margin: var(--s-3) 0 0; padding: 0; list-style: none; }
+.wtg-week-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--s-3); font: var(--t-body); color: var(--ink); }
+.wtg-week-h b { font-weight: 600; }
+.wtg-week-v, .wtg-week-c { font: var(--t-meta); color: var(--muted); }
+.wtg-week-p { display: flex; gap: var(--s-2); margin-top: var(--s-1); font: var(--t-body); color: var(--ink-2); }
+.wtg-week-p > span[aria-hidden] { flex: none; width: 1ch; font-family: var(--font-mono); color: var(--muted); }
 .wtg-notes { display: grid; gap: var(--s-2); margin: var(--s-3) 0 0; padding: 0; list-style: none; }
 .wtg-notes li { display: flex; gap: var(--s-2); align-items: baseline; font: var(--t-body); color: var(--ink-2); }
 .wtg-notes svg { flex: none; color: var(--muted); transform: translateY(3px); }
@@ -59,8 +69,13 @@
   /* advice folds behind a counted disclosure; a closure or hazard stays at rest (P2) */
   .wtg-notes li[data-extra] { display: none; }
   .sum-toggle:checked ~ .wtg-notes li[data-extra] { display: flex; }
+  /* weather: the forecast row at rest, the other rows behind one counted fold */
+  .wtg-src[data-extra], .wtg-row[data-extra] { display: none; }
+  .sum-toggle:checked ~ .wtg-srcs .wtg-src[data-extra] { display: block; }
+  .sum-toggle:checked ~ .wtg-srcs .wtg-row[data-extra] { display: grid; }
 }
 @media print { .wtg-notes li[data-extra] { display: flex; } }
+.wtg-srcs + .wtg-more { margin-top: var(--s-2); }
 
 /* weather links: ordinary links with the publisher named, each a 44 px target with room between them */
 .wtg-srcs { display: grid; gap: var(--s-5); margin: var(--s-3) 0 0; padding: 0; list-style: none; }
@@ -68,7 +83,8 @@
 .wtg-row { display: grid; gap: var(--s-1); margin-top: var(--s-2); }
 .wtg-row-k { font: var(--t-meta); color: var(--muted); }
 .wtg-links { display: flex; flex-wrap: wrap; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
-.wtg-link { display: inline-flex; align-items: center; gap: 6px; min-height: var(--touch-min); max-width: 100%; padding: 4px var(--s-3); border: 1px solid var(--line-2); border-radius: var(--r-full); background: var(--surface); color: var(--ink); font: var(--t-small); text-decoration: none; }
+.wtg-link { display: inline-flex; align-items: center; gap: 6px; min-height: var(--touch-min); max-width: 100%; padding: 4px var(--s-3); border: 1px solid var(--line-2); border-radius: var(--r-3); background: var(--surface); color: var(--ink); font: var(--t-small); text-decoration: none; }
+.wtg-link-t { min-width: 0; overflow-wrap: anywhere; }
 .wtg-link:hover { background: var(--surface-2); text-decoration: underline; text-underline-offset: 3px; }
 .wtg-link:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 .wtg-link svg { flex: none; color: var(--muted); }
