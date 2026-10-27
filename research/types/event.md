@@ -8,6 +8,6 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 Records: event. No suitability profile. Effort: none, time is shown. Sources, in order: T F.
 
-**event**: R name, type, point, area_id, wikidata, summary, season, access_cost, links; R? access_points (no_door_access), closures (status_page); A names, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of.
+**event**: R name, type, point, area_id, wikidata, summary, season, links; R? access_points (no_door_access), closures (status_page); A names, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of.
 
 Links: official; R? none; A tourism_board.

@@ -640,5 +640,21 @@ verify. API-G edits `web/lib/server/respond.ts`, which every API route uses: it 
 
 ## Change log
 
+- 26 Oct 2026, PM-G built (`public/PM-G`, Sonnet): `core/src/capture/matrix.ts` (inputs, K1 to K12, allow-list judge, the matrix document) and the
+  writer in `generate.ts`; `capture.ts build` writes `data/schema/generated/property-matrix.json` and `.md`, `build --check` fails on drift,
+  on a break not in `data/schema/property-matrix-allow.json` and on an entry that no longer breaks (reported as `DRIFT check` and `DRIFT
+  allow`; `core/bin/capture.ts` is unchanged). 41 entries today (K3 1, K4 4, K5 3, K6 23, K9 10), FA-4 empties them. Differences: K7 is a
+  heuristic (an `ext.` path shown at rest whose label equals its humanised key) because the registry does not record authored labels; K12
+  checks the release form and that a deprecated property is off MCP (added v0.19), the "removed in the next release" half waits for a
+  release list; the section 7 snapshot is the generated md table "Marks per main type".
+- 26 Oct 2026, PM-C built (`public/PM-C`, Opus): `privacy`, `expose`, `lanes`, `deprecated`, `reserved` on `PropertyDef`;
+  `exposeOf` and `exposureProblems` (K1, K2, K5 row keys, K10, K11) in `properties.ts`; `core/src/schema/exposure.ts` (8.1);
+  test `core/test/capture/registry-exposure.test.ts` with the snapshot `registry-exposure.snap.json`. Differences from this
+  page: `expose.trip`, `list` and `export` are lists; the trip `day` default is the suitability groups of 6 (limits, suits,
+  effort, time, safety, water) plus the card display and the day keys of 5; where a cell of 5 differs from the 3.4 rules
+  (`summary` and `why` on the day row and in CSV, for example) the rules win and PM-G's generated matrix is the list. A new
+  home `derived` (`access_points`, `variants`; review EG-R0 S6) keeps K10 true; `variants` is no longer asked on any offer
+  class. `recurrence` got a capture home on events (an optional `capture/1` field), `ext.water.boating` a water-extension
+  path (marks wait for FA-4). QM7: `access_cost` is N on the offer and event layer rules (gap budget 3693 to 3664).
 - 26 Oct 2026: written (travel-planner, Opus 5.5) on `public/PROP-MCP-SPEC`, with the MCP page
   [../mcp/tools-v1-from-api.md](../mcp/tools-v1-from-api.md).

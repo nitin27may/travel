@@ -1,0 +1,12 @@
+{
+  "covers-a-region.json": {"errors": ["E_PARK_AREA"], "warnings": []},
+  "covers-unknown-area.json": {"errors": ["E_PARK_AREA"], "warnings": []},
+  "entry-on-a-lake.json": {"errors": ["E_ENTRY_SCHEMA"], "warnings": []},
+  "for-types-unknown-node.json": {"errors": ["E_ENTRY_SCHEMA"], "warnings": []},
+  "named-area-not-covered.json": {"errors": [], "warnings": ["W_PARK_AREA"]},
+  "system-pass-unknown-operator.json": {"errors": ["E_CAP_REF", "E_PLACE_ORPHAN"], "warnings": []},
+  "system-pass-without-fee.json": {"errors": ["E_PLACE_ORPHAN"], "warnings": []},
+  "then-of-a-then.json": {"errors": ["E_WINDOW_THEN"], "warnings": []},
+  "then-on-anytime.json": {"errors": ["E_WINDOW_THEN"], "warnings": []},
+  "zone-without-park.json": {"errors": ["E_PARK_ZONE"], "warnings": []}
+}

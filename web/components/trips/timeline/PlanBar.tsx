@@ -3,8 +3,10 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useRef } from 'react';
 import type { ExportFormat } from '@/components/actions/ExportMenu';
+import { PACE_WORD, partyShortText } from '@travel/core/trips/partyWords.ts';
 import { Icon } from '@/components/ui/Icon';
 import type { TimelineModel } from './model';
+import { railOpen, useRailParty } from './railWords';
 
 // Export trip at the right end of the bar from 1024 px (map note): the menu is its own chunk, so the bar's start JS does not carry it
 const ExportMenu = dynamic(() => import('@/components/actions/ExportMenu').then((m) => m.ExportMenu), { ssr: false });
@@ -14,7 +16,7 @@ interface Props {
   /** The trip's slug, for its export. */
   slug: string;
   model: TimelineModel;
-  /** The short profile line, e.g. "Standard pace". */
+  /** The fallback profile line, "Family, 10 · Standard", used until the party bar has written its words. */
   label: string;
   active: number | null;
   onPick: (n: number) => void;
@@ -37,6 +39,7 @@ export function MapButton({ onClick, open }: { onClick: () => void; open?: boole
 /** Sticky under the header while the days scroll: the profile in a few words and a rail of day numbers (design 3.4). */
 export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, mapOpen }: Props) {
   const rail = useRef<HTMLOListElement>(null);
+  const kept = useRailParty();
   useEffect(() => {
     const el = rail.current?.querySelector<HTMLElement>('[data-active]');
     if (!el || !rail.current) return;
@@ -46,7 +49,21 @@ export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, map
   return (
     <nav className="tl-planbar" aria-label="Days" data-print="hide">
       <p className="tl-planbar-line num">
-        <span className="tl-planbar-who">{label}</span> · <button type="button" className="tl-reset" onClick={onEdit}>Edit</button>
+        <span className="tl-planbar-who">
+          {kept ? (
+            <>
+              <span className="tl-planbar-party">{kept.shared ? 'Shared plan' : partyShortText(kept)}</span> · <span className="tl-planbar-pace">{PACE_WORD[kept.pace]}</span>
+            </>
+          ) : (
+            label
+          )}
+        </span>{' '}
+        <button type="button" className="tl-railedit" onClick={() => {
+            railOpen.from = true;
+            onEdit();
+          }}>
+          <Icon name="pencil" size={13} /> Edit
+        </button>
       </p>
       <ol className="tl-rail-days" ref={rail}>
         {model.days.map((d) => (

@@ -1,0 +1,360 @@
+{
+  "schema": "capture/1",
+  "trip": "park-fixture",
+  "lane": "f4-no-fee-and-half-filled",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://example.org/source-src-0001",
+      "title": "Fixture page src-0001",
+      "publisher": "Fixture publisher",
+      "kind": "official",
+      "read": "2026-10-26",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/open-meadow-reserve",
+      "type": "nature.protected.nature_reserve",
+      "layer": "place",
+      "name": "Open Meadow Reserve",
+      "area_id": "ZZ/Q5/open-meadow",
+      "covers_areas": [
+        "ZZ/Q5/open-meadow"
+      ],
+      "run_by": "operator/epsilon-parks-board"
+    },
+    {
+      "ref": "place/ember-ridge-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "name": "Ember Ridge National Park",
+      "area_id": "ZZ/Q6/ember-ridge",
+      "covers_areas": [
+        "ZZ/Q6/ember-ridge"
+      ],
+      "run_by": "operator/epsilon-parks-board"
+    },
+    {
+      "ref": "part/place/ember-ridge-national-park#ridge-road",
+      "type": "wheels.drive.scenic_drive",
+      "layer": "route",
+      "name": "Ridge Road",
+      "part_of": [
+        "place/ember-ridge-national-park"
+      ]
+    },
+    {
+      "ref": "offer/place/ember-ridge-national-park#resident-foreign-fee",
+      "type": "access.pass.entry_fee",
+      "layer": "offer",
+      "name": "resident foreign fee",
+      "summary": "The resident foreign fee requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "on_arrival"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/resident-foreign-fee",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/ember-ridge-national-park"
+      ],
+      "run_by": "operator/epsilon-parks-board",
+      "price": {
+        "v": [
+          {
+            "amount": 5,
+            "currency": "ZZF",
+            "per": "adult",
+            "residency": "resident"
+          },
+          {
+            "amount": 9,
+            "currency": "ZZF",
+            "per": "adult",
+            "residency": "national"
+          },
+          {
+            "amount": 40,
+            "currency": "ZZF",
+            "per": "adult",
+            "residency": "foreign"
+          },
+          {
+            "amount": 0,
+            "currency": "ZZF",
+            "per": "child",
+            "age_to": 11
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "person",
+          "channel": [
+            "gate"
+          ],
+          "exemptions": [
+            {
+              "who": "resident",
+              "note": "reduced rate, show a local ID"
+            },
+            {
+              "who": "school_group"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "offer/place/ember-ridge-national-park#ridge-road-slot",
+      "type": "access.pass.timed_entry",
+      "layer": "offer",
+      "name": "ridge road slot",
+      "summary": "The ridge road slot requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "rolling",
+          "days_before": 14,
+          "opens_time": "09:00",
+          "tz": "Etc/UTC"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/ridge-road-slot",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/ember-ridge-national-park"
+      ],
+      "on": [
+        {
+          "ref": "part/place/ember-ridge-national-park#ridge-road"
+        }
+      ],
+      "run_by": "operator/epsilon-parks-board",
+      "price": {
+        "v": [
+          {
+            "amount": 15,
+            "currency": "ZZF",
+            "per": "vehicle"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "hours": {
+        "v": {
+          "tz": "Etc/UTC",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "06:00",
+              "close": "18:00"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "in_season",
+          "needed_for": [
+            "day"
+          ],
+          "unit": "vehicle",
+          "channel": [
+            "online"
+          ],
+          "cancel": {
+            "refund": "partial",
+            "until_hours": 72
+          }
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "offer/place/ember-ridge-national-park#half-filled-permit",
+      "type": "access.pass.activity_permit",
+      "layer": "offer",
+      "name": "half filled permit",
+      "summary": "The half filled permit requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26",
+        "on": "2026-10-26",
+        "tried": [
+          "the fixture's own fee page"
+        ]
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/half-filled-permit",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/ember-ridge-national-park"
+      ],
+      "run_by": "operator/epsilon-parks-board",
+      "price": {
+        "v": null,
+        "state": "none_stated",
+        "basis": null,
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26",
+        "on": "2026-10-26",
+        "tried": [
+          "the fixture's own fee page"
+        ]
+      },
+      "entry": {
+        "v": {
+          "required": "advised",
+          "needed_for": [
+            "day"
+          ],
+          "unit": "person",
+          "channel": [
+            "visitor_centre"
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    }
+  ]
+}

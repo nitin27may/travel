@@ -12,6 +12,7 @@ import { POINT_ROLE } from "../schema/enums.ts";
 import { capturedPointSource, capturePointsFile, CAPTURE_POINTS_SCHEMA_ID, NEAR_TOWN_NONE, relevancePointRow, type CapturedPointRow } from "../schema/capture/points.ts";
 import type { PointRole } from "../schema/capture/points.ts";
 import type { CaptureRecord } from "../schema/capture/records.ts";
+import { isSystemPass } from "../schema/capture/relations.ts";
 import { haversineKm } from "../geo/distance.ts";
 import { readJson } from "./records.ts";
 import type { World } from "./records.ts";
@@ -51,6 +52,8 @@ export interface Box { minLat: number; maxLat: number; minLon: number; maxLon: n
 export interface AreaTree {
   /** every country, region and area id of the locations store */
   ids: Set<string>;
+  /** the area ids only (no country or region): what a protected area's covers_areas may name (E_PARK_AREA) */
+  areaIds: Set<string>;
   /** area or region id -> the box of the locations-store places in it (an area's places also widen its region) */
   boxes: Map<string, Box>;
   /** locations place id -> its area id (to leave a record's own place out of the box that judges it) */
@@ -89,12 +92,14 @@ function loadAreaTree(root: string): AreaTree {
     })];
   };
   const ids = new Set<string>();
+  const areaIds = new Set<string>();
   const regionOf = new Map<string, string>();
   for (const c of list("countries")) if (typeof c.code === "string") ids.add(c.code);
   for (const r of list("regions")) if (typeof r.id === "string") ids.add(r.id);
   for (const a of list("areas")) {
     if (typeof a.id !== "string") continue;
     ids.add(a.id);
+    areaIds.add(a.id);
     if (typeof a.region_id === "string") regionOf.set(a.id, a.region_id);
   }
   const boxes = new Map<string, Box>();
@@ -114,7 +119,7 @@ function loadAreaTree(root: string): AreaTree {
     const region = regionOf.get(p.area_id);
     if (region) widen(region, p.lat, p.lon);
   }
-  return { ids, boxes, placeArea, placePoint };
+  return { ids, areaIds, boxes, placeArea, placePoint };
 }
 
 /** Reads both points sidecars into one map, capture rows first (they win), and reports structural faults of the capture file. */
@@ -268,6 +273,8 @@ export interface Finding {
 export function placementFindings(pw: PlacementWorld, rec: CaptureRecord): Finding[] {
   const out: Finding[] = [];
   if (rec.layer === "offer" || rec.layer === "event") {
+    // a system pass names no place (protected-area-entry QP1): it is reached through the fees that name it in covered_by
+    if (isSystemPass(rec, pw.world.incoming.get(rec.ref)?.covers.length ?? 0)) return out;
     if (!resolvesToPlace(pw, rec)) {
       const named = [...(rec.at ?? []), ...(rec.on ?? []).map((o) => o.ref), ...(rec.starts_at ?? []), ...(rec.layer === "event" ? rec.part_of ?? [] : [])];
       const fields = rec.layer === "event" ? "at or part_of" : "at, on or starts_at";
@@ -275,7 +282,7 @@ export function placementFindings(pw: PlacementWorld, rec: CaptureRecord): Findi
         code: "E_PLACE_ORPHAN",
         key: rec.layer === "event" ? "part_of" : "at",
         message: named.length === 0
-          ? `${rec.ref} says nowhere where it happens. An ${rec.layer} inherits its placement: give ${fields} naming the place or route it happens at. Example: "at": ["legacy/<trip>/sights/<place>"].`
+          ? `${rec.ref} says nowhere where it happens. An ${rec.layer} inherits its placement: give ${fields} naming the place or route it happens at. Example: "at": ["legacy/<trip>/sights/<place>"].${/^offer\/operator\//.test(rec.ref) ? " A system pass (offer/operator/<slug>#<product>, an access.pass.park_pass with run_by that operator) needs no place once a fee names it in covered_by (protected-area-entry QP1)." : ""}`
           : `${rec.ref} names ${named.join(", ")} in ${fields}, but none of them is a place or route with a placement. Point it at the place or route itself (capture contract 3.7).`,
       });
     }

@@ -20,7 +20,7 @@ Records: place, offer. Suitability profile `eatery` (never). Effort: none, time 
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, links, at, run_by, duration_min, activity_min, book_url; R? none; A names, transit, window, pairs_with, closures, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, links, at, run_by, duration_min, activity_min, book_url; R? none; A names, transit, window, pairs_with, closures, photos, on, cancellation, included.
 
 Suitability: R wheelchair; R when operated none; A kid_note, stroller, stroller_extent, accessible_toilet, baby_change, access_season.
 

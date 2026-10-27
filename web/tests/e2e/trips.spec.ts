@@ -57,7 +57,7 @@ test.describe('trip page', () => {
     await page.goto(`${site.url}/trips/canadian-rockies-2029/#day-5`);
     await expect(page.getByRole('radiogroup', { name: 'Day 5 options' })).toHaveCount(0);
     await expect(page.locator('#day-5').getByRole('button', { name: /Version of Day 5/ })).toBeVisible();
-    await expect(page.getByRole('radiogroup', { name: 'Who is going' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Edit' }).first()).toBeVisible();
   });
   test('summary and overview trips are labelled', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/patagonia-2027/?view=day`);

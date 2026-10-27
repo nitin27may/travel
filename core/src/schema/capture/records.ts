@@ -62,18 +62,72 @@ export const priceRow = z.strictObject({
   age_from: int.min(0).optional(),
   age_to: int.min(0).optional(),
   applies_to: z.string().regex(/^\d{4}$/).optional(),
+  /** residents and visitors pay differently (a national park's resident and foreign fee) */
+  residency: z.enum(E.PRICE_RESIDENCY).optional(),
   note: z.string().optional(),
 });
 
-/** D8: one booking window shape for access and experience offers. */
-export const windowSpec = z.strictObject({
-  rule: z.enum(["fixed_date", "rolling", "monthly_release", "lottery", "same_day", "anytime", "on_arrival"]),
+export const WINDOW_RULE = ["fixed_date", "rolling", "monthly_release", "lottery", "same_day", "anytime", "on_arrival"] as const;
+
+/**
+ * One phase of a booking window (D8; protected-area-entry C3). `opens_from`/`opens_to` are the yearly MM-DD band of a launch day or a
+ * lottery ("apply in March", no year); `month_lead_days` is how long before the month a monthly batch opens; `closes_days_before` and
+ * `closes_time` are when sales stop; `share_pct` is the share of seats the phase releases.
+ */
+const windowPhase = z.strictObject({
+  rule: z.enum(WINDOW_RULE),
   days_before: int.min(0).optional(),
   opens_time: hhmm.optional(),
   tz: z.string().min(1).optional(),
+  opens_from: mmdd.optional(),
+  opens_to: mmdd.optional(),
+  month_lead_days: int.min(0).optional(),
+  closes_days_before: int.min(0).optional(),
+  closes_time: hhmm.optional(),
+  share_pct: z.number().min(0).max(100).optional(),
   sellout: z.strictObject({ kind: z.enum(["never", "minutes", "days", "weeks", "months", "unknown"]), lead: int.min(0).optional() }).optional(),
   fallback: z.string().optional(),
 });
+
+/**
+ * D8: one booking window shape for access and experience offers. `then` is a second phase (a launch day, then a rolling release of
+ * the rest; a lottery, then leftover seats). One level only: a `then` has no `then` (E_WINDOW_THEN; a third phase stays in fallback).
+ */
+export const windowSpec = windowPhase.extend({ then: windowPhase.optional() });
+
+// ---- the entry block of a requirement (protected-area-entry 3.2, 5.1 C2; PA-C) ----------------------------------------------------
+
+/** The four country-neutral visit modes a requirement applies to (protected-area-entry 3.3). */
+export const VISIT_MODE = ["day", "overnight_front", "overnight_back", "through"] as const;
+export const ENTRY_REQUIRED = ["always", "in_season", "some_days", "advised"] as const;
+export const ENTRY_UNIT = ["person", "vehicle", "group", "site", "boat"] as const;
+export const ENTRY_CHANNEL = ["online", "phone", "gate", "visitor_centre", "on_board", "machine"] as const;
+export const ENTRY_EXEMPT = ["resident", "pass_holder", "camper", "through_traffic", "disability", "indigenous", "school_group", "other"] as const;
+
+/**
+ * What a fee, pass, permit, timed entry or seat requires of a visitor, beyond its price, season and window (which stay in their own
+ * homes). Every key is country-neutral. `for_types` narrows an activity permit to members of those type prefixes (entity-graph 7.3).
+ */
+export const entrySpec = z.strictObject({
+  required: z.enum(ENTRY_REQUIRED),
+  needed_for: z.array(z.enum(VISIT_MODE)).min(1),
+  unit: z.enum(ENTRY_UNIT),
+  valid: z.strictObject({
+    span: int.min(1),
+    unit: z.enum(["hour", "day", "night", "month", "year", "entry", "slot"]),
+    from: z.enum(["purchase", "first_use", "slot_start", "calendar"]),
+  }).optional(),
+  channel: z.array(z.enum(ENTRY_CHANNEL)).min(1),
+  proof: z.enum(["carry", "display", "plate_registered", "id_check"]).optional(),
+  exemptions: z.array(z.strictObject({ who: z.enum(ENTRY_EXEMPT), note: z.string().min(1).max(200).optional() })).optional(),
+  change: z.strictObject({ allowed: z.enum(["free", "fee", "no"]), until_hours: int.min(0).optional(), note: z.string().min(1).max(200).optional() }).optional(),
+  cancel: z.strictObject({ refund: z.enum(["full", "partial", "none"]), until_hours: int.min(0).optional(), note: z.string().min(1).max(200).optional() }).optional(),
+  quota: z.strictObject({ per: z.enum(["day", "night", "slot"]), note: z.string().min(1).max(200).optional() }).optional(),
+  for_types: z.array(z.string().regex(TYPE_ID_RE)).min(1).optional(),
+});
+
+/** The capture home of `summary` on offers (an offer has no relevance record, contract 3.3; Q-D8R-1 (a)). */
+export const OFFER_SUMMARY_MAX = 200;
 
 // ---- RIS-H homes (docs/v2/features/catalogue-intake-and-storage.md 5.3; DATA-PLAN row 24) ----------------------------------------
 
@@ -143,6 +197,14 @@ export const photo = z.strictObject({
 export const passesRel = z.strictObject({ ref, at_km: z.number().min(0).optional() });
 export const onRel = z.strictObject({ ref, from_km: z.number().min(0).optional(), to_km: z.number().min(0).optional() });
 
+/** How an event recurs: the pattern in words, the months it can fall in, and whether a calendar or nature sets it. */
+export const RECURRENCE_BASIS = ["fixed_date", "calendar_rule", "natural"] as const;
+export const recurrence = z.strictObject({
+  pattern: z.string().min(1).max(200),
+  months: z.array(int.min(1).max(12)).min(1).max(12),
+  basis: z.enum(RECURRENCE_BASIS),
+});
+
 /** Where a record came from when the migration cut it out of another (SP1 to SP3). */
 export const origin = z.strictObject({ from: ref, reason: z.string().min(1) });
 
@@ -153,6 +215,8 @@ export const capRecord = z.strictObject({
   layer: z.enum(E.CAP_LAYER),
   name: z.string().min(1).optional(),
   names: z.record(z.string(), z.string()).optional(),
+  /** what an offer is, in our words; offers only (a place's or route's summary is its relevance `why`; the validator refuses it elsewhere) */
+  summary: z.string().min(1).max(OFFER_SUMMARY_MAX).optional(),
   /** refs that used to name this record; they keep resolving (SP3) */
   aliases: z.array(ref).optional(),
   /** the offer class when it differs from the type's */
@@ -201,8 +265,12 @@ export const capRecord = z.strictObject({
   /** minutes on the activity itself (on the water, on the glacier), [low, high] (RIS-H) */
   activity_min: val(z.tuple([int.min(1), int.min(1)])).optional(),
   check_in_out: val(checkInOut).optional(),
+  /** an event's timing in words and months (events only): "first weekend of July", "late September for the larches" (PM-C, 9.2) */
+  recurrence: val(recurrence).optional(),
   price: val(z.array(priceRow)).optional(),
   window: val(windowSpec).optional(),
+  /** a requirement's entry facts (access.pass offers only; E_ENTRY_SCHEMA elsewhere) */
+  entry: val(entrySpec).optional(),
   book_url: val(z.string().regex(BOOK_URL_RE)).optional(),
   fills_by: val(fillsBy).optional(),
   /** a value lists at least one row; "no closures published" is state none_stated or searched_none, never an empty list (M1) */

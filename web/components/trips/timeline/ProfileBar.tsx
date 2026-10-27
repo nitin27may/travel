@@ -1,153 +1,250 @@
 'use client';
 
-import { useState } from 'react';
-import type { DayTimeline, Profile } from '@travel/core/schedule/types.ts';
+import dynamic from 'next/dynamic';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { KeyboardEvent } from 'react';
+import { serialiseTimelineUrl } from '@travel/core/schedule/profileCodec.ts';
+import type { Profile } from '@travel/core/schedule/types.ts';
+import type { Party } from '@travel/core/trips/party.ts';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
-import { Segmented } from '@/components/ui/Segmented';
-import { Switch } from '@/components/ui/Switch';
-import { usePrefs } from '@/lib/format/prefs';
-import { formatDistance } from '@/lib/format/units';
+import { registerParty } from '@/lib/export/timelineState';
+import { PARTY_KEY, TRIPUI_KEY } from '@/lib/storage/deviceKeys';
+import { readLocal } from '@/lib/storage/safe';
+import '@/styles/party-bar.css';
+import { useTripUrl } from '../useTripUrl';
+import { railOpen, setRailParty } from './railWords';
+import { serverBarWords } from './serverWords';
 import type { TimelineModel } from './model';
 import type { TimelineApi } from './useTimeline';
 
-const PACE_NOTE = {
-  relaxed: 'Relaxed: a later start, shorter outings, a break in the afternoon.',
-  standard: 'Standard: one main outing a day, back at base before dinner.',
-  full: 'Full: the longest option every day, an early start, dinner late.',
-} as const;
+// The bar imports no runtime code from core `party.ts` (Turbopack does not tree-shake it, and it is about 1.7 KB gzipped): the words, the
+// landing rule and the device keys live in `partyLogic`, one lazy chunk loaded only when the bar has something to say. The editor is a second
+// lazy chunk, loaded on Edit (spec 5.5). A first-time visitor on the plan's own settings loads neither; the server's words stay on screen.
+type Logic = typeof import('./partyLogic');
+const logicChunk = (): Promise<Logic> => import('./partyLogic');
+const editorChunk = () => import('./PartyEditor').then((m) => m.PartyEditor);
+const prefetch = () => {
+  void editorChunk();
+  void logicChunk();
+};
+const toggleEl = () => document.querySelector<HTMLButtonElement>('#plan-for .pb-edit');
+const PartyEditor = dynamic(editorChunk, {
+  ssr: false,
+  loading: () => (
+    <p role="status" className="pb-loading">
+      Loading the editor
+    </p>
+  ),
+});
 
-/** "Whole family on 13 days, Easy day on 2": what the profile chose, counted. */
-function versionCounts(model: TimelineModel, timelines: DayTimeline[]): string[] {
-  const label = new Map<string, string>();
-  for (const d of model.days) for (const v of d.variants) if (!label.has(v.key)) label.set(v.key, v.label);
-  const n = new Map<string, number>();
-  for (const t of timelines) n.set(t.variant.key, (n.get(t.variant.key) ?? 0) + 1);
-  return [...n].filter(() => model.hasVariants && n.size > 1).map(([k, c]) => `${label.get(k) ?? k} on ${c} ${c === 1 ? 'day' : 'days'}`);
-}
+const DEVICE_KEYS = [PARTY_KEY, TRIPUI_KEY] as const;
 
-/** The line under the controls. At the plan's own settings it says so; after a change it names the choice. */
-export function summaryLine(model: TimelineModel, api: TimelineApi): string {
+type Mode = 'written' | 'device' | 'shared';
+
+/** The party a profile implies, with no richer knowledge: the adults and one child of the youngest age (10 when unset: DEFAULT_CHILD_AGE, FAMAGE10; a unit test pins the two together). */
+const impliedParty = (p: Pick<Profile, 'party' | 'youngest' | 'adults'>): Party => ({ adults: p.adults, children: p.party === 'family' ? [p.youngest ?? 10] : [] });
+
+/**
+ * "Plan it for": one 56 px line with the party in words and a pencil Edit (spec 5.2, wireframe W3). The editor opens inline under it and
+ * grows from the bar. The party is household data: it is kept on this device only (`travel.party`, through safe.ts), the link carries
+ * the youngest age and the adult count, and nothing here reaches the export, analytics or a request.
+ */
+export function ProfileBar({ model, api, edit, setEdit }: { model: TimelineModel; api: TimelineApi; edit: boolean; setEdit: (v: boolean) => void; label?: string }) {
+  const url = useTripUrl();
   const p = api.state.profile;
-  const counts = versionCounts(model, api.timelines);
-  const own = !api.changed;
-  const who = p.party === 'adults' ? 'adults' : `a family with a youngest of ${p.youngest}`;
-  const head = own ? 'Showing the plan as written.' : `Showing the plan for ${who}, ${p.pace} pace.`;
-  const days = api.changedDays.size ? ` ${api.changedDays.size} ${api.changedDays.size === 1 ? 'day' : 'days'} changed.` : '';
-  return `${head} ${counts.length ? `${counts.join(' · ')}.` : ''}${days} Written for ${model.writtenFor}.`.replace(/\s{2,}/g, ' ');
-}
+  const slug = model.slug;
+  const defaults = useMemo(() => ({ ...model.defaultProfile, adults: 2 }), [model.defaultProfile]);
+  /** The party this visitor is working with (kept on the device, or set in the editor); null while the plan's own or a link's party stands. */
+  const [work, setWork] = useState<Party | null>(null);
+  const [mode, setMode] = useState<Mode>('written');
+  const [offer, setOffer] = useState<Party | null>(null);
+  const [kept, setKept] = useState(true);
+  const [need, setNeed] = useState(false);
+  const [logic, setLogic] = useState<Logic | null>(null);
+  const [opened, setOpened] = useState(false);
+  const [arrived, setArrived] = useState(false);
+  const seen = useRef(false);
+  const restored = useRef(false);
+  /** An editing session: the first change pushes a history entry, the rest replace it (Back leaves the trip, not each keystroke). */
+  const session = useRef(false);
+  const fromRail = useRef(false);
 
-/** "Plan it for": who is going, the youngest's age, the pace; More: adults, longest walk, split (spec 3.1, design 3.2). */
-export function ProfileBar({ model, api, edit, setEdit, label }: { model: TimelineModel; api: TimelineApi; edit: boolean; setEdit: (v: boolean) => void; label: string }) {
-  const p = api.state.profile;
-  const [prefs] = usePrefs();
-  const [more, setMore] = useState(false);
-  const age = p.youngest ?? model.defaultProfile.youngest ?? 10;
-  const set = (patch: Partial<Profile>) => api.setProfile(patch);
-  const line = summaryLine(model, api);
+  // Landing (Q295), after hydration: a link with party keys is a shared plan; storage that holds something asks for the logic chunk.
+  /* eslint-disable react-hooks/set-state-in-effect -- one-time read of browser-only state (the address bar, localStorage) after hydration */
+  useEffect(() => {
+    const shared = /[?&](p|a)=/.test(window.location.search);
+    if (shared) setMode('shared');
+    if (shared || DEVICE_KEYS.some((k) => readLocal(k) !== null)) setNeed(true);
+  }, []);
+  // the logic loads when something needs words other than the server's: a changed plan, a shared link, a kept party, the editor
+  const want = need || edit || api.changed;
+  useEffect(() => {
+    if (!want || logic) return;
+    let live = true;
+    void logicChunk().then((m) => live && setLogic(m));
+    return () => {
+      live = false;
+    };
+  }, [want, logic]);
+  useEffect(() => {
+    if (!logic || arrived) return;
+    setArrived(true);
+    const a = logic.arrive(slug, defaults);
+    setMode(a.land.mode);
+    setOffer(a.land.offer);
+    if (a.useDevice) setWork(a.device);
+    // a replace, not a push: Back from the applied party must leave the page, not land on the link that applies it again
+    if (a.timeline !== null) url.go({ hash: url.hash || undefined, timeline: a.timeline }, 'replace');
+    if (a.open) {
+      restored.current = true;
+      setEdit(true);
+    }
+    // once, when the logic first arrives
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [logic]);
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  // the editor chunk loads on the first open; it stays mounted so the close can animate
+  if (edit && !opened) setOpened(true);
+  useEffect(() => {
+    if (seen.current) void logicChunk().then((m) => m.rememberOpen(edit));
+    seen.current = true;
+    session.current = false; // an open or a close ends the session
+    if (edit) {
+      fromRail.current = railOpen.from;
+      railOpen.from = false;
+    }
+  }, [edit]);
+  // opened from the sticky rail: focus lands on Done, where Escape and Done will return it
+  useEffect(() => {
+    if (restored.current) {
+      restored.current = false; // reopened from the last visit: nothing was asked for, so focus stays where it is
+      return;
+    }
+    // Safari does not focus a button on click, so "not inside the bar" is the test, not "something else has focus"
+    if (edit && !document.activeElement?.closest('#plan-for')) toggleEl()?.focus({ preventScroll: true });
+  }, [edit]);
+
+  const party = logic ? logic.effectiveParty(work, p) : impliedParty(p);
+  const shared = mode === 'shared' && !work;
+  // the sticky day rail says the same party, in its own words (it owns them)
+  const railKey = JSON.stringify(party);
+  useEffect(() => {
+    setRailParty({ ...(JSON.parse(railKey) as Party), pace: p.pace, shared });
+    return () => setRailParty(null);
+  }, [railKey, p.pace, shared]);
+
+  /** A profile change from the editor, the offer or the copy sheet: push on the first of an editing session, replace after (review UXB-2 S2). */
+  const writeProfile = (patch: Partial<Profile>) => {
+    const profile = { ...p, ...patch };
+    if (profile.party === 'adults') profile.youngest = null;
+    else profile.youngest ??= defaults.youngest ?? 10;
+    url.go({ hash: url.hash || undefined, timeline: serialiseTimelineUrl({ ...api.state, profile }, defaults) }, session.current ? 'replace' : 'push');
+    session.current = true;
+  };
+
+  /** The editor chose a party (it has kept it on the device and written the profile): the bar follows. */
+  const chosen = useCallback((next: Party, keptNow: boolean) => {
+    setWork(next);
+    setMode('written');
+    setOffer(null);
+    setKept(keptNow);
+  }, []);
+  const takeOffer = (o: Party) =>
+    void logicChunk().then((m) => {
+      const r = m.keep(o, slug);
+      if (!r.party) return;
+      chosen(r.party, r.kept);
+      writeProfile(m.whoOf(r.party, p));
+    });
+  // a party chosen in the copy sheet is the page's party too: kept on the device, then planned for (the sheet's tap is its own session)
+  const fromSheet = useRef<(next: Party) => void>(() => undefined);
+  useEffect(() => {
+    fromSheet.current = (next) =>
+      void logicChunk().then((m) => {
+        const r = m.keep(next, slug);
+        if (!r.party) return;
+        chosen(r.party, r.kept);
+        session.current = false;
+        writeProfile(m.whoOf(r.party, p));
+      });
+  });
+  useEffect(() => {
+    registerParty((next) => fromSheet.current(next));
+    return () => registerParty(null);
+  }, []);
+  // Reset is "Plan as written": the plan's own party and settings, and the kept party is not applied again to this trip
+  const reset = useCallback(() => {
+    void logicChunk().then((m) => m.asWritten(slug));
+    setWork(null);
+    setMode('written');
+    setOffer(null);
+    session.current = false;
+    api.reset();
+  }, [api, slug]);
+  const close = useCallback(() => {
+    setEdit(false);
+    // back where the visitor opened it: the sticky rail's Edit when it was opened from there (review S5), else the bar's own button
+    const rail = fromRail.current ? document.querySelector<HTMLButtonElement>('.tl-planbar .tl-railedit') : null;
+    fromRail.current = false;
+    if (rail) {
+      rail.focus({ preventScroll: true });
+      rail.scrollIntoView({ block: 'nearest' });
+    } else toggleEl()?.focus();
+  }, [setEdit]);
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && edit && !e.defaultPrevented) {
+      e.stopPropagation();
+      close();
+    }
+  };
+
+  // Until the logic is here the server's words stand: the spans are given an empty string and React leaves the text it hydrated (suppressHydrationWarning);
+  // they are hidden meanwhile when the plan is not the server's, so a shared link never flashes the default party.
+  const server = (short: boolean): string => (typeof window === 'undefined' ? serverBarWords(p, p.pace, short) : '');
+  const pending = !logic && (api.changed || mode === 'shared');
   return (
-    <section className="tl-profile" aria-labelledby="plan-for-h" id="plan-for" data-print="hide">
-      <div className="tl-profile-head">
-        <h2 id="plan-for-h" className="tl-profile-h">Plan it for</h2>
-        <p className="tl-profile-sub">One choice for the whole trip. Any day can still be changed on its own.</p>
-        <p className="tl-profile-now num">Planned for <b>{label}</b></p>
-        <Button size="sm" className="tl-profile-edit" aria-expanded={edit} aria-controls="plan-for-controls" onClick={() => setEdit(!edit)}>
-          <Icon name="pencil" size={14} /> {edit ? 'Done' : 'Change'}
-        </Button>
-      </div>
-      <p className="tl-profile-line" data-testid="profile-line" aria-live="polite">
-        {line}
-        {api.changed ? (
-          <>
-            {' '}
-            <button type="button" className="tl-reset" onClick={api.reset}>Reset</button>
-          </>
-        ) : null}
-      </p>
-      <div id="plan-for-controls" className="tl-profile-controls" data-open={edit || undefined}>
-        <div className="tl-field">
-          <span className="tl-label" id="who-l">Who is going</span>
-          <Segmented
-            label="Who is going"
-            value={p.party}
-            onChange={(v) => set({ party: v, youngest: v === 'family' ? age : null })}
-            segments={[
-              { value: 'adults', label: 'Adults only' },
-              { value: 'family', label: 'Family' },
-            ]}
-          />
-          <p className="tl-hint">{p.party === 'adults' ? "Adults' days: the longer hikes, early starts." : 'Family days: shorter walks, a rest after lunch.'}</p>
-        </div>
-        <div className="tl-field" data-disabled={p.party === 'adults' || undefined}>
-          <span className="tl-label" id="age-l">Youngest</span>
-          <div className="tl-stepper" role="group" aria-labelledby="age-l">
-            <button type="button" className="tl-step" aria-label="Younger" disabled={p.party === 'adults' || age <= 0} onClick={() => set({ party: 'family', youngest: Math.max(0, age - 1) })}>
-              <Icon name="minus" size={15} />
-            </button>
-            <span className="tl-step-v num" aria-live="polite">{p.party === 'adults' ? 'no children' : `age ${age}`}</span>
-            <button type="button" className="tl-step" aria-label="Older" disabled={p.party === 'adults' || age >= 17} onClick={() => set({ party: 'family', youngest: Math.min(17, age + 1) })}>
-              <Icon name="plus" size={15} />
-            </button>
-          </div>
-        </div>
-        <div className="tl-field">
-          <span className="tl-label">Pace</span>
-          <Segmented
-            label="Pace"
-            value={p.pace}
-            onChange={(v) => set({ pace: v })}
-            segments={[
-              { value: 'relaxed', label: 'Relaxed' },
-              { value: 'standard', label: 'Standard' },
-              { value: 'full', label: 'Full' },
-            ]}
-          />
-          <p className="tl-hint">{PACE_NOTE[p.pace]}</p>
-        </div>
-        <div className="tl-more-wrap">
-          <button type="button" className="tl-more" aria-expanded={more} aria-controls="plan-for-more" onClick={() => setMore((v) => !v)}>
-            <Icon name="chevronDown" size={14} /> <span>More</span>
+    <section className="pb" aria-labelledby="plan-for-h" id="plan-for" data-print="hide" data-open={edit || undefined} onKeyDown={onKeyDown}>
+      <div className="pb-row">
+        <h2 id="plan-for-h" className="pb-label">
+          Plan it for{work ? <span className="pb-yours"> · Your party</span> : null}
+        </h2>
+        <p className="pb-val num" data-testid="party-line" data-pending={pending || undefined} aria-live="polite" aria-atomic="true">
+          <span className="pb-long" suppressHydrationWarning>{logic ? logic.barWords(shared, party, p, p.pace, false) : server(false)}</span>
+          <span className="pb-short" suppressHydrationWarning>{logic ? logic.barWords(shared, party, p, p.pace, true) : server(true)}</span>
+        </p>
+        {shared ? null : (
+          <p className="pb-note">
+            {work ? 'Your party' : `Plan as written: ${model.writtenFor}`}
+          </p>
+        )}
+        {offer ? (
+          <button type="button" className="pb-offer" onClick={() => takeOffer(offer)}>
+            Use my party<span className="pb-offer-w">: {logic?.shortWords(offer)}</span>
           </button>
-        </div>
-        {more ? (
-          <div id="plan-for-more" className="tl-profile-more">
-            <div className="tl-field">
-              <span className="tl-label">Adults</span>
-              <Segmented
-                label="Adults"
-                size="s"
-                value={p.adults >= 2 ? '2' : '1'}
-                onChange={(v) => set({ adults: v === '1' ? 1 : 2 })}
-                segments={[
-                  { value: '1', label: '1' },
-                  { value: '2', label: '2 or more' },
-                ]}
-              />
-            </div>
-            <div className="tl-field">
-              <span className="tl-label">Longest walk</span>
-              <Segmented
-                label="Longest walk"
-                size="s"
-                value={p.walkKm === null ? 'any' : String(p.walkKm)}
-                onChange={(v) => set({ walkKm: v === 'any' ? null : Number(v) })}
-                segments={[
-                  { value: 'any', label: 'Any' },
-                  { value: '5', label: formatDistance(5, prefs.distance).replace('.0 ', ' ') },
-                  { value: '8', label: formatDistance(8, prefs.distance).replace('.0 ', ' ') },
-                  { value: '12', label: formatDistance(12, prefs.distance).replace('.0 ', ' ') },
-                ]}
-              />
-            </div>
-            {model.hasSplit ? (
-              <div className="tl-field">
-                <Switch checked={p.split} onCheckedChange={(v) => set({ split: v })} note={p.adults < 2 ? 'Needs two adults' : undefined} disabled={p.adults < 2}>
-                  Show the split days as two lanes
-                </Switch>
-              </div>
-            ) : null}
-          </div>
         ) : null}
+        <div className="pb-actions">
+          {api.changed ? (
+            <button type="button" className="tl-reset pb-reset" title="Reset to the plan as written" onClick={reset}>
+              Reset
+            </button>
+          ) : null}
+          <Button
+            size="sm"
+            className="pb-edit"
+            aria-expanded={edit}
+            aria-controls="plan-for-controls"
+            onClick={() => (edit ? close() : setEdit(true))}
+            onPointerEnter={prefetch}
+            onFocus={prefetch}
+          >
+            <Icon name="pencil" size={14} /> {edit ? 'Done' : 'Edit'}
+          </Button>
+        </div>
+      </div>
+      <div id="plan-for-controls" className="pb-body" data-open={edit || undefined} inert={!edit}>
+        <div className="pb-body-in">{opened ? <PartyEditor model={model} api={api} party={party} onChosen={chosen} onProfile={writeProfile} kept={kept} /> : null}</div>
       </div>
       {api.droppedAdds > 0 ? (
         <p className="tl-profile-note" role="status">

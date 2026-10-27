@@ -1,0 +1,61 @@
+{
+  "countries": [
+    {
+      "code": "ZZ"
+    }
+  ],
+  "regions": [
+    {
+      "id": "ZZ/Q1"
+    },
+    {
+      "id": "ZZ/Q2"
+    },
+    {
+      "id": "ZZ/Q3"
+    },
+    {
+      "id": "ZZ/Q4"
+    },
+    {
+      "id": "ZZ/Q5"
+    },
+    {
+      "id": "ZZ/Q6"
+    },
+    {
+      "id": "ZZ/Q7"
+    }
+  ],
+  "areas": [
+    {
+      "id": "ZZ/Q1/highcrest",
+      "region_id": "ZZ/Q1"
+    },
+    {
+      "id": "ZZ/Q2/pinewater",
+      "region_id": "ZZ/Q2"
+    },
+    {
+      "id": "ZZ/Q3/twinfall",
+      "region_id": "ZZ/Q3"
+    },
+    {
+      "id": "ZZ/Q4/twinfall",
+      "region_id": "ZZ/Q4"
+    },
+    {
+      "id": "ZZ/Q5/open-meadow",
+      "region_id": "ZZ/Q5"
+    },
+    {
+      "id": "ZZ/Q6/ember-ridge",
+      "region_id": "ZZ/Q6"
+    },
+    {
+      "id": "ZZ/Q7/mistvale",
+      "region_id": "ZZ/Q7"
+    }
+  ],
+  "places": []
+}

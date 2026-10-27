@@ -1,0 +1,11 @@
+{
+  "schema": "capture-operators/1",
+  "updated": "2026-10-26",
+  "operators": [
+    {
+      "ref": "operator/epsilon-parks-board",
+      "name": "Epsilon Parks Board",
+      "url": "https://example.org/epsilon-parks-board"
+    }
+  ]
+}

@@ -225,8 +225,10 @@ export const CAP_LINK_KIND = [
 ] as const;
 /** The platforms that are link-only (9.2): never fetched, never a source of a stored value. */
 export const CAP_LINK_ONLY_KIND = ["alltrails", "komoot", "gaia", "outdooractive", "wikiloc", "trailforks", "reseller"] as const;
-/** One price `per` vocabulary (D9). */
-export const PRICE_PER_V2 = ["person", "adult", "child", "family", "group", "vehicle", "vehicle_day", "hour", "night", "room", "boat", "weight"] as const;
+/** One price `per` vocabulary (D9). `person_night` is a backcountry permit's fee per person per night (protected-area-entry C5). */
+export const PRICE_PER_V2 = ["person", "adult", "child", "family", "group", "vehicle", "vehicle_day", "hour", "night", "room", "boat", "weight", "person_night"] as const;
+/** Who a price row is for when residents and visitors pay differently (protected-area-entry C5). */
+export const PRICE_RESIDENCY = ["resident", "national", "foreign"] as const;
 /** How a source value was taken (9.4). Scraping is a method, never a basis. */
 export const SOURCE_METHOD = ["read", "crawl", "api", "computed", "owner"] as const;
 /** Whether a host's terms allow an automated crawler (9.2); `unknown` counts as forbidden for crawling and allowed for a single-page read. */

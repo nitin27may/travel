@@ -1,0 +1,479 @@
+{
+  "schema": "capture/1",
+  "trip": "park-fixture",
+  "lane": "f3-straddle",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://example.org/source-src-0001",
+      "title": "Fixture page src-0001",
+      "publisher": "Fixture publisher",
+      "kind": "official",
+      "read": "2026-10-26",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/twinfall-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "name": "Twinfall National Park",
+      "area_id": "ZZ/Q3/twinfall",
+      "covers_areas": [
+        "ZZ/Q3/twinfall",
+        "ZZ/Q4/twinfall"
+      ],
+      "run_by": "operator/delta-parks-east",
+      "hours": {
+        "v": {
+          "tz": "Etc/UTC",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "06:00",
+              "close": "22:00"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "place/twinfall-east-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Twinfall East Lake",
+      "area_id": "ZZ/Q3/twinfall"
+    },
+    {
+      "ref": "place/twinfall-west-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Twinfall West Lake",
+      "area_id": "ZZ/Q4/twinfall"
+    },
+    {
+      "ref": "place/twinfall-border-overlook",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Twinfall Border Overlook",
+      "part_of": [
+        "place/twinfall-national-park"
+      ]
+    },
+    {
+      "ref": "offer/place/twinfall-national-park#east-entrance-fee",
+      "type": "access.pass.entry_fee",
+      "layer": "offer",
+      "name": "east entrance fee",
+      "summary": "The east entrance fee requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/east-entrance-fee",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/twinfall-national-park"
+      ],
+      "run_by": "operator/delta-parks-east",
+      "price": {
+        "v": [
+          {
+            "amount": 25,
+            "currency": "ZZD",
+            "per": "vehicle"
+          },
+          {
+            "amount": 8,
+            "currency": "ZZD",
+            "per": "person",
+            "note": "on foot or by bike"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "vehicle",
+          "channel": [
+            "online",
+            "gate"
+          ],
+          "valid": {
+            "span": 7,
+            "unit": "day",
+            "from": "first_use"
+          },
+          "proof": "display"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "offer/place/twinfall-national-park#west-entrance-fee",
+      "type": "access.pass.entry_fee",
+      "layer": "offer",
+      "name": "west entrance fee",
+      "summary": "The west entrance fee requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/west-entrance-fee",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/twinfall-national-park"
+      ],
+      "run_by": "operator/delta-parks-west",
+      "price": {
+        "v": [
+          {
+            "amount": 20,
+            "currency": "ZZE",
+            "per": "vehicle"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "vehicle",
+          "channel": [
+            "online",
+            "gate"
+          ],
+          "valid": {
+            "span": 7,
+            "unit": "day",
+            "from": "first_use"
+          }
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "offer/place/twinfall-national-park#timed-entry",
+      "type": "access.pass.timed_entry",
+      "layer": "offer",
+      "name": "timed entry",
+      "summary": "The timed entry requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "06-01",
+            "to": "09-15",
+            "status": "open",
+            "applies_to": "2026"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "rolling",
+          "days_before": 30,
+          "opens_time": "08:00",
+          "tz": "Etc/UTC",
+          "sellout": {
+            "kind": "minutes"
+          }
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/timed-entry",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/twinfall-national-park"
+      ],
+      "run_by": "operator/delta-parks-east",
+      "hours": {
+        "v": {
+          "tz": "Etc/UTC",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "06:00",
+              "close": "16:00",
+              "from": "06-01",
+              "to": "09-15"
+            }
+          ],
+          "last_entry": "15:00"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 2,
+            "currency": "ZZD",
+            "per": "vehicle",
+            "note": "booking fee"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "in_season",
+          "needed_for": [
+            "day"
+          ],
+          "unit": "vehicle",
+          "channel": [
+            "online"
+          ],
+          "cancel": {
+            "refund": "full",
+            "until_hours": 24
+          }
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "offer/place/twinfall-national-park#canyon-permit",
+      "type": "access.pass.activity_permit",
+      "layer": "offer",
+      "name": "canyon permit",
+      "summary": "The canyon permit requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "lottery",
+          "opens_from": "04-01",
+          "opens_to": "04-10",
+          "opens_time": "10:00",
+          "tz": "Etc/UTC",
+          "then": {
+            "rule": "same_day"
+          }
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/canyon-permit",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/twinfall-national-park"
+      ],
+      "run_by": "operator/delta-parks-east",
+      "price": {
+        "v": [
+          {
+            "amount": 6,
+            "currency": "ZZD",
+            "per": "person"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "in_season",
+          "needed_for": [
+            "day"
+          ],
+          "unit": "person",
+          "channel": [
+            "online"
+          ],
+          "quota": {
+            "per": "day"
+          },
+          "for_types": [
+            "nature.trail.scramble"
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    }
+  ]
+}

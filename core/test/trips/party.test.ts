@@ -19,6 +19,10 @@ describe("the party in words (spec 5.2, W3)", () => {
     expect(childrenText([null])).toBe("1 child (age not set)");
     expect(childrenText([7, null])).toBe("2 children (7, age not set)");
     expect(childrenText([])).toBe("");
+    // a baby reads "under 1", never "0" (review UXB-2 M1)
+    expect(childrenText([0])).toBe("1 child (under 1)");
+    expect(childrenText([4, 7, 0])).toBe("3 children (4, 7, under 1)");
+    expect(childrenText([null, 0])).toBe("2 children (age not set, under 1)");
   });
   it("has the bar's line with the pace, long and short", () => {
     expect(partyLine({ adults: 2, children: [10] }, "standard")).toBe("2 adults · 1 child (10) · Standard pace");

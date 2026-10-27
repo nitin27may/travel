@@ -8,7 +8,7 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 Records: offer. Suitability profile `zipline` (always, extension zip). Effort: none, time is shown. Sources, in order: O.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, cancellation, included.
 
 Suitability: R min_age, min_height_cm, max_height_cm, min_weight_kg, max_weight_kg, limit_reason, adult_required, age_band, kid_note, on_site_min, access_season, participation.wear, participation.pregnancy, participation.waiver, participation.weather_cancel, ext.zip.braking; R when operated none; A wheelchair, limited_capacity_note, toilets, participation.fitness, participation.medical, participation.weigh_in, ext.zip.lines, ext.zip.tandem_under_kg, ext.zip.kids_course, ext.zip.between_lines.
 
@@ -18,7 +18,7 @@ Links: official; R? none; A booking, terms, waiver, safety, conditions.
 
 Records: offer. Suitability profile `bungee` (always, extension jump). Effort: none, time is shown. Sources, in order: O.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, cancellation, included.
 
 Suitability: R min_age, min_weight_kg, max_weight_kg, limit_reason, age_band, kid_note, on_site_min, access_season, participation.medical, participation.pregnancy, participation.waiver, participation.weigh_in; R when operated none; A max_age, min_height_cm, participation.wear, participation.weather_cancel, ext.jump.height_m, ext.jump.tandem, ext.jump.harness.
 
@@ -28,7 +28,7 @@ Links: official; R? none; A booking, terms, waiver, safety, conditions.
 
 Records: offer. Suitability profile `paraglide` (always, extension flight). Effort: none, time is shown. Sources, in order: O.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, cancellation, included.
 
 Suitability: R min_age, min_weight_kg, max_weight_kg, limit_reason, age_band, kid_note, on_site_min, access_season, participation.wear, participation.fitness, participation.pregnancy, participation.waiver, participation.weigh_in, participation.weather_cancel, ext.flight.flight_min, ext.flight.weight_by_slot, ext.flight.takeoff_run_m; R when operated none; A max_age, adult_required, wheelchair, altitude_m, participation.medical.
 
@@ -38,7 +38,7 @@ Links: official; R? none; A booking, terms, waiver, safety, conditions.
 
 Records: offer. Suitability profile `paraglide` (always, extension flight). Effort: none, time is shown. Sources, in order: O.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, cancellation, included.
 
 Suitability: R min_age, min_weight_kg, max_weight_kg, limit_reason, age_band, kid_note, on_site_min, access_season, participation.wear, participation.fitness, participation.pregnancy, participation.waiver, participation.weigh_in, participation.weather_cancel, ext.flight.flight_min, ext.flight.weight_by_slot, ext.flight.takeoff_run_m; R when operated none; A max_age, adult_required, wheelchair, altitude_m, participation.medical.
 
@@ -48,7 +48,7 @@ Links: official; R? none; A booking, terms, waiver, safety, conditions.
 
 Records: offer. Suitability profile `air_tour` (always, extension flight). Effort: none, time is shown. Sources, in order: O.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, cancellation, included.
 
 Suitability: R min_age, age_band, kid_note, on_site_min, access_season, participation.weather_cancel, ext.flight.flight_min; R when operated none; A min_weight_kg, max_weight_kg, limit_reason, adult_required, stroller_on_board, wheelchair, limited_capacity_note, toilets, altitude_m, participation.medical, participation.pregnancy, participation.waiver, participation.weigh_in, ext.flight.weight_by_slot, ext.flight.seat_weight_rule.
 
@@ -58,7 +58,7 @@ Links: official; R? none; A booking, terms, waiver, safety, conditions.
 
 Records: offer. Suitability profile `air_tour` (always, extension flight). Effort: none, time is shown. Sources, in order: O.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, cancellation, included.
 
 Suitability: R min_age, age_band, kid_note, on_site_min, access_season, participation.weather_cancel, ext.flight.flight_min; R when operated none; A min_weight_kg, max_weight_kg, limit_reason, adult_required, stroller_on_board, wheelchair, limited_capacity_note, toilets, altitude_m, participation.medical, participation.pregnancy, participation.waiver, participation.weigh_in, ext.flight.weight_by_slot, ext.flight.seat_weight_rule.
 
@@ -68,7 +68,7 @@ Links: official; R? none; A booking, terms, waiver, safety, conditions.
 
 Records: offer. Suitability profile `air_tour` (always, extension flight). Effort: none, time is shown. Sources, in order: O.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_time, transit, pairs_with, closures, photos, on, cancellation, included.
 
 Suitability: R min_age, age_band, kid_note, on_site_min, access_season, participation.weather_cancel, ext.flight.flight_min; R when operated none; A min_weight_kg, max_weight_kg, limit_reason, adult_required, stroller_on_board, wheelchair, limited_capacity_note, toilets, altitude_m, participation.medical, participation.pregnancy, participation.waiver, participation.weigh_in, ext.flight.weight_by_slot, ext.flight.seat_weight_rule.
 

@@ -1,0 +1,95 @@
+{
+  "schema": "capture/1",
+  "trip": "graph-fixture",
+  "lane": "merge-loop",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/merge-a",
+      "type": "access.start.trailhead",
+      "layer": "place",
+      "name": "A"
+    },
+    {
+      "ref": "place/merge-b",
+      "type": "stay.mountain.hut",
+      "layer": "place",
+      "name": "B"
+    },
+    {
+      "ref": "place/merge-c",
+      "type": "stay.mountain.hut",
+      "layer": "place",
+      "name": "C"
+    },
+    {
+      "ref": "place/merge-trek",
+      "type": "nature.trek.hut_trek",
+      "layer": "route",
+      "name": "Merge trek",
+      "starts_at": [
+        "place/merge-a"
+      ],
+      "reaches": [
+        "place/merge-c"
+      ]
+    },
+    {
+      "ref": "part/place/merge-trek#stage-1",
+      "type": "nature.trek.hut_trek",
+      "layer": "route",
+      "name": "A to B",
+      "part_of": [
+        "place/merge-trek"
+      ],
+      "starts_at": [
+        "place/merge-a"
+      ],
+      "ends_at": [
+        "place/merge-b"
+      ],
+      "reaches": [
+        "place/merge-b"
+      ]
+    },
+    {
+      "ref": "part/place/merge-trek#stage-2",
+      "type": "nature.trek.hut_trek",
+      "layer": "route",
+      "name": "B to C",
+      "part_of": [
+        "place/merge-trek"
+      ],
+      "starts_at": [
+        "place/merge-b"
+      ],
+      "ends_at": [
+        "place/merge-c"
+      ],
+      "reaches": [
+        "place/merge-c"
+      ]
+    },
+    {
+      "ref": "part/place/merge-trek#stage-3",
+      "type": "nature.trek.hut_trek",
+      "layer": "route",
+      "name": "C back to B",
+      "part_of": [
+        "place/merge-trek"
+      ],
+      "starts_at": [
+        "place/merge-c"
+      ],
+      "ends_at": [
+        "place/merge-b"
+      ],
+      "reaches": [
+        "place/merge-b"
+      ]
+    }
+  ]
+}

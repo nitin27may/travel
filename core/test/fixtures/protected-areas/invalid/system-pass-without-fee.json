@@ -1,0 +1,97 @@
+{
+  "schema": "capture/1",
+  "trip": "park-fixture",
+  "lane": "system-pass-without-fee",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://example.org/source-src-0001",
+      "title": "Fixture page src-0001",
+      "publisher": "Fixture publisher",
+      "kind": "official",
+      "read": "2026-10-26",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/mistvale-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "name": "Mistvale National Park",
+      "area_id": "ZZ/Q7/mistvale",
+      "covers_areas": [
+        "ZZ/Q7/mistvale"
+      ],
+      "run_by": "operator/alpha-parks-service"
+    },
+    {
+      "ref": "offer/operator/alpha-parks-service#lone-pass",
+      "type": "access.pass.park_pass",
+      "layer": "offer",
+      "name": "lone pass",
+      "summary": "The lone pass requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/lone-pass",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "run_by": "operator/alpha-parks-service",
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "group",
+          "channel": [
+            "online",
+            "gate"
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    }
+  ]
+}

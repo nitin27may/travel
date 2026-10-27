@@ -36,7 +36,7 @@ export function useTripTabs(slug: string, url: TripUrl, available: readonly Trip
   const hasAvailable = available.join();
   useEffect(() => {
     let live = true;
-    void import('@/lib/storage/keys').then((m) => {
+    void import('@/lib/storage/tripUi').then((m) => {
       if (!live) return;
       const r = resolveTripTab({ view: new URLSearchParams(window.location.search).get('view'), hash: window.location.hash, remembered: m.rememberedTab(slug)?.tab ?? null, rememberedDaysView: m.rememberedTab(slug)?.daysView, available: hasAvailable.split(',') as TripTab[] });
       landed.current = true;
@@ -55,7 +55,7 @@ export function useTripTabs(slug: string, url: TripUrl, available: readonly Trip
       return;
     }
     if (!landed.current) return;
-    void import('@/lib/storage/keys').then((m) => m.writeTripEntry(slug, { tab, daysView }));
+    void import('@/lib/storage/tripUi').then((m) => m.writeTripEntry(slug, { tab, daysView }));
   }, [slug, tab, daysView]);
 
   // the pre-paint script's `data-trip-tab` (prepaint.ts) stands in for the tab until React shows the same one, then it must go: a later tab press is the CSS's to follow no more

@@ -1,0 +1,546 @@
+{
+  "schema": "capture/1",
+  "trip": "park-fixture",
+  "lane": "f2-provincial",
+  "researched": "2026-10-26",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://example.org/source-src-0001",
+      "title": "Fixture page src-0001",
+      "publisher": "Fixture publisher",
+      "kind": "official",
+      "read": "2026-10-26",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/pinewater-provincial-park",
+      "type": "nature.protected.state_provincial_park",
+      "layer": "place",
+      "name": "Pinewater Provincial Park",
+      "area_id": "ZZ/Q2/pinewater",
+      "covers_areas": [
+        "ZZ/Q2/pinewater"
+      ],
+      "run_by": "operator/beta-parks-agency",
+      "season": {
+        "v": [
+          {
+            "from": "05-15",
+            "to": "10-15",
+            "status": "open"
+          },
+          {
+            "from": "10-16",
+            "to": "05-14",
+            "status": "limited",
+            "note": "gate closed, walk in"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "hours": {
+        "v": {
+          "tz": "Etc/UTC",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "07:00",
+              "close": "21:00",
+              "from": "05-15",
+              "to": "10-15"
+            }
+          ],
+          "last_entry": "20:00"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "offer/place/pinewater-provincial-park#annual-vehicle-pass",
+      "type": "access.pass.park_pass",
+      "layer": "offer",
+      "name": "annual vehicle pass",
+      "summary": "The annual vehicle pass requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/annual-vehicle-pass",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/pinewater-provincial-park"
+      ],
+      "run_by": "operator/beta-parks-agency",
+      "price": {
+        "v": [
+          {
+            "amount": 95,
+            "currency": "ZZD",
+            "per": "vehicle",
+            "note": "annual, one plate"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "vehicle",
+          "channel": [
+            "online",
+            "gate"
+          ],
+          "valid": {
+            "span": 12,
+            "unit": "month",
+            "from": "purchase"
+          },
+          "proof": "plate_registered"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "offer/place/pinewater-provincial-park#vehicle-permit",
+      "type": "access.pass.vehicle_permit",
+      "layer": "offer",
+      "name": "vehicle permit",
+      "summary": "The vehicle permit requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/vehicle-permit",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/pinewater-provincial-park"
+      ],
+      "run_by": "operator/beta-parks-agency",
+      "covered_by": [
+        "offer/place/pinewater-provincial-park#annual-vehicle-pass"
+      ],
+      "price": {
+        "v": [
+          {
+            "amount": 12,
+            "currency": "ZZD",
+            "per": "vehicle_day"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day",
+            "overnight_front",
+            "overnight_back"
+          ],
+          "unit": "vehicle",
+          "channel": [
+            "online",
+            "gate",
+            "machine"
+          ],
+          "proof": "plate_registered",
+          "exemptions": [
+            {
+              "who": "camper",
+              "note": "a campsite booking includes the permit"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "offer/place/pinewater-provincial-park#day-use-reservation",
+      "type": "access.pass.day_use_permit",
+      "layer": "offer",
+      "name": "day use reservation",
+      "summary": "The day use reservation requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "rolling",
+          "days_before": 2,
+          "opens_time": "07:00",
+          "tz": "Etc/UTC",
+          "closes_days_before": 0,
+          "closes_time": "08:00"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/day-use-reservation",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/pinewater-provincial-park"
+      ],
+      "run_by": "operator/beta-parks-agency",
+      "price": {
+        "v": [
+          {
+            "amount": 0,
+            "currency": "ZZD",
+            "per": "vehicle"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "some_days",
+          "needed_for": [
+            "day"
+          ],
+          "unit": "vehicle",
+          "channel": [
+            "online"
+          ],
+          "quota": {
+            "per": "day"
+          },
+          "change": {
+            "allowed": "fee",
+            "until_hours": 24
+          }
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "offer/place/pinewater-provincial-park#backcountry-permit",
+      "type": "access.pass.backcountry_permit",
+      "layer": "offer",
+      "name": "backcountry permit",
+      "summary": "The backcountry permit requirement, in our words.",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "lottery",
+          "opens_from": "02-01",
+          "opens_to": "02-14",
+          "opens_time": "09:00",
+          "tz": "Etc/UTC",
+          "then": {
+            "rule": "rolling",
+            "days_before": 3,
+            "opens_time": "09:00"
+          }
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/backcountry-permit",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/pinewater-provincial-park"
+      ],
+      "run_by": "operator/beta-parks-agency",
+      "price": {
+        "v": [
+          {
+            "amount": 10,
+            "currency": "ZZD",
+            "per": "person_night",
+            "residency": "resident"
+          },
+          {
+            "amount": 18,
+            "currency": "ZZD",
+            "per": "person_night",
+            "residency": "foreign"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "entry": {
+        "v": {
+          "required": "in_season",
+          "needed_for": [
+            "overnight_back"
+          ],
+          "unit": "person",
+          "channel": [
+            "online",
+            "phone"
+          ],
+          "quota": {
+            "per": "night"
+          },
+          "cancel": {
+            "refund": "none"
+          }
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    },
+    {
+      "ref": "place/pinewater-north-campground",
+      "type": "stay.camp.campground",
+      "layer": "place",
+      "name": "Pinewater North Campground",
+      "part_of": [
+        "place/pinewater-provincial-park"
+      ],
+      "run_by": "operator/beta-parks-agency"
+    },
+    {
+      "ref": "place/pinewater-lakeside-campground",
+      "type": "stay.camp.campground",
+      "layer": "place",
+      "name": "Pinewater Lakeside Campground",
+      "part_of": [
+        "place/pinewater-provincial-park"
+      ],
+      "run_by": "operator/lakeside-concessions"
+    },
+    {
+      "ref": "offer/place/pinewater-north-campground#campsite",
+      "type": "stay.camp.campground",
+      "layer": "offer",
+      "name": "campsite",
+      "summary": "A campsite booking, in our words.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/campsite",
+          "state": "filled",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "at": [
+        "place/pinewater-north-campground"
+      ],
+      "run_by": "operator/beta-parks-agency",
+      "includes": [
+        "offer/place/pinewater-provincial-park#vehicle-permit"
+      ],
+      "price": {
+        "v": [
+          {
+            "amount": 28,
+            "currency": "ZZD",
+            "per": "night"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "window": {
+        "v": {
+          "rule": "monthly_release",
+          "month_lead_days": 90,
+          "opens_time": "07:00",
+          "tz": "Etc/UTC"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      },
+      "check_in_out": {
+        "v": {
+          "check_in": "15:00",
+          "check_out": "11:00"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-26"
+      }
+    }
+  ]
+}
