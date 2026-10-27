@@ -556,7 +556,7 @@ another migration lands first). The file is the source of truth; in short:
 - **CHECK `account_profile_travellers`** (a second net behind Zod): an object with only `schema`, `adults`,
   `adult_ages`, `children`; `schema` is `travellers/1`; `adults` an integer 1 to 12; at most 8 children and at most
   `adults` adults' ages; every entry an object with only `age`, `age_as_of` and an optional `dob`, a child's age an
-  integer 0 to 17 and an adult's 18 to 120, dates shaped `YYYY-MM-DD`; at most 2 KB (`pg_column_size`). It is written
+  integer 0 to 17 and an adult's 18 to 120, dates shaped `YYYY-MM-DD`; at most 3 KB of jsonb text (`octet_length(travellers::text)`, half again Zod's 2 KB of compact JSON; review acct-psec S7). It is written
   as one CASE so a cast never meets the wrong type, and with jsonpath for the entries. Date logic that needs "today"
   (no future `dob`, `dob` agrees with `age`) is Zod's alone.
 - **Trigger `account_profile_touch_t`** (before insert or update) owns the bookkeeping in the table above, so no caller

@@ -49,7 +49,9 @@ create table account_profile (
       when jsonb_typeof(travellers->'adults') is distinct from 'number' then false
       when jsonb_typeof(travellers->'children') is distinct from 'array' then false
       when travellers ? 'adult_ages' and jsonb_typeof(travellers->'adult_ages') <> 'array' then false
-      when pg_column_size(travellers) > 2048 then false
+      -- bytes of the text form, never pg_column_size (that measures compressed storage, so a larger document could pass; review
+      -- acct-psec S7). jsonb text adds a space after each colon and comma, so the backstop allows half again Zod's 2 KB of compact JSON
+      when octet_length(travellers::text) > 3072 then false
       else
         jsonb_path_exists(travellers, '$ ? (@.adults >= 1 && @.adults <= 12 && @.adults == @.adults.floor())')
         and jsonb_array_length(travellers->'children') <= 8
@@ -99,6 +101,8 @@ begin
     new.travellers_saved_at := case when new.travellers is null then null else now() end;
     return new;
   end if;
+  -- the row stays its user's: an update cannot move it to another id (review acct-psec S9; WITH CHECK is the second net)
+  new.user_id := old.user_id;
   new.created_at := old.created_at;
   new.updated_at := now();
   new.setup_done_at := coalesce(old.setup_done_at, new.setup_done_at);

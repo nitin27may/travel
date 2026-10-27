@@ -12,7 +12,7 @@ export const TRAVELLERS = {
   dateSkewDays: 1,
   /** An age entered this many months ago, with no date of birth, asks "Are these ages still right?" (spec 2.4). */
   recheckMonths: 12,
-  /** The whole document, as UTF-8 JSON (and as `pg_column_size` in 0012). */
+  /** The whole document, as UTF-8 JSON (0012 checks the text form at half again, `octet_length(travellers::text) <= 3072`). */
   maxBytes: 2048,
 } as const;
 

@@ -2,7 +2,7 @@
 // a document that does not validate never reaches the database, and the answers map as spec 6.6 says. The real RLS and trigger
 // behaviour is core/test/db/account-profile.test.ts.
 import { describe, expect, it } from "vitest";
-import { TRAVELLERS_CONSENT_VERSION, TRAVELLERS_CONSENT_VERSIONS } from "../../src/config/account.ts";
+import { TRAVELLERS, TRAVELLERS_CONSENT_VERSION, TRAVELLERS_CONSENT_VERSIONS } from "../../src/config/account.ts";
 import { loadMigrations } from "../../src/db/loader.ts";
 import {
   CONSENT_REQUIRED_SQLSTATE,
@@ -134,6 +134,16 @@ describe("saveTravellers", () => {
     expect(m).not.toBeNull();
     expect(m![1]!.split(",").map((x) => x.trim().replace(/^'|'$/g, ""))).toEqual([...TRAVELLERS_CONSENT_VERSIONS]);
     expect(TRAVELLERS_CONSENT_VERSIONS).toContain(TRAVELLERS_CONSENT_VERSION);
+  });
+
+  it("acct-psec S7, S9: 0012 caps the text bytes (never compressed storage) and pins the row's user", () => {
+    const sql = loadMigrations().find((m) => m.name === "account_profile")!.sql.replace(/--[^\n]*/g, "");
+    expect(sql).toContain(`octet_length(travellers::text) > ${TRAVELLERS.maxBytes * 1.5}`);
+    expect(sql).not.toContain("pg_column_size");
+    expect(sql).toContain("new.user_id := old.user_id;");
+    // every date leaf is typed before its pattern (S8 / N4)
+    expect(sql.match(/@\.age_as_of\.type\(\) == "string"/g)).toHaveLength(2);
+    expect(sql.match(/@\.dob\.type\(\) == "string"/g)).toHaveLength(2);
   });
 
   it.each([-1, 1.5, Number.NaN])("answers conflict for a nonsense revision %s without a query", async (rev) => {

@@ -97,9 +97,13 @@ run("account_profile (database)", () => {
     const bulkDel = await withUserTransaction(b, async (ctx) => (await ctx.query("delete from account_profile")).rowCount);
     expect(bulkDel.result).toBe(0);
 
-    // B cannot move its own row onto A's id either (WITH CHECK on update; no WHERE, so the SELECT policy does not mask it)
+    // B cannot move its own row onto A's id either: the trigger keeps user_id (S9), so the row stays B's (and A's is untouched)
     await finishSetup(b);
-    await expect(withUserTransaction(b, (ctx) => ctx.query("update account_profile set user_id = $1", [a]))).rejects.toMatchObject({ code: "42501" });
+    await withUserTransaction(b, (ctx) => ctx.query("update account_profile set user_id = $1", [a]));
+    expect((await admin.query("select count(*)::int as n from account_profile where user_id = $1", [b])).rows[0].n).toBe(1);
+    // and as the owner, past RLS, an update still cannot move a row
+    await admin.query("update account_profile set user_id = $1 where user_id = $2", [U("moved"), b]);
+    expect((await admin.query("select count(*)::int as n from account_profile where user_id = $1", [b])).rows[0].n).toBe(1);
 
     // A's row is untouched
     const mine = await loadProfile(a);
@@ -244,7 +248,7 @@ run("account_profile (database)", () => {
       children: Array.from({ length: 8 }, () => ({ ...child, age: ageOf(child.dob) })),
     };
     expect(await saveTravellers(u, doc, 0, CONSENT)).toEqual({ kind: "saved", revision: 1 });
-    const size = await admin.query("select pg_column_size(travellers) as n, octet_length(travellers::text) as t from account_profile where user_id = $1", [u]);
-    expect(size.rows[0].n).toBeLessThanOrEqual(2048);
+    const size = await admin.query("select octet_length(travellers::text) as t from account_profile where user_id = $1", [u]);
+    expect(size.rows[0].t).toBeLessThanOrEqual(3072);
   });
 });
