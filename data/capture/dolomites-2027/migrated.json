@@ -1801,7 +1801,7 @@
         "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3174663, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
-        "v": 6.6,
+        "v": 5.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
@@ -1810,7 +1810,7 @@
       },
       "name": "Lagazuoi tunnels",
       "starts_at": [
-        "place/lagazuoi-cable-car-and-tunnels"
+        "part/place/lagazuoi-cable-car-and-tunnels#top"
       ],
       "links": [
         {

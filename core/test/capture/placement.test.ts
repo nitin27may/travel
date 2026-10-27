@@ -115,7 +115,8 @@ describe("the other fixes", () => {
     const kh = "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float";
     const kids = [...w.cap.values()].map((x) => x.rec).filter((r) => r.variant_of === kh);
     expect(kids.map((k) => k.run_by).sort()).toEqual(["operator/hydra-river-guides", "operator/wild-water-adventures"]);
-    for (const k of kids) expect(k.on).toEqual([{ ref: w.cap.get(kh)!.rec.at![0] }]);
+    // EG-D (entity-graph 11.2): an offer on a river place is at it; on is for routes
+    for (const k of kids) expect([k.at, k.on]).toEqual([[w.cap.get(kh)!.rec.at![0]], undefined]);
     expect(w.cap.get(kh)!.rec.run_by).toBeUndefined();
   });
   it("Hielo y Aventura points at its public page, not the API", () => {

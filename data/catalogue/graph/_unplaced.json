@@ -5,7 +5,6 @@
  "nodes": {
   "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter": ["offer","air.flight.heli_tour",null,null],
   "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park": ["place","nature.protected.state_provincial_park",null,"castle-provincial-park"],
-  "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park": ["place","nature.protected.state_provincial_park",null,"elk-lakes-provincial-park"],
   "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive": ["route","wheels.drive.scenic_drive",null,"icefields-parkway-scenic-drive"],
   "legacy/canadian-rockies-sept-2029/sights/lake-magog": ["place","nature.protected.nature_reserve",null,"lake-magog-and-assiniboine-core-area"],
   "legacy/canadian-rockies-sept-2029/sights/marble-canyon": ["place","nature.landform.canyon",null,"marble-canyon"],

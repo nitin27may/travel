@@ -1,0 +1,250 @@
+{
+  "schema": "capture-run/1",
+  "run": "eg-d-2026-10-27-relation-fixes",
+  "started": "2026-10-27",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "refs": [
+      "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+      "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+      "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+      "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
+      "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
+      "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+      "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
+      "legacy/canadian-rockies-sept-2029/sights/lake-magog",
+      "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
+      "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#hydra",
+      "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#wild-water",
+      "part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa",
+      "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch",
+      "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting",
+      "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport",
+      "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start",
+      "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom",
+      "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
+      "trip/utah-five-parks/sight:goblin valley"
+    ]
+  },
+  "hosts": [],
+  "results": [
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#wild-water",
+      "field": "at",
+      "outcome": "filled",
+      "src": "data/capture/changesets/eg-d-2026-10-27-relation-fixes.json",
+      "reason": "on the Kicking Horse River place (a place, not a route) became at it (entity-graph 11.2); the known entry is removed. Applied from changeset eg-d-2026-10-27-relation-fixes."
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#hydra",
+      "field": "at",
+      "outcome": "filled",
+      "src": "data/capture/changesets/eg-d-2026-10-27-relation-fixes.json",
+      "reason": "on the Kicking Horse River place (a place, not a route) became at it (entity-graph 11.2); the known entry is removed. Applied from changeset eg-d-2026-10-27-relation-fixes."
+    },
+    {
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "field": "starts_at",
+      "outcome": "filled",
+      "src": "data/capture/changesets/eg-d-2026-10-27-relation-fixes.json",
+      "reason": "starts_at the lift line (a route) became starts_at the top station place part/place/lagazuoi-cable-car-and-tunnels#top (entity-graph 11.2); near_town_km re-derived (6.6 to 5.9 km, derive-near). Known entry removed."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "field": "starts_at",
+      "outcome": "filled",
+      "src": "https://www.banffadventures.com/things-to-do/float-trips/",
+      "reason": "starts_at the ORPH-7 meeting place part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch (entity-graph 4.7); at is kept (the R placement of an offer)."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "field": "starts_at",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/stephen",
+      "reason": "starts_at the ORPH-7 meeting place part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting (entity-graph 4.7); at is kept (the R placement of an offer)."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "field": "starts_at",
+      "outcome": "filled",
+      "src": "https://canmore.alpinehelicopter.com/",
+      "reason": "starts_at the ORPH-7 meeting place part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport (entity-graph 4.7); at is kept (the R placement of an offer)."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+      "field": "starts_at",
+      "outcome": "filled",
+      "src": "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies",
+      "reason": "starts_at the ORPH-7 meeting place part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport (entity-graph 4.7); at is kept (the R placement of an offer)."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+      "field": "starts_at",
+      "outcome": "filled",
+      "src": "https://banffnorquay.com/via-ferrata/faqs/",
+      "reason": "starts_at the ORPH-7 meeting place part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start (entity-graph 4.7); at is kept (the R placement of an offer)."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+      "field": "starts_at",
+      "outcome": "filled",
+      "src": "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling/",
+      "reason": "starts_at the ORPH-7 meeting place part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom (entity-graph 4.7); at is kept (the R placement of an offer)."
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa",
+      "field": "parks_for",
+      "outcome": "ask",
+      "to": "owner (contract seat)",
+      "question": "May access.start.meeting_point mark parks_for R? (answered by an offer's starts_at, as trailhead.md U5 says), so EG-D can drop the 7 parks_for links and make E_CAP_REL_TARGET strict?",
+      "reason": "parks_for still names the offer (E_CAP_REL_TARGET, known). Removing it leaves the required key parks_for of access.start.meeting_point unanswered, and these records are not pinned, so validate --all errors (W_TIER_REQUIRED). The kind profile (trailhead.md U5) says a meeting point is answered by an offer's starts_at; the type mark in data/vocab/types.json says parks_for R. A contract fix, not data."
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch",
+      "field": "parks_for",
+      "outcome": "ask",
+      "to": "owner (contract seat)",
+      "question": "May access.start.meeting_point mark parks_for R? (answered by an offer's starts_at, as trailhead.md U5 says), so EG-D can drop the 7 parks_for links and make E_CAP_REL_TARGET strict?",
+      "reason": "parks_for still names the offer (E_CAP_REL_TARGET, known). Removing it leaves the required key parks_for of access.start.meeting_point unanswered, and these records are not pinned, so validate --all errors (W_TIER_REQUIRED). The kind profile (trailhead.md U5) says a meeting point is answered by an offer's starts_at; the type mark in data/vocab/types.json says parks_for R. A contract fix, not data."
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting",
+      "field": "parks_for",
+      "outcome": "ask",
+      "to": "owner (contract seat)",
+      "question": "May access.start.meeting_point mark parks_for R? (answered by an offer's starts_at, as trailhead.md U5 says), so EG-D can drop the 7 parks_for links and make E_CAP_REL_TARGET strict?",
+      "reason": "parks_for still names the offer (E_CAP_REL_TARGET, known). Removing it leaves the required key parks_for of access.start.meeting_point unanswered, and these records are not pinned, so validate --all errors (W_TIER_REQUIRED). The kind profile (trailhead.md U5) says a meeting point is answered by an offer's starts_at; the type mark in data/vocab/types.json says parks_for R. A contract fix, not data."
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport",
+      "field": "parks_for",
+      "outcome": "ask",
+      "to": "owner (contract seat)",
+      "question": "May access.start.meeting_point mark parks_for R? (answered by an offer's starts_at, as trailhead.md U5 says), so EG-D can drop the 7 parks_for links and make E_CAP_REL_TARGET strict?",
+      "reason": "parks_for still names the offer (E_CAP_REL_TARGET, known). Removing it leaves the required key parks_for of access.start.meeting_point unanswered, and these records are not pinned, so validate --all errors (W_TIER_REQUIRED). The kind profile (trailhead.md U5) says a meeting point is answered by an offer's starts_at; the type mark in data/vocab/types.json says parks_for R. A contract fix, not data."
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start",
+      "field": "parks_for",
+      "outcome": "ask",
+      "to": "owner (contract seat)",
+      "question": "May access.start.meeting_point mark parks_for R? (answered by an offer's starts_at, as trailhead.md U5 says), so EG-D can drop the 7 parks_for links and make E_CAP_REL_TARGET strict?",
+      "reason": "parks_for still names the offer (E_CAP_REL_TARGET, known). Removing it leaves the required key parks_for of access.start.meeting_point unanswered, and these records are not pinned, so validate --all errors (W_TIER_REQUIRED). The kind profile (trailhead.md U5) says a meeting point is answered by an offer's starts_at; the type mark in data/vocab/types.json says parks_for R. A contract fix, not data."
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom",
+      "field": "parks_for",
+      "outcome": "ask",
+      "to": "owner (contract seat)",
+      "question": "May access.start.meeting_point mark parks_for R? (answered by an offer's starts_at, as trailhead.md U5 says), so EG-D can drop the 7 parks_for links and make E_CAP_REL_TARGET strict?",
+      "reason": "parks_for still names the offer (E_CAP_REL_TARGET, known). Removing it leaves the required key parks_for of access.start.meeting_point unanswered, and these records are not pinned, so validate --all errors (W_TIER_REQUIRED). The kind profile (trailhead.md U5) says a meeting point is answered by an offer's starts_at; the type mark in data/vocab/types.json says parks_for R. A contract fix, not data."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "field": "variants",
+      "outcome": "gap",
+      "src": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "reason": "Larch Valley meadows variant not written. Sourced facts held: Parks Canada day-hikes page (src-0001 in R2a, read 2026-10-18) rates Larch Valley alone Moderate, 4.5 km one way, 570 m gain (R2a source_grade and age_band notes); no time for the meadow is held. A new route record is not pinned, and nature.trail.hike asks 30 required keys, 25 of them unanswerable from current captures (relevance keys a route may not hold, geometry, wikidata). The tier engine does not apply the 4.5 inheritance of a variant, so the record errors on validate --all."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/lake-magog",
+      "field": "type",
+      "outcome": "ask",
+      "to": "owner",
+      "question": "Retype lake-magog through a kind-map or type-map change (code and test), or keep it as a protected place until PA-R-CA models the Mount Assiniboine core-area zone?",
+      "reason": "Lake Magog is a lake (water.body.lake, profile lake); its type nature.protected.nature_reserve came from the legacy pair sight/area. Retyping needs its suitability record to become lake/lake, but migrated-offplan.json is pinned byte for byte by the suitability migrate --check test, and migration.test pins type = legacy default of the suitability kind (profile area). Tried and reverted."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
+      "field": "type",
+      "outcome": "ask",
+      "to": "owner",
+      "question": "Move the conservation pass to a PA-R-CA requirement offer and then retype, or keep the area type?",
+      "reason": "Upper and Lower Kananaskis Lakes are lakes (relevance class_key lake/glacial-turquoise already says so). Retyping to water.body.lake fails: the R2a suitability record holds an ext area block (Kananaskis Conservation Pass, child trails), pinned by the migration ledger, which profile lake refuses (E_SUIT_EXT_KIND); the migrated suitability file is also pinned. Tried and reverted."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
+      "field": "type",
+      "outcome": "ask",
+      "to": "owner (contract seat)",
+      "question": "Add a nature.landform lava_field leaf (or accept volcano_crater) and allow the suitability kind change?",
+      "reason": "A lava landscape around Svartsengi, not a reserve. types.json has no lava-field leaf, and no landform type has the area profile its pinned suitability record (sight/area) needs. Needs a new leaf (contract) plus the same suitability change."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
+      "field": "name",
+      "outcome": "ask",
+      "to": "owner",
+      "question": "Add Beauvais Lake Provincial Park to the locations store (location skill) so its record can take place/<slug>?",
+      "reason": "Identity (the ref, E_CAP_REF_TOP; the registry has no ref field): Beauvais Lake Provincial Park is a real protected area with a legacy or trip ref (E_CAP_REF_TOP). QG1: it is born in the locations store (location skill), then gets place/<slug> as an alias. The store has no place for it (checked data/locations/locations.json on 2026-10-27). Not invented."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
+      "field": "name",
+      "outcome": "ask",
+      "to": "owner",
+      "question": "Add Castle Provincial Park to the locations store (location skill) so its record can take place/<slug>?",
+      "reason": "Identity (the ref, E_CAP_REF_TOP; the registry has no ref field): Castle Provincial Park is a real protected area with a legacy or trip ref (E_CAP_REF_TOP). QG1: it is born in the locations store (location skill), then gets place/<slug> as an alias. The store has no place for it (checked data/locations/locations.json on 2026-10-27). Not invented."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+      "field": "name",
+      "outcome": "ask",
+      "to": "owner",
+      "question": "Add Elk Lakes Provincial Park to the locations store (location skill) so its record can take place/<slug>?",
+      "reason": "Identity (the ref, E_CAP_REF_TOP; the registry has no ref field): Elk Lakes Provincial Park is a real protected area with a legacy or trip ref (E_CAP_REF_TOP). QG1: it is born in the locations store (location skill), then gets place/<slug> as an alias. The store has no place for it (checked data/locations/locations.json on 2026-10-27). Not invented."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
+      "field": "name",
+      "outcome": "ask",
+      "to": "owner",
+      "question": "Add Top of the World Provincial Park to the locations store (location skill) so its record can take place/<slug>?",
+      "reason": "Identity (the ref, E_CAP_REF_TOP; the registry has no ref field): Top of the World Provincial Park is a real protected area with a legacy or trip ref (E_CAP_REF_TOP). QG1: it is born in the locations store (location skill), then gets place/<slug> as an alias. The store has no place for it (checked data/locations/locations.json on 2026-10-27). Not invented."
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:goblin valley",
+      "field": "name",
+      "outcome": "ask",
+      "to": "owner",
+      "question": "Add Goblin Valley State Park to the locations store (location skill) so its record can take place/<slug>?",
+      "reason": "Identity (the ref, E_CAP_REF_TOP; the registry has no ref field): Goblin Valley State Park is a real protected area with a legacy or trip ref (E_CAP_REF_TOP). QG1: it is born in the locations store (location skill), then gets place/<slug> as an alias. The store has no place for it (checked data/locations/locations.json on 2026-10-27). Not invented."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
+      "field": "covers_areas",
+      "outcome": "filled",
+      "src": [
+        "data/locations/locations.json",
+        "data/capture/changesets/eg-d-2026-10-27-relation-fixes.json"
+      ],
+      "reason": "covers_areas CA/AB/beauvais-lake-provincial-park (the store area named after the park; W_PARK_AREA cleared); beauvais-lake-trail becomes a member."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+      "field": "covers_areas",
+      "outcome": "filled",
+      "src": [
+        "data/locations/locations.json",
+        "data/capture/changesets/eg-d-2026-10-27-relation-fixes.json"
+      ],
+      "reason": "covers_areas CA/BC/elk-lakes-provincial-park (W_PARK_AREA cleared); the two Elk Lakes trails become members."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+      "field": "area_id",
+      "outcome": "filled",
+      "src": [
+        "data/locations/locations.json",
+        "data/capture/changesets/eg-d-2026-10-27-relation-fixes.json"
+      ],
+      "reason": "area_id CA/BC/elk-lakes-provincial-park, the store area that is this park (its covers_areas); derive-area had no labelled point within 10 km. E_PLACE_AREA 28 to 27."
+    }
+  ]
+}
