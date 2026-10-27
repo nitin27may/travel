@@ -122,9 +122,6 @@ a.sum-card:focus-visible { outline: var(--focus-ring); outline-offset: var(--foc
   .sum-toggle:checked ~ .sum-hl-grid .sum-hl[data-extra] { display: grid; }
 }
 
-#trip-shape { margin-bottom: var(--s-8); }
-.sum-shape .tl-trip { margin-bottom: 0; }
-
 /* who it suits, know before you go */
 .sum-foot { display: grid; gap: var(--s-8); max-width: 62rem; }
 @media (min-width: 900px) { .sum-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: var(--s-10); } }

@@ -264,10 +264,11 @@ test.describe('the Summary', () => {
     await expect(selected(page)).toHaveText('Summary');
   });
 
-  test('the glance (the trip shape slot) stays in the Summary, and its day link opens Days', async ({ page, site }) => {
+  test("the trip's shape (UXB-3) sits in the Summary, closed, and replaces the glance", async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}`);
     await expect(panel(page, 'summary').locator('#trip-shape')).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'The trip at a glance' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: "The trip's shape" })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'The trip at a glance' })).toHaveCount(0);
   });
 
   test('Dolomites: regions, nature parks and the earliest booking window in words', async ({ page, site }) => {

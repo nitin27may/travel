@@ -94,14 +94,17 @@ test.describe('trip page polish (TRP, stage 4)', () => {
     }
   });
 
-  test('the strip shows 06, 12 and 18 and no truncated drive text at 1440 and 390 (check 5)', async ({ page, site }) => {
+  test("the trip's shape has no clock scale and no truncated drive text at 1440 and 390 (check 5; UXB-3 replaced the strip)", async ({ page, site }) => {
     for (const size of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
       await page.setViewportSize(size);
-      await page.goto(`${site.url}${ROCKIES}`); // the whole-trip strip is in the Summary
-      await expect(page.locator('.tl-trip-scale:first-child .tl-scale-tick')).toHaveText(['06', '12', '18']);
-      const clipped = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('.tl-trip-drive')].filter((e) => e.scrollWidth > e.clientWidth + 1).length);
+      await page.goto(`${site.url}${ROCKIES}`); // the whole-trip shape is in the Summary
+      // the second pass finds the shape open (it is remembered for the trip)
+      if ((await page.locator('.shape-toggle').getAttribute('aria-expanded')) !== 'true') await page.locator('.shape-toggle').click();
+      await expect(page.locator('.shape-table')).toBeVisible();
+      await expect(page.locator('.tl-scale-tick')).toHaveCount(0);
+      const clipped = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('.shape-drive, .shape-plan, .shape-notes')].filter((e) => e.scrollWidth > e.clientWidth + 1).length);
       expect(clipped, `${size.width}`).toBe(0);
-      const drive = await page.locator('.tl-trip-drive').first().innerText();
+      const drive = await page.locator('.shape-row .shape-drive-v').first().innerText();
       expect(drive).toMatch(/^\d+ h( \d\d)?$|^\d+ min$/);
     }
   });

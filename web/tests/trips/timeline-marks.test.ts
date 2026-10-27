@@ -1,10 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { scheduleDay } from '@travel/core/schedule/schedule.ts';
-import { DEFAULT_PROFILE, type DayTimeline, type Profile } from '@travel/core/schedule/types.ts';
+import { DEFAULT_PROFILE, type Profile } from '@travel/core/schedule/types.ts';
 import { createPublicData } from '@/lib/public';
 import { addCost, costLine, LATEST_END } from '@/components/trips/timeline/consequence';
 import { flightEntries, localEntries, shiftClock, zoneNotes, zoneRun } from '@/components/trips/timeline/marks';
-import { stripDomain } from '@/components/trips/timeline/TripTimeline';
 import * as engine from '@travel/core/schedule/schedule.ts';
 import { buildTripPageModel } from '@/components/trips/model';
 import { candidateToItem } from '@/components/trips/timeline/model';
@@ -96,14 +95,5 @@ describe('what an addition costs before it is made (row 4.4)', () => {
     const cost = addCost(engine, base, P, {}, late);
     expect(cost.tooLate).toBe(true);
     expect(costLine(cost)).toBe(`Ends after ${LATEST_END}, not added`);
-  });
-});
-
-describe('the whole-trip strip clock', () => {
-  const tl = (start: string, end: string): DayTimeline => ({ span: { start, end, minutes: 60 }, blocks: false } as DayTimeline);
-  it('is 05:00 to 23:00 with ticks at 06, 12 and 18, and widens once when a day needs it', () => {
-    expect(stripDomain([tl('07:30', '19:00')])).toEqual({ start: 300, end: 1380, ticks: [360, 720, 1080] });
-    expect(stripDomain([tl('04:10', '19:00')]).start).toBe(240);
-    expect(stripDomain([tl('07:30', '23:40')]).end).toBe(1440);
   });
 });

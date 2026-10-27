@@ -12,6 +12,7 @@ import { prepaintScript } from '@/components/trips/tabs/prepaint';
 import { OverviewTabs } from '@/components/trips/tabs/OverviewTabs';
 import { PhotosPanel } from '@/components/trips/tabs/PhotosPanel';
 import { highlightCards } from '@/components/trips/summary/highlights';
+import { shapeFactsFor } from '@/components/trips/summary/shapeData';
 import { SummaryBottom, SummaryTop } from '@/components/trips/summary/Summary';
 import { PHOTOS_TAB_MIN } from '@/components/trips/summary/text';
 import { buildTripPageModel } from '@/components/trips/model';
@@ -101,7 +102,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
       ) : (
         <>
           {model.timeline && showTabBar(available) ? <script dangerouslySetInnerHTML={{ __html: prepaintScript(available) }} /> : null}
-          <TripPlan slug={slug} model={model} title={trip.title} depth={trip.depth} season={season} tabs={{ available, counts }} slots={{ summaryTop: top, summaryBottom: bottom, bookings: <BookingsPanel bookings={bookings} />, photos: photosPanel }} />
+          <TripPlan slug={slug} model={model} title={trip.title} depth={trip.depth} season={season} tabs={{ available, counts }} slots={{ summaryTop: top, summaryBottom: bottom, bookings: <BookingsPanel bookings={bookings} />, photos: photosPanel }} shape={shapeFactsFor(trip, getPlace)} />
         </>
       )}
       <TripEnd trip={trip} model={model} url={url} galleryInTab={available.includes('photos')} />
