@@ -598,6 +598,14 @@ Nothing above is written per trip. The same park and campground records serve al
 
 ## 8. The park page (variant of the place page; spec only, a UXB-style follow-up)
 
+> **Designed 27 Oct 2026 in [design/park-page/](../design/park-page/README.md) (PA-N, gate G-PA).** One template for every
+> `nature.protected.*` type and the zone; a `/parks` index added. Superseded here: the "Plan a visit (P3)" paragraph below
+> (the chips are now links into the Trip Builder's near mode with the park pinned; no on-page `visit=` state, no
+> pre-selection, no hand-off to CUS or the add-a-place panel from the park page), the on-page filters of "Things to do"
+> (they live in the pre-filtered list), and `?park=` (now `within=`, entity-graph 9.2). The section table below stays as the
+> list of contents; the design's anatomy.md fixes the order (Entry and bookings, then Safety and rules, Things to do, Where
+> to stay or camp, Getting there, Seasons and closures).
+
 No new HTML: the park page is the place page template (`web/app/places/[slug]`, the UXB-7 type templates) with a park
 variant, built in P2 after UXB-7. Primary action (P7): "Plan a visit" (P3), until then "Save to a trip".
 
@@ -725,6 +733,12 @@ Models per CLAUDE.md: shared contracts Opus; well-specified builds Sonnet; revie
 | **P3** | | | **21** | | | |
 | **All** | | | **75.5** | | | |
 
+**Amended 27 Oct 2026 by the park page design** ([design/park-page/README.md](../design/park-page/README.md) 9): PA-N is
+written by travel-planner and reviewed by PA-NR (travel-design-reviewer, Opus 1.5 h) before G-PA; new tasks PA-IXC (Opus
+2 h, row keys and labels), PA-IX (Sonnet 7 h, the `/parks` index) and PA-IXD (Sonnet 2 h, the Drive time pill, P3);
+PA-2 is 10.5 h (it carries the Plan a visit links); PA-R2/V2 5 h; PA-N3 is absorbed (0 h); PA-3 is 4 h (camping section
+and the Algonquin pilot page). P2 34 h, P3 17 h, all PA 82 h.
+
 Bundle effect: C grows by 31 h for PA (first written as 33.5 h), plus 23 h for the graph tasks EG-C to EG-DOC that P1 needs
 (entity-graph 13), about 234 h in total; E by 23.5 h for PA plus 15 h for EG-N, EG-Q, EG-W and reviews; G by 21 h. Rows:
 BACKLOG 15.290 (umbrella), 15.291 (P1), 15.292 (P2), 15.293 (P3), 15.294 (questions); the graph rows are 15.295 to 15.299.
@@ -821,3 +835,5 @@ and the graph tasks it now depends on are entity-graph QG4.
   part of C7 and C8's leaves moved to EG-C; `entry.for_types` and `access.pass.activity_permit` added; PA-C, PA-D, PA-Q
   resized (P1 31 h, P2 23.5 h, all 75.5 h); conflicts rows added. QP1 to QP6 unchanged.
 - 26 Oct 2026 (PA-X): 5.2 "As built" note: the export and API contract as shipped.
+- 27 Oct 2026 (PA-N): section 8 pointer to [design/park-page/](../design/park-page/README.md) and what it supersedes;
+  section 12 amended (PA-NR, PA-IXC, PA-IX, PA-IXD added; PA-N3 absorbed; PA-2, PA-3, reviews resized; all PA 82 h).
