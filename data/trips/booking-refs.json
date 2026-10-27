@@ -1,0 +1,18 @@
+{
+  "schema": "trip-booking-refs/1",
+  "note": "TEMPORARY, deleted with TD-4 (protected-area-entry 6.3). Which capture requirement record replaces a legacy Book ahead row of a public trip. Keyed by legacy trip folder, then by the legacy booking id (`bookings.json` id; the page row key is `logistics:<id>`). A value is the record's ref, or { ref, days, note }: `days` when the days the trip rides it are not the days the legacy row lists, `note` the row's public sentence (researched in D8-R, research/runs/D8R-rockies-bookings.md). The web adapter (web/lib/public/entry.ts) words the row from the record: kind, window rule, booking link. A legacy row with no entry here stays as it was. Rows for the Discovery Pass, the Roam Super Pass, the Lake O'Hara lottery and the Kananaskis pass are added when PA-R-CA stores their records.",
+  "trips": {
+    "canadian-rockies-sept-2029": {
+      "shuttle-moraine-lakelouise": {
+        "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
+        "days": [10, 11],
+        "note": "40% of seats go on sale on a spring launch day; book then."
+      },
+      "lakelouise-lakeshore-parking": {
+        "ref": "offer/place/lake-louise#parking",
+        "days": [10],
+        "note": "No reservation; the lot fills before sunrise. Shuttle holders park free at the Park and Ride."
+      }
+    }
+  }
+}

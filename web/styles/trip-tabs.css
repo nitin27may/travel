@@ -132,6 +132,17 @@ a.sum-card:focus-visible { outline: var(--focus-ring); outline-offset: var(--foc
 .sum-know-more { margin-top: var(--s-2); }
 .sum-know-more summary { min-height: var(--touch-min); display: flex; align-items: center; color: var(--accent-text); font: var(--t-small); cursor: pointer; }
 
+/* park entry (PA-W): one sentence per park, the park's name first; a park nobody has checked reads quieter, never as a warning */
+.sum-parks { display: grid; gap: var(--s-3); margin: var(--s-2) 0 0; padding: 0; list-style: none; }
+.sum-park { margin: 0; padding-left: var(--s-3); border-left: 2px solid var(--line-2); }
+.sum-park[data-state="not_checked"] { border-left-color: var(--line); }
+.sum-park-line { margin: 0; font: var(--t-body); color: var(--ink-2); max-width: 62ch; }
+.sum-park-line b { color: var(--ink); font-weight: 600; }
+.sum-park[data-state="not_checked"] .sum-park-line { color: var(--muted); }
+.sum-park-link { color: inherit; text-decoration-color: var(--line-2); text-underline-offset: 3px; }
+.sum-park-link:hover { color: var(--accent-text); }
+.sum-park-saving { margin: var(--s-1) 0 0; font: var(--t-small); color: var(--muted); max-width: 62ch; }
+
 /* ---------- Bookings panel (UXB-6; spec 3.6, W7) ---------- */
 /* Phones: one column per row (name, window, note, then the day and the link on one line). From 760 px: name | when | day and link. */
 .bk-group { margin: 0 0 var(--s-6); }

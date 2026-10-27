@@ -9,6 +9,9 @@ import type { PageModel } from './sections';
 import type { Chip, PublicSuitability } from './suitability';
 import type { PublicRelevance } from './relevance';
 import type { Category, Depth, Point } from '@travel/core/export/publicTypes.ts';
+import type { BookRuleInput } from '@travel/core/export/bookings.ts';
+import type { BookingKind } from '@travel/core/export/types.ts';
+import type { TripPark } from '@travel/core/schema/api/trip.ts';
 
 export { CATEGORIES, CATEGORY_LABEL } from '@travel/core/export/publicTypes.ts';
 export type { Category, Depth, Point } from '@travel/core/export/publicTypes.ts';
@@ -313,14 +316,16 @@ export interface CategoryItem {
   /** "Opens 30 days before Day 3 at 08:00 local", as a rule. */
   bookRule: BookRule | null;
   bookNote: string | null;
+  /** The Book ahead row kind when the row knows it (a row from a requirement record, protected-area-entry 6.2); absent reads as before PA-X. */
+  bookKind?: BookingKind | null;
+  /** The park or zone name the row is needed for. */
+  park?: string | null;
+  /** The requirement's booking page. */
+  link?: string | null;
 }
 
-export interface BookRule {
-  daysBefore: number;
-  dayN: number | null;
-  time: string | null;
-  tz: string | null;
-}
+/** The rule of a row: a phase and an optional second one (PA-X, protected-area-entry 5.2); a rule written before PA-X is `rolling`. */
+export type BookRule = BookRuleInput;
 
 export interface Season {
   /** `plan`: only the window the plan was written for, other months and opening dates not checked; `researched`: the reasoned seed window. */
@@ -392,6 +397,8 @@ export interface PublicTrip extends Omit<PublicTripCard, 'tags' | 'lengthClass' 
   effort: string | null;
   ageFit: number | null;
   driveAvgMin: number | null;
+  /** The parks and zones the trip enters, with the line each shows (PA-W; protected-area-entry 6.2). Names, slugs and day numbers only. Absent until `attachEntry` ran. */
+  parks?: TripPark[];
 }
 
 export interface GlobeNode {

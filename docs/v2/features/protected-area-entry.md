@@ -478,6 +478,13 @@ the four row kinds.
   requirements (a member's, such as the Moraine Lake shuttle, are rows, not the line), and a zone with none is left out.
   `tripDetail.parks` is optional until PA-W fills it. `tripDetail.legacyUrl` is gone (PRIV-TD2 follow-up).
 
+**As built (PA-W, 27 Oct 2026).** `web/lib/public/entry.ts` (server only; the one place the web reads the graph index, P9) fills `PublicTrip.parks`
+(`parkVisits` then `tripParks`, park slugs from the page index) and swaps each legacy row named in `data/trips/booking-refs.json` for the rows of
+`requirementRows`. The map also takes `{ ref, days, note }` for a row whose ridden days differ from the legacy days. Derived rows name no place, so
+no stop is given a window. The Summary shows "Park entry"; the print view reads the lines from a `data-print-parks` script the page carries (no
+change to `TripExport`). Rockies today: only the shuttle seat and the lakeshore parking offer have records, so 7 to book ahead plus 1 check; the
+pass, Roam, Lake O'Hara and Kananaskis rows wait for PA-R-CA. Dolomites is not mapped: its two records would change its rules (Tre Cime) and kind.
+
 ## 6. Trip, places, Book ahead, export, API
 
 ### 6.1 Park visits (derived)
