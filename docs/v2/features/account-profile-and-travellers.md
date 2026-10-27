@@ -4,6 +4,12 @@ Status: **spec, 27 Oct 2026** (ACCT-P, high priority, owner feedback). Build bri
 [build/public-site/briefs/ACCTP.md](../build/public-site/briefs/ACCTP.md). Backlog 15.348. Owner questions Q-AP1 to Q-AP11
 (backlog Q311 to Q321).
 
+> **Amendment, 27 Oct 2026 (owner decision on Q-AP1).** Travellers are stored by **age**, not birth month and year. Each child
+> (and, optionally, each adult) is an integer `age` plus `age_as_of`, the date it was entered; the person may add an optional
+> date of birth (`dob`), and when it is there the age is derived from it and stays exact. Without a `dob` the age rolls forward one
+> year on each anniversary of `age_as_of` (a lower bound: never older than the real age). Adults stay a count; their ages are
+> optional. Every section below is updated to this; the rest of the spec stands as recommended. Built by ACCT-PC.
+
 ## The owner's feedback (27 Oct 2026, intent as given)
 
 > The live Account page is only a "Draft title" box and a "Create draft" button with a "Reconnecting to live updates..."
@@ -25,7 +31,7 @@ spec, `docs/v2/features/edit-my-trip.md`). Section 7 keeps the two consistent.
 | [trip-and-places-ux-fixes.md](trip-and-places-ux-fixes.md) 5.2 to 5.5, 10.2, 15 | **Amended here.** The device party (`travel.party`) can now be seeded from the account; one optional field `src` |
 | [trip-builder.md](trip-builder.md) 2.4, 7, 15.1 ISO-3 | **Amended here (rule restated, no contract change).** The draft still names `party: "device"`; for a signed-in person the device party is seeded from the account |
 | [google-and-apple-sign-in.md](google-and-apple-sign-in.md) 5.3, 6.1, strings 29 to 51 | Ways to sign in is GSI-WAYS's section on this page; this spec places it and does not reword it. Name row of 6.1: editable now |
-| [F01-household-and-profiles.md](F01-household-and-profiles.md) | This is the v1 slice of F01 people: counts and children's birth month and year, no names. F01's `household` and `person` tables (0002) stay unused; section 9.4 says how this row moves there later |
+| [F01-household-and-profiles.md](F01-household-and-profiles.md) | This is the v1 slice of F01 people: counts and ages (each with the date entered, an optional date of birth), no names. F01's `household` and `person` tables (0002) stay unused; section 9.4 says how this row moves there later |
 | [F17-accounts-auth-and-privacy.md](F17-accounts-auth-and-privacy.md) rule 12, 15, 16 | **Amended here.** A new private data class "travellers"; export and delete gain it |
 | [trip-kinds-and-interest-profile.md](trip-kinds-and-interest-profile.md) 3.5, 3.6 | The interest profile stays its own document (`account_interests`, bundle F). Party and interests stay separate. The Account page gets a slot for it later (section 3.1) |
 | `edit-my-trip.md` (TRIP-EDIT-I, in progress) | A synced copy's party is a snapshot that starts from Travellers (section 7) |
@@ -35,8 +41,8 @@ spec, `docs/v2/features/edit-my-trip.md`). Section 7 keeps the two consistent.
 `/account/` becomes the person's settings page, in this order: **Profile** (display name), **Travellers** (adults and
 children), **Ways to sign in** (GSI-WAYS), **Saved trips**, **Your data**. A new signed-in person with nothing saved sees
 a two-step setup first: name, then travellers; both skippable. Travellers are stored in Neon as **a count of adults and
-each child's birth month and year**, with no names, in one owner-only row per user (`account_profile`, migration slug
-`account_profile`, number 0012 if it merges next). The account is the standing default; **the device party stays the one
+each child's age with the date it was entered** (an optional date of birth per person; adults' ages optional), with no
+names, in one owner-only row per user (`account_profile`, migration slug `account_profile`, number 0012 if it merges next). The account is the standing default; **the device party stays the one
 thing every page reads**. The account seeds the device party at sign-in and on Account, so the trip party bar, the copy
 sheet and the trip builder prefill with no change to their code and no new load on public pages. The name is written
 through Neon's `update-user` from a **server action**, so the browser auth proxy keeps answering 404 for that route. The
@@ -47,8 +53,8 @@ goes with it.
 
 | # | Decision | Why | Trade-off |
 |---|---|---|---|
-| AD1 | **Children as birth month and year** (`"2019-03"`), not an age and not a full date | An age goes stale (entered in October, wrong by spring); a birth year alone is off by one for most of the year, which matters for age limits ("6+") (T4). Month and year give the exact age at any date to within a month, with no day of birth | More precise than an age. Mitigated: no name, no day, owner-only row, never in output (AD5). Q-AP1 |
-| AD2 | **No traveller names and no adult ages in v1** | Nothing reads them: suitability, the scheduler and the party bar use the adult count and children's ages only (`core/src/trips/party.ts`). Data we do not use we do not keep | F01's "Kai's passport" checks need names later; they come with F01 people, by explicit entry. Q-AP2 |
+| AD1 | **Each child as an age plus the date it was entered (`age`, `age_as_of`); a date of birth (`dob`) optional** (owner, 27 Oct 2026; amends the month-and-year recommendation) | An age is what a parent knows and types fastest (P4) and is the least data about a minor. Kept with its date, it rolls forward on each anniversary of entry, so it does not go stale year to year. A person who wants exact ages for age limits ("6+", T4) adds a date of birth, and the age is then derived from it | Without a `dob` the rolled age can lag the real one by up to a year (the birthday falls between anniversaries); it never runs ahead. A "Check ages" notice (2.4) asks once a year. A `dob` is more precise data: optional, owner-only, never in output (AD5). Q-AP1 |
+| AD2 | **No traveller names; adults as a count, their ages optional** | Nothing reads names: suitability, the scheduler and the party bar use the adult count and children's ages only (`core/src/trips/party.ts`). Adult ages are allowed (owner, 27 Oct 2026) for later senior and youth fares, but never required and not read by any page yet | F01's "Kai's passport" checks need names later; they come with F01 people, by explicit entry. Q-AP2 |
 | AD3 | **Opt-in by an explicit Save with the wording beside it; no checkbox** | Filling the form and pressing "Save travellers" under a sentence that says what is stored is an unambiguous choice; a checkbox adds a tap and a reading task (P4). The time of the first save is kept (`travellers_consented_at`) | A regulator could prefer a separate tick for data about minors. If the owner wants it, it is one checkbox. Q-AP3 |
 | AD4 | **The account seeds the device; the device never writes back silently** | Every reader (party bar, copy sheet, builder) already reads `travel.party`; the trip page has about 460 B of start-JS headroom and cannot load account code (P9, MASTER-ORDER 4.5). A party tweak on one trip ("grandma joins") is not a change to the household | A party changed on a trip page is not saved to the account until the person says so on Account (section 5.3). Q-AP4 |
 | AD5 | **Travellers never leave the person's own requests**: no public output, URL, log, analytics, export to others, MCP or feedback report | Same rule as the device party (trip-and-places 15, trip-builder 7). The privacy detector gains the new field names | none |
@@ -62,7 +68,7 @@ goes with it.
 | # | As | I want | So that | Principle |
 |---|---|---|---|---|
 | U1 | a new signed-in person | the page to ask my name and who travels with me, one step at a time, with Skip | I am set up in under a minute without reading anything | P4, P7 |
-| U2 | a parent | to save 2 adults and 2 children once, with each child's birth month and year | every trip, copy and plan starts with the right ages on any device, and the ages stay right next year | T4, P6 |
+| U2 | a parent | to save 2 adults and 2 children once, with each child's age (and, if I like, a date of birth) | every trip, copy and plan starts with the right ages on any device, and the ages move on by themselves next year | T4, P6 |
 | U3 | a parent | to see in one line what is saved ("2 adults · 2 children (6, 9)") and change it in one click | I never wonder what the site thinks my family is | P3 |
 | U4 | anyone | to change my display name | the menu and the page greet me correctly | P4 |
 | U5 | a careful parent | to see exactly what is stored, download it and remove it | I trust the site with my children's ages | T4, F17 |
@@ -96,7 +102,7 @@ Later slots (not in this build): "Your interests" between 3 and 4 (trip-kinds 3.
 |---|---|
 | 1440 desktop | The existing reading column (`.account-page`, 40rem), left-aligned in the page grid. Each section is a `<section>` with an `h2` in the section style, a hairline above, `--s-6` between sections. The summary row is two columns: label and value on the left, the Edit button on the right. Editors open in place under the summary row (P5: the row grows, the page does not jump; focus moves to the first field) |
 | 390 phone | One column, full width with the page gutter. Summary row stacks: label, value, then Edit as a full-width secondary button. In the setup card, Continue and Skip sit in a sticky action bar at the bottom of the viewport (thumb reach, S8); the bar clears the safe-area inset. Every target at least 44 by 44 px |
-| 320 | As 390; the children's month and year selects stack under "Child 1" instead of side by side |
+| 320 | As 390; a child's age select and its "Add date of birth" link stack under "Child 1" instead of side by side |
 
 Components, all from the foundation: Field, Input, Select (2.3), Stepper (2.12), Button (2.1), Banner (5.4), Toast with
 Undo (5.3), EmptyState (6.1), ErrorState (6.3), Menu (5.2), RowSkeleton (6.2). No new component. One new CSS block in
@@ -126,13 +132,15 @@ once; the owner sees it with the name prefilled only if Google gave one.
 | this. You can still change it on any trip.       |
 |                                                  |
 | Adults      [-] 2 [+]                            |
+|             Add adults' ages (optional)          |
 | Children    [-] 2 [+]                            |
-| Child 1   Born [ Mar v ] [ 2019 v ]   7 now      |
-| Child 2   Born [ Month v ] [ 2017 v ]            |
+| Child 1   Age [ 7 v ]   Add date of birth        |
+| Child 2   Age [ Age v ] Add date of birth        |
 |                                                  |
 | We save the number of adults and each child's    |
-| birth month and year. No names. Only you can see |
-| it, and you can remove it at any time.           |
+| age, and a date of birth only if you add one. No |
+| names. Only you can see it, and you can remove   |
+| it at any time.                                  |
 |                                                  |
 | [ Save travellers ]  Skip for now    < Back      |
 +--------------------------------------------------+
@@ -149,12 +157,15 @@ Rules:
 
 1. Step 1 prefills from `user.name` (Google gives one; email sign-ups have `''`, rule E8). Continue with an unchanged
    prefilled name saves nothing and moves on. Continue is enabled only when the field is valid (4.2). Skip moves on.
-2. Step 2 prefills from the device party when there is one: the adult count, and for each child a **year** of
-   `thisYear - age` with the month empty. A line under the heading says "Filled in from this browser: 2 adults, 2
-   children (6, 9). Choose each child's birth month to save." With no device party: 2 adults, 0 children
-   (`DEFAULT_PARTY`).
-3. Save travellers is enabled when every child has a month and a year. A child with no year or month shows the field's
-   error only after Save is pressed (P4: no red before the person acts).
+2. Step 2 prefills from the device party when there is one: the adult count and each child's age (an unset age stays
+   empty). A line under the heading says "Filled in from this browser: 2 adults, 2 children (6, 9). Check the ages and
+   save." With no device party: 2 adults, 0 children (`DEFAULT_PARTY`).
+3. Each child has an Age select (Under 1, 1 to 17) and an "Add date of birth" link that opens a native date field in
+   place (P2). With a date of birth the age is derived from it and the Age select shows it read-only ("7, from the date of
+   birth"); "Remove date of birth" returns to the select. Adults: "Add adults' ages (optional)" opens one optional Age
+   field per adult (18 to 120), each with its own optional date of birth. Save travellers is enabled when every child has
+   an age (or a date of birth). A missing age, a date of birth in the future, or one that makes the child 18 or older
+   shows the field's error only after Save is pressed (P4: no red before the person acts).
 4. Save writes the row, writes the device party (5.2), and shows the done state. Skip for now sets `setup_done_at`
    without travellers and closes the card. Back returns to step 1 with the name kept.
 5. The step lives in the URL (`?setup=name`, `?setup=travellers`, `?setup=done`) with `replace` between steps, so a
@@ -186,7 +197,8 @@ travellers".
 | When | Text | Actions |
 |---|---|---|
 | The device party differs from the saved one (5.3) | "This browser plans for 1 adult and 1 child (4). Your saved travellers: 2 adults and 2 children (7, 9)." | "Use saved travellers here" (primary), "Save this browser's party" (opens the editor prefilled from the device; months required), Dismiss (until either changes) |
-| A saved child is 18 or older | "Child 2 is now 18. Count them as an adult?" | "Move to adults" (adults + 1, child removed, saved), "Keep as a child" (plans as 17, the party's cap) |
+| A saved child is 18 or older (by `dob`, or by the rolled age) | "Child 2 is now 18. Count them as an adult?" | "Move to adults" (adults + 1, child removed, saved), "Keep as a child" (plans as 17, the party's cap) |
+| A child's age was entered more than 12 months ago and has no date of birth (`ageNeedsCheck`) | "Are these ages still right? 7, 9." | "Looks right" (re-saves the shown ages with today's `age_as_of`), "Edit" (opens the editor) |
 | Storage blocked on this browser | "Saved to your account. This browser can't keep a copy, so trip pages here use the trip as written." | none |
 | Saved on another device since this page loaded (revision conflict, 6.3) | "Your travellers were changed on another device." | "Show the latest" |
 
@@ -210,10 +222,11 @@ nitin27may@gmail.com" with today's privacy wording until F17's delete button shi
 
 - One `h1`; each section an `h2`; the setup card's step heading an `h2` inside a `<section aria-labelledby>`.
 - Travellers editor: a `<fieldset>` with legend "Who usually travels with you?"; each child a nested `<fieldset>` with
-  legend "Child 1"; month and year are native selects with visible labels "Birth month" and "Birth year" (the visual
-  "Born" is the group label); the derived age ("7 now") is plain text tied by `aria-describedby` to the year select.
-- Adding a child moves focus to its month select (the Travellers.tsx pattern). Removing the last child returns focus to
-  the Children stepper.
+  legend "Child 1"; the age is a native select with the visible label "Age"; "Add date of birth" is a button with
+  `aria-expanded` that reveals a native `<input type="date">` labelled "Date of birth (optional)" with `max` of today; the
+  derived age ("7, from the date of birth") is plain text tied by `aria-describedby` to the date field.
+- Adding a child moves focus to its Age select (the Travellers.tsx pattern). Opening "Add date of birth" moves focus to the
+  date field; removing it returns focus to the Age select. Removing the last child returns focus to the Children stepper.
 - Errors use `aria-invalid` and `aria-describedby`; a failed Save moves focus to the first invalid field.
 - Every target at least 44 px at 390; visible focus ring from the foundation; axe clean (`wcag2a`, `wcag2aa`,
   `wcag21aa`, `wcag22aa`) on every state at 320, 390 and 1440 in light and dark.
@@ -233,11 +246,11 @@ nitin27may@gmail.com" with today's privacy wording until F17's delete button shi
 | AP-8 | buttons | Continue · Skip · Back |
 | AP-9 | step 2 heading | Who usually travels with you? |
 | AP-10 | step 2 sub | Trips, copies and the trip builder start from this. You can still change it on any trip. |
-| AP-11 | prefill line | Filled in from this browser: {party}. Choose each child's birth month to save. |
-| AP-12 | steppers | Adults · Children (dec/inc labels "Fewer adults", "More adults", "Fewer children", "More children") |
-| AP-13 | child group | Child {n} · Born · Birth month · Birth year · Month (placeholder) · Year (placeholder) |
-| AP-14 | derived age | {n} now · Under 1 |
-| AP-15 | privacy line | We save the number of adults and each child's birth month and year. No names. Only you can see it, and you can remove it at any time. |
+| AP-11 | prefill line | Filled in from this browser: {party}. Check the ages and save. |
+| AP-12 | steppers | Adults · Children (dec/inc labels "Fewer adults", "More adults", "Fewer children", "More children") · Add adults' ages (optional) · Adult {n} |
+| AP-13 | child group | Child {n} · Age · Age (placeholder) · Under 1 · Add date of birth · Date of birth (optional) · Remove date of birth |
+| AP-14 | derived age | {n}, from the date of birth · Under 1, from the date of birth |
+| AP-15 | privacy line | We save the number of adults and each child's age, and a date of birth only if you add one. No names. Only you can see it, and you can remove it at any time. |
 | AP-16 | step 2 buttons | Save travellers · Skip for now |
 | AP-17 | done | All set · Trips now plan for {party} wherever you sign in. · Browse trips · Close |
 | AP-18 | done, skipped travellers | All set · You can add travellers here at any time. |
@@ -247,7 +260,8 @@ nitin27may@gmail.com" with today's privacy wording until F17's delete button shi
 | AP-22 | name toast | Name saved. |
 | AP-23 | travellers row second line | Ages today. Trips use these, and you can change the party on any trip. |
 | AP-24 | travellers empty | No travellers saved. · Add who usually travels with you, and every trip starts from it. · Add travellers |
-| AP-25 | child error | Choose the month and year. · A child is 17 or younger. Count older travellers as adults. |
+| AP-25 | child error | Choose an age. · The date of birth can't be in the future. · A child is 17 or younger. Count older travellers as adults. · An adult is 18 or older. |
+| AP-25a | check-ages notice | Are these ages still right? {ages}. · Looks right · Edit |
 | AP-26 | remove | More · Remove saved travellers · Remove your saved travellers? This browser keeps its party until you change it. · Remove · Cancel · Travellers removed. · Undo |
 | AP-27 | notices | as the table in 2.4 |
 | AP-28 | save error | We couldn't save. Your changes are still here; try again. |
@@ -330,22 +344,39 @@ holds 0 users). Evidence: [research/runs/ACCT-PS-spike.md](../../../research/run
 
 ### 5.1 The document
 
+Amended 27 Oct 2026 (owner, Q-AP1): ages with the date entered, an optional date of birth.
+
 ```ts
-// core/src/account/travellers.ts (ACCT-PC; Zod; validated on every read and write)
+// core/src/schema/travellers.ts (ACCT-PC; Zod, strict; validated on every read and write through parseTravellers)
+type IsoDate = string;                  // "YYYY-MM-DD", a real calendar date
+interface AgeEntry {
+  age: number;                          // whole years on `age_as_of`: a child 0..17, an adult 18..120
+  age_as_of: IsoDate;                   // the day the age was entered or confirmed; never after today
+  dob?: IsoDate;                        // optional date of birth; never after today; ageOn(dob, age_as_of) === age
+}
 interface Travellers {
   schema: "travellers/1";
-  adults: number;                       // 1..12 (PARTY_MIN_ADULTS..PARTY_MAX_ADULTS)
-  children: { born: string }[];         // max 8 (PARTY_MAX_CHILDREN); born "YYYY-MM", age 0..17 on the day it is saved
+  adults: number;                       // 1..12 (PARTY_MIN_ADULTS..PARTY_MAX_ADULTS): the count
+  adult_ages?: AgeEntry[];              // optional; at most `adults` entries; not read by any page yet
+  children: AgeEntry[];                 // max 8 (PARTY_MAX_CHILDREN)
 }
 ```
 
-- `born` matches `^(19|20)\d{2}-(0[1-9]|1[0-2])$`, is not in the future, and is at most 17 years and 11 months before
-  the save date. On read, an older child is kept and flagged (the turned-18 notice).
+- Every object is strict (an unknown key is refused). "Today" is the server's UTC day, with one day of tolerance for a
+  person ahead of UTC (`TRAVELLERS.dateSkewDays`, `core/src/config/account.ts`).
+- A child's `age` is 17 or less **on its `age_as_of`**; a stored child who has since turned 18 is kept and flagged (the
+  turned-18 notice), never refused on read. An adult's `age` is 18 or more on its `age_as_of`. The rolled age of any entry
+  is at most 120 today. The whole document is at most 2 KB as UTF-8 JSON.
 - Order is the order entered. No ids, no names, no labels.
-- Functions: `parseTravellers(x)`, `ageOn(born, date)` (whole years, the birthday taken as the 1st of the month),
-  `partyOf(t, date): Party` (ages clamped to 0..17), `travellersFromParty(p, date)` (years only, months empty: the
-  editor's prefill, never saved as is), `sameAsParty(t, p, date)`.
-- `ageOn` is the one age rule. The trip pages keep reading plain ages from `travel.party`; they never see `born`.
+- Functions: `parseTravellers(x, today)`; `ageOn(dob, date)` (whole years; a 29 February birthday falls on 1 March in a
+  common year); `ageNow(entry, date)` (`ageOn(dob, date)` with a `dob`, else `age` plus the whole years since
+  `age_as_of`: a lower bound, never ahead of the real age); `partyOf(t, date): Party` (children's `ageNow`, clamped to
+  0..17); `travellersFromParty(p, date)` (null when a child's age is unset); `sameAsParty(t, p, date)`;
+  `grownUp(t, date)` (children 18 or older now); `ageNeedsCheck(t, date)` (an entry with no `dob` whose `age_as_of` is
+  more than 12 months old, `TRAVELLERS.recheckMonths`); `refreshAges(t, date)` ("Looks right": each entry re-based to
+  today, a child already 18 left as stored).
+- `ageNow` is the one age rule. The trip pages keep reading plain ages from `travel.party`; they never see `age_as_of` or
+  `dob`.
 
 ### 5.2 Account to device
 
@@ -369,13 +400,13 @@ party editor or the copy sheet drops `src` (the party becomes this browser's own
 The seed module `web/lib/account/seed-party.ts` is imported only by `/account/`, `/mine/` and the sign-in card's success
 path (dynamic import after success). No public page loads it (the N9 rule of navigation-and-mine).
 
-`/api/account/profile/party/` answers `{ adults, children: number[] }` (ages today, never `born`), `Cache-Control:
+`/api/account/profile/party/` answers `{ adults, children: number[] }` (ages today, never `dob` or `age_as_of`), `Cache-Control:
 private, no-store`, POST with `sameOrigin()` and `{ userId }`, like `/api/account/drafts/`.
 
 ### 5.3 Device to account
 
 Never automatic. On Account, when the device party differs and has no `src`, the notice offers "Save this browser's
-party", which opens the editor prefilled (years from ages, months empty) and saves only on Save travellers.
+party", which opens the editor prefilled with the device's ages (an unset age empty) and saves only on Save travellers.
 
 Why not write back from the trip page: a one-off change for one trip is common (a friend joins, a child stays home) and
 is not a change to who usually travels; and the trip page cannot carry account code (AD4).
@@ -437,14 +468,24 @@ Delete; there is nothing to open. No migration deletes user rows. The owner dele
 ### 6.5 Download my data
 
 `GET /api/account/export/` (session required, `private, no-store`, `Content-Disposition: attachment;
-filename="travel-account.json"`): `{ exportedAt, email, name, travellers (travellers/1 or null), travellersSavedAt,
-drafts: [{ id, title, createdAt, updatedAt }] }`. GSI-WAYS adds its ways-to-sign-in list when it ships (google spec
-6.4). This is the first piece of F17 15; the full zip stays F17's.
+filename="travel-account.json"`): `{ exportedAt, email, name, travellers (travellers/1 or null, with every age, its
+`age_as_of` and any `dob`, as stored), travellersSavedAt, travellersConsentedAt, setupDoneAt, drafts: [{ id, title,
+createdAt, updatedAt }] }`. GSI-WAYS adds its ways-to-sign-in list when it ships (google spec 6.4). This is the first piece
+of F17 15; the full zip stays F17's. The body is the person's own data and carries keys the privacy detector refuses in
+public output (`travellers`, `dob`, `age_as_of`): the route answers through a private responder, never the public
+`respond()`, which would fail closed (amended 27 Oct 2026).
 
 ### 6.6 The Revision guard
 
 Each save sends the `revision` it loaded. The update is `where user_id = $1 and revision = $2`; zero rows means another
 device saved first: the action answers `CONFLICT`, the page shows the conflict notice (2.4) and keeps the form.
+
+As built (ACCT-PC): `revision` counts changes of the **travellers document** only. It is 0 while none was ever saved,
+and `loadProfile` answers 0 for "no row", so a first save from two devices cannot both win. Finishing or skipping setup
+does not move it. A save at revision 0 inserts the row or fills a row that never held travellers; a save at any other
+revision updates that revision only, and a row deleted elsewhere answers `conflict` (never a silent re-create). Saving an
+identical document does not move it. Removing travellers is guarded the same way; removing when nothing is saved is a
+no-op.
 
 ## 7. Trip copies and their party (consistency with TRIP-EDIT-I)
 
@@ -454,15 +495,15 @@ A copy (`copies/1` on the device, `trip-custom/1` `travellers` on the account) a
 1. **A copy's party is a snapshot, not a link.** It starts from the device party (which the account seeds), so a new
    copy made while signed in starts from Travellers. Editing Travellers later does not change existing copies: a trip
    planned for a 6-year-old in 2027 stays planned for a 6-year-old.
-2. **A copy stores ages, never birth months.** Ages at the copy's start date when it has one (`ageOn(born, start)`
-   when the seed came from the account), else ages today. The birth month exists in one row only.
+2. **A copy stores ages, never a date of birth or `age_as_of`.** Ages at the copy's start date when it has one
+   (`ageNow(entry, start)` when the seed came from the account), else ages today. A date of birth exists in one row only.
 3. A copy's party may differ from Travellers (a friend joins). The copy row shows its own party ("2 adults, 1 child"),
    as on `/mine/` today.
 4. A synced copy offers "Use my travellers" in its party editor to re-apply the saved party (TRIP-EDIT-I owns the
    control).
 5. Both stores are named on the privacy page (8.2) and both are in export and delete.
 
-**Possible conflict:** if TRIP-EDIT-I chooses a live link from a copy to the profile, or stores birth months in copies,
+**Possible conflict:** if TRIP-EDIT-I chooses a live link from a copy to the profile, or stores dates of birth in copies,
 rules 1 and 2 conflict. Q-AP8 asks the owner to confirm the snapshot.
 
 ## 8. The live-updates banner: what it was and the rule from now on
@@ -491,56 +532,47 @@ production or not, browser console status), so NAV-3 starts from a known cause.
 
 ### 9.1 Table
 
-```sql
--- migration slug account_profile (MIG-N: number at merge; 0012 if it merges next)
-create table account_profile (
-  user_id text primary key,                              -- Better Auth user id, from the session only
-  travellers jsonb,                                      -- travellers/1 or null
-  travellers_consented_at timestamptz,                   -- first save with the AP-15 wording on screen
-  setup_done_at timestamptz,                             -- the setup card is finished or skipped
-  revision integer not null default 0,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now(),
-  constraint account_profile_travellers check (
-    travellers is null or (
-      jsonb_typeof(travellers) = 'object'
-      and travellers->>'schema' = 'travellers/1'
-      and (travellers->>'adults')::int between 1 and 12
-      and jsonb_typeof(travellers->'children') = 'array'
-      and jsonb_array_length(travellers->'children') <= 8
-      and pg_column_size(travellers) <= 1024)));
+Built by ACCT-PC as `core/src/db/migrations/0012_account_profile.sql` (slug `account_profile`; MIG-N: renumber at merge if
+another migration lands first). The file is the source of truth; in short:
 
--- updated_at and revision on every update (the planner_draft_touch pattern)
-create or replace function account_profile_touch() returns trigger language plpgsql as $$
-begin
-  new.updated_at := now();
-  new.revision := old.revision + 1;
-  return new;
-end $$;
-create trigger account_profile_touch_t before update on account_profile
-  for each row execute function account_profile_touch();
+| Column | Type | Written by |
+|---|---|---|
+| `user_id` | text, primary key, 1 to 255 characters | the caller, from the verified session only |
+| `travellers` | jsonb, `travellers/1` or null | `saveTravellers`, `removeTravellers` |
+| `travellers_saved_at` | timestamptz | the trigger, when `travellers` changes |
+| `travellers_consented_at` | timestamptz | the trigger, on the first document ever saved; kept after a removal |
+| `setup_done_at` | timestamptz | `finishSetup` or a save with `finishSetup`; the trigger never lets an update clear it |
+| `revision` | integer, default 0 | the trigger: 0 or 1 on insert (no travellers or travellers), +1 on each change of `travellers` (6.6) |
+| `created_at`, `updated_at` | timestamptz | the trigger |
 
-alter table account_profile enable row level security;
-create policy account_profile_select on account_profile for select using (user_id = app_current_user_id());
-create policy account_profile_insert on account_profile for insert with check (user_id = app_current_user_id());
-create policy account_profile_update on account_profile for update
-  using (user_id = app_current_user_id()) with check (user_id = app_current_user_id());
-create policy account_profile_delete on account_profile for delete using (user_id = app_current_user_id());
-
-revoke all on account_profile from public;
-grant select, insert, update, delete on account_profile to travel_app;
--- No Realtime signal, no SECURITY DEFINER function, no foreign key into neon_auth (Neon owns that schema).
-```
+- **CHECK `account_profile_travellers`** (a second net behind Zod): an object with only `schema`, `adults`,
+  `adult_ages`, `children`; `schema` is `travellers/1`; `adults` an integer 1 to 12; at most 8 children and at most
+  `adults` adults' ages; every entry an object with only `age`, `age_as_of` and an optional `dob`, a child's age an
+  integer 0 to 17 and an adult's 18 to 120, dates shaped `YYYY-MM-DD`; at most 2 KB (`pg_column_size`). It is written
+  as one CASE so a cast never meets the wrong type, and with jsonpath for the entries. Date logic that needs "today"
+  (no future `dob`, `dob` agrees with `age`) is Zod's alone.
+- **Trigger `account_profile_touch_t`** (before insert or update) owns the bookkeeping in the table above, so no caller
+  can forge a revision or a consent time.
+- **RLS**: four owner policies (`select`, `insert`, `update`, `delete`, each `user_id = app_current_user_id()`, update
+  with the same WITH CHECK). `revoke all from public`; `grant select, insert, update, delete to travel_app`. No Realtime
+  signal, no SECURITY DEFINER function, no foreign key into `neon_auth` (Neon owns that schema). Classified as never
+  seeded (`core/src/seed/contract.ts`, class `account`).
 
 Writes go through `withUserTransaction` (`core/src/db/tx.ts`), so `app.user_id` comes from the verified session and RLS
 applies under the non-owner `travel_app` role. `core/src/db/profile.ts` holds `loadProfile`, `saveTravellers(userId,
-doc, revision)`, `removeTravellers`, `finishSetup`, each an upsert or update with `user_id` from the session.
+doc, revision, { finishSetup })`, `removeTravellers(userId, revision)`, `finishSetup`, `deleteProfile`, with `user_id`
+from the argument only (callers pass the session id). Answers: `{ kind: 'saved', revision } | { kind: 'conflict' } |
+{ kind: 'rejected', issues }`.
 
 ### 9.2 Tests (on the Docker database and the child branch)
 
-RLS: user A cannot select, insert, update or delete B's row (four cases, as `planner_draft`); an unset `app.user_id` sees
-nothing; the check constraint refuses a bad schema, 13 adults, 9 children and a 2 KB document; the revision guard; the
-touch trigger. The core DB test list gains `account_profile` in the "every application table has RLS" pin.
+`core/test/db/account-profile.test.ts` (skips without `TEST_DATABASE_URL`): RLS, user B cannot select, insert, update or
+delete A's row (with and without a WHERE, since a WHERE also applies the SELECT policy and would hide a weakened UPDATE or
+DELETE policy), nor move its own row onto A's id; an unset `app.user_id` sees and writes nothing; the grants are
+`travel_app` only; the CHECK refuses another schema, 13 adults, 9 children, a child of 18, a name, a `born` field, an
+unknown key, a nested array, too many adults' ages, an adult of 12, a 3 KB document; the revision guard across two
+devices; the trigger's bookkeeping. `core/test/db/profile.test.ts` covers the same functions with a fake runner (always
+runs). `account_profile` is in the inventory's "every application table has RLS" pin.
 
 ### 9.3 Delete and retention
 
@@ -550,8 +582,9 @@ row until they age out; the privacy page says so in one clause.
 
 ### 9.4 Later: F01 households
 
-When F01 builds households, each child in `travellers/1` becomes a `person` row with `birth_year` and a new
-`birth_month` column (0002 has `birth_date` and `birth_year`), the adults stay a count until adults are invited, and
+When F01 builds households, each entry in `travellers/1` becomes a `person` row with its `dob` in 0002's `birth_date`
+when given, else its age and `age_as_of` (two new columns, or `birth_year` estimated from them), the adults stay a count
+until adults are invited, and
 `account_profile.travellers` becomes a pointer or is dropped. One migration, written then; nothing here blocks it.
 
 ## 10. Privacy
@@ -561,13 +594,13 @@ When F01 builds households, each child in `travellers/1` becomes a `person` row 
 | Rule | Enforced by |
 |---|---|
 | Owner-only row | RLS four policies; `user_id` from the session; route and action tests with a forged id |
-| Never in public output | the privacy detector (`core/src/privacy/detect.ts`) gains `born`, `travellers/1` and `travellers_consented_at` as forbidden in public payloads and exported pages; a test plants them and fails |
-| Never in a URL | the party in links stays `p=` and `a=` (Q296); a test asserts no `born` in any URL the site builds |
-| Never in logs | actions and routes log fixed codes only (`safeError`); a log-scan test with a planted birth month |
+| Never in public output | the privacy detector (`core/src/privacy/detect.ts`, ACCT-PC) refuses the keys `dob`, `born`, any key starting `birth` (`birthDate`, `birth_year`, ...), `age_as_of`, `ageAsOf`, `ages`, `adult_ages`, `travellers_consented_at`, `travellersConsentedAt`, `travellers_saved_at`, `travellersSavedAt` (with `travellers`, already private), and any string equal to `travellers/<n>`, in public payloads and exported pages; tests plant each and fail |
+| Never in a URL | the party in links stays `p=` and `a=` (Q296); a test asserts no `dob` or `age_as_of` in any URL the site builds |
+| Never in logs | actions and routes log fixed codes only (`safeError`); `LOG_DENY_KEYS` gains `travellers`, `dob`, `born`, `age_as_of`, `ages`, `adult_ages`; a log-scan test with a planted date of birth |
 | Never in analytics | no analytics on `/account/` (GSI 7.1); the beacon sees paths only |
-| Never in feedback reports | the feedback detector list gains the same keys |
-| Not over the wire more than needed | the party route sends ages, never `born`; the Account page sends `born` only to its own client component |
-| Minors' data minimised | month and year only, no names, no day, adults as a count |
+| Never in feedback reports | the report body is a path, a kind and free text (`core/src/schema/api/report.ts`), with no structured field to carry travellers; the detector keys above are the only list |
+| Not over the wire more than needed | the party route sends ages, never `dob` or `age_as_of`; the Account page sends the document only to its own client component |
+| Minors' data minimised | an age and the date entered; a date of birth only when the person adds one; no names; adults as a count, their ages optional |
 
 ### 10.2 The privacy page (`web/app/privacy/PrivacyBody.tsx`)
 
@@ -577,8 +610,9 @@ ages). They stay on the device. If you sign in, the travellers you save to your 
 removed from it when you sign out."
 
 "Accounts", after the first paragraph, a new paragraph: "If you choose to save your travellers, we keep the number of
-adults and each child's birth month and year, with no names, so trips plan for the right ages on any device. Only you
-can see them. Trips you save to your account keep the party you planned them for (adults and children's ages). You can
+adults and each child's age with the date you entered it, so the ages move on each year, and a date of birth only if
+you add one; no names. Adults' ages are optional. Trips then plan for the right ages on any device. Only you can see
+them. Trips you save to your account keep the party you planned them for (adults and children's ages). You can
 change or remove your travellers on your account page at any time, and download everything we hold about you there.
 Removed data leaves our backups when they expire."
 
@@ -589,8 +623,9 @@ Removed data leaves our backups when they expire."
 
 1. A new signed-in person on `/account/` sees "Set up your account, Step 1 of 2" first; Skip, Skip leaves a settled page
    that never shows the card again on any device.
-2. Saving 2 adults and children born 2019-03 and 2017-06 shows "2 adults · 2 children (7, 9)" (on 27 Oct 2026) and the
-   row holds exactly `{schema, adults, children:[{born}...]}`.
+2. Saving 2 adults and children aged 7 and 9 on 27 Oct 2026 shows "2 adults · 2 children (7, 9)" and the row holds
+   exactly `{schema, adults, children: [{age, age_as_of}, ...]}`; with a date of birth added for one child the entry
+   also holds `dob` and its age agrees with it. On 27 Oct 2027 the same row shows "(8, 10)" with no edit.
 3. After that save, a trip page on the same browser opens with the party bar on "Your party: 2 adults · 2 children (7,
    9)", the copy sheet's Travellers show both ages, and a builder POST body carries ages `[7, 9]`, with no change to
    trip, copy sheet or builder code.
@@ -601,8 +636,8 @@ Removed data leaves our backups when they expire."
 7. The name saved on Account shows on Account at once and in the header initial after the next session refresh; the
    browser proxy still answers 404 to `POST /api/auth/update-user`.
 8. No "Draft title" field and no live-status text exist on `/account/`.
-9. No public page, export, URL, log line or feedback report carries `born` or a child's age from the account (privacy
-   tests).
+9. No public page, export, URL, log line or feedback report carries a `dob`, an `age_as_of` or a child's age from the
+   account (privacy tests).
 10. User B cannot read or change user A's row (RLS tests on the child branch).
 11. Axe clean and 44 px targets at 320, 390 and 1440, light and dark, in every state of 2.3 and 2.4.
 12. Every public page's start JS and HTML budget is unchanged (`pnpm --dir web budget:report`).
@@ -611,14 +646,14 @@ Removed data leaves our backups when they expire."
 
 | ID | Question | Recommended answer |
 |---|---|---|
-| Q-AP1 | Store each child as birth **month and year**, rather than an age (goes stale) or a birth year only (off by one most of the year)? | **Month and year.** Exact ages for age limits all year; no day, no name. Trade-off: one more select per child |
-| Q-AP2 | No names for travellers and no adult ages in v1? | **Yes.** Nothing uses them yet; names come with F01 people when passport checks need them |
+| Q-AP1 | Store each child as birth **month and year**, rather than an age (goes stale) or a birth year only (off by one most of the year)? | **Answered, owner 27 Oct 2026: age, DOB optional.** Each child (and optionally each adult) is stored as an age with the date entered (`age_as_of`), rolled forward each year; a date of birth is optional and, when given, the age is derived from it. (Was recommended: month and year.) |
+| Q-AP2 | No names for travellers and no adult ages in v1? | **Yes on names** (nothing uses them yet; they come with F01 people when passport checks need them). **Adults' ages optional** (owner, 27 Oct 2026, with Q-AP1) |
 | Q-AP3 | Consent as the explicit Save with the stored-data sentence beside it, no separate checkbox? | **Yes.** Clear and one tap shorter; the first-save time is recorded. A checkbox is a 15-minute change if you prefer it |
 | Q-AP4 | The account seeds the browser's party; a party changed on a trip page is saved to the account only when you choose to on Account? | **Yes.** Keeps one source for every page and zero cost on trip pages. Trade-off: no silent write-back |
 | Q-AP5 | Change your name through Neon's update-user from our server, keeping that route closed in the browser proxy (fallback: a guarded proxy route if the spike fails)? | **Yes** |
 | Q-AP6 | Drop live updates from the Account page (refresh on focus and after each save)? | **Yes.** Removes the stuck banner; the page has nothing that needs live updates |
 | Q-AP7 | Keep the old title-only test drafts (your "Nitin" one included) as normal rows that you delete yourself, rather than a cleanup migration? | **Yes.** A migration never deletes user rows; one click deletes yours |
-| Q-AP8 | A saved trip copy keeps its own party as ages (a snapshot started from Travellers), never birth months and never live-linked to Travellers? (TRIP-EDIT-I must match) | **Yes.** A past plan stays true to who went; birth months live in one row only |
+| Q-AP8 | A saved trip copy keeps its own party as ages (a snapshot started from Travellers), never a date of birth and never live-linked to Travellers? (TRIP-EDIT-I must match) | **Yes.** A past plan stays true to who went; dates of birth live in one row only |
 | Q-AP9 | A returning Google sign-in that goes straight back to a trip page seeds the browser's party only at the next Account or Mine visit? | **Yes for v1.** Seeding on that redirect needs a client hand-off with a blank flash; revisit if it annoys |
 | Q-AP10 | Add "Download my data" (a JSON file) on Account now, before F17's full export? | **Yes.** 30 minutes, and it makes the privacy promise real for children's data |
 | Q-AP11 | Everyone, including existing accounts, sees the two-step setup once after this ships? | **Yes.** It is the only way existing accounts find Travellers; Skip is one tap |
@@ -627,9 +662,14 @@ Removed data leaves our backups when they expire."
 
 - The SDK's session-data cookie can serve the old name for about 5 minutes after a change; the header initial lags.
 - `cleanParty` must keep ignoring unknown keys, or `src` breaks old readers. A unit test pins it.
-- A child born in the current month is "Under 1" (age 0), and the party bar must say "under 1" (UXB-2 M1).
-- Daylight and time zones: `ageOn` uses the person's local date on the client and UTC on the server; a birthday on the
-  1st can differ by a day for one request. Harmless at month precision.
+- A child under one is age 0 ("Under 1"), and the party bar must say "under 1" (UXB-2 M1).
+- Without a date of birth the rolled age is a lower bound: a child entered as 6 the day before turning 7 reads 6 until the
+  first anniversary of entry. The yearly "Are these ages still right?" notice and an optional date of birth are the fix.
+- Daylight and time zones: the client uses the person's local date and the server the UTC day, with one day of tolerance
+  for a date of birth or `age_as_of` that is "tomorrow" in UTC (`TRAVELLERS.dateSkewDays`). A birthday can read a day
+  late or early for one request.
+- The export route must not answer through the public `respond()`: the detector would refuse its own `travellers` key
+  (6.5).
 - The Neon project must keep additional user fields off; if one is ever enabled, `update-user` accepts it from a direct
   call (4.3).
 - GSI-WAYS, GSI-UX and GSI-SEC are in flight on `web/app/account/page.tsx`, `account.css` and `SignInCard.tsx`.
@@ -642,7 +682,7 @@ Removed data leaves our backups when they expire."
 | navigation-and-mine.md 4.3 | The create box leaves Account now (ACCT-P), before NAV-3; Account leads with Profile and Travellers |
 | trip-and-places-ux-fixes.md 10.2 and 15 | `travel.party` gains optional `src: "account"`; the party may be seeded from the account |
 | trip-builder.md 2.4 | The party row: seeded from the account when signed in; the draft rule unchanged |
-| F17 rule 12 | New data class "travellers" (adult count, children's birth month and year), owner-only |
+| F17 rule 12 | New data class "travellers" (adult count, each child's age with the date entered, optional dates of birth, optional adults' ages), owner-only |
 | google-and-apple-sign-in.md 6.1 | Name: editable on Account (ACCT-P) |
 | F01 | The v1 slice; 9.4 says how it moves to `person` rows |
 
@@ -651,3 +691,4 @@ Removed data leaves our backups when they expire."
 | Date | Change |
 |---|---|
 | 2026-10-27 | Written (ACCT-P), with the owner's screenshots of `/account/` and `/mine/` and the TRIP-EDIT-I cross-reference |
+| 2026-10-27 | Amended (owner, Q-AP1): ages with `age_as_of` and an optional `dob` replace birth month and year; adults' ages optional. Sections 0, AD1, AD2, U2, 2.2, 2.3, 2.4, 2.6, 2.7, 5.1, 5.2, 5.3, 6.5, 6.6, 7, 9, 10, 11, 12, 13 updated. ACCT-PC built the contracts: migration `0012_account_profile.sql`, `core/src/schema/travellers.ts`, `core/src/db/profile.ts`, `core/src/config/account.ts`, the `src` field in `web/lib/storage/partyKey.ts`, the detector keys |

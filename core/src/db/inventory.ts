@@ -112,6 +112,8 @@ export const NEW_TABLES: readonly string[] = [
   "planner_draft",
   // auth guard quotas and the owner-alert budget (migration 0011, EML-Q): RLS on, no policy, reached only through definer functions
   "quota_bucket",
+  // a signed-in person's saved travellers and setup state (migration 0012, ACCT-PC): owner-predicate RLS like planner_draft
+  "account_profile",
 ] as const;
 
 /** Every application table that the migrations create. */
