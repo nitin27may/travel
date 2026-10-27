@@ -10,7 +10,7 @@ import { Icon } from '@/components/ui/Icon';
 import { PageTabs } from '@/components/ui/PageTabs';
 import { Segmented } from '@/components/ui/Segmented';
 import { flightEntries, localEntries } from './timeline/marks';
-import { publishTimeline, registerYoungest } from '@/lib/export/timelineState';
+import { publishTimeline } from '@/lib/export/timelineState';
 import { tripPageFamily } from '@/lib/map/family';
 import '@/styles/timeline.css';
 import '@/styles/trip-tabs.css';
@@ -239,13 +239,6 @@ function TimelinePlan({ slug, model, depth, season, tabs, slots, tlModel, url }:
     });
     return () => publishTimeline(null);
   }, [slug, tlModel, api.state, api.timelines, model.route]);
-  const setProfile = api.setProfile;
-  const party = api.state.profile.party;
-  useEffect(() => {
-    registerYoungest((age) => setProfile(age === null ? { party: 'adults', youngest: null } : { party: 'family', youngest: age }));
-    return () => registerYoungest(null);
-  }, [setProfile, party]);
-
   // A pick scrolls itself (lock, sticky offsets, pin) and writes the hash; the hash effect skips a hash it did not receive from outside.
   const goUrl = url.go;
   const daysView = tabApi.daysView;

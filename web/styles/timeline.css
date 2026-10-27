@@ -6,33 +6,14 @@
 .tl-banner { margin: 0 0 var(--s-6); max-width: 62rem; }
 
 /* ---------- profile ("Plan it for") ---------- */
-.tl-profile { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-4); padding: var(--s-5) var(--s-6); margin: 0 0 var(--s-8); max-width: 62rem; scroll-margin-top: calc(var(--header-h) + var(--s-4)); }
-.tl-profile-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) var(--s-4); }
-.tl-profile-h { font: var(--t-section); text-transform: uppercase; }
-.tl-profile-sub { font: var(--t-small); color: var(--muted); flex: 1 1 18rem; }
-.tl-profile-edit { display: none; margin-left: auto; }
-.tl-profile-line { font: var(--t-small); color: var(--ink-2); margin: var(--s-3) 0 var(--s-4); max-width: 52rem; }
 .tl-reset { background: none; border: 0; padding: 0; color: var(--accent-text); font: inherit; text-decoration: underline; cursor: pointer; }
 .tl-reset:hover { color: var(--ink); }
-.tl-reset:focus-visible, .tl-more:focus-visible, .tl-remove:focus-visible, .tl-step:focus-visible, .tl-add-open:focus-visible, .tl-add-item:focus-visible, .tl-add-close:focus-visible,
+.tl-reset:focus-visible, .tl-more:focus-visible, .tl-remove:focus-visible, .tl-add-open:focus-visible, .tl-add-item:focus-visible, .tl-add-close:focus-visible,
 .tl-trip-row:focus-visible, .tl-rail-cell:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
-.tl-profile-controls { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr) minmax(0, 1.3fr); gap: var(--s-5) var(--s-6); align-items: start; }
-.tl-field { display: grid; gap: var(--s-2); align-content: start; min-width: 0; }
-.tl-field[data-disabled] .tl-step-v { color: var(--muted); }
-.tl-field[data-disabled] .tl-step { opacity: 0.45; }
-.tl-label { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
-.tl-hint { font: var(--t-meta); color: var(--muted); max-width: 26rem; }
-.tl-stepper { display: inline-flex; align-items: center; gap: var(--s-1); height: 40px; padding: 0 var(--s-1); border: 1px solid var(--line-2); border-radius: var(--r-3); background: var(--surface); width: max-content; }
-.tl-step { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: var(--r-2); background: none; color: var(--ink); cursor: pointer; }
-.tl-step:hover:not(:disabled) { background: var(--surface-2); }
-.tl-step:disabled { opacity: 0.4; cursor: default; }
-.tl-step-v { min-width: 6.5rem; text-align: center; font: var(--t-mono); color: var(--ink); }
-.tl-more-wrap { grid-column: 1 / -1; }
 .tl-more { display: inline-flex; align-items: center; gap: var(--s-1); min-height: 28px; padding: 0 var(--s-2); border: 0; border-radius: var(--r-2); background: none; color: var(--ink-2); font: var(--t-meta); cursor: pointer; }
 .tl-more svg { transition: transform var(--d-base) var(--e-out); }
 .tl-more[aria-expanded='true'] svg { transform: rotate(180deg); }
 .tl-more:hover { color: var(--ink); background: var(--surface-2); }
-.tl-profile-more { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--s-5) var(--s-8); padding-top: var(--s-3); border-top: 1px solid var(--line); animation: tl-rise var(--d-base) var(--e-out); }
 .tl-profile-note { margin-top: var(--s-3); font: var(--t-meta); color: var(--warn); }
 
 /* ---------- the whole trip ---------- */
@@ -200,16 +181,8 @@
   .tl-trip-list { --cols: 74px minmax(0, 1fr) auto auto; }
   .tl-trip-row .tl-bar { grid-column: 1 / -1; order: 5; }
   .tl-trip-v { display: none; }
-  .tl-profile-controls { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 639px) {
-  .tl-profile { padding: var(--s-4); }
-  .tl-profile-edit { display: inline-flex; }
-  .tl-profile-sub { display: none; }
-  .tl-profile-controls { display: none; grid-template-columns: 1fr; }
-  .tl-profile-controls[data-open] { display: grid; }
-  .tl-profile-line { margin-bottom: 0; }
-  .tl-profile-controls[data-open] { margin-top: var(--s-4); }
   .tl-planbar-line { display: none; }
   .tl-day-head { grid-template-columns: 64px minmax(0, 1fr); gap: var(--s-3); }
   .tl-thumb { width: 64px; height: 48px; }
@@ -226,12 +199,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tl-profile-more, .tl-add-panel, .tl-know, .tl-why, .tl-moved, .tl-gone { animation: none; }
+  .tl-add-panel, .tl-know, .tl-why, .tl-moved, .tl-gone { animation: none; }
   .tl-more svg, .tl-know-btn svg { transition: none; }
 }
 
 @media print {
-  .tl-planbar, .tl-profile, .tl-add, .tl-day-foot, .tl-more, .tl-trip { display: none; }
+  .tl-planbar, .tl-add, .tl-day-foot, .tl-more, .tl-trip { display: none; }
   .tl-day { break-inside: avoid; page-break-before: always; border-color: var(--line-2); }
   .tl-know[hidden] { display: block; }
   .tl-time, .tl-node { color: var(--ink); }
@@ -294,8 +267,6 @@
 }
 
 /* ---- "Plan it for" now line, the sticky bar's profile ---- */
-.tl-profile-now { font: var(--t-small); color: var(--ink-2); margin-left: auto; }
-.tl-profile-now b { font-weight: 600; color: var(--ink); }
 .tl-planbar-line { max-width: 20rem; }
 .tl-planbar-who { color: var(--ink); font-weight: 600; }
 
@@ -329,12 +300,6 @@
 
 @media (max-width: 639px) {
   /* the phone selector is one line: "Planned for Family, 6 · Standard", Change opens it in place */
-  .tl-profile { padding: var(--s-3) var(--s-4); margin-bottom: var(--s-4); }
-  .tl-profile-h { display: none; }
-  .tl-profile-head { flex-wrap: nowrap; align-items: center; justify-content: space-between; }
-  .tl-profile-now { margin-left: 0; }
-  .tl-profile-line { display: none; }
-  .tl-profile-controls[data-open] ~ .tl-profile-line, .tl-profile:has(.tl-profile-controls[data-open]) .tl-profile-line { display: block; }
   /* the sticky bar names the profile on a phone too: line over the rail */
   .tl-planbar { flex-wrap: wrap; row-gap: 0; gap: 0 var(--s-3); }
   .tl-planbar-line { display: block; flex: 1 0 100%; max-width: none; min-height: 28px; line-height: 28px; }

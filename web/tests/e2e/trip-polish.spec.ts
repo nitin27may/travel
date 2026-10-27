@@ -1,6 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
+import { openParty } from './party';
 
 const ROCKIES = '/trips/canadian-rockies-2029/';
 const settle = (page: Page, ms = 900) => page.waitForTimeout(ms);
@@ -8,6 +9,7 @@ const settle = (page: Page, ms = 900) => page.waitForTimeout(ms);
 test.describe('trip page polish (TRP, stage 4)', () => {
   test('a Pace change cross-fades the day cards: out, then in; reduced motion jumps (check 4)', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}?view=day`);
+    await openParty(page);
     await page.locator('#plan-for').scrollIntoViewIfNeeded();
     const sample = () =>
       page.evaluate(async () => {
@@ -116,10 +118,10 @@ test.describe('trip page polish (TRP, stage 4)', () => {
     const y = (sel: string) => page.locator(sel).first().evaluate((e) => e.getBoundingClientRect().top + window.scrollY);
     expect(await y('#plan-for')).toBeLessThan(await y('.trip-season')); // the band is "When to go" in the Summary now, below the party bar
     await page.goto(`${site.url}${ROCKIES}?view=day`);
-    await expect(page.locator('.tl-planbar-who')).toHaveText('Family, 10 · Standard') // the family default opens on a 10-year-old (FAMAGE10); the plan's written-for age stays 6;
+    await expect(page.locator('.tl-planbar-who')).toHaveText('2 adults, 1 child · Standard') // the family default opens on a 10-year-old (FAMAGE10); the plan's written-for age stays 6;
     await expect(page.locator('.tl-planbar')).not.toContainText('Plan as written');
     await page.goto(`${site.url}${ROCKIES}?p=adults&pace=full&view=day`);
-    await expect(page.locator('.tl-planbar-who')).toHaveText('Adults · Full');
+    await expect(page.locator('.tl-planbar-who')).toHaveText('Shared plan · Full'); // a link with a party is a shared plan, in the bar and the rail (review UXB-2 S3)
   });
 
   test('the add panel says what an addition costs before it is made, and not offers one past 23:00 (check 3)', async ({ page, site }) => {

@@ -4,6 +4,7 @@
 // as the profile, the overrides and the additions change; the sheet reads it when it opens. A module store, because the sheet
 // is rendered outside the timeline's component tree. Nothing here is stored: a reload starts from the URL again.
 import type { DayTimeline, Profile } from '@travel/core/schedule/types.ts';
+import type { Party } from '@travel/core/trips/party.ts';
 import type { RouteModel } from '@/components/trips/model';
 
 export interface TimelineSession {
@@ -22,7 +23,7 @@ export interface TimelineSession {
 }
 
 let current: TimelineSession | null = null;
-let onYoungest: ((age: number | null) => void) | null = null;
+let onParty: ((p: Party) => void) | null = null;
 const listeners = new Set<() => void>();
 
 export const publishTimeline = (s: TimelineSession | null): void => {
@@ -34,9 +35,13 @@ export const subscribeTimeline = (l: () => void): (() => void) => {
   listeners.add(l);
   return () => listeners.delete(l);
 };
-/** The trip page registers how a change of the youngest child in the copy sheet reaches the page's profile. */
-export const registerYoungest = (fn: ((age: number | null) => void) | null): void => {
-  onYoungest = fn;
+/** The party bar registers how a party chosen in the copy sheet reaches the page: it keeps it on the device and plans for it. */
+export const registerParty = (fn: ((p: Party) => void) | null): void => {
+  onParty = fn;
 };
-/** The copy sheet's youngest child changed (null: no children): the page's profile follows. */
-export const setYoungest = (age: number | null): void => onYoungest?.(age);
+/** The copy sheet's travellers changed. False when no page is listening (the sheet then keeps the party itself). */
+export const setParty = (p: Party): boolean => {
+  if (!onParty) return false;
+  onParty(p);
+  return true;
+};

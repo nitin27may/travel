@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from './fixtures';
+import { openParty } from './party';
 
 const ROCKIES = '/trips/canadian-rockies-2029/';
 const MARKER = /\b(INFERENCE|CALC|GAP)\b|low confidence/;
@@ -89,6 +90,7 @@ test.describe('trip timeline (L3c)', () => {
   test('a day can be swapped, says so, and resets (check 5)', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}?d=5C#day-5`);
     await expect(page.locator('#day-5').getByText('Changed for this day')).toBeVisible();
+    await openParty(page);
     await expect(page.getByTestId('profile-line')).toContainText('1 day changed');
     await page.locator('#day-5').getByRole('button', { name: 'Reset' }).click();
     await expect(page).not.toHaveURL(/d=5C/);
@@ -106,9 +108,13 @@ test.describe('trip timeline (L3c)', () => {
 
   test('Back and Forward restore the profile; the keys follow the codec order (check 12)', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}?view=day`);
+    await openParty(page);
     await page.getByRole('radio', { name: 'Relaxed' }).click();
     await expect(page).toHaveURL(/\?pace=relaxed/);
-    await page.getByRole('radio', { name: 'Adults only' }).click();
+    // one editing session is one history entry (review UXB-2 S2): Done and Edit again start the next
+    await page.locator('#plan-for .pb-edit').click();
+    await openParty(page);
+    await page.getByRole('button', { name: 'Fewer children' }).click();
     await expect(page).toHaveURL(/\?p=adults&pace=relaxed/);
     await page.goBack();
     await expect(page).toHaveURL(/\?pace=relaxed&view=day$/);
@@ -181,10 +187,10 @@ test.describe('trip timeline (L3c)', () => {
   test('phone: the profile is a line with Edit, opens inline, no horizontal scroll (check 17)', async ({ page, site }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${site.url}${ROCKIES}?view=day`);
-    await expect(page.locator('.tl-profile-now')).toBeVisible();
+    await expect(page.getByTestId('party-line')).toBeVisible();
     await expect(page.locator('#plan-for-controls')).toBeHidden();
-    await page.locator('.tl-profile-edit').click();
-    await expect(page.locator('#plan-for-controls')).toBeVisible();
+    await page.locator('.pb-edit').click();
+    await expect(page.locator('#plan-for-controls .pe')).toBeVisible();
     await page.getByRole('radio', { name: 'Full' }).click();
     await expect(page).toHaveURL(/pace=full/);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
@@ -202,8 +208,8 @@ test.describe('trip timeline (L3c)', () => {
         expect(r.violations.map((v) => `${v.id}: ${v.nodes[0]?.html.slice(0, 90)}`), `${size.width} ${label}`).toEqual([]);
       };
       await run('closed');
-      if (size.width < 640) await page.locator('.tl-profile-edit').click();
-      await page.getByRole('button', { name: 'More' }).click();
+      await openParty(page);
+      await page.locator('#plan-for .tl-more').click();
       await run('open');
     }
   });
