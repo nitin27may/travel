@@ -8,12 +8,15 @@ import { ErrorState } from '@/components/ui/ErrorState';
 import { RowSkeleton } from '@/components/ui/Skeleton';
 import { capabilities } from '@/lib/capabilities';
 import { getUser } from '@/lib/auth/server';
+import { maskAddress } from '@/lib/auth/auth-errors';
+import { accountLanding } from '@/lib/auth/landing-server';
 import { DEFAULT_RETURN, returnPath } from '@/lib/auth/return-path';
 import { loadDrafts } from '@/lib/server/drafts';
 import { safeError } from '@/lib/server/safe-error';
 import { dataEnv } from '@/lib/server/neon-env';
 import { pageMetadata } from '@/lib/site';
 import { AccountDrafts } from './AccountDrafts';
+import { SignInNotice } from './SignInNotice';
 import { SignOutButton } from './SignOutButton';
 
 export const metadata = pageMetadata({ title: 'Account', description: 'Your account and saved trip drafts.', path: '/account/', noindex: true });
@@ -39,12 +42,13 @@ function SignedOut() {
   );
 }
 
-async function AccountBody() {
+async function AccountBody({ next }: { next: string }) {
   // Request time only. During `next build` connection() never resolves, so nothing below runs at build.
   await connection();
   const user = await getUser();
   // Fails closed: no session (or auth unconfigured/unreachable) shows the signed-out state, never a list.
   if (!user) return <SignedOut />;
+  const landing = await accountLanding(user);
 
   let loaded: Awaited<ReturnType<typeof loadDrafts>> | null = null;
   let failed = false;
@@ -68,6 +72,10 @@ async function AccountBody() {
         <SignOutButton />
       </header>
 
+      {landing === 'new' || landing === 'linked' ? (
+        <SignInNotice kind={landing} masked={maskAddress(user.email)} next={next === DEFAULT_RETURN ? null : next} />
+      ) : null}
+
       {failed || !loaded ? (
         <ErrorState
           title="We couldn't load your drafts."
@@ -87,14 +95,19 @@ async function AccountBody() {
 
 /**
  * `next` (GSI-1; Google spec 3 and 7.4): Continue with Google always lands here, because only `/account/*` runs the verifier exchange in
- * `proxy.ts`, with the page it started from as `next`. Once `getUser()` returns a user, a checked `next` other than this page is
- * followed at once; a refused value is never echoed and leaves the visitor here. GSI-2 adds its stop before this redirect: a new account
- * or Google just added to an existing one stays here with its notice and a Continue button (copy page W3, Q-GC3).
+ * `proxy.ts`, with the page it started from as `next`. A refused value is never echoed and leaves the visitor here.
+ *
+ * The stop (GSI-2; copy page W3, Q-GC3): a checked `next` is followed at once only for a returning sign-in. A new account, or Google
+ * just added to an existing one, stays here with its notice and a Continue button to `next`; rows that cannot be read also stay here
+ * (fail closed, without a notice). The landing comes from Neon's account rows (`accountLanding`), never from the address.
  */
 export default async function AccountPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   if (!capabilities.signIn) return <SignedOut />;
   const next = returnPath((await searchParams).next);
-  if (next !== DEFAULT_RETURN && (await getUser())) redirect(next);
+  if (next !== DEFAULT_RETURN) {
+    const user = await getUser();
+    if (user && (await accountLanding(user)) === 'returning') redirect(next);
+  }
   return (
     <Suspense
       fallback={
@@ -112,7 +125,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
         </div>
       }
     >
-      <AccountBody />
+      <AccountBody next={next} />
     </Suspense>
   );
 }

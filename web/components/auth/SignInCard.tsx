@@ -14,7 +14,7 @@ import { CodeStep } from './CodeStep';
 import { EmailStep } from './EmailStep';
 import { GoogleStart } from './GoogleButton';
 import { useAnnouncer, useCountdown } from './live';
-import { clearGooglePending, handOffEmail, lastMethod, markGooglePending, peekGooglePending, rememberMethod, type Method } from './memory';
+import { clearGooglePending, handOffEmail, lastMethod, markGooglePending, peekGooglePending, rememberMethod, undoGooglePress, type Method } from './memory';
 import { CardBanner } from './parts';
 import { PasswordStep } from './PasswordStep';
 import { useTurnstile } from './TurnstileLazy';
@@ -95,11 +95,17 @@ export function SignInCard({ mode, codeOn, googleOn = false, siteKey }: SignInCa
   const [notice, setNotice] = useState<string | null>(null);
   const [challenged, setChallenged] = useState(false);
   const [moved, setMoved] = useState(false);
-  // The card renders only in the browser (no server render), so storage is readable on the first render.
-  const [last] = useState(() => lastMethod());
+  // The card renders only in the browser (no server render), so storage is readable on the first render. The return from Google is
+  // read first: a press that came back here did not sign in, so the way in remembered before it is put back (GSI-2) before `last`.
+  const [returned] = useState(() => {
+    const n = returnNotice(googleOn);
+    if (n) undoGooglePress();
+    return n;
+  });
+  const [last, setLast] = useState(() => lastMethod());
   const preferPassword = last === 'password';
   const [googleBusy, setGoogleBusy] = useState(false);
-  const [googleNotice, setGoogleNotice] = useState<GoogleNotice | null>(() => returnNotice(googleOn));
+  const [googleNotice, setGoogleNotice] = useState<GoogleNotice | null>(returned);
   const [focusEmail] = useState(() => Boolean(googleNotice?.focusEmail));
   // Hints read once from the browser (copy page 7 to 9). The card renders only in the browser, so these are safe at first render.
   const [cookiesOff] = useState(() => typeof navigator !== 'undefined' && navigator.cookieEnabled === false);
@@ -145,8 +151,11 @@ export function SignInCard({ mode, codeOn, googleOn = false, siteKey }: SignInCa
       if (!e.persisted) return;
       setGoogleBusy(false);
       const fresh = pendingFresh(peekGooglePending(), Date.now());
-      clearGooglePending();
-      if (fresh) showGoogle({ tone: 'notice', message: GOOGLE_COPY.didNotFinish });
+      if (fresh) {
+        undoGooglePress();
+        setLast(lastMethod());
+        showGoogle({ tone: 'notice', message: GOOGLE_COPY.didNotFinish });
+      } else clearGooglePending();
     };
     window.addEventListener('pageshow', onShow);
     return () => window.removeEventListener('pageshow', onShow);
@@ -170,6 +179,7 @@ export function SignInCard({ mode, codeOn, googleOn = false, siteKey }: SignInCa
       showGoogle(googleStartNotice(reply));
       return;
     }
+    // The mark keeps the way in from before the press, so it can be put back if this press comes back here (GSI-2).
     markGooglePending(Date.now());
     rememberMethod('google');
     window.location.assign(url);
