@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trip Builder flow prototype (throwaway)</title>
+<link rel="stylesheet" href="../themes.css">
+<link rel="stylesheet" href="builder.css">
+</head>
+<body>
+<div id="shell">
+ <aside id="side" aria-label="Prototype stages"></aside>
+ <main id="stage">
+  <div class="frame" id="frame">
+   <div id="hdr"></div>
+   <div id="body" tabindex="-1"></div>
+   <div id="bar"></div>
+   <div id="sheets"></div>
+   <div id="toast" class="off" role="status" aria-live="polite"></div>
+  </div>
+ </main>
+</div>
+<button id="menubtn" aria-label="Stages and prototype controls"></button>
+<div class="print-only" id="printview"></div>
+<script src="data.js"></script>
+<script src="engine.js"></script>
+<script src="builder.js"></script>
+</body>
+</html>

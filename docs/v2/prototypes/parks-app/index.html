@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parks (prototype)</title>
+<link rel="stylesheet" href="/themes.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header id="hdr"></header>
+<div class="ptitle">
+  <h1>Parks</h1>
+  <p>National, provincial and state parks we have researched, with what you need to enter.</p>
+  <input class="search psearch" id="q2" type="search" placeholder="Search parks" aria-label="Search parks">
+  <div class="toolbar" id="toolbar">
+    <input class="search" id="q" type="search" placeholder="/ Search parks" aria-label="Search parks">
+    <span id="pills" style="display:contents"></span>
+    <span class="seg" id="views" role="group" aria-label="View"></span>
+  </div>
+  <div class="subbar" id="subbar"></div>
+</div>
+<div class="plist" id="list" aria-live="polite"></div>
+<div class="menu" id="menu" hidden></div>
+<script src="data.js"></script><script src="lib.js"></script><script src="app.js"></script><script src="index.js"></script>
+</body>
+</html>
