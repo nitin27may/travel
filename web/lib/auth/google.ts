@@ -11,6 +11,12 @@ import { DEFAULT_RETURN, returnPath } from './return-path';
 
 export type StartPage = 'sign-in' | 'sign-up';
 
+/**
+ * How long the card waits for the guarded start (`sign-in/social`) before it gives up with string 13 and opens the email way again
+ * (GSI-R S3): hotel and campground wifi can hold a request open with no answer.
+ */
+export const GOOGLE_START_TIMEOUT_MS = 15_000;
+
 /** The parameters Neon or our proxy may leave on the return address, which the card removes at once (copy page 2.3; gotchas). */
 export const RETURN_PARAMS = ['error', 'error_description', 'neon_auth_session_verifier'] as const;
 

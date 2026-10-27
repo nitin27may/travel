@@ -1,3 +1,4 @@
+import { AuthFrame } from '@/components/auth/AuthFrame';
 import { ButtonLink } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import { SignInCardLazy } from '@/components/auth/AuthLazy';
@@ -28,12 +29,8 @@ export default function SignIn() {
     );
   }
   return (
-    <div className="auth-page">
-      <header className="auth-head">
-        <h1>Sign in</h1>
-        <p className="auth-sub">Save and revisit your trip drafts.</p>
-      </header>
+    <AuthFrame title="Sign in" sub="Save and revisit your trip drafts.">
       <SignInCardLazy mode="sign-in" codeOn={authFlags.signInCode} googleOn={authFlags.signInGoogle} siteKey={turnstileSiteKey} />
-    </div>
+    </AuthFrame>
   );
 }

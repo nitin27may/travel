@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect, useRef, type RefObject } from 'react';
 import { GOOGLE_COPY } from '@/lib/auth/oauth-errors';
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
   onPress: () => void;
   /** The consent line (string 3) and the last-used line (6), read after the name. */
   describedBy?: string;
+  buttonRef?: RefObject<HTMLButtonElement | null>;
 }
 
 /**
@@ -17,9 +19,10 @@ interface Props {
  * label are Google's light or dark theme as brand tokens (`--brand-google-*`, tokens.md 2.3). No popup, no Google script: the press
  * asks our proxy for Google's address and the page leaves.
  */
-export function GoogleButton({ busy, onPress, describedBy }: Props) {
+export function GoogleButton({ busy, onPress, describedBy, buttonRef }: Props) {
   return (
     <button
+      ref={buttonRef}
       type="button"
       className="auth-google"
       aria-busy={busy || undefined}
@@ -47,11 +50,16 @@ export function GoogleButton({ busy, onPress, describedBy }: Props) {
  * the consent line (3) with "What we keep" (4) to the privacy page, then the divider "or" (2) above the email form. The divider is
  * text, so the order reads sensibly; its lines are CSS.
  */
-export function GoogleStart({ busy, onPress, lastUsed }: { busy: boolean; onPress: () => void; lastUsed: boolean }) {
+export function GoogleStart({ busy, onPress, lastUsed, focus = false }: { busy: boolean; onPress: () => void; lastUsed: boolean; focus?: boolean }) {
   const described = lastUsed ? 'auth-google-last auth-google-consent' : 'auth-google-consent';
+  const ref = useRef<HTMLButtonElement>(null);
+  // "Use Google instead" on a banner of step 2 or 3 brings the person back here with focus on the button (GSI-R S1).
+  useEffect(() => {
+    if (focus) ref.current?.focus();
+  }, [focus]);
   return (
     <div className="auth-google-start">
-      <GoogleButton busy={busy} onPress={onPress} describedBy={described} />
+      <GoogleButton busy={busy} onPress={onPress} describedBy={described} buttonRef={ref} />
       {lastUsed ? (
         <p className="auth-google-last" id="auth-google-last">
           {GOOGLE_COPY.lastUsed}

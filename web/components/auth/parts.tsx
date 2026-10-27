@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { Icon } from '@/components/ui/Icon';
 import { Field, Input } from '@/components/ui/Input';
-import { maskAddress, type AuthProblem } from '@/lib/auth/auth-errors';
+import { COPY, maskAddress, type AuthProblem } from '@/lib/auth/auth-errors';
 import { PASSWORD } from '@travel/core/config/auth-limits.ts';
 
 /** The step heading. It takes focus when the step changes in place (spec 3.1, P5), so a screen reader hears where it is. */
@@ -23,19 +23,34 @@ export function StepHeading({ children, focus }: { children: ReactNode; focus: b
  * A banner inside the card, with the anatomy of components 5.4 (`.ban`). Only the urgent kind is a live node (`role="alert"`);
  * notices are read through the card's one polite live region instead (review M2), so they are never read twice or skipped.
  */
-export function CardBanner({ kind, children }: { kind: 'urgent' | 'notice' | 'offline'; children: ReactNode }) {
+export function CardBanner({ kind, children, action }: { kind: 'urgent' | 'notice' | 'offline'; children: ReactNode; action?: ReactNode }) {
   return (
     <div className={`ban ban-${kind}`} role={kind === 'urgent' ? 'alert' : undefined}>
       <Icon name={kind === 'urgent' ? 'warn' : kind === 'offline' ? 'wifiOff' : 'info'} size={16} />
-      <span className="ban-text">{children}</span>
+      <span className="ban-text">
+        {children}
+        {action ? <span className="auth-ban-action">{action}</span> : null}
+      </span>
     </div>
   );
 }
 
+/**
+ * "Use Google instead" (GSI-R S1): the sign-in card provides it when Google is on, and a banner whose words offer Google (strings 52
+ * to 55) shows it as a text button, so the promise has a way to keep it on steps 2 and 3, where the Google button is not on screen.
+ */
+export const UseGoogleContext = createContext<(() => void) | null>(null);
+
 /** A banner-level problem (field-level ones go under their field). */
 export function ProblemBanner({ problem }: { problem: AuthProblem | null }) {
+  const toGoogle = useContext(UseGoogleContext);
   if (!problem || problem.where !== 'banner') return null;
-  return <CardBanner kind={problem.tone}>{problem.message}</CardBanner>;
+  const action = problem.google && toGoogle ? <TextButton onClick={toGoogle}>{COPY.useGoogle}</TextButton> : null;
+  return (
+    <CardBanner kind={problem.tone} action={action}>
+      {problem.message}
+    </CardBanner>
+  );
 }
 
 /** A text action with a 44 px target: Change, Forgot password?, Send a new code. */

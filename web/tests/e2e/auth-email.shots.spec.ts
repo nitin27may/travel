@@ -1,4 +1,5 @@
-// Screenshots of every state of the sign-in card (EML-1) at 1440 x 900 and 390 x 844, light and dark, 2x, with the network mocked.
+// Screenshots of every state of the sign-in card (EML-1) at 1440 x 900, 390 x 844 and 320 x 640 (GSI-UX), light and dark, 2x, with the
+// network mocked.
 // Opt-in: set AUTH_SHOTS_DIR to the folder to write (kept outside web/test-results, which a later run wipes). Needs .fixture-auth.
 import { mkdirSync } from 'node:fs';
 import path from 'node:path';
@@ -6,7 +7,10 @@ import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
 import type { Server } from './fixtures';
 import { authBuildPresent, GOOD_CODE, mockAuth, type Override, startAuthSite } from './auth-mock';
-import { setTheme, SIZES, THEMES } from './shots';
+import { setTheme, SIZES as SHOT_SIZES, THEMES } from './shots';
+
+// The smallest phone too: the centred frame must hold every step at 320 px (GSI-UX).
+const SIZES = [...SHOT_SIZES, { width: 320, height: 640 }] as const;
 
 const DIR = process.env.AUTH_SHOTS_DIR;
 test.skip(!DIR || !authBuildPresent(), 'set AUTH_SHOTS_DIR and build web/.fixture-auth');

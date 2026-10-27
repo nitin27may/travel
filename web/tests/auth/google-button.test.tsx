@@ -56,6 +56,12 @@ describe('colour and the mark', () => {
     expect(rule).toContain('color: var(--brand-google-ink)');
     expect(css).not.toMatch(/--brand-google-[\w-]+\s*:/);
   });
+  it('is never below the 44 px touch target: 46 on phones, --touch-min from 640 px (GSI-R S2)', () => {
+    const css = readFileSync(path.join(web, 'components', 'auth', 'auth.css'), 'utf8');
+    const rules = [...css.matchAll(/\.auth-google\s*\{([^}]*)\}/g)].map((m) => m[1]);
+    const heights = rules.flatMap((r) => [...r.matchAll(/min-height:\s*([^;]+);/g)].map((m) => m[1].trim()));
+    expect(heights.sort()).toEqual(['46px', 'var(--touch-min)']);
+  });
   it("the G is Google's four-colour mark as a file, never inline markup", () => {
     const svg = readFileSync(path.join(web, 'public', 'brand', 'google-g.svg'), 'utf8');
     // Google's four colours (red, blue, yellow, green), written without a hex literal (no-hex.test.ts holds every source file)

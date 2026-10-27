@@ -76,11 +76,13 @@ notice is also written to the card's one polite live region (`useAnnouncer`, rev
 | 6 | `auth.google.lastUsed` | Last used on this browser | mono 12 line under the button when `lastMethod() === 'google'` | 26 | part of the description | `memory.ts` gains `'google'` (no address stored). P6 |
 | 7 | `auth.google.flagOff` | Continue with Google is switched off for now. Enter the same email address and we'll email you a code. | notice above the email form when the Google flag is off and `lastMethod() === 'google'` (code on) | 105 | live region on load | Rollback path (spec 11): a Google-only person still gets in by code (A1) |
 | 8 | `auth.google.inApp` | Google doesn't allow sign-in inside this app's browser. Open this page in Safari or Chrome, or use your email below. | notice above the button when the user agent is a known in-app browser (Instagram, Facebook, Line, TikTok) | 115 | live region on load | Google refuses embedded web views (`disallowed_useragent`). The button stays enabled: the check can be wrong |
-| 9 | `auth.cookiesOff` | Your browser is blocking cookies for this site. Sign-in needs them to keep you signed in. | notice at the top of the card when `navigator.cookieEnabled === false` (all methods) | 95 | live region on load | Third-party cookie blocking does **not** trigger it: the flow uses only first-party cookies and full-page redirects |
+| 9 | `auth.cookiesOff` | Your browser is blocking cookies for this site. Sign-in needs them. Allow cookies for this site, then reload this page. | notice at the top of the card when `navigator.cookieEnabled === false` (all methods) | 120 | live region on load | Third-party cookie blocking does **not** trigger it: the flow uses only first-party cookies and full-page redirects |
 
 Unchanged on these pages: headings "Sign in" and "Create an account", sub-lines "Save and revisit your trip drafts." and
-"Start saving your trip drafts.", the footers "New here? The same steps create your account." and "Already have an account?
-Sign in". "The same steps" now covers Google too, so it stays.
+"Start saving your trip drafts.", and "Already have an account? Sign in" on sign-up. GSI-UX (owner, 27 Oct 2026) changed the
+sign-in footer to "New here? Create an account" (a link to `/sign-up/`), added "Forgot password?" under Continue on sign-in,
+the line "Next, choose a code we email you or a password." under Continue on both pages (code option on), and "Privacy ·
+Terms and copyright" under the centred panel. Links between the three pages keep the checked `next`.
 
 ### 2.2 While Google opens
 
@@ -539,4 +541,5 @@ order (GSI-0, GSI-T, GSI-1, GSI-2, GSI-S, GSI-E, GSI-R, GSI-VF) does not change;
 
 | Date | Change |
 |---|---|
+| 2026-10-27 | GSI-UX: string 9 reworded per GSI-R S4; "Use Google instead" text button on the banners of strings 52 to 55 (GSI-R S1); the step-1 footer lines above |
 | 2026-10-26 | First version (GSI-COPY, Opus): 65 numbered strings, voice note, code map, owner live test, console steps C-1 to C-10, unknowns split by whether a login is needed, UC1 to UC4, task deltas (+5.5 h), Q-GC1 to Q-GC5 |

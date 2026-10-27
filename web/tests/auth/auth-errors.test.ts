@@ -169,4 +169,18 @@ describe('with Continue with Google on (Google copy page 52 to 55)', () => {
     expect(authProblem(send(503, 'SEND_FAILED'), 'send', { page: 'sign-in' })?.message).toBe(COPY.sendFailed);
     expect(authProblem(send(503, 'SEND_FAILED'), 'send', { page: 'sign-up' })?.message).toBe(COPY.sendFailedNoAlternative);
   });
+  it('marks exactly the banners that offer Google, so they carry "Use Google instead" (GSI-R S1)', () => {
+    const on = (status: number, code: string, retry: number | null, page: AuthPage, action: AuthAction = 'send') => authProblem(send(status, code, retry), action, { page, googleOn: true });
+    for (const p of [on(503, 'SEND_FAILED', null, 'sign-in'), on(503, 'SEND_FAILED', null, 'sign-up'), on(429, 'RATE_LIMITED', 900, 'sign-in'), on(429, 'RATE_LIMITED', 900, 'sign-up')]) {
+      expect(p?.google, p?.message).toBe(true);
+      expect(p?.message).toMatch(/Google\.$/);
+    }
+    // No Google in the words, no button: the minute wait, the reset page, the password and verify answers, and Google off.
+    for (const p of [
+      on(429, 'RATE_LIMITED', 30, 'sign-in'), on(503, 'SEND_FAILED', null, 'reset', 'reset'), on(429, 'RATE_LIMITED', 900, 'reset', 'reset'),
+      on(429, '', 600, 'sign-in', 'password'), on(429, 'RATE_LIMITED', 900, 'sign-in', 'verify'),
+      authProblem(send(503, 'SEND_FAILED'), 'send', { page: 'sign-in' }), authProblem(send(429, 'RATE_LIMITED', 900), 'send', { page: 'sign-up' }),
+    ]) expect(p?.google, p?.message).toBeUndefined();
+    expect(COPY.useGoogle).toBe('Use Google instead');
+  });
 });

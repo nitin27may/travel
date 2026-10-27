@@ -4,8 +4,12 @@ import Link from 'next/link';
 export const PRIVACY_CONTACT = 'nitin27may@gmail.com';
 export const PRIVACY_CHANGED = '27 October 2026';
 
-/** The page body. `google` is true when a Google map family is on, so the page names Google Maps only when it is in use. */
-export function PrivacyBody({ google }: { google: boolean }) {
+/**
+ * The page body. `google` is true when a Google map family is on, so the page names Google Maps only when it is in use;
+ * `googleSignIn` is true when Continue with Google is on (`signInGoogle`), so the page names Google sign-in only then (GSI-PG,
+ * copy page strings 59 to 64, review GSI-R M1). The "Accounts" heading carries `id="accounts"`, the target of "What we keep".
+ */
+export function PrivacyBody({ google, googleSignIn = false }: { google: boolean; googleSignIn?: boolean }) {
   return (
     <>
       <header className="page-head">
@@ -24,6 +28,19 @@ export function PrivacyBody({ google }: { google: boolean }) {
           Reading the site sets no cookies. Signing in sets cookies that keep you signed in until you sign out; they are used for nothing else. Your
           browser also keeps a few things on this device: light or dark, km or miles, saved views and trips you are copying. They stay on the device and
           are not sent to us.
+        </p>
+        <p>
+          Signing in keeps a few small notes on this device too, never a password or a code. Your browser remembers which way you signed in last
+          ({googleSignIn ? 'an emailed code, a password or Google' : 'an emailed code or a password'}), never your address, so the sign-in page can
+          offer it first (<code>auth.lastMethod</code>). When you follow &ldquo;Forgot password?&rdquo;, this tab alone holds the address you typed
+          until the reset page reads it (<code>auth.resetEmail</code>).
+          {googleSignIn ? (
+            <>
+              {' '}When you press Continue with Google, this tab alone holds the time you pressed it and the way you signed in before
+              (<code>auth.googlePending</code>, <code>auth.googleBefore</code>), so the page can tell you if signing in didn&rsquo;t finish.
+            </>
+          ) : null}{' '}
+          What this tab holds is deleted when the next page reads it, or when you close the tab.
         </p>
 
         <h2>Page counts</h2>
@@ -55,12 +72,23 @@ export function PrivacyBody({ google }: { google: boolean }) {
           find faults, and Vercel deletes them after a limited time. Our own logs never hold your email address, a sign-in code or your IP address.
         </p>
 
-        <h2>Accounts</h2>
+        <h2 id="accounts">Accounts</h2>
         <p>
-          Making an account is optional. If you make one, we keep your email address, your name if you give one, your password in a scrambled form that
-          cannot be read back, and the trip drafts you save. They are held by Neon, our database provider, in the United States. We use them to sign you in
+          Making an account is optional. If you make one, we keep your email address, your name if you give one, your password, if you set one, in a
+          scrambled form that cannot be read back, and the trip drafts you save. They are held by Neon, our database provider, in the United States. We use them to sign you in
           and to show you your drafts, and for nothing else.
         </p>
+        {googleSignIn ? (
+          <p>
+            If you use Continue with Google, Google tells us your name, your email address, whether Google has confirmed it, and a link to your Google
+            profile photo. We keep them with your account. We do not show your name on any page and we do not use the photo. We never see your Google
+            password, contacts, calendar or files, and we ask Google for nothing else. To stop Google sharing your details with us, remove Trip Plans at{' '}
+            <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer">
+              myaccount.google.com/permissions<span className="sr-only"> (opens in a new tab)</span>
+            </a>
+            . That does not delete your account here; see &ldquo;Removing your account&rdquo; below.
+          </p>
+        ) : null}
         <p>
           To stop repeated guessing of passwords and codes, we count attempts for each email address, for each IP address, and for the two
           together, over periods of up to one day. We keep only a scrambled form that cannot be turned back into the address or the IP. Each count
