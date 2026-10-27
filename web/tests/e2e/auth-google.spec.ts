@@ -135,7 +135,29 @@ test.describe('the press (strings 10 to 14)', () => {
     expect(seen[0]).toBe(GOOGLE);
     expect(calls.filter((c) => c.path === 'sign-in/social')).toHaveLength(0); // the held route answered, not the default mock
     await page.goBack();
-    expect(await page.evaluate(() => localStorage.getItem('auth.lastMethod'))).toBe('google');
+    // GSI-2: Back from Google is a press that did not sign in, so no way in is claimed for it (there was none before)
+    await expect(google(page)).toBeVisible();
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('auth.lastMethod'))).toBeNull();
+    await expect(page.locator('.auth-google-last')).toHaveCount(0);
+  });
+
+  test('GSI-2: the press keeps the earlier way in beside the mark; a cancelled return puts it back', async ({ page }) => {
+    await mockAuth(page, { 'sign-in/social': social({ status: 200, body: { url: GOOGLE, redirect: true } }) });
+    await fakeGoogle(page);
+    await page.addInitScript(() => {
+      if (!sessionStorage.getItem('seeded')) {
+        localStorage.setItem('auth.lastMethod', 'code');
+        sessionStorage.setItem('seeded', '1');
+      }
+    });
+    await page.goto(`${site.url}/sign-in/?next=%2Fmine%2F`);
+    await google(page).click();
+    await page.waitForURL(/accounts\.google\.com/);
+    // Neon sends a cancel back to the start page
+    await page.goto(`${site.url}/sign-in/?next=%2Fmine%2F&error=access_denied`);
+    await expect(banner(page)).toHaveText(S.cancelled);
+    expect(await page.evaluate(() => [localStorage.getItem('auth.lastMethod'), sessionStorage.getItem('auth.googlePending'), sessionStorage.getItem('auth.googleBefore')])).toEqual(['code', null, null]);
+    await expect(page.locator('.auth-google-last')).toHaveCount(0);
   });
 
   test('the body the card sends', async ({ page }) => {

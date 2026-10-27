@@ -134,6 +134,15 @@ export const GOOGLE_SIGN_IN = {
   /** The longest `error` code read from the return address; anything longer is the fallback banner. */
   errorCodeMaxLength: 64,
   /**
+   * The stop on `/account/` (GSI-2; copy page W3, Q-GC3, strings 23 to 27), decided from the account rows, never from the address:
+   * - new: the Google row is the only row and the user was created at most `landingWindowMs` ago, within `linkGapMs` of that row;
+   * - linked: the Google row was created at most `landingWindowMs` ago and more than `linkGapMs` after the user.
+   * `clockSkewMs` is how far in the future (Neon's clock against ours) a time may be and still count as now.
+   */
+  landingWindowMs: 10 * 60 * 1000,
+  linkGapMs: 60 * 1000,
+  clockSkewMs: 2 * 60 * 1000,
+  /**
    * User agents of in-app browsers Google refuses (`disallowed_useragent`): Instagram, Facebook (FBAN/FBAV), Line, TikTok. The check
    * only adds a notice; the button stays enabled, since a user agent can be wrong.
    */

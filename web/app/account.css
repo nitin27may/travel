@@ -236,3 +236,57 @@
     transition: none;
   }
 }
+
+/* The stop after Continue with Google (GSI-2; copy page 2.4, strings 23 to 27): the components 5.4 notice under the heading. A grid,
+   so the icon keeps its column at 320 px: icon, text, then Continue at the right; on a phone Continue moves under the text. */
+.account-landing {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) auto;
+  align-items: start;
+  row-gap: var(--s-3);
+}
+.account-landing > svg {
+  margin-top: 0.3em;
+}
+.account-landing .ban-text {
+  margin: 0;
+  text-wrap: pretty;
+}
+.account-landing .ban-action {
+  margin-left: 0;
+  align-self: center;
+}
+@media (max-width: 639px) {
+  .account-landing {
+    grid-template-columns: 16px minmax(0, 1fr);
+  }
+  .account-landing .ban-action {
+    grid-column: 2;
+  }
+  /* Keep the 38px button face; extend only its interactive target (components 2.1). */
+  .account-landing .btn::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: max(100%, var(--touch-min));
+    height: max(100%, var(--touch-min));
+    transform: translate(-50%, -50%);
+  }
+}
+.account-landing-address {
+  white-space: nowrap;
+}
+@media (max-width: 639px) {
+  .account-landing .ban-action {
+    margin-left: calc(16px + var(--s-3));
+  }
+  /* Keep the 38px button face; extend only its interactive target (components 2.1). */
+  .account-landing .btn::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: max(100%, var(--touch-min));
+    height: max(100%, var(--touch-min));
+    transform: translate(-50%, -50%);
+  }
+}

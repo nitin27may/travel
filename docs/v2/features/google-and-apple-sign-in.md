@@ -691,3 +691,34 @@ Built on `public/GSI-1` to the copy page (strings 1 to 22, 52 to 55; section 4 m
 - **`/account/` follows a checked `next` at once** for any signed-in load (the page is now async and reads `searchParams`). GSI-2 must
   add its stop for a new account or a link (W3, Q-GC3) before Google is switched on: until then a link would be silent.
 - Not built (no evidence yet): string 5 (host note, U7), string 19 is mapped but unverified (UC4).
+
+### GSI-2 build notes, part 1: the stop and the last way in (27 Oct 2026, Opus 5.5)
+
+Built on `public/GSI-2` to the copy page (strings 23 to 25 and 27; W3, Q-GC3). Where the build differs from the copy page and section 13:
+
+- **The stop is decided on the server from Neon's account rows**, never from the address: `lib/auth/landing.ts` (pure) reads the
+  `list-accounts` answer and the session user's `createdAt`; `lib/auth/landing-server.ts` asks Neon once per request with the session
+  cookie (no new route through the guard). `new`: the Google row is the only row, the user is at most 10 minutes old and within 60 s of
+  that row. `linked`: the newest Google row is at most 10 minutes old and more than 60 s younger than the user. Windows and a 2-minute
+  clock allowance are `GOOGLE_SIGN_IN.landingWindowMs`, `linkGapMs`, `clockSkewMs` in `core/src/config/auth-limits.ts`.
+- **Only a returning sign-in follows `next` at once.** New and linked stay on Account with the notice (`app/account/SignInNotice.tsx`,
+  the components 5.4 notice under the heading) and Continue to the checked `next`; without `next`, no button.
+- **Fails closed.** A Neon error, a throw, or rows without a string `providerId` or a readable `createdAt` (UC3) is `unknown`: the
+  visitor stays on Account with no notice. If UC3 turns out "no", every Google sign-in will stop on Account until this is adapted.
+- **It is a confirmation, not consent before the link.** Under L1, Neon links Google to a confirmed account during its callback, before
+  the browser reaches us; the stop makes the link known before the visitor moves on (W3) but cannot prevent it. Consent before a link
+  needs Neon to refuse implicit linking (every existing account then adds Google from Account, L4): an owner decision.
+- **String 26 ("Not what you wanted? Remove Google") is not shown** until "Ways to sign in" (strings 29 to 51) exists on this page; a
+  link to a missing section would be a promise the build does not keep. Until then a linked person has no way to remove Google.
+- **The notice is shown again within the 10 minutes** (a reload, or another landing on Account): nothing records that it was seen,
+  since that would need a new cookie or stored value. After 10 minutes it is gone.
+- **The last way in (strings 6 and 24).** The press still writes `auth.lastMethod = google` (a returning sign-in never renders a
+  page of ours that could write it later), and now keeps the value from before the press beside the pending mark, in
+  `sessionStorage` `auth.googleBefore` (`code`, `password` or `google`, never an address; written and removed with the mark). When the
+  card sees the press come back (an `error`, Back from Google, a bounced verifier), it puts that value back, so "Last used on this
+  browser" never claims a Google sign-in that did not happen. Account reads the pair once after mount and removes it: string 24 shows
+  for a new account after a press in the last 10 minutes when a way in existed before. A returning sign-in leaves the pair until the
+  card next loads in that tab (as GSI-1's mark).
+- Tests: `web/tests/auth/landing.test.ts`, `web/tests/auth/memory.test.ts`, `web/tests/account/sign-in-notice.test.tsx`,
+  `web/tests/account/landing.browser.test.ts` (320, 390, 1440, light and dark, with the real component mounted), `next.test.ts`
+  (the stop, and query parameters cannot skip it), and two e2e cases in `auth-google.spec.ts`.

@@ -16,6 +16,8 @@ vi.mock('@/lib/auth/server', () => ({
   getUser: async () => ({ id: 'layout-user', email: 'account-layout-regression@travel-e2e.invalid' }),
 }));
 vi.mock('@/lib/server/drafts', () => ({ loadDrafts: vi.fn() }));
+// GSI-2: a returning sign-in (no notice); the stop has its own layout test, landing.browser.test.ts.
+vi.mock('@/lib/auth/landing-server', () => ({ accountLanding: async () => 'returning' }));
 vi.mock('@/lib/server/neon-env', () => ({ dataEnv: () => ({ realtimeUrl: 'https://realtime.invalid' }) }));
 vi.mock('@/app/account/actions', () => ({ createDraft: vi.fn(), renameDraft: vi.fn(), deleteDraft: vi.fn() }));
 vi.mock('@/app/account/RealtimeRoot', () => ({ RealtimeRoot: ({ children }: { children: ReactNode }) => children }));
@@ -94,10 +96,10 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 900 
           // Resolve the request-time server child of Suspense, then SSR its real client components.
           // This tests AccountBody's markup too, rather than maintaining a duplicate header fixture.
           const suspense = (await AccountPage({ searchParams: Promise.resolve({}) })) as ReactElement<{ children: ReactNode }>;
-          const body = suspense.props.children as ReactElement<unknown, () => Promise<ReactNode>>;
+          const body = suspense.props.children as ReactElement<unknown, (p: unknown) => Promise<ReactNode>>;
           const log = vi.spyOn(console, 'error').mockImplementation(() => undefined);
           let content: ReactNode;
-          try { content = await body.type(); } finally { log.mockRestore(); }
+          try { content = await body.type(body.props); } finally { log.mockRestore(); }
           const markup = renderToStaticMarkup(createElement('body', null,
             createElement(SiteHeader),
             createElement('main', { id: 'main', className: 'page' }, content),
