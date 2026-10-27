@@ -132,13 +132,42 @@ a.sum-card:focus-visible { outline: var(--focus-ring); outline-offset: var(--foc
 .sum-know-more { margin-top: var(--s-2); }
 .sum-know-more summary { min-height: var(--touch-min); display: flex; align-items: center; color: var(--accent-text); font: var(--t-small); cursor: pointer; }
 
-/* ---------- Bookings panel shell (UXB-6 completes it) ---------- */
+/* ---------- Bookings panel (UXB-6; spec 3.6, W7) ---------- */
+/* Phones: one column per row (name, window, note, then the day and the link on one line). From 760 px: name | when | day and link. */
+.bk-group { margin: 0 0 var(--s-6); }
+.bk-group-h { margin: 0 0 var(--s-1); font: var(--t-row); color: var(--ink); }
+.bk-group-n { margin-left: var(--s-1); font: var(--t-meta); color: var(--muted); }
+.bk-group-note { margin: 0 0 var(--s-2); font: var(--t-small); color: var(--muted); max-width: 46rem; }
 .bk-list { margin: 0; padding: 0; list-style: none; }
-.bk-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-1) var(--s-4); padding: var(--s-3) 0; border-bottom: 1px solid var(--line); }
-.bk-name { font: var(--t-title); }
-.bk-text { grid-column: 1; font: var(--t-small); color: var(--ink-2); }
-.bk-day { grid-column: 2; grid-row: 1; font: var(--t-meta); }
-.bk-day a { color: var(--accent-text); }
+.bk-row { display: grid; gap: var(--s-1) var(--s-4); padding: var(--s-3) 0; border-bottom: 1px solid var(--line); }
+.bk-row > *, .bk-when > *, .bk-foot > * { margin: 0; min-width: 0; }
+.bk-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--s-2); font: var(--t-title); color: var(--ink); overflow-wrap: anywhere; }
+.bk-place { color: var(--ink); text-decoration-color: var(--line-2); text-underline-offset: 3px; }
+.bk-place:hover { color: var(--accent-text); }
+.bk-park { font: var(--t-meta); color: var(--muted); }
+.bk-when { display: grid; gap: var(--s-1); }
+.bk-rule { font: var(--t-small); font-weight: 600; color: var(--ink); }
+.bk-text { font: var(--t-small); color: var(--ink-2); }
+.bk-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 var(--s-4); }
+.bk-day, .bk-link { font: var(--t-meta); }
+.bk-day a, .bk-link a { display: inline-flex; align-items: center; min-height: var(--touch-min); min-width: var(--touch-min); color: var(--accent-text); }
+.bk-link a { font: var(--t-small); }
+.bk-prices { margin: var(--s-2) 0 0; font: var(--t-small); color: var(--muted); }
+@media (min-width: 760px) {
+  .bk-row { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.6fr) 10.5rem; align-items: start; gap: var(--s-1) var(--s-5); }
+  .bk-park { display: block; margin-top: 2px; }
+  .bk-foot { flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 0; }
+}
+
+/* ---------- Photos panel (UXB-6; spec 3.2, W8): the credit line under each tile at rest ---------- */
+.ph-group { margin: 0 0 var(--s-8); }
+.ph-group-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--s-3); margin: 0 0 var(--s-3); font: var(--t-row); color: var(--ink); }
+.ph-group-h a { color: var(--ink); text-underline-offset: 3px; }
+.ph-group-meta { font: var(--t-meta); color: var(--muted); }
+.ph-group-meta a { display: inline-flex; align-items: center; min-height: var(--touch-min); color: var(--accent-text); }
+.gal.gal-rest .gal-item { overflow: visible; border-radius: 0; }
+.gal.gal-rest .gal-credit { position: static; display: block; opacity: 1; padding: var(--s-1) 0 0; background: none; color: var(--muted); font: var(--t-chip); }
+@media (prefers-reduced-motion: reduce) { .gal.gal-rest .gal-credit { transition: none; } }
 
 /* ---------- pre-paint (prepaint.ts, UXB-1F M3): a deep link to Days or Bookings paints that panel at once ---------- */
 /* `data-trip-tab` is set by an inline script while the page is parsed and removed once React shows the same tab. The rules sit in the base layer

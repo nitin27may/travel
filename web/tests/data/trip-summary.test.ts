@@ -96,7 +96,7 @@ describe('Summary: every trip', () => {
     for (const slug of tripSlugs()) {
       const trip = getTrip(slug)!;
       if (trip.depth === 'overview') continue;
-      expect(summaryInput(trip, getPlace).bookings.map((b) => b.name), slug).toEqual(buildTripExport(trip).bookings.map((b) => b.name));
+      expect(summaryInput(trip, getPlace).bookings.map((b) => b.name), slug).toEqual(buildTripExport(trip).bookings.filter((b) => b.kind === 'booking').map((b) => b.name));
     }
   });
 });

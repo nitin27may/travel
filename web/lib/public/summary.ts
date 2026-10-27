@@ -74,7 +74,8 @@ export function summaryInput(trip: PublicTrip, lookup: Lookup): SummaryInput {
   // the export model's bookings (core tripBookings over the category rows: the same list the Bookings tab, the print and the CSV use)
   const rows: CategoryItem[] = Object.values(trip.categories).flat();
   const rowByKey = new Map(rows.map((r) => [r.key, r]));
-  const bookings = tripBookings(rows).map((b) => {
+  // "N to book ahead" counts `booking` rows only (QP3, `bookingCounts().toBook`): a pass, a check and a task are listed on the Bookings tab, never counted here
+  const bookings = tripBookings(rows).filter((b) => b.kind === 'booking').map((b) => {
     const rule = rowByKey.get(b.ref)?.bookRule ?? null;
     return { name: b.name, rule: b.rule, day: b.day, opensBeforeDay1: rule ? (rule.dayN ?? 1) - 1 + rule.daysBefore : null };
   });

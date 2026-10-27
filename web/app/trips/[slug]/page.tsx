@@ -1,5 +1,5 @@
 import { notFound, permanentRedirect } from 'next/navigation';
-import { tripBookings } from '@travel/core/export/bookings.ts';
+import { bookingCounts, tripBookings } from '@travel/core/export/bookings.ts';
 import { showTabBar, tripTabsFor, type TripTab } from '@travel/core/trips/tabs.ts';
 import { ExportData } from '@/components/actions/ExportData';
 import { Banner } from '@/components/ui/Banner';
@@ -64,13 +64,17 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
   const photosTab = model.gallery.length >= PHOTOS_TAB_MIN;
   const stops = Object.values(trip.categories).reduce((n, rows) => n + rows.length, 0);
   const available = tripTabsFor({ days: overview ? 0 : trip.days.length, stops, bookings: bookings.length, photos: photosTab ? model.gallery.length : 0 });
-  const counts: Partial<Record<TripTab, number>> = { stops, bookings: bookings.length, photos: model.gallery.length };
+  // the Bookings tab's number is the one its heading says, "N to book ahead" (`bookingCounts`), never the row count: a check is listed, not counted
+  const toBook = bookingCounts(bookings).toBook;
+  const counts: Partial<Record<TripTab, number>> = { stops, ...(toBook > 0 ? { bookings: toBook } : {}), photos: model.gallery.length };
+  const rows = Object.values(trip.categories).flat();
+  const placeSlugs = Object.fromEntries(bookings.flatMap((b) => { const s = rows.find((r) => r.key === b.ref)?.placeSlug; return s && getPlace(s) ? [[b.ref, s]] : []; }));
   const highlights = highlightCards(trip, summary, getPlace);
   const galleryGroups = new Set(model.gallery.map((p) => p.group).filter(Boolean)).size;
   const link = { stops: available.includes('stops'), bookings: available.includes('bookings'), photos: available.includes('photos') };
   const top = <SummaryTop trip={trip} summary={summary} link={link} highlights={highlights} galleryGroups={galleryGroups} />;
   const bottom = <SummaryBottom trip={trip} summary={summary} bookings={bookings} />;
-  const photosPanel = <PhotosPanel photos={model.gallery} />;
+  const photosPanel = <PhotosPanel photos={model.gallery} rows={rows.map((r) => ({ name: r.name, placeSlug: r.placeSlug && getPlace(r.placeSlug) ? r.placeSlug : null, days: r.days }))} />;
   const season = trip.season || !overview ? <SeasonBand trip={trip} /> : null;
   return (
     <article className="trip-page" data-depth={trip.depth}>
@@ -102,7 +106,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
       ) : (
         <>
           {model.timeline && showTabBar(available) ? <script dangerouslySetInnerHTML={{ __html: prepaintScript(available) }} /> : null}
-          <TripPlan slug={slug} model={model} title={trip.title} depth={trip.depth} season={season} tabs={{ available, counts }} slots={{ summaryTop: top, summaryBottom: bottom, bookings: <BookingsPanel bookings={bookings} />, photos: photosPanel }} shape={shapeFactsFor(trip, getPlace)} />
+          <TripPlan slug={slug} model={model} title={trip.title} depth={trip.depth} season={season} tabs={{ available, counts }} slots={{ summaryTop: top, summaryBottom: bottom, bookings: <BookingsPanel bookings={bookings} placeSlugs={placeSlugs} />, photos: photosPanel }} shape={shapeFactsFor(trip, getPlace)} />
         </>
       )}
       <TripEnd trip={trip} model={model} url={url} galleryInTab={available.includes('photos')} />

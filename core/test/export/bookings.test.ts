@@ -1,7 +1,7 @@
 // TRP-GL-C: booking windows in the trip export contract (MUST-6; T1, P6, P8). The words, the order, the stop link, the CSV column and the
 // contract's shape, on a small model; the real trips are checked against the page in web/tests/export/trip-routes.test.ts.
 import { describe, expect, it } from "vitest";
-import { bookAheadText, bookRuleText, NOTHING_TO_BOOK, publicBookingNote, tripBookings, withStopBookings, type BookingSource } from "../../src/export/bookings.ts";
+import { bookAheadText, bookRuleText, type BookRuleInput, NOTHING_TO_BOOK, publicBookingNote, tripBookings, withStopBookings, type BookingSource } from "../../src/export/bookings.ts";
 import { TRIP_CSV_HEADER, tripCsv } from "../../src/export/csv.ts";
 import type { ExportStop, TripExport } from "../../src/export/types.ts";
 import { isDated } from "../../src/privacy/dateless.ts";
@@ -34,6 +34,25 @@ describe("bookRuleText: the page's words for a window, dateless", () => {
   it("'local' never dangles: a zone with no time adds nothing (TRP-GL, review F7)", () => {
     expect(bookRuleText({ daysBefore: 30, dayN: 3, time: null, tz: "Europe/Rome" })).toBe("Opens 30 days before Day 3");
     expect(bookRuleText({ daysBefore: 30, dayN: 3, time: "09:00", tz: "Europe/Rome" })).toBe("Opens 30 days before Day 3 at 09:00 local");
+  });
+  it("no kind of window says 'local' unless a clock time stands before it (UXB-6, UI-NOTES 26 Oct)", () => {
+    const base = { daysBefore: 0, dayN: 3, time: null, tz: "Europe/Rome" };
+    const phases: BookRuleInput[] = [
+      { ...base, daysBefore: 30 },
+      { ...base, kind: "same_day" as const },
+      { ...base, kind: "fixed_date" as const, months: [4, 4] as [number, number] },
+      { ...base, kind: "monthly_release" as const, monthLeadDays: 60 },
+      { ...base, kind: "lottery" as const, months: [3, 3] as [number, number] },
+      { ...base, kind: "anytime" as const },
+      { ...base, kind: "on_arrival" as const },
+      { ...base, daysBefore: 30, then: { ...base, daysBefore: 2 } },
+    ];
+    for (const p of phases) expect(bookRuleText(p), JSON.stringify(p)).not.toMatch(/local/);
+    for (const p of phases.filter((x) => !["lottery", "anytime", "on_arrival"].includes(x.kind ?? ""))) {
+      const withTime = bookRuleText({ ...p, time: "08:00", then: p.then ? { ...p.then, time: "09:00" } : undefined });
+      expect(withTime, JSON.stringify(p)).toMatch(/\d\d:\d\d local/);
+      expect(withTime.replace(/\d\d:\d\d local/g, ""), JSON.stringify(p)).not.toMatch(/local/);
+    }
   });
   it("bookAheadText joins the rule and the note, and is empty with neither", () => {
     expect(bookAheadText({ rule: "Opens 2 days before Day 1", note: "Non-refundable" })).toBe("Opens 2 days before Day 1; Non-refundable");
