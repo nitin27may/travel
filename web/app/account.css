@@ -484,15 +484,6 @@
   flex-wrap: wrap;
   gap: var(--s-2);
 }
-.ways-foot {
-  font: var(--t-small);
-  color: var(--muted);
-  text-wrap: pretty;
-}
-.ways-foot a {
-  color: var(--ink);
-  overflow-wrap: anywhere;
-}
 @keyframes ways-open {
   from {
     opacity: 0;

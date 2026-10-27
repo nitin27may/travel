@@ -1,6 +1,6 @@
 // Opt-in, real end-to-end service proof for the Neon account path. NO MOCKS and NO swallowed
 // errors: it drives a real browser against a real `next start` server talking to the real managed
-// Better Auth + Realtime + Postgres, and every step throws on failure. It fails closed (exit 2,
+// Better Auth + Postgres, and every step throws on failure. It fails closed (exit 2,
 // BLOCKED) when the shared `planner_draft` table is not yet present, rather than pretending to pass.
 //
 // Prerequisites:
@@ -104,63 +104,32 @@ async function uiSignIn(page, user) {
   await page.waitForURL(`${BASE}/account/`, { timeout: TIMEOUT });
 }
 
-/** The row element carrying a given title. */
-const rowFor = (page, title) => page.locator('.draft-row', { hasText: title });
-
-async function createDraftUI(page, title) {
-  await page.getByLabel('Draft title').fill(title);
-  await page.getByRole('button', { name: 'Create draft' }).click();
-}
-
-async function renameDraftUI(page, fromTitle, toTitle) {
-  await rowFor(page, fromTitle).getByRole('button', { name: 'Draft actions' }).click();
-  await page.getByRole('menuitem', { name: 'Rename' }).click();
-  await page.getByLabel('Rename draft').fill(toTitle);
-  await page.getByRole('button', { name: 'Save' }).click();
-}
-
-async function deleteDraftUI(page, title) {
-  await rowFor(page, title).getByRole('button', { name: 'Draft actions' }).click();
-  await page.getByRole('menuitem', { name: 'Delete' }).click();
-  await page.getByRole('button', { name: 'Delete', exact: true }).click();
-}
-
 async function main() {
   await requireTable();
   const synthetic = []; // user ids to clean up (own drafts only)
   const browser = await chromium.launch({ args: GPU_ARGS });
   try {
-    // === Same user, two contexts: a write in one appears live in the other (no reload) ===
+    // === Same user: the account page loads, and "Download my data" returns the person's own file (ACCT-P3) ===
+    // The create box, the live rows and the "Draft title" field were removed in ACCT-P1 (Saved trips has Rename, Delete and Undo
+    // only), so the old create/rename/delete live-propagation steps and the degraded-refetch step are gone with them. Draft rows are
+    // still proved below at the database, under RLS.
     const userA = uniqueUser('a');
-    const ctxWrite = await browser.newContext();
-    const idA = await apiSignUp(ctxWrite, userA);
+    const ctxA = await browser.newContext();
+    const idA = await apiSignUp(ctxA, userA);
     synthetic.push(idA);
-    const ctxWatch = await browser.newContext({ storageState: await ctxWrite.storageState() }); // same user session
-    const writer = await ctxWrite.newPage();
-    const watcher = await ctxWatch.newPage();
-    await writer.goto(`${BASE}/account/`, { waitUntil: 'networkidle' });
-    await watcher.goto(`${BASE}/account/`, { waitUntil: 'networkidle' });
+    const pageA = await ctxA.newPage();
+    await pageA.goto(`${BASE}/account/`, { waitUntil: 'networkidle' });
+    check('the account page shows Your data with Download my data', (await pageA.getByRole('link', { name: 'Download my data' }).count()) === 1);
+    const dl = await ctxA.request.get(`${BASE}/api/account/profile/export/`);
+    check('export answers 200 as an attachment, private and no-store', dl.status() === 200
+      && /attachment/.test(dl.headers()['content-disposition'] ?? '')
+      && /no-store/.test(dl.headers()['cache-control'] ?? '')
+      && dl.headers()['x-content-type-options'] === 'nosniff');
+    check("export carries the person's own email", (await dl.json()).email === userA.email);
 
-    const title = `Patagonia ${Date.now()}`;
-    await createDraftUI(writer, title);
-    await rowFor(watcher, title).waitFor({ timeout: TIMEOUT });
-    check('same-user live insert propagates to a second context', true);
-
-    // Reload persistence: the row survives a full reload (served from the SSR read).
-    await writer.reload({ waitUntil: 'networkidle' });
-    await rowFor(writer, title).waitFor({ timeout: TIMEOUT });
-    check('draft persists across a full page reload', true);
-
-    const renamed = `${title} (edited)`;
-    await renameDraftUI(writer, title, renamed);
-    await rowFor(watcher, renamed).waitFor({ timeout: TIMEOUT });
-    check('same-user live rename propagates', true);
-
-    await deleteDraftUI(writer, renamed);
-    await rowFor(watcher, renamed).waitFor({ state: 'detached', timeout: TIMEOUT });
-    check('same-user live delete propagates', true);
-
-    // === Anonymous access is denied (proxy redirects to sign-in) ===
+    // === Anonymous access is denied (proxy redirects to sign-in; the export route answers 401) ===
+    const anonExport = await (await browser.newContext()).request.get(`${BASE}/api/account/profile/export/`, { maxRedirects: 0 });
+    check('anonymous export is refused', anonExport.status() === 401 || anonExport.status() === 307);
     const anon = await browser.newContext();
     const anonPage = await anon.newPage();
     await anonPage.goto(`${BASE}/account/`, { waitUntil: 'networkidle' });
@@ -199,35 +168,12 @@ async function main() {
     const still = await withUserTransaction(idA, (ctx) => ctx.query('select title from public.planner_draft where id = $1', [forgedId]));
     check("user A's row is intact after the forged attempts", still.result.rows[0]?.title === original);
 
-    // User B's own account page shows none of user A's drafts.
+    // User B's own account page shows none of user A's drafts, and B's export is B's own.
     const pageB = await ctxB.newPage();
     await pageB.goto(`${BASE}/account/`, { waitUntil: 'networkidle' });
-    await pageB.waitForTimeout(2000);
-    check('user B sees none of user A\'s drafts (ownership isolation)', (await rowFor(pageB, original).count()) === 0);
-
-    // === Degraded write: the write commits but the authenticated re-fetch fails ===
-    // Inject a transport fault on the drafts re-fetch only (`/api/account/drafts/`). The create (a
-    // server action) and the signal stream stay real, so the write is durable; only the refresh fails.
-    // The committed row must stay visible and an explicit saved-but-not-refreshed notice must appear
-    // (review follow-up: never hide a committed item on a sync failure).
-    const userC = uniqueUser('c');
-    const ctxC = await browser.newContext();
-    const idC = await apiSignUp(ctxC, userC);
-    synthetic.push(idC);
-    const pageC = await ctxC.newPage();
-    await pageC.goto(`${BASE}/account/`, { waitUntil: 'networkidle' });
-    await pageC.route('**/api/account/drafts/**', (route) => route.fulfill({ status: 500, contentType: 'application/json', body: '{"error":"injected fault"}' }));
-    const degradedTitle = `Durable but unsynced ${Date.now()}`;
-    await createDraftUI(pageC, degradedTitle);
-    // The committed row stays visible even though the authenticated refresh failed...
-    await rowFor(pageC, degradedTitle).waitFor({ timeout: TIMEOUT });
-    // ...and the explicit saved-but-not-refreshed notice is shown (not the generic refresh error).
-    await pageC.getByText('The live list could not refresh').waitFor({ timeout: TIMEOUT });
-    check('durable write + failed re-fetch keeps the committed row and shows the saved-but-not-refreshed notice', true);
-    await pageC.unroute('**/api/account/drafts/**');
-    // The write really committed: a fresh read under RLS as the owner returns exactly that row.
-    const durable = await withUserTransaction(idC, (ctx) => ctx.query('select title from public.planner_draft where user_id = $1 and title = $2', [idC, degradedTitle]));
-    check('the degraded-path write is durable in the database', durable.result.rows.length === 1);
+    check("user B sees none of user A's drafts (ownership isolation)", (await pageB.getByText(original).count()) === 0);
+    const expB = await (await ctxB.request.get(`${BASE}/api/account/profile/export/`)).json();
+    check("user B's export is user B's own", expB.email === userB.email);
   } finally {
     // Targeted cleanup: remove only the synthetic users' own drafts, each as its owner.
     for (const uid of synthetic) {

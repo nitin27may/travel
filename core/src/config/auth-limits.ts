@@ -199,6 +199,12 @@ export const AUTH_WAYS = {
  */
 export const PROFILE_NAME = { bucket: "account:profile_name", windows: [{ windowS: HOUR, limit: 10 }] } as const satisfies { bucket: string; windows: readonly Window[] };
 
+/**
+ * "Download my data" (`GET /api/account/profile/export/`, ACCT-P3): 5 a hour per signed-in user. Keyed on an HMAC of the user id
+ * (web/lib/account/export-quota.ts), never the id. A separate block: nothing in the sign-in guard or the name limit reads it.
+ */
+export const PROFILE_EXPORT = { bucket: "account:profile_export", windows: [{ windowS: HOUR, limit: 5 }] } as const satisfies { bucket: string; windows: readonly Window[] };
+
 // ----- Account plans (EM-1) --------------------------------------------------------------------------------------------------------------
 
 /**

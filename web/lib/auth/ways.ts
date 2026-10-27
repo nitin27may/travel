@@ -48,9 +48,6 @@ export const WAYS_COPY = {
   /** 48 */ removeFailed: "We couldn't remove Google. Try again shortly.",
   /** 49 */ signOutNote: "Signing out here doesn't sign you out of Google on this device.",
   /** 50 */ off: 'Google sign-in is switched off for now. Sign in with an emailed code meanwhile.',
-  /** 51, split around its mailto link. */
-  deleteBefore: 'To delete your account and everything in it, email ',
-  deleteAfter: ' from this address.',
   /** Proposed (not in the copy page): Neon refuses a removal from a sign-in older than a day (SESSION_NOT_FRESH), and so do we. */
   removeSignInAgain: 'For your safety, sign out and sign in again, then remove Google.',
   /** Proposed: the rows could not be read, so the section cannot say whether Google is a way in. */

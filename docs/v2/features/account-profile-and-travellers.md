@@ -475,6 +475,16 @@ of F17 15; the full zip stays F17's. The body is the person's own data and carri
 public output (`travellers`, `dob`, `age_as_of`): the route answers through a private responder, never the public
 `respond()`, which would fail closed (amended 27 Oct 2026).
 
+**As built (ACCT-P3, 27 Oct 2026).** The route is `GET /api/account/profile/export/` (`web/app/api/account/profile/export/route.ts`).
+The body is `{ exportedAt, email, name, travellers, travellersUnreadable, travellersSavedAt, travellersConsentedAt, setupDoneAt,
+drafts }` (`drafts` is `null` if the titles could not be read). The user id comes only from the session. It is same-origin (a
+`Sec-Fetch-Site: cross-site` request is refused too), limited to 5 an hour per user (`PROFILE_EXPORT` in
+`core/src/config/auth-limits.ts`, keyed on an HMAC of the user id), and answers `Cache-Control: private, no-store`,
+`Content-Disposition: attachment; filename="travel-account.json"` and `X-Content-Type-Options: nosniff`. It logs fixed codes only.
+**Plan documents (`planner_draft` / `plan_draft`, EM-1) are not in the file yet. They join it when plan sync ships**, through this
+same private responder, with a test that plants a plan and finds it in the export (review EM-S S6). The "Ways to sign in" delete line
+(copy string 51) was removed: "To delete your account, email ..." lives only in Your data (AP-31).
+
 ### 6.6 The Revision guard
 
 Each save sends the `revision` it loaded. The update is `where user_id = $1 and revision = $2`; zero rows means another

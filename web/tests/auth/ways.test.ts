@@ -50,7 +50,6 @@ describe('the copy (strings 29 to 51), exact', () => {
     ['48', WAYS_COPY.removeFailed, "We couldn't remove Google. Try again shortly."],
     ['49', WAYS_COPY.signOutNote, "Signing out here doesn't sign you out of Google on this device."],
     ['50', WAYS_COPY.off, 'Google sign-in is switched off for now. Sign in with an emailed code meanwhile.'],
-    ['51', `${WAYS_COPY.deleteBefore}{contact}${WAYS_COPY.deleteAfter}`, 'To delete your account and everything in it, email {contact} from this address.'],
   ])('%s', (_n, actual, expected) => {
     expect(actual).toBe(expected);
   });

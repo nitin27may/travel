@@ -97,9 +97,12 @@ describe('the page', () => {
     h = await html();
     expect(h).toContain('2 adults · 1 child (7)');
   });
-  it('Your data: the delete line, and no download link until the export route exists', async () => {
+  it('Your data: the download link, and the one delete line (Ways to sign in no longer repeats it)', async () => {
     const h = await html();
-    expect(h).toContain('To delete your account, email');
+    expect(h).toContain('href="/api/account/profile/export/" download=""');
+    expect(h).toContain('Download my data');
+    expect(h.match(/To delete your account/g)).toHaveLength(1);
+    expect(h).not.toContain('everything in it');
     expect(h).not.toContain('/api/account/export/');
   });
   it('a name that is not set says so', async () => {
