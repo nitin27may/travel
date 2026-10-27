@@ -11,7 +11,8 @@ vi.mock('@/lib/auth/landing-server', () => ({
     return state.landing;
   },
 }));
-vi.mock('@/lib/server/drafts', () => ({ loadDrafts: async () => ({ rows: [], sealedQuery: {} }) }));
+vi.mock('@/lib/server/drafts', () => ({ readDrafts: async () => [] }));
+vi.mock('@travel/core/db/profile.ts', () => ({ loadProfile: async () => ({ exists: false, travellers: null, travellersInvalid: false, travellersSavedAt: null, travellersConsentedAt: null, setupDoneAt: null, revision: 0 }) }));
 vi.mock('next/navigation', () => ({
   redirect: (to: string) => {
     throw Object.assign(new Error('NEXT_REDIRECT'), { to });

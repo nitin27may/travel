@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Icon } from '@/components/ui/Icon';
 import { ButtonLink } from '@/components/ui/Button';
 import { ErrorState } from '@/components/ui/ErrorState';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { RowSkeleton } from '@/components/ui/Skeleton';
 import { capabilities } from '@/lib/capabilities';
 import { getUser } from '@/lib/auth/server';
@@ -15,16 +16,21 @@ import { accountWays, googleAddedNow } from '@/lib/auth/ways-server';
 import { AUTH_WAYS, GOOGLE_SIGN_IN } from '@travel/core/config/auth-limits.ts';
 import { PRIVACY_CONTACT } from '@/app/privacy/PrivacyBody';
 import { DEFAULT_RETURN, returnPath } from '@/lib/auth/return-path';
-import { loadDrafts } from '@/lib/server/drafts';
+import { readDrafts, type DraftRow } from '@/lib/server/drafts';
+import { loadProfile, type AccountProfile } from '@travel/core/db/profile.ts';
+import { partyText } from '@travel/core/trips/partyWords.ts';
+import { partyOf, isoDay } from '@travel/core/schema/travellers.ts';
 import { safeError } from '@/lib/server/safe-error';
-import { dataEnv } from '@/lib/server/neon-env';
 import { pageMetadata } from '@/lib/site';
-import { AccountDrafts } from './AccountDrafts';
+import { AccountSection } from './AccountSections';
+import { ProfileSection } from './ProfileSection';
+import { SavedTrips } from './SavedTrips';
+import { YourData } from './YourData';
 import { SignInMethods } from './SignInMethods';
 import { SignInNotice } from './SignInNotice';
 import { SignOutButton } from './SignOutButton';
 
-export const metadata = pageMetadata({ title: 'Account', description: 'Your account and saved trip drafts.', path: '/account/', noindex: true });
+export const metadata = pageMetadata({ title: 'Account', description: 'Your account settings.', path: '/account/', noindex: true });
 
 // Request time only: never prerender or cache a page that belongs to one user.
 export const dynamic = 'force-dynamic';
@@ -47,6 +53,60 @@ function SignedOut() {
   );
 }
 
+type ProfileRead = { kind: 'ok'; profile: AccountProfile } | { kind: 'missing' } | { kind: 'failed' };
+
+/**
+ * The profile row. Fails closed: a read that throws shows the error state, never a guess (ACCT-PC: no setup card on a failed read).
+ * A database without migration 0012 (SQLSTATE 42P01) is the one expected failure before the migration is applied: the page then
+ * shows the name section only and logs a fixed code.
+ */
+async function readProfile(userId: string): Promise<ProfileRead> {
+  try {
+    return { kind: 'ok', profile: await loadProfile(userId) };
+  } catch (e) {
+    if ((e as { code?: unknown } | null)?.code === '42P01') {
+      console.warn('[account] profile_table_missing');
+      return { kind: 'missing' };
+    }
+    console.error('[account] loadProfile failed', safeError(e));
+    return { kind: 'failed' };
+  }
+}
+
+async function readSaved(userId: string): Promise<{ kind: 'ok'; rows: DraftRow[] } | { kind: 'failed' }> {
+  try {
+    return { kind: 'ok', rows: await readDrafts(userId) };
+  } catch (e) {
+    console.error('[account] readDrafts failed', safeError(e));
+    return { kind: 'failed' };
+  }
+}
+
+/**
+ * Travellers (spec 2.4), read-only until ACCT-P2 adds the editor, the setup card and the seed: the saved party in words, or the empty
+ * state with the spec's copy (AP-24). No "Add travellers" action yet: a button that opens nothing would be worse than none.
+ */
+function TravellersSlot({ profile }: { profile: AccountProfile }) {
+  const party = profile.travellers ? partyOf(profile.travellers, isoDay(new Date())) : null;
+  return (
+    <AccountSection id="travellers" title="Travellers">
+      {party ? (
+        <div className="acct-card">
+          <div className="acct-row">
+            <div className="acct-row-main">
+              <span className="acct-label">Party</span>
+              <span className="acct-value">{partyText(party)}</span>
+              <span className="acct-note">Ages today. Trips use these, and you can change the party on any trip.</span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <EmptyState glyph="user" as="h3" title="No travellers saved." why="Add who usually travels with you, and every trip starts from it." />
+      )}
+    </AccountSection>
+  );
+}
+
 async function AccountBody({ next, added }: { next: string; added: boolean }) {
   // Request time only. During `next build` connection() never resolves, so nothing below runs at build.
   await connection();
@@ -60,23 +120,14 @@ async function AccountBody({ next, added }: { next: string; added: boolean }) {
   const ways = await accountWays(user);
   const justAdded = googleAddedNow(added, ways);
 
-  let loaded: Awaited<ReturnType<typeof loadDrafts>> | null = null;
-  let failed = false;
-  try {
-    loaded = await loadDrafts(user.id);
-  } catch (e) {
-    console.error('[account] loadDrafts failed', safeError(e));
-    failed = true;
-  }
+  // Each read fails on its own: a page that cannot read one section still shows the others (spec 2.5).
+  const [profile, drafts] = await Promise.all([readProfile(user.id), readSaved(user.id)]);
 
   return (
     <div className="account-page">
       <header className="account-head">
         <div>
-          <h1 className="account-title">
-            Account
-            {loaded ? <span className="account-count"> &middot; {loaded.rows.length} {loaded.rows.length === 1 ? 'draft' : 'drafts'}</span> : null}
-          </h1>
+          <h1 className="account-title">Account</h1>
           <p className="account-identity">Signed in as {user.email}</p>
         </div>
         <SignOutButton />
@@ -86,21 +137,46 @@ async function AccountBody({ next, added }: { next: string; added: boolean }) {
         <SignInNotice kind={landing} masked={maskAddress(user.email)} next={next === DEFAULT_RETURN ? null : next} />
       ) : null}
 
-      {failed || !loaded ? (
-        <ErrorState
-          title="We couldn't load your drafts."
-          detail="The service may be briefly unavailable."
-          cached={
-            <Link className="account-retry" href="/account/">
-              Try again
-            </Link>
-          }
-        />
+      {profile.kind === 'failed' ? (
+        <AccountSection id="profile" title="Profile">
+          <ErrorState
+            title="We couldn't load your profile."
+            detail="The service may be briefly unavailable."
+            cached={
+              <Link className="account-retry" href="/account/">
+                Try again
+              </Link>
+            }
+          />
+        </AccountSection>
       ) : (
-        <AccountDrafts userId={user.id} initialRows={loaded.rows} sealedQuery={loaded.sealedQuery} realtimeUrl={dataEnv().realtimeUrl} />
+        <>
+          <AccountSection id="profile" title="Profile">
+            <ProfileSection userId={user.id} initialName={user.name ?? ''} />
+          </AccountSection>
+          {profile.kind === 'ok' ? <TravellersSlot profile={profile.profile} /> : null}
+        </>
       )}
 
       <SignInMethods rows={ways} masked={maskAddress(user.email)} googleOn={authFlags.signInGoogle} justAdded={justAdded} contact={PRIVACY_CONTACT} />
+
+      {drafts.kind === 'ok' ? (
+        <SavedTrips userId={user.id} initialRows={drafts.rows} />
+      ) : (
+        <AccountSection id="saved-trips" title="Saved trips">
+          <ErrorState
+            title="We couldn't load your saved trips."
+            detail="The service may be briefly unavailable."
+            cached={
+              <Link className="account-retry" href="/account/">
+                Try again
+              </Link>
+            }
+          />
+        </AccountSection>
+      )}
+
+      <YourData />
     </div>
   );
 }
@@ -131,11 +207,14 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
               <h1 className="account-title">Account</h1>
             </div>
           </header>
-          <ul className="account-list">
-            <RowSkeleton />
-            <RowSkeleton />
-            <RowSkeleton />
-          </ul>
+          {['Profile', 'Travellers', 'Saved trips'].map((title) => (
+            <section key={title} className="acct-section" aria-label={title}>
+              <h2 className="acct-h">{title}</h2>
+              <ul className="account-list">
+                <RowSkeleton />
+              </ul>
+            </section>
+          ))}
         </div>
       }
     >

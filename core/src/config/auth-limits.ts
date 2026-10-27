@@ -191,3 +191,10 @@ export const AUTH_WAYS = {
   /** Most rows read from `list-accounts`; more is not an answer we understand (fail closed). */
   maxRows: 50,
 } as const;
+
+/**
+ * Display-name changes on the Account page (ACCT-P1; docs/v2/features/account-profile-and-travellers.md 4.2 and 4.3): 10 an hour per
+ * signed-in user. The key is the HMAC of the user id (web/lib/account/name-quota.ts), never the id itself. A separate block: nothing
+ * in the sign-in guard reads it.
+ */
+export const PROFILE_NAME = { bucket: "account:profile_name", windows: [{ windowS: HOUR, limit: 10 }] } as const satisfies { bucket: string; windows: readonly Window[] };
