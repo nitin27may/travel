@@ -12,7 +12,7 @@ Records: route, place, offer. Suitability profile `cycle_path` (flag, extension 
 
 **place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, cancellation, included.
 
 Suitability: R age_band, kid_note, effort.source_grade, effort.drivers.distance_km, effort.drivers.gain_m, effort.drivers.surface, adult_time_min, ext.ride.traffic; R when operated none; A limited_capacity_note, effort.drivers.loss_m, effort.drivers.max_grade_pct, toilets, water, food, shade, bail_out, hazards, access_season, ext.ride.bike_hire, ext.ride.min_rider_age, ext.ride.one_way_return, ext.ride.e_bike, ext.ride.kids_bike_sizes.
 
@@ -54,7 +54,7 @@ Records: place, offer. Suitability profile `mtb_lift` (always, extension ride). 
 
 **place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
-**offer (ticket)**: R name, type, summary, access_cost, price, links, at; R? season (operates), hours (operates), window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, run_by, variants, included.
+**offer (ticket)**: R name, type, summary, price, links, at; R? season (operates), hours (operates), window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, run_by, included.
 
 Suitability: R min_age, age_band, kid_note, effort.source_grade, access_season, participation.waiver, ext.ride.e_bike, ext.ride.kids_bike_sizes, ext.ride.trail_mix; R when operated none; A adult_required, on_site_min, toilets, water, food, participation.guide, participation.kit_provided, participation.wear, participation.fitness, participation.weather_cancel, ext.ride.bike_hire, ext.ride.skills_park.
 
@@ -74,7 +74,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: offer. Suitability profile `cycle_path` (flag, extension ride). Effort: bike-path, imba, sts, trailforks, whistler. Sources, in order: F O X.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, cancellation, included.
 
 Suitability: R age_band, kid_note, effort.source_grade, effort.drivers.distance_km, effort.drivers.gain_m, effort.drivers.surface, adult_time_min, ext.ride.traffic; R when operated none; A limited_capacity_note, effort.drivers.loss_m, effort.drivers.max_grade_pct, toilets, water, food, shade, bail_out, hazards, access_season, ext.ride.bike_hire, ext.ride.min_rider_age, ext.ride.one_way_return, ext.ride.e_bike, ext.ride.kids_bike_sizes.
 
@@ -84,7 +84,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: offer. Suitability profile `cycle_path` (flag, extension ride). Effort: bike-path, imba, sts, trailforks, whistler. Sources, in order: F O X.
 
-**offer (rental)**: R name, type, summary, season, hours, access_cost, price, links, at, run_by; R? closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, variants, cancellation, included, deposit.
+**offer (rental)**: R name, type, summary, season, hours, price, links, at, run_by; R? closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, cancellation, included, deposit.
 
 Suitability: R age_band, kid_note, effort.source_grade, effort.drivers.distance_km, effort.drivers.gain_m, effort.drivers.surface, adult_time_min, ext.ride.traffic; R when operated none; A limited_capacity_note, effort.drivers.loss_m, effort.drivers.max_grade_pct, toilets, water, food, shade, bail_out, hazards, access_season, ext.ride.bike_hire, ext.ride.min_rider_age, ext.ride.one_way_return, ext.ride.e_bike, ext.ride.kids_bike_sizes.
 
@@ -96,7 +96,7 @@ Records: route, offer. Suitability profile `drive` (never, extension drive). Eff
 
 **route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? near_town (derived), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, cancellation, included.
 
 Suitability: R on_site_min, access_season, ext.drive.vehicle_limits, ext.drive.road_surface, ext.drive.drive_min; R when operated none; A kid_note, accessible_toilet, toilets, food, signal, exposure, altitude_m, hazards, ext.drive.fuel_gap_km, ext.drive.winding.
 
@@ -126,7 +126,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: offer. Suitability profile `vehicle_tour` (always). Effort: none, time is shown. Sources, in order: F O X.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, cancellation, included.
 
 Suitability: R min_age, age_band, kid_note, stroller_on_board, wheelchair, on_site_min, access_season, participation.weather_cancel; R when operated none; A min_weight_kg, max_weight_kg, limit_reason, adult_required, limited_capacity_note, toilets, altitude_m, participation.medical, participation.pregnancy, participation.waiver, participation.weigh_in, participation.driver.
 
@@ -136,7 +136,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: offer. Suitability profile `vehicle_tour` (always). Effort: none, time is shown. Sources, in order: F O X.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, cancellation, included.
 
 Suitability: R min_age, age_band, kid_note, stroller_on_board, wheelchair, on_site_min, access_season, participation.weather_cancel; R when operated none; A min_weight_kg, max_weight_kg, limit_reason, adult_required, limited_capacity_note, toilets, altitude_m, participation.medical, participation.pregnancy, participation.waiver, participation.weigh_in, participation.driver.
 
@@ -146,7 +146,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: offer. Suitability profile `vehicle_tour` (always). Effort: none, time is shown. Sources, in order: F O X.
 
-**offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, variants, cancellation, included.
+**offer (experience)**: R name, type, summary, season, hours, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, on, cancellation, included.
 
 Suitability: R min_age, age_band, kid_note, stroller_on_board, wheelchair, on_site_min, access_season, participation.weather_cancel; R when operated none; A min_weight_kg, max_weight_kg, limit_reason, adult_required, limited_capacity_note, toilets, altitude_m, participation.medical, participation.pregnancy, participation.waiver, participation.weigh_in, participation.driver.
 

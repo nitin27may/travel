@@ -29,7 +29,7 @@ describe("the applicability file", () => {
     expect(profiles.length).toBe(Object.keys(E.SUIT_PROFILE).length);
   });
   it("every profile states every field path (N is explicit) and no other", () => {
-    expect(APPLICABILITY_PATHS).toHaveLength(153); // 148 + change_rooms, showers, picnic, baby_change, participation.driver
+    expect(APPLICABILITY_PATHS).toHaveLength(154); // 148 + change_rooms, showers, picnic, baby_change, participation.driver, ext.water.boating (PM-C)
     for (const [name, p] of profiles) expect(Object.keys(p.fields).sort(), name).toEqual([...APPLICABILITY_PATHS].sort());
   });
   it("every cell is R, A, N or op", () => {

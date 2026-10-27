@@ -13,6 +13,7 @@
 // new suitability field fails the registry test until it has a label (the same trick as the applicability file).
 import type * as EnumsT from "../enums.ts";
 import { APPLICABILITY_PATHS } from "../../suitability/paths.ts";
+import { PLACE_ROW_KEYS } from "../api/place.ts";
 
 export type Mark = (typeof EnumsT.CAP_MARK)[number];
 export type SectionId = (typeof EnumsT.CAP_SECTION)[number];
@@ -28,7 +29,11 @@ export type ValueType =
   /** locations-store area ids, not record refs (covers_areas): no reader may treat them as relation targets */
   | "area_list";
 
-export type HomeIn = "suitability" | "relevance" | "capture" | "tracks" | "none";
+/**
+ * `derived`: computed in core from other stored facts (access points from starts_at, parks_for and serves; variants from the
+ * variant_of of other records); never stored by hand, so a researcher is never asked for it. `path` names what it is read from.
+ */
+export type HomeIn = "suitability" | "relevance" | "capture" | "tracks" | "derived" | "none";
 export interface Home { in: HomeIn; path?: string }
 export type RecordLayer = "place" | "route" | "offer" | "event";
 
@@ -50,6 +55,41 @@ export interface FilterDef {
 export const KEEP_REASONS = ["decision", "display", "filter", "check", "money", "proof", "freshness"] as const;
 export type Keep = (typeof KEEP_REASONS)[number];
 export const KEEP_CODE: Readonly<Record<Keep, string>> = { decision: "K1", display: "K2", filter: "K3", check: "K4", money: "K5", proof: "K6", freshness: "K7" };
+
+// ---- privacy and exposure (property-display-matrix 3.2 to 3.4; owner QM1, 26 Oct 2026; PM-C) ----
+/**
+ * The privacy classes of 3.3. A registry row is `public`, `derived` or `internal`; `household` exists only so the envelope map
+ * (core/src/schema/exposure.ts) and the tests can name it: household data lives in other schemas (8.2) and a registry row with it fails (K1).
+ */
+export const PRIVACY_CLASSES = ["public", "derived", "internal", "household"] as const;
+export type PrivacyClass = (typeof PRIVACY_CLASSES)[number];
+export const REGISTRY_PRIVACY = ["public", "derived", "internal"] as const;
+export type RegistryPrivacy = (typeof REGISTRY_PRIVACY)[number];
+
+/** The place page: the strongest display level, or `no` (never drawn as a value). */
+export type PageExpose = "rest!" | "rest" | "card" | "detail" | "no";
+/** The trip page: the day row, the Bookings tab, the Summary. Empty: not on the trip page. */
+export const TRIP_SURFACES = ["day", "book", "sum"] as const;
+export type TripExpose = (typeof TRIP_SURFACES)[number];
+/** Lists: `row:<key>` a PlaceRow key it feeds, `facet` a filter of its own, `search` indexed text, `rank` a ranking input, `sort` a sort key. */
+export type ListExpose = `row:${string}` | "facet" | "search" | "rank" | "sort";
+export const EXPORT_FORMATS = ["print", "csv", "gpx", "ics"] as const;
+export type ExportFormat = (typeof EXPORT_FORMATS)[number];
+/** `/api/v1`: `row` in the list row (and the detail), `detail` in the detail and the facts model only, `none`. */
+export type ApiExpose = "row" | "detail" | "none";
+/** MCP: `public` both endpoints, `private` the private endpoint only, `none`. */
+export type McpExpose = "public" | "private" | "none";
+export interface Expose {
+  page: PageExpose;
+  trip: TripExpose[];
+  list: ListExpose[];
+  export: ExportFormat[];
+  api: ApiExpose;
+  mcp: McpExpose;
+}
+/** Source lanes (capture contract 3.2): O operator, F official, T tourism board, D open data, C community, X computed. */
+export const SOURCE_LANES = ["O", "F", "T", "D", "C", "X"] as const;
+export type SourceLane = (typeof SOURCE_LANES)[number];
 
 export interface PropertyDef {
   key: string;
@@ -76,6 +116,16 @@ export interface PropertyDef {
   layers?: ("place" | "route" | "offer" | "event")[];
   /** the keep reasons K1 to K7 the property serves (never empty: the registry test fails an empty list); see keepOf */
   keep: Keep[];
+  /** the privacy class (3.3); `public` unless the row says otherwise */
+  privacy: RegistryPrivacy;
+  /** where the property is shown or exposed, per surface (3.4), resolved by exposeOf from the row's exceptions */
+  expose: Expose;
+  /** a property-level source order, only where the capture contract names one; otherwise the type's `sources` in types.json */
+  lanes?: SourceLane[];
+  /** the release the property leaves in (AUDITS-AFTER-RELEASE 4.6) */
+  deprecated?: string;
+  /** the task a deferred property waits for (rubric DEFER): K3 lets a reserved row be required with no home */
+  reserved?: string;
 }
 
 const GAP_DEFAULT = "Not recorded";
@@ -85,6 +135,11 @@ interface Row {
   unit?: string; gap?: string; trigger?: string; home?: Home; homeByLayer?: PropertyDef["homeByLayer"]; filter?: FilterDef; layers?: PropertyDef["layers"];
   /** an explicit keep list; absent: derived by keepOf */
   keep?: Keep[];
+  /** absent: public */
+  privacy?: RegistryPrivacy;
+  /** only the surfaces that differ from exposeOf's defaults */
+  expose?: Partial<Expose>;
+  lanes?: SourceLane[]; deprecated?: string; reserved?: string;
 }
 
 // ---- keep: the default for every property, derived from what the registry already says (spec 2, "How it is tested") ----
@@ -105,7 +160,7 @@ const DECISION_GROUPS: ReadonlySet<Group> = new Set(["when", "time", "effort", "
 const DECISION_KEYS: ReadonlySet<string> = new Set(["transit", "reservation", "book_url", "pairs_with", "combo_with", "alternative_to", "parks_for", "visit_mode", "indoor", "why_stay", "groceries", "crowds", "queue_note"]);
 const PROOF_KEYS: ReadonlySet<string> = new Set(["wikidata", "osm_ref", "geonames_id", "links", "signals", "gpx_licence"]);
 
-export function keepOf(p: Omit<PropertyDef, "keep">): Keep[] {
+export function keepOf(p: Omit<PropertyDef, "keep" | "privacy" | "expose">): Keep[] {
   const k = new Set<Keep>();
   if (p.base === "R" || p.base === "R?" || DECISION_GROUPS.has(p.group) || DECISION_KEYS.has(p.key)) k.add("decision");
   if (p.display.length > 0) k.add("display");
@@ -116,14 +171,95 @@ export function keepOf(p: Omit<PropertyDef, "keep">): Keep[] {
   return KEEP_REASONS.filter((r) => k.has(r));
 }
 
+// ---- expose: the default per surface, derived like keepOf (property-display-matrix 3.4, first match per surface) ----
+// page:   the strongest display level (rest!, rest, card, detail); `no` when there is none. A row hidden from the page writes `page: "no"`.
+// trip:   `day` when the display has `card`, the property is a suitability chip or line (limits, suits, effort, time, safety, water), or
+//         a key of TRIP_DAY_KEYS (the map, the stops, the day checks); `book` for TRIP_BOOK_KEYS; `sum` for TRIP_SUM_KEYS.
+// list:   `row:<band>` when the filter's band is a PlaceRow key, the row keys of LIST_ROWS, `facet` for a filter role, `search` for the
+//         indexed text, `rank` and `sort` for the ranking inputs.
+// export: `print` when the page level is rest!, rest or card; `csv` when the display has card, the property is money (K5) or `window`;
+//         `gpx` for GPX_KEYS; `ics` never (public trips are dateless).
+// api:    `none` when the home is none (the only possible answer is "not checked", K10) or the privacy is internal; `row` when a list row
+//         carries it; `detail` otherwise.
+// mcp:    `public` when the API exposes it and the privacy is public or derived, except MCP_NONE_KEYS; `none` otherwise (K11).
+// An `internal` row is `none` on every surface whatever it writes (K2). A row's `expose` replaces a surface's default, nothing else.
+const TRIP_DAY_GROUPS: ReadonlySet<Group> = new Set(["limits", "suits", "effort", "time", "safety", "water"]);
+const TRIP_DAY_KEYS: ReadonlySet<string> = new Set(["point", "hours", "access_points", "closures", "reaches", "passes", "starts_at", "ends_at", "parks_for", "serves", "geometry"]);
+const TRIP_BOOK_KEYS: ReadonlySet<string> = new Set(["window", "price", "book_url", "reservation", "check_in_out", "access_cost", "cancellation", "entry", "covered_by", "includes", "links", "on", "at", "run_by"]);
+const TRIP_SUM_KEYS: ReadonlySet<string> = new Set(["season", "area_id", "signals", "part_of", "access_cost", "access_season", "recurrence"]);
+/** PlaceRow keys a property feeds beyond its filter band (8.1); the three bands that are not row keys (9.3, K5) map here to the real key. */
+const LIST_ROWS: Readonly<Record<string, string[]>> = {
+  name: ["name"], type: ["type", "kind"], point: ["lat", "lon", "approx"], area_id: ["area", "region", "country"], near_town: ["nearTown"],
+  season: ["season"], best_time: ["best_time"], draw: ["badge"], photos: ["image"], age_band: ["kids_from", "kid_fit", "kids_basis"],
+  "effort.drivers.distance_km": ["km"], "effort.drivers.gain_m": ["gain_m"], "ext.trail.shape": ["shape"],
+};
+const SEARCH_KEYS: ReadonlySet<string> = new Set(["name", "names", "type", "summary", "why", "area_id"]);
+const RANK_KEYS: ReadonlySet<string> = new Set(["class_key", "standing", "distinction", "easy_payoff", "weather"]);
+const GPX_KEYS: ReadonlySet<string> = new Set(["name", "point", "geometry", "access_points", "starts_at", "ends_at"]);
+/** Ranking inputs (P7 small outputs; the AU-D proposal) and the track (size; served by trip_legs and export only). */
+const MCP_NONE_KEYS: ReadonlySet<string> = new Set([...RANK_KEYS, "geometry"]);
+const ROW_KEYS: ReadonlySet<string> = new Set(PLACE_ROW_KEYS);
+const PAGE_ORDER: readonly PageExpose[] = ["rest!", "rest", "card", "detail"];
+
+/** The exposure of a property: exposeOf's defaults with the row's own exceptions on top. Pure, so a test can feed it any row. */
+export function exposeOf(p: Omit<PropertyDef, "expose">, own: Partial<Expose> = {}): Expose {
+  const none: Expose = { page: "no", trip: [], list: [], export: [], api: "none", mcp: "none" };
+  if (p.privacy === "internal") return none;
+  const page = own.page ?? PAGE_ORDER.find((d) => p.display.includes(d as Display)) ?? "no";
+  const suitChip = p.home.in === "suitability" && TRIP_DAY_GROUPS.has(p.group);
+  const tripSet = new Set<TripExpose>();
+  if (p.display.includes("card") || suitChip || TRIP_DAY_KEYS.has(p.key)) tripSet.add("day");
+  if (TRIP_BOOK_KEYS.has(p.key)) tripSet.add("book");
+  if (TRIP_SUM_KEYS.has(p.key) || (p.home.in === "suitability" && p.group === "when")) tripSet.add("sum");
+  const trip = own.trip ?? TRIP_SURFACES.filter((s) => tripSet.has(s));
+  const rows = new Set<string>(LIST_ROWS[p.key] ?? []);
+  if (p.filter?.band && ROW_KEYS.has(p.filter.band)) rows.add(p.filter.band);
+  const list: ListExpose[] = own.list ?? [
+    ...[...rows].map((k) => `row:${k}` as const),
+    ...(p.filter ? (["facet"] as const) : []),
+    ...(SEARCH_KEYS.has(p.key) ? (["search"] as const) : []),
+    ...(RANK_KEYS.has(p.key) ? (["rank"] as const) : []),
+    ...(p.key === "draw" ? (["sort"] as const) : []),
+  ];
+  const exportSet = new Set<ExportFormat>();
+  if (page === "rest!" || page === "rest" || page === "card") exportSet.add("print");
+  if (p.display.includes("card") || p.keep.includes("money") || p.key === "window") exportSet.add("csv");
+  if (GPX_KEYS.has(p.key)) exportSet.add("gpx");
+  const exp = own.export ?? EXPORT_FORMATS.filter((f) => exportSet.has(f));
+  const api = own.api ?? (p.home.in === "none" ? "none" : list.some((l) => l.startsWith("row:")) ? "row" : "detail");
+  const mcp = own.mcp ?? (api !== "none" && !MCP_NONE_KEYS.has(p.key) ? "public" : "none");
+  return { page, trip, list, export: exp, api, mcp };
+}
+
 const def = (r: Row): PropertyDef => {
-  const p: Omit<PropertyDef, "keep"> = {
+  const p: Omit<PropertyDef, "keep" | "privacy" | "expose"> = {
     key: r.key, group: r.group, label: r.label, value: r.value, ...(r.unit ? { unit: r.unit } : {}), gap: r.gap ?? GAP_DEFAULT,
     section: r.section, display: r.display, base: r.base, ...(r.trigger ? { trigger: r.trigger } : {}),
     home: r.home ?? { in: "none" }, ...(r.homeByLayer ? { homeByLayer: r.homeByLayer } : {}), ...(r.filter ? { filter: r.filter } : {}), ...(r.layers ? { layers: r.layers } : {}),
+    ...(r.lanes ? { lanes: r.lanes } : {}), ...(r.deprecated ? { deprecated: r.deprecated } : {}), ...(r.reserved ? { reserved: r.reserved } : {}),
   };
-  return { ...p, keep: r.keep ?? keepOf(p) };
+  const withKeep = { ...p, keep: r.keep ?? keepOf(p), privacy: r.privacy ?? "public" };
+  return { ...withKeep, expose: exposeOf(withKeep, r.expose) };
 };
+
+/**
+ * The registry's privacy and exposure rules a test can feed planted rows to (property-display-matrix 10: K1, K2, K10, K11). The full
+ * matrix checks (K3 to K9, K12) are PM-G's, in `capture.ts build`. Returns `<key>: <rule>` lines; empty when the registry holds.
+ */
+export function exposureProblems(props: readonly PropertyDef[]): string[] {
+  const out: string[] = [];
+  for (const p of props) {
+    const e = p.expose;
+    if (!(REGISTRY_PRIVACY as readonly string[]).includes(p.privacy)) out.push(`${p.key}: K1 privacy ${String(p.privacy)} is not a registry class`);
+    if (!e) { out.push(`${p.key}: no exposure`); continue; }
+    const shown = e.page !== "no" || e.trip.length > 0 || e.list.length > 0 || e.export.length > 0 || e.api !== "none" || e.mcp !== "none";
+    if (p.privacy !== "public" && p.privacy !== "derived" && shown) out.push(`${p.key}: K2 ${p.privacy} is exposed`);
+    if (p.home.in === "none" && (e.api !== "none" || e.mcp !== "none")) out.push(`${p.key}: K10 no home but exposed to the api or mcp`);
+    if (e.mcp !== "none" && e.api === "none") out.push(`${p.key}: K11 mcp without the api`);
+    if (e.list.some((l) => l.startsWith("row:") && !ROW_KEYS.has(l.slice(4)))) out.push(`${p.key}: K5 a list row key that is not a PlaceRow key`);
+  }
+  return out;
+}
 
 /** The properties whose keep list is empty: the registry test requires none (spec 2). Takes a list so a test can feed a bad one. */
 export const emptyKeep = (props: readonly PropertyDef[]): string[] => props.filter((p) => !Array.isArray(p.keep) || p.keep.length === 0 || p.keep.some((x) => !(KEEP_REASONS as readonly string[]).includes(x))).map((p) => p.key);
@@ -138,7 +274,7 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "name", group: "identity", label: "Name", value: "text", section: "cover", display: ["rest", "card"], base: "R", gap: "Name not recorded yet", home: cap("name") }),
   def({ key: "names", group: "identity", label: "Names by language", value: "names", section: "cover", display: ["detail"], base: "A", gap: "Local name not recorded", home: cap("names") }),
   def({ key: "type", group: "identity", label: "Type", value: "type_id", section: "cover", display: ["rest", "card", "filter"], base: "R", gap: "Type not recorded yet", home: cap("type") }),
-  def({ key: "point", group: "identity", label: "Location", value: "point", section: "access", display: ["rest"], base: "R", gap: "Location approximate", home: cap("point") }),
+  def({ key: "point", group: "identity", label: "Location", value: "point", section: "access", display: ["rest"], base: "R", gap: "Location approximate", home: cap("point"), lanes: ["D", "F"] }),
   def({ key: "area_id", group: "identity", label: "Area", value: "ref", section: "cover", display: ["rest", "card"], base: "R", home: cap("area_id") }),
   def({ key: "wikidata", group: "identity", label: "Wikidata", value: "qid", section: "sources", display: ["detail"], base: "R", gap: "Not linked to Wikidata yet", home: rel("wikidata") }),
   def({ key: "osm_ref", group: "identity", label: "OpenStreetMap", value: "text", section: "links", display: ["detail"], base: "A", gap: "Not linked to OpenStreetMap yet", home: cap("osm_ref") }),
@@ -148,8 +284,8 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   // record has a point that is not approximate (placementBlock.ts canDeriveNearTown). `capture.ts derive-near` writes it, so the gap is
   // closed by a command, never by a researcher; the web page contract keeps it off the page (web/lib/public/contract.ts HIDDEN_FROM_PAGE).
   // near_town_km travels inside the near_town row (the derive step writes both; W_PLACE_TOWN checks both), so it is never asked alone.
-  def({ key: "near_town", group: "identity", label: "Nearest town", value: "ref", section: "access", display: ["rest"], base: "R?", trigger: "derived", gap: "Nearest town not worked out yet", home: cap("near_town"), layers: ["place", "route"] }),
-  def({ key: "near_town_km", group: "identity", label: "Distance to the nearest town", value: "number", unit: "km", section: "access", display: ["detail"], base: "N", home: cap("near_town_km"), layers: ["place", "route"] }),
+  def({ key: "near_town", group: "identity", label: "Nearest town", value: "ref", section: "access", display: ["rest"], base: "R?", trigger: "derived", gap: "Nearest town not worked out yet", home: cap("near_town"), layers: ["place", "route"], privacy: "derived", lanes: ["X"], expose: { page: "no" } }),
+  def({ key: "near_town_km", group: "identity", label: "Distance to the nearest town", value: "number", unit: "km", section: "access", display: ["detail"], base: "N", home: cap("near_town_km"), layers: ["place", "route"], privacy: "derived", lanes: ["X"], expose: { page: "no", api: "none" } }),
   def({ key: "geonames_id", group: "identity", label: "GeoNames", value: "text", section: "sources", display: ["detail"], base: "A", gap: "Not linked to GeoNames yet", home: cap("geonames_id"), layers: ["place"] }),
   // an offer has no relevance record (contract 3.3): its summary lives on the capture record (protected-area-entry C1, C7)
   def({ key: "summary", group: "identity", label: "Summary", value: "text", section: "cover", display: ["rest", "card"], base: "R", gap: "Summary not written yet", home: rel("why"), homeByLayer: { offer: cap("summary") } }),
@@ -161,10 +297,12 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "hours", group: "when", label: "Opening hours", value: "hours", section: "when", display: ["rest", "filter"], base: "R?", trigger: "operates", gap: "Hours not published; check before you go", home: cap("hours"), filter: { scopes: ["culture", "animals.see"], control: "enum", label: "Open on" } }),
   def({ key: "duration_min", group: "when", label: "Door-to-door time", value: "range", unit: "min", section: "options", display: ["rest", "card", "filter"], base: "N", gap: "Time not published; our estimate", home: cap("duration_min"), layers: ["offer"], filter: { scopes: ["intent:do"], control: "range", label: "Duration", promote: { "intent:do": 2 }, band: "time_band" } }),
   def({ key: "activity_min", group: "when", label: "Time on the activity", value: "range", unit: "min", section: "options", display: ["detail"], base: "N", gap: "Time on the activity not checked yet", home: cap("activity_min"), layers: ["offer"] }),
+  // an event's own timing when it is not a season of operation: "first weekend of July", "late September for larches" (9.2)
+  def({ key: "recurrence", group: "when", label: "When it happens", value: "object", section: "when", display: ["rest"], base: "N", gap: "Dates not published yet", home: cap("recurrence"), layers: ["event"] }),
   def({ key: "check_in_out", group: "when", label: "Check-in and check-out", value: "object", section: "options", display: ["rest"], base: "N", gap: "Check-in times not checked yet", home: cap("check_in_out"), layers: ["offer"] }),
 
   // Access
-  def({ key: "access_points", group: "access", label: "Trailhead and parking", value: "relation_list", section: "access", display: ["rest"], base: "R?", trigger: "no_door_access", gap: "Parking or stop not recorded", home: { in: "none" } }),
+  def({ key: "access_points", group: "access", label: "Trailhead and parking", value: "relation_list", section: "access", display: ["rest"], base: "R?", trigger: "no_door_access", gap: "Parking or stop not recorded", home: { in: "derived", path: "starts_at, parks_for, serves" }, privacy: "derived", lanes: ["X"] }),
   def({ key: "transit", group: "access", label: "Public transport", value: "relation_list", section: "access", display: ["detail"], base: "A", gap: "Public transport not checked yet" }),
   def({ key: "access_cost", group: "access", label: "Permit or booking", value: "object_list", section: "warnings", display: ["rest!"], base: "R", gap: "Permit or booking not checked yet", home: rel("access_cost") }),
   def({ key: "price", group: "access", label: "Price", value: "price_list", section: "options", display: ["rest", "card", "filter"], base: "R?", trigger: "sells", gap: "Price not published", home: cap("price"), filter: { scopes: ["intent:do", "culture", "play", "snow"], control: "enum", label: "Price band", promote: { "culture": 2, "animals.see": 2, "play": 2 }, band: "price_band" } }),
@@ -177,7 +315,8 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "included", group: "access", label: "What is included", value: "text", section: "options", display: ["detail"], base: "N", layers: ["offer"] }),
   def({ key: "cancellation", group: "access", label: "Cancellation", value: "text", section: "options", display: ["detail"], base: "N", layers: ["offer"] }),
   def({ key: "deposit", group: "access", label: "Deposit or ID rule", value: "text", section: "options", display: ["detail"], base: "N", layers: ["offer"] }),
-  def({ key: "variants", group: "offer", label: "Variants", value: "object_list", section: "options", display: ["rest"], base: "N", gap: "Variants not recorded", layers: ["offer"] }),
+  // the inverse of variant_of (EG-C: E_CAP_REL_DERIVED refuses a stored `variants`): computed, never asked (review EG-R0 S6)
+  def({ key: "variants", group: "offer", label: "Variants", value: "relation_list", section: "options", display: ["rest"], base: "N", gap: "Variants not recorded yet", home: { in: "derived", path: "variant_of" }, layers: ["offer"], privacy: "derived", lanes: ["X"] }),
 
   // Relevance (relevance/1)
   def({ key: "class_key", group: "relevance", label: "Class", value: "enum", section: "cover", display: ["rest"], base: "R", gap: "Not judged yet", home: rel("class_key"), layers: ["place", "route", "offer"] }),
@@ -195,7 +334,7 @@ export const BASE_PROPERTIES: PropertyDef[] = [
 
   // Links and media
   def({ key: "links", group: "links", label: "Links", value: "link_list", section: "links", display: ["detail"], base: "R", gap: "Links not checked yet", home: cap("links") }),
-  def({ key: "photos", group: "media", label: "Photos", value: "photo_list", section: "photos", display: ["rest", "card"], base: "A", gap: "Licensed photo not found yet", home: cap("photos") }),
+  def({ key: "photos", group: "media", label: "Photos", value: "photo_list", section: "photos", display: ["rest", "card"], base: "A", gap: "Licensed photo not found yet", home: cap("photos"), expose: { export: [] } }),
 
   // Relations (2.5). The rules (source and target kinds, cardinality, inverse) are RELATION_RULES (relations.ts); `layers` here equals the
   // rules' source layers (a test pins it). Derived inverses (reached_by, members, ...) are never properties.
@@ -215,10 +354,10 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "covered_by", group: "relations", label: "Covered by", value: "relation_list", section: "options", display: ["rest!"], base: "N", gap: "Passes that cover it not checked yet", home: cap("covered_by"), layers: ["offer"] }),
   def({ key: "includes", group: "relations", label: "Includes", value: "relation_list", section: "options", display: ["rest"], base: "N", home: cap("includes"), layers: ["offer"] }),
   // drives membership (the read model); never displayed as a value (property-display-matrix: page none, api none)
-  def({ key: "covers_areas", group: "relations", label: "Areas that are the park", value: "area_list", section: "around", display: [], base: "N", gap: "Park areas not set yet", home: cap("covers_areas"), layers: ["place"], keep: ["check"] }),
+  def({ key: "covers_areas", group: "relations", label: "Areas that are the park", value: "area_list", section: "around", display: [], base: "N", gap: "Park areas not set yet", home: cap("covers_areas"), layers: ["place"], keep: ["check"], expose: { api: "none" } }),
 
   // Route facts no suitability field holds
-  def({ key: "geometry", group: "type_facts", label: "Track", value: "object", section: "activity", display: ["detail"], base: "N", gap: "Track not recorded yet", home: { in: "tracks", path: "data/tracks" }, layers: ["route"] }),
+  def({ key: "geometry", group: "type_facts", label: "Track", value: "object", section: "activity", display: ["detail"], base: "N", gap: "Track not recorded yet", home: { in: "tracks", path: "data/tracks" }, layers: ["route"], lanes: ["D"] }),
   def({ key: "high_point_m", group: "type_facts", label: "High point", value: "number", unit: "m", section: "activity", display: ["detail"], base: "N", layers: ["route"] }),
   def({ key: "gpx_licence", group: "type_facts", label: "Track licence", value: "text", section: "links", display: ["detail"], base: "N", layers: ["route"] }),
   def({ key: "snow_free_window", group: "type_facts", label: "Snow-free window", value: "season_rows", section: "when", display: ["rest"], base: "N", layers: ["route"] }),
@@ -333,6 +472,7 @@ const EXT_ROW_DEFAULT: SuitRow = ["", "ext", "text", "activity", D];
 const EXT_ROWS: Record<string, Partial<SuitRow>> = {
   "ext.trail.shape": ["Shape", "ext", "enum", "activity", ["rest", "filter"], { scopes: ["nature.trail", "nature.trek"], control: "enum", label: "Shape" }],
   "ext.trail.dogs": ["Dogs", "ext", "enum", "facilities", ["detail", "filter"], { scopes: ["nature.trail", "nature.trek"], control: "bool", label: "Dogs" }],
+  "ext.water.boating": ["Boats", "ext", "enum", "activity", ["rest"]],
   "ext.water.swimming": ["Swimming", "ext", "enum", "activity", ["rest", "card", "filter"], { scopes: ["water.body", "water.falls", "water.swim"], control: "enum", label: "Swimming", promote: { "water.body": 1, "water.falls": 1, "water.swim": 1 } }],
   "ext.lift.last_up": ["Last ride up", "ext", "object_list", "when", ["rest!"]],
   "ext.lift.last_down": ["Last ride down", "ext", "object_list", "when", ["rest!"]],
@@ -350,13 +490,18 @@ const EXT_ROWS: Record<string, Partial<SuitRow>> = {
   "ext.area.pass": ["Pass or permit", "ext", "enum", "warnings", ["rest!"]],
 };
 
+/** Privacy, exposure and lane exceptions of suitability paths (the tuple rows carry the display; these carry only what differs). */
+const SUIT_OVERRIDES: Record<string, Pick<Row, "privacy" | "expose" | "lanes" | "deprecated" | "reserved">> = {
+  "ext.water.boating": { lanes: ["F", "O"] },
+};
+
 function suitProperty(path: string): PropertyDef {
   const known = SUIT_ROWS[path];
   const row: SuitRow = known ?? ((EXT_ROWS[path] ? { ...EXT_ROW_DEFAULT, ...EXT_ROWS[path] } : EXT_ROW_DEFAULT) as SuitRow);
   const label = row[0] !== "" ? row[0] : path.split(".").slice(1).join(" ").replace(/_/g, " ");
   return def({
     key: path, group: row[1], label: label[0]!.toUpperCase() + label.slice(1), value: row[2], section: row[3], display: row[4], base: "N",
-    ...(row[5] ? { filter: row[5] } : {}), ...(row[6] ? { unit: row[6] } : {}), home: { in: "suitability", path },
+    ...(row[5] ? { filter: row[5] } : {}), ...(row[6] ? { unit: row[6] } : {}), home: { in: "suitability", path }, ...SUIT_OVERRIDES[path],
   });
 }
 
@@ -372,4 +517,4 @@ export const homeOf = (def: PropertyDef, layer: RecordLayer): Home => def.homeBy
 export const isSuitabilityProperty = (key: string): boolean => PROPERTY_BY_KEY.get(key)?.home.in === "suitability";
 
 /** The paths of SUIT_ROWS that APPLICABILITY_PATHS does not know: a typo guard for the registry test. */
-export const UNKNOWN_SUIT_ROWS: string[] = [...Object.keys(SUIT_ROWS), ...Object.keys(EXT_ROWS)].filter((k) => !APPLICABILITY_PATHS.includes(k));
+export const UNKNOWN_SUIT_ROWS: string[] = [...Object.keys(SUIT_ROWS), ...Object.keys(EXT_ROWS), ...Object.keys(SUIT_OVERRIDES)].filter((k) => !APPLICABILITY_PATHS.includes(k));

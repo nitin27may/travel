@@ -236,6 +236,8 @@ export const ext = z.discriminatedUnion("kind", [
     clarity: val(z.enum(["clear", "cloudy"])).optional(),
     /** the age under which flotation is required: a limit (K3) */
     floats_required_under: val(int.min(0)).optional(),
+    /** which boats the water allows (W10 lake glance; property-display-matrix 9.2): none, paddle and sail only, electric motors, any motor */
+    boating: val(z.enum(["none", "non_motor", "electric_only", "motor"])).optional(),
   }),
   z.strictObject({
     kind: z.literal("cave"),

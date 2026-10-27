@@ -197,6 +197,14 @@ export const photo = z.strictObject({
 export const passesRel = z.strictObject({ ref, at_km: z.number().min(0).optional() });
 export const onRel = z.strictObject({ ref, from_km: z.number().min(0).optional(), to_km: z.number().min(0).optional() });
 
+/** How an event recurs: the pattern in words, the months it can fall in, and whether a calendar or nature sets it. */
+export const RECURRENCE_BASIS = ["fixed_date", "calendar_rule", "natural"] as const;
+export const recurrence = z.strictObject({
+  pattern: z.string().min(1).max(200),
+  months: z.array(int.min(1).max(12)).min(1).max(12),
+  basis: z.enum(RECURRENCE_BASIS),
+});
+
 /** Where a record came from when the migration cut it out of another (SP1 to SP3). */
 export const origin = z.strictObject({ from: ref, reason: z.string().min(1) });
 
@@ -257,6 +265,8 @@ export const capRecord = z.strictObject({
   /** minutes on the activity itself (on the water, on the glacier), [low, high] (RIS-H) */
   activity_min: val(z.tuple([int.min(1), int.min(1)])).optional(),
   check_in_out: val(checkInOut).optional(),
+  /** an event's timing in words and months (events only): "first weekend of July", "late September for the larches" (PM-C, 9.2) */
+  recurrence: val(recurrence).optional(),
   price: val(z.array(priceRow)).optional(),
   window: val(windowSpec).optional(),
   /** a requirement's entry facts (access.pass offers only; E_ENTRY_SCHEMA elsewhere) */

@@ -1,16 +1,14 @@
 {
   "schema": "homeless-properties/1",
   "updated": "2026-10-26",
-  "note": "TODO list, not a contract: the registry properties with home none (core/src/schema/capture/properties.ts), which can be researched but not stored. RIS-H (26 Oct 2026) gave capture homes to duration_min, activity_min, book_url, closures, check_in_out, fills_by and groceries (docs/v2/features/catalogue-intake-and-storage.md 5.3, DATA-PLAN row 24); later stays none until research produces values. core/test/schema/keep.test.ts pins this list to the registry, so a property that gets a home leaves the list in the same change and the count only falls.",
+  "note": "TODO list, not a contract: the registry properties with home none (core/src/schema/capture/properties.ts), which can be researched but not stored. RIS-H (26 Oct 2026) gave capture homes to duration_min, activity_min, book_url, closures, check_in_out, fills_by and groceries (docs/v2/features/catalogue-intake-and-storage.md 5.3, DATA-PLAN row 24); later stays none until research produces values. PM-C (26 Oct 2026) gave access_points and variants the home `derived` (computed from relations, never asked). core/test/schema/keep.test.ts pins this list to the registry, so a property that gets a home leaves the list in the same change and the count only falls.",
   "properties": [
-    {"key":"access_points","plan":"later","research":null},
     {"key":"transit","plan":"later","research":"D9-R town facts (Roam routes). Read from the serves relation of a stop (capture contract 3.4), so it needs stop records, not a stored value"},
     {"key":"reservation","plan":"later","research":null},
     {"key":"cost_band","plan":"later","research":null},
     {"key":"included","plan":"later","research":null},
     {"key":"cancellation","plan":"later","research":null},
     {"key":"deposit","plan":"later","research":null},
-    {"key":"variants","plan":"later","research":null},
     {"key":"high_point_m","plan":"later","research":null},
     {"key":"gpx_licence","plan":"later","research":null},
     {"key":"snow_free_window","plan":"later","research":null},
