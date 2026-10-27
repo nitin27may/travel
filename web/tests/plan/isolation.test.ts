@@ -27,8 +27,13 @@ const inside = (r: string, roots: readonly string[]) => roots.some((p) => r === 
  * account plan routes' server module parses the whole `plan-draft/1` on every write (R5) and maps device copies with the plan mapper,
  * so it imports core/src/schema/plan-draft.ts and core/src/plan/doc.ts. It is server-only, writes only `planner_draft` (the one table
  * EM2 chose), and holds no builder UI; the route files under web/app/api/account/plans/ import it and nothing of the builder.
+ *
+ * X-EM2 (edit-my-trip.md EM-2): the signed-in Mine sync engine, web/lib/mine/sync.ts, applies and rebases the document's operations on
+ * the device (core/src/plan/ops.ts and sync.ts) and maps a device copy with core/src/plan/doc.ts. It is one lazy chunk, loaded by Mine
+ * only with the `accountTrips` flag on and a person signed in; everything else in web/lib/mine/ and web/components/mine/ reaches it only
+ * through that dynamic import and its types, and holds none of the document's rules.
  */
-const EXTENSION_IMPORTERS = ['web/app/mine/MineShell.tsx', 'web/lib/client/data.ts', 'core/src/schema/api/index.ts', 'web/lib/server/plans.ts'];
+const EXTENSION_IMPORTERS = ['web/app/mine/MineShell.tsx', 'web/lib/client/data.ts', 'core/src/schema/api/index.ts', 'web/lib/server/plans.ts', 'web/lib/mine/sync.ts'];
 
 function files(roots: readonly string[]): { rel: string; text: string }[] {
   const out: { rel: string; text: string }[] = [];

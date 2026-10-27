@@ -30,6 +30,11 @@ export interface CopySheetProps {
   initial?: { id: string; start: string; adults: number; children: number[] };
   /** Called after a copy was added, changed or undone, so Mine re-reads its list. */
   onSaved?: () => void;
+  /**
+   * Change dates on a trip kept in the account (edit-my-trip, EM-2): the caller applies the change through the sync and shows its own
+   * toast; return false when it could not be applied. Without it the change is written to this device's copies, as before.
+   */
+  commit?: (change: { start: string; adults: number; children: number[] }) => boolean;
   /** The trip page's print: the list shows its PDF button only when this is given (on Mine, Print is in the row menu). */
   onPrint?: () => void;
 }
@@ -84,7 +89,7 @@ const localToday = (): string => {
  * later lane: until then the copy is held in this browser, and the sheet says so and points at the files.
  * The exports are live in both steps: the calendar uses the picked start date.
  */
-export function CopySheet({ trip, open, onClose, initial, onSaved, onPrint }: CopySheetProps) {
+export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPrint }: CopySheetProps) {
   const phone = usePhone();
   const { toast } = useToast();
   const [start, setStart] = useState<string | null>(null);
@@ -174,6 +179,12 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, onPrint }: Co
     const ages = children as number[];
     setPrompt(null);
     setProblem(null);
+    if (initial && commit) {
+      if (!commit({ start, adults, children: ages })) return setProblem('error');
+      onSaved?.();
+      close();
+      return;
+    }
     if (initial) {
       let r = changeDates(probe.storage, initial.id, { start, adults, children: ages });
       if (!r.ok && r.reason === 'changed') r = changeDates(probe.storage, initial.id, { start, adults, children: ages });

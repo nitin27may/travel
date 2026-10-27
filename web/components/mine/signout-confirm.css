@@ -1,0 +1,13 @@
+/* The sign-out question (edit-my-trip 4.6): a modal <dialog>, Cancel first in tab order (foundation 4.4). Tokens only. */
+.signout-dialog {
+  width: min(28rem, calc(100vw - 2 * var(--s-4))); padding: var(--s-5); border: 1px solid var(--line); border-radius: var(--r-4);
+  background: var(--surface); color: var(--ink); box-shadow: var(--e-2);
+}
+.signout-dialog::backdrop { background: var(--scrim); }
+.signout-title { font: var(--t-title); color: var(--ink); margin: 0 0 var(--s-2); text-wrap: balance; }
+.signout-body { font: var(--t-small); color: var(--ink-2); margin: 0 0 var(--s-4); text-wrap: pretty; }
+.signout-list { margin: 0 0 var(--s-4); padding-left: var(--s-5); font: var(--t-small); color: var(--ink-2); }
+.signout-actions { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.signout-actions .btn { min-height: var(--touch-min); }
+.signout-offline { display: flex; align-items: center; gap: var(--s-2); margin: 0 0 var(--s-3); font: var(--t-small); color: var(--warn); }
+@media (max-width: 639px) { .signout-actions { flex-direction: column; } .signout-actions .btn { width: 100%; } }

@@ -5,10 +5,16 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Banner } from '@/components/ui/Banner';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { useAnnouncer } from '@/components/auth/live';
+import { PLAN_DOC_LIMITS } from '@travel/core/config/plans.ts';
 import { markSeen } from '@/lib/mine/dot';
+import { ACCOUNT_TRIPS_ON } from '@/lib/mine/flag';
+import { CHANGED_EVENT } from '@/lib/mine/keys';
+import { useAccountTrips } from '@/lib/mine/useSync';
+import type { AccountSync, SyncSnapshot } from '@/lib/mine/sync';
 import { FAVOURITES_ON } from '@/lib/favourites/flag';
 import { HeartGlyph } from '@/lib/favourites/glyph';
-import type { StorageLike } from '@travel/core/schema/copies.ts';
+import type { CopyItem, StorageLike } from '@travel/core/schema/copies.ts';
 import type { MineTab, Overview } from '@/lib/mine/overview';
 import { AccountCard } from './AccountCard';
 import { DeviceNotice } from './DeviceNotice';
@@ -51,6 +57,9 @@ function Unreadable({ what, reason }: { what: string; reason: 'corrupt' | 'newer
 export function MineShell({ signIn }: { signIn: boolean }) {
   const [state, setState] = useState<Loaded | null>(null);
   const [email, setEmail] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [sessionKnown, setSessionKnown] = useState(false);
+  const [signedOutUnsent, setSignedOutUnsent] = useState(0);
   const [snoozed, setSnoozed] = useState(false);
   const [moved, setMoved] = useState(false);
   const [d, setD] = useState<Data | null>(null);
@@ -88,25 +97,54 @@ export function MineShell({ signIn }: { signIn: boolean }) {
     void import('@/lib/auth/client')
       .then(({ getAuthClient }) => getAuthClient().getSession())
       .then((r) => {
-        const u = (r as { data?: { user?: { email?: string } } } | null)?.data?.user;
+        const u = (r as { data?: { user?: { email?: string; id?: string } } } | null)?.data?.user;
         if (live && u?.email) setEmail(u.email);
+        if (live && u?.id) setUserId(u.id);
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => live && setSessionKnown(true));
     return () => {
       live = false;
     };
   }, [signIn]);
 
+  // the account's trips (edit-my-trip, flag `accountTrips`): synced while Mine is open
+  const acct = useAccountTrips(userId, ACCOUNT_TRIPS_ON && signIn);
+  const { region, announce } = useAnnouncer();
   const counts = useMemo(
     () => ({
-      trips: state?.overview.copies.ok ? state.overview.copies.items.length : null,
+      trips: acct.snap ? mergedTrips(state?.overview.copies, acct.snap).items.length : state?.overview.copies.ok ? state.overview.copies.items.length : null,
       favourites: state?.overview.favourites.ok ? state.overview.favourites.items.length : null,
     }),
-    [state],
+    [state, acct.snap],
   );
 
   // a write in this tab (Remove, Undo, Change dates): read both lists again
   const reread = () => setState((s) => (s && d ? { ...s, overview: d.readOverview(d.mineStorage().storage) } : s));
+
+  // the merge of device copies writes the copies envelope in this tab, so the list is read again when it says so
+  useEffect(() => {
+    if (!d || !ACCOUNT_TRIPS_ON) return;
+    addEventListener(CHANGED_EVENT, reread);
+    return () => removeEventListener(CHANGED_EVENT, reread);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- `reread` only reads through `d`
+  }, [d]);
+  const spoken = useRef('');
+  const saying = acct.snap?.announce ?? '';
+  useEffect(() => {
+    if (saying === spoken.current) return;
+    announce(saying || 'All changes are in your account.');
+    spoken.current = saying;
+  }, [saying, announce]);
+  // signed out with changes still waiting (the session ended): the card says so, and they send on sign-in (edit-my-trip 4.6)
+  useEffect(() => {
+    if (!ACCOUNT_TRIPS_ON || !signIn || !sessionKnown || email) return;
+    let live = true;
+    void import('@/lib/mine/signout').then((m) => live && setSignedOutUnsent(m.unsentSummary(m.mineStorage().storage).count));
+    return () => {
+      live = false;
+    };
+  }, [signIn, sessionKnown, email]);
 
   const choose = (tab: MineTab) => {
     setMoved(true);
@@ -117,10 +155,12 @@ export function MineShell({ signIn }: { signIn: boolean }) {
   };
 
   const showNotice = !!state && !!d && !email && !snoozed && d.noticeDue(state.overview, new Date());
+  const note = accountNote(acct.snap, state ? mergedTrips(state.overview.copies, acct.snap).deviceIds.size : 0, signedOutUnsent, !!email);
 
   return (
     <div className="mine">
-      <AccountCard signIn={signIn} email={email} />
+      {region}
+      <AccountCard signIn={signIn} email={email} note={note} />
       <noscript>
         <p className="mine-card-note">Mine reads what this browser keeps, so it needs JavaScript.</p>
       </noscript>
@@ -147,7 +187,7 @@ export function MineShell({ signIn }: { signIn: boolean }) {
               />
             </div>
             <div role="tabpanel" id="mine-panel-trips" aria-labelledby="mine-tab-trips" hidden={state.tab !== 'trips'} className={moved ? 'mine-panel is-moved' : 'mine-panel'}>
-              <TripsPanel overview={state.overview} storage={d!.mineStorage().storage} signedIn={!!email} didNotFit={state.didNotFit} onChanged={reread} />
+              <TripsPanel overview={state.overview} storage={d!.mineStorage().storage} signedIn={!!email} didNotFit={state.didNotFit} onChanged={reread} acct={acct} />
             </div>
             <div role="tabpanel" id="mine-panel-favourites" aria-labelledby="mine-tab-favourites" hidden={state.tab !== 'favourites'} className={moved ? 'mine-panel is-moved' : 'mine-panel'}>
               <FavouritesTab overview={state.overview} storage={d!.mineStorage().storage} onChanged={reread} />
@@ -169,9 +209,44 @@ export function MineShell({ signIn }: { signIn: boolean }) {
   );
 }
 
+type Acct = { engine: AccountSync | null; snap: SyncSnapshot | null };
+
+/** The account's trips and the device copies the merge did not take (over the cap, refused, or not merged yet), each trip once. */
+function mergedTrips(c: Overview['copies'] | undefined, snap: SyncSnapshot | null): { items: CopyItem[]; deviceIds: Set<string> } {
+  const device = c && c.ok ? c.items : [];
+  if (!snap) return { items: [...device], deviceIds: new Set() };
+  const have = new Set(snap.items.map((i) => i.id));
+  const left = device.filter((i) => !have.has(i.id));
+  return { items: [...snap.items, ...left], deviceIds: new Set(left.map((i) => i.id)) };
+}
+
+/**
+ * The account card's sentence under the buttons (edit-my-trip 4.7). `undefined`: the flag is off, the card says what it always said.
+ * Signed in, the account answered: "Your trips are kept in your account." (or how many stay on this device). Signed out with changes
+ * still waiting: the session ended, and they send on sign-in (4.6).
+ */
+function accountNote(snap: SyncSnapshot | null, onDevice: number, waiting: number, signedIn: boolean): { text: string; warn?: boolean } | null | undefined {
+  if (!ACCOUNT_TRIPS_ON) return undefined;
+  if (!signedIn) return waiting > 0 ? { text: `Sign in again to finish saving ${waiting} ${waiting === 1 ? 'change' : 'changes'}.`, warn: true } : undefined;
+  if (!snap || snap.reachable === null) return null;
+  if (snap.expired) return { text: `Sign in again to finish saving ${snap.unsent || 'your'} ${snap.unsent === 1 ? 'change' : 'changes'}.`, warn: true };
+  if (snap.reachable === false) return { text: 'We can\u2019t reach your account right now. Changes stay on this device and are sent when we can.' };
+  if (onDevice > 0) {
+    const n = `${onDevice} ${onDevice === 1 ? 'trip is' : 'trips are'} on this device only`;
+    return { text: snap.merge && snap.merge.overCap > 0 ? `${n}: your account holds ${PLAN_DOC_LIMITS.accountPlans}.` : `${n}.` };
+  }
+  return { text: 'Your trips are kept in your account.' };
+}
+
 /** My trips: the rows, groups and menu of the spec (5.2) are `MyTrips`; this decides between the error state and the list. */
-function TripsPanel({ overview, storage, signedIn, didNotFit, onChanged }: { overview: Overview; storage: StorageLike; signedIn: boolean; didNotFit: number; onChanged: () => void }) {
+function TripsPanel({ overview, storage, signedIn, didNotFit, onChanged, acct }: { overview: Overview; storage: StorageLike; signedIn: boolean; didNotFit: number; onChanged: () => void; acct: Acct }) {
   const c = overview.copies;
+  if (acct.engine && acct.snap) {
+    // the account answers for itself: a damaged device list is reported only when there is nothing else to show
+    const { items, deviceIds } = mergedTrips(c, acct.snap);
+    if (!c.ok && items.length === 0) return <Unreadable what="trips" reason={c.reason} />;
+    return <MyTrips items={items} storage={storage} signedIn={signedIn} didNotFit={didNotFit} onChanged={onChanged} acct={{ engine: acct.engine, snap: acct.snap, deviceIds }} />;
+  }
   if (!c.ok) return <Unreadable what="trips" reason={c.reason} />;
   return <MyTrips items={c.items} storage={storage} signedIn={signedIn} didNotFit={didNotFit} onChanged={onChanged} />;
 }
