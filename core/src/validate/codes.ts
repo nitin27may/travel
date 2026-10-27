@@ -127,13 +127,19 @@ export const CAP_ERROR_CODES = {
   E_CAP_SCHEMA: "a field is missing, unknown, of the wrong type or outside its enum, or a value state contradicts its v",
   E_CAP_TREE: "data/vocab/types.json breaks a tree rule: an id appears twice, a parent is missing, a mark key is not in the registry, a profile or relevance class is unknown",
   E_CAP_PROFILE: "a profile row of data/vocab/types.json breaks the applicability rules (a path is missing, an extension disagrees with the marks, a pair is claimed twice)",
-  E_CAP_REF: "a record ref does not resolve to a place, a legacy row, a trip item, or the part or offer of one",
+  E_CAP_REF: "a record ref does not resolve to a place, a legacy row, a trip item, or the part or offer of one, or it nests a part/ or offer/ wrapper inside another (one wrapper only, entity-graph 4.4 rule 3)",
   E_CAP_DUP_REF: "a ref appears twice in a file, or in two files",
   E_CAP_TYPE: "a record's type is not in the tree, or contradicts the kind and subkind of its suitability record",
   E_CAP_LAYER: "a record's layer is not one the type allows (a summit is a place, a trail is a route, a rafting trip is an offer)",
   E_CAP_REL_REF: "a relation points at a ref that no record, scope item or alias provides",
-  E_CAP_REL_KIND: "a relation is not allowed on the record's layer (reaches is a route's, at and on are an offer's)",
-  E_CAP_REL_DERIVED: "reached_by is typed in a file; it is the derived inverse of reaches and is never stored",
+  E_CAP_REL_KIND: "a relation is not allowed on the record's layer or type (reaches is a route's, at and on are an offer's, parks_for an access place's; RELATION_RULES)",
+  E_CAP_REL_DERIVED: "a derived inverse (reached_by, members, offers_at, access_points, variants, covers, included_in and the rest of CAP_RELATION_DERIVED) is typed in a file; it is computed from the stored side and never stored",
+  E_CAP_REL_TARGET: "a relation points at a record of a layer or type its rule does not allow (an access place parks_for an offer, an offer on a place, a route starts_at a route); severity by the gap budget: pinned or known faults warn, new records error",
+  E_CAP_REL_CYCLE: "part_of or variant_of loops back to the record (part_of counting covers_areas membership)",
+  E_CAP_REL_SYM: "a symmetric relation (alternative_to, combo_with) is stored on both records; store it once, on either side",
+  E_CAP_REL_CARD: "a relation holds more targets than its rule allows (ends_at names more than one place)",
+  E_CAP_VARIANT: "variant_of names a record of another layer or category, or a record that is itself a variant (one level only)",
+  E_CAP_REF_TOP: "a protected area's ref (or alias) is not place/<slug>, or a zone's is not part/<park ref>#<slug> (entity-graph 4.4 rule 4); severity by the gap budget",
   E_CAP_OPERATOR: "run_by names an operator that data/capture/operators.json does not have",
   E_CAP_SRC: "a src id is not in the file's sources table, or a value has no source",
   E_CAP_METHOD: "a source row says crawl or api without a run id, or names a run without saying how the page was taken",
@@ -148,6 +154,10 @@ export const CAP_ERROR_CODES = {
 export const CAP_WARNING_CODES = {
   W_CAP_NA_FIELD: "a value is stored for a property that the type's contract marks N (never asked)",
   W_CAP_BELOW_USABLE: "required properties of the type's contract are unanswered, so the record is below usable (the suitability slice has its own warning)",
+  W_CAP_REL_PARENTS: "a record names more than two part_of parents; the first is the breadcrumb default",
+  W_CAP_REL_CARD: "a relation holds more targets than its rule expects (a route with more than one starts_at)",
+  W_CAP_STAGE_ORDER: "the stages of one route (routes part_of it) do not chain by ends_at to starts_at, so their order cannot be derived",
+  W_CAP_INHERITED_COPY: "a record stores a fact it already inherits from a container: a conditions, status or booking link with the same URL, or a requirement offer of the same type and booking page as one up its containment chain",
 } as const;
 // capture-supersedes/1 codes (contract 9.7), tested in core/test/capture/supersede.test.ts
 export const SUP_ERROR_CODES = {

@@ -186,20 +186,25 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "links", group: "links", label: "Links", value: "link_list", section: "links", display: ["detail"], base: "R", gap: "Links not checked yet", home: cap("links") }),
   def({ key: "photos", group: "media", label: "Photos", value: "photo_list", section: "photos", display: ["rest", "card"], base: "A", gap: "Licensed photo not found yet", home: cap("photos") }),
 
-  // Relations (2.5). `reached_by` is derived and is not a property.
+  // Relations (2.5). The rules (source and target kinds, cardinality, inverse) are RELATION_RULES (relations.ts); `layers` here equals the
+  // rules' source layers (a test pins it). Derived inverses (reached_by, members, ...) are never properties.
   def({ key: "reaches", group: "relations", label: "Reaches", value: "relation_list", section: "access", display: ["rest"], base: "N", gap: "Payoff not recorded", home: cap("reaches"), layers: ["route"] }),
   def({ key: "passes", group: "relations", label: "Passes", value: "relation_list", section: "access", display: ["rest"], base: "N", home: cap("passes"), layers: ["route"] }),
-  def({ key: "part_of", group: "relations", label: "Part of", value: "relation_list", section: "around", display: ["rest"], base: "A", trigger: "part_of_something", home: cap("part_of") }),
+  def({ key: "part_of", group: "relations", label: "Part of", value: "relation_list", section: "around", display: ["rest"], base: "A", trigger: "part_of_something", home: cap("part_of"), layers: ["place", "route", "event"] }),
   def({ key: "starts_at", group: "relations", label: "Starts at", value: "relation_list", section: "access", display: ["rest"], base: "N", gap: "Parking or stop not recorded", home: cap("starts_at"), layers: ["route", "offer"] }),
   def({ key: "ends_at", group: "relations", label: "Ends at", value: "relation_list", section: "access", display: ["detail"], base: "N", home: cap("ends_at"), layers: ["route"] }),
   def({ key: "on", group: "relations", label: "On the route", value: "relation_list", section: "around", display: ["rest"], base: "N", home: cap("on"), layers: ["offer"] }),
   def({ key: "at", group: "relations", label: "At the place", value: "relation_list", section: "around", display: ["rest"], base: "N", home: cap("at"), layers: ["offer"] }),
-  def({ key: "run_by", group: "relations", label: "Run by", value: "ref", section: "options", display: ["rest"], base: "N", gap: "Operator not recorded", home: cap("run_by"), layers: ["offer"] }),
+  def({ key: "run_by", group: "relations", label: "Run by", value: "ref", section: "options", display: ["rest"], base: "N", gap: "Operator not recorded", home: cap("run_by"), layers: ["offer", "place"] }),
   def({ key: "parks_for", group: "relations", label: "Parking for", value: "relation_list", section: "access", display: ["rest"], base: "N", home: cap("parks_for"), layers: ["place"] }),
   def({ key: "serves", group: "relations", label: "Serves", value: "relation_list", section: "access", display: ["rest"], base: "N", home: cap("serves"), layers: ["place"] }),
   def({ key: "combo_with", group: "relations", label: "Combines with", value: "relation_list", section: "around", display: ["detail"], base: "N", home: cap("combo_with") }),
-  def({ key: "alternative_to", group: "relations", label: "Alternative to", value: "relation_list", section: "around", display: ["detail"], base: "N", home: cap("alternative_to") }),
-  def({ key: "variant_of", group: "relations", label: "Variant of", value: "relation_list", section: "options", display: ["detail"], base: "N", home: cap("variant_of"), layers: ["offer"] }),
+  def({ key: "alternative_to", group: "relations", label: "Alternative to", value: "relation_list", section: "around", display: ["detail"], base: "N", home: cap("alternative_to"), layers: ["place", "route", "offer"] }),
+  def({ key: "variant_of", group: "relations", label: "Variant of", value: "relation_list", section: "options", display: ["detail"], base: "N", home: cap("variant_of"), layers: ["route", "offer"] }),
+  def({ key: "covered_by", group: "relations", label: "Covered by", value: "relation_list", section: "options", display: ["rest!"], base: "N", gap: "Passes that cover it not checked yet", home: cap("covered_by"), layers: ["offer"] }),
+  def({ key: "includes", group: "relations", label: "Includes", value: "relation_list", section: "options", display: ["rest"], base: "N", home: cap("includes"), layers: ["offer"] }),
+  // drives membership (the read model); never displayed as a value (property-display-matrix: page none, api none)
+  def({ key: "covers_areas", group: "relations", label: "Areas that are the park", value: "relation_list", section: "around", display: [], base: "N", gap: "Park areas not set yet", home: cap("covers_areas"), layers: ["place"], keep: ["check"] }),
 
   // Route facts no suitability field holds
   def({ key: "geometry", group: "type_facts", label: "Track", value: "object", section: "activity", display: ["detail"], base: "N", gap: "Track not recorded yet", home: { in: "tracks", path: "data/tracks" }, layers: ["route"] }),
