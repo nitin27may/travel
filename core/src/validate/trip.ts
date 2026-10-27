@@ -2,6 +2,7 @@ import { RESERVED_SLUGS } from "../schema/enums.ts";
 import { SLUG_RE } from "../schema/meta.ts";
 import { TRIP_TABLES } from "../schema/trip.ts";
 import { TRIP_SCHEMA_VERSION } from "../schema/trip.ts";
+import { DATED_FOLDER_RE } from "../catalogue/alias.ts";
 import { checkForeignKeys, checkSources } from "./fk.ts";
 import { checkTable, err, isObj } from "./rows.ts";
 import type { Ctx, Row } from "./rows.ts";
@@ -28,7 +29,7 @@ const str = (v: unknown): string | null => (typeof v === "string" ? v : null);
 
 export function validateTrip(doc: unknown, ctx: Ctx, folder: string | null): void {
   if (!isObj(doc)) {
-    err(ctx, "E_SCHEMA", "", "the file must be one JSON object with schema_version, id, updated and the trip tables. Example: {\"schema_version\": 1, \"id\": \"niagara-day-aug-2026\", ...}.");
+    err(ctx, "E_SCHEMA", "", "the file must be one JSON object with schema_version, id, updated and the trip tables. Example: {\"schema_version\": 1, \"id\": \"niagara-day-2026\", ...}.");
     ctx.schemaBroken = true;
     return;
   }
@@ -41,7 +42,7 @@ export function validateTrip(doc: unknown, ctx: Ctx, folder: string | null): voi
     ctx.schemaBroken = true;
   }
   if (typeof doc.id !== "string" || !SLUG_RE.test(doc.id)) {
-    err(ctx, "E_SLUG", "/id", `"id" must be the trip slug in lower-case words joined by hyphens, got ${JSON.stringify(doc.id)}. Example: "niagara-day-aug-2026".`);
+    err(ctx, "E_SLUG", "/id", `"id" must be the trip slug in lower-case words joined by hyphens, got ${JSON.stringify(doc.id)}. Example: "niagara-day-2026".`);
   }
   if (typeof doc.updated !== "string" || !ISO_DATE.test(doc.updated)) {
     err(ctx, "E_SCHEMA", "/updated", `"updated" must be an ISO date, got ${JSON.stringify(doc.updated)}. Example: "2026-10-17".`);
@@ -90,6 +91,10 @@ export function validateTrip(doc: unknown, ctx: Ctx, folder: string | null): voi
   const slug = String(trip.slug);
   if ((RESERVED_SLUGS as readonly string[]).includes(slug)) {
     err(ctx, "E_SLUG", "/trip/slug", `"${slug}" is a reserved name because it is also a page of the app. Pick another slug. Example: "${slug}-trip".`);
+  }
+  // a trip id is a public id: a month next to a year is private (public-ref-aliases 2, owner 27 Oct 2026); a year or a season is fine
+  if (DATED_FOLDER_RE.test(slug)) {
+    err(ctx, "E_SLUG", "/trip/slug", `"${slug}" names a month and a year; a trip id is public, so it may carry the year or a season only. Example: "niagara-day-2026" or "vermont-fall-2026".`);
   }
   if (slug !== doc.id) {
     err(ctx, "E_SLUG", "/id", `the root "id" (${JSON.stringify(doc.id)}) must equal trip.slug (${JSON.stringify(slug)}).`);

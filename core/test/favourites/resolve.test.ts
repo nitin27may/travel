@@ -102,3 +102,34 @@ describe("the HTTP codec (GET /api/v1/resolve?ref=...)", () => {
     expect(!r.ok && r.error.code).toBe("invalid_input");
   });
 });
+
+describe("resolveRefs and public refs (public-ref-aliases 5.3, QR4; REF-C acceptance A7)", () => {
+  const one = (asked: string) => resolveOne(INDEX, light, asked);
+  const DATED = "legacy/canadian-rockies-sept-2029/sights/bow-lake";
+  const ALIAS = "legacy/canadian-rockies-2029/sights/bow-lake";
+
+  it("the alias resolves, and every answer names the public ref", () => {
+    expect(one(ALIAS)).toMatchObject({ state: "current", space: "place", slug: "bow-lake", ref: ALIAS });
+    expect(one("place:bow-lake")).toMatchObject({ state: "current", ref: ALIAS });
+    expect(resolveRow.safeParse(one(ALIAS)).success).toBe(true);
+  });
+  it("a dated internal ref answers byte-for-byte like an unknown ref: the right month and a wrong one alike (no oracle)", () => {
+    const unknown = "legacy/no-such-folder/sights/nothing";
+    const asJson = (asked: string) => JSON.stringify(resolveRefsResult(INDEX, light, { refs: [asked] }, REVISION)).split(JSON.stringify(asked)).join('"<asked>"');
+    expect(asJson(DATED)).toBe(asJson(unknown));
+    expect(asJson("legacy/canadian-rockies-jan-2029/sights/bow-lake")).toBe(asJson(unknown));
+    expect(asJson(`part/${DATED}#top`)).toBe(asJson(unknown));
+    expect(one(DATED)).toEqual({ asked: DATED, state: "unknown", space: null, slug: null, ref: null, name: null, kind: null, cc: null });
+  });
+  it("a dated ref is askable (unknown), never invalid_input: the error would tell it apart", () => {
+    const r = resolveRefsResult(INDEX, light, { refs: [DATED, "place:bow-lake"] }, REVISION);
+    expect(r.ok).toBe(true);
+  });
+  it("trip/<alias> is not inverted: it is a data-trip ref, unknown here", () => {
+    expect(one("trip/canadian-rockies-2029").state).toBe("unknown");
+  });
+  it("the answer holds no dated folder once the asked echo is set aside", () => {
+    const r = resolveRefsResult(INDEX, light, { refs: [ALIAS, "place:bow-lake", DATED] }, REVISION);
+    expect(r.ok && privacyHits(r.data, 20, { echo: [ALIAS, "place:bow-lake", DATED] })).toEqual([]);
+  });
+});

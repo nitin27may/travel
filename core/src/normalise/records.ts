@@ -5,6 +5,9 @@
 // Every rule is conservative: it changes a value only when the change is unambiguous, and reports a finding (never a guess) when it
 // is not. A row the run changes gets a `meta` block started (schema_version 1, run_id), never overwritten.
 import { privacyHits } from "../privacy/detect.ts";
+
+/** Capture rows are internal: their real ids are dated refs, which only public output must not hold (public-ref-aliases 6.1). */
+const INTERNAL = { datedFolders: false } as const;
 import { PROPERTY_BY_KEY } from "../schema/capture/properties.ts";
 import { metaFindings } from "../validate/rowMeta.ts";
 import { Sink, eachVal, isObj, seg, setMetaKey, startMeta, type Obj } from "./common.ts";
@@ -154,7 +157,7 @@ export function normaliseRecord(rec: Obj, path: string, sink: Sink, kind: "captu
     } else {
       candidate.origin = o;
       const bad = metaFindings(candidate, `${path}/meta`, { table, propertyKeys: new Set(PROPERTY_BY_KEY.keys()) }).filter((f) => !f.warning);
-      const hits = privacyHits({ origin: o }, 1);
+      const hits = privacyHits({ origin: o }, 1, INTERNAL);
       if (bad.length > 0 || hits.length > 0) {
         const why = [...new Set(bad.map((b) => b.code))].concat(hits.length ? ["PRIVACY"] : []).join(", ");
         sink.find("E_NORM_REFUSED", "error", `${path}/origin`, `origin is not moved into meta: it would fail ${why}. A private-list key (loc: or proto:) is never copied; fix the record by hand`);

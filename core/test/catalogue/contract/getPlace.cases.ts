@@ -2,7 +2,8 @@
 import { expect } from "vitest";
 import { API_LIMITS, PLACE_ROW_KEYS, collectVals, placeDetail, placeLookup, provenanceProblems, type PlaceDetail, type PlaceRow } from "../../../src/schema/api/index.ts";
 import type { CatalogueStore } from "../../../src/catalogue/store.ts";
-import { resolveRef } from "../../../src/catalogue/slugs.ts";
+import { resolveRef, folderAliasesOf } from "../../../src/catalogue/slugs.ts";
+import { publicRef } from "../../../src/catalogue/alias.ts";
 import { allRows, expectError, expectOk, type ContractCase } from "./kit.ts";
 
 /** Every place detail the store serves, through its own list. */
@@ -96,7 +97,8 @@ export const getPlaceCases: ContractCase[] = [
       const now = resolveRef(t.registry!(), ref);
       expect(now?.slug).toBe(slug);
       const d = expectOk(await store.getPlace(slug));
-      expect("ref" in d && d.ref).toBe(now?.key);
+      // the registry holds internal keys; a served ref is the key's public form (public-ref-aliases 4: a dated folder is aliased)
+      expect("ref" in d && d.ref).toBe(now && publicRef(now.key, folderAliasesOf(t.registry!())));
     },
   },
   {

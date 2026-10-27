@@ -18,6 +18,7 @@
 import { z } from "zod";
 import { SLUG_RE } from "../schema/api/common.ts";
 import { compareCodePoints } from "./sortKey.ts";
+import { DATED_FOLDER_NAME_RE, DATED_FOLDER_RE, aliasOfFolder } from "./alias.ts";
 
 // ---- the rules of patterns 1.2 (moved from web/lib/public/slugs.ts and seeds.ts; web re-exports them) -----------------------------
 
@@ -112,13 +113,23 @@ const slugSpace = z.strictObject({
   withdrawn: z.record(key, slug),
 });
 export type SlugSpace = z.infer<typeof slugSpace>;
+
+/**
+ * The trips space adds the folder aliases (public-ref-aliases 4.3): dated legacy folder -> its public alias. Pinned at first write by
+ * `slugs.ts build` (alias.ts `aliasOfFolder`) and never recomputed: a later trip rename does not move it. Server-side only; publicRef
+ * (alias.ts) reads it at every public boundary. Optional so a registry with no dated folder needs no empty section.
+ */
+const tripSpace = slugSpace.extend({
+  folderAliases: z.record(z.string().regex(DATED_FOLDER_NAME_RE, "a dated legacy folder (month and year)"), slug).optional(),
+});
+export type TripSpace = z.infer<typeof tripSpace>;
 export type SpaceName = "places" | "trips";
 
 export const slugRegistry = z.strictObject({
   schema: z.literal(SLUG_REGISTRY_SCHEMA),
   note: z.string().optional(),
   places: slugSpace,
-  trips: slugSpace,
+  trips: tripSpace,
   /**
    * An identity key that `alias` replaced -> the key that carries its slug now (R-2). Chains are collapsed, so one lookup resolves an
    * old ref. SupabaseStore's loader writes this section into `entity_alias (alias, ref)` (schema diff M5).
@@ -370,7 +381,14 @@ const sortedRecord = <V>(r: Record<string, V>): Record<string, V> =>
 
 const uniqueSorted = (xs: readonly string[]): string[] => [...new Set(xs)].sort(compareCodePoints);
 
-const sortedSpace = (s: SlugSpace): SlugSpace => ({ slugs: sortedRecord(s.slugs), retired: sortedRecord(s.retired), merged: sortedRecord(s.merged), withdrawn: sortedRecord(s.withdrawn) });
+const sortedSpace = <S extends SlugSpace & { folderAliases?: Record<string, string> }>(s: S): S => ({
+  ...s,
+  slugs: sortedRecord(s.slugs),
+  retired: sortedRecord(s.retired),
+  merged: sortedRecord(s.merged),
+  withdrawn: sortedRecord(s.withdrawn),
+  ...(s.folderAliases ? { folderAliases: sortedRecord(s.folderAliases) } : {}),
+});
 
 /** Pinned keys the snapshot no longer has (a blocking problem: alias, merge or withdraw them), per space. */
 function missingKeys(reg: SlugRegistry, snap: SlugSnapshot): string[] {
@@ -402,7 +420,7 @@ export interface RegistryUpdate {
  * withdrawn key whose record came back restored with its old slug; region aliases merged. A pinned key that is gone is a problem: it
  * needs an explicit `alias`, `merge` or `withdraw`, never a silent drop.
  */
-export function updateRegistry(prev: SlugRegistry, snap: SlugSnapshot): RegistryUpdate {
+export function updateRegistry(prev: SlugRegistry, snap: SlugSnapshot, folders: readonly string[] = legacyFoldersOfSnapshot(snap)): RegistryUpdate {
   const problems = [...registryProblems(prev), ...missingKeys(prev, snap)];
   const added: string[] = [];
   const next: SlugRegistry = { ...prev, places: structuredClone(prev.places), trips: structuredClone(prev.trips), formerKeys: { ...prev.formerKeys } };
@@ -435,18 +453,27 @@ export function updateRegistry(prev: SlugRegistry, snap: SlugSnapshot): Registry
     if (!a) added.push(`region ${k}`);
     regions[k] = { name: a?.name ?? b!.name, aliases: uniqueSorted([...(a?.aliases ?? []), ...(b?.aliases ?? [])]) };
   }
-  const registry: SlugRegistry = { schema: SLUG_REGISTRY_SCHEMA, note: prev.note ?? SLUG_REGISTRY_NOTE, places: sortedSpace(next.places), trips: sortedSpace(next.trips), formerKeys: sortedRecord(next.formerKeys), regions };
-  problems.push(...registryProblems(registry));
-  return { registry, added, problems, warnings: emptiedRegions(prev, snap) };
+  const built: SlugRegistry = { schema: SLUG_REGISTRY_SCHEMA, note: prev.note ?? SLUG_REGISTRY_NOTE, places: sortedSpace(next.places), trips: sortedSpace(next.trips), formerKeys: sortedRecord(next.formerKeys), regions };
+  // public-ref-aliases 4.3: every dated legacy folder gets its alias by the rule, once; a pinned one is never touched
+  const pinned = pinFolderAliases(built, folders);
+  const registry = pinned.registry;
+  added.push(...pinned.added);
+  problems.push(...registryProblems(registry), ...folderAliasProblems(registry, folders, prev).map(aliasLine));
+  return { registry, added, problems, warnings: [...emptiedRegions(prev, snap), ...folderAliasWarnings(registry)] };
 }
 
 /**
  * Drift between the registry and what the builder assigns (`slugs.ts --check`, check-all step "catalogue slugs are pinned"): a pinned
- * slug that would change, a pinned key with no record, a key, merge, trip or region the registry does not pin yet, and the registry's own
- * problems. `warnings` (an emptied region) never fail the check.
+ * slug that would change, a pinned key with no record, a key, merge, trip or region the registry does not pin yet, the registry's own
+ * problems, and the folder-alias rules (public-ref-aliases 4.3) against the known legacy folders and the committed registry (`base`). `warnings` (an emptied region) never fail the check.
  */
-export function registryDrift(reg: SlugRegistry, snap: SlugSnapshot): { drift: string[]; warnings: string[] } {
-  const out = [...registryProblems(reg), ...missingKeys(reg, snap)];
+export function registryDrift(
+  reg: SlugRegistry,
+  snap: SlugSnapshot,
+  folders: readonly string[] = legacyFoldersOfSnapshot(snap),
+  base: SlugRegistry | null = null,
+): { drift: string[]; warnings: string[] } {
+  const out = [...registryProblems(reg), ...missingKeys(reg, snap), ...folderAliasProblems(reg, folders, base).map(aliasLine)];
   for (const [name, now] of [["places", snap.places], ["trips", snap.trips]] as const) {
     for (const [k, sl] of Object.entries(now)) {
       const pinned = reg[name].slugs[k];
@@ -468,7 +495,7 @@ export function registryDrift(reg: SlugRegistry, snap: SlugSnapshot): { drift: s
       if (gone.length) out.push(`region ${k}: aliases ${gone.join(", ")} are not in the registry: run \`node core/bin/slugs.ts build\``);
     }
   }
-  return { drift: out, warnings: emptiedRegions(reg, snap) };
+  return { drift: out, warnings: [...emptiedRegions(reg, snap), ...folderAliasWarnings(reg)] };
 }
 
 function need(reg: SlugRegistry, k: string): SpaceName {
@@ -562,13 +589,22 @@ export function unmintKey(reg: SlugRegistry, origins: OriginKeys, k: string, rel
   return { registry, originKeys: { ...origins, keys: sortedRecord(keys) }, slug: sl, origins: dropped };
 }
 
+/** A space in the file's key order: slugs, retired, merged, withdrawn, then (trips) folderAliases. */
+const orderedSpace = (s: SlugSpace & { folderAliases?: Record<string, string> }): TripSpace => ({
+  slugs: sortedRecord(s.slugs),
+  retired: sortedRecord(s.retired),
+  merged: sortedRecord(s.merged),
+  withdrawn: sortedRecord(s.withdrawn),
+  ...(s.folderAliases ? { folderAliases: sortedRecord(s.folderAliases) } : {}),
+});
+
 /** The file text: stable key order, one entry per line, so a diff shows exactly what moved. */
 export function registryText(reg: SlugRegistry): string {
   const ordered: SlugRegistry = {
     schema: reg.schema,
     ...(reg.note ? { note: reg.note } : {}),
-    places: sortedSpace(reg.places),
-    trips: sortedSpace(reg.trips),
+    places: orderedSpace(reg.places),
+    trips: orderedSpace(reg.trips),
     formerKeys: sortedRecord(reg.formerKeys),
     regions: Object.fromEntries(Object.entries(sortedRecord(reg.regions)).map(([k, r]) => [k, { name: r.name, aliases: uniqueSorted(r.aliases) }])),
   };
@@ -701,3 +737,92 @@ export function migrateOrigins(reg: SlugRegistry, prev: OriginKeys = emptyOrigin
   if (problems.length) throw new Error(problems.join("; "));
   return { registry, originKeys: { schema: ORIGIN_KEYS_SCHEMA, note: prev.note ?? ORIGIN_KEYS_NOTE, keys: sortedRecord(keys) }, moved: map.size };
 }
+
+// ---- folder aliases (public-ref-aliases 4.3) ------------------------------------------------------------------------------------
+
+export type FolderAliasCode = "E_SLUG_ALIAS_PINNED" | "E_SLUG_ALIAS_DATED" | "E_SLUG_ALIAS_COLLIDE" | "E_SLUG_ALIAS_MISSING";
+export interface FolderAliasProblem {
+  code: FolderAliasCode;
+  message: string;
+}
+
+/** The pinned folder table of a registry (empty when it has none). */
+export const folderAliasesOf = (reg: SlugRegistry): Readonly<Record<string, string>> => reg.trips.folderAliases ?? {};
+
+const LEGACY_FOLDER_IN = /(?:^|[^a-z0-9])legacy\/([a-z0-9]+(?:-[a-z0-9]+)*)(?=\/|#|$)/g;
+
+/** Every legacy folder named in `legacy/<folder>/...` inside these strings (refs, keys, file text), sorted and unique. */
+export function legacyFoldersIn(texts: Iterable<string>): string[] {
+  const out = new Set<string>();
+  for (const t of texts) for (const m of t.matchAll(LEGACY_FOLDER_IN)) out.add(m[1]!);
+  return [...out].sort(compareCodePoints);
+}
+
+/** The legacy folders a snapshot names: its place keys and merges (`legacy/<folder>/...` refs). */
+export const legacyFoldersOfSnapshot = (snap: SlugSnapshot): string[] =>
+  legacyFoldersIn([...Object.keys(snap.places), ...Object.keys(snap.merged), ...Object.values(snap.merged)]);
+
+/** The dated ones among folder names (a month or two next to the closing year). */
+export const datedFolders = (folders: Iterable<string>): string[] => [...new Set([...folders].filter((f) => DATED_FOLDER_NAME_RE.test(f)))].sort(compareCodePoints);
+
+/**
+ * The four registry rules of 4.3, over the registry, every legacy folder known (legacy/MANIFEST.json plus every `legacy/<F>/` ref), and
+ * the registry it must not have changed (`base`: the committed one, or null when there is none):
+ *   - E_SLUG_ALIAS_PINNED: an entry of `base` changed or removed, or an entry that is not what the rule pinned (an edit by hand);
+ *   - E_SLUG_ALIAS_DATED: an alias that still holds a month and a year (or is not a slug);
+ *   - E_SLUG_ALIAS_COLLIDE: two folders share an alias, or an alias is another legacy folder's name;
+ *   - E_SLUG_ALIAS_MISSING: a dated folder with no entry (`build` writes it by the rule).
+ * Messages name folders and aliases only: the registry is server-side, and these never reach a served body.
+ */
+export function folderAliasProblems(reg: SlugRegistry, folders: readonly string[], base: SlugRegistry | null = null): FolderAliasProblem[] {
+  const table = folderAliasesOf(reg);
+  const out: FolderAliasProblem[] = [];
+  const p = (code: FolderAliasCode, message: string) => out.push({ code, message });
+  if (base) {
+    for (const [f, a] of Object.entries(folderAliasesOf(base))) {
+      if (!(f in table)) p("E_SLUG_ALIAS_PINNED", `the folder alias of ${f} (${a}) was removed; a pinned alias is permanent`);
+      else if (table[f] !== a) p("E_SLUG_ALIAS_PINNED", `the folder alias of ${f} changed from ${a} to ${table[f]}; a pinned alias is permanent`);
+    }
+  }
+  for (const [f, a] of Object.entries(table)) {
+    const rule = aliasOfFolder(f);
+    if (a !== rule) p("E_SLUG_ALIAS_PINNED", `the folder alias of ${f} is ${a}, not ${rule} as the rule pinned it; never edit the table by hand`);
+    if (DATED_FOLDER_RE.test(a) || !SLUG_RE.test(a)) p("E_SLUG_ALIAS_DATED", `the alias ${a} of ${f} still holds a month and a year, or is not a slug`);
+  }
+  const known = new Set([...folders, ...Object.keys(table)]);
+  const byAlias = new Map<string, string>();
+  for (const [f, a] of Object.entries(table)) {
+    const had = byAlias.get(a);
+    if (had) p("E_SLUG_ALIAS_COLLIDE", `${had} and ${f} share the alias ${a}`);
+    else byAlias.set(a, f);
+    if (a !== f && known.has(a)) p("E_SLUG_ALIAS_COLLIDE", `the alias ${a} of ${f} is the name of another legacy folder`);
+  }
+  for (const f of datedFolders(folders)) if (!(f in table)) p("E_SLUG_ALIAS_MISSING", `the dated legacy folder ${f} has no alias: run \`node core/bin/slugs.ts build\``);
+  return out;
+}
+
+/**
+ * Warnings that never fail (4.3): an alias that no longer equals its trip's slug (`trip/<alias>` pinned to `<alias>`), as after a trip
+ * rename. The alias stays: public ids never move.
+ */
+export function folderAliasWarnings(reg: SlugRegistry): string[] {
+  return Object.entries(folderAliasesOf(reg))
+    .filter(([, a]) => reg.trips.slugs[`trip/${a}`] !== a)
+    .map(([f, a]) => `the folder alias ${a} of ${f} is not the slug of trip/${a} now; it stays pinned (public ids never move)`);
+}
+
+/** The registry with an entry, by the rule, for every dated folder that has none (`build`). Existing entries are never touched. */
+export function pinFolderAliases(reg: SlugRegistry, folders: readonly string[]): { registry: SlugRegistry; added: string[] } {
+  const table = { ...folderAliasesOf(reg) };
+  const added: string[] = [];
+  for (const f of datedFolders(folders)) {
+    if (f in table) continue;
+    table[f] = aliasOfFolder(f);
+    added.push(`folder alias ${f} -> ${table[f]}`);
+  }
+  if (!added.length) return { registry: reg, added };
+  return { registry: { ...reg, trips: sortedSpace({ ...reg.trips, folderAliases: table }) }, added };
+}
+
+/** A problem as a drift or build line: `<code>: <message>`. */
+export const aliasLine = (x: FolderAliasProblem): string => `${x.code}: ${x.message}`;

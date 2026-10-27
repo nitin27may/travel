@@ -135,6 +135,25 @@ describe("references", () => {
     expect(validateDoc(d, "trip", root).errors.some((e) => e.code === "E_FK" && e.path.startsWith("/trip_tags"))).toBe(true);
   });
 
+  it("E_SLUG refuses a trip id with a month and a year; a year or a season is fine (public-ref-aliases 2, REF-C A11)", () => {
+    const root = scratch();
+    cpSync(ROOT, root, { recursive: true });
+    mkdirSync(join(root, "data/vocab"), { recursive: true });
+    writeFileSync(join(root, "data/vocab/tags.json"), JSON.stringify({ tags: [{ id: "scenic-relaxed", alias_of: null }] }));
+    const withSlug = (slug: string) => {
+      const d = read(join(FIX, "valid/niagara-day.json"));
+      d.id = slug;
+      d.trip.slug = slug;
+      return validateDoc(d, "trip", root);
+    };
+    for (const bad of ["niagara-day-aug-2026", "patagonia-feb-mar-2027", "rockies-september-2029"]) {
+      const r = withSlug(bad);
+      expect(codes(r), bad).toEqual(["E_SLUG"]);
+      expect(r.errors[0]!.message).toMatch(/month and a year/);
+    }
+    for (const good of ["niagara-day-2026", "vermont-fall-2026", "norway-summer-2028"]) expect(withSlug(good).errors, good).toEqual([]);
+  });
+
   it("checks the folder name for files under data/trips/<slug>/trip.json", () => {
     const root = scratch();
     cpSync(ROOT, root, { recursive: true });

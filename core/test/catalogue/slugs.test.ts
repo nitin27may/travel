@@ -7,6 +7,7 @@ import {
   ORIGIN_KEYS_PATH, RESERVED_API_WORDS, SLUG_REGISTRY_PATH, aliasKey, assignPlaceSlugs, assignSeedSlugs, currentSlug, emptyOriginKeys, emptyRegistry, isWithdrawn,
   kebab, mergeKey, migrateOrigins, movedTo, originDrift, originKeysText, originProblems, parseOriginKeys, parseRegistry, registryDrift,
   registryProblems, registryText, renameSlug, reoriginKey, reservedSlugs, resolveRef, resolveRegion, unmintKey, updateOriginKeys, updateRegistry, withdrawKey,
+  folderAliasProblems, folderAliasWarnings, folderAliasesOf, legacyFoldersIn, pinFolderAliases,
   type SlugRegistry, type SlugSnapshot, type SlugSpace,
 } from "../../src/catalogue/slugs.ts";
 import { main } from "../../bin/slugs.ts";
@@ -440,5 +441,120 @@ describe("node core/bin/slugs.ts", () => {
     expect(main(["build", "--root", root, "--snapshot", remint])).toBe(0);
     expect(main(["--check", "--root", root, "--snapshot", remint])).toBe(0);
     expect(read(root).places.slugs["place/beta-fixed"]).toBe("beta-fixed");
+  });
+});
+
+describe("folder aliases (public-ref-aliases 4.3)", () => {
+  const withTable = (table: Record<string, string>, trips: Record<string, string> = {}): SlugRegistry => ({
+    ...emptyRegistry(),
+    trips: { slugs: trips, retired: {}, merged: {}, withdrawn: {}, folderAliases: table },
+  });
+  const codes = (r: SlugRegistry, folders: string[], base: SlugRegistry | null = null) => folderAliasProblems(r, folders, base).map((p) => p.code);
+
+  it("build pins every dated folder by the rule, once, and leaves undated folders and pinned entries alone", () => {
+    const { registry, added } = pinFolderAliases(emptyRegistry(), ["x-sept-2029", "y-feb-mar-2027", "vermont-fall-2026", "iceland-ring-road"]);
+    expect(folderAliasesOf(registry)).toEqual({ "x-sept-2029": "x-2029", "y-feb-mar-2027": "y-2027" });
+    expect(added).toHaveLength(2);
+    // a pinned entry is never recomputed, even if it is not what the rule gives today (4.2)
+    const kept = pinFolderAliases(withTable({ "x-sept-2029": "x-2029" }), ["x-sept-2029", "z-oct-2026"]);
+    expect(folderAliasesOf(kept.registry)).toEqual({ "x-sept-2029": "x-2029", "z-oct-2026": "z-2026" });
+    expect(pinFolderAliases(registry, ["x-sept-2029"]).registry).toBe(registry);
+  });
+  it("E_SLUG_ALIAS_PINNED: an entry edited or removed against the committed registry, or edited away from the rule", () => {
+    const base = withTable({ "x-sept-2029": "x-2029" });
+    expect(codes(base, ["x-sept-2029"], base)).toEqual([]);
+    expect(codes(withTable({}), [], base)).toEqual(["E_SLUG_ALIAS_PINNED"]);
+    expect(codes(withTable({ "x-sept-2029": "x-trip-2029" }), ["x-sept-2029"], base)).toEqual(["E_SLUG_ALIAS_PINNED", "E_SLUG_ALIAS_PINNED"]);
+    // no base (a fresh clone of a committed edit): the rule still catches the edit
+    expect(codes(withTable({ "x-sept-2029": "x-trip-2029" }), ["x-sept-2029"])).toEqual(["E_SLUG_ALIAS_PINNED"]);
+  });
+  it("E_SLUG_ALIAS_DATED: an alias that still holds a month and a year", () => {
+    // three months: the rule removes the two next to the year, and what is left is still dated, so build refuses it
+    expect(codes(withTable({ "x-may-jun-jul-2027": "x-may-2027" }), ["x-may-jun-jul-2027"])).toEqual(["E_SLUG_ALIAS_DATED"]);
+    expect(codes(withTable({ "x-sept-2029": "x-sept-2029" }), ["x-sept-2029"])).toContain("E_SLUG_ALIAS_DATED");
+    const built = updateRegistry(emptyRegistry(), snap({ "legacy/x-may-jun-jul-2027/sights/a": "a" }));
+    expect(built.problems.join("\n")).toMatch(/E_SLUG_ALIAS_DATED/);
+  });
+  it("E_SLUG_ALIAS_COLLIDE: two folders on one alias, or an alias that is another legacy folder's name", () => {
+    expect(codes(withTable({ "x-sept-2029": "x-2029", "x-oct-2029": "x-2029" }), ["x-sept-2029", "x-oct-2029"])).toEqual(["E_SLUG_ALIAS_COLLIDE"]);
+    expect(codes(withTable({ "x-sept-2029": "x-2029" }), ["x-sept-2029", "x-2029"])).toEqual(["E_SLUG_ALIAS_COLLIDE"]);
+    const built = updateRegistry(emptyRegistry(), snap({ "legacy/x-sept-2029/a": "a", "legacy/x-oct-2029/b": "b" }));
+    expect(built.problems.join("\n")).toMatch(/E_SLUG_ALIAS_COLLIDE/);
+  });
+  it("E_SLUG_ALIAS_MISSING: a dated legacy folder with no entry; drift says so and build fills it", () => {
+    expect(codes(emptyRegistry(), ["x-sept-2029", "iceland-ring-road"])).toEqual(["E_SLUG_ALIAS_MISSING"]);
+    const s = snap({ "legacy/x-sept-2029/sights/a": "a" });
+    expect(registryDrift(emptyRegistry(), s).drift.join("\n")).toMatch(/E_SLUG_ALIAS_MISSING/);
+    const u = updateRegistry(emptyRegistry(), s);
+    expect(u.problems).toEqual([]);
+    expect(folderAliasesOf(u.registry)).toEqual({ "x-sept-2029": "x-2029" });
+    expect(registryDrift(u.registry, s).drift).toEqual([]);
+  });
+  it("a key that is not a dated folder is refused by the registry schema", () => {
+    expect(registryProblems(withTable({ "iceland-ring-road": "iceland-ring-road" })).join()).toMatch(/trips\.folderAliases\.iceland-ring-road: Invalid key/);
+  });
+  it("finds legacy folders inside refs and file text; a trip rename only warns (the alias stays)", () => {
+    expect(legacyFoldersIn(["part/legacy/a-sept-2029/x#top", "legacy/b/y", "trip/c-oct-2026/z", '"offer/legacy/d-may-2027/q#ticket"'])).toEqual(["a-sept-2029", "b", "d-may-2027"]);
+    const r = withTable({ "x-sept-2029": "x-2029" }, { "trip/x-2029": "x-2029" });
+    expect(folderAliasWarnings(r)).toEqual([]);
+    const renamed = renameSlug(r, "trip/x-2029", "x-rockies-2029");
+    expect(folderAliasesOf(renamed)).toEqual({ "x-sept-2029": "x-2029" });
+    expect(folderAliasWarnings(renamed)).toHaveLength(1);
+  });
+  it("the table survives every registry edit and the file text round-trip", () => {
+    const r = withTable({ "x-sept-2029": "x-2029" }, { "trip/x-2029": "x-2029" });
+    expect(parseRegistry(registryText(r))).toEqual(r);
+    expect(folderAliasesOf(withdrawKey(r, "trip/x-2029"))).toEqual({ "x-sept-2029": "x-2029" });
+    expect(folderAliasesOf(aliasKey(r, "trip/x-2029", "trip/x-new"))).toEqual({ "x-sept-2029": "x-2029" });
+  });
+  it("the committed registry: every dated folder of legacy/MANIFEST.json is pinned and no rule fails", () => {
+    const committed = parseRegistry(readFileSync(join(ROOT, SLUG_REGISTRY_PATH), "utf8"));
+    const manifest = JSON.parse(readFileSync(join(ROOT, "legacy", "MANIFEST.json"), "utf8")) as { folders: { slug: string }[] };
+    expect(folderAliasProblems(committed, manifest.folders.map((f) => f.slug), committed)).toEqual([]);
+    expect(Object.keys(folderAliasesOf(committed))).toHaveLength(8);
+    expect(folderAliasWarnings(committed)).toEqual([]);
+  });
+});
+
+describe("node core/bin/slugs.ts: folder aliases", () => {
+  const tmpRoot = () => mkdtempSync(join(tmpdir(), "slugs-alias-"));
+  const write = (dir: string, name: string, x: unknown) => {
+    const f = join(dir, name);
+    writeFileSync(f, typeof x === "string" ? x : JSON.stringify(x));
+    return f;
+  };
+  const s = snap({ "legacy/x-sept-2029/sights/a": "a", "route/b": "b" }, { trips: { "trip/x-2029": "x-2029" } });
+  const readReg = (root: string) => parseRegistry(readFileSync(join(root, SLUG_REGISTRY_PATH), "utf8"));
+  const edit = (root: string, change: (r: SlugRegistry) => SlugRegistry) => writeFileSync(join(root, SLUG_REGISTRY_PATH), registryText(change(readReg(root))));
+
+  it("build pins the alias; --check refuses an edit, a removal, a collision, a dated alias and a missing folder", () => {
+    const root = tmpRoot();
+    const sf = write(root, "snap.json", s);
+    expect(main(["build", "--root", root, "--snapshot", sf])).toBe(0);
+    expect(folderAliasesOf(readReg(root))).toEqual({ "x-sept-2029": "x-2029" });
+    const committed = write(root, "base.json", readFileSync(join(root, SLUG_REGISTRY_PATH), "utf8"));
+    const check = () => main(["--check", "--root", root, "--snapshot", sf, "--base-file", committed]);
+    expect(check()).toBe(0);
+    const t = (table: Record<string, string>) => (r: SlugRegistry): SlugRegistry => ({ ...r, trips: { ...r.trips, folderAliases: table } });
+    // an edit (E_SLUG_ALIAS_PINNED)
+    edit(root, t({ "x-sept-2029": "x-trip-2029" }));
+    expect(check()).toBe(1);
+    // a removal (E_SLUG_ALIAS_PINNED against the committed file, and E_SLUG_ALIAS_MISSING)
+    edit(root, t({}));
+    expect(check()).toBe(1);
+    // a dated alias (E_SLUG_ALIAS_DATED)
+    edit(root, t({ "x-sept-2029": "x-oct-2029" }));
+    expect(check()).toBe(1);
+    // a collision (E_SLUG_ALIAS_COLLIDE): a second folder on the same alias
+    edit(root, t({ "x-sept-2029": "x-2029", "x-oct-2029": "x-2029" }));
+    expect(check()).toBe(1);
+    // restored: green again; a new dated folder in the data needs build
+    edit(root, t({ "x-sept-2029": "x-2029" }));
+    expect(check()).toBe(0);
+    mkdirSync(join(root, "data", "capture", "z"), { recursive: true });
+    write(join(root, "data", "capture", "z"), "r.json", { records: [{ ref: "legacy/z-may-2027/sights/q" }] });
+    expect(check()).toBe(1);
+    expect(main(["build", "--root", root, "--snapshot", sf])).toBe(0);
+    expect(folderAliasesOf(readReg(root))["z-may-2027"]).toBe("z-2027");
   });
 });
