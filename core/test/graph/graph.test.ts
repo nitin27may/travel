@@ -116,7 +116,7 @@ describe("requirementsOf", () => {
   });
   it("a requirement scoped to a mode, month or activity type drops out when it does not match", () => {
     const root = fixtureRoot([
-      { ...rec("offer/place/ridgeback-national-park#fishing", "access.pass.activity_permit", "offer", { at: [RB] }), entry: { needed_for: ["day"], for_types: ["water.fishing"] }, season: { v: [{ from: "05-01", to: "09-30", status: "open" }], src: [] } },
+      { ...rec("offer/place/ridgeback-national-park#fishing", "access.pass.activity_permit", "offer", { at: [RB] }), entry: { v: { needed_for: ["day"], for_types: ["water.fishing"] }, src: [] }, season: { v: [{ from: "05-01", to: "09-30", status: "open" }], src: [] } },
     ]);
     const g2 = buildIndex(loadWorld(root));
     const id = "offer/place/ridgeback-national-park#fishing";
@@ -128,7 +128,7 @@ describe("requirementsOf", () => {
   });
   it("an exemption drops the requirement for that visit; a sourced no_limit on the member overrides the chain", () => {
     const root = fixtureRoot([
-      { ...rec("offer/place/ridgeback-national-park#toll", "access.pass.entry_fee", "offer", { at: [RB] }), entry: { exemptions: [{ kind: "through_traffic" }] } },
+      { ...rec("offer/place/ridgeback-national-park#toll", "access.pass.entry_fee", "offer", { at: [RB] }), entry: { v: { exemptions: [{ who: "through_traffic" }] }, src: [] } },
       { ...rec("place/free-spot", "nature.viewpoint", "place", { part_of: [RB] }), access_cost: { v: "no_limit", src: [{ url: "https://example.org" }] } },
     ]);
     const g2 = buildIndex(loadWorld(root));
@@ -137,6 +137,27 @@ describe("requirementsOf", () => {
     expect(requirementsOf(g2, lake, { exempt: ["through_traffic"] }).some((n) => n.ref === toll)).toBe(false);
     expect(requirementsOf(g2, "place/free-spot")).toEqual([]);
     expect(entryOverrides(g2)).toEqual(["place/free-spot"]);
+  });
+  it("EG-I2: the entry Val is unwrapped; mode, for_types and exemptions (by who) filter; a record with no entry is kept", () => {
+    const o = (name: string, entry?: object) => ({ ...rec(`offer/place/ridgeback-national-park#${name}`, "access.pass.activity_permit", "offer", { at: [RB] }), ...(entry ? { entry: { v: entry, src: [] } } : {}) });
+    const g2 = buildIndex(loadWorld(fixtureRoot([
+      o("night-only", { needed_for: ["overnight_back"] }),
+      o("any-day", { needed_for: ["day", "overnight_back"] }),
+      o("boat-only", { for_types: ["water.boating"] }),
+      o("camper-free", { exemptions: [{ who: "camper" }] }),
+      o("bare"),
+    ])));
+    const ids = (op: object) => requirementsOf(g2, lake, op).map((n) => n.ref.split("#")[1]);
+    expect(ids({ mode: "day" })).not.toContain("night-only");
+    expect(ids({ mode: "day" })).toContain("any-day");
+    expect(ids({ mode: "overnight_back" })).toContain("night-only");
+    expect(ids({})).toContain("night-only"); // no mode: every mode
+    expect(ids({})).not.toContain("boat-only");
+    expect(ids({ types: ["water.boating"] })).toContain("boat-only");
+    expect(ids({})).toContain("camper-free");
+    expect(ids({ exempt: ["camper"] })).not.toContain("camper-free");
+    expect(ids({ exempt: ["through_traffic"] })).toContain("camper-free");
+    expect(ids({ mode: "day", exempt: ["camper"] })).toContain("bare"); // no entry value
   });
   it("alternative_to pairs become one need with options; covered_by and included_in attach", () => {
     const gs = buildIndex(loadWorld(fixtureRoot()));

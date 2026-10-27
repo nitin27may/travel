@@ -64,14 +64,14 @@ export function requirementsOf(g: GraphIndex, ref: string, opts: RequirementOpts
   const kept = g.reqOf(ref).filter((q) => {
     if (own && q.from !== ref) return false; // 7.1: a sourced no_limit on the record wins over the chain
     const r = g.recs.get(q.ref);
-    const entry = loose(r).entry as Loose | undefined;
+    const entry = unwrap(loose(r).entry) as Loose | undefined; // a Val { v, src }, as parks/visits.ts reads it
     if (opts.mode && Array.isArray(entry?.needed_for) && !entry!.needed_for.includes(opts.mode)) return false;
     if (Array.isArray(entry?.for_types) && !entry!.for_types.some((t: string) => typesWanted.some((w) => typeUnder(w, t)))) return false;
     if (opts.month) {
       const rows = unwrap(loose(r).season);
       if (Array.isArray(rows) && rows.length && !monthTouches(rows, opts.month)) return false;
     }
-    const ex = Array.isArray(entry?.exemptions) ? entry!.exemptions.map((e: unknown) => (typeof e === "string" ? e : (e as Loose)?.kind)) : [];
+    const ex = Array.isArray(entry?.exemptions) ? entry!.exemptions.map((e: unknown) => (typeof e === "string" ? e : (e as Loose)?.who)) : [];
     if (opts.exempt && ex.some((e: string) => opts.exempt!.includes(e))) return false;
     return true;
   });
