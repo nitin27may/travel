@@ -166,7 +166,7 @@ suite("seed engine on the local database", () => {
     editData("data/reference/towns/ca.json", (d) => { d.rows[2][1] = "Bearspaw Renamed"; });
     const dry = cliRoot("sync", "--dry-run");
     expect(dry.code, dry.out).toBe(3);
-    expect(dry.out).toMatch(/town\s+\+0\s+~1\s+-0\s+x0\s+=4222/);
+    expect(dry.out).toMatch(new RegExp(`town\\s+\\+0\\s+~1\\s+-0\\s+x0\\s+=${built.town - 1}`));
     expect(dry.out).toContain("update: ca-ab-bearspaw");
     expect(dry.out).toContain("1 row(s) would be written");
     const sync = cliRoot("sync");
