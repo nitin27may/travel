@@ -737,3 +737,151 @@ Decision: **no infinite scroll.** Lists show 48 cards or 100 rows per page with 
 "‹ 1 2 3 ›", current `--accent`) and the count ("49 to 64 of 64"); the URL carries `?page=`. Reason: the
 public site is read and shared by link, the footer (credits, attribution) must stay reachable, and the
 table's CSV export and group collapse need a bounded set. Collapsed country groups load on expand.
+
+## 9. Plan builder (`/plan/`), proposed (TB-N, 27 Oct 2026, pending owner approval)
+
+From [trip-builder/design-note-TBN.md](../trip-builder/design-note-TBN.md) (mocks and findings there). Additions A1 to
+A9 of [trip-builder/README.md](../trip-builder/README.md) 4, plus two small builder parts. **No new token.** Generic ones
+(A1, A3, A5, A8) go to `web/components/ui/` as new files with their own CSS; the rest live in `web/components/plan/`
+(trip-builder ISO-8). Ratios light / dark.
+
+**Aligned with [trip-builder/FLOW.md](../trip-builder/FLOW.md) (27 Oct 2026, PLAN-SYNC).** FLOW is the flow; step names,
+counts and the editor follow it, and reviews TB-N2 (M1, M4, S3, F-Q4) and TB-N2R (R1, the switch note) are applied below.
+The stages are 0 Kind, 1 Start, 2 Where, 3 Pick, 4 Days and driving, then the plan (5 to 7 on one screen, the editor) and
+8 Review and prepare.
+
+### 9.1 Step header (phone) and step rail (desktop) (A1)
+
+- **Step header**, under 640 px on `/plan/` only (patterns 3.12 focused flow): 58 px, `--header`, 2 px `--accent` bottom
+  rule, `--z-header`. Back (44 x 44 ghost, `back` glyph), the title block (step name in `--t-row` uppercase
+  `--header-ink`, 14.82 / 17.49; under it mono `--t-chip` `--header-mute` "Step 3 of 8 · Italy, north-east", 8.98 /
+  10.60, one truncating line), the theme toggle and Close (both 44 x 44). Under it a progress row of 4 px segments, 3 px
+  apart, 14 px side margins: done `--ink-2`, current `--accent`, ahead `--line`; `aria-hidden` (the text carries the
+  step). The count is the number of stages 1 to 4 that **ask** for the kind (FLOW 2.1: Day trip 2, Weekend 3, the rest
+  4), sub-line "July · On this phone" (TB-N2R L-R2). The step header ends at Build my days: **the first build lands in
+  the editor** (FLOW TF1, review TB-N2 M1), which uses the trip header with its ⋯ menu, not a step header.
+- **Step rail**, 640 px and up: 56 px, `--surface`, 1 px `--line` bottom, sticky under the header. Left: the draft's
+  name in `--t-row` and a mono sub-line, divided by a 1 px `--line`. Then an ordered list: a 20 px number disc and the
+  label in `--t-tab`. Done: disc `--surface-2` with a check, label `--ink-2`, a link. Current: disc `--ink` with
+  `--surface` numeral, label `--ink` 600, a 3 px `--accent-text` underline as page tabs (1.6), `aria-current="step"`.
+  Not reached: `--muted`, not a link. Skipped for the kind: done look plus its value in mono ("Regions · within 3 h").
+  The rail lists stages 0 to 4 and ends with a **"Your plan"** node (FLOW 7, L6); the plan itself has no rail.
+  Right end: the step's tools (ghost and secondary buttons) and **the one primary**, which names the next step.
+- Tablet (640 to 1023): the rail scrolls sideways with the current step kept in view (as `CategoryStrip`); the primary
+  stays pinned at the right.
+
+### 9.2 Pick control (A2)
+
+A pill button with two states and a constant name ("Pick Lago di Braies") plus `aria-pressed`. Phone 44 px tall, desktop
+32 px (44 px hit). Rest: `--surface`, 1 px `--line-2` (3.67 / 3.42), `plus` glyph and "Pick" in `--ink` mono 13. Picked:
+`--accent-soft` fill, 1 px `--accent` border, `check` glyph and "Picked" in `--accent-text` 600 (5.56 / 7.26); the word
+and glyph carry the state, not the border (2.52:1 on light `--surface`). Under 360 px the word is visually hidden and the
+button is 44 x 44 (glyph and fill carry the state). Toggling raises no toast; the tray count updates in a polite live
+region. No swipe gesture. Never a third state: "Must see" is the tray's toggle (9.4).
+
+### 9.3 Bottom sheet snap points (A3, extends 5.5)
+
+Snap points **peek 120 px** (as 5.5: grab bar and one summary line), **half** (50% of the viewport), **full** (under the step
+header). Scroll handoff: while the sheet is below full, a vertical drag on its content moves the sheet; at full, the
+content scrolls, and a downward drag at scroll top moves the sheet again. "Expand" and "Collapse" buttons for keyboard
+and switch users; Escape collapses one step. The map sheet holds the list over a full-screen map (the map is never
+required, T2). Motion `--d-sheet` `--e-out`; reduced motion jumps.
+
+### 9.4 Action bar, tray peek, tray column and tray sheet (A4)
+
+- **Action bar** (phone, replaces the public bottom bar on `/plan/`): `--surface`, 1 px `--line-2` top, 12 px 14 px 30 px
+  padding (home inset), height about 84 px. On Pick (stage 3): left a secondary "Map" button (so no floating pill covers
+  a row, TB-N2 S7), centre a two-line summary, line 1 mono 13/600 `--ink` ("6 picked · Must see 1"), line 2 `--t-meta`
+  `--muted` ("about 5 days (4 nights) ≈"); both truncate, never wrap; right the primary, `lg` 50 px, naming the next
+  stage ("Next: Days", or "Build my day" for a day trip). Tap on the summary opens the tray sheet.
+- **Inside the plan (editor) on phones: one bar** (FLOW TF18, review TB-N2 M4). The focused flow continues: the action
+  bar holds **Settings · Review** and replaces the public bottom bar; there is no second editor bar. **Undo is never a
+  bar button**: it lives in the Undo toast (5.3) and in the trip header's ⋯ menu (Undo, Redo, Rebuild, Make it yours,
+  Close plan). Close plan keeps the draft.
+- **Tray sheet**: "YOUR PICKS (6)", the estimate sentence, rows (title, kind and time on site, the **Must see** toggle,
+  Remove). Must see: 44 px pill, `star` glyph and "Must see"; pressed `--accent` fill, `--accent-ink` (6.96).
+- **Tray column** (desktop, 280 to 320 px, right of the map): header with the cap label, "About 5 days ≈" in `--t-title`
+  and the driving line; rows 48 px with an icon-only Must see (named "Must see Lago di Braies", `aria-pressed`) and
+  Remove; a footer line with the drag and Space hints. Empty: the 6.1 empty state, "Nothing picked yet".
+
+### 9.5 Reason chips and "Why this?" (A5)
+
+Reason chips are neutral chips (2.8) with a glyph: draw (`route`, the relevance badge; "Worth the journey" has a 1 px
+`--ink` border and 600 weight as on Places), season (`cal`), theme, distance (`car`). Order on any row: **kids or fit
+chip, safety and booking chips, then reasons** in the order draw, season, theme, distance. Phone shows one reason at
+rest, desktop two; safety and booking never drop. A reason is drawn only when it carries a number or a source
+(trip-builder 4.9). "Why this?" is a text button (mono 12.5, underlined) that opens a live disclosure (6.4) under the row
+listing the score parts in words; on phones it is in the place sheet.
+
+### 9.6 Did not fit block (A6)
+
+A `--warn-soft` well, radius 12, padding 12 14: cap label "DID NOT FIT (n)" in `--warn` (6.11 / 7.84), then per item the
+name in `--t-title` `--ink` (14.17 / 13.05) and the reason as a mono line with the triangle in `--warn` ("No room: days 6
+to 9 are at the standard pace's limit"), then **one or two fixes** as small secondary buttons on `--surface` ("Add 1
+day", "Swap with…", "Add a base near it", "Change month"). Phone: after the last day; desktop: at the foot of the
+outline. A fix reruns the engine and confirms with a toast with Undo. Words come from trip-builder 4.7.
+
+### 9.7 Base letter, base pin and pick spokes (A7)
+
+- **Base letter** (lists, outline, day heads): a 22 px `--ink` square, radius 6, the letter mono 12/600 `--surface`
+  (16.06 / 13.83); picked base `--accent` with `--accent-ink` (6.96).
+- **Base pin** (map): `--map-base` (26 px `--ink` rounded square) with the **letter** instead of the house glyph, mono 13/600
+  `--surface`, 1.5 px `--map-halo` edge, the town name in `--t-sign-s` with halo; picked base `--map-base-pick`.
+- **Spokes**: only while the plan's Bases card is expanded (there is no bases step, FLOW TF1), a dashed (3 3) 1 px line from each pick (`--map-stop` dot) to its base, `--ink` at
+  55% (3.52 / 5.03 on `--map-land`). **No drive-time rings** (T5; design note C2). The minutes are in the base card.
+
+### 9.8 Lock affordance (A8)
+
+On an item (review TB-N2R R1, FLOW ED scope): **one switch, "Keep on Day 2"**, in the item sheet or row menu. It is on
+for items the person placed by hand and for locked items, with the reason under it ("On because you placed it. Turn off
+to let the plan move it."); off is the `release` operation, on is `lock`. When on, a neutral chip with the `lock` glyph
+and the words "Kept on Day 2" (`--ink` on `--surface`, 16.06 / 13.83) leads the item's chip row (on phones never in a
+right column); the screen-reader name carries the reason ("placed by you" or "locked"). On desktop rows an icon button
+(`unlock` at rest, `--muted`; kept shows the chip) toggles it; key `L` while focus is on a plan row. On a
+base: "Keep this base" (secondary, `unlock` glyph) becomes "Kept" with the `lock` glyph; a kept base is never moved by a
+rebuild. State is in words, never in colour.
+
+### 9.9 Region chooser (A9)
+
+Group rows 52 px on `--surface`: checkbox (2.5), name `--t-title`, the areas it covers as meta, the count right (mono 13
+`--ink-2`), a chevron that expands its regions (44 px rows, indented 46 px, serif 16). Checking a group checks its
+regions; a partly checked group shows the indeterminate bar. Thin groups say "Thin: n places" in meta; a region with no
+researched places is at 45% with the gap chip "Not researched yet" and an "Ask us to research it" link to the request
+form (TB9). The map beside or above it uses admin-1 shapes: rest `--map-land`, coverage as `--ink` at 4% and 14% (a hint
+only, 1.31:1, never the only carrier), hover and selected as the globe's shape states (7.2, tokens 5.1).
+
+### 9.10 Kind tile and day chips (builder parts)
+
+- **Kind tile**: `--surface`, 1 px `--line-2`, radius 12, at least 56 px tall (phone, stacked) or 84 px (desktop, **six**
+  in a row, FLOW TF2); radio mark (2.5), the kind in `--t-row` uppercase (`--t-sign-s` on desktop), the nights and "by
+  car" or "fly somewhere" in mono meta (TB-N2 S8). Each tile is a **button and a tap advances** to Start (FLOW TF2, L4);
+  nothing is marked on a first visit. Selected (shown on Back): `--accent-soft` fill, 2 px `--accent` border, filled
+  radio mark; name `--ink` (14.11 / 12.57), meta `--ink-2` (10.62 / 9.77). A group labelled "What kind of trip?"; the
+  selected tile carries `aria-pressed="true"`.
+- **Day chips** (phone build): 44 x 44 minimum cells, radius 8, 1 px `--line-2`, `--surface`; the day in `--t-sign-s`,
+  the base letter in mono 11.5 under it; current `--accent` fill with `--accent-ink`. A sideways strip with snap and the
+  current day kept in view; tap jumps (P5, no reload).
+
+### 9.11 Make it yours card (copies; review TB-N2 S3)
+
+A copy of one of our trips opens in the editor with a **non-modal card** inline at the top of Day 1 on first open, never
+a sheet: `--accent-soft` fill, radius 12, padding 14; heading "Make it yours" in `--accent-text` 600 (5.56 / 7.26), text
+`--ink` (14.11 / 12.57), three text buttons "Change places · Your driving and pace · Where you start", and the dismiss
+"Keep it as it is". The 1 px `--accent` border is decoration (2.52:1 on light `--surface`; the heading names the card).
+Dates and who are not on the card (Settings › Start). After dismissal it is the first section of Settings and a ⋯ item.
+Desktop: inline above the day, never a fifth column; one Settings button in the header.
+
+### 9.12 Review state line (owner decision F-Q4, option B)
+
+Review and prepare shows **where the plan is as a state line, not a button**: "In Mine · on this phone" signed out, "In
+your account" signed in, mono 13 `--muted` with the device or cloud glyph. The primary is the next real job: **Add to
+calendar** when the plan has dates, **Add dates** when it has none. Never "Save to Mine" or "Keep in Mine": the draft is
+in Mine from its first pick (FLOW TF13), so a save button would do nothing (T3). Secondary: Copy link, PDF; signed out,
+"Sign in to keep it on every device". This replaces the design note's "Save to Mine for a week or longer".
+
+### 9.13 Proposed note for 2.5 (switch), from review TB-N2R
+
+To be written into 2.5 when the owner approves this section: **the thumb position is the on-state indicator**, together
+with the state word for screen readers. The on track (`--accent`) is 2.52:1 on `--surface` in light (6.54 dark), under
+the 3:1 UI minimum, so the track colour is never the only carrier of the state; a switch never stands without its label.
+No change to the switch's look.

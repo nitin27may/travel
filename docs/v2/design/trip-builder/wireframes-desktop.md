@@ -1,6 +1,6 @@
 # Trip builder: desktop wireframes (1440 px)
 
-Spec: [features/trip-builder.md](../../features/trip-builder.md). Index and shared rules: [README.md](README.md).
+Spec: [features/trip-builder.md](../../features/trip-builder.md). Index and shared rules: [README.md](README.md). **Precedence:** [FLOW.md](FLOW.md) is the flow (stages, step counts, the editor, Review); [design-note-TBN.md](design-note-TBN.md) holds the visual decisions these frames keep (focused flow on phones, no drive-time rings, no swipe, Must see in the tray, kids chip first, primary at the right end of the step rail). Where the note's own step list differs from FLOW, FLOW wins (note section 11).
 Grid: foundation tokens section 10 (12 columns, 32 px gutters, max content 1376; the map goes full-bleed). Desktop uses the
 whole width: at every step after step 2, filters or the outline, the main list, the map and the tray or itinerary are on
 screen at once, so nothing needs a modal to compare (P3, P5).

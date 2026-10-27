@@ -8,7 +8,7 @@ experience of building a trip and editing it". TODO rows of 27 Oct 2026; BACKLOG
 27 Oct 2026 ("go ahead with recommendations") are in section 10, including F-Q4 (Review shows "In Mine" as a state; the primary is Add to calendar or Add dates).
 
 **This page is the single flow.** It supersedes the step lists of [features/trip-builder.md](../../features/trip-builder.md)
-2.1 and 2.2, of [README.md](README.md) section 1 and of TB-N's design note section 2 (branch `public/TB-N`, not merged),
+2.1 and 2.2, of [README.md](README.md) section 1 and of TB-N's [design note](design-note-TBN.md) section 2 (folded in from branch `public/TB-N` on 27 Oct 2026),
 and it amends [features/edit-my-trip.md](../../features/edit-my-trip.md) 5.2 (where a copy is edited) and Q-EM11. The
 algorithms (trip-builder 4), the isolation rules (trip-builder 15, amended in TF9), the drive model
 ([driving-time-model.md](../../features/driving-time-model.md)), the kinds and profile
@@ -23,7 +23,9 @@ against [trip-scope-scenarios.md](../trip-scope-scenarios.md) and [keep-from-liv
 
 Wireframes: [wireframes-phone.md](wireframes-phone.md) frames F0 to F4, E0 to E7, F8, C1 to C3, X1;
 [wireframes-desktop.md](wireframes-desktop.md) frames W0 to W4, WE, W8, WC. TB-N's visual decisions (focused flow on
-phones, no drive-time rings, no swipe, Must see in the tray, kids chip first) are kept.
+phones, no drive-time rings, no swipe, Must see in the tray, kids chip first, the primary at the right end of the step
+rail) are kept; the note's proposed foundation sections (components 9, patterns 3.12) now follow this page. Q-TB-N1 to
+Q-TB-N10 status: [design-note-TBN.md](design-note-TBN.md) 12.
 
 ## 0. The decision in one paragraph
 
@@ -418,3 +420,4 @@ Answered by the owner on 27 Oct 2026 ("go ahead with recommendations"):
   cards, placed-by-you, reach pill, one bar in the phone editor, S1 to S12 and L1 to L9 applied, TF18 to TF20 added;
   owner decisions F-Q1, F-Q2, F-Q3, F-Q5, F-Q6 recorded.
 - 2026-10-27: owner decision F-Q4 (option B) recorded; F8 and W8 carry final copy.
+- 2026-10-27: TB-N's design note merged into `design/PLAN-SYNC`; this page is its source of truth for the step list.

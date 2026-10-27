@@ -1,6 +1,6 @@
 # Trip builder: phone wireframes (390 px)
 
-Spec: [features/trip-builder.md](../../features/trip-builder.md). Index and shared rules: [README.md](README.md).
+Spec: [features/trip-builder.md](../../features/trip-builder.md). Index and shared rules: [README.md](README.md). **Precedence:** [FLOW.md](FLOW.md) is the flow (stages, step counts, the editor, Review); [design-note-TBN.md](design-note-TBN.md) holds the visual decisions these frames keep (focused flow on phones, no drive-time rings, no swipe, Must see in the tray, kids chip first, primary at the right end of the step rail). Where the note's own step list differs from FLOW, FLOW wins (note section 11).
 Counts in the frames are **measured on 27 Oct 2026** where they name our data (Italy: 69 records in the Nord-Est group,
 8 in the rest of the country; Ontario: 4 records), so the frames show the honest thin-data states the build must handle.
 Everything else is illustrative.
