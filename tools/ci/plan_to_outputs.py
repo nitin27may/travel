@@ -8,6 +8,7 @@ raw, so a path with odd characters cannot inject another output):
   groups     comma list of the groups that have a suite to run, in the map's order (links, core-data, web, db, e2e, visual)
   specs      comma list of the e2e specs of `e2e.mapped` (file names), empty when none
   mac_only   comma list of suites that CI never runs (they are pending on the Mac): the plan rows the gate marks `mac_only`
+  ci_excluded  comma list of the test files CI leaves out of a planned vitest suite (the map's `ci_exclude`; pending on the Mac too)
   full       true when the plan is a full run
   docs_only  true when the only group is links
   suites     comma list of every suite id in the plan
@@ -37,6 +38,7 @@ def outputs(plan: dict) -> dict[str, str]:
     groups: set[str] = set()
     by_group: dict[str, list[str]] = {g: [] for g in GROUPS}
     macs: list[str] = []
+    skipped: list[str] = []
     specs: list[str] = []
     ids: list[str] = []
     for r in rows:
@@ -52,6 +54,7 @@ def outputs(plan: dict) -> dict[str, str]:
             macs.append(sid)
         else:
             groups.add(g)
+            skipped += [f for f in r.get("ci_exclude", []) if isinstance(f, str)]
         if sid == "e2e.mapped":
             specs = [Path(f).name for f in r.get("files", [])]
     ordered = [g for g in GROUPS if g in groups]
@@ -59,6 +62,7 @@ def outputs(plan: dict) -> dict[str, str]:
         "groups": safe_list(ordered),
         "specs": safe_list(specs),
         "mac_only": safe_list(macs),
+        "ci_excluded": safe_list(skipped),
         "full": "true" if plan.get("full") else "false",
         "docs_only": "true" if ordered and set(ordered) <= {"links"} else "false",
         "suites": safe_list(ids),

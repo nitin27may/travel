@@ -124,6 +124,11 @@
       "run": ["pnpm --dir web test:unit"],
       "vitest": { "dir": "web", "project": "unit" },
       "cost": "m", "group": "web", "always_at": 2, "related": true,
+      "ci_exclude": {
+        "web/tests/api/adapters.test.ts": "one test compares photos with the renditions the build cut from the photo cache, which CI does not seed (Q-W5); the other tests of the file wait for the Mac with it",
+        "web/tests/api/images.test.ts": "needs the photo renditions the web build cuts from the photo cache (web/.og-cache), which CI does not seed (Q-W5)",
+        "web/tests/data/legs-files.test.ts": "one test needs the real home point (the CI decoy is open ocean, so no leg is within the household radius); the other tests of the file wait for the Mac with it"
+      },
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "docs/v2/build/public-site/README.md", "pnpm-lock.yaml"],
       "tests": ["web/tests/**/*.test.{ts,tsx}",
                 "!web/tests/analytics.test.ts", "!web/tests/api/openapi-routes.test.ts", "!web/tests/budget.test.ts",
@@ -141,6 +146,10 @@
       "run": ["SKIP_WEB_BUILD=1 pnpm --dir web test:built"],
       "vitest": { "dir": "web", "project": "built" },
       "cost": "m", "group": "web", "always_at": 2, "needs": ["web.build"],
+      "ci_exclude": {
+        "web/tests/images.test.ts": "needs the photo renditions the web build cuts from the photo cache (web/.og-cache), which CI does not seed (Q-W5)",
+        "web/tests/data/place-size.test.ts": "the S13 baseline was measured with photo renditions in the pages; a CI build has none, so the pages are smaller and a pass proves nothing (WORKFLOW-EFFICIENCY 4.2, Q-W5)"
+      },
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
       "tests": ["web/tests/api/openapi-routes.test.ts", "web/tests/budget.test.ts", "web/tests/data/globe-data-renditions.test.ts",
                 "web/tests/data/light-data.test.ts", "web/tests/data/link-only-facts.test.ts", "web/tests/data/photo-credits-clean.test.ts",
@@ -163,6 +172,7 @@
       "run": ["pnpm --dir web test:timing"],
       "vitest": { "dir": "web", "project": "timing" },
       "cost": "s", "group": "web", "always_at": 2, "slot": "timing", "serial": true,
+      "mac_only": "wall-clock thresholds: shared runners are noisy, so a red would be noise and a green would prove little",
       "inputs": ["web/lib/**", "web/public/search/**", "core/src/**", "data/**", "web/tests/**"],
       "tests": ["web/tests/api/revision-timing.test.ts", "web/tests/search/budget.test.ts", "web/tests/home/search.test.ts",
                 "web/tests/search/split.test.ts"],
@@ -314,6 +324,8 @@
 
     { "id": "ci-workflows", "why": "the workflow lint reads .github/workflows; the CI scripts have pytest tests (tools/tests/test_ci_*.py). A workflow change is an R4 path: the owner reads it",
       "paths": [".github/**", "tools/ci/**"], "suites": ["ci", "py.tools", "links", "hardcode"] },
+    { "id": "ci-jobs", "why": "a workflow or CI script change can break the web and db-local jobs, which run only when their group is planned (WF-3); selecting their suites makes the change exercise them",
+      "paths": [".github/**", "tools/ci/{db_up.sh,vitest_ran.py,guard_env.sh}"], "suites": ["web.types", "web.unit", "web.build", "web.built", "web.serve", "db.local"] },
     { "id": "tools-python", "paths": ["tools/**", "publish.sh"], "suites": ["py.tools", "hardcode"] },
     { "id": "tools-locations", "paths": ["tools/{locations,location_views,migrate_locations_v2,migrate_locations_v3}.py"], "suites": ["locations"] },
     { "id": "tools-towns", "paths": ["tools/towns.py", "tools/towns_admin1.json"], "suites": ["data.towns"] },

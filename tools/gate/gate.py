@@ -8,8 +8,9 @@ Selection is `gatemap.select()` over `git diff <base>...HEAD`, the working tree 
 (tools/gate/map.json) is the single source of suites, costs, slots and `run` commands; this file only knows how to execute the
 few suites whose `run` entry is prose (build, serve, MCP line, e2e, db, visual).
 
-GATE_RUNNER=ci (WF-2, .github/workflows/check.yml): a hosted runner. No machine slots, no result cache, and a suite on the timing slot is
-MAC_ONLY (neither a pass nor a failure: the summary lists it as pending on the Mac). `--group G` keeps one group of the map's
+GATE_RUNNER=ci (WF-2, .github/workflows/check.yml): a hosted runner. No machine slots, no result cache, and a suite the map marks `mac_only` is
+MAC_ONLY (neither a pass nor a failure: the summary lists it as pending on the Mac). The map says which: a suite's `mac_only` (a reason),
+and a vitest suite's `ci_exclude` ({test file: reason}; web/vitest.config.ts leaves those files out when GATE_RUNNER=ci, and the files are listed as pending on the Mac). `--group G` keeps one group of the map's
 suites ("group" per suite: links, core-data, web, db, e2e, visual); `--out FILE` also writes the --json document to FILE. In CI
 mode the JSON carries each suite's group and the specs of e2e.mapped (tools/ci/plan_to_outputs.py reads them).
 
@@ -482,7 +483,7 @@ def run_job(m: dict, job: Job, *, root: Path, lock_root: Path, label: str, log: 
             log(f"CACHED {sid} key {ckey[:12]} {res.note}")
             return res
     if is_ci() and mac_only(s, sid):
-        res.status, res.note = "MAC_ONLY", "timing suites run on the Mac (shared runners are noisy)"
+        res.status, res.note = "MAC_ONLY", str(s.get("mac_only"))
         return res
     if s.get("slot") == "timing" or sid == "web.timing":
         load = load_per_core()
@@ -630,14 +631,20 @@ def to_json(plan: Plan, results: list[Result], *, base: str, head: str, log_path
         for row in doc["suites"]:
             row["group"] = suite_group(m, row["suite"])
             row["mac_only"] = mac_only(meta(m, row["suite"]), row["suite"])
+            row["ci_exclude"] = sorted(ci_excluded(meta(m, row["suite"])))
             if row["suite"] == "e2e.mapped":
                 row["files"] = files.get("e2e.mapped", [])
     return doc
 
 
 def mac_only(s: dict, sid: str) -> bool:
-    """A suite a hosted runner cannot answer for (shared runners are noisy). WF-3 moves this decision into the map."""
-    return s.get("slot") == "timing" or sid == "web.timing"
+    """A suite a hosted runner cannot answer for: the map's `mac_only` (a reason string) on the suite. One source of truth (WF-3)."""
+    return bool(s.get("mac_only"))
+
+
+def ci_excluded(s: dict) -> dict[str, str]:
+    """Test files of a vitest suite that CI does not run, with the reason: the map's `ci_exclude` ({repo path: reason}). Empty off CI."""
+    return dict(s.get("ci_exclude") or {}) if is_ci() else {}
 
 
 def suite_group(m: dict, sid: str) -> str:

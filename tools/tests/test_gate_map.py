@@ -328,3 +328,39 @@ def test_replay_of_recent_merges_misses_no_changed_test(real: tuple[dict, list[s
     if not rows:
         pytest.skip("no merges to replay")
     assert fails == []
+
+
+# ----- M8 (WF-3): mac_only and ci_exclude ---------------------------------------------------------------------------------------------------
+def m8(tmp_path: Path, suite: str, **keys: object) -> list[str]:
+    m = mutate()
+    m["suites"][suite].update(keys)
+    return [e for e in run(tmp_path, m=m) if e.startswith("M8")]
+
+
+def test_m8_a_good_ci_exclude_and_mac_only_pass(tmp_path: Path) -> None:
+    assert m8(tmp_path, "web.unit", ci_exclude={"web/tests/c.test.tsx": "needs the photo cache"}) == []
+    assert m8(tmp_path, "web.built", mac_only="wall-clock thresholds") == []
+
+
+def test_m8_ci_exclude_needs_a_reason_a_real_file_and_the_suites_own_test(tmp_path: Path) -> None:
+    assert any("has no reason" in e for e in m8(tmp_path, "web.unit", ci_exclude={"web/tests/c.test.tsx": " "}))
+    assert any("not a file" in e for e in m8(tmp_path, "web.unit", ci_exclude={"web/tests/gone.test.ts": "x"}))
+    assert any("not one of the suite's own tests" in e for e in m8(tmp_path, "web.unit", ci_exclude={"web/tests/b.test.ts": "x"}))
+
+
+def test_m8_ci_exclude_cannot_drop_a_whole_suite_or_sit_on_a_non_vitest_suite(tmp_path: Path) -> None:
+    both = {"web/tests/a.test.ts": "x", "web/tests/c.test.tsx": "x"}
+    assert any("drops every test" in e for e in m8(tmp_path, "web.unit", ci_exclude=both))
+    assert any("only applies to a suite with a vitest project" in e for e in m8(tmp_path, "core.unit", ci_exclude={"core/test/c.test.ts": "x"}))
+
+
+def test_m8_mac_only_is_a_reason_not_a_flag(tmp_path: Path) -> None:
+    assert any("mac_only must be the reason" in e for e in m8(tmp_path, "web.built", mac_only=True))
+    assert any("mac_only must be the reason" in e for e in m8(tmp_path, "web.built", mac_only=""))
+
+
+def test_the_real_map_marks_the_timing_suite_mac_only_and_the_photo_tests_ci_excluded() -> None:
+    suites = gm.load_map()["suites"]
+    assert suites["web.timing"]["mac_only"].strip()
+    assert "web/tests/data/place-size.test.ts" in suites["web.built"]["ci_exclude"]
+    assert all(why.strip() for s in suites.values() for why in s.get("ci_exclude", {}).values())

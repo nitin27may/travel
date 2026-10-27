@@ -1,8 +1,9 @@
-# check.yml, phase 1 (task WF-2; docs/v2/build/WORKFLOW-EFFICIENCY.md 4.3). Jobs: plan, links, core-data, summary.
-# The web, db-local and e2e jobs arrive with WF-3 and WF-6; until then the summary lists their groups as not run yet and says
-# "partial", never "green". DO NOT make `check / summary` a required status check on main before WF-3 lands (WORKFLOW-EFFICIENCY 4.5, Q-W2).
+# check.yml, phase 2 (tasks WF-2, WF-3; docs/v2/build/WORKFLOW-EFFICIENCY.md 4.3). Jobs: plan, links, core-data, web, db-local, summary.
+# The e2e and visual jobs arrive with WF-6 and WF-9; until then the summary lists their groups as not run yet and says "partial", never
+# "green". DO NOT make `check / summary` a required status check on main before WF-10: a green week first (Q-W2).
 # Rules (tools/ci/lint_workflows.py enforces them on this file): no secrets, no write permission, no pull_request_target or
-# workflow_run, GitHub-authored actions pinned by commit SHA, a timeout on every job, a concurrency group that cancels.
+# workflow_run, GitHub-authored actions pinned by commit SHA, container images pinned by digest, caches saved from main only, a timeout
+# on every job, a concurrency group that cancels.
 name: check
 
 on:
@@ -28,6 +29,8 @@ env:
   NEXT_PUBLIC_GOOGLE_MAPS_KEY: ''
   NEXT_PUBLIC_GOOGLE_MAP_ID: ''
   GATE_RUNNER: ci
+  # Any run that tried to download from Commons would throw (web/scripts/commons-cache.mjs). The build is offline by default (IMG-1b).
+  COMMONS_FETCH_GUARD: '1'
   COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
 
 jobs:
@@ -38,10 +41,13 @@ jobs:
     outputs:
       groups: ${{ steps.sel.outputs.groups }}
       mac_only: ${{ steps.sel.outputs.mac_only }}
+      ci_excluded: ${{ steps.sel.outputs.ci_excluded }}
       base: ${{ steps.sel.outputs.base }}
       tier: ${{ steps.sel.outputs.tier }}
       suites_links: ${{ steps.sel.outputs.suites_links }}
       suites_core_data: ${{ steps.sel.outputs.suites_core_data }}
+      suites_web: ${{ steps.sel.outputs.suites_web }}
+      suites_db: ${{ steps.sel.outputs.suites_db }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with: { fetch-depth: 0, persist-credentials: false }
@@ -141,10 +147,137 @@ jobs:
         if: always() && steps.scan.outcome == 'success'
         with: { name: gate-core-data, path: ci-out/, retention-days: 7, if-no-files-found: ignore }
 
+  web:
+    # Typecheck, lint, vitest unit, built and fixture, the build and the serve smoke: every web suite the plan selected, through the same
+    # gate the builders run. The build is offline (no Commons call) and has no photo cache (Q-W5), so the checks that need photos are
+    # `ci_exclude` in tools/gate/map.json and listed as pending on the Mac by the summary. Timing suites are `mac_only`.
+    needs: plan
+    if: contains(format(',{0},', needs.plan.outputs.groups), ',web,')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    permissions: { contents: read }
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { fetch-depth: 0, persist-credentials: false }
+      - run: bash tools/ci/guard_env.sh
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: '>=22.23 <23' }
+      - run: corepack enable && pnpm install --frozen-lockfile
+      # Caches (D9): restored on every run, saved on main only, so a pull request or an int/ branch cannot poison them.
+      - id: next-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: web/.next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+      - id: pw-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      # tests/account/layout.browser.test.ts (web.unit) launches Chromium; on a Mac the browser is already there.
+      - run: pnpm --dir web exec playwright install --with-deps chromium
+      # .generated/image-map.json is written by the build, and the unit project runs before the build (cost order). The Mac has the file
+      # from an earlier build; a clean runner needs the same offline prebuild (no photo cache: an empty map, no network).
+      - run: node web/scripts/images.mjs --prebuild
+      - run: tools/gate.sh --tier "$TIER" --base "$BASE" --group web --expect "$SUITES" --out ci-out/web.json
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          TIER: ${{ needs.plan.outputs.tier }}
+          BASE: ${{ needs.plan.outputs.base }}
+          SUITES: ${{ needs.plan.outputs.suites_web }}
+      - name: Budget report (start JS, chrome, search chunks) as the job summary
+        if: always() && hashFiles('web/.next/BUILD_ID') != ''
+        run: |
+          mkdir -p ci-out
+          node web/scripts/budget-report.mjs --markdown | tee ci-out/budget-report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Keep the gate log with the artifact
+        if: always()
+        run: |
+          mkdir -p ci-out
+          cp "$(git rev-parse --absolute-git-dir)"/gate-logs/*.log ci-out/ 2>/dev/null || true
+      - id: scan
+        name: Scan the artifact for leaks before upload
+        if: always()
+        run: python3 tools/ci/scrub_check.py ci-out   # fails closed: a hit or an unreadable file means no upload
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always() && steps.scan.outcome == 'success'
+        with: { name: gate-web, path: ci-out/, retention-days: 7, if-no-files-found: ignore }
+      - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        if: github.ref == 'refs/heads/main' && success()
+        with:
+          path: web/.next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+      - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        if: github.ref == 'refs/heads/main' && success() && steps.pw-cache.outputs.cache-hit != 'true'
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+  db-local:
+    # The db.local suite (core/test/db, core/test/seed) on the repository's own Postgres 18 + PostGIS 3.6 image, built by
+    # tools/ci/db_up.sh on a base pinned by digest. Not a `services:` container: the suite needs PostGIS, the neondb_owner role, the
+    # neon_auth stub and travel_template (tools/db/init/*), and a service container starts before the checkout. The passwords are
+    # throwaway "ci-" values in the job env, not secrets; the server lives and dies with the job. guard_env.sh refuses any other
+    # database URL.
+    needs: plan
+    if: contains(format(',{0},', needs.plan.outputs.groups), ',db,')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    permissions: { contents: read }
+    env:
+      # postgres:18-trixie, multi-arch index digest read from the Docker Hub registry on 26 Oct 2026 (anonymous token + manifest HEAD).
+      # Dependabot-style bumps are by reviewed pull request; db_up.sh refuses a base that is not postgres:18-trixie@sha256:<digest>.
+      PG_BASE_IMAGE: postgres:18-trixie@sha256:edb0c08dc33befd0262ab3b5cf1c4f3f8cfd8b09e88c05b45adee29d6761ddb6
+      CI_DB_SUPERUSER_PASSWORD: ci-throwaway-superuser
+      CI_DB_OWNER_PASSWORD: ci-throwaway-owner
+      LOCAL_DATABASE_URL: postgres://neondb_owner:ci-throwaway-owner@127.0.0.1:54329/neondb
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { fetch-depth: 0, persist-credentials: false }
+      - run: bash tools/ci/guard_env.sh
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: '>=22.23 <23' }
+      - run: corepack enable && pnpm install --frozen-lockfile
+      - run: bash tools/ci/db_up.sh
+      - run: tools/gate.sh --tier "$TIER" --base "$BASE" --group db --expect "$SUITES" --out ci-out/db.json
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          TIER: ${{ needs.plan.outputs.tier }}
+          BASE: ${{ needs.plan.outputs.base }}
+          SUITES: ${{ needs.plan.outputs.suites_db }}
+      # A skipped database test is not a pass (core/test/db/seed.integration.test.ts says so): these files must have run, not skipped.
+      - name: The database tests ran, none skipped
+        run: |
+          python3 tools/ci/vitest_ran.py "$(git rev-parse --absolute-git-dir)"/gate-logs/*.log \
+            test/db/integration.test.ts test/db/seed.integration.test.ts test/db/stub.test.ts test/db/quota.test.ts
+      # LOCAL-3 (the whole-catalogue drift stage, tools/db/seed-check.mjs) has not landed. Until it does, the drift the doc describes
+      # (migrate a throwaway database, seed, verify, a second sync writes 0 rows) is what seed.integration.test.ts proves above.
+      - name: Seed drift stage (LOCAL-3)
+        run: |
+          if [ -f tools/db/seed-check.mjs ]; then
+            echo "::warning::tools/db/seed-check.mjs exists now: wire it into the db-local job (WF-3 follow-up)"
+            echo "Seed drift stage: tools/db/seed-check.mjs is present but not wired into CI yet." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Seed drift stage: pending LOCAL-3 (tools/db/seed-check.mjs). The seed/verify/idempotency checks of core/test/db/seed.integration.test.ts ran in db.local." >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Keep the gate log with the artifact
+        if: always()
+        run: |
+          mkdir -p ci-out
+          cp "$(git rev-parse --absolute-git-dir)"/gate-logs/*.log ci-out/ 2>/dev/null || true
+      - id: scan
+        name: Scan the artifact for leaks before upload
+        if: always()
+        run: python3 tools/ci/scrub_check.py ci-out
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always() && steps.scan.outcome == 'success'
+        with: { name: gate-db, path: ci-out/, retention-days: 7, if-no-files-found: ignore }
+
   summary:
     # The one check that will be required on main (Q-W2, after a green week). It never passes by accident: a needed job that failed,
     # was cancelled, or was skipped although its group was planned makes it red.
-    needs: [plan, links, core-data]
+    needs: [plan, links, core-data, web, db-local]
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 5
@@ -155,8 +288,11 @@ jobs:
           PLAN: ${{ needs.plan.result }}
           LINKS: ${{ needs.links.result }}
           CORE_DATA: ${{ needs.core-data.result }}
+          WEB: ${{ needs.web.result }}
+          DB_LOCAL: ${{ needs.db-local.result }}
           GROUPS_PLANNED: ${{ needs.plan.outputs.groups }}
           MAC_ONLY: ${{ needs.plan.outputs.mac_only }}
+          CI_EXCLUDED: ${{ needs.plan.outputs.ci_excluded }}
           SHA: ${{ github.sha }}
         run: |
           fail=0
@@ -164,29 +300,34 @@ jobs:
           has() { case ",$GROUPS_PLANNED," in *",$1,"*) echo true ;; *) echo false ;; esac; }
           [ "$PLAN" = success ] || fail=1
           # decide first, print after: a pipe to tee would run the block in a subshell and lose `fail`
-          rows="$(row links "$LINKS" "$(has links)"; row core-data "$CORE_DATA" "$(has core-data)")"
-          [ "$LINKS" = success ] || [ "$LINKS" = skipped ] || fail=1
-          [ "$CORE_DATA" = success ] || [ "$CORE_DATA" = skipped ] || fail=1
-          [ "$(has links)" != true ] || [ "$LINKS" = success ] || fail=1
-          [ "$(has core-data)" != true ] || [ "$CORE_DATA" = success ] || fail=1
+          rows="$(row links "$LINKS" "$(has links)"; row core-data "$CORE_DATA" "$(has core-data)"; row web "$WEB" "$(has web)"; row db-local "$DB_LOCAL" "$(has db)")"
+          # a job that ran must have succeeded (skipped means not needed); a planned group must have succeeded
+          for pair in "links:$LINKS:links" "core-data:$CORE_DATA:core-data" "web:$WEB:web" "db-local:$DB_LOCAL:db"; do
+            result="$(echo "$pair" | cut -d: -f2)"; group="$(echo "$pair" | cut -d: -f3)"
+            [ "$result" = success ] || [ "$result" = skipped ] || fail=1
+            [ "$(has "$group")" != true ] || [ "$result" = success ] || fail=1
+          done
           pending=""
-          for g in web db e2e visual; do
+          for g in e2e visual; do
             if [ "$(has $g)" = true ]; then pending="$pending $g"; fi
           done
           {
-            echo "## check, phase 1 (commit ${SHA:0:12})"
+            echo "## check, phase 2 (commit ${SHA:0:12})"
             echo
             echo "| job | result |"
             echo "|---|---|"
             echo "| plan | $PLAN |"
             echo "$rows"
             echo
-            echo "Planned but not run in phase 1 (WF-3, WF-6 add them):${pending:- none}"
+            echo "Planned but not run yet (WF-6 and WF-9 add them):${pending:- none}"
             echo
-            echo "Pending on the Mac (CI never runs them): ${MAC_ONLY:-none}"
+            echo "Pending on the Mac, suites CI never runs: ${MAC_ONLY:-none}"
+            echo
+            echo "Pending on the Mac, test files left out of a CI suite (no photo cache, no real home point; the reason is in tools/gate/map.json): ${CI_EXCLUDED:-none}"
             echo
             if [ "$fail" != 0 ]; then echo "Overall: RED"
             elif [ -n "$pending" ]; then echo "Overall: partial (not run in CI:$pending); this is NOT a green verdict for those groups"
+            elif [ -n "$MAC_ONLY$CI_EXCLUDED" ]; then echo "Overall: green for everything CI runs; the Mac-only checks above are still owed (T3 needs them)"
             else echo "Overall: green"; fi
           } | tee -a "$GITHUB_STEP_SUMMARY"
           exit "$fail"

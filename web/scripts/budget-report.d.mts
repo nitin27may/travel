@@ -45,3 +45,5 @@ export interface PlaceRow {
 export function placeRows(baseline: Baseline, htmlOf: (slug: string) => string | null): PlaceRow[];
 export function s13(rows: PlaceRow[]): { median: number; mid: PlaceRow; largest: number; largestWas: number; largestNow: number; over: PlaceRow[] };
 export function report(dist?: string): string[];
+export function markdown(lines: string[], opts?: { dist?: string; photoCache?: boolean }): string;
+export function hasRenditions(): boolean;
