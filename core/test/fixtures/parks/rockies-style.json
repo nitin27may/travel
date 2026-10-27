@@ -1,0 +1,745 @@
+{
+ "schema": "capture/1",
+ "trip": "parks-fixture",
+ "lane": "rockies-style",
+ "researched": "2026-10-26",
+ "agent": "fixture",
+ "model": "none",
+ "sources": [],
+ "records": [
+  {
+   "ref": "place/banff-national-park",
+   "type": "nature.protected.national_park",
+   "layer": "place",
+   "name": "Banff National Park",
+   "covers_areas": [
+    "ZZ/R1/banff-national-park"
+   ],
+   "area_id": "ZZ/R1/banff-national-park",
+   "run_by": "operator/parks-canada"
+  },
+  {
+   "ref": "place/jasper-national-park",
+   "type": "nature.protected.national_park",
+   "layer": "place",
+   "name": "Jasper National Park",
+   "covers_areas": [
+    "ZZ/R1/jasper-national-park"
+   ],
+   "area_id": "ZZ/R1/jasper-national-park",
+   "run_by": "operator/parks-canada"
+  },
+  {
+   "ref": "place/yoho-national-park",
+   "type": "nature.protected.national_park",
+   "layer": "place",
+   "name": "Yoho National Park",
+   "covers_areas": [
+    "ZZ/R2/yoho-national-park"
+   ],
+   "area_id": "ZZ/R2/yoho-national-park",
+   "run_by": "operator/parks-canada"
+  },
+  {
+   "ref": "place/kootenay-national-park",
+   "type": "nature.protected.national_park",
+   "layer": "place",
+   "name": "Kootenay National Park",
+   "covers_areas": [
+    "ZZ/R2/kootenay-national-park"
+   ],
+   "area_id": "ZZ/R2/kootenay-national-park",
+   "run_by": "operator/parks-canada"
+  },
+  {
+   "ref": "place/kananaskis-country",
+   "type": "nature.protected.conservation_area",
+   "layer": "place",
+   "name": "Kananaskis Country",
+   "covers_areas": [
+    "ZZ/R1/kananaskis-country"
+   ],
+   "area_id": "ZZ/R1/kananaskis-country",
+   "run_by": "operator/alberta-parks"
+  },
+  {
+   "ref": "part/place/banff-national-park#lake-louise-area",
+   "type": "nature.protected.zone",
+   "layer": "place",
+   "name": "Lake Louise area",
+   "part_of": [
+    "place/banff-national-park"
+   ]
+  },
+  {
+   "ref": "part/place/yoho-national-park#lake-ohara",
+   "type": "nature.protected.zone",
+   "layer": "place",
+   "name": "Lake O'Hara",
+   "part_of": [
+    "place/yoho-national-park"
+   ]
+  },
+  {
+   "ref": "place/moraine-lake",
+   "type": "water.body.lake",
+   "layer": "place",
+   "name": "Moraine Lake",
+   "part_of": [
+    "part/place/banff-national-park#lake-louise-area"
+   ]
+  },
+  {
+   "ref": "place/lake-louise",
+   "type": "water.body.lake",
+   "layer": "place",
+   "name": "Lake Louise",
+   "part_of": [
+    "part/place/banff-national-park#lake-louise-area"
+   ]
+  },
+  {
+   "ref": "place/johnston-canyon",
+   "type": "water.body.creek",
+   "layer": "place",
+   "name": "Johnston Canyon",
+   "area_id": "ZZ/R1/banff-national-park"
+  },
+  {
+   "ref": "place/vermilion-lakes",
+   "type": "water.body.lake",
+   "layer": "place",
+   "name": "Vermilion Lakes",
+   "area_id": "ZZ/R1/banff-national-park"
+  },
+  {
+   "ref": "place/maligne-lake",
+   "type": "water.body.lake",
+   "layer": "place",
+   "name": "Maligne Lake",
+   "area_id": "ZZ/R1/jasper-national-park"
+  },
+  {
+   "ref": "place/emerald-lake",
+   "type": "water.body.lake",
+   "layer": "place",
+   "name": "Emerald Lake",
+   "area_id": "ZZ/R2/yoho-national-park"
+  },
+  {
+   "ref": "place/marble-canyon",
+   "type": "water.body.creek",
+   "layer": "place",
+   "name": "Marble Canyon",
+   "area_id": "ZZ/R2/kootenay-national-park"
+  },
+  {
+   "ref": "place/kananaskis-lakes",
+   "type": "water.body.lake",
+   "layer": "place",
+   "name": "Kananaskis Lakes",
+   "area_id": "ZZ/R1/kananaskis-country"
+  },
+  {
+   "ref": "place/calgary-hotel",
+   "type": "stay.room.hotel",
+   "layer": "place",
+   "name": "Airport hotel",
+   "area_id": "ZZ/R1/calgary"
+  },
+  {
+   "ref": "place/banff-town-hotel",
+   "type": "stay.room.hotel",
+   "layer": "place",
+   "name": "Town hotel",
+   "area_id": "ZZ/R1/banff-national-park"
+  },
+  {
+   "ref": "place/jasper-cabins",
+   "type": "stay.self.cabin_cottage",
+   "layer": "place",
+   "name": "Jasper cabins",
+   "area_id": "ZZ/R1/jasper-national-park"
+  },
+  {
+   "ref": "place/lake-louise-lodge",
+   "type": "stay.room.lodge",
+   "layer": "place",
+   "name": "Lake lodge",
+   "part_of": [
+    "part/place/banff-national-park#lake-louise-area"
+   ]
+  },
+  {
+   "ref": "place/canmore-hotel",
+   "type": "stay.room.hotel",
+   "layer": "place",
+   "name": "Canmore hotel",
+   "area_id": "ZZ/R1/canmore"
+  },
+  {
+   "ref": "offer/operator/parks-canada#discovery-pass",
+   "type": "access.pass.park_pass",
+   "layer": "offer",
+   "name": "Discovery Pass",
+   "run_by": "operator/parks-canada",
+   "entry": {
+    "v": {
+     "required": "always",
+     "needed_for": [
+      "day",
+      "overnight_front",
+      "overnight_back"
+     ],
+     "unit": "group",
+     "valid": {
+      "span": 12,
+      "unit": "month",
+      "from": "purchase"
+     },
+     "channel": [
+      "online",
+      "gate"
+     ]
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "price": {
+    "v": [
+     {
+      "amount": 83.5,
+      "currency": "CAD",
+      "per": "adult"
+     },
+     {
+      "amount": 167.5,
+      "currency": "CAD",
+      "per": "family"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "window": {
+    "v": {
+     "rule": "anytime"
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "book_url": {
+    "v": "https://example.org/discovery-pass/buy",
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   }
+  },
+  {
+   "ref": "offer/place/banff-national-park#daily-admission",
+   "type": "access.pass.entry_fee",
+   "layer": "offer",
+   "name": "Banff daily admission",
+   "at": [
+    "place/banff-national-park"
+   ],
+   "covered_by": [
+    "offer/operator/parks-canada#discovery-pass"
+   ],
+   "entry": {
+    "v": {
+     "required": "always",
+     "needed_for": [
+      "day",
+      "overnight_front",
+      "overnight_back"
+     ],
+     "unit": "person",
+     "valid": {
+      "span": 1,
+      "unit": "day",
+      "from": "purchase"
+     },
+     "channel": [
+      "online",
+      "gate",
+      "visitor_centre"
+     ]
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "price": {
+    "v": [
+     {
+      "amount": 12.25,
+      "currency": "CAD",
+      "per": "adult"
+     },
+     {
+      "amount": 24.5,
+      "currency": "CAD",
+      "per": "family"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "window": {
+    "v": {
+     "rule": "anytime"
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "links": [
+    {
+     "kind": "official",
+     "url": "https://example.org/banff-national-park/fees",
+     "state": "filled"
+    }
+   ]
+  },
+  {
+   "ref": "offer/place/jasper-national-park#daily-admission",
+   "type": "access.pass.entry_fee",
+   "layer": "offer",
+   "name": "Jasper daily admission",
+   "at": [
+    "place/jasper-national-park"
+   ],
+   "covered_by": [
+    "offer/operator/parks-canada#discovery-pass"
+   ],
+   "entry": {
+    "v": {
+     "required": "always",
+     "needed_for": [
+      "day",
+      "overnight_front",
+      "overnight_back"
+     ],
+     "unit": "person",
+     "valid": {
+      "span": 1,
+      "unit": "day",
+      "from": "purchase"
+     },
+     "channel": [
+      "online",
+      "gate",
+      "visitor_centre"
+     ]
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "price": {
+    "v": [
+     {
+      "amount": 12.25,
+      "currency": "CAD",
+      "per": "adult"
+     },
+     {
+      "amount": 24.5,
+      "currency": "CAD",
+      "per": "family"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "window": {
+    "v": {
+     "rule": "anytime"
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "links": [
+    {
+     "kind": "official",
+     "url": "https://example.org/jasper-national-park/fees",
+     "state": "filled"
+    }
+   ]
+  },
+  {
+   "ref": "offer/place/yoho-national-park#daily-admission",
+   "type": "access.pass.entry_fee",
+   "layer": "offer",
+   "name": "Yoho daily admission",
+   "at": [
+    "place/yoho-national-park"
+   ],
+   "covered_by": [
+    "offer/operator/parks-canada#discovery-pass"
+   ],
+   "entry": {
+    "v": {
+     "required": "always",
+     "needed_for": [
+      "day",
+      "overnight_front",
+      "overnight_back"
+     ],
+     "unit": "person",
+     "valid": {
+      "span": 1,
+      "unit": "day",
+      "from": "purchase"
+     },
+     "channel": [
+      "online",
+      "gate",
+      "visitor_centre"
+     ]
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "price": {
+    "v": [
+     {
+      "amount": 12.25,
+      "currency": "CAD",
+      "per": "adult"
+     },
+     {
+      "amount": 24.5,
+      "currency": "CAD",
+      "per": "family"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "window": {
+    "v": {
+     "rule": "anytime"
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "links": [
+    {
+     "kind": "official",
+     "url": "https://example.org/yoho-national-park/fees",
+     "state": "filled"
+    }
+   ]
+  },
+  {
+   "ref": "offer/place/kootenay-national-park#daily-admission",
+   "type": "access.pass.entry_fee",
+   "layer": "offer",
+   "name": "Kootenay daily admission",
+   "at": [
+    "place/kootenay-national-park"
+   ],
+   "covered_by": [
+    "offer/operator/parks-canada#discovery-pass"
+   ],
+   "entry": {
+    "v": {
+     "required": "always",
+     "needed_for": [
+      "day",
+      "overnight_front",
+      "overnight_back"
+     ],
+     "unit": "person",
+     "valid": {
+      "span": 1,
+      "unit": "day",
+      "from": "purchase"
+     },
+     "channel": [
+      "online",
+      "gate",
+      "visitor_centre"
+     ]
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "price": {
+    "v": [
+     {
+      "amount": 12.25,
+      "currency": "CAD",
+      "per": "adult"
+     },
+     {
+      "amount": 24.5,
+      "currency": "CAD",
+      "per": "family"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "window": {
+    "v": {
+     "rule": "anytime"
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "links": [
+    {
+     "kind": "official",
+     "url": "https://example.org/kootenay-national-park/fees",
+     "state": "filled"
+    }
+   ]
+  },
+  {
+   "ref": "offer/place/moraine-lake#shuttle-seat",
+   "type": "access.pass.shuttle_seat",
+   "layer": "offer",
+   "name": "Moraine Lake and Lake Louise shuttle seat",
+   "at": [
+    "place/moraine-lake",
+    "place/lake-louise"
+   ],
+   "entry": {
+    "v": {
+     "required": "in_season",
+     "needed_for": [
+      "day",
+      "overnight_front"
+     ],
+     "unit": "person",
+     "valid": {
+      "span": 1,
+      "unit": "day",
+      "from": "slot_start"
+     },
+     "channel": [
+      "online"
+     ]
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "window": {
+    "v": {
+     "rule": "fixed_date",
+     "opens_from": "04-01",
+     "opens_to": "04-30",
+     "opens_time": "08:00",
+     "tz": "America/Edmonton",
+     "then": {
+      "rule": "rolling",
+      "days_before": 2,
+      "opens_time": "08:00"
+     }
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "links": [
+    {
+     "kind": "booking",
+     "url": "https://example.org/shuttle/book",
+     "state": "filled"
+    },
+    {
+     "kind": "official",
+     "url": "https://example.org/shuttle",
+     "state": "filled"
+    }
+   ]
+  },
+  {
+   "ref": "offer/place/moraine-lake#super-pass",
+   "type": "access.pass.shuttle_seat",
+   "layer": "offer",
+   "name": "Transit super pass to Moraine Lake",
+   "at": [
+    "place/moraine-lake"
+   ],
+   "entry": {
+    "v": {
+     "required": "advised",
+     "needed_for": [
+      "day"
+     ],
+     "unit": "person",
+     "valid": {
+      "span": 1,
+      "unit": "day",
+      "from": "slot_start"
+     },
+     "channel": [
+      "online"
+     ]
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "window": {
+    "v": {
+     "rule": "monthly_release",
+     "month_lead_days": 35,
+     "opens_time": "09:00",
+     "tz": "America/Edmonton"
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   }
+  },
+  {
+   "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+   "type": "access.pass.shuttle_seat",
+   "layer": "offer",
+   "name": "Lake O'Hara day-use bus",
+   "at": [
+    "part/place/yoho-national-park#lake-ohara"
+   ],
+   "entry": {
+    "v": {
+     "required": "always",
+     "needed_for": [
+      "day"
+     ],
+     "unit": "person",
+     "valid": {
+      "span": 1,
+      "unit": "day",
+      "from": "slot_start"
+     },
+     "channel": [
+      "online"
+     ]
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "window": {
+    "v": {
+     "rule": "lottery",
+     "opens_from": "03-01",
+     "opens_to": "03-31",
+     "then": {
+      "rule": "rolling",
+      "closes_days_before": 1,
+      "closes_time": "15:30"
+     }
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   }
+  },
+  {
+   "ref": "offer/place/kananaskis-country#conservation-pass",
+   "type": "access.pass.vehicle_permit",
+   "layer": "offer",
+   "name": "Conservation pass",
+   "at": [
+    "place/kananaskis-country"
+   ],
+   "entry": {
+    "v": {
+     "required": "always",
+     "needed_for": [
+      "day",
+      "overnight_front",
+      "overnight_back"
+     ],
+     "unit": "vehicle",
+     "valid": {
+      "span": 1,
+      "unit": "day",
+      "from": "calendar"
+     },
+     "channel": [
+      "online",
+      "phone",
+      "visitor_centre"
+     ]
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "price": {
+    "v": [
+     {
+      "amount": 15,
+      "currency": "CAD",
+      "per": "vehicle"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "window": {
+    "v": {
+     "rule": "anytime",
+     "closes_days_before": 0,
+     "closes_time": "23:59"
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   }
+  },
+  {
+   "ref": "offer/place/lake-louise#parking",
+   "type": "access.park.parking",
+   "layer": "offer",
+   "name": "Lakeshore parking",
+   "at": [
+    "place/lake-louise"
+   ],
+   "entry": {
+    "v": {
+     "required": "in_season",
+     "needed_for": [
+      "day"
+     ],
+     "unit": "vehicle",
+     "channel": [
+      "machine"
+     ]
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   },
+   "window": {
+    "v": {
+     "rule": "on_arrival"
+    },
+    "state": "value",
+    "basis": "official_info",
+    "src": []
+   }
+  }
+ ]
+}

@@ -226,7 +226,7 @@ function tripOf(t: (typeof TRIPS)[number], places: StubPlace[]): StubTrip {
     ref: `trip/${t.slug}`, slug: t.slug, title: t.title, subtitle: `${t.nights} nights`, depth: "full", visibility: "public", nights: t.nights, daysCount: t.nights + 1,
     seasonNotSet: false, region: COUNTRY[t.cc], cover: null,
     season: { basis: "researched", months: [7, 8], label: "July and August", why: "Lifts and high trails open.", weather: { tempC: "10 to 24", rain: "some", daylight: "15 h", notes: [] } },
-    firstBase: "Base one", legacyUrl: `/trips/${t.slug}/`, honesty: [],
+    firstBase: "Base one", honesty: [],
     tags: { countries: [t.cc.toLowerCase()], continents: [t.cc === "CA" ? "north-america" : "europe"], length: "4-8", when: [7, 8], kidsFrom: null, kidsBasis: null, hike: "moderate", hikeBasis: "plan", stroller: null, activities: [], highlights: [mine[0]!.detail.name], around: ["rental-car"], perDay: "1-2", perDayApprox: true, shape: "road-trip" },
     lengthClass: "multi-day", fromHubs: [], schedule: null,
     bases: [{ id: "base-one", name: "Base one", nights: t.nights, days: Array.from({ length: t.nights }, (_, i) => i + 1), point: { lat: first.lat, lon: first.lon, pointRole: "centre", approx: false, pointSource: "manual_pin", pointChecked: null, sourceLicence: "ours" } }],

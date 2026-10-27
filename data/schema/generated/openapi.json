@@ -4829,9 +4829,6 @@
                             "null"
                           ]
                         },
-                        "legacyUrl": {
-                          "type": "string"
-                        },
                         "honesty": {
                           "type": "array",
                           "items": {
@@ -6177,6 +6174,18 @@
                                       {
                                         "type": "object",
                                         "properties": {
+                                          "kind": {
+                                            "type": "string",
+                                            "enum": [
+                                              "rolling",
+                                              "fixed_date",
+                                              "monthly_release",
+                                              "lottery",
+                                              "same_day",
+                                              "anytime",
+                                              "on_arrival"
+                                            ]
+                                          },
                                           "daysBefore": {
                                             "type": "integer",
                                             "minimum": -9007199254740991,
@@ -6205,6 +6214,220 @@
                                               "string",
                                               "null"
                                             ]
+                                          },
+                                          "months": {
+                                            "anyOf": [
+                                              {
+                                                "type": "array",
+                                                "prefixItems": [
+                                                  {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 12
+                                                  },
+                                                  {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 12
+                                                  }
+                                                ],
+                                                "items": false,
+                                                "minItems": 2,
+                                                "maxItems": 2
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "monthLeadDays": {
+                                            "anyOf": [
+                                              {
+                                                "type": "integer",
+                                                "minimum": 0,
+                                                "maximum": 9007199254740991
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "closes": {
+                                            "anyOf": [
+                                              {
+                                                "type": "object",
+                                                "properties": {
+                                                  "daysBefore": {
+                                                    "type": "integer",
+                                                    "minimum": 0,
+                                                    "maximum": 9007199254740991
+                                                  },
+                                                  "time": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  }
+                                                },
+                                                "required": [
+                                                  "daysBefore",
+                                                  "time"
+                                                ],
+                                                "additionalProperties": false
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "sharePct": {
+                                            "anyOf": [
+                                              {
+                                                "type": "number",
+                                                "minimum": 0,
+                                                "maximum": 100
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "then": {
+                                            "anyOf": [
+                                              {
+                                                "type": "object",
+                                                "properties": {
+                                                  "kind": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "rolling",
+                                                      "fixed_date",
+                                                      "monthly_release",
+                                                      "lottery",
+                                                      "same_day",
+                                                      "anytime",
+                                                      "on_arrival"
+                                                    ]
+                                                  },
+                                                  "daysBefore": {
+                                                    "type": "integer",
+                                                    "minimum": -9007199254740991,
+                                                    "maximum": 9007199254740991
+                                                  },
+                                                  "dayN": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "integer",
+                                                        "minimum": -9007199254740991,
+                                                        "maximum": 9007199254740991
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "time": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "tz": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "months": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "array",
+                                                        "prefixItems": [
+                                                          {
+                                                            "type": "integer",
+                                                            "minimum": 1,
+                                                            "maximum": 12
+                                                          },
+                                                          {
+                                                            "type": "integer",
+                                                            "minimum": 1,
+                                                            "maximum": 12
+                                                          }
+                                                        ],
+                                                        "items": false,
+                                                        "minItems": 2,
+                                                        "maxItems": 2
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "monthLeadDays": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "integer",
+                                                        "minimum": 0,
+                                                        "maximum": 9007199254740991
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "closes": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "object",
+                                                        "properties": {
+                                                          "daysBefore": {
+                                                            "type": "integer",
+                                                            "minimum": 0,
+                                                            "maximum": 9007199254740991
+                                                          },
+                                                          "time": {
+                                                            "type": [
+                                                              "string",
+                                                              "null"
+                                                            ]
+                                                          }
+                                                        },
+                                                        "required": [
+                                                          "daysBefore",
+                                                          "time"
+                                                        ],
+                                                        "additionalProperties": false
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "sharePct": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "number",
+                                                        "minimum": 0,
+                                                        "maximum": 100
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                "required": [
+                                                  "daysBefore",
+                                                  "dayN",
+                                                  "time",
+                                                  "tz"
+                                                ],
+                                                "additionalProperties": false
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
                                           }
                                         },
                                         "required": [
@@ -6224,6 +6447,44 @@
                                     "type": [
                                       "string",
                                       "null"
+                                    ]
+                                  },
+                                  "bookKind": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "booking",
+                                          "pass",
+                                          "check",
+                                          "task"
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "park": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "link": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
                                     ]
                                   }
                                 },
@@ -6325,6 +6586,18 @@
                                       {
                                         "type": "object",
                                         "properties": {
+                                          "kind": {
+                                            "type": "string",
+                                            "enum": [
+                                              "rolling",
+                                              "fixed_date",
+                                              "monthly_release",
+                                              "lottery",
+                                              "same_day",
+                                              "anytime",
+                                              "on_arrival"
+                                            ]
+                                          },
                                           "daysBefore": {
                                             "type": "integer",
                                             "minimum": -9007199254740991,
@@ -6353,6 +6626,220 @@
                                               "string",
                                               "null"
                                             ]
+                                          },
+                                          "months": {
+                                            "anyOf": [
+                                              {
+                                                "type": "array",
+                                                "prefixItems": [
+                                                  {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 12
+                                                  },
+                                                  {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 12
+                                                  }
+                                                ],
+                                                "items": false,
+                                                "minItems": 2,
+                                                "maxItems": 2
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "monthLeadDays": {
+                                            "anyOf": [
+                                              {
+                                                "type": "integer",
+                                                "minimum": 0,
+                                                "maximum": 9007199254740991
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "closes": {
+                                            "anyOf": [
+                                              {
+                                                "type": "object",
+                                                "properties": {
+                                                  "daysBefore": {
+                                                    "type": "integer",
+                                                    "minimum": 0,
+                                                    "maximum": 9007199254740991
+                                                  },
+                                                  "time": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  }
+                                                },
+                                                "required": [
+                                                  "daysBefore",
+                                                  "time"
+                                                ],
+                                                "additionalProperties": false
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "sharePct": {
+                                            "anyOf": [
+                                              {
+                                                "type": "number",
+                                                "minimum": 0,
+                                                "maximum": 100
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "then": {
+                                            "anyOf": [
+                                              {
+                                                "type": "object",
+                                                "properties": {
+                                                  "kind": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "rolling",
+                                                      "fixed_date",
+                                                      "monthly_release",
+                                                      "lottery",
+                                                      "same_day",
+                                                      "anytime",
+                                                      "on_arrival"
+                                                    ]
+                                                  },
+                                                  "daysBefore": {
+                                                    "type": "integer",
+                                                    "minimum": -9007199254740991,
+                                                    "maximum": 9007199254740991
+                                                  },
+                                                  "dayN": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "integer",
+                                                        "minimum": -9007199254740991,
+                                                        "maximum": 9007199254740991
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "time": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "tz": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "months": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "array",
+                                                        "prefixItems": [
+                                                          {
+                                                            "type": "integer",
+                                                            "minimum": 1,
+                                                            "maximum": 12
+                                                          },
+                                                          {
+                                                            "type": "integer",
+                                                            "minimum": 1,
+                                                            "maximum": 12
+                                                          }
+                                                        ],
+                                                        "items": false,
+                                                        "minItems": 2,
+                                                        "maxItems": 2
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "monthLeadDays": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "integer",
+                                                        "minimum": 0,
+                                                        "maximum": 9007199254740991
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "closes": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "object",
+                                                        "properties": {
+                                                          "daysBefore": {
+                                                            "type": "integer",
+                                                            "minimum": 0,
+                                                            "maximum": 9007199254740991
+                                                          },
+                                                          "time": {
+                                                            "type": [
+                                                              "string",
+                                                              "null"
+                                                            ]
+                                                          }
+                                                        },
+                                                        "required": [
+                                                          "daysBefore",
+                                                          "time"
+                                                        ],
+                                                        "additionalProperties": false
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "sharePct": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "number",
+                                                        "minimum": 0,
+                                                        "maximum": 100
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                "required": [
+                                                  "daysBefore",
+                                                  "dayN",
+                                                  "time",
+                                                  "tz"
+                                                ],
+                                                "additionalProperties": false
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
                                           }
                                         },
                                         "required": [
@@ -6372,6 +6859,44 @@
                                     "type": [
                                       "string",
                                       "null"
+                                    ]
+                                  },
+                                  "bookKind": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "booking",
+                                          "pass",
+                                          "check",
+                                          "task"
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "park": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "link": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
                                     ]
                                   }
                                 },
@@ -6473,6 +6998,18 @@
                                       {
                                         "type": "object",
                                         "properties": {
+                                          "kind": {
+                                            "type": "string",
+                                            "enum": [
+                                              "rolling",
+                                              "fixed_date",
+                                              "monthly_release",
+                                              "lottery",
+                                              "same_day",
+                                              "anytime",
+                                              "on_arrival"
+                                            ]
+                                          },
                                           "daysBefore": {
                                             "type": "integer",
                                             "minimum": -9007199254740991,
@@ -6501,6 +7038,220 @@
                                               "string",
                                               "null"
                                             ]
+                                          },
+                                          "months": {
+                                            "anyOf": [
+                                              {
+                                                "type": "array",
+                                                "prefixItems": [
+                                                  {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 12
+                                                  },
+                                                  {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 12
+                                                  }
+                                                ],
+                                                "items": false,
+                                                "minItems": 2,
+                                                "maxItems": 2
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "monthLeadDays": {
+                                            "anyOf": [
+                                              {
+                                                "type": "integer",
+                                                "minimum": 0,
+                                                "maximum": 9007199254740991
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "closes": {
+                                            "anyOf": [
+                                              {
+                                                "type": "object",
+                                                "properties": {
+                                                  "daysBefore": {
+                                                    "type": "integer",
+                                                    "minimum": 0,
+                                                    "maximum": 9007199254740991
+                                                  },
+                                                  "time": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  }
+                                                },
+                                                "required": [
+                                                  "daysBefore",
+                                                  "time"
+                                                ],
+                                                "additionalProperties": false
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "sharePct": {
+                                            "anyOf": [
+                                              {
+                                                "type": "number",
+                                                "minimum": 0,
+                                                "maximum": 100
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "then": {
+                                            "anyOf": [
+                                              {
+                                                "type": "object",
+                                                "properties": {
+                                                  "kind": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "rolling",
+                                                      "fixed_date",
+                                                      "monthly_release",
+                                                      "lottery",
+                                                      "same_day",
+                                                      "anytime",
+                                                      "on_arrival"
+                                                    ]
+                                                  },
+                                                  "daysBefore": {
+                                                    "type": "integer",
+                                                    "minimum": -9007199254740991,
+                                                    "maximum": 9007199254740991
+                                                  },
+                                                  "dayN": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "integer",
+                                                        "minimum": -9007199254740991,
+                                                        "maximum": 9007199254740991
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "time": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "tz": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "months": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "array",
+                                                        "prefixItems": [
+                                                          {
+                                                            "type": "integer",
+                                                            "minimum": 1,
+                                                            "maximum": 12
+                                                          },
+                                                          {
+                                                            "type": "integer",
+                                                            "minimum": 1,
+                                                            "maximum": 12
+                                                          }
+                                                        ],
+                                                        "items": false,
+                                                        "minItems": 2,
+                                                        "maxItems": 2
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "monthLeadDays": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "integer",
+                                                        "minimum": 0,
+                                                        "maximum": 9007199254740991
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "closes": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "object",
+                                                        "properties": {
+                                                          "daysBefore": {
+                                                            "type": "integer",
+                                                            "minimum": 0,
+                                                            "maximum": 9007199254740991
+                                                          },
+                                                          "time": {
+                                                            "type": [
+                                                              "string",
+                                                              "null"
+                                                            ]
+                                                          }
+                                                        },
+                                                        "required": [
+                                                          "daysBefore",
+                                                          "time"
+                                                        ],
+                                                        "additionalProperties": false
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "sharePct": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "number",
+                                                        "minimum": 0,
+                                                        "maximum": 100
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                "required": [
+                                                  "daysBefore",
+                                                  "dayN",
+                                                  "time",
+                                                  "tz"
+                                                ],
+                                                "additionalProperties": false
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
                                           }
                                         },
                                         "required": [
@@ -6520,6 +7271,44 @@
                                     "type": [
                                       "string",
                                       "null"
+                                    ]
+                                  },
+                                  "bookKind": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "booking",
+                                          "pass",
+                                          "check",
+                                          "task"
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "park": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "link": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
                                     ]
                                   }
                                 },
@@ -6621,6 +7410,18 @@
                                       {
                                         "type": "object",
                                         "properties": {
+                                          "kind": {
+                                            "type": "string",
+                                            "enum": [
+                                              "rolling",
+                                              "fixed_date",
+                                              "monthly_release",
+                                              "lottery",
+                                              "same_day",
+                                              "anytime",
+                                              "on_arrival"
+                                            ]
+                                          },
                                           "daysBefore": {
                                             "type": "integer",
                                             "minimum": -9007199254740991,
@@ -6649,6 +7450,220 @@
                                               "string",
                                               "null"
                                             ]
+                                          },
+                                          "months": {
+                                            "anyOf": [
+                                              {
+                                                "type": "array",
+                                                "prefixItems": [
+                                                  {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 12
+                                                  },
+                                                  {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 12
+                                                  }
+                                                ],
+                                                "items": false,
+                                                "minItems": 2,
+                                                "maxItems": 2
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "monthLeadDays": {
+                                            "anyOf": [
+                                              {
+                                                "type": "integer",
+                                                "minimum": 0,
+                                                "maximum": 9007199254740991
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "closes": {
+                                            "anyOf": [
+                                              {
+                                                "type": "object",
+                                                "properties": {
+                                                  "daysBefore": {
+                                                    "type": "integer",
+                                                    "minimum": 0,
+                                                    "maximum": 9007199254740991
+                                                  },
+                                                  "time": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  }
+                                                },
+                                                "required": [
+                                                  "daysBefore",
+                                                  "time"
+                                                ],
+                                                "additionalProperties": false
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "sharePct": {
+                                            "anyOf": [
+                                              {
+                                                "type": "number",
+                                                "minimum": 0,
+                                                "maximum": 100
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "then": {
+                                            "anyOf": [
+                                              {
+                                                "type": "object",
+                                                "properties": {
+                                                  "kind": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "rolling",
+                                                      "fixed_date",
+                                                      "monthly_release",
+                                                      "lottery",
+                                                      "same_day",
+                                                      "anytime",
+                                                      "on_arrival"
+                                                    ]
+                                                  },
+                                                  "daysBefore": {
+                                                    "type": "integer",
+                                                    "minimum": -9007199254740991,
+                                                    "maximum": 9007199254740991
+                                                  },
+                                                  "dayN": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "integer",
+                                                        "minimum": -9007199254740991,
+                                                        "maximum": 9007199254740991
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "time": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "tz": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "months": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "array",
+                                                        "prefixItems": [
+                                                          {
+                                                            "type": "integer",
+                                                            "minimum": 1,
+                                                            "maximum": 12
+                                                          },
+                                                          {
+                                                            "type": "integer",
+                                                            "minimum": 1,
+                                                            "maximum": 12
+                                                          }
+                                                        ],
+                                                        "items": false,
+                                                        "minItems": 2,
+                                                        "maxItems": 2
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "monthLeadDays": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "integer",
+                                                        "minimum": 0,
+                                                        "maximum": 9007199254740991
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "closes": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "object",
+                                                        "properties": {
+                                                          "daysBefore": {
+                                                            "type": "integer",
+                                                            "minimum": 0,
+                                                            "maximum": 9007199254740991
+                                                          },
+                                                          "time": {
+                                                            "type": [
+                                                              "string",
+                                                              "null"
+                                                            ]
+                                                          }
+                                                        },
+                                                        "required": [
+                                                          "daysBefore",
+                                                          "time"
+                                                        ],
+                                                        "additionalProperties": false
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "sharePct": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "number",
+                                                        "minimum": 0,
+                                                        "maximum": 100
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                "required": [
+                                                  "daysBefore",
+                                                  "dayN",
+                                                  "time",
+                                                  "tz"
+                                                ],
+                                                "additionalProperties": false
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
                                           }
                                         },
                                         "required": [
@@ -6668,6 +7683,44 @@
                                     "type": [
                                       "string",
                                       "null"
+                                    ]
+                                  },
+                                  "bookKind": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "booking",
+                                          "pass",
+                                          "check",
+                                          "task"
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "park": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "link": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
                                     ]
                                   }
                                 },
@@ -6769,6 +7822,18 @@
                                       {
                                         "type": "object",
                                         "properties": {
+                                          "kind": {
+                                            "type": "string",
+                                            "enum": [
+                                              "rolling",
+                                              "fixed_date",
+                                              "monthly_release",
+                                              "lottery",
+                                              "same_day",
+                                              "anytime",
+                                              "on_arrival"
+                                            ]
+                                          },
                                           "daysBefore": {
                                             "type": "integer",
                                             "minimum": -9007199254740991,
@@ -6797,6 +7862,220 @@
                                               "string",
                                               "null"
                                             ]
+                                          },
+                                          "months": {
+                                            "anyOf": [
+                                              {
+                                                "type": "array",
+                                                "prefixItems": [
+                                                  {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 12
+                                                  },
+                                                  {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 12
+                                                  }
+                                                ],
+                                                "items": false,
+                                                "minItems": 2,
+                                                "maxItems": 2
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "monthLeadDays": {
+                                            "anyOf": [
+                                              {
+                                                "type": "integer",
+                                                "minimum": 0,
+                                                "maximum": 9007199254740991
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "closes": {
+                                            "anyOf": [
+                                              {
+                                                "type": "object",
+                                                "properties": {
+                                                  "daysBefore": {
+                                                    "type": "integer",
+                                                    "minimum": 0,
+                                                    "maximum": 9007199254740991
+                                                  },
+                                                  "time": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  }
+                                                },
+                                                "required": [
+                                                  "daysBefore",
+                                                  "time"
+                                                ],
+                                                "additionalProperties": false
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "sharePct": {
+                                            "anyOf": [
+                                              {
+                                                "type": "number",
+                                                "minimum": 0,
+                                                "maximum": 100
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "then": {
+                                            "anyOf": [
+                                              {
+                                                "type": "object",
+                                                "properties": {
+                                                  "kind": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "rolling",
+                                                      "fixed_date",
+                                                      "monthly_release",
+                                                      "lottery",
+                                                      "same_day",
+                                                      "anytime",
+                                                      "on_arrival"
+                                                    ]
+                                                  },
+                                                  "daysBefore": {
+                                                    "type": "integer",
+                                                    "minimum": -9007199254740991,
+                                                    "maximum": 9007199254740991
+                                                  },
+                                                  "dayN": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "integer",
+                                                        "minimum": -9007199254740991,
+                                                        "maximum": 9007199254740991
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "time": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "tz": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "months": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "array",
+                                                        "prefixItems": [
+                                                          {
+                                                            "type": "integer",
+                                                            "minimum": 1,
+                                                            "maximum": 12
+                                                          },
+                                                          {
+                                                            "type": "integer",
+                                                            "minimum": 1,
+                                                            "maximum": 12
+                                                          }
+                                                        ],
+                                                        "items": false,
+                                                        "minItems": 2,
+                                                        "maxItems": 2
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "monthLeadDays": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "integer",
+                                                        "minimum": 0,
+                                                        "maximum": 9007199254740991
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "closes": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "object",
+                                                        "properties": {
+                                                          "daysBefore": {
+                                                            "type": "integer",
+                                                            "minimum": 0,
+                                                            "maximum": 9007199254740991
+                                                          },
+                                                          "time": {
+                                                            "type": [
+                                                              "string",
+                                                              "null"
+                                                            ]
+                                                          }
+                                                        },
+                                                        "required": [
+                                                          "daysBefore",
+                                                          "time"
+                                                        ],
+                                                        "additionalProperties": false
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "sharePct": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "number",
+                                                        "minimum": 0,
+                                                        "maximum": 100
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                "required": [
+                                                  "daysBefore",
+                                                  "dayN",
+                                                  "time",
+                                                  "tz"
+                                                ],
+                                                "additionalProperties": false
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
                                           }
                                         },
                                         "required": [
@@ -6816,6 +8095,44 @@
                                     "type": [
                                       "string",
                                       "null"
+                                    ]
+                                  },
+                                  "bookKind": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "booking",
+                                          "pass",
+                                          "check",
+                                          "task"
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "park": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "link": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
                                     ]
                                   }
                                 },
@@ -6917,6 +8234,18 @@
                                       {
                                         "type": "object",
                                         "properties": {
+                                          "kind": {
+                                            "type": "string",
+                                            "enum": [
+                                              "rolling",
+                                              "fixed_date",
+                                              "monthly_release",
+                                              "lottery",
+                                              "same_day",
+                                              "anytime",
+                                              "on_arrival"
+                                            ]
+                                          },
                                           "daysBefore": {
                                             "type": "integer",
                                             "minimum": -9007199254740991,
@@ -6945,6 +8274,220 @@
                                               "string",
                                               "null"
                                             ]
+                                          },
+                                          "months": {
+                                            "anyOf": [
+                                              {
+                                                "type": "array",
+                                                "prefixItems": [
+                                                  {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 12
+                                                  },
+                                                  {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 12
+                                                  }
+                                                ],
+                                                "items": false,
+                                                "minItems": 2,
+                                                "maxItems": 2
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "monthLeadDays": {
+                                            "anyOf": [
+                                              {
+                                                "type": "integer",
+                                                "minimum": 0,
+                                                "maximum": 9007199254740991
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "closes": {
+                                            "anyOf": [
+                                              {
+                                                "type": "object",
+                                                "properties": {
+                                                  "daysBefore": {
+                                                    "type": "integer",
+                                                    "minimum": 0,
+                                                    "maximum": 9007199254740991
+                                                  },
+                                                  "time": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  }
+                                                },
+                                                "required": [
+                                                  "daysBefore",
+                                                  "time"
+                                                ],
+                                                "additionalProperties": false
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "sharePct": {
+                                            "anyOf": [
+                                              {
+                                                "type": "number",
+                                                "minimum": 0,
+                                                "maximum": 100
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "then": {
+                                            "anyOf": [
+                                              {
+                                                "type": "object",
+                                                "properties": {
+                                                  "kind": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "rolling",
+                                                      "fixed_date",
+                                                      "monthly_release",
+                                                      "lottery",
+                                                      "same_day",
+                                                      "anytime",
+                                                      "on_arrival"
+                                                    ]
+                                                  },
+                                                  "daysBefore": {
+                                                    "type": "integer",
+                                                    "minimum": -9007199254740991,
+                                                    "maximum": 9007199254740991
+                                                  },
+                                                  "dayN": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "integer",
+                                                        "minimum": -9007199254740991,
+                                                        "maximum": 9007199254740991
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "time": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "tz": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "months": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "array",
+                                                        "prefixItems": [
+                                                          {
+                                                            "type": "integer",
+                                                            "minimum": 1,
+                                                            "maximum": 12
+                                                          },
+                                                          {
+                                                            "type": "integer",
+                                                            "minimum": 1,
+                                                            "maximum": 12
+                                                          }
+                                                        ],
+                                                        "items": false,
+                                                        "minItems": 2,
+                                                        "maxItems": 2
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "monthLeadDays": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "integer",
+                                                        "minimum": 0,
+                                                        "maximum": 9007199254740991
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "closes": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "object",
+                                                        "properties": {
+                                                          "daysBefore": {
+                                                            "type": "integer",
+                                                            "minimum": 0,
+                                                            "maximum": 9007199254740991
+                                                          },
+                                                          "time": {
+                                                            "type": [
+                                                              "string",
+                                                              "null"
+                                                            ]
+                                                          }
+                                                        },
+                                                        "required": [
+                                                          "daysBefore",
+                                                          "time"
+                                                        ],
+                                                        "additionalProperties": false
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "sharePct": {
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "number",
+                                                        "minimum": 0,
+                                                        "maximum": 100
+                                                      },
+                                                      {
+                                                        "type": "null"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                "required": [
+                                                  "daysBefore",
+                                                  "dayN",
+                                                  "time",
+                                                  "tz"
+                                                ],
+                                                "additionalProperties": false
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
                                           }
                                         },
                                         "required": [
@@ -6964,6 +8507,44 @@
                                     "type": [
                                       "string",
                                       "null"
+                                    ]
+                                  },
+                                  "bookKind": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "booking",
+                                          "pass",
+                                          "check",
+                                          "task"
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "park": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "link": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
                                     ]
                                   }
                                 },
@@ -7067,6 +8648,184 @@
                             "number",
                             "null"
                           ]
+                        },
+                        "parks": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "slug": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 120,
+                                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "name": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "kind": {
+                                "type": "string",
+                                "enum": [
+                                  "national",
+                                  "state_provincial",
+                                  "conservation",
+                                  "reserve",
+                                  "forest",
+                                  "dark_sky",
+                                  "zone"
+                                ]
+                              },
+                              "parent": {
+                                "anyOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "slug": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 120,
+                                            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "name": {
+                                        "type": "string",
+                                        "minLength": 1
+                                      }
+                                    },
+                                    "required": [
+                                      "slug",
+                                      "name"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "days": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer",
+                                  "minimum": 0,
+                                  "maximum": 9007199254740991
+                                }
+                              },
+                              "nights": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer",
+                                  "minimum": 0,
+                                  "maximum": 9007199254740991
+                                }
+                              },
+                              "modes": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "enum": [
+                                    "day",
+                                    "overnight_front",
+                                    "overnight_back",
+                                    "through"
+                                  ]
+                                }
+                              },
+                              "state": {
+                                "type": "string",
+                                "enum": [
+                                  "requirements",
+                                  "none_needed",
+                                  "not_checked"
+                                ]
+                              },
+                              "needs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string",
+                                      "minLength": 1
+                                    },
+                                    "kind": {
+                                      "type": "string",
+                                      "enum": [
+                                        "booking",
+                                        "pass",
+                                        "check",
+                                        "task"
+                                      ]
+                                    },
+                                    "text": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "kind",
+                                    "text"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "coveredBy": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "line": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "saving": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "slug",
+                              "name",
+                              "kind",
+                              "parent",
+                              "days",
+                              "nights",
+                              "modes",
+                              "state",
+                              "needs",
+                              "coveredBy",
+                              "line",
+                              "saving"
+                            ],
+                            "additionalProperties": false
+                          }
                         }
                       },
                       "required": [
@@ -7083,7 +8842,6 @@
                         "cover",
                         "season",
                         "firstBase",
-                        "legacyUrl",
                         "honesty",
                         "tags",
                         "lengthClass",
@@ -14491,6 +16249,688 @@
           "message"
         ],
         "additionalProperties": false
+      },
+      "ExportModel": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "trip"
+              },
+              "version": {
+                "type": "number",
+                "const": 2
+              },
+              "slug": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "depth": {
+                "type": "string",
+                "enum": [
+                  "full",
+                  "summary",
+                  "overview"
+                ]
+              },
+              "nights": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "days": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "n": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "base": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "n",
+                    "title",
+                    "base"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "stops": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "day": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "order": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "area": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "time": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "durationMin": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "lane": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "note": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "placeSlug": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120,
+                          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "point": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "lat": {
+                              "type": "number",
+                              "minimum": -90,
+                              "maximum": 90
+                            },
+                            "lon": {
+                              "type": "number",
+                              "minimum": -180,
+                              "maximum": 180
+                            },
+                            "pointSource": {
+                              "type": "string"
+                            },
+                            "pointChecked": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "sourceLicence": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "lat",
+                            "lon",
+                            "pointSource",
+                            "pointChecked",
+                            "sourceLicence"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "bookAhead": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "day",
+                    "order",
+                    "id",
+                    "name",
+                    "kind",
+                    "category",
+                    "area",
+                    "time",
+                    "durationMin",
+                    "lane",
+                    "note",
+                    "placeSlug",
+                    "links",
+                    "point"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "bookings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "rule": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "note": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "day": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "kind": {
+                      "type": "string",
+                      "enum": [
+                        "booking",
+                        "pass",
+                        "check",
+                        "task"
+                      ]
+                    },
+                    "park": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "link": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "rule",
+                    "note",
+                    "day",
+                    "ref",
+                    "kind",
+                    "park",
+                    "link"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "waypoints": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string",
+                      "enum": [
+                        "stop",
+                        "trailhead",
+                        "parking",
+                        "base",
+                        "place"
+                      ]
+                    },
+                    "day": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "note": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "url": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "point": {
+                      "type": "object",
+                      "properties": {
+                        "lat": {
+                          "type": "number",
+                          "minimum": -90,
+                          "maximum": 90
+                        },
+                        "lon": {
+                          "type": "number",
+                          "minimum": -180,
+                          "maximum": 180
+                        },
+                        "pointSource": {
+                          "type": "string"
+                        },
+                        "pointChecked": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "sourceLicence": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "lat",
+                        "lon",
+                        "pointSource",
+                        "pointChecked",
+                        "sourceLicence"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "kind",
+                    "role",
+                    "day",
+                    "note",
+                    "url",
+                    "point"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "lines": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "exportable": {
+                      "type": "boolean"
+                    },
+                    "licence": {
+                      "type": "string"
+                    },
+                    "geometry": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "label",
+                    "exportable",
+                    "licence",
+                    "geometry"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "tz": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "seasonLabel": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "seasonMonths": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 12
+                }
+              },
+              "skipped": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "type",
+              "version",
+              "slug",
+              "title",
+              "url",
+              "depth",
+              "nights",
+              "days",
+              "stops",
+              "bookings",
+              "waypoints",
+              "lines",
+              "tz",
+              "seasonLabel",
+              "skipped"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "place"
+              },
+              "version": {
+                "type": "number",
+                "const": 2
+              },
+              "slug": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "waypoints": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string",
+                      "enum": [
+                        "stop",
+                        "trailhead",
+                        "parking",
+                        "base",
+                        "place"
+                      ]
+                    },
+                    "day": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "note": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "url": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "point": {
+                      "type": "object",
+                      "properties": {
+                        "lat": {
+                          "type": "number",
+                          "minimum": -90,
+                          "maximum": 90
+                        },
+                        "lon": {
+                          "type": "number",
+                          "minimum": -180,
+                          "maximum": 180
+                        },
+                        "pointSource": {
+                          "type": "string"
+                        },
+                        "pointChecked": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "sourceLicence": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "lat",
+                        "lon",
+                        "pointSource",
+                        "pointChecked",
+                        "sourceLicence"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "kind",
+                    "role",
+                    "day",
+                    "note",
+                    "url",
+                    "point"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "lines": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "exportable": {
+                      "type": "boolean"
+                    },
+                    "licence": {
+                      "type": "string"
+                    },
+                    "geometry": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "label",
+                    "exportable",
+                    "licence",
+                    "geometry"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "skipped": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "type",
+              "version",
+              "slug",
+              "title",
+              "url",
+              "kind",
+              "waypoints",
+              "lines",
+              "skipped"
+            ],
+            "additionalProperties": false
+          }
+        ]
       },
       "GlobeTree___schema0": {
         "type": "object",

@@ -66,6 +66,27 @@ export interface ExportStop {
 }
 
 /**
+ * The version of the export model (the `json` body; BACKLOG 15.223c item 3). 2: bookings carry `kind`, `park` and `link`
+ * (protected-area-entry 5.2, PA-X). A reader that sees a higher number than it knows reads the fields it knows and ignores the rest.
+ */
+export const EXPORT_MODEL_VERSION = 2 as const;
+
+/**
+ * What a Book ahead row is (protected-area-entry 6.2; owner QP3): `booking` has a window to watch and is the only kind counted "to book
+ * ahead"; `pass` is bought any time before the day (an entry fee, a park pass, a vehicle permit); `check` is listed and never counted
+ * (a lot that fills before sunrise, a closure, a group rule); `task` is the trip's own row with no catalogue record (a rental car).
+ */
+export const BOOKING_KINDS = ['booking', 'pass', 'check', 'task'] as const;
+export type BookingKind = (typeof BOOKING_KINDS)[number];
+
+/**
+ * The window rules a booking row can say, from the capture `windowSpec.rule` (core/src/schema/capture/records.ts WINDOW_RULE). Kept as
+ * its own list so the export (which runs in the browser) needs no capture schema; a test pins the two lists equal.
+ */
+export const BOOK_RULE_KINDS = ['rolling', 'fixed_date', 'monthly_release', 'lottery', 'same_day', 'anytime', 'on_arrival'] as const;
+export type BookRuleKind = (typeof BOOK_RULE_KINDS)[number];
+
+/**
  * One booking of the trip (MUST-6): a category row with a booking window or a booking note, worded as the page words it. Dateless: a
  * window is relative to a day, never a calendar date.
  */
@@ -83,6 +104,12 @@ export interface ExportBooking {
    * revision of the trip only (today's keys are legacy and prototype ids that change at TD-3/TD-4); never parse it or store it.
    */
   ref: string;
+  /** What the row is (BOOKING_KINDS). Only `booking` rows count "to book ahead" (`bookingCounts`); `check` rows are listed, never counted. */
+  kind: BookingKind;
+  /** The park or zone the row is needed for ("Banff National Park"), or null when it belongs to none. A name, never a record ref. */
+  park: string | null;
+  /** The booking page of the requirement (its `book_url`, else its `booking` or `official` link), or null. */
+  link: string | null;
 }
 
 export interface ExportDay {
@@ -93,6 +120,8 @@ export interface ExportDay {
 
 export interface TripExport {
   type: 'trip';
+  /** EXPORT_MODEL_VERSION. */
+  version: typeof EXPORT_MODEL_VERSION;
   slug: string;
   title: string;
   /** Canonical page URL, no anchor. */
@@ -116,6 +145,8 @@ export interface TripExport {
 
 export interface PlaceExport {
   type: 'place';
+  /** EXPORT_MODEL_VERSION. */
+  version: typeof EXPORT_MODEL_VERSION;
   slug: string;
   title: string;
   url: string;
