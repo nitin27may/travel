@@ -16,6 +16,11 @@ vi.mock('next/dynamic', () => ({ default: () => () => null }));
 vi.mock('@/lib/capabilities', () => ({ capabilities: { signIn: true } }));
 vi.mock('@/lib/auth/server', () => ({ getUser: async () => ({ id: 'landing-user', email: 'nitin.landing-regression@gmail.com' }) }));
 vi.mock('@/lib/auth/landing-server', () => ({ accountLanding: async () => state.landing }));
+// GSI-WAYS: the rows of "Ways to sign in" (an email-code account with Google added); its own tests are ways*.test.ts.
+vi.mock('@/lib/auth/ways-server', async () => {
+  const { googleJustAdded } = await import('@/lib/auth/ways');
+  return { accountWays: async () => [{ providerId: 'google', createdAt: Date.parse('2026-10-26T09:00:00Z') }], googleAddedNow: (added: boolean, rows: { providerId: string; createdAt: number }[] | null) => added && rows !== null && googleJustAdded(rows, Date.now()) };
+});
 vi.mock('@/lib/server/drafts', () => ({ loadDrafts: async () => ({ rows: [], sealedQuery: {} }) }));
 vi.mock('@/lib/server/neon-env', () => ({ dataEnv: () => ({ realtimeUrl: 'https://realtime.invalid' }) }));
 vi.mock('@/app/account/actions', () => ({ createDraft: vi.fn(), renameDraft: vi.fn(), deleteDraft: vi.fn() }));
@@ -126,7 +131,8 @@ async function open(viewport: { width: number; height: number }, html: string, p
 
 const cases = [
   { name: 'new-hint', landing: 'new' as const, hint: true, text: `${LANDING_COPY.new(MASKED)} ${LANDING_COPY.newHint}` },
-  { name: 'linked', landing: 'linked' as const, hint: false, text: LANDING_COPY.linked(MASKED) },
+  // 26 follows 25 in the notice (GSI-WAYS); the live region reads 25 alone.
+  { name: 'linked', landing: 'linked' as const, hint: false, text: LANDING_COPY.linked(MASKED), shown: `${LANDING_COPY.linked(MASKED)} ${LANDING_COPY.linkedUndo}` },
 ];
 
 for (const viewport of [{ width: 320, height: 720 }, { width: 390, height: 844 }, { width: 1440, height: 900 }]) {
@@ -147,7 +153,7 @@ for (const viewport of [{ width: 320, height: 720 }, { width: 390, height: 844 }
             }
             await page.evaluate(() => document.fonts.ready);
             const notice = page.locator('.account-landing');
-            await browserExpect(notice.locator('.ban-text')).toHaveText(c.text);
+            await browserExpect(notice.locator('.ban-text')).toHaveText(('shown' in c && c.shown) || c.text);
             // read once by the polite region; the round trip is gone from the tab
             await browserExpect(notice.locator('[aria-live="polite"]')).toHaveText(c.text);
             expect(await page.evaluate(() => [sessionStorage.getItem('auth.googlePending'), sessionStorage.getItem('auth.googleBefore')])).toEqual([null, null]);

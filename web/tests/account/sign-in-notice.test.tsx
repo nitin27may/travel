@@ -17,6 +17,11 @@ vi.mock('next/navigation', () => ({
 vi.mock('next/dynamic', () => ({ default: () => () => null }));
 vi.mock('@/lib/auth/server', () => ({ getUser: async () => ({ id: 'u1', email: 'nitin.test@gmail.com' }) }));
 vi.mock('@/lib/auth/landing-server', () => ({ accountLanding: async () => state.landing }));
+// GSI-WAYS: the rows of "Ways to sign in" (an email-code account with Google added); its own tests are ways*.test.ts.
+vi.mock('@/lib/auth/ways-server', async () => {
+  const { googleJustAdded } = await import('@/lib/auth/ways');
+  return { accountWays: async () => [{ providerId: 'google', createdAt: Date.parse('2026-10-26T09:00:00Z') }], googleAddedNow: (added: boolean, rows: { providerId: string; createdAt: number }[] | null) => added && rows !== null && googleJustAdded(rows, Date.now()) };
+});
 vi.mock('@/lib/server/drafts', () => ({ loadDrafts: async () => ({ rows: [], sealedQuery: {} }) }));
 vi.mock('@/lib/server/neon-env', () => ({ dataEnv: () => ({ realtimeUrl: 'https://realtime.invalid' }) }));
 vi.mock('@/app/account/actions', () => ({ createDraft: vi.fn(), renameDraft: vi.fn(), deleteDraft: vi.fn() }));
@@ -56,13 +61,18 @@ describe('the account page with a landing', () => {
     expect(text(h)).not.toContain(LANDING_COPY.newHint);
     expect(h).toContain('<span class="account-landing-address">n…@gmail.com</span>'); // 24 joins after mount, from this tab's round trip only
   });
-  it('linked: notice 25 with Continue; no undo link until "Ways to sign in" exists', async () => {
+  it('linked: notice 25 with Continue, and 26 linking to "Ways to sign in" on the same page (GSI-WAYS)', async () => {
     state.landing = 'linked';
     const h = await body('/mine/');
     expect(text(h)).toContain(LANDING_COPY.linked(MASKED));
     expect(h).toMatch(/href="\/mine\/?">Continue</);
+    expect(h).toContain(`<a class="account-landing-undo" href="#ways-to-sign-in">${LANDING_COPY.linkedUndo}</a>`);
+    expect(h).toContain('<h2 id="ways-to-sign-in"');
+  });
+  it('new: no undo link (26 follows 25 only)', async () => {
+    state.landing = 'new';
+    const h = await body('/mine/');
     expect(h).not.toContain(LANDING_COPY.linkedUndo);
-    expect(h).not.toContain('#ways-to-sign-in');
   });
   it('without next: the notice and no button', async () => {
     state.landing = 'new';

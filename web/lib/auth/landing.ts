@@ -20,7 +20,7 @@ export const LANDING_COPY = {
   /** 24: only when this browser had a way in before this sign-in (a `lastMethod` before the press). */
   newHint: 'If you meant to use a different account, sign out and choose another Google account.',
   /** 25 */ linked: (masked: string) => `You already had an account for ${masked}, so we added Google to it as a way to sign in. Your drafts are unchanged.`,
-  /** 26: shown once "Ways to sign in" exists on this page (the link target `#ways-to-sign-in`). */
+  /** 26: the link after 25 to "Ways to sign in" (`#ways-to-sign-in`, GSI-WAYS). */
   linkedUndo: 'Not what you wanted? Remove Google',
   /** 27, with the screen-reader tail. */
   continue: 'Continue',

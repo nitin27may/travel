@@ -57,7 +57,18 @@ export function SignInNotice({ kind, masked, next }: Props) {
   return (
     <div className="ban ban-notice account-landing" data-landing={kind}>
       <Icon name="info" size={16} />
-      <p className="ban-text">{keepTogether(landingText(kind, masked, hint), masked)}</p>
+      <p className="ban-text">
+        {keepTogether(landingText(kind, masked, hint), masked)}
+        {kind === 'linked' ? (
+          <>
+            {' '}
+            {/* 26: the way to undo, now that "Ways to sign in" is on this page (GSI-WAYS). */}
+            <a className="account-landing-undo" href="#ways-to-sign-in">
+              {LANDING_COPY.linkedUndo}
+            </a>
+          </>
+        ) : null}
+      </p>
       {next ? (
         <span className="ban-action">
           <ButtonLink href={next} variant="primary">
