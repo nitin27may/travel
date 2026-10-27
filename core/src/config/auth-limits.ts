@@ -89,3 +89,28 @@ export const EMAIL_CODE = { length: 6, lifetimeMin: 5, resendAfterS: 60, attempt
 
 /** Passwords the card accepts (Better Auth's defaults: at least 8, at most 128 characters). */
 export const PASSWORD = { minLength: 8, maxLength: 128 } as const;
+
+/**
+ * Continue with Google (GSI-1; Google spec 3, 7.4 and the copy page 2026-10-26, section 8). The card asks the guard's `sign-in/social`
+ * route for Google's address and leaves the site; Neon returns to `/account/` (the only path whose proxy exchanges the verifier) or,
+ * on an error, to the page that started.
+ */
+export const GOOGLE_SIGN_IN = {
+  /** Better Auth's provider id; the only social provider the guard forwards. */
+  provider: "google",
+  /** The card follows Neon's answer only to this host, over HTTPS (anything else reads "We couldn't open Google"). */
+  authorizeHost: "accounts.google.com",
+  /** Where every Google sign-in lands: `proxy.ts` runs the verifier exchange on `/account/*` only (spec 3, gotcha 16). */
+  landingPath: "/account/",
+  /** The pages that may start it, and so may be its `errorCallbackURL`. */
+  startPaths: ["/sign-in/", "/sign-up/"],
+  /** The pending mark (`sessionStorage`, a timestamp only) counts for this long after the press; later it is ignored. */
+  pendingMaxMs: 10 * 60 * 1000,
+  /** The longest `error` code read from the return address; anything longer is the fallback banner. */
+  errorCodeMaxLength: 64,
+  /**
+   * User agents of in-app browsers Google refuses (`disallowed_useragent`): Instagram, Facebook (FBAN/FBAV), Line, TikTok. The check
+   * only adds a notice; the button stays enabled, since a user agent can be wrong.
+   */
+  inAppAgents: ["Instagram", "FBAN/", "FBAV/", "FB_IAB", " Line/", "musical_ly", "BytedanceWebview", "TikTok"],
+} as const;

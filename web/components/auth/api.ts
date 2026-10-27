@@ -12,7 +12,9 @@ export type AuthCall =
   | 'email-otp/reset-password'
   | 'sign-in/email-otp'
   | 'sign-in/email'
-  | 'sign-up/email';
+  | 'sign-up/email'
+  /** Continue with Google (GSI-1): answers Google's address and sets the challenge cookie; behind `signInGoogle`. */
+  | 'sign-in/social';
 
 export interface AuthReply extends AuthAnswer {
   body: Record<string, unknown> | null;

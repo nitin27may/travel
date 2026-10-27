@@ -726,6 +726,115 @@ describe('hotfix A1: allow-list, flags, origin, fields', () => {
   });
 });
 
+describe('GSI-1: the Google start (sign-in/social)', () => {
+  const GOOGLE_URL = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=x&state=s&code_challenge=c&code_challenge_method=S256';
+  const start = (body: unknown, headers: Record<string, string> = {}) => call('sign-in/social', body, headers);
+  const card = { provider: 'google', callbackURL: '/account/?next=%2Fplaces%2Flake-louise%2F', errorCallbackURL: '/sign-in/?next=%2Fplaces%2Flake-louise%2F' };
+  beforeEach(() => {
+    vi.stubEnv('NEXT_PUBLIC_SIGN_IN_GOOGLE', '1');
+    neon = (path) =>
+      path === 'sign-in/social'
+        ? Response.json({ url: GOOGLE_URL, redirect: true }, { headers: { 'set-cookie': '__Secure-neon-auth.session_challange=abc; Path=/; HttpOnly; Secure; SameSite=Lax' } })
+        : Response.json({ success: true });
+  });
+
+  it('with NEXT_PUBLIC_SIGN_IN_GOOGLE off it answers 404 and never reaches Neon (spec 11, MF4)', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SIGN_IN_GOOGLE', '');
+    const res = await start(card);
+    expect(res.status).toBe(404);
+    expect((await res.json()).code).toBe('NOT_FOUND');
+    expect(neonCalls).toHaveLength(0);
+    expect(logs.some((l) => l.includes('"outcome":"google_off"'))).toBe(true);
+  });
+
+  it('with NEXT_PUBLIC_SIGN_IN off it answers 404 even with the Google flag on', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SIGN_IN', '');
+    expect((await start(card)).status).toBe(404);
+    expect(neonCalls).toHaveLength(0);
+  });
+
+  it('answers 404 on GET', async () => {
+    expect((await GET(req('sign-in/social', null, {}, 'GET'), ctx('sign-in/social'))).status).toBe(404);
+    expect(neonCalls).toHaveLength(0);
+  });
+
+  it('refuses a foreign, an http or a missing Origin with 403 before Neon', async () => {
+    expect((await start(card, { origin: 'https://evil.example' })).status).toBe(403);
+    vi.stubEnv('NODE_ENV', 'production');
+    expect((await start(card, { origin: 'http://travel.test' })).status).toBe(403);
+    vi.stubEnv('NODE_ENV', 'test');
+    const r = req('sign-in/social', card);
+    const headers = new Headers(r.headers);
+    headers.delete('origin');
+    const res = await POST(new Request(r.url, { method: 'POST', headers, body: JSON.stringify(card) }), ctx('sign-in/social'));
+    expect(res.status).toBe(403);
+    expect(neonCalls).toHaveLength(0);
+  });
+
+  it('refuses a body over 4 KB, bad JSON and another provider', async () => {
+    expect((await start({ ...card, pad: 'x'.repeat(5000) })).status).toBe(413);
+    expect((await start('{not json')).status).toBe(400);
+    expect((await start({ ...card, provider: 'github' })).status).toBe(400);
+    expect((await start({ callbackURL: '/account/' })).status).toBe(400);
+    expect(neonCalls).toHaveLength(0);
+  });
+
+  it('rebuilds the body: absolute URLs on the request origin, /account/ with the checked next, the starting page, nothing else', async () => {
+    const res = await start({ ...card, scopes: ['https://www.googleapis.com/auth/drive'], newUserCallbackURL: 'https://evil.example/', disableRedirect: true, requestSignUp: true });
+    expect(res.status).toBe(200);
+    expect(neonCalls).toHaveLength(1);
+    expect(neonCalls[0].path).toBe('sign-in/social');
+    expect(neonCalls[0].body).toEqual({
+      provider: 'google',
+      callbackURL: 'https://travel.test/account/?next=%2Fplaces%2Flake-louise%2F',
+      errorCallbackURL: 'https://travel.test/sign-in/?next=%2Fplaces%2Flake-louise%2F',
+    });
+    expect(neonCalls[0].headers.get('x-turnstile-token')).toBeNull();
+    // Google's address and the challenge cookie come back unchanged; no Turnstile and no quota were used.
+    expect((await res.json()).url).toBe(GOOGLE_URL);
+    expect(res.headers.get('set-cookie')).toContain('session_chal');
+    expect(cfCalls).toHaveLength(0);
+    expect(state.store.rows()).toHaveLength(0);
+  });
+
+  it('keeps sign-up as the error page, and drops a next it refuses', async () => {
+    await start({ provider: 'google', callbackURL: '/account/', errorCallbackURL: '/sign-up/' });
+    expect(neonCalls[0].body).toEqual({ provider: 'google', callbackURL: 'https://travel.test/account/', errorCallbackURL: 'https://travel.test/sign-up/' });
+  });
+
+  it.each([
+    ['https://evil.example/account/', '/sign-in/'],
+    ['//evil.example/account/', '/sign-in/'],
+    ['/account/?next=%2F%2Fevil.example', '/sign-in/?next=%2F%2Fevil.example'],
+    ['/account/?next=https%3A%2F%2Fevil.example', 'https://evil.example/sign-up/'],
+    ['/account/?next=%2Fapi%2Fauth%2Fsign-out', '/sign-up/'],
+    ['/account/?next=/%5Cevil.example', '/sign-in/'],
+    [42, null],
+  ])('a hostile callbackURL %j or errorCallbackURL %j never reaches Neon', async (callbackURL, errorCallbackURL) => {
+    await start({ provider: 'google', callbackURL, errorCallbackURL });
+    const body = neonCalls[0].body as Record<string, string>;
+    expect(body.callbackURL).toBe('https://travel.test/account/');
+    expect(body.errorCallbackURL).toMatch(/^https:\/\/travel\.test\/sign-(in|up)\/$/);
+  });
+
+  it('lands on /account/ whatever path the card sent, keeping a good next; a script URL as the error page becomes /sign-in/', async () => {
+    await start({ provider: 'google', callbackURL: '/trips/?next=%2Ftrips%2F', errorCallbackURL: 'javascript:alert(1)' });
+    expect(neonCalls[0].body).toEqual({ provider: 'google', callbackURL: 'https://travel.test/account/?next=%2Ftrips%2F', errorCallbackURL: 'https://travel.test/sign-in/?next=%2Ftrips%2F' });
+  });
+
+  it("keeps a Retry-After on Neon's 429 and passes only Neon's code on an error", async () => {
+    neon = () => Response.json({ code: 'TOO_MANY_REQUESTS', message: 'slow down nitin@example.test' }, { status: 429 });
+    const limited = await start(card);
+    expect(limited.status).toBe(429);
+    expect(limited.headers.get('retry-after')).toBe('10');
+    expect(await limited.json()).toEqual({ code: 'TOO_MANY_REQUESTS', message: 'TOO_MANY_REQUESTS' });
+    neon = () => new Response('upstream broke', { status: 503 });
+    const down = await start(card);
+    expect(down.status).toBe(503);
+    expect((await down.json()).code).toBe('SERVICE_UNAVAILABLE');
+  });
+});
+
 afterAll(() => {
   // No address, sign-in code, token, password or IP in any captured log line, across every test above.
   const all = logs.join('\n');

@@ -112,3 +112,74 @@
 /* The reset page's server-rendered sub-line explains the steps ("We email you a code, then you choose a new password"); once the
    password is set it no longer applies, so the done state hides it and its own card says what happened (EML-V F2). */
 .auth-page:has(.auth-done) .auth-head .auth-sub { display: none; }
+
+/* Continue with Google (GSI-1; Google spec 4.2 to 4.4, copy page 2.1). Google's light or dark button theme through the brand tokens
+   (tokens.md 2.3), never our accent; our radius, input heights and focus ring. Hover changes the stroke only (Google's fill stays);
+   pressed moves 1 px. The label is the system sans stack the spec records as the deviation from Google Sans (GSI-R rules on it). */
+.auth-google-start { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); margin-bottom: var(--s-4); }
+.auth-google {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  width: 100%;
+  min-height: 46px;
+  padding: 0 var(--s-3);
+  border: 1px solid var(--brand-google-stroke);
+  border-radius: var(--r-3);
+  background: var(--brand-google-fill);
+  color: var(--brand-google-ink);
+  font: 500 14px/20px system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  cursor: pointer;
+  transition: box-shadow var(--d-fast) var(--e-std), transform var(--d-fast) var(--e-std);
+}
+@media (min-width: 640px) {
+  .auth-google { min-height: 42px; }
+}
+.auth-google:hover { box-shadow: 0 0 0 1px var(--brand-google-stroke); }
+.auth-google:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.auth-google:active:not([data-loading]) { transform: translateY(1px); }
+.auth-google[data-loading] { cursor: progress; }
+.auth-google-mark { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; flex: none; }
+.auth-google-mark img { display: block; width: 18px; height: 18px; }
+.auth-google-label { white-space: nowrap; }
+.auth-google-last { font: var(--t-meta); color: var(--muted); text-align: center; }
+.auth-google-consent { overflow-wrap: anywhere; }
+/* "What we keep": a 44 px target without growing its line (padding out, the same margin back in). */
+.auth-google-consent a {
+  display: inline-block;
+  padding-block: calc((var(--touch-min) - 1lh) / 2);
+  margin-block: calc((1lh - var(--touch-min)) / 2);
+  color: var(--accent-text);
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+.auth-google-consent a:hover { color: var(--ink); }
+
+/* The divider "or": text in the reading order, the two lines are CSS. */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-2);
+  font: var(--t-label);
+  color: var(--muted);
+}
+.auth-divider::before,
+.auth-divider::after { content: ''; flex: 1; border-top: 1px solid var(--line); }
+
+/* The email form while the browser leaves for Google: disabled as one group, no frame of its own. */
+.auth-fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.auth-fieldset:disabled { opacity: 0.6; }
+
+/* Card banners before step 1 (cookies, in-app browser, a return from Google) keep the step's rhythm. */
+.auth-card > .ban:first-child { margin-top: 0; }
+.auth-card > .ban + .ban,
+.auth-card > .ban + .auth-google-start,
+.auth-card > .ban + .auth-fieldset { margin-top: var(--s-4); }
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-google { transition: none; }
+  .auth-google:active:not([data-loading]) { transform: none; }
+}

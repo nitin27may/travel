@@ -33,7 +33,7 @@ export default function SignUp() {
         <h1>Create an account</h1>
         <p className="auth-sub">Start saving your trip drafts.</p>
       </header>
-      <SignInCardLazy mode="sign-up" codeOn={authFlags.signInCode} siteKey={turnstileSiteKey} />
+      <SignInCardLazy mode="sign-up" codeOn={authFlags.signInCode} googleOn={authFlags.signInGoogle} siteKey={turnstileSiteKey} />
     </div>
   );
 }

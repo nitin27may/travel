@@ -1,5 +1,6 @@
 // The passwordless-first sign-in card (EML-1; email spec 3, 13 acceptance), with every network call mocked (auth-mock.ts). Runs on
-// chromium and webkit-iphone against the flagged build `.fixture-auth`; skips when that build is missing.
+// chromium and webkit-iphone against the flagged build `.fixture-auth` (code and Continue with Google on, as release B+C ships); skips when
+// that build is missing. The Google part of the card has its own spec, auth-google.spec.ts.
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
 import { startNext, type Server } from './fixtures';
@@ -24,7 +25,7 @@ const live = (page: Page) => page.locator('.auth-card p[aria-live="polite"]');
 async function toChooser(page: Page, path = '/sign-in/', email = '  Nitin@Example.com ') {
   await page.goto(`${site.url}${path}`);
   await page.getByLabel('Email').fill(email);
-  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
 }
 
 test('signs in with an emailed code: masked address, sender note, 5-minute copy, paste, auto-submit', async ({ page }) => {
@@ -160,8 +161,9 @@ test('says when sending fails, on the sign-in page with the password as the way 
   await toChooser(page);
   const send = page.getByRole('button', { name: 'Email me a code' });
   for (const text of [
-    "We couldn't send the email. Try again shortly, or use your password.",
-    "We couldn't send the email. Try again shortly, or use your password.",
+    // Continue with Google is on in this build (B+C ships it on), so the way out names it too (Google copy page 54).
+    "We couldn't send the email. Try again shortly, or use your password or Google.",
+    "We couldn't send the email. Try again shortly, or use your password or Google.",
     "We couldn't confirm this browser. Please try again.",
     'Sign-in is unavailable right now. Try again shortly.',
   ]) {
@@ -196,11 +198,11 @@ test('a long wait reads in minutes, and editing the address drops it', async ({ 
   await mockAuth(page, { 'email-otp/send-verification-otp': (b) => (b.email === 'nitin@example.com' ? { status: 429, body: { code: 'RATE_LIMITED' }, headers: { 'retry-after': '900' } } : undefined) });
   await toChooser(page);
   await page.getByRole('button', { name: 'Email me a code' }).click();
-  await expect(page.locator('.auth-card').getByRole('alert')).toHaveText("You've asked for several codes. Wait 15 minutes, or use your password.");
+  await expect(page.locator('.auth-card').getByRole('alert')).toHaveText("You've asked for several codes. Wait 15 minutes, or use your password or Google."); // Google copy page 52
   await expect(page.getByRole('button', { name: /^Email me a code \(in 1[45] min\)$/ })).toBeDisabled();
   await page.getByRole('button', { name: 'Change email address' }).click();
   await page.getByLabel('Email').fill('other@example.com');
-  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Email me a code' })).toBeEnabled();
 });
 
@@ -210,7 +212,7 @@ test('the same address again within a minute goes straight back to the code step
   await page.getByRole('button', { name: 'Email me a code' }).click();
   await expect(page.getByLabel('Code')).toBeFocused();
   await page.getByRole('button', { name: 'Change email address' }).click();
-  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
   await page.getByRole('button', { name: 'Email me a code' }).click();
   await expect(page.getByLabel('Code')).toBeFocused();
   await expect(page.getByRole('button', { name: /Send a new code \(in 0:[0-5]\d\)/ })).toBeDisabled();
@@ -451,7 +453,7 @@ test('fits a phone: no sideways scroll, 44 px targets on every step', async ({ p
   await page.goto(`${site.url}/sign-in/`);
   await fits();
   await page.getByLabel('Email').fill('a.very.long.address.for.testing@example-long-domain.test');
-  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
   await fits();
   await page.getByRole('button', { name: 'Email me a code' }).click();
   await fits();
@@ -475,7 +477,7 @@ test.describe('with the code option off (NEXT_PUBLIC_SIGN_IN_CODE unset)', () =>
     await page.goto(`${off.url}/sign-in/`);
     await expect(page.getByRole('link', { name: 'Create an account' })).toBeVisible();
     await page.getByLabel('Email').fill('nitin@example.com');
-    await page.getByRole('button', { name: 'Continue' }).click();
+    await page.getByRole('button', { name: 'Continue', exact: true }).click();
     await expect(page.getByRole('heading', { name: 'Enter your password' })).toBeFocused();
     await expect(page.getByText(/Email me a code/)).toHaveCount(0);
     await pw(page).fill(GOOD_PASSWORD);
@@ -487,7 +489,7 @@ test.describe('with the code option off (NEXT_PUBLIC_SIGN_IN_CODE unset)', () =>
     await mockAuth(page);
     await page.goto(`${off.url}/sign-up/`);
     await page.getByLabel('Email').fill('new@example.com');
-    await page.getByRole('button', { name: 'Continue' }).click();
+    await page.getByRole('button', { name: 'Continue', exact: true }).click();
     await expect(page.getByRole('heading', { name: 'Create a password' })).toBeFocused();
     await expect(page.getByText(/Email me a code/)).toHaveCount(0);
     await pw(page).fill('a-long-new-password');

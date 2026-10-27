@@ -105,6 +105,29 @@ export async function startNext(distDir: string): Promise<Server> {
   return { url, pid, stop: () => process.kill(pid) };
 }
 
+const signInCache = new Map<string, boolean>();
+
+/**
+ * Whether the shared build has the account path on (`NEXT_PUBLIC_SIGN_IN=1`, as release B+C ships): its /sign-in/ is the card's page,
+ * not the one-screen notice. The specs that describe the public shell assert the flag-off state only when this is false, and the
+ * sign-in state otherwise, so the suite passes on either build (GSI-1).
+ */
+export async function signInBuild(site: Server): Promise<boolean> {
+  const known = signInCache.get(site.url);
+  if (known !== undefined) return known;
+  const html = await new Promise<string>((resolve, reject) => {
+    http.get(`${site.url}/sign-in/`, (res) => {
+      let body = '';
+      res.setEncoding('utf8');
+      res.on('data', (c: string) => (body += c));
+      res.on('end', () => resolve(body));
+    }).on('error', reject);
+  });
+  const on = html.includes('class="auth-page"');
+  signInCache.set(site.url, on);
+  return on;
+}
+
 /** A temp copy of the legacy list page at /legacy-locations/, served on its own port. */
 async function serveLegacyList(): Promise<Server> {
   const tmp = mkdtempSync(path.join(os.tmpdir(), 'legacy-locations-'));

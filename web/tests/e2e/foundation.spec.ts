@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test } from './fixtures';
+import { expect, signInBuild, test } from './fixtures';
 
 test.describe('theme and fonts', () => {
   test('light is the default, dark is a toggle and is remembered, with no flash on load', async ({ page, site }) => {
@@ -26,7 +26,7 @@ test.describe('theme and fonts', () => {
 });
 
 test.describe('shell', () => {
-  test('public header: three tabs with aria-current, search, theme, and no Sign in while the flag is off', async ({ page, site }) => {
+  test('public header: three tabs with aria-current, search, theme, and Sign in only with the flag on', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
     const nav = page.getByRole('navigation', { name: 'Main', exact: true });
     await expect(nav.getByRole('link')).toHaveText(['Trips', 'Places', 'Globe']);
@@ -34,7 +34,9 @@ test.describe('shell', () => {
     await expect(page.locator('header.site-header').getByRole('link', { name: 'Mine' })).toBeVisible();
     await expect(nav.getByRole('link', { name: 'Places' })).toHaveAttribute('aria-current', 'page');
     await expect(page.getByRole('button', { name: 'Search', exact: true })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Sign in' })).toHaveCount(0);
+    // Sign in shows only in a build with the account path on (release B+C ships it on); the public build has none.
+    if (await signInBuild(site)) await expect(page.locator('header.site-header').getByRole('link', { name: 'Sign in' }).first()).toHaveAttribute('href', /^\/sign-in\//);
+    else await expect(page.getByRole('link', { name: 'Sign in' })).toHaveCount(0);
     const header = page.locator('header.site-header');
     expect((await header.boundingBox())?.height).toBe(60);
   });
@@ -53,8 +55,14 @@ test.describe('shell', () => {
     await context.close();
   });
 
-  test('sign-in is a one-screen notice with links onward', async ({ page, site }) => {
+  test('sign-in: the card with the flag on, else a one-screen notice with links onward', async ({ page, site }) => {
     await page.goto(`${site.url}/sign-in/`);
+    if (await signInBuild(site)) {
+      // The card itself is covered by auth-email.spec.ts and auth-google.spec.ts against their mocked builds.
+      await expect(page.getByRole('heading', { name: 'Sign in', level: 1 })).toBeVisible();
+      await expect(page.getByLabel('Email')).toBeVisible();
+      return;
+    }
     await expect(page.getByText('Sign-in comes with the planner. Everything here works without an account.')).toBeVisible();
     for (const name of ['Trips', 'Places', 'Globe']) await expect(page.locator('main').getByRole('link', { name, exact: true })).toBeVisible();
   });

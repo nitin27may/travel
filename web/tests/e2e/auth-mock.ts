@@ -8,8 +8,10 @@ import { ROOT, startNext, type Server } from './fixtures';
  * script. No request leaves the browser for Neon or Cloudflare, and no email is sent.
  *
  * The card exists only in a build with the sign-in flags on. The specs run against `web/.fixture-auth`, built with
- *   NEXT_PUBLIC_SIGN_IN=1 NEXT_PUBLIC_SIGN_IN_CODE=1 NEXT_PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA \
+ *   NEXT_PUBLIC_SIGN_IN=1 NEXT_PUBLIC_SIGN_IN_CODE=1 NEXT_PUBLIC_SIGN_IN_GOOGLE=1 NEXT_PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA \
  *     node scripts/build-fixture.mjs .fixture-auth
+ * (code and Continue with Google on, as release B+C ships), and `.fixture-auth-nocode` with only NEXT_PUBLIC_SIGN_IN=1 and the site key
+ * (no code, no Google).
  * and skip when that build is missing (the default e2e build keeps sign-in off).
  */
 export const AUTH_DIST = '.fixture-auth';

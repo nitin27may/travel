@@ -151,3 +151,22 @@ describe('sign-in flags (spec 11.1)', () => {
     expect(authFlagsFrom({}).signInLink).toBe(false);
   });
 });
+
+describe('with Continue with Google on (Google copy page 52 to 55)', () => {
+  const send = (status: number, code: string, retryAfterS: number | null = null) => ({ status, code, retryAfterS });
+  it('52 and 53: too many codes offers Google on sign-in and sign-up', () => {
+    expect(authProblem(send(429, 'RATE_LIMITED', 900), 'send', { page: 'sign-in', googleOn: true })?.message).toBe("You've asked for several codes. Wait 15 minutes, or use your password or Google.");
+    expect(authProblem(send(429, 'RATE_LIMITED', 900), 'send', { page: 'sign-up', googleOn: true })?.message).toBe("You've asked for several codes. Wait 15 minutes, or use Google.");
+    expect(authProblem(send(429, 'RATE_LIMITED', 30), 'send', { page: 'sign-up', googleOn: true })?.message).toBe('Please wait a minute, then try again.');
+  });
+  it('54 and 55: a failed send offers Google; the reset page is unchanged', () => {
+    expect(authProblem(send(503, 'SEND_FAILED'), 'send', { page: 'sign-in', googleOn: true })?.message).toBe("We couldn't send the email. Try again shortly, or use your password or Google.");
+    expect(authProblem(send(503, 'SEND_FAILED'), 'send', { page: 'sign-up', googleOn: true })?.message).toBe("We couldn't send the email. Try again shortly, or use Google.");
+    expect(authProblem(send(503, 'SEND_FAILED'), 'reset', { page: 'reset', googleOn: true })?.message).toBe("We couldn't send the email. Try again shortly.");
+    expect(authProblem(send(429, 'RATE_LIMITED', 900), 'send', { page: 'reset', googleOn: true })?.message).toBe("You've asked for several codes. Wait 15 minutes, then try again.");
+  });
+  it('with Google off the words are as before', () => {
+    expect(authProblem(send(503, 'SEND_FAILED'), 'send', { page: 'sign-in' })?.message).toBe(COPY.sendFailed);
+    expect(authProblem(send(503, 'SEND_FAILED'), 'send', { page: 'sign-up' })?.message).toBe(COPY.sendFailedNoAlternative);
+  });
+});

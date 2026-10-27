@@ -33,7 +33,7 @@ export default function SignIn() {
         <h1>Sign in</h1>
         <p className="auth-sub">Save and revisit your trip drafts.</p>
       </header>
-      <SignInCardLazy mode="sign-in" codeOn={authFlags.signInCode} siteKey={turnstileSiteKey} />
+      <SignInCardLazy mode="sign-in" codeOn={authFlags.signInCode} googleOn={authFlags.signInGoogle} siteKey={turnstileSiteKey} />
     </div>
   );
 }

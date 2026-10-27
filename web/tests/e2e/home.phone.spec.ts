@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { mkdirSync } from 'node:fs';
 import path from 'node:path';
-import { expect, test } from './fixtures';
+import { expect, signInBuild, test } from './fixtures';
 import { SHOT_DIR } from './shots';
 
 const PHONE = { width: 390, height: 844 };
@@ -23,9 +23,10 @@ test.describe('phone bottom bar Search slot and home order (SHL, backlog 2.41 an
     await context.close();
   });
 
-  test('the sign-in page stays reachable and the header shows no Sign in link while the flag is off', async ({ page, site }) => {
+  test('the sign-in page stays reachable; the header shows a Sign in link only with the flag on', async ({ page, site }) => {
     await page.goto(`${site.url}/`);
-    await expect(page.getByRole('link', { name: 'Sign in' })).toHaveCount(0);
+    if (await signInBuild(site)) await expect(page.locator('header.site-header').getByRole('link', { name: 'Sign in' }).first()).toHaveAttribute('href', /^\/sign-in\//);
+    else await expect(page.getByRole('link', { name: 'Sign in' })).toHaveCount(0);
     expect((await page.goto(`${site.url}/sign-in/`))?.status()).toBe(200);
   });
 
