@@ -104,7 +104,7 @@ when two or more groups hold links), the authority card (Parks Canada, its reser
 |                                                             |                                                    |
 | NOT CHECKED YET                                                                                                 |
 |  Seasons: operating season, gate hours · Where to stay: campgrounds, huts and lodges inside ·                   |
-|  Glance: summary, photo, designations                                                                          |
+|  Cover: summary, photo, designations                                                                          |
 |                                                                                                                  |
 | FACTS AND SOURCES  [v]   (closed: sources and read dates, never the values again)                               |
 +------------------------------------------------------------------------------------------------------------------+
@@ -131,8 +131,7 @@ Notes on the frame:
 | NATIONAL PARK · PARKS CANADA         |
 | BANFF NATIONAL PARK                  |
 | Early research · n of m              |
-| [## Save to a trip ##] [Directions]  |
-|                     [share] [heart]  |   (Save, Directions and two 44 px icon buttons; one row from 375 px)
+| [## Save to a trip ##] [Directions] [sh] [♡] |   (one row from 375 px; Save, Directions and two 44 px icon buttons)
 | Plan a visit                         |
 | [Day trip] [1 night] [2 nights]      |   (one line each, 44 px tall)
 | [Part of a longer trip]              |

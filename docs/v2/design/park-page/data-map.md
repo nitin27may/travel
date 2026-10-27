@@ -28,7 +28,7 @@ exempted, counts, summary, access, closures).
 | Glance: places inside | `PlaceContext.members[].n` summed | derived (closure, entity-graph 6) | graph index | EG-Q | EG-Q |
 | Glance: gateway town | `PlaceLookup.nearTown`, `nearTownKm` | `near_town`, `near_town_km` | capture | exists (Banff: Banff, 0.2 km) | |
 | Glance: nearest airport | origin read model | ORG nearest airport (OurAirports) | reference data | planned | ORG-C, ORG-D |
-| Glance: designations | relevance | `signals.designations` | relevance sidecar | exists in schema; sparse | |
+| Cover: relevance badge or summary line, designations | relevance | `signals.designations` | relevance sidecar | exists in schema; sparse; not a glance fact (PN13 caps the glance at Season, Entry, Camping, places inside, gateway, airport) | |
 | Glance: Season | `EntryBlock.access` and the park `season` ("Open all year", "May to Oct") | `season` | capture | sparse (not on Banff) | PA-Q |
 | Glance: Entry | the list-row `entry` label computed for the page | `entryFor(...).state` and row kinds | derived | `entryFor` exists | PA-Q, PA-IXC (enum) |
 | Glance: Camping | count of member campgrounds | members `stay.camp.*` | graph index | none held yet | EG-Q |

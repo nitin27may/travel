@@ -46,6 +46,7 @@ places inside, and on phones the map after the entry row (PN18, review M4).
 +--------------------------------------+  +---------------------------------------------+-----------------------+
 ```
 
+- **Current alerts ->** appears under the entry row when the official alerts link is held (the same link Safety and rules draws on a researched park); otherwise nothing. A basics-only park in bear country still gets one tap to alerts and fire bans (P2 safety exception; re-review PA-NR2 P4).
 - **No Plan a visit group** when the park has fewer than 3 member places with points (PN6): the builder would have
   nothing to plan around. Save to a trip is the primary action, as on every park page (PN7).
 - On phones the map card sits under the entry row, never above it (PN18): Entry's heading must be inside the first
