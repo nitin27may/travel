@@ -33,10 +33,13 @@ export function handOffEmail(email: string): void {
   writeSession(HANDOFF, email);
 }
 
-export function takeHandedOffEmail(): string {
-  const v = readSession(HANDOFF) ?? '';
+/** The handed-off address, read only (safe in a render, GSI-UXF M1); `dropHandedOffEmail` after the first commit. */
+export function peekHandedOffEmail(): string {
+  return readSession(HANDOFF) ?? '';
+}
+
+export function dropHandedOffEmail(): void {
   removeSession(HANDOFF);
-  return v;
 }
 
 /** The press: the mark, and the way in remembered before it. Call before `rememberMethod('google')`. */
@@ -67,6 +70,15 @@ export function undoGooglePress(): void {
   if (before) writeLocal(METHOD, before);
   else removeLocal(METHOD);
   clearGooglePending();
+}
+
+/**
+ * What `undoGooglePress` would leave as the last way in, without writing anything (GSI-UXF M1): the way from before the press while
+ * the mark is there, `lastMethod()` otherwise. Safe in a render.
+ */
+export function methodBeforePress(): Method | null {
+  if (readSession(GOOGLE_PENDING) === null) return lastMethod();
+  return asMethod(readSession(GOOGLE_BEFORE));
 }
 
 /** Account after Google (GSI-2) reads the round trip once: the mark and whether a way in was remembered before it; both removed. */

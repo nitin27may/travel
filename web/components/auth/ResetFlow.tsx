@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ButtonLink } from '@/components/ui/Button';
 import { canonicalAddress } from '@travel/core/mail/address.ts';
 import { EMAIL_CODE, PASSWORD } from '@travel/core/config/auth-limits.ts';
@@ -11,7 +11,7 @@ import { authCall } from './api';
 import { CodeStep } from './CodeStep';
 import { EmailStep } from './EmailStep';
 import { timeLeft, useAnnouncer, useCountdown } from './live';
-import { rememberMethod, takeHandedOffEmail } from './memory';
+import { dropHandedOffEmail, peekHandedOffEmail, rememberMethod } from './memory';
 import { CardBanner, fieldError, PasswordField, StepHeading } from './parts';
 import { useTurnstile } from './TurnstileLazy';
 import './auth.css';
@@ -35,8 +35,10 @@ interface SendWait {
 
 export function ResetFlow({ siteKey }: { siteKey: string | null }) {
   const [step, setStep] = useState<Step>('email');
-  // Client only (no server render): the address handed over from "Forgot password?" is read on the first render.
-  const [email, setEmail] = useState(takeHandedOffEmail);
+  // Client only (no server render): the address handed over from "Forgot password?" is read on the first render, and removed after
+  // the first commit (a render must not write storage: React may run the first render twice, GSI-UXF M1).
+  const [email, setEmail] = useState(peekHandedOffEmail);
+  useEffect(() => dropHandedOffEmail(), []);
   const [problem, setProblem] = useState<AuthProblem | null>(null);
   const [busy, setBusy] = useState<null | 'send' | 'resend' | 'reset'>(null);
   const [wait, setWait] = useState<SendWait | null>(null);

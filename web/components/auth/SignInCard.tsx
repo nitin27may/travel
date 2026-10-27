@@ -5,8 +5,9 @@ import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { canonicalAddress } from '@travel/core/mail/address.ts';
 import { EMAIL_CODE, PASSWORD } from '@travel/core/config/auth-limits.ts';
 import { authProblem, COPY, resentMessage, type AuthAction, type AuthProblem } from '@/lib/auth/auth-errors';
-import { didNotFinish, GOOGLE_START_TIMEOUT_MS, googleAuthorizeUrl, googleStartBody, inAppBrowser, pendingFresh, readReturn } from '@/lib/auth/google';
-import { GOOGLE_COPY, googleReturnNotice, googleStartNotice, type GoogleNotice } from '@/lib/auth/oauth-errors';
+import { GOOGLE_START_TIMEOUT_MS, googleAuthorizeUrl, googleStartBody, inAppBrowser, pendingFresh, readReturn } from '@/lib/auth/google';
+import { GOOGLE_COPY, googleStartNotice, type GoogleNotice } from '@/lib/auth/oauth-errors';
+import { readCardStart } from './card-start';
 import { linkKeepingNext, returnPathFromSearch } from '@/lib/auth/return-path';
 import { authCall, type AuthReply } from './api';
 import { ChooserStep } from './ChooserStep';
@@ -62,25 +63,6 @@ interface SendWait {
 
 const later = (seconds: number) => Date.now() + seconds * 1000;
 
-/** The banner a return from Google brings (copy page 2.3 and string 16), read from the address and the pending mark; no side effect. */
-function returnNotice(googleOn: boolean): GoogleNotice | null {
-  if (!googleOn) return null;
-  const r = readReturn(window.location.search);
-  if (r.error !== null) return googleReturnNotice(r.error);
-  const fresh = pendingFresh(peekGooglePending(), Date.now());
-  return didNotFinish({ fresh, error: r.error, failedExchange: r.failedExchange, backForward: backForwardLoad() }) ? { tone: 'notice', message: GOOGLE_COPY.didNotFinish } : null;
-}
-
-/** True when this load is a Back or Forward to the page (the way back from Google's screen). */
-function backForwardLoad(): boolean {
-  try {
-    const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
-    return nav?.type === 'back_forward';
-  } catch {
-    return false;
-  }
-}
-
 export function SignInCard({ mode, codeOn, googleOn = false, siteKey }: SignInCardProps) {
   const signUp = mode === 'sign-up';
   const page = signUp ? 'sign-up' : 'sign-in';
@@ -97,14 +79,12 @@ export function SignInCard({ mode, codeOn, googleOn = false, siteKey }: SignInCa
   const [moved, setMoved] = useState(false);
   // "Use Google instead" (GSI-R S1): back on step 1, focus goes to the Google button rather than into the email field.
   const [toGoogle, setToGoogle] = useState(false);
-  // The card renders only in the browser (no server render), so storage is readable on the first render. The return from Google is
-  // read first: a press that came back here did not sign in, so the way in remembered before it is put back (GSI-2) before `last`.
-  const [returned] = useState(() => {
-    const n = returnNotice(googleOn);
-    if (n) undoGooglePress();
-    return n;
-  });
-  const [last, setLast] = useState(() => lastMethod());
+  // The card renders only in the browser (no server render), so storage is readable on the first render. The read is pure (GSI-UXF
+  // M1): React may run this first render twice before it commits, so the writes (put back the way in from before a press that came
+  // back here, drop the mark) wait for the mount effect below.
+  const [start] = useState(() => readCardStart(googleOn));
+  const returned = start.returned;
+  const [last, setLast] = useState(start.last);
   const preferPassword = last === 'password';
   const [googleBusy, setGoogleBusy] = useState(false);
   const [googleNotice, setGoogleNotice] = useState<GoogleNotice | null>(returned);
@@ -140,6 +120,7 @@ export function SignInCard({ mode, codeOn, googleOn = false, siteKey }: SignInCa
   // After the first render: the return is read once (copy page 2.3), so drop the mark and take `error` (and any bounced verifier) out
   // of the address, then read the first notice out.
   useEffect(() => {
+    if (returned) undoGooglePress();
     clearGooglePending();
     const r = readReturn(window.location.search);
     if (r.changed) window.history.replaceState(window.history.state, '', `${window.location.pathname}${r.cleanSearch}${window.location.hash}`);

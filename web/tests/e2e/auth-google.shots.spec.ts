@@ -87,7 +87,15 @@ const STATES: State[] = [
   { name: 'g11-last-used', path: '/sign-in/', init: "localStorage.setItem('auth.lastMethod', 'google')" },
   { name: 'g12-cookies-off', path: '/sign-in/', init: "Object.defineProperty(Navigator.prototype, 'cookieEnabled', { get: () => false })" },
   { name: 'g13-in-app', path: '/sign-in/', userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 350.0.0.0' },
-  { name: 'g14-did-not-finish', path: '/sign-in/?neon_auth_session_verifier=v1', init: "sessionStorage.setItem('auth.googlePending', String(Date.now() - 5000))" },
+  {
+    name: 'g14-did-not-finish',
+    path: '/sign-in/?neon_auth_session_verifier=v1',
+    init: "sessionStorage.setItem('auth.googlePending', String(Date.now() - 5000))",
+    // The shot is of the banner: fail rather than capture the plain card (GSI-UXF M1).
+    steps: async (p) => {
+      await expect(p.locator('.auth-card .ban')).toContainText("Signing in with Google didn't finish");
+    },
+  },
   {
     name: 'g15-code-send-failed',
     path: '/sign-up/',

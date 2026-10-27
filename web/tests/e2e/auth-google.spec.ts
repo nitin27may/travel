@@ -90,6 +90,8 @@ test.describe('the button on step 1 (strings 1 to 6)', () => {
     for (const path of ['/sign-in/', '/sign-up/']) {
       await page.goto(`${site.url}${path}`);
       await google(page).waitFor();
+      // The step fades in (auth.css): measure contrast after it ends, not on a half-transparent label (flaky on WebKit otherwise).
+      await page.waitForFunction(() => document.getAnimations().every((a) => a.playState !== 'running'));
       const r = await new AxeBuilder({ page }).analyze();
       expect(r.violations.map((v) => `${path} ${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`)).toEqual([]);
     }
@@ -274,6 +276,24 @@ test.describe('back on the card from Neon (strings 15 to 22)', () => {
     await expect.poll(() => new URL(page.url()).search).toBe('?next=%2Fmine%2F');
     expect(await page.evaluate(() => sessionStorage.getItem('auth.googlePending'))).toBeNull();
   });
+
+  // GSI-UXF M1: the banner went missing on most loads because the card's first render wrote storage (React can run a first render
+  // twice before it commits). Every load at every width must show it, with the mark set before the page's own scripts (as the shots do).
+  for (const width of [1440, 390, 320]) {
+    test(`string 16 shows on every load of the bounced return at ${width}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: width === 1440 ? 900 : 844 });
+      await mockAuth(page);
+      await page.addInitScript(() => sessionStorage.setItem('auth.googlePending', String(Date.now() - 5000)));
+      for (let load = 0; load < 4; load++) {
+        await page.goto(`${site.url}/sign-in/?neon_auth_session_verifier=`);
+        await expect(banner(page)).toHaveText(S.didNotFinish);
+        await expect(banner(page)).toBeVisible();
+        await expect.poll(() => new URL(page.url()).search).toBe('');
+        // The way in from before the press is put back after the commit, never during the render.
+        expect(await page.evaluate(() => [sessionStorage.getItem('auth.googlePending'), localStorage.getItem('auth.lastMethod')])).toEqual([null, null]);
+      }
+    });
+  }
 
   test('Back from Google: the card is ready (no spinner left), with "didn\'t finish" or nothing', async ({ page }) => {
     await mockAuth(page, { 'sign-in/social': social({ status: 200, body: { url: GOOGLE, redirect: true } }) });
