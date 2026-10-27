@@ -81,12 +81,14 @@ describe('BookingsPanel', () => {
 describe('the real trips', () => {
   const data = createPublicData();
   const rows = (slug: string) => tripBookings(Object.values(data.getTrip(slug)!.categories).flat());
-  it('Rockies: 7 to book ahead, none dated, one prices line', () => {
+  it('Rockies (PA-W): 7 to book ahead, the shuttle the one with a published window, the lakeshore lot a check that is listed and not counted', () => {
     const r = rows('canadian-rockies-2029');
     const t = text(renderToStaticMarkup(<BookingsPanel bookings={r} />));
-    expect(bookingCounts(r).toBook).toBe(r.length);
-    expect(t).toContain(`${r.length} to book ahead, none with a published opening date yet.`);
-    expect(t).toContain(`Prices: not checked yet for these ${r.length}.`);
+    expect(bookingCounts(r)).toMatchObject({ toBook: 7, pass: 0, check: 1, task: 0 });
+    expect(r).toHaveLength(8);
+    expect(t).toContain('7 to book ahead, 1 with a published opening date; also 1 check.');
+    expect(t).toContain('Opens 2 days before Day 10 at 08:00 local');
+    expect(t).toContain('Prices: not checked yet for these 7.');
   });
   it('Dolomites: the Tre Cime window reads "Opens 30 days before Day 3", with no dangling "local"', () => {
     const r = rows('dolomites-2027');

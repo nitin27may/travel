@@ -47,7 +47,7 @@ function rowsOf(day: number, stops: ExportStop[], session: TimelineSession | nul
  * stop with the time the page gives it for the chosen profile and version, its area and its place page. Mounted only while the browser prints
  * (ExportMenu), shown only in the print media; it holds no household data because the model has none (the profile line is party and pace only).
  */
-export function TripPrintView({ data, session = null }: { data: TripExport; session?: TimelineSession | null }) {
+export function TripPrintView({ data, session = null, parkLines = [] }: { data: TripExport; session?: TimelineSession | null; parkLines?: readonly string[] }) {
   return (
     <div className="print-model" data-print-model-root data-testid="trip-print-view">
       <h1>{data.title}</h1>
@@ -55,6 +55,16 @@ export function TripPrintView({ data, session = null }: { data: TripExport; sess
         {data.url} · {plural(data.nights, 'night')} · {data.seasonLabel ?? `Season: ${GAP}`}
       </p>
       {session ? <p>Planned for {profileLine(session.profile)}</p> : null}
+      {parkLines.length ? (
+        <section className="print-model-parks" aria-label="Park entry">
+          <h2>Park entry</h2>
+          <ul>
+            {parkLines.map((l) => (
+              <li key={l}>{l}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
       {bookingCounts(data.bookings).toBook ? (
         <section className="print-model-book" aria-label="Book ahead">
           <h2>Book ahead</h2>
@@ -64,6 +74,7 @@ export function TripPrintView({ data, session = null }: { data: TripExport; sess
                 <b>{b.name}</b>
                 {b.day ? <span> · Day {b.day}</span> : null}
                 {bookAheadText(b) ? <span className="print-model-note">{bookAheadText(b)}</span> : null}
+                {b.link ? <span className="print-model-link">{b.link}</span> : null}
               </li>
             ))}
           </ul>
@@ -80,6 +91,7 @@ export function TripPrintView({ data, session = null }: { data: TripExport; sess
                   <b>{b.name}</b>
                   {b.day ? <span> · Day {b.day}</span> : null}
                   {bookAheadText(b) ? <span className="print-model-note">{bookAheadText(b)}</span> : null}
+                  {b.link ? <span className="print-model-link">{b.link}</span> : null}
                 </li>
               ))}
             </ul>

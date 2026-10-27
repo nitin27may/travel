@@ -6,6 +6,7 @@ import { KindGlyph } from '@/components/ui/KindGlyph';
 import { ageLabel } from '@/lib/format/age';
 import { imageSrcSet, sizedImage } from '@/lib/format/image';
 import type { PublicTrip } from '@/lib/public/types';
+import { ParkLines } from './ParkLines';
 import { countCards, dayWords, highlightsAtRest, knowBeforeYouGo, type LinkTabs } from './text';
 
 /** A highlight with the facts its card needs, read by the page from the place's own card (the Summary payload carries slugs only: P8). */
@@ -131,41 +132,48 @@ function HighlightItem({ h, extra }: { h: HighlightCard; extra: boolean }) {
 }
 
 /** Who it suits and Know before you go, the foot of the Summary (spec 3.5). Safety lines stay at rest. */
-export function SummaryBottom({ trip, summary, bookings }: { trip: PublicTrip; summary: TripSummary; bookings: readonly ExportBooking[] }) {
+export function SummaryBottom({ trip, summary, bookings, parkPages = [] }: { trip: PublicTrip; summary: TripSummary; bookings: readonly ExportBooking[]; parkPages?: readonly string[] }) {
   const suits: string[] = [
     ...(trip.effort ? [cap(trip.effort)] : []),
     ...(trip.ageFit !== null ? [ageLabel('fit', trip.ageFit)] : []),
   ];
   const versions = versionsText(summary.versions);
   const know = knowBeforeYouGo(bookings);
-  if (!suits.length && !versions && !know.atRest.length) return null;
+  const parks = trip.parks ?? [];
+  const hasFoot = suits.length > 0 || !!versions || know.atRest.length > 0;
+  if (!hasFoot && !parks.length) return null;
   const line = (l: { name: string; text: string }) => (
     <li key={`${l.name}:${l.text}`}>
       <b>{l.name}.</b> {l.text}
     </li>
   );
   return (
-    <div className="sum-foot">
-      {suits.length || versions ? (
-        <section className="sum-sec" aria-labelledby="sum-suits-h">
-          <h2 id="sum-suits-h" className="trip-kicker-h">Who it suits</h2>
-          {suits.length ? <p className="sum-suits num">{suits.join(' · ')}</p> : null}
-          {versions ? <p className="sum-suits-note">{cap(versions)}</p> : null}
-        </section>
-      ) : null}
-      {know.atRest.length ? (
-        <section className="sum-sec" aria-labelledby="sum-know-h">
-          <h2 id="sum-know-h" className="trip-kicker-h">Know before you go</h2>
-          <ul className="sum-know">{know.atRest.map(line)}</ul>
-          {know.more.length ? (
-            <details className="sum-know-more">
-              <summary>{know.more.length} more</summary>
-              <ul className="sum-know">{know.more.map(line)}</ul>
-            </details>
+    <>
+      <ParkLines parks={parks} linkable={parkPages} />
+      {hasFoot ? (
+        <div className="sum-foot">
+          {suits.length || versions ? (
+            <section className="sum-sec" aria-labelledby="sum-suits-h">
+              <h2 id="sum-suits-h" className="trip-kicker-h">Who it suits</h2>
+              {suits.length ? <p className="sum-suits num">{suits.join(' · ')}</p> : null}
+              {versions ? <p className="sum-suits-note">{cap(versions)}</p> : null}
+            </section>
           ) : null}
-        </section>
+          {know.atRest.length ? (
+            <section className="sum-sec" aria-labelledby="sum-know-h">
+              <h2 id="sum-know-h" className="trip-kicker-h">Know before you go</h2>
+              <ul className="sum-know">{know.atRest.map(line)}</ul>
+              {know.more.length ? (
+                <details className="sum-know-more">
+                  <summary>{know.more.length} more</summary>
+                  <ul className="sum-know">{know.more.map(line)}</ul>
+                </details>
+              ) : null}
+            </section>
+          ) : null}
+        </div>
       ) : null}
-    </div>
+    </>
   );
 }
 

@@ -140,7 +140,7 @@ changes (wireframe D4).
 | The party (adults, children's ages, walk limits) | the device's profile (the trip page's party bar store), referenced by the draft, never copied into the URL | the visitor | sent to the build route in the POST body only; not logged, not cached |
 | The origin | the device choice `origin/1` (O3) or the draft's `from` (an airport code, a hub id, or a rounded point that never leaves the device) | the visitor | OR9: a share link carries an airport code or a hub, never a town |
 | The last build (times, legs, warnings, reasons) | stored with the draft on the device | the visitor | lets the plan open offline; recomputable at any time, so never authoritative |
-| Signed in | `planner_draft` row (migration 0009), `doc` = `plan-draft/1`, a new `doc_kind` column (`custom` or `plan`) | the account, under owner-predicate RLS | the sign-in merge is idempotent on the draft id, like copies (NAV-D) |
+| Signed in | **Superseded by 15.1 ISO-6:** a `plan_draft` table of its own, `doc` = `plan-draft/1` (was: a `planner_draft` row with a new `doc_kind` column) | the account, under owner-predicate RLS | the sign-in merge is idempotent on the draft id, like copies (NAV-D) |
 | Share link | the URL keys of 2.5 | anyone with the link | the recipient's device rebuilds the same plan (the engine is deterministic) with their own party |
 | Server | nothing per visitor; `leg_cache` holds drive times between ~1 km cells, which are not personal | n/a | the build route stores no draft and logs only counts |
 
@@ -442,6 +442,9 @@ users, the expected load is tens of matrix calls a day.
 
 Contracts are appended to `core/src/schema/api/` by the one contract author (MASTER-ORDER 4.3), with the OpenAPI export.
 
+**Superseded in part by 15.1 ISO-5:** the three methods live on a separate `PlanService` (`core/src/plan/service.ts`) that
+consumes `CatalogueStore`; `store.ts` gains no `plan*` method. The routes, caps and `DataClient` methods above stand.
+
 ## 6. Accessibility, performance, offline
 
 See the design index sections 5 to 7. Feature-level checks: every drag has a keyboard and a menu path; the map is never
@@ -542,7 +545,7 @@ EG-C, EG-I (C) and EG-Q (`within`; E); STY-P, STY-E, STY-L (E); TD-1 to TD-3 (tr
 | TB-RG | region groups reference (`data/reference/region-groups.json`, NUTS-1 for European countries, US census divisions, Canadian traveller groups), counts | Opus (data judgement) 3, Sonnet 3 | 6 |
 | TB-E2 | multi-base with visitor-chosen bases: assignment to nearest base, nights by demand, move days | Opus | 6 |
 | TB-W2 | Regions step, country-scale discover with pagination, shortlist, bases chosen from suggested towns | Sonnet | 16 |
-| TB-SY | signed-in drafts: `doc_kind` on `planner_draft`, sign-in merge, "Open in the builder" from a customised copy | Sonnet, Opus review | 5 |
+| TB-SY | signed-in drafts: own `plan_draft` table (15.1 ISO-6; was `doc_kind` on `planner_draft`), sign-in merge, "Open in the builder" from a customised copy | Sonnet, Opus review | 5 |
 | TB-R2/V2 | review and verify | Opus, Sonnet | 6 |
 
 ### 9.4 P3: algorithmic bases and ordering: 52.5 h
@@ -673,7 +676,102 @@ planning (MCP bundle H2 covers it); infinite scroll (P4 decision).
   (`core/src/bookings`), never from the builder.
 - The builder must not import the household origin list; near mode's default start is a public hub.
 
+## 15. Isolation and forward-compatibility (owner, 27 Oct 2026)
+
+> "The new interactive plan-creation view must be kept TOTALLY SEPARATE and INDEPENDENT, planned so that it does not
+> collide with or cause issues for the existing product; whatever we develop NOW must keep in mind that this is coming
+> (users create their own trip, not just copy an existing one)."
+
+This section binds every TB task (section 9). The checklist for work that is **not** a TB task is
+[build/builder-forward-compat.md](../build/builder-forward-compat.md). A reviewer checks both with the greps in 15.4.
+
+**It supersedes two points above** (each marked where it stands): the three `CatalogueStore.plan*` methods of sections
+4.10 and 5 become a separate `PlanService` in `core/src/plan/` that consumes the store (ISO-5), and the `doc_kind`
+column on `planner_draft` of section 2.4 and TB-SY becomes a separate `plan_draft` table (ISO-6, owner question QI1).
+
+### 15.1 The ten isolation rules
+
+| # | Rule | Concretely | Why (and principle) |
+|---|---|---|---|
+| ISO-1 | **Own route namespace** | Pages: `/plan/` only (one route, steps and modes in query keys, 2.5), `noindex`, out of the sitemap. Public API: `/api/v1/plan/regions/{cc}`, `/api/v1/plan/candidates`, `/api/v1/plan/build`, all through `respond()`. Signed-in API: `/api/account/plans/**` (never `/api/account/drafts/**`). Two URL keys are added to 2.5: `draft` (a device draft's random id; the draft's content never leaves the device) and `seed` (a public trip slug) | `/plan/` is reserved since PLAN R-38 (TB13). Not `/t/` (customise and the F06 planner own it), not `/trips/` (public, indexed, at the start JS limit), not `/mine/` (a serial hot spot). A sub-tree of `/api/v1` keeps one versioning rule and one OpenAPI file (P9) |
+| ISO-2 | **Own directories** | Builder code lives only in `web/app/plan/**`, `web/components/plan/**`, `web/lib/plan/**`, `core/src/plan/**`, `core/src/schema/plan-draft.ts`, `core/src/schema/api/plan.ts`, tests in `web/tests/plan/**`, `web/tests/e2e/plan*.spec.ts`, `core/test/plan/**`, fixtures in `core/test/fixtures/plan/**` | No other task owns these paths, so no stack ever conflicts on them; a grep finds every builder file (15.4 G1) |
+| ISO-3 | **Own device storage keys** | Every key starts `travel.plans.`: `travel.plans.local` (drafts, `plan-draft/1`, 10 drafts, 16 KB each), `travel.plans.ui` (step, panes; UI only). The names live in `web/lib/plan/keys.ts` only; read and write only through `web/lib/storage/safe.ts` (the ESLint rule already enforces it). The party is **read** with `readParty()` from `web/lib/storage/keys.ts`; the builder never writes `travel.party`, `travel.copies.local`, `travel.fav.local` or `travel.tripui` | Existing keys and envelopes keep their owners; a bad builder key cannot break Mine or the trip page. One party source on the device (`core/src/trips/party.ts`) |
+| ISO-4 | **Own capability and a kill switch** | Build flag: `planBuilder` appended to `web/lib/capabilities.ts`, from `NEXT_PUBLIC_PLAN_BUILDER=1`; off means `/plan/` answers `notFound()`, the API routes 404 and no entry link renders. Runtime kill switch: server env `PLAN_BUILDER_PAUSED=1` makes the three `/api/v1/plan/**` routes answer 503 `plan_paused` and `/plan/` show a "Planning is paused; your drafts are safe on this device" banner, with no rebuild. Both names go in the env table (S4.3) | Ships dark when late (RELEASE-PLAN B3); a bad engine release or an ORS problem is switched off in minutes without touching the public site |
+| ISO-5 | **Reads through existing contracts; owns its service** | `core/src/plan/service.ts` (`PlanService`) takes a `CatalogueStore` and a `LegService` and calls only methods that exist or are already scheduled (place list with filters and paging, `near`, towns, `within` after EG-Q, place lookup); scoring, bases and packing are its own. `core/src/catalogue/store.ts`, `core/src/schema/api/{trip,place}.ts` and `core/src/schedule/**` are **not edited** by a TB task: a gap is a request in the hand-back to the task that owns the slot (S3.2). `scheduleDay` is called through `core/src/schedule/index.ts` and `browser.ts` exports only. The graph index and capture files are read only server-side through the store, never imported by `web/**/plan/**` | The store and the scheduler are the most contended contracts in 4.1; a separate service adds no slot to the one-author order of MASTER-ORDER 4.3 and keeps the Postgres cutover (K) unchanged |
+| ISO-6 | **Own documents, versioned, never merged with copies or customise** | Device: `plan-draft/1` (Zod in `core/src/schema/plan-draft.ts`; an unknown or newer `schema` is left untouched, as `copies/1`). Account: a new table `plan_draft` (`id`, `owner`, `title`, `doc` jsonb `plan-draft/1`, `seed` slug or null, `revision`, timestamps), owner-predicate RLS before any app code, its own migration slug `plan_draft` (number at merge). The builder never reads or writes `copies/1`, `trip-custom/1` or `planner_draft` rows; CUS and NAV never read `plan-draft/1` | `copies/1`, `trip-custom/1` and `custom_draft` need no change; NAV-D's sign-in merge and draft cap stay as written; a builder bug cannot corrupt a customised copy |
+| ISO-7 | **One-way seeds, never forks of the model** | "Start from this trip" (public trip) and "Open in the builder" (a customised copy, signed in) **create** a new `plan-draft/1` with `seed: <trip slug>` and locked days (2.6); the source is read once and never changed. Nothing converts a plan back into a copy or a customisation | Customise tweaks our trip; the builder makes a new one (2.7). Two models, one direction of travel, no merge code |
+| ISO-8 | **Styling only through the foundation** | Builder CSS is `web/components/plan/plan.css`, imported only by `web/app/plan/layout.tsx`, classes prefixed `plan-`. Colour only from `themes.css` tokens; a new token goes through `tools/theme_tokens.py` by the design reviewer (TB-N), never a literal. Foundation additions A1 to A9: generic ones (A1 step header, A3 sheet snap points, A5 reason chips, A8 lock) land as **new** files in `web/components/ui/` with their own CSS file, after TB-N writes them into `foundation/components.md`; builder-only ones (A2, A4, A6, A7, A9) live in `web/components/plan/`. `app.css`, `ui.css`, `globals.css` and `web/styles/timeline.css` get no builder rule | Global CSS ships on every page; builder rules there would grow the place HTML and shell budgets and can restyle existing pages |
+| ISO-9 | **Own budgets; zero cost to every other page** | `/plan/` start JS at most 90 KB gzip; each step, the map, the editor and the re-flow chunk (at most 30 KB) are lazy. Every other page's start JS, place HTML and shell chrome: **+0 B with the flag on and off**, quoted from `pnpm --dir web budget:report` in both builds (S7.1). Entry points are server-rendered plain links (no client JS). Candidate pages 12 KB, build 48 KB (design README 6) | The trip page has about 460 B of headroom and place HTML about 113 B (MASTER-ORDER 4.5); the builder must never spend them |
+| ISO-10 | **Own tests, own gate suite, few extension points** | Unit and e2e suites as ISO-2; one gate suite `web.plan` appended to `tools/gate/map.json` (inputs: the ISO-2 paths) and an isolation test `web/tests/plan/isolation.test.ts` that runs G1 to G6 of 15.4. Existing files are edited **only** at the extension points of 15.2, each a small additive change in its owner's order | A builder change selects only builder suites (fast T1); a non-builder change never needs builder e2e; the isolation test fails the build on a fence breach |
+
+### 15.2 The extension points (the only existing files a TB task may edit)
+
+| # | File | The change | Slot and owner rule |
+|---|---|---|---|
+| X1 | `web/lib/capabilities.ts` | append `planBuilder` | append only (S3.6), TB-C |
+| X2 | `web/lib/client/data.ts` | append one `plan` section: `planRegions`, `planCandidates`, `planBuild` (and `planDrafts*` in TB-SY) | append only, serial merges (4.1), TB-API |
+| X3 | `core/src/schema/api/index.ts`, OpenAPI | one export line for the new `plan.ts`; regenerate `openapi.json` | the contract slot TB-C takes in 4.3 (after OVR-Ca in D) |
+| X4 | `core/src/privacy/detect.ts` | keys for party fields in plan bodies (`adults`, `children`, `ages`, `from` points) | the 4.1 order for `detect.ts`; TB-C |
+| X5 | `core/src/db/migrations/` | two new files: `plan_draft` (TB-SY) and `leg_cache_server_write` (TB-L); no edit to an existing migration | slug in branch, number at merge (4.4) |
+| X6 | `web/lib/mine/overview.ts`, `web/app/mine/MineShell.tsx` | the Mine tab `plans` ("My plans", `?show=plans`), its count, and one `dynamic()` import of `web/components/plan/mine/MyPlansPanel.tsx`; shown only with `planBuilder` on | the serial Mine chain (4.1), after NAV-3; TB-W1. **Smaller if NAV-3 leaves a tab registry** (forward-compat F3) |
+| X7 | `web/components/actions/CopySheet.tsx` | one plain link "Start from this trip" to `/plan/?seed=<slug>` under the copy actions, behind the flag | the CopySheet order (NAV-2, TRP-GL, ORG-2, OVR-1), then TB-W1; +0 B start JS |
+| X8 | Home or Mine empty state | one plain link "Plan your own trip" to `/plan/` | after NAV-3; TB-W1 |
+| X9 | `tools/gate/map.json`, `docs/v2/build/public-site/README.md` (env table) | the `web.plan` suite; two env rows | append only; map change needs an Opus reviewer line (gate README) |
+
+Not extension points (a TB task must not touch them): `web/components/trips/**`, `web/components/places/**`,
+`web/app/t/**`, `web/components/shell/**`, `web/lib/storage/**`, `web/lib/mine/copies.ts`, `core/src/schedule/**`
+(including `profileCodec.ts`), `core/src/catalogue/store.ts`, `core/src/schema/{copies,trip-custom}.ts`,
+`core/src/schema/api/{trip,place}.ts`, `web/app/{app,globals}.css`, `web/components/ui/ui.css`, `web/app/themes.css`,
+`web/styles/timeline.css`, every budget baseline. Components in `web/components/places/**`, `web/components/ui/**` and
+`web/components/entity/**` are **imported**, never edited; a missing slot is a hand-back request to the folder's owner.
+The world map's "Plan a trip here" link (world-map-scratch.md) is owned by the WM tasks and only links to `/plan/?cc=`.
+
+### 15.3 Sequencing against the bundles in flight
+
+| Bundle | Its hot spots the builder shares | Rule for the TB tasks |
+|---|---|---|
+| B and C (one release) | `web/components/trips/**` (UXB-1 to UXB-6, PA-W), `web/components/places/**` (UXB-7, LST2b), `store.ts` and `api/**` (LST2b-C to ORG-C), towns layer, ORS (MX, ORG-M) | No TB task runs in B or C. TB-C is drafted only after LST2b-C and ORG-C merge. TB-L's ORS calls never run beside MX, ORG-M or STY-L (one ORS runner) |
+| D | `data.ts` (FBK-2, REQ-RF), `detect.ts` (FBK-C), `capabilities.ts` (FBK-2, REQ-F), intake | TB-C takes the 4.3 slot after OVR-Ca; TB-API appends to `data.ts` after REQ-RF; TB-W1 builds beside D's UI tasks (disjoint folders) and merges after them, with its own budget line. TB-E1, TB-L, TB-G1 touch only `core/src/plan/**` and run in B2's slack at any time |
+| E | `store.ts`, `api/place.ts` (EG-Q, PA-Q, API-P), the stays evaluator STY-E | The builder reads `within` only after EG-Q and calls STY-E as a function (P3); it never edits either. No TB contract task in E's 4.3 rows |
+| F | `planner_draft`, `custom_draft`, NAV-D merge, Mine chain | TB-SY (P2, G) comes after NAV-D and uses its own `plan_draft` table (ISO-6), so F needs no builder column and no change to CUS-C |
+
+### 15.4 Checks a reviewer runs (each prints nothing unless stated)
+
+```bash
+# G1 only the extension files import builder code (prints at most web/app/mine/MineShell.tsx and web/lib/client/data.ts)
+git grep -lE "(components|lib)/plan/|core/src/plan/|@travel/core/plan" -- web core ':!web/app/plan' ':!web/components/plan' ':!web/lib/plan' ':!core/src/plan' ':!web/tests' ':!core/test'
+# G2 builder storage keys live in one file
+git grep -n "travel\.plans\." -- web ':!web/lib/plan/keys.ts' ':!web/tests'
+# G3 the builder writes no other envelope or table
+git grep -nE "COPIES_KEY|FAV_KEY|TRIPUI_KEY|writeParty|planner_draft|trip-custom/1" -- web/app/plan web/components/plan web/lib/plan core/src/plan
+# G4 no bulk file, graph file or stray fetch in builder client code (P8, P9)
+git grep -nE "data/(capture|catalogue/graph)|fetch\(" -- web/app/plan web/components/plan web/lib/plan
+# G5 no literal colour and no single-trip constant in builder UI
+git grep -nE "#[0-9a-fA-F]{3,8}\b|rgb\(|hsl\(|[Rr]ockies|[Dd]olomit" -- web/app/plan web/components/plan web/lib/plan
+# G6 untouched paths stay untouched in a TB branch (prints nothing)
+git diff --stat main...HEAD -- web/components/trips web/components/places web/components/shell web/app/t web/lib/storage \
+  core/src/schedule core/src/catalogue/store.ts core/src/schema/copies.ts core/src/schema/trip-custom.ts \
+  core/src/schema/api/trip.ts core/src/schema/api/place.ts web/app/app.css web/app/globals.css \
+  web/components/ui/ui.css web/app/themes.css web/styles/timeline.css
+# G7 zero cost elsewhere: in both builds, flag on and off, every page except /plan/ equals main
+pnpm --dir web budget:report
+```
+
+`web/tests/plan/isolation.test.ts` (TB-C) runs G1 to G5 as assertions, so the gate catches a breach without a reviewer.
+
+### 15.5 Owner questions (QI1 to QI3)
+
+| ID | Question | Recommended answer |
+|---|---|---|
+| QI1 | Signed-in plans in their own `plan_draft` table rather than a `doc_kind` column on `planner_draft` (2.4, TB-SY) or UPL-C's `planner_draft.kind` (MASTER-ORDER 4.4)? | **Own table.** Trade-off: Mine's signed-in list reads two tables and the draft cap is counted per table; in return CUS-C, NAV-D and UPL-C need no builder change and a builder bug cannot touch a customised copy |
+| QI2 | A runtime kill switch (`PLAN_BUILDER_PAUSED`) as well as the build flag? | **Yes.** Five lines in the three routes; the build flag alone needs a redeploy to switch off |
+| QI3 | Keep the builder's API inside `/api/v1/plan/**` rather than a separate `/api/plan/v1/**`? | **Yes.** One versioning rule, one OpenAPI file and one `respond()` path; the namespace is already disjoint |
+
 ## Change log
 
 - 2026-10-27: created (travel-planner, Opus) from the owner's request of the same day. Supersedes nearby-and-regions.md
   section 6 (SB1, SB2). BACKLOG 15.340; TODO row of 27 Oct 2026.
+- 2026-10-27: section 15 added (BUILDER-ISOLATION, travel-planner, Opus) from the owner's direction that the builder stay
+  separate and independent: ten isolation rules, nine extension points, bundle sequencing, reviewer greps, QI1 to QI3.
+  Supersedes the `store.ts` `plan*` methods (now `PlanService`) and the `doc_kind` column (now a `plan_draft` table).
+  Checklist for current work: [build/builder-forward-compat.md](../build/builder-forward-compat.md). BACKLOG 15.343.

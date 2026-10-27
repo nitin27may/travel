@@ -21,6 +21,7 @@ import { routeLines } from '@/lib/export/routes';
 import type { ExportLine, PlaceExport, TripExport } from '@/lib/export/types';
 import '@/styles/print.css';
 import { TripPrintView } from './TripPrintView';
+import { readParkLines } from '@/lib/export/printParks';
 
 export type ExportFormat = 'pdf' | 'ics' | 'gpx' | 'kml' | 'csv';
 
@@ -209,7 +210,7 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
             document.body,
           )
         : null}
-      {printing ? createPortal(<TripPrintView data={printing} session={getTimeline(printing.slug)} />, document.body) : null}
+      {printing ? createPortal(<TripPrintView data={printing} session={getTimeline(printing.slug)} parkLines={readParkLines(printing.slug)} />, document.body) : null}
     </span>
   );
 }

@@ -16,7 +16,8 @@ async function printed(page: Page, url: string) {
         text: view?.textContent ?? '',
         sections: [...(view?.querySelectorAll('section.print-model-day') ?? [])].map((s) => s.textContent ?? ''),
         book: view?.querySelector('section.print-model-book')?.textContent ?? null,
-        bookFirst: view?.querySelector('h1 ~ section')?.classList.contains('print-model-book') ?? false,
+        // the park lines (PA-W) sit above the rows; the Book ahead section is the first section after them
+        bookFirst: view?.querySelector('h1 ~ section:not(.print-model-parks)')?.classList.contains('print-model-book') ?? false,
       });
       window.dispatchEvent(new Event('afterprint'));
     };
