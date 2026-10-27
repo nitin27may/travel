@@ -30,7 +30,8 @@ describe('Summary: Canadian Rockies (the test case)', () => {
     expect(s.counts).toMatchObject({
       bases: 4, stays: 5, sights: 27, activities: 15, photos: 41, highlights: 13,
       trails: { count: 33, km: 183.3, kmKnown: 33, gainM: 8401, gainKnown: 33 },
-      bookings: { count: 7, dated: 0, earliest: null },
+      // PA-W: the shuttle's window is a published rule now, so one booking is dated and it is the earliest
+      bookings: { count: 7, dated: 1, earliest: { day: 10, rule: 'Opens 2 days before Day 10 at 08:00 local' } },
     });
   });
   it('has 13 highlights with days, a route folded into its payoff, photos from the place or the gallery section that names it', () => {
@@ -82,11 +83,12 @@ describe('Summary: Dolomites (full) and Costa Rica (overview) degrade', () => {
 });
 
 describe('Summary: every trip', () => {
-  it('stays under 2 KB serialised (P8) and carries no household data', () => {
+  it('stays under 2.25 KB serialised (P8) and carries no household data', () => {
     for (const slug of tripSlugs()) {
       const s = summary(slug);
       const json = JSON.stringify(s);
-      expect(json.length, slug).toBeLessThan(2048);
+      // 2.25 KB since PA-W: a trip with a dated booking carries its `earliest` (name, rule, day), about 150 bytes (the Rockies' shuttle)
+      expect(json.length, slug).toBeLessThan(2304);
       // no party, no traveller key, no child's age (navigation-and-mine 2.3; spec 15)
       expect(json, slug).not.toMatch(/"(?:adults|children|travellers|youngest|party|profile)":/);
       expect(describesParty(summaryLead(s)), slug).toBe(false);

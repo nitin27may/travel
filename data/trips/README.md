@@ -29,7 +29,7 @@ shape, and the allowlist must grow by hand when TD-1 adds a table or column.
 
 Three files at the top of `data/trips/` are shared, not per trip, and are keyed by **legacy folder**, not by trip id:
 `base-points.json` (`trip-base-points/1`, the pin of a trip with no positioned base), `covers.json` (`trip-covers/1`) and
-`stop-refs.json` (`trip-stop-refs/1`). A new data trip has no entry in any of them. TD-3 re-keys `covers.json` by trip id.
+`stop-refs.json` (`trip-stop-refs/1`). `booking-refs.json` (`trip-booking-refs/1`, PA-W, deleted at TD-4) maps a legacy Book ahead row to the capture requirement record that replaces it (`web/lib/public/entry.ts`). A new data trip has no entry in any of them. TD-3 re-keys `covers.json` by trip id.
 
 The `<id>` is the same string in every path above. A schedule, a legs file and the capture folder of a new trip all use
 the trip id, never a legacy folder name.

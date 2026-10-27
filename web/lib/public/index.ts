@@ -6,6 +6,7 @@ import { DropLog, type DroppedText } from './dateless';
 import { scrubOrigin } from './origin';
 import { loadSources, type SourceOptions } from './sources';
 import { placeFacets } from './bands';
+import { attachEntry } from './entry';
 import { buildTripTags } from './tags';
 import type { TagConflict } from './tags';
 import { fromHubsOf, publicWorld, tagLabels } from './world';
@@ -49,6 +50,9 @@ export function createPublicData(opts: SourceOptions = {}): PublicData & { inter
   const log = new DropLog();
   const pb = buildPlaces(src);
   const tb = buildTrips(src, pb, log);
+  const world = publicWorld(src.root);
+  // the parks each trip enters and the Book ahead rows its mapped requirement records give (PA-W; server only, the graph index never leaves here)
+  attachEntry(tb.trips, { root: src.root, world, pages: pb });
   // the household's home town never reaches a public path: names, titles, notes and points near it
   scrubOrigin(pb.places);
   scrubOrigin(tb.trips);
@@ -56,7 +60,6 @@ export function createPublicData(opts: SourceOptions = {}): PublicData & { inter
   const tripsBySlug = new Map(tb.trips.map((t) => [t.slug, t]));
   const globe = buildGlobe(src.root, pb.places, tb.trips.filter((t) => t.visibility === 'public'), listed);
   // facets for the list filters: the type and the bands of each place, the tags of each public trip (L3b)
-  const world = publicWorld(src.root);
   const facets = placeFacets(world, src.root, pb.places, pb.byProtoId, pb.byCaptureRef);
   // the capture contract's half of each place page (S1): sections, who it suits, relevance, and the research level from the engine
   const { extras } = buildPageExtras(src.root, world, pb.places, new Map([...facets].map(([slug, f]) => [slug, f.ref])), log);

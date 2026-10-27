@@ -132,7 +132,7 @@
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "docs/v2/build/public-site/README.md", "pnpm-lock.yaml"],
       "tests": ["web/tests/**/*.test.{ts,tsx}",
                 "!web/tests/analytics.test.ts", "!web/tests/api/openapi-routes.test.ts", "!web/tests/budget.test.ts",
-                "!web/tests/data/dated-refs-output.test.ts", "!web/tests/data/globe-data-renditions.test.ts", "!web/tests/data/light-data.test.ts", "!web/tests/data/link-only-facts.test.ts",
+                "!web/tests/data/dated-refs-output.test.ts", "!web/tests/data/entry-output.test.ts", "!web/tests/data/globe-data-renditions.test.ts", "!web/tests/data/light-data.test.ts", "!web/tests/data/link-only-facts.test.ts",
                 "!web/tests/data/photo-credits-clean.test.ts", "!web/tests/data/place-size.test.ts", "!web/tests/data/public-privacy.test.ts",
                 "!web/tests/data/shell-size.test.ts", "!web/tests/data/specimen-privacy.test.ts", "!web/tests/export/page-data.test.ts", "!web/tests/favourites/boundary.test.ts",
                 "!web/tests/fonts.test.ts", "!web/tests/images.test.ts", "!web/tests/og-images.test.ts", "!web/tests/og.test.ts",
@@ -151,7 +151,7 @@
         "web/tests/data/place-size.test.ts": { "reason": "the S13 baseline was measured with photo renditions in the pages; a CI build has none, so the pages are smaller and a pass proves nothing (WORKFLOW-EFFICIENCY 4.2, Q-W5)", "row": "15.333", "added": "2026-10-27", "expires": "2027-01-25" }
       },
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
-      "tests": ["web/tests/api/openapi-routes.test.ts", "web/tests/budget.test.ts", "web/tests/data/dated-refs-output.test.ts", "web/tests/data/globe-data-renditions.test.ts",
+      "tests": ["web/tests/api/openapi-routes.test.ts", "web/tests/budget.test.ts", "web/tests/data/dated-refs-output.test.ts", "web/tests/data/entry-output.test.ts", "web/tests/data/globe-data-renditions.test.ts",
                 "web/tests/data/light-data.test.ts", "web/tests/data/link-only-facts.test.ts", "web/tests/data/photo-credits-clean.test.ts",
                 "web/tests/data/place-size.test.ts", "web/tests/data/specimen-privacy.test.ts", "web/tests/export/page-data.test.ts", "web/tests/favourites/boundary.test.ts",
                 "web/tests/fonts.test.ts", "web/tests/images.test.ts", "web/tests/og-images.test.ts", "web/tests/places/built-pages.test.ts",

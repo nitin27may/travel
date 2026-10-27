@@ -225,7 +225,7 @@ test.describe('the Summary', () => {
     await expect(lead).toContainText('World Heritage Site');
     const cards = p.locator('.sum-cards .sum-card');
     await expect(cards.filter({ hasText: /trails/ })).toContainText('km, all versions');
-    await expect(cards.filter({ hasText: /to book ahead/ })).toContainText('none with a published opening date yet');
+    await expect(cards.filter({ hasText: /to book ahead/ })).toContainText('earliest: Parks Canada Lake Louise / Moraine Lake shuttle');
     await expect(cards.filter({ hasText: /photos/ })).toBeVisible();
     await expect(p.locator('.sum-hl:visible')).toHaveCount(8);
     await expect(p.locator('.sum-hl', { hasText: 'Moraine Lake' }).first()).toBeVisible();

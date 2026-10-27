@@ -150,3 +150,22 @@ describe('the print says what the page says (review B2)', () => {
     if (e.time.note) expect(sec).toContain(esc(e.time.note));
   });
 });
+
+describe('the print view: park entry (PA-W, protected-area-entry 6.4)', () => {
+  const line = 'Banff National Park, days 3 to 6 and 9 to 11: entry fee each day, or the Discovery Pass covers it (also Jasper, Yoho and Kootenay on this trip)';
+  it('prints the park lines above the Book ahead rows, and no section when the page has none', () => {
+    const html = renderToStaticMarkup(TripPrintView({ data: model, session, parkLines: [line, 'Entry not checked yet for Kananaskis Lakes'] }));
+    expect(html).toContain('aria-label="Park entry"');
+    expect(html).toContain(line);
+    expect(html).toContain('Entry not checked yet for Kananaskis Lakes');
+    expect(html.indexOf('Park entry')).toBeLessThan(html.indexOf('Book ahead'));
+    expect(renderToStaticMarkup(TripPrintView({ data: model, session }))).not.toContain('Park entry');
+  });
+  it('lists a pass or a check with its kind, and the booking page of a row', () => {
+    const data = { ...model, bookings: [{ name: 'Discovery Pass', rule: 'Buy any time before Day 1', note: null, day: 1, ref: 'logistics:pass', kind: 'pass' as const, park: null, link: 'https://parks.canada.ca/voyage-travel/admission' }] };
+    const html = renderToStaticMarkup(TripPrintView({ data, session }));
+    expect(html).toContain('aria-label="Passes"');
+    expect(html).toContain('Discovery Pass</b>');
+    expect(html).toContain('https://parks.canada.ca/voyage-travel/admission');
+  });
+});

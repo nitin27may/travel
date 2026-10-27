@@ -74,7 +74,7 @@
   .print-model h1 { margin: 0 0 4pt; font-size: 18pt; }
   .print-model h2 { margin: 12pt 0 4pt; font-size: 12.5pt; break-after: avoid; }
   .print-model ul { margin: 0; padding-left: 16pt; }
-  .print-model-book { break-inside: avoid; }
+  .print-model-book, .print-model-parks { break-inside: avoid; }
   .print-model-bookline { font-weight: 600; }
   .print-model ol { margin: 0; padding-left: 16pt; }
   .print-model li { margin: 0 0 4pt; break-inside: avoid; }

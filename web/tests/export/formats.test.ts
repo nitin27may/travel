@@ -169,7 +169,7 @@ describe('CSV', () => {
     // header, one row per stop and one per booking (MUST-6, TRP-GL-C), then the source line (principle P8)
     expect(lines).toHaveLength(dolomites.stops.length + dolomites.bookings.length + 2);
     expect(lines.at(-1)).toContain('Source: Trip Plans');
-    const keys = lines.slice(1, -1).filter((l) => !l.includes(',booking,')).map((l) => l.split(',').slice(0, 2)).map(([d, t]) => `${d.padStart(2, '0')} ${t || '99:99'}`);
+    const keys = lines.slice(1, -1).filter((l) => !/,(?:booking|pass|check|task),/.test(l)).map((l) => l.split(',').slice(0, 2)).map(([d, t]) => `${d.padStart(2, '0')} ${t || '99:99'}`);
     expect(keys).toEqual([...keys].sort());
   });
   it('flags approximate points in an Approximate column', () => {

@@ -2,6 +2,7 @@ import { notFound, permanentRedirect } from 'next/navigation';
 import { bookingCounts, tripBookings } from '@travel/core/export/bookings.ts';
 import { showTabBar, tripTabsFor, type TripTab } from '@travel/core/trips/tabs.ts';
 import { ExportData } from '@/components/actions/ExportData';
+import { PrintParks } from '@/components/actions/PrintParks';
 import { Banner } from '@/components/ui/Banner';
 import { TripCover } from '@/components/trips/TripCover';
 import { TripEnd } from '@/components/trips/TripEnd';
@@ -75,7 +76,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
   const galleryGroups = new Set(model.gallery.map((p) => p.group).filter(Boolean)).size;
   const link = { stops: available.includes('stops'), bookings: available.includes('bookings'), photos: available.includes('photos') };
   const top = <SummaryTop trip={trip} summary={summary} link={link} highlights={highlights} galleryGroups={galleryGroups} />;
-  const bottom = <SummaryBottom trip={trip} summary={summary} bookings={bookings} />;
+  const bottom = <SummaryBottom trip={trip} summary={summary} bookings={bookings} parkPages={(trip.parks ?? []).flatMap((p) => (p.slug && getPlace(p.slug) ? [p.slug] : []))} />;
   const photosPanel = <PhotosPanel photos={model.gallery} rows={rows.map((r) => ({ name: r.name, placeSlug: r.placeSlug && getPlace(r.placeSlug) ? r.placeSlug : null, days: r.days }))} />;
   const season = trip.season || !overview ? <WhenToGo season={trip.season} weather={tripWeatherFor(slug)} windows={tripWindowsFor(slug)} /> : null;
   return (
@@ -113,6 +114,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
       )}
       <TripEnd trip={trip} model={model} url={url} galleryInTab={available.includes('photos')} />
       <ExportData data={tripExportFor(slug)} />
+      <PrintParks slug={slug} lines={(trip.parks ?? []).map((p) => p.line)} />
     </article>
   );
 }

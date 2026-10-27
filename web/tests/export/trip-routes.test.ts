@@ -296,8 +296,10 @@ describe.each(SLUGS)('%s: booking windows in the export (MUST-6)', (slug) => {
     expect(values.length).toBeGreaterThan(0);
     for (const b of p.model.bookings) expect(values).toContain(bookAheadText(b));
     // a booking row says what it is, on the day it is for
-    const bookingRows = lines.slice(1, -1).map(cells).filter((c) => c[3] === 'booking');
+    // (the Kind column of a booking row is its row kind: booking, pass, check or task; PA-X)
+    const bookingRows = lines.slice(1, -1).map(cells).filter((c) => ['booking', 'pass', 'check', 'task'].includes(c[3]!));
     expect(bookingRows).toHaveLength(p.model.bookings.length);
+    expect(bookingRows.map((c) => c[3])).toEqual(p.model.bookings.map((b) => b.kind));
   });
   it('the print model (forPage) keeps the trip\'s bookings whole, whatever version the page shows', () => {
     expect(forPage(p.model, p.session).bookings).toEqual(p.model.bookings);
@@ -378,7 +380,7 @@ describe('the CSV time rule (BACKLOG 15.46): CSV times follow the selected profi
     }
     expect(timed).toBeGreaterThan(0);
     // the file's rows carry the same times, in the page's order within a day
-    const rows = tripCsv(mine).replace(/^\ufeff/, '').trimEnd().split('\r\n').slice(1, -1).filter((l) => !/,booking,/.test(l));
+    const rows = tripCsv(mine).replace(/^\ufeff/, '').trimEnd().split('\r\n').slice(1, -1).filter((l) => !/,(?:booking|pass|check|task),/.test(l));
     const times = rows.map((l) => (l.match(/^\d+,("[^"]*"|[^,]*),/)?.[1] ?? '').replace(/^"|"$/g, ''));
     expect(times.filter(Boolean).length).toBe(timed);
     // in the timeline's order (review F2): the file's stop rows are forPage's stops, in forPage's order, with its times
