@@ -9,9 +9,17 @@
 //   - `moveLegacyCopies`: `travel:v1:copy-drafts` into the envelope, once per device (`LEGACY_MOVED_KEY`), each draft mapped leniently,
 //     the old key rewritten only after a good write (nav 3.2; NAV-2C);
 //   - the device mutations (add, replace, remove, restore) that the copy sheet and Mine call;
-//   - the sign-in merge rule (nav 4.2): idempotent on the copy id, a copy with the same trip and start as an account draft skipped,
-//     the account's 50-draft cap honoured with the newest copies first, and the mapping of a copy onto a `planner_draft` row whose
-//     doc is `trip-custom/1` (./trip-custom.ts). The merge entry points take `unknown` and parse (review C2): the route receives JSON.
+//   - the sign-in merge rule (nav 4.2, superseded in part by edit-my-trip.md 4.2 M1 to M4): idempotent on the copy id; a copy with
+//     the same trip and start as an account draft is skipped when its content is identical and kept beside it, titled "(from this
+//     device)", when it differs (M3); the account's 50-draft cap honoured with the newest copies first. The merge entry points take
+//     `unknown` and parse (review C2): the route receives JSON.
+//   - the content key (`templateContentKey`) the M3 comparison reads, shared with the plan document's side.
+//
+// THE ACCOUNT ROW'S DOCUMENT (edit-my-trip EM1, EM-C). A copy merges into the account as a `plan-draft/1` in template mode, mapped by
+// `copyToPlanDraft` and `copyToPlanRow` in core/src/plan/doc.ts. They live there, not here, because the builder's fence
+// (web/tests/plan/isolation.test.ts G1) forbids a file outside the builder's paths from importing the plan document; that module
+// passes its mapper to `planMerge` (`opts.toRow`). The old mapping onto the retired `trip-custom/1` (`copyToTripCustom`,
+// `copyToDraftRow`, and `planMerge`'s default row) is kept only so stored tests read; no route may use it.
 //
 // VALIDATION. The raw zod objects (`copyItem`, `copiesEnvelope`) do not hold the cross-field rules (size, 60 overrides, unique ids,
 // one copy per trip), which live in rule functions so the schema files stay exportable to JSON Schema (core/test/subset.test.ts).
@@ -27,6 +35,7 @@
 //
 // Forward compatibility: see the header of ./trip-custom.ts. Once NAV-2 stores envelopes, a new key is `copies/2`.
 import { z } from "zod";
+import { PLAN_DOC_LIMITS } from "../config/plans.ts";
 import {
   byteLength,
   type Checked,
@@ -54,9 +63,9 @@ export const LEGACY_COPIES_KEY = "travel:v1:copy-drafts";
 /** The key the storage probe writes and removes. */
 export const PROBE_KEY = "travel.probe";
 
-/** Q204 (owner, 25 Oct 2026): one copy per trip, 20 per device, 50 per account. */
-export const DEVICE_COPY_CAP = 20;
-export const ACCOUNT_DRAFT_CAP = 50;
+/** Q204 (owner, 25 Oct 2026): one copy per trip, 20 per device, 50 per account (core/src/config/plans.ts holds the numbers). */
+export const DEVICE_COPY_CAP: number = PLAN_DOC_LIMITS.devicePlans;
+export const ACCOUNT_DRAFT_CAP: number = PLAN_DOC_LIMITS.accountPlans;
 /** nav 3.1: at most 4 KB per copy, 30 additions, 60 overrides. */
 export const COPY_MAX_BYTES = 4096;
 export const COPY_MAX_ADDED = 30;
@@ -616,7 +625,7 @@ export function restoreCopy(env: CopiesEnvelope, item: CopyItem): { ok: boolean;
   return { ok: true, envelope: { ...env, items: [...env.items, item] } };
 }
 
-// ---- the sign-in merge (nav 4.2) ----
+// ---- the sign-in merge (nav 4.2; edit-my-trip 4.2 M1 to M4) ----
 
 /**
  * Whether the merge should run for a signed-in visitor (owner, 26 Oct 2026, review NAV-C Q2): whenever this device holds copies,
@@ -624,16 +633,23 @@ export function restoreCopy(env: CopiesEnvelope, item: CopyItem): { ok: boolean;
  */
 export const needsMerge = (env: CopiesEnvelope): boolean => env.items.length > 0;
 
-/** What the merge needs of an account draft (read from the database, trusted). `start` is the doc's `start`, null with no date. */
+/**
+ * What the merge needs of an account draft (read from the database, trusted). `start` is the doc's `start`, null with no date.
+ * `content` is `templateContentKey` of the row's document (core/src/plan/doc.ts `draftContentKey`), read only for rows with the same
+ * trip and start as a device copy: null for a row with no document. ABSENT means the caller did not read it, and the old rule 3
+ * applies (the account wins); the account route must always pass it (`planCopyMerge` in core/src/plan/doc.ts requires it).
+ */
 export interface AccountDraftKey {
   id: string;
   source_trip: string | null;
   start: string | null;
+  content?: string | null;
 }
 
 /**
- * A `planner_draft` row made from a copy (nav 4.2 rule 2). `title` is the client's snapshot: the NAV-3 route replaces it from the
- * catalogue by `source_trip` and refuses a `source_trip` that is not a public, listed trip (handoff to NAV-3).
+ * A `planner_draft` row made from a copy under the RETIRED `trip-custom/1` (nav 4.2 rule 2). Kept only as `planMerge`'s default row
+ * so stored tests read; the account route maps with `copyToPlanRow` (core/src/plan/doc.ts) instead.
+ * @deprecated edit-my-trip EM1: the account row's document is `plan-draft/1`.
  */
 export interface DraftRow {
   id: string;
@@ -643,18 +659,143 @@ export interface DraftRow {
   doc: TripCustom;
 }
 
-export interface MergePlan {
+/** Makes the row a copy becomes; null when it cannot (not a public trip, an unknown country): that copy stays on the device. */
+export type CopyRowMapper<R> = (c: CopyItem, title: string) => R | null;
+
+export interface MergePlan<R = DraftRow> {
   /** rows to insert, newest copy first; `insert ... on conflict (id) do nothing returning id` makes a re-run safe */
-  insert: DraftRow[];
+  insert: R[];
   /** copies whose id the account already holds: a re-run after a crash between the write and emptying the envelope */
   already: string[];
-  /** copies with the same trip and start as an account draft: the account wins (rule 3) */
+  /**
+   * copies with the same trip and start as an account draft whose content is identical (M3), or whose content the caller did not
+   * read (the old rule 3): skipped, and they leave the device
+   */
   sameTrip: string[];
+  /**
+   * M3: copies with the same trip and start as an account draft but different content. Inserted beside it (their rows are in
+   * `insert`, titled "<title> (from this device)"), so no edit is lost
+   */
+  both: string[];
   /** copies over the account's cap, left on the device (rule 4: the newest go first) */
   overCap: string[];
+  /** copies the mapper could not turn into a row: left on the device */
+  refused: string[];
 }
 
-/** The doc of a parsed copy. Private: every caller outside this file goes through a parsing entry point. */
+export interface MergeOptions<R> {
+  /** the row a copy becomes (default: the retired `trip-custom/1` row, for stored tests only) */
+  toRow?: CopyRowMapper<R>;
+  /** a copy's content key (default `copyContentKey`); the account route passes one that maps a dated slug to its public alias */
+  contentKey?: (c: CopyItem) => string;
+  /** the account's name for a copy's trip (`source_trip`): its public slug (default: the copy's slug as it is) */
+  tripOf?: (slug: string) => string;
+}
+
+/** What a device copy is titled when it is kept beside an account draft of the same trip and start (M3). */
+export const FROM_DEVICE_SUFFIX = " (from this device)";
+/** The longest title a copy or a draft holds. */
+export const TITLE_MAX = 120;
+
+/** `<title> (from this device)`, the title shortened first so the whole stays within TITLE_MAX. */
+export function fromDeviceTitle(title: string, max: number = TITLE_MAX): string {
+  const room = Math.max(1, max - FROM_DEVICE_SUFFIX.length);
+  const head = title.length > room ? title.slice(0, room).trimEnd() : title;
+  return `${head || title.slice(0, room)}${FROM_DEVICE_SUFFIX}`;
+}
+
+/**
+ * The person's changes to one public trip, in one canonical form for both the device copy and the account document, so M3 can tell
+ * "identical" from "different" without either side importing the other. Titles, operation ids, the content revision and the times
+ * are not content. Inserted days are named by their position among the day operations (`@0`, `@1`), not by their operation id.
+ */
+export interface TemplateContent {
+  trip: string;
+  start: string | null;
+  travellers: { adults: number; children: readonly number[] } | null;
+  profile: { party: string; youngest: number | null; pace: string; adults: number; walk: number | null; split: boolean } | null;
+  window: string | null;
+  overrides: Readonly<Record<string, string>>;
+  added: readonly { op?: string; day: number | string; ref: string; after?: string }[];
+  removed: readonly { day: number; item: string }[];
+  moved: readonly { day: number; item: string; toDay: number | string; after?: string }[];
+  days: readonly ({ op?: string; kind: "insert"; after: number } | { op?: string; kind: "drop"; day: number })[];
+  notes: Readonly<Record<string, string>>;
+  maybe: readonly { ref: string }[];
+  fromRef: string | null;
+  gw: { in: string; out: string } | null;
+}
+
+/** Note keys in a fixed order: days by number, then `trip`, then inserted days by position. */
+const noteOrder = (k: string): string => (/^\d+$/.test(k) ? `0${k.padStart(3, "0")}` : k === "trip" ? "1" : `2${k.slice(1).padStart(3, "0")}`);
+const byNoteKey = (a: readonly [string, string], b: readonly [string, string]): number => {
+  const x = noteOrder(a[0]);
+  const y = noteOrder(b[0]);
+  return x < y ? -1 : x > y ? 1 : 0;
+};
+
+/** The canonical JSON of a template's content (M3): equal strings mean the same changes to the same trip on the same start. */
+export function templateContentKey(c: TemplateContent): string {
+  const inserted = c.days.flatMap((d) => (d.kind === "insert" && d.op !== undefined ? [d.op] : []));
+  const dayRef = (d: number | string): number | string => (typeof d === "number" ? d : `@${inserted.indexOf(d)}`);
+  const noteKey = (k: string): string => (k.startsWith("o-") ? `@${inserted.indexOf(k)}` : k);
+  const canonical = {
+    trip: c.trip,
+    start: c.start,
+    travellers: c.travellers ? { adults: c.travellers.adults, children: [...c.travellers.children].sort((a, b) => a - b) } : null,
+    profile: c.profile
+      ? { party: c.profile.party, youngest: c.profile.youngest, pace: c.profile.pace, adults: c.profile.adults, walk: c.profile.walk, split: c.profile.split }
+      : null,
+    window: c.window,
+    overrides: Object.entries(c.overrides).sort((a, b) => Number(a[0]) - Number(b[0])),
+    added: c.added.map((a) => [dayRef(a.day), a.ref, a.after ?? null]),
+    removed: c.removed.map((r) => [r.day, r.item]),
+    moved: c.moved.map((m) => [m.day, m.item, dayRef(m.toDay), m.after ?? null]),
+    days: c.days.map((d) => (d.kind === "insert" ? ["insert", d.after] : ["drop", d.day])),
+    notes: Object.entries(c.notes)
+      .map(([k, v]) => [noteKey(k), v] as const)
+      .sort(byNoteKey),
+    maybe: c.maybe.map((m) => m.ref),
+    fromRef: c.fromRef,
+    gw: c.gw ? { in: c.gw.in, out: c.gw.out } : null,
+  };
+  return JSON.stringify(canonical);
+}
+
+/** A copy's content (M3), with its trip slug as `trip` (or as `publicSlug` maps it). */
+export function copyContent(c: CopyItem, publicSlug: (slug: string) => string = (s) => s): TemplateContent {
+  return {
+    trip: publicSlug(c.slug),
+    start: c.start,
+    travellers: { adults: c.adults, children: c.children },
+    profile: c.profile,
+    window: null,
+    overrides: c.overrides,
+    added: c.added.map((a) => ({ day: a.day, ref: `place/${a.placeSlug}` })),
+    removed: [],
+    moved: [],
+    days: [],
+    notes: {},
+    maybe: [],
+    fromRef: c.fromRef ?? null,
+    gw: c.gw ?? null,
+  };
+}
+
+/** `templateContentKey` of a copy. */
+export const copyContentKey = (c: CopyItem, publicSlug?: (slug: string) => string): string => templateContentKey(copyContent(c, publicSlug));
+
+/**
+ * M3 as one decision: a device copy against the account drafts with the same trip and start. `same` when one holds the identical
+ * content (skip it), `both` when none does (keep both), `legacy` when the caller read no content for one of them (the old rule 3:
+ * skip it). Pure; `planMerge` applies it.
+ */
+export function sameTripChoice(copyKey: string, accountContents: readonly (string | null | undefined)[]): "same" | "both" | "legacy" {
+  if (accountContents.some((x) => x === undefined)) return "legacy";
+  return accountContents.includes(copyKey) ? "same" : "both";
+}
+
+/** The doc of a parsed copy under the retired `trip-custom/1`. Private: every caller outside this file goes through a parsing entry point. */
 function docOf(c: CopyItem): TripCustom {
   const doc: TripCustom = {
     schema: TRIP_CUSTOM_SCHEMA,
@@ -673,40 +814,57 @@ function docOf(c: CopyItem): TripCustom {
   return r.data;
 }
 
-const rowOf = (c: CopyItem): DraftRow => ({ id: c.id, title: c.title, source_trip: c.slug, source_revision: c.rev ?? null, doc: docOf(c) });
+const rowOf = (c: CopyItem, title: string = c.title): DraftRow => ({ id: c.id, title, source_trip: c.slug, source_revision: c.rev ?? null, doc: docOf(c) });
 
-/** The `trip-custom/1` doc of a copy: the timeline choices, plus `start`, `travellers` and, when set, `fromRef`, `gw` and `rev`. Parses. */
+/**
+ * The `trip-custom/1` doc of a copy. Parses.
+ * @deprecated edit-my-trip EM1: use `copyToPlanDraft` (core/src/plan/doc.ts).
+ */
 export function copyToTripCustom(x: unknown): Checked<TripCustom> {
   const c = parseCopy(x);
   return c.success ? { success: true, data: docOf(c.data) } : c;
 }
 
-/** The `planner_draft` row of a copy. Parses (review C2): the id is a client-chosen primary key. */
+/**
+ * The retired `trip-custom/1` row of a copy. Parses (review C2): the id is a client-chosen primary key.
+ * @deprecated edit-my-trip EM1: use `copyToPlanRow` (core/src/plan/doc.ts).
+ */
 export function copyToDraftRow(x: unknown): Checked<DraftRow> {
   const c = parseCopy(x);
   return c.success ? { success: true, data: rowOf(c.data) } : c;
 }
 
 /**
- * The merge rule, pure, so the route (NAV-3) and its tests share it. Takes the copies as received (JSON from the browser) and parses
- * them as a list (review C2); a list that fails is refused whole, with paths. Idempotent: the plan for copies already merged inserts
- * nothing. Never more than `cap` drafts in the account; never two drafts with the same trip and start from one merge.
+ * The merge rule, pure, so the route and its tests share it. Takes the copies as received (JSON from the browser) and parses them as
+ * a list (review C2); a list that fails is refused whole, with paths. Idempotent: the plan for copies already merged inserts nothing
+ * (M1). Never more than `cap` drafts in the account (M4). A copy with the same trip and start as an account draft is skipped when the
+ * content is identical and kept beside it, retitled, when it differs (M3, `sameTripChoice`); never two rows with the same trip and
+ * start from one merge otherwise. `opts.toRow` makes the rows (the account route passes `copyToPlanRow` through `planCopyMerge`).
  */
-export function planMerge(input: unknown, account: readonly AccountDraftKey[], cap: number = ACCOUNT_DRAFT_CAP): Checked<MergePlan> {
+export function planMerge<R = DraftRow>(input: unknown, account: readonly AccountDraftKey[], cap: number = ACCOUNT_DRAFT_CAP, opts: MergeOptions<R> = {}): Checked<MergePlan<R>> {
   const parsed = parseCopyList(input);
   if (!parsed.success) return parsed;
+  const toRow = (opts.toRow ?? ((c: CopyItem, title: string) => rowOf(c, title))) as CopyRowMapper<R>;
+  const contentKey = opts.contentKey ?? ((c: CopyItem) => copyContentKey(c));
   const ids = new Set(account.map((a) => a.id));
   const tripStart = (trip: string | null, start: string | null): string => `${trip ?? ""}\u0000${start ?? ""}`;
-  const taken = new Set(account.filter((a) => a.source_trip !== null && a.start !== null).map((a) => tripStart(a.source_trip, a.start)));
-  const plan: MergePlan = { insert: [], already: [], sameTrip: [], overCap: [] };
+  const contents = new Map<string, (string | null | undefined)[]>();
+  for (const a of account) {
+    if (a.source_trip === null || a.start === null) continue;
+    const k = tripStart(a.source_trip, a.start);
+    contents.set(k, [...(contents.get(k) ?? []), a.content]);
+  }
+  const plan: MergePlan<R> = { insert: [], already: [], sameTrip: [], both: [], overCap: [], refused: [] };
   let room = Math.max(0, cap - account.length);
   for (const c of [...parsed.data].sort(newestFirst)) {
     if (ids.has(c.id)) {
       plan.already.push(c.id);
       continue;
     }
-    const k = tripStart(c.slug, c.start);
-    if (taken.has(k)) {
+    const k = tripStart(opts.tripOf ? opts.tripOf(c.slug) : c.slug, c.start);
+    const there = contents.get(k);
+    const choice = there ? sameTripChoice(contentKey(c), there) : null;
+    if (choice === "same" || choice === "legacy") {
       plan.sameTrip.push(c.id);
       continue;
     }
@@ -714,9 +872,15 @@ export function planMerge(input: unknown, account: readonly AccountDraftKey[], c
       plan.overCap.push(c.id);
       continue;
     }
+    const row = toRow(c, choice === "both" ? fromDeviceTitle(c.title) : c.title);
+    if (row === null) {
+      plan.refused.push(c.id);
+      continue;
+    }
     room--;
-    taken.add(k);
-    plan.insert.push(rowOf(c));
+    contents.set(k, [...(there ?? []), contentKey(c)]);
+    plan.insert.push(row);
+    if (choice === "both") plan.both.push(c.id);
   }
   return { success: true, data: plan };
 }
@@ -729,10 +893,11 @@ export interface MergeTaken {
 }
 
 /**
- * After the server answered: the copies it confirmed (inserted per `returning id`, already held, or skipped for the same trip and
- * start) leave the device; everything else stays (over the cap, a row the cap trigger refused, an id another account holds), so a
- * copy never leaves the device without being in the account the toast names. `merged[h]` records the account, keeping the
- * MERGED_MAX most recent. Rule 8: a shared computer then shows nothing of the previous person except what did not fit.
+ * After the server answered: the copies it confirmed (inserted per `returning id`, which includes the M3 rows kept beside an account
+ * draft, already held, or skipped for the same trip, start and content) leave the device; everything else stays (over the cap,
+ * refused, a row the cap trigger refused, an id another account holds), so a copy never leaves the device without being in the
+ * account the toast names. `merged[h]` records the account, keeping the MERGED_MAX most recent. Rule 8: a shared computer then shows
+ * nothing of the previous person except what did not fit.
  */
 export function markMerged(env: CopiesEnvelope, taken: MergeTaken, accountHash: string, at: Date): CopiesEnvelope {
   const gone = new Set([...taken.inserted, ...taken.already, ...taken.sameTrip]);

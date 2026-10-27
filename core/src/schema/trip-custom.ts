@@ -1,27 +1,23 @@
-// trip-custom/1: the private delta of a visitor's copy of a public trip, held in `planner_draft.doc` under owner-predicate RLS
-// (trip-overview-and-customisation.md 5.6). Plain zod, not a registered table, so nothing is exported to data/schema/generated/.
+// trip-custom/1: RETIRED before any document was stored (edit-my-trip.md EM1, task EM-C, 27 Oct 2026; Q-EM1). A visitor's copy of a
+// public trip is now `plan-draft/1` in TEMPLATE MODE (core/src/schema/plan-draft.ts `planTemplate`, the same field names), in the
+// account row's `doc` column beside builder plans. Nothing writes a `trip-custom/1` document; no route may accept one.
 //
-// This file is the SKELETON (NAV-C, master order 6.4). It holds what a device copy (`copies/1`, ./copies.ts) maps into at the
-// sign-in merge (navigation-and-mine.md 4.2 rule 2) plus the reserved private fields of the origin spec
-// (trip-origin-and-nearest-airport.md 10):
-//   profile, overrides, added      the timeline choices (trip-timeline 3.9)
-//   start, travellers              the copy's dates and party (nav 4.2 rule 2)
-//   fromRef, gw                    the visitor's origin and airport choice (origin spec 10), reserved now so the shape holds to v0.8;
-//                                  stored as `fromRef` (owner, 26 Oct 2026, review NAV-C Q1), not `from`: the URL key stays `from`
-//   rev                            the public trip's content revision when copied (`planner_draft.source_revision`), reserved
-// CUS-C extends it with `window`, `removed`, `maybe`, `title`, `moved`, `days`, `notes` and `custom` before its migration is applied.
-//
-// FORWARD COMPATIBILITY (review NAV-C M4). The object is strict: a key this reader does not know makes the doc `invalid`, not
-// `newer`. Adding optional keys to `/1` is safe only while no `trip-custom/1` doc is stored anywhere (before the CUS-C migration is
-// applied). After the first stored doc, every new key is `trip-custom/2`, or a stale tab or a rolled-back deploy reports good docs as
-// invalid. The same rule holds for `copies/1` once NAV-2 ships.
+// What stays here, and why this is not a re-export of plan-draft.ts as the spec first proposed: the builder's fence
+// (web/tests/plan/isolation.test.ts G1) forbids any file outside the builder's paths from importing the plan document, and this
+// file is imported by the device copies (`copies/1`, ./copies.ts) and favourites. So it keeps:
+//   - the shared atoms copies/1 and favourites read (`SLUG`, `IATA`, `ORIGIN_REFERENCE`, `CATALOGUE_REF`, `originRef`,
+//     `sourceRevision`, `gateways`, `timelineProfile`, `overrides`, `travellers` and their caps, `byteLength`, `issuesOf`, `Checked`).
+//     plan-draft.ts holds identical twins (`planProfile`, `planOverrides`, `planTravellers`, `planOriginRef`, `planGateways`,
+//     `planSourceRevision`); core/test/plan/plan-doc.test.ts pins their JSON Schemas equal, so the two cannot drift;
+//   - the old parser (`tripCustom`, `parseTripCustom`, `readTripCustom`), marked deprecated, for the stored tests only.
 //
 // Everything here is household data: `travellers`, `fromRef`, `gw`, `profile.youngest` and `added` never reach a public payload. The
 // privacy detector (core/src/privacy/detect.ts) fails a served body that carries `travellers`, `fromRef`, `gw` or `added` under any
-// value, or an origin reference under `from`. This module imports nothing from privacy/ on purpose: the Mine page loads it in the browser, and the detector pulls
-// the household config in with it.
+// value, or an origin reference under `from`. This module imports nothing from privacy/ on purpose: the Mine page loads it in the
+// browser, and the detector pulls the household config in with it.
 import { z } from "zod";
 
+/** @deprecated edit-my-trip EM1: copies are `plan-draft/1` in template mode. */
 export const TRIP_CUSTOM_SCHEMA = "trip-custom/1";
 /** The `doc` column's limit (overview 5.6). */
 export const TRIP_CUSTOM_MAX_BYTES = 64 * 1024;
@@ -82,6 +78,7 @@ export const customAdded = z.strictObject({
   after: z.string().min(1).max(120).optional(),
 });
 
+/** @deprecated edit-my-trip EM1: `planDraft` with its `template` block (core/src/schema/plan-draft.ts). */
 export const tripCustom = z.strictObject({
   schema: z.literal(TRIP_CUSTOM_SCHEMA),
   profile: timelineProfile.nullable(),
@@ -136,7 +133,10 @@ export const issuesOf = (e: z.ZodError): string[] =>
 
 export type Checked<T> = { success: true; data: T } | { success: false; issues: string[] };
 
-/** The schema, then the rules: what every write of a `planner_draft.doc` runs (overview 5.6). */
+/**
+ * The schema, then the rules (overview 5.6).
+ * @deprecated edit-my-trip EM1: the account row's doc is checked by `parsePlanDraft` (core/src/schema/plan-draft.ts).
+ */
 export function parseTripCustom(x: unknown): Checked<TripCustom> {
   const r = tripCustom.safeParse(x);
   if (!r.success) return { success: false, issues: issuesOf(r.error) };
@@ -144,7 +144,10 @@ export function parseTripCustom(x: unknown): Checked<TripCustom> {
   return rules.length ? { success: false, issues: rules } : { success: true, data: r.data };
 }
 
-/** Parses a stored doc. A doc of a newer schema is reported as `newer`, never coerced (the planner shows it read-only). */
+/**
+ * Parses a doc. A doc of a newer schema is reported as `newer`, never coerced.
+ * @deprecated edit-my-trip EM1: nothing stores this document.
+ */
 export function readTripCustom(x: unknown): { ok: true; doc: TripCustom } | { ok: false; reason: "newer" | "invalid"; issues: string[] } {
   if (x && typeof x === "object" && typeof (x as { schema?: unknown }).schema === "string") {
     const s = (x as { schema: string }).schema;

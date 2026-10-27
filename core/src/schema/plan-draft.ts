@@ -4,8 +4,9 @@
 // the builder's own storage key, whose name lives only in the builder's own keys module (ISO-3).
 //
 // ISOLATION (15.1). This file is builder-owned: it imports only the public API's shared shapes (./api/common.ts, ./api/limits.ts) and
-// nothing from the copy, customise or favourites envelopes, the schedule engine or the privacy module (the browser loads it). Nothing
-// outside the builder's paths imports it (web/tests/plan/isolation.test.ts).
+// the constants of ../config/plans.ts, and nothing from the copy, customise or favourites envelopes, the schedule engine or the
+// privacy module (the browser loads it). Nothing outside the builder's paths imports it (web/tests/plan/isolation.test.ts G1); the
+// account routes and Mine sync that edit-my-trip adds (EM-1, EM-2) need extension points there first (ISO-6 is superseded by EM1).
 //
 // WHAT A DRAFT HOLDS (2.4), and what it never holds:
 //   - inputs: where (trip mode: a country and region ids; near mode: a start and a one-way drive limit), nights, pace, moves
@@ -16,8 +17,9 @@
 //     `kind` is invalid, so the two can never disagree;
 //   - NEVER a coordinate: an origin is a typed reference (a public hub, an airport code or a towns-layer id) or null. A device location
 //     becomes its nearest towns-layer id on the device before it reaches a draft (trip-builder 7);
-//   - NEVER the party: the draft names its source (`party: "device"`); the build reads the device party at build time and sends it in
-//     the POST body only (2.4, 7);
+//   - NEVER the device party: a builder draft names its source (`party: "device"`); the build reads the device party at build time and
+//     sends it in the POST body only (2.4, 7). A draft that chose its own party (`party: "trip"`, edit-my-trip Q-EM4) holds that
+//     party as an age snapshot in `travellers`, never a reference to the device or the account profile;
 //   - NEVER a private or dated ref: picks are public refs (`<layer>/...`, no `loc:` or `proto:` key, no month next to a year,
 //     public-ref-aliases 5.2).
 //
@@ -30,7 +32,24 @@
 // `invalid`, never silently dropped on a rewrite. Until the first draft is stored anywhere (FS-1 ships), a new OPTIONAL key or a wider
 // enum may be added to `/1` (TK-C4 adds `act`, `sea`, `x`, `dated`); after that every new key is `plan-draft/2`, read beside `/1`, and
 // no field is ever removed, renamed or narrowed. A stored value naming a later version is reported `newer` and left untouched.
+//
+// ONE EDITABLE TRIP DOCUMENT (edit-my-trip.md 1, 2, EM1; task EM-C, 27 Oct 2026; Q-EM1). The same document now holds a visitor's copy
+// of one of our trips as well as a builder plan, in one of two MODES, told apart by the `template` key (`planModeOf`):
+//   - built mode: `template` absent. Everything above holds unchanged; a builder draft parses byte for byte as before (R2).
+//   - template mode: `template` present. The draft follows a public trip and holds only the person's changes to it (the delta that
+//     the retired copy-delta document reserved, field names kept so the CUS, STY and REQ specs still read): versions, added, removed
+//     and moved places, inserted and dropped days, notes, the Maybe list. The builder inputs stay empty (R1); a builder route
+//     refuses such a draft until "Open in the builder" converts it (R4, PLAN_TEMPLATE_REFUSAL).
+// Both modes may carry `start` (Day 1), the trip's own party (`party: "trip"` with `travellers`), and the origin keys `fromRef` and
+// `gw`. These are household data (edit-my-trip 7): `travellers` is an AGE SNAPSHOT (adults, and each child's age in whole years),
+// never a birth date, a birth month or a name (account-profile-and-travellers 9.5 rules 1 and 2); the detector fails a served body
+// that carries them. The draft-level rules R1 to R7 live in `planDraftRules`.
+//
+// The copy mapper, the sign-in merge's content key and the account row's derived columns are in core/src/plan/doc.ts; the edit
+// operations, their inverses and `rebase` in core/src/plan/ops.ts; the outbox in core/src/plan/sync.ts. The caps are
+// core/src/config/plans.ts (pure constants: the browser may load them).
 import { z } from "zod";
+import { PLAN_DOC_LIMITS } from "../config/plans.ts";
 import { apiPlaceRef, apiSlug, apiTownId, NO_DATED_FOLDER_RE } from "./api/common.ts";
 
 export const PLAN_DRAFT_SCHEMA = "plan-draft/1";
@@ -283,22 +302,140 @@ export const planOutputs = z.strictObject({ ...planOutputsShape, builtAt: isoDat
 // ---- the draft --------------------------------------------------------------------------------------------------------------------
 
 const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
+/** A draft's id: a lower-case UUID v4 made on the device. */
+export const planDraftId = z.string().regex(UUID_V4, "a lower-case UUID v4");
+
+// ---- template mode: the delta on a public trip (edit-my-trip.md 2) ------------------------------------------------------------------
+//
+// The atoms below mirror the device copy's (`copies/1`: timeline profile, overrides, travellers, origin reference, airports, content
+// revision) exactly; core/test/plan/plan-doc.test.ts pins the JSON Schemas equal, because the copy module cannot import this file
+// (the builder fence) and this file does not import the copy module (its own isolation rule).
+
+/** The two modes of one document; the account row's `kind` column holds the same words. */
+export const PLAN_DOC_MODES = ["template", "built"] as const;
+export type PlanDocMode = (typeof PLAN_DOC_MODES)[number];
+
+/** R4: what a builder route answers for a template draft ("Open in the builder" converts it first). */
+export const PLAN_TEMPLATE_REFUSAL = { status: 409, code: "TEMPLATE_DRAFT" } as const;
+
+/**
+ * An operation id (R7): `o-` and 1 to 40 letters, digits, `_` or `-`. Made on the device (a random token), unique across a draft's
+ * template block, so undo and the rebase of 4.4 can name one change; the copy mapper numbers a copy's additions `o-1`, `o-2`, ...
+ */
+export const PLAN_OP_ID_RE = /^o-[A-Za-z0-9_-]{1,40}$/;
+export const planOpId = z.string().regex(PLAN_OP_ID_RE, "an operation id (o-...)");
+
+/**
+ * A schedule id (R6; trip-timeline 1.2): a plan item's own id (`moose-lake-loop`) or a generated `${day}-${lane}-${kind}-${n}`. A
+ * token, never a name (no spaces), never a private origin key, never a dated folder.
+ */
+export const PLAN_SCHEDULE_ID_RE = /^[A-Za-z0-9][A-Za-z0-9._:#/-]{0,119}$/;
+export const planScheduleId = z
+  .string()
+  .regex(PLAN_SCHEDULE_ID_RE, "a schedule id, never a name")
+  .regex(NO_ORIGIN_KEY, "never a private origin key")
+  .regex(NO_DATED_FOLDER_RE, "a schedule id holds no month and year");
+
+/** A day of the published plan, 1 to 99. Day numbers in a template block always count the PUBLISHED days, so they survive a rebase. */
+export const planTemplateDay = z.number().int().min(1).max(PLAN_DOC_LIMITS.templateDays);
+/** A day of the copy: a published day, or the operation id of a day the person inserted. */
+export const planDayRef = z.union([planTemplateDay, planOpId]);
+
+/** The timeline profile a copy plans for (the copy's `profile`; `walk` is the walk limit in km, null from the ages). */
+export const planProfile = z.strictObject({
+  party: z.enum(["adults", "family"]),
+  youngest: z.number().int().min(0).max(17).nullable(),
+  pace: z.enum(PLAN_PACES),
+  adults: z.number().int().min(1).max(12),
+  walk: z.number().positive().max(100).nullable(),
+  split: z.boolean(),
+});
+
+/** Day number (an object key, 1 to 99) to the version chosen for it. At most PLAN_DOC_LIMITS.overrides keys (a rule). */
+export const planOverrides = z.record(z.string().regex(/^[1-9]\d?$/, "a day number 1 to 99"), z.enum(["A", "B", "C"]));
+
+/**
+ * The trip's own party as an AGE SNAPSHOT (edit-my-trip 7, Q-EM4; account-profile-and-travellers 9.5): the number of adults and each
+ * child's age in whole years at the time it was chosen. No names, no birth date or month: strict, so any other key is refused.
+ */
+export const planTravellers = z.strictObject({
+  adults: z.number().int().min(1).max(12),
+  children: z.array(z.number().int().min(0).max(17)).max(12),
+});
+
+/** An origin reference (trip-origin-and-nearest-airport 10): `iata:BOM`, `hub:toronto`, `town:<towns-layer id>` or `gn:<GeoNames id>`. */
+export const PLAN_ORIGIN_REFERENCE_RE = /^(?:iata:[A-Z]{3}|hub:[a-z0-9][a-z0-9-]{0,59}|town:[a-z0-9][a-z0-9-]{0,99}|gn:[1-9]\d{0,9})$/;
+export const planOriginRef = z.string().regex(PLAN_ORIGIN_REFERENCE_RE, "an origin reference: iata:XXX, hub:<id>, town:<id> or gn:<number>");
+/** The arrival and departure airports picked (`gw=yeg,yyc`). */
+export const planGateways = z.strictObject({ in: z.string().regex(PLAN_IATA_RE), out: z.string().regex(PLAN_IATA_RE) });
+/** The public trip's content revision when the copy was last reconciled with it (a hash or a date stamp). */
+export const planSourceRevision = z.string().regex(/^[A-Za-z0-9._:-]{1,64}$/, "a content revision");
+/** A best-time window id (OVR). */
+export const planWindowId = z.string().regex(/^[a-z0-9][a-z0-9-]{0,47}$/, "a window id");
+
+/** A catalogue place the person added to a day; `after` is the schedule id it follows (absent: the end of the day). */
+export const planAdded = z.strictObject({ op: planOpId, day: planDayRef, ref: planRef, after: planScheduleId.optional() });
+/** A published stop the person removed. */
+export const planRemoved = z.strictObject({ op: planOpId, day: planTemplateDay, item: planScheduleId });
+/** A published stop the person moved: from `day` to `toDay` (the same day for a reorder), after `after` (absent: the start). */
+export const planMoved = z.strictObject({ op: planOpId, day: planTemplateDay, item: planScheduleId, toDay: planDayRef, after: planScheduleId.optional() });
+/** A day inserted after a day (0: before Day 1), or a published day dropped. */
+export const planDayOp = z.discriminatedUnion("kind", [
+  z.strictObject({ op: planOpId, kind: z.literal("insert"), after: z.number().int().min(0).max(PLAN_DOC_LIMITS.templateDays) }),
+  z.strictObject({ op: planOpId, kind: z.literal("drop"), day: planTemplateDay }),
+]);
+/** A place on the Maybe list. */
+export const planMaybe = z.strictObject({ op: planOpId, ref: planRef });
+
+/** A note's key: the trip, a published day, or an inserted day's operation id. */
+export const PLAN_NOTE_KEY_RE = /^(?:trip|[1-9]\d?|o-[A-Za-z0-9_-]{1,40})$/;
+/** A note: free text (line breaks and tabs allowed, no other control character). Personal: never public, never sent to research. */
+export const planNoteText = z
+  .string()
+  .min(1)
+  .max(PLAN_DOC_LIMITS.noteChars)
+  .regex(/\S/, "not blank")
+  .regex(/^[^\u0000-\u0008\u000b-\u001f\u007f]*$/, "no control characters");
+export const planNotes = z.record(z.string().regex(PLAN_NOTE_KEY_RE, "trip, a day number or an inserted day"), planNoteText);
+
+/** The template block (edit-my-trip 2): the public trip a copy follows and the person's changes to it. `custom` and `stays` (REQ, STY-2C) are not in `/1`: their shapes are not specified yet, so they arrive as `plan-draft/2`. */
+export const planTemplate = z.strictObject({
+  /** the public trip's slug (the account row's `source_trip`) */
+  trip: planSlug,
+  rev: planSourceRevision.nullable(),
+  /** the timeline profile, or null for the trip's default */
+  profile: planProfile.nullable(),
+  window: planWindowId.nullable(),
+  overrides: planOverrides,
+  added: z.array(planAdded).max(PLAN_DOC_LIMITS.added),
+  removed: z.array(planRemoved).max(PLAN_DOC_LIMITS.removed),
+  moved: z.array(planMoved).max(PLAN_DOC_LIMITS.moved),
+  days: z.array(planDayOp).max(PLAN_DOC_LIMITS.dayOps),
+  notes: planNotes,
+  maybe: z.array(planMaybe).max(PLAN_DOC_LIMITS.maybe),
+});
 
 export const planDraft = z.strictObject({
   schema: z.literal(PLAN_DRAFT_SCHEMA),
   /** a random UUID v4 made on the device (the URL's `draft` key, ISO-1); the sign-in merge is idempotent on it */
-  id: z.string().regex(UUID_V4, "a lower-case UUID v4"),
+  id: planDraftId,
   /** the visitor's own title, or null for the derived one */
   title: name.nullable(),
   where: planWhere,
-  /** null until step 4 (days are pre-filled from the picks, TB3); the kind is `planKindOf(nights)` */
-  nights: z.int().min(0).max(PLAN_LIMITS.nights).nullable(),
+  /**
+   * null until step 4 (days are pre-filled from the picks, TB3); the kind is `planKindOf(nights)`. A built draft plans at most
+   * PLAN_LIMITS.nights (a rule); a template draft has the published trip's nights plus its inserted days, less its dropped ones
+   */
+  nights: z.int().min(0).max(PLAN_DOC_LIMITS.templateDays - 1).nullable(),
   pace: z.enum(PLAN_PACES),
   moves: z.enum(PLAN_MOVES),
   /** 1 to 12; null for no month chosen */
   month: z.int().min(1).max(12).nullable(),
-  /** the party's source: the device profile, read at build time and never copied here (2.4) */
-  party: z.enum(["device"]),
+  /**
+   * the party's source: `device`, the device profile read at build time and never copied here (2.4); or `trip`, this trip's own party
+   * in `travellers` (edit-my-trip 2, R3)
+   */
+  party: z.enum(["device", "trip"]),
   picks: z.array(planPick).max(PLAN_LIMITS.picks),
   bases: z.array(planBaseChoice).max(PLAN_LIMITS.bases),
   edits: z.array(planDayEdit).max(PLAN_LIMITS.days),
@@ -309,6 +446,17 @@ export const planDraft = z.strictObject({
   lastBuild: planOutputs.nullable(),
   createdAt: isoDateTime,
   updatedAt: isoDateTime,
+  // ---- edit-my-trip 2 (EM-C): optional, so every builder draft reads as before ----
+  /** template mode: the public trip followed and the person's changes (absent: built mode) */
+  template: planTemplate.optional(),
+  /** Day 1 as an ISO date; absent for an undated plan (Mine's "No date" group). Household data */
+  start: z.iso.date().optional(),
+  /** only with `party: "trip"` (R3): the trip's own party as an age snapshot. Household data */
+  travellers: planTravellers.optional(),
+  /** the visitor's origin for this trip (the stored name of the URL's `from`). Household data */
+  fromRef: planOriginRef.optional(),
+  /** the airports picked. Household data */
+  gw: planGateways.optional(),
 });
 
 export const planDrafts = z.strictObject({
@@ -328,6 +476,41 @@ export type PlanMiss = z.infer<typeof planMiss>;
 export type PlanOutputs = z.infer<typeof planOutputs>;
 export type PlanDraft = z.infer<typeof planDraft>;
 export type PlanDrafts = z.infer<typeof planDrafts>;
+export type PlanTemplate = z.infer<typeof planTemplate>;
+export type PlanProfile = z.infer<typeof planProfile>;
+export type PlanTravellers = z.infer<typeof planTravellers>;
+export type PlanGateways = z.infer<typeof planGateways>;
+export type PlanAdded = z.infer<typeof planAdded>;
+export type PlanRemoved = z.infer<typeof planRemoved>;
+export type PlanMoved = z.infer<typeof planMoved>;
+export type PlanDayOp = z.infer<typeof planDayOp>;
+export type PlanMaybe = z.infer<typeof planMaybe>;
+export type PlanDayRef = z.infer<typeof planDayRef>;
+/** A template draft: the document with its `template` block present. */
+export type PlanTemplateDraft = PlanDraft & { template: PlanTemplate };
+
+/** The mode of a draft (edit-my-trip 2): template when it follows a public trip, else built. */
+export const planModeOf = (d: Pick<PlanDraft, "template">): PlanDocMode => (d.template === undefined ? "built" : "template");
+export const isTemplateDraft = (d: PlanDraft): d is PlanTemplateDraft => d.template !== undefined;
+
+/** The lists of a template block that hold operation entries, in a fixed order (R7 reads them all). */
+export const PLAN_TEMPLATE_LISTS = ["days", "added", "removed", "moved", "maybe"] as const;
+export type PlanTemplateList = (typeof PLAN_TEMPLATE_LISTS)[number];
+
+/** An empty template block on a public trip: what a fresh copy starts from. */
+export const emptyPlanTemplate = (trip: string, rev: string | null = null): PlanTemplate => ({
+  trip,
+  rev,
+  profile: null,
+  window: null,
+  overrides: {},
+  added: [],
+  removed: [],
+  moved: [],
+  days: [],
+  notes: {},
+  maybe: [],
+});
 
 export const emptyPlanDrafts = (): PlanDrafts => ({ schema: PLAN_DRAFTS_SCHEMA, items: [] });
 
@@ -338,10 +521,16 @@ export type Checked<T> = { success: true; data: T } | { success: false; issues: 
 /** UTF-8 bytes. */
 export const byteLength = (s: string): number => new TextEncoder().encode(s).length;
 
-/** zod issues as `path: rule`, never a value (a draft is the visitor's data). */
+/**
+ * zod issues as `path: rule`, never a value (a draft is the visitor's data). A record's key (a note's or an override's key) is data,
+ * so a path element that is not a plain field name reads `[key]`.
+ */
 function issuesOf(e: z.ZodError): string[] {
-  return e.issues.map((i) => `$${i.path.map((p) => (typeof p === "number" ? `[${p}]` : `.${String(p)}`)).join("")}: ${i.code}`);
+  const seg = (p: PropertyKey): string => (typeof p === "number" ? `[${p}]` : typeof p === "string" && /^[A-Za-z_]{1,40}$/.test(p) ? `.${p}` : "[key]");
+  return e.issues.map((i) => `$${i.path.map(seg).join("")}: ${i.code}`);
 }
+/** The same, for the plan modules that parse their own envelopes (core/src/plan/ops.ts, sync.ts). */
+export const planIssuesOf = issuesOf;
 
 const dupes = (xs: readonly string[]): string[] => [...new Set(xs.filter((x, i) => xs.indexOf(x) !== i))];
 
@@ -388,9 +577,71 @@ export function planInputRules(
   return out;
 }
 
-/** A draft's rules: the inputs', the last build's, and the 16 KB cap. */
+/** The month (1 to 12) of an ISO date `YYYY-MM-DD`. */
+const monthOfDate = (iso: string): number => Number(iso.slice(5, 7));
+
+/**
+ * A template block's own rules (edit-my-trip 2 R5 to R7): at most 60 overrides and 2,000 note characters; every operation id once
+ * across the block (R7); an inserted day named by a place, a move or a note exists; a published stop removed once and moved once; a
+ * place added once and on the Maybe list once; a published day dropped once. Paths and rules only, never a value.
+ */
+export function planTemplateRules(t: PlanTemplate, at = "$.template"): string[] {
+  const out: string[] = [];
+  if (Object.keys(t.overrides).length > PLAN_DOC_LIMITS.overrides) out.push(`${at}.overrides: at most ${PLAN_DOC_LIMITS.overrides} overrides`);
+  const chars = Object.values(t.notes).reduce((n, s) => n + s.length, 0);
+  if (chars > PLAN_DOC_LIMITS.noteChars) out.push(`${at}.notes: at most ${PLAN_DOC_LIMITS.noteChars} characters in all`);
+  const ops = [...t.days, ...t.added, ...t.removed, ...t.moved, ...t.maybe].map((e) => e.op);
+  if (dupes(ops).length) out.push(`${at}: each operation id once (R7)`);
+  const inserted = new Set(t.days.flatMap((x) => (x.kind === "insert" ? [x.op] : [])));
+  const known = (day: PlanDayRef): boolean => typeof day === "number" || inserted.has(day);
+  t.added.forEach((a, i) => {
+    if (!known(a.day)) out.push(`${at}.added[${i}].day: an inserted day of this draft`);
+  });
+  t.moved.forEach((m, i) => {
+    if (!known(m.toDay)) out.push(`${at}.moved[${i}].toDay: an inserted day of this draft`);
+  });
+  for (const k of Object.keys(t.notes)) if (k.startsWith("o-") && !inserted.has(k)) out.push(`${at}.notes: a note's inserted day exists`);
+  if (dupes(t.removed.map((r) => `${r.day}\u0000${r.item}`)).length) out.push(`${at}.removed: each stop once`);
+  if (dupes(t.moved.map((m) => `${m.day}\u0000${m.item}`)).length) out.push(`${at}.moved: each stop once`);
+  if (dupes(t.added.map((a) => a.ref)).length) out.push(`${at}.added: each place once`);
+  if (dupes(t.maybe.map((m) => m.ref)).length) out.push(`${at}.maybe: each place once`);
+  if (dupes(t.days.flatMap((x) => (x.kind === "drop" ? [String(x.day)] : []))).length) out.push(`${at}.days: each day dropped once`);
+  return out;
+}
+
+/**
+ * The mode rules (edit-my-trip 2): R3 for both modes (`party: "trip"` needs `travellers`, `party: "device"` forbids them), one origin
+ * (`origin` or `fromRef`), a start's month is the draft's month; R2 for a built draft (at most PLAN_LIMITS.nights, so builder drafts
+ * read exactly as before); R1 for a template draft (no picks, bases, edits, last build or seed; trip mode with no regions; nights
+ * known; the origin in `fromRef`; the pace is the profile's) plus `planTemplateRules`.
+ */
+export function planModeRules(d: PlanDraft, at = "$"): string[] {
+  const out: string[] = [];
+  if (d.party === "trip" && d.travellers === undefined) out.push(`${at}.travellers: a trip's own party needs its travellers (R3)`);
+  if (d.party === "device" && d.travellers !== undefined) out.push(`${at}.travellers: only with party "trip"; the device party is never copied (R3)`);
+  if (d.origin !== null && d.fromRef !== undefined) out.push(`${at}.fromRef: one origin, in origin or in fromRef`);
+  if (d.start !== undefined && d.month !== monthOfDate(d.start)) out.push(`${at}.month: the month of start`);
+  const t = d.template;
+  if (t === undefined) {
+    if (d.nights !== null && d.nights > PLAN_LIMITS.nights) out.push(`${at}.nights: a built plan has at most ${PLAN_LIMITS.nights} nights (R2)`);
+    return out;
+  }
+  if (d.picks.length) out.push(`${at}.picks: a template draft has none (R1)`);
+  if (d.bases.length) out.push(`${at}.bases: a template draft has none (R1)`);
+  if (d.edits.length) out.push(`${at}.edits: a template draft has none (R1)`);
+  if (d.lastBuild !== null) out.push(`${at}.lastBuild: a template draft has none (R1)`);
+  if (d.seed !== null) out.push(`${at}.seed: a template draft has none (R1)`);
+  if (d.where.mode !== "trip" || d.where.regions.length) out.push(`${at}.where: trip mode with no regions (R1)`);
+  if (d.nights === null) out.push(`${at}.nights: a template draft has the trip's nights (R1)`);
+  if (d.origin !== null) out.push(`${at}.origin: a template draft keeps its origin in fromRef (R1)`);
+  if (t.profile !== null && d.pace !== t.profile.pace) out.push(`${at}.pace: the profile's pace (R1)`);
+  out.push(...planTemplateRules(t, `${at}.template`));
+  return out;
+}
+
+/** A draft's rules: the inputs', the modes' (R1 to R7), the last build's, and the 16 KB cap. */
 export function planDraftRules(d: PlanDraft, at = "$"): string[] {
-  const out = planInputRules(d, at);
+  const out = [...planInputRules(d, at), ...planModeRules(d, at)];
   if (Date.parse(d.updatedAt) < Date.parse(d.createdAt)) out.push(`${at}.updatedAt: not before createdAt`);
   const b = d.lastBuild;
   if (b) {
