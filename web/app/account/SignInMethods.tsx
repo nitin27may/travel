@@ -27,8 +27,6 @@ interface Props {
   googleOn: boolean;
   /** The return of Add Google with a Google row from the last minutes (decided on the server from the rows): string 35. */
   justAdded: boolean;
-  /** The privacy contact for string 51. */
-  contact: string;
 }
 
 /** The masked address never breaks after its ellipsis ("n…" then "@gmail.com" on the next line), as in the landing notice. */
@@ -52,7 +50,7 @@ function keepAddress(text: string, masked: string) {
  * Focus: the confirm opens in place with focus on Keep Google (first in tab order, patterns 4.4); Keep and Esc close it and return
  * focus to Remove; after a removal focus goes to Add Google (string 46). Every notice is read once by the polite live region.
  */
-export function SignInMethods({ rows: initialRows, masked, googleOn, justAdded, contact }: Props) {
+export function SignInMethods({ rows: initialRows, masked, googleOn, justAdded }: Props) {
   const [rows, setRows] = useState<WayRow[] | null>(initialRows);
   const [notice, setNotice] = useState<string | null>(null);
   const [confirming, setConfirming] = useState(false);
@@ -304,11 +302,6 @@ export function SignInMethods({ rows: initialRows, masked, googleOn, justAdded, 
           </li>
         )}
       </ul>
-      <p className="ways-foot">
-        {WAYS_COPY.deleteBefore}
-        <a href={`mailto:${contact}`}>{contact}</a>
-        {WAYS_COPY.deleteAfter}
-      </p>
     </section>
   );
 }

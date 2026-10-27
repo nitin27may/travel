@@ -62,6 +62,21 @@ describe('the privacy page (GSI-P)', () => {
     expect(text).not.toContain('auth.google');
   });
 
+  it('the account profile and travellers, as spec 10.2 words it (ACCT-P3)', () => {
+    for (const t of [
+      'Your browser also keeps a few things on this device: light or dark, km or miles, saved views, trips you copy, and who is travelling (the number of adults and children\'s ages). They stay on the device. If you sign in, the travellers you save to your account are copied to this browser and removed from it when you sign out.',
+      'travel.party',
+      'If you choose to save your travellers, we keep the number of adults and each child\'s age with the date you entered it, so the ages move on each year, and a date of birth only if you add one; no names. Adults\' ages are optional. Trips then plan for the right ages on any device. Only you can see them. Trips you save to your account keep the party you planned them for (adults and children\'s ages). You can change or remove your travellers on your account page at any time, and download everything we hold about you there. Removed data leaves our backups when they expire.',
+      'pressing Save is your consent',
+      'You can delete any saved trip and remove your saved travellers on your account page.',
+    ]) expect(text, t).toContain(t);
+    // The travellers paragraph sits right after the first Accounts paragraph, before the guard paragraph.
+    expect(text.indexOf('trip drafts you save')).toBeLessThan(text.indexOf('If you choose to save your travellers'));
+    expect(text.indexOf('If you choose to save your travellers')).toBeLessThan(text.indexOf('To stop repeated guessing'));
+    // Google is still named only when it is in use.
+    expect(text).not.toContain('Google');
+  });
+
   it('with Continue with Google on: what Google sends, what we keep, and how to stop it (copy page 59 to 62, GSI-R M1)', () => {
     const on = render(false, true);
     const t = strip(on);

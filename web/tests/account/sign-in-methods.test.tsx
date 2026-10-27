@@ -29,7 +29,6 @@ vi.mock('@/app/account/actions', () => ({ createDraft: vi.fn(), renameDraft: vi.
 
 import { WAYS_COPY } from '@/lib/auth/ways';
 import { LANDING_COPY } from '@/lib/auth/landing';
-import { PRIVACY_CONTACT } from '@/app/privacy/PrivacyBody';
 
 beforeEach(() => {
   vi.useFakeTimers({ toFake: ['Date'] });
@@ -52,14 +51,17 @@ async function body(params: Record<string, string> = {}): Promise<string> {
   return renderToStaticMarkup(createElement('main', null, await child.type(child.props)));
 }
 const text = (h: string) => h.replace(/<[^>]+>/g, '').replace(/&#x27;/g, "'");
-const section = (h: string) => h.slice(h.indexOf('<section class="account-ways"'));
+const section = (h: string) => {
+  const from = h.slice(h.indexOf('<section class="account-ways"'));
+  return from.slice(0, from.indexOf('</section>') + '</section>'.length);
+};
 
 const PASSWORD: WayRow = { providerId: 'credential', createdAt: Date.parse('2026-10-01T08:00:00Z') };
 const GOOGLE: WayRow = { providerId: 'google', createdAt: Date.parse('2026-10-26T09:00:00Z') };
 const MASKED = 'n…@gmail.com';
 
 describe('the rows', () => {
-  it('password and Google: 29 to 32, Remove with its screen-reader tail (40), the sign-out note (49), the delete line (51)', async () => {
+  it('password and Google: 29 to 32, Remove with its screen-reader tail (40), the sign-out note (49); no delete line (it lives in Your data)', async () => {
     state.rows = [PASSWORD, GOOGLE];
     const h = await body();
     const s = section(h);
@@ -73,8 +75,8 @@ describe('the rows', () => {
     expect(t).toContain('Google · , Added 26 Oct 2026');
     expect(s).toMatch(/<button type="button" class="btn btn-ghost btn-sm" data-ways-focus="remove" aria-expanded="false"><span class="btn-label">Remove<span class="sr-only"> Google<\/span><\/span><\/button>/);
     expect(t).toContain(WAYS_COPY.signOutNote);
-    expect(s).toContain(`<a href="mailto:${PRIVACY_CONTACT}">${PRIVACY_CONTACT}</a>`);
-    expect(t).toContain(`To delete your account and everything in it, email ${PRIVACY_CONTACT} from this address.`);
+    expect(s).not.toContain('mailto:');
+    expect(t).not.toContain('To delete your account');
     expect(t).not.toContain(WAYS_COPY.add);
     expect(t).not.toContain(WAYS_COPY.removeLast);
     // the dialog opens on demand only
