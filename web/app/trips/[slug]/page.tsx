@@ -21,6 +21,7 @@ import { tripExportFor } from '@/lib/export/build.server';
 import { getPlace, getTrip, listPlaces, tripSlugs } from '@/lib/public';
 import { tripSummaryFor } from '@/lib/public/summary';
 import { tripWeatherFor } from '@/lib/public/weatherLinks';
+import { tripWindowsFor } from '@/lib/public/windows';
 import { ogImageFor } from '@/lib/og';
 import { currentSlugOf, retiredSlugs } from '@/lib/server/moved';
 import { absoluteUrl, pageMetadata } from '@/lib/site';
@@ -76,7 +77,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
   const top = <SummaryTop trip={trip} summary={summary} link={link} highlights={highlights} galleryGroups={galleryGroups} />;
   const bottom = <SummaryBottom trip={trip} summary={summary} bookings={bookings} />;
   const photosPanel = <PhotosPanel photos={model.gallery} rows={rows.map((r) => ({ name: r.name, placeSlug: r.placeSlug && getPlace(r.placeSlug) ? r.placeSlug : null, days: r.days }))} />;
-  const season = trip.season || !overview ? <WhenToGo season={trip.season} weather={tripWeatherFor(slug)} /> : null;
+  const season = trip.season || !overview ? <WhenToGo season={trip.season} weather={tripWeatherFor(slug)} windows={tripWindowsFor(slug)} /> : null;
   return (
     <article className="trip-page" data-depth={trip.depth}>
       <TripCover trip={trip} url={url} />

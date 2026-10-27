@@ -507,9 +507,11 @@ come from the same function as the CSV and the print (`printTime`), so "Stops on
 UXB-N, 26 Oct 2026 (uxb-components 5). Twelve months with the best, also-good, the plan's own, avoid and unresearched
 months, in the Summary's "When to go" and anywhere a season is drawn. Replaces the single-letter strip.
 
-Layout by the strip's own width (a container query): **12 x 1 with three-letter names** from 340 px (27 px cells at a
-390 phone, measured); **6 x 2** under 340 px (46 px cells at 320), with the state word inside each cell; desktop 12 x 1 at
-56 px per cell with the word inside. Single letters are never drawn (they repeat J, M, A).
+Layout by the strip's own width (a container query): **12 x 1 with three-letter names** from 400 px (a legend under the strip
+names the patterns); **6 x 2** under 400 px (every phone: 46 px cells at 320, 58 px at 390), with the state word inside each
+cell, because three letters fill a 26 px cell edge to edge and 6 x 2 is no taller than 12 x 1 plus its legend (UXB-4 review
+P1); from 705 px the strip spans the section, so its right edge lines up with the four cards, and the word is in the cell
+again. Single letters are never drawn (they repeat J, M, A).
 
 | State | Look | Pair (light / dark) |
 |---|---|---|
@@ -519,8 +521,9 @@ Layout by the strip's own width (a container query): **12 x 1 with three-letter 
 | avoid (only with a sourced reason) | `--surface`, label `--muted`, a 6 px foot band cross-hatched in 1.5 px `--ink-2` lines, word "avoid" | 6.94 / 7.45; lines 12.09 / 10.76 |
 | not researched | `--surface`, 1 px `--line-2` border, label `--muted` | 6.94 / 7.45 |
 
-Labels never sit on stripes (the old full-cell hatch was 2.13:1). Below 340 px and on desktop the word is in the cell; from
-340 to 639 px a legend under the strip names the patterns. Screen reader: a summary line first ("Best: September. Also
+Labels never sit on stripes (the old full-cell hatch was 2.13:1). Under 400 px and from 705 px the word is in the cell and the
+legend keeps one line, "Blank: not checked for this plan" (a blank cell has no word, UXB-4 review I5); from 400 to 704 px
+the legend names every pattern in use as well. Screen reader: a summary line first ("Best: September. Also
 good: June, August.") then an ordered list of twelve items with hidden full text ("September, best for this plan"); the
 visible names are `aria-hidden`. Server-rendered, no JS.
 

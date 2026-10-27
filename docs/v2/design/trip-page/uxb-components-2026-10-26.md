@@ -406,8 +406,8 @@ closes and returns focus to Edit.
 
 | Content width | Layout | Cell | Words |
 |---|---|---|---|
-| 340 px and up (390 phones, tablets) | 12 x 1, three-letter names | 27 px at 390 | state words in a legend under the strip |
-| under 340 px (320 phones) | 6 x 2, three-letter names | 46 px wide, 44 px tall | the state word inside the cell ("best", "good") |
+| 400 px and up (tablets) | 12 x 1, three-letter names | 27 px or more | state words in a legend under the strip |
+| under 400 px (every phone; UXB-4 review P1 moved this from 340) | 6 x 2, three-letter names | 46 px wide at 320, 58 px at 390, 44 px tall | the state word inside the cell ("best", "good"), plus a "Blank: not checked" legend line |
 | desktop | 12 x 1 at a fixed 56 px per cell (705 px with gaps) | 56 px | the state word inside the cell |
 
 Single letters are never used (finding I7). This differs from W4 390, which allowed letters with a legend: the probe shows

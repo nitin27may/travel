@@ -17,6 +17,8 @@ export interface WeatherLinkRow {
   href: string;
   /** "French", "Spanish": the page is not English (the label says it, or this does). Null for an English page. */
   language: string | null;
+  /** The page's language code for `hreflang` ("fr"); null for an English page. Set even when the label already names the language. */
+  lang: string | null;
 }
 
 export interface WeatherSource {
@@ -27,12 +29,12 @@ export interface WeatherSource {
 
 export interface TripWeather {
   sources: WeatherSource[];
-  /** True when some base has no forecast page of its own yet (the file lists a gap for the trip). */
+  /** True when the file lists a "GAP:" for the trip: some page was not found or could not be read, so it is not linked (selection_rule). */
   partial: boolean;
 }
 
 interface RawPublisher { short?: string; langs?: string[] }
-interface RawLink { kind?: string; label?: string; publisher?: string; url?: string; english?: boolean }
+interface RawLink { kind?: string; label?: string; publisher?: string; url?: string; english?: boolean; check?: { reachable?: boolean } }
 interface RawTrip { trip?: string; links?: RawLink[]; gaps?: unknown[] }
 
 const names = (() => {
@@ -60,21 +62,27 @@ export function linkText(label: string): string {
 /** Builds one trip's rows from the parsed file; null when the file has nothing usable for the slug. Exported for the tests. */
 export function tripWeatherFrom(doc: { publishers?: Record<string, RawPublisher>; trips?: RawTrip[] }, slug: string): TripWeather | null {
   const trip = doc.trips?.find((t) => t.trip === slug);
-  if (!trip?.links?.length) return null;
+  if (!trip) return null;
+  // only "GAP:" entries are open gaps; "Chile DMC not needed" is a decision, not a gap
+  const partial = (trip.gaps ?? []).some((g) => typeof g === 'string' && g.startsWith('GAP:'));
   const sources = new Map<string, WeatherSource>();
-  for (const l of trip.links) {
+  for (const l of trip.links ?? []) {
     const pub = l.publisher ? doc.publishers?.[l.publisher] : undefined;
+    // the file's selection_rule: a row whose check says the page could not be read is not drawn
+    if (l.check?.reachable === false) continue;
     if (!pub?.short || !l.label || !l.url || !isHttps(l.url) || !WEATHER_KINDS.includes(l.kind as WeatherKind)) continue;
     const text = linkText(l.label);
     const lang = l.english === false ? (pub.langs ?? []).find((c) => c !== 'en') : undefined;
     const language = lang ? (names?.of(lang) ?? null) : null;
     const src = sources.get(l.publisher!) ?? { name: pub.short, links: [] };
     // a label that already names its language ("PDF, Spanish") is not told twice
-    src.links.push({ kind: l.kind as WeatherKind, text, href: l.url, language: language && !l.label.toLowerCase().includes(language.toLowerCase()) ? language : null });
+    const named = language && !l.label.toLowerCase().includes(language.toLowerCase()) ? language : null;
+    src.links.push({ kind: l.kind as WeatherKind, text, href: l.url, language: named, lang: lang ?? null });
     sources.set(l.publisher!, src);
   }
-  if (!sources.size) return null;
-  return { sources: [...sources.values()], partial: (trip.gaps ?? []).length > 0 };
+  // a trip whose every row was dropped still says so (Patagonia): the page draws the gap sentence alone
+  if (!sources.size && !partial) return null;
+  return { sources: [...sources.values()], partial };
 }
 
 let cache: { root: string; doc: Parameters<typeof tripWeatherFrom>[0] | null } | null = null;
