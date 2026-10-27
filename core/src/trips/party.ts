@@ -5,7 +5,10 @@
 // `children[]` (`copies/1`, `trip-custom/1` `travellers`: shapes unchanged). A link carries two numbers derived from it and nothing
 // else: the youngest age (`p=family-<n>`) and the adult count (`a=<n>`, 1 to 12). Children's ages never enter a URL, the export,
 // the share text or analytics (navigation-and-mine.md 2.3; spec 15 "Party storage is household data").
-import type { Pace, Profile } from "../schedule/types.ts";
+import type { Profile } from "../schedule/types.ts";
+
+// The words are in partyWords.ts (no landing rule, no cleaning), so a chunk that only says the party does not carry this file.
+export { adultsText, ageText, childrenText, PACE_WORD, partyLine, partyShortText, partyText } from "./partyWords.ts";
 
 /** Adults 1 to 12 (the codec's `a`, the copies schema's MAX_ADULTS). */
 export const PARTY_MIN_ADULTS = 1;
@@ -63,38 +66,6 @@ export const copyChildren = (p: Party): number[] => p.children.map(planAge);
 
 /** Two parties are the same household for the bar (the shared-link offer is not drawn when they match). */
 export const sameParty = (a: Party, b: Party): boolean => a.adults === b.adults && a.children.length === b.children.length && a.children.every((c, i) => c === b.children[i]);
-
-const count = (n: number, one: string, many: string): string => `${n} ${n === 1 ? one : many}`;
-
-/** "1 adult", "2 adults". */
-export const adultsText = (n: number): string => count(n, "adult", "adults");
-
-/** "1 child (7)", "2 children (7, 10)", "1 child (age not set)", "2 children (7, age not set)"; "" with no children. Ages in the order entered. */
-export function childrenText(children: readonly (number | null)[]): string {
-  if (!children.length) return "";
-  const ages = children.map((a) => (a === null ? "age not set" : String(a))).join(", ");
-  return `${count(children.length, "child", "children")} (${ages})`;
-}
-
-/** The party in words (5.2), one function for the bar, Mine's rows and the copy sheet: "2 adults · 2 children (7, 10)". */
-export function partyText(p: Party, sep = " · "): string {
-  return [adultsText(p.adults), childrenText(p.children)].filter(Boolean).join(sep);
-}
-
-/** The short form, without ages, for the sticky day rail and the offer button: "2 adults, 1 child". */
-export function partyShortText(p: Party): string {
-  return [adultsText(p.adults), p.children.length ? count(p.children.length, "child", "children") : ""].filter(Boolean).join(", ");
-}
-
-export const PACE_WORD: Readonly<Record<Pace, string>> = { relaxed: "Relaxed", standard: "Standard", full: "Full" };
-
-/**
- * The collapsed bar's line: "2 adults · 1 child (10) · Standard pace"; `short` drops "pace" (phones, the day rail):
- * "2 adults · 1 child (10) · Standard".
- */
-export function partyLine(p: Party, pace: Pace, short = false): string {
-  return `${partyText(p)} · ${PACE_WORD[pace]}${short ? "" : " pace"}`;
-}
 
 /**
  * The party a profile from a URL implies, for the words of a shared plan: the adult count and the youngest only (a link never

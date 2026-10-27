@@ -1,7 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import type { Profile } from '@travel/core/schedule/types.ts';
-import { PARTY_KEY, TRIPUI_KEY } from '@/lib/storage/keys';
 import { DEFAULT_CHILD_AGE, landingFor, partyLine, partyShortText } from '@travel/core/trips/party.ts';
 import { barWords, effectiveParty, partyFromProfile, sameWho, sharedWords } from '@/components/trips/timeline/partyLogic';
 
@@ -53,8 +52,21 @@ describe('the start chunk\'s implied party', () => {
   it('imports nothing at runtime from core party.ts (Turbopack does not tree-shake it: 1.7 KB gzipped in the start chunk)', () => {
     const src = readFileSync(new URL('../../components/trips/timeline/ProfileBar.tsx', import.meta.url), 'utf8');
     expect(src).not.toMatch(/^import (?!type)[^;]*trips\/party\.ts/m);
-    expect(src).not.toMatch(/^import (?!type)[^;]*storage\/keys/m); // keys.ts imports party.ts
-    expect(src).toContain(`['${PARTY_KEY}', '${TRIPUI_KEY}']`);
+    expect(src).not.toMatch(/^import (?!type)[^;]*storage\/(keys|partyKey)/m); // they import party.ts
+    expect(src).toContain("from '@/lib/storage/deviceKeys'");
+  });
+});
+
+describe('chunk boundaries (review UXB-2 S6)', () => {
+  const read = (rel: string) => readFileSync(new URL(rel, import.meta.url), 'utf8');
+  it('the words module and the tripui module import no party code', () => {
+    expect(read('../../../core/src/trips/partyWords.ts')).not.toMatch(/^import (?!type)/m);
+    expect(read('../../lib/storage/tripUi.ts')).not.toMatch(/trips\/party\.ts|partyKey/);
+    expect(read('../../lib/storage/deviceKeys.ts')).not.toMatch(/^import /m);
+  });
+  it('the rail and the tab shell import only the light modules', () => {
+    expect(read('../../components/trips/timeline/PlanBar.tsx')).not.toMatch(/trips\/party\.ts/);
+    expect(read('../../components/trips/tabs/useTripTabs.ts')).not.toMatch(/storage\/(keys|partyKey)/);
   });
 });
 

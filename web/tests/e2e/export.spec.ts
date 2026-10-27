@@ -34,8 +34,7 @@ test.describe('copy, export, share', () => {
     await expect(copy).toBeDisabled();
     await expect(page.getByRole('button', { name: /Calendar \(\.ics\): pick a start date first/ })).toBeDisabled();
     await page.locator('.cal-cell[data-season]:not([disabled])').first().click();
-    await expect(copy).toBeDisabled(); // adults are not chosen yet: nothing is preselected
-    await page.getByLabel('Adults').selectOption('2');
+    await expect(page.getByRole('group', { name: 'Adults' }).locator('output')).toHaveText('2'); // the sheet starts at the page's default: 2 adults
     await page.getByRole('button', { name: 'More children' }).click();
     await expect(copy).toBeDisabled(); // and the child's age must be chosen too
     await page.getByLabel('Child 1 age').selectOption('7');

@@ -3,14 +3,17 @@
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
+import { serialiseTimelineUrl } from '@travel/core/schedule/profileCodec.ts';
 import type { Profile } from '@travel/core/schedule/types.ts';
 import type { Party } from '@travel/core/trips/party.ts';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
+import { registerParty } from '@/lib/export/timelineState';
+import { PARTY_KEY, TRIPUI_KEY } from '@/lib/storage/deviceKeys';
 import { readLocal } from '@/lib/storage/safe';
 import '@/styles/party-bar.css';
 import { useTripUrl } from '../useTripUrl';
-import { setRailParty } from './railWords';
+import { railOpen, setRailParty } from './railWords';
 import { serverBarWords } from './serverWords';
 import type { TimelineModel } from './model';
 import type { TimelineApi } from './useTimeline';
@@ -35,8 +38,7 @@ const PartyEditor = dynamic(editorChunk, {
   ),
 });
 
-// keys.ts imports core party.ts, so importing even its key names would pull party.ts into the start chunk; tests/trips/party-bar.test.ts pins these to keys.ts
-const DEVICE_KEYS = ['travel.party', 'travel.tripui'] as const;
+const DEVICE_KEYS = [PARTY_KEY, TRIPUI_KEY] as const;
 
 type Mode = 'written' | 'device' | 'shared';
 
@@ -64,6 +66,9 @@ export function ProfileBar({ model, api, edit, setEdit }: { model: TimelineModel
   const [arrived, setArrived] = useState(false);
   const seen = useRef(false);
   const restored = useRef(false);
+  /** An editing session: the first change pushes a history entry, the rest replace it (Back leaves the trip, not each keystroke). */
+  const session = useRef(false);
+  const fromRail = useRef(false);
 
   // Landing (Q295), after hydration: a link with party keys is a shared plan; storage that holds something asks for the logic chunk.
   /* eslint-disable react-hooks/set-state-in-effect -- one-time read of browser-only state (the address bar, localStorage) after hydration */
@@ -105,6 +110,11 @@ export function ProfileBar({ model, api, edit, setEdit }: { model: TimelineModel
   useEffect(() => {
     if (seen.current) void logicChunk().then((m) => m.rememberOpen(edit));
     seen.current = true;
+    session.current = false; // an open or a close ends the session
+    if (edit) {
+      fromRail.current = railOpen.from;
+      railOpen.from = false;
+    }
   }, [edit]);
   // opened from the sticky rail: focus lands on Done, where Escape and Done will return it
   useEffect(() => {
@@ -121,9 +131,18 @@ export function ProfileBar({ model, api, edit, setEdit }: { model: TimelineModel
   // the sticky day rail says the same party, in its own words (it owns them)
   const railKey = JSON.stringify(party);
   useEffect(() => {
-    setRailParty({ ...(JSON.parse(railKey) as Party), pace: p.pace });
+    setRailParty({ ...(JSON.parse(railKey) as Party), pace: p.pace, shared });
     return () => setRailParty(null);
-  }, [railKey, p.pace]);
+  }, [railKey, p.pace, shared]);
+
+  /** A profile change from the editor, the offer or the copy sheet: push on the first of an editing session, replace after (review UXB-2 S2). */
+  const writeProfile = (patch: Partial<Profile>) => {
+    const profile = { ...p, ...patch };
+    if (profile.party === 'adults') profile.youngest = null;
+    else profile.youngest ??= defaults.youngest ?? 10;
+    url.go({ hash: url.hash || undefined, timeline: serialiseTimelineUrl({ ...api.state, profile }, defaults) }, session.current ? 'replace' : 'push');
+    session.current = true;
+  };
 
   /** The editor chose a party (it has kept it on the device and written the profile): the bar follows. */
   const chosen = useCallback((next: Party, keptNow: boolean) => {
@@ -137,19 +156,42 @@ export function ProfileBar({ model, api, edit, setEdit }: { model: TimelineModel
       const r = m.keep(o, slug);
       if (!r.party) return;
       chosen(r.party, r.kept);
-      api.setProfile(m.whoOf(r.party, p));
+      writeProfile(m.whoOf(r.party, p));
     });
+  // a party chosen in the copy sheet is the page's party too: kept on the device, then planned for (the sheet's tap is its own session)
+  const fromSheet = useRef<(next: Party) => void>(() => undefined);
+  useEffect(() => {
+    fromSheet.current = (next) =>
+      void logicChunk().then((m) => {
+        const r = m.keep(next, slug);
+        if (!r.party) return;
+        chosen(r.party, r.kept);
+        session.current = false;
+        writeProfile(m.whoOf(r.party, p));
+      });
+  });
+  useEffect(() => {
+    registerParty((next) => fromSheet.current(next));
+    return () => registerParty(null);
+  }, []);
   // Reset is "Plan as written": the plan's own party and settings, and the kept party is not applied again to this trip
   const reset = useCallback(() => {
     void logicChunk().then((m) => m.asWritten(slug));
     setWork(null);
     setMode('written');
     setOffer(null);
+    session.current = false;
     api.reset();
   }, [api, slug]);
   const close = useCallback(() => {
     setEdit(false);
-    toggleEl()?.focus();
+    // back where the visitor opened it: the sticky rail's Edit when it was opened from there (review S5), else the bar's own button
+    const rail = fromRail.current ? document.querySelector<HTMLButtonElement>('.tl-planbar .tl-railedit') : null;
+    fromRail.current = false;
+    if (rail) {
+      rail.focus({ preventScroll: true });
+      rail.scrollIntoView({ block: 'nearest' });
+    } else toggleEl()?.focus();
   }, [setEdit]);
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Escape' && edit && !e.defaultPrevented) {
@@ -165,7 +207,9 @@ export function ProfileBar({ model, api, edit, setEdit }: { model: TimelineModel
   return (
     <section className="pb" aria-labelledby="plan-for-h" id="plan-for" data-print="hide" data-open={edit || undefined} onKeyDown={onKeyDown}>
       <div className="pb-row">
-        <h2 id="plan-for-h" className="pb-label">Plan it for</h2>
+        <h2 id="plan-for-h" className="pb-label">
+          Plan it for{work ? <span className="pb-yours"> · Your party</span> : null}
+        </h2>
         <p className="pb-val num" data-testid="party-line" data-pending={pending || undefined} aria-live="polite" aria-atomic="true">
           <span className="pb-long" suppressHydrationWarning>{logic ? logic.barWords(shared, party, p, p.pace, false) : server(false)}</span>
           <span className="pb-short" suppressHydrationWarning>{logic ? logic.barWords(shared, party, p, p.pace, true) : server(true)}</span>
@@ -200,7 +244,7 @@ export function ProfileBar({ model, api, edit, setEdit }: { model: TimelineModel
         </div>
       </div>
       <div id="plan-for-controls" className="pb-body" data-open={edit || undefined} inert={!edit}>
-        <div className="pb-body-in">{opened ? <PartyEditor model={model} api={api} party={party} onChosen={chosen} kept={kept} /> : null}</div>
+        <div className="pb-body-in">{opened ? <PartyEditor model={model} api={api} party={party} onChosen={chosen} onProfile={writeProfile} kept={kept} /> : null}</div>
       </div>
       {api.droppedAdds > 0 ? (
         <p className="tl-profile-note" role="status">

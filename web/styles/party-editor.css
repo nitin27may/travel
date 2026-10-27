@@ -5,7 +5,7 @@
 .pe-label { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
 .pe-hint { font: var(--t-meta); color: var(--muted); max-width: 26rem; }
 .pe-field { display: grid; gap: var(--s-2); align-content: start; min-width: 0; }
-.pe-pace { flex: 1 1 20rem; }
+.pe-pace { flex: 1 1 20rem; max-width: 24rem; }
 .pe-ages { display: grid; gap: var(--s-2); flex: 1 1 18rem; min-width: 0; }
 .pe-age-list { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-4); }
 .pe-age { display: grid; gap: var(--s-1); }

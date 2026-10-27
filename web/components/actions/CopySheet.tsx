@@ -14,7 +14,9 @@ import type { WriteFailure } from '@/lib/mine/copies';
 import { changeDates, moveLegacyOnce, partyText, saveCopy, undoChange, undoSave } from '@/lib/mine/copies';
 import { fallBackToMemory, mineStorage } from '@/lib/mine/storage';
 import type { CopyInput, CopyItem } from '@travel/core/schema/copies.ts';
-import { getTimeline, setYoungest } from '@/lib/export/timelineState';
+import { getTimeline, setParty } from '@/lib/export/timelineState';
+import type { Party } from '@travel/core/trips/party.ts';
+import { Travellers } from './Travellers';
 import type { TripExport } from '@/lib/export/types';
 import { CalendarPicker } from './CalendarPicker';
 import './actions.css';
@@ -86,8 +88,8 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, onPrint }: Co
   const phone = usePhone();
   const { toast } = useToast();
   const [start, setStart] = useState<string | null>(null);
-  const [adults, setAdults] = useState<number | null>(null);
-  const [children, setChildren] = useState<(number | null)[]>([]);
+  const [party, setPartyState] = useState<Party>({ adults: 2, children: [] });
+  const { adults, children } = party;
   const [step, setStep] = useState<'form' | 'done'>('form');
   const [data, setData] = useState<TripExport | null>(null);
   const [held, setHeld] = useState(true);
@@ -105,25 +107,29 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, onPrint }: Co
     };
   }, [open, trip.slug]);
 
-  // the travellers start from the profile chosen on the page (trip-timeline spec 3.9); the visitor can still change them
+  // The travellers start from the party kept on this device when the page plans for it (`travel.party`: both ages, not only the youngest),
+  // else from what the page's profile implies (trip-timeline spec 3.9); the visitor can still change them. Mine's Change dates starts from the copy.
   const [prefilled, setPrefilled] = useState(false);
   if (open && !prefilled) {
     setPrefilled(true);
-    const tl = getTimeline(trip.slug);
     if (initial) {
       setStart(initial.start);
-      setAdults(initial.adults);
-      setChildren(initial.children);
-    } else if (tl) {
-      setAdults(tl.profile.adults >= 2 ? 2 : 1);
-      setChildren(tl.profile.party === 'family' && tl.profile.youngest !== null ? [tl.profile.youngest] : []);
+      setPartyState({ adults: initial.adults, children: initial.children });
+    } else {
+      const tl = getTimeline(trip.slug);
+      void import('@/lib/storage/partyKey').then(async ({ readParty }) => {
+        const { partyFromProfile, sameWho, whoOf } = await import('@/components/trips/timeline/partyLogic');
+        const kept = readParty();
+        if (kept && (!tl || sameWho(whoOf(kept, tl.profile), tl.profile))) setPartyState(kept);
+        else if (tl) setPartyState(partyFromProfile(tl.profile));
+      });
     }
   }
-  // the youngest child in the sheet is the youngest in the page's profile
-  const follow = (ages: (number | null)[]) => {
-    const known = ages.filter((a): a is number => a !== null);
-    if (ages.length === 0) setYoungest(null);
-    else if (known.length === ages.length) setYoungest(Math.min(...known));
+  // a change in the sheet is the party of the page too, and is kept on this device (not for Mine's Change dates, which edits one copy)
+  const changeParty = (next: Party) => {
+    setPartyState(next);
+    if (initial) return;
+    if (!setParty(next)) void import('@/lib/storage/partyKey').then((m) => m.writeParty(next));
   };
 
   // Only read once the sheet is open, which is always after hydration.
@@ -135,8 +141,8 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, onPrint }: Co
   const check = useMemo(() => (start ? checkWindow(seasonWin, start, length) : null), [start, seasonWin, length]);
   const hasCalendar = data ? data.depth !== 'overview' && data.days.length > 0 : true;
 
-  const ready = !!start && adults !== null && children.every((a) => a !== null);
-  const missing = [!start && 'a start date', adults === null && 'the number of adults', !children.every((a) => a !== null) && 'each child’s age'].filter(Boolean) as string[];
+  const ready = !!start && children.every((a) => a !== null);
+  const missing = [!start && 'a start date', !children.every((a) => a !== null) && 'each child’s age'].filter(Boolean) as string[];
 
   // the build flag read directly: importing `lib/capabilities` here would share that module between the page's start chunk and this lazy chunk and split it (start JS)
   const keptNote = process.env.NEXT_PUBLIC_SIGN_IN === '1' ? 'Kept in this browser. Sign in to keep it on every device.' : 'Kept in this browser.';
@@ -163,7 +169,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, onPrint }: Co
   };
 
   const copy = (replace = false) => {
-    if (!start || adults === null || !children.every((a) => a !== null)) return;
+    if (!start || !children.every((a) => a !== null)) return;
     let probe = mineStorage();
     const ages = children as number[];
     setPrompt(null);
@@ -189,7 +195,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, onPrint }: Co
       start,
       adults,
       children: ages,
-      profile: tl ? { party: tl.profile.party, youngest: tl.profile.youngest, pace: tl.profile.pace, adults: tl.profile.adults, walk: tl.profile.walkKm, split: tl.profile.split } : null,
+      profile: tl ? { party: tl.profile.party, youngest: tl.profile.youngest, pace: tl.profile.pace, adults, walk: tl.profile.walkKm, split: tl.profile.split } : null,
       overrides: tl ? Object.fromEntries(Object.entries(tl.overrides).filter(([k, v]) => /^[1-9]\d?$/.test(k) && /^[ABC]$/.test(v))) as CopyInput['overrides'] : {},
       added: tl ? tl.added.filter((x) => x.day >= 1 && x.day <= 99).slice(0, 30) : [],
     };
@@ -243,42 +249,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, onPrint }: Co
 
         <section className="copy-step trav" aria-labelledby="copy-who">
           <h3 id="copy-who">Who is going</h3>
-          <div className="trav-row">
-            <label className="trav-name" htmlFor="trav-adults">Adults</label>
-            <select id="trav-adults" className="trav-select" value={adults ?? ''} onChange={(e) => setAdults(e.target.value ? +e.target.value : null)}>
-              <option value="">Choose</option>
-              {Array.from({ length: 10 }, (_, i) => (
-                <option key={i} value={i + 1}>
-                  {i + 1}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="trav-row">
-            <span className="trav-name" id="trav-kids">Children</span>
-            <span className="trav-step" role="group" aria-labelledby="trav-kids">
-              <Button size="sm" icon aria-label="Fewer children" disabled={children.length === 0} onClick={() => { const next = children.slice(0, -1); setChildren(next); follow(next); }}>
-                <Icon name="minus" size={14} />
-              </Button>
-              <span className="trav-n" aria-live="polite">{children.length}</span>
-              <Button size="sm" icon aria-label="More children" disabled={children.length >= 8} onClick={() => setChildren([...children, null])}>
-                <Icon name="plus" size={14} />
-              </Button>
-            </span>
-          </div>
-          {children.map((age, i) => (
-            <div className="trav-child" key={i}>
-              <label htmlFor={`child-age-${i}`}>Child {i + 1} age</label>
-              <select id={`child-age-${i}`} value={age ?? ''} onChange={(e) => { const next = children.map((a, j) => (j === i ? (e.target.value === '' ? null : +e.target.value) : a)); setChildren(next); follow(next); }}>
-                <option value="">Choose age</option>
-                {Array.from({ length: 18 }, (_, a) => (
-                  <option key={a} value={a}>
-                    {a === 0 ? 'Under 1' : a}
-                  </option>
-                ))}
-              </select>
-            </div>
-          ))}
+          <Travellers party={party} onChange={changeParty} />
         </section>
 
         <ExportList start={start} trip={trip} data={data} hasCalendar={hasCalendar} onRun={run} print={onPrint} />
@@ -297,7 +268,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, onPrint }: Co
         <p>
           <strong>{trip.title}</strong>
           <br />
-          {trip.days} days from {start ? formatDate(start) : ''} · {partyText({ adults: adults ?? 0, children: children as number[] })}
+          {trip.days} days from {start ? formatDate(start) : ''} · {partyText({ adults, children: children as number[] })}
         </p>
         <ExportList start={start} trip={trip} data={data} hasCalendar={hasCalendar} onRun={run} print={onPrint} />
         {held ? <p className="copy-note">{keptNote}</p> : null}

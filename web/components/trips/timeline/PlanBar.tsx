@@ -3,10 +3,10 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useRef } from 'react';
 import type { ExportFormat } from '@/components/actions/ExportMenu';
-import { PACE_WORD, partyShortText } from '@travel/core/trips/party.ts';
+import { PACE_WORD, partyShortText } from '@travel/core/trips/partyWords.ts';
 import { Icon } from '@/components/ui/Icon';
 import type { TimelineModel } from './model';
-import { useRailParty } from './railWords';
+import { railOpen, useRailParty } from './railWords';
 
 // Export trip at the right end of the bar from 1024 px (map note): the menu is its own chunk, so the bar's start JS does not carry it
 const ExportMenu = dynamic(() => import('@/components/actions/ExportMenu').then((m) => m.ExportMenu), { ssr: false });
@@ -52,13 +52,16 @@ export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, map
         <span className="tl-planbar-who">
           {kept ? (
             <>
-              <span className="tl-planbar-party">{partyShortText(kept)}</span> · <span className="tl-planbar-pace">{PACE_WORD[kept.pace]}</span>
+              <span className="tl-planbar-party">{kept.shared ? 'Shared plan' : partyShortText(kept)}</span> · <span className="tl-planbar-pace">{PACE_WORD[kept.pace]}</span>
             </>
           ) : (
             label
           )}
         </span>{' '}
-        <button type="button" className="tl-railedit" onClick={onEdit}>
+        <button type="button" className="tl-railedit" onClick={() => {
+            railOpen.from = true;
+            onEdit();
+          }}>
           <Icon name="pencil" size={13} /> Edit
         </button>
       </p>

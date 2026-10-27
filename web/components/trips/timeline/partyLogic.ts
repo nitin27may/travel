@@ -2,7 +2,7 @@
 // what `travel.party` and `travel.tripui` hold. ONE lazy chunk, because it pulls in core `party.ts`, which Turbopack does not tree-shake:
 // the bar in the trip page's start chunk imports this only when it has something to say (a changed or shared plan, a kept party, the
 // editor open). A first-time visitor on the plan's own settings never loads it; the server's words stay on screen. The editor and the
-// sticky rail's words read from here too. Household data: everything goes through lib/storage/keys.ts and so safe.ts; nothing is sent.
+// sticky rail's words read from here too. Household data: everything goes through lib/storage (partyKey.ts, tripUi.ts) and so safe.ts; nothing is sent.
 import { parseTimelineUrl, serialiseTimelineUrl } from '@travel/core/schedule/profileCodec.ts';
 import type { Pace, Profile } from '@travel/core/schedule/types.ts';
 import {
@@ -18,7 +18,8 @@ import {
   type Landing,
   type Party,
 } from '@travel/core/trips/party.ts';
-import { readParty, readTripEntry, readTripUi, writeParty, writePartyOpen, writeTripEntry } from '@/lib/storage/keys';
+import { readParty, writeParty } from '@/lib/storage/partyKey';
+import { readTripEntry, readTripUi, writePartyOpen, writeTripEntry } from '@/lib/storage/tripUi';
 import { parseTripUrl } from '../useTripUrl';
 
 type Who = Pick<Profile, 'party' | 'youngest' | 'adults'>;

@@ -111,6 +111,9 @@ test.describe('trip timeline (L3c)', () => {
     await openParty(page);
     await page.getByRole('radio', { name: 'Relaxed' }).click();
     await expect(page).toHaveURL(/\?pace=relaxed/);
+    // one editing session is one history entry (review UXB-2 S2): Done and Edit again start the next
+    await page.locator('#plan-for .pb-edit').click();
+    await openParty(page);
     await page.getByRole('button', { name: 'Fewer children' }).click();
     await expect(page).toHaveURL(/\?p=adults&pace=relaxed/);
     await page.goBack();

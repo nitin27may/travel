@@ -8,7 +8,12 @@ export interface RailParty {
   adults: number;
   children: (number | null)[];
   pace: Pace;
+  /** The plan is a shared link's: the rail says so instead of a party (review UXB-2 S3). */
+  shared?: boolean;
 }
+
+/** Set by the rail's Edit just before it opens the editor, so the close returns focus there (review S5). */
+export const railOpen = { from: false };
 
 let current: RailParty | null = null;
 let key = '';

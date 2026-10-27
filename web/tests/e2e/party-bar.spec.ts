@@ -284,7 +284,7 @@ test.describe('layout and axe', () => {
       await page.waitForTimeout(400);
       const fits = () => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth);
       const axe = async (label: string) => {
-        const r = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).exclude('[data-map-family]').analyze();
+        const r = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).exclude('[data-map-family]').analyze();
         expect(r.violations.map((v) => `${v.id}: ${v.nodes[0]?.html.slice(0, 90)}`), `${size.width} ${label}`).toEqual([]);
       };
       expect(await fits()).toBe(true);
@@ -295,6 +295,105 @@ test.describe('layout and axe', () => {
       await page.waitForTimeout(400);
       expect(await fits()).toBe(true);
       await axe('open, 8 children, More open');
+    });
+  }
+});
+
+test.describe('review round (UXB-2F)', () => {
+  test('M1: a baby reads "under 1" in the bar, the live line and the link, never 0', async ({ page, site }) => {
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
+    await openParty(page);
+    await page.getByLabel('Child 1 age').selectOption('0');
+    await expect(long(page)).toHaveText('2 adults · 1 child (under 1) · Standard pace');
+    await expect(page.getByTestId('profile-line')).toContainText('youngest under 1');
+    await expect(page.getByTestId('profile-line')).toContainText(/on all 15 days/);
+    expect(page.url()).toContain('p=family-0');
+    await expect(page.locator('#plan-for')).not.toContainText(/\(0\)|youngest 0/);
+  });
+
+  test('S1: Edit and Done are 44 px tall', async ({ page, site }) => {
+    await page.goto(`${site.url}${ROCKIES}`);
+    expect((await page.locator('#plan-for .pb-edit').boundingBox())!.height).toBeGreaterThanOrEqual(44);
+  });
+
+  test('S2: an editing session is one history entry; Done ends it', async ({ page, site }) => {
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
+    await openParty(page);
+    await page.getByRole('button', { name: 'More adults' }).click();
+    await page.getByRole('button', { name: 'More adults' }).click();
+    await page.getByLabel('Child 1 age').selectOption('5');
+    await expect(page).toHaveURL(/\?p=family-5&a=4&view=day$/);
+    await page.locator('#plan-for .pb-edit').click(); // Done
+    await openParty(page);
+    await page.getByRole('radio', { name: 'Full' }).click();
+    await expect(page).toHaveURL(/pace=full/);
+    await page.goBack();
+    await expect(page).toHaveURL(/\?p=family-5&a=4&view=day$/);
+    await page.goBack();
+    await expect(page).toHaveURL(/\/canadian-rockies-2029\/\?view=day$/);
+  });
+
+  test('M3: a phone says "Your party" beside the label; a desktop has the note', async ({ page, site }) => {
+    await seed(page, { [PARTY_KEY]: party(3, [7, 10]) });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
+    await expect(page.locator('#plan-for-h')).toHaveText('Plan it for · Your party');
+    await expect(page.locator('#plan-for .pb-yours')).toBeVisible();
+    await expect(page.locator('#plan-for .pb-note')).toBeHidden();
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await expect(page.locator('#plan-for .pb-yours')).toBeHidden();
+    await expect(page.locator('#plan-for .pb-note')).toHaveText('Your party');
+  });
+
+  test('S3 and S5: on a shared link the rail says "Shared plan · Standard"; Escape returns to the rail Edit that opened it', async ({ page, site }) => {
+    await page.goto(`${site.url}${ROCKIES}?p=family-6&view=day`);
+    const rail = page.locator('.tl-planbar');
+    await expect(rail.locator('.tl-planbar-who')).toHaveText('Shared plan · Standard');
+    await page.evaluate(() => document.getElementById('day-9')?.scrollIntoView({ block: 'start' }));
+    await rail.getByRole('button', { name: 'Edit' }).click();
+    await expect(page.locator('#plan-for-controls .pe')).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#plan-for-controls')).toBeHidden();
+    await expect(rail.getByRole('button', { name: 'Edit' })).toBeFocused();
+  });
+
+  test('S4: at 320 a shared link shows the offer left-aligned and no Reset beside it', async ({ page, site }) => {
+    await seed(page, { [PARTY_KEY]: party(2, [7, 10]) });
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.goto(`${site.url}${ROCKIES}?p=family-6&view=day`);
+    await expect(page.getByRole('button', { name: /^Use my party/ })).toBeVisible();
+    await expect(page.locator('#plan-for .pb-reset')).toBeHidden();
+    expect(await page.locator('#plan-for .pb-offer').evaluate((e) => getComputedStyle(e).textAlign)).toBe('start');
+  });
+
+  test('M2: the copy sheet opens with the page\'s party (both ages), takes 12 adults, and writes a change back', async ({ page, site }) => {
+    await seed(page, { [PARTY_KEY]: party(12, [7, 10]) });
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
+    await expect(long(page)).toHaveText('12 adults · 2 children (7, 10) · Standard pace');
+    await page.getByRole('button', { name: 'Copy to my trips' }).first().click();
+    const sheet = page.locator('.copy-sheet');
+    await expect(sheet.getByRole('group', { name: 'Adults' }).locator('output')).toHaveText('12');
+    await expect(sheet.getByRole('button', { name: 'More adults' })).toHaveAttribute('aria-disabled', 'true');
+    await expect(sheet.getByLabel('Child 1 age')).toHaveValue('7');
+    await expect(sheet.getByLabel('Child 2 age')).toHaveValue('10');
+    await sheet.getByRole('button', { name: 'Fewer adults' }).click();
+    await sheet.getByRole('button', { name: 'More children' }).click();
+    await expect(sheet.getByLabel('Child 3 age')).toBeFocused();
+    await sheet.getByLabel('Child 3 age').selectOption('0');
+    await expect.poll(async () => JSON.parse((await stored(page))!)).toEqual({ v: 1, adults: 11, children: [7, 10, 0] });
+    await page.keyboard.press('Escape');
+    await expect(long(page)).toHaveText('11 adults · 3 children (7, 10, under 1) · Standard pace');
+    await expect(page).toHaveURL(/\?p=family-0&a=11&view=day$/);
+  });
+
+  for (const width of [320, 1440]) {
+    test(`axe wcag22aa is clean on the shared-link bar with the offer at ${width}`, async ({ page, site }) => {
+      await seed(page, { [PARTY_KEY]: party(2, [7, 10]) });
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto(`${site.url}${ROCKIES}?p=family-6&view=day`);
+      await expect(page.getByRole('button', { name: /^Use my party/ })).toBeVisible();
+      const r = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).include('#plan-for').include('.tl-planbar').analyze();
+      expect(r.violations.map((v) => `${v.id}: ${v.nodes[0]?.html.slice(0, 90)}`)).toEqual([]);
     });
   }
 });

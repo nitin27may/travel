@@ -40,12 +40,9 @@
 .cal-sw[data-k='season']::after { content: ''; position: absolute; left: 2px; right: 2px; bottom: 2px; height: 3px; background: var(--accent); }
 
 .trav { display: grid; gap: var(--s-2); }
-.trav-row { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); min-height: 44px; }
-.trav-row label, .trav-row .trav-name { font: var(--t-title); }
-.trav-step { display: inline-flex; align-items: center; gap: var(--s-2); }
-.trav-n { font: var(--t-mono); min-width: 1.6em; text-align: center; }
+.trav-body { display: grid; gap: var(--s-2); }
+.trav-child label { font: var(--t-small); color: var(--ink-2); }
 .trav-child { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); }
-.trav-child select { height: 38px; padding: 0 8px; border: 1px solid var(--line-2); border-radius: var(--r-2); background: var(--surface); color: var(--ink); font: var(--t-mono); }
 
 .copy-exports { display: grid; gap: var(--s-2); }
 .copy-exports .btn { justify-content: flex-start; }
@@ -58,7 +55,6 @@
 .copy-body, .copy-step, .cal, .cal-month { min-width: 0; }
 .copy-exports .btn { height: auto; min-height: 44px; padding-block: 8px; white-space: normal; text-align: left; line-height: 1.3; }
 .copy-exports .btn .btn-label { display: inline-flex; align-items: center; gap: 8px; }
-.trav-select { height: 38px; padding: 0 8px; border: 1px solid var(--line-2); border-radius: var(--r-2); background: var(--surface); color: var(--ink); font: var(--t-mono); min-width: 120px; }
 .copy-foot { display: flex; align-items: center; gap: var(--s-3); width: 100%; }
 .copy-note { margin: 0; flex: 1; min-width: 0; font: var(--t-small); color: var(--ink-2); }
 /* a prompt or a problem (replace, cap, error): below 640 px the note sits above full-width buttons, which stay in the thumb zone (NAV-R2 should 1) */

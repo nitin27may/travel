@@ -145,7 +145,6 @@ async function openSheet(page: Page, site: { url: string }) {
 }
 async function fill(sheet: ReturnType<Page['locator']>, children = true) {
   await sheet.locator('.cal-cell[data-season]:not([disabled])').first().click();
-  await sheet.getByLabel('Adults').selectOption('2');
   if (children) {
     await sheet.getByRole('button', { name: 'More children' }).click();
     await sheet.getByLabel('Child 1 age').selectOption('7');
@@ -318,7 +317,7 @@ test.describe('Remove focus, and Change dates', () => {
     const sheet = page.locator('.copy-sheet');
     await expect(sheet).toBeVisible();
     await expect(sheet.locator('.copy-date-input')).toContainText('Sat 3 Jul 2027');
-    await expect(sheet.getByLabel('Adults')).toHaveValue('2');
+    await expect(sheet.getByRole('group', { name: 'Adults' }).locator('output')).toHaveText('2');
     await expect(sheet.getByLabel('Child 1 age')).toHaveValue('6');
     await sheet.locator('.cal-cell[data-date="2027-07-10"]:not([disabled])').click();
     await sheet.getByRole('button', { name: 'Change dates' }).click();
