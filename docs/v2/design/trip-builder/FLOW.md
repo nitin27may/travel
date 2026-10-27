@@ -5,7 +5,7 @@ code. Owner requirement of 27 Oct 2026: "the Trip Builder is not just a create w
 experience of building a trip and editing it". TODO rows of 27 Oct 2026; BACKLOG 15.353; PLAN R-278, R-279. Review:
 [reviews/review-TB-N2-trip-builder-flow-2026-10-27.md](../../reviews/review-TB-N2-trip-builder-flow-2026-10-27.md)
 (must-fix M1 to M4, should-fix S1 to S12, polish L1 to L9, all applied here; section 12 lists how). Owner decisions of
-27 Oct 2026 ("go ahead with recommendations") are in section 10; F-Q4 is left for the owner to choose.
+27 Oct 2026 ("go ahead with recommendations") are in section 10, including F-Q4 (Review shows "In Mine" as a state; the primary is Add to calendar or Add dates).
 
 **This page is the single flow.** It supersedes the step lists of [features/trip-builder.md](../../features/trip-builder.md)
 2.1 and 2.2, of [README.md](README.md) section 1 and of TB-N's design note section 2 (branch `public/TB-N`, not merged),
@@ -125,7 +125,7 @@ changeable (M3: the reach pill on stage 3 for near kinds).
 | 8 Review and prepare | yes | yes | yes | yes | yes | yes |
 | **Phone steps to the plan** (stages 1 to 4 asked) | 2 | 3 | 4 | 4 | 4 | 4 |
 
-Moves is hidden for Day trip and Weekend (one base, S1). Primary action on Review: section 10, F-Q4.
+Moves is hidden for Day trip and Weekend (one base, S1). Primary action on Review: Add to calendar (dated) or Add dates (undated), F-Q4.
 
 ## 3. Planning factors and what the flow does with each
 
@@ -289,7 +289,7 @@ never moves a locked or placed item and never drops a must-see.
 | | |
 |---|---|
 | Shows | summary; **state line**, not a save button: "In Mine · on this phone" or "In your account"; **Book ahead**: dated plans show book-by dates with links; month only "by about 1 Jun ≈ (for early July)"; "Not sure yet" shows "Add dates to see book-by dates" with the item names; lodging rows only with a sourced rule, labelled "rule of thumb ≈" (S5); Warnings; Did not fit; **Known costs** with the Free chip and "EUR 74 for 5 of 9 places priced"; "Check entry rules for Italy" for trips abroad |
-| Actions | primary: **owner to choose (F-Q4)**, frames show `[ Primary action (F-Q4) ]`; secondary: Copy link, PDF, Calendar (dated plans), Edit my plan; signed out: "Sign in to keep it on every device" |
+| Actions | primary: **Add to calendar** when the plan has dates (days and book-by deadlines as ICS), **Add dates** when it has none (owner decision F-Q4); never "Keep in Mine" or "Save to Mine": the state line says the plan is in Mine. Secondary: Copy link, PDF, Edit my plan; signed out: "Sign in to keep it on every device" |
 | Shared link states | "2 places in this plan are not public · showing 7" (S12) |
 | Phone, desktop | F8; W8 |
 | Maps to | trip-kinds 1.6; `core/src/bookings`; edit-my-trip 4.7 |
@@ -348,7 +348,7 @@ step changes from "Open in Mine" to "open the copy in the editor" in the TB-N fo
 | Id | What | Model | h | Needs | Bundle |
 |---|---|---|---|---|---|
 | TB-N2 | Design review | Opus | 4 | done (21229eb1) | done |
-| TB-N2R | Short re-review of the changed frames (section 12 list) | Opus | 1.5 | this revision | now |
+| TB-N2R | Short re-review of the changed frames (section 12 list); F8 and W8 now carry final copy (F-Q4 decided) | Opus | 1.5 | this revision | now |
 | TB-C2 | Contract: `driveDayMin`, near `where.regions`, `identity`, `edits[].placed` with its rules, `planCandidates` `near` and `limit`; tests | Opus | 2.5 | TB-C; before any draft is stored | D |
 | TB-MD | Location metadata contract (metadata page) | Opus 3 + Sonnet 3 | 6 | DC-C | D |
 | TB-W1 (scope) | stage 1 who, when, departure airport and thin count; reach pill; one near strip; stage 4 rules; the just-built landing in `/plan/?s=plan`; empty states X1; +9 h (was +6) | Sonnet | +9 | TB-C2 | D |
@@ -360,7 +360,7 @@ step changes from "Open in Mine" to "open the copy in the editor" in the TB-N fo
 Net added by TB-FLOW and its review: TB-N2R 1.5, TB-C2 2.5, TB-MD 6, TB-W1 +9, ED +1, TB-E1 +1, TB-E5 +0.5, EM-M +1 =
 **+22.5 h** (TB-N2's 4 h already spent).
 
-## 10. Owner decisions and the open question
+## 10. Owner decisions
 
 Answered by the owner on 27 Oct 2026 ("go ahead with recommendations"):
 
@@ -371,16 +371,7 @@ Answered by the owner on 27 Oct 2026 ("go ahead with recommendations"):
 | F-Q3 | Convert a copy in place? | **Yes**; the notice says Undo lasts this session only; Mine's label changes at once |
 | F-Q5 | Budget out of v1? | **Yes**; known costs only, a Free chip and "N of M priced" |
 | F-Q6 | Rename `planner_draft` to `plan_draft`? | **Yes**; the migration and the code ship together (or with a one-release compatibility view) |
-
-**Open, owner to choose: F-Q4, the primary action on Review and prepare.** The owner approved "Keep in Mine"; the design
-review says no. Both options:
-
-| Option | What the person sees | For | Against |
-|---|---|---|---|
-| A. **"Keep in Mine"** as the primary (owner's approved recommendation) | a button "Keep in Mine" above Copy link and PDF | Familiar: a clear end to planning; reassures that the plan is kept; avoids the foundation's ban on "saved" | The draft is already in Mine since its first pick (TF13), so the button does nothing new (T3: buttons must not lie); it can make people doubt their earlier sittings were kept |
-| B. **State line plus the next real job** (review S4) | "In Mine · on this phone" as text; primary **Add to calendar** when dated, **Add dates** when not | Every button does something; leads to book-by dates, which need dates | No explicit "finish" button; people used to "Save" may look for one |
-
-Frames use the neutral placeholder `[ Primary action (F-Q4) ]` and show the state line in both options' place.
+| F-Q4 | Review and prepare's primary action | **State line "In Mine" (or "In your account"); primary Add to calendar when dated, Add dates when not** (owner, 27 Oct 2026, option B). Reason: the draft is in Mine from its first pick (TF13), so a keep or save button would do nothing new (T3) |
 
 ## 11. Checks against the rules
 
@@ -405,7 +396,7 @@ Frames use the neutral placeholder `[ Primary action (F-Q4) ]` and show the stat
 | S1 | TF7; stage 4 rules; F2n, F4 |
 | S2 | TF4; stage 1; F1 |
 | S3 | section 5 C3; C2, WC |
-| S4 | not settled: F-Q4 owner to choose; state line in both options |
+| S4 | owner decision F-Q4 (option B): state line plus Add to calendar or Add dates; F8, W8 |
 | S5 | stage 8 Book ahead rules; F8 |
 | S6 | 7.1 opening rules and keys |
 | S7 | TF6; stage 3; F3, F3s |
@@ -425,4 +416,5 @@ Frames use the neutral placeholder `[ Primary action (F-Q4) ]` and show the stat
   the planning factors added the same day (section 3).
 - 2026-10-27: revised after review TB-N2 (21229eb1): build lands in the editor, getting there as Day 1 and last-day
   cards, placed-by-you, reach pill, one bar in the phone editor, S1 to S12 and L1 to L9 applied, TF18 to TF20 added;
-  owner decisions F-Q1, F-Q2, F-Q3, F-Q5, F-Q6 recorded; F-Q4 left for the owner with both options.
+  owner decisions F-Q1, F-Q2, F-Q3, F-Q5, F-Q6 recorded.
+- 2026-10-27: owner decision F-Q4 (option B) recorded; F8 and W8 carry final copy.

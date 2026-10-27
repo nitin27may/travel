@@ -15,7 +15,7 @@ history under "Earlier frames"); P3f, P3m and P9 stay as drawn. TB-N's findings 
 with Must see in the tray, kids chip first, no swipe, no rings, every Next names its stage). Review TB-N2 is applied:
 the first build lands in the editor (E0), Getting there is a card on Day 1 and the last day, hand edits are "Placed by
 you", the reach is changeable on stage 3, and the editor has one bottom bar. The step count counts stages 1 to 4 that
-ask (FLOW 2.1). The Review primary is a placeholder until the owner chooses F-Q4.
+ask (FLOW 2.1). Review shows the state line "In Mine" and its primary is Add to calendar (dated) or Add dates (undated): owner decision F-Q4.
 
 | Old frame | New frame |
 |---|---|
@@ -414,7 +414,7 @@ opened row (Days and driving):
 | (Free) Lago di Braies, Val di Funes  |
 | Check entry rules for Italy      ^   |
 |--------------------------------------|
-| [ Primary action (F-Q4) ]            |   owner to choose (FLOW 10)
+| [ Add dates ]                        |   dated plans: [ Add to calendar ]
 | [ Copy link ]  [ PDF ]  Edit my plan |
 | Sign in to keep it on every device   |
 +--------------------------------------+

@@ -138,7 +138,7 @@ expands to six two-line rows with fit, safety and booking chips (unfit or closed
 D7's layout with: the state line "In your account" (or "In Mine · on this device") under the summary; Book ahead with
 exact dates (dated), "by about … ≈" (month only) or "Add dates to see book-by dates" (no date); Warnings; Did not fit;
 Known costs ("EUR 74 for 5 of 9 places priced", Free chips); "Check entry rules for Italy"; actions
-`[ Primary action (F-Q4) ]`, Copy link, PDF, Edit my plan.
+primary **Add to calendar** (dated) or **Add dates** (undated) (owner decision F-Q4), then Copy link, PDF, Edit my plan.
 
 ## WC. Copy and Make it yours
 
