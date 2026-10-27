@@ -217,3 +217,53 @@ def test_block_scalar_content_is_not_mistaken_for_keys():
 
 def test_the_docstring_says_it_is_a_drift_guard():
     assert "NOT A SECURITY BOUNDARY" in (lw.__doc__ or "")
+
+
+# ----- WF-3 rules: image, ports, cache ------------------------------------------------------------------------------------------------------
+DIGEST = "sha256:" + "ab" * 32
+CACHE_SHA = "55cc8345863c7cc4c66a329aec7e433d2d1c52a9"
+
+
+def job_with(extra_job_lines: str = "", step: str = "") -> str:
+    base = GOOD.replace("    permissions: { contents: read }\n", "    permissions: { contents: read }\n" + extra_job_lines, 1)
+    return base + step
+
+
+def test_service_image_must_be_pinned_by_digest():
+    ok = job_with(f"    services:\n      db:\n        image: postgres:18@{DIGEST}\n")
+    assert rules(ok) == []
+    assert "image" in rules(job_with("    services:\n      db:\n        image: postgres:18\n"))
+    assert "image" in rules(job_with("    services:\n      db:\n        image: postgres:18@sha256:abc\n"))
+
+
+def test_an_image_env_value_must_be_pinned_by_digest():
+    assert "image" in rules(job_with("    env:\n      PG_BASE_IMAGE: postgres:18-trixie\n"))
+    assert rules(job_with(f"    env:\n      PG_BASE_IMAGE: postgres:18-trixie@{DIGEST}\n")) == []
+
+
+def test_a_service_port_must_bind_loopback():
+    assert rules(job_with("    services:\n      db:\n        ports: ['127.0.0.1:54329:5432']\n")) == []
+    assert "ports" in rules(job_with("    services:\n      db:\n        ports: ['54329:5432']\n"))
+    assert "ports" in rules(job_with("    services:\n      db:\n        ports:\n          - 5432:5432\n"))
+    assert "ports" in rules(job_with("    services:\n      db:\n        ports: ['0.0.0.0:5432:5432']\n"))
+
+
+def test_plain_actions_cache_is_refused_restore_is_fine():
+    assert "cache" in rules(with_step(f"      - uses: actions/cache@{CACHE_SHA}\n        with: {{ path: x, key: k }}\n"))
+    assert rules(with_step(f"      - uses: actions/cache/restore@{CACHE_SHA}\n        with: {{ path: x, key: k }}\n")) == []
+
+
+def test_cache_save_must_be_behind_a_main_only_condition():
+    save = f"      - uses: actions/cache/save@{CACHE_SHA}\n"
+    assert "cache" in rules(with_step(save + "        with: { path: x, key: k }\n"))
+    assert "cache" in rules(with_step(save + "        if: success()\n        with: { path: x, key: k }\n"))
+    assert rules(with_step(save + "        if: github.ref == 'refs/heads/main' && success()\n        with: { path: x, key: k }\n")) == []
+
+
+@pytest.mark.parametrize("action", ["setup-node", "setup-python"])
+def test_setup_action_cache_input_is_refused(action):
+    step = f"      - uses: actions/{action}@{SHA}\n        with: {{ node-version: 22, cache: pnpm }}\n"
+    assert "cache" in rules(with_step(step))
+    block = f"      - uses: actions/{action}@{SHA}\n        with:\n          cache: pnpm\n"
+    assert "cache" in rules(with_step(block))
+    assert rules(with_step(f"      - uses: actions/{action}@{SHA}\n        with: {{ node-version: 22 }}\n")) == []

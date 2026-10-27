@@ -412,9 +412,31 @@ export async function lazyJsReport(dist = '.next', pages = [['Rockies Summary', 
   return ['JS loaded within 1 s of hydration (lazy chunks count; a bundle moved behind a lazy import saves nothing here)', ...lines];
 }
 
+/**
+ * The report as a GitHub job summary (`--markdown`, WF-3): a heading, the lines in a fenced block, and one note when the machine has no
+ * photo cache. Without it a build leaves photos out, so the place-size figures are not comparable with the baseline (measured with
+ * renditions); that budget is checked on the Mac (tools/gate/map.json, `ci_exclude`). `photoCache` is passed in so a test can set it.
+ */
+/** True when the last build cut photo renditions (images.mjs writes .generated/image-map.json: file -> key; `{}` without a photo cache). */
+export function hasRenditions() {
+  const f = path.join(process.env.IMG_GENERATED_DIR || path.join(WEB, '.generated'), 'image-map.json');
+  try { return Object.keys(JSON.parse(readFileSync(f, 'utf8'))).length > 0; } catch { return false; }
+}
+
+export function markdown(lines, { dist = '.next', photoCache = true } = {}) {
+  const out = [`### Budget report (${dist})`, '', '```text', ...lines, '```'];
+  if (!photoCache) {
+    out.push('', '> No photo cache on this machine, so no photo renditions are in the build. The place-size lines above are not comparable',
+      'with the baseline; the place-size budget is a Mac check (T3), not a CI result.');
+  }
+  return out.join('\n');
+}
+
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const args = process.argv.slice(2);
   const dist = args.find((a) => !a.startsWith('--')) || '.next';
-  console.log(report(dist).join('\n'));
-  if (!args.includes('--no-lazy')) console.log((await lazyJsReport(dist)).join('\n'));
+  const lines = report(dist);
+  if (!args.includes('--no-lazy')) lines.push(...(await lazyJsReport(dist)));
+  if (args.includes('--markdown')) console.log(markdown(lines, { dist, photoCache: hasRenditions() }));
+  else console.log(lines.join('\n'));
 }

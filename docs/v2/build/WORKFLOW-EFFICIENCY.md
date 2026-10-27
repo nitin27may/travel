@@ -521,9 +521,12 @@ names the CI run.
 
 ### 4.5 A red CI cannot be ignored
 
-**Phase 1 note (WF-2, review M2).** Until WF-3 adds the `web` and `db-local` jobs and WF-6 the e2e jobs, `check / summary` prints
-`Overall: partial (not run in CI: ...)` for any change whose plan includes a group that has no job yet, and `green` only when
-nothing planned was left out. Do not make it a required status check on `main` before WF-3 lands (WF-10 does that).
+**Phase 2 note (WF-3).** `check.yml` now has `web` and `db-local` jobs. `check / summary` prints `Overall: partial (not run in CI: ...)`
+for a plan that includes a group with no job yet (`e2e`, `visual`), `Overall: green for everything CI runs; the Mac-only checks above
+are still owed` when only Mac-only work is left, and plain `green` only when nothing is owed. Two lists name what CI left out: the
+suites the map marks `mac_only` (`web.timing`) and the test files it marks `ci_exclude` (place size and the photo-rendition tests, the
+household-radius test; each with its reason in `tools/gate/map.json`). Do not make `check / summary` a required status check on `main`
+before WF-10: one green week first (Q-W2).
 
 | Guard | How |
 |---|---|
@@ -781,4 +784,5 @@ Answered by the owner on 26 Oct 2026, one at a time, all as recommended: Q-W1 (t
 
 | Date | Change |
 |---|---|
+| 2026-10-26 | WF-3 built: `web` and `db-local` jobs in `check.yml` (the db job builds `tools/db` on a base pinned by digest with `tools/ci/db_up.sh`, because a stock `postgres:18` service container has no PostGIS, roles, `neon_auth` stub or `travel_template`); `mac_only` and `ci_exclude` in `tools/gate/map.json` (M8); `budget-report.mjs --markdown`; lint rules `image`, `ports`, `cache`; `vitest_ran.py` (a skipped database test fails the job); the seed-drift stage (LOCAL-3) is pending |
 | 2026-10-26 | First version: token, run and machine-time measurements for 21 to 26 Oct 2026; waste patterns W1 to W12; the CI design (four workflows, Mac-only list, CI summary contract, required check, secrets decisions D1 to D12); planning by feature (stacks, risk tiers, context pack, model mapping, length cap, screenshots, stopping rules); savings ranked; quick wins; WF-0 to WF-11; edits for other pages; Q-W1 to Q-W6 |

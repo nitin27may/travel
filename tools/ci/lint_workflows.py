@@ -23,6 +23,10 @@ Rules
   runner       `runs-on` is one plain `ubuntu-*`, `macos-*` or `windows-*` label: no self-hosted, group, labels or list
   injection    no `${{ }}` in a `run:` or `script:` block except needs.*.outputs, matrix.*, steps.*.outputs, env.* (pass anything else
                through `env:`); this is the script-injection rule (github.head_ref, github.event.*.title ...)
+  image        every container image (`image:` of a service, a `*_IMAGE` value) is pinned by `@sha256:<64 hex>` (WF-3)
+  ports        a service's published port binds 127.0.0.1 (WF-3)
+  cache        only `actions/cache/restore` and `actions/cache/save`; a save step runs on main only (`if:` names refs/heads/main); no
+               `cache:` input on setup-node or setup-python, which saves in its post step on any branch (D9, WF-3)
   escape       no backslash escape in a double-quoted scalar (a hex escape inside a key hides a word from every other rule)
 """
 from __future__ import annotations
@@ -157,6 +161,37 @@ def lint_text(name: str, text: str) -> list[str]:
             s, e = step_bounds(lines, i)
             if not any(re.search(r"persist-credentials\s*:\s*false\b", x) for x in lines[s:e]):
                 bad(i, "checkout", "actions/checkout needs `persist-credentials: false`")
+
+    # --- images, ports (WF-3)
+    for i, ln in enumerate(lines):
+        if inblock[i]:
+            continue
+        m = re.match(r"^\s*(?:- )?(?:image|[A-Z][A-Z0-9_]*_IMAGE)\s*:\s*(.+)$", ln)
+        if m and not re.search(r"@sha256:[0-9a-f]{64}\s*$", m.group(1).strip()) and not m.group(1).strip().startswith("${{"):
+            bad(i, "image", "a container image must be pinned by digest (name@sha256:<64 hex>)")
+        if re.match(r"^\s*ports\s*:", ln):
+            e = block_end(lines, i)
+            body = " ".join([ln.split(":", 1)[1], *lines[i + 1:e]])
+            for port in re.findall(r"""[\[,\s-]\s*['"]?([0-9][^\s,\]'"]*:[0-9]+)""", body):
+                if not port.startswith("127.0.0.1:"):
+                    bad(i, "ports", f"published port {port} must bind 127.0.0.1")
+
+    # --- caches (D9, WF-3)
+    for i, ln in enumerate(lines):
+        if inblock[i]:
+            continue
+        m = re.search(r"\buses\s*:\s*actions/cache(/[\w-]+)?@", ln)
+        if m:
+            s0, e0 = step_bounds(lines, i)
+            if m.group(1) is None:
+                bad(i, "cache", "use actions/cache/restore and, on main only, actions/cache/save; a plain actions/cache saves from every branch")
+            elif m.group(1) == "/save" and not any(re.search(r"\bif\s*:.*refs/heads/main", x) for x in lines[s0:e0]):
+                bad(i, "cache", "an actions/cache/save step must have `if: ... refs/heads/main ...` (caches are saved from main only)")
+        m = re.search(r"\buses\s*:\s*actions/setup-(?:node|python)@", ln)
+        if m:
+            s0, e0 = step_bounds(lines, i)
+            if any(re.search(r"(?:^|[\s{,])cache\s*:\s*\S", x) for x in lines[s0 + 1:e0]):
+                bad(i, "cache", "setup-node/setup-python `cache:` saves in its post step on every branch; use actions/cache/restore and save")
 
     # --- top-level keys
     top = {m.group(1): i for i, ln in enumerate(lines) if (m := re.match(r"^([A-Za-z_-]+)\s*:", ln))}

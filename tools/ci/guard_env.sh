@@ -13,4 +13,9 @@ fi
 for v in DATABASE_URL TEST_DATABASE_URL NEON_API_KEY ORS_API_KEY RESEND_API_KEY GOOGLE_CLIENT_SECRET VERCEL_TOKEN GH_TOKEN GITHUB_TOKEN; do
   if [[ -n "${!v:-}" ]]; then echo "guard: $v must not be set in CI"; fail=1; fi
 done
+# The one database a job may name is the throwaway container of tools/ci/db_up.sh: loopback, port 54329, the CI owner role and a
+# password that starts "ci-" (a plain workflow value, not a secret). Anything else, a Neon host above all, fails the job.
+if [[ -n "${LOCAL_DATABASE_URL:-}" ]] && ! [[ "$LOCAL_DATABASE_URL" =~ ^postgres://neondb_owner:ci-[A-Za-z0-9-]+@127\.0\.0\.1:54329/neondb$ ]]; then
+  echo "guard: LOCAL_DATABASE_URL may only name the throwaway CI container on 127.0.0.1:54329"; fail=1
+fi
 exit "$fail"

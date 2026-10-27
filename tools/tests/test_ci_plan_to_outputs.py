@@ -38,10 +38,12 @@ def test_docs_only_plan_selects_links_only(monkeypatch):
     assert out["groups"] == "links" and out["docs_only"] == "true" and out["full"] == "false"
 
 
-def test_workflow_change_selects_the_ci_suite_not_the_web(monkeypatch):
+def test_workflow_change_selects_the_ci_suite_and_exercises_the_web_and_db_jobs(monkeypatch):
+    # WF-3: a job runs only when its group is planned, so a change to the workflow must plan the groups it defines
     out = po.outputs(ci_plan([".github/workflows/check.yml"], monkeypatch=monkeypatch))
-    assert out["groups"].split(",")[0] == "links" and "ci" in out["suites"].split(",")
-    assert "web" not in out["groups"].split(",")
+    groups = out["groups"].split(",")
+    assert groups[0] == "links" and "ci" in out["suites"].split(",")
+    assert {"core-data", "web", "db"} <= set(groups) and "e2e" not in groups
 
 
 def test_web_change_selects_web_and_e2e_specs(monkeypatch, tmp_path):
@@ -55,6 +57,30 @@ def test_full_plan_lists_the_timing_suite_as_mac_only(monkeypatch):
     out = po.outputs(ci_plan(["tools/gate/gate.py"], monkeypatch=monkeypatch))
     assert out["full"] == "true" and out["mac_only"] == "web.timing"
     assert "web.timing" in out["suites"].split(",")
+
+
+def test_ci_excluded_test_files_come_from_the_map_for_planned_suites_only(monkeypatch):
+    out = po.outputs(ci_plan(["tools/gate/gate.py"], monkeypatch=monkeypatch))
+    excluded = out["ci_excluded"].split(",")
+    assert "web/tests/data/place-size.test.ts" in excluded and "web/tests/images.test.ts" in excluded
+    docs = po.outputs(ci_plan(["docs/v2/PLAN.md"], monkeypatch=monkeypatch))
+    assert docs["ci_excluded"] == ""  # no web suite in the plan, nothing is owed
+
+
+def test_a_mac_only_suite_does_not_make_its_group_planned_and_lists_no_excluded_files():
+    plan = {"suites": [{"suite": "web.timing", "group": "web", "mac_only": True, "ci_exclude": ["web/tests/x.test.ts"]}]}
+    out = po.outputs(plan)
+    assert out["groups"] == "" and out["mac_only"] == "web.timing" and out["ci_excluded"] == ""
+
+
+def test_excluded_file_names_are_filtered_like_every_other_value():
+    plan = {"suites": [{"suite": "web.unit", "group": "web", "ci_exclude": ["web/tests/a.test.ts", "x\ny=1", "ok.ts\n"]}]}
+    assert po.outputs(plan)["ci_excluded"] == "web/tests/a.test.ts"
+
+
+def test_a_db_change_plans_the_db_group_with_its_suite(monkeypatch):
+    out = po.outputs(ci_plan(["core/src/db/runner.ts"], monkeypatch=monkeypatch))
+    assert "db" in out["groups"].split(",") and out["suites_db"] == "db.local"
 
 
 def test_a_plan_without_groups_is_refused():
@@ -144,6 +170,21 @@ def test_guard_rejects_another_home_point_without_printing_it():
 def test_guard_rejects_a_database_url_without_printing_it():
     r = guard(DATABASE_URL="postgres://u:secretvalue@h/db")
     assert r.returncode == 1 and "DATABASE_URL" in r.stdout and "secretvalue" not in r.stdout + r.stderr
+
+
+CI_DB = "postgres://neondb_owner:ci-throwaway-owner@127.0.0.1:54329/neondb"
+
+
+def test_guard_accepts_the_throwaway_ci_database_only():
+    assert guard(LOCAL_DATABASE_URL=CI_DB).returncode == 0
+    for bad in (CI_DB.replace("127.0.0.1", "ep-quiet-leaf-b4oz2a4v.us-east-2.aws.neon.tech"),
+                CI_DB.replace("ci-throwaway-owner", "realpassword"),
+                CI_DB.replace(":54329", ":5432"),
+                CI_DB.replace("127.0.0.1", "localhost"),
+                CI_DB + "?sslmode=require"):
+        r = guard(LOCAL_DATABASE_URL=bad)
+        assert r.returncode == 1 and "LOCAL_DATABASE_URL" in r.stdout, bad
+        assert "realpassword" not in r.stdout + r.stderr and "neon.tech" not in r.stdout + r.stderr
 
 
 def test_guard_rejects_a_missing_home_point():
@@ -250,3 +291,56 @@ def test_scrub_fails_closed_on_an_unreadable_file(tmp_path):
         assert r.returncode == 2 or os.geteuid() == 0
     finally:
         f.chmod(0o600)
+
+
+# ----- WF-3: mac_only and ci_exclude come from the map ---------------------------------------------------------------------------
+def test_the_mac_only_note_is_the_maps_reason(monkeypatch, tmp_path):
+    monkeypatch.setenv("GATE_RUNNER", "ci")
+    r = gate.run_job(M, gate.Job("web.timing", ["T2"]), root=ROOT, lock_root=tmp_path, label="t", log=lambda s: None, note=lambda s: None)
+    assert r.status == "MAC_ONLY" and r.note == M["suites"]["web.timing"]["mac_only"]
+
+
+def test_a_suite_without_the_maps_mac_only_is_not_mac_only_even_on_the_timing_slot(monkeypatch):
+    monkeypatch.setenv("GATE_RUNNER", "ci")
+    assert gate.mac_only({"slot": "timing"}, "web.timing") is False
+    assert gate.mac_only({"mac_only": "why"}, "x") is True
+
+
+def test_ci_exclusion_is_done_by_the_vitest_config_not_by_command_line_flags(monkeypatch):
+    # vitest ignores a CLI --exclude inside a project's own configuration, so the gate must not rely on one
+    monkeypatch.setenv("GATE_RUNNER", "ci")
+    for sid, files in (("web.built", []), ("web.unit", []), ("web.unit", ["web/lib/a.ts"])):
+        argv = gate.actions_for(M, gate.Job(sid, ["T2"], files=files, narrowed=bool(files)), ROOT)[0].argv
+        assert "--exclude" not in argv
+
+
+def test_the_vitest_config_reads_ci_exclude_for_a_ci_runner_only():
+    cfg = (ROOT / "web/vitest.config.ts").read_text()
+    assert "ci_exclude" in cfg and "process.env.GATE_RUNNER === 'ci'" in cfg
+    assert gate.ci_excluded(M["suites"]["web.built"]) == {}  # off CI the gate reports none
+
+
+def test_ci_json_rows_carry_the_excluded_files(monkeypatch):
+    doc = ci_plan(["tools/gate/gate.py"], monkeypatch=monkeypatch)
+    rows = {r["suite"]: r for r in doc["suites"]}
+    assert "web/tests/data/place-size.test.ts" in rows["web.built"]["ci_exclude"] and rows["links"]["ci_exclude"] == []
+
+
+def test_vitest_really_leaves_the_excluded_files_out_on_a_ci_runner_and_only_there():
+    import shutil
+    if not shutil.which("pnpm") or not (ROOT / "web/node_modules").exists():
+        pytest.skip("web dependencies are not installed")
+
+    def listed(project: str, runner: str | None) -> set[str]:
+        env = {k: v for k, v in os.environ.items() if k != "GATE_RUNNER"}
+        if runner:
+            env["GATE_RUNNER"] = runner
+        r = subprocess.run(["pnpm", "--dir", "web", "exec", "vitest", "list", "--filesOnly", "--json", "--project", project],
+                           cwd=ROOT, capture_output=True, text=True, env=env, timeout=120)
+        assert r.returncode == 0, r.stderr[-300:]
+        return {Path(row["file"]).resolve().relative_to(ROOT.resolve()).as_posix() for row in json.loads(r.stdout[r.stdout.find("["):])}
+
+    for sid, project in (("web.built", "built"), ("web.unit", "unit")):
+        excluded = set(M["suites"][sid]["ci_exclude"])
+        assert excluded <= listed(project, None), "off CI the whole project runs"
+        assert not excluded & listed(project, "ci"), "on CI the excluded files are out"

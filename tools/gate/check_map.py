@@ -13,12 +13,15 @@ M5  rules name known suites; every glob (each brace alternative) matches a file;
     14 days long and name a BACKLOG row; "not_tests", "release_only" and "allow_unmatched_globs" entries are live
 M6  the web vitest suites (unit, built, fixture, timing) own every web unit test file exactly once, and the projects of
     web/vitest.config.ts (asked with `vitest list --filesOnly`; `--no-vitest` skips it) resolve to exactly those files
+M8  a suite's `mac_only` is a reason; a vitest suite's `ci_exclude` ({test file: reason}) names existing tests of that suite, with
+    reasons, and never all of them (WF-3)
 """
 from __future__ import annotations
 
 import argparse
 import datetime as dt
 import json
+import os
 import re
 import subprocess
 import sys
@@ -78,8 +81,9 @@ def vitest_project_files(root: Path = gm.ROOT) -> dict[str, list[str]]:
     out: dict[str, list[str]] = {}
     for sid in WEB_PROJECTS:
         name = sid.split(".", 1)[1]
+        env = {k: v for k, v in os.environ.items() if k != "GATE_RUNNER"}  # a CI runner's vitest config leaves `ci_exclude` files out; M6 wants the whole project
         r = subprocess.run(["pnpm", "--dir", "web", "exec", "vitest", "list", "--filesOnly", "--json", "--project", name],
-                           cwd=root, capture_output=True, text=True, check=False)
+                           cwd=root, capture_output=True, text=True, check=False, env=env)
         start = r.stdout.find("[")
         if r.returncode != 0 or start < 0:
             raise RuntimeError(f"vitest list --project {name} failed: {(r.stderr or r.stdout)[-300:]}")
@@ -224,6 +228,30 @@ def check(m: dict, files: list[str], check_all_text: str, root: Path = gm.ROOT, 
     for sid in m.get("uncacheable", []):
         if sid not in suites:
             errs.append(f"M7 uncacheable names unknown suite {sid}")
+    # M8 (WF-3) ---------------------------------------------------------------------------------------------------------
+    for sid, s in suites.items():
+        if "mac_only" in s and not (isinstance(s["mac_only"], str) and s["mac_only"].strip()):
+            errs.append(f"M8 {sid}: mac_only must be the reason CI cannot run it (a non-empty string)")
+        ex = s.get("ci_exclude")
+        if ex is None:
+            continue
+        if not isinstance(ex, dict) or not ex:
+            errs.append(f"M8 {sid}: ci_exclude must be a non-empty {{test file: reason}} object")
+            continue
+        if "vitest" not in s:
+            errs.append(f"M8 {sid}: ci_exclude only applies to a suite with a vitest project (it becomes --exclude)")
+        if s.get("mac_only"):
+            errs.append(f"M8 {sid}: mac_only already drops the whole suite; ci_exclude on it does nothing")
+        for path, why in ex.items():
+            if not (isinstance(why, str) and why.strip()):
+                errs.append(f"M8 {sid}: ci_exclude {path} has no reason")
+            if path not in fs:
+                errs.append(f"M8 {sid}: ci_exclude {path} is not a file in the repository")
+            elif not gm.match_any(s.get("tests", []), path):
+                errs.append(f"M8 {sid}: ci_exclude {path} is not one of the suite's own tests")
+        own = [p for p in tests if gm.match_any(s.get("tests", []), p)]
+        if own and set(own) <= set(ex):
+            errs.append(f"M8 {sid}: ci_exclude drops every test of the suite; mark the suite mac_only instead")
     return errs
 
 
@@ -247,7 +275,7 @@ def explain(m: dict, path: str) -> list[str]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser(description="Check tools/gate/map.json (TEST-STRATEGY 4.3, M1 to M6).")
+    ap = argparse.ArgumentParser(description="Check tools/gate/map.json (TEST-STRATEGY 4.3, M1 to M8).")
     ap.add_argument("--explain", metavar="PATH", help="print what one path selects, and why")
     ap.add_argument("--no-vitest", action="store_true", help="skip M6's comparison with the real vitest projects")
     a = ap.parse_args(argv)
