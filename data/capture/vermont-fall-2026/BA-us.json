@@ -45,15 +45,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5241611, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5241611, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 0,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Stowe",

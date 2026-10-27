@@ -29,7 +29,7 @@ test.describe('closed by default', () => {
     await page.goto(`${site.url}${ROCKIES}`);
     await expect(shape(page).getByRole('heading', { name: "The trip's shape" })).toBeVisible();
     await expect(shape(page).getByRole('list', { name: 'Where you sleep' }).getByRole('listitem')).toHaveCount(5);
-    await expect(shape(page).locator('.shape-count')).toHaveText('15 days · 4 long drive days · 5 days with a booking · 8 highlight days · 6 days with a warning', { useInnerText: true });
+    await expect(shape(page).locator('.shape-count')).toHaveText('15 days · 4 long drive days · 6 days with a booking · 8 highlight days · 6 days with a warning', { useInnerText: true });
     await expect(toggle(page)).toHaveText('Show all 15 days');
     await expect(toggle(page)).toHaveAttribute('aria-expanded', 'false');
     await expect(shape(page).locator('.shape-table')).toBeHidden();
@@ -60,7 +60,7 @@ test.describe('opening and closing', () => {
     await expect(table.getByRole('columnheader')).toHaveText(['Day', 'Base and plan', 'Driving', 'On foot', 'Notes']);
     expect(await days(page)).toEqual(Array.from({ length: 15 }, (_, i) => i + 1));
     await expect(rows(page).first()).toContainText('Long drive');
-    await expect(rows(page).first()).toContainText('Book 2');
+    await expect(rows(page).first()).toContainText('Book 1'); // the Discovery Pass is a pass now, not counted (PA-R-CA2)
     await expect(rows(page).nth(10)).toContainText('No driving');
     expect(await page.evaluate(() => document.activeElement?.classList.contains('shape-toggle'))).toBe(true);
     await page.keyboard.press('Space');
@@ -237,7 +237,7 @@ test.describe('the second review (UXB-3F)', () => {
   test('polish: the live region says what is shown, in the order a reader wants it', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}`);
     await shape(page).locator('[data-phrase="booking"]').click();
-    await expect(shape(page).locator('p[role="status"].sr-only')).toHaveText('Showing 5 of 15 days: 5 days with a booking');
+    await expect(shape(page).locator('p[role="status"].sr-only')).toHaveText('Showing 6 of 15 days: 6 days with a booking');
   });
 });
 
@@ -259,7 +259,7 @@ test.describe('phones', () => {
       expect(new Set(left).size).toBe(1);
       await expect(rows(page).first().locator('.shape-notes')).toContainText('1.9 km on foot');
       // S2: short phrases, no more than two rows of them
-      await expect(shape(page).locator('.shape-phrase')).toHaveText(['15 days', '4 long drives', '5 with a booking', '8 highlights', '6 warnings'], { useInnerText: true });
+      await expect(shape(page).locator('.shape-phrase')).toHaveText(['15 days', '4 long drives', '6 with a booking', '8 highlights', '6 warnings'], { useInnerText: true });
       const pills = await shape(page).locator('.shape-phrase').evaluateAll((els) => new Set(els.map((e) => Math.round(e.getBoundingClientRect().top))).size);
       expect(pills).toBeLessThanOrEqual(width === 320 ? 3 : 2);
       await expect(rows(page).first()).toContainText('Long drive');

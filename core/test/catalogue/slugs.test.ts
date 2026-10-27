@@ -270,8 +270,8 @@ describe("data/catalogue/slugs.json, as committed", () => {
     expect(registryProblems(r)).toEqual([]);
     expect(registryText(r)).toBe(text);
   });
-  it("pins today's 434 place keys with the 3 merged records recorded and the 5 folded offer pages (DATA-D4a) withdrawn, every trip, and 48 regions (AREA-2 added 76 store places and 7 regions); merged slugs answer moved (R-1)", () => {
-    expect(Object.keys(r.places.slugs).length).toBe(434);
+  it("pins today's 439 place keys (434 before PA-R-CA added the 5 parks) with the 3 merged records recorded and the 5 folded offer pages (DATA-D4a) withdrawn, every trip, and 48 regions (AREA-2 added 76 store places and 7 regions); merged slugs answer moved (R-1)", () => {
+    expect(Object.keys(r.places.slugs).length).toBe(439);
     expect(Object.keys(r.places.merged).length).toBe(3);
     expect(Object.keys(r.places.withdrawn).length).toBe(5);
     for (const [k, survivor] of Object.entries(r.places.merged)) expect(movedTo(r, r.places.slugs[k]!)?.slug).toBe(r.places.slugs[survivor]);
@@ -301,7 +301,7 @@ describe("data/catalogue/slugs.json, as committed", () => {
     expect(originProblems(origins, r)).toEqual([]);
     expect(originKeysText(origins)).toBe(readFileSync(join(ROOT, ORIGIN_KEYS_PATH), "utf8"));
     const refs = Object.values(origins.keys);
-    expect(refs.length).toBe(191);
+    expect(refs.length).toBe(196); // 191 before PA-R-CA's 5 park store places
     // minted from the first pinned slug; none renamed yet, so every one still equals its slug
     for (const ref of refs) expect(r.places.slugs[ref], ref).toBe(ref.slice("place/".length));
   });

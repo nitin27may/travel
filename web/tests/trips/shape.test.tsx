@@ -25,9 +25,9 @@ describe('the shape on the Canadian Rockies', () => {
   const model = buildShape(tm!.days, facts!, tm!.defaultTimelines, new Set());
 
   it('reads the count line of the spec at the plan as written', () => {
-    expect(model.countLine).toBe('15 days · 4 long drive days · 5 days with a booking · 8 highlight days · 6 days with a warning');
+    expect(model.countLine).toBe('15 days · 4 long drive days · 6 days with a booking · 8 highlight days · 6 days with a warning');
     expect(model.sets.longDrive).toEqual([1, 4, 5, 8]);
-    expect(model.sets.booking).toEqual([1, 4, 5, 10, 11]);
+    expect(model.sets.booking).toEqual([1, 4, 5, 9, 10, 11]); // Day 9: the Lake O'Hara lottery (PA-R-CA2)
     // the spec's 7 predates Day 5's Athabasca Falls reaching the trip-surface badge; web/tests/data/trip-summary.test.ts pins the same 8
     expect(model.sets.highlight).toEqual([3, 4, 5, 8, 9, 10, 11, 14]);
     expect(model.sets.warning).toEqual([2, 4, 7, 10, 12, 13]);
@@ -70,7 +70,7 @@ describe('the shape on the Canadian Rockies', () => {
     const day1 = html.slice(html.indexOf('data-day="1"'), html.indexOf('data-day="2"'));
     expect(text(day1)).toMatch(/Banff/);
     expect(text(day1)).toMatch(/Long drive/);
-    expect(text(day1)).toMatch(/Book 2/);
+    expect(text(day1)).toMatch(/Book 1/); // the rental car; the Discovery Pass is a pass now, never counted (PA-R-CA2)
     expect(text(day1)).toMatch(/2 h 30/);
   });
 

@@ -109,15 +109,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 11.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Tre Cime di Lavaredo",
@@ -164,15 +164,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3168508, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3168508, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 10.7,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Tre Cime north-face viewpoint by Rifugio Locatelli",
@@ -210,15 +210,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 11.6,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Rifugio Auronzo",
@@ -269,15 +269,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 10.8,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Rifugio Lavaredo",
@@ -328,15 +328,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3168508, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3168508, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 10.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Dreizinnenhütte / Rifugio Antonio Locatelli",
@@ -575,15 +575,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 12.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Strada per il Rifugio Auronzo (Tre Cime toll road)",
@@ -627,15 +627,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 11.6,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Parcheggio Rifugio Auronzo",
@@ -830,15 +830,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3173140, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3173140, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 6.6,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lago di Braies P4 car park",
@@ -882,15 +882,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3172192, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3172192, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 3.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Karersee - Lago di Carezza car park",
@@ -925,15 +925,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177571, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177571, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 10.7,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lago di Landro car park",
@@ -968,15 +968,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 11.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lago d'Antorno car park",
@@ -1011,15 +1011,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177571, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177571, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 2.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Toblacher See car park",
@@ -1054,15 +1054,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 9.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lago di Misurina car park",
@@ -1168,15 +1168,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3174663, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3174663, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 7.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Rifugio Nuvolau and Averau",
@@ -1245,15 +1245,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3174663, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3174663, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 8.6,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Rifugio Scotoni",

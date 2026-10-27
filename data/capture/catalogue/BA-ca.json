@@ -161,15 +161,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6695248, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6695248, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 0.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Montmorency Falls",
@@ -229,15 +229,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6325479, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6325479, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 3.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Canyon Sainte-Anne",
@@ -446,15 +446,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5959878, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5959878, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 18.7,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Mont Saint-Alban",
@@ -513,15 +513,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 25.1,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "La Martre Lighthouse",
@@ -594,15 +594,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 39.1,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lac aux Américains",
@@ -710,15 +710,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 39.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Mont Xalibu",
@@ -777,15 +777,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 12076634, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 12076634, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 11.7,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Pic Champlain",
@@ -849,8 +849,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
       },
       "name": "Mont-Saint-Pierre",
       "area_id": "CA/QC/haute-gaspesie",
@@ -896,15 +896,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6621052, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6621052, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 10.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Bonaventure Island",
@@ -952,15 +952,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6621052, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6621052, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 8.3,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Percé Rock",
@@ -1085,15 +1085,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 37.8,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lac aux Américains car park (40 places)",
@@ -1132,15 +1132,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 12076634, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 12076634, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 14.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Belvédère Raoul-Roy car park (20 places)",
@@ -1178,15 +1178,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6621052, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6621052, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 7.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Percé quay car park (paid, 100 places)",

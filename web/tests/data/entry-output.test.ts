@@ -73,7 +73,9 @@ describe('the trips carry derived entry text, never the records behind it', () =
   });
   it('the Rockies page says what it knows: the shuttle window and link, the lakeshore check, and an honest "not checked" line for a park nobody has read', () => {
     const html = text(path.join(out, 'trips', 'canadian-rockies-2029', 'index.html'));
-    expect(html).toContain('Opens 2 days before Day 10 at 08:00 local');
+    expect(html).toContain('then 2 days before Day 10 at 08:00 local (60% of seats)');
+    expect(html).toMatch(/Banff National Park(?:<\/a>)?<\/b>, days 1 to 4 and 10 to 11: entry fee each day, or the Parks Canada Discovery Pass covers it/);
+    expect(html).not.toMatch(/Entry not checked yet for (?:Banff|Jasper|Yoho|Kootenay)/);
     expect(html).toContain('https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise');
     expect(html).toContain('Entry not checked yet for');
     expect(html).toMatch(/data-print-parks="canadian-rockies-2029"/);

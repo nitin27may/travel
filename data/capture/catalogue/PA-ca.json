@@ -305,15 +305,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 0.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Banff National Park",
@@ -410,15 +410,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6354954, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6354954, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 0.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Jasper National Park",
@@ -516,15 +516,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 34.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Yoho National Park",
@@ -621,15 +621,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6115713, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6115713, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 0.3,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Kootenay National Park",
@@ -726,15 +726,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 23.3,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Kananaskis Country",
@@ -827,8 +827,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
       },
       "name": "Lake Louise area",
       "area_id": "CA/AB/banff-national-park",
@@ -869,15 +869,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 44.7,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lake O'Hara area",
@@ -928,15 +928,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 0.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Banff Visitor Centre",
@@ -979,8 +979,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
       },
       "name": "Lake Louise Visitor Centre",
       "area_id": "CA/AB/banff-national-park",
@@ -1022,15 +1022,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6354954, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6354954, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 0.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Jasper Park Information Centre",
@@ -1073,15 +1073,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 34.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Yoho National Park Visitor Centre",
@@ -1124,15 +1124,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6115713, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6115713, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 0.3,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Kootenay National Park Visitor Centre (Radium Hot Springs)",
@@ -1175,15 +1175,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 23.3,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Kananaskis Visitor Information Centre (Barrier Lake)",
@@ -1226,15 +1226,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-25."
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
       },
       "near_town_km": {
         "v": 47.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-25",
+        "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lake O'Hara parking lot (bus departure)",

@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { bookingCounts, tripBookings } from '@travel/core/export/bookings.ts';
+import { bookingCounts, tripBookings, type BookRulePhase } from '@travel/core/export/bookings.ts';
+import { opensBeforeDay1 } from '@/lib/public/summary';
 import type { ExportBooking } from '@travel/core/export/types.ts';
 import { createPublicData } from '@/lib/public';
 import { BookingsPanel } from '@/components/trips/tabs/BookingsPanel';
@@ -81,14 +82,16 @@ describe('BookingsPanel', () => {
 describe('the real trips', () => {
   const data = createPublicData();
   const rows = (slug: string) => tripBookings(Object.values(data.getTrip(slug)!.categories).flat());
-  it('Rockies (PA-W): 7 to book ahead, the shuttle the one with a published window, the lakeshore lot a check that is listed and not counted', () => {
+  it('Rockies (PA-W, PA-R-CA2): 8 to book ahead (the shuttle one row per ridden day, the Roam batch, the O\'Hara lottery), the Discovery and Kananaskis passes listed, the lakeshore lot a check; passes and checks are never counted', () => {
     const r = rows('canadian-rockies-2029');
     const t = text(renderToStaticMarkup(<BookingsPanel bookings={r} />));
-    expect(bookingCounts(r)).toMatchObject({ toBook: 7, pass: 0, check: 1, task: 0 });
-    expect(r).toHaveLength(8);
-    expect(t).toContain('7 to book ahead, 1 with a published opening date; also 1 check.');
-    expect(t).toContain('Opens 2 days before Day 10 at 08:00 local');
-    expect(t).toContain('Prices: not checked yet for these 7.');
+    expect(bookingCounts(r)).toMatchObject({ toBook: 8, pass: 2, check: 1, task: 0 });
+    expect(r).toHaveLength(11);
+    expect(t).toContain('8 to book ahead, 4 with a published opening date; also 2 passes, 1 check.');
+    expect(t).toContain('then 2 days before Day 10 at 08:00 local (60% of seats)');
+    expect(t).toContain('Buy any time before Day 1');
+    expect(t).toContain('Buy by 23:59 on Day 12');
+    expect(t).toContain('Prices: not checked yet for the 8 bookings and 2 passes.');
   });
   it('Dolomites: the Tre Cime window reads "Opens 30 days before Day 3", with no dangling "local"', () => {
     const r = rows('dolomites-2027');
@@ -203,5 +206,19 @@ describe('UXB-6F: section matching on the real Rockies rows', () => {
     expect((html.match(/Open photo \d+ of /g) ?? []).length).toBe(t.gallery.length);
     expect(html).toContain(`of ${t.gallery.length}`);
     expect(text(renderToStaticMarkup(<PhotosPanel photos={t.gallery} rows={planRows} />))).toContain(`${t.gallery.length} photos in`);
+  });
+});
+
+describe('opensBeforeDay1: ranking "earliest" across window kinds (PA-R-CA2)', () => {
+  it('a launch day or a lottery opens whole months before the trip; a monthly batch its lead before the month; rolling its days', () => {
+    const p = (o: Partial<BookRulePhase>): BookRulePhase => ({ kind: 'rolling', daysBefore: 0, dayN: 10, time: null, tz: null, ...o });
+    expect(opensBeforeDay1(p({ daysBefore: 2 }), 9)).toBe(11);
+    expect(opensBeforeDay1(p({ kind: 'monthly_release', dayN: 11, monthLeadDays: 36 }), 9)).toBe(46);
+    // the shuttle: an April launch day, then 2 days before; the launch day counts
+    expect(opensBeforeDay1({ ...p({ kind: 'fixed_date', months: [4, 4] }), then: p({ daysBefore: 2 }) }, 9)).toBe(9 + 150);
+    // the O'Hara lottery in March, for a September trip, opens before the April launch day
+    expect(opensBeforeDay1({ ...p({ kind: 'lottery', dayN: 9, months: [3, 3] }) }, 9)).toBeGreaterThan(9 + 150);
+    // no trip month: a month band cannot be placed, so it counts like a window on its day
+    expect(opensBeforeDay1(p({ kind: 'fixed_date', months: [4, 4] }), null)).toBe(9);
   });
 });

@@ -98,3 +98,15 @@ P1435) and OpenStreetMap through Overpass (points, `osm_ref`). The registry is r
 | `pnpm --dir core exec vitest run test/parks test/export test/graph test/capture` | 1 failure: the E_PLACE_FAR pin (finding 5) |
 | `node core/bin/capture.ts gaps --placement --trip catalogue` | 115 records; no area 0, no point 0, approximate 19 (none new), no nearest town 0, outside its area 0, offers saying nowhere 0 |
 | `node core/bin/capture.ts gaps --placement --trip canadian-rockies-2029` | 206 records; no area 14, no point 0, approximate 8, outside its area 4 (finding 5) |
+
+## Follow-up PA-R-CA2 (27 Oct 2026, Opus)
+
+- Finding 5 is fixed in the rule, not the data: `core/src/capture/placementBlock.ts` judges a member of a protected area that covers its
+  own `area_id` (graph.ts containment: `part_of`, else `covers_areas`) against the area's store places widened by the park's point and
+  the exact points of its other such members. A lone or swapped point is still flagged (unit tests in
+  `core/test/capture/placement-block.test.ts`). `E_PLACE_FAR` is back to 0 and the raise is removed from `gap-budget.json`.
+- PA-W wiring written in `data/trips/booking-refs.json`: `pass-discovery` (days 1 to 11, every national-park day of the plan),
+  `moraine-private-access`, `lake-ohara-bus`, `kananaskis-pass` (their legacy days already match). The shuttle keeps `days: [10, 11]`
+  (the legacy row lists days 8 to 11; it is ridden on 10 and 11) and drops the note that repeated the launch-day rule.
+- Kootenay has no park line: Marble Canyon and the Paint Pots (day 3) have no `area_id` (`gaps --placement`: no area 14), so they are
+  not members. That is a `migrated.json` edit for the owner of the Rockies records.
