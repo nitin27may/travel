@@ -12,6 +12,12 @@ import { describesParty } from '@travel/core/privacy/party.ts';
 const summary = (slug: string) => tripSummaryFor(getTrip(slug)!, getPlace);
 
 describe('Summary: Canadian Rockies (the test case)', () => {
+  it('PA-R-CA3: the park lines name Kootenay on day 3 (Marble Canyon and the Paint Pots carry its area)', () => {
+    const lines = getTrip('canadian-rockies-2029')!.parks!.map((p) => p.line);
+    expect(lines.filter((l) => l.startsWith('Kootenay National Park, day 3: '))).toHaveLength(1);
+    expect(lines.find((l) => l.startsWith('Banff National Park'))).toContain('(also Kootenay, Jasper and Yoho on this trip)');
+    expect(lines.some((l) => /Entry not checked yet for .*Kootenay/.test(l))).toBe(false);
+  });
   const s = summary('canadian-rockies-2029');
   it('names 2 provinces with the places the plan visits in each', () => {
     expect(s.regions).toEqual([{ name: 'Alberta', places: 29 }, { name: 'British Columbia', places: 6 }]);

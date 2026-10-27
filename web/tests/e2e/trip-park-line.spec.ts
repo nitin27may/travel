@@ -17,7 +17,9 @@ for (const vp of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
       await expect(lines.locator('.sum-park[data-state="not_checked"] .sum-park-line')).toHaveText('Entry not checked yet for Upper and Lower Kananaskis Lakes');
       await expect(lines.locator('.sum-park[data-state="not_checked"]')).toHaveCount(1);
       // PA-R-CA2: the real park sentence, and no national park left unchecked
-      await expect(lines.locator('.sum-park-line').first()).toHaveText('Banff National Park, days 1 to 4 and 10 to 11: entry fee each day, or the Parks Canada Discovery Pass covers it (also Jasper and Yoho on this trip)');
+      await expect(lines.locator('.sum-park-line').first()).toHaveText('Banff National Park, days 1 to 4 and 10 to 11: entry fee each day, or the Parks Canada Discovery Pass covers it (also Kootenay, Jasper and Yoho on this trip)');
+      // PA-R-CA3: Marble Canyon and the Paint Pots (day 3) carry the Kootenay area, so Kootenay has its own line
+      await expect(lines.locator('.sum-park-line', { hasText: 'Kootenay National Park, day 3:' })).toHaveCount(1);
       await expect(lines).not.toContainText(/Entry not checked yet for (?:Banff|Jasper|Yoho|Kootenay)/);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     });
