@@ -1,0 +1,2023 @@
+[
+ {
+  "day": 1,
+  "kind": "arrival",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "San Candido",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.7327,
+    "lon": 12.2803
+   }
+  },
+  "nextBase": null,
+  "sunPoint": {
+   "lat": 46.7327,
+   "lon": 12.2803
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "main",
+    "label": "The plan's day",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": [
+     {
+      "id": "i2",
+      "kind": "visit",
+      "sub": "lake",
+      "title": "Lago di Landro",
+      "placeSlug": "lago-di-landro",
+      "point": {
+       "lat": 46.6347,
+       "lon": 12.231
+      },
+      "rule": null,
+      "durationMin": 20,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "15:20",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": false,
+      "honesty": []
+     }
+    ]
+   }
+  ],
+  "legs": [
+   {
+    "from": "origin",
+    "to": "i2",
+    "mode": "drive",
+    "minutes": 137,
+    "km": 166.2,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i2",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 21,
+    "km": 15.9,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": {
+   "time": "11:30",
+   "source": "plan",
+   "label": "Land at Venice Marco Polo Airport"
+  },
+  "origin": {
+   "name": "Venice Marco Polo Airport",
+   "placeSlug": null,
+   "point": {
+    "lat": 45.5053,
+    "lon": 12.3519
+   }
+  },
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "last"
+ },
+ {
+  "day": 2,
+  "kind": "normal",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "San Candido",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.7327,
+    "lon": 12.2803
+   }
+  },
+  "nextBase": null,
+  "sunPoint": {
+   "lat": 46.7327,
+   "lon": 12.2803
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "main",
+    "label": "The plan's day",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": [
+     {
+      "id": "i3",
+      "kind": "visit",
+      "sub": "lake",
+      "title": "Lago di Braies",
+      "placeSlug": "lago-di-braies",
+      "point": {
+       "lat": 46.6946,
+       "lon": 12.0853
+      },
+      "rule": null,
+      "durationMin": 150,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": null,
+      "needs": {
+       "sun": "sunrise",
+       "offsetMin": -25
+      },
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": "First light on the lake: alpenglow on the Seekofel arrives before the sun. The car park is a booked slot; book it online before the day.",
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": false,
+      "honesty": []
+     },
+     {
+      "id": "i4",
+      "kind": "trail",
+      "sub": "hike",
+      "title": "Val Fiscalina",
+      "placeSlug": "val-fiscalina",
+      "point": {
+       "lat": 46.6745,
+       "lon": 12.355
+      },
+      "rule": null,
+      "durationMin": 120,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": {
+       "distanceKm": 3,
+       "gainM": 60
+      },
+      "start": {
+       "time": "14:00",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": true,
+      "honesty": []
+     }
+    ]
+   }
+  ],
+  "legs": [
+   {
+    "from": "base",
+    "to": "i3",
+    "mode": "drive",
+    "minutes": 26,
+    "km": 20.4,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i3",
+    "to": "i4",
+    "mode": "drive",
+    "minutes": 40,
+    "km": 31.6,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i4",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 16,
+    "km": 11.7,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": null,
+  "origin": null,
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "first"
+ },
+ {
+  "day": 3,
+  "kind": "normal",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "San Candido",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.7327,
+    "lon": 12.2803
+   }
+  },
+  "nextBase": null,
+  "sunPoint": {
+   "lat": 46.7327,
+   "lon": 12.2803
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "main",
+    "label": "The plan's day",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": [
+     {
+      "id": "i5",
+      "kind": "trail",
+      "sub": "hike",
+      "title": "Tre Cime di Lavaredo loop",
+      "placeSlug": "tre-cime-di-lavaredo-loop",
+      "point": {
+       "lat": 46.6125,
+       "lon": 12.2955
+      },
+      "rule": null,
+      "durationMin": 270,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": {
+       "distanceKm": 10,
+       "gainM": 450
+      },
+      "start": {
+       "time": "11:30",
+       "confidence": "fixed",
+       "source": "operator",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": "The toll road slot sets the start. Walk the loop clockwise.",
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": true,
+      "honesty": []
+     },
+     {
+      "id": "i6",
+      "kind": "visit",
+      "sub": "viewpoint",
+      "title": "Cadini di Misurina viewpoint",
+      "placeSlug": "cadini-di-misurina-viewpoint",
+      "point": {
+       "lat": 46.605,
+       "lon": 12.27
+      },
+      "rule": null,
+      "durationMin": 60,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "16:30",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": false,
+      "honesty": []
+     }
+    ]
+   }
+  ],
+  "legs": [
+   {
+    "from": "base",
+    "to": "i5",
+    "mode": "drive",
+    "minutes": 48,
+    "km": 30.7,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i5",
+    "to": "i6",
+    "mode": "drive",
+    "minutes": 10,
+    "km": 4.1,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i6",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 39,
+    "km": 27.4,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": null,
+  "origin": null,
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "first"
+ },
+ {
+  "day": 4,
+  "kind": "normal",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "San Candido",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.7327,
+    "lon": 12.2803
+   }
+  },
+  "nextBase": null,
+  "sunPoint": {
+   "lat": 46.7327,
+   "lon": 12.2803
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "A",
+    "label": "Croda del Becco",
+    "audience": "adults",
+    "relation": "alternative",
+    "rank": 3,
+    "items": [
+     {
+      "id": "i7",
+      "kind": "trail",
+      "sub": "hike",
+      "title": "Croda del Becco",
+      "placeSlug": "croda-del-becco",
+      "point": {
+       "lat": 46.667,
+       "lon": 12.064
+      },
+      "rule": null,
+      "durationMin": 480,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": {
+       "distanceKm": 14.6,
+       "gainM": 1350
+      },
+      "start": {
+       "time": "06:30",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": 12,
+      "minAgeRule": "hard",
+      "needsDaylight": true,
+      "honesty": []
+     },
+     {
+      "id": "i9",
+      "kind": "visit",
+      "sub": "activity",
+      "title": "Funbob, Monte Baranci",
+      "placeSlug": "funbob-monte-baranci",
+      "point": {
+       "lat": 46.725,
+       "lon": 12.27
+      },
+      "rule": null,
+      "durationMin": 90,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "15:30",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": 8,
+      "minAgeRule": "hard",
+      "needsDaylight": false,
+      "honesty": []
+     }
+    ]
+   },
+   {
+    "key": "B",
+    "label": "The Drava cycle path",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": [
+     {
+      "id": "i8",
+      "kind": "visit",
+      "sub": "activity",
+      "title": "Drava cycle path to Lienz",
+      "placeSlug": "drava-cycle-path-to-lienz",
+      "point": {
+       "lat": 46.736,
+       "lon": 12.29
+      },
+      "rule": null,
+      "durationMin": 300,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "09:30",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": false,
+      "honesty": []
+     },
+     {
+      "id": "i9",
+      "kind": "visit",
+      "sub": "activity",
+      "title": "Funbob, Monte Baranci",
+      "placeSlug": "funbob-monte-baranci",
+      "point": {
+       "lat": 46.725,
+       "lon": 12.27
+      },
+      "rule": null,
+      "durationMin": 90,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "15:30",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": 8,
+      "minAgeRule": "hard",
+      "needsDaylight": false,
+      "honesty": []
+     }
+    ]
+   }
+  ],
+  "legs": [
+   {
+    "from": "base",
+    "to": "i7",
+    "mode": "drive",
+    "minutes": 26,
+    "km": 20.4,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i7",
+    "to": "i9",
+    "mode": "drive",
+    "minutes": 28,
+    "km": 21.1,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i9",
+    "to": "base",
+    "mode": "walk",
+    "minutes": 19,
+    "km": 1.6,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "base",
+    "to": "i8",
+    "mode": "walk",
+    "minutes": 11,
+    "km": 1,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i8",
+    "to": "i9",
+    "mode": "drive",
+    "minutes": 7,
+    "km": 2.7,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i9",
+    "to": "base",
+    "mode": "walk",
+    "minutes": 19,
+    "km": 1.6,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": null,
+  "origin": null,
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "first"
+ },
+ {
+  "day": 5,
+  "kind": "transfer",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "San Candido",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.7327,
+    "lon": 12.2803
+   }
+  },
+  "nextBase": {
+   "name": "Cortina d'Ampezzo",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.5405,
+    "lon": 12.1357
+   }
+  },
+  "sunPoint": {
+   "lat": 46.7327,
+   "lon": 12.2803
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "main",
+    "label": "The plan's day",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": [
+     {
+      "id": "i10",
+      "kind": "visit",
+      "sub": "lake",
+      "title": "Lago d'Antorno",
+      "placeSlug": "lago-dantorno",
+      "point": {
+       "lat": 46.5947,
+       "lon": 12.2591
+      },
+      "rule": null,
+      "durationMin": 20,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "09:00",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": false,
+      "honesty": []
+     },
+     {
+      "id": "i11",
+      "kind": "trail",
+      "sub": "hike",
+      "title": "Monte Piana",
+      "placeSlug": "monte-piana",
+      "point": {
+       "lat": 46.6136,
+       "lon": 12.238
+      },
+      "rule": null,
+      "durationMin": 270,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": {
+       "distanceKm": 9.2,
+       "gainM": 600
+      },
+      "start": {
+       "time": "09:30",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": true,
+      "honesty": []
+     }
+    ]
+   }
+  ],
+  "legs": [
+   {
+    "from": "base",
+    "to": "i10",
+    "mode": "drive",
+    "minutes": 34,
+    "km": 24.9,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i10",
+    "to": "i11",
+    "mode": "walk",
+    "minutes": 25,
+    "km": 2.1,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i11",
+    "to": "next-base",
+    "mode": "drive",
+    "minutes": 22,
+    "km": 16.4,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": null,
+  "origin": null,
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "first"
+ },
+ {
+  "day": 6,
+  "kind": "normal",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "Cortina d'Ampezzo",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.5405,
+    "lon": 12.1357
+   }
+  },
+  "nextBase": null,
+  "sunPoint": {
+   "lat": 46.5405,
+   "lon": 12.1357
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "main",
+    "label": "The plan's day",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": [
+     {
+      "id": "i13",
+      "kind": "trail",
+      "sub": "hike",
+      "title": "Lago di Sorapis",
+      "placeSlug": "lago-di-sorapis",
+      "point": {
+       "lat": 46.5197,
+       "lon": 12.22
+      },
+      "rule": null,
+      "durationMin": 330,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": {
+       "distanceKm": 12,
+       "gainM": 550
+      },
+      "start": {
+       "time": "06:00",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": 10,
+      "minAgeRule": "hard",
+      "needsDaylight": true,
+      "honesty": []
+     }
+    ]
+   }
+  ],
+  "legs": [
+   {
+    "from": "base",
+    "to": "i13",
+    "mode": "drive",
+    "minutes": 10,
+    "km": 8.3,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i13",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 10,
+    "km": 8.3,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": {
+   "time": "05:30",
+   "source": "plan",
+   "label": "Leave Cortina"
+  },
+  "origin": null,
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "first"
+ },
+ {
+  "day": 7,
+  "kind": "normal",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "Cortina d'Ampezzo",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.5405,
+    "lon": 12.1357
+   }
+  },
+  "nextBase": null,
+  "sunPoint": {
+   "lat": 46.5405,
+   "lon": 12.1357
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "main",
+    "label": "The plan's day",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": [
+     {
+      "id": "i14",
+      "kind": "visit",
+      "sub": "lift-ride",
+      "title": "Lagazuoi cable car and tunnels",
+      "placeSlug": "lagazuoi-cable-car-and-tunnels",
+      "point": {
+       "lat": 46.5275,
+       "lon": 12.006
+      },
+      "rule": null,
+      "durationMin": 210,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "09:00",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": "Headlamp mandatory in the tunnels",
+      "minAge": 10,
+      "minAgeRule": "hard",
+      "needsDaylight": false,
+      "honesty": []
+     },
+     {
+      "id": "i15",
+      "kind": "visit",
+      "sub": "sight",
+      "title": "Rifugio Scotoni",
+      "placeSlug": "rifugio-scotoni",
+      "point": {
+       "lat": 46.5361,
+       "lon": 11.9928
+      },
+      "rule": null,
+      "durationMin": 120,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "13:00",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": false,
+      "honesty": []
+     }
+    ]
+   }
+  ],
+  "legs": [
+   {
+    "from": "base",
+    "to": "i14",
+    "mode": "drive",
+    "minutes": 20,
+    "km": 16.8,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i14",
+    "to": "i15",
+    "mode": "drive",
+    "minutes": 3,
+    "km": 2.3,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i15",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 26,
+    "km": 20.4,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": null,
+  "origin": null,
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "first"
+ },
+ {
+  "day": 8,
+  "kind": "normal",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "Cortina d'Ampezzo",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.5405,
+    "lon": 12.1357
+   }
+  },
+  "nextBase": null,
+  "sunPoint": {
+   "lat": 46.5405,
+   "lon": 12.1357
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "main",
+    "label": "The plan's day",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": [
+     {
+      "id": "i16",
+      "kind": "visit",
+      "sub": "sight",
+      "title": "Rifugio Nuvolau and Averau",
+      "placeSlug": "rifugio-nuvolau-and-averau",
+      "point": {
+       "lat": 46.4968,
+       "lon": 12.0476
+      },
+      "rule": null,
+      "durationMin": 240,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "09:30",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": false,
+      "honesty": []
+     },
+     {
+      "id": "i17",
+      "kind": "visit",
+      "sub": "sight",
+      "title": "Cinque Torri",
+      "placeSlug": "cinque-torri",
+      "point": {
+       "lat": 46.505,
+       "lon": 12.05
+      },
+      "rule": null,
+      "durationMin": 150,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "14:00",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": 10,
+      "minAgeRule": "hard",
+      "needsDaylight": false,
+      "honesty": []
+     },
+     {
+      "id": "i18",
+      "kind": "visit",
+      "sub": "lake",
+      "title": "Lago di Limides",
+      "placeSlug": "lago-di-limides",
+      "point": {
+       "lat": 46.511,
+       "lon": 12.0346
+      },
+      "rule": null,
+      "durationMin": 90,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": null,
+      "needs": {
+       "sun": "sunset",
+       "offsetMin": -45
+      },
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": "Needs dead calm for the reflection. Stay for the light after the walk.",
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": false,
+      "honesty": []
+     }
+    ]
+   }
+  ],
+  "legs": [
+   {
+    "from": "base",
+    "to": "i16",
+    "mode": "drive",
+    "minutes": 19,
+    "km": 16.3,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i16",
+    "to": "i17",
+    "mode": "drive",
+    "minutes": 19,
+    "km": 17.4,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i17",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 19,
+    "km": 14.5,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i17",
+    "to": "i18",
+    "mode": "walk",
+    "minutes": 46,
+    "km": 2,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i18",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 20,
+    "km": 15.7,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": null,
+  "origin": null,
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "first"
+ },
+ {
+  "day": 9,
+  "kind": "transfer",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "Cortina d'Ampezzo",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.5405,
+    "lon": 12.1357
+   }
+  },
+  "nextBase": {
+   "name": "Ortisei",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.5747,
+    "lon": 11.6714
+   }
+  },
+  "sunPoint": {
+   "lat": 46.5405,
+   "lon": 12.1357
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "main",
+    "label": "The plan's day",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": [
+     {
+      "id": "i19",
+      "kind": "visit",
+      "sub": "town",
+      "title": "La Val",
+      "placeSlug": "la-val",
+      "point": {
+       "lat": 46.658,
+       "lon": 11.929
+      },
+      "rule": null,
+      "durationMin": 60,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "10:30",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": false,
+      "honesty": []
+     },
+     {
+      "id": "i20",
+      "kind": "visit",
+      "sub": "viewpoint",
+      "title": "Passo Gardena",
+      "placeSlug": "passo-gardena",
+      "point": {
+       "lat": 46.549,
+       "lon": 11.807
+      },
+      "rule": null,
+      "durationMin": null,
+      "durationRange": null,
+      "durationSource": null,
+      "stats": null,
+      "start": {
+       "time": "13:30",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": "Verify the 2027 day-tripper slots first",
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": false,
+      "honesty": []
+     }
+    ]
+   }
+  ],
+  "legs": [
+   {
+    "from": "base",
+    "to": "i19",
+    "mode": "drive",
+    "minutes": 55,
+    "km": 44,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i19",
+    "to": "i20",
+    "mode": "drive",
+    "minutes": 38,
+    "km": 26.4,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i20",
+    "to": "next-base",
+    "mode": "drive",
+    "minutes": 29,
+    "km": 18.3,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": null,
+  "origin": null,
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "first"
+ },
+ {
+  "day": 10,
+  "kind": "normal",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "Ortisei",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.5747,
+    "lon": 11.6714
+   }
+  },
+  "nextBase": null,
+  "sunPoint": {
+   "lat": 46.5747,
+   "lon": 11.6714
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "A",
+    "label": "Sass Pordoi and Piz Boe",
+    "audience": "adults",
+    "relation": "alternative",
+    "rank": 3,
+    "items": [
+     {
+      "id": "i21",
+      "kind": "trail",
+      "sub": "hike",
+      "title": "Sass Pordoi and Piz Boè",
+      "placeSlug": "sass-pordoi-and-piz-boe",
+      "point": {
+       "lat": 46.5033,
+       "lon": 11.815
+      },
+      "rule": null,
+      "durationMin": 300,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": {
+       "distanceKm": 6,
+       "gainM": 200
+      },
+      "start": {
+       "time": "09:00",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": 12,
+      "minAgeRule": "hard",
+      "needsDaylight": true,
+      "honesty": []
+     }
+    ]
+   },
+   {
+    "key": "B",
+    "label": "Viel dal Pan",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": [
+     {
+      "id": "i22",
+      "kind": "trail",
+      "sub": "hike",
+      "title": "Viel dal Pan",
+      "placeSlug": "viel-dal-pan",
+      "point": {
+       "lat": 46.49,
+       "lon": 11.84
+      },
+      "rule": null,
+      "durationMin": 240,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": {
+       "distanceKm": 8,
+       "gainM": 380
+      },
+      "start": {
+       "time": "09:00",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": true,
+      "honesty": []
+     }
+    ]
+   }
+  ],
+  "legs": [
+   {
+    "from": "base",
+    "to": "i21",
+    "mode": "drive",
+    "minutes": 47,
+    "km": 30.3,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i21",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 47,
+    "km": 30.3,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "base",
+    "to": "i22",
+    "mode": "drive",
+    "minutes": 47,
+    "km": 30.2,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i22",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 47,
+    "km": 30.2,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": null,
+  "origin": null,
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "first"
+ },
+ {
+  "day": 11,
+  "kind": "normal",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "Ortisei",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.5747,
+    "lon": 11.6714
+   }
+  },
+  "nextBase": null,
+  "sunPoint": {
+   "lat": 46.5747,
+   "lon": 11.6714
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "main",
+    "label": "The plan's day",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": [
+     {
+      "id": "i23",
+      "kind": "trail",
+      "sub": "hike",
+      "title": "Alpe di Siusi",
+      "placeSlug": "alpe-di-siusi",
+      "point": {
+       "lat": 46.541,
+       "lon": 11.625
+      },
+      "rule": null,
+      "durationMin": 210,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": {
+       "distanceKm": 6.8,
+       "gainM": 200
+      },
+      "start": {
+       "time": "08:30",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": "Cable car from Siusi, €30 return",
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": true,
+      "honesty": []
+     },
+     {
+      "id": "i24",
+      "kind": "trail",
+      "sub": "hike",
+      "title": "Bullaccia and the Witches' Benches",
+      "placeSlug": "bullaccia-and-the-witches-benches",
+      "point": {
+       "lat": 46.555,
+       "lon": 11.611
+      },
+      "rule": null,
+      "durationMin": 150,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": {
+       "distanceKm": 4.8,
+       "gainM": 152
+      },
+      "start": {
+       "time": "12:30",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": true,
+      "honesty": []
+     }
+    ]
+   }
+  ],
+  "legs": [
+   {
+    "from": "base",
+    "to": "i23",
+    "mode": "drive",
+    "minutes": 30,
+    "km": 20.4,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i23",
+    "to": "i24",
+    "mode": "walk",
+    "minutes": 21,
+    "km": 1.8,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i24",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 31,
+    "km": 20.8,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": null,
+  "origin": null,
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "first"
+ },
+ {
+  "day": 12,
+  "kind": "normal",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "Ortisei",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.5747,
+    "lon": 11.6714
+   }
+  },
+  "nextBase": null,
+  "sunPoint": {
+   "lat": 46.5747,
+   "lon": 11.6714
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "main",
+    "label": "The plan's day",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": [
+     {
+      "id": "i25",
+      "kind": "visit",
+      "sub": "viewpoint",
+      "title": "Seceda ridge",
+      "placeSlug": "seceda-ridge",
+      "point": {
+       "lat": 46.5996,
+       "lon": 11.7231
+      },
+      "rule": null,
+      "durationMin": 210,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "08:30",
+       "confidence": "fixed",
+       "source": "operator",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": "Pre-booked lift slot, non-refundable.",
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": false,
+      "honesty": []
+     },
+     {
+      "id": "i26",
+      "kind": "visit",
+      "sub": "viewpoint",
+      "title": "Santa Maddalena, Val di Funes",
+      "placeSlug": "santa-maddalena-val-di-funes",
+      "point": {
+       "lat": 46.639,
+       "lon": 11.723
+      },
+      "rule": null,
+      "durationMin": 120,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "19:30",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": "Sunset; park in the village",
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": false,
+      "honesty": []
+     }
+    ]
+   }
+  ],
+  "legs": [
+   {
+    "from": "base",
+    "to": "i25",
+    "mode": "drive",
+    "minutes": 12,
+    "km": 3.9,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i25",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 12,
+    "km": 3.9,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i25",
+    "to": "i26",
+    "mode": "drive",
+    "minutes": 47,
+    "km": 35.8,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i26",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 38,
+    "km": 33.6,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": null,
+  "origin": null,
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "first"
+ },
+ {
+  "day": 13,
+  "kind": "transfer",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "Ortisei",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.5747,
+    "lon": 11.6714
+   }
+  },
+  "nextBase": {
+   "name": "Bolzano",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.4983,
+    "lon": 11.3548
+   }
+  },
+  "sunPoint": {
+   "lat": 46.5747,
+   "lon": 11.6714
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "main",
+    "label": "The plan's day",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": [
+     {
+      "id": "i27",
+      "kind": "trail",
+      "sub": "hike",
+      "title": "Adolf Munkel Weg",
+      "placeSlug": "adolf-munkel-weg",
+      "point": {
+       "lat": 46.62,
+       "lon": 11.76
+      },
+      "rule": null,
+      "durationMin": 210,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": {
+       "distanceKm": 8,
+       "gainM": 420
+      },
+      "start": {
+       "time": "09:00",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": true,
+      "honesty": []
+     },
+     {
+      "id": "i28",
+      "kind": "visit",
+      "sub": "sight",
+      "title": "Ötzi, South Tyrol Museum of Archaeology",
+      "placeSlug": "otzi-south-tyrol-museum-of-archaeology",
+      "point": {
+       "lat": 46.499,
+       "lon": 11.3485
+      },
+      "rule": null,
+      "durationMin": 120,
+      "durationRange": null,
+      "durationSource": "plan",
+      "stats": null,
+      "start": {
+       "time": "15:30",
+       "confidence": "suggested",
+       "source": "plan",
+       "note": null
+      },
+      "needs": null,
+      "window": null,
+      "checkinMin": null,
+      "optional": false,
+      "note": null,
+      "minAge": null,
+      "minAgeRule": null,
+      "needsDaylight": false,
+      "honesty": []
+     }
+    ]
+   }
+  ],
+  "legs": [
+   {
+    "from": "base",
+    "to": "i27",
+    "mode": "drive",
+    "minutes": 42,
+    "km": 37.7,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i27",
+    "to": "i28",
+    "mode": "drive",
+    "minutes": 53,
+    "km": 49.8,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "i28",
+    "to": "next-base",
+    "mode": "walk",
+    "minutes": 8,
+    "km": 0.7,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": null,
+  "origin": null,
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "first"
+ },
+ {
+  "day": 14,
+  "kind": "departure",
+  "tz": "Europe/Rome",
+  "base": {
+   "name": "Bolzano",
+   "placeSlug": null,
+   "point": {
+    "lat": 46.4983,
+    "lon": 11.3548
+   }
+  },
+  "nextBase": {
+   "name": "Venice Marco Polo Airport",
+   "placeSlug": null,
+   "point": {
+    "lat": 45.5053,
+    "lon": 12.3519
+   }
+  },
+  "sunPoint": {
+   "lat": 46.4983,
+   "lon": 11.3548
+  },
+  "sunWindow": {
+   "from": [
+    7,
+    13
+   ],
+   "to": [
+    7,
+    26
+   ]
+  },
+  "variants": [
+   {
+    "key": "main",
+    "label": "The plan's day",
+    "audience": "any",
+    "relation": "alternative",
+    "rank": 2,
+    "items": []
+   }
+  ],
+  "legs": [
+   {
+    "from": "base",
+    "to": "next-base",
+    "mode": "drive",
+    "minutes": 160,
+    "km": 272.8,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   }
+  ],
+  "start": {
+   "time": "08:45",
+   "source": "plan",
+   "label": "Leave Bolzano"
+  },
+  "origin": null,
+  "homeBy": null,
+  "splitNote": null,
+  "checkin": "first"
+ }
+]

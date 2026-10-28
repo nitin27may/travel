@@ -663,7 +663,7 @@ function blocksDay(input: ScheduleDayInput, profile: Profile, opts: ScheduleOpti
   items.forEach((it, i) => {
     const D = resolveDuration(it, profile);
     const isLeg = it.kind === "transfer";
-    const own = i >= sel.variant.items.length;
+    const own = i >= sel.variant.items.length || !!opts.visitor?.includes(it.id);
     entries.push(plain(input, it, D, t, {
       kind: isLeg ? "leg" : (it.kind as EntryKind), at: isLeg ? null : placeOf(it),
       time: { confidence: "suggested", source: own ? "visitor" : "plan", pinned: false, note: it.note }, addedBy: own ? "visitor" : "author", block: partOfDay(t),
@@ -683,10 +683,10 @@ function blocksDay(input: ScheduleDayInput, profile: Profile, opts: ScheduleOpti
 
 /** Schedules one day for a profile (2.9). */
 export function scheduleDay(input: ScheduleDayInput, profile: Profile, opts: ScheduleOptions = {}): DayTimeline {
-  const sel = selectVariant(input, profile, opts.variant);
+  const sel = opts.selection ?? selectVariant(input, profile, opts.variant);
   if (input.blocks) return blocksDay(input, profile, opts, sel);
   const ctx = makeCtx(input, profile);
-  let stops: Stop[] = sel.variant.items.map((item) => ({ item, addedBy: "author" as const }));
+  let stops: Stop[] = sel.variant.items.map((item) => ({ item, addedBy: opts.visitor?.includes(item.id) ? "visitor" : "author" }));
   // dark-sky watching waits for a dark sky: when that is past the evening it follows the day instead of being scheduled in it
   const dark = stops.filter((s) => afterDark(s.item)).map((s) => s.item);
   stops = stops.filter((s) => !dark.includes(s.item));

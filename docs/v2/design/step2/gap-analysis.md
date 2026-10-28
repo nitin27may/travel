@@ -138,7 +138,24 @@ and by the entry's operation id for an added place; built notes keyed `trip`, a 
 converted trip), and the inverse form `restoreFields`. `builtDays(draft)` in ops.ts is the one placement rule (an `edits` entry where
 a day has one, else the last build) for STEP2-M and STEP2-B2. `convert` sets `seed` to our trip; `planRowFields`
 (`core/src/plan/doc.ts`, not in C1's paths) still derives `source_trip` from `template.trip` only, so a converted row's `source_trip`
-reads null until STEP2-B3 (or a doc.ts follow-up) reads `seed` when `convertedAt` is set.
+reads null until STEP2-B3 (or a doc.ts follow-up) reads `seed` when `convertedAt` is set. (Fixed in STEP2-C2: `planRowFields` reads
+`seed` when `convertedAt` is set.)
+
+**As built (STEP2-C2, 28 Oct 2026).** D5 is `core/src/schedule/template.ts`: `scheduleTemplate(days, delta, profile)` with a plain
+`TemplateDelta` in `core/src/schedule/types.ts` (the template block's lists; an added place carries its resolved `ScheduleItem`), and
+the day functions `editDay`, `removeItem`, `moveItem`, `insertDay`, `dropDay`, `stopsOf`. Differences from D5 and the brief: the
+day functions live in `template.ts`, not `schedule.ts`, because the page entry (`browser.ts`) had 113 bytes left under its 13 kB cap;
+`schedule.ts` gained one hook only (`ScheduleOptions.selection` and `visitor`, +33 bytes). The version is chosen from the published
+versions before any edit, so a removal never swaps the version; the fit is re-read after. Generated ids keep the published day
+number (an inserted day takes a number after the last published day; `TemplateDay.n` is the number to show), so ids a delta names
+survive inserted and dropped days. An added place with no `after` is placed by cheapest insertion, as today (the schema text says
+"the end of the day"); a moved stop with no `after` goes to the start. A dropped day's stops go to the end of `to` (a visitor's
+cheapest-insertion additions are placed that way again); the parallel lane of a dropped split day goes with the day. An entry that
+cannot apply is returned in `skipped` (`no-day`, `not-on-day`), not thrown. **D4 (`W_NO_ROUTE`) is not built:** the day checks in
+`core/src/checks/days.ts` would have to raise it for the fixture to pass `codes.test.ts` (which also pins 16 codes), and nothing in
+the data says "no road" (the drive model and `StoredLeg` have no such answer); it needs `days.ts`, `core/test/fixtures/make.ts` and
+`core/test/checks/codes.test.ts` in a package's paths and a definition of the condition. The level stays pending in
+`core/src/plan/warnings.ts`.
 
 ## 5. Pending trip-page enhancements: in Step 2, later, or dropped
 
@@ -195,3 +212,4 @@ From [prototypes/TODO.md](../../prototypes/TODO.md); only rows Step 2 owns.
 |---|---|
 | 2026-10-27 | Created (STEP2-PLAN, travel-planner, Opus) |
 | 2026-10-28 | "As built" note under section 4 (STEP2-C1): the extra optional keys and operations, and the `source_trip` follow-up |
+| 2026-10-28 | "As built" note under section 4 (STEP2-C2): `scheduleTemplate` and the day functions; D4 `W_NO_ROUTE` not built, and why |

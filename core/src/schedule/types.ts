@@ -1,6 +1,7 @@
 // Trip timeline types (docs/v2/features/trip-timeline.md 1.2, 3.2, 3.12). Everything here is plain JSON: the
 // scheduler runs on the server at build time and again in the browser, so nothing holds a Map, a Date or a function.
 // Clock values are local "HH:MM" strings; the scheduler works in minutes after local midnight.
+import type { Selection } from "./select.ts";
 
 export type EntryKind = "start" | "leg" | "visit" | "trail" | "meal" | "break" | "rest" | "checkin" | "checkout" | "booking" | "sun" | "end";
 export type Lane = "all" | "A" | "B" | "C";
@@ -229,6 +230,104 @@ export interface ScheduleOptions {
   variant?: string | null;
   /** Visitor additions, in insertion order; each is placed by cheapest insertion. */
   added?: ScheduleItem[];
+  /**
+   * An edited day (template.ts `editDay`): the version chosen for the published day, with the person's removals taken out and the
+   * stops put here placed in its items. When set, `variant` is not read. The version is chosen BEFORE the edits, so removing a stop
+   * never changes which version a party gets.
+   */
+  selection?: Selection;
+  /** Ids of the selection's items that the person added (a place with a position): they time as the visitor's, not the plan's. */
+  visitor?: string[];
+}
+
+/** A stop an edit puts on a day, at its start, its end, or after a schedule id (not found on the day: the end). */
+export interface PlacedStop {
+  item: ScheduleItem;
+  addedBy: "author" | "visitor";
+  at: "start" | "end" | { after: string };
+}
+
+/** What a day's edits are, before they become options: the stops taken off and the stops put on, in op order. */
+export interface DayEdit {
+  removed: string[];
+  placed: PlacedStop[];
+}
+
+/** One day as the scheduler takes it: the input and the options. */
+export interface DayPlan {
+  input: ScheduleDayInput;
+  opts: ScheduleOptions;
+}
+
+// ---- a copy's changes to our plan (STEP2-C2; gap-analysis H2, D5) ----
+//
+// A plain mirror of the plan document's template block (core/src/schema/plan-draft.ts `planTemplate`): the schedule never imports
+// that file (the builder fence, isolation G1), so the caller passes these shapes. Day numbers count the PUBLISHED days; an inserted
+// day is named by its operation id. The one difference: an added place carries its resolved ScheduleItem (the caller maps the
+// catalogue ref; a ref it cannot resolve is not passed). The Maybe list, notes, profile and window are not the scheduler's.
+
+/** A published day number, or the operation id of a day the person inserted. */
+export type TemplateDayRef = number | string;
+
+export interface TemplateAdded {
+  op: string;
+  day: TemplateDayRef;
+  item: ScheduleItem;
+  /** The schedule id it follows; absent: placed by cheapest insertion (today's behaviour for a copy's additions). */
+  after?: string;
+}
+export interface TemplateRemoved {
+  op: string;
+  day: number;
+  item: string;
+}
+export interface TemplateMoved {
+  op: string;
+  day: number;
+  item: string;
+  toDay: TemplateDayRef;
+  /** The schedule id it follows on `toDay`; absent: the start of the day. */
+  after?: string;
+}
+export type TemplateDayOp =
+  | { op: string; kind: "insert"; after: number }
+  /** `to`: the day its stops move to; absent, they go with the day (the Maybe choice is the caller's, as separate entries). */
+  | { op: string; kind: "drop"; day: number; to?: TemplateDayRef };
+
+export interface TemplateDelta {
+  /** Published day number (as a string key) to the version chosen for it. */
+  overrides: Record<string, string>;
+  added: TemplateAdded[];
+  removed: TemplateRemoved[];
+  moved: TemplateMoved[];
+  days: TemplateDayOp[];
+}
+
+/** One day of a copy, scheduled. */
+export interface TemplateDay extends DayPlan {
+  /** The day's number as shown: its place in the copy (1, 2, ...), after inserted and dropped days. */
+  n: number;
+  /** The published day number, or the inserting operation's id. */
+  ref: TemplateDayRef;
+  inserted: boolean;
+  /** Something of the delta touches this day (a version, a stop off or on, an inserted day). */
+  changed: boolean;
+  /**
+   * `timeline.day` (and the generated entry ids) keep the published number, so ids a delta names survive inserted and dropped days; an
+   * inserted day takes a number after the last published day. Show `n`.
+   */
+  timeline: DayTimeline;
+}
+
+/** An entry of the delta that could not apply here: its day is not in this trip, or its stop is not on the day for this party. */
+export interface TemplateSkip {
+  op: string;
+  reason: "no-day" | "not-on-day";
+}
+
+export interface TemplateSchedule {
+  days: TemplateDay[];
+  skipped: TemplateSkip[];
 }
 
 /** Resolved legs, exposed for the UI. */

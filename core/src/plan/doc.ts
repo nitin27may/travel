@@ -67,7 +67,8 @@ export interface PlanRow {
 export function planRowFields(d: PlanDraft): Pick<PlanRow, "kind" | "source_trip" | "start" | "days"> {
   return {
     kind: planModeOf(d),
-    source_trip: d.template?.trip ?? null,
+    // a converted copy (built mode, `convertedAt` set) still names the trip it came from, in `seed` (edit-mode-spec 13.2)
+    source_trip: d.template?.trip ?? (d.convertedAt !== undefined ? d.seed : null),
     start: d.start ?? null,
     days: d.nights === null ? null : d.nights + 1,
   };
