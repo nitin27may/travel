@@ -29,6 +29,8 @@ import { DragHandle } from './drag/DragHandle';
 import { AddRow } from './add/AddRow';
 import { DayMenu } from './day/DayMenu';
 import { DayStatus } from './day/DayStatus';
+import { clearAll } from './warnings/store';
+import { SummaryChecks } from './warnings/WarnCount';
 import { addDayOps, addedDayNumber, dayBookings, dayNoteOf, dayNoteOps, droppedWords, dropDayOps, resetDayOps, versionOps, type DropHow } from './day/dayOps';
 import { useEditSession } from './useEditSession';
 import './add/add.css';
@@ -266,7 +268,7 @@ export function EditLayer(p: LayerProps) {
                 act={dayAct}
               />
             ),
-            dayStatus: (n: number, ctx: DayCtx) => <DayStatus n={n} note={dayNoteOf(doc, n)} tl={ctx.tl} />,
+            dayStatus: (n: number, ctx: DayCtx) => <DayStatus n={n} note={dayNoteOf(doc, n)} tl={ctx.tl} plan={{ doc, model, profile: p.profile, start: p.start }} canEdit={canEdit} act={{ moveTo: act.moveTo, remove: act.remove }} />,
           }
         : {}),
       trail: (e, dayEntries) => (
@@ -301,6 +303,7 @@ export function EditLayer(p: LayerProps) {
         />
       ),
       commit: (ops, label) => commit(ops, label),
+      checks: copy ? <SummaryChecks /> : null,
       cover: <TripMenu id={p.id} title={p.title} where={p.where} copy={copy} changes={changes} canUndo={s.canUndo} canRedo={s.canRedo} onUndo={undo} onRedo={redo} onReset={resetAll} />,
     };
   }, [canEdit, openPicker, doc, model, p.defaults, p.profile, p.start, p.bookings, dayAct, addedFor, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, commit, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
@@ -308,6 +311,8 @@ export function EditLayer(p: LayerProps) {
     publish(published);
   }, [published, publish]);
   useEffect(() => () => publish(null), [publish]);
+  // the warning counts belong to the edit session: a new session starts from the day headers' own reports
+  useEffect(() => clearAll, []);
 
   return (
     <>

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import type { SyncWord } from '@/lib/trip-edit/open';
 import { SyncState } from '../shell/StateBits';
+import { WarnCount } from '../warnings/WarnCount';
 
 interface ToolsProps {
   canUndo: boolean;
@@ -24,6 +25,7 @@ interface ToolsProps {
 export function EditTools(p: ToolsProps) {
   return (
     <div className="edit-tools" role="group" aria-label="Edit tools">
+      <WarnCount />
       <Button icon variant="ghost" aria-label={p.undoLabel ? `Undo: ${p.undoLabel}` : 'Undo'} disabled={!p.canUndo} onClick={p.onUndo}>
         <Icon name="undo" size={18} />
       </Button>
