@@ -10,7 +10,17 @@ import type { TripExport } from './types.ts';
 
 const CRLF = '\r\n';
 
-export const icsText = (s: string): string => s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+/**
+ * RFC 5545 3.3.11 TEXT: backslash, semicolon and comma escaped; every line break (CRLF, a lone CR or LF) becomes the escape `\n`, and the other control
+ * characters, which TEXT may not hold, are dropped (review STEP2-ES ES-009: a lone CR in a title must not start a new property).
+ */
+export const icsText = (s: string): string =>
+  s
+    .replace(/\\/g, '\\\\')
+    .replace(/;/g, '\\;')
+    .replace(/,/g, '\\,')
+    .replace(/\r\n|\r|\n/g, '\\n')
+    .replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, '');
 
 /** Folds a content line at 75 octets, continuing with a single space (RFC 5545 3.1). Never splits a UTF-8 character. */
 export function fold(line: string): string {

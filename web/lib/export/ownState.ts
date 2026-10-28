@@ -25,6 +25,11 @@ export interface OwnTrip {
   title: string;
   /** "Your copy of Canadian Rockies · Fri 25 Jun 2027 · 2 adults, 1 child": the print's header line. */
   header: string;
+  /**
+   * "Your copy of Canadian Rockies": the name GPX and KML carry. Route files are the ones people upload to a map service and share, so they
+   * name the public trip, never the person's own title (review STEP2-ES ES-010); the ICS and the print keep `title`.
+   */
+  routeTitle: string;
   /** The start date of a dated trip, else null (the calendar then asks for dates first). */
   start: string | null;
   /** The place was taken off the trip by the person (removed, sent to Maybe, or on a dropped day): the Stops tab does not list it unless a day still holds it. */

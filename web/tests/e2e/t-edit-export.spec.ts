@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import type { Page } from '@playwright/test';
+import { privacyHits } from '@travel/core/privacy/detect.ts';
 import { expect, test } from './fixtures';
 
 // STEP2-E6 (EA9 print and export, H9 Stops tab): the person's own trip at /t/<id>/. The Stops tab has the row actions in edit mode and follows the
@@ -14,7 +15,7 @@ const copy = (days: number) => ({
   profile: { party: 'family', youngest: 10, pace: 'standard', adults: 2, walk: null, split: false }, overrides: {}, added: [], copiedAt: '2026-10-20T10:00:00.000Z',
 });
 const envelope = (items: unknown[]) => JSON.stringify({ schema: 'copies/1', items, noteSeen: null, snoozedUntil: null, merged: {} });
-const PRIVATE = /height_cm|weight_kg|age_years|citizenship|confirmation|contact|price_paid|insurer|passport|household|HOME_POINT/i;
+const PRIVATE = /height_cm|weight_kg|age_years|citizenship|confirmation|contact|price_paid|insurer|passport|household/i;
 const NOTE = 'Ask about the parking pass';
 
 test.describe('edit mode: the Stops tab, print and export', () => {
@@ -146,6 +147,8 @@ test.describe('edit mode: the Stops tab, print and export', () => {
     expect(text).toContain(`Your note: ${NOTE}`);
     expect(text).toContain('DTSTART;VALUE=DATE:20290908');
     expect(text).not.toMatch(PRIVATE);
+    // the calendar passes the same scan as the other files (review STEP2-ES ES-012)
+    expect(privacyHits(text)).toEqual([]);
     await expect(page.locator('.toast-region')).toContainText(`Downloaded ${SLUG}.ics`);
 
     // 5. the CSV is the edited stops too
@@ -155,5 +158,13 @@ test.describe('edit mode: the Stops tab, print and export', () => {
     expect(body).toContain(added);
     expect(body).not.toContain(gone);
     expect(body).not.toMatch(PRIVATE);
+    expect(privacyHits(body)).toEqual([]);
+
+    // 6. the route file names the public trip (review STEP2-ES ES-010)
+    await page.locator('.trip-actions').getByRole('button', { name: /Export trip/ }).click();
+    const [gpx] = await Promise.all([page.waitForEvent('download'), page.getByRole('menuitem', { name: /GPX/ }).click()]);
+    const route = readFileSync((await gpx.path())!, 'utf8');
+    expect(route).toContain('Your copy of Canadian Rockies');
+    expect(privacyHits(route)).toEqual([]);
   });
 });

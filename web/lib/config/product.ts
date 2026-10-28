@@ -13,7 +13,8 @@ export const reportUrl: string | null = null;
 export function reportLink(base: string | null, page: string): string | null {
   if (!base) return null;
   const path = page.split(/[?#]/)[0] ?? '';
-  const clean = path.startsWith('/') ? path : '/';
+  // a person's own trip is `/t/<private id>/`: the public form gets `/t/` only, never the id (review STEP2-ES ES-013)
+  const clean = /^\/t(\/|$)/i.test(path) ? '/t/' : path.startsWith('/') ? path : '/';
   return `${base}${base.includes('?') ? '&' : '?'}page=${encodeURIComponent(clean).replace(/%2F/g, '/')}`;
 }
 

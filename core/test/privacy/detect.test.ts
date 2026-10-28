@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { DATED_FOLDER, DATED_FOLDER_WHY, OWN_HOSTS, privacyHits } from "../../src/privacy/detect.ts";
+import { DATED_FOLDER, DATED_FOLDER_WHY, OWN_HOSTS, privacyHits, STREET_ADDRESS } from "../../src/privacy/detect.ts";
 import { HOME_TOWN_RE } from "../../src/privacy/home.ts";
 import { publicGazetteer } from "../../src/privacy/towns.ts";
 import { encodePolyline5 } from "../../src/schema/api/legs.ts";
@@ -236,5 +236,19 @@ describe("privacy detector: the account's travellers", () => {
   it("leaves public words alone: a birthplace in prose, a party of plain ages, an age band", () => {
     expect(whys({ text: "The birthplace of the park system", party: { adults: 2, children: [7, 9] }, minAge: 6, ageBand: "6+" })).toEqual([]);
     expect(whys({ title: "Travellers' guide", schema: "trip/1" })).toEqual([]);
+  });
+});
+
+// Review STEP2-ES ES-012: a clock time before a road name ("19:00 Vermilion Lakes Drive", a published day line in a calendar file) is not
+// a street address; a house number still is.
+describe("STREET_ADDRESS and clock times (ES-012)", () => {
+  it("lets a time before a road through", () => {
+    for (const t of ["19:00 Vermilion Lakes Drive", "Day 1\\n07:30 Icefields Parkway Road stop", "DESCRIPTION:12:45 Bow Valley Ave"])
+      expect(STREET_ADDRESS.test(t), t).toBe(false);
+    expect(privacyHits("SUMMARY:Sunset\r\nDESCRIPTION:19:00 Vermilion Lakes Drive")).toEqual([]);
+  });
+  it("still fails a house number", () => {
+    for (const t of ["12 Vermilion Lakes Drive", "at 1234 Main Street", "Stay: 45 Banff Ave", "(221 Baker St)"]) expect(STREET_ADDRESS.test(t), t).toBe(true);
+    expect(privacyHits("meet at 12 Vermilion Lakes Drive")).not.toEqual([]);
   });
 });

@@ -5,7 +5,14 @@ import { GOOGLE_SIGN_IN } from '@travel/core/config/auth-limits.ts';
  * verifier lands on the return from Google, and the two pages a sign-in starts from, where a failed exchange sends it back. A
  * third-party script on those pages could read the address bar before the card strips it. Every `/account/*` path counts.
  */
-export const NO_BEACON_PATHS: readonly string[] = [GOOGLE_SIGN_IN.landingPath, ...GOOGLE_SIGN_IN.startPaths];
+export const NO_BEACON_PATHS: readonly string[] = [
+  GOOGLE_SIGN_IN.landingPath,
+  ...GOOGLE_SIGN_IN.startPaths,
+  // a person's own trip and their lists (review STEP2-ES ES-003): `/t/<id>/` would hand each private trip id to a third party as a
+  // distinct path, on the one page that shows children's ages, notes and dates; Mine lists the same trips
+  '/t/',
+  '/mine/',
+];
 
 /** Whether the beacon may be served on `pathname` (with or without the trailing slash Next drops from `usePathname`). */
 export function beaconAllowed(pathname: string | null | undefined): boolean {

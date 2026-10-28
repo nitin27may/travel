@@ -91,6 +91,34 @@ describe('the privacy page (GSI-P)', () => {
     expect(on).toContain('<h2 id="accounts">Accounts</h2>');
   });
 
+  it('edit mode and account trips: what is kept on the device and in the account, only while each flag is on (review STEP2-ES ES-005)', () => {
+    // flag off: neither is described
+    for (const t of ['travel.trip-edit', 'When you are signed in, your trips']) expect(text, t).not.toContain(t);
+    const edit = strip(renderToStaticMarkup(createElement(PrivacyBody, { google: false, tripEdit: true })));
+    for (const t of [
+      'When you change a trip you copied, this browser keeps your changes with it: the stops you remove or move, the days you add or drop, the places you mark Maybe and your notes (travel.trip-edit.device). They are deleted when you remove the trip from My trips.',
+      'This tab also keeps your last 50 changes to each trip so you can undo them (travel.trip-edit.undo); they are deleted when you close the tab.',
+    ]) expect(edit, t).toContain(t);
+    expect(edit).not.toContain('When you are signed in, your trips');
+    const both = strip(renderToStaticMarkup(createElement(PrivacyBody, { google: false, tripEdit: true, accountTrips: true })));
+    for (const t of [
+      // edit-my-trip 7, word for word
+      "When you are signed in, your trips, their dates and who is going (adults and children's ages) are kept in your account so you can open them on any device. Only you can read them. Delete a trip or your account to remove them.",
+      'Trips you copied on this device before signing in move into your account, with their changes and notes, and leave this device; a trip that cannot move stays here.',
+      "When you sign out, this browser deletes its copy of your account's trips and the changes this tab could undo.",
+      'They are deleted when you remove the trip from My trips or it moves into your account.',
+    ]) expect(both, t).toContain(t);
+    // the account paragraph sits in Accounts, after the travellers paragraph
+    expect(both.indexOf('If you choose to save your travellers')).toBeLessThan(both.indexOf('When you are signed in, your trips'));
+    expect(both.indexOf('<h2 id="accounts">')).toBe(-1);
+  });
+
+  it('the privacy page passes the edit and account trips flags through', () => {
+    const page = readFileSync(path.join(WEB, 'app', 'privacy', 'page.tsx'), 'utf8');
+    expect(page).toContain('tripEdit={tripEditFlag()}');
+    expect(page).toContain('accountTrips={accountTripsFlag()}');
+  });
+
   it('the privacy page passes the Google sign-in flag through', () => {
     expect(readFileSync(path.join(WEB, 'app', 'privacy', 'page.tsx'), 'utf8')).toContain('googleSignIn={authFlags.signInGoogle}');
   });

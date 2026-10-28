@@ -104,6 +104,14 @@ describe('Report a problem (11.2)', () => {
       expect(page).toBe(p.split(/[?#]/)[0]);
     }
   });
+  it('never carries a private trip id: /t/<id>/ is reported as /t/ (review STEP2-ES ES-013)', () => {
+    for (const p of ['/t/6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b/', '/t/6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b', '/T/abc/?edit=1', '/t/', '/t']) {
+      expect(reportLink(FORM, p), p).toBe(`${FORM}&page=/t/`);
+    }
+    // a public path that merely starts with "t" is unchanged
+    expect(reportLink(FORM, '/trips/x/')).toBe(`${FORM}&page=/trips/x/`);
+    expect(reportLink(FORM, '/terms/')).toBe(`${FORM}&page=/terms/`);
+  });
   it('keeps slashes readable and encodes the rest', () => {
     expect(reportLink(FORM, '/a b/caf\u00e9/')).toBe(`${FORM}&page=/a%20b/caf%C3%A9/`);
     expect(reportLink(FORM, '/x&title=x')).toBe(`${FORM}&page=/x%26title%3Dx`);

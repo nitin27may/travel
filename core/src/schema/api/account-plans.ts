@@ -51,7 +51,7 @@ export const accountPlanId = z.string().regex(UUID_V4, "a lower-case UUID v4");
 /** The row's optimistic-concurrency counter (`revision bigint`, bumped by the update trigger); safe as a JSON number. */
 export const accountPlanRevision = z.number().int().min(0).max(Number.MAX_SAFE_INTEGER);
 const instant = z.iso.datetime();
-const title = z.string().min(1).max(ACCOUNT_PLANS_LIMITS.titleMax).regex(/\S/, "not blank");
+const title = z.string().min(1).max(ACCOUNT_PLANS_LIMITS.titleMax).regex(/\S/, "not blank").regex(/^[^\u0000-\u001f\u007f]+$/, "no control characters");
 
 /** The document as the routes carry it: an object naming a `plan-draft/<n>` schema. Checked whole by the document's own parser. */
 export const accountPlanDoc = z.looseObject({ schema: z.string().regex(/^plan-draft\/[1-9]\d{0,3}$/, "a plan-draft document") });

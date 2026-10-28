@@ -92,7 +92,7 @@ export const copyItem = z.strictObject({
   id: z.string().regex(UUID_V4, "a lower-case UUID v4"),
   slug: z.string().regex(SLUG),
   // snapshot of the trip's light row at copy time (P8); null until a moved copy's row refreshes
-  title: z.string().min(1).max(120).regex(/\S/, "not blank"),
+  title: z.string().min(1).max(120).regex(/\S/, "not blank").regex(/^[^\u0000-\u001f\u007f]+$/, "no control characters"),
   days: z.number().int().min(1).max(366).nullable(),
   cc: z.string().regex(/^[A-Z]{2}$/).nullable(),
   photo: z.string().regex(SITE_PATH, "a site path").nullable(),

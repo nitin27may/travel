@@ -8,8 +8,20 @@ export const PRIVACY_CHANGED = '27 October 2026';
  * The page body. `google` is true when a Google map family is on, so the page names Google Maps only when it is in use;
  * `googleSignIn` is true when Continue with Google is on (`signInGoogle`), so the page names Google sign-in only then (GSI-PG,
  * copy page strings 59 to 64, review GSI-R M1). The "Accounts" heading carries `id="accounts"`, the target of "What we keep".
+ * `tripEdit` (edit mode on `/t/<id>/`) adds what a changed trip keeps on the device; `accountTrips` adds the account trips paragraph of
+ * edit-my-trip 7 (review STEP2-ES ES-005). Each is said only while its flag is on, so the page never describes what does not run.
  */
-export function PrivacyBody({ google, googleSignIn = false }: { google: boolean; googleSignIn?: boolean }) {
+export function PrivacyBody({
+  google,
+  googleSignIn = false,
+  tripEdit = false,
+  accountTrips = false,
+}: {
+  google: boolean;
+  googleSignIn?: boolean;
+  tripEdit?: boolean;
+  accountTrips?: boolean;
+}) {
   return (
     <>
       <header className="page-head">
@@ -31,6 +43,14 @@ export function PrivacyBody({ google, googleSignIn = false }: { google: boolean;
           and removed from it when you sign out. Who is travelling is kept under <code>travel.party</code>; when it came from your account it is marked
           as coming from there.
         </p>
+        {tripEdit ? (
+          <p>
+            When you change a trip you copied, this browser keeps your changes with it: the stops you remove or move, the days you add or drop, the
+            places you mark Maybe and your notes (<code>travel.trip-edit.device</code>). They are deleted when you remove the trip from My trips
+            {accountTrips ? ' or it moves into your account' : ''}. This tab also keeps your last 50 changes to each trip so you can undo them
+            (<code>travel.trip-edit.undo</code>); they are deleted when you close the tab.
+          </p>
+        ) : null}
         <p>
           Signing in keeps a few small notes on this device too, never a password or a code. Your browser remembers which way you signed in last
           ({googleSignIn ? 'an emailed code, a password or Google' : 'an emailed code or a password'}), never your address, so the sign-in page can
@@ -87,6 +107,14 @@ export function PrivacyBody({ google, googleSignIn = false }: { google: boolean;
           change or remove your travellers on your account page at any time, and download everything we hold about you there. Removed data leaves our
           backups when they expire.
         </p>
+        {accountTrips ? (
+          <p>
+            When you are signed in, your trips, their dates and who is going (adults and children&rsquo;s ages) are kept in your account so you can
+            open them on any device. Only you can read them. Delete a trip or your account to remove them. The changes and notes you make to a trip
+            are kept with it. Trips you copied on this device before signing in move into your account, with their changes and notes, and leave this
+            device; a trip that cannot move stays here. When you sign out, this browser deletes its copy of your account&rsquo;s trips and the changes this tab could undo.
+          </p>
+        ) : null}
         <p>
           Saving your travellers is your choice, and pressing Save is your consent to us keeping them; we record the time you first did.
         </p>

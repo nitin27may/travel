@@ -50,6 +50,7 @@ export function ownTripOf(a: {
     slug: a.slug,
     title: a.title,
     header,
+    routeTitle: lead,
     start: doc.start ?? null,
     gone: (slug) => gone.has(slug),
     noteOf: (e) => (copy ? (doc.template!.notes[noteKeyOf(doc, e)] ?? '') : ''),

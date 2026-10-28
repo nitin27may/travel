@@ -1,5 +1,7 @@
 import { authFlags } from '@/lib/auth/flags';
 import { placePageFamily, tripPageFamily } from '@/lib/map/family';
+import { accountTripsFlag } from '@/lib/mine/flag';
+import { tripEditFlag } from '@/lib/trip-edit/flag';
 import { pageMetadata } from '@/lib/site';
 import { PrivacyBody } from './PrivacyBody';
 
@@ -11,5 +13,12 @@ export const metadata = pageMetadata({
 
 /** Copy drafted for GSI-P; owner approval is recorded in docs/v2/PLAN.md (not yet). */
 export default function PrivacyPage() {
-  return <PrivacyBody google={tripPageFamily() === 'google-js' || placePageFamily() === 'google-js'} googleSignIn={authFlags.signInGoogle} />;
+  return (
+    <PrivacyBody
+      google={tripPageFamily() === 'google-js' || placePageFamily() === 'google-js'}
+      googleSignIn={authFlags.signInGoogle}
+      tripEdit={tripEditFlag()}
+      accountTrips={accountTripsFlag()}
+    />
+  );
 }
