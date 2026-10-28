@@ -33,6 +33,8 @@ export const HEAD_ROWS = 48;
 export const LIST_JS_BUDGET_KB = 200;
 export const PLACE_JS_BUDGET_KB = 180;
 export const GLOBE_HTML_BUDGET_KB = 200;
+/** Gzipped KB of the scripts `/t/<id>/` loads at start (STEP2-T1, measured 321.4 KB on 28 Oct 2026: the page paints its plan on the client, so its start JS holds the whole trip page; edit mode lazy-loads, edit-mode-spec 3). */
+export const TRIP_EDIT_JS_BUDGET_KB = 325;
 
 /** How long a favourites toast stays, in ms: the first-save note, and a toast with an Undo (components 5.3). */
 export const FAVOURITES_TOAST_TIMES = { first: 8000, undo: 6000 } as const;

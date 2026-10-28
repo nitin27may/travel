@@ -1,4 +1,4 @@
-import type { ResolveRow, TripLegs } from '@travel/core/schema/api/index.ts';
+import type { ResolveRow, TripLegs, TripPlanModel } from '@travel/core/schema/api/index.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import { filterRows, facetCounts, gapCounts, gapNotes, matchesRow, scopeTotal } from '@/lib/entities/filter';
 import { searchTexts } from '@/lib/search/fulltext';
@@ -109,6 +109,13 @@ export function tripLegs(slug: string): Promise<TripLegs | null> {
   return p;
 }
 const legsAsked = new Map<string, Promise<TripLegs | null>>();
+
+/**
+ * The model one public trip's page embeds, for `/t/<id>/` (STEP2-M, STEP2-T1): its days, timeline inputs, addables, sections, route and
+ * gallery. One trip a call (P8), cached by the catalogue revision (the adapter keeps it for the page view); null for an unknown trip or an
+ * adapter with no such endpoint.
+ */
+export const tripPlanModel = (slug: string): Promise<TripPlanModel | null> => client().tripPlanModel(slug);
 
 /**
  * Where favourites and copies stand now (FAV-1W; visitor spec 4.5): for up to 48 handles (`place:<slug>`, `trip:<slug>`) or public

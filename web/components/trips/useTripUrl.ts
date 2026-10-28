@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useSyncExternalStore } from 'react';
+import { useCallback, useEffect, useMemo, useSyncExternalStore } from 'react';
 import { PROFILE_KEYS } from '@travel/core/schedule/profileCodec.ts';
 import { DEFAULT_TAB_STATE, parseTripView, tripViewValue, VIEW_KEY, type TabState } from '@travel/core/trips/tabs.ts';
 import { CATEGORIES } from '@/lib/public/types';
@@ -51,8 +51,15 @@ export function tripQuery(tab: TabState, timeline: string, extra = ''): string {
   return parts.length ? `?${parts.join('&')}` : '';
 }
 
+// STEP2-T1: a `mine=<id>` link (not the older `mine=1` marker) goes to the copy's own page. The lazy module answers only with `tripEdit` on.
+const useRedirectMine = (): void =>
+  useEffect(() => {
+    if (/[?&]mine=(?!1(&|$))/.test(window.location.search)) void import('@/lib/trip-edit/redirect').then((m) => m.followMineLink());
+  }, []);
+
 /** The trip page's own URL state: not list state, so it does not share `useUrlState`. */
 export function useTripUrl(): TripUrl {
+  useRedirectMine();
   const raw = useSyncExternalStore(
     subscribe,
     () => `${window.location.search}${window.location.hash}`,
