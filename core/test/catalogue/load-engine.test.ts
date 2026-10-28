@@ -147,10 +147,10 @@ describe("engine: a removed input row (retire, never delete)", () => {
 describe("engine: what it refuses", () => {
   it("never sends a statement for a private, unclassified or foreign table", async () => {
     const db = new MemoryDb();
-    for (const t of ["planner_draft", "saved_place", "app_user", "household", "trip", "neon_auth.user", "schema_migrations", "nope"]) {
+    for (const t of ["plan_draft", "saved_place", "app_user", "household", "trip", "neon_auth.user", "schema_migrations", "nope"]) {
       await expect(run(db, t, `select * from ${t}`)).rejects.toBeInstanceOf(SeedContractError);
     }
-    expect(Object.keys(NOT_SEEDED)).toContain("planner_draft");
+    expect(Object.keys(NOT_SEEDED)).toContain("plan_draft");
     expect(db.log).toEqual([]);
   });
 

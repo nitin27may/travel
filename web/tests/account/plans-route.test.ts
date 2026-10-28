@@ -3,7 +3,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // The auth SDK is never loaded: every handler takes its session through the injected deps.
 vi.mock('@/lib/auth/server', () => ({ getUser: vi.fn() }));
 
-import { accountTripsOn, deleteRoute, getRoute, listRoute, mergeRoute, putRoute, PLAN_CODES, type PlansDeps, type PublicTripFacts } from '@/lib/server/plans';
+import { accountTripsOn, deleteRoute, getRoute, listRoute, mergeRoute, mergeUnits, putRoute, PLAN_CODES, type PlansDeps, type PublicTripFacts } from '@/lib/server/plans';
+import { LOG_DENY_KEYS } from '@travel/core/privacy/detect.ts';
 import { PLANS_LIMITS } from '@travel/core/config/auth-limits.ts';
 import { PLAN_SYNC } from '@travel/core/config/plans.ts';
 import type { MergeInsertResult, PlanWrite, PutResult, DeleteResult, PlanMergeKey } from '@travel/core/db/plans.ts';
@@ -26,7 +27,8 @@ import { copyOf, templateDraft, COPY_ID } from '../../../core/test/plan/doc-help
 
 // The account plan routes (edit-my-trip 4.1, 4.2, 4.5; EM-1) over an in-memory database that keeps the real module's rules: owner-only
 // visibility (RLS), decidePut and decideDelete, the revision bump, the tombstone that clears the document, the 50 cap, and the merge's
-// `on conflict (id) do nothing`. The rules of the SQL itself are tested against Postgres in core/test/db/plan-doc.test.ts.
+// `on conflict (user_id, id) do nothing` (ids are per user: 0013's key, review-em-s S1). The rules of the SQL itself are tested against
+// Postgres in core/test/db/plan-doc.test.ts.
 
 const A = { id: 'user-a', email: 'a@example.test' };
 const B = { id: 'user-b', email: 'b@example.test' };
@@ -46,23 +48,43 @@ interface Row extends PlanWrite {
   updated_at: string;
 }
 
+/** The rows keyed (user, id), as 0013's key; `get` and `has` read user A's by default (most tests act as A). */
+class Rows {
+  readonly all = new Map<string, Row & { id: string }>();
+  private k = (u: string, id: string) => `${u}\u0000${id}`;
+  get(id: string, u: string = A.id) {
+    return this.all.get(this.k(u, id));
+  }
+  has(id: string, u: string = A.id) {
+    return this.all.has(this.k(u, id));
+  }
+  set(id: string, r: Row) {
+    this.all.set(this.k(r.user, id), { ...r, id });
+  }
+  values() {
+    return this.all.values();
+  }
+  get size() {
+    return this.all.size;
+  }
+}
+
 function fakeDb(cap: number = ACCOUNT_PLANS_LIMITS.accountPlans) {
-  const rows = new Map<string, Row>();
+  const rows = new Rows();
   let tick = 0;
   const stamp = () => new Date(Date.UTC(2026, 9, 27, 12, 0, tick++)).toISOString();
-  const seen = (u: string, id: string) => {
-    const r = rows.get(id);
-    return r && r.user === u ? r : null;
-  };
+  const seen = (u: string, id: string) => rows.get(id, u) ?? null;
   const live = (u: string) => [...rows.values()].filter((r) => r.user === u && r.deleted_at === null).length;
   const conflictOf = (r: Row) => ({ revision: r.revision, doc: r.deleted_at === null ? r.doc : null, deleted_at: r.deleted_at });
   const calls: string[] = [];
   const db: PlansDeps['db'] = {
     async list(u) {
       calls.push(`list:${u}`);
-      return [...rows.entries()]
-        .filter(([, r]) => r.user === u)
-        .map(([id, r]): AccountPlanRow => ({ id, title: r.title, kind: r.deleted_at ? null : r.kind, source_trip: r.deleted_at ? null : r.source_trip, start: r.deleted_at ? null : r.start, days: r.deleted_at ? null : r.days, revision: r.revision, updated_at: r.updated_at, deleted_at: r.deleted_at }));
+      // live rows first, then tombstones, as listPlans reads them (B2)
+      return [...rows.values()]
+        .filter((r) => r.user === u)
+        .sort((x, y) => Number(x.deleted_at !== null) - Number(y.deleted_at !== null))
+        .map(({ id, ...r }): AccountPlanRow => ({ id, title: r.title, kind: r.deleted_at ? null : r.kind, source_trip: r.deleted_at ? null : r.source_trip, start: r.deleted_at ? null : r.start, days: r.deleted_at ? null : r.days, revision: r.revision, updated_at: r.updated_at, deleted_at: r.deleted_at }));
     },
     async get(u, id) {
       calls.push(`get:${u}`);
@@ -76,7 +98,6 @@ function fakeDb(cap: number = ACCOUNT_PLANS_LIMITS.accountPlans) {
       if (d === 'not-found') return { kind: 'not-found' };
       if (d === 'conflict') return { kind: 'conflict', row: conflictOf(r!) };
       if (d === 'insert') {
-        if (rows.has(id)) return { kind: 'not-found' };
         if (live(u) >= cap) return { kind: 'cap' };
         rows.set(id, { ...w, user: u, revision: 0, deleted_at: null, updated_at: stamp() });
         return { kind: 'written', revision: 0, created: true };
@@ -97,17 +118,16 @@ function fakeDb(cap: number = ACCOUNT_PLANS_LIMITS.accountPlans) {
     },
     async mergeKeys(u, pairs): Promise<PlanMergeKey[]> {
       calls.push(`mergeKeys:${u}`);
-      return [...rows.entries()]
-        .filter(([, r]) => r.user === u && r.deleted_at === null)
-        .map(([id, r]) => ({ id, source_trip: r.source_trip, start: r.start, doc: pairs.some((p) => p.trip === r.source_trip && p.start === r.start) ? r.doc : null }));
+      return [...rows.values()]
+        .filter((r) => r.user === u && r.deleted_at === null)
+        .map(({ id, ...r }) => ({ id, source_trip: r.source_trip, start: r.start, doc: pairs.some((p) => p.trip === r.source_trip && p.start === r.start) ? r.doc : null }));
     },
     async insert(u, list): Promise<MergeInsertResult> {
       calls.push(`insert:${u}`);
       const out: MergeInsertResult = { inserted: [], already: [], overCap: [], refused: [] };
       for (const w of list) {
-        const there = rows.get(w.id);
-        if (there) {
-          (there.user === u ? out.already : out.refused).push(w.id);
+        if (seen(u, w.id)) {
+          out.already.push(w.id);
           continue;
         }
         if (live(u) >= cap) {
@@ -347,16 +367,26 @@ describe('PUT, GET and the list', () => {
 });
 
 describe('another user', () => {
-  it('cannot read, overwrite, take over or remove a row: 404 each time, and the row is unchanged', async () => {
+  it('cannot read, overwrite or remove a row: 404 each time, and the row is unchanged', async () => {
     const h = harness();
     await putRoute(req('PUT', COPY_ID, putBody(templateDraft())), COPY_ID, h.deps);
     h.as(B);
     expect((await getRoute(req('GET', COPY_ID), COPY_ID, h.deps)).status).toBe(404);
-    expect((await putRoute(req('PUT', COPY_ID, putBody(templateDraft())), COPY_ID, h.deps)).status).toBe(404);
     expect((await putRoute(req('PUT', COPY_ID, putBody(templateDraft(), 0)), COPY_ID, h.deps)).status).toBe(404);
     expect((await deleteRoute(req('DELETE', COPY_ID, { base: 0 }), COPY_ID, h.deps)).status).toBe(404);
     const list = await json(await listRoute(req('GET'), h.deps));
     expect(list).toEqual({ items: [] });
+    expect(h.rows.get(COPY_ID)).toMatchObject({ user: A.id, revision: 0, deleted_at: null });
+  });
+
+  it('S1: a create of an id another user holds answers exactly as for a fresh id (201), as B\'s own row; A\'s row is untouched', async () => {
+    const h = harness();
+    await putRoute(req('PUT', COPY_ID, putBody(templateDraft())), COPY_ID, h.deps);
+    h.as(B);
+    const taken = await putRoute(req('PUT', COPY_ID, putBody(templateDraft())), COPY_ID, h.deps);
+    const fresh = await putRoute(req('PUT', ID2, putBody(builtDraft())), ID2, h.deps);
+    expect([taken.status, await taken.json()]).toEqual([fresh.status, await fresh.json()]);
+    expect(h.rows.get(COPY_ID, B.id)).toMatchObject({ user: B.id, revision: 0 });
     expect(h.rows.get(COPY_ID)).toMatchObject({ user: A.id, revision: 0, deleted_at: null });
   });
 });
@@ -401,7 +431,11 @@ describe('DELETE and restore', () => {
 describe('the plans:write quota', () => {
   it('is its own block, keyed per user, at the contract rate', () => {
     expect(PLANS_LIMITS.write.bucket).toBe(ACCOUNT_PLANS_QUOTA_BUCKET);
-    expect(PLANS_LIMITS.write.windows).toEqual([{ windowS: 60, limit: PLAN_SYNC.writesPerMinute }]);
+    expect(PLANS_LIMITS.write.windows).toEqual([
+      { windowS: 60, limit: PLAN_SYNC.writesPerMinute },
+      { windowS: 3600, limit: PLAN_SYNC.writesPerHour },
+      { windowS: 86400, limit: PLAN_SYNC.writesPerDay },
+    ]);
   });
 
   it('answers 429 with Retry-After after the minute limit, per user, and stores only a hash of the user id', async () => {
@@ -428,6 +462,17 @@ describe('the plans:write quota', () => {
       expect(k).toMatch(/^plans:write\|[0-9a-f]{32}$/);
       expect(k).not.toContain('user-');
     }
+  });
+
+  it('N9: ACCOUNT_TRIPS_WRITES=0 turns every write off at run time (503, nothing written) while reads stay up', async () => {
+    const h = harness({ env: () => ({ NODE_ENV: 'production', AUTH_QUOTA_SECRET: SECRET, ACCOUNT_TRIPS_WRITES: '0' }) });
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    expect((await putRoute(req('PUT', COPY_ID, putBody(templateDraft())), COPY_ID, h.deps)).status).toBe(503);
+    expect((await deleteRoute(req('DELETE', COPY_ID, { base: 0 }), COPY_ID, h.deps)).status).toBe(503);
+    expect((await mergeRoute(req('POST', 'merge', [copyOf()]), h.deps)).status).toBe(503);
+    expect(h.calls).toEqual([]);
+    expect((await listRoute(req('GET'), h.deps)).status).toBe(200);
+    expect(warn).toHaveBeenCalled();
   });
 
   it('fails closed in production without the store or the secret, and when the store is down', async () => {
@@ -504,14 +549,92 @@ describe('the sign-in merge', () => {
     expect(h.calls).toEqual([]);
   });
 
-  it('does not report a copy whose id another user holds as merged', async () => {
+  it('S1: merges a copy whose id another user holds as this user\'s own row (never refused, never a signal)', async () => {
     const h = harness();
     await mergeRoute(req('POST', 'merge', [copyOf()]), h.deps);
     h.as(B);
     const a = accountPlanMergeAnswer.parse(await (await mergeRoute(req('POST', 'merge', [copyOf()]), h.deps)).json());
-    expect(a.inserted).toEqual([]);
-    expect(a.already).toEqual([]);
-    expect(a.refused).toEqual([COPY_ID]);
+    expect(a.inserted).toEqual([COPY_ID]);
+    expect(a.refused).toEqual([]);
+    expect(h.rows.get(COPY_ID, B.id)?.user).toBe(B.id);
+    expect(h.rows.get(COPY_ID)?.user).toBe(A.id);
+  });
+
+  it('S5: costs one plans:write unit per copy, so a merge cannot amplify the bucket', async () => {
+    expect(mergeUnits([])).toBe(1);
+    expect(mergeUnits({})).toBe(1);
+    expect(mergeUnits([1, 2, 3])).toBe(3);
+    expect(mergeUnits(Array.from({ length: 500 }))).toBe(ACCOUNT_PLANS_LIMITS.mergeCopies);
+    const takes: unknown[] = [];
+    const mem = createMemoryQuotaStore();
+    const h = harness({ quota: () => ({ take: (r) => (takes.push(r), mem.take(r)), peek: mem.peek }) });
+    const copies = [copyOf(), copyOf({ slug: 'canadian-rockies-2029', title: 'Canadian Rockies', cc: 'CA', days: 15, start: '2027-06-25', added: [] }, ID2)];
+    expect((await mergeRoute(req('POST', 'merge', copies), h.deps)).status).toBe(200);
+    expect(takes).toHaveLength(2);
+    // one unit left this minute: a merge of two copies is refused before any database work
+    for (let i = 0; i < PLAN_SYNC.writesPerMinute - 3; i++) await deleteRoute(req('DELETE', ID2, { base: 0 }), ID2, h.deps);
+    h.calls.length = 0;
+    const refused = await mergeRoute(req('POST', 'merge', copies), h.deps);
+    expect(refused.status).toBe(429);
+    expect(h.calls).toEqual([]);
+  });
+});
+
+describe('S7: the plan document never reaches a log', () => {
+  const CHILD_AGE = 7;
+  const START = '2031-02-17';
+  const NOTE = 'Kai needs the window seat';
+
+  /** A template document carrying a child's age, a start date and a note (each a value no fixed code contains). */
+  function planted(id = COPY_ID): PlanDraft {
+    const d = templateDraft({ id, start: START, month: 2 } as never) as PlanDraft & Record<string, unknown>;
+    const r = parsePlanDraft({
+      ...d,
+      party: 'trip',
+      travellers: { adults: 2, children: [CHILD_AGE] },
+      template: { ...(d.template as object), notes: { '1': NOTE } },
+    });
+    if (!r.success) throw new Error(`planted fixture: ${r.issues.join('; ')}`);
+    return r.data;
+  }
+
+  it('the deny-list names the document\'s household keys', () => {
+    for (const k of ['doc', 'children', 'start', 'notes', 'template', 'fromRef', 'gw', 'travellers']) expect(LOG_DENY_KEYS).toContain(k);
+  });
+
+  it('logs no age, start or note on 200, 400, 409, 413, 429 and 503, for a PUT and a merge', async () => {
+    const lines: string[] = [];
+    const capture = (...a: unknown[]) => void lines.push(a.map((x) => (typeof x === 'string' ? x : JSON.stringify(x))).join(' '));
+    for (const level of ['log', 'info', 'warn', 'error', 'debug'] as const) vi.spyOn(console, level).mockImplementation(capture);
+    const doc = planted();
+    const h = harness();
+    const statuses: number[] = [];
+    const put = async (body: unknown, deps = h.deps) => statuses.push((await putRoute(req('PUT', COPY_ID, body), COPY_ID, deps)).status);
+    await put(putBody(doc)); // 201
+    await put(putBody(doc, 0)); // 200
+    await put(putBody(doc, 9)); // 409 with the row
+    await put({ ...putBody(doc), extra: NOTE }); // 400
+    await put(putBody({ ...doc, pad: 'x'.repeat(ACCOUNT_PLANS_LIMITS.putBodyBytes) })); // 413
+    const copy = copyOf({ start: START }, ID2);
+    statuses.push((await mergeRoute(req('POST', 'merge', [copy]), h.deps)).status); // 200
+    statuses.push((await mergeRoute(req('POST', 'merge', [{ ...copy, note: NOTE }]), h.deps)).status); // 400
+    // 503: the database and the quota store fail with the document in their messages
+    const boom = Object.assign(new Error(`${NOTE} ${START} ${CHILD_AGE}`), { code: '57P01' });
+    const broken = harness();
+    broken.deps.db.put = async () => { throw boom; };
+    broken.deps.db.insert = async () => { throw boom; };
+    await put(putBody(doc), broken.deps);
+    statuses.push((await mergeRoute(req('POST', 'merge', [copy]), broken.deps)).status);
+    const down: QuotaStore = { take: async () => { throw boom; }, peek: async () => 0 };
+    await put(putBody(doc), harness({ quota: () => down }).deps);
+    // 429
+    const full = harness();
+    for (let i = 0; i < PLAN_SYNC.writesPerMinute; i++) await deleteRoute(req('DELETE', ID2, { base: 0 }), ID2, full.deps);
+    await put(putBody(doc), full.deps);
+    expect(new Set(statuses)).toEqual(new Set([201, 200, 409, 400, 413, 503, 429]));
+    expect(lines.length).toBeGreaterThan(0);
+    const all = lines.join('\n');
+    for (const s of [NOTE, START, 'travellers', '"children"', '"notes"', '"start"', '"doc"', COPY_ID, A.id]) expect(all).not.toContain(s);
   });
 });
 
@@ -532,7 +655,7 @@ describe('answers and logs', () => {
 
   it('a database failure answers 503 and logs the route, a fixed outcome and the SQLSTATE only', async () => {
     const h = harness();
-    const boom = Object.assign(new Error(`relation "planner_draft" ${A.id} Dolomites 2027-07-03`), { code: '57P01' });
+    const boom = Object.assign(new Error(`relation "plan_draft" ${A.id} Dolomites 2027-07-03`), { code: '57P01' });
     h.deps.db.put = async () => { throw boom; };
     h.deps.db.list = async () => { throw boom; };
     const err = vi.spyOn(console, 'error').mockImplementation(() => {});

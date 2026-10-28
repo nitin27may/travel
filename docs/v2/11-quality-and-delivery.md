@@ -9,7 +9,7 @@ How the platform is tested, released and kept running. Complements 05-roadmap.md
 > object storage, functions, the worker and the backup mechanism are **not selected**. Read
 > sections 2, 3, 4 and 6 as proposals to adapt for Vercel; the test layers, the release gates, backup
 > retention and restore tests, and the security routine remain requirements. What exists today: ten checksummed
-> migrations, RLS on 86 application tables and the ledger (the content-free `planner_draft_signal` is the one
+> migrations, RLS on 86 application tables and the ledger (the content-free `plan_draft_signal` is the one
 > coordinator-approved exception, with no app grants), email and password accounts, and a private account draft whose
 > real-service E2E (14 checks, including cross-user isolation) passed in an earlier independent run recorded, not rerun,
 > in the final verification ([NEON-VERIFICATION.md](build/public-site/NEON-VERIFICATION.md)). The child-branch DB

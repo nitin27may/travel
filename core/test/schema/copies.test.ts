@@ -933,7 +933,7 @@ describe("the sign-in merge (nav 4.2), property tests", () => {
     expect(planMerge(good, []).success).toBe(true);
     expect(planMerge({ items: good }, []).success).toBe(false);
     expect(planMerge(Array.from({ length: 21 }, (_, i) => item(r, i)), []).success).toBe(false);
-    expect(planMerge([{ ...good[0], id: "x'); drop table planner_draft;--" }], []).success).toBe(false);
+    expect(planMerge([{ ...good[0], id: "x'); drop table plan_draft;--" }], []).success).toBe(false);
     expect(planMerge([good[0], { ...good[1], slug: good[0]!.slug }], [])).toMatchObject({ success: false, issues: ["$: one copy per trip (Q204)"] });
     expect(planMerge([good[0], { ...good[1], id: good[0]!.id }], [])).toMatchObject({ success: false, issues: ["$: each copy has its own id"] });
     expect(planMerge([{ ...good[0], is_admin: true }], []).success).toBe(false);
@@ -974,7 +974,7 @@ describe("the sign-in merge (nav 4.2), property tests", () => {
     expect(needsMerge({ ...emptyCopies(), merged: {} })).toBe(false);
   });
 
-  it("maps a copy onto planner_draft and trip-custom/1 (nav 4.2 rule 2), keeping fromRef, gw and rev", () => {
+  it("maps a copy onto plan_draft and trip-custom/1 (nav 4.2 rule 2), keeping fromRef, gw and rev", () => {
     const c = { ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", copiedAt: NOW.toISOString(), fromRef: "town:in-mh-mumbai", gw: { in: "YEG", out: "YYC" }, rev: "2026-10-20.a1b2" };
     expect(copyToDraftRow(c)).toEqual({
       success: true,

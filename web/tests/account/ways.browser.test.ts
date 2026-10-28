@@ -29,7 +29,6 @@ vi.mock('@/app/account/actions', () => ({ createDraft: vi.fn(), renameDraft: vi.
 
 import AccountPage from '@/app/account/page';
 import { WAYS_COPY } from '@/lib/auth/ways';
-import { PRIVACY_CONTACT } from '@/app/privacy/PrivacyBody';
 import { SiteHeader } from '@/components/shell/SiteHeader';
 import { SiteFooter } from '@/components/shell/SiteFooter';
 import { BottomBar } from '@/components/shell/BottomBar';
@@ -150,7 +149,7 @@ async function open(viewport: { width: number; height: number }, props: Record<s
 
 const PASSWORD = { providerId: 'credential', createdAt: Date.parse('2026-10-01T08:00:00Z') };
 const GOOGLE = { providerId: 'google', createdAt: Date.parse('2026-10-26T09:00:00Z') };
-const base = { masked: MASKED, googleOn: true, justAdded: false, contact: PRIVACY_CONTACT };
+const base = { masked: MASKED, googleOn: true, justAdded: false };
 
 async function dark(page: Page) {
   await page.getByRole('button', { name: 'Switch to dark theme' }).click();
@@ -213,10 +212,6 @@ for (const viewport of VIEWPORTS) {
           await browserExpect(page.getByRole('button', { name: 'Remove Google' })).toBeVisible();
           await noOverflow(page);
           await targets(page, phone);
-          // the delete line (51) ends inside the section
-          const sec = (await page.locator('.account-ways').boundingBox())!;
-          const foot = (await page.locator('.ways-foot').boundingBox())!;
-          expect(foot.y + foot.height).toBeLessThanOrEqual(sec.y + sec.height + 0.5);
           await shot(page, `google-added-${tag}`);
         } finally {
           await page.context().close();

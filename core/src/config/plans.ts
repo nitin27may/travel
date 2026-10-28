@@ -42,4 +42,10 @@ export const PLAN_SYNC = {
   outboxOps: 500,
   /** writes a minute per user, the `plans:write` quota bucket (4.1) */
   writesPerMinute: 120,
+  /** writes an hour per user, the same bucket (review-em-s B2: bounds an outbox loop or a hostile client to a day's churn) */
+  writesPerHour: 600,
+  /** writes a day per user, the same bucket (B2). A merge takes one per copy it carries (S5) */
+  writesPerDay: 3000,
+  /** tombstones one account keeps; the delete drops the oldest beyond it (B2). Live rows (at most 50) and these fit one list answer */
+  tombstoneCap: 150,
 } as const;

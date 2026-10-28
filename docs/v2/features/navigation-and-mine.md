@@ -16,7 +16,7 @@ bottom-bar slot is unaffected: NAV-1 still replaces it 1:1 with Mine.
 
 Related: [visitor-suggestions-and-favourites.md](visitor-suggestions-and-favourites.md) (R-70 to R-75: favourites on this
 device, then synced), [trip-overview-and-customisation.md](trip-overview-and-customisation.md) (R-65: the private copy in
-`planner_draft`, opened at `/t/<id>/`), [feedback-and-reports.md](feedback-and-reports.md) (the footer entry "Report or
+`plan_draft`, opened at `/t/<id>/`), [feedback-and-reports.md](feedback-and-reports.md) (the footer entry "Report or
 suggest"), [public-trips-dateless.md](../design/public-trips-dateless.md) ("Picking dates"), foundation
 [components.md](../design/foundation/components.md) 1.1, 1.4, 2.9, 5.5, 6.1 and [patterns.md](../design/foundation/patterns.md)
 1.1, 3.7, principles P1 to P9 in [principles.md](../design/foundation/principles.md).
@@ -42,7 +42,7 @@ suggest"), [public-trips-dateless.md](../design/public-trips-dateless.md) ("Pick
 | Desktop header | Trips · Places · Globe; search, theme, Sign in or the avatar menu (Account, Sign out) | `SiteHeader.tsx`, `AccountNav.tsx`, `AccountMenu.tsx` |
 | Copy to my trips | the sheet saves a `CopyDraft` (slug, start, adults, children's ages, timeline profile, overrides, additions) to `localStorage` key `travel:v1:copy-drafts`, one per trip, no cap, no schema version | `web/lib/export/draft.ts`, `web/components/actions/CopySheet.tsx` |
 | **Where a visitor finds that copy** | **nowhere.** `listDrafts` has no caller. The done step says "Keeping copies in an account comes with the planner" and links to `/sign-in/` | defect: the primary action of P7 writes data the visitor can never see again |
-| Own plans (signed in) | titled drafts in `planner_draft` (create, rename, delete, live) listed on `/account/` | `web/app/account/AccountDrafts.tsx` |
+| Own plans (signed in) | titled drafts in `plan_draft` (create, rename, delete, live) listed on `/account/` | `web/app/account/AccountDrafts.tsx` |
 | Favourites | planned only: hearts, `/favourites/`, local envelope then account sync | visitor spec 3, 4 |
 | Foundation | public bar "Trips · Places · Globe · Sign in"; signed in outside a trip "Home · Trips · Places · Globe · Me"; inside a trip "[photo] Plan · Today · Bookings · More"; desktop: "keep four tabs or fewer", "don't hide tabs behind More on desktop" | components 1.1, 1.2, 1.4; patterns 1.1 |
 | Usage data | none. A Cloudflare Web Analytics beacon is built in and off (`NEXT_PUBLIC_CF_BEACON_TOKEN` unset) | `web/tests/analytics.test.ts` |
@@ -318,8 +318,8 @@ toast.
 
 | Thing | Signed out | Signed in, before CUS-C | Signed in, after CUS-C |
 |---|---|---|---|
-| Device copies | `travel.copies.local` | `travel.copies.local`, chip "On this device" | merged into `planner_draft` (4.2), then the account list |
-| Own plans | none | `planner_draft` (titled drafts, today's AccountDrafts) | same, plus customised copies |
+| Device copies | `travel.copies.local` | `travel.copies.local`, chip "On this device" | merged into `plan_draft` (4.2), then the account list |
+| Own plans | none | `plan_draft` (titled drafts, today's AccountDrafts) | same, plus customised copies |
 | Favourites | `travel.fav.local` | local until FAV-2; then the account | the account (`account_favourite`) |
 | Opening a copy | public trip with the profile | same | `/t/<id>/` (CUS-1) |
 
@@ -338,7 +338,7 @@ flowchart TD
   G["Same-origin guard + verified session"]:::sec
   C["POST /api/account/copies/merge<br/>insert on conflict (id) do nothing<br/>skip same trip and same start"]:::sec
   F["POST /api/account/favourites/merge<br/>(FAV-2, visitor spec 4.4)"]:::sec
-  DB[("planner_draft and account_favourite<br/>RLS owner predicate")]:::data
+  DB[("plan_draft and account_favourite<br/>RLS owner predicate")]:::data
   T["One toast: 2 trip copies and 12 favourites<br/>added to your account"]:::data
   L["Local envelopes emptied;<br/>merged[h] set; forward to next"]:::data
   O["Sign out: account caches deleted (V12)"]:::infra
@@ -353,7 +353,7 @@ flowchart TD
 Rules:
 
 1. The merge module (`web/lib/mine/sync.ts`) is imported only by `/account/` and `/mine/`. No public page loads it (N9).
-2. Copies map to `planner_draft` rows: `id` from the copy, `title` the trip title, `source_trip` the slug, and a
+2. Copies map to `plan_draft` rows: `id` from the copy, `title` the trip title, `source_trip` the slug, and a
    `trip-custom/1` doc carrying `profile`, `overrides`, `added`, plus two optional fields `start` (ISO date) and
    `travellers` (`{ adults, children[] }`). These two fields are a change to the CUS-C contract; NAV-C writes them into
    CUS-C's schema if CUS-C has not merged, or files the change against it if it has.
@@ -366,7 +366,7 @@ Rules:
 7. The combined toast is shown once; when only one part ran, it names only that part.
 8. Sign-out deletes both account caches; device lists were emptied by the merge, so a shared computer shows nothing of
    the previous person (visitor spec V12). Toast: "Signed out. Your trips and favourites are in your account."
-9. No Realtime for copies beyond what `planner_draft` already has (the existing content-free signal).
+9. No Realtime for copies beyond what `plan_draft` already has (the existing content-free signal).
 
 ### 4.3 What changes on `/account/`
 

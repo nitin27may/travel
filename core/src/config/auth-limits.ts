@@ -199,14 +199,29 @@ export const AUTH_WAYS = {
  */
 export const PROFILE_NAME = { bucket: "account:profile_name", windows: [{ windowS: HOUR, limit: 10 }] } as const satisfies { bucket: string; windows: readonly Window[] };
 
+/**
+ * "Download my data" (`GET /api/account/profile/export/`, ACCT-P3): 5 a hour per signed-in user. Keyed on an HMAC of the user id
+ * (web/lib/account/export-quota.ts), never the id. A separate block: nothing in the sign-in guard or the name limit reads it.
+ */
+export const PROFILE_EXPORT = { bucket: "account:profile_export", windows: [{ windowS: HOUR, limit: 5 }] } as const satisfies { bucket: string; windows: readonly Window[] };
+
 // ----- Account plans (EM-1) --------------------------------------------------------------------------------------------------------------
 
 /**
- * The account plan routes' write bucket (edit-my-trip 4.1; route contract core/src/schema/api/account-plans.ts). Every PUT, DELETE and
- * merge of `/api/account/plans/**` takes one from it, keyed on the HMAC of the verified session's user id (`userHash`), never on an IP:
- * a household behind one address shares nothing. The limit is PLAN_SYNC.writesPerMinute (core/src/config/plans.ts, pinned equal by
- * web/tests/account/plans-route.test.ts). Reads (the list, one document) take nothing: the device refetches on focus and every 60 s (EM7).
+ * The account plan routes' write bucket (edit-my-trip 4.1; route contract core/src/schema/api/account-plans.ts). Every PUT and DELETE
+ * of `/api/account/plans/**` takes one from it, and a merge one per copy it carries (review-em-s S5), keyed on the HMAC of the verified
+ * session's user id (`userHash`), never on an IP: a household behind one address shares nothing. The limits are PLAN_SYNC's
+ * writesPerMinute, writesPerHour and writesPerDay (core/src/config/plans.ts, pinned equal by web/tests/account/plans-route.test.ts);
+ * the hour and day windows are review-em-s B2's bound on one account's row churn. Reads (the list, one document) take nothing: the device refetches on focus and every 60 s (EM7).
  */
 export const PLANS_LIMITS = {
-  write: { bucket: "plans:write", windows: [{ windowS: MINUTE, limit: 120 }] },
+  write: {
+    bucket: "plans:write",
+    windows: [
+      { windowS: MINUTE, limit: 120 },
+      // review-em-s B2: a minute window alone allowed 172,800 writes a day per account; the hour and day windows bound the churn
+      { windowS: HOUR, limit: 600 },
+      { windowS: DAY, limit: 3000 },
+    ],
+  },
 } as const satisfies Record<string, { bucket: string; windows: readonly Window[] }>;

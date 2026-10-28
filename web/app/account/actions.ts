@@ -4,7 +4,8 @@ import { authErrorCode, getAuth, getUser } from '@/lib/auth/server';
 // The shared runtime transaction helper (non-owner `travel_app` role + `app.user_id` identity,
 // RLS enforced) is owned by the database lane and consumed from @travel/core. It returns the
 // Postgres transaction id, which the client holds its optimistic change against.
-import { withUserTransaction } from '@travel/core/db/index.ts';
+import { legacyDraftRow, PLAN_CAP_SQLSTATE, withUserTransaction } from '@travel/core/db/index.ts';
+import { pgErrorCode } from '@travel/core/db/client.ts';
 import { checkTitle, isUuid } from '@/lib/drafts-shared';
 import { safeError } from '@/lib/server/safe-error';
 import { checkName } from '@/lib/account/name';
@@ -15,11 +16,17 @@ import { finishSetup as finishSetupRow, removeTravellers as removeTravellersRow,
  * Typed results, not throws: in production Next.js hides a thrown error's message. Each write
  * returns its transaction id so the client can hold its optimistic change until the live stream
  * delivers that transaction.
+ *
+ * SCOPE (review-em-s B1). These three act on the TITLE-ONLY drafts the old box made, never on a synced
+ * copy or plan (migration 0013's `doc`) or a tombstone: Rename and Delete add `legacyDraftRow`, so on any
+ * other row they match nothing and answer `unchanged`. A synced plan is renamed and removed in Mine,
+ * through the revision-checked account plan routes and their tombstone (edit-my-trip 4.1, 4.5).
  */
 export type WriteResult =
   | { kind: 'committed'; txid: string }
-  | { kind: 'unchanged' } // nothing matched: deleted elsewhere, someone else's id, or a replayed add
-  | { kind: 'rejected'; reason: 'UNAUTHENTICATED' | 'INVALID_INPUT' | 'SERVICE_UNAVAILABLE' };
+  | { kind: 'unchanged' } // nothing matched: deleted elsewhere, someone else's id, a synced plan, or a replayed add
+  // CAP: the account already holds the most trips (0013's cap trigger, edit-my-trip 3), so the Undo cannot bring the draft back
+  | { kind: 'rejected'; reason: 'UNAUTHENTICATED' | 'INVALID_INPUT' | 'CAP' | 'SERVICE_UNAVAILABLE' };
 
 /** Create a draft. The browser supplies the uuid so the optimistic row and the live row share a key. */
 export async function createDraft(pageUserId: string, raw: { id: unknown; title: unknown }): Promise<WriteResult> {
@@ -30,10 +37,12 @@ export async function createDraft(pageUserId: string, raw: { id: unknown; title:
   if (!title.ok) return { kind: 'rejected', reason: 'INVALID_INPUT' };
   try {
     const { result, txid } = await withUserTransaction(user.id, async (ctx) => {
+      // `on conflict do nothing` with no target: the key is (user_id, id) (0013), so a replayed Undo, or an id this user already
+      // holds as a synced plan, inserts nothing
       const res = await ctx.query(
-        `insert into public.planner_draft (id, user_id, title, created_at, updated_at)
+        `insert into public.plan_draft (id, user_id, title, created_at, updated_at)
          values ($1, $2, $3, now(), now())
-         on conflict (id) do nothing
+         on conflict do nothing
          returning id`,
         [raw.id, user.id, title.title], // user_id from the session only
       );
@@ -41,12 +50,16 @@ export async function createDraft(pageUserId: string, raw: { id: unknown; title:
     });
     return result ? { kind: 'committed', txid } : { kind: 'unchanged' };
   } catch (e) {
+    if (pgErrorCode(e) === PLAN_CAP_SQLSTATE) {
+      console.warn('[account] createDraft cap');
+      return { kind: 'rejected', reason: 'CAP' };
+    }
     console.error('[account] createDraft failed', safeError(e));
     return { kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' };
   }
 }
 
-/** Rename a draft the user owns. The `user_id` predicate plus RLS reject a forged id. */
+/** Rename a title-only draft the user owns. The `user_id` predicate plus RLS reject a forged id; `legacyDraftRow` a synced plan or a tombstone. */
 export async function renameDraft(pageUserId: string, raw: { id: unknown; title: unknown }): Promise<WriteResult> {
   const user = await getUser(pageUserId);
   if (!user) return { kind: 'rejected', reason: 'UNAUTHENTICATED' };
@@ -56,9 +69,9 @@ export async function renameDraft(pageUserId: string, raw: { id: unknown; title:
   try {
     const { result, txid } = await withUserTransaction(user.id, async (ctx) => {
       const res = await ctx.query(
-        `update public.planner_draft set title = $3, updated_at = now()
-         where id = $1 and user_id = $2
-         returning id`,
+        `update public.plan_draft d set title = $3, updated_at = now()
+         where d.id = $1 and d.user_id = $2 and ${legacyDraftRow('d')}
+         returning d.id`,
         [raw.id, user.id, title.title], // only the user's own row
       );
       return res.rows.length > 0;
@@ -70,7 +83,7 @@ export async function renameDraft(pageUserId: string, raw: { id: unknown; title:
   }
 }
 
-/** Delete a draft the user owns. The `user_id` predicate plus RLS reject a forged id. */
+/** Delete a title-only draft the user owns. The `user_id` predicate plus RLS reject a forged id; `legacyDraftRow` a synced plan or a tombstone. */
 export async function deleteDraft(pageUserId: string, raw: { id: unknown }): Promise<WriteResult> {
   const user = await getUser(pageUserId);
   if (!user) return { kind: 'rejected', reason: 'UNAUTHENTICATED' };
@@ -78,7 +91,7 @@ export async function deleteDraft(pageUserId: string, raw: { id: unknown }): Pro
   try {
     const { result, txid } = await withUserTransaction(user.id, async (ctx) => {
       const res = await ctx.query(
-        `delete from public.planner_draft where id = $1 and user_id = $2 returning id`,
+        `delete from public.plan_draft d where d.id = $1 and d.user_id = $2 and ${legacyDraftRow('d')} returning d.id`,
         [raw.id, user.id], // only the user's own row
       );
       return res.rows.length > 0;

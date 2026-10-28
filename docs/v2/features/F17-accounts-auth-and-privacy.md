@@ -12,7 +12,7 @@ with Neon Postgres row-level security, plus the operation layer's own checks.
 > include it; Account offers "Download my data" as the first piece of 15.
 
 > **Amended 25 Oct 2026 (favourites and suggestions):** two planned private tables join this page's export and delete
-> rules: `account_favourite` (owner-predicate RLS, like `planner_draft`) and the submitter's rows of
+> rules: `account_favourite` (owner-predicate RLS, like `plan_draft`) and the submitter's rows of
 > `visitor_submission` (read through a security-invoker view). Sign-out deletes the browser's account cache of
 > favourites. Spec: [visitor-suggestions-and-favourites.md](visitor-suggestions-and-favourites.md) sections 4.4, 8, 11;
 > PLAN R-70 to R-75. Q103 there asks whether sign-up may open for these light features while the planner stays
@@ -38,8 +38,8 @@ with Neon Postgres row-level security, plus the operation layer's own checks.
 > (it works on any device; the confirm step is a button on `/sign-in/link/`; links last 15 minutes, once).
 
 **Status (R-60, Oct 2026).** Built: the account foundation only, namely email/password sign-up,
-sign-in and sign-out, server-verified sessions, and private `planner_draft` CRUD under RLS with
-cross-user isolation and live invalidation (content-free `planner_draft_signal`, the one
+sign-in and sign-out, server-verified sessions, and private `plan_draft` CRUD under RLS with
+cross-user isolation and live invalidation (content-free `plan_draft_signal`, the one
 coordinator-approved non-RLS relation, then an authenticated RLS re-fetch). Not built: magic link,
 Google, passkeys/MFA, household onboarding and membership policies, global and per-trip roles, the
 signed-out draft import, MCP OAuth and consent, personal access tokens, settings, export and delete.
@@ -66,7 +66,7 @@ working sign-up path does not settle it.
 
 4. Global roles on `app_user.role`: user, researcher (can run research and propose), moderator (can review), admin (everything).
 5. Per-trip roles in `trip_member` (owner, editor, viewer) and per-household roles in `household_member` (owner, adult).
-6. Two walls: the operation layer checks the actor's rights for each op before running it; Postgres RLS (policies on every private-content application table keyed by the server-verified user id that the server binds per transaction, as `planner_draft` already does) enforces the same rules. The sole content-free `planner_draft_signal` exception has no app-role grants and is scoped by its sealed per-user query. Operations run as the caller, never with a privileged role, except system jobs in the worker (reminders, staleness), which run with a dedicated service identity and only call system operations.
+6. Two walls: the operation layer checks the actor's rights for each op before running it; Postgres RLS (policies on every private-content application table keyed by the server-verified user id that the server binds per transaction, as `plan_draft` already does) enforces the same rules. The sole content-free `plan_draft_signal` exception has no app-role grants and is scoped by its sealed per-user query. Operations run as the caller, never with a privileged role, except system jobs in the worker (reminders, staleness), which run with a dedicated service identity and only call system operations.
 
 ### MCP authorisation
 
@@ -95,7 +95,7 @@ See [10-sharing.md](../10-sharing.md). This page defines the privacy classes tha
 
 ## Data touched
 
-Better Auth user and session tables (managed by Neon Auth), `app_user`, `household_member`, `trip_member`, `mcp_token`, `notification_pref`, `push_subscription`, `op_event`, `planner_draft` and `planner_draft_signal` (built). Private-content application tables use RLS; the signal table is the single documented non-RLS exception.
+Better Auth user and session tables (managed by Neon Auth), `app_user`, `household_member`, `trip_member`, `mcp_token`, `notification_pref`, `push_subscription`, `op_event`, `plan_draft` and `plan_draft_signal` (built). Private-content application tables use RLS; the signal table is the single documented non-RLS exception.
 
 ### Schema additions
 
@@ -118,7 +118,7 @@ MCP: no account-management tools; authorisation happens through OAuth or tokens.
 
 ## Acceptance criteria
 
-1. RLS test suite: for every private-content table, a user who is not a member reads zero rows and writes nothing; viewers cannot read secrets or people data. For `planner_draft_signal`, verify the app role has no direct grants and sealed queries cannot expose another user's signal.
+1. RLS test suite: for every private-content table, a user who is not a member reads zero rows and writes nothing; viewers cannot read secrets or people data. For `plan_draft_signal`, verify the app role has no direct grants and sealed queries cannot expose another user's signal.
 2. An MCP token without `reservations:read` receives reservations without codes; with it, codes are included.
 3. Export produces a zip that restores into a fresh account with the same trips (round-trip test).
 4. Deleting a user removes their personal data and leaves catalog history attributed to "deleted user".

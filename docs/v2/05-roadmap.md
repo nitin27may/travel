@@ -46,7 +46,7 @@ docs/v2/            this plan
   address `https://travel-beta-tan.vercel.app` (no custom domain for now, owner 25 Oct); no production deployment yet.
 - Accounts on Neon Managed Better Auth (done: email and password; magic link and Google still open, Q66), roles on
   `app_user`, user admin in `/admin`; `household`, `person`; RLS on the 86 private-content application tables and
-  migration ledger (done, deny by default), with the content-free `planner_draft_signal` as the one
+  migration ledger (done, deny by default), with the content-free `plan_draft_signal` as the one
   coordinator-approved non-RLS exception. Household membership policies are not tested (not yet: only the account
   draft has an owner policy, cross-user isolation verified).
 - `defineOp` registry with `op_event`, inverse, idempotent `client_op_id`; first ops: create trip,

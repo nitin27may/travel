@@ -12,6 +12,8 @@ The owner called them "an OK starting point, not what he is looking for" (PLAN R
 | `planner/` | My trips, trip home, today view, print | `features/edit-my-trip.md`, `features/navigation-and-mine.md` |
 
 Findings, known gaps and the enhancement list from testing: [FINDINGS-2026-10-27.md](FINDINGS-2026-10-27.md); the plan to fix them: [FIX-PLAN-2026-10-27.md](FIX-PLAN-2026-10-27.md).
+What is not real yet, per prototype, with owner, size and FS-1 or later: [TODO.md](TODO.md) (R-283).
+Open design questions for editing a copied trip: [BRAINSTORM-edit-trip.md](BRAINSTORM-edit-trip.md) (R-284).
 
 ## Run
 

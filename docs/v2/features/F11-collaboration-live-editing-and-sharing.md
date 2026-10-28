@@ -12,7 +12,7 @@ engine.
 
 **Status (R-60, Oct 2026): proposed, not implemented.** The backend is Neon Postgres, Managed Better
 Auth and Neon Realtime. The only live path built today is account-draft invalidation: a write to the
-user's private `planner_draft` bumps a content-free, per-user `planner_draft_signal` row (the one
+user's private `plan_draft` bumps a content-free, per-user `plan_draft_signal` row (the one
 coordinator-approved non-RLS relation), and the client re-fetches its drafts through an
 authenticated, RLS-scoped read. That signal carries no content, ordering, actor or presence, so it
 does not solve collaboration. Trip membership, roles, op broadcast, version ordering, catch-up,

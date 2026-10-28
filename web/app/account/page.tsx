@@ -13,7 +13,6 @@ import { accountLanding } from '@/lib/auth/landing-server';
 import { authFlags } from '@/lib/auth/flags';
 import { accountWays, googleAddedNow } from '@/lib/auth/ways-server';
 import { AUTH_WAYS, GOOGLE_SIGN_IN } from '@travel/core/config/auth-limits.ts';
-import { PRIVACY_CONTACT } from '@/app/privacy/PrivacyBody';
 import { DEFAULT_RETURN, returnPath } from '@/lib/auth/return-path';
 import { readDrafts, type DraftRow } from '@/lib/server/drafts';
 import { loadProfile, type AccountProfile } from '@travel/core/db/profile.ts';
@@ -148,7 +147,7 @@ async function AccountBody({ next, added, step }: { next: string; added: boolean
         </>
       )}
 
-      <SignInMethods rows={ways} masked={maskAddress(user.email)} googleOn={authFlags.signInGoogle} justAdded={justAdded} contact={PRIVACY_CONTACT} />
+      <SignInMethods rows={ways} masked={maskAddress(user.email)} googleOn={authFlags.signInGoogle} justAdded={justAdded} />
 
       {drafts.kind === 'ok' ? (
         <SavedTrips userId={user.id} initialRows={drafts.rows} />

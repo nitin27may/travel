@@ -6,8 +6,8 @@ MCP tools, Edge cases, Acceptance criteria, Milestone, Open questions.
 
 Backend baseline (R-60, Oct 2026): Neon Postgres, Managed Better Auth and Neon Realtime are
 selected and provisioned, with 10 migrations applied. What is implemented is only the account
-foundation: email/password sign-up, sign-in and sign-out, private `planner_draft` CRUD under RLS, and
-live invalidation through one content-free, non-RLS `planner_draft_signal` relation
+foundation: email/password sign-up, sign-in and sign-out, private `plan_draft` CRUD under RLS, and
+live invalidation through one content-free, non-RLS `plan_draft_signal` relation
 (coordinator-approved exception) followed by an authenticated, RLS-scoped re-fetch. The full
 planner, household membership policies, guest drafts, sharing, presence, trip collaboration, admin,
 OAuth/MFA, consent flows, object storage and serverless functions are proposed and unimplemented.

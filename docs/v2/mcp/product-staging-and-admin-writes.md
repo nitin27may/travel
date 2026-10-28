@@ -42,8 +42,8 @@ flowchart LR
 
 | Object | Store | Contract | Route | Undo |
 |---|---|---|---|---|
-| A copy of a public trip | `planner_draft` row (`custom_draft` migration, CUS-C) | `trip-custom/1` (CUS-C widened: `removed`, `moved`, `days`, `notes`, `title`, `custom`) | `POST`, `PATCH /api/account/drafts[/{id}]` | inverse per op; batch undo |
-| An own plan (not a copy) | `planner_draft` row with `kind: "plan"` | **`user-plan/1`** (UPL-C, new): the core trip schema of TD-1 (`core/src/schema/trip.ts`: days, items by catalogue ref or user place id, bases, notes), dateless or with `start` | `POST /api/account/plans`, `PATCH .../{id}` | inverse per op |
+| A copy of a public trip | `plan_draft` row (`custom_draft` migration, CUS-C) | `trip-custom/1` (CUS-C widened: `removed`, `moved`, `days`, `notes`, `title`, `custom`) | `POST`, `PATCH /api/account/drafts[/{id}]` | inverse per op; batch undo |
+| An own plan (not a copy) | `plan_draft` row with `kind: "plan"` | **`user-plan/1`** (UPL-C, new): the core trip schema of TD-1 (`core/src/schema/trip.ts`: days, items by catalogue ref or user place id, bases, notes), dateless or with `start` | `POST /api/account/plans`, `PATCH .../{id}` | inverse per op |
 | A private place | **`user_place`** table (UPL-C migration) | **`user-place/1`**: a `capture/1` subset (name, type, point with source, summary, links, a small set of registry facts as Vals, sources with URL, read date, quote) | `POST`, `PATCH`, `DELETE /api/account/places[/{id}]` | soft delete, inverse |
 | Favourites | `account_favourite` (FAV-D) | `favourites/1` refs | `POST`, `DELETE /api/account/favourites` | re-add |
 | Requests and suggestions | `intake` (FBK-C) | `submissionInput` (place, trip, improve, report) with `source_ref` (a user place snapshot when suggesting a researched place) | `POST /api/v1/submissions` | withdraw |
@@ -53,7 +53,7 @@ flowchart LR
 | # | Rule |
 |---|---|
 | U1 | Every user write is a route the web app also calls; the MCP tool adds no write path (MX1) |
-| U2 | RLS owner predicate on `planner_draft`, `user_place`, `account_favourite`; cross-user ids answer `not_found` |
+| U2 | RLS owner predicate on `plan_draft`, `user_place`, `account_favourite`; cross-user ids answer `not_found` |
 | U3 | Validation: the route runs the contract (Zod plus the cross-field rules, for example `tripCustomRules`) and, for a plan, the same day checks as the timeline (`core/src/checks/**`) as warnings |
 | U4 | Level: `plans_propose` writes become pending changes approved on our site (MCP-P); `plans_write` applies; removals need `removals` (auth 14.3) |
 | U5 | User places are household data (privacy class `household`): never on a public page, a public API answer, a search index, a public MCP answer or an export of someone else |
@@ -170,7 +170,7 @@ HTML (escaped, fenced).
 
 | Id | Task | Model |
 |---|---|---|
-| UPL-C | `user-plan/1`, `user-place/1`, migration `user_place` (RLS), `planner_draft.kind`, caps; ops with inverses | Opus 6 |
+| UPL-C | `user-plan/1`, `user-place/1`, migration `user_place` (RLS), `plan_draft.kind`, caps; ops with inverses | Opus 6 |
 | UPL-1 | Routes `/api/account/plans/**`, `/api/account/places/**`, previews; tests (cross-user, caps, inverse) | Sonnet 8 |
 | STG-C | `research-batch/1`, `E_STAGE_*` rules, migration `research_stage` (+ decisions), states | Opus 6 |
 | STG-1 | Admin routes: stage, list, get, diff, decide, work list; `stage_from_submission` | Sonnet 8 |

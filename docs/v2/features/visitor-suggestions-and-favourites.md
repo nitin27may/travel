@@ -24,7 +24,7 @@ Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements
 R-61 HTTPS preview, as section 10 sets out; phase 1 (favourites on this device) needs no backend.
 
 Related: [trip-overview-and-customisation.md](trip-overview-and-customisation.md) (customisation is a private copy in
-`planner_draft`; favourites are bookmarks, section 4.6), [F16 admin console](F16-admin-console.md) (moderation and
+`plan_draft`; favourites are bookmarks, section 4.6), [F16 admin console](F16-admin-console.md) (moderation and
 the backlog), [F17 accounts, auth and privacy](F17-accounts-auth-and-privacy.md) (sign-in, export and delete),
 [NEON-SETUP.md](../build/public-site/NEON-SETUP.md) and [NEON-MIGRATIONS.md](../build/public-site/NEON-MIGRATIONS.md)
 (what exists), principles P1 to P9 in [principles.md](../design/foundation/principles.md).
@@ -62,7 +62,7 @@ the backlog), [F17 accounts, auth and privacy](F17-accounts-auth-and-privacy.md)
 
 | Brief said | This spec does | Reason |
 |---|---|---|
-| A second report type on the existing `reportForm` / report seam | One intake pipeline and table shared with reports, but a new route `POST /api/v1/suggestions` with its own schema | `reportInput` requires a page path and is a `CatalogueStore` method (`core/src/catalogue/store.ts`), the read-catalogue interface that `PostgresStore` will replace. Writes to a private table belong in a separate intake module, as `planner_draft` writes sit outside it. The `reportForm` flag later routes stored reports into the same table (task REP-1) |
+| A second report type on the existing `reportForm` / report seam | One intake pipeline and table shared with reports, but a new route `POST /api/v1/suggestions` with its own schema | `reportInput` requires a page path and is a `CatalogueStore` method (`core/src/catalogue/store.ts`), the read-catalogue interface that `PostgresStore` will replace. Writes to a private table belong in a separate intake module, as `plan_draft` writes sit outside it. The `reportForm` flag later routes stored reports into the same table (task REP-1) |
 | Sign-out keeps the local list until the user chooses | Sign-out clears the account cache; the pre-sign-in list was merged into the account, so nothing is lost | NEON-SETUP's rule that a full session change unloads prior-user state, and the shared-computer case |
 | Disposable-email handling for sign-in users | Applied to signed-in submissions only, from a vendored domain list; sign-up itself is unchanged | We do not own the sign-up flow (Managed Better Auth); the check sits where we act |
 | A pin with the suggestion | Kept as an optional hint, never stored as the place's point | Research rule: coordinates never from Google, and every point needs a known source; a visitor's pin (often pasted from Google Maps) is a hint for the researcher only |
@@ -252,7 +252,7 @@ dialog V2 rules out.
 6. A second device with its own local list merges the same way: the account ends with the union.
 7. Removal is not merged: a favourite removed on device A comes back once if device B merges an older local list that
    still holds it. This only happens on a device's first sign-in to that account and is accepted (no tombstones).
-8. **No Realtime.** Favourites do not use the `planner_draft_signal` path; other devices see changes on focus. This
+8. **No Realtime.** Favourites do not use the `plan_draft_signal` path; other devices see changes on focus. This
    keeps the single non-RLS exception exactly as approved and does not wait on the owner's ruling on it.
 
 | Event | Local list | Account cache |
@@ -282,12 +282,12 @@ registry (`data/catalogue/slugs.json`: `retired`, `merged`, `withdrawn`), the sa
 | Heart (favourite) | A bookmark: "I like this" | local envelope, then `account_favourite` | `favourites`, `favouritesSync` |
 | Save to a trip | Put a place into a specific trip plan (rule 4 of [trip-scope-scenarios.md](../design/trip-scope-scenarios.md): the trip is always named) | planner (`POST /api/v1/plan/trips/{id}/items`, not built) | `saveToTrip` (off) |
 | Copy with my dates | A dated local copy of a public trip (`web/lib/export/draft.ts`) | browser | none |
-| Customise this trip | A private copy with additions and removals | `planner_draft` delta ([trip-overview-and-customisation.md](trip-overview-and-customisation.md) section 5.6) | customisation flags there |
+| Customise this trip | A private copy with additions and removals | `plan_draft` delta ([trip-overview-and-customisation.md](trip-overview-and-customisation.md) section 5.6) | customisation flags there |
 
 Rules: a heart never adds anything to a trip; "Save to a trip" never adds a favourite. When `saveToTrip` exists, each
 place row on `/favourites/` gains "Add to a trip...", which opens the same trip-choosing flow. A favourited trip that
 also has the visitor's private customised copy shows "Your copy" on its Favourites row (phase 2, signed in, read from
-`planner_draft.source_trip`). The `guestDrafts` flag is untouched; the local envelope plus merge-on-sign-in is the
+`plan_draft.source_trip`). The `guestDrafts` flag is untouched; the local envelope plus merge-on-sign-in is the
 pattern to reuse if Q68 (guest planning) is answered yes, but this spec does not decide Q68.
 
 ### 4.7 Household
@@ -458,13 +458,13 @@ applied anywhere.
 
 | Column | Type | Rule |
 |---|---|---|
-| `user_id` | text not null | the Better Auth id, from the session only (no FK, as `planner_draft`) |
+| `user_id` | text not null | the Better Auth id, from the session only (no FK, as `plan_draft`) |
 | `ref` | text not null | 1 to 300 characters; must resolve when written (checked in the route) |
 | `space` | text not null | `place` or `trip` |
 | `favoured_at` | timestamptz not null default now() | |
 
 - Primary key `(user_id, ref)`; index `(user_id, favoured_at desc)`.
-- RLS on. Policies exactly as `planner_draft`: select, insert and delete where `user_id = app_current_user_id()`
+- RLS on. Policies exactly as `plan_draft`: select, insert and delete where `user_id = app_current_user_id()`
   (insert `with check`). No update (nothing to edit). Grant `select, insert, delete` to `travel_app`.
 - Cap: a `before insert` trigger takes `pg_advisory_xact_lock(hashtext('fav:' || new.user_id))`, counts the user's
   rows and raises SQLSTATE `P0001` with message `favourites_cap` at 500. The route maps it to 409 `limit_reached`.
@@ -513,7 +513,7 @@ applied anywhere.
 `intake_counter (bucket text, window_start timestamptz, n int, primary key (bucket, window_start))` and
 `intake_block (subject text primary key, reason text, until timestamptz)`: RLS on, **no policy and no grant**. The only
 access is `intake_take(buckets text[], limits int[], windows_s int[]) returns boolean`, `security definer` with a fixed
-`search_path` (the same pattern as `planner_draft_bump_signal`), executable by `travel_app`. It locks the bucket rows,
+`search_path` (the same pattern as `plan_draft_bump_signal`), executable by `travel_app`. It locks the bucket rows,
 returns false without incrementing if any bucket is full or a subject is blocked, otherwise increments all, and deletes
 up to 50 expired counter rows of those buckets. A second definer function `intake_purge()` (callable at most once an
 hour, guarded by its own bucket) applies retention to up to 100 rows. No cron is needed (Vercel Cron calls with GET,
@@ -752,7 +752,7 @@ Total: about 32 h for steps 1 and 2, about 27 h for steps 3 and 4 (reviews inclu
 
 Conflicts with open decisions, flagged, not changed: Q67 (who may sign in) blocks step 4 and is asked again as Q103;
 Q68 (guest planning) is not decided here, though the local envelope pattern would serve it; Q69 (household RLS)
-keeps favourites per person (4.7); Q66 (sign-in methods) does not block anything here; the `planner_draft_signal`
+keeps favourites per person (4.7); Q66 (sign-in methods) does not block anything here; the `plan_draft_signal`
 ruling does not block favourites because they use no Realtime.
 
 ## 18. Gotchas

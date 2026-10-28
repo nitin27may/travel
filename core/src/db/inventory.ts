@@ -3,7 +3,7 @@
 // PROPOSAL_TABLES is the exact set of 62 application tables from docs/v2/schema.sql (the 17 Oct
 // proposal), excluding the `auth.users` test stub. The migrations must create every one of these.
 // NEW_TABLES are the additional tables introduced by the accepted schema diff (M1–M15, see
-// research/reports/schema-diff-2026-10.md) plus the planner_draft integration table. The inventory
+// research/reports/schema-diff-2026-10.md) plus the plan_draft integration table. The inventory
 // test asserts that every name here exists in the public schema with row-level security enabled.
 //
 // Managed Better Auth owns the `neon_auth` schema; those provider tables are never created here and
@@ -75,7 +75,7 @@ export const PROPOSAL_TABLES: readonly string[] = [
   "user_settings",
 ] as const;
 
-/** Tables added by the accepted schema diff (M1–M15) and the planner_draft integration contract. */
+/** Tables added by the accepted schema diff (M1–M15) and the plan_draft integration contract. */
 export const NEW_TABLES: readonly string[] = [
   // M1 source tier
   "dataset_file",
@@ -108,12 +108,12 @@ export const NEW_TABLES: readonly string[] = [
   "visit",
   "collection",
   "collection_place",
-  // planner_draft integration contract (NEON-SETUP.md); since 0013 (EM-M, plan_doc) it also holds the plan-draft document, its light
+  // plan_draft integration contract (NEON-SETUP.md); since 0013 (EM-M, plan_doc) it also holds the plan-draft document, its light
   // columns, a revision and a tombstone, under the same owner-predicate RLS
-  "planner_draft",
+  "plan_draft",
   // auth guard quotas and the owner-alert budget (migration 0011, EML-Q): RLS on, no policy, reached only through definer functions
   "quota_bucket",
-  // a signed-in person's saved travellers and setup state (migration 0012, ACCT-PC): owner-predicate RLS like planner_draft
+  // a signed-in person's saved travellers and setup state (migration 0012, ACCT-PC): owner-predicate RLS like plan_draft
   "account_profile",
 ] as const;
 
@@ -122,22 +122,22 @@ export const ALL_APP_TABLES: readonly string[] = [...PROPOSAL_TABLES, ...NEW_TAB
 
 /**
  * Relations intentionally created with row-level security OFF. The ONLY entry is the content-free
- * invalidation stream `planner_draft_signal` (migration 0010), under the coordinator exception in
+ * invalidation stream `plan_draft_signal` (migration 0010), under the coordinator exception in
  * NEON-SETUP.md: Neon Realtime (pre-GA) rejects any subscription to an RLS-enabled relation, so the
- * private, RLS-protected `planner_draft` cannot be read live. This table carries NO draft content —
+ * private, RLS-protected `plan_draft` cannot be read live. This table carries NO draft content —
  * only the columns in SIGNAL_COLUMNS — and the app role gets no grant on it. Kept separate from
  * ALL_APP_TABLES so the "every application table has RLS" invariant stays exact and this single,
  * reviewed exemption is explicit and guarded (exactly one, content-free).
  */
-export const RLS_EXEMPT_TABLES: readonly string[] = ["planner_draft_signal"] as const;
+export const RLS_EXEMPT_TABLES: readonly string[] = ["plan_draft_signal"] as const;
 
-/** The exact, content-free columns of `planner_draft_signal`. No draft title or body ever appears. */
+/** The exact, content-free columns of `plan_draft_signal`. No draft title or body ever appears. */
 export const SIGNAL_COLUMNS: readonly string[] = ["user_id", "version", "changed_at"] as const;
 
 /**
  * Serving-tier tables that carry a public SELECT policy (catalogue read for anon/app). Everything
  * else is RLS-on with no policy (private household/planner, internal source tier), except
- * planner_draft, which has owner-predicate policies keyed on the transaction-local app.user_id.
+ * plan_draft, which has owner-predicate policies keyed on the transaction-local app.user_id.
  */
 export const PUBLIC_READ_TABLES: readonly string[] = [
   "area",

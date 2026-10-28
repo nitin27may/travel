@@ -26,8 +26,10 @@ export function PrivacyBody({ google, googleSignIn = false }: { google: boolean;
         <h2>Cookies and this device</h2>
         <p>
           Reading the site sets no cookies. Signing in sets cookies that keep you signed in until you sign out; they are used for nothing else. Your
-          browser also keeps a few things on this device: light or dark, km or miles, saved views and trips you are copying. They stay on the device and
-          are not sent to us.
+          browser also keeps a few things on this device: light or dark, km or miles, saved views, trips you copy, and who is travelling (the number of
+          adults and children&rsquo;s ages). They stay on the device. If you sign in, the travellers you save to your account are copied to this browser
+          and removed from it when you sign out. Who is travelling is kept under <code>travel.party</code>; when it came from your account it is marked
+          as coming from there.
         </p>
         <p>
           Signing in keeps a few small notes on this device too, never a password or a code. Your browser remembers which way you signed in last
@@ -78,6 +80,16 @@ export function PrivacyBody({ google, googleSignIn = false }: { google: boolean;
           scrambled form that cannot be read back, and the trip drafts you save. They are held by Neon, our database provider, in the United States. We use them to sign you in
           and to show you your drafts, and for nothing else.
         </p>
+        <p>
+          If you choose to save your travellers, we keep the number of adults and each child&rsquo;s age with the date you entered it, so the ages move
+          on each year, and a date of birth only if you add one; no names. Adults&rsquo; ages are optional. Trips then plan for the right ages on any
+          device. Only you can see them. Trips you save to your account keep the party you planned them for (adults and children&rsquo;s ages). You can
+          change or remove your travellers on your account page at any time, and download everything we hold about you there. Removed data leaves our
+          backups when they expire.
+        </p>
+        <p>
+          Saving your travellers is your choice, and pressing Save is your consent to us keeping them; we record the time you first did.
+        </p>
         {googleSignIn ? (
           <p>
             If you use Continue with Google, Google tells us your name, your email address, whether Google has confirmed it, and a link to your Google
@@ -109,7 +121,7 @@ export function PrivacyBody({ google, googleSignIn = false }: { google: boolean;
 
         <h2>Removing your account</h2>
         <p>
-          You can delete any saved draft on your account page. To ask a question or have your account removed, email{' '}
+          You can delete any saved trip and remove your saved travellers on your account page. To ask a question or have your account removed, email{' '}
           <a href={`mailto:${PRIVACY_CONTACT}`}>{PRIVACY_CONTACT}</a>. This is the way until an account delete button is added.
         </p>
 

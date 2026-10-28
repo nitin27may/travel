@@ -14,7 +14,7 @@
 
 > **Amended 25 Oct 2026 (navigation and Mine):** private copies and own plans are listed in Mine › My trips (`/mine/`),
 > where a signed-in customised copy opens at `/t/<id>/`; `trip-custom/1` gains optional `start` and `travellers` so a
-> visitor's device copy can merge into `planner_draft` at sign-in ([navigation-and-mine.md](navigation-and-mine.md) 4.2).
+> visitor's device copy can merge into `plan_draft` at sign-in ([navigation-and-mine.md](navigation-and-mine.md) 4.2).
 
 Status: spec, 25 Oct 2026, written by travel-planner (Opus) from the owner's request of the same day. Nothing here is
 built. Tracked as PLAN R-62 to R-67, BACKLOG 15.51 to 15.56, TODO row 2026-10-25. Build brief:
@@ -28,7 +28,7 @@ built. Tracked as PLAN R-62 to R-67, BACKLOG 15.51 to 15.56, TODO row 2026-10-25
 - [F16-admin-console.md](F16-admin-console.md): adds photo update (section 6 here).
 - [F06-plan-document-lists-and-days.md](F06-plan-document-lists-and-days.md) and
   [F12-templates-reuse-and-adaptation.md](F12-templates-reuse-and-adaptation.md): a customised copy is a delta on the
-  public template held in `planner_draft` until the F06 plan document exists; F12's fork then converts it (section 5.6).
+  public template held in `plan_draft` until the F06 plan document exists; F12's fork then converts it (section 5.6).
 - Design foundation patterns 3.4 (By category) is amended by the design note OVR-N, written by `travel-design-reviewer`;
   this page does not edit the foundation.
 
@@ -65,7 +65,7 @@ Answers to the clarifying questions (owner, final):
 | D5 | The overview has **three scopes**: In this plan, Also researched for this trip, Nearby you could add | The owner asked "how many trails there are for that trip": the Rockies plan uses 33 trails but 62 were researched; "all possible nearby things" is the third scope | More rows than the plan; counts per scope keep it readable (P2) |
 | D6 | Overview rows come from **one new store method per trip** (`tripItems`, `tripItemCounts`), light rows only, paged and capped | P8 (light rows, no bulk), P9 (one boundary); the trip page start JS is at 199.2 of 200 KB | A new contract in the API lane (one author, Opus) before any UI |
 | D7 | Nearby candidates reuse the trip-timeline 3.7 rule: catalogue places with a page and an exact point **within 30 km straight line of a base the trip uses**, served by the existing `near` method | Existing decision (timeline 3.7; nearby spec 6.4 keeps 30 km for public trip pages); no second distance rule | 30 km misses some day trips; the "Day trips" link to near mode at 100 km covers them |
-| D8 | Customisation is a **delta on the public template**, stored in `planner_draft` (new columns, migration `custom-draft`, number assigned at merge), not F06 `trip_item` rows | `planner_draft` already has RLS, cross-user isolation and live invalidation proven against Neon; F06 tables need membership policies (Q69, open) | A delta is a stop-gap; F12's "Use this trip" converts it into a full plan later |
+| D8 | Customisation is a **delta on the public template**, stored in `plan_draft` (new columns, migration `custom-draft`, number assigned at merge), not F06 `trip_item` rows | `plan_draft` already has RLS, cross-user isolation and live invalidation proven against Neon; F06 tables need membership policies (Q69, open) | A delta is a stop-gap; F12's "Use this trip" converts it into a full plan later |
 | D9 | Photos: **Commons first, no Flickr now.** NPS public-domain images are allowed where a page is NPS (Utah). Everything else shows "No licensed photo yet" | A Flickr API key now appears to need a paid Pro account (section 7), which breaks the free-tier rule (R-4); the 18 Oct media report already set Flickr to "No for now" (its Q8) | Fewer candidates where Commons is thin (Kananaskis, Patagonia trails) |
 | D10 | An owner photo choice is an **override that research never replaces**, kept in its own file until the catalogue cutover, then as `media` rows | A D5 rerun must not undo a person's pick; the deployed app cannot write repo files | The admin console screen waits for the PostgresStore cutover and F17 roles (section 6.3) |
 
@@ -491,12 +491,12 @@ The checks are the existing codes (timeline 2.11), shown where the change happen
 - Saving is automatic: the client sends the new delta with the revision it started from; the server stores it under RLS
   and bumps the revision. A stale revision returns a conflict, the client re-fetches and re-applies its pending step
   (two tabs open on one copy).
-- The existing content-free `planner_draft_signal` path tells other open tabs to re-fetch (no content in the signal).
+- The existing content-free `plan_draft_signal` path tells other open tabs to re-fetch (no content in the signal).
   Owner security decision on that table (HANDOVER item 5) must be made before this ships to production.
 
-### 5.6 How it maps onto `planner_draft` and the F06 plan document
+### 5.6 How it maps onto `plan_draft` and the F06 plan document
 
-Migration `custom-draft` (task CUS-C; number assigned at merge, 0011 is EML-1's `quota`) adds nullable columns to `planner_draft`, under the same owner-predicate RLS:
+Migration `custom-draft` (task CUS-C; number assigned at merge, 0011 is EML-1's `quota`) adds nullable columns to `plan_draft`, under the same owner-predicate RLS:
 
 | Column | Type | Holds |
 |---|---|---|
@@ -748,4 +748,4 @@ Owner answers, 25 Oct (second round, in the data seat):
 | Date | Change |
 |---|---|
 | 2026-10-25 (data roadmap) | Best-time windows move from `data/seasons/` to `data/windows/` because D6a's `trip-season-basic/1` files use `data/seasons/` (DATA-ROADMAP DD-1); 2.2 explains the two files |
-| 2026-10-25 | First version from the owner's request and answers of 25 Oct: decisions D1 to D10, windows (`trip-windows/1`), the overview with scopes and filters, thumbnails, customisation as a delta in `planner_draft`, admin photo update, the Flickr check, the data-gap analysis with batches D7, D8, D5b, D5f, questions Q93 to Q100 |
+| 2026-10-25 | First version from the owner's request and answers of 25 Oct: decisions D1 to D10, windows (`trip-windows/1`), the overview with scopes and filters, thumbnails, customisation as a delta in `plan_draft`, admin photo update, the Flickr check, the data-gap analysis with batches D7, D8, D5b, D5f, questions Q93 to Q100 |

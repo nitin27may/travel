@@ -23,12 +23,12 @@ import {
 } from "../../src/seed/contract.ts";
 import { expandInputs } from "../../src/seed/io.ts";
 import { inputRefusals, rowRefusals } from "../../src/seed/privacy.ts";
-import { createdTables, hasColumn, tableReferences, type CreatedTable } from "../../src/seed/schemaRefs.ts";
+import { createdTables, hasColumn, renamedTables, schemaTables, tableReferences, type CreatedTable } from "../../src/seed/schemaRefs.ts";
 
 const ROOT = fileURLToPath(new URL("../../..", import.meta.url));
 const seedNames = SEED_TABLES.map((t) => t.table);
 const notSeeded = Object.keys(NOT_SEEDED);
-const created: CreatedTable[] = loadMigrations().flatMap((m) => createdTables(m.sql, m.version));
+const created: CreatedTable[] = schemaTables(loadMigrations());
 const byName = new Map(created.map((t) => [t.name, t]));
 const refs = tableReferences(created);
 
@@ -46,6 +46,14 @@ describe("classification: seed allowlist and never-seeded list", () => {
     expect([...classified].filter((t) => !inventory.includes(t) && !FUTURE_TABLES.includes(t)).sort()).toEqual([]);
   });
 
+  it("follow a table rename: the migrations leave plan_draft and plan_draft_signal, never the old names", () => {
+    expect(renamedTables("alter table a rename to b; -- alter table c rename to d;\nalter table b rename constraint x to y;")).toEqual([{ from: "a", to: "b" }]);
+    expect(schemaTables([{ sql: "create table a (id int);" }, { sql: "alter table a rename to b;" }]).map((t) => t.name)).toEqual(["b"]);
+    const names = created.map((t) => t.name);
+    expect(names).toEqual(expect.arrayContaining(["plan_draft", "plan_draft_signal"]));
+    expect(names.filter((n) => n.startsWith("planner"))).toEqual([]);
+  });
+
   it("cover every table the migrations create (a migration cannot add an unclassified table)", () => {
     const classified = new Set([...seedNames, ...notSeeded]);
     expect(created.length).toBeGreaterThan(80);
@@ -60,7 +68,7 @@ describe("classification: seed allowlist and never-seeded list", () => {
 
   it("never puts a private table, or a household table, on the allowlist", () => {
     for (const t of seedNames) expect(isPrivateTable(t)).toBe(false);
-    for (const t of ["app_user", "planner_draft", "planner_draft_signal", "saved_place", "saved_source", "trip", "reservation_secret", "household", "person", "visit", "collection"]) {
+    for (const t of ["app_user", "plan_draft", "plan_draft_signal", "saved_place", "saved_source", "trip", "reservation_secret", "household", "person", "visit", "collection"]) {
       expect(isPrivateTable(t)).toBe(true);
       expect(isSeedTable(t)).toBe(false);
     }
@@ -71,7 +79,7 @@ describe("classification: seed allowlist and never-seeded list", () => {
     for (const t of SEED_TABLES) {
       const body = byName.get(t.table)!.body;
       for (const col of ["household_id", "user_id", "owner_id", "trip_id"]) expect(hasColumn(byName.get(t.table)!, col), `${t.table}.${col}`).toBe(false);
-      expect(body).not.toMatch(/references\s+(household|trip|planner_draft)\(/);
+      expect(body).not.toMatch(/references\s+(household|trip|plan_draft)\(/);
     }
   });
 
