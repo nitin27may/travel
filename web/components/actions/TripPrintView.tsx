@@ -5,6 +5,7 @@ import { bookAheadText, bookingCounts } from '@travel/core/export/bookings.ts';
 import { BOOKING_GROUPS } from '@/components/trips/tabs/bookingGroups';
 import type { TimelineSession } from '@/lib/export/timelineState';
 import { sourceLine } from '@/lib/export/licence';
+import type { OwnTrip } from '@/lib/export/ownState';
 import type { ExportStop, TripExport } from '@/lib/export/types';
 import './actions.css';
 
@@ -20,20 +21,20 @@ export function profileLine(p: TimelineSession['profile']): string {
   return `${p.party === 'adults' ? 'Adults' : `Family, ${p.youngest}`} · ${p.pace[0]!.toUpperCase()}${p.pace.slice(1)}`;
 }
 
-interface Row { key: string; time: string | null; name: string; duration: string | null; note: string | null; stop: ExportStop | null }
+interface Row { key: string; time: string | null; name: string; duration: string | null; note: string | null; mine: string | null; stop: ExportStop | null }
 
 /**
  * One day's rows. With the page's timeline, every printed field is the timeline entry's own (time, duration in the page's formatter, note),
  * the stop only adds its area, links and a note the entry has none of; without it, the plan's stops as written, untimed.
  */
-function rowsOf(day: number, stops: ExportStop[], session: TimelineSession | null): { rows: Row[]; version: string | null; travel: boolean } {
+function rowsOf(day: number, stops: ExportStop[], session: TimelineSession | null, own: OwnTrip | null): { rows: Row[]; version: string | null; travel: boolean } {
   const tl = (session?.display ?? session?.timelines)?.find((t) => t.day === day);
-  const plain = (s: ExportStop): Row => ({ key: s.id, time: null, name: s.name, duration: s.durationMin ? `${s.durationMin} min` : null, note: s.note, stop: s });
+  const plain = (s: ExportStop): Row => ({ key: s.id, time: null, name: s.name, duration: s.durationMin ? `${s.durationMin} min` : null, note: s.note, mine: null, stop: s });
   if (!tl) return { rows: stops.filter((s) => s.day === day).map(plain), version: null, travel: false };
   const mine = stops.filter((s) => s.day === day);
   const of = (e: TimelineEntry): Row => {
     const stop = mine.find((s) => s.placeSlug && s.placeSlug === e.at?.placeSlug) ?? null;
-    return { key: e.id, time: printTime(e, tl.blocks), name: /^Drive on to /.test(e.title) ? 'Drive on' : e.title, duration: e.durationMin > 0 ? fmtHM(e.durationMin) : null, note: e.time.note ?? stop?.note ?? null, stop };
+    return { key: e.id, time: printTime(e, tl.blocks), name: /^Drive on to /.test(e.title) ? 'Drive on' : e.title, duration: e.durationMin > 0 ? fmtHM(e.durationMin) : null, note: e.time.note ?? stop?.note ?? null, mine: own?.noteOf(e) || null, stop };
   };
   const rows = tl.entries.filter((e) => PRINTED.has(e.kind) && !e.insideOf).map(of);
   // a day with no visit (a travel day) prints its travel, not a missing-fact marker: every entry of the day but the start and the check-out
@@ -47,10 +48,11 @@ function rowsOf(day: number, stops: ExportStop[], session: TimelineSession | nul
  * stop with the time the page gives it for the chosen profile and version, its area and its place page. Mounted only while the browser prints
  * (ExportMenu), shown only in the print media; it holds no household data because the model has none (the profile line is party and pace only).
  */
-export function TripPrintView({ data, session = null, parkLines = [] }: { data: TripExport; session?: TimelineSession | null; parkLines?: readonly string[] }) {
+export function TripPrintView({ data, session = null, parkLines = [], own = null }: { data: TripExport; session?: TimelineSession | null; parkLines?: readonly string[]; own?: OwnTrip | null }) {
   return (
     <div className="print-model" data-print-model-root data-testid="trip-print-view">
       <h1>{data.title}</h1>
+      {own ? <p className="print-model-own" data-testid="print-own-header">{own.header}</p> : null}
       <p>
         {data.url} · {plural(data.nights, 'night')} · {data.seasonLabel ?? `Season: ${GAP}`}
       </p>
@@ -65,6 +67,37 @@ export function TripPrintView({ data, session = null, parkLines = [] }: { data: 
           </ul>
         </section>
       ) : null}
+      {data.days.map((d) => {
+        const { rows, version, travel } = rowsOf(d.n, data.stops, session, own);
+        return (
+          <section key={d.n} className="print-model-day">
+            <h2>
+              Day {d.n}: {d.title || GAP}
+              {d.base ? ` (base ${d.base})` : ''}
+            </h2>
+            {version ? <p className="print-model-note">{version}</p> : null}
+            {own?.dayNote(d.n) ? <p className="print-model-note print-model-own-note">Your note on this day: {own.dayNote(d.n)}</p> : null}
+            {rows.length ? (
+              <ol>
+                {rows.map((r) => (
+                  <li key={r.key}>
+                    {r.time ? <b>{r.time} · </b> : null}
+                    {r.name}
+                    {r.stop?.area ? `, ${r.stop.area}` : ''}
+                    {r.duration ? ` · ${r.duration}` : ''}
+                    {r.note ? <span className="print-model-note"> {r.note}</span> : null}
+                    {r.mine ? <span className="print-model-note print-model-own-note">Your note: {r.mine}</span> : null}
+                    {r.stop?.bookAhead ? <span className="print-model-note print-model-bookline">Book ahead: {r.stop.bookAhead}</span> : null}
+                    {r.stop?.links[0] ? <span className="print-model-link">{r.stop.links[0]}</span> : null}
+                  </li>
+                ))}
+              </ol>
+            ) : travel ? null : (
+              <p>{GAP}</p>
+            )}
+          </section>
+        );
+      })}
       {bookingCounts(data.bookings).toBook ? (
         <section className="print-model-book" aria-label="Book ahead">
           <h2>Book ahead</h2>
@@ -97,35 +130,6 @@ export function TripPrintView({ data, session = null, parkLines = [] }: { data: 
             </ul>
           </section>
         ) : null;
-      })}
-      {data.days.map((d) => {
-        const { rows, version, travel } = rowsOf(d.n, data.stops, session);
-        return (
-          <section key={d.n} className="print-model-day">
-            <h2>
-              Day {d.n}: {d.title || GAP}
-              {d.base ? ` (base ${d.base})` : ''}
-            </h2>
-            {version ? <p className="print-model-note">{version}</p> : null}
-            {rows.length ? (
-              <ol>
-                {rows.map((r) => (
-                  <li key={r.key}>
-                    {r.time ? <b>{r.time} · </b> : null}
-                    {r.name}
-                    {r.stop?.area ? `, ${r.stop.area}` : ''}
-                    {r.duration ? ` · ${r.duration}` : ''}
-                    {r.note ? <span className="print-model-note"> {r.note}</span> : null}
-                    {r.stop?.bookAhead ? <span className="print-model-note print-model-bookline">Book ahead: {r.stop.bookAhead}</span> : null}
-                    {r.stop?.links[0] ? <span className="print-model-link">{r.stop.links[0]}</span> : null}
-                  </li>
-                ))}
-              </ol>
-            ) : travel ? null : (
-              <p>{GAP}</p>
-            )}
-          </section>
-        );
       })}
       <p className="print-model-source">{sourceLine(data.url)}</p>
     </div>

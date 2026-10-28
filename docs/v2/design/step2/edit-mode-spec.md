@@ -390,7 +390,7 @@ reads "Dolomites · your trip · from our Dolomites trip" at once.
 | Add to calendar (dated) | one ICS per trip: all-day event per day, timed stops, book-by events from `core/src/bookings`; built from the person's timelines (P8: per trip) |
 | Add dates (undated) | opens Settings › Dates |
 | Export | PDF (the print view), GPX (routes and stops), CSV (stops with day, time, kind, coordinates, links), ICS; per trip only |
-| Print | `TripPrintView`: Summary, Days (List or Table), Bookings after the days (Q305), never Photos or Stops; header "Your copy of Canadian Rockies · Fri 25 Jun 2027 · 2 adults, 1 child" |
+| Print | `TripPrintView` (built from the edited timelines, STEP2-E6; the trip `⋯` Print and Export both use it): Summary, Days (List or Table), Bookings after the days (Q305), never Photos or Stops; header "Your copy of Canadian Rockies · Fri 25 Jun 2027 · 2 adults, 1 child" |
 | Share (copy) | the public trip's URL (`/trips/<slug>/`) without the person's settings; "with my settings" adds the public timeline keys (party word and adult count only, Q296; never children's ages, start, dates or notes) |
 | Share (built) | the builder's share keys (public refs only; trip-builder 2.5; never the party, start town, dates or notes); the recipient rebuilds with their own party and can "Use this plan" (FLOW 6) |
 

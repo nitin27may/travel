@@ -3,14 +3,15 @@
 import { Chip } from '@/components/ui/Chip';
 import { DaySign } from '@/components/ui/DaySign';
 import { KindGlyph } from '@/components/ui/KindGlyph';
+import type { ReactNode } from 'react';
 import type { CategoryRowModel, CategorySectionModel } from './model';
 import { whenLabel } from './model';
 
-function Row({ row }: { row: CategoryRowModel }) {
+function Row({ row, action }: { row: CategoryRowModel; action?: ReactNode | null }) {
   const { first, rest } = whenLabel(row.days);
   const where = [row.area, row.detail].filter(Boolean).join(' · ');
   return (
-    <li className="cat-row">
+    <li className="cat-row" data-edit={action !== undefined ? '' : undefined}>
       <KindGlyph kind={row.kind} size="sm" />
       <div className="cat-main">
         <p className="cat-name">{row.placeSlug ? <a href={`/places/${row.placeSlug}/`}>{row.name}</a> : row.name}</p>
@@ -28,12 +29,13 @@ function Row({ row }: { row: CategoryRowModel }) {
         <DaySign n={first} size="s" />
         <span className="num">{[rest, row.time].filter(Boolean).join(' · ')}</span>
       </p>
+      {action !== undefined ? <div className="cat-trail" data-print="hide">{action}</div> : null}
     </li>
   );
 }
 
 /** By category (patterns 3.4): the same items regrouped under the six headings, in the fixed order; empty categories are omitted. */
-export function CategoryView({ sections }: { sections: CategorySectionModel[] }) {
+export function CategoryView({ sections, action }: { sections: CategorySectionModel[]; action?: (row: CategoryRowModel) => ReactNode }) {
   return (
     <div className="cat-view">
       {sections
@@ -45,7 +47,7 @@ export function CategoryView({ sections }: { sections: CategorySectionModel[] })
             </h3>
             <ul className="rows cat-rows">
               {s.rows.map((r) => (
-                <Row key={r.key} row={r} />
+                <Row key={r.key} row={r} action={action?.(r)} />
               ))}
             </ul>
           </section>

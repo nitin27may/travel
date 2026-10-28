@@ -18,6 +18,9 @@ import { checkPoint } from '@/lib/export/licence';
 import { forPage } from '@/lib/export/plan';
 import { getTimeline, subscribeTimeline } from '@/lib/export/timelineState';
 import { routeLines } from '@/lib/export/routes';
+import { getOwn, subscribeOwn } from '@/lib/export/ownState';
+import { downloadOwnIcs, NoCalendarError, ownModel, ownTimelines } from '@/lib/export/own';
+import { icsEventCount } from '@travel/core/export/ics.ts';
 import type { ExportLine, PlaceExport, TripExport } from '@/lib/export/types';
 import '@/styles/print.css';
 import { TripPrintView } from './TripPrintView';
@@ -37,6 +40,12 @@ export interface ExportMenuProps {
 
 const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 
+/** The trip as the page shows it: the person's own trip is rebuilt from their timelines (lib/export/own.ts), a published one is filtered to the plan on the page. */
+const asShown = (m: TripExport, session: ReturnType<typeof getTimeline>): TripExport => {
+  const own = getOwn(m.slug);
+  return own && session ? ownModel(m, session, own) : forPage(m, session);
+};
+
 /**
  * Export menu (components 5.2). Each entry names what it holds, in plain words. Everything is generated in the browser from the page's own
  * data: a trip prints from its `json` export model, GPX and KML pass the licence guard and carry the trip's routed legs as lines when it has
@@ -50,6 +59,8 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
   const needsData = !!target.slug;
   // the plan on the page (profile and version): the files and their counts follow it
   const session = useSyncExternalStore(subscribeTimeline, () => (target.type === 'trip' && target.slug ? getTimeline(target.slug) : null), () => null);
+  // the person's own trip (STEP2-E6): published by the shell; null on a published trip's page
+  const own = useSyncExternalStore(subscribeOwn, () => (target.type === 'trip' && target.slug ? getOwn(target.slug) : null), () => null);
   // `undefined` until the legs settle; the map asks for the same file, so the browser has it once
   const [legs, setLegs] = useState<TripLegs | null | undefined>(undefined);
   useEffect(() => {
@@ -102,7 +113,7 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
     // a trip without days (an overview) has no timeline to wait for
     if (!session && data.days.length > 0 && data.depth !== 'overview') return;
     armed.current = false;
-    const model = forPage(data, session);
+    const model = asShown(data, session);
     const needsTap = typeof navigator !== 'undefined' && !!navigator.userActivation && !navigator.userActivation.isActive && /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent) && !/Chrome|Chromium|Edg/.test(navigator.userAgent);
     // state is set from a microtask, not synchronously in the effect
     queueMicrotask(() => (needsTap ? setReady(true) : setPrinting(model)));
@@ -115,8 +126,8 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
         const whole = await model();
         // the plan on the page, not every version; the routed legs only for a trip, and a failed read leaves the points alone
         const sess = whole.type === 'trip' ? getTimeline(whole.slug) : null;
-        const d = whole.type === 'trip' ? forPage(whole, sess) : whole;
-        const routes = d.type === 'trip' && whole.type === 'trip' ? routeLines(await tripLegs(d.slug).catch(() => null), whole, sess) : [];
+        const d = whole.type === 'trip' ? asShown(whole, sess) : whole;
+        const routes = d.type === 'trip' && whole.type === 'trip' ? routeLines(await tripLegs(d.slug).catch(() => null), getOwn(d.slug) ? d : whole, sess) : [];
         const r = make(d, routes);
         toast({ message: `Downloaded ${r.name} · ${r.summary}` });
       } catch {
@@ -126,6 +137,20 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
     [model, toast],
   );
 
+  // the person's calendar file: the edited timelines with their notes (never the published plan's)
+  const runIcs = useCallback(async () => {
+    try {
+      const whole = await model();
+      const sess = whole.type === 'trip' ? getTimeline(whole.slug) : null;
+      const mine = whole.type === 'trip' ? getOwn(whole.slug) : null;
+      if (whole.type !== 'trip' || !sess || !mine) throw new Error('not ready');
+      const r = downloadOwnIcs(whole, sess, mine);
+      toast({ message: `Downloaded ${r.name} · ${r.summary}` });
+    } catch (e) {
+      toast({ message: e instanceof NoCalendarError ? 'This trip has no day plan to put in a calendar.' : 'Could not build that file. Try again.' });
+    }
+  }, [model, toast]);
+
   const print = useCallback(async () => {
     if (target.type !== 'trip') {
       window.print();
@@ -133,7 +158,7 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
     }
     try {
       const d = await model();
-      if (d.type === 'trip') setPrinting(d);
+      if (d.type === 'trip') setPrinting(asShown(d, getTimeline(d.slug)));
       else window.print();
     } catch {
       toast({ message: 'Could not build that file. Try again.' });
@@ -153,9 +178,9 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
     return () => window.removeEventListener('travel:print', on);
   }, [print, target.slug, target.type]);
 
-  const shown = data?.type === 'trip' ? forPage(data, session) : data;
+  const shown = data?.type === 'trip' ? asShown(data, session) : data;
   const wptCount = shown ? shown.waypoints.filter((w) => checkPoint(w.point).ok).length : null;
-  const routeCount = data?.type === 'trip' && session && legs !== undefined ? routeLines(legs, data, session).length : null;
+  const routeCount = data?.type === 'trip' && session && legs !== undefined ? routeLines(legs, own && shown?.type === 'trip' ? shown : data, session).length : null;
   const entries: MenuEntry[] = [];
   const isOverview = data?.type === 'trip' && data.depth === 'overview';
 
@@ -164,6 +189,15 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
       entries.push({ label: target.type === 'trip' ? 'Print or save as PDF' : 'PDF: print this page', icon: 'print', onSelect: () => void print() });
     } else if (f === 'ics') {
       if (target.type !== 'trip' || isOverview) continue;
+      if (own && session) {
+        if (!own.start) {
+          entries.push({ label: 'Calendar: add dates first', icon: 'calendar', disabled: true, shortcut: 'Settings' });
+        } else if (shown?.type === 'trip') {
+          const c = icsEventCount(shown, { timelines: ownTimelines(session, own), sunPoints: session.sunPoints, full: false });
+          entries.push({ label: `Calendar file (ICS): ${plural(c.allDay, 'day')}${c.timed ? `, ${c.timed} timed` : ''}`, icon: 'calendar', onSelect: () => void runIcs() });
+        }
+        continue;
+      }
       entries.push({ label: 'Calendar: pick dates first', icon: 'calendar', disabled: true, shortcut: 'Copy to my trips' });
     } else if (f === 'gpx' || f === 'kml') {
       const word = f.toUpperCase();
@@ -203,14 +237,14 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
       {ready && data?.type === 'trip'
         ? createPortal(
             <div className="print-ready" data-print="hide">
-              <Banner kind="notice" action={<Button size="sm" onClick={() => { setReady(false); setPrinting(forPage(data, session)); }}>Print</Button>}>
+              <Banner kind="notice" action={<Button size="sm" onClick={() => { setReady(false); setPrinting(asShown(data, session)); }}>Print</Button>}>
                 Ready to print {data.title} with your dates.
               </Banner>
             </div>,
             document.body,
           )
         : null}
-      {printing ? createPortal(<TripPrintView data={printing} session={getTimeline(printing.slug)} parkLines={readParkLines(printing.slug)} />, document.body) : null}
+      {printing ? createPortal(<TripPrintView data={printing} session={getTimeline(printing.slug)} parkLines={readParkLines(printing.slug)} own={getOwn(printing.slug)} />, document.body) : null}
     </span>
   );
 }
