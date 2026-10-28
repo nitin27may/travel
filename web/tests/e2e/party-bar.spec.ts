@@ -227,7 +227,7 @@ test.describe('the sticky day rail', () => {
   test('says the same words and its Edit opens the same editor, focus on Done', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}?view=day`);
     const rail = page.locator('.tl-planbar');
-    await expect(rail.locator('.tl-planbar-who')).toHaveText('2 adults, 1 child · Standard');
+    await expect(rail.locator('.tl-planbar-who')).toHaveText('2 adults · 1 child (10) · Standard');
     await page.evaluate(() => document.getElementById('day-4')?.scrollIntoView({ block: 'start' }));
     const edit = rail.getByRole('button', { name: 'Edit' });
     await expect(edit).toBeVisible();
@@ -238,7 +238,7 @@ test.describe('the sticky day rail', () => {
     await page.getByRole('button', { name: 'More adults' }).click();
     await page.keyboard.press('Escape');
     await expect(page.locator('#plan-for-controls')).toBeHidden();
-    await expect(rail.locator('.tl-planbar-who')).toHaveText('3 adults, 1 child · Standard');
+    await expect(rail.locator('.tl-planbar-who')).toHaveText('3 adults · 1 child (10) · Standard');
   });
 });
 

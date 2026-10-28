@@ -40,7 +40,7 @@
 }
 @media print { .pb { display: none; } }
 
-/* ---- the sticky day rail: "2 adults, 1 child · Standard · Edit"; the pace truncates first ---- */
+/* ---- the sticky day rail: "2 adults · 1 child (10) · Standard · Edit"; the pace truncates first ---- */
 .tl-planbar .tl-planbar-line { display: flex; align-items: center; gap: var(--s-2); min-width: 0; max-width: 24rem; overflow: visible; white-space: nowrap; }
 .tl-planbar-who { display: inline-flex; min-width: 0; gap: var(--s-1); }
 .tl-planbar-party { flex: none; }

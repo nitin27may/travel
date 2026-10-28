@@ -121,7 +121,7 @@ test.describe('trip page polish (TRP, stage 4)', () => {
     const y = (sel: string) => page.locator(sel).first().evaluate((e) => e.getBoundingClientRect().top + window.scrollY);
     expect(await y('#plan-for')).toBeLessThan(await y('#when-to-go')); // the band is "When to go" in the Summary now, below the party bar
     await page.goto(`${site.url}${ROCKIES}?view=day`);
-    await expect(page.locator('.tl-planbar-who')).toHaveText('2 adults, 1 child · Standard') // the family default opens on a 10-year-old (FAMAGE10); the plan's written-for age stays 6;
+    await expect(page.locator('.tl-planbar-who')).toHaveText('2 adults · 1 child (10) · Standard') // the family default opens on a 10-year-old (FAMAGE10); the plan's written-for age stays 6;
     await expect(page.locator('.tl-planbar')).not.toContainText('Plan as written');
     await page.goto(`${site.url}${ROCKIES}?p=adults&pace=full&view=day`);
     await expect(page.locator('.tl-planbar-who')).toHaveText('Shared plan · Full'); // a link with a party is a shared plan, in the bar and the rail (review UXB-2 S3)

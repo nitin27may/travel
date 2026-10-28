@@ -1,4 +1,4 @@
-// The sticky day rail says the party the bar says ("2 adults, 1 child · Standard · Edit", spec 5.2). ProfileBar (the start chunk) writes
+// The sticky day rail says the party the bar says ("2 adults · 1 child (10) · Standard · Edit", spec 5.2). ProfileBar (the start chunk) writes
 // the party and pace here as data; PlanBar (its own lazy chunk, which owns the party words) reads them. A tiny store, because the two
 // are not parent and child, and no words are built here so the start chunk carries none of core `party.ts`.
 import { useSyncExternalStore } from 'react';
