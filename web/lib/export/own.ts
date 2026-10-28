@@ -6,7 +6,7 @@ import { buildIcs, icsEventCount, NoCalendarError } from '@travel/core/export/ic
 import { PRINTED_KINDS, printTime } from '@travel/core/export/plan.ts';
 import { partyShortText } from '@travel/core/trips/partyWords.ts';
 import type { DayTimeline, TimelineEntry } from '@travel/core/schedule/types.ts';
-import type { PlanDraft } from '@travel/core/schema/plan-draft.ts';
+import type { PlanDraft } from '@/lib/trip-edit/model';
 import { dayNoteKey } from '@/components/trips/edit/day/dayOps';
 import { categoryOf } from '@/lib/public/taxonomy';
 import { noteKeyOf } from '@/lib/trip-edit/stopOps';
