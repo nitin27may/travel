@@ -8,7 +8,7 @@ test('a service worker caches the planner shell and the open trip; Today loads o
   // reload once so the worker controls the page, then wait for the shell and the trip copy to be cached
   await page.reload();
   await page.waitForFunction(async () => {
-    const shell = await caches.open('planner-shell-v1'), trips = await caches.open('planner-trips-v1');
+    const shell = await caches.open('planner-shell-v2'), trips = await caches.open('planner-trips-v1');
     return !!(await shell.match('/planner/today.html')) && !!(await shell.match('/shared/engine.js')) && !!(await trips.match('/planner/__trip/t-dolomites.json'));
   }, null, { timeout: 15000 });
   expect(await page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true);
@@ -32,7 +32,7 @@ test('offline, the trip home and My trips load from the cache too', async ({ pag
   await page.waitForFunction(async () => { const r = await navigator.serviceWorker.getRegistration(); return !!(r && r.active); });
   await page.reload();
   await page.goto(base + '/planner/index.html');
-  await page.waitForFunction(async () => (await (await caches.open('planner-shell-v1')).keys()).length > 15, null, { timeout: 15000 });
+  await page.waitForFunction(async () => (await (await caches.open('planner-shell-v2')).keys()).length > 15, null, { timeout: 15000 });
   await context.setOffline(true);
   await page.goto(base + '/planner/trip.html?id=t-banff');
   await expect(page.getByRole('textbox', { name: /Trip name/ })).toHaveValue('Banff long weekend');

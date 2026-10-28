@@ -13,7 +13,7 @@ async function open(page, base, path, opts = {}) {
   await page.goto(base + '/planner/index.html');
   await page.evaluate(() => { localStorage.clear(); });
   if (opts.today) await page.evaluate((d) => localStorage.setItem('proto.planner', JSON.stringify({ today: d })), opts.today);
-  if (opts.theme) await page.evaluate((th) => localStorage.setItem('travel:v1:theme', th), opts.theme);
+  if (opts.theme) await page.evaluate((th) => localStorage.setItem('proto.theme', th), opts.theme);
   await page.goto(base + path);
   await page.waitForSelector(opts.ready || '#app > *');
 }

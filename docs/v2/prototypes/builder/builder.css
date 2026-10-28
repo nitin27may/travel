@@ -258,3 +258,20 @@ body.lifting #body{overscroll-behavior:none}
 .pv-sec table{border-collapse:collapse;width:100%;font:var(--t-small)}
 .pv-sec th,.pv-sec td{border-bottom:1px solid var(--line-2);padding:4px 6px 4px 0;text-align:left;vertical-align:top}
 .pv-f{margin-top:16px;font:var(--t-small);color:var(--muted)}
+
+/* round 3 (design review B-M1 to B-M4, B-S1) */
+.chip.plain{background:var(--surface-2);color:var(--ink-2);border-color:var(--line-2)}
+.it{flex-wrap:wrap}
+.it .parkrow{flex-basis:100%;padding:0 0 0 96px;min-width:0}
+.it .parkrow .parklnk{display:inline-flex;align-items:center;min-height:44px;font:var(--t-meta);overflow-wrap:anywhere}
+.warnbar{display:flex;align-items:center;gap:8px;width:calc(100% - 32px);min-height:44px;margin:4px 16px 0;padding:0 12px;border:1px solid var(--warn);border-radius:var(--r-3);background:var(--warn-soft);color:var(--ink);font:var(--t-small)}
+.warnbar.crit{border-color:var(--crit);background:var(--crit-soft)}
+.btn.sm44{min-height:44px;padding:0 14px;font-size:13px}
+.btn.quiet{border-color:var(--line-2);color:var(--crit)}
+.freeday .acts,.note .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.freeday .grow{display:block}
+.shdr .hdrbtn{color:var(--header-ink);border-color:var(--header-mute);flex:none;min-height:44px;margin-right:4px}
+.shdr .hdrbtn.pri{color:var(--accent-ink);border-color:var(--accent)}
+.convertcard{flex:1;min-width:0;border:2px solid var(--accent-text);border-radius:var(--r-4);background:var(--accent-soft);padding:12px 14px;color:var(--ink)}
+.convertcard .btn{flex:1}
+.surbar{width:calc(100% - 32px)}

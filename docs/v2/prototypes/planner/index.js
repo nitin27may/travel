@@ -17,7 +17,7 @@ function card(t){
  <div class="facts"><span class="avatars" aria-hidden="true">${av}</span><span>${(t.party||[]).length} traveller${(t.party||[]).length===1?'':'s'}</span><span>${t.nights!=null?t.nights:0} night${t.nights===1?'':'s'}</span></div>
  <div class="prog"><div><div class="meta">Bookings ${b.done} of ${b.total}</div><div class="bar" role="progressbar" aria-label="Bookings done" aria-valuenow="${b.done}" aria-valuemax="${b.total}"><i style="width:${b.total?b.done/b.total*100:0}%"></i></div></div>
   <div><div class="meta">Checklist ${c.done} of ${c.total}</div><div class="bar" role="progressbar" aria-label="Checklist done" aria-valuenow="${c.done}" aria-valuemax="${c.total}"><i style="width:${c.total?c.done/c.total*100:0}%"></i></div></div></div>
- ${nd?`<div class="small">Next: <b>${P.esc(nd.b.label)}</b> by ${P.fmt(nd.d,1)}</div>`:''}
+ ${nd?`<div class="small">Next: <b>${P.esc(nd.b.label)}</b> by ${P.fmt(nd.d,1)} ${P.dueChip(nd.d)}</div>`:''}
  ${stale?`<div><span class="chip crit">A place needs replacing</span></div>`:''}
  <div class="row"><span class="chip info">In Mine</span>${inCtx?'<span class="chip">Open now</span>':''}<span class="sp"></span>${ph==='now'?`<a class="btn sm" href="today.html?id=${encodeURIComponent(t.id)}">Today</a>`:''}<a class="btn pri" href="trip.html?id=${encodeURIComponent(t.id)}" data-act="open">Open</a></div></article>`}
 function render(){

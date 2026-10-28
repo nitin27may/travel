@@ -30,7 +30,7 @@ button { font: inherit; color: inherit; }
 /* cover */
 .cover { position: relative; height: 420px; background: linear-gradient(var(--photo-scrim-top), var(--photo-scrim-bottom)), linear-gradient(160deg, var(--header-2), var(--header)); color: var(--header-ink); }
 .cover.compact { height: 220px; }
-.cover .band { position: absolute; right: var(--margin); top: 18px; font: var(--t-meta); color: var(--kicker-on-photo); }
+.compl .band { font: var(--t-meta); color: var(--kicker-on-photo); }
 .cover .in { position: absolute; left: 0; right: 0; bottom: 56px; max-width: var(--max-content); margin: 0 auto; padding: 0 var(--margin); }
 .compact .in { bottom: 24px; }
 .crumb { font: var(--t-label); color: var(--kicker-on-photo); position: absolute; top: 18px; left: var(--margin); right: var(--margin); max-width: calc(100% - 28px); }
@@ -308,8 +308,8 @@ h2 .phtag { margin-left: 8px; text-transform: none; }
 .pk .cnt { font: var(--t-small); color: var(--ink-2); margin-top: 4px; }
 .pk .cnt .big { font: var(--t-card); color: var(--ink); }
 .prow .num { display: inline-grid; place-items: center; min-width: 22px; height: 22px; border-radius: 50%; background: var(--ink); color: var(--bg); font: 600 12px/1 var(--font-mono); margin-right: 4px; }
-.mapwrap { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 20px; margin-top: 8px; align-items: start; }
-.mapcol { position: sticky; top: calc(var(--header-h) + 12px); min-width: 0; }
+.mapwrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; margin-top: 8px; }   /* PN14: the map is full width, the list sits below it */
+.mapcol { min-width: 0; }
 .mapbox { border: 1px solid var(--line); border-radius: var(--r-4); overflow: hidden; }
 .maplist { min-width: 0; }
 .pager { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 20px; }
@@ -323,7 +323,6 @@ h2 .phtag { margin-left: 8px; text-transform: none; }
 
 /* phone bottom bar: Home, Parks, Mine, Plan (design/park-page; foundation components 1.4) */
 .bbar { display: none; }
-@media (max-width: 1100px) { .mapwrap { grid-template-columns: minmax(0, 1fr); } .mapcol { position: static; } }
 @media (max-width: 640px) {
   body { padding-bottom: var(--phone-bottombar-h, 84px); }
   .bbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; height: var(--phone-bottombar-h, 84px); padding: 8px 4px 26px; background: var(--header); border-top: 1px solid var(--header-line); z-index: var(--z-header, 20); }
@@ -344,10 +343,42 @@ h2 .phtag { margin-left: 8px; text-transform: none; }
   .printfoot { display: block; margin-top: 24px; padding-top: 8px; border-top: 1px solid var(--ink); font: var(--t-small); color: var(--ink); }
   body { padding-bottom: 0; }
   .cover { height: auto; padding: 16px 0; background: none; color: var(--ink); }
-  .cover .in, .crumb, .cover .band { position: static; }
+  .cover .in, .crumb { position: static; }
 }
 
 /* checkboxes: drawn here so the box has a visible 3:1 edge in both themes */
 input[type="checkbox"] { appearance: none; -webkit-appearance: none; width: 22px; height: 22px; margin: 0; border: 2px solid var(--ink-2); border-radius: 5px; background: var(--surface); display: inline-grid; place-items: center; cursor: pointer; flex: none; }
 input[type="checkbox"]:checked { background: var(--ink); border-color: var(--ink); }
 input[type="checkbox"]:checked::after { content: ''; width: 6px; height: 11px; border: solid var(--bg); border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
+
+/* inline SVG icons replace the letters (currentColor, --muted) */
+.glyph svg, .banner .ic svg { display: block; }
+.glyph { color: var(--muted); }
+.banner .ic { display: inline-grid; place-items: center; width: 22px; height: 22px; flex: none; }
+
+/* phone touch targets: 44 x 44 on every button and link (components 1); desktop keeps its proportions */
+@media (max-width: 640px) {
+  .hdr .brand { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+  .hdr button { height: 44px; min-width: 44px; }
+  .search, .subbar select, .ctl select, .menu select { height: 44px; }
+  .pillw { height: 44px; }
+  .pillw button { min-height: 44px; min-width: 44px; }
+  .pillw button.x { padding: 0 14px 0 0; }
+  .seg button { height: 44px; min-width: 44px; }
+  .btn, .btn.sm { min-height: 44px; }
+  .btn.ic, .btn.ic.x { width: 44px; }
+  .linkbtn, .subbar .linkbtn { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; padding: 0; }
+  .pager button { min-width: 44px; height: 44px; }
+  .req .lnk button { min-height: 44px; min-width: 44px; padding: 0 4px; }
+  .grouphd button { min-height: 44px; min-width: 44px; }
+  .menu .opt { min-height: 44px; }
+  .menu .mg button, .menu .bands button { height: 44px; }
+  .menu .x { width: 44px; height: 44px; }
+  .ctl > button { height: 44px; }
+  .ctl label.chk { min-height: 44px; }
+  /* links inside text: a 44 px box that does not change the line height */
+  a:not(.btn):not(.prow):not(.pk):not(.brand):not(.bbar a) { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; margin-block: -11px; }
+  .lk a, .srcs a { margin-block: 0; }
+  .crumb a { margin-block: -11px; }
+  .pcard .act .btn.sm { flex: 1 1 auto; }
+}

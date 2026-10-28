@@ -12,7 +12,7 @@ P.esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>'
 P.uid=p=>(p||'x')+Math.random().toString(36).slice(2,8);
 P.q=k=>new URLSearchParams(location.search).get(k);
 /* icons */
-const IC={dots:'<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',check:'<path d="m5 12 5 5 9-10"/>',chev:'<path d="m6 9 6 6 6-6"/>',x:'<path d="M6 6l12 12M18 6 6 18"/>',plus:'<path d="M12 5v14M5 12h14"/>',pen:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1"/>',print:'<path d="M7 9V4h10v5M7 17H5v-6h14v6h-2M7 14h10v6H7z"/>',cal:'<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',moon:'<path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/>',pin:'<path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',nav:'<path d="m4 11 16-7-7 16-2-7z"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/>',off:'<path d="M3 3l18 18M8.5 8.5A8 8 0 0 0 5 11M2 8a14 14 0 0 1 6-3.3M12 20h.01M16.5 12.5a5 5 0 0 1 1 1"/>',wifi:'<path d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0M12 20h.01"/>',share:'<circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="m8.2 11 7.6-3.7M8.2 13l7.6 3.7"/>',copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>'};
+const IC={dots:'<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',check:'<path d="m5 12 5 5 9-10"/>',chev:'<path d="m6 9 6 6 6-6"/>',x:'<path d="M6 6l12 12M18 6 6 18"/>',plus:'<path d="M12 5v14M5 12h14"/>',pen:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1"/>',print:'<path d="M7 9V4h10v5M7 17H5v-6h14v6h-2M7 14h10v6H7z"/>',cal:'<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',moon:'<path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/>',pin:'<path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',nav:'<path d="m4 11 16-7-7 16-2-7z"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/>',off:'<path d="M3 3l18 18M8.5 8.5A8 8 0 0 0 5 11M2 8a14 14 0 0 1 6-3.3M12 20h.01M16.5 12.5a5 5 0 0 1 1 1"/>',wifi:'<path d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0M12 20h.01"/>',share:'<circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="m8.2 11 7.6-3.7M8.2 13l7.6 3.7"/>',copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',alert:'<path d="M12 3 2.5 20h19z"/><path d="M12 10v4M12 17h.01"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>'};
 P.ic=(n,c)=>`<svg class="ic ${c||''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]||''}</svg>`;
 /* dates (UTC strings YYYY-MM-DD) */
 P.parse=s=>new Date(s+'T00:00:00Z');
@@ -24,7 +24,11 @@ P.monthNum=m=>C.monthNumber(m);
 P.fmtMonth=m=>MN[P.monthNum(m)-1]||'';
 P.range=t=>{const d=t.dates||{};if(d.from&&d.to&&d.to!==d.from){const a=P.parse(d.from),b=P.parse(d.to);return a.getUTCMonth()===b.getUTCMonth()&&a.getUTCFullYear()===b.getUTCFullYear()?`${a.getUTCDate()}–${b.getUTCDate()} ${MN[b.getUTCMonth()]} ${b.getUTCFullYear()}`:`${P.fmt(d.from,1)} – ${P.fmt(d.to)}`}if(d.from)return P.fmt(d.from);if(P.monthNum(d.month))return (d.flexible?'Around ':'')+P.fmtMonth(d.month)+(d.flexible?' (flexible)':'');if(d.flexible)return 'Flexible';return ''};
 P.hasDates=t=>!!(t.dates&&t.dates.from);
-P.mins=m=>{m=Math.round(m||0);if(m<60)return m+' min';const h=Math.floor(m/60),r=m%60;return r?`${h} h ${r} min`:`${h} h`};
+/* durations and money in the builder's house format: '4 h 20', '45 min'; EUR for Italy, CAD for Canada, named once */
+P.mins=m=>window.ProtoEngine.fd(m||0);
+P.cur=t=>{const it=P.items(t).find(i=>PL[i.id]);return it&&PL[it.id].cc==='IT'?'EUR':'CAD'};
+P.dueChip=d=>{const left=P.diff(P.today(),d);return left<0?`<span class="chip crit" data-overdue="${-left}">${P.ic('alert')} Overdue by ${-left} day${left===-1?'':'s'}</span>`:`<span class="chip ${left<30?'warn':'ok'}">${left===0?'Book today':'In '+left+' day'+(left===1?'':'s')}</span>`};
+P.due=(t,b)=>{const d=P.byDate(t,b);if(!d)return null;const left=P.diff(P.today(),d);return {d,left,overdue:left<0}};
 P.hm=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')};
 P.toMin=t=>{const [h,m]=String(t||'09:00').split(':');return (+h)*60+(+m||0)};
 P.kindLabel=k=>(window.ProtoEngine.KINDS[k]&&window.ProtoEngine.KINDS[k].label)||k||'Trip';
@@ -70,7 +74,7 @@ P.bookStats=t=>{const b=t.bookings||[];return {done:b.filter(x=>x.done).length,t
 P.checkStats=t=>{const b=t.checklist||[];return {done:b.filter(x=>x.done).length,total:b.length}};
 P.costStats=t=>{const c=t.costs||[];const priced=c.filter(x=>x.free||(x.amount!=null&&x.amount!==''));return {total:c.length,priced:priced.length,free:c.filter(x=>x.free).length,sum:c.reduce((s,x)=>s+(x.free?0:(+x.amount||0)),0)}};
 P.nextDeadline=t=>{const l=(t.bookings||[]).filter(b=>!b.done).map(b=>({b,d:P.byDate(t,b)})).filter(x=>x.d).sort((a,b)=>a.d<b.d?-1:1);return l[0]||null};
-P.money=n=>'$'+Math.round(n).toLocaleString('en-CA');
+P.money=(n,t)=>(t?P.cur(t)+' ':'')+Math.round(n).toLocaleString('en-CA');
 P.totals=t=>{const it=P.items(t);return {nights:t.nights!=null?t.nights:Math.max(0,(t.days||[]).length-1),drive:it.reduce((s,x)=>s+(+x.driveMin||0),0),places:it.length}};
 P.dayDrive=d=>(d.items||[]).reduce((s,x)=>s+(+x.driveMin||0),0);
 P.abroad=t=>{const g=t.gettingThere||{};return !!(g.abroad||g.mode==='air'||g.mode==='fly')};
@@ -119,16 +123,17 @@ if(!P.trips().length&&!P.state().noSeed)P.reseed();
 P.ensureDemo=id=>{if(!id||P.trips().some(t=>t.id===id)||P.state().noSeed)return;const s=P.seedTrips().find(t=>t.id===id);if(s){const a=P.trips();a.push(s);P.save(a)}};
 try{P.ensureDemo(new URLSearchParams(location.search).get('id'))}catch(e){}
 /* ui helpers */
-P.toast=(msg,undo)=>{let w=document.getElementById('toasts');if(!w){w=document.createElement('div');w.id='toasts';w.setAttribute('role','status');document.body.appendChild(w)}
+const held=[];
+P.toast=(msg,undo)=>{if(document.querySelector('.sheet-wrap')){held.push([msg,undo]);return}let w=document.getElementById('toasts');if(!w){w=document.createElement('div');w.id='toasts';w.setAttribute('role','status');document.body.appendChild(w)}
  const el=document.createElement('div');el.className='toast';el.innerHTML=`<span>${P.esc(msg)}</span>${undo?'<button type="button">Undo</button>':''}`;w.appendChild(el);let tm;const kill=()=>{clearTimeout(tm);el.remove()};
  if(undo)el.querySelector('button').onclick=()=>{kill();undo()};tm=setTimeout(kill,undo?9000:3500);return kill};
 const FOCUSABLE='a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
-P.sheet=(title,html,opt)=>{opt=opt||{};document.querySelectorAll('.sheet-wrap').forEach(e=>e.remove());const prev=document.activeElement;const w=document.createElement('div');w.className='sheet-wrap';
+P.sheet=(title,html,opt)=>{opt=opt||{};document.querySelectorAll('.sheet-wrap').forEach(e=>e.remove());document.querySelectorAll('.toast').forEach(e=>e.remove());const prev=document.activeElement;const w=document.createElement('div');w.className='sheet-wrap';
  w.innerHTML=`<div class="scrim" data-close></div><div class="sheet" role="dialog" aria-modal="true" aria-label="${P.esc(title)}"><div class="sheet-h"><h2>${P.esc(title)}</h2><button type="button" class="icon-btn" data-close aria-label="Close">${P.ic('x')}</button></div><div class="sheet-b">${html}</div></div>`;
  document.body.appendChild(w);requestAnimationFrame(()=>w.classList.add('open'));
  const key=e=>{if(e.key==='Escape'){e.preventDefault();close();return}
   if(e.key==='Tab'){const f=[...w.querySelectorAll(FOCUSABLE)].filter(x=>x.offsetParent!==null);if(!f.length)return;const a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}else if(!w.contains(document.activeElement)){e.preventDefault();a.focus()}}};
- const close=()=>{w.classList.remove('open');document.removeEventListener('keydown',key);setTimeout(()=>{w.remove();if(opt.onClose)opt.onClose();if(prev&&prev.focus&&document.contains(prev))prev.focus();else{const f=document.querySelector('[role=tab][aria-selected=true]')||document.querySelector('main h1,main');if(f){if(!f.hasAttribute('tabindex')&&!/^(BUTTON|A|INPUT)$/.test(f.tagName))f.setAttribute('tabindex','-1');f.focus()}}},200)};
+ const close=()=>{w.classList.remove('open');document.removeEventListener('keydown',key);setTimeout(()=>{w.remove();held.splice(0).forEach(h=>P.toast(h[0],h[1]));if(opt.onClose)opt.onClose();if(prev&&prev.focus&&document.contains(prev))prev.focus();else{const f=document.querySelector('[role=tab][aria-selected=true]')||document.querySelector('main h1,main');if(f){if(!f.hasAttribute('tabindex')&&!/^(BUTTON|A|INPUT)$/.test(f.tagName))f.setAttribute('tabindex','-1');f.focus()}}},200)};
  document.addEventListener('keydown',key);
  w.addEventListener('click',e=>{if(e.target.closest('[data-close]'))close()});
  const f=w.querySelector('form');if(f)f.addEventListener('submit',e=>{e.preventDefault();opt.onSubmit&&opt.onSubmit(new FormData(f),close,f)});
@@ -138,10 +143,10 @@ document.addEventListener('click',e=>{document.querySelectorAll('.menu:not([hidd
 P.signinSheet=()=>P.sheet('Sign in',`<p><span class="chip warn">Not in the prototype</span></p><p class="small" style="margin-top:12px">There are no accounts here and nothing is sent anywhere. Your trips live in this browser only. In the product, signing in moves the trips on this device into your account once.</p><div class="sheet-f"><button type="button" class="btn pri" data-close>Got it</button></div>`);
 /* dates sheet: exact range, a month, or a flexible window. One model shared with the builder (dates.js); nights are kept across modes */
 P.addDatesSheet=(id,done)=>{const t=P.get(id);if(!t)return;const D=window.PDates;let mode=D.modeOf(t);if(mode==='none')mode='exact';
- const nights=t.nights!=null?t.nights:2,seed=D.seedFor(t,P.realToday());
+ const near=['day','weekend'].includes(t.kind),nights=t.nights!=null?t.nights:2,seed=D.seedFor(t,P.realToday());
  const months=D.MN.map((m,i)=>`<option value="${i+1}">${m}</option>`).join('');
  P.sheet(P.hasDates(t)||D.modeOf(t)!=='none'?'Change dates':'Add dates',`<form><p class="small" style="margin-bottom:16px">${P.esc(t.title)}. Exact dates unlock book-by dates, opening-hours checks and the calendar file. A month or a window still checks the season.</p>
- <fieldset class="seg" style="border:0;padding:0;margin:0 0 16px"><legend class="lbl" style="margin-bottom:6px">How sure are the dates?</legend><div class="row">${D.MODES.map(([k,l])=>`<label class="chk"><input type="radio" name="mode" value="${k}" ${k===mode?'checked':''}> ${l}</label>`).join('')}</div></fieldset>
+ <fieldset class="seg-f"><legend class="lbl">How sure are the dates?</legend><div class="seg">${near?`<button type="button" class="pill" data-preset="next">Next weekend</button><button type="button" class="pill" data-preset="this">This weekend</button>`:''}${D.MODES.map(([k,l])=>`<label class="pill"><input type="radio" name="mode" value="${k}" ${k===mode?'checked':''}>${l}</label>`).join('')}</div></fieldset>
  <div class="field" data-for="exact"><label for="d-from">First day</label><input id="d-from" name="from" type="date" value="${P.esc(seed.from)}"></div>
  <div class="field" data-for="month flex"><label for="d-month">Month</label><select id="d-month" name="month">${months}</select></div>
  <div class="field"><label for="d-nights">Nights</label><input id="d-nights" name="nights" type="number" min="0" max="60" value="${nights}"></div>
@@ -151,7 +156,8 @@ P.addDatesSheet=(id,done)=>{const t=P.get(id);if(!t)return;const D=window.PDates
    w.querySelectorAll('[data-for]').forEach(x=>x.hidden=!x.dataset.for.split(' ').includes(m));
    const days=(t.days||[]).length,mm=+w.querySelector('#d-month').value;
    w.querySelector('#d-note').textContent=(m==='exact'?(f?`Last day ${P.fmt(P.add(f,nn))}. `:''):m==='month'?`We use ${D.MN[mm-1]} for opening days and daylight. `:`A window around ${D.MN[mm-1]}, give or take two weeks. `)+(days&&days!==nn+1?`The plan has ${days} day${days===1?'':'s'}; use Edit plan to match ${nn} night${nn===1?'':'s'}.`:'')};
-  w.addEventListener('input',upd);w.addEventListener('change',upd);upd()},
+  w.addEventListener('input',upd);w.addEventListener('change',upd);
+  w.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{const r=D.resolve(b.dataset.preset);w.querySelector('input[value=exact]').checked=true;w.querySelector('#d-from').value=r.from;w.querySelector('#d-nights').value=D.diffDays(r.from,r.to);upd()});upd()},
  onSubmit:(fd,close)=>{const m=fd.get('mode'),nn=Math.max(0,+fd.get('nights')||0),from=fd.get('from'),mo=+fd.get('month');
   if(m==='exact'&&!from){const i=document.getElementById('d-from');i&&i.focus();return}
   P.update(id,x=>{x.dates=D.datesFor(m,{from,nights:nn,month:mo});x.nights=nn});close();P.toast(m==='exact'?'Dates saved. Book-by dates are now on Bookings.':'Dates saved. Add exact dates later for book-by dates.');done&&done()}})};
@@ -184,7 +190,7 @@ P.go=id=>{const page=location.pathname.split('/').pop()||'index.html';const q='?
  else location.href='trip.html'+q+'#'+(P.tabMemory(id)||'overview')};
 let HDR=null;
 function chipInner(ctx){return ctx?`<span class="dot" style="background:${P.esc(ctx.identity||'var(--id-none)')}"></span><span class="t">${P.esc(ctx.title)}</span><span class="d">${P.esc(P.range(ctx)||'No dates')}</span>${P.ic('chev')}`:`<span class="t">No trip open</span>${P.ic('chev')}`}
-function navInner(ctx,page){return `<a href="index.html" ${page==='index'?'aria-current="page"':''}>My trips</a>${ctx?`<a href="trip.html?id=${encodeURIComponent(ctx.id)}" ${page==='trip'?'aria-current="page"':''}>Plan</a><a href="today.html?id=${encodeURIComponent(ctx.id)}" ${page==='today'?'aria-current="page"':''}>Today</a>`:''}`}
+function navInner(ctx,page){return `<a href="../index.html">Home</a><a href="../parks-app/index.html">Parks</a><a href="index.html" aria-current="page">Trips</a><a href="/builder/index.html">Plan</a>`}
 function switcherInner(trips,ctx){return `<div class="cap" style="padding:6px 12px">Switch trip. You stay on the same page.</div>`+P.order(trips).map(t=>{const nd=P.nextDeadline(t),ph=P.phase(t);return `<button type="button" class="sw-item" role="menuitem" data-sw="${P.esc(t.id)}" ${ctx&&ctx.id===t.id?'aria-current="true"':''}><span class="dot" style="background:${P.esc(t.identity||'var(--id-none)')}"></span><span style="flex:1"><b>${P.esc(t.title)}</b><span class="meta">${P.esc(P.range(t)||'No dates')}${ph==='now'?' · travelling now':''}${nd?' · next: '+P.esc(nd.b.label)+' by '+P.fmt(nd.d,1):''}</span></span>${ctx&&ctx.id===t.id?P.ic('check'):''}</button>`}).join('')+`<div class="sw-foot"><a class="btn sm" href="index.html">All my trips</a><a class="btn sm" href="/builder/index.html">New trip</a></div>`}
 /* re-render the header chip, the nav links and the switcher from the store: called on every save, delete, undo and switch */
 P.refreshHeader=()=>{if(!HDR||HDR.o.shared)return;const trips=P.trips(),st=P.state();const id=(HDR.o.trip&&HDR.o.trip.id)||st.ctx;const ctx=trips.find(t=>t.id===id)||null;
@@ -197,7 +203,7 @@ P.shell=function(o){o=o||{};const trips=P.trips(),st=P.state();const ctx=o.trip|
  h.innerHTML=`<div class="hdr-in"><a class="brand" href="index.html">Trip Plans</a><nav aria-label="Main" id="hdr-nav">${navInner(ctx,page)}</nav><span class="sp"></span><span class="chip warn" id="net" hidden>${P.ic('off')} Offline</span>${o.shared?'<span class="chip">Shared view</span>':chip}<button type="button" class="hdr-btn" id="theme" aria-label="Switch theme">${P.ic('moon')}</button></div>`;
  document.body.prepend(h);
  const th=document.getElementById('theme');const setIc=()=>{th.innerHTML=P.ic(document.documentElement.dataset.theme==='dark'?'sun':'moon')};setIc();
- th.onclick=()=>{const n=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem('travel:v1:theme',n)}catch(e){}setIc()};
+ th.onclick=()=>{ProtoTheme.toggle();setIc()};addEventListener('storage',e=>{if(e.key===ProtoTheme.KEY)setIc()});
  if(!o.shared){
  const sw=document.createElement('div');sw.id='switcher';sw.className='switcher';sw.hidden=true;sw.setAttribute('role','menu');sw.setAttribute('aria-label','Switch trip');
  sw.innerHTML=switcherInner(trips,ctx);document.body.appendChild(sw);

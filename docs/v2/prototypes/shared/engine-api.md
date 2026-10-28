@@ -37,3 +37,11 @@ with `n` 0-based. `toTrip(S)` converts it to the `proto.trips` shape (`contract.
 | `fd`, `hm` | `fd(min) -> "2 h 05"`, `hm(min) -> "09:30"` | Formatters |
 
 Items carry `half:true` when they hold half the usual time (set by `fillFree` or the item sheet's "Half a day" switch). Sun and calendar output now come from `shared/sun.js` and `shared/ics.js`; the old `SUNSET` table is no longer used for warnings.
+
+### Round 3 additions (builder agent, 27 Oct 2026)
+
+- `item.sunWarn` is now `'near'` (ends within 30 min of sunset), `'after'` (ends after sunset) or `'starts'` (starts after dark); still truthy. `item.sunAt` holds the sunset minute. Day warnings carry `sev` and `fix:'hike'`.
+- Each day gets `driveTotal` (including the drive from the airport or home) and `inLeg`; `d.drive` is unchanged.
+- `ageWord(age) -> 'infant' | 'toddler' | 'child'` words used in every misfit message and fit chip (no bare ages).
+- `shared/map.js` render options added: `days[].route` (route from the base, and to or from the airport on first and last day), `days[].dim` (dimmed days), `spread` (fans out pins closer than 24 px). `pinLabel` and `numbered:false` from round 2 stay.
+- `shared/theme.js` (new): key `proto.theme` (`light` or `dark`), applied in `<head>` before first paint, follows `prefers-color-scheme` when unset, `ProtoTheme.toggle()`, `get`, `set`, `stored`, `init`; syncs across tabs through the storage event.

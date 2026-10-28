@@ -9,8 +9,9 @@ test('map: the editor map is shared/map.js with a coloured leg per day, numbered
   const total = await page.evaluate(() => S.plan.days.reduce((n, d) => n + d.items.length, 0));
   const pins = page.getByRole('button', { name: /^Day \d+, stop \d+:/ });
   await expect(pins).toHaveCount(total);
-  const legs = await page.evaluate(() => S.plan.days.filter((d) => d.items.length > 1).length);
-  expect(await page.locator('[data-map="plan"] svg path[stroke^="var(--id-"]').count()).toBe(legs);
+  const legs = await page.evaluate(() => S.plan.days.filter((d) => d.items.length || d.n === 0 || d.n === S.plan.days.length - 1).length);
+  expect(await page.locator('[data-map="plan"] svg path[stroke^="var(--id-"], [data-map="plan"] svg path[stroke="var(--map-route-dim)"]').count()).toBe(legs); // every day with a stop (and arrival and departure) draws a route from its base
+  expect(await page.locator('[data-map="plan"] svg path[stroke^="var(--id-"]').count()).toBe(1); // only the selected day is full colour
   await expect(page.locator('[data-map="plan"] svg rect[fill="var(--map-stop)"]')).toHaveCount(await page.evaluate(() => S.plan.bases.length));
   expect(await page.evaluate(() => window.ProtoMap && typeof ProtoMap.render)).toBe('function');
   const literal = await page.evaluate(() => [...document.querySelectorAll('[data-map] svg *')].flatMap((e) => ['fill', 'stroke'].map((a) => e.getAttribute(a))).filter((v) => v && v !== 'none' && v !== 'transparent' && !v.startsWith('var(')));

@@ -65,12 +65,12 @@
     var t = today(), asof = L.dow(t);
     if (es.kind === 'seasonal' && !L.inWindows(es, t)) {
       var txt = es.banner || 'Closed for the season: the park operates ' + es.from + ' to ' + es.to + '.';
-      return '<div class="banner info" role="note"><span class="ic" aria-hidden="true">i</span><div>' + esc(txt) + (es.exceptions ? ' ' + esc(es.exceptions) + '.' : '') + '<span class="meta">As of ' + asof + ' · <a href="#seasons">Alerts and closures</a></span></div></div>';
+      return '<div class="banner info" role="note"><span class="ic" aria-hidden="true">' + A.icon('info') + '</span><div>' + esc(txt) + (es.exceptions ? ' ' + esc(es.exceptions) + '.' : '') + '<span class="meta">As of ' + asof + ' · <a href="#seasons">Alerts and closures</a></span></div></div>';
     }
     var cs = closures().filter(function (c) { var f = L.iso(c.from), e = L.iso(c.to); return f <= new Date(t.getFullYear(), t.getMonth(), t.getDate() + 30) && e >= t; });
     if (cs.length) {
       var c = cs[0], st = stale(c.read, 7);
-      return '<div class="banner" role="note"' + dataPh(c.ph) + '><span class="ic" aria-hidden="true">!</span><div><a href="#todo">' + esc(c.member) + '</a> closed ' + L.dm(L.iso(c.from)) + ' to ' + L.dmy(L.iso(c.to)) + ': ' + esc(c.msg) + '. ' + esc(park.authority) + ', read ' + L.dmy(L.iso(c.read)) + '. ' + tag(c.ph) + ' ' +
+      return '<div class="banner" role="note"' + dataPh(c.ph) + '><span class="ic" aria-hidden="true">' + A.icon('alert') + '</span><div><a href="#todo">' + esc(c.member) + '</a> closed ' + L.dm(L.iso(c.from)) + ' to ' + L.dmy(L.iso(c.to)) + ': ' + esc(c.msg) + '. ' + esc(park.authority) + ', read ' + L.dmy(L.iso(c.read)) + '. ' + tag(c.ph) + ' ' +
         (st ? '<span class="chip hon">May be out of date</span>' : '') + '<span class="meta">As of ' + asof + (closures().length > 1 ? ' · 1 of ' + closures().length + ' closures, see Seasons and closures' : '') + ' · <a href="#seasons">Current alerts</a></span></div></div>';
     }
     return '';
@@ -93,7 +93,7 @@
     var age = st && cls === 'window' ? '<div class="age">Read ' + L.mY(rd) + '; check before you book →</div>' : '';
     var covHtml = r.cov ? '<div class="cov">' + esc(r.cov) + '</div>' : '';
     var more = (cls === 'window' ? '' : covHtml) + (r.ex ? '<div class="ex">' + esc(r.ex) + '</div>' : '') + '<div class="meta">Read ' + L.dmy(rd) + '</div>';
-    return '<li' + dataPh(r.ph) + '><span class="glyph" aria-hidden="true">' + glyph + '</span><div class="nm">' + esc(r.name) + '</div><div class="right">' + right + '</div><div class="body">' +
+    return '<li' + dataPh(r.ph) + '><span class="glyph" aria-hidden="true">' + A.icon(glyph) + '</span><div class="nm">' + esc(r.name) + '</div><div class="right">' + right + '</div><div class="body">' +
       '<div class="who">' + esc(r.who || '') + '</div><div class="price">' + price + '</div>' + age + '<div class="more">' + more + '</div>' +
       '<div class="lnk">' + (r.link ? lk(r.url, r.link) : '') + '<button type="button" data-more aria-expanded="false">Details ▾</button></div></div></li>';
   }
@@ -104,9 +104,9 @@
     var h = '<section id="entry"><h2>Entry and bookings</h2>';
     if (park.level !== 'full') {
       if (park.entry === 'not_checked') {
-        h += '<ul class="req"><li><span class="glyph" aria-hidden="true">T</span><div class="nm">Entry not checked yet</div><div class="right"><span class="chip gap">Not checked</span></div><div class="body"><div class="who">A missing permit can stop a visit: check before you go.</div><div class="lnk">' + lk(park.officialUrl, 'Official page') + (park.alerts ? lk(park.alertsUrl, 'Current alerts') : '') + '</div></div></li></ul>';
+        h += '<ul class="req"><li><span class="glyph" aria-hidden="true">' + A.icon('ticket') + '</span><div class="nm">Entry not checked yet</div><div class="right"><span class="chip gap">Not checked</span></div><div class="body"><div class="who">A missing permit can stop a visit: check before you go.</div><div class="lnk">' + lk(park.officialUrl, 'Official page') + (park.alerts ? lk(park.alertsUrl, 'Current alerts') : '') + '</div></div></li></ul>';
       } else {
-        h += '<ul class="req"><li' + dataPh(park.placeholder) + '><span class="glyph" aria-hidden="true">T</span><div class="nm">' + esc(P.ENTRY_LABEL[park.entry]) + '</div><div class="right"><span class="chip">' + esc(P.ENTRY_LABEL[park.entry]) + '</span>' + tag(park.placeholder) + '</div><div class="body"><div class="who">Basics only: the row detail (fees, passes, booking windows) is not held for this park.</div><div class="lnk">' + lk(park.officialUrl, 'Official page') + '</div></div></li></ul>';
+        h += '<ul class="req"><li' + dataPh(park.placeholder) + '><span class="glyph" aria-hidden="true">' + A.icon('ticket') + '</span><div class="nm">' + esc(P.ENTRY_LABEL[park.entry]) + '</div><div class="right"><span class="chip">' + esc(P.ENTRY_LABEL[park.entry]) + '</span>' + tag(park.placeholder) + '</div><div class="body"><div class="who">Basics only: the row detail (fees, passes, booking windows) is not held for this park.</div><div class="lnk">' + lk(park.officialUrl, 'Official page') + '</div></div></li></ul>';
       }
       return h + '</section>';
     }
@@ -117,9 +117,9 @@
     h += '<div class="stateline">' + esc(parts.join(' · ')) + ' · checked ' + L.dmy(L.iso(latest)) + '</div>';
     [['book', 'Book ahead'], ['fees', 'Passes and fees'], ['day', 'On the day']].forEach(function (g) {
       var rs = own.filter(function (r) { return r.g === g[0]; }); if (!rs.length) return;
-      h += '<h3>' + g[1] + ' (' + rs.length + ')</h3><ul class="req">' + rs.map(function (r) { return reqRow(r, 'T'); }).join('') + '</ul>';
+      h += '<h3>' + g[1] + ' (' + rs.length + ')</h3><ul class="req">' + rs.map(function (r) { return reqRow(r, 'ticket'); }).join('') + '</ul>';
     });
-    if (inh.length) h += '<h3>From ' + esc(inh[0].inh) + ' (' + inh.length + ')</h3><ul class="req">' + inh.map(function (r) { return reqRow(r, 'T'); }).join('') + '</ul>';
+    if (inh.length) h += '<h3>From ' + esc(inh[0].inh) + ' (' + inh.length + ')</h3><ul class="req">' + inh.map(function (r) { return reqRow(r, 'ticket'); }).join('') + '</ul>';
     return h + '</section>';
   }
   function safety() {
@@ -153,7 +153,7 @@
   }
   function stay() {
     var h = '<section id="stay"><h2>Where to stay or camp</h2>';
-    if (park.camps && park.camps.length) h += '<ul class="req">' + park.camps.map(function (c) { return reqRow({ g: 'camp', cls: 'window', name: c.name, chip: c.chip, who: c.sites + ' · ' + c.who, price: c.price, cov: c.win, read: c.read, link: c.link, url: c.url, ph: c.ph }, 'C'); }).join('') + '</ul>';
+    if (park.camps && park.camps.length) h += '<ul class="req">' + park.camps.map(function (c) { return reqRow({ g: 'camp', cls: 'window', name: c.name, chip: c.chip, who: c.sites + ' · ' + c.who, price: c.price, cov: c.win, read: c.read, link: c.link, url: c.url, ph: c.ph }, 'tent'); }).join('') + '</ul>';
     else h += '<p><span class="chip gap">Campgrounds: not checked yet</span></p>';
     if (park.gatewayTowns) h += '<p class="cov"' + dataPh(park.placeholder || (park.gateway && park.gateway.ph)) + '>Gateway towns: ' + esc(park.gatewayTowns) + ' ' + tag(park.placeholder || (park.gateway && park.gateway.ph)) + '</p>';
     return h + '</section>';
@@ -205,8 +205,8 @@
     if (!park) { app.innerHTML = '<div class="wrap"><h1>Park not found</h1><p><a href="index.html">Back to Parks</a></p></div>'; return; }
     document.title = park.name + ' (prototype)';
     var es = effSeason(), full = park.level === 'full';
-    var cover = '<div class="cover' + (full ? '' : ' compact') + '">' + crumb() + (full ? '' : '<span class="band">' + (park.level === 'basics' && !park.placeholder ? 'No licensed photo yet' : 'No photo in this prototype') + '</span>') + '<div class="in"><div class="kicker">' + esc(kindWord(park)) + ' · ' + esc(park.region) + '</div><h1 class="title">' + esc(park.name) + '</h1>' +
-      '<div class="compl">' + (park.placeholder ? '<span class="ph">Placeholder data</span>' : '') + (park.level === 'basics' ? '<span class="state">Basics only</span>' : '') + '</div></div></div>';
+    var cover = '<div class="cover' + (full ? '' : ' compact') + '">' + crumb() + '<div class="in"><div class="kicker">' + esc(kindWord(park)) + ' · ' + esc(park.region) + '</div><h1 class="title">' + esc(park.name) + '</h1>' +
+      '<div class="compl">' + (park.placeholder ? '<span class="ph">Placeholder data</span>' : '') + (park.level === 'basics' ? '<span class="state">Basics only</span>' : '') + (full ? '' : '<span class="band">' + (park.level === 'basics' && !park.placeholder ? 'No licensed photo yet' : 'No photo in this prototype') + '</span>') + '</div></div></div>';
     var main = entry() + safety() + phoneMap() + (full ? seasons(es) + stay() : '') + todo() + (full ? gettingThere() : areasOnly()) + notChecked() + sources();
     app.innerHTML = cover + actions() + '<div class="wrap">' +
       (park.placeholder ? '<div class="protonote">Placeholder: ' + esc(park.name) + ' is not researched yet. Every fact on this page is invented to show the page shape.</div>' : '') +

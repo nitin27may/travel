@@ -3,12 +3,12 @@
    - fetch: same-origin GETs go network first and fall back to the cache, so an edit shows at once online and Today still
      loads offline (a page opened with ?id=... falls back to the cached page, the trip itself comes from this device);
    - message {type:'cache-trip', id, json}: keeps a copy of the open trip, which the page restores if the browser lost it. */
-const VERSION = 'planner-shell-v1';
+const VERSION = 'planner-shell-v2';
 const TRIPS = 'planner-trips-v1';
 const SHELL = [
   '/planner/', '/planner/index.html', '/planner/trip.html', '/planner/today.html', '/planner/print.html',
   '/planner/planner.css', '/planner/shared.js', '/planner/dates.js', '/planner/glue.js', '/planner/index.js', '/planner/trip.js', '/planner/today.js', '/planner/print.js',
-  '/shared/contract.js', '/shared/sun.js', '/shared/ics.js', '/shared/map.js', '/shared/engine.js', '/builder/data.js', '/themes.css',
+  '/shared/theme.js', '/shared/contract.js', '/shared/sun.js', '/shared/ics.js', '/shared/map.js', '/shared/engine.js', '/builder/data.js', '/themes.css',
   '/fonts/big-shoulders-display-latin-wght-normal.woff2', '/fonts/source-serif-4-latin-wght-normal.woff2', '/fonts/source-serif-4-latin-wght-italic.woff2',
   '/fonts/ibm-plex-mono-latin-400-normal.woff2', '/fonts/ibm-plex-mono-latin-500-normal.woff2', '/fonts/ibm-plex-mono-latin-600-normal.woff2'
 ];

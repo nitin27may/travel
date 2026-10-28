@@ -9,6 +9,8 @@
      outline: [[lat, lon], ...] or [[[lat, lon], ...], ...],   // optional park boundary, drawn closed
      selected: id, height: px (default: 3/4 of width, 220 to 520), label: 'accessible name of the map',
      pinLabel: function (point, dayN, stopNo) -> aria-label string (default "Day N, stop K: Name"),
+     days[].route: [{lat, lon}] polyline for the leg (default: the points; the builder adds the base and the airport), days[].dim: true draws the day in --map-route-dim,
+     spread: true  // pins closer than 24 px are fanned out so none hides another's number
      numbered: false  // pins show no number and are labelled with the name only (default true)
      onPin: function (id, point, dayN) {}   // click, Enter or Space on a pin
    }) -> {update(opts), destroy(), svg}
@@ -26,7 +28,7 @@
   }
   function allLL(o) {
     var pts = [];
-    (o.days || []).forEach(function (d) { (d.points || []).forEach(function (p) { pts.push(p); }); });
+    (o.days || []).forEach(function (d) { (d.points || []).forEach(function (p) { pts.push(p); }); }); // routes may run past the edge (to an airport); the fit uses the stops
     (o.extras || []).forEach(function (p) { pts.push(p); });
     var ol = o.outline || [];
     var rings = ol.length && typeof ol[0][0] === 'number' ? [ol] : ol;
@@ -61,24 +63,26 @@
     var pinLayer = el('g', {}, svg);
     // legs first (under pins)
     (o.days || []).forEach(function (d, di) {
-      var pts = d.points || [];
+      var pts = d.route || d.points || [];
       if (pts.length < 2) return;
       var dd = pts.map(function (p, i) { return (i ? 'L' : 'M') + P.x(p.lon).toFixed(1) + ' ' + P.y(p.lat).toFixed(1); }).join('');
-      el('path', { d: dd, fill: 'none', stroke: 'var(--map-casing)', 'stroke-width': 7, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }, svg);
-      el('path', { d: dd, fill: 'none', stroke: dayColour(di), 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }, svg);
+      if (!d.dim) el('path', { d: dd, fill: 'none', stroke: 'var(--map-casing)', 'stroke-width': 7, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }, svg);
+      el('path', { d: dd, fill: 'none', stroke: d.dim ? 'var(--map-route-dim)' : dayColour(di), 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }, svg);
     });
     (o.extras || []).forEach(function (p) {
       var g = el('g', { transform: 'translate(' + P.x(p.lon).toFixed(1) + ' ' + P.y(p.lat).toFixed(1) + ')', 'aria-label': p.label || 'Base', role: 'img' }, svg);
       el('rect', { x: -6, y: -6, width: 12, height: 12, rx: 2, fill: 'var(--map-stop)', stroke: 'var(--map-halo)', 'stroke-width': 2 }, g);
     });
+    var taken = [];
     (o.days || []).forEach(function (d, di) {
       (d.points || []).forEach(function (p, i) {
         var sel = o.selected === p.id, x = P.x(p.lon), y = P.y(p.lat);
+        if (o.spread) { var k = 0, a; while (k < 12 && taken.some(function (t) { return Math.hypot(t[0] - x, t[1] - y) < 24; })) { k++; a = k * 2.1; x = P.x(p.lon) + Math.cos(a) * 14 * Math.ceil(k / 6); y = P.y(p.lat) + Math.sin(a) * 14 * Math.ceil(k / 6); } taken.push([x, y]); }
         var g = el('g', { transform: 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ')', role: 'button', tabindex: 0, 'data-pin': p.id, 'data-day': d.n,
           'aria-label': o.pinLabel ? o.pinLabel(p, d.n, i + 1) : (o.numbered === false ? (p.label || p.id) : 'Day ' + d.n + ', stop ' + (i + 1) + ': ' + (p.label || p.id)), style: 'cursor:pointer;outline:none' }, svg);
         el('circle', { r: 22, fill: 'transparent' }, g); // 44 px touch target
         if (sel) el('circle', { r: 19, fill: 'none', stroke: 'var(--map-select-ring)', 'stroke-width': 3 }, g);
-        el('circle', { r: 14, fill: 'var(--map-pin)', stroke: dayColour(di), 'stroke-width': 4 }, g);
+        el('circle', { r: 14, fill: 'var(--map-pin)', stroke: d.dim ? 'var(--map-route-dim)' : dayColour(di), 'stroke-width': 4 }, g);
         var t = el('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central', fill: 'var(--map-pin-ink)', 'font-size': 13, 'font-weight': 700, 'font-family': 'var(--font-body)', 'aria-hidden': 'true' }, g);
         t.textContent = o.numbered === false ? '' : String(i + 1);
         if (sel && p.label) {

@@ -50,8 +50,12 @@ for (const w of WIDTHS) {
     await page.waitForTimeout(350); await check(page, 'item sheet');
     await page.evaluate(() => { closeAll(); S.stage = 8; render(); });
     await check(page, 'review');
-    await page.evaluate(() => { U.menu = true; S.stage = 7; render(); });
+    await page.evaluate(() => { U.menu = true; S.stage = 7; U.warnOpen = { 1: true, 2: true }; render(); });
     await check(page, 'plan menu');
+    await page.evaluate(() => { U.menu = false; S.copy = true; U.convertAsk = true; render(); });
+    await check(page, 'inline convert card');
+    await page.evaluate(() => { openSheet('settings'); }); await page.waitForTimeout(350); await check(page, 'convert card in settings sheet');
+    await page.evaluate(() => { S.copy = false; U.convertAsk = false; closeAll(); U.sur = surpriseInit(); U.sur.open = true; openSheet('surprise'); }); await page.waitForTimeout(350); await check(page, 'surprise open');
   });
 }
 

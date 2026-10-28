@@ -17,7 +17,7 @@
 
   var D = window.PDates = {
     MN: MN,
-    MODES: [['exact', 'Exact dates'], ['month', 'A month'], ['flex', 'Flexible window']],
+    MODES: [['month', 'A month'], ['exact', 'Exact dates'], ['flex', 'Flexible']],
     addDays: addDays, diffDays: diffDays,
     monthNum: function (m) { return C.monthNumber(m); },
     modeOf: function (t) {

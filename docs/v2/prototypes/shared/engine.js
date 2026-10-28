@@ -46,7 +46,9 @@ function partyLabel(S){const c=counts(S);const y=S.party.filter(t=>t.type==='chi
 function needs(S,n){return S.party.some(t=>(t.needs||[]).includes(n))}
 function eff(S){const y=youngest(S);const pace=S.paceSet?S.pace:((y!==null&&y<6)?'relaxed':'standard');const P=PACE[pace];
  return{pace,P,driveDay:S.driveDay??P.drive,moves:S.movesSet?S.moves:((y!==null&&y<10)?'fewer':'balanced'),paceAuto:!S.paceSet&&pace==='relaxed'}}
-function misfit(S,p){const r=[];const y=youngest(S);if(y!==null&&y<p.kids)r.push('Not for age '+y);if(needs(S,'stroller')&&!p.s)r.push('No stroller');if(needs(S,'stepfree')&&!p.st)r.push('Not step-free');if(needs(S,'dog')&&!p.dg)r.push('No dogs');if(y!==null&&y<10&&p.diff===3)r.push('Hard hike');return r}
+/** age in plain words: 0 an infant, 1 to 2 a toddler, else "age N" */
+function ageWord(y){return y===0?'an infant':y<=2?'a toddler':'age '+y}
+function misfit(S,p){const r=[];const y=youngest(S);if(y!==null&&y<p.kids)r.push('Not suitable for '+ageWord(y));if(needs(S,'stroller')&&!p.s)r.push('No stroller');if(needs(S,'stepfree')&&!p.st)r.push('Not step-free');if(needs(S,'dog')&&!p.dg)r.push('No dogs');if(y!==null&&y<10&&p.diff===3)r.push('Hard hike');return r}
 function closedIn(S,p){const m=whenInfo(S).month;return !!(m&&p.cl&&p.cl.includes(m))}
 function originPt(S){return S.origin}
 function reachMin(S,p){return drive(S.origin,p)}
@@ -165,11 +167,11 @@ function recalc(plan,S){const E=eff(S),n=plan.days.length,m=whenInfo(S).month;
   d.items.forEach((it,i)=>{const p=PL[it.pid];if(!p)return;const leg=drive(loc,p);it.leg=leg;legs+=leg;cur+=leg;it.t=cur;it.dur=Math.round(p.dur*E.P.mult*(it.half?.5:1)/5)*5;cur+=it.dur;if(!lunch&&cur>=12*60+30&&cur<=14*60+30){lunch=true;d.lunchAfter=i;cur+=45}loc=p});
   const last=d.n===n-1&&n>1;const tgt=last?(S.flyMode==='fly'?AIRPORTS[S.leave]:S.origin):d.base;
   d.endLeg=last||d.items.length?drive(loc,tgt):0;d.endTo=last?(S.flyMode==='fly'?S.leave:S.origin.name):d.base.name;
-  legs+=d.endLeg;d.drive=legs;d.end=cur+d.endLeg;d.visit=d.items.reduce((s,i)=>s+(i.dur||0),0);
+  legs+=d.endLeg;d.drive=legs;d.inLeg=(d.n===0&&n>1)?drive(arrPt(S),d.base):0;d.driveTotal=d.drive+d.inLeg;d.end=cur+d.endLeg;d.visit=d.items.reduce((s,i)=>s+(i.dur||0),0);
   d.warns=[];const lim=E.driveDay;
   if(d.drive>lim+10&&n>1||(S.kind==='day'&&d.drive>Math.max(lim,S.reachH*120+30)))d.warns.push({k:'drive',t:'Drives '+fd(d.drive)+', over your '+fd(lim)+' a day',fix:'drive'});
   const ss=sunsetFor(S,d);if(ss&&d.items.length&&cur>ss+10)d.warns.push({k:'sun',t:'Day ends '+fd(cur-ss)+' after sunset ('+hm(ss)+')',fix:'move'});
-  d.items.forEach(it=>{const p=PL[it.pid];it.sunWarn=false;if(ss&&p&&p.type==='hike'&&it.t+it.dur>ss-30){it.sunWarn=true;d.warns.push({k:'hike',t:p.name+' ends '+hm(it.t+it.dur)+', '+(it.t+it.dur>ss?'after':'within 30 min of')+' sunset ('+hm(ss)+')',pid:it.pid,fix:'hike'})}});
+  d.items.forEach(it=>{const p=PL[it.pid];it.sunWarn=false;it.sunAt=undefined;if(ss&&p&&p.type==='hike'&&it.t+it.dur>ss-30){const after=it.t+it.dur>ss;it.sunWarn=it.t>ss?'starts':after?'after':'near';it.sunAt=hm(ss);d.warns.push({k:'hike',sev:after?'crit':'warn',t:p.name+(it.t>ss?' starts '+hm(it.t)+', after':' ends '+hm(it.t+it.dur)+', '+(after?'after':'within 30 min of'))+' sunset ('+hm(ss)+')',pid:it.pid,fix:'hike'})}});
   if(d.visit>E.P.vis*1.15)d.warns.push({k:'long',t:'Long day: '+fd(d.visit)+' of visiting',fix:'move'});
   d.items.forEach(it=>{const p=PL[it.pid];if(m&&p&&p.cl&&p.cl.includes(m))d.warns.push({k:'closed',t:p.name+' is closed in '+MS[m-1],pid:it.pid,fix:'remove'})});
   d.free=Math.max(0,E.P.vis-d.visit-d.drive*.5)});
@@ -229,4 +231,4 @@ function fillFree(S,plan){const filled=[],relaxed=[],half=[];
 /** Build a plan from nothing; rebuild keeps what was placed or locked in `prev`. */
 function build(S){return buildPlan(S,null)}
 function rebuild(S,prev){return buildPlan(S,prev)}
-window.ProtoEngine={build,rebuild,fillFree,fits,recalc,freeDays,planStats,bookAhead,toTrip,whenInfo,drive,hav,fd,hm,eff,misfit,closedIn,lightStop,KINDS,PACE,sunsetFor,departSlack,defaultDepart,icsOf};
+window.ProtoEngine={build,rebuild,fillFree,fits,recalc,freeDays,planStats,bookAhead,toTrip,whenInfo,drive,hav,fd,hm,eff,misfit,ageWord,closedIn,lightStop,KINDS,PACE,sunsetFor,departSlack,defaultDepart,icsOf};

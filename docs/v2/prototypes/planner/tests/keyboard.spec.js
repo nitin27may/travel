@@ -111,7 +111,7 @@ test('keyboard only: dates sheet radios and fields', async ({ page, base }) => {
   await page.keyboard.press('Enter');
   await expect(page.getByRole('dialog')).toBeVisible();
   await tabTo(page, /Exact dates/);
-  await page.keyboard.press('ArrowDown');
+  await page.keyboard.press('ArrowUp');
   expect((await active(page)).name).toMatch(/A month/);
   await tabTo(page, /^Month$/);
   await page.keyboard.type('Aug');

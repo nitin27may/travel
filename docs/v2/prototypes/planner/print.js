@@ -19,6 +19,6 @@ ${(t.days||[]).map(d=>`<h3>Day ${d.n}${dated?' · '+P.fmt(P.dayDate(t,d.n)):''}:
 <h2>Checklist</h2>${(t.checklist||[]).length?`<table>${t.checklist.map(c=>`<tr><td><span class="box ${c.done?'on':''}"></span>${E(c.label)} <span class="meta">${E(c.group||'')}</span></td></tr>`).join('')}</table>`:'<p class="small">Nothing on the list.</p>'}
 <p class="meta" style="margin-top:24px">Printed ${P.fmt(P.today())}. Prices, budgets and private notes are not included.</p></div>`;
 document.getElementById('pr').onclick=()=>window.print();
-const th=document.getElementById('theme');th.onclick=()=>{const n=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem('travel:v1:theme',n)}catch(e){}};
+const th=document.getElementById('theme');th.onclick=()=>ProtoTheme.toggle();
 // proto controls are not needed on the print page
 })();

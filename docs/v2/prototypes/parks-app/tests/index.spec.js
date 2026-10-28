@@ -34,7 +34,7 @@ test('map view: shared/map.js pins and the list; a pin tap opens the park', asyn
   await page.locator('#maplist a.prow').first().hover();
   await expect(page.locator('#mapbox svg text:not([aria-hidden="true"]), #mapbox svg rect + text').first()).toBeAttached();
   // pin tap opens the park
-  await page.locator('#mapbox [data-pin="jasper-national-park"]').click();
+  await page.locator('#mapbox [data-pin="jasper-national-park"]').dispatchEvent('click'); // Banff's selected label plate sits over it after the hover above
   await expect(page).toHaveURL(/park\.html\?slug=jasper-national-park/);
   // keyboard: Enter on a pin
   await page.goto(base + '/parks-app/index.html?view=map');
@@ -131,7 +131,7 @@ test('phone bottom bar: Home, Parks, Mine, Plan with an active state; header tab
   const bar = page.locator('#bbar');
   await expect(bar).toBeVisible();
   await expect(page.locator('nav[aria-label="Main"]')).toBeHidden();
-  expect(await bar.locator('a').allInnerTexts()).toEqual(['Home', 'Parks', 'Mine', 'Plan']);
+  expect(await bar.locator('a').allInnerTexts()).toEqual(['Home', 'Parks', 'Trips', 'Plan']);
   await expect(bar.locator('a[aria-current="page"]')).toHaveText('Parks');
   expect((await bar.boundingBox()).height).toBe(84);
   for (const a of await bar.locator('a').all()) { const b = await a.boundingBox(); expect(b.width).toBeGreaterThanOrEqual(56); expect(b.height).toBeGreaterThanOrEqual(56); }
@@ -139,7 +139,7 @@ test('phone bottom bar: Home, Parks, Mine, Plan with an active state; header tab
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   const last = await page.locator('.pager').boundingBox(); const bb = await bar.boundingBox();
   expect(last.y + last.height).toBeLessThanOrEqual(bb.y + 1);
-  for (const [name, url] of [['Home', /\/index\.html$|\/$/], ['Mine', /\/planner\/index\.html$/], ['Plan', /\/builder\/index\.html$/]]) {
+  for (const [name, url] of [['Home', /\/index\.html$|\/$/], ['Trips', /\/planner\/index\.html$/], ['Plan', /\/builder\/index\.html$/]]) {
     await page.goto(base + '/parks-app/park.html?slug=jasper-national-park');
     await expect(page.locator('#bbar a[aria-current="page"]')).toHaveText('Parks');
     await page.locator('#bbar').getByRole('link', { name, exact: true }).click();

@@ -44,11 +44,11 @@ test('Surprise me: the sheet lists Canada and Italy options; picking one starts 
   await expect(dlg.getByRole('heading', { name: 'Surprise me' })).toBeVisible();
   await expect(dlg.getByText(/· Canada/).first()).toBeVisible();
   await expect(dlg.getByText(/· Italy/).first()).toBeVisible();
+  await dlg.getByRole('button', { name: /Change/ }).click();
   await dlg.getByRole('button', { name: 'Jul', exact: true }).click();
   await expect(dlg.getByText(/places open in July/).first()).toBeVisible();
-  await dlg.getByRole('button', { name: 'Drive up to 3 h' }).click();
+  await dlg.getByRole('button', { name: 'Drive up to 3 h', exact: true }).click();
   await expect(dlg.getByText(/· Italy/)).toHaveCount(0);
-  await dlg.getByRole('button', { name: 'Drive up to 3 h' }).click(); // already on: stays on
   await dlg.getByRole('button', { name: 'Any, flying is fine' }).click();
   await dlg.locator('[data-opt]').filter({ hasText: 'Italy' }).first().getByRole('button', { name: 'Plan this' }).click();
   const st = await page.evaluate(() => ({ stage: S.stage, cc: S.cc, month: S.when.month, picks: S.picks.length, kind: S.kind }));
@@ -61,7 +61,8 @@ test('Surprise me: a Canadian region within reach starts a by-car weekend', asyn
   await page.goto(base + '/builder/?fast');
   await page.getByRole('button', { name: 'Surprise me' }).click();
   const dlg = page.getByRole('dialog');
-  await dlg.getByRole('button', { name: 'Drive up to 3 h' }).click();
+  await dlg.getByRole('button', { name: /Change/ }).click();
+  await dlg.getByRole('button', { name: 'Drive up to 3 h', exact: true }).click();
   await dlg.locator('[data-opt]').first().getByRole('button', { name: 'Plan this' }).click();
   expect(await page.evaluate(() => ({ kind: S.kind, cc: S.cc, picks: S.picks.every((id) => PL[id].reg === 'ontario') }))).toMatchObject({ kind: 'weekend', cc: 'CA', picks: true });
 });

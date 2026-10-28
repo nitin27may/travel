@@ -23,20 +23,21 @@
     var t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = msg; document.body.appendChild(t);
     setTimeout(function () { t.remove(); }, 2200);
   }
-  function theme() { try { var t = localStorage.getItem('travel:v1:theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {} }
-  theme();
+  /** Small inline icons (currentColor, 18 px); always aria-hidden, the text beside them carries the meaning. */
+  var ICONS = { ticket: 'M3 8a2 2 0 0 0 0 4v0a2 2 0 0 1 0 4v2h18v-2a2 2 0 0 1 0-4v0a2 2 0 0 0 0-4V6H3zM14 6v12', tent: 'M3 19 12 5l9 14zM12 19l-3.5-6M12 19l3.5-6', info: 'M12 11v6M12 7.5v.5M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z', alert: 'M12 4 2.5 20h19zM12 10v4.5M12 17v.5' };
+  function icon(n) { return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="' + ICONS[n] + '"/></svg>'; }
   /** The tag every invented value carries. */
   function ph(text) { return '<span class="phtag">' + esc(text || 'Placeholder') + '</span>'; }
 
   /* ---- navigation: the same four places in the header (desktop) and the bottom bar (phone, from design/park-page) ---- */
   var NAV = [['Home', '../index.html'], ['Parks', 'index.html'], ['Trips', '../planner/index.html'], ['Plan', '../builder/index.html']];
-  var BAR = [['Home', '../index.html', 'M3 11 12 3l9 8M5 10v10h5v-6h4v6h5V10'], ['Parks', 'index.html', 'M4 20 10 8l4 7 2-3 4 8z'], ['Mine', '../planner/index.html', 'M12 3 3 8l9 5 9-5zM3 13l9 5 9-5'], ['Plan', '../builder/index.html', 'M12 5v14M5 12h14']];
+  var BAR = [['Home', '../index.html', 'M3 11 12 3l9 8M5 10v10h5v-6h4v6h5V10'], ['Parks', 'index.html', 'M4 20 10 8l4 7 2-3 4 8z'], ['Trips', '../planner/index.html', 'M12 3 3 8l9 5 9-5zM3 13l9 5 9-5'], ['Plan', '../builder/index.html', 'M12 5v14M5 12h14']];
   function header(active) {
     var h = document.getElementById('hdr'); if (!h) return;
     h.className = 'hdr';
     h.innerHTML = '<a class="brand" href="../index.html">TRIP PLANS</a><nav aria-label="Main">' + NAV.map(function (n) { return '<a href="' + n[1] + '"' + (n[0] === (active || 'Parks') ? ' class="cur" aria-current="page"' : '') + '>' + n[0] + '</a>'; }).join('') + '</nav><span class="sp"></span>' +
       '<button id="savedbtn" aria-haspopup="dialog">Saved <span id="savedn">0</span></button><button id="theme" aria-label="Switch theme">Theme</button>';
-    document.getElementById('theme').onclick = function () { var r = document.documentElement, n = r.dataset.theme === 'dark' ? 'light' : 'dark'; r.dataset.theme = n; try { localStorage.setItem('travel:v1:theme', n); } catch (e) {} };
+    document.getElementById('theme').onclick = function () { ProtoTheme.toggle(); };   // shared/theme.js: key proto.theme, applied before first paint
     document.getElementById('savedbtn').onclick = openSaved;
     function upd() { document.getElementById('savedn').textContent = getSaved().length; }
     upd(); document.addEventListener('saved-changed', upd);
@@ -102,5 +103,5 @@
     L.panel.querySelectorAll('[data-rm]').forEach(function (b) { b.onclick = function () { toggleSaved(b.dataset.rm); }; });
     document.addEventListener('saved-changed', redraw);
   }
-  window.APP = { esc: esc, slugify: slugify, getSaved: getSaved, isSaved: isSaved, toggleSaved: toggleSaved, placeSlug: placeSlug, toast: toast, header: header, openSaved: openSaved, layer: layer, ph: ph };
+  window.APP = { esc: esc, slugify: slugify, getSaved: getSaved, isSaved: isSaved, toggleSaved: toggleSaved, placeSlug: placeSlug, toast: toast, header: header, openSaved: openSaved, layer: layer, ph: ph, icon: icon };
 })();

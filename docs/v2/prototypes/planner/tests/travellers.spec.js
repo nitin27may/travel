@@ -18,7 +18,7 @@ test('adding an infant re-flows the plan: the diff sheet shows pace, moved, adde
   const added = await sheet.locator('[data-diff=added]').count();
   expect(removed + moved + added).toBeGreaterThan(0);
   expect(removed).toBeGreaterThan(0); // a hike is not for an infant
-  await expect(sheet.locator('[data-diff=removed]').first()).toContainText(/Not for age 0|Every day is full|No room/);
+  await expect(sheet.locator('[data-diff=removed]').first()).toContainText(/Not suitable for an infant|Every day is full|No room/);
   // before Apply the days are unchanged but the party already has the infant
   expect(placeDays(await dolomites(page))).toEqual(placeDays(before));
   await sheet.getByRole('button', { name: 'Apply to the plan' }).click();

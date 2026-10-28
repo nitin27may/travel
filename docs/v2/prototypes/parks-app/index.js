@@ -180,6 +180,7 @@
       host.querySelectorAll('[data-pin]').forEach(function (g) {
         var i = ps.map(function (p) { return p.slug; }).indexOf(g.getAttribute('data-pin')), p = ps[i]; if (!p) return;
         g.setAttribute('aria-label', 'Open ' + p.name + ', park ' + (offset + i + 1) + ' of the list');
+        g.querySelectorAll('circle[stroke^="var(--id-"]').forEach(function (c) { c.setAttribute('stroke', 'var(--map-pin-ink)'); }); // one pin colour: the day colours mean nothing here
         var t = g.querySelector('text'); if (t && t.getAttribute('aria-hidden') === 'true' && !t.getAttribute('x')) t.textContent = String(offset + i + 1);
       });
       mo.observe(mapHandle.svg, { childList: true });

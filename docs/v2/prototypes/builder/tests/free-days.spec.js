@@ -57,12 +57,10 @@ test('editor: a free day nothing fits offers Remove this day (nights minus one) 
   const before = await page.evaluate(() => ({ days: S.plan.days.length, nights: S.nights }));
   const dayIdx = await page.evaluate(() => freeDays(S.plan)[0].n);
   await page.locator('.dc', { hasText: String(dayIdx + 1) }).first().click();
-  await expect(page.getByText('Free day', { exact: false }).first()).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Add a place' }).first()).toBeVisible();
-  await page.getByRole('button', { name: 'Fill this day' }).click();
-  const dlg = page.getByRole('dialog');
-  await expect(dlg.getByText(/Nothing fits Day/)).toBeVisible();
-  await dlg.getByRole('button', { name: 'Remove this day' }).click();
+  await expect(page.getByText(/Free day: nothing we hold fits this day/)).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Fill this day' })).toHaveCount(0); // nothing to fill with
+  await expect(page.getByRole('button', { name: /Add a place to Day/ })).toBeVisible(); // the dashed row is the add action
+  await page.getByRole('button', { name: 'Remove this day' }).click();
   const after = await page.evaluate(() => ({ days: S.plan.days.length, nights: S.nights }));
   expect(after.days).toBe(before.days - 1);
   expect(after.nights).toBe(before.nights - 1);

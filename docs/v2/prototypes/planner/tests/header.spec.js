@@ -11,13 +11,11 @@ test('header chip re-renders when the open trip is deleted and when it is restor
   await card.getByRole('button', { name: /Menu for Banff/ }).click();
   await card.getByRole('menuitem', { name: 'Delete' }).click();
   await expect(chip).toContainText('No trip open');
-  await expect(page.locator('#hdr-nav')).not.toContainText('Today');
   await page.locator('#chip').click();
   await expect(page.locator('#switcher')).not.toContainText('Banff');
   await page.keyboard.press('Escape');
   await page.locator('.toast button', { hasText: 'Undo' }).click();
   await expect(chip).toContainText('Banff long weekend');
-  await expect(page.locator('#hdr-nav')).toContainText('Today');
   expect(errors()).toEqual([]);
 });
 

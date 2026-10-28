@@ -78,6 +78,16 @@
     (trip.days || []).forEach(function (d) { (d.items || []).forEach(function (it) { if (PL[pidOf(it)]) m[pidOf(it)] = d.n; }); });
     return m;
   }
+  function plain(reasons) {
+    var s = reasons.map(function (r) {
+      var m = /^Not for age (\d+)$/.exec(r);
+      if (m) { var a = +m[1]; return 'not suitable for ' + (a < 1 ? 'an infant' : a < 4 ? 'a toddler' : 'a child aged ' + a); }
+      if (r === 'Hard hike') return 'a hard hike for a child under 10';
+      return r.charAt(0).toLowerCase() + r.slice(1);
+    }).join(', ');
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+  function isTown(pid) { return PL[pid] && PL[pid].type === 'town'; }
   function nameOf(pid) { return PL[pid] ? PL[pid].name : pid; }
 
   /** Re-flow `after` (the trip with its new party). `before` is the trip as it was; locked and placed items stay where the person put them. */
@@ -106,14 +116,15 @@
     days.forEach(function (d) { d.items.forEach(function (it) { if (PL[it.id]) b[it.id] = d.n; }); });
     var moved = [], added = [], removed = [];
     Object.keys(b).forEach(function (pid) {
+      if (isTown(pid)) return;
       if (a[pid] == null) added.push({ pid: pid, name: nameOf(pid), day: b[pid] });
       else if (a[pid] !== b[pid]) moved.push({ pid: pid, name: nameOf(pid), from: a[pid], to: b[pid] });
     });
     Object.keys(a).forEach(function (pid) {
-      if (b[pid] != null) return;
+      if (b[pid] != null || isTown(pid)) return;
       var why = E.misfit(S1, PL[pid]);
       var un = (plan.unfit || []).find(function (u) { return u.pid === pid; });
-      removed.push({ pid: pid, name: nameOf(pid), day: a[pid], reason: why.length ? why.join(', ') : (un ? un.reason : 'No room at the new pace') });
+      removed.push({ pid: pid, name: nameOf(pid), day: a[pid], reason: why.length ? plain(why) : (un ? un.reason : 'No room at the new pace') });
     });
     var kept = { locked: 0, placed: 0 };
     plan.days.forEach(function (d) { d.items.forEach(function (it) { if (it.locked) kept.locked++; else if (it.placed) kept.placed++; }); });
@@ -122,7 +133,7 @@
     (after.bookings || []).forEach(function (bk) { have[bk.label] = true; });
     var bookings = built.bookings.filter(function (bk) { return !have[bk.label] && added.some(function (x) { return bk.label.indexOf(x.name) >= 0; }); });
     return {
-      ok: true, days: days, bookings: bookings, kept: kept,
+      ok: true, bases: plan.bases.map(function (x) { return x.name; }), days: days, bookings: bookings, kept: kept,
       diff: { moved: moved, added: added, removed: removed },
       pace: { before: PACE_LABEL(e0.pace), after: PACE_LABEL(e1.pace) },
       drive: { before: e0.driveDay, after: e1.driveDay },

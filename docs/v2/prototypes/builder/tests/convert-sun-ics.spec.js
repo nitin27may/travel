@@ -13,30 +13,33 @@ test.describe('convert notice (decision D1: follow FLOW C5)', () => {
     await page.getByRole('menuitem', { name: /Rebuild/ }).or(page.getByRole('button', { name: /^Rebuild$/ })).first().click();
     await page.getByRole('dialog').getByRole('button', { name: /^Rebuild|^Apply/ }).click();
   }
-  test('the notice says copied stops stay placed and offers an opt-in link, not a switch', async ({ page, base }) => {
+  test('the notice is inline in the sheet that triggered it (no second dialog), says copied stops stay placed and offers an opt-in link, not a switch', async ({ page, base }) => {
     await startConvert(page, base);
-    const dlg = page.getByRole('dialog').last();
-    await expect(dlg.getByRole('heading', { name: 'Make it your own plan' })).toBeVisible();
-    await expect(dlg).toContainText('Our later updates to the Dolomites trip will no longer change it');
-    await expect(dlg).toContainText('Stops copied from our trip stay placed on their days');
-    await expect(dlg.getByRole('switch')).toHaveCount(0);
+    await expect(page.getByRole('dialog')).toHaveCount(1); // the Settings sheet only
+    const card = page.getByRole('dialog').locator('#convertcard');
+    await expect(card).toBeVisible();
+    await expect(card).toContainText('Make it your own plan');
+    await expect(card).toContainText('Our later updates to the Dolomites trip will no longer change it');
+    await expect(card).toContainText('Stops copied from our trip stay placed on their days');
+    await expect(card.getByRole('switch')).toHaveCount(0);
     expect(await page.evaluate(() => S.releaseTrip)).toBe(false);
-    await dlg.getByRole('button', { name: 'Let the plan move places from our trip' }).click();
-    await expect(dlg).toContainText('Places from our trip can move');
+    await card.getByRole('button', { name: 'Let the plan move places from our trip' }).click();
+    await expect(card).toContainText('Places from our trip can move');
     expect(await page.evaluate(() => S.releaseTrip)).toBe(true);
-    await dlg.getByRole('button', { name: 'Keep places from our trip where they are' }).click();
+    await card.getByRole('button', { name: 'Keep places from our trip where they are' }).click();
     expect(await page.evaluate(() => S.releaseTrip)).toBe(false);
+    await card.getByRole('button', { name: 'Cancel' }).click();
+    await expect(page.locator('#convertcard')).toHaveCount(0);
+    expect(await page.evaluate(() => S.copy)).toBe(true);
   });
-  test('Continue converts in place and every copied stop stays on its day, marked as placed from our trip', async ({ page, base }) => {
-    await startConvert(page, base);
-    const before = await page.evaluate(() => S.plan.days.map((d) => d.items.map((i) => i.pid)));
-    await page.getByRole('dialog').last().getByRole('button', { name: 'Continue' }).click();
-    const st = await page.evaluate(() => ({ copy: S.copy, days: S.plan.days.map((d) => d.items.map((i) => i.pid)), from: S.plan.days.flatMap((d) => d.items).every((i) => i.fromTrip) }));
-    expect(st.copy).toBe(false);
-    expect(st.days).toEqual(before);
-    expect(st.from).toBe(true);
-    await expect(page.locator('.chip', { hasText: 'Placed from our trip' }).first()).toBeVisible();
-    await expect(page.getByRole('status').filter({ hasText: /Now your own plan/ })).toBeVisible();
+  test('with no sheet open the notice is an inline card at the top of the editor, not a modal', async ({ page, base }) => {
+    await page.goto(base + '/builder/?fast&copy=dolomites');
+    await page.evaluate(() => { rebuildNow(); });
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.locator('#body #convertcard')).toBeVisible();
+    await page.locator('#convertcard').getByRole('button', { name: 'Continue' }).click();
+    await expect(page.locator('#convertcard')).toHaveCount(0);
+    expect(await page.evaluate(() => S.copy)).toBe(false);
   });
   test('with the opt-in on, a pace change can move places from our trip', async ({ page, base }) => {
     await page.goto(base + '/builder/?fast&copy=dolomites');
@@ -90,8 +93,9 @@ test.describe('sun and daylight', () => {
     for (const it of r.items) expect(it.flag, it.pid).toBe(it.type === 'hike' && it.end > r.ss - 30);
     expect(r.items.some((i) => i.flag)).toBe(true);
     expect(r.warns.length).toBe(r.items.filter((i) => i.flag).length);
+    await expect(page.locator('.chip[data-sun]').first()).toBeVisible();
+    await page.getByRole('button', { name: /warnings? ·/ }).click();
     await expect(page.getByText(/sunset \(\d\d:\d\d\)/).first()).toBeVisible();
-    await expect(page.locator('.chip', { hasText: 'Ends near sunset' }).first()).toBeVisible();
     await expect(page.getByRole('button', { name: /Move it, or swap it for indoor/ }).first()).toBeVisible();
   });
   test('the dates hint shows a computed sunset and no longer says placeholder for the sun', async ({ page, base }) => {

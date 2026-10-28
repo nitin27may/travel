@@ -62,3 +62,26 @@ test('contrast: free day, departure day and warnings states', async ({ page, bas
   }
   expect(out.join('\n')).toBe('');
 });
+
+test('contrast: round 3 states (sunset chips, warning bar open, desktop header buttons, inline convert card, Surprise me open)', async ({ page, base }) => {
+  const out = [];
+  const chk = async (name) => { const c = await checkContrast(page); expect(c.checked, name).toBeGreaterThan(0); const f = formatFailures(c); if (f) out.push('## ' + name + '\n' + f); };
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(base + '/builder/?fast');
+  await page.evaluate(() => {
+    U.ctx = null; chooseKind('weekair'); S.regions = ['dolomites']; S.cc = 'IT'; setAirports(S); S.when = { type: 'dates', from: '2027-10-20', to: '2027-10-26' };
+    S.picks = ['ortisei', 'siusi', 'funes', 'carezza', 'braies', 'seceda']; S.nights = 6; S.nightsTouched = true; S.plan = buildPlan(S, null);
+    S.plan.days[2].items = ['funes', 'carezza', 'braies', 'siusi', 'seceda'].map((pid) => ({ pid, placed: true }));
+    recalc(S.plan, S); S.cfg0 = cfgSig(S); S.checklist = defaultChecklist(); histReset('Built'); S.stage = 7; U.justBuilt = false; U.day = 2; U.desk = true; U.warnOpen = { 2: true }; render();
+  });
+  await chk('desktop editor, sunset chips, warnings open');
+  await page.evaluate(() => { U.desk = false; U.day = 1; render(); const f = freeDays(S.plan); if (f.length) { U.day = f[0].n; render(); } });
+  await chk('free day buttons');
+  await page.evaluate(() => { S.copy = true; U.convertAsk = true; render(); });
+  await chk('inline convert card in the editor');
+  await page.evaluate(() => { openSheet('settings'); }); await settle(page);
+  await chk('inline convert card in the settings sheet');
+  await page.evaluate(() => { U.convertAsk = false; S.copy = false; closeAll(); U.sur = surpriseInit(); U.sur.open = true; openSheet('surprise'); }); await settle(page);
+  await chk('surprise open');
+  expect(out.join('\n')).toBe('');
+});

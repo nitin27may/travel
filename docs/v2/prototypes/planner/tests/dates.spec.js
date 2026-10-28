@@ -12,7 +12,7 @@ test('date sheet: exact range, month only and flexible window all keep the night
   expect(before.nights).toBe(9);
 
   await openDates(page);
-  await page.getByLabel('A month').check();
+  await page.getByLabel('A month', { exact: true }).check();
   await expect(page.getByLabel('First day')).toBeHidden();
   await page.getByLabel('Month', { exact: true }).selectOption('8');
   expect(await page.getByLabel('Nights').inputValue()).toBe('9');
@@ -23,8 +23,8 @@ test('date sheet: exact range, month only and flexible window all keep the night
   await expect(page.locator('.thead .facts')).toContainText('Aug');
 
   await openDates(page);
-  await expect(page.getByLabel('A month')).toBeChecked();
-  await page.getByLabel('Flexible window').check();
+  await expect(page.getByLabel('A month', { exact: true })).toBeChecked();
+  await page.getByLabel('Flexible', { exact: true }).check();
   await page.getByRole('button', { name: 'Save dates' }).click();
   t = await get(page, 't-dolomites');
   expect(t.dates).toEqual({ month: 8, flexible: true });
@@ -32,7 +32,7 @@ test('date sheet: exact range, month only and flexible window all keep the night
   await expect(page.locator('.thead .facts')).toContainText('Around Aug');
 
   await openDates(page);
-  await page.getByLabel('Exact dates').check();
+  await page.getByLabel('Exact dates', { exact: true }).check();
   await page.getByLabel('First day').fill('2027-08-10');
   await page.getByRole('button', { name: 'Save dates' }).click();
   t = await get(page, 't-dolomites');
@@ -70,7 +70,7 @@ test('the date model maps to the builder when: exact, month, flex; next weekend 
 test('a trip with a month shows no book-by dates and the planner still lists it under Planning', async ({ page, base }) => {
   await open(page, base, '/planner/trip.html?id=t-dolomites');
   await openDates(page);
-  await page.getByLabel('A month').check();
+  await page.getByLabel('A month', { exact: true }).check();
   await page.getByRole('button', { name: 'Save dates' }).click();
   await page.getByRole('tab', { name: /Bookings/ }).click();
   await expect(page.getByText('Book-by dates need travel dates')).toBeVisible();
