@@ -15,6 +15,11 @@ Q-BE3 yes (move buttons plus handle-only long-press drag); Q-BE4 yes (undo 50 st
 Reset to our plan, no History in v1); Q-BE5 yes (relabel and re-check, ask where days go, never auto-move); Q-BE6 yes (two
 warning levels, never block). Still unanswered: Q-BE2, Q-BE7, Q-BE8.
 
+**Owner requirement (27 Oct 2026):** in edit mode every day lets the person delete any existing stop (not only ones they
+added) and add more stops, for generated and copied trips alike. Already specified in `features/edit-my-trip.md` (section 6
+row "Remove any stop; move it to another day", EM-4, and Add a place to Day N); the part 2 spec must carry both on the
+details page, with Undo and the removed stop offered again in Add.
+
 Inputs: the planner and builder prototypes in this folder; [FLOW.md](../design/trip-builder/FLOW.md) (TF9 to TF11,
 5, 7.1), [edit-my-trip.md](../features/edit-my-trip.md) (EM1 to EM8, 2, 4.4, 5), reviews
 [TB-N2](../reviews/review-TB-N2-trip-builder-flow-2026-10-27.md) and
