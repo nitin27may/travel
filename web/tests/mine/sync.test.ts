@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { copyToPlanDraft, draftContentKey, planCopyMerge, planRowFields } from '@travel/core/plan/doc.ts';
+import { applyOps } from '@travel/core/plan/ops.ts';
 import { decideDelete, decidePut } from '@travel/core/schema/api/account-plans.ts';
 import type { CopyItem, StorageLike } from '@travel/core/schema/copies.ts';
 import { COPIES_KEY, emptyCopies, readCopies } from '@travel/core/schema/copies.ts';
@@ -7,6 +8,7 @@ import { parsePlanDraft, type PlanDraft } from '@travel/core/schema/plan-draft.t
 import { ACCT_KEY_PREFIX, OUTBOX_KEY_PREFIX } from '@/lib/mine/keys';
 import { AccountSync, clearAccountData, purgeOtherAccounts, sendWaiting, unsentSummary, type SyncFetch } from '@/lib/mine/sync';
 import { accountTripsFlag } from '@/lib/mine/flag';
+import { storeDeviceEdits } from '@/lib/trip-edit/deviceEdits';
 
 // The signed-in Mine sync (edit-my-trip 4.2 to 4.7, EM-2) against a fake account server that applies the real routes' decisions
 // (`decidePut`, `decideDelete`, `planCopyMerge`): the merge, a conflict rebased, the offline outbox, idempotence, a tombstone and its Undo,
@@ -610,5 +612,162 @@ describe('the flag off is today', () => {
     new AccountSync({ storage: store, hash: H, fetch: server.fetch }).init();
     expect(server.calls).toEqual([]);
     expect(deviceIds(store)).toEqual([A]);
+  });
+});
+
+// Review STEP2-ES ES-001: the merge carries the whole document. A device copy's removals, notes and Maybe live in the device edits envelope
+// (`travel.trip-edit.device`), not in `copies/1`; they must reach the account, and the envelope must not outlive the copy on the device.
+describe('the sign-in merge carries the device edits (ES-001)', () => {
+  const DEVICE = 'travel.trip-edit.device';
+  const NOTE = 'Bring the blue bag';
+  const edits = [
+    { kind: 'removePlace' as const, id: 'o-rm', day: 2, item: 'tre-cime-loop' },
+    { kind: 'setNote' as const, id: 'o-nt', key: '3', text: NOTE },
+    { kind: 'addMaybe' as const, id: 'o-mb', ref: 'place/lago-di-braies' },
+  ];
+  /** A copy on the device with edits laid on it the way the trip page saves them. */
+  function editedCopy(store: Store, id: string, over: Partial<CopyItem> = {}): PlanDraft {
+    const c = copy(id, over);
+    putCopies(store, [...(readCopies(store.getItem(COPIES_KEY)).ok ? (readCopies(store.getItem(COPIES_KEY)) as { envelope: { items: CopyItem[] } }).envelope.items : []), c]);
+    const d = applyOps(copyDoc(c), edits);
+    expect(d.skipped).toEqual([]);
+    storeDeviceEdits(store, id, d.doc, deviceIds(store));
+    expect(store.getItem(DEVICE)).toContain(NOTE);
+    return d.doc;
+  }
+  const allValues = (s: Store): string => Array.from({ length: s.length }, (_, i) => s.getItem(s.key(i)!)).join('\n');
+
+  it('device edits survive the merge: the account holds them, the device entry goes with the copy', async () => {
+    const s = setup();
+    const want = editedCopy(s.store, A);
+    await s.engine.sync();
+    const row = s.server.rows.get(A)!;
+    expect(row.doc!.template!.removed).toEqual(want.template!.removed);
+    expect(row.doc!.template!.notes).toEqual({ '3': NOTE });
+    expect(row.doc!.template!.maybe).toEqual(want.template!.maybe);
+    expect(row.revision).toBe(1);
+    // the screen reads the account document with the edits, and nothing waits
+    expect(s.engine.view(A)!.template!.notes).toEqual({ '3': NOTE });
+    expect(s.engine.snapshot().rows[A]).toMatchObject({ state: 'quiet', pending: 0 });
+    // no device entry outlives its copy
+    expect(deviceIds(s.store)).toEqual([]);
+    expect(s.store.getItem(DEVICE)).toBeNull();
+  });
+
+  it('sign-out after the merge leaves no notes on the device', async () => {
+    const s = setup();
+    editedCopy(s.store, A);
+    await s.engine.sync();
+    clearAccountData(s.store);
+    expect(allValues(s.store)).not.toContain(NOTE);
+    expect(s.store.getItem(DEVICE)).toBeNull();
+  });
+
+  it('the edits are kept in the account cache until they are sent, across a reload, when the send fails', async () => {
+    const s = setup();
+    editedCopy(s.store, A);
+    s.server.refuse = { status: 503, body: { code: 'SERVICE_UNAVAILABLE' } };
+    await s.engine.sync();
+    expect(s.server.rows.get(A)!.revision).toBe(0); // the merge inserted the copy only
+    expect(s.server.rows.get(A)!.doc!.template!.notes).toEqual({});
+    expect(s.store.getItem(DEVICE)).toBeNull(); // the device entry left with the copy...
+    expect(s.store.getItem(`${ACCT_KEY_PREFIX}${H}`)).toContain(NOTE); // ...because the account cache holds the edited document
+    // a reload, then the account answers: the whole document goes, and a list never put the copy-only document over it
+    s.server.refuse = null;
+    const again = setup({ store: s.store, server: s.server });
+    expect(again.engine.view(A)!.template!.notes).toEqual({ '3': NOTE });
+    await again.engine.sync();
+    expect(s.server.rows.get(A)!.doc!.template!.notes).toEqual({ '3': NOTE });
+    expect(s.server.rows.get(A)!.revision).toBe(1);
+  });
+
+  it('is idempotent: the merge repeated after a crash leaves one row with the edits, and no second write', async () => {
+    const s = setup();
+    editedCopy(s.store, A);
+    const copies = s.store.getItem(COPIES_KEY)!;
+    const device = s.store.getItem(DEVICE)!;
+    await s.engine.sync();
+    const puts = s.server.calls.filter((c) => c.startsWith('PUT')).length;
+    s.store.setItem(COPIES_KEY, copies); // the device still holds the copy and its edits
+    s.store.setItem(DEVICE, device);
+    await s.engine.sync();
+    expect(s.server.rows.size).toBe(1);
+    expect(s.server.rows.get(A)!.doc!.template!.notes).toEqual({ '3': NOTE });
+    expect(s.server.calls.filter((c) => c.startsWith('PUT')).length).toBe(puts);
+    expect(deviceIds(s.store)).toEqual([]);
+    expect(s.store.getItem(DEVICE)).toBeNull();
+  });
+
+  it('conflict: an account document newer than the insert is the source; the device edits do not overwrite it', async () => {
+    const s = setup();
+    editedCopy(s.store, A);
+    // an earlier merge inserted A and another device changed it since; this device still holds the copy (a crash before it left)
+    const theirs = applyOps(copyDoc(copy(A)), [{ kind: 'setNote', id: 'o-th', key: '5', text: 'Theirs' }]).doc;
+    s.server.rows.set(A, { id: A, title: 'Dolomites', doc: theirs, revision: 2, deleted_at: null, fields: planRowFields(theirs) });
+    await s.engine.sync();
+    expect(s.server.rows.get(A)!.doc!.template!.notes).toEqual({ '5': 'Theirs' });
+    expect(s.server.rows.get(A)!.revision).toBe(2);
+    expect(s.engine.view(A)!.template!.notes).toEqual({ '5': 'Theirs' });
+    expect(s.store.getItem(DEVICE)).toBeNull();
+  });
+
+  it('conflict: the account moves between the insert and the send; the account wins and the row settles', async () => {
+    const s = setup();
+    editedCopy(s.store, A);
+    s.server.bump = true;
+    await s.engine.sync();
+    s.server.bump = false;
+    expect(s.server.rows.get(A)!.doc!.template!.notes).toEqual({});
+    expect(s.engine.view(A)!.template!.notes).toEqual({});
+    expect(s.engine.snapshot().rows[A]?.state).toBe('quiet');
+  });
+
+  it('a copy M3 would skip as the same trip is kept beside it when the person changed it on this device', async () => {
+    const s = setup();
+    s.server.rows.set(B, { id: B, title: 'Dolomites', doc: copyDoc(copy(B)), revision: 0, deleted_at: null, fields: planRowFields(copyDoc(copy(B))) });
+    editedCopy(s.store, A);
+    await s.engine.sync();
+    expect(s.server.rows.get(A)?.title).toBe('Dolomites (from this device)');
+    expect(s.server.rows.get(A)!.doc!.template!.notes).toEqual({ '3': NOTE });
+    expect(s.engine.snapshot().items.map((i) => i.id).sort()).toEqual([A, B].sort());
+    expect(deviceIds(s.store)).toEqual([]);
+    expect(s.store.getItem(DEVICE)).toBeNull();
+  });
+
+  it('that copy stays on the device, with its edits, when the account refuses it (the cap)', async () => {
+    const s = setup();
+    s.server.rows.set(B, { id: B, title: 'Dolomites', doc: copyDoc(copy(B)), revision: 0, deleted_at: null, fields: planRowFields(copyDoc(copy(B))) });
+    editedCopy(s.store, A);
+    s.server.refuse = { status: 409, body: { code: 'PLAN_CAP' } };
+    await s.engine.sync();
+    expect(s.server.rows.has(A)).toBe(false);
+    expect(deviceIds(s.store)).toEqual([A]);
+    expect(s.store.getItem(DEVICE)).toContain(NOTE);
+  });
+});
+
+// Review STEP2-ES ES-006: the tab's undo stacks hold earlier notes and travellers; sign-out and a user switch take them.
+describe('the tab undo stacks at sign-out (ES-006)', () => {
+  it('clearAccountData and a user switch remove every travel.trip-edit.undo.* key of the tab', () => {
+    const session = new Store();
+    vi.stubGlobal('window', { sessionStorage: session, dispatchEvent: () => true });
+    try {
+      session.setItem(`travel.trip-edit.undo.${A}`, '{"v":1,"past":[{"ops":[],"label":"Emma"}],"future":[]}');
+      session.setItem('travel.other', 'kept');
+      clearAccountData(new Store());
+      expect(session.getItem(`travel.trip-edit.undo.${A}`)).toBeNull();
+      expect(session.getItem('travel.other')).toBe('kept');
+
+      session.setItem(`travel.trip-edit.undo.${B}`, '{}');
+      const local = new Store();
+      local.setItem(`${ACCT_KEY_PREFIX}${H}`, '{}');
+      purgeOtherAccounts(local, H); // the same account: the stacks stay
+      expect(session.getItem(`travel.trip-edit.undo.${B}`)).toBe('{}');
+      local.setItem(`${ACCT_KEY_PREFIX}ffffffffffffffff`, '{}');
+      purgeOtherAccounts(local, H); // another account was here: they go
+      expect(session.getItem(`travel.trip-edit.undo.${B}`)).toBeNull();
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 });

@@ -100,7 +100,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
   const [held, setHeld] = useState(true);
   // asked before replacing the copy of the same trip, and the two reasons a copy is refused (nav 3.1, 9)
   const [prompt, setPrompt] = useState<CopyItem | null>(null);
-  const [undoable, setUndo] = useState<{ item: CopyItem; replaced: CopyItem | null; storage: Parameters<typeof undoSave>[0] } | null>(null);
+  const [undoable, setUndo] = useState<{ item: CopyItem; replaced: CopyItem | null; replacedEdits: Parameters<typeof undoSave>[3]; storage: Parameters<typeof undoSave>[0] } | null>(null);
   const [problem, setProblem] = useState<'cap' | 'quota' | 'changed' | 'error' | null>(null);
 
   useEffect(() => {
@@ -222,14 +222,14 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
     if (r.kind === 'cap') return setProblem('cap');
     if (r.kind === 'failed') return setProblem(problemFor(r.reason));
     setHeld(probe.kind === 'local');
-    setUndo({ item: r.item, replaced: r.replaced, storage: probe.storage });
+    setUndo({ item: r.item, replaced: r.replaced, replacedEdits: r.replacedEdits, storage: probe.storage });
     setStep('done');
     onSaved?.();
     // no toast: the sheet is modal, so a toast's Undo is out of the focus trap; the done step's footer holds Undo
   };
   const undo = () => {
     if (!undoable) return;
-    undoSave(undoable.storage, undoable.item, undoable.replaced);
+    undoSave(undoable.storage, undoable.item, undoable.replaced, undoable.replacedEdits);
     onSaved?.();
     setUndo(null);
     setStep('form');

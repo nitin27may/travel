@@ -46,8 +46,10 @@ import {
   type AccountPlanMergeAnswer,
   type AccountPlanRow,
 } from '@travel/core/schema/api/account-plans.ts';
-import { markMerged, needsMerge, readCopies, updateCopies, COPIES_KEY, type CopyItem, type StorageLike } from '@travel/core/schema/copies.ts';
+import { fromDeviceTitle, markMerged, needsMerge, readCopies, updateCopies, COPIES_KEY, type CopyItem, type StorageLike } from '@travel/core/schema/copies.ts';
 import { parsePlanDraft, type PlanDraft } from '@travel/core/schema/plan-draft.ts';
+import { withDeviceEdits } from '@/lib/trip-edit/deviceEdits';
+import { clearAllUndo, clearUndoOf, pruneDeviceEdits } from '@/lib/trip-edit/deviceStore';
 import { ACCT_KEY_PREFIX, CHANGED_EVENT, OUTBOX_KEY_PREFIX } from './keys';
 
 export const ACCT_SCHEMA = 'mine-acct/1';
@@ -66,6 +68,12 @@ export interface CachedRow extends AccountPlanRow {
   provisional?: true;
   /** Remove was pressed and the tombstone is not confirmed yet: hidden, retried */
   removing?: true;
+  /**
+   * The document carries the device's edits of a merged copy (removals, moves, day changes, notes, Maybe; review STEP2-ES ES-001) that
+   * the account does not hold yet: it is sent whole as a PUT at `revision` (the merge inserts at 0), and a list never replaces it with
+   * the account's copy-only document. A conflict means the account moved on first: the account wins.
+   */
+  seed?: true;
 }
 
 interface CacheFile {
@@ -248,19 +256,28 @@ export class AccountSync {
 
   private readRow(x: unknown): CachedRow | null {
     if (!x || typeof x !== 'object') return null;
-    const { doc, provisional, removing, ...light } = x as Record<string, unknown>;
+    const { doc, provisional, removing, seed, ...light } = x as Record<string, unknown>;
     const l = accountPlanRow.safeParse(light);
     if (!l.success) return null;
     const parsed = doc === null || doc === undefined ? null : parsePlanDraft(doc);
-    return { ...l.data, doc: parsed && parsed.success ? parsed.data : null, ...(provisional === true ? { provisional: true as const } : {}), ...(removing === true ? { removing: true as const } : {}) };
+    const d = parsed && parsed.success ? parsed.data : null;
+    return {
+      ...l.data,
+      doc: d,
+      ...(provisional === true ? { provisional: true as const } : {}),
+      ...(removing === true ? { removing: true as const } : {}),
+      ...(seed === true && d !== null ? { seed: true as const } : {}),
+    };
   }
 
-  private saveCache(): void {
+  private saveCache(): boolean {
     const file: CacheFile = { schema: ACCT_SCHEMA, savedAt: this.d.now().toISOString(), rows: [...this.rows.values()] };
     try {
       this.d.storage.setItem(this.cacheKey, JSON.stringify(file));
+      return true;
     } catch {
       /* a full or blocked store: the cache is for offline reading only; the session keeps working from memory */
+      return false;
     }
   }
 
@@ -471,7 +488,7 @@ export class AccountSync {
     for (const row of [...this.rows.values()]) if (row.removing && !byId.has(row.id)) this.rows.delete(row.id);
 
     const want = [...new Set([...diff.fetch, ...[...this.rows.values()].filter((r) => r.provisional && byId.get(r.id)?.deleted_at === null).map((r) => r.id)])].filter(
-      (id) => byId.get(id)?.kind === 'template' && !this.rows.get(id)?.removing,
+      (id) => byId.get(id)?.kind === 'template' && !this.rows.get(id)?.removing && !this.rows.get(id)?.seed,
     );
     await this.fetchDocs(want);
     this.saveCache();
@@ -493,7 +510,7 @@ export class AccountSync {
         const got = accountPlanGet.safeParse(out.json);
         const doc = got.success ? parsePlanDraft(got.data.doc) : null;
         const row = this.rows.get(id);
-        if (!got.success || !doc || !doc.success || !row) continue;
+        if (!got.success || !doc || !doc.success || !row || row.seed) continue;
         row.doc = doc.data;
         row.revision = got.data.revision;
         delete row.provisional;
@@ -504,7 +521,16 @@ export class AccountSync {
 
   // ---- the merge of device copies (4.2) ----
 
-  /** Posts the device's copies; the ones the server confirmed leave the device. Returns true when anything moved. */
+  /**
+   * Posts the device's copies; the ones the server confirmed leave the device. Returns true when anything moved.
+   *
+   * The merge carries the whole document, not only the copy (review STEP2-ES ES-001): `copies/1` cannot hold a copy's removals, moves,
+   * day changes, notes or Maybe list, which live in the device edits envelope (`travel.trip-edit.device`). Each taken copy is cached as
+   * its document with those edits laid over it and marked `seed`, so the next send PUTs it whole at the insertion revision; then the
+   * copy leaves `copies/1` and its device entry leaves with it. A copy the server skipped as the same trip and start (M3) but that the
+   * person changed on this device is not the same content: it is created in the account beside the other, titled "(from this device)",
+   * and stays on the device when that create fails.
+   */
   private async mergeDevice(): Promise<boolean> {
     const env = readCopies(this.d.storage.getItem(COPIES_KEY));
     if (!env.ok || !needsMerge(env.envelope)) return false;
@@ -518,36 +544,95 @@ export class AccountSync {
     const parsed = accountPlanMergeAnswer.safeParse(out.json);
     if (!parsed.success) return false;
     const a: AccountPlanMergeAnswer = parsed.data;
-    const taken = new Set([...a.inserted, ...a.already, ...a.sameTrip]);
+    const both = new Set(a.both);
+    const storage = this.d.storage;
+    /** The copy's document as the account should hold it: the copy, then the device's edits over it (the same object when there are none). */
+    const docOf = (c: CopyItem, title?: string): { doc: PlanDraft; edited: boolean } | null => {
+      const base = copyToPlanDraft(c, title === undefined ? {} : { title });
+      if (!base.success) return null;
+      const doc = withDeviceEdits(storage, c.id, base.data);
+      return { doc, edited: doc !== base.data };
+    };
     // the document of each copy that now lives in the account is cached first (as the server will hold it, up to a title the next list
     // corrects), so the trip never disappears while the read-back is offline
     for (const c of items) {
       if (!a.inserted.includes(c.id) && !a.already.includes(c.id)) continue;
-      if (this.rows.has(c.id)) continue;
-      const doc = copyToPlanDraft(c);
-      if (!doc.success) continue;
-      const days = doc.data.nights === null ? null : doc.data.nights + 1;
+      const title = both.has(c.id) ? fromDeviceTitle(c.title) : undefined;
+      const have = this.rows.get(c.id);
+      if (have) {
+        // an earlier merge inserted it and the list already read it back: still at the insertion revision, the device's edits go over
+        // it; past it, the account moved on and is the source
+        const m = have.revision === 0 && !have.seed ? docOf(c, have.doc?.title ?? undefined) : null;
+        if (m?.edited) {
+          have.doc = m.doc;
+          have.seed = true;
+        }
+        continue;
+      }
+      const m = docOf(c, title);
+      if (!m) continue;
+      const days = m.doc.nights === null ? null : m.doc.nights + 1;
       this.rows.set(c.id, {
         id: c.id,
-        title: c.title,
+        title: title ?? c.title,
         kind: 'template',
-        source_trip: doc.data.template.trip,
+        source_trip: m.doc.template?.trip ?? null,
         start: c.start,
         days,
         revision: 0,
         updated_at: this.d.now().toISOString(),
         deleted_at: null,
-        doc: doc.data,
+        doc: m.doc,
         provisional: true,
+        ...(m.edited ? { seed: true as const } : {}),
       });
     }
-    this.saveCache();
+    // M3 decided on the copy alone; with device edits it is a different trip: create it beside the account's, or keep it here
+    const sameTrip: string[] = [];
+    let created = 0;
+    for (const id of a.sameTrip) {
+      const c = items.find((x) => x.id === id);
+      const m = c ? docOf(c, fromDeviceTitle(c.title)) : null;
+      if (!c || !m || !m.edited) {
+        sameTrip.push(id);
+        continue;
+      }
+      const title = fromDeviceTitle(c.title);
+      const doc = touchDraft(m.doc, this.d.now());
+      const put = await this.call('PUT', `${PLANS}/${id}`, { base: null, title, doc });
+      const w = put.kind === 'ok' ? accountPlanWritten.safeParse(put.json) : null;
+      if (put.kind === 'auth') this.expired = true;
+      if (!w?.success) continue; // refused (the cap), unavailable or signed out: the copy and its edits stay on this device
+      sameTrip.push(id);
+      created += 1;
+      this.rows.set(id, {
+        id,
+        title,
+        kind: 'template',
+        source_trip: doc.template?.trip ?? null,
+        start: c.start,
+        days: doc.nights === null ? null : doc.nights + 1,
+        revision: w.data.revision,
+        updated_at: this.d.now().toISOString(),
+        deleted_at: null,
+        doc,
+      });
+    }
+    // the account's copy of the edits must be on the device before the copy and its edits leave it
+    if (!this.saveCache()) {
+      this.publish();
+      return false;
+    }
     const at = this.d.now();
-    updateCopies(this.d.storage, (e) => ({ envelope: markMerged(e, { inserted: a.inserted, already: a.already, sameTrip: a.sameTrip }, this.d.hash, at), value: null }));
+    const taken = { inserted: a.inserted, already: a.already, sameTrip };
+    const w = updateCopies(storage, (e) => ({ envelope: markMerged(e, taken, this.d.hash, at), value: null }));
+    // the device entries of copies that left `copies/1` go now; the cached documents hold them until the account confirms
+    const left = readCopies(storage.getItem(COPIES_KEY));
+    if (w.ok && left.ok) pruneDeviceEdits(storage, left.envelope.items.map((c) => c.id));
     if (typeof window !== 'undefined') window.dispatchEvent(new Event(CHANGED_EVENT));
-    this.merge = { added: a.inserted.length, overCap: a.overCap.length, refused: a.refused.length };
+    this.merge = { added: a.inserted.length + created, overCap: a.overCap.length, refused: a.refused.length };
     this.publish();
-    return taken.size > 0;
+    return taken.inserted.length + taken.already.length + taken.sameTrip.length > 0;
   }
 
   // ---- editing ----
@@ -608,7 +693,7 @@ export class AccountSync {
   // ---- sending ----
 
   private async flushAll(): Promise<void> {
-    const ids = new Set(this.outbox.items.map((c) => c.draft));
+    const ids = new Set([...this.outbox.items.map((c) => c.draft), ...[...this.rows.values()].filter((r) => r.seed).map((r) => r.id)]);
     for (const id of ids) await this.flushOne(id);
     for (const row of [...this.rows.values()]) if (row.removing) await this.flushDelete(row.id);
   }
@@ -646,7 +731,7 @@ export class AccountSync {
       let round = 0;
       for (;;) {
         const pending = pendingFor(this.outbox, id);
-        if (pending.length === 0) return;
+        if (pending.length === 0 && !row.seed) return;
         const next = applyOps(row.doc, pending);
         this.dropSkipped(id, row, next.skipped);
         const sent = touchDraft(next.doc, this.d.now());
@@ -657,6 +742,7 @@ export class AccountSync {
           row.doc = sent;
           row.revision = w.data.revision;
           delete row.provisional;
+          delete row.seed;
           this.outbox = confirm(this.outbox, id, pending.map((p) => p.id));
           this.saveOutbox();
           this.saveCache();
@@ -674,6 +760,8 @@ export class AccountSync {
           row.doc = server.data;
           row.revision = c.data.revision;
           delete row.provisional;
+          // the account moved on before the device's edits reached it: the account is the source (ES-001)
+          delete row.seed;
           this.dropSkipped(id, row, step.skipped);
           this.saveCache();
           if (step.giveUp) return void this.fail(id);
@@ -730,6 +818,7 @@ export class AccountSync {
     this.saveOutbox();
     row.removing = true;
     this.failed.delete(id);
+    clearUndoOf(id); // its tab undo stack holds earlier notes and travellers (review STEP2-ES ES-006)
     this.saveCache();
     this.publish();
     void this.flushAll();
@@ -854,7 +943,10 @@ function keysWith(storage: StorageLike, prefix: string): string[] {
  * person decides at the sign-out question (4.6); it is never sent as this account.
  */
 export function purgeOtherAccounts(storage: StorageLike, current: string): void {
-  for (const k of keysWith(storage, ACCT_KEY_PREFIX)) if (k !== `${ACCT_KEY_PREFIX}${current}`) storage.removeItem(k);
+  const others = keysWith(storage, ACCT_KEY_PREFIX).filter((k) => k !== `${ACCT_KEY_PREFIX}${current}`);
+  for (const k of others) storage.removeItem(k);
+  // another account was here: its trips' undo stacks in this tab go too (review STEP2-ES ES-006)
+  if (others.length) clearAllUndo();
   for (const k of keysWith(storage, OUTBOX_KEY_PREFIX)) {
     if (k === `${OUTBOX_KEY_PREFIX}${current}`) continue;
     const ob = readPlanOutbox(storage.getItem(k));
@@ -892,6 +984,8 @@ export function unsentSummary(storage: StorageLike): UnsentSummary {
 /** Nothing of the account stays on the device after sign-out (4.6, visitor spec V12); copies made while signed out are not account data. */
 export function clearAccountData(storage: StorageLike): void {
   for (const k of [...keysWith(storage, ACCT_KEY_PREFIX), ...keysWith(storage, OUTBOX_KEY_PREFIX)]) storage.removeItem(k);
+  // the tab's undo stacks hold earlier notes and travellers of account trips (review STEP2-ES ES-006)
+  clearAllUndo();
 }
 
 /**

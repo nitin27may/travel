@@ -73,6 +73,7 @@ export function MineShell({ signIn }: { signIn: boolean }) {
       // the old key's drafts move into the envelope once per device, before the first read (NAV-2C); `kept` is what did not fit
       const mv = m.moveLegacyOnce(probe.storage);
       const overview = m.readOverview(probe.storage);
+      m.pruneOrphanEdits(probe.storage, overview);
       const asked = m.parseShow(new URLSearchParams(location.search).get('show'));
       setD(m);
       setState({ overview, blocked: probe.kind === 'memory', tab: asked ?? m.defaultTab(overview), didNotFit: mv.status === 'moved' ? mv.kept : 0 });

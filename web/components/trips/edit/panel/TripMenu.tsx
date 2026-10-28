@@ -47,7 +47,7 @@ export function TripMenu({ id, slug, title, where, copy, changes, canUndo, canRe
       toast({ message: 'Could not remove that trip. Nothing was changed.' });
       return;
     }
-    toast({ message: `Removed ${title} from My trips`, actionLabel: 'Undo', onAction: () => void undoRemove(mineStorage().storage, r.removed) });
+    toast({ message: `Removed ${title} from My trips`, actionLabel: 'Undo', onAction: () => void undoRemove(mineStorage().storage, r.removed, r.edits) });
     router.push('/mine/');
   };
   return (
