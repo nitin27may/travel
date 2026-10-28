@@ -50,6 +50,14 @@ export const TRIP_EDIT_UI = {
   dragHandlePx: 4,
   dragRowPx: 8,
   autoscrollEdgePx: 64,
+  /** the fastest autoscroll, px a frame, at the very edge */
+  autoscrollMaxPx: 18,
+  /** a finger that moves this far before the long-press fires is scrolling, not lifting */
+  longPressSlopPx: 10,
+  /** hovering a day cell of the day rail this long scrolls to that day */
+  railHoverMs: 400,
+  /** the settle after a drop, ms */
+  settleMs: 300,
   /** "Changed on another device" stays on a row this long */
   changedMarkMs: 6000,
   /** the sync word says Syncing only after this long pending */

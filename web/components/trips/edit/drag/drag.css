@@ -1,0 +1,54 @@
+/* Drag handle, ghost, insertion line, pill (STEP2-E2; components 8.1). Tokens only (tests/no-hex.test.ts). Loaded with the handle. */
+
+/* the leading slot: edit mode narrows the content column by the handle's width (components 4.3 slots); phone 28 px, desktop 24 px */
+html[data-trip-editing] { --drag-w: 28px; }
+@media (min-width: 640px) { html[data-trip-editing] { --drag-w: 24px; } }
+html[data-trip-editing] .tl-rail { padding-left: var(--drag-w); }
+html[data-trip-editing] .tl-rail::before { left: calc(var(--drag-w) + 62px + var(--s-3) + 11px); }
+.tl-edit-handle { position: absolute; top: 0; left: calc(-1 * var(--drag-w, 24px)); width: var(--drag-w, 24px); height: var(--touch-min); animation: drag-fade var(--d-fast) var(--e-out); }
+@keyframes drag-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* six dots, --muted at rest, --ink on row hover, --accent-text while dragging; touch-action none here only, so the row body still scrolls */
+.drag-handle { display: grid; place-items: center; width: 100%; height: 100%; padding: 0; border: 0; border-radius: var(--r-2); background: none; color: var(--muted); cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.tl-entry:hover .drag-handle, .drag-handle:hover { color: var(--ink); }
+.drag-handle:focus-visible { outline: var(--focus-ring); outline-offset: -2px; color: var(--ink); }
+.drag-handle[aria-pressed='true'] { color: var(--accent-text); cursor: grabbing; }
+
+/* while a stop is held: no text selection, the grabbing cursor everywhere */
+html[data-trip-dragging], html[data-trip-dragging] * { cursor: grabbing !important; user-select: none; -webkit-user-select: none; }
+
+/* the origin stays, quiet, where the stop was */
+.tl-entry[data-drag-origin] { opacity: 0.32; }
+
+/* the ghost: the row lifted (scale 1.02, --surface-2, --e-2, rotate -0.8deg, 120 ms). Position is `translate` so the lift can transition apart from the move. */
+.drag-ghost { position: fixed; z-index: var(--z-drag); box-sizing: border-box; display: grid; padding: 0 var(--s-2); border-radius: var(--r-3); background: var(--surface-2); box-shadow: var(--e-2); pointer-events: none; scale: 1; rotate: 0deg; transition: scale var(--d-fast) var(--e-out), rotate var(--d-fast) var(--e-out); }
+.drag-ghost[data-lift] { scale: 1.02; rotate: -0.8deg; }
+/* over the day rail the ghost steps back so the cell it would drop on can be seen */
+.drag-ghost[data-over-rail] { opacity: 0.3; }
+.drag-ghost .tl-entry { grid-column: 1 / -1; }
+@media (prefers-reduced-motion: reduce) { .drag-ghost, .drag-ghost[data-lift] { scale: 1; rotate: 0deg; transition: none; } .tl-edit-handle { animation: none; } }
+
+/* the insertion line: 2 px --accent from the content column to the right edge, 8 px end dots; the pill sits at its left end */
+.drag-line { position: fixed; z-index: calc(var(--z-drag) + 1); height: 2px; margin-top: -1px; background: var(--accent); pointer-events: none; }
+.drag-line::before, .drag-line::after { content: ''; position: absolute; top: -3px; width: 8px; height: 8px; border-radius: var(--r-full); background: var(--accent); }
+.drag-line::before { left: -4px; }
+.drag-line::after { right: -4px; }
+.drag-pill { position: fixed; z-index: calc(var(--z-drag) + 1); box-sizing: border-box; transform: translateY(-50%); padding: 3px var(--s-2); border-radius: var(--r-3); background: var(--accent); color: var(--accent-ink); font: var(--t-chip); font-weight: 600; pointer-events: none; }
+.drag-pill[data-below] { transform: none; }
+
+/* a day cell of the day rail the stop would drop onto */
+.tl-rail-cell[data-drop-target] { background: var(--accent); color: var(--accent-ink); outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* the settle after a drop: a small spring back from the lifted scale (a jump under reduced motion: JS does not set it) */
+.tl-entry[data-settle] { animation: drag-settle var(--settle-ms, 300ms) cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes drag-settle { from { transform: scale(1.02); background: var(--surface-2); } to { transform: none; } }
+
+/* the `?` list */
+.keys-help { display: grid; gap: var(--s-3); }
+.keys-h { margin: var(--s-2) 0 0; font: var(--t-title); color: var(--ink); }
+.keys-list { display: grid; gap: var(--s-2); margin: 0; }
+.keys-list[data-muted] { opacity: 0.55; }
+.keys-row { display: grid; grid-template-columns: minmax(7rem, auto) 1fr; gap: var(--s-3); align-items: baseline; }
+.keys-row dt { font: var(--t-meta); color: var(--ink); white-space: nowrap; }
+.keys-row dd { margin: 0; font: var(--t-small); color: var(--ink-2); }
+.keys-row kbd { display: inline-block; padding: 1px 6px; border: 1px solid var(--line-2); border-radius: var(--r-2); background: var(--surface-2); font: inherit; }

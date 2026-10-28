@@ -7,7 +7,7 @@
 //
 // Slots left for the other E packages, wired but empty: `handle` (E2, drag), `addPicker` (E3), `dayMenu` (E4), `dayStatus` (E5); see
 // components/trips/timeline/editSlots.ts.
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import type { TimelineEntry, Profile } from '@travel/core/schedule/types.ts';
 import type { TimelineModel } from '@/components/trips/timeline/model';
 import type { EditSlots } from '@/components/trips/timeline/editSlots';
@@ -22,8 +22,12 @@ import { EditBar, EditTools } from './panel/EditChrome';
 import { ChangesSheet } from './panel/ChangesSheet';
 import { StopMenu, stopsOfDay } from './panel/StopMenu';
 import { TripMenu } from './panel/TripMenu';
+import { DragHandle } from './drag/DragHandle';
 import { useEditSession } from './useEditSession';
 import './edit.css';
+
+// drag and the keyboard model load after the chunk (STEP2-E2): the handle itself is tiny and static, the listeners and the `?` list are not
+const DragLayer = lazy(() => import('./drag/DragLayer'));
 
 export interface LayerProps {
   id: string;
@@ -147,6 +151,7 @@ export function EditLayer(p: LayerProps) {
   const copy = !!doc.template;
   const published = useMemo<Published>(() => {
     const edit: EditSlots = {
+      handle: (e) => <DragHandle entry={e} />,
       trail: (e, dayEntries) => (
         <StopMenu
           entry={e}
@@ -189,6 +194,11 @@ export function EditLayer(p: LayerProps) {
   return (
     <>
       <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">{s.say}</div>
+      {on ? (
+        <Suspense fallback={null}>
+          <DragLayer doc={doc} model={model} profile={p.profile} start={p.start} commit={commit} announce={s.announce} remove={act.remove} onDone={p.onDone} />
+        </Suspense>
+      ) : null}
       {on ? <EditBar title={p.title} onSettings={p.onSettings} onDone={p.onDone} /> : null}
       <ChangesSheet open={changesOpen} onClose={() => setChangesOpen(false)} rows={rows} ours={p.ours} onRow={onRow} onReset={resetAll} />
     </>
