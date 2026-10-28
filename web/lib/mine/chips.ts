@@ -26,6 +26,24 @@ export const CHIP_NAME: Record<RowChip, string> = {
 /** A row's chip as the row draws it. */
 export interface RowSync {
   state: RowChip;
+  /**
+   * Every row is in this state and the account card's line says it (patterns 3.7 rule 4; review ACCT-PR SF10): no chip is drawn; the
+   * link's name still carries the state.
+   */
+  bare?: boolean;
   /** Retry, for the `retry` state */
   onRetry?: () => void;
 }
+
+/** States the card line speaks for when every row shares them: the account is out of reach, so everything waits on this device. */
+export const CARD_SAYS: ReadonlySet<RowChip> = new Set<RowChip>(['device', 'offline']);
+
+/** True when no row needs its own chip: one state for every row, and the card line says it (SF10). Retry is an action, never bare. */
+export function chipsBare(states: readonly RowChip[]): boolean {
+  if (states.length === 0) return false;
+  const first = states[0]!;
+  return CARD_SAYS.has(first) && states.every((s) => s === first);
+}
+
+/** The polite sentence for a row that has just become "Not synced" (review ACCT-PR SF11; WCAG 4.1.3). */
+export const retryAnnouncement = (title: string): string => `${title}: not synced. Retry is next to it.`;

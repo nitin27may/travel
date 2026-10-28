@@ -95,6 +95,18 @@ export function groupRows(items: readonly CopyItem[], today: string): { upcoming
 
 export const endDate = (c: Pick<CopyItem, 'start' | 'days'>): string => addDays(c.start, Math.max(0, (c.days ?? 1) - 1));
 
+const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/**
+ * "Changed 24 Oct" (the site's `d MMM` form; "Changed 24 Oct 2025" in another year): when an account trip last changed, on the person's
+ * own calendar. '' for a time that does not parse. The Account page's My trips rows (review ACCT-PR MF1).
+ */
+export function changedLabel(at: string, now: Date = new Date()): string {
+  const d = new Date(at);
+  if (Number.isNaN(d.getTime())) return '';
+  return `Changed ${d.getDate()} ${MON[d.getMonth()]}${d.getFullYear() === now.getFullYear() ? '' : ` ${d.getFullYear()}`}`;
+}
+
 /** The visitor's local date as `YYYY-MM-DD`. */
 export function localToday(now: Date = new Date()): string {
   const p = (n: number) => String(n).padStart(2, '0');

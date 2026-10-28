@@ -36,6 +36,9 @@ a.crow-link:focus-visible { outline: var(--focus-ring); outline-offset: -3px; }
 /* signed in: the chip is a fourth line of the row's grid, after line 3 (spec 5.2), so it never runs under the text */
 .crow-link[data-chip] { grid-template-areas: 'photo name' 'photo l2' 'photo l3' 'photo chip'; }
 .crow-chip { grid-area: chip; justify-self: start; margin-top: 2px; }
+/* a link-only row (the Account page's My trips): no menu at the right, so the name runs to the edge; the fourth line is a muted note */
+.crow[data-link-only] .crow-name { padding-right: 0; }
+.crow-note { grid-area: chip; font: var(--t-meta); color: var(--muted); line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .crow-act { position: absolute; top: 4px; right: 0; display: flex; align-items: center; }
 .crow-menu-btn { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: var(--r-2); background: none; color: var(--ink); cursor: pointer; }
 .crow-menu-btn:hover, .crow-menu-btn[data-popup-open] { background: var(--surface-2); }

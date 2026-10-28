@@ -7,13 +7,14 @@ import { TRAVELLERS } from '@travel/core/config/account.ts';
 import { ageOn, type Travellers } from '@travel/core/schema/travellers.ts';
 import { Banner } from '@/components/ui/Banner';
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 import { Field, Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Stepper } from '@/components/ui/Stepper';
-import { PERSON_COPY, blankPerson, hasIssues, issuesOf, toTravellers, type PersonForm, type PersonIssue, type TravellersForm } from '@/lib/account/travellers-form';
+import { AGE_OR_DOB_COPY, PERSON_COPY, blankPerson, hasIssues, issuesOf, toTravellers, type PersonForm, type PersonIssue, type TravellersForm } from '@/lib/account/travellers-form';
 
 /** AP-15: what is stored, said once beside the Save that stores it (spec AD3: the explicit Save is the opt-in). */
-export const STORED_NOTE = "We save the number of adults and each child's age, and a date of birth only if you add one. No names. Only you can see it, and you can remove it at any time.";
+export const STORED_NOTE = "We save the number of adults, each child's age, adults' ages if you add them, and a date of birth only if you add one. No names. Only you can see it, and you can remove it at any time.";
 
 const AGES = Array.from({ length: CHILD_MAX_AGE + 1 }, (_, i) => i);
 
@@ -48,9 +49,14 @@ function PersonFields({ kind, n, person, issue, shown, today, onChange, autoFocu
     if (to === 'dob') dobRef.current?.focus();
     else if (to === 'age') set.current?.querySelector<HTMLElement>('[data-person]')?.focus();
   }, [person.dobOpen, autoFocusAge]);
-  const err = shown && issue ? PERSON_COPY[issue] : undefined;
+  // A child with the date field open and neither filled has two ways to answer, so the message names both and sits under the pair,
+  // tied to the select and the date field alike (review ACCT-PR SF8)
+  const pairErr = shown && issue === 'age' && person.dobOpen && !person.dob ? AGE_OR_DOB_COPY : undefined;
+  const err = shown && issue && !pairErr ? PERSON_COPY[issue] : undefined;
   const ageErr = person.dob ? undefined : err;
   const dobErr = person.dob ? err : undefined;
+  const pairId = `${id}-pair`;
+  const pairProps = pairErr ? { 'aria-invalid': true as const, 'aria-describedby': pairId } : {};
   const derived = person.dob ? ageOn(person.dob, today) : null;
   const legend = `${child ? 'Child' : 'Adult'} ${n}`;
   return (
@@ -69,9 +75,10 @@ function PersonFields({ kind, n, person, issue, shown, today, onChange, autoFocu
             {(a) => (
               <Select
                 {...a}
+                {...pairProps}
                 data-person={`${kind}-${n - 1}`}
                 value={person.age === null ? '' : String(person.age)}
-                error={ageErr !== undefined}
+                error={ageErr !== undefined || pairErr !== undefined}
                 onChange={(e) => onChange({ ...person, age: e.target.value === '' ? null : Number(e.target.value) })}
               >
                 <option value="">Age</option>
@@ -133,13 +140,20 @@ function PersonFields({ kind, n, person, issue, shown, today, onChange, autoFocu
                 type="date"
                 max={today}
                 value={person.dob}
-                error={dobErr !== undefined}
-                aria-describedby={[a['aria-describedby'], derived !== null ? `${id}-d` : undefined].filter(Boolean).join(' ') || undefined}
+                error={dobErr !== undefined || pairErr !== undefined}
+                aria-invalid={dobErr !== undefined || pairErr !== undefined || undefined}
+                aria-describedby={[a['aria-describedby'], pairErr ? pairId : undefined, derived !== null ? `${id}-d` : undefined].filter(Boolean).join(' ') || undefined}
                 onChange={(e) => onChange({ ...person, dob: e.target.value })}
               />
             )}
           </Field>
         </div>
+      ) : null}
+      {pairErr ? (
+        <p id={pairId} className="field-error">
+          <Icon name="warn" size={13} />
+          {pairErr}
+        </p>
       ) : null}
     </fieldset>
   );
@@ -162,6 +176,13 @@ interface Props {
   autoFocus?: boolean;
   /** A line above the fields ("Filled in from this browser: ...", AP-11). */
   lead?: ReactNode;
+  /** A notice of the parent's (a failed Skip), shown above the actions so a phone's sticky bar never hides it (review ACCT-PR SF9). */
+  notice?: ReactNode;
+  /**
+   * Saved on another device first (spec 6.6, review ACCT-PR SF3): the line sits here, above Save, where the eye is, and takes focus.
+   * Save becomes "Save mine anyway" (it submits this form at the revision the parent now holds); "Show the latest" replaces the form.
+   */
+  conflict?: { onShowLatest: () => void } | null;
 }
 
 /**
@@ -169,7 +190,7 @@ interface Props {
  * travellers is the opt-in, with the stored-data sentence beside it. No red before the person acts: a missing age, a future date or a
  * date that makes a child 18 shows its error only after Save is pressed, and a failed Save moves focus to the first invalid field.
  */
-export function TravellersEditor({ initial, today, legend = 'Who usually travels with you?', legendHidden, submitLabel = 'Save travellers', onSave, actions, sticky, autoFocus, lead }: Props) {
+export function TravellersEditor({ initial, today, legend = 'Who usually travels with you?', legendHidden, submitLabel = 'Save travellers', onSave, actions, sticky, autoFocus, lead, notice, conflict }: Props) {
   const [form, setForm] = useState<TravellersForm>(initial);
   const [shown, setShown] = useState(false);
   const [pending, setPending] = useState(false);
@@ -178,6 +199,8 @@ export function TravellersEditor({ initial, today, legend = 'Who usually travels
   const [focusBad, setFocusBad] = useState(0);
   const box = useRef<HTMLFormElement>(null);
   const kids = useRef<HTMLDivElement>(null);
+  const conflictLine = useRef<HTMLDivElement>(null);
+  const inConflict = !!conflict;
 
   const issues = issuesOf(form, today);
 
@@ -187,6 +210,9 @@ export function TravellersEditor({ initial, today, legend = 'Who usually travels
   useEffect(() => {
     if (focusBad) box.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
   }, [focusBad]);
+  useEffect(() => {
+    if (inConflict) conflictLine.current?.focus();
+  }, [inConflict]);
 
   const setAdults = (n: number) =>
     setForm((f) => ({ ...f, adults: n, adultAges: f.adultAges ? Array.from({ length: n }, (_, i) => f.adultAges?.[i] ?? blankPerson()) : null }));
@@ -267,10 +293,23 @@ export function TravellersEditor({ initial, today, legend = 'Who usually travels
       </fieldset>
       <p className="acct-note acct-stored">{STORED_NOTE}</p>
       {failed ? <Banner kind="notice">We couldn&apos;t save. Your changes are still here; try again.</Banner> : null}
+      {notice}
+      {conflict ? (
+        <div className="acct-conflict" tabIndex={-1} ref={conflictLine}>
+          <Banner kind="notice">
+            Your travellers were changed on another device. <span className="acct-conflict-note">Show the latest: your changes here will be replaced.</span>
+          </Banner>
+        </div>
+      ) : null}
       <div className={sticky ? 'acct-editor-actions acct-sticky' : 'acct-editor-actions'}>
         <Button type="submit" variant="primary" loading={pending}>
-          {submitLabel}
+          {conflict ? 'Save mine anyway' : submitLabel}
         </Button>
+        {conflict ? (
+          <Button type="button" onClick={conflict.onShowLatest} disabled={pending}>
+            Show the latest
+          </Button>
+        ) : null}
         {actions}
       </div>
     </form>

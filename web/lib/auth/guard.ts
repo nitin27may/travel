@@ -3,7 +3,7 @@ import { ALERT_AFTER, AUTH_GUARD, AUTH_LIMITS, AUTH_METRICS, type Window } from 
 import { canonicalAddress } from '@travel/core/mail/address.ts';
 import { sendOwnerAlert, type AlertEvent } from '@travel/core/mail/alert.ts';
 import type { Mailer } from '@travel/core/mail/mailer.ts';
-import { LOG_DENY_KEYS } from '@travel/core/privacy/detect.ts';
+import { ACCOUNT_TRAVELLER_KEYS, BIRTH_KEY, LOG_DENY_KEYS } from '@travel/core/privacy/detect.ts';
 import { quotaAlertBudget } from '@travel/core/quota/alert-budget.ts';
 import { addressHash, addressIpHash, ipHash } from '@travel/core/quota/keys.ts';
 import { createPgQuotaStore } from '@travel/core/quota/pg.ts';
@@ -249,13 +249,17 @@ function safeCode(body: Record<string, unknown> | null, fallback: string): strin
 // ----- logging ---------------------------------------------------------------------------------------------------------------------
 
 type LogValue = string | number | boolean | undefined;
-const DENY = new Set(LOG_DENY_KEYS.map((k) => k.toLowerCase()));
+// The log deny list plus every key of the saved travellers the detector refuses (`ageAsOf`, `travellersConsentedAt`, ...) and any
+// `birth*` key (BIRTH_KEY), so the guard's log matches the detector (review ACCT-PSEC N6).
+const DENY = new Set([...LOG_DENY_KEYS, ...ACCOUNT_TRAVELLER_KEYS].map((k) => k.toLowerCase()));
+/** A key whose value never reaches a guard log line. */
+export const deniedLogKey = (k: string): boolean => DENY.has(k.toLowerCase()) || BIRTH_KEY.test(k);
 
 /** One JSON line with fixed codes. A deny-listed key, or a value that looks like an address, a code or an IP, is dropped. */
 export function guardLog(level: 'info' | 'warn' | 'error', fields: Record<string, LogValue>): void {
   const safe: Record<string, LogValue> = {};
   for (const [k, v] of Object.entries(fields)) {
-    if (v === undefined || DENY.has(k.toLowerCase())) continue;
+    if (v === undefined || deniedLogKey(k)) continue;
     if (typeof v === 'string' && (v.includes('@') || /\d{6}/.test(v) || isIP(v) !== 0 || v.length > 80)) continue;
     safe[k] = v;
   }

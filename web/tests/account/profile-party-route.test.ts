@@ -2,15 +2,20 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/auth/server', () => ({ getUser: vi.fn() }));
 vi.mock('@travel/core/db/profile.ts', () => ({ loadProfile: vi.fn() }));
+const quota = vi.hoisted(() => ({ take: vi.fn() }));
+vi.mock('@/lib/account/profile-quota', () => ({ takeProfile: quota.take }));
 
 import { getUser } from '@/lib/auth/server';
 import { loadProfile } from '@travel/core/db/profile.ts';
 import { POST } from '@/app/api/account/profile/party/route';
 
-const req = (body: unknown, origin = 'http://localhost:3000') =>
-  new Request('http://localhost:3000/api/account/profile/party/', { method: 'POST', headers: { origin, host: 'localhost:3000' }, body: typeof body === 'string' ? body : JSON.stringify(body) });
+const req = (body: unknown, origin = 'http://localhost:3000', type = 'application/json') =>
+  new Request('http://localhost:3000/api/account/profile/party/', { method: 'POST', headers: { origin, host: 'localhost:3000', 'content-type': type }, body: typeof body === 'string' ? body : JSON.stringify(body) });
 
-beforeEach(() => vi.stubEnv('NODE_ENV', 'test'));
+beforeEach(() => {
+  vi.stubEnv('NODE_ENV', 'test');
+  quota.take.mockResolvedValue('ok');
+});
 afterEach(() => {
   vi.resetAllMocks();
   vi.unstubAllEnvs();
@@ -27,7 +32,8 @@ describe('POST /api/account/profile/party/', () => {
     (getUser as ReturnType<typeof vi.fn>).mockResolvedValue(null);
     const res = await POST(req({ userId: 'someone-else' }));
     expect(res.status).toBe(401);
-    expect(getUser).toHaveBeenCalledWith('someone-else');
+    expect(getUser).toHaveBeenCalledWith('someone-else', { fresh: true });
+    expect(quota.take).not.toHaveBeenCalled();
     expect(loadProfile).not.toHaveBeenCalled();
   });
 
@@ -62,5 +68,34 @@ describe('POST /api/account/profile/party/', () => {
     vi.spyOn(console, 'error').mockImplementation(() => undefined);
     (loadProfile as ReturnType<typeof vi.fn>).mockRejectedValueOnce(new Error('down'));
     expect((await POST(req({ userId: 'u1' }))).status).toBe(503);
+  });
+
+  it('reads the session fresh at Neon (review ACCT-PSEC S1)', async () => {
+    (getUser as ReturnType<typeof vi.fn>).mockResolvedValue({ id: 'u1', email: 'a@x.test' });
+    (loadProfile as ReturnType<typeof vi.fn>).mockResolvedValue({ travellers: null });
+    await POST(req({ userId: 'u1' }));
+    expect(getUser).toHaveBeenCalledWith('u1', { fresh: true });
+  });
+
+  it('takes one from the read bucket by the session id: 429 over the limit, 503 when the store is unavailable, before any read (S6)', async () => {
+    (getUser as ReturnType<typeof vi.fn>).mockResolvedValue({ id: 'u1', email: 'a@x.test' });
+    quota.take.mockResolvedValueOnce('limited');
+    const limited = await POST(req({ userId: 'u1' }));
+    expect(limited.status).toBe(429);
+    expect(limited.headers.get('Retry-After')).toBe('60');
+    expect(limited.headers.get('Cache-Control')).toBe('private, no-store');
+    expect(quota.take).toHaveBeenCalledWith('read', 'u1');
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    quota.take.mockResolvedValueOnce('unavailable');
+    expect((await POST(req({ userId: 'u1' }))).status).toBe(503);
+    expect(loadProfile).not.toHaveBeenCalled();
+  });
+
+  it('refuses a body that is not JSON by its content type, before any auth (N1)', async () => {
+    for (const type of ['text/plain', 'application/x-www-form-urlencoded', '']) {
+      expect((await POST(req({ userId: 'u1' }, 'http://localhost:3000', type))).status).toBe(415);
+    }
+    expect((await POST(req({ userId: 'u1' }, 'http://localhost:3000', 'application/json; charset=utf-8'))).status).not.toBe(415);
+    expect(getUser).toHaveBeenCalledTimes(1);
   });
 });

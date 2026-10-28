@@ -77,9 +77,9 @@
   font: var(--t-mono);
   color: var(--muted);
   margin-top: var(--s-1);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  /* the whole address, wrapped: on a shared phone it is the one thing a person checks (review ACCT-PR SF4) */
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .account-signed-out {
@@ -168,9 +168,13 @@
 .acct-editor {
   display: grid;
   gap: var(--s-3);
+  animation: acct-open var(--d-base) var(--e-out);
+}
+/* the hairline divides the editor from the row above it; an editor that opens a card draws none (review ACCT-PR N9) */
+.acct-editor:not(:first-child),
+.acct-row ~ div > .acct-editor {
   padding-top: var(--s-3);
   border-top: 1px solid var(--line);
-  animation: acct-open var(--d-base) var(--e-out);
 }
 .acct-editor input,
 .acct-setup-body input {
@@ -624,12 +628,56 @@
 .acct-setup-card {
   gap: var(--s-3);
   padding: var(--s-4);
-  border-color: var(--line);
+  /* the first visit's one task reads as the most important thing on the page (review ACCT-PR SF9): the boundary at 3:1, an accent rule */
+  border-color: var(--line-2);
+  border-top: 3px solid var(--accent);
 }
 .acct-setup-top {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: var(--s-3);
+  min-height: 30px;
+}
+.acct-setup-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+.acct-setup-back {
+  position: relative;
+  min-height: 0;
+  padding-inline: var(--s-2);
+  color: var(--accent-text);
+}
+.acct-setup-sep {
+  color: var(--muted);
+}
+/* the travellers steppers stay beside their labels at 1440 (review ACCT-PR N8) */
+.acct-trav-set .stepper {
+  max-width: 22rem;
+}
+/* "Saved on another device" inside the editor, above Save (SF3): it takes focus, so it draws the focus ring when it does */
+.acct-conflict:focus {
+  outline: none;
+}
+.acct-conflict:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+.acct-conflict-note {
+  display: block;
+  margin-top: var(--s-1);
+}
+
+/* My trips on the Account page (MF1): Mine's rows in one column, then "See all in Mine" */
+.acct-trips .mt-list {
+  columns: 1;
+}
+.acct-see-all {
+  position: relative;
+  justify-self: start;
+  gap: var(--s-1);
 }
 .acct-setup-h {
   font: var(--t-card);
@@ -651,6 +699,8 @@
   .acct-row-actions .btn::after,
   .acct-link-btn::after,
   .acct-dob-toggle::after,
+  .acct-setup-back::after,
+  .acct-see-all::after,
   .acct-notice .btn::after {
     content: '';
     position: absolute;

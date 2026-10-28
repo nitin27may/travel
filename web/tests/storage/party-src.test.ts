@@ -15,18 +15,19 @@ function fakeWindow(blocked = false) {
   vi.stubGlobal('Event', class { constructor(public type: string) {} });
 }
 afterEach(() => vi.unstubAllGlobals());
+const OWNER = '0123456789abcdef';
 
 describe('travel.party src', () => {
   it('writes src only when the account seed asks, and keeps version 1', () => {
     fakeWindow();
-    expect(writeParty({ adults: 2, children: [7, 9] }, { src: 'account' })).toBe(true);
-    expect(JSON.parse(data.get(PARTY_KEY)!)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account' });
-    expect(readPartySource()).toBe('account');
+    expect(writeParty({ adults: 2, children: [7, 9] }, { src: 'account', by: OWNER })).toBe(true);
+    expect(JSON.parse(data.get(PARTY_KEY)!)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
+    expect(readPartySource()).toEqual({ src: 'account', by: OWNER });
   });
 
   it('any other write drops src: the party becomes this browser\'s own', () => {
     fakeWindow();
-    writeParty({ adults: 2, children: [7, 9] }, { src: 'account' });
+    writeParty({ adults: 2, children: [7, 9] }, { src: 'account', by: OWNER });
     writeParty({ adults: 3, children: [7, 9] });
     expect(JSON.parse(data.get(PARTY_KEY)!)).toEqual({ v: 1, adults: 3, children: [7, 9] });
     expect(readPartySource()).toBeNull();
@@ -57,5 +58,19 @@ describe('travel.party src', () => {
     fakeWindow(true);
     expect(readPartySource()).toBeNull();
     expect(writeParty({ adults: 2, children: [] }, { src: 'account' })).toBe(false);
+  });
+
+  it('the owner tag (review ACCT-PSEC B2): written only with src account, only as 16 hex; an untagged or malformed one reads as null', () => {
+    fakeWindow();
+    writeParty({ adults: 2, children: [] }, { by: OWNER });
+    expect(JSON.parse(data.get(PARTY_KEY)!)).toEqual({ v: 1, adults: 2, children: [] });
+    writeParty({ adults: 2, children: [] }, { src: 'account', by: 'user-123' });
+    expect(JSON.parse(data.get(PARTY_KEY)!)).toEqual({ v: 1, adults: 2, children: [], src: 'account' });
+    expect(readPartySource()).toEqual({ src: 'account', by: null });
+    data.set(PARTY_KEY, JSON.stringify({ v: 1, adults: 2, children: [], src: 'account', by: 42 }));
+    expect(readPartySource()).toEqual({ src: 'account', by: null });
+    data.set(PARTY_KEY, JSON.stringify({ v: 1, adults: 2, children: [], by: OWNER }));
+    expect(readPartySource()).toBeNull();
+    expect(readParty()).toEqual({ adults: 2, children: [] });
   });
 });

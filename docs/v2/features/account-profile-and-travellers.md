@@ -87,7 +87,7 @@ goes with it.
 | 2 | **Profile** | Name: "Nitin" or "Not set" | inline name editor |
 | 3 | **Travellers** | "2 adults · 2 children (6, 9)" or "None saved" | inline travellers editor |
 | 4 | **Ways to sign in** | GSI-WAYS's list (Email and password, Google) | GSI-WAYS's actions |
-| 5 | **Saved trips** | count and up to 5 newest rows | rename, delete; "See all in Mine" after NAV-3 |
+| 5 | **My trips** (was "Saved trips"; review ACCT-PR MF1) | count and up to 5 newest rows, the same live rows as Mine's My trips | open the trip; "See all in Mine" (managing stays in Mine) |
 | 6 | **Your data** | "Download my data", "Delete my account" (by email until F17 16) | |
 
 While the setup card is showing, sections 2 and 3 are not shown (the card is them); 4 to 6 are shown below it. After
@@ -156,7 +156,10 @@ once; the owner sees it with the name prefilled only if Google gave one.
 Rules:
 
 1. Step 1 prefills from `user.name` (Google gives one; email sign-ups have `''`, rule E8). Continue with an unchanged
-   prefilled name saves nothing and moves on. Continue is enabled only when the field is valid (4.2). Skip moves on.
+   prefilled name saves nothing and moves on. Continue is always enabled (amended 27 Oct 2026, review ACCT-PR SF7): an empty
+   name moves on and saves nothing, as Skip does; an invalid one shows the field error when Continue is pressed, never while
+   typing. Skip moves on. "Two short steps. You can change both later." shows on step 1 only; Back sits beside the step counter
+   ("Back · Step 2 of 2"), out of the sticky action bar; the done state keeps the eyebrow "Set up your account" (SF9).
 2. Step 2 prefills from the device party when there is one: the adult count and each child's age (an unset age stays
    empty). A line under the heading says "Filled in from this browser: 2 adults, 2 children (6, 9). Check the ages and
    save." With no device party: 2 adults, 0 children (`DEFAULT_PARTY`).
@@ -200,7 +203,12 @@ travellers".
 | A saved child is 18 or older (by `dob`, or by the rolled age) | "Child 2 is now 18. Count them as an adult?" | "Move to adults" (adults + 1, child removed, saved), "Keep as a child" (plans as 17, the party's cap) |
 | A child's age was entered more than 12 months ago and has no date of birth (`ageNeedsCheck`) | "Are these ages still right? 7, 9." | "Looks right" (re-saves the shown ages with today's `age_as_of`), "Edit" (opens the editor) |
 | Storage blocked on this browser | "Saved to your account. This browser can't keep a copy, so trip pages here use the trip as written." | none |
-| Saved on another device since this page loaded (revision conflict, 6.3) | "Your travellers were changed on another device." | "Show the latest" |
+| Saved on another device since this page loaded (revision conflict, 6.3) | "Your travellers were changed on another device." With the editor open the line sits in the editor above Save, takes focus and adds "Show the latest: your changes here will be replaced." (SF3) | "Show the latest"; in the editor also "Save mine anyway" (primary, re-saves at the row's revision now) |
+
+As built (review ACCT-PR SF1, SF2, 27 Oct 2026): one notice at a time, in the order conflict, differs, grown-up, check ages,
+storage blocked (then the read and save failures); every notice action is secondary ("Save this browser's party" became "Save
+this party"). While the grown-up notice is open the party line shows the child's real age ("2 adults · 2 children (18, 9)") with
+a muted line "Trips plan for the 18-year-old as 17 until you choose below."; the "differs" notice uses the same words.
 
 **Saved trips.** Section 6.
 
@@ -212,7 +220,7 @@ nitin27may@gmail.com" with today's privacy wording until F17's delete button shi
 | State | What shows |
 |---|---|
 | Page loading | Header, then three RowSkeletons per section (the existing Suspense fallback, extended) |
-| Profile row cannot be read | Profile and Travellers show one ErrorState: "We couldn't load your profile." Detail: "The service may be briefly unavailable." Link "Try again". The setup card is not shown (fail closed: never ask a set-up person again because a read failed). Ways to sign in and Saved trips render on their own |
+| Profile row cannot be read | Profile still shows the Name row (the name is Neon Auth's, not the row's; review ACCT-PR SF5). Travellers keeps its heading with an ErrorState: "We couldn't load your travellers." Detail: "The service may be briefly unavailable." Link "Try again". The setup card is not shown (fail closed: never ask a set-up person again because a read failed). Ways to sign in and My trips render on their own |
 | Save fails (service) | A Banner inside the editor: "We couldn't save. Your changes are still here; try again." The form keeps its values |
 | Session lost | `leaveSession()` as today |
 | Name too long or invalid | Field error (4.2 strings) |
@@ -250,23 +258,23 @@ nitin27may@gmail.com" with today's privacy wording until F17's delete button shi
 | AP-12 | steppers | Adults · Children (dec/inc labels "Fewer adults", "More adults", "Fewer children", "More children") · Add adults' ages (optional) · Adult {n} |
 | AP-13 | child group | Child {n} · Age · Age (placeholder) · Under 1 · Add date of birth · Date of birth (optional) · Remove date of birth |
 | AP-14 | derived age | {n}, from the date of birth · Under 1, from the date of birth |
-| AP-15 | privacy line | We save the number of adults and each child's age, and a date of birth only if you add one. No names. Only you can see it, and you can remove it at any time. |
+| AP-15 | privacy line | We save the number of adults, each child's age, adults' ages if you add them, and a date of birth only if you add one. No names. Only you can see it, and you can remove it at any time. (Adults' ages added 27 Oct 2026, review ACCT-PSEC S2.) |
 | AP-16 | step 2 buttons | Save travellers · Skip for now |
 | AP-17 | done | All set · Trips now plan for {party} wherever you sign in. · Browse trips · Close |
 | AP-18 | done, skipped travellers | All set · You can add travellers here at any time. |
-| AP-19 | sections | Profile · Travellers · Ways to sign in · Saved trips · Your data |
+| AP-19 | sections | Profile · Travellers · Ways to sign in · My trips · Your data (amended 27 Oct 2026, review ACCT-PR MF1) |
 | AP-20 | name row | Name · Not set · Edit · Save · Cancel |
 | AP-21 | name errors | Keep it under 60 characters. · Use letters, numbers, spaces and simple punctuation. · Too many changes. Try again in a few minutes. |
 | AP-22 | name toast | Name saved. |
 | AP-23 | travellers row second line | Ages today. Trips use these, and you can change the party on any trip. |
 | AP-24 | travellers empty | No travellers saved. · Add who usually travels with you, and every trip starts from it. · Add travellers |
-| AP-25 | child error | Choose an age. · The date of birth can't be in the future. · A child is 17 or younger. Count older travellers as adults. · An adult is 18 or older. |
+| AP-25 | child error | Choose an age. · Choose an age, or enter a date of birth. (the date field open and empty, under the pair; SF8) · The date of birth can't be in the future. · A child is 17 or younger. Count older travellers as adults. · An adult is 18 or older. |
 | AP-25a | check-ages notice | Are these ages still right? {ages}. · Looks right · Edit |
 | AP-26 | remove | More · Remove saved travellers · Remove your saved travellers? This browser keeps its party until you change it. · Remove · Cancel · Travellers removed. · Undo |
 | AP-27 | notices | as the table in 2.4 |
 | AP-28 | save error | We couldn't save. Your changes are still here; try again. |
 | AP-29 | load error | We couldn't load your profile. · The service may be briefly unavailable. · Try again |
-| AP-30 | saved trips | Saved trips · {n} · No saved trips yet. · Trips you copy or build while signed in are saved here. · Browse trips · See all in Mine |
+| AP-30 | my trips | My trips · {n} · Changed {d MMM} · See all in Mine · No trips in your account yet. · Copy a trip while signed in and it is kept here and in Mine. · Browse trips · (flag `accountTrips` off) Trips you copy stay on this device for now. See them in Mine. · Open Mine · (account out of reach, nothing cached) We can't reach your account right now. Your trips show here when we can. (amended 27 Oct 2026, review ACCT-PR MF1; "saved" is never used for a copy, patterns 3.7) |
 | AP-31 | your data | Your data · Download my data · To delete your account, email {address}. |
 | AP-32 | sign-out toast (5.4) | Signed out. Your travellers are saved in your account. |
 
@@ -442,6 +450,13 @@ travellers even on a browser with another party", that is a `plan-draft/2` quest
   the "Reconnecting to live updates..." banner.
 
 ### 6.2 What Saved trips shows
+
+**Superseded 27 Oct 2026 (review ACCT-PR MF1, built in ACCT-PRF).** The section is **My trips**: the account's live rows exactly as
+Mine's My trips reads them (the same `useAccountTrips` hook and engine, so tombstones and title-only rows never show), newest
+change first, five, each drawn with Mine's row as a link that opens the trip (no menu; renaming, changing dates and removing stay in
+Mine), a fourth line "Changed 24 Oct", then "See all in Mine". The page no longer reads the title-only drafts and has no Rename or
+Delete. Title-only rows (the owner's "Nitin" draft) are not shown here; showing them in Mine with Remove only (Q-AP7) is still to
+do. The text below is the earlier rule, kept for the record.
 
 `plan_draft` rows, newest first, at most 5, with the existing row (title, "Saved Tue 27 Oct · 1 min ago"), menu
 Rename and Delete with Undo. **Only the title-only rows** (`doc is null and deleted_at is null`; amended 27 Oct 2026,
@@ -724,3 +739,4 @@ Removed data leaves our backups when they expire."
 | 2026-10-27 | Written (ACCT-P), with the owner's screenshots of `/account/` and `/mine/` and the TRIP-EDIT-I cross-reference |
 | 2026-10-27 | Amended (owner, Q-AP1): ages with `age_as_of` and an optional `dob` replace birth month and year; adults' ages optional. Sections 0, AD1, AD2, U2, 2.2, 2.3, 2.4, 2.6, 2.7, 5.1, 5.2, 5.3, 6.5, 6.6, 7, 9, 10, 11, 12, 13 updated. ACCT-PC built the contracts: migration `0012_account_profile.sql`, `core/src/schema/travellers.ts`, `core/src/db/profile.ts`, `core/src/config/account.ts`, the `src` field in `web/lib/storage/partyKey.ts`, the detector keys |
 | 2026-10-27 | EM-F (Opus, branch `public/EM-F`), the security review's fixes before 0012 is applied ([review-em-s-2026-10-27.md](../design/shell/review-em-s-2026-10-27.md)): `travellers_consent_version` and the re-stamp after a removal (9.1, S3); the jsonpath type guards (N4); Saved trips lists and acts on title-only rows (6.2, B1); the removal runbook deletes `plan_draft` rows and runs twice (9.3, S6); the export gap for ACCT-P3 (6.5). **Contract change for ACCT-P2:** `saveTravellers` needs `{ consent: true }` on a save that creates travellers |
+| 2026-10-27 | ACCT-PRF (Opus, branch `public/ACCT-PRF`), the design review's fixes ([review-acct-pr-2026-10-27.md](../design/shell/review-acct-pr-2026-10-27.md)): section 5 is My trips, read as Mine reads it (2.1, 6.2, AP-19, AP-30); Continue always on (2.3 rule 1); one notice at a time with secondary actions, the grown-up child's real age, the conflict inside the editor with Save mine anyway (2.4); the Name row survives a failed profile read (2.5); the date-or-age error (AP-25). `saveTravellers` sends `{ consent: true }` on Save and on the Undo of a removal |

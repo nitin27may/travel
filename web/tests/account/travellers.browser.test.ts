@@ -2,6 +2,7 @@
 // ACCT-P2 in a real browser: the Travellers editor, the settled section with its notices, and the first-run setup card. The real
 // components run under Vite in Chromium with the server actions stubbed at their boundary, so no credentials, session or database are
 // needed. The clock is fixed at 27 Oct 2026 (the spec's acceptance date). Screenshots go to test-results/shots/ACCT-P2/.
+import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import AxeBuilder from '@axe-core/playwright';
@@ -18,6 +19,11 @@ mkdirSync(shots, { recursive: true });
 
 const TODAY = '2026-10-27';
 const PARTY_KEY = 'travel.party';
+// The owner tag (review ACCT-PSEC B2): accountHash(user id), the first 16 hex of SHA-256. The page is loaded for 'u1'; 'user-a' is the
+// person who used this browser before.
+const tag = (id: string) => createHash('sha256').update(id).digest('hex').slice(0, 16);
+const OWNER = tag('u1');
+const PREVIOUS = tag('user-a');
 
 type Doc = { schema: 'travellers/1'; adults: number; children: { age: number; age_as_of: string; dob?: string }[]; adult_ages?: { age: number; age_as_of: string; dob?: string }[] };
 const family = (extra: Partial<Doc> = {}): Doc => ({ schema: 'travellers/1', adults: 2, children: [{ age: 7, age_as_of: TODAY }, { age: 9, age_as_of: TODAY }], ...extra });
@@ -58,8 +64,8 @@ beforeAll(async () => {
               import {SetupCard} from '/app/account/SetupCard.tsx';
               const p = window.__props;
               const body = p.mode === 'setup'
-                ? h(SetupCard, {userId: 'u1', initialName: p.name, revision: p.revision, initialStep: p.step})
-                : h(AccountSection, {id: 'travellers', title: 'Travellers'}, h(TravellersSection, {userId: 'u1', travellers: p.travellers, invalid: !!p.invalid, revision: p.revision, today: p.today}));
+                ? h(SetupCard, {userId: 'u1', owner: p.owner, initialName: p.name, revision: p.revision, initialStep: p.step})
+                : h(AccountSection, {id: 'travellers', title: 'Travellers'}, h(TravellersSection, {userId: 'u1', owner: p.owner, travellers: p.travellers, invalid: !!p.invalid, revision: p.revision, today: p.today}));
               flushSync(() => createRoot(document.getElementById('root')).render(h(ToastProvider, null, body)));
               document.documentElement.dataset.ready = 'true';`;
           }
@@ -84,7 +90,7 @@ interface Setup {
   revision?: number;
   name?: string;
   step?: 'name' | 'travellers';
-  device?: { v: 1; adults: number; children: (number | null)[]; src?: 'account' } | null;
+  device?: { v: 1; adults: number; children: (number | null)[]; src?: 'account'; by?: string } | null;
   width?: number;
   theme?: 'light' | 'dark';
   /** answers by action name; default: saved at revision + 1 */
@@ -100,7 +106,7 @@ async function open(s: Setup = {}): Promise<{ page: Page; context: BrowserContex
     const url = new URL(route.request().url());
     if (/^\/fonts\/[\w.-]+\.woff2$/.test(url.pathname)) return route.fulfill({ body: readFileSync(new URL(`public${url.pathname}`, web)), contentType: 'font/woff2' });
     if (url.hostname === 'account.test' && url.pathname === '/account/') {
-      const props = JSON.stringify({ mode: s.mode ?? 'section', travellers: s.travellers ?? null, invalid: s.invalid, revision: s.revision ?? 0, name: s.name ?? '', step: s.step ?? 'name', today: TODAY });
+      const props = JSON.stringify({ mode: s.mode ?? 'section', travellers: s.travellers ?? null, invalid: s.invalid, revision: s.revision ?? 0, name: s.name ?? '', step: s.step ?? 'name', today: TODAY, owner: OWNER });
       return route.fulfill({
         contentType: 'text/html; charset=utf-8',
         body: `<!doctype html><html lang="en" data-theme="${s.theme ?? 'light'}"><head><title>Account</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>${styles}</style></head><body><main id="main" class="page"><div class="account-page" id="root"></div></main><script>window.__props=${props}</script></body></html>`,
@@ -120,7 +126,8 @@ async function open(s: Setup = {}): Promise<{ page: Page; context: BrowserContex
     return { kind: 'saved', revision: (arg.revision ?? 0) + 1 };
   });
   if (s.device !== undefined && s.device !== null) {
-    await page.addInitScript(([k, v]) => localStorage.setItem(k, v), [PARTY_KEY, JSON.stringify(s.device)]);
+    // only on the Account page: the home page a 401 leaves for must see what the page left behind
+    await page.addInitScript(([k, v]) => { if (location.pathname === '/account/') localStorage.setItem(k, v); }, [PARTY_KEY, JSON.stringify(s.device)]);
   }
   await page.goto('http://account.test/account/');
   await page.addScriptTag({ type: 'module', url: 'http://account.test/harness.js' });
@@ -146,11 +153,12 @@ describe('Travellers editor: 2 adults, 2 children and each child\'s age', () => 
       await page.getByRole('button', { name: 'More children' }).click();
       await be(page.getByLabel('Age').nth(1)).toBeFocused();
       await page.getByLabel('Age').nth(1).selectOption('9');
-      await be(page.getByText('We save the number of adults and each child')).toBeVisible();
+      await be(page.getByText("We save the number of adults, each child's age, adults' ages if you add them, and a date of birth only if you add one.")).toBeVisible();
       await save(page).click();
       await be(page.getByText('2 adults · 2 children (7, 9)')).toBeVisible();
-      expect(calls.saveTravellers).toEqual([{ doc: family(), revision: 0 }]);
-      expect(await party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account' });
+      // Save travellers sits beside the AP-15 wording: it sends the consent (review-em-s S3)
+      expect(calls.saveTravellers).toEqual([{ doc: family(), revision: 0, consent: true }]);
+      expect(await party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
       await be(page.getByRole('button', { name: 'Edit travellers' })).toBeFocused();
     } finally { await context.close(); }
   });
@@ -167,6 +175,28 @@ describe('Travellers editor: 2 adults, 2 children and each child\'s age', () => 
       await be(page.getByLabel('Age')).toHaveAttribute('aria-invalid', 'true');
       expect(calls.saveTravellers).toEqual([]);
       await shot(page, 'editor-error-1440-light');
+    } finally { await context.close(); }
+  });
+
+  it('SF8: the date field open and neither filled: one message names both ways, under the pair, tied to both fields', async () => {
+    const { page, context, calls } = await open({ travellers: null });
+    try {
+      await page.getByRole('button', { name: 'Add travellers' }).click();
+      await page.getByRole('button', { name: 'More children' }).click();
+      await page.getByRole('button', { name: 'Add date of birth' }).click();
+      await save(page).click();
+      const msg = page.getByText('Choose an age, or enter a date of birth.');
+      await be(msg).toBeVisible();
+      await be(page.getByText('Choose an age.', { exact: true })).toHaveCount(0);
+      const id = await msg.getAttribute('id');
+      expect(id).toBeTruthy();
+      for (const field of [page.getByLabel('Age'), page.getByLabel('Date of birth (optional)')]) {
+        await be(field).toHaveAttribute('aria-invalid', 'true');
+        expect((await field.getAttribute('aria-describedby'))?.split(' ')).toContain(id);
+      }
+      await be(page.getByLabel('Age')).toBeFocused();
+      expect(calls.saveTravellers).toEqual([]);
+      await shot(page, 'editor-age-or-dob-1440-light');
     } finally { await context.close(); }
   });
 
@@ -221,26 +251,44 @@ describe('Travellers editor: 2 adults, 2 children and each child\'s age', () => 
     } finally { await context.close(); }
   });
 
-  it('a revision conflict keeps the form and offers "Show the latest"; a service failure keeps the values', async () => {
-    let mode: 'conflict' | 'down' = 'conflict';
-    const { page, context } = await open({
+  it('SF3: a revision conflict keeps the form, says so above Save with focus, offers Save mine anyway (at the new revision) and Show the latest', async () => {
+    let mode: 'conflict' | 'down' | 'ok' = 'conflict';
+    const { page, context, calls } = await open({
       travellers: family(),
       revision: 3,
-      reply: { saveTravellers: () => (mode === 'conflict' ? { kind: 'conflict' } : { kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' }) },
+      reply: {
+        saveTravellers: (a) =>
+          mode === 'conflict' ? { kind: 'conflict', revision: 6 } : mode === 'down' ? { kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' } : { kind: 'saved', revision: a.revision + 1 },
+      },
     });
     try {
       await page.getByRole('button', { name: 'Edit travellers' }).click();
       await page.getByLabel('Age').first().selectOption('8');
       await save(page).click();
-      await be(page.getByText('Your travellers were changed on another device.')).toBeVisible();
+      const line = page.locator('.acct-editor .acct-conflict');
+      await be(line).toContainText('Your travellers were changed on another device.');
+      await be(line).toContainText('Show the latest: your changes here will be replaced.');
+      await be(line).toBeFocused();
       await be(page.getByLabel('Age').first()).toHaveValue('8');
+      // one primary: Save travellers became Save mine anyway; the section shows no second conflict notice
+      await be(save(page)).toHaveCount(0);
+      await be(page.locator('.btn-primary')).toHaveCount(1);
+      await be(page.locator('.acct-notice')).toHaveCount(0);
+      // the line sits above the actions, in the editor
+      const [lineBox, saveBox] = await Promise.all([line.boundingBox(), page.getByRole('button', { name: 'Save mine anyway' }).boundingBox()]);
+      expect(lineBox!.y).toBeLessThan(saveBox!.y);
       await shot(page, 'conflict-1440-light');
       await page.getByRole('button', { name: 'Show the latest' }).click();
       expect(await page.evaluate(() => (window as any).__refreshed)).toBe(1);
       mode = 'down';
-      await save(page).click();
+      await page.getByRole('button', { name: 'Save mine anyway' }).click();
       await be(page.getByText("We couldn't save. Your changes are still here; try again.")).toBeVisible();
       await be(page.getByLabel('Age').first()).toHaveValue('8');
+      mode = 'ok';
+      await page.getByRole('button', { name: 'Save mine anyway' }).click();
+      await be(page.getByText('2 adults · 2 children (8, 9)')).toBeVisible();
+      expect(calls.saveTravellers.map((c) => c.revision)).toEqual([3, 6, 6]);
+      expect(calls.saveTravellers.every((c) => c.consent === true)).toBe(true);
     } finally { await context.close(); }
   });
 
@@ -260,12 +308,12 @@ describe('Travellers section: the device seed and the notices', () => {
     const { page, context } = await open({ travellers: family() });
     try {
       await be(page.getByText('2 adults · 2 children (7, 9)')).toBeVisible();
-      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account' });
+      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
       await be(page.getByText('This browser plans for')).toHaveCount(0);
     } finally { await context.close(); }
     const same = await open({ travellers: family(), device: { v: 1, adults: 2, children: [7, 9] } });
     try {
-      await be.poll(() => party(same.page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account' });
+      await be.poll(() => party(same.page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
     } finally { await same.context.close(); }
   });
 
@@ -275,20 +323,23 @@ describe('Travellers section: the device seed and the notices', () => {
       await be(page.getByText('This browser plans for 1 adult and 1 child (4). Your saved travellers: 2 adults and 2 children (7, 9).')).toBeVisible();
       expect(await party(page)).toEqual({ v: 1, adults: 1, children: [4] });
       await shot(page, 'notice-differs-1440-light');
-      await page.getByRole('button', { name: "Save this browser's party" }).click();
+      // one notice, its actions secondary (SF2): no primary button above the data
+      await be(page.locator('.acct-notice')).toHaveCount(1);
+      await be(page.locator('.acct-notice .btn-primary')).toHaveCount(0);
+      await page.getByRole('button', { name: 'Save this party' }).click();
       await be(page.getByLabel('Age').first()).toHaveValue('4');
       expect(calls.saveTravellers).toEqual([]);
       await page.getByRole('button', { name: 'Cancel' }).click();
       await page.getByRole('button', { name: 'Use saved travellers here' }).click();
       await be(page.getByText('This browser plans for')).toHaveCount(0);
-      expect(await party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account' });
+      expect(await party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
     } finally { await context.close(); }
   });
 
   it('a party an earlier seed wrote is brought up to date (a change on another device)', async () => {
-    const { page, context } = await open({ travellers: family(), device: { v: 1, adults: 1, children: [], src: 'account' } });
+    const { page, context } = await open({ travellers: family(), device: { v: 1, adults: 1, children: [], src: 'account', by: OWNER } });
     try {
-      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account' });
+      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
       await be(page.getByText('This browser plans for')).toHaveCount(0);
     } finally { await context.close(); }
   });
@@ -311,9 +362,14 @@ describe('Travellers section: the device seed and the notices', () => {
     const { page, context, calls } = await open({ travellers: grown, revision: 1 });
     try {
       await be(page.getByText('Child 1 is now 18. Count them as an adult?')).toBeVisible();
+      // SF1: one age for one child, everywhere on the section, and what trips do until the parent chooses
+      await be(page.getByText('2 adults · 2 children (18, 9)')).toBeVisible();
+      await be(page.getByText('Trips plan for the 18-year-old as 17 until you choose below.')).toBeVisible();
       await shot(page, 'notice-grown-1440-light');
       await page.getByRole('button', { name: 'Keep as a child' }).click();
       await be(page.getByText('Child 1 is now 18.')).toHaveCount(0);
+      await be(page.getByText('2 adults · 2 children (17, 9)')).toBeVisible();
+      await be(page.getByText('Trips plan for the 18-year-old')).toHaveCount(0);
     } finally { await context.close(); }
     const again = await open({ travellers: grown, revision: 1 });
     try {
@@ -327,10 +383,13 @@ describe('Travellers section: the device seed and the notices', () => {
   it('Remove asks first, keeps the browser\'s party as its own, toasts, and Undo saves the same document back', async () => {
     const { page, context, calls } = await open({ travellers: family(), revision: 4 });
     try {
-      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account' });
+      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
       await page.getByRole('button', { name: 'More' }).click();
       await page.getByRole('menuitem', { name: 'Remove saved travellers' }).click();
       await be(page.getByText('Remove your saved travellers? This browser keeps its party until you change it.')).toBeVisible();
+      // N15: Edit and More are hidden while the question is open
+      await be(page.getByRole('button', { name: 'Edit travellers' })).toHaveCount(0);
+      await be(page.getByRole('button', { name: 'More' })).toHaveCount(0);
       await shot(page, 'remove-confirm-1440-light');
       await page.getByRole('button', { name: 'Remove', exact: true }).click();
       await be(page.getByText('Travellers removed.')).toBeVisible();
@@ -339,7 +398,8 @@ describe('Travellers section: the device seed and the notices', () => {
       expect(await party(page)).toEqual({ v: 1, adults: 2, children: [7, 9] });
       await page.getByRole('button', { name: 'Undo' }).click();
       await be(page.getByText('2 adults · 2 children (7, 9)')).toBeVisible();
-      expect(calls.saveTravellers).toEqual([{ doc: family(), revision: 5 }]);
+      // the Undo re-creates travellers from the document saved beside the AP-15 wording: it sends the consent again
+      expect(calls.saveTravellers).toEqual([{ doc: family(), revision: 5, consent: true }]);
     } finally { await context.close(); }
   });
 
@@ -364,25 +424,41 @@ describe('Setup card', () => {
       await be(page.getByRole('heading', { name: 'Who usually travels with you?' })).toBeFocused();
       expect(calls.saveName).toEqual([{ name: 'Nitin Singh' }]);
       expect(page.url()).toContain('setup=travellers');
-      await be(page.getByRole('status').filter({ hasText: 'Step 2 of 2: Who usually travels with you?' })).toHaveCount(1);
+      // N11: focus reads the heading; the live region adds only the counter
+      await be(page.locator('.acct-setup p[role="status"]')).toHaveText('Step 2 of 2');
+      // SF9: the sub-line is step 1's only
+      await be(page.getByText('Two short steps. You can change both later.')).toHaveCount(0);
     } finally { await context.close(); }
   });
 
-  it('Continue with the prefilled name saves nothing; Skip moves on; Continue is off for an invalid name', async () => {
+  it('SF7: Continue is always on; an invalid name errs on the press, not while typing; empty moves on and saves nothing; Back sits by the counter', async () => {
     const { page, context, calls } = await open({ mode: 'setup', name: 'Nitin' });
     try {
       await page.getByLabel('Your name').fill('<b>');
-      await be(page.getByRole('button', { name: 'Continue' })).toBeDisabled();
+      await be(page.getByRole('button', { name: 'Continue' })).toBeEnabled();
+      await be(page.getByText('Use letters, numbers, spaces and simple punctuation.')).toHaveCount(0);
+      await page.getByRole('button', { name: 'Continue' }).click();
       await be(page.getByText('Use letters, numbers, spaces and simple punctuation.')).toBeVisible();
+      await be(page.getByLabel('Your name')).toHaveAttribute('aria-invalid', 'true');
+      expect(calls.saveName).toEqual([]);
       await page.getByLabel('Your name').fill('Nitin');
       await page.getByRole('button', { name: 'Continue' }).click();
       await be(page.getByText('Step 2 of 2')).toBeVisible();
       expect(calls.saveName).toEqual([]);
-      await page.getByRole('button', { name: 'Back' }).click();
+      // Back is out of the action bar, beside the counter (SF9)
+      await be(page.locator('.acct-editor-actions').getByRole('button', { name: 'Back' })).toHaveCount(0);
+      await page.locator('.acct-setup-top').getByRole('button', { name: 'Back' }).click();
       await be(page.getByLabel('Your name')).toHaveValue('Nitin');
       await page.getByRole('button', { name: 'Skip', exact: true }).click();
       await be(page.getByText('Step 2 of 2')).toBeVisible();
     } finally { await context.close(); }
+    const empty = await open({ mode: 'setup', name: '' });
+    try {
+      await be(empty.page.getByRole('button', { name: 'Continue' })).toBeEnabled();
+      await empty.page.getByRole('button', { name: 'Continue' }).click();
+      await be(empty.page.getByText('Step 2 of 2')).toBeVisible();
+      expect(empty.calls.saveName).toEqual([]);
+    } finally { await empty.context.close(); }
   });
 
   it('step 2 prefills from this browser (with the line), saves with finishSetup, writes the device party and ends in "All set"', async () => {
@@ -397,14 +473,28 @@ describe('Setup card', () => {
       await page.getByLabel('Age').nth(1).selectOption('9');
       await save(page).click();
       await be(page.getByRole('heading', { name: 'All set' })).toBeFocused();
+      // SF9: the eyebrow stays "Set up your account"; the heading alone says "All set"
+      await be(page.locator('.acct-setup-top')).toContainText('Set up your account');
+      await be(page.getByText('All set', { exact: true })).toHaveCount(1);
       await be(page.getByText('Trips now plan for 2 adults and 2 children (6, 9) wherever you sign in.')).toBeVisible();
-      expect(calls.saveTravellers).toEqual([{ doc: family({ children: [{ age: 6, age_as_of: TODAY }, { age: 9, age_as_of: TODAY }] }), revision: 0, finishSetup: true }]);
-      expect(await party(page)).toEqual({ v: 1, adults: 2, children: [6, 9], src: 'account' });
+      expect(calls.saveTravellers).toEqual([{ doc: family({ children: [{ age: 6, age_as_of: TODAY }, { age: 9, age_as_of: TODAY }] }), revision: 0, finishSetup: true, consent: true }]);
+      expect(await party(page)).toEqual({ v: 1, adults: 2, children: [6, 9], src: 'account', by: OWNER });
       await shot(page, 'setup-done-1440-light');
       await be(page.getByRole('link', { name: 'Browse trips' })).toBeVisible();
       await page.getByRole('button', { name: 'Close' }).click();
       expect(await page.evaluate(() => (window as any).__refreshed)).toBe(1);
       expect(page.url()).not.toContain('setup=');
+    } finally { await context.close(); }
+  });
+
+  it('SF9: a failed Skip says so above the actions, never under the sticky bar', async () => {
+    const { page, context } = await open({ mode: 'setup', step: 'travellers', reply: { finishSetup: () => ({ kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' }) } });
+    try {
+      await page.getByRole('button', { name: 'Skip for now' }).click();
+      const ban = page.getByText("We couldn't save. Your changes are still here; try again.");
+      await be(ban).toBeVisible();
+      const [b, bar] = await Promise.all([ban.boundingBox(), page.locator('.acct-editor-actions').boundingBox()]);
+      expect(b!.y).toBeLessThan(bar!.y);
     } finally { await context.close(); }
   });
 
@@ -417,6 +507,62 @@ describe('Setup card', () => {
       expect(calls.finishSetup.length).toBe(1);
       expect(calls.saveTravellers).toEqual([]);
       expect(await party(page)).toBeNull();
+    } finally { await context.close(); }
+  });
+});
+
+describe('two accounts on one browser (review ACCT-PSEC B2)', () => {
+  const previous = { v: 1 as const, adults: 2, children: [7, 9], src: 'account' as const, by: PREVIOUS };
+
+  it('B with nothing saved: A\'s party is removed on load and "Add travellers" offers nothing from it', async () => {
+    const { page, context } = await open({ travellers: null, device: previous });
+    try {
+      await be(page.getByText('No travellers saved.')).toBeVisible();
+      await be.poll(() => party(page)).toBeNull();
+      await page.getByRole('button', { name: 'Add travellers' }).click();
+      await be(page.getByRole('group', { name: 'Who usually travels with you?' })).toBeVisible();
+      await be(page.getByText('Filled in from this browser')).toHaveCount(0);
+      await be(page.getByLabel('Age')).toHaveCount(0);
+    } finally { await context.close(); }
+  });
+
+  it('B with saved travellers: A\'s party is replaced with B\'s, and no "differs" notice offers A\'s ages', async () => {
+    const { page, context } = await open({ travellers: family({ adults: 1, children: [] }), device: previous });
+    try {
+      await be.poll(() => party(page)).toEqual({ v: 1, adults: 1, children: [], src: 'account', by: OWNER });
+      await be(page.getByText('This browser plans for')).toHaveCount(0);
+      await be(page.getByText('7, 9')).toHaveCount(0);
+    } finally { await context.close(); }
+  });
+
+  it('setup step 2 never prefills A\'s party for B, and removes it', async () => {
+    const { page, context } = await open({ mode: 'setup', step: 'travellers', device: previous });
+    try {
+      await be(page.getByRole('heading', { name: 'Who usually travels with you?' })).toBeVisible();
+      await be(page.getByText('Filled in from this browser')).toHaveCount(0);
+      await be.poll(() => party(page)).toBeNull();
+    } finally { await context.close(); }
+  });
+
+  it('a save answered 401 (session expired or revoked) removes the account\'s party before leaving, not only Sign out', async () => {
+    const { page, context } = await open({ travellers: family(), reply: { saveTravellers: () => ({ kind: 'rejected', reason: 'UNAUTHENTICATED' }) } });
+    try {
+      await be.poll(() => party(page)).toEqual({ v: 1, adults: 2, children: [7, 9], src: 'account', by: OWNER });
+      await page.getByRole('button', { name: 'Edit travellers' }).click();
+      await save(page).click();
+      await page.waitForURL('http://account.test/');
+      expect(await party(page)).toBeNull();
+    } finally { await context.close(); }
+  });
+
+  it('a 401 keeps a party this browser chose itself', async () => {
+    const { page, context } = await open({ travellers: family(), device: { v: 1, adults: 1, children: [4] }, reply: { saveTravellers: () => ({ kind: 'rejected', reason: 'UNAUTHENTICATED' }) } });
+    try {
+      await be(page.getByText('This browser plans for')).toBeVisible();
+      await page.getByRole('button', { name: 'Edit travellers' }).click();
+      await save(page).click();
+      await page.waitForURL('http://account.test/');
+      expect(await party(page)).toEqual({ v: 1, adults: 1, children: [4] });
     } finally { await context.close(); }
   });
 });
@@ -472,6 +618,9 @@ for (const width of [320, 390, 1440]) {
         const all = await open({ travellers: old, revision: 2, device: { v: 1, adults: 1, children: [4] }, width, theme });
         try {
           await be(all.page.getByText('This browser plans for')).toBeVisible();
+          // SF2: one notice at a time (differs first; the grown-up one waits), and no primary button in it
+          await be(all.page.locator('.acct-notice')).toHaveCount(1);
+          await be(all.page.locator('.acct-notice .btn-primary')).toHaveCount(0);
           await shot(all.page, `settled-notices-${tag}`);
           await axe(all.page, 'settled notices');
           if (width < 640) expect(await small(all.page)).toEqual([]);

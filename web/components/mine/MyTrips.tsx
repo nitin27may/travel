@@ -19,6 +19,8 @@ import type { Listing } from '@/lib/mine/listing';
 import type { CopyItem, StorageLike } from '@travel/core/schema/copies.ts';
 import { formatDate } from '@/lib/export/dates';
 import type { AccountSync, SyncSnapshot } from '@/lib/mine/sync';
+import { chipsBare, retryAnnouncement } from '@/lib/mine/chips';
+import type { RowChip } from '@/lib/mine/chips';
 import { CopyRow } from './CopyRow';
 import './my-trips.css';
 
@@ -77,6 +79,26 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
     return { upcoming: g.upcoming.map(name), past: g.past.map(name) };
   }, [items, today, listing]);
   const flat = useMemo(() => [...groups.upcoming, ...(pastOpen ? groups.past : [])], [groups, pastOpen]);
+
+  // each row's sync state; with one state on every row that the card line already says, no row draws a chip (SF10)
+  const stateOf = useCallback(
+    (id: string): RowChip => (acct ? (acct.deviceIds.has(id) ? 'device' : (acct.snap.rows[id]?.state ?? 'quiet')) : 'quiet'),
+    [acct],
+  );
+  const bare = useMemo(() => (acct ? chipsBare(items.map((i) => stateOf(i.id))) : false), [acct, items, stateOf]);
+
+  // a row that becomes "Not synced" is said once, by name, in this list's polite region (SF11); syncing and the way back say nothing
+  const [rowSaid, setRowSaid] = useState('');
+  const seenStates = useRef<Map<string, RowChip> | null>(null);
+  useEffect(() => {
+    if (!acct) return;
+    const now = new Map(items.map((i) => [i.id, stateOf(i.id)] as const));
+    const before = seenStates.current;
+    seenStates.current = now;
+    if (!before) return;
+    const turned = groups.upcoming.concat(groups.past).filter((r) => now.get(r.item.id) === 'retry' && before.get(r.item.id) !== 'retry');
+    if (turned.length) setRowSaid(turned.map((r) => retryAnnouncement(r.title)).join(' '));
+  }, [acct, items, stateOf, groups]);
 
   // M5: one toast when the sign-in merge moved trips into the account; nothing when nothing moved
   const added = acct?.snap.merge?.added ?? 0;
@@ -197,7 +219,8 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
     ...(acct
       ? {
           sync: {
-            state: acct.deviceIds.has(r.item.id) ? ('device' as const) : (acct.snap.rows[r.item.id]?.state ?? ('quiet' as const)),
+            state: stateOf(r.item.id),
+            bare,
             // focus moves to the row's link as the chip goes (the button is replaced); if the rounds fail again it goes back to Retry
             onRetry: () => {
               focusNext.current = { id: r.item.id };
@@ -264,6 +287,11 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
 
   return (
     <div ref={root} className="mytrips">
+      {acct ? (
+        <div className="sr-only" aria-live="polite">
+          {rowSaid}
+        </div>
+      ) : null}
       {notices}
       {didNotFit > 0 ? <DidNotFit n={didNotFit} /> : null}
       {groups.upcoming.length ? (

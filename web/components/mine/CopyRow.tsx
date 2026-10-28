@@ -17,7 +17,7 @@ export interface CopyRowActions {
   onRemove: (r: RowModel) => void;
 }
 
-interface Props extends CopyRowActions {
+interface Props extends Partial<CopyRowActions> {
   row: RowModel;
   /** The trip is no longer listed: not a link, the menu becomes a Remove button (spec 5.2). */
   unlisted?: boolean;
@@ -29,6 +29,13 @@ interface Props extends CopyRowActions {
   chip?: boolean;
   /** The `accountTrips` flag on and signed in (edit-my-trip 4.7): the chip follows the sync state. Replaces `chip`. */
   sync?: RowSync;
+  /**
+   * The row is a link only (the Account page's My trips, review ACCT-PR MF1): no menu and no Remove, managing stays in Mine, one set of
+   * actions. The actions are not needed then.
+   */
+  linkOnly?: boolean;
+  /** A muted fourth line ("Changed 24 Oct"). */
+  note?: string;
 }
 
 /** The three dots of the row menu (18 px, drawn here: Icon.tsx has no such glyph and is in every page's start chunk). */
@@ -43,23 +50,23 @@ function MoreGlyph() {
 }
 
 /** One My trips row (mine-and-bar-spec 5.2): photo, name, date and countdown, length and party, and the menu at the right of line 1. */
-export function CopyRow({ row, unlisted, collapsing, restored, chip, sync, onCalendar, onPrint, onChangeDates, onRemove }: Props) {
+export function CopyRow({ row, unlisted, collapsing, restored, chip, sync, linkOnly, note, onCalendar, onPrint, onChangeDates, onRemove }: Props) {
   const { item, title } = row;
   const entries: MenuEntry[] = [
     { label: 'Open', icon: 'arrow', href: row.href },
-    { label: 'Add to calendar', icon: 'calendar', onSelect: () => onCalendar(row) },
-    { label: 'Print', icon: 'print', onSelect: () => onPrint(row) },
-    { label: 'Change dates', icon: 'pencil', onSelect: () => onChangeDates(row) },
-    { label: 'Remove', icon: 'close', destructive: true, separatorBefore: true, onSelect: () => onRemove(row) },
+    { label: 'Add to calendar', icon: 'calendar', onSelect: () => onCalendar?.(row) },
+    { label: 'Print', icon: 'print', onSelect: () => onPrint?.(row) },
+    { label: 'Change dates', icon: 'pencil', onSelect: () => onChangeDates?.(row) },
+    { label: 'Remove', icon: 'close', destructive: true, separatorBefore: true, onSelect: () => onRemove?.(row) },
   ];
   // the copy's own snapshot photo first; a copy made before photos were kept asks the trip's small card file as the row nears the screen
-  const syncWords = sync ? CHIP_WORDS[sync.state] : null;
+  const syncWords = sync && !sync.bare ? CHIP_WORDS[sync.state] : null;
   // a Retry chip is a button, so it sits beside the link, not inside it
-  const inLink = sync ? (syncWords !== null && sync.state !== 'retry') : !!chip;
+  const inLink = (sync ? syncWords !== null && sync.state !== 'retry' : !!chip) || !!note;
   const retry = sync?.state === 'retry';
   const photo = <MineThumb space="trip" slug={item.slug} known={item.photo} off={unlisted} icon={unlisted ? 'warn' : 'route'} area="photo" />;
   return (
-    <li className="crow" data-copy-id={item.id} data-collapsing={collapsing || undefined} data-restored={restored || undefined}>
+    <li className="crow" data-copy-id={item.id} data-collapsing={collapsing || undefined} data-restored={restored || undefined} data-link-only={linkOnly || undefined}>
       <div className="crow-inner">
         {unlisted ? (
           <div className="crow-link" role="group" aria-label={`${title}, no longer listed`}>
@@ -76,7 +83,7 @@ export function CopyRow({ row, unlisted, collapsing, restored, chip, sync, onCal
             data-chip={inLink || undefined}
             data-retry={retry || undefined}
             href={row.href}
-            aria-label={`${title}, from ${row.when.replace(' · ', ', ')}${row.who ? `, ${row.who.replace(' · ', ', ')}` : ''}${sync ? CHIP_NAME[sync.state] : chip ? ', on this device' : ''}`}
+            aria-label={`${title}, from ${row.when.replace(' · ', ', ')}${row.who ? `, ${row.who.replace(' · ', ', ')}` : ''}${sync ? CHIP_NAME[sync.state] : chip ? ', on this device' : ''}${note ? `, ${note}` : ''}`}
           >
             {photo}
             <span className="crow-name">{title}</span>
@@ -91,6 +98,8 @@ export function CopyRow({ row, unlisted, collapsing, restored, chip, sync, onCal
               ) : null
             ) : chip ? (
               <span className="chip crow-chip" aria-hidden="true">On this device</span>
+            ) : note ? (
+              <span className="crow-note">{note}</span>
             ) : null}
           </Link>
         )}
@@ -102,15 +111,17 @@ export function CopyRow({ row, unlisted, collapsing, restored, chip, sync, onCal
             </span>
           </button>
         ) : null}
-        <div className="crow-act">
-          {unlisted ? (
-            <Button size="sm" aria-label={`Remove ${title}`} onClick={() => onRemove(row)}>
-              Remove
-            </Button>
-          ) : (
-            <Menu align="end" triggerClassName="crow-menu-btn" triggerLabel={`Actions for ${title}`} trigger={<MoreGlyph />} entries={entries} />
-          )}
-        </div>
+        {linkOnly ? null : (
+          <div className="crow-act">
+            {unlisted ? (
+              <Button size="sm" aria-label={`Remove ${title}`} onClick={() => onRemove?.(row)}>
+                Remove
+              </Button>
+            ) : (
+              <Menu align="end" triggerClassName="crow-menu-btn" triggerLabel={`Actions for ${title}`} trigger={<MoreGlyph />} entries={entries} />
+            )}
+          </div>
+        )}
       </div>
     </li>
   );

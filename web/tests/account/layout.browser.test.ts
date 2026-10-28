@@ -15,8 +15,16 @@ vi.mock('@/lib/capabilities', () => ({ capabilities: { signIn: true } }));
 vi.mock('@/lib/auth/server', () => ({
   getUser: async () => ({ id: 'layout-user', email: 'account-layout-regression@travel-e2e.invalid' }),
 }));
-vi.mock('@/lib/server/drafts', () => ({ readDrafts: vi.fn() }));
-vi.mock('@travel/core/db/profile.ts', () => ({ loadProfile: async () => ({ exists: false, travellers: null, travellersInvalid: false, travellersSavedAt: null, travellersConsentedAt: null, setupDoneAt: null, revision: 0 }) }));
+// The page's states come from the profile row (the title-only drafts are no longer read: review ACCT-PR MF1)
+const profile = vi.hoisted(() => ({ state: 'setup' as 'setup' | 'settled' | 'failed' }));
+vi.mock('@travel/core/db/profile.ts', () => ({
+  loadProfile: async () => {
+    if (profile.state === 'failed') throw new Error('Layout fixture: service unavailable');
+    const today = new Date().toISOString().slice(0, 10);
+    const travellers = profile.state === 'settled' ? { schema: 'travellers/1', adults: 2, children: [{ age: 7, age_as_of: today }, { age: 9, age_as_of: today }] } : null;
+    return { exists: true, travellers, travellersInvalid: false, travellersSavedAt: null, travellersConsentedAt: null, setupDoneAt: profile.state === 'setup' ? null : '2026-10-20T00:00:00.000Z', revision: travellers ? 1 : 0 };
+  },
+}));
 // GSI-2: a returning sign-in (no notice); the stop has its own layout test, landing.browser.test.ts.
 vi.mock('@/lib/auth/landing-server', () => ({ accountLanding: async () => 'returning' }));
 // GSI-WAYS: the rows of "Ways to sign in" (an email-code account with Google added); its own tests are ways*.test.ts.
@@ -27,7 +35,6 @@ vi.mock('@/lib/auth/ways-server', async () => {
 vi.mock('@/app/account/actions', () => ({ createDraft: vi.fn(), renameDraft: vi.fn(), deleteDraft: vi.fn(), saveName: vi.fn() }));
 
 import AccountPage from '@/app/account/page';
-import { readDrafts } from '@/lib/server/drafts';
 import { SiteHeader } from '@/components/shell/SiteHeader';
 import { SiteFooter } from '@/components/shell/SiteFooter';
 import { BottomBar } from '@/components/shell/BottomBar';
@@ -36,12 +43,6 @@ const web = new URL('../../', import.meta.url);
 const styles = ['app/globals.css', 'app/themes.css', 'components/ui/ui.css', 'app/app.css', 'app/account.css']
   .map((file) => readFileSync(new URL(file, web), 'utf8').replace("@import 'tailwindcss';", ''))
   .join('\n');
-const row = {
-  id: 'layout-draft',
-  title: 'Patagonia · flight and El Chaltén lodging',
-  created_at: new Date('2026-10-24T12:00:00Z'),
-  updated_at: new Date('2026-10-24T12:00:00Z'),
-};
 let browser: Browser;
 let themeServer: Awaited<ReturnType<typeof createViteServer>>;
 let themeUrl: string;
@@ -87,12 +88,9 @@ afterAll(async () => {
 for (const viewport of [{ width: 320, height: 640 }, { width: 390, height: 844 }, { width: 1440, height: 900 }]) {
   for (const theme of ['light', 'dark']) {
     describe(`account layout ${viewport.width} ${theme}`, () => {
-      for (const state of ['empty', 'loaded', 'many', 'degraded'] as const) {
+      for (const state of ['setup', 'settled', 'failed'] as const) {
         it(`${state}: no horizontal overflow and sign-out remains reachable`, async () => {
-          const load = vi.mocked(readDrafts);
-          load.mockReset();
-          if (state === 'degraded') load.mockRejectedValue(new Error('Layout fixture: service unavailable'));
-          else load.mockResolvedValue(state === 'many' ? Array.from({ length: 7 }, (_, i) => ({ ...row, id: `layout-draft-${i}`, title: `${row.title} ${i + 1}`, updated_at: new Date(Date.parse('2026-10-24T12:00:00Z') - i * 3_600_000) })) : state === 'loaded' ? [row] : []);
+          profile.state = state;
 
           // Resolve the request-time server child of Suspense, then SSR its real client components.
           // This tests AccountBody's markup too, rather than maintaining a duplicate header fixture.
@@ -137,8 +135,9 @@ for (const viewport of [{ width: 320, height: 640 }, { width: 390, height: 844 }
               expect(await page.evaluate(() => localStorage.getItem('travel:v1:theme'))).toBe('dark');
             }
             await page.evaluate(() => document.fonts.ready);
-            const marker = state === 'empty' ? 'No saved trips yet.' : state === 'loaded' ? row.title : state === 'many' ? '2 more' : "We couldn't load your saved trips.";
+            const marker = state === 'setup' ? 'What should we call you?' : state === 'settled' ? '2 adults · 2 children (7, 9)' : "We couldn't load your travellers.";
             await browserExpect(page.getByText(marker, { exact: true })).toBeVisible();
+            await browserExpect(page.getByText('No trips in your account yet.', { exact: true })).toBeVisible();
             expect(await page.evaluate(() => ({
               document: document.documentElement.scrollWidth - document.documentElement.clientWidth,
               body: document.body.scrollWidth - document.body.clientWidth,
@@ -177,11 +176,16 @@ for (const viewport of [{ width: 320, height: 640 }, { width: 390, height: 844 }
             await signOut.click({ trial: true }); // Hit testing without signing out: service behavior stays in neon-e2e.
             await signOut.focus();
             await browserExpect(signOut).toBeFocused();
+            // SF4: the whole address shows, wrapped where it must, never cut with an ellipsis
             const email = await page.locator('.account-identity').evaluate((el) => ({
               clipped: el.scrollWidth > el.clientWidth,
               ellipsis: getComputedStyle(el).textOverflow,
+              wraps: getComputedStyle(el).whiteSpace,
+              lines: Math.round(el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight)),
             }));
-            expect(email).toEqual({ clipped: viewport.width < 640, ellipsis: 'ellipsis' });
+            expect(email).toMatchObject({ clipped: false, wraps: 'normal' });
+            expect(email.ellipsis).not.toBe('ellipsis');
+            if (viewport.width === 1440) expect(email.lines).toBe(1);
             const shots = new URL('test-results/shots/account-overflow/', web);
             mkdirSync(shots, { recursive: true });
             await page.screenshot({

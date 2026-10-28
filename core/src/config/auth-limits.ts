@@ -225,3 +225,18 @@ export const PLANS_LIMITS = {
     ],
   },
 } as const satisfies Record<string, { bucket: string; windows: readonly Window[] }>;
+
+// ----- Account profile and travellers (ACCT-F2; review ACCT-PSEC S6) ---------------------------------------------------------------------
+
+/**
+ * The travellers writes and the party read (docs/v2/features/account-profile-and-travellers.md 6.6; review ACCT-PSEC S6). Each call
+ * opens a database transaction and a fresh session read at Neon, so a signed-in script looping them is bounded here. Keyed on the HMAC
+ * of the verified session's user id (`userHash`, web/lib/account/profile-quota.ts), never on an IP and never on the id itself. Fails
+ * closed in production when the quota store or AUTH_QUOTA_SECRET is missing. A separate block: nothing in the sign-in guard reads it.
+ * - `write`: Save travellers, Remove saved travellers (and its Undo), finishing or skipping setup: 60 a minute per user.
+ * - `read`: `POST /api/account/profile/party/` (the sign-in card and every Mine load): 30 a minute per user.
+ */
+export const PROFILE_LIMITS = {
+  write: { bucket: "account:profile_write", windows: [{ windowS: MINUTE, limit: 60 }] },
+  read: { bucket: "account:profile_read", windows: [{ windowS: MINUTE, limit: 30 }] },
+} as const satisfies Record<string, { bucket: string; windows: readonly Window[] }>;
