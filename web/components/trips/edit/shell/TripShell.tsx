@@ -15,6 +15,8 @@ import type { TripPageModel } from '@/components/trips/model';
 import { lengthLabel } from '@/components/trips/format';
 import { useToast } from '@/components/ui/Toast';
 import { formatDate } from '@/lib/export/dates';
+import { getOwn, publishOwn } from '@/lib/export/ownState';
+import { getTimeline } from '@/lib/export/timelineState';
 import { mineStorage } from '@/lib/mine/storage';
 import { partyText } from '@travel/core/trips/partyWords.ts';
 import { placedBuild } from '@/lib/trip-edit/built';
@@ -136,6 +138,32 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
     };
   }, [lacking]);
 
+  // the export, the print and the Stops tab read the person's trip from here (STEP2-E6); the builder is its own chunk, fetched once the page is up
+  useEffect(() => () => publishOwn(null), []);
+  useEffect(() => {
+    if (!doc || !slug || !timelineModel) return;
+    let live = true;
+    void import('@/lib/export/own').then((o) => {
+      if (!live) return;
+      const ourTitle = plan?.ours?.name ?? words(slug);
+      const profile = profileOfDraft(doc, { ...timelineModel.defaultProfile, adults: 2 });
+      publishOwn(
+        o.ownTripOf({
+          doc,
+          slug,
+          title: doc.title ?? copyTitle ?? ourTitle,
+          ourTitle,
+          party: doc.travellers ?? { adults: profile.adults, children: profile.youngest === null ? [] : [profile.youngest] },
+          days: timelineModel.days,
+          addables: (k) => timelineModel.addables[k],
+        }),
+      );
+    });
+    return () => {
+      live = false;
+    };
+  }, [doc, slug, timelineModel, plan, copyTitle]);
+
   if (state.status === 'loading') return <TripSkeleton />;
   if (state.status === 'newer') return <><h1 className="sr-only">Your trip</h1><Newer /></>;
   if (state.status === 'missing' || !doc) return <><h1 className="sr-only">Your trip</h1><NotFound /></>;
@@ -168,10 +196,14 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
     try {
       const c = await import('@/lib/export/client');
       const d = await c.loadExport('trip', slug);
-      const out = c.downloadIcs(d as Parameters<typeof c.downloadIcs>[0], doc.start);
+      // the person's calendar is made from the timelines on the page (their removals, additions and notes), not from the published plan
+      const mine = getOwn(slug);
+      const sess = getTimeline(slug);
+      const o = mine && sess ? await import('@/lib/export/own') : null;
+      const out = o && mine && sess ? o.downloadOwnIcs(d, sess, mine) : c.downloadIcs(d as Parameters<typeof c.downloadIcs>[0], doc.start);
       toast({ message: `Downloaded ${out.name} · ${out.summary}` });
     } catch (e) {
-      toast({ message: (e as Error)?.name === 'NoCalendarError' ? 'This trip has no day plan to put in a calendar.' : 'Could not build that file. Try again.' });
+      toast({ message: (e as Error)?.name === 'NoCalendarError' || (e as Error)?.constructor?.name === 'NoCalendarError' ? 'This trip has no day plan to put in a calendar.' : 'Could not build that file. Try again.' });
     }
   };
 
@@ -234,7 +266,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   };
 
   const layer = {
-    id, doc, save, title, ours: slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null,
+    id, slug: slug ?? id, doc, save, title, ours: slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null,
     model: (timelineModel ?? model.timeline) as unknown as TimelineModel, register, bookings: bookingRows, defaults, profile, start: doc.start ?? null, where: state.where, word: state.word, retry: state.retry, onSettings: openSettings,
   };
   return (

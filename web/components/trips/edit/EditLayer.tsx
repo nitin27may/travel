@@ -43,6 +43,8 @@ const AddPicker = lazy(() => import('./add/AddPicker').then((m) => ({ default: m
 
 export interface LayerProps {
   id: string;
+  /** the public trip's slug (the id for a built trip): Print asks the export menu under it */
+  slug: string;
   doc: PlanDraft;
   save: (ops: readonly PlanOp[]) => SaveResult;
   title: string;
@@ -304,7 +306,7 @@ export function EditLayer(p: LayerProps) {
       ),
       commit: (ops, label) => commit(ops, label),
       checks: copy ? <SummaryChecks /> : null,
-      cover: <TripMenu id={p.id} title={p.title} where={p.where} copy={copy} changes={changes} canUndo={s.canUndo} canRedo={s.canRedo} onUndo={undo} onRedo={redo} onReset={resetAll} />,
+      cover: <TripMenu id={p.id} slug={p.slug} title={p.title} where={p.where} copy={copy} changes={changes} canUndo={s.canUndo} canRedo={s.canRedo} onUndo={undo} onRedo={redo} onReset={resetAll} />,
     };
   }, [canEdit, openPicker, doc, model, p.defaults, p.profile, p.start, p.bookings, dayAct, addedFor, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, commit, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
   useEffect(() => {

@@ -1,0 +1,10 @@
+/* The Stops tab on your own trip while editing (STEP2-E6; gap H9). Tokens only (tests/no-hex.test.ts). The row's `⋯` is the Days tab's own button. */
+.cat-row[data-edit] { grid-template-columns: 26px minmax(0, 1fr) auto var(--touch-min); gap: var(--s-2) var(--s-3); padding-right: var(--s-1); }
+.cat-trail { display: grid; place-items: center; }
+@media (max-width: 639px) {
+  .cat-row[data-edit] { grid-template-columns: 26px minmax(0, 1fr) var(--touch-min); }
+  .cat-row[data-edit] .cat-main { grid-column: 2; }
+  .cat-row[data-edit] .cat-when { grid-column: 2; grid-row: 2; }
+  .cat-row[data-edit] .cat-trail { grid-column: 3; grid-row: 1 / span 2; align-self: start; }
+}
+@media print { .cat-trail { display: none; } }

@@ -10,9 +10,12 @@ import { mineStorage } from '@/lib/mine/storage';
 import type { Where } from '@/lib/trip-edit/open';
 import { ActionPanel } from './ActionPanel';
 import { ResetConfirm } from './ResetConfirm';
+import { printTrip } from '@/lib/export/printRequest';
 
 interface Props {
   id: string;
+  /** the public trip's slug, which the export menu prints under */
+  slug: string;
   title: string;
   where: Where;
   copy: boolean;
@@ -25,7 +28,7 @@ interface Props {
 }
 
 /** The cover's `⋯` on your own trip (components 8.7 trip rows): Undo, Redo, Reset to our plan (copies), Print, then Remove from My trips last. */
-export function TripMenu({ id, title, where, copy, changes, canUndo, canRedo, onUndo, onRedo, onReset }: Props) {
+export function TripMenu({ id, slug, title, where, copy, changes, canUndo, canRedo, onUndo, onRedo, onReset }: Props) {
   const [open, setOpen] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const { toast } = useToast();
@@ -64,7 +67,7 @@ export function TripMenu({ id, title, where, copy, changes, canUndo, canRedo, on
               <Icon name="swap" size={16} /> <span>Reset to our plan</span>
             </button>
           ) : null}
-          <button type="button" role="menuitem" className="edit-row" onClick={act(() => window.print())}>
+          <button type="button" role="menuitem" className="edit-row" onClick={act(() => printTrip(slug))}>
             <Icon name="print" size={16} /> <span>Print</span>
           </button>
           {where === 'device' ? (

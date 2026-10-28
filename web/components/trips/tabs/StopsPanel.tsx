@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef } from 'react';
 import { Chip } from '@/components/ui/Chip';
 import type { Category } from '@/lib/public/types';
 import { CategoryStrip } from '../CategoryStrip';
+import { useOwnStops } from '../edit/stops/useOwnStops';
+import '../edit/stops/stops.css';
 import { CategoryView } from '../CategoryView';
 import { DEPTH_NOTICE } from '../format';
 import type { CategorySectionModel } from '../model';
@@ -29,7 +31,10 @@ interface Props {
  * chunk, with the category scroll spy: nothing of it is in the trip page's start JS (D12). A category fragment (`#trails`) scrolls to its
  * section once this panel is on screen; an empty category goes to the strip.
  */
-export function StopsPanel({ sections, active, condensed, url, onMap, mapOpen, focusRef }: Props) {
+export function StopsPanel({ sections: published, active, condensed, url, onMap, mapOpen, focusRef }: Props) {
+  // the person's own trip lays its removals, additions and moves over the rows, and adds the row actions while editing (STEP2-E6); null on a published trip
+  const mine = useOwnStops(published);
+  const sections = mine?.sections ?? published;
   const own = useRef<string | null>(null);
   const spy = useScrollSpy<Category>({
     enabled: active,
@@ -91,7 +96,7 @@ export function StopsPanel({ sections, active, condensed, url, onMap, mapOpen, f
       {sections.filter((s) => s.count === 0).map((s) => (
         <span key={s.id} id={s.id} className="anchor-top" />
       ))}
-      <CategoryView sections={sections} />
+      <CategoryView sections={sections} action={mine?.action} />
     </>
   );
 }

@@ -31,6 +31,8 @@ export const publishTimeline = (s: TimelineSession | null): void => {
   listeners.forEach((l) => l());
 };
 export const getTimeline = (slug: string): TimelineSession | null => (current && current.slug === slug ? current : null);
+/** The session on the page, whatever trip it is for (the Stops tab sits inside the page it reads). */
+export const peekTimeline = (): TimelineSession | null => current;
 export const subscribeTimeline = (l: () => void): (() => void) => {
   listeners.add(l);
   return () => listeners.delete(l);

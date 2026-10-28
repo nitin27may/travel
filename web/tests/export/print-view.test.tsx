@@ -121,15 +121,16 @@ describe('the print says what the page says (review B2)', () => {
     expect(sec).not.toMatch(/Drive on to/);
     expect((sec.match(/Venice Marco Polo Airport/g) ?? []).length).toBeLessThanOrEqual(2);
   });
-  it('MUST-6: the Book ahead section follows the meta line and lists each booking by its dateless rule; a stop shows its own', () => {
+  it('MUST-6: the Book ahead section follows the days (Q305) and lists each booking by its dateless rule; a stop shows its own', () => {
     // Dolomites carries dateless rules ("Opens 30 days before Day 3"); the Rockies rows are notes only until BACKLOG 15.223b
     const rm = model;
     expect(rm.bookings.some((b) => b.rule)).toBe(true);
     const withStop = { ...rm, stops: rm.stops.map((s, i) => (i === 0 ? { ...s, bookAhead: 'Opens 30 days before Day 1' } : s)) };
     const html = renderToStaticMarkup(TripPrintView({ data: withStop }));
     const at = html.indexOf('Book ahead</h2>');
-    expect(at).toBeGreaterThan(html.indexOf('</p>'));
-    expect(at).toBeLessThan(html.indexOf('Day 1:'));
+    // Q305 (STEP2-E6): the Bookings come after the days, one print model for the published and the own trip
+    expect(at).toBeGreaterThan(html.lastIndexOf('print-model-day'));
+    expect(at).toBeLessThan(html.indexOf('print-model-source'));
     const book = html.slice(at, html.indexOf('</section>', at));
     for (const b of rm.bookings) expect(book).toContain(b.name.replace(/&/g, '&amp;').replace(/'/g, '&#x27;'));
     expect(book).toMatch(/Opens \d+ days? (before Day \d+|ahead)/);
