@@ -313,6 +313,8 @@ never a code list of its own.
 | **Check** | `W_DRIVE_LIMIT`, `W_DAYLIGHT`, `W_PACE`, `W_CEILING`, `W_EARLY`, `W_OVERLAP`, `W_FIT` when **our advice** fails | on the day header, collapsed to one line "3 to check · Show" when there are several | `--warn` text on `--warn-soft` |
 | hidden | `W_ORDER`, `W_LEG_MISSING`, `W_LEG_DRIFT`, `W_NO_COORDS`, `W_TZ_MISSING` (author data checks) | never to visitors; `W_FIT_UNKNOWN` shows as the gap chip "Not checked yet", not a warning | |
 
+**Built (STEP2-E5):** a Fix warning's one fix is Move to the nearest day that takes the stop with no new warning, else Remove (`W_HOURS`, `W_BOOKING_DAY` move; `W_FIT` rule and `W_DEADLINE` remove); `W_NO_ROUTE` and the builder's codes are levelled but not offered yet. The scheduler's `W_FIT` carries no basis field, so the UI reads it from the sentence ("has a minimum age of" is the rule).
+
 Estimates (≈) are never a warning. Every warning has one fix button: "Move Seceda to a lighter day", "Swap or remove Tre
 Cime", "Check availability", "Start 30 min earlier" (built). No dismiss in v1 (a dismiss needs a stored acknowledgement).
 

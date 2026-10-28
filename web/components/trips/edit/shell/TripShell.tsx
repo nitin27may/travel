@@ -191,7 +191,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   };
 
   const slots = {
-    summaryTop: <SummaryOwn start={doc.start ?? null} end={end} days={days} adults={party.adults} kids={party.children} pace={profile.pace} changes={changes} onShow={edit.showChanges} ours={slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null} />,
+    summaryTop: <><SummaryOwn start={doc.start ?? null} end={end} days={days} adults={party.adults} kids={party.children} pace={profile.pace} changes={changes} onShow={edit.showChanges} ours={slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null} />{edit.checks}</>,
     summaryBottom: null,
     bookings: book.length ? <BookingsPanel bookings={book} /> : null,
     photos: photos ? <PhotosPanel photos={model.gallery} rows={model.sections.flatMap((s) => s.rows).map((r) => ({ name: r.name, placeSlug: r.placeSlug, days: r.days }))} /> : null,

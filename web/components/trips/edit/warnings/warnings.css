@@ -1,0 +1,40 @@
+/* Warnings in two levels (STEP2-E5; edit-mode-spec 11.1, patterns 3.13). Tokens only (tests/no-hex.test.ts). Loaded with the edit chunk.
+   Fix: --crit text with the triangle, never a fill. Check: --warn text on --warn-soft. The words "To fix" and "To check" say the level too. */
+
+.wns { display: grid; gap: var(--s-2); }
+.wn { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-3); margin: 0; font: var(--t-small); overflow-wrap: anywhere; }
+.wn-text { display: flex; align-items: flex-start; gap: var(--s-2); flex: 1 1 18rem; min-width: 0; margin: 0; }
+.wn-text > svg { flex: none; margin-top: 3px; }
+.wn b { font-weight: 600; }
+.wn[data-level='fix'] { color: var(--crit); }
+.wn[data-level='check'] { padding: var(--s-2) var(--s-3); border-radius: var(--r-2); background: var(--warn-soft); color: var(--warn); }
+.wn[data-level='check'] .wn-text { flex-basis: 100%; }
+.wn-fix { flex: none; max-width: 100%; height: auto; min-height: 36px; padding-top: var(--s-1); padding-bottom: var(--s-1); text-align: left; }
+.wn-fix .btn-label { white-space: normal; overflow-wrap: anywhere; }
+.wn-show { min-height: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; font-weight: 600; text-decoration: underline; cursor: pointer; }
+.wn-show:focus-visible, .wn-count:focus-visible { outline: var(--focus-ring); outline-offset: 2px; border-radius: var(--r-2); }
+.wn-list { margin: 0; padding: 0 0 0 calc(14px + var(--s-2)); display: grid; gap: var(--s-1); flex-basis: 100%; list-style: none; }
+@media (max-width: 639px) {
+  .wn-fix { width: 100%; min-height: var(--touch-min); justify-content: flex-start; }
+  .wn-show { min-height: var(--touch-min); padding: 0 var(--s-1); }
+}
+
+/* the count in the sticky row: a button that jumps to the first Fix warning */
+.wn-count { display: inline-flex; align-items: center; gap: var(--s-1); min-height: var(--touch-min); padding: 0 var(--s-2); border: 0; border-radius: var(--r-2); background: none; color: var(--crit); font: var(--t-meta); font-weight: 600; white-space: nowrap; cursor: pointer; }
+.wn-count:hover { background: var(--crit-soft); }
+.wn-count-day { font-weight: 400; }
+.edit-tools .wn-count { margin-right: var(--s-2); }
+/* a phone: the tools group is off, so the count takes its own line under the day rail, never inside the tab row or over the tabs (review M5) */
+@media (max-width: 639px) {
+  .tl-planbar .tl-planbar-tools { display: block; flex: 1 0 100%; margin: 0; }
+  .tl-planbar .tl-planbar-tools .edit-tools > :not(.wn-count) { display: none; }
+  .tl-planbar .tl-planbar-tools .edit-tools:not(:has(.wn-count)) { display: none; }
+  .tl-planbar .tl-planbar-tools .edit-tools .wn-count { margin: 0; }
+  .tl-planbar:has(.own-id) .tl-planbar-tools { grid-column: 1 / -1; grid-row: 3; }
+}
+
+/* the Summary's Checks line */
+.wn-sum { display: grid; gap: var(--s-2); }
+.wn-sum-line { margin: 0; font: var(--t-row); color: var(--ink); }
+.wn-sum-fix { color: var(--crit); text-decoration: underline; display: inline-flex; align-items: center; gap: var(--s-1); }
+.wn-sum-check b { font-weight: 600; }

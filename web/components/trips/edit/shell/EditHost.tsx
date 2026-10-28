@@ -16,6 +16,8 @@ export interface Published {
   tools: ReactNode;
   /** the cover's `⋯` trip menu */
   cover: ReactNode;
+  /** the Summary's Checks line (copies; STEP2-E5) */
+  checks?: ReactNode;
   /** the session's way to change the trip as one undo step with a toast (the Settings sheet uses it while editing) */
   commit: (ops: PlanOp[], label: string) => boolean;
 }
@@ -33,6 +35,8 @@ export interface EditApi {
   /** Show on the changes line */
   showChanges: () => void;
   cover: ReactNode;
+  /** the Summary's Checks line while editing a copy (STEP2-E5) */
+  checks: ReactNode;
   /** applies a change with an Undo toast; null while the edit chunk is not ready */
   commit: ((ops: PlanOp[], label: string) => boolean) | null;
 }
@@ -79,6 +83,7 @@ export function EditHost({ marks, layer, children }: { marks: (e: TimelineEntry)
     done,
     showChanges,
     cover: editing ? pub!.cover : null,
+    checks: editing ? (pub!.checks ?? null) : null,
     commit: editing ? pub!.commit : null,
   };
   return (

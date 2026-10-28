@@ -18,13 +18,9 @@
 @media (max-width: 639px) { .edit-drop .edit-back { display: none; } .edit-drop { gap: var(--s-2); } }
 @media (max-width: 639px) { .edit-drop .edit-confirm-foot .btn { min-height: var(--touch-min); flex: 1; } }
 
-/* under the day header: the person's note and the two warning levels, words first */
+/* under the day header: the person's note; the two warning levels are warnings/warnings.css (STEP2-E5) */
 .day-status { display: grid; gap: var(--s-1); }
-.day-note, .day-warn { display: flex; align-items: flex-start; gap: var(--s-2); margin: 0; font: var(--t-small); color: var(--ink-2); overflow-wrap: anywhere; }
-.day-note > svg, .day-warn > svg { flex: none; margin-top: 3px; }
+.day-note { display: flex; align-items: flex-start; gap: var(--s-2); margin: 0; font: var(--t-small); color: var(--ink-2); overflow-wrap: anywhere; }
+.day-note > svg { flex: none; margin-top: 3px; }
 .day-note > svg { color: var(--muted); }
 .day-note-label { color: var(--ink); font-weight: 600; }
-.day-warn[data-level='fix'], .day-warn[data-level='fix'] > svg { color: var(--crit); }
-.day-warn[data-level='check'], .day-warn[data-level='check'] > svg { color: var(--warn); }
-.day-warn b { font-weight: 600; }
-.day-warn-more { color: var(--muted); }
