@@ -238,6 +238,12 @@ export interface ScheduleOptions {
   selection?: Selection;
   /** Ids of the selection's items that the person added (a place with a position): they time as the visitor's, not the plan's. */
   visitor?: string[];
+  /**
+   * Generated rows the person removed (STEP2-E1B), by their entry ids on this day (template.ts resolves them from the rule keys of
+   * ruleRows.ts). Such a row is not drawn and takes no time, so what follows re-flows; a rest keeps its time, because it is a wait for
+   * a set time (a slot, an opening, the dinner window) and removing the row does not move that time.
+   */
+  hidden?: string[];
 }
 
 /** A stop an edit puts on a day, at its start, its end, or after a schedule id (not found on the day: the end). */
@@ -251,6 +257,8 @@ export interface PlacedStop {
 export interface DayEdit {
   removed: string[];
   placed: PlacedStop[];
+  /** Rule keys of generated rows the person removed (ruleRows.ts `ruleKeyOf`; STEP2-E1B). Absent: none. */
+  hidden?: string[];
 }
 
 /** One day as the scheduler takes it: the input and the options. */
@@ -276,6 +284,10 @@ export interface TemplateAdded {
   /** The schedule id it follows; absent: placed by cheapest insertion (today's behaviour for a copy's additions). */
   after?: string;
 }
+/**
+ * A published stop the person removed, by its schedule id; or (STEP2-E1B) a generated row, by `rule:` and its rule key
+ * (ruleRows.ts): `{ day: 2, item: "rule:all-car-hire" }`. A rule key that names no row on the day hides nothing and is not skipped.
+ */
 export interface TemplateRemoved {
   op: string;
   day: number;

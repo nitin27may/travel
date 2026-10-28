@@ -12,6 +12,8 @@ export interface EditSlots {
   handle?: (e: TimelineEntry) => ReactNode;
   /** The trailing `⋯` button of a stop (components 8.7). */
   trail: (e: TimelineEntry, dayEntries: readonly TimelineEntry[]) => ReactNode;
+  /** Which entries get the `⋯` (STEP2-E1B: the rows the rules made too); absent, the stops only. */
+  canEdit?: (e: TimelineEntry) => boolean;
   /** The day header's `⋯` (E4). */
   dayMenu?: (day: number) => ReactNode;
   /** Warnings and status under a day header (E5). */

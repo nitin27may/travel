@@ -153,6 +153,30 @@ announced in a polite live region: "Seceda, Day 3, position 2 of 4". Alt+Up and 
 Single-letter keys (`M`, `S`, `L`, `A`, `E`, `?`) work only while focus is on an entry or the day list, never in a field,
 and turn off with one setting in the `?` list (FLOW 7.1, WCAG 2.1.4).
 
+### 5.4 Rows the rules made (STEP2-E1B)
+
+Every row of a day can be removed, not only stops: the start of the day ("Land and head out"), Collect the hire car,
+check-in and check-out, meals (lunch, picnic lunch, the packed lunch on the trail, dinner), rests and free time, coffee and
+stretch breaks, a booking's check-in slot, and the end of the day ("Back at Banff"). Legs are connectors, not rows (design
+4.3), and the sun rows are facts, so neither has a `⋯`; a leg re-flows with the rows around it.
+
+| Concern | Rule |
+|---|---|
+| Menu | the same `⋯` and item sheet; Move to day, Move up and Move down, Add to Maybe and Open place page apply only to stops, so a rule row offers **Add a note** and **Remove from Day n** |
+| What removing does | the row leaves the day and takes no time, so the rows after it re-flow (removing the hire car starts the drive to Banff an hour earlier). A rest or free time is a wait for a set time (a slot, an opening, the dinner window): its row goes and the wait stays as a gap. Removing the end of the day also removes the drive to it after the day's last stop ("the drive back") |
+| Never blocks (foundation 4.4) | when the day still relies on the row, one line in the item sheet says what stays, above Remove and as its description: hire car "The drive to Banff stays; nothing meets the car."; check-in "You still sleep in Banff; nothing checks you in."; the end "The drive back to Banff goes; the day ends after Elk rut viewing." No dialog |
+| Feedback | toast "Removed Picnic lunch from Day 1 · Undo"; the end is named by its drive ("Removed the drive back to Banff from Day 1"); Undo, the changes sheet's **Put it back** (toast "Restored Collect the hire car on Day 1") and Reset to our plan restore it |
+| Stays removed | the row is kept as a **rule key**: its lane, kind and sub, and for a row that precedes a stop (a rest, a break, a slot) that stop's id; one-a-day rows (start, hire car, check-in, check-out, each meal, the end) have no anchor. So it stays removed when other edits re-flow the day, and a row that precedes a stop moved in later is hidden too |
+| Copies only | built trips get it with STEP2-B2 (built ops); an inserted day (E4) has no published day number to key it on yet |
+
+**Schema note (no change, no migration).** A removed rule row is an ordinary `template.removed` entry whose `item` is
+`rule:` and the rule key: `{ "op": "o-…", "day": 1, "item": "rule:all-car-hire" }`. `planScheduleId` already admits it, so
+`plan-draft/1`, the operations (`removePlace`, `deleteEntry`, `restoreEntry`, `reset`), the device sidecar
+`travel.trip-edit.device` and the account sync carry it unchanged. A stop note on such a row uses the existing
+`<day>:<item>` key (`1:rule:all-meal-lunch`). An older reader that does not know the prefix treats it as a published stop
+not on the day and changes nothing. Scheduler side: `core/src/schedule/ruleRows.ts` (`ruleKeyOf`, `rowsOfKeys`),
+`DayEdit.hidden` (rule keys) and `ScheduleOptions.hidden` (entry ids, resolved by `template.ts`).
+
 ## 6. Day-level actions
 
 | Action | Where | Template op | Built op | Rule | Feedback |
@@ -463,6 +487,7 @@ No number above becomes a literal in code. Each lives in one home; the build pac
 
 | Date | Change |
 |---|---|
+| 2026-10-28 | STEP2-E1B: every row of a day is removable and restorable, the rows the rules made too (5.4), superseding E1's "generated rows have no `⋯`". Kept as `rule:` entries of `template.removed`, no schema change. Known gaps: built trips and inserted days (5.4 last row); removing check-in keeps the drive to the stay, and removing the end keeps dinner where the plan has it |
 | 2026-10-28 | As built (STEP2-E1): Move to day rows read "Day 4 · Thu 1 Jul", the base, "ends 17:55" (the scheduler has no free-time figure, so the end of the day replaces "2 h 10 free"), the driving change and Fits or Tight; a Fix reason shows in `--crit` with no chip. A moved stop's known gap (C2): a stop moved to another day gets the 10 minute default leg until the drive model prices it. Changes rows are grouped by kind (added, removed, moved, Maybe, days, versions, notes), each newest first, because the template lists carry no clock. Generated rows (meals, rests, check-in, the hire car and the landing) have no `⋯`: they come from rules and return by themselves; only stops that are items of our plan or places added can be removed. A device copy keeps removals, moves, notes and Maybe in `travel.trip-edit.device` (copies/1 cannot hold them) until STEP2-P2 folds it; the sign-in merge does not carry them yet. Swap rows, the inline cover title and the `E` key wait for E3, a TripCover.tsx owner and the single-letter-keys setting |
 | 2026-10-28 | Amended by the rulings of README 6.1 (C1 to C6): cover Done secondary, title keeps its size, current day in order, park and far pins in 7.4, per-kind verbs in 10, empty day drops at once |
 | 2026-10-27 | Created (STEP2-PLAN, travel-planner, Opus) |

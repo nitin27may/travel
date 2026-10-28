@@ -100,6 +100,8 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last, dayE
   const edit = extras?.edit;
   const marks = extras?.marks?.(e).slice(0, 2) ?? [];
   const stop = !!e.sourceItemId && !e.insideOf && !e.block && e.kind !== 'sun' && e.kind !== 'leg' && e.kind !== 'booking';
+  // every row with actions in edit mode: the stops, and (STEP2-E1B) the rows the rules made, when the slot says so
+  const editable = !!edit && (edit.canEdit ? edit.canEdit(e) : stop);
   const ek = entryKey(e.day, e.id);
   const num = link?.numbers.get(ek);
   const pinId = link?.pins.get(ek);
@@ -128,7 +130,7 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last, dayE
       data-inside={e.insideOf ? '' : undefined}
       data-entry={`${e.day}:${e.id}`}
       data-pin={pinId}
-      data-edit={(edit && stop) || undefined}
+      data-edit={editable ? (stop ? 'stop' : 'rule') : undefined}
     >
       <span className="tl-time num" data-conf={e.time.confidence} data-block={e.block ? '' : undefined}>
         <span aria-hidden="true">{e.block ?? timeText(e)}</span>
@@ -159,7 +161,7 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last, dayE
           {link?.missing.has(ek) ? <span className="tl-nomap num">· not on the map</span> : null}
           {!quiet && e.kind !== 'leg' ? <EntrySuit slug={e.at?.placeSlug} title={e.title} kind={e.kind} /> : null}
           {e.addedBy === 'visitor' ? <Chip kind="idea" icon={false}>You added this</Chip> : null}
-          {e.addedBy === 'visitor' && onRemove && !(edit && stop) ? (
+          {e.addedBy === 'visitor' && onRemove && !editable ? (
             <button type="button" className="tl-remove tl-remove-now" data-print="hide" aria-label={`Remove ${e.title} from Day ${e.day}`} onClick={onRemove}>Remove</button>
           ) : null}
           {e.optional ? <Chip kind="neutral" icon={false}>Optional</Chip> : null}
@@ -224,7 +226,7 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last, dayE
           </>
         ) : null}
       </div>
-      {edit && stop ? <div className="tl-edit-trail" data-print="hide">{edit.trail(e, dayEntries ?? [])}</div> : null}
+      {editable ? <div className="tl-edit-trail" data-print="hide">{edit!.trail(e, dayEntries ?? [])}</div> : null}
       {edit?.handle && stop ? <div className="tl-edit-handle" data-print="hide">{edit.handle(e)}</div> : null}
     </li>
   );

@@ -5,11 +5,13 @@
 // op order. A version is chosen for the published day BEFORE any edit, so removing a stop never swaps the whole day for another
 // version; the day's fit is then re-read with the edits. Generated entries (meals, rests, breaks, legs) are never stored: every
 // day is scheduled again from its stops, so a meal or a rest that a full day had squeezed out comes back once a stop leaves
-// (trip-overview 5.2), and a booking slot is generated from its stop, so it follows the stop to another day.
+// (trip-overview 5.2), and a booking slot is generated from its stop, so it follows the stop to another day. A generated row the
+// person removed (STEP2-E1B) is kept as its rule key (ruleRows.ts) and hidden each time the day is scheduled again.
 //
 // Only the touched days change: an untouched day is scheduled from the same input and options as the public page, and its
 // generated ids keep the PUBLISHED day number, so the ids a delta names survive inserted and dropped days (`TemplateDay.n` is the
 // number to show). This file is outside the page entry (browser.ts): it loads with edit mode, not with /trips/<slug>/.
+import { isRuleItem, RULE_PREFIX, ruleKeyOf, rowsOfKeys } from "./ruleRows.ts";
 import { scheduleDay } from "./schedule.ts";
 import { selectVariant, variantFits } from "./select.ts";
 import type {
@@ -32,7 +34,8 @@ export interface EditedResult {
 }
 
 export const emptyDayEdit = (): DayEdit => ({ removed: [], placed: [] });
-const isEmptyEdit = (e: DayEdit): boolean => e.removed.length === 0 && e.placed.length === 0;
+const noStopEdit = (e: DayEdit): boolean => e.removed.length === 0 && e.placed.length === 0;
+const isEmptyEdit = (e: DayEdit): boolean => noStopEdit(e) && !e.hidden?.length;
 const asEdited = (input: ScheduleDayInput, base: ScheduleOptions = {}): EditedDay => ({ input, base, edit: emptyDayEdit() });
 
 /**
@@ -42,8 +45,29 @@ const asEdited = (input: ScheduleDayInput, base: ScheduleOptions = {}): EditedDa
  * additions, as today).
  */
 export function editDay(input: ScheduleDayInput, profile: Profile, base: ScheduleOptions, edit: DayEdit): ScheduleOptions {
-  const { selection: _s, visitor: _v, ...rest } = base;
-  if (isEmptyEdit(edit)) return rest;
+  const opts = editStops(input, profile, base, edit);
+  return edit.hidden?.length ? { ...opts, hidden: hiddenIds(input, profile, opts, edit.hidden) } : opts;
+}
+
+/**
+ * The entry ids of the generated rows the rule keys name (STEP2-E1B), read from the day as it schedules with them hidden. Hiding a row
+ * renames no other (ids are named for the stop a row precedes), but its re-flow can bring a row of a listed key into the day (a lunch
+ * that moves to where a rest was), so the day is read again until nothing new is found: at most three passes.
+ */
+function hiddenIds(input: ScheduleDayInput, profile: Profile, opts: ScheduleOptions, keys: string[]): string[] {
+  let ids: string[] = [];
+  for (let pass = 0; pass < 3; pass++) {
+    const more = rowsOfKeys(scheduleDay(input, profile, { ...opts, hidden: ids }).entries, keys).map((e) => e.id).filter((id) => !ids.includes(id));
+    if (!more.length) break;
+    ids = [...ids, ...more];
+  }
+  return ids;
+}
+
+/** The options of a day's stop edits (removed and placed), before any generated row is hidden. */
+function editStops(input: ScheduleDayInput, profile: Profile, base: ScheduleOptions, edit: DayEdit): ScheduleOptions {
+  const { selection: _s, visitor: _v, hidden: _h, ...rest } = base;
+  if (noStopEdit(edit)) return rest;
   const sel = selectVariant(input, profile, base.variant);
   const rm = new Set(edit.removed);
   let items = sel.variant.items.filter((i) => !rm.has(i.id));
@@ -75,7 +99,7 @@ const result = (day: EditedDay, profile: Profile): EditedResult => ({ day, timel
  * additions by cheapest insertion. `lane` says whether the stop is on the party's lane or the adults' parallel lane of a split day.
  */
 export function stopsOf(d: EditedDay, profile: Profile): { item: ScheduleItem; addedBy: "author" | "visitor"; lane: "main" | "parallel" }[] {
-  const opts = editDay(d.input, profile, d.base, d.edit);
+  const opts = editStops(d.input, profile, d.base, d.edit);
   const sel = opts.selection ?? selectVariant(d.input, profile, d.base.variant);
   const by = (i: ScheduleItem): "author" | "visitor" => (opts.visitor?.includes(i.id) ? "visitor" : "author");
   return [
@@ -100,8 +124,19 @@ function takeOff(d: EditedDay, id: string): { day: EditedDay; stop: PlacedStop |
   return { day: { ...d, edit: { ...d.edit, removed: [...d.edit.removed, id] } }, stop: null, plan: true };
 }
 
-/** Removes a stop from a day (edit-mode-spec 5 Remove). Null when the stop is not on the day for this party. */
+/** Hides a generated row by its rule key; a key already hidden is not listed twice. */
+const hide = (d: EditedDay, key: string): EditedDay => (d.edit.hidden?.includes(key) ? d : { ...d, edit: { ...d.edit, hidden: [...(d.edit.hidden ?? []), key] } });
+
+/**
+ * Removes a stop from a day (edit-mode-spec 5 Remove), or a generated row by `rule:` and its rule key (STEP2-E1B; ruleRows.ts). Null
+ * when the stop is not on the day for this party, or no row of the day has that key.
+ */
 export function removeItem(d: EditedDay, profile: Profile, id: string): EditedResult | null {
+  if (isRuleItem(id)) {
+    const key = id.slice(RULE_PREFIX.length);
+    if (!scheduleEdited(d, profile).entries.some((e) => ruleKeyOf(e) === key)) return null;
+    return result(hide(d, key), profile);
+  }
   if (!stopsOf(d, profile).some((s) => s.item.id === id)) return null;
   return result(takeOff(d, id).day, profile);
 }
@@ -216,6 +251,8 @@ export function scheduleTemplate(days: ScheduleDayInput[], delta: TemplateDelta,
   for (const r of delta.removed) {
     const i = at(r.day);
     if (i < 0) skip(r.op, "no-day");
+    // a generated row is hidden by its key whatever the day holds now: a move or an addition applied later may be what it precedes
+    else if (isRuleItem(r.item)) put(i, hide(slots[i]!, r.item.slice(RULE_PREFIX.length)));
     else {
       const res = removeItem(slots[i]!, profile, r.item);
       if (res) put(i, res.day);

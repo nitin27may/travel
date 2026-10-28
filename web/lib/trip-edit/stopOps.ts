@@ -1,14 +1,12 @@
 // The operations behind each stop action (edit-mode-spec 5; template and built columns). Pure: the document, the entry the person
 // pressed and an id maker go in, a list of operations (one undo step) and the words for the toast come out.
 import type { PlanOp, PlanDraft } from './model';
+import { rowName, ruleItemOfEntry, type RowFields } from './ruleRows';
 
-/** The slice of a timeline entry these functions read. */
-export interface StopEntry {
-  id: string;
-  day: number;
+/** The slice of a timeline entry these functions read; `kind`, `sub`, `sourceItemId` and `lane` tell a row the rules made (STEP2-E1B). */
+export interface StopEntry extends RowFields {
   title: string;
-  addedBy: string;
-  at?: { placeSlug?: string | null } | null;
+  at?: { placeSlug?: string | null; name?: string } | null;
 }
 
 const PLACE = 'place/';
@@ -31,11 +29,14 @@ function publishedDay(d: PlanDraft, e: StopEntry): number {
 }
 
 const target = (d: PlanDraft, e: StopEntry): { added: string } | { day: number; item: string } => {
+  // a row the rules made (a meal, a rest, the hire car, check-in, the end of the day) is named by its rule key on the day it shows
+  const rule = ruleItemOfEntry(e);
+  if (rule) return { day: e.day, item: rule };
   const op = addedOp(d, e);
   return op ? { added: op } : { day: publishedDay(d, e), item: e.id };
 };
 
-/** Remove: any stop (published, added, from our trip, engine-placed). One undo step. */
+/** Remove: any stop (published, added, from our trip, engine-placed), or a row the rules made (STEP2-E1B, template only). One undo step. */
 export function removeOps(d: PlanDraft, e: StopEntry, newId: NewId = newOpId): PlanOp[] {
   if (!d.template) return [{ kind: 'removePick', id: newId(), ref: e.id }];
   return [{ kind: 'removePlace', id: newId(), ...target(d, e) }];
@@ -93,7 +94,7 @@ export function noteOps(d: PlanDraft, e: StopEntry, text: string, newId: NewId =
 export const noteOf = (d: PlanDraft, e: StopEntry): string => (d.template ? (d.template.notes[noteKeyOf(d, e)] ?? '') : '');
 
 // ---- the words (README 5.2 toasts; polite announcements) ----
-export const removedWords = (e: StopEntry): string => `Removed ${e.title} from Day ${e.day}`;
+export const removedWords = (e: StopEntry): string => `Removed ${rowName(e)} from Day ${e.day}`;
 export const movedWords = (e: StopEntry, to: number): string => `Moved ${e.title} to Day ${to}`;
 export const nudgedWords = (e: StopEntry, dir: -1 | 1): string => `Moved ${e.title} ${dir === -1 ? 'up' : 'down'}`;
 export const maybeWords = (e: StopEntry): string => `Moved ${e.title} to Maybe`;

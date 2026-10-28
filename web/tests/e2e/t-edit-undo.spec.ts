@@ -11,7 +11,7 @@ const copy = (days: number) => ({
   profile: { party: 'family', youngest: 10, pace: 'standard', adults: 2, walk: null, split: false }, overrides: {}, added: [], copiedAt: '2026-10-20T10:00:00.000Z',
 });
 const envelope = (items: unknown[]) => JSON.stringify({ schema: 'copies/1', items, noteSeen: null, snoozedUntil: null, merged: {} });
-const titles = (page: Page, day: number) => page.locator(`#day-${day} li.tl-entry[data-edit] .tl-title`).allTextContents();
+const titles = (page: Page, day: number) => page.locator(`#day-${day} li.tl-entry[data-edit="stop"] .tl-title`).allTextContents();
 
 test.describe('edit mode: undo, redo, changes, reset', () => {
   let days = 0;
@@ -32,7 +32,7 @@ test.describe('edit mode: undo, redo, changes, reset', () => {
     await expect(page.locator('.tl-edit-trail').first()).toBeVisible();
   }
   async function removeFirst(page: Page, day: number) {
-    await page.locator(`#day-${day} .tl-edit-trail button`).first().click();
+    await page.locator(`#day-${day} li.tl-entry[data-edit="stop"] .tl-edit-trail button`).first().click();
     await page.getByRole('menuitem', { name: `Remove from Day ${day}` }).click();
   }
 
