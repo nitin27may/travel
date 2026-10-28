@@ -57,3 +57,6 @@
 .own-link:focus-visible { outline: var(--focus-ring); outline-offset: -2px; border-radius: var(--r-2); }
 .own-sum .own-link { min-height: 0; padding: 0; }
 .own-sync-ico { flex: none; }
+
+/* "n changes from our plan" is said once per view: the cover and the Summary's Your changes cell carry it, so the line above the tabs is for Days only (ER-020; edit-mode-spec 10) */
+.tl-wrap:not([data-tab='days']) .own-changes-line { display: none; }

@@ -25,6 +25,12 @@ export interface EditSlots {
   dayMenu?: (day: number, ctx: DayCtx) => ReactNode;
   /** Warnings and status under a day header (E5). */
   dayStatus?: (day: number, ctx: DayCtx) => ReactNode;
+  /** True for a warning `dayStatus` already shows at a level, so the timeline's own older notice for it is left out (ER-002: one warning, shown once). */
+  graded?: (w: { code: string; message: string }) => boolean;
+  /** True when this day no longer reads as our plan (a published day the person changed): its headline is then shown as ours, muted (ER-015). */
+  differs?: (day: number) => boolean;
+  /** What follows "No stops on Day n" on a day with no stops: the Drop Day n action (ER-015; edit-mode-spec 6). */
+  emptyDay?: (day: number, ctx: DayCtx) => ReactNode;
   /** Replaces the inline add panel of a day with the picker (E3): the node is the "Add a place to Day n" row. */
   addPicker?: (day: number) => ReactNode;
 }

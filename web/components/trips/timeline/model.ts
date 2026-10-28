@@ -84,10 +84,10 @@ export const kindOf = (k: string): { kind: ItemKind; sub: string | null } => {
   return { kind: 'visit', sub: 'sight' };
 };
 
-function fromItem(it: ScheduleItem, group: AddCandidate['group'], km: number | null): AddCandidate | null {
+function fromItem(it: ScheduleItem, group: AddCandidate['group'], km: number | null, point: Point | null = it.point): AddCandidate | null {
   if (it.kind === 'meal' || it.kind === 'break' || it.kind === 'rest' || it.kind === 'checkin' || it.kind === 'checkout') return null;
   return {
-    key: it.placeSlug ?? it.id, name: it.title, kind: it.kind, sub: it.sub, placeSlug: it.placeSlug, point: it.point, durationMin: it.durationMin, durationRange: it.durationRange,
+    key: it.placeSlug ?? it.id, name: it.title, kind: it.kind, sub: it.sub, placeSlug: it.placeSlug, point, durationMin: it.durationMin, durationRange: it.durationRange,
     stats: it.stats, label: it.kind === 'trail' ? kindLabel('trail') : LABELLED_SUBS.has(it.sub ?? '') ? kindLabel(it.sub!) : 'Stop', km, group,
   };
 }
@@ -107,6 +107,8 @@ const PER_DAY = { variant: 4, trip: 6, nearby: 8 } as const;
 function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables: Record<string, AddCandidate>; addByDay: Record<number, string[]> } {
   const addables: Record<string, AddCandidate> = {};
   const addByDay: Record<number, string[]> = {};
+  const slugPoints = new Map<string, Point>();
+  for (const p of nearby) if (p.point) slugPoints.set(p.slug, { lat: p.point.lat, lon: p.point.lon });
   const baseDays = new Map<string, number[]>();
   for (const d of trip.days) if (d.baseId) baseDays.set(d.baseId, [...(baseDays.get(d.baseId) ?? []), d.n]);
   for (const d of trip.days) {
@@ -115,7 +117,8 @@ function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables:
     const keys: string[] = [];
     const onDay = new Set(input.variants.flatMap((v) => v.items.map((i) => i.placeSlug ?? i.id)));
     const take = (c: AddCandidate | null, group: keyof typeof PER_DAY, seen: Set<string>) => {
-      if (!c || seen.has(c.key) || keys.includes(c.key)) return;
+      // a place to add is a place with a page: the operation that adds it names the page (a plan stop with none, a gondola, cannot be added by it)
+      if (!c || (group !== 'nearby' && !c.placeSlug) || seen.has(c.key) || keys.includes(c.key)) return;
       seen.add(c.key);
       addables[c.key] ??= c;
       keys.push(c.key);
@@ -124,6 +127,11 @@ function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables:
     const anchors: Point[] = [...(input.base?.point ? [input.base.point] : []), ...input.variants.flatMap((v) => v.items.flatMap((i) => (i.point ? [i.point] : [])))];
     const nearest = (p: Point | null): number | null => (p && anchors.length ? Math.min(...anchors.map((a) => haversineM(a, p) / 1000)) : null);
     const within = (km: number | null): km is number => km !== null && km <= ADD_NEARBY_KM;
+    // a stop of the plan often carries no coordinate of its own: its place page does (ER-005). One that has neither is still offered when it
+    // belongs to this day's own versions or to a day at the same base, since the plan put it there; one with a point must be near
+    const pointOf = (it: ScheduleItem): Point | null => it.point ?? (it.placeSlug ? (slugPoints.get(it.placeSlug) ?? null) : null);
+    const ok = (km: number | null): boolean => km === null || within(km);
+    const round = (km: number | null): number | null => (km === null ? null : Math.round(km * 10) / 10);
     // 1. other versions of this day
     const chosen = input.variants.find((v) => v.key === 'B') ?? input.variants[0]!;
     const inChosen = new Set(chosen.items.map((i) => i.id));
@@ -131,8 +139,9 @@ function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables:
     for (const v of input.variants) {
       if (v === chosen) continue;
       for (const it of v.items) {
-        const km = nearest(it.point);
-        if (!inChosen.has(it.id) && within(km) && seenA.size < PER_DAY.variant) take(fromItem(it, 'variant', Math.round(km * 10) / 10), 'variant', seenA);
+        const pt = pointOf(it);
+        const km = nearest(pt);
+        if (!inChosen.has(it.id) && ok(km) && seenA.size < PER_DAY.variant) take(fromItem(it, 'variant', round(km), pt), 'variant', seenA);
       }
     }
     // 2. the trip's stops on other days at this base
@@ -142,14 +151,15 @@ function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables:
       const other = trip.days.find((x) => x.n === n)?.scheduleInput;
       if (!other) continue;
       for (const it of other.variants.find((v) => v.key === 'B' || v.key === 'main')?.items ?? []) {
-        const km = nearest(it.point);
-        if (onDay.has(it.placeSlug ?? it.id) || seenB.size >= PER_DAY.trip || !within(km)) continue;
-        take(fromItem(it, 'trip', Math.round(km * 10) / 10), 'trip', seenB);
+        const pt = pointOf(it);
+        const km = nearest(pt);
+        if (onDay.has(it.placeSlug ?? it.id) || seenB.size >= PER_DAY.trip || !ok(km)) continue;
+        take(fromItem(it, 'trip', round(km), pt), 'trip', seenB);
       }
     }
     // 3. catalogue places with a page within ADD_NEARBY_KM (SW-014: a park or an area is never a stop, TB-PIN R1)
     const near = nearby
-      .filter((p) => p.point && p.kind !== 'stay' && p.kind !== 'area' && !onDay.has(p.slug))
+      .filter((p) => p.point && p.kind !== 'stay' && p.kind !== 'area' && p.kind !== 'town' && !onDay.has(p.slug))
       .map((p) => ({ p, km: nearest({ lat: p.point!.lat, lon: p.point!.lon }) }))
       .filter((x): x is { p: PublicPlaceCard; km: number } => within(x.km))
       .sort((a, b) => a.km - b.km || a.p.slug.localeCompare(b.p.slug))

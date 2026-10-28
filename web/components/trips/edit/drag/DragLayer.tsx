@@ -77,6 +77,27 @@ const reduced = (): boolean => window.matchMedia('(prefers-reduced-motion: reduc
 const typing = (t: EventTarget | null): boolean => t instanceof HTMLElement && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
 const insideOverlay = (t: Element): boolean => !!t.closest('[role="menu"],[role="dialog"],dialog,[aria-modal="true"],[role="listbox"]');
 const handleOf = (key: string): HTMLElement | null => document.querySelector<HTMLElement>(`[data-drag-handle="${CSS.escape(key)}"]`);
+/**
+ * Puts focus on a stop's handle and holds it there until the page has stopped re-rendering (ER-012). A drop or a nudge changes the document,
+ * the scheduler redraws the day, and the row may be a new element by the time a single timed focus() runs; so this looks again every frame
+ * until the handle has been the focused element for a quarter of a second of frames in a row (the scheduler's redraw can land well after the commit), or 1.5 s have passed. It never takes focus from a menu or dialog.
+ */
+function settleFocus(key: string): void {
+  const t0 = performance.now();
+  let stable = 0;
+  const step = () => {
+    const h = handleOf(key);
+    const at = document.activeElement;
+    if (at && at !== document.body && at !== h && insideOverlay(at)) return;
+    if (h && at === h) stable += 1;
+    else {
+      stable = 0;
+      h?.focus({ preventScroll: true });
+    }
+    if (stable < U.focusStableFrames && performance.now() - t0 < U.focusSettleMs) window.requestAnimationFrame(step);
+  };
+  step();
+}
 const rowOf = (key: string): HTMLElement | null => document.querySelector<HTMLElement>(`li.tl-entry[data-entry="${CSS.escape(key)}"]`);
 
 /** The number of OTHER stops on each day (the dragged one left out). */
@@ -230,19 +251,21 @@ export default function DragLayer(props: DragProps) {
       const here = otherCounts(L.key).get(L.origin.day) ?? 0;
       if (!t) {
         say(cancelledWords(e, L.origin, here));
-        if (L.via === 'key') handleOf(L.key)?.focus({ preventScroll: true });
+        if (L.via === 'key') settleFocus(L.key);
         return;
       }
       const others = othersOf(t.day, L.key);
       const ops = dropOps(P.current.doc, e, t, others.map((li) => ({ id: parseKey(li.dataset.entry ?? '').id })), L.origin);
       if (!ops) {
         say(cancelledWords(e, L.origin, here));
-        if (L.via === 'key') handleOf(L.key)?.focus({ preventScroll: true });
+        if (L.via === 'key') settleFocus(L.key);
         return;
       }
       if (!P.current.commit(ops, dropWords(e, t, L.origin, others.length))) return;
       say(droppedWords(e, t, others.length, t.day !== L.origin.day));
       swallowClick = L.via === 'pointer';
+      // focus does not wait on a timer: it is restored every frame until the redrawn row's handle holds it (ER-012)
+      if (L.via === 'key') settleFocus(`${t.day}:${e.id}`);
       w.setTimeout(() => {
         swallowClick = false;
         const li = rowOf(`${t.day}:${e.id}`);
@@ -252,7 +275,6 @@ export default function DragLayer(props: DragProps) {
         const at = rows.indexOf(li);
         if (at >= 0 && at !== t.index) say(droppedWords(e, { day: t.day, index: at }, rows.length - 1, t.day !== L.origin.day));
         if (L.via === 'key') {
-          handleOf(`${t.day}:${e.id}`)?.focus({ preventScroll: true });
           const r = li.getBoundingClientRect();
           if (r.top < 120 || r.bottom > w.innerHeight - 24) li.scrollIntoView({ block: 'center', behavior: reduced() ? 'auto' : 'smooth' });
         }
@@ -425,6 +447,7 @@ export default function DragLayer(props: DragProps) {
       say(same ? `${stepWords(e, next, n)}, ${MOVE_KEYS[k] === 'up' || MOVE_KEYS[k] === 'home' ? 'top' : 'end'} of the day` : stepWords(e, next, n));
     };
     const focusBack = (key: string, intended?: number) => {
+      settleFocus(key);
       w.setTimeout(() => {
         const row = rowOf(key);
         // the scheduler has the last word on the order: say where the stop really is when that differs from the step taken
@@ -434,7 +457,6 @@ export default function DragLayer(props: DragProps) {
           const at = rows.indexOf(row);
           if (at >= 0 && at !== intended) say(stepWords(e, { day: e.day, index: at }, rows.length - 1));
         }
-        if (row && !row.contains(document.activeElement)) handleOf(key)?.focus({ preventScroll: true });
         row?.scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' });
       }, 80);
     };

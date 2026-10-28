@@ -132,7 +132,7 @@ test.describe('/t/<id>/ read mode', () => {
     await sheet.locator('.own-set-date').click();
     await sheet.locator('[role="grid"] button:not([disabled])').nth(20).click();
     await expect.poll(async () => (await stored(page))?.start).not.toBe(before);
-    await sheet.getByRole('button', { name: 'Done' }).click();
+    await sheet.locator('.sheet-foot').getByRole('button', { name: 'Close' }).click();
     await expect(page.locator('h1.trip-title')).toHaveText('Rockies with the cousins');
     await page.reload();
     await expect(page.locator('h1.trip-title')).toHaveText('Rockies with the cousins');

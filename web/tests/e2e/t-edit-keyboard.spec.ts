@@ -126,6 +126,8 @@ test.describe('the keyboard model', () => {
     await expect(say(page)).toContainText(new RegExp(`${before[1]}, Day 2, position \\d of ${before.length}`));
     await expect(page.locator('.drag-line')).toHaveCount(0);
     await expect(page.locator('.toast', { hasText: `Moved ${before[1]} up` })).toBeVisible();
+    // focus is back on the moved stop's handle once the redraw has settled (ER-012), so the next key lands on it
+    await expect(page.locator('#day-2 li.tl-entry[data-edit="stop"] .drag-handle:focus')).toHaveCount(1);
     await page.keyboard.press('Alt+ArrowUp');
     await expect(say(page)).toContainText(`${before[1]} is already first on Day 2`);
     await page.keyboard.press('Alt+ArrowDown');

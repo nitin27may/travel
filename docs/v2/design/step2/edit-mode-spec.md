@@ -259,7 +259,7 @@ with one Apply that states its effect, then an Undo toast; no second dialog (FLO
 | Where you start, Where, Days and driving, Bases, Getting there (built; and copies after the convert notice) | the builder's stage components 1 to 4 and the getting-there sheet, lazily (extension point X10) | **convert notice first** (13.2) | `setOrigin`, `setWhere`, `setDriveDay`, `setBase`, `setNights` then a server rebuild of free items | "Rebuild 6 days · 3 kept and 2 added by you stay" |
 | Rebuild (built) | | | `rebuild` | the same line |
 
-Phone: full-height sheet that returns to the same day and scroll on close (P5); desktop: 420 px side panel over the map.
+Phone: full-height sheet that returns to the same day and scroll on close (P5); desktop: 460 px side panel over the map.
 
 ## 9. Dates and party (Q-BE5)
 

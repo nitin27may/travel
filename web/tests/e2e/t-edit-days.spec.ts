@@ -420,7 +420,7 @@ test.describe('edit mode: day actions on a phone', () => {
       name: set.locator('.input').first(),
       date: set.locator('.own-set-date'),
       pace: set.getByRole('radio', { name: 'Relaxed' }),
-      done: set.getByRole('button', { name: 'Done' }),
+      done: set.locator('.sheet-foot').getByRole('button', { name: 'Close' }),
       moreDays: set.getByRole('button', { name: 'More days' }),
       fewerDays: set.getByRole('button', { name: 'Fewer days' }),
       moreAdults: set.getByRole('button', { name: 'More adults' }),

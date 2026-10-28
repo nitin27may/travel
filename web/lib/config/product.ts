@@ -64,6 +64,9 @@ export const TRIP_EDIT_UI = {
   syncWordDelayMs: 1000,
   /** the live region clears its message after this long, so the same words can be said twice */
   announceClearMs: 1500,
+  /** after a drop or a nudge, focus is put back on the moved stop's handle every frame until it has held this many frames, for at most this long (ER-012) */
+  focusStableFrames: 15,
+  focusSettleMs: 1500,
   /** the add picker searches this long after the last key (STEP2-E3) */
   addSearchMs: 250,
 } as const;

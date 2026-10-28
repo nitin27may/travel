@@ -20,6 +20,7 @@ import { chipsFor, honestyLabel } from './labels';
 import { diffTimelines } from '@travel/core/schedule/diff.ts';
 import type { AddCandidate, TimelineDayModel } from './model';
 import { Prose } from './Prose';
+import { warnText } from './warnText';
 import { variantLine, type VariantLine } from './consequence';
 import { flightEntries, localEntries, zoneNotes, zoneRun } from './marks';
 import type { Engine } from './useTimeline';
@@ -130,13 +131,18 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
   const sel = day.variants.find((v) => v.key === tl.variant.key);
   const title = sel?.title ?? day.title;
   const showSummary = !sel || sel.key === 'B' || sel.key === 'main';
+  // ER-002: in edit mode a warning with a level is shown once, by the status block under the header (To fix, To check); the older triangle
+  // lines, the boxed suitability notice and the count in the totals row leave out what that block shows
+  const graded = slots?.graded;
+  const old = useMemo(() => (graded ? tl.warnings.filter((w) => !graded(w)) : tl.warnings), [tl.warnings, graded]);
   const warnByEntry = useMemo(() => {
     const m = new Map<string, DayTimelineData['warnings']>();
-    for (const w of tl.warnings) if (w.entryId) m.set(w.entryId, [...(m.get(w.entryId) ?? []), w]);
+    for (const w of old) if (w.entryId) m.set(w.entryId, [...(m.get(w.entryId) ?? []), w]);
     return m;
-  }, [tl.warnings]);
-  const dayWarnings = tl.warnings.filter((w) => !w.entryId || !tl.entries.some((e) => e.id === w.entryId));
-  const nWarn = tl.warnings.length;
+  }, [old]);
+  const dayWarnings = old.filter((w) => !w.entryId || !tl.entries.some((e) => e.id === w.entryId));
+  const nWarn = old.length;
+  const fitShown = !!graded && tl.warnings.some((w) => w.code === 'W_FIT' && graded(w));
   const fixed = tl.entries.filter((e) => e.time.confidence === 'fixed' && e.kind !== 'booking' && e.kind !== 'leg').length;
   const est = tl.entries.some((e) => e.kind === 'leg' && e.leg?.basis !== 'routed' && e.leg?.mode === 'drive');
   const split = tl.lanes.length > 1;
@@ -158,6 +164,10 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
   const run = useMemo(() => (day.zone ? zoneRun(tl.entries, day.zone) : null), [tl.entries, day.zone]);
   const items = useMemo(() => new Map(day.input.variants.flatMap((v) => v.items).map((i) => [i.id, i])), [day.input]);
   const sun = sunShort(day.light);
+  // ER-015: a day whose stops were all taken off keeps no totals of its own plan, and a changed day's headline is shown as ours, not as its own
+  const emptyNow = tl.blocks ? tl.entries.length === 0 : slots ? !tl.entries.some((e) => e.sourceItemId !== null && e.kind !== 'sun') : tl.entries.length <= 2;
+  const hollow = !!slots && emptyNow;
+  const ours = !!slots?.differs?.(day.n);
   const noFit = tl.notes.find((n) => n.kind === 'no-fit');
   const splitOpt = tl.notes.find((n) => n.kind === 'split-option');
   // what each version would do to this day for this party, from the scheduler; worked out only while the menu is open
@@ -172,6 +182,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
     label: `${v.label}${v.key === tl.variant.key ? (tl.variant.chosenBy === 'override' ? ' (picked)' : ' (chosen for your settings)') : ''}`,
     detail: lines.get(v.key)?.line ?? null,
     warn: lines.get(v.key)?.warn ?? null,
+    warnLevel: lines.get(v.key)?.level ?? null,
     onSelect: () => onVariant(v.key),
   }));
   if (tl.variant.chosenBy === 'override') menu.push({ label: 'Back to the version chosen for your settings', onSelect: () => onVariant(null) });
@@ -210,8 +221,8 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
             </span>
             {slots?.dayMenu ? <span className="tl-day-menu" data-print="hide">{slots.dayMenu(day.n, { tl, day })}</span> : null}
           </div>
-          <h3 className="tl-day-title">{title}</h3>
-          <p className="tl-day-totals num">
+          <h3 className="tl-day-title" data-ours={ours || undefined}>{ours ? <span className="tl-day-ours">Our plan: </span> : null}{title}</h3>
+          {hollow ? null : <p className="tl-day-totals num">
             {tl.totals.driveMin > 0 ? (
               <span title={est ? 'Includes estimated drive times' : undefined} data-est={est || undefined}>
                 <Icon name="car" size={13} /> {est ? '≈' : ''}{fmtHM(tl.totals.driveMin)} driving
@@ -220,7 +231,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
             <span>{tl.totals.walkKm > 0 ? `${formatDistance(tl.totals.walkKm, prefs.distance)} walking` : 'No walk planned'}</span>
             {fixed > 0 ? <span>{fixed} fixed {fixed === 1 ? 'slot' : 'slots'}</span> : null}
             {nWarn > 0 ? <span className="tl-warn-count"><Icon name="warn" size={13} /> {nWarn} {nWarn === 1 ? 'warning' : 'warnings'}</span> : null}
-          </p>
+          </p>}
           {day.light ? <p className="tl-day-light num"><Icon name="sun" size={13} /> {day.light}</p> : null}
         </div>
       </header>
@@ -228,7 +239,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
       <div className="tl-day-body">
         {slots?.dayStatus ? slots.dayStatus(day.n, { tl, day }) : null}
         {reasonText && day.variants.length > 1 ? <p className="tl-reason num" title={reasonText}><Prose text={reasonText} /></p> : null}
-        {noFit ? (
+        {noFit && !fitShown ? (
           <p className="tl-nofit" role="note">
             <Icon name="warn" size={15} /> <span>
               <b>{age !== null ? `Not suited to age ${age}.` : 'Not suited to this setting.'}</b> <Prose text={noFit.text} />.
@@ -236,7 +247,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
           </p>
         ) : null}
         {day.summary && showSummary ? (
-          <p className="tl-summary" data-open={moreSummary || undefined}>
+          <p className="tl-summary" data-ours={ours || undefined} data-open={moreSummary || undefined}>
             <Prose text={day.summary} />{' '}
             <button type="button" className="tl-reset tl-summary-more" aria-expanded={moreSummary} onClick={() => setMoreSummary((v) => !v)}>{moreSummary ? 'Show less' : 'Show all'}</button>
           </p>
@@ -250,7 +261,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
           <ul className="tl-day-warns">
             {dayWarnings.map((w) => (
               <li key={`${w.code}:${w.message}`} className="tl-warn" data-code={w.code}>
-                <Icon name="warn" size={14} /> <Prose text={w.message} />
+                <Icon name="warn" size={14} /> <Prose text={warnText(w.message)} />
               </li>
             ))}
           </ul>
@@ -303,7 +314,9 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
             ),
           ])}
         </ol>
-        {(tl.blocks ? tl.entries.length === 0 : slots ? !tl.entries.some((e) => e.sourceItemId !== null && e.kind !== 'sun') : tl.entries.length <= 2) ? <p className="tl-empty">No stops are planned for this day yet.</p> : null}
+        {emptyNow ? (
+          slots?.emptyDay ? <p className="tl-empty" data-testid={`day-empty-${day.n}`}><span>No stops on Day {day.n}</span> {slots.emptyDay(day.n, { tl, day })}</p> : <p className="tl-empty">No stops are planned for this day yet.</p>
+        ) : null}
         {snap.gone.length ? <p className="tl-gone num" role="status">Left out now there is less room: {snap.gone.join(', ')}.</p> : null}
         {slots?.addPicker ? slots.addPicker(day.n) : <AddToDay day={day.n} candidates={candidates} taken={taken} onAdd={add} engine={engine} loadEngine={loadEngine} input={day.input} profile={profile} variant={override} added={addedItems} />}
         <div className="tl-day-foot" data-print="hide">

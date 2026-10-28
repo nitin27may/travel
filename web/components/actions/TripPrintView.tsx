@@ -1,5 +1,6 @@
 import { fmtHM } from '@travel/core/schedule/rules.ts';
 import type { TimelineEntry } from '@travel/core/schedule/types.ts';
+import { adultsText, ageText, PACE_WORD } from '@travel/core/trips/partyWords.ts';
 import { printTime } from '@travel/core/export/plan.ts';
 import { bookAheadText, bookingCounts } from '@travel/core/export/bookings.ts';
 import { BOOKING_GROUPS } from '@/components/trips/tabs/bookingGroups';
@@ -16,9 +17,9 @@ const plural = (n: number, one: string) => `${n} ${one}${n === 1 ? '' : 's'}`;
 const PRINTED = new Set(['visit', 'trail']);
 const TRAVEL_SKIPPED = new Set(['start', 'checkout']);
 
-/** "Family, 6 · Standard": who the plan is for, as the page says it. */
+/** "2 adults · youngest 6 · Standard pace": who the plan is for, in the party words the page uses everywhere (ER-018). The profile keeps the youngest's age, not every child's. */
 export function profileLine(p: TimelineSession['profile']): string {
-  return `${p.party === 'adults' ? 'Adults' : `Family, ${p.youngest}`} · ${p.pace[0]!.toUpperCase()}${p.pace.slice(1)}`;
+  return [adultsText(p.adults), p.party === 'adults' || p.youngest === null ? null : `youngest ${ageText(p.youngest)}`, `${PACE_WORD[p.pace]} pace`].filter(Boolean).join(' · ');
 }
 
 interface Row { key: string; time: string | null; name: string; duration: string | null; note: string | null; mine: string | null; stop: ExportStop | null }

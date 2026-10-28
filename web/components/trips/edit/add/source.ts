@@ -58,7 +58,8 @@ export async function nearPage(centre: Point, page: number, signal?: AbortSignal
   if (!got) return null;
   const rows = got.items
     .map(foundOf)
-    .filter((f) => isStop(f) && f.lat !== null && f.lon !== null && kmBetween(centre, { lat: f.lat, lon: f.lon }) <= km)
+    // a town is where the day is based, not a place to go to: it stays out of the near list, though a search still finds it (ER-024)
+    .filter((f) => isStop(f) && f.kind !== 'town' && f.lat !== null && f.lon !== null && kmBetween(centre, { lat: f.lat, lon: f.lon }) <= km)
     .sort((a, b) => kmBetween(centre, { lat: a.lat!, lon: a.lon! }) - kmBetween(centre, { lat: b.lat!, lon: b.lon! }) || a.slug.localeCompare(b.slug));
   return { rows, next: got.nextPage };
 }

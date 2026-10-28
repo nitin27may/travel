@@ -22,10 +22,17 @@ export interface PlanCtx {
   start: string | null;
 }
 
-/** The nearest other day that takes the stop with no new warning, or null. Pure over the scheduler's answer. */
-export function nearestFit(rows: readonly { n: number; current: boolean; fit: 'fits' | 'tight' | 'fix'; last: string | null }[], from: number): { day: number; after: string | null } | null {
-  const ok = rows.filter((r) => !r.current && r.fit === 'fits').sort((a, b) => Math.abs(a.n - from) - Math.abs(b.n - from) || a.n - b.n);
-  return ok[0] ? { day: ok[0].n, after: ok[0].last } : null;
+/**
+ * The other day that takes the stop with no new warning, or null. Only days near the stop count (ER-001: a far day prices the drive wrongly
+ * and clears the warning without making the day workable); the day the stop came from is tried first, then the nearest by number.
+ */
+export function nearestFit(rows: readonly { n: number; current: boolean; fit: 'fits' | 'tight' | 'fix'; last: string | null; near?: boolean }[], from: number, home?: number): { day: number; after: string | null } | null {
+  // back on the day the plan put it on is always a fair fix unless the stop would break a rule there: that day's own checks were the plan's (Tight is not new)
+  const own = home === undefined ? undefined : rows.find((r) => r.n === home && !r.current && r.fit !== 'fix' && r.near !== false);
+  if (own) return { day: own.n, after: own.last };
+  const ok = rows.filter((r) => !r.current && r.fit === 'fits' && r.near !== false);
+  const best = ok.sort((a, b) => Math.abs(a.n - from) - Math.abs(b.n - from) || a.n - b.n)[0];
+  return best ? { day: best.n, after: best.last } : null;
 }
 
 /** undefined while it is worked out, null when the warning has no fix here (a code or a row we cannot act on), else the fix. */
@@ -54,7 +61,7 @@ export function useFix(code: string, entry: TimelineEntry | null, ctx: PlanCtx, 
           start,
           stop: stopTarget(doc, entry),
         });
-        const best = nearestFit(rows, entry.day);
+        const best = nearestFit(rows, entry.day, stopTarget(doc, entry).day);
         if (best) fix = { kind: 'move', day: best.day, after: best.after };
       } catch {
         // the scheduler could not try a day: removing the stop is still a fix

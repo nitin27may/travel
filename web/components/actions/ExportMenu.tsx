@@ -216,7 +216,7 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
       if (target.type === 'trip') {
         if (isOverview) continue;
         const n = shown?.type === 'trip' ? shown.stops.length : null;
-        entries.push({ label: n === null ? 'For a spreadsheet (CSV)' : `For a spreadsheet (CSV): ${plural(n, 'stop')}`, icon: 'download', onSelect: () => void run((d) => downloadTripCsv(d as TripExport)) });
+        entries.push({ label: n === null ? 'For a spreadsheet (CSV)' : `For a spreadsheet (CSV): ${plural(n, 'stop')}${own ? ' on your days' : ''}`, icon: 'download', onSelect: () => void run((d) => downloadTripCsv(d as TripExport)) });
       }
     }
   }

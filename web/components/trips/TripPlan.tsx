@@ -138,7 +138,7 @@ function Tabs({ tabs, api }: { tabs: Props['tabs']; api: ReturnType<typeof useTr
     <PageTabs
       label="Trip sections"
       idPrefix="trip"
-      tabs={tabs.available.map((t) => ({ value: t, label: TAB_LABEL[t], count: tabs.counts[t] ?? null }))}
+      tabs={tabs.available.map((t) => ({ value: t, label: TAB_LABEL[t], count: tabs.counts[t] ?? null, ...(t === 'stops' ? { hint: 'places in this trip, stops and options' } : {}) }))}
       value={api.tab}
       onActivate={api.select}
       onFocusTab={prefetchTab}

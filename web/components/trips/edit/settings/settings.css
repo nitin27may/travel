@@ -47,3 +47,6 @@
 .own-set-link { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); width: 100%; min-height: var(--touch-min); padding: 0 var(--s-3); border: 0; background: none; color: var(--accent-text); font: var(--t-mono); font-weight: 600; text-align: left; cursor: pointer; }
 .own-set-link:hover { text-decoration: underline; }
 .own-set-link:focus-visible { outline: var(--focus-ring); outline-offset: -2px; }
+
+/* one label style in the sheet: the steppers' mono caps (Days, Adults, Children) read as the field label of every other row (ER-019) */
+.own-sheet .stepper-label { font: var(--t-label); letter-spacing: normal; text-transform: none; color: var(--muted); }

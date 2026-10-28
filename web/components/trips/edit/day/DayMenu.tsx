@@ -199,7 +199,7 @@ function VersionView({ n, day, tl, profile, addedItems, back, pick }: { n: numbe
                 <span className="edit-day-main">
                   <span className="edit-day-name">{on ? `${v.label} (now)` : v.label}</span>
                   <span className="edit-day-sub num">{l ? l.line : lines === null ? 'Checking this version' : ''}</span>
-                  {l?.warn ? <span className="edit-day-reason">{l.warn}</span> : null}
+                  {l?.warn ? <span className="edit-day-reason" data-level={l.level ?? 'fix'}>{l.warn}</span> : null}
                 </span>
               </button>
             </li>

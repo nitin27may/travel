@@ -26,8 +26,9 @@
 .add-title { font: var(--t-title); color: var(--ink); overflow-wrap: anywhere; }
 .add-fit, .add-dist { margin: 0; font: var(--t-meta); color: var(--ink-2); overflow-wrap: anywhere; }
 .add-dist { color: var(--muted); }
-.add-fit[data-fit='full'], .add-fit[data-fit='fix'] { color: var(--crit); }
-.add-fit[data-fit='tight'] { color: var(--warn); }
+.add-fit[data-fit='fix'] { color: var(--crit); }
+/* a full day is advice (Add stays live), so it reads in the Check colour, not the Fix red (ER-004; spec 11.1) */
+.add-fit[data-fit='full'], .add-fit[data-fit='tight'] { color: var(--warn); }
 .add-fit[data-fit='wait'] { color: var(--muted); }
 .add-row[data-far] .add-title { color: var(--ink-2); }
 .add-act { display: flex; align-items: center; justify-content: flex-end; min-width: 0; }

@@ -238,7 +238,7 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
     await page.locator('.tl-planbar').getByRole('button', { name: 'Export trip', exact: true }).click();
     await expect(page.getByRole('menuitem', { name: /^For a GPS or hiking app \(GPX\): \d+ points, 10 routes$/ })).toBeVisible();
     await expect(page.getByRole('menuitem', { name: /^For Google Earth or My Maps \(KML\): \d+ points, 10 routes$/ })).toBeVisible();
-    await expect(page.getByRole('menuitem', { name: /^For a spreadsheet \(CSV\): \d+ stops$/ })).toBeVisible();
+    await expect(page.getByRole('menuitem', { name: /^For a spreadsheet \(CSV\): \d+ stops( on your days)?$/ })).toBeVisible();
     await page.keyboard.press('Escape');
     const [gpx] = await open(/^For a GPS or hiking app/);
     expect(gpx.suggestedFilename()).toBe('canadian-rockies-2029.gpx');
@@ -299,7 +299,7 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
     expect(printed.parent).toBe('BODY');
     expect(printed.text).toContain('Day 1: ');
     expect(printed.text).toContain('Day 15: ');
-    expect(printed.text).toContain('Planned for Family, 6 · Standard');
+    expect(printed.text).toContain('Planned for 2 adults · youngest 6 · Standard pace');
     expect(printed.text).not.toMatch(/Lane [ABC]/);
     expect(printed.text).toMatch(/\d\d:\d\d · /);
     // B2: every stop the page shows, shows on paper with the same time word ("~" for a suggested time) and the same duration
