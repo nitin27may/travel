@@ -484,8 +484,8 @@ edit mode (3.13).
 2. **Phone: a focused flow to the build.** Under 640 px the step header (components 9.1) replaces the public header and
    the action bar (9.4) replaces the public bottom bar on stages 0 to 4. One stage per screen; the primary is always in
    the action bar, in the thumb zone (T2). Lists, map, filters and tray are sheets (9.3). No swipe gestures. After the
-   build the trip is the details page: its phone chrome is the **edit bar** Settings · Done (components 8.6), and Undo is
-   in the toast and the cover's `⋯` (FLOW TF18 as amended). Close on stages 0 to 4 keeps the draft and returns to the page
+   build the trip is the details page: its phone chrome is the **edit bar** Undo · Redo · Settings · Done (components 8.6), and Undo is
+   also in the toast and the cover's `⋯` (FLOW TF18 as amended). Close on stages 0 to 4 keeps the draft and returns to the page
    the visitor came from (or `/`).
 3. **Desktop: everything at once.** Header, the step rail (9.1) with the one primary at its right end, then panes: Pick
    is filters 232 · list 500 · map fluid · tray 300; Days and driving is settings 480 · map. Hovering a row lifts its pin
@@ -542,7 +542,7 @@ one of our trips (template mode, it keeps following our plan) and a trip the bui
    `--bg`), never inside the tab row, and it scrolls to the first Fix warning. From 640 px the sticky row's right end holds
    Undo and Redo (icon buttons 38 px, hit 44, disabled when the stack is empty), the changes count on a copy ("4
    changes"), the fix count as a button, **Settings** (secondary) and **Done** (primary); when they do not fit beside the
-   tabs, they take a second line of the sticky row and the tabs never truncate.
+   tabs, they take a second line of the sticky row and the tabs never truncate. The day strip has priority: below 1600 px the tools take the second line (right-aligned) so the strip shows every day; from 1600 px they sit beside it. Under 640 px the edit bar also holds Undo and Redo (components 8.6).
 5. **Every stop and every day, by button first** (Q-BE3, WCAG 2.5.7). Any stop can be removed (published, added, from
    our trip, engine-placed) and moved. Each stop's `⋯` opens the item sheet on a phone and the same rows as an anchored
    menu on desktop (components 8.7); each day header's `⋯` does the same for the day. Drag is an accelerator only:
@@ -562,8 +562,8 @@ one of our trips (template mode, it keeps following our plan) and a trip the bui
    its foot reads "Kept in this browser. Sign in to keep it on every device."
 8. **Undo** (Q-BE4): each change is one operation with an inverse; the stack is per trip and per tab session,
    `PLAN_EDIT.undoSteps` (50) deep, kept across a reload in the same tab, not synced. Every change raises the toast with
-   **Undo** (components 5.3); ⌘Z and ⌘⇧Z (1.3); desktop Undo and Redo in the sticky row; phone Undo and Redo in the
-   cover's `⋯`, never a bar button. A grouped action (a swap, Add to Maybe, a Drop Day that moves stops, an Apply with
+   **Undo** (components 5.3); ⌘Z and ⌘⇧Z (1.3); desktop Undo and Redo in the sticky row; phone Undo and Redo in the edit bar (components 8.6) and in the
+   cover's `⋯`. A grouped action (a swap, Add to Maybe, a Drop Day that moves stops, an Apply with
    several operations, conversion) is one step. There is no History list in v1.
 9. **Changes from our plan** (copies; P3): one collapsed line, "4 changes from our plan · Show", above Day 1 and at the
    top of the Summary. Show opens the sheet "Changes from our plan": one row per change, newest first, saying what and

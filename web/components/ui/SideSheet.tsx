@@ -25,7 +25,7 @@ interface Props {
 }
 
 /**
- * Right-edge drawer, 460 px (components 5.1). Header: 140 px photo under a 10% to 85% gradient, kicker, 32 px title,
+ * Right-edge drawer, 460 px (components 5.1). Without `media` the header is the light plain one (title, close, hairline; no dark band). Header: 140 px photo under a 10% to 85% gradient, kicker, 32 px title,
  * 4 px identity bar. Slides in 260 ms, out 200 ms. Esc closes; focus moves to the title on open and back to the opener on close.
  */
 export function SideSheet({ open, onOpenChange, title, kicker, media, identity = 'none', modal = true, footer, finalFocus, children, className }: Props) {
@@ -35,7 +35,7 @@ export function SideSheet({ open, onOpenChange, title, kicker, media, identity =
       <Dialog.Portal>
         {modal === true ? <Dialog.Backdrop className="scrim" /> : null}
         <Dialog.Popup className={cx('sheet sheet-side', className)} initialFocus={titleRef} finalFocus={finalFocus} aria-describedby={undefined}>
-          <div className="sheet-photo" style={{ ['--tc' as string]: `var(--id-${identity})` }}>
+          <div className={cx('sheet-photo', !media && 'sheet-photo-plain')} style={{ ['--tc' as string]: `var(--id-${identity})` }}>
             {media ? <div className="sheet-media">{media}</div> : null}
             <div className="sheet-photo-text">
               {kicker ? <p className="sheet-kicker">{kicker}</p> : null}

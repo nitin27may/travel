@@ -322,7 +322,7 @@ export function EditLayer(p: LayerProps) {
           <DragLayer doc={doc} model={model} profile={p.profile} start={p.start} commit={commit} announce={s.announce} remove={act.remove} onDone={p.onDone} />
         </Suspense>
       ) : null}
-      {on ? <EditBar title={p.title} onSettings={p.onSettings} onDone={p.onDone} /> : null}
+      {on ? <EditBar title={p.title} canUndo={s.canUndo} canRedo={s.canRedo} undoLabel={s.undoLabel} redoLabel={s.redoLabel} onUndo={undo} onRedo={redo} onSettings={p.onSettings} onDone={p.onDone} /> : null}
       {pick && copy ? (
         <Suspense fallback={null}>
           <AddPicker doc={doc} model={model} profile={p.profile} start={p.start} day={pick.day} slug={pick.slug} onClose={closePicker} commit={commit} register={p.register} undo={undo} undoLabel={s.undoLabel} />
