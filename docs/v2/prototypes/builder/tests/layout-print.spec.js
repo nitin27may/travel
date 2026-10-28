@@ -1,5 +1,6 @@
 /* Plan 1B: layout sweep (no horizontal scroll at 320, 360, 390, 400, 480, 600, 760 and 1440) and the print stylesheet (page.pdf()). */
 const { test, expect } = require('../../shared/tests/fixtures.js');
+test.use({ viewport: { width: 390, height: 844 } }); // PHONE-DEFAULT: these specs drive the phone layout (below 1024); desktop.spec.js covers 1024 and up
 const { dolomitesPlan } = require('./helpers.js');
 const { execFileSync } = require('node:child_process');
 const fs = require('node:fs');

@@ -1,5 +1,6 @@
 /* Plan 1B: free days. Two-pass relax in fillFree, half-day items, "Remove this day" (nights minus one, undoable), "Add a place". */
 const { test, expect } = require('../../shared/tests/fixtures.js');
+test.use({ viewport: { width: 390, height: 844 } }); // PHONE-DEFAULT: these specs drive the phone layout (below 1024); desktop.spec.js covers 1024 and up
 const { dolomitesPlan } = require('./helpers.js');
 
 test('fillFree: pass 1 is strict, pass 2 relaxes, then half a day; the result says which', async ({ page, base }) => {

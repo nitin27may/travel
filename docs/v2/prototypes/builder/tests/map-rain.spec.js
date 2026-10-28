@@ -1,6 +1,7 @@
 /* Plan 1B: shared/map.js for every map (day colours, legs, numbered pins, tap a pin to open the item sheet);
    "Swap for indoor" rain plan on an item (indoor places within the drive budget, undoable, marks Placed by you). */
 const { test, expect } = require('../../shared/tests/fixtures.js');
+test.use({ viewport: { width: 390, height: 844 } }); // PHONE-DEFAULT: these specs drive the phone layout (below 1024); desktop.spec.js covers 1024 and up
 const { dolomitesPlan } = require('./helpers.js');
 
 test('map: the editor map is shared/map.js with a coloured leg per day, numbered pins and base squares', async ({ page, base }) => {

@@ -1,5 +1,6 @@
 /* Plan 1B: a day trip stays one base (and says why); "Surprise me" covers every country in data.js by month, drive time and interests. */
 const { test, expect } = require('../../shared/tests/fixtures.js');
+test.use({ viewport: { width: 390, height: 844 } }); // PHONE-DEFAULT: these specs drive the phone layout (below 1024); desktop.spec.js covers 1024 and up
 
 test('day trip: Days and driving explains the single base and offers a weekend instead', async ({ page, base }) => {
   await page.goto(base + '/builder/?fast');

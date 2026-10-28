@@ -1,5 +1,6 @@
 /* Plan 1B: every proto.trips read and write goes through shared/contract.js (normalise, validate, readTrips, writeTrips). */
 const { test, expect } = require('../../shared/tests/fixtures.js');
+test.use({ viewport: { width: 390, height: 844 } }); // PHONE-DEFAULT: these specs drive the phone layout (below 1024); desktop.spec.js covers 1024 and up
 const { dolomitesPlan } = require('./helpers.js');
 const fs = require('node:fs');
 const path = require('node:path');

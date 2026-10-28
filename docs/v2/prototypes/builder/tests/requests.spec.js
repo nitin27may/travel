@@ -1,6 +1,7 @@
 /* Plan 1B: "Ask us for more" opens a request sheet (place or region, note), writes proto.requests through shared/contract.js
    and shows Requested, Researching or Added chips in the pick list. */
 const { test, expect } = require('../../shared/tests/fixtures.js');
+test.use({ viewport: { width: 390, height: 844 } }); // PHONE-DEFAULT: these specs drive the phone layout (below 1024); desktop.spec.js covers 1024 and up
 
 async function toPickList(page, base) {
   await page.goto(base + '/builder/?fast');

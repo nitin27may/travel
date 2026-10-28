@@ -5,7 +5,7 @@
 
    ProtoMap.render(el, {
      days:    [{n, points:[{id, lat, lon, label}]}],   // legs join a day's points in order; pins are numbered 1.. within the day
-     extras:  [{id, lat, lon, label}],                 // unnumbered markers (a base, an airport): small square
+     extras:  [{id, lat, lon, label, tone?:'sel'|'dim', caption?}],   // unnumbered markers (a base, an airport): small square; tone 'sel' fills it with the accent, 'dim' fades it; caption draws a name plate beside it
      outline: [[lat, lon], ...] or [[[lat, lon], ...], ...],   // optional park boundary, drawn closed
      selected: id, height: px (default: 3/4 of width, 220 to 520), label: 'accessible name of the map',
      pinLabel: function (point, dayN, stopNo) -> aria-label string (default "Day N, stop K: Name"),
@@ -71,7 +71,13 @@
     });
     (o.extras || []).forEach(function (p) {
       var g = el('g', { transform: 'translate(' + P.x(p.lon).toFixed(1) + ' ' + P.y(p.lat).toFixed(1) + ')', 'aria-label': p.label || 'Base', role: 'img' }, svg);
-      el('rect', { x: -6, y: -6, width: 12, height: 12, rx: 2, fill: 'var(--map-stop)', stroke: 'var(--map-halo)', 'stroke-width': 2 }, g);
+      el('rect', { x: -6, y: -6, width: 12, height: 12, rx: 2, fill: p.tone === 'sel' ? 'var(--accent)' : 'var(--map-stop)', 'fill-opacity': p.tone === 'dim' ? 0.45 : 1, stroke: p.tone === 'sel' ? 'var(--map-casing)' : 'var(--map-halo)', 'stroke-width': 2 }, g);
+      if (p.caption) {
+        var cw = Math.min(W - 8, p.caption.length * 6.6 + 14), cx0 = Math.max(4 - P.x(p.lon), Math.min(10, W - 4 - cw - P.x(p.lon)));
+        el('rect', { x: cx0, y: -22, width: cw, height: 18, rx: 5, fill: 'var(--map-pin)', stroke: 'var(--map-border)' }, g);
+        var ct = el('text', { x: cx0 + cw / 2, y: -13, 'text-anchor': 'middle', 'dominant-baseline': 'central', fill: 'var(--map-pin-ink)', 'font-size': 11, 'font-family': 'var(--font-body)', 'aria-hidden': 'true' }, g);
+        ct.textContent = p.caption;
+      }
     });
     var taken = [];
     (o.days || []).forEach(function (d, di) {

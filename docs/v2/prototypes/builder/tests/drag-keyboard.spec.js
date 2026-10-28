@@ -1,6 +1,7 @@
 /* Plan 1B: keyboard model (arrows move focus, Space lifts, arrows move, Enter drops, Escape cancels; single-letter keys only on a
    focused plan row, off by a switch) and phone drag (long-press 300 ms, drop targets per day, edge auto-scroll). */
 const { test, expect } = require('../../shared/tests/fixtures.js');
+test.use({ viewport: { width: 390, height: 844 } }); // PHONE-DEFAULT: these specs drive the phone layout (below 1024); desktop.spec.js covers 1024 and up
 const { dolomitesPlan, dayWith, names } = require('./helpers.js');
 const BUSY = ['ortisei', 'seceda', 'siusi', 'funes', 'braies', 'carezza', 'gherdeina', 'dobbiaco', 'otzi', 'renon'];
 

@@ -1,6 +1,7 @@
 /* Plan 1B: convert notice follows FLOW (copied stops stay placed; opt-in link for the old behaviour); sun times from shared/sun.js
    for every day and hikes flagged when they end after sunset minus 30 min; the calendar file comes from shared/ics.js. */
 const { test, expect } = require('../../shared/tests/fixtures.js');
+test.use({ viewport: { width: 390, height: 844 } }); // PHONE-DEFAULT: these specs drive the phone layout (below 1024); desktop.spec.js covers 1024 and up
 const { execFileSync } = require('node:child_process');
 const path = require('node:path');
 const { openSeeded } = require('./helpers.js');

@@ -1,6 +1,7 @@
 /* Plan 1B: departure-day light stop (only when the departure leaves 3 h or more); far-park card in the editor; trip mode with a
    pinned park defaults the arrival airport to the park's nearest ("arrive at YYC" for Banff). */
 const { test, expect } = require('../../shared/tests/fixtures.js');
+test.use({ viewport: { width: 390, height: 844 } }); // PHONE-DEFAULT: these specs drive the phone layout (below 1024); desktop.spec.js covers 1024 and up
 
 async function planWithDeparture(page, base, departAt) {
   await page.goto(base + '/builder/?fast');

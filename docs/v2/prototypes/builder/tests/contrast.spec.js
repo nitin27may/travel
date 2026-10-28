@@ -1,5 +1,6 @@
 /* Plan 1B: the shared contrast checker (light and dark) reports nothing on the builder's screens, sheets and states. */
 const { test, expect } = require('../../shared/tests/fixtures.js');
+test.use({ viewport: { width: 390, height: 844 } }); // PHONE-DEFAULT: these specs drive the phone layout (below 1024); desktop.spec.js covers 1024 and up
 const { checkContrast, formatFailures } = require('../../shared/tests/contrast.js');
 const { dolomitesPlan } = require('./helpers.js');
 
