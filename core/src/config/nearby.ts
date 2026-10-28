@@ -11,6 +11,17 @@ import { API_LIMITS } from "../schema/api/limits.ts";
 export const NEAR_KM: number = API_LIMITS.nearRadius.default;
 /** Day trips (nearby spec 5.2): the farthest a place may be and still count as a day trip, and the "area" cap of the relevance derivation. */
 export const DAY_TRIP_KM: number = API_LIMITS.nearby.dayTrips;
+/**
+ * The add picker's radius (STEP2-E3; edit-mode-spec 7.2 group 6): places with a page and a non-approximate point within this many km of
+ * a day's base or one of its stops are offered on that day. Not `NEAR_KM`: the timeline's add list is a day-trip radius, the near API's is
+ * a "what is around here" radius, and each moves on its own.
+ */
+export const ADD_NEARBY_KM = 30;
+/**
+ * A place or park farther than this from every base of a trip is not offered a day (README ruling C5, M3): the picker says how far it is
+ * and offers "Start a new trip with ..." instead. Equal to the day-trip limit, since beyond it no day of the trip can reach the place.
+ */
+export const ADD_PIN_FAR_KM: number = API_LIMITS.nearby.dayTrips;
 /** The radius chips offered on near mode, in km. */
 export const RADIUS_PRESETS: readonly number[] = API_LIMITS.nearRadius.presets;
 /** The largest radius a visitor can ask for; above it the store clamps (P8). */

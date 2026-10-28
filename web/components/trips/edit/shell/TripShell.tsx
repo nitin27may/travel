@@ -24,7 +24,8 @@ import { documentSource, profileOfDraft } from '@/lib/trip-edit/source';
 import { useTripDocument } from '@/lib/trip-edit/useTripDocument';
 import { ChangesLine, IdentityCell, Newer, NotBuilt, NotFound, SyncState, TripSkeleton } from './StateBits';
 import { EditHost, type EditApi } from './EditHost';
-import type { TimelineModel } from '@/components/trips/timeline/model';
+import type { AddCandidate, TimelineModel } from '@/components/trips/timeline/model';
+import { missingSlugs, readExtras, withExtras } from '../add/extras';
 import { OwnActions } from './OwnActions';
 import { PartyLine } from './PartyLine';
 import { SummaryOwn } from './SummaryOwn';
@@ -107,6 +108,9 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   const [settings, setSettings] = useState(false);
   const marks = useMemo(() => (doc ? entryMarks(doc) : () => []), [doc]);
   const openSettings = useCallback(() => setSettings(true), []);
+  // places the document names that the plan model does not carry (found by search, taken from a park or Maybe): read once, merged into the timeline model (STEP2-E3)
+  const [extras, setExtras] = useState<Record<string, AddCandidate>>({});
+  const register = useCallback((c: AddCandidate) => setExtras((e) => (e[c.key] ? e : { ...e, [c.key]: c })), []);
 
   const model = useMemo<TripPlanModel | null>(() => {
     if (!doc) return null;
@@ -119,6 +123,18 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
     const t = doc.title ?? copyTitle ?? plan?.ours?.name ?? (slug ? words(slug) : 'Your trip');
     document.title = `${t} · Your trip`;
   }, [doc, plan, slug, copyTitle]);
+
+  const timelineModel = useMemo(() => (model?.timeline && doc ? withExtras(model.timeline as unknown as TimelineModel, extras, doc) : null), [model, doc, extras]);
+  const pageModel = useMemo(() => (model && timelineModel ? { ...model, timeline: timelineModel } : model), [model, timelineModel]);
+  const lacking = model?.timeline && doc ? missingSlugs(doc, model.timeline as unknown as TimelineModel, extras).join(',') : '';
+  useEffect(() => {
+    if (!lacking) return;
+    let live = true;
+    void readExtras(lacking.split(',')).then((c) => live && Object.keys(c).length && setExtras((e) => ({ ...e, ...c })));
+    return () => {
+      live = false;
+    };
+  }, [lacking]);
 
   if (state.status === 'loading') return <TripSkeleton />;
   if (state.status === 'newer') return <><h1 className="sr-only">Your trip</h1><Newer /></>;
@@ -204,7 +220,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
       />
       <TripPlan
         slug={slug ?? id}
-        model={model as unknown as TripPageModel}
+        model={pageModel as unknown as TripPageModel}
         title={title}
         depth="full"
         tabs={{ available, counts }}
@@ -218,7 +234,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
 
   const layer = {
     id, doc, save, title, ours: slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null,
-    model: model.timeline as unknown as TimelineModel, defaults, profile, start: doc.start ?? null, where: state.where, word: state.word, retry: state.retry, onSettings: openSettings,
+    model: (timelineModel ?? model.timeline) as unknown as TimelineModel, register, defaults, profile, start: doc.start ?? null, where: state.where, word: state.word, retry: state.retry, onSettings: openSettings,
   };
   return (
     <EditHost marks={marks as Parameters<typeof EditHost>[0]['marks']} layer={layer}>

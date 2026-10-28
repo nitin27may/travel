@@ -5,11 +5,11 @@
 // the edit session (the undo stack, the toasts, the announcements), publishes the slots the timeline draws (`TimelineExtras.edit`, the
 // sticky bar's tools, the cover's `⋯`) through EditHost, and mounts the phone's edit bar and the changes sheet.
 //
-// Slots left for the other E packages, wired but empty: `handle` (E2, drag), `addPicker` (E3), `dayMenu` (E4), `dayStatus` (E5); see
+// Slots left for the other E packages, wired but empty: `handle` (E2, drag), `dayMenu` (E4), `dayStatus` (E5); `addPicker` is E3's (add/); see
 // components/trips/timeline/editSlots.ts.
-import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { TimelineEntry, Profile } from '@travel/core/schedule/types.ts';
-import type { TimelineModel } from '@/components/trips/timeline/model';
+import type { AddCandidate, TimelineModel } from '@/components/trips/timeline/model';
 import type { EditSlots } from '@/components/trips/timeline/editSlots';
 import { TRIP_EDIT_UI } from '@/lib/config/product';
 import { changeRows, type ChangeRow } from '@/lib/trip-edit/changes';
@@ -24,11 +24,15 @@ import { ChangesSheet } from './panel/ChangesSheet';
 import { StopMenu, stopsOfDay } from './panel/StopMenu';
 import { TripMenu } from './panel/TripMenu';
 import { DragHandle } from './drag/DragHandle';
+import { AddRow } from './add/AddRow';
 import { useEditSession } from './useEditSession';
+import './add/add.css';
 import './edit.css';
 
 // drag and the keyboard model load after the chunk (STEP2-E2): the handle itself is tiny and static, the listeners and the `?` list are not
 const DragLayer = lazy(() => import('./drag/DragLayer'));
+// the picker, its scheduler and its reads are their own chunk: they load on the first press of an add row or an `add=` address
+const AddPicker = lazy(() => import('./add/AddPicker').then((m) => ({ default: m.AddPicker })));
 
 export interface LayerProps {
   id: string;
@@ -50,6 +54,8 @@ export interface LayerProps {
   /** a request from outside to open the changes sheet; `n` makes each press a new request */
   command: { n: number } | null;
   publish: (p: Published | null) => void;
+  /** hands the page a place the plan model does not carry, so the timeline can schedule it (STEP2-E3) */
+  register: (c: AddCandidate) => void;
 }
 
 const typing = (t: EventTarget | null): boolean => t instanceof HTMLElement && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
@@ -59,6 +65,20 @@ export function EditLayer(p: LayerProps) {
   const s = useEditSession(p.id, doc, p.save, TRIP_EDIT_UI.announceClearMs);
   const { commit, undo, redo } = s;
   const [changesOpen, setChangesOpen] = useState(false);
+  // the add picker: for a day (the add row), or for a place a page sent (`add=<slug>`, edit-mode-spec 7.4)
+  const [pick, setPick] = useState<{ day: number | null; slug: string | null } | null>(null);
+  const pickDay = useRef<number | null>(null);
+  const openPicker = useCallback((day: number) => {
+    pickDay.current = day;
+    setPick({ day, slug: null });
+  }, []);
+  // closing returns focus to the day's add row (edit-mode-spec 7.3)
+  const closePicker = useCallback(() => {
+    const day = pickDay.current;
+    pickDay.current = null;
+    setPick(null);
+    if (day) window.setTimeout(() => document.querySelector<HTMLElement>(`#day-${day} .tl-add-open`)?.focus({ preventScroll: true }), 80);
+  }, []);
   const changes = changeCount(doc);
 
   const names = useMemo(() => {
@@ -92,6 +112,17 @@ export function EditLayer(p: LayerProps) {
       s.announce('Done editing');
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- the announcement is for entering and leaving only
+  }, [on]);
+
+  // a place page sent `add=<slug>`: the picker opens with it, and the key leaves the address (patterns 1.2)
+  useEffect(() => {
+    if (!on) return;
+    const u = new URL(window.location.href);
+    const slug = u.searchParams.get('add');
+    if (!slug) return;
+    u.searchParams.delete('add');
+    window.history.replaceState(window.history.state, '', `${u.pathname}${u.search}${u.hash}`);
+    if (/^[a-z0-9][a-z0-9-]*$/.test(slug)) setPick({ day: null, slug });
   }, [on]);
 
   // Ctrl or Cmd+Z undoes, with Shift redoes (patterns 1.3), anywhere on the page but a field
@@ -160,6 +191,7 @@ export function EditLayer(p: LayerProps) {
     const edit: EditSlots = {
       canEdit,
       handle: (e) => <DragHandle entry={e} />,
+      ...(copy ? { addPicker: (day: number) => <AddRow day={day} onOpen={openPicker} /> } : {}),
       trail: (e, dayEntries) => (
         <StopMenu
           entry={e}
@@ -193,7 +225,7 @@ export function EditLayer(p: LayerProps) {
       ),
       cover: <TripMenu id={p.id} title={p.title} where={p.where} copy={copy} changes={changes} canUndo={s.canUndo} canRedo={s.canRedo} onUndo={undo} onRedo={redo} onReset={resetAll} />,
     };
-  }, [canEdit, doc, model, p.defaults, p.profile, p.start, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
+  }, [canEdit, openPicker, doc, model, p.defaults, p.profile, p.start, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
   useEffect(() => {
     publish(published);
   }, [published, publish]);
@@ -208,6 +240,11 @@ export function EditLayer(p: LayerProps) {
         </Suspense>
       ) : null}
       {on ? <EditBar title={p.title} onSettings={p.onSettings} onDone={p.onDone} /> : null}
+      {pick && copy ? (
+        <Suspense fallback={null}>
+          <AddPicker doc={doc} model={model} profile={p.profile} start={p.start} day={pick.day} slug={pick.slug} onClose={closePicker} commit={commit} register={p.register} undo={undo} undoLabel={s.undoLabel} />
+        </Suspense>
+      ) : null}
       <ChangesSheet open={changesOpen} onClose={() => setChangesOpen(false)} rows={rows} ours={p.ours} onRow={onRow} onReset={resetAll} />
     </>
   );
