@@ -107,6 +107,8 @@ the photo is 28 px in a 2 px identity ring with keyline, label "Switch", first p
 | public (signed out or in) | **Trips · Places · Globe · Search · Mine** (`cards`, `pin`, `globe`, `search` as a button that opens the header search, `layers`) | NAV-1; replaces the interim ACCT-PH "Sign in / Account" item 1:1 |
 | signed in, planner stage | Home · Trips · Places · Mine · More (Globe first in More) | later, NAV-M (nav spec 7, Q207) |
 | inside a trip | [photo] Plan · Today · Bookings · More | planner |
+| your trip in edit mode (`/t/<id>/?edit=1`) | none: the **edit bar** (8.6) Settings · Done replaces this bar while edit mode is on | Step 2 |
+| builder stages 0 to 4 (`/plan/`) | none: the builder's action bar (9.4) replaces this bar | builder |
 
 Mine's label and icon never change with the session (no session read in the bar). Mine is current on `/mine/**`
 (`aria-current="page"`) and on `/account/**`, `/sign-in/**`, `/sign-up/**` (`aria-current="true"`, same look), computed
@@ -167,7 +169,7 @@ countsFrom })` in `web/components/ui/PageTabs.tsx`; it shares its roving-focus h
 
 | Variant | Fill | Border | Text | Use |
 |---|---|---|---|---|
-| primary | `--accent` | none | `--accent-ink` mono 13/600 | one per view: Plan a trip, Add a booking, Save to Patagonia, Copy to my trips, Navigate |
+| primary | `--accent` | none | `--accent-ink` mono 13/600 | one per view: Plan a trip, Add a booking, Save to Patagonia, Copy to my trips, Edit trip (your own trip), Done (edit mode), Navigate. In edit mode Done is the only one on screen: the cover's Done is secondary, and a sheet whose consequence notice is open makes its Continue primary and its Apply secondary (patterns 3.13 item 3) |
 | secondary | transparent | 1 px `--line-2` | `--ink` mono 13/500 | everything else |
 | ghost | transparent | none | `--ink` (or `--header-ink` in the header) | toolbars, header, inline actions |
 | danger | `--crit-fill` | none | `--on-crit-fill` | Delete trip, Revoke link; always behind a confirm |
@@ -227,7 +229,10 @@ dark; a white glyph on `--ok` is 2.1:1 in dark and is not allowed). Radio 20 px 
 10 px `--ink`. Switch 44 x 24, thumb 20, off `--line-2` track, on `--accent` track; the thumb stays
 `--surface` with a 1 px `--line-2` keyline; label to the right, state word after it for screen readers only.
 Hover darkens the border to `--ink`; focus ring; disabled 45%. Animations: check draw 120 ms, switch thumb
-200 ms `--e-std`.
+200 ms `--e-std`. **The thumb position is the on-state indicator**, together with the state word for screen readers: the
+on track (`--accent`) is 2.52:1 on `--surface` in light (6.54 dark), under the 3:1 UI minimum, so the track colour is
+never the only carrier of the state, and a switch never stands without its label (review TB-N2R; approved at G-S2,
+28 Oct 2026; no change to the look).
 
 ### 2.6 Slider
 
@@ -460,6 +465,22 @@ the chip row, before honesty, idea and To book, and the mono meta drops the chil
 **Chips may wrap to a second line on a phone entry**, limits chip first: the one exception to "mono never wraps"
 besides the selector footer (recorded in timeline-design 10 and suitability-display 3.3).
 
+**Slots on your own trip (Step 2, patterns 3.10 item 10 and 3.13).** The entry has four slots; read mode on `/trips/`
+and `/t/` fills only the last two, so the public entry is unchanged.
+
+| Slot | Read mode | Edit mode |
+|---|---|---|
+| Leading (24 x 44 desktop, 28 x 44 phone), before the time rail | not drawn: the rail starts at the card's left edge as today | the six-dot handle (8.1), `--muted` (6.94 / 7.45 on `--surface`), `--ink` on row hover |
+| Trailing (44 x 44), after the photo | not drawn | the `⋯` button (icon ghost, 8.7), named "Actions for Seceda, Day 3" |
+| Mark line, under the title | the stop's marks as neutral chips (2.8, `--ink-2` on `--surface` 12.09 / 10.76): Added by you, Moved from Day 3, Moved by you, From our trip, Kept on Day 4, Changed on another device. At most two; a third goes into the item sheet's header line. Words, never colour alone | the same |
+| Action line, in the content column | Map: <name>, Directions, AllTrails (R59-1), as on the public entry | the same; on a phone "Map: <name>" shortens to "Map" so the line stays one row |
+
+Entering edit mode adds the leading and trailing slots and narrows the content column by their widths. The page keeps the
+entry nearest the top of the viewport at the same height on screen (scroll anchoring on that entry), and the slots fade
+in over `--d-fast` (a jump under reduced motion); the cover, party bar and tabs do not move (patterns 3.13 item 2). A Fix
+warning on an entry is a line under the leg in `--crit` with the `warn` triangle and its one fix button; a Check warning
+is `--warn` text on `--warn-soft`; never a fill (patterns 3.13 item 10).
+
 ### 4.4 Elevation profile
 
 SVG, 160 px tall, **`--ink` 2 px line with a 10% `--ink` area** (public surface: nothing amber at rest);
@@ -553,8 +574,10 @@ only way to read a value.
 
 ### 5.3 Toast with Undo
 
-Bottom centre, 20 px up (above the bottom bar on phone), `--toast-bg` pill, `--toast-ink` mono 13, optional
-28 px trip photo, message, **Undo** underlined 600 (hit 44). 6 s with Undo, 4 s without, 8 s for a trip
+Bottom centre, 20 px up (above the bottom bar, the edit bar (8.6) or the builder's action bar on phone), width at most
+min(100% − 32 px, 560 px), `--toast-bg` pill, `--toast-ink` mono 13 (14.85 / 15.28), optional 28 px trip photo,
+message, **Undo** underlined 600 (hit 44). The " · " separator sits only between parts of the message ("Moved Seceda to
+Day 4 · kept there"); Undo is the button, never text after a separator. 6 s with Undo, 4 s without, 8 s for a trip
 switch ("Dolomites stays on Bookings, Day 9 · Back"). Pauses on hover and focus; stacks at most two; polite
 live region; Undo reachable by Tab before it leaves. Enter 200 ms rise, exit 160 ms fade.
 
@@ -696,12 +719,22 @@ Handle: six dots 18 px, `--muted`, in a 24 x 44 target (28 x 44 phone) at the ro
 row hover; `--accent-text` while dragging; `cursor: grab`/`grabbing`. Lift: the row becomes the ghost at
 scale 1.02, `--surface-2`, `--e-2`, rotate -0.8°, 120 ms; the origin stays at 32% opacity. Insertion
 line: 2 px `--accent` from the content column to the right edge with 8 px end dots; the pill sits at the
-line's left end: `--accent` fill, `--accent-ink` mono 11.5/600, "to Day 3 · before 11:30", plus a delta
-when known ("+42 min driving"). Hovering a collapsed day opens it after 400 ms; hovering an outline day
-jumps there. Drop: spring settle, legs and totals count 300 ms, Undo toast. Keyboard: Space picks up,
-arrows move within the day, PageUp/PageDown between days, Space drops, Esc cancels; every step announced
-("Seceda, Day 12, position 2 of 4"). Phone: long-press 300 ms (haptic where supported) or Move to… in the
-row menu (Day, position) which is always present.
+line's left end: `--accent` fill, `--accent-ink` mono 11.5/600 (6.96), "to Day 3 · before 11:30", plus a delta
+when known ("+42 min driving ≈"). Hovering a collapsed day opens it after 400 ms; on your trip's Days (Step 2) a stop
+dropped on a day cell of the plan bar's day rail moves to the end of that day, and hovering a cell 400 ms scrolls to that
+day. Drop: spring settle, legs and totals count 300 ms, Undo toast. Cancel: Esc, or dropping where it started.
+
+**Start** (thresholds in `TRIP_EDIT_UI`): desktop, a press on the handle and 4 px of movement, or a press anywhere on the
+row and 8 px; phone, a **long-press of `TRIP_EDIT_UI.longPressMs` (300 ms) on the handle only**, with haptic where
+supported, and only **within the open day** (owner Q-BE3, Step 2 ruling R4): a press on the row body scrolls the page as
+normal, and to another day the person uses **Move to day…**, the first row of the item sheet (8.7), which is always
+present (WCAG 2.5.7). Autoscroll in the top and bottom 64 px of the viewport. Reduced motion: no lift scale, rotation or
+settle; the line and pill only.
+
+**Keyboard** (ruling R5): **Space or Enter** lifts the focused entry and drops it; arrows move it within the day;
+PageUp and PageDown to the previous or next day; Home and End to the top or bottom of the day; **Esc** cancels and puts it
+back; Alt+Up and Alt+Down move it without lifting. Every step is announced in a polite live region ("Seceda, Day 3,
+position 2 of 4"). The rest of the edit-mode keys are in patterns 1.3.
 
 ### 8.2 Task reminder chip
 
@@ -738,17 +771,84 @@ Decision: **no infinite scroll.** Lists show 48 cards or 100 rows per page with 
 public site is read and shared by link, the footer (credits, attribution) must stay reachable, and the
 table's CSV export and group collapse need a bounded set. Collapsed country groups load on expand.
 
-## 9. Plan builder (`/plan/`), proposed (TB-N, 27 Oct 2026, pending owner approval)
+### 8.6 Edit bar (phone)
+
+Step 2 (approved at G-S2, 28 Oct 2026; patterns 3.13 item 4; FLOW TF18 as amended by ruling R2). Under 640 px, while your
+trip is in edit mode (`/t/<id>/?edit=1`), the edit bar **replaces** the public bottom bar (1.4); the two never show
+together, and there is no second editor bar.
+
+Anatomy: fixed to the bottom above the safe area, `--surface`, 1 px `--line-2` top (decorative: the buttons carry their
+names), padding 12 px 14 px 30 px (home inset), height about 84 px (the bottom bar's `phone-bottombar-h`, so the page's
+bottom padding does not change), `--z-header`. Two buttons, both `lg` 50 px, 8 px apart at least: **Settings** at the left
+(secondary: `--ink` on `--surface` 16.06 / 13.83, 1 px `--line-2`) opens the Settings sheet at full height; **Done** at
+the right (primary: `--accent-ink` on `--accent` 6.96 / 6.96), the one filled button on the screen (ruling C1), which
+leaves edit mode (`pushState` removes `edit=1`) and swaps the public bar back. Nothing else sits in the bar: **Undo and
+Redo are never bar buttons** (they are in the toast and the cover's `⋯`), and the fix count is its own button under the
+sticky row (patterns 3.13 item 4).
+
+Behaviour: it enters with the bottom bar's 200 ms rise when edit mode starts (a jump under reduced motion); it hides while
+a bottom sheet is above half height and while the keyboard is open, as the bottom bar does; the back-to-top button hides
+while it shows; toasts stack above it (5.3). At 200% text a label may wrap to two lines inside its button, never truncate.
+Screen reader: a `role="group"` named "Editing Canadian Rockies"; the cover's polite announcement covers entering and
+leaving.
+
+Do: keep exactly two buttons. Don't: add Undo, a changes count or a third action; don't show the public bar under it.
+From 640 px there is no edit bar: the same controls join the sticky row (patterns 3.13 item 4).
+
+### 8.7 Item sheet (stop, day and trip actions)
+
+Step 2 (approved at G-S2; patterns 3.13 item 5; edit-mode-spec 5, 6). One component for three menus: a stop's `⋯`
+(4.3 trailing slot), a day header's `⋯`, and the trip's `⋯` on the cover. **Phone** (under 640 px): a bottom sheet (5.5)
+opening at half height (full when its rows need it), with a header of the name in `--t-title` `--ink` and one mono
+`--t-meta` `--muted` line (6.94 / 7.45 on `--surface`): "Day 3 · 11:30 · Base: Jasper", plus a stop's third mark if it has
+one; rows 48 px. **From 640 px**: the same rows as an anchored menu (5.2): `role="menu"`, no scrim, 8 px from its `⋯`,
+flipping to stay in view, items 40 px with a 44 px hit area. Labels are the vocabulary's ([step2/README.md](../step2/README.md)
+5.2); rows that do not apply to the trip's mode are not drawn (never disabled for that reason).
+
+Stop rows, in this order: **Move to day…** (always the first row) · **Move up** and **Move down** (one row of two 44 px
+buttons on a phone; disabled with a reason line when there is nothing to pass: "Seceda is the only stop on Day 2") ·
+**Swap with…** · **Swap for a nearby place** (opens the add picker for this stop) · **Add to Maybe** (copies) · **Add a
+note** · **Keep on Day 3** (switch with its reason line, built; 9.8) · **Must see** (switch, built) · **Open place page**
+· divider · **Remove from Day 3** (`--crit`, 6.61 / 7.01 on `--surface`; last, no confirm, patterns 4.4). Destructive rows
+always sit last after the divider (5.2), whatever order a spec lists them in.
+
+**Move to day…** replaces the sheet's rows with the day list in the same sheet (a Back button in its header; on desktop a
+popover beside the menu). Days stay in order, each row "Day 4 · Thu 1 Jul", "Base: Jasper", "2 h 10 free", the driving
+change "+35 min driving ≈" from the same leg model as the day card, and a chip **Fits** (neutral) or **Tight** (`--warn` on
+`--warn-soft`, 6.11 / 7.84); a day that would raise a Fix-level warning says why in `--crit` ("Closed on Thursdays") and
+stays choosable. The current day is in its place, disabled, "Now on Day 3" (ruling C3). Inserted days read "Day 6
+(added)". A long trip scrolls inside the sheet.
+
+Day rows: **Add a day after Day 5** · **Add a note** · **Version of Day 5** (copies, before conversion) · **Move Day 5
+earlier** and **later** (built, within one base's run) · **Reset Day 5** (copies) · divider · **Drop Day 5** (`--crit`;
+the stops question or the booking confirm of patterns 4.4).
+
+Trip rows (the cover's `⋯` on your trip): **Undo** · **Redo** (the phone's only Undo and Redo besides the toast) · **Make
+it yours** (copies) · **Rebuild** (built) · **Reset to our plan** (copies; confirms over 3 changes, patterns 4.4) ·
+**Print** · divider · **Remove from My trips** (`--crit`).
+
+Behaviour: an action closes the sheet or menu and raises its toast with Undo (5.3); a switch keeps it open and changes its
+state word; Esc, the close button or a tap on the scrim (phone) closes it, and focus returns to the `⋯` that opened it.
+Keyboard as 5.2 (arrows, Home and End, type-ahead). Screen reader: the sheet is a `role="dialog"` and the menu a
+`role="menu"`, both named by the opener's name ("Actions for Seceda, Day 3", "Actions for Day 5", "Trip actions").
+Reduced motion: the sheet and menu jump.
+
+Do: keep Move to day… first on a phone (Q-BE3: buttons before drag). Don't: use a modal panel with a full-page scrim on
+desktop, or bordered 52 px rows (review STEP2-PR S10).
+
+## 9. Plan builder (`/plan/`), approved as amended by Step 2 (G-S2, 28 Oct 2026)
 
 From [trip-builder/design-note-TBN.md](../trip-builder/design-note-TBN.md) (mocks and findings there). Additions A1 to
 A9 of [trip-builder/README.md](../trip-builder/README.md) 4, plus two small builder parts. **No new token.** Generic ones
 (A1, A3, A5, A8) go to `web/components/ui/` as new files with their own CSS; the rest live in `web/components/plan/`
 (trip-builder ISO-8). Ratios light / dark.
 
-**Aligned with [trip-builder/FLOW.md](../trip-builder/FLOW.md) (27 Oct 2026, PLAN-SYNC).** FLOW is the flow; step names,
-counts and the editor follow it, and reviews TB-N2 (M1, M4, S3, F-Q4) and TB-N2R (R1, the switch note) are applied below.
-The stages are 0 Kind, 1 Start, 2 Where, 3 Pick, 4 Days and driving, then the plan (5 to 7 on one screen, the editor) and
-8 Review and prepare.
+**Aligned with [trip-builder/FLOW.md](../trip-builder/FLOW.md) (27 Oct 2026, PLAN-SYNC)** for stages 0 to 4, with reviews
+TB-N2 (M1, M4, S3, F-Q4) and TB-N2R (R1, the switch note) applied below. **Amended by [Step 2](../step2/README.md)
+ruling R2:** the stages are 0 Kind, 1 Start, 2 Where, 3 Pick, 4 Days and driving, then **Build my days** hands the trip to
+the trip details page at `/t/<id>/?edit=1` (patterns 3.12 item 1, 3.13). There is no editor and no Review screen under
+`/plan/`; FLOW's stages 5 to 8 are that page's Days, Summary and Bookings tabs. Approved: 9.1 to 9.3, 9.5, 9.7, 9.9, 9.10
+as written; 9.1, 9.4, 9.6, 9.8, 9.11 and 9.12 as amended below; 9.13 is written into 2.5.
 
 ### 9.1 Step header (phone) and step rail (desktop) (A1)
 
@@ -758,14 +858,16 @@ The stages are 0 Kind, 1 Start, 2 Where, 3 Pick, 4 Days and driving, then the pl
   10.60, one truncating line), the theme toggle and Close (both 44 x 44). Under it a progress row of 4 px segments, 3 px
   apart, 14 px side margins: done `--ink-2`, current `--accent`, ahead `--line`; `aria-hidden` (the text carries the
   step). The count is the number of stages 1 to 4 that **ask** for the kind (FLOW 2.1: Day trip 2, Weekend 3, the rest
-  4), sub-line "July · On this phone" (TB-N2R L-R2). The step header ends at Build my days: **the first build lands in
-  the editor** (FLOW TF1, review TB-N2 M1), which uses the trip header with its ⋯ menu, not a step header.
+  4), sub-line "July · On this phone" (TB-N2R L-R2). The step header ends at Build my days: **the first build lands on
+  the trip details page in edit mode** (patterns 3.12 item 1), which uses the page's own cover with its `⋯` (8.7) and
+  the edit bar (8.6), not a step header.
 - **Step rail**, 640 px and up: 56 px, `--surface`, 1 px `--line` bottom, sticky under the header. Left: the draft's
   name in `--t-row` and a mono sub-line, divided by a 1 px `--line`. Then an ordered list: a 20 px number disc and the
   label in `--t-tab`. Done: disc `--surface-2` with a check, label `--ink-2`, a link. Current: disc `--ink` with
   `--surface` numeral, label `--ink` 600, a 3 px `--accent-text` underline as page tabs (1.6), `aria-current="step"`.
   Not reached: `--muted`, not a link. Skipped for the kind: done look plus its value in mono ("Regions · within 3 h").
-  The rail lists stages 0 to 4 and ends with a **"Your plan"** node (FLOW 7, L6); the plan itself has no rail.
+  The rail lists stages 0 to 4 and **ends at Build my days** (amended by Step 2: the "Your plan" node is not drawn,
+  review STEP2-PR S15); the trip details page has no rail.
   Right end: the step's tools (ghost and secondary buttons) and **the one primary**, which names the next step.
 - Tablet (640 to 1023): the rail scrolls sideways with the current step kept in view (as `CategoryStrip`); the primary
   stays pinned at the right.
@@ -794,10 +896,11 @@ required, T2). Motion `--d-sheet` `--e-out`; reduced motion jumps.
   a row, TB-N2 S7), centre a two-line summary, line 1 mono 13/600 `--ink` ("6 picked · Must see 1"), line 2 `--t-meta`
   `--muted` ("about 5 days (4 nights) ≈"); both truncate, never wrap; right the primary, `lg` 50 px, naming the next
   stage ("Next: Days", or "Build my day" for a day trip). Tap on the summary opens the tray sheet.
-- **Inside the plan (editor) on phones: one bar** (FLOW TF18, review TB-N2 M4). The focused flow continues: the action
-  bar holds **Settings · Review** and replaces the public bottom bar; there is no second editor bar. **Undo is never a
-  bar button**: it lives in the Undo toast (5.3) and in the trip header's ⋯ menu (Undo, Redo, Rebuild, Make it yours,
-  Close plan). Close plan keeps the draft.
+- **After the build: one bar, the edit bar** (FLOW TF18 as amended by Step 2 ruling R2). The action bar ends at Build
+  my days. On the trip details page in edit mode the phone bar is the **edit bar, Settings · Done** (8.6); there is no
+  Review button (no Review screen) and no second editor bar. **Undo is never a bar button**: it lives in the Undo toast
+  (5.3) and in the cover's `⋯` (8.7: Undo, Redo, Make it yours, Rebuild, Reset to our plan, Print, Remove from My trips).
+  Nothing needs "Close plan": Done leaves edit mode, and every edit is already kept.
 - **Tray sheet**: "YOUR PICKS (6)", the estimate sentence, rows (title, kind and time on site, the **Must see** toggle,
   Remove). Must see: 44 px pill, `star` glyph and "Must see"; pressed `--accent` fill, `--accent-ink` (6.96).
 - **Tray column** (desktop, 280 to 320 px, right of the map): header with the cap label, "About 5 days ≈" in `--t-title`
@@ -818,8 +921,9 @@ listing the score parts in words; on phones it is in the place sheet.
 A `--warn-soft` well, radius 12, padding 12 14: cap label "DID NOT FIT (n)" in `--warn` (6.11 / 7.84), then per item the
 name in `--t-title` `--ink` (14.17 / 13.05) and the reason as a mono line with the triangle in `--warn` ("No room: days 6
 to 9 are at the standard pace's limit"), then **one or two fixes** as small secondary buttons on `--surface` ("Add 1
-day", "Swap with…", "Add a base near it", "Change month"). Phone: after the last day; desktop: at the foot of the
-outline. A fix reruns the engine and confirms with a toast with Undo. Words come from trip-builder 4.7.
+day", "Swap with…", "Add a base near it", "Change month"). On the trip details page (Step 2): in the Summary with the
+Checks, and on Days after the last day, at every width (there is no outline). A fix reruns the engine and confirms with a
+toast with Undo. Words come from trip-builder 4.7.
 
 ### 9.7 Base letter, base pin and pick spokes (A7)
 
@@ -832,12 +936,14 @@ outline. A fix reruns the engine and confirms with a toast with Undo. Words come
 
 ### 9.8 Lock affordance (A8)
 
-On an item (review TB-N2R R1, FLOW ED scope): **one switch, "Keep on Day 2"**, in the item sheet or row menu. It is on
+On an item (review TB-N2R R1; Step 2: built trips and converted copies only, never a template copy): **one switch,
+"Keep on Day 2"**, in the item sheet or the desktop menu (8.7). It is on
 for items the person placed by hand and for locked items, with the reason under it ("On because you placed it. Turn off
 to let the plan move it."); off is the `release` operation, on is `lock`. When on, a neutral chip with the `lock` glyph
 and the words "Kept on Day 2" (`--ink` on `--surface`, 16.06 / 13.83) leads the item's chip row (on phones never in a
 right column); the screen-reader name carries the reason ("placed by you" or "locked"). On desktop rows an icon button
-(`unlock` at rest, `--muted`; kept shows the chip) toggles it; key `L` while focus is on a plan row. On a
+(`unlock` at rest, `--muted`; kept shows the chip) toggles it; key `L` while focus is on a stop (patterns 1.3). The
+mark "Placed by you" is never shown: the switch carries that meaning (ruling R6). On a
 base: "Keep this base" (secondary, `unlock` glyph) becomes "Kept" with the `lock` glyph; a kept base is never moved by a
 rebuild. State is in words, never in colour.
 
@@ -864,24 +970,26 @@ only, 1.31:1, never the only carrier), hover and selected as the globe's shape s
 
 ### 9.11 Make it yours card (copies; review TB-N2 S3)
 
-A copy of one of our trips opens in the editor with a **non-modal card** inline at the top of Day 1 on first open, never
-a sheet: `--accent-soft` fill, radius 12, padding 14; heading "Make it yours" in `--accent-text` 600 (5.56 / 7.26), text
+A fresh copy of one of our trips opens on the trip details page in edit mode (`/t/<id>/?edit=1`, patterns 3.7) with a
+**non-modal card** inline **above Day 1** on the Days tab on first open, never a sheet; focus lands on its heading: `--accent-soft` fill, radius 12, padding 14; heading "Make it yours" in `--accent-text` 600 (5.56 / 7.26), text
 `--ink` (14.11 / 12.57), three text buttons "Change places · Your driving and pace · Where you start", and the dismiss
 "Keep it as it is". The 1 px `--accent` border is decoration (2.52:1 on light `--surface`; the heading names the card).
-Dates and who are not on the card (Settings › Start). After dismissal it is the first section of Settings and a ⋯ item.
-Desktop: inline above the day, never a fifth column; one Settings button in the header.
+Dates and who are not on the card (Settings › Dates and Who is going). "Change places" opens the add picker on Day 1;
+"Your driving and pace" and "Where you start" open Settings at that section (the engine sections convert the copy first,
+patterns 3.13 item 13). After dismissal it is a section of Settings and a row of the cover's `⋯` (8.7). Desktop: inline
+above Day 1 in the Days column, never a fifth column; Settings is the sticky row's one Settings button.
 
-### 9.12 Review state line (owner decision F-Q4, option B)
+### 9.12 State line, not a save button (owner decision F-Q4, amended by Step 2)
 
-Review and prepare shows **where the plan is as a state line, not a button**: "In Mine · on this phone" signed out, "In
-your account" signed in, mono 13 `--muted` with the device or cloud glyph. The primary is the next real job: **Add to
-calendar** when the plan has dates, **Add dates** when it has none. Never "Save to Mine" or "Keep in Mine": the draft is
-in Mine from its first pick (FLOW TF13), so a save button would do nothing (T3). Secondary: Copy link, PDF; signed out,
-"Sign in to keep it on every device". This replaces the design note's "Save to Mine for a week or longer".
+**Amended by Step 2 (rulings R2, R9; owner OQ2).** There is no Review screen. Where the trip is kept shows as **a state
+word, not a button**: the sync word of patterns 3.13 item 12 ("On this device" signed out, "In your account" signed in,
+"Syncing", "Not synced yet", "Not synced · Retry"), mono 12.5 `--muted` (6.94 / 7.45 on `--surface`) at the cover's right
+and in the sticky row. Never "Save to Mine", "Keep in Mine" or "Saved": the draft is in Mine from its first pick (FLOW
+TF13), so a save button would do nothing (T3). On your own trip the primary is **Edit trip**; **Add to calendar** (dated)
+or **Add dates** (undated) is the first secondary; then Export and Share; signed out, Settings' foot says "Kept in this
+browser. Sign in to keep it on every device." This replaces the design note's "Save to Mine for a week or longer" and
+the earlier "In Mine · on this phone" line.
 
-### 9.13 Proposed note for 2.5 (switch), from review TB-N2R
+### 9.13 Note for 2.5 (switch), from review TB-N2R
 
-To be written into 2.5 when the owner approves this section: **the thumb position is the on-state indicator**, together
-with the state word for screen readers. The on track (`--accent`) is 2.52:1 on `--surface` in light (6.54 dark), under
-the 3:1 UI minimum, so the track colour is never the only carrier of the state; a switch never stands without its label.
-No change to the switch's look.
+Approved at G-S2 (28 Oct 2026) and written into 2.5: the thumb position is the on-state indicator. Not repeated here.

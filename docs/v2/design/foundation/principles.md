@@ -67,7 +67,7 @@ plan. The public pages are designed for the 90% first, and every screen names it
 
 ## How the principles are used
 
-- **Fable design reviews** score each screen against P1-P7 and list each breach with a fix.
+- **Design reviews** (travel-design-reviewer) score each screen against P1-P9 and list each breach with a fix.
 - **Build briefs** state which principles a lane must satisfy and how its acceptance checks measure them,
   for example "every day row answers effort, time and bookings at rest" (P2, P6).
 - **The verifier sweep** includes a first-use walk with no prior knowledge (P4) and a large-data check (P1).
@@ -85,7 +85,7 @@ The decisions below are binding. Where a principle is adapted, the adaptation wi
 | P4 no manual | **Adopt, with one exception.** Filters and search must be obvious on first use. Show four primary filters (Places: Country, Kind, Season, Kids; Trips: Where, When, Length, Kids) and put the rest under "More filters". **Six pills when a Kind is chosen (owner, Q27):** narrowing Kind to a domain or category promotes up to two of that scope's facets into the bar beside the four, and no bar ever holds more than six; clearing Kind returns it to four. Show the result count as you choose, offer one "Clear all", and an empty result suggests the nearest match. The exception: honesty markers ("Estimate", "Sources disagree") keep a short tooltip, because trust needs the reason. | Places shows 8 filters at once. Trips shows 4. Counts and chips exist. There is no "More filters" and no nearest-match empty state. | Filter hierarchy and empty states for Places (2.22) and Trips (inside L3b, 3.2). |
 | P5 smooth | **Adopt, within a budget.** Transitions are short and keep context, and reduced motion jumps. Smoothness never costs first paint on phones in the field, where the signal is weak. | Globe at 60 fps on the GPU. One 267 ms hitch on fly-in (L2 verifier measuring). The map does not yet follow the timeline. | Globe long tasks (L2b M12, 3.3). The map following the scroll (L3c, 3.1). |
 | P6 metadata | **Adopt.** Each fact appears where the decision is made: suitability on the day row, steepness when the trail opens, the booking window on the day it falls due, the season on the card. Chips, not paragraphs, with provenance one step away. | Research markers leak into prose (INFERENCE, CALC). Units are mixed in notes. | L3c markers to chips and units (3.1). Suitability chips (3a.5). |
-| P7 the 90% | **Adopt.** The primary action on a public trip is "Copy with my dates" (or "Add to calendar" for a short trip). On a place, it is "Directions" or "Save to a trip". | "Save to a trip" and "Copy to my trips" exist, with no defined behaviour before sign-in. | Make each action real or plainly labelled (2.13). |
+| P7 the 90% | **Adopt.** The primary action on a public trip is "Copy to my trips" (the live label; Step 2 vocabulary, README 5.2, replaces the earlier "Copy with my dates"), or "Add to calendar" for a short trip. On a place, it is "Directions" or "Save to a trip". On the person's own trip (`/t/<id>/`, Step 2) it is "Edit trip", with "Add to calendar" or "Add dates" one tap away (owner OQ2); a trip reopened from Mine opens to read, because the 90% reopen is to read and use it. | "Save to a trip" and "Copy to my trips" exist, with no defined behaviour before sign-in. | Make each action real or plainly labelled (2.13). |
 
 ### Travel needs the general principles do not cover (added)
 

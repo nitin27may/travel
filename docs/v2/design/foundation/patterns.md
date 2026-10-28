@@ -41,7 +41,7 @@ means a public, read-only page.
 |---|---|---|
 | Home / inspiration | `/` | |
 | Trips search | `/trips` + list state | `/trips?when=2027&country=it&view=table&group=year&sort=start&dir=asc&page=2` |
-| Public trip page | `/trips/<trip-slug>`; anchors `#day-3`, `#stays`, `#trails`, `#sights`, `#activities`, `#food`, `#logistics`; timeline keys in this order, defaults omitted (features/trip-timeline.md 3.8, codec `core/src/schedule/profileCodec.ts`): `p=` party (`adults`, `family-<youngest age>`), `pace=` (`relaxed`, `standard`, `full`), `a=1` one adult, `walk=` longest walk in km, `split=1` parallel lanes, `d=` per-day variant overrides (`5C,9A`), `add=` visitor additions `<day>.<place-slug>` in insertion order; then `view=category` for the By category segment. Unknown values fall back silently; an `add` slug that no longer resolves is dropped with a note. **From UXB-1 (3.10):** `view` names the page tab: omitted = Summary, `day`, `table` (Days in its Table view), `all` (Stops; `category` stays an alias), `bookings`, `photos`; then `rows=stops` (Table's Stops only); `a` widens to `a=1` to `a=12` (default 2, omitted); `#day-N` with no `view` opens Days and a category fragment opens Stops; OVR's `tab=` is the sub-tab inside Stops | `/trips/canadian-rockies-2029?p=family-4&pace=relaxed&d=5C&add=5.pyramid-lake#day-5`; `/trips/canadian-rockies-2029?view=bookings` |
+| Public trip page | `/trips/<trip-slug>`; anchors `#day-3`, `#stays`, `#trails`, `#sights`, `#activities`, `#food`, `#logistics`; timeline keys in this order, defaults omitted (features/trip-timeline.md 3.8, codec `core/src/schedule/profileCodec.ts`): `p=` party (`adults`, `family-<youngest age>`), `pace=` (`relaxed`, `standard`, `full`), `a=1` one adult, `walk=` longest walk in km, `split=1` parallel lanes, `d=` per-day variant overrides (`5C,9A`), `add=` visitor additions `<day>.<place-slug>` in insertion order; then `view=category` for the By category segment. Unknown values fall back silently; an `add` slug that no longer resolves is dropped with a note. A `mine=<id>` link (EM-B's Open, old bookmarks) redirects to `/t/<id>/` when that id is on this device or in this account, through a dynamic import that adds nothing to the page's start JS; otherwise the public page shows "This copy is not on this device or in your account. · Open Mine" (Step 2 ruling R3). **From UXB-1 (3.10):** `view` names the page tab: omitted = Summary, `day`, `table` (Days in its Table view), `all` (Stops; `category` stays an alias), `bookings`, `photos`; then `rows=stops` (Table's Stops only); `a` widens to `a=1` to `a=12` (default 2, omitted); `#day-N` with no `view` opens Days and a category fragment opens Stops; OVR's `tab=` is the sub-tab inside Stops | `/trips/canadian-rockies-2029?p=family-4&pace=relaxed&d=5C&add=5.pyramid-lake#day-5`; `/trips/canadian-rockies-2029?view=bookings` |
 | Places search | `/places` + list state | `/places?q=lake&kind=trail,lake&status=planned&kids=yes&season=jul&tag=photo&plan=dolomites-2027&view=table&group=country&sort=area&dir=asc&page=2` |
 | Public place or trail page | `/places/<place-slug>` | `/places/tre-cime-di-lavaredo-loop` |
 | Globe, world | `/globe` | |
@@ -51,12 +51,13 @@ means a public, read-only page.
 | Globe, basemap feature | any globe URL plus `?f=<class>:<id>` (class in river, lake, sea, peak, range, park, city; id the Wikidata QID or the name): the feature card floats, the level does not change. `replaceState`, optional, never needed to resolve the page | `/globe/it?f=lake:Q13364` |
 | Mine | `/mine/`; `?show=trips` or `?show=favourites` selects the tab (`replaceState`); Favourites adds `kind`, `country`, `sort`, `page` in the list-state order; `/favourites/` redirects to `/mine/?show=favourites`. Private, noindex, never under `/trips/` | `/mine/?show=favourites&kind=lake` |
 | Globe, filters | `?show=trips` or `?show=places`, and `?kind=trail,lake` when places are shown; list-state order rule below | `/globe/ca?show=places&kind=trail` |
-| Plan builder (proposed, TB-N; behind `planBuilder`) | `/plan/` for stages 0 to 4, noindex, out of the sitemap; from the first build the plan is `/t/<id>/` (FLOW TF9, after ED; `/plan/?draft=<id>&s=plan` before it); the step and mode are query keys, never path segments (trip-builder 2.5, ISO-1): `m`, `cc`, `rg`, `from`, `r`, `n`, `p`, `f`, `act`, `sea`, `d`, `pace`, `mv`, `mo`, `b`, `o`, `gw`, `s`, `draft`, `seed`. Party, interests and device location never appear | `/plan/?m=near&from=hub-toronto&r=180&n=2&s=3`, `/plan/?seed=dolomites-2027` |
+| Plan builder (approved as amended by Step 2, G-S2 28 Oct 2026; behind `planBuilder`) | `/plan/` for stages 0 to 4 only, noindex, out of the sitemap. **Build my days** builds, then `history.replaceState` to `/t/<id>/?edit=1&built=1` (the row below; Step 2 ruling R2): there is no plan screen under `/plan/` and no `s=plan`. `/plan/?draft=<id>&s=4` resumes a draft that has no build (it never builds by itself). The step and mode are query keys, never path segments (trip-builder 2.5, ISO-1): `m`, `cc`, `rg`, `from`, `r`, `n`, `p`, `f`, `act`, `sea`, `d`, `pace`, `mv`, `mo`, `b`, `o`, `gw`, `s` (0 to 4), `draft`, `seed`. Party, interests and device location never appear | `/plan/?m=near&from=hub-toronto&r=180&n=2&s=3`, `/plan/?p=moraine-lake`, `/plan/?seed=dolomites-2027` |
+| **Your trip** (Step 2; behind `tripEdit`) | `/t/<id>/`: the person's own trip (a copy of one of our trips, or a trip the builder made) rendered by the same trip details page as `/trips/<slug>/` (3.10 item 10). `<id>` is the document's opaque id, never a slug (a builder trip has none; ruling R1). Keys in this order, defaults omitted: `edit=1` edit mode (3.13; added and removed with `pushState`); `view=` the tab, as on the public page (omitted = Summary, `day`, `table`, `all`, `bookings`, `photos`), `#day-N` as there; `add=<place-slug>` arriving from Save to a trip (opens the add picker with that place; removed with `replaceState` once the picker is open); `built=1` only on the first paint after Build my days (removed with `replaceState`, ruling C6). The public timeline keys (`p`, `pace`, `a`, `walk`, `split`, `d`, `add=<day>.<slug>`) are never used here: the trip's own settings live in its document. Private: `noindex`, `Cache-Control: private, no-store`, not in the sitemap, no OG image. An id that is not on this device or in this account, including another account's, renders the not-found state with no existence signal | `/t/3f2a9c1e-…/?view=day`, `/t/3f2a9c1e-…/?edit=1&add=moraine-lake` |
 | Planner home | `/home`; `?view=year` for the Year view; `?due=week` for Needs-you, all trips | `/home?view=year` |
-| Trip (last tab) | `/t/<trip-slug>` redirects to that trip's remembered tab | `/t/patagonia-2027` |
-| Trip tab | `/t/<trip-slug>/<tab>` with `tab` in plan · today · bookings · tasks · budget · share | `/t/patagonia-2027/bookings` |
-| Plan, a day | `/t/<trip-slug>/plan?day=3` | |
-| Item inside a tab (opens the sheet) | `/t/<trip-slug>/<tab>/<item-id>`; item ids are prefixed and opaque: `it_` plan item, `bk_` booking, `tk_` task, `ex_` expense | `/t/patagonia-2027/bookings/bk_7f3a`, `/t/patagonia-2027/tasks/tk_2c91`, `/t/dolomites-2027/plan/it_9d0e` (day inferred) |
+| Trip (last tab) | later (planner; L1, F13): `/t/<id>` redirects to that trip's remembered tab. The rows below were written with `<trip-slug>`; from Step 2 the segment is the trip's `<id>` (ruling R1), and Plan is the trip details page above, not a tab of its own | `/t/patagonia-2027` |
+| Trip tab | later: `/t/<id>/<tab>` with `tab` in today · bookings · tasks · budget · share | `/t/patagonia-2027/bookings` |
+| Plan, a day | `/t/<id>/?view=day#day-3` (Step 2); the older `/t/<trip-slug>/plan?day=3` is not built | |
+| Item inside a tab (opens the sheet) | later: `/t/<id>/<tab>/<item-id>`; item ids are prefixed and opaque: `it_` plan item, `bk_` booking, `tk_` task, `ex_` expense | `/t/patagonia-2027/bookings/bk_7f3a`, `/t/patagonia-2027/tasks/tk_2c91` |
 | Shared link | the planner URL plus `?share=<token>`; a guest keeps `share` while moving inside that trip; a signed-in member of the trip is redirected to the plain URL with their own role (N4) | `/t/patagonia-2027/bookings/bk_7f3a?share=k9QwL3` |
 | Cross-trip pages | `/inbox`, `/people`, `/people/<person-id>`, `/settings` | `/people/pe_kai` |
 | Not found | any unknown path renders the 404 template (components 6.3) at the requested URL | |
@@ -64,7 +65,8 @@ means a public, read-only page.
 Rules. **Slugs**: a trip slug is the kebab-case name plus the start year for dated trips
 (`patagonia-2027`, `elora-gorge-2026`); an undated idea uses the name alone (`peru`) and gains the year when
 it is dated, with the old slug redirecting. A place slug is the kebab-case name, disambiguated by its area
-when two share a name (`moss-glen-falls-stowe`, `moss-glen-falls-granville`). **List state** is always in the
+when two share a name (`moss-glen-falls-stowe`, `moss-glen-falls-granville`). Slugs name our public trips and places;
+the person's own trips are addressed by id under `/t/` and never take a slug. **List state** is always in the
 query string with keys in this order: `q`, filters (`when`, `source`, `country`, `kind`, `status`, `kids`,
 `season`, `tag`, `plan`; `k=<type id>` and the contract's `f.<facet>` follow the base filters, sorted), `view`, `group`, `sort`, `dir`, `page`; defaults are omitted, multi-values are
 comma-separated. **The filter bar** shows four pills, or six when a Kind is chosen (the Kind's two promoted facets); the rest sit under "More filters". **Sheets** are path segments, so Back closes a sheet and returns to the tab; nothing opens
@@ -72,7 +74,7 @@ in a sheet without a URL. **Map view** of a list carries `?view=map&c=lon,lat,zo
 `c=` for camera as `c=lng,lat,zoom[,pitch,bearing]` (pitch and bearing because the fly-in tilts; both omitted when
 zero), written with `replaceState` at most every 400 ms after `moveend`, optional and never required to resolve a
 link. Globe key order: `f`, `show`, `kind`, `c`. A link never opens the wrong trip (rule 9):
-the trip slug is in the path of every trip-scoped URL, and an item id that belongs to another trip is a 404,
+the trip slug (public) or id (yours) is in the path of every trip-scoped URL, and an item id that belongs to another trip is a 404,
 not a redirect.
 
 ### 1.3 Keyboard layer (desktop)
@@ -80,6 +82,16 @@ not a redirect.
 `/` search · ⌘K switcher and jump · ⌘[ previous trip · N add in the current trip (booking, task or
 expense by tab) · ⌘Z / ⌘⇧Z undo and redo · ⌘1 to ⌘6 trip tabs · ? shows the list. Shortcuts never fire
 inside inputs.
+
+**Your trip (Step 2, `/t/<id>/`).** On the page: `E` turns edit mode on and off (3.13); Ctrl or ⌘Z undoes and Ctrl or
+⌘⇧Z redoes, in edit mode and out of it (the stack is the trip's, 3.13 item 8). With focus on a stop in edit mode:
+**Space or Enter** lifts it and drops it, arrows move it within the day, PageUp and PageDown to the previous or next day,
+Home and End to the top or bottom of the day, **Esc** cancels and puts it back (ruling R5; components 8.1); Alt+Up and
+Alt+Down move it without lifting; `M` opens Move to day…, `S` Swap with…, `L` Keep on Day n, Shift+M Must see,
+Delete or Backspace removes it. With focus on a day or a stop, `A` opens Add a place to that day. In the add picker `/`
+focuses its search. Single-letter keys (`E`, `M`, `S`, `L`, `A`) fire only while focus is on the page, a stop or the day
+list, never in a field, are listed under `?`, and turn off together with one setting in that list (WCAG 2.1.4). Every
+move is announced in one polite live region ("Seceda, Day 3, position 2 of 4").
 
 ## 2. Layout grids
 
@@ -247,19 +259,27 @@ no value is not drawn, and empty link tabs are not drawn.
 
 ### 3.7 Copy and export
 
-**Copy to my trips** (signed in, planner stage): a sheet asking only the start date (date picker with the shading; the
-valid window pre-highlighted) and who is going (traveller toggles); the copy keeps days, not dates, and lands on the new
-trip's Plan with a toast "Copied Dolomites · 14 days from Tue 13 Jul · Undo".
+**Copy to my trips** (the cover's primary on a public trip, P7): a sheet (side sheet on desktop, bottom sheet on a phone)
+asking only the start date (date picker with the shading; the valid window pre-highlighted) and who is going (the party
+block shared with Trip settings); nothing is preselected and the primary, also **Copy to my trips**, stays disabled until a
+date is picked (L5; an undated copy is the open sweep item SW-008, an owner call). The copy keeps days, not dates. It is
+kept **in this browser** as one `copies/1` item per trip and, signed in with account trips on, in the account (a second
+copy of the same trip asks "You already have a copy from Sat 3 Jul 2027. Copy again to replace it." **Replace** ·
+Cancel; at most 20 per device, 50 per account, and the sheet says so at the cap, never failing silently). Footer note,
+signed out: "Kept in this browser. Sign in to keep it on every device."
 
-**Visitors** (NAV-2, now): the same sheet; nothing is preselected and the primary stays disabled until a date is picked
-(L5). The copy is kept **in this browser** as one `copies/1` item per trip (a second copy of the same trip asks "You
-already have a copy from Sat 3 Jul 2027. Copy again to replace it." **Replace** · Cancel; at most 20 per device) and
-listed in **Mine › My trips** (3.8). Footer note, signed out: "Kept in this browser. Sign in to keep it on every
-device." The done step leads with **Open in Mine** (primary), then the export list (calendar with the chosen dates,
-PDF), then Done. Toast: "Copied Dolomites to Mine · 14 days from Sat 3 Jul" with **Undo**, and the Mine dot appears
-(components 1.4). With storage blocked the done step leads with **Add to calendar** and says "This browser is not keeping
-data, so this copy lasts until you close this tab. The calendar file keeps your dates." The word "saved" is never used
-for a copy.
+**The copy opens the copy** (Step 2, owner OQ7; with `tripEdit` on). There is **no done step**: the primary makes the
+copy and opens it at `/t/<id>/?edit=1` (1.2) in edit mode on Days, with the **Make it yours** card above Day 1 (components
+9.11) and the toast "Copied Canadian Rockies to My trips" with **Undo** (Undo removes the copy and returns to
+`/trips/<slug>/`); the Mine dot appears (components 1.4). Export and calendar are on the copy's cover (3.10 item 10). Two
+cases keep a done step: **storage blocked** (it leads with **Add to calendar** and says "This browser is not keeping data,
+so this copy lasts until you close this tab. The calendar file keeps your dates."), and **`tripEdit` off** (production
+until GO-2: the done step leads with **Open in Mine**, then the export list, then Done; the toast reads "Copied Dolomites
+to Mine · 14 days from Sat 3 Jul" with Undo). The word "saved" is never used for a copy.
+
+A public trip the device or account already holds a copy of shows one line under the cover actions, "You have a copy of
+this trip · Open it" (to `/t/<id>/`, Summary); it mounts after hydration from a dynamic import, so the server HTML and the
+start JS of `/trips/<slug>/` do not change.
 
 **Export**: PDF (the public page's reading order, credits included), GPX (routes and stops), CSV (stops with day, time,
 kind, coordinates, links), calendar (.ics, one all-day event per day plus timed bookings).
@@ -276,14 +296,19 @@ checks: [mine-and-bar-spec.md](../shell/mine-and-bar-spec.md) 5 to 12.
    a@b.com" with **Account**. Sign-in off: the sentence alone.
 3. **Tabs** My trips · Favourites with counts (components 2.9 tab variant; 44 px full width on phones). Default: the tab
    with the newest item; My trips when both are empty. `?show=` keeps the choice.
-4. **My trips**: groups Upcoming (soonest first) · No date (signed-in plans) · Past (collapsed, "Past (3)"). Row
-   (switcher row anatomy, components 1.3): photo 52 x 38 (identity ring signed in, keyline signed out), name `--t-row`
-   with a 44 px `⋯` menu button on line 1 only, line 2 mono 12.5 "Sat 3 Jul 2027 · in 251 days", line 3 mono 12.5
-   "14 days · 2 adults, 1 child"; lines 2 and 3 run under the menu column so both fit at 320 px. The row is the
-   **Open** link (signed out: the public trip with the copy's profile restored by the codec; signed in with a customised
-   copy: `/t/<id>/`). Menu: Open · Add to calendar · Print · Change dates · divider · Remove (`--crit`, last). Remove
-   collapses the row (200 ms) with a "Removed Dolomites from Mine" toast and **Undo**, no confirm (4.4). Signed in, a
-   neutral chip "On this device" or "In your account" shows only when the list mixes both.
+4. **My trips**: **one list** for copies and the trips the builder made (Step 2 ruling R8; no "My plans" tab). Groups
+   Upcoming (soonest first) · No date · Past (collapsed, "Past (3)"). Row (switcher row anatomy, components 1.3): photo
+   52 x 38 (identity ring signed in, keyline signed out), name `--t-row` with a 44 px `⋯` menu button on line 1 only,
+   line 2 mono 12.5 "Sat 3 Jul 2027 · in 251 days", line 3 mono 12.5 "14 days · 2 adults, 1 child" (party words from
+   the one shared function; the format with or without ages is the open sweep item SW-006); a converted copy's line 3
+   adds "your trip, from our Dolomites trip". Lines 2 and 3 run under the menu column so both fit at 320 px. The row is
+   the **Open** link: with `tripEdit` on, every row opens `/t/<id>/?view=day` in read mode (Step 2; 3.10 item 10); with
+   it off, a signed-out copy opens the public trip with the copy's profile restored by the codec. Menu: **Open · Edit ·
+   Add to calendar · Print · Change dates** · divider · **Remove** (`--crit`, last); Edit opens `/t/<id>/?edit=1&view=day`
+   and shows only with `tripEdit` on. Remove collapses the row (200 ms) with a "Removed Dolomites from Mine" toast and
+   **Undo**, no confirm (4.4). Signed in, the neutral chip "On this device" marks a row only when the list mixes device
+   and account trips; "In your account" is the quiet default and is never a chip (3.13 item 12). A row whose changes could
+   not sync shows "Not synced · Retry" (a 44 px button, `--warn` text, 6.92 / 8.31 on `--surface`).
 5. **Favourites**: a segment All · Places · Trips with counts, then Kind, Country and Sort (Newest, Name; behind
    "Filters (n)" on a phone); list rows (components 3.2) with the kind glyph (never a photo: the snapshot has none, P8),
    name, mono meta ("Lake · Canada"), and the pressed heart at the right, which removes with Undo; two columns from
@@ -291,8 +316,9 @@ checks: [mine-and-bar-spec.md](../shell/mine-and-bar-spec.md) 5 to 12.
 6. **No longer listed** (a copied or favourited item withdrawn from the catalogue): glyph `warn`, the name kept, the
    gap chip "No longer listed" (dashed `--line-2`, `--muted`), not a link, a **Remove** button in place of the menu or
    heart. Never removed silently.
-7. **Empty states** (components 6.1): "No trips copied yet" · "Open a trip and choose Copy to my trips. It stays here
-   with your dates." · **Browse trips**; "No favourites yet" · "Tap the heart on a place or a trip to keep it here." ·
+7. **Empty states** (components 6.1): "No trips yet" · "Copy one of our trips. It stays here." · **Browse trips**; with
+   `planBuilder` on, "Copy one of our trips or plan your own. It stays here." · **Browse trips** · **Plan your own trip**
+   (secondary); "No favourites yet" · "Tap the heart on a place or a trip to keep it here." ·
    **Browse places**, Browse trips; storage blocked "This browser is not keeping data" · "Copies and favourites last
    until you close this tab. Sign in to keep them." · **Sign in**. The account card stays above them.
 8. **Device notice** after the list, signed out only (banner 5.4, notice kind): "Your trips and favourites are kept in
@@ -317,8 +343,18 @@ adds nothing to the server HTML. Toasts (components 5.3, above the bottom bar on
 | later | "Added Moraine Lake to favourites" | **Undo** |
 | removed | "Removed Moraine Lake from favourites" | **Undo** |
 
-Every add sets the Mine dot (components 1.4). A heart never adds anything to a trip, and Save to a trip never adds a
-favourite (visitor spec 4.6).
+Every add sets the Mine dot (components 1.4). A heart never adds anything to a trip, and a trip row of Save to a trip
+never adds a favourite (visitor spec 4.6).
+
+**Save to a trip** (place and park pages; Step 2, with `tripEdit` on) opens the **trip picker**: a side sheet on desktop,
+a bottom sheet on a phone, titled "Add Moraine Lake to a trip". Rows are My trips, in Mine's row words ("Tue 13 Jul – Thu
+22 Jul · 10 days · 2 adults · 1 child (6)"), sorted by distance from the place to the trip's bases; a trip with no base
+within `ADD_PIN_FAR_KM` (100 km, `core/src/config/nearby.ts`) reads "Far from Moraine Lake" and sorts last. A trip row
+opens `/t/<id>/?edit=1&add=<slug>` (1.2), where the add picker offers the place on its best-fitting day (3.13 item 6). The
+trip rows are the actions, so nothing in the picker is filled: then **Start a new trip with Moraine Lake** (a plain row, to
+`/plan/?p=<slug>`, with `planBuilder` on) and **Save without a trip**, the one row that sets the place's heart (the same
+toast and Undo as the heart). A park is never a stop: from a park page the picker adds places in the park (TB-PIN R1).
+With `tripEdit` off the control keeps today's note.
 
 ### 3.10 Trip detail with tabs (UXB, bundle C)
 
@@ -370,6 +406,36 @@ Order: **cover** (3.4 item 1; the "Valid for" stat becomes "Best time") · **par
    Photos or Stops, whatever tab is on screen.
 9. **Budget**: no net trip start JS (spec D12): Summary, cards, month strip, ribbon and the gap lines are server HTML;
    the party editor, the shape's rows, the day tables, Stops and Photos are lazy chunks.
+10. **Your trip at `/t/<id>/`** (Step 2, approved at G-S2 28 Oct 2026; owner OQ1, OQ2; behind `tripEdit`). **One trip
+   details page, two addresses** (ruling R1): the person's own trip renders through this same template and the same
+   components (cover, party bar, tabs, day cards, map, print). It differs only in these ways, and nothing of it loads on
+   `/trips/<slug>/`, whose HTML and start JS stay unchanged by Step 2:
+   - **Cover**: the kicker reads "Your copy · from our Canadian Rockies trip" (a template copy), "Your trip · from our
+     Dolomites trip" (a converted copy) or "Your trip" (built); the title is the trip's own name (at most `TRIP_NAME_MAX`
+     characters, stepping down past two lines). Actions: **Edit trip** (primary, OQ2, ruling R9), then **Add to calendar**
+     (dated) or **Add dates** (undated, opens Settings › Dates), Export (PDF, ICS, GPX, CSV; per trip, P8), Share, and the
+     trip `⋯` (components 8.7). Copy to my trips is not shown on your own trip. The sync word (3.13 item 12) sits at the
+     cover's right.
+   - **Party bar**: the same control; on your trip it writes the trip's own party (`setParty`), never `travel.party`, the
+     device's browsing party.
+   - **Sticky row** (scenario rule 1): the row that sticks (tab bar, plan bar or category strip) gains a 32 px identity
+     cell (the trip photo in its identity ring) and the trip's title, one truncating line, aligned to the content edge.
+   - **Marks** on entries (components 4.3) and, on a copy, the changes line "4 changes from our plan · Show" above Day 1
+     and at the top of the Summary (3.13 item 9).
+   - **Default tab**: Summary when opened directly; Days when opened from Mine (`view=day`); edit mode keeps the tab.
+   - **States**: a skeleton cover and three skeleton day cards (components 6.2) until the document and the trip's plan
+     model are read (one fetch each through `DataClient`, P9), then one cross-fade (a jump under reduced motion); "This
+     trip is not on this device or in your account." with **Open Mine** (no existence signal); a built trip with no build,
+     "Not built yet" · **Open the builder**; a document written by a newer version of the site is read-only with "Reload to
+     edit it"; a trip removed on another device is read-only with **Restore**. Signed out, a device trip is fully readable
+     and editable (EM8).
+   - **Print** header "Your copy of Canadian Rockies · Fri 25 Jun 2027 · 2 adults, 1 child"; **Share** of a copy sends the
+     public trip's URL without the person's settings unless they choose "with my settings" (party word and adult count
+     only; never children's ages, start, dates or notes; rule 9).
+   - **Budget**: `/t/` paints on the client after one fetch (the document is private and often only on this device); its
+     start JS stays within `TRIP_EDIT_JS_BUDGET_KB`, and the edit chunk loads only on Edit trip or with `edit=1` (3.13).
+
+   Edit mode is a mode of this page, not another page: 3.13.
 
 Principles: P2 and P3 (a first screen that answers "what is this trip", detail one tab or one disclosure away), P4 (plain
 labels, counts, every option visible at 320), P5 (Back between tabs, no jump), P6 and T1 (when to go and bookings where
@@ -383,7 +449,9 @@ Spec [trip-and-places-ux-fixes.md](../../features/trip-and-places-ux-fixes.md) 8
    research · 30 of 32") with "What is not checked" linking to the gap block.
 2. **Primary actions** (P7): Directions to the right point, Save to a trip, Export, Share, the heart.
 3. **Glance**: only facts held, 6 to 8 by type; a glance fact is never repeated in a section row.
-4. **Context**: the map with its honesty line, "In <trip> · Day n", Nearby (30 km), the official link.
+4. **Context**: the map with its honesty line, "In <trip> · Day n", Nearby (30 km), the official link. For the person's
+   own trips (Step 2) the line reads "In your copy of Canadian Rockies · Day 5" or "In your trip Dolomites", built from
+   Mine's light rows and documents already on the device; it never fetches a document.
 5. **Type sections** in the template's order (Trail, Lake, Viewpoint and summit, Waterfall and canyon, Town, Park and
    area, Island, Offer: the W10 table), **each drawn only with a value or a safety gap**. Offers always show Limits.
 6. **Not checked yet** block (components 6.5).
@@ -393,57 +461,152 @@ Links by group: tabs only when two or more groups hold links; one group is a pla
 **Basics-only pages** (the `basics` level) use the compact template: identity, actions, map, nearby, trips and one "Not
 researched yet" line. Principles: P2 (safety gaps at rest), P3, P6 (facts where they matter), P8 (the page shrinks).
 
-### 3.12 Plan builder (`/plan/`), proposed (TB-N, pending owner approval)
+### 3.12 Plan builder (`/plan/`), approved as amended by Step 2 (G-S2, 28 Oct 2026)
 
 Spec [features/trip-builder.md](../../features/trip-builder.md) and kinds
 [trip-kinds-and-interest-profile.md](../../features/trip-kinds-and-interest-profile.md) 1; design, findings and mocks
-[trip-builder/design-note-TBN.md](../trip-builder/design-note-TBN.md); components 9.
+[trip-builder/design-note-TBN.md](../trip-builder/design-note-TBN.md); components 9. Aligned with
+[trip-builder/FLOW.md](../trip-builder/FLOW.md) for stages 0 to 4 and with reviews TB-N2 and TB-N2R (27 Oct 2026,
+PLAN-SYNC). **Amended by [Step 2](../step2/README.md) ruling R2** (the owner's "the builder has no editor of its own; edit
+from the details page"): FLOW's stages 5 to 7 (the plan screen, its Plan grid and its phone bar Settings · Review) and
+stage 8 (Review and prepare as a screen) are not built; they are the trip details page at `/t/<id>/` (3.10 item 10) in
+edit mode (3.13).
 
-Aligned with [trip-builder/FLOW.md](../trip-builder/FLOW.md), the source of truth for the flow, and with reviews
-TB-N2 and TB-N2R (27 Oct 2026, PLAN-SYNC).
-
-1. **One flow over one document** (FLOW TF1): 0 Kind · 1 Start · 2 Where · 3 Pick · 4 Days and driving, then **the plan**
-   (stages 5 to 7 on one screen: the editor) and 8 Review and prepare. **Build my days lands in the editor** (TB-N2 M1):
-   a status line, Bases and Checks collapsed to one line each, Day 1 open with handles live, getting there as the Day 1
-   and last-day cards for trips by air; no "Edit my plan" button. A kind shows some stages as done (FLOW 2.1): the phone
-   counts only stages 1 to 4 that ask (Day trip 2, Weekend 3, the rest 4); the desktop rail shows stages 0 to 4 with done
-   ones as links carrying their value, and ends with a "Your plan" node.
-2. **Phone: a focused flow, start to finish.** Under 640 px the step header (components 9.1) replaces the public header
-   and the action bar (9.4) replaces the public bottom bar while the builder or a plan is open. Inside the plan the trip
-   header (with ⋯) replaces the step header and the **one** action bar holds Settings · Review (FLOW TF18, TB-N2 M4);
-   **Undo is only in the toast and the header's ⋯ menu**. Close (Close plan in ⋯) keeps the draft and returns to the page
-   the visitor came from (or `/`). One stage per screen before the build; the primary is always in the action bar, in
-   the thumb zone (T2). Lists, map, filters and tray are sheets (9.3). No swipe gestures.
-3. **Desktop: everything at once.** Header, the step rail (9.1) with the one primary at its right end for stages 0 to 4,
-   then panes: Pick is filters 232 · list 500 · map fluid · tray 300; Days and driving is settings 480 · map; the plan
-   is the Plan grid (outline 256 with the Bases and Checks lines at its top · day 620 to 640 · map) under the trip header
-   with one Settings button. Hovering a row lifts its pin and the reverse (P5).
+1. **One flow over one document** (FLOW TF1): 0 Kind · 1 Start · 2 Where · 3 Pick · 4 Days and driving, then **Build my
+   days**, which builds on the server and hands the trip to `/t/<id>/?edit=1&built=1` (`history.replaceState`, so Back
+   returns to where the builder was opened, FLOW L9; `built=1` is removed after the first paint, ruling C6). The page
+   opens in edit mode on Days with the just-built status line "Built 10 days · 1 did not fit · 1 to check" (zero parts
+   left out: "Built 10 days · all fit"; "did not fit", "to fix" and "to check" are links; ruling C2), Bases and Checks
+   collapsed to one line each, Day 1 open with handles live; getting there is the Day 1 and last-day cards for trips by
+   air. A kind shows some stages as done (FLOW 2.1): the phone counts only stages 1 to 4 that ask (Day trip 2, Weekend 3,
+   the rest 4); the desktop rail shows stages 0 to 4 with done ones as links carrying their value and **ends at Build my
+   days** (no "Your plan" node).
+2. **Phone: a focused flow to the build.** Under 640 px the step header (components 9.1) replaces the public header and
+   the action bar (9.4) replaces the public bottom bar on stages 0 to 4. One stage per screen; the primary is always in
+   the action bar, in the thumb zone (T2). Lists, map, filters and tray are sheets (9.3). No swipe gestures. After the
+   build the trip is the details page: its phone chrome is the **edit bar** Settings · Done (components 8.6), and Undo is
+   in the toast and the cover's `⋯` (FLOW TF18 as amended). Close on stages 0 to 4 keeps the draft and returns to the page
+   the visitor came from (or `/`).
+3. **Desktop: everything at once.** Header, the step rail (9.1) with the one primary at its right end, then panes: Pick
+   is filters 232 · list 500 · map fluid · tray 300; Days and driving is settings 480 · map. Hovering a row lifts its pin
+   and the reverse (P5). The Plan grid (outline 256 · day 620 to 640 · map) is not built: the details page's Days list
+   with its map column is the plan.
 4. **Live counts everywhere** (P4): the count line on Pick, the stage 1 count (a button that opens the reach control,
    TB-N2 M3), "Show n places" on filters, the tray's "about n days ≈". A zero count suggests the nearest match (6.1).
 5. **Honesty**: every estimate carries ≈; thin and empty regions are shown with their count and "Ask us"; nothing
    unresearched is added; Did not fit lists every left-out pick with its reason and one fix (9.6).
-6. **State**: the draft is on the device (`plan-draft/1`) and **in Mine from its first pick** (FLOW TF13); the URL carries
-   public keys only (1.2) and becomes `/t/<id>/` at the first build (`replaceState`, FLOW TF9). Edits raise the Undo
-   toast; before the build, Back goes to the previous asking stage.
-7. **States**: building (status card with progress, skeleton days), failed build (urgent banner, Try again, draft kept),
-   offline (dashed notice, last build opens), estimates only (notice), paused (`PLAN_BUILDER_PAUSED`: notice, drafts
-   read-only, Next disabled), no results, no picks, thin supply, stale build ("Rebuild to refresh"), device cap (FLOW X1).
-8. **Review and prepare** (owner decision F-Q4, option B; components 9.12): a **state line** "In Mine · on this phone"
-   or "In your account", never a save button; the primary is **Add to calendar** when the plan has dates and **Add
-   dates** when it has none. Never "Save to Mine" or "Keep in Mine". (Supersedes TB-N's "Save to Mine for a week or
-   longer".)
-9. **Budget** (ISO-9): `/plan/` start JS at most 90 KB gzip; each step, the map and the editor are lazy chunks; no other
-   page changes by a byte.
-10. **Copy enters the editor** (FLOW 5, TB-N2 S3): "Copy with my dates" opens the copy in the editor with the non-modal
-   **Make it yours** card (components 9.11), never a sheet on arrival. Proposed amendment to the copy done step in 3.7 (cited as
-   "patterns 5.2" in TB-N2 and FLOW 5), to be written there when the owner approves this section and ED ships: the
-   primary "Open in Mine" becomes "Open my copy", which opens the copy in the editor; the rule "the word 'saved' is
-   never used for a copy" stays.
+6. **State**: the draft is on the device (`plan-draft/1`) and **in Mine from its first pick** (FLOW TF13), in the one My
+   trips list (3.8, ruling R8); the URL carries public keys only (1.2) until the first build moves it to `/t/<id>/`.
+   Edits raise the Undo toast; before the build, Back goes to the previous asking stage.
+7. **States** (stages 0 to 4): building (status card with honest progress), failed build (urgent banner, Try again,
+   draft kept), offline (dashed notice, the last build opens), estimates only (notice), paused (`PLAN_BUILDER_PAUSED`:
+   notice, drafts read-only, Next disabled), no results, no picks, thin supply, device cap (FLOW X1). A stale build
+   ("Rebuild to refresh drive times and closures") is a state of `/t/<id>/` with Rebuild in Settings.
+8. **Review and prepare is not a screen** (ruling R2; owner decision F-Q4 as amended by OQ2 and R9). Its parts live on
+   the details page: the state line is the sync word (3.13 item 12), never a save button and never "Save to Mine" or
+   "Keep in Mine"; Checks, Did not fit and Known costs are in the Summary; bookings are the Bookings tab. On your own trip
+   the primary is **Edit trip** and the first secondary is **Add to calendar** (dated) or **Add dates** (undated).
+9. **Budget** (ISO-9): `/plan/` start JS at most 90 KB gzip; each step and the map are lazy chunks; the edit chunk
+   belongs to `/t/` (3.13), not `/plan/`; no other page changes by a byte.
+10. **A copy enters edit mode**: written once in 3.7 ("The copy opens the copy"): **Copy to my trips** opens the copy at
+   `/t/<id>/?edit=1` with the non-modal **Make it yours** card (components 9.11), never a sheet on arrival; there is no
+   done step, and "saved" is never used for a copy.
 
 Principles: P1 (paged candidates, counts, park rows), P2 (safety and booking chips at rest), P3 (one step per screen on
 a phone, everything at once on desktop), P4 (kind tiles, plain labels, live counts), P5 (linked list and map, no jump),
 P6 (reasons where the choice is made), P7 (no header tab; the 90% pages unchanged), P8 and P9 (light rows, one data
 boundary, no bulk).
+
+### 3.13 Edit mode on the trip details page (Step 2, approved at G-S2, 28 Oct 2026)
+
+The rules every surface of edit mode shares. The full behaviour (each action's operations, re-flow, states and acceptance
+EA1 to EA14) is [step2/edit-mode-spec.md](../step2/edit-mode-spec.md); every on-screen string is in the vocabulary,
+[step2/README.md](../step2/README.md) 5, and a new string goes there first. One experience serves both sources: a copy of
+one of our trips (template mode, it keeps following our plan) and a trip the builder made (built mode).
+
+1. **A mode, not a page.** **Edit trip** adds `edit=1` with `pushState`; **Done** removes it with `pushState`; Back leaves
+   edit mode at the same tab, day and scroll (P5). Every edit is already saved on the device (and, signed in, queued for
+   the account), so there is no Save and Done never waits for the network. The first build (3.12 item 1) and a fresh copy
+   (3.7) land in edit mode; a trip reopened from Mine lands in read mode, because the 90% reopen is to read and use it
+   (P7). Everything shown in edit mode is readable in read mode. The cover region announces "Editing Canadian Rockies" and
+   "Done editing" (polite).
+2. **Nothing above the days moves.** The cover, title, party bar and tab bar keep their size and place; edit mode only
+   adds controls. The cover title becomes editable **in place** at its display size: the heading itself is the input, with
+   a dashed underline and the `pencil` glyph (always visible on touch), Enter saves, Esc reverts (4.3). Stop rows gain
+   their edit slots as components 4.3 says, keeping the stop at the top of the viewport where it was.
+3. **One filled button** (ruling C1): while editing, **Done** is the only filled button: in the sticky row from 640 px,
+   in the edit bar under 640 px (components 8.6). The cover's Edit trip becomes a secondary **Done**. A sheet that holds
+   a consequence notice makes that notice's **Continue** the one filled button and its own **Apply** secondary.
+4. **Chrome by width.** Under 640 px the **edit bar** (components 8.6) replaces the public bottom bar; the fix count is a
+   button on its own line under the sticky row ("1 to fix · Day 7", `--crit` text with the `warn` triangle, 6.11 / 7.75 on
+   `--bg`), never inside the tab row, and it scrolls to the first Fix warning. From 640 px the sticky row's right end holds
+   Undo and Redo (icon buttons 38 px, hit 44, disabled when the stack is empty), the changes count on a copy ("4
+   changes"), the fix count as a button, **Settings** (secondary) and **Done** (primary); when they do not fit beside the
+   tabs, they take a second line of the sticky row and the tabs never truncate.
+5. **Every stop and every day, by button first** (Q-BE3, WCAG 2.5.7). Any stop can be removed (published, added, from
+   our trip, engine-placed) and moved. Each stop's `⋯` opens the item sheet on a phone and the same rows as an anchored
+   menu on desktop (components 8.7); each day header's `⋯` does the same for the day. Drag is an accelerator only:
+   desktop within and across days and onto the day rail; phone a long-press on the handle only, within the open day
+   (ruling R4; components 8.1). The keys are in 1.3.
+6. **One add picker** for Add a place to Day n, Swap for a nearby place, Save to a trip's hand-off (3.9) and Make it
+   yours' Change places: a full-height bottom sheet on a phone, a side sheet (components 5.1) over the map column on
+   desktop. Rows are light (P8) and come through `DataClient` from the trip's plan model, `near` and the place list
+   engine (P9); groups page by `PAGE_SIZE.list` (P1). A place already on the trip says "On Day 3" and offers **Move here**,
+   never a duplicate; a park arriving from Save to a trip opens its members, those not on the trip first with their best
+   day, and members already on it read "On Day n" with no button (ruling C5); a place beyond `ADD_PIN_FAR_KM` of every base
+   offers only **Start a new trip with …**, never a day row (an impossible leg is never "Tight"). After Add the row reads "Added · Undo" and the picker stays open.
+7. **Settings** is one sheet (full height on a phone, returning to the same day and scroll on close; a side panel over the
+   map on desktop): Title, Dates, Who is going, Pace, Make it yours (copies), then the engine sections. Each section
+   changes the trip with one **Apply** that states its effect first ("Day 5 gets 40 min shorter"), then an Undo toast; no
+   second dialog. Dates and party relabel and re-check at once and never move a stop by themselves (Q-BE5). Signed out,
+   its foot reads "Kept in this browser. Sign in to keep it on every device."
+8. **Undo** (Q-BE4): each change is one operation with an inverse; the stack is per trip and per tab session,
+   `PLAN_EDIT.undoSteps` (50) deep, kept across a reload in the same tab, not synced. Every change raises the toast with
+   **Undo** (components 5.3); ⌘Z and ⌘⇧Z (1.3); desktop Undo and Redo in the sticky row; phone Undo and Redo in the
+   cover's `⋯`, never a bar button. A grouped action (a swap, Add to Maybe, a Drop Day that moves stops, an Apply with
+   several operations, conversion) is one step. There is no History list in v1.
+9. **Changes from our plan** (copies; P3): one collapsed line, "4 changes from our plan · Show", above Day 1 and at the
+   top of the Summary. Show opens the sheet "Changes from our plan": one row per change, newest first, saying what and
+   where, with one button that names its own action (ruling C4): **Remove it** (added), **Put it back** (removed, Maybe,
+   a dropped day), **Move it back** (moved), **Remove note**, **Use our version**, **Remove day**. **Reset Day n** and
+   **Reset to our plan** are one operation each and undoable; Reset to our plan confirms above
+   `PLAN_EDIT.resetConfirmOver` (3) changes (4.4, ruling R7).
+10. **Warnings: two levels, never block** (Q-BE6). The level of each code comes from one table, `WARN_LEVEL`; the UI never
+   keeps a code list. **To fix** (level Fix): `--crit` text with the `warn` triangle (6.61 / 7.01 on `--surface`), at rest
+   on the day header and counted in the sticky row and the Summary (P2's safety exception). **To check** (level Check):
+   `--warn` text on `--warn-soft` (6.11 / 7.84), on the day header, collapsed to "3 to check · Show" when there are
+   several. Never a fill. Every warning has one fix button that names its action ("Move Seceda to a lighter day"); there
+   is no dismiss in v1. Summary rows begin "To fix:" or "To check:" (P6, never colour alone). Move to day and Add show
+   **Fits** or **Tight** and any Fix reason before the person commits; nothing is ever disabled because of a warning.
+   Estimates (≈) are never a warning.
+11. **Marks are words** (components 4.3): Added by you, Moved from Day 3 (copies), Moved by you (built), From our trip
+   (after conversion), Kept on Day 4, Changed on another device (static, `TRIP_EDIT_UI.changedMarkMs`). Never colour alone.
+12. **Sync is quiet** (Q-BE8). One state word, mono 12.5 `--muted` (6.94 / 7.45 on `--surface`, 6.42 / 8.23 on `--bg`), at
+   the cover's right and in the sticky row: **In your account** (signed in, nothing pending), **Syncing** (pending over
+   1 s, a small spinner that does not spin under reduced motion), **Not synced yet** (offline with changes waiting), **Not
+   synced · Retry** (a 44 px button, `--warn` text and icon, 6.40 / 9.18 on `--bg`), **On this device** (signed out).
+   "Saved" is never the word. A notice (components 5.4) appears only when a change could not apply ("1 change from this
+   device was not applied: … · Show · OK"); the dashed offline banner only after the second failed attempt. Announced
+   only on a change of state.
+13. **Conversion asks once, inline** (F-Q3). The first change on a copy that needs the engine (where you start, where,
+   driving, bases, getting there, Rebuild) shows a notice-kind banner (components 5.4, `--ink` on `--info-soft` 13.24 /
+   12.74) above that Settings section, never a dialog: "This makes it your own trip. Our later updates to the Dolomites
+   trip will no longer change it. You can undo this until you leave the page." **Continue** (the one filled button) ·
+   **Cancel**. Continue is one undo step; every stop stays on its day, marked "From our trip". A base change on a copy
+   always goes this way (ruling R10).
+14. **Never on the public page.** Nothing of edit mode loads on `/trips/<slug>/`. The edit chunk loads on the first Edit
+   trip press or with `edit=1` in the URL; hover or focus on Edit trip prefetches it, and the button shows a 14 px
+   spinner while it loads with the page unchanged. The Table view of Days is read-only: in edit mode the Days segment
+   switches to List with "Editing works in List".
+15. **Focus and announcements.** After Remove, focus moves to the next stop, else the day's add row; after Move to day it
+   stays on the moved stop in its new day and the page scrolls to it (P5); menus and sheets return focus to their opener.
+   One polite live region carries moves, adds and removes with day and position. At 200% text the sticky row wraps to
+   two lines and every edit control stays visible.
+
+Principles: P2 and P3 (a changes line and one status line, detail on demand), P4 (every action a named button, marks in
+words, no manual), P5 (one page, two modes, nothing above the days moves, Back leaves the mode), P6 (Fits, Tight and Fix
+reasons before the change), P7 (read mode for the 90% reopen; Edit trip the obvious primary on your own trip), P8 and P9
+(light picker rows, the plan model and `near` through `DataClient`, no bulk load, the public page untouched).
 
 ## 4. Planner templates
 
@@ -468,7 +631,9 @@ chip, day header) sets the one focused day: amber sign, amber route and pins, ou
   with the trip suggested from the dates and a Change link; Save is disabled until a trip is chosen.
 - **Edit in place**: titles, times, notes and facts edit inline on click (serif 17 → an input of the same
   size, no layout shift); Enter saves, Esc reverts; a pencil icon appears on hover and is always present
-  on touch.
+  on touch. The rule holds at every size: a display title (the trip cover's, in edit mode, 3.13 item 2) stays in its
+  display font, size and box, and the heading itself becomes the input with a dashed underline; it is never swapped for
+  a smaller boxed field.
 - **Move to another trip**: an explicit menu action with a confirmation sheet naming both trips; undoable.
 
 ### 4.4 Confirm and undo
@@ -477,6 +642,20 @@ Reversible actions never ask; they show a toast with Undo (6 s) and support ⌘Z
 confirm, inline and specific: delete a trip ("Delete Dolomites and its 9 bookings? It stays in Trash for 30
 days."), revoke a share link, remove a person. The confirm sheet's primary is a danger button with the
 object named; Cancel is first in tab order.
+
+**Exceptions in edit mode (Step 2; the only ones).** Each is undoable, but undo lasts one tab session, so a large or
+booked loss asks once:
+
+- **Reset to our plan** confirms when it discards more than `PLAN_EDIT.resetConfirmOver` (3) changes (owner Q-BE4,
+  ruling R7): "Reset to our plan? Your 7 changes are removed. You can undo this until you leave the page." **Reset**
+  (danger) · Cancel, Cancel first in tab order. Three changes or fewer reset at once with an Undo toast. After conversion
+  the same label replaces the trip with our current plan as a new copy, and the sentence says so.
+- **Drop Day n with a booking on it** confirms: "Drop Day 7 and its canoe booking?" Dropping a day with stops is not a
+  confirm but a choice (a sheet: "its 2 stops move to Day 6 / go to Maybe / are removed", default the day before), and an
+  empty day drops at once with an Undo toast.
+- **Conversion** of a copy is an inline notice with Continue and Cancel (3.13 item 13), not a confirm sheet.
+
+Nothing else in edit mode asks: Remove a stop, Move, Swap, Reset Day n, Add a day and every Apply act at once with Undo.
 
 ### 4.5 Reminders and notifications
 
@@ -578,7 +757,9 @@ A screen uses one density per region and never a third.
 | Heart toggled, Mine dot appears | heart fills and scales 1 to 1.15 to 1; dot scales from 0 | fill 120 ms, scale 200 ms `--e-out`; dot 200 ms `--e-out`; reduced motion: no scale |
 | Theme switch | surfaces cross-fade; images do not flash | 200 ms |
 | Trip page tab change (3.10) | the underline slides; the panel swaps without animation; the page keeps the tab bar at its sticky line | underline `--d-fast` `--e-std`; reduced motion: jump |
-| Plan builder step change (3.12, proposed) | the new step cross-fades; header, rail and action bar stay; focus moves to the step heading; the rail's underline slides | `--d-page` `--e-out`; underline `--d-fast` `--e-std`; reduced motion: jump |
+| Plan builder step change (3.12) | the new step cross-fades; header, rail and action bar stay; focus moves to the step heading; the rail's underline slides | `--d-page` `--e-out`; underline `--d-fast` `--e-std`; reduced motion: jump |
+| Edit mode on or off (3.13) | the cover, party bar and tabs stay; the stop slots (handle, `⋯`) fade in or out with the entry at the top of the viewport held in place; the edit bar rises as the bottom bar falls (phone); Done needs no toast | `--d-fast` `--e-std`; bars 200 ms; reduced motion: jump |
+| Stop removed, restored by Undo (3.13) | the entry collapses in place; Undo expands it back to the same position | 200 ms `--e-std`; reduced motion: jump |
 | Pick toggled; tray count | the pill fills; the bar's numbers count to the new values | fill `--d-fast`; counts `--d-count`; reduced motion: no count animation |
 | Disclosure open or close (components 6.4); the party editor; the shape's table | content grows or shrinks in place (grid rows 0fr to 1fr); the chevron turns | `--d-base` `--e-std`; reduced motion: jump |
 
