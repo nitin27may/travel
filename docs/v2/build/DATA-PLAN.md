@@ -29,6 +29,11 @@ bundles and their rules are [RELEASE-PLAN](RELEASE-PLAN.md) 0a.
 > 2** (Q-DC7). DT-P0 moved to seat B3 (a code-run import). Seat 1's queue order is unchanged; the new rows use its spare
 > in D, E and F. Detail: [builder-dependency-map.md](builder-dependency-map.md).
 
+> **28 Oct 2026 (S2-DATA, owner: "consolidate all data stuff into data planning"):** section 2.4 takes in the 13 data gaps
+> the Step 2 build found (DG-01 to DG-13, moved here from `design/step2/data-gaps-2026-10-28.md`, which is now a pointer),
+> maps each to an existing task or one of eight new S2D tasks, and orders the next three data batches (S2-A to S2-C,
+> 18.5 h in seat 1's spare in windows C and D), and 2.4.5 indexes the other scattered data lists. BACKLOG 15.390.
+
 ## 0. Decision in one paragraph
 
 **One data seat runs a single ordered queue (section 2): the early half of the catalogue load first (bundle B's Internal,
@@ -206,6 +211,103 @@ bundle (RELEASE-PLAN 0a, B8). Window E has 40 h spare, the place to catch up any
 | Q290: re-baseline rule for research-filled pages (section 6.2) | data batches that fill place pages (C onward) | C | **Answered:** yes |
 
 Q88 is answered (option A, re-baseline, 25 Oct); MASTER-ORDER 3.4's "blocked: owner" row is corrected by this page.
+
+### 2.4 Gaps found by Step 2 (28 Oct 2026)
+
+**Source.** The Step 2 build (edit mode on `/t/<id>/`, bundle D; [step2/README](../design/step2/README.md),
+[build-plan](../design/step2/build-plan.md)) needed data that is missing, thin or inconsistent. Each row is a data task,
+not a UI task: the UI already degrades safely (hides a chip, flags an estimate with ≈, says "Not checked yet"). This
+section is the only copy of DG-01 to DG-13; BACKLOG 15.390 points here. Principles: P1 (every rule works for any trip, not
+the Rockies only), P6 (the right metadata at the moment of adding or moving a stop), P8 (no bulk files; the budget of
+DG-11), P9 (results reach the UI through the one data boundary, never a new client-side load).
+
+**Where results go (owner, earlier answer on data research).** Structured results go to `data/` through the `location`
+and `research` skills: the store `data/locations/locations.json`, records and sidecars in `data/capture/<trip>/`,
+`data/suitability/<trip>/`, `data/relevance/<trip>/`, reference tables in `data/reference/`; trip writes through
+`node core/bin/ops.ts`; prose and run notes in `research/`. Method: [research/README.md](../../../research/README.md).
+
+#### 2.4.1 The gaps and where each one lands
+
+"Task" is an existing row of 2.1 or a new S2D task (2.4.2). "Code half" is work for a builder lane, listed so it is not
+lost; it is not counted in the data hours.
+
+| ID | Gap | Where it shows | Evidence | Task | Code half (builder lane) | Unblocks | Priority |
+|---|---|---|---|---|---|---|---|
+| DG-01 | **Rainy-day flag.** The registry already has `indoor` (bool, glance, filter scopes culture, play, intent:do; `core/src/schema/capture/properties.ts`), but no capture record sets it (0 files) and `flagsOf` in `core/src/capture/bands.ts` never emits it | add-picker "Rainy day" chip hidden (UI2) | UI2 hand-back item 5 | **S2D-IND** | `flagsOf` emits `indoor` from the record value, else the type default (Sonnet 1 h, B lane) | the add-picker Rainy day chip; later the builder's Swap for indoor (FINDINGS enhancement 9) | High |
+| DG-02 | **Points for stops.** 64 of 91 Rockies stops have a map point on their place page; 27 have none | a moved or added stop with no point falls to a base-to-base estimate (LEG ladder rung 2 or 3, ≈) | LEG hand-back; `ScheduleItem.placePoint` | **S2D-PTS** (with DG-04) | none | real drive times for moved stops (with S2D-LEG) | High |
+| DG-03 | **Stored legs for published stops.** Pairs with no stored leg use the 10-minute local move; the bogus "via Lake Louise" 5 h 20 on adults Day 4 | day times on the public page and in edit mode | LEG hand-back "Deferred"; `data/schedules/legs/canadian-rockies-2029.json` (25 Oct) | **S2D-LEG** | fix the split-day start-time back-calculation (Sonnet 2 h) | real drive times for moved stops; honest day totals | High |
+| DG-04 | **Area-level and logistics rows.** Marble Canyon, Cave and Basin, stays and logistics rows map to no day stop | Stops tab rows have no `⋯` menu | UI2 hand-back item 2 | **S2D-PTS** | the Stops row carries the schedule item id it joins to (Sonnet 1 h) | remove and move on every Stops row | Medium |
+| DG-05 | **Park members.** `PlaceContext.members` does not exist; members are "places within `AREA_DEFAULT_R`" | `add=<park>` arrival, picker groups | E3 hand-back gap 2 | **EG-I** (membership index, [entity-graph](../features/entity-graph.md) 2.3) and **PA-R-CA** (row 48: Rockies parks with `covers_areas`); no new data task | `PlaceContext.members` reads the EG-I index (Sonnet 1.5 h, after EG-I) | park members in the picker and the park arrival | Medium |
+| DG-06 | **Day versions as data.** The versions exist in the files (`variants` and per-day `order` by version in `data/schedules/<trip>.json`), but the plan model does not send them; ERFIX derives them from the published days | picker group "From the other versions of this day" | ER-005 | **S2D-VER** (mostly code; a shared contract, so Opus) | the plan model publishes each day's versions from `order` (Opus 2 h) | day versions in the picker without derivation | Medium |
+| DG-07 | **Suitability and kids checks incomplete.** Day headers say "3 not checked"; chips say "Kids: not checked yet" | day headers, stop rows, the Kids chip | Rockies Day 1 screenshots | **S2D-SUIT** (rides the D10-RO and D10-DO lane files) | none | kids and step-free checks per day | Medium |
+| DG-08 | **Photos.** Many highlights read "No licensed photo yet"; worktrees have an empty rendition cache | summary highlights, Mine thumbnails (MINE-T), covers | S2-SWEEP-after shots | **D5c** (row 26, C: 159 trip places, 42 offers) and **L3** (row 36, D: store); rendering is PHO-R | worktree briefs copy `web/.og-cache` (section 7 common line); no new task | photos on highlights and Mine rows | Medium |
+| DG-09 | **Plan timing oddities.** Dolomites Day 2 waits about 5 h ("Free time") for its plan time; Rockies Day 2 (Sunshine Meadows) warns "10 h 25 away from base" | day view | LEG hand-back; ER screenshots | **S2D-TIME** (rides D8-R); Dolomites base question waits on D9's base split (owner input) | none | clean day view for the two flagship trips | Medium |
+| DG-10 | **Booking text.** Book-ahead detail repeats words ("lottery ... lottery") and runs long; the card clamps it (SW-029) | summary "8 to book ahead" | SW-029 | **S2D-BOOK** (`data/trips/booking-refs.json`, `data/capture/catalogue/PA-ca.json`) | none | readable book-ahead card | Low |
+| DG-11 | **Place size budget.** Place-size median 1.2542 against 1.25 (about 300 bytes over), same with the flag off | `budget:report` (I14) | INT and VER reports | **S2D-SIZE**; Q290's re-baseline does not apply (not a required-tier fill) | none | headroom for every later fill that adds bytes (S2D-IND, S2D-SUIT) | Low, but first in order |
+| DG-12 | **Road network for `W_NO_ROUTE`.** The warning has a level but no definition of "no road" | warning not built | LEG hand-back | data half in **S2D-LEG** (classify the unrouted pairs: lift, trail, ferry, no road); wide coverage is **DT-F0** and **DT-S0** (rows 52, 53, E) | the check in `core/src/checks/days.ts` (Sonnet 2 h, after S2D-LEG) | the `W_NO_ROUTE` warning | Low |
+| DG-13 | **Near API.** The near-places API answers `not_available` until N2; the picker reads `/api/v1/places/` pages | add picker | E3 hand-back gap 1 | **N2** (lane NB, code; BACKLOG 8.14 to 8.16); routed times later in N3 (8.13, ORS) | point the picker's one source file at N2 (Sonnet 0.5 h) | distance bands in the picker | Medium |
+
+Owner-held items next to these (not data, listed once in [MASTER-ORDER](MASTER-ORDER.md) 7.3): the ORS key for TB-L
+(runtime legs for user-moved stops), the children cap 12 against 8, old title-only draft rows, the analytics beacon
+single-page setting.
+
+#### 2.4.2 The new tasks
+
+Data-seat rows continue 2.1's numbering. Hours count in bundle D (Step 2 edit mode ships there) and run in seat 1's spare:
+window C has 22 h, window D 22 h (2.2).
+
+| # | Id | What | h | Model | Blocked by | Owner decision needed | Bundle | Order |
+|---|---|---|---|---|---|---|---|---|
+| 64 | S2D-SIZE (DG-11) | Bring the place-size median under 1.25: trim summaries and links on the largest pages, or move one field to an on-demand file; `budget:report` before and after in the hand-back; merges alone | 1 | Sonnet | | | D | 1 |
+| 65 | S2D-PTS (DG-02, DG-04) | Every stop of every published trip's days resolves to a place, area, stay or base record with a licensed point (OSM, Wikidata; never Google): the 27 Rockies stops first, then measure and fill the Dolomites; area-level rows (Marble Canyon, Cave and Basin) get place records through the `location` and `research` skills; logistics rows join to the base or stay; a test lists stops without a join | 5 | Opus 2 (identities, joins), Sonnet 3 (points) | not beside D10-RO on the Rockies lane files; Overpass one runner | | D | 2 |
+| 66 | S2D-IND (DG-01) | The rule: a type default per node in `data/vocab/types.json` (indoor: museum, gallery, visitor centre, aquarium, indoor play, indoor wall, cafe; mixed: gondola, hot springs, covered viewpoint, left unset by type) plus an explicit `indoor` value on records whose type is mixed; then values for every stop of the Rockies and Dolomites days; `capture.ts build` regenerated | 3 | Opus 1 (rule, one `types.json` writer), Sonnet 2 | S2D-SIZE | none (recommended rule above; the owner sees it in the hand-back) | D | 3 |
+| 67 | S2D-LEG (DG-03, DG-12 data half) | After S2D-PTS: `node web/scripts/legs-ors.mjs --trip <slug>` for every consecutive pair of every version (Rockies, Dolomites), then `--check`; each pair in `*.unrouted.json` classified as lift, trail, ferry or no road, with its source; the Day 4 "via Lake Louise" leg re-checked | 3 | Sonnet 2, Opus review 1 | S2D-PTS; `ORS_API_KEY` for the offline script (the key used on 25 Oct; the TB-L runtime key is separate and owner-held) | | D | 4 |
+| 68 | S2D-SUIT (DG-07) | Suitability blocks (kids, stroller, step-free, effort) for every day stop of the Rockies and Dolomites, each gap a dated `searched_none`; same lane and agent as D10-RO and D10-DO | 4 | Sonnet 3.5, Opus 10-record review 0.5 | S2D-SIZE; with D10-RO, D10-DO | | D | 5 |
+| 69 | S2D-TIME (DG-09) | Review the plan times and base of Dolomites Day 2 and Rockies Day 2; correct through `ops.ts` or explain in the day note | 1.5 | Opus | with D8-R; the Dolomites base half waits on D9's base split | Dolomites base split (3 or 2 bases), already listed | D | 6 |
+| 70 | S2D-BOOK (DG-10) | Tighten the book-by strings once at the source: no repeated words, one sentence each | 0.5 | Sonnet | | | D | 6 |
+| 71 | S2D-VER (DG-06) | Check that each scheduled day's versions are complete in `order`; the plan-model change is the code half above | 0.5 | Sonnet | the code half | | D | 7 |
+
+Totals: 18.5 h of data work (S2D rows 64 to 71), all in bundle D; code halves about 10 h for builder lanes, booked through
+the Step 2 follow-up rows of BACKLOG, not here. **Trade-off:** these take most of window C's 22 h spare, so a long
+Overpass outage pushes the D10 splits' partial-ship rule (2.2) into effect earlier; in return edit mode ships in D with
+real points, legs and the rainy-day chip instead of ≈ estimates and hidden chips.
+
+#### 2.4.3 Dependencies
+
+| Dependency | Holds | Note |
+|---|---|---|
+| ORS key | S2D-LEG (offline `ORS_API_KEY`); TB-L runtime legs for user-moved stops (owner item) | the offline key exists; only the runtime key waits on the owner |
+| N2 (lane NB, code) | DG-13 | not data-seat work; N3 routed nearby times need ORS after N2 |
+| EG-I, PA-R-CA | DG-05 | both already in window C (rows 47, 48) |
+| Licences | DG-08 (D5c, L3) | allowlist only: CC BY, CC BY-SA, CC0, public domain (DD-3) |
+| Commons one call at a time | D5c, L3 | one runner under `flock /tmp/travel-commons.lock`; never parallel agents |
+| Overpass, Wikidata one runner | S2D-PTS, S2D-LEG classification | Overpass at least 10 s apart (6.1) |
+| Place budget | S2D-IND, S2D-SUIT | S2D-SIZE merges first, alone |
+| Lane files | S2D-PTS, S2D-SUIT | one writer at a time on `data/capture/canadian-rockies-2029/` and `points.json` (with D10-RO) |
+
+#### 2.4.4 The next three data batches (proposed order)
+
+| Batch | Tasks | Hours | Window | Why first |
+|---|---|---|---|---|
+| **S2-A: stops that resolve** | S2D-SIZE, S2D-PTS, S2D-IND | 9 | C spare | every later fix needs a point and a record per stop; the budget must have room before any fill; the Rainy day chip is a built feature waiting only on data |
+| **S2-B: real drive times** | S2D-LEG (plus the builder's split-day fix and `W_NO_ROUTE` check) | 3 | C spare | needs S2-A's points; removes the bogus 5 h 20 leg and the 10-minute fallback on published days |
+| **S2-C: honest day checks** | S2D-SUIT, S2D-TIME, S2D-BOOK, S2D-VER | 6.5 | D spare | fills the "not checked" chips and cleans the two flagship days; S2D-SUIT rides the D10-RO and D10-DO files, so it runs right after them |
+
+DG-05, DG-08, DG-13 need no new batch: they close when EG-I and PA-R-CA (C), D5c (C) and L3 (D), and N2 merge.
+
+#### 2.4.5 Other data lists, and the task each maps to
+
+These lists keep their own text (history or prototype detail); each now carries a pointer here, and their pending data
+work is owned by the rows named.
+
+| List | Data items in it | Owned by (2.1 or 2.4) |
+|---|---|---|
+| [research/backlog.md](../../../research/backlog.md) (CS7 payoff places and relations) | Kicking Horse put-ins (partly, `searched_none`); Niagara cluster (trip private, no days); payoff relevance | Niagara: OVT (row 40) once TD-1 gives days; relevance: TRL-REL (row 17); the Tre Cime and Larch Valley draw moves wait on a migration-ledger exception for relevance edits (no task yet; D1B-Q 5's exception covers points only) |
+| BACKLOG L8 (place-page enrichment: parking, fees, swimming, boats, loops, best time of day) | every public place's empty sections, with provenance per value | D10 splits (rows 22, 23, 29 to 33), STO-1 (35), OFR-1 (25), then the gazetteer DC-W0 and DC-W1 (rows 62, 63) for new places |
+| [prototypes/TODO.md](../prototypes/TODO.md) rows owned by "data" (X-6, B-H1 to B-H3, B-H9, K-H1, K-H2) | invented facts, flags, regions, prices, park entries, drive minutes | candidate rows and suitability: S2D-IND, S2D-SUIT, D10 splits; regions TB-RG and DC-5 (rows 54, 57); hubs and airports ORG-G (row 18); parks PA-R-CA, PA-MUS, PA-R-ON (rows 48 to 50); drive DT-T0 to DT-W1 (rows 51 to 53, 60); prices with read dates OFR-1 |
+| [prototypes/FINDINGS-2026-10-27.md](../prototypes/FINDINGS-2026-10-27.md) data enhancements (2 opening hours and booking windows, 5 coverage gate, 9 rain plan, 14 school holidays, camper, train, stays) | per-place hours, closures, booking windows; region coverage; indoor; holidays | D8-R and D8 (rows 28, 34); the coverage gate reads the scoreboard S1 per region; S2D-IND; TK-H (row 61); stays D9 (row 39); camper and train have no task (later, not in year one) |
+| Account and Mine (MINE-T thumbnails) | photos on Favourites and copy rows | D5c, L3 (DG-08) |
+| BACKLOG rows with data work: TB-L (ORS key), suitability and relevance sidecars, photos and gallery, N2 | | TB-L: owner key (2.4.3); sidecars: S2D-SUIT, TRL-REL, D10 splits; photos: D5c, L3, PHO-R; gallery: TD-3 moves `gallery.json` into `data/trips/`; N2: lane NB (DG-13) |
 
 ## 3. The load and verify pipeline (from CATALOGUE-EARLY, in order)
 
@@ -421,6 +523,7 @@ merge.
 
 | Date | Change |
 |---|---|
+| 2026-10-28 (S2-DATA) | Banner; section 2.4: DG-01 to DG-13 moved here from `design/step2/data-gaps-2026-10-28.md` (now a pointer), each mapped to an existing task or new rows 64 to 71 (S2D-SIZE, S2D-PTS, S2D-IND, S2D-LEG, S2D-SUIT, S2D-TIME, S2D-BOOK, S2D-VER; 18.5 h, bundle D), dependencies, and batches S2-A to S2-C. BACKLOG 15.390 |
 | 2026-10-27 (BUILDER-DEPS) | Banner; 2.1 rows 51 to 63 and the totals sentence; 2.2 seat 1 additions and data seat 2. [builder-dependency-map.md](builder-dependency-map.md) |
 | 2026-10-26 (ALIGN, evening) | Banner; rows 3, 10, 12, 15 marked done; rows 45 to 50 (UXB-W, EG-M, EG-D, PA-R-CA, PA-MUS, PA-R-ON); totals 194 h; 2.2 rewritten to MASTER-ORDER 5.4 (lane S at the head of C's window; D10 splits and D8-R facts pulled into C; PM-G built in this seat). [alignment-2026-10-26.md](alignment-2026-10-26.md) |
 | 2026-10-26 (ANSWERS-5) | Section 2.3 rewritten: D1B-Q 1 to 5, Sepaq fees, DD-3, Q99, Q109 to Q116, DD-6 and Q290 answered as recommended; the tasks that waited on them are ready; the values still needed (Siusi, Grand-Sault, Utah, Norway and Peru dates, Dolomites base split, Switzerland pass) point to MASTER-ORDER 7.3. Nothing else changed |

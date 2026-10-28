@@ -14,6 +14,8 @@ already names a gap, the row says "F:" with its section or item number and adds 
 
 Principles are cited by number from [foundation/principles.md](../design/foundation/principles.md) (P1 to P9, T1 to T5).
 
+> **Data rows (28 Oct 2026):** every row owned by "data" is mapped to a task in [build/DATA-PLAN.md](../build/DATA-PLAN.md) 2.4.5.
+
 ## How to read the tables
 
 | Column | Values |
