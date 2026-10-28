@@ -20,6 +20,8 @@
 
 /* under the day header: the person's note; the two warning levels are warnings/warnings.css (STEP2-E5) */
 .day-status { display: grid; gap: var(--s-1); }
+/* Always mounted (DayWarnings reports to the store from inside it) but with no note and no warnings it holds nothing: no gap in the day body. */
+.day-status:empty { display: none; }
 .day-note { display: flex; align-items: flex-start; gap: var(--s-2); margin: 0; font: var(--t-small); color: var(--ink-2); overflow-wrap: anywhere; }
 .day-note > svg { flex: none; margin-top: 3px; }
 .day-note > svg { color: var(--muted); }
