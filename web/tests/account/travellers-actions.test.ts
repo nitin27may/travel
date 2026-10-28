@@ -1,12 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-const db = vi.hoisted(() => ({ save: vi.fn(), remove: vi.fn(), finish: vi.fn() }));
+const db = vi.hoisted(() => ({ save: vi.fn(), remove: vi.fn(), finish: vi.fn(), load: vi.fn() }));
 vi.mock('@/lib/auth/server', () => ({ getUser: vi.fn(), getAuth: () => ({}), authErrorCode: () => 'unknown' }));
 vi.mock('@/lib/account/name-quota', () => ({ takeNameChange: vi.fn() }));
 const quota = vi.hoisted(() => ({ take: vi.fn() }));
 vi.mock('@/lib/account/profile-quota', () => ({ takeProfile: quota.take }));
 vi.mock('@travel/core/db/index.ts', () => ({ withUserTransaction: vi.fn() }));
-vi.mock('@travel/core/db/profile.ts', () => ({ saveTravellers: db.save, removeTravellers: db.remove, finishSetup: db.finish }));
+vi.mock('@travel/core/db/profile.ts', () => ({ saveTravellers: db.save, removeTravellers: db.remove, finishSetup: db.finish, loadProfile: db.load }));
 
 import { getUser } from '@/lib/auth/server';
 import { finishSetup, removeTravellers, saveTravellers } from '@/app/account/actions';
@@ -93,5 +93,26 @@ describe('travellers actions', () => {
     as(null);
     await saveTravellers('x', { doc, revision: 0 });
     expect(quota.take).not.toHaveBeenCalled();
+  });
+
+  it('consent (review-em-s S3): only `consent: true` reaches the database, as `{ consent: true }`; anything else sends none', async () => {
+    as(USER);
+    db.save.mockResolvedValue({ kind: 'saved', revision: 1 });
+    await saveTravellers(USER.id, { doc, revision: 0, consent: true });
+    await saveTravellers(USER.id, { doc, revision: 0, consent: 'yes' });
+    await saveTravellers(USER.id, { doc, revision: 0, finishSetup: true, consent: true });
+    expect(db.save.mock.calls.map((c) => c[3])).toEqual([{ finishSetup: false, consent: true }, { finishSetup: false }, { finishSetup: true, consent: true }]);
+  });
+
+  it('a conflict answers the revision the row holds now (SF3: "Save mine anyway"), or none when it cannot be read', async () => {
+    as(USER);
+    db.save.mockResolvedValue({ kind: 'conflict' });
+    db.load.mockResolvedValueOnce({ revision: 7 }).mockRejectedValueOnce(new Error('db down 2019-03-15'));
+    expect(await saveTravellers(USER.id, { doc, revision: 3, consent: true })).toEqual({ kind: 'conflict', revision: 7 });
+    expect(db.load).toHaveBeenCalledWith('user-a');
+    const logs: unknown[][] = [];
+    vi.spyOn(console, 'error').mockImplementation((...a) => void logs.push(a));
+    expect(await saveTravellers(USER.id, { doc, revision: 3, consent: true })).toEqual({ kind: 'conflict' });
+    expect(JSON.stringify(logs)).not.toContain('2019-03-15');
   });
 });

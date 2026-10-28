@@ -64,6 +64,9 @@ export const PERSON_COPY: Record<PersonIssue, string> = {
   adult_old: `Enter an age from ${TRAVELLERS.adultMinAge} to ${TRAVELLERS.maxAge}.`,
 };
 
+/** A child's missing age while the date field is open: two ways to answer, both named (review ACCT-PR SF8). */
+export const AGE_OR_DOB_COPY = 'Choose an age, or enter a date of birth.';
+
 export interface FormIssues {
   children: (PersonIssue | null)[];
   adults: (PersonIssue | null)[];

@@ -25,3 +25,8 @@ export const TRAVELLERS = {
 export const TRAVELLERS_CONSENT_VERSION = "ap15-2026-10-27";
 /** Every wording 0012's CHECK accepts, oldest first. */
 export const TRAVELLERS_CONSENT_VERSIONS: readonly string[] = [TRAVELLERS_CONSENT_VERSION];
+
+/** The Account page (account-profile-and-travellers.md 2.1; review ACCT-PR MF1): My trips shows this many, newest change first, then "See all in Mine". */
+export const ACCOUNT_PAGE = {
+  tripsShown: 5,
+} as const;

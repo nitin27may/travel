@@ -61,6 +61,24 @@ describe('a signed-in row', () => {
   });
 });
 
+describe('review ACCT-PR: bare chips (SF10) and the link-only row (MF1)', () => {
+  it('bare: every row shares the state the card says, so no chip is drawn; the link\'s name still carries it', () => {
+    const h = renderToStaticMarkup(<ul><CopyRow row={rowModel(item, '2026-10-25')} {...props} sync={{ state: 'device', bare: true }} /></ul>);
+    expect(h).not.toContain('crow-chip');
+    expect(h).not.toContain('data-chip');
+    expect(h).toContain(', on this device only"');
+  });
+  it('link only: no menu and no Remove; the note is a fourth line and part of the name', () => {
+    const h = renderToStaticMarkup(<ul><CopyRow row={rowModel(item, '2026-10-25')} linkOnly note="Changed 24 Oct" /></ul>);
+    expect(h).not.toContain('crow-act');
+    expect(h).not.toContain('Actions for');
+    expect(h).toContain('data-link-only');
+    expect(h).toMatch(/<a [^>]*data-chip[^>]*>.*<span class="crow-note">Changed 24 Oct<\/span><\/a>/);
+    expect(h).toContain(', Changed 24 Oct"');
+    expect(h).toMatch(/href="\/trips\/dolomites-2027\/?\?p=family-6&amp;a=2&amp;view=day&amp;mine=1"/);
+  });
+});
+
 describe('the account card line (4.7)', () => {
   const card = (note?: { text: string; warn?: boolean } | null) => renderToStaticMarkup(<AccountCard signIn email="a@b.com" note={note} />);
   it('flag off: the old sentence, exactly', () => {

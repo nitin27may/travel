@@ -84,6 +84,8 @@ export interface RowView {
   /** the chip's spinner: pending changes are being sent */
   spin: boolean;
   pending: number;
+  /** the row's last change in the account (`updated_at`, ISO): the Account page's "Changed 24 Oct" and its newest-first order */
+  changedAt: string;
 }
 
 export interface SyncSnapshot {
@@ -298,7 +300,7 @@ export class AccountSync {
       failed: this.failed.has(id),
       sendingMs: since === undefined ? null : this.d.now().getTime() - since,
     });
-    return { state, spin: state === 'syncing', pending };
+    return { state, spin: state === 'syncing', pending, changedAt: this.rows.get(id)?.updated_at ?? '' };
   }
 
   private build(): SyncSnapshot {

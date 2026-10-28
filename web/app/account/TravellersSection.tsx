@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ageText, partyText, PARTY_MAX_ADULTS, type Party } from '@travel/core/trips/party.ts';
+import { ageText, CHILD_MAX_AGE, partyText, PARTY_MAX_ADULTS, type Party } from '@travel/core/trips/party.ts';
 import { ageNeedsCheck, ageNow, grownUp, partyOf, refreshAges, type Travellers } from '@travel/core/schema/travellers.ts';
 import { Banner } from '@/components/ui/Banner';
 import { Button } from '@/components/ui/Button';
@@ -30,6 +30,27 @@ interface Props {
   today: string;
 }
 
+/**
+ * The party as a parent reads it while a grown-up notice is open (review ACCT-PR SF1): the children the notice is about show their real
+ * age, not the 17 trips plan for, so the summary, the "differs" notice and the grown-up notice agree. `grown` are child indexes.
+ */
+export function shownParty(doc: Travellers, today: string, grown: readonly number[]): Party {
+  const plan = partyOf(doc, today);
+  return { adults: plan.adults, children: plan.children.map((a, i) => (grown.includes(i) ? ageNow(doc.children[i], today) : a)) };
+}
+
+/** "Trips plan for the 18-year-old as 17 until you choose below." (SF1); null with nobody grown up. */
+export function planNote(doc: Travellers, today: string, grown: readonly number[]): string | null {
+  if (!grown.length) return null;
+  const who = grown.map((i) => `the ${ageNow(doc.children[i], today)}-year-old`).join(' and ');
+  return `Trips plan for ${who} as ${CHILD_MAX_AGE} until you choose below.`;
+}
+
+/** The one notice the section shows (review ACCT-PR SF2): the first that applies, in this order; the others wait until it is resolved. */
+export type NoticeKind = 'conflict' | 'differs' | 'grown' | 'check' | 'blocked' | 'invalid' | 'failed';
+export const NOTICE_ORDER: readonly NoticeKind[] = ['conflict', 'differs', 'grown', 'check', 'blocked', 'invalid', 'failed'];
+export const firstNotice = (on: Partial<Record<NoticeKind, boolean>>): NoticeKind | null => NOTICE_ORDER.find((k) => on[k]) ?? null;
+
 /** What a guarded write answered, as the editor's outcome. */
 function outcomeOf(r: TravellersResult): 'saved' | 'conflict' | 'failed' | 'unauthenticated' {
   if (r.kind === 'saved') return 'saved';
@@ -55,6 +76,7 @@ export function TravellersSection({ userId, owner, travellers, invalid, revision
   const [differs, setDiffers] = useState<Party | null>(null);
   const [blocked, setBlocked] = useState(false);
   const [conflict, setConflict] = useState(false);
+  const [editorConflict, setEditorConflict] = useState(false);
   const [kept, setKept] = useState<number[]>([]);
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -77,20 +99,22 @@ export function TravellersSection({ userId, owner, travellers, invalid, revision
   }, []);
 
   useEffect(() => {
-    if (!editing && returnFocus.current) {
+    if (!editing && !confirming && returnFocus.current) {
       returnFocus.current = false;
       document.getElementById(EDIT_ID)?.focus();
     }
-  }, [editing]);
+  }, [editing, confirming]);
 
   const open = (form: TravellersForm, line: string | null = null) => {
     setEditorDay(localDay(new Date()));
     setLead(line);
     setFailed(false);
+    setEditorConflict(false);
     setEditing(form);
   };
   const close = () => {
     setEditing(null);
+    setEditorConflict(false);
     returnFocus.current = true;
   };
 
@@ -117,17 +141,21 @@ export function TravellersSection({ userId, owner, travellers, invalid, revision
   }
 
   async function saveFromEditor(next: Travellers): Promise<EditorOutcome> {
-    const r = await saveTravellers(userId, { doc: next, revision });
+    // Save travellers is pressed beside the AP-15 wording: that is the consent (review-em-s S3)
+    const r = await saveTravellers(userId, { doc: next, revision, consent: true });
     if (outcomeOf(r) === 'unauthenticated') {
       leaveSession();
       return 'handled';
     }
     if (r.kind === 'conflict') {
-      setConflict(true);
+      // the editor keeps the form and offers "Save mine anyway" at the revision the row holds now (SF3, spec 6.6)
+      if (r.revision !== undefined) setRevision(r.revision);
+      setEditorConflict(true);
       return 'conflict';
     }
     if (r.kind !== 'saved') return 'failed';
     setConflict(false);
+    setEditorConflict(false);
     setDoc(next);
     setRevision(r.revision);
     setBlocked(!setAccountParty(partyOf(next, editorDay), owner));
@@ -136,11 +164,14 @@ export function TravellersSection({ userId, owner, travellers, invalid, revision
     return 'saved';
   }
 
-  /** "Looks right", "Move to adults", Undo: a save that is not the editor's. */
-  async function saveDirect(next: Travellers, atRevision = revision): Promise<boolean> {
+  /**
+   * "Looks right", "Move to adults", Undo: a save that is not the editor's. `consent` only for the Undo of a removal, which creates
+   * travellers again from the document the person saved beside the AP-15 wording; the others save over stored travellers and keep theirs.
+   */
+  async function saveDirect(next: Travellers, atRevision = revision, consent = false): Promise<boolean> {
     setBusy(true);
     try {
-      const r = await saveTravellers(userId, { doc: next, revision: atRevision });
+      const r = await saveTravellers(userId, { doc: next, revision: atRevision, ...(consent ? { consent: true } : {}) });
       if (!settle(r, next)) return false;
       const out = seedParty(partyOf(next, localDay(new Date())), owner);
       setBlocked(out === 'blocked');
@@ -166,7 +197,7 @@ export function TravellersSection({ userId, owner, travellers, invalid, revision
       setDiffers(null);
       returnFocus.current = true;
       const gone = r.revision;
-      toast({ message: 'Travellers removed.', actionLabel: 'Undo', onAction: () => void saveDirect(before, gone) });
+      toast({ message: 'Travellers removed.', actionLabel: 'Undo', onAction: () => void saveDirect(before, gone, true) });
     } catch {
       setFailed(true);
     } finally {
@@ -174,102 +205,105 @@ export function TravellersSection({ userId, owner, travellers, invalid, revision
     }
   }
 
-  const party = doc ? partyOf(doc, today) : null;
   const grown = doc ? grownUp(doc, today).filter((i) => !kept.includes(i)) : [];
   const first = grown[0];
+  // the words a parent reads: a child the grown-up notice is about shows their real age everywhere on the section (SF1)
+  const party = doc ? shownParty(doc, today, grown) : null;
+  const note = doc ? planNote(doc, today, grown) : null;
   const check = doc && grown.length === 0 && ageNeedsCheck(doc, today);
+  const showing = firstNotice({
+    conflict,
+    differs: !!(differs && doc),
+    grown: !!doc && first !== undefined,
+    check: !!check,
+    blocked,
+    invalid: invalid && !doc,
+    failed: failed && !editing,
+  });
 
-  const notices = (
-    <>
-      {differs && doc ? (
-        <Banner
-          kind="notice"
-          className="acct-notice"
-          action={
-            <>
-              <Button
-                size="sm"
-                variant="primary"
-                onClick={() => {
-                  setBlocked(!setAccountParty(partyOf(doc, today), owner));
-                  setDiffers(null);
-                }}
-              >
-                Use saved travellers here
-              </Button>
-              <Button size="sm" onClick={() => open(formFromParty(differs))}>
-                Save this browser&apos;s party
-              </Button>
-              <Button size="sm" variant="ghost" onClick={() => setDiffers(null)}>
-                Dismiss
-              </Button>
-            </>
-          }
-        >
-          This browser plans for {partyText(differs, ' and ')}. Your saved travellers: {partyText(party as Party, ' and ')}.
-        </Banner>
-      ) : null}
-      {doc && first !== undefined ? (
-        <Banner
-          kind="notice"
-          className="acct-notice"
-          action={
-            <>
-              {doc.adults < PARTY_MAX_ADULTS ? (
-                <Button
-                  size="sm"
-                  variant="primary"
-                  disabled={busy}
-                  onClick={() => void saveDirect({ ...doc, adults: doc.adults + 1, children: doc.children.filter((_, i) => i !== first) })}
-                >
-                  Move to adults
-                </Button>
-              ) : null}
-              <Button size="sm" onClick={() => setKept((k) => [...k, first])}>
-                Keep as a child
-              </Button>
-            </>
-          }
-        >
-          Child {first + 1} is now {ageNow(doc.children[first], today)}. Count them as an adult?
-        </Banner>
-      ) : null}
-      {doc && check ? (
-        <Banner
-          kind="notice"
-          className="acct-notice"
-          action={
-            <>
-              <Button size="sm" variant="primary" disabled={busy} onClick={() => void saveDirect(refreshAges(doc, localDay(new Date())))}>
-                Looks right
-              </Button>
-              <Button size="sm" onClick={() => open(formFromTravellers(doc, localDay(new Date())))}>
-                Edit
-              </Button>
-            </>
-          }
-        >
-          Are these ages still right? {party && party.children.length ? party.children.map(ageText).join(', ') : 'Adults'}.
-        </Banner>
-      ) : null}
-      {blocked ? <Banner kind="notice" className="acct-notice">Saved to your account. This browser can&apos;t keep a copy, so trip pages here use the trip as written.</Banner> : null}
-      {conflict ? (
-        <Banner
-          kind="notice"
-          className="acct-notice"
-          action={
-            <Button size="sm" onClick={() => router.refresh()}>
-              Show the latest
+  // One notice at a time, its actions secondary (components 2.1: the first carries the meaning); the editor's Save stays the one primary.
+  const notices =
+    showing === 'differs' && differs && doc ? (
+      <Banner
+        kind="notice"
+        className="acct-notice"
+        action={
+          <>
+            <Button
+              size="sm"
+              onClick={() => {
+                setBlocked(!setAccountParty(partyOf(doc, today), owner));
+                setDiffers(null);
+              }}
+            >
+              Use saved travellers here
             </Button>
-          }
-        >
-          Your travellers were changed on another device.
-        </Banner>
-      ) : null}
-      {invalid && !doc ? <Banner kind="notice" className="acct-notice">Your saved travellers could not be read. Add them again.</Banner> : null}
-      {failed && !editing ? <Banner kind="notice" className="acct-notice">We couldn&apos;t save. Your changes are still here; try again.</Banner> : null}
-    </>
-  );
+            <Button size="sm" onClick={() => open(formFromParty(differs))}>
+              Save this party
+            </Button>
+            <Button size="sm" variant="ghost" onClick={() => setDiffers(null)}>
+              Dismiss
+            </Button>
+          </>
+        }
+      >
+        This browser plans for {partyText(differs, ' and ')}. Your saved travellers: {partyText(party as Party, ' and ')}.
+      </Banner>
+    ) : showing === 'grown' && doc && first !== undefined ? (
+      <Banner
+        kind="notice"
+        className="acct-notice"
+        action={
+          <>
+            {doc.adults < PARTY_MAX_ADULTS ? (
+              <Button size="sm" disabled={busy} onClick={() => void saveDirect({ ...doc, adults: doc.adults + 1, children: doc.children.filter((_, i) => i !== first) })}>
+                Move to adults
+              </Button>
+            ) : null}
+            <Button size="sm" onClick={() => setKept((k) => [...k, first])}>
+              Keep as a child
+            </Button>
+          </>
+        }
+      >
+        Child {first + 1} is now {ageNow(doc.children[first], today)}. Count them as an adult?
+      </Banner>
+    ) : showing === 'check' && doc ? (
+      <Banner
+        kind="notice"
+        className="acct-notice"
+        action={
+          <>
+            <Button size="sm" disabled={busy} onClick={() => void saveDirect(refreshAges(doc, localDay(new Date())))}>
+              Looks right
+            </Button>
+            <Button size="sm" onClick={() => open(formFromTravellers(doc, localDay(new Date())))}>
+              Edit
+            </Button>
+          </>
+        }
+      >
+        Are these ages still right? {party && party.children.length ? party.children.map(ageText).join(', ') : 'Adults'}.
+      </Banner>
+    ) : showing === 'blocked' ? (
+      <Banner kind="notice" className="acct-notice">Saved to your account. This browser can&apos;t keep a copy, so trip pages here use the trip as written.</Banner>
+    ) : showing === 'conflict' ? (
+      <Banner
+        kind="notice"
+        className="acct-notice"
+        action={
+          <Button size="sm" onClick={() => router.refresh()}>
+            Show the latest
+          </Button>
+        }
+      >
+        Your travellers were changed on another device.
+      </Banner>
+    ) : showing === 'invalid' ? (
+      <Banner kind="notice" className="acct-notice">Your saved travellers could not be read. Add them again.</Banner>
+    ) : showing === 'failed' ? (
+      <Banner kind="notice" className="acct-notice">We couldn&apos;t save. Your changes are still here; try again.</Banner>
+    ) : null;
 
   const editor = editing ? (
     <div
@@ -286,6 +320,7 @@ export function TravellersSection({ userId, owner, travellers, invalid, revision
         autoFocus
         lead={lead ? <p className="acct-note">{lead}</p> : undefined}
         onSave={saveFromEditor}
+        conflict={editorConflict ? { onShowLatest: () => router.refresh() } : null}
         actions={
           <Button type="button" variant="ghost" onClick={close}>
             Cancel
@@ -334,8 +369,9 @@ export function TravellersSection({ userId, owner, travellers, invalid, revision
             <span className="acct-label">Party</span>
             <span className="acct-value">{partyText(party as Party)}</span>
             <span className="acct-note">Ages today. Trips use these, and you can change the party on any trip.</span>
+            {note ? <span className="acct-note">{note}</span> : null}
           </div>
-          {editing ? null : (
+          {editing || confirming ? null : (
             <div className="acct-row-actions">
               <Button id={EDIT_ID} className="acct-row-action" size="sm" onClick={() => open(formFromTravellers(doc, localDay(new Date())))} aria-label="Edit travellers">
                 Edit
@@ -345,7 +381,7 @@ export function TravellersSection({ userId, owner, travellers, invalid, revision
                 triggerLabel="More"
                 trigger={<span>More</span>}
                 align="end"
-                entries={[{ label: 'Remove saved travellers', destructive: true, separatorBefore: true, onSelect: () => setConfirming(true) }]}
+                entries={[{ label: 'Remove saved travellers', destructive: true, onSelect: () => setConfirming(true) }]}
               />
             </div>
           )}
@@ -357,7 +393,14 @@ export function TravellersSection({ userId, owner, travellers, invalid, revision
               <Button variant="danger" loading={busy} onClick={() => void remove()}>
                 Remove
               </Button>
-              <Button variant="ghost" disabled={busy} onClick={() => setConfirming(false)}>
+              <Button
+                variant="ghost"
+                disabled={busy}
+                onClick={() => {
+                  returnFocus.current = true;
+                  setConfirming(false);
+                }}
+              >
                 Cancel
               </Button>
             </div>

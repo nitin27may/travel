@@ -89,7 +89,8 @@ export function ProfileSection({ userId, initialName }: { userId: string; initia
       <div className="acct-row">
         <div className="acct-row-main">
           <span className="acct-label">Name</span>
-          <span className={name ? 'acct-value' : 'acct-value acct-value-empty'}>{name || 'Not set'}</span>
+          {/* the field below holds the name while it is open: the value is not said twice (review ACCT-PR N4) */}
+          {editing ? null : <span className={name ? 'acct-value' : 'acct-value acct-value-empty'}>{name || 'Not set'}</span>}
         </div>
         {editing ? null : (
           <Button id={EDIT_ID} className="acct-row-action" size="sm" onClick={open} aria-label={name ? 'Edit name' : 'Add a name'}>

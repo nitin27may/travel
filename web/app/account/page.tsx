@@ -14,7 +14,6 @@ import { authFlags } from '@/lib/auth/flags';
 import { accountWays, googleAddedNow } from '@/lib/auth/ways-server';
 import { AUTH_WAYS, GOOGLE_SIGN_IN } from '@travel/core/config/auth-limits.ts';
 import { DEFAULT_RETURN, returnPath } from '@/lib/auth/return-path';
-import { readDrafts, type DraftRow } from '@/lib/server/drafts';
 import { loadProfile, type AccountProfile } from '@travel/core/db/profile.ts';
 import { isoDay } from '@travel/core/schema/travellers.ts';
 import { accountHash } from '@travel/core/favourites/account.ts';
@@ -23,7 +22,7 @@ import { safeError } from '@/lib/server/safe-error';
 import { pageMetadata } from '@/lib/site';
 import { AccountSection } from './AccountSections';
 import { ProfileSection } from './ProfileSection';
-import { SavedTrips } from './SavedTrips';
+import { AccountTrips } from './AccountTrips';
 import { SetupCard, type SetupStep } from './SetupCard';
 import { TravellersSection } from './TravellersSection';
 import { YourData } from './YourData';
@@ -43,7 +42,7 @@ function SignedOut() {
         <Icon name="user" size={32} />
       </span>
       <h1>Account</h1>
-      <p className="auth-sub">Sign in to see and save your trip drafts.</p>
+      <p className="auth-sub">Sign in to keep your trips and travellers in your account.</p>
       <div className="auth-actions">
         <ButtonLink href="/sign-in/" variant="primary">
           Sign in
@@ -51,6 +50,19 @@ function SignedOut() {
         <ButtonLink href="/sign-up/">Create an account</ButtonLink>
       </div>
     </div>
+  );
+}
+
+/** An address with a line-break chance before its "@" (the CSS still breaks anywhere when a part alone is too long). */
+function AddressText({ address }: { address: string }) {
+  const at = address.lastIndexOf('@');
+  if (at <= 0) return <>{address}</>;
+  return (
+    <>
+      {address.slice(0, at)}
+      <wbr />
+      {address.slice(at)}
+    </>
   );
 }
 
@@ -74,15 +86,6 @@ async function readProfile(userId: string): Promise<ProfileRead> {
   }
 }
 
-async function readSaved(userId: string): Promise<{ kind: 'ok'; rows: DraftRow[] } | { kind: 'failed' }> {
-  try {
-    return { kind: 'ok', rows: await readDrafts(userId) };
-  } catch (e) {
-    console.error('[account] readDrafts failed', safeError(e));
-    return { kind: 'failed' };
-  }
-}
-
 async function AccountBody({ next, added, step }: { next: string; added: boolean; step: SetupStep }) {
   // Request time only. During `next build` connection() never resolves, so nothing below runs at build.
   await connection();
@@ -99,7 +102,7 @@ async function AccountBody({ next, added, step }: { next: string; added: boolean
   const justAdded = googleAddedNow(added, ways);
 
   // Each read fails on its own: a page that cannot read one section still shows the others (spec 2.5).
-  const [profile, drafts] = await Promise.all([readProfile(user.id), readSaved(user.id)]);
+  const profile = await readProfile(user.id);
   // The name as rendered (spec 4.3, review S5): it can reach the session without our checks (Google, a direct update-user call).
   const name = displayName(user.name);
   // The owner tag of the party this page writes to the browser (review B2): a hash, never the id.
@@ -110,7 +113,10 @@ async function AccountBody({ next, added, step }: { next: string; added: boolean
       <header className="account-head">
         <div>
           <h1 className="account-title">Account</h1>
-          <p className="account-identity">Signed in as {user.email}</p>
+          {/* a break is offered before the "@" first, so a narrow phone wraps the address there, not mid-word (SF4) */}
+          <p className="account-identity">
+            Signed in as <AddressText address={user.email} />
+          </p>
         </div>
         <SignOutButton />
       </header>
@@ -119,24 +125,13 @@ async function AccountBody({ next, added, step }: { next: string; added: boolean
         <SignInNotice kind={landing} masked={maskAddress(user.email)} next={next === DEFAULT_RETURN ? null : next} />
       ) : null}
 
-      {profile.kind === 'failed' ? (
-        <AccountSection id="profile" title="Profile">
-          <ErrorState
-            title="We couldn't load your profile."
-            detail="The service may be briefly unavailable."
-            cached={
-              <Link className="account-retry" href="/account/">
-                Try again
-              </Link>
-            }
-          />
-        </AccountSection>
-      ) : profile.kind === 'ok' && profile.profile.setupDoneAt === null ? (
+      {profile.kind === 'ok' && profile.profile.setupDoneAt === null ? (
         // First run (spec 2.3): the card is the Profile and Travellers sections until it is finished or skipped. Only a successful read
         // shows it: a failed read never asks a set-up person again, and a database without migration 0012 never reaches this branch.
         <SetupCard userId={user.id} owner={owner} initialName={name} revision={profile.profile.revision} initialStep={step} />
       ) : (
         <>
+          {/* The name lives in Neon Auth, not in the profile row, so it shows even when that row cannot be read (review ACCT-PR SF5). */}
           <AccountSection id="profile" title="Profile">
             <ProfileSection userId={user.id} initialName={name} />
           </AccountSection>
@@ -152,27 +147,26 @@ async function AccountBody({ next, added, step }: { next: string; added: boolean
                 today={isoDay(new Date())}
               />
             </AccountSection>
+          ) : profile.kind === 'failed' ? (
+            <AccountSection id="travellers" title="Travellers">
+              <ErrorState
+                title="We couldn't load your travellers."
+                detail="The service may be briefly unavailable."
+                cached={
+                  <Link className="account-retry" href="/account/">
+                    Try again
+                  </Link>
+                }
+              />
+            </AccountSection>
           ) : null}
         </>
       )}
 
       <SignInMethods rows={ways} masked={maskAddress(user.email)} googleOn={authFlags.signInGoogle} justAdded={justAdded} />
 
-      {drafts.kind === 'ok' ? (
-        <SavedTrips userId={user.id} initialRows={drafts.rows} />
-      ) : (
-        <AccountSection id="saved-trips" title="Saved trips">
-          <ErrorState
-            title="We couldn't load your saved trips."
-            detail="The service may be briefly unavailable."
-            cached={
-              <Link className="account-retry" href="/account/">
-                Try again
-              </Link>
-            }
-          />
-        </AccountSection>
-      )}
+      {/* My trips (review ACCT-PR MF1): the account's live trips as Mine reads them, five, then "See all in Mine" */}
+      <AccountTrips userId={user.id} />
 
       <YourData />
     </div>
@@ -206,7 +200,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
               <h1 className="account-title">Account</h1>
             </div>
           </header>
-          {['Profile', 'Travellers', 'Saved trips'].map((title) => (
+          {['Profile', 'Travellers', 'My trips'].map((title) => (
             <section key={title} className="acct-section" aria-label={title}>
               <h2 className="acct-h">{title}</h2>
               <ul className="account-list">

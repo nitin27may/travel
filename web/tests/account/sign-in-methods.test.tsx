@@ -23,7 +23,6 @@ vi.mock('@/lib/auth/ways-server', async () => {
   const { googleJustAdded } = await import('@/lib/auth/ways');
   return { accountWays: async () => state.rows, googleAddedNow: (added: boolean, rows: { providerId: string; createdAt: number }[] | null) => added && rows !== null && googleJustAdded(rows, Date.now()) };
 });
-vi.mock('@/lib/server/drafts', () => ({ readDrafts: async () => [] }));
 vi.mock('@travel/core/db/profile.ts', () => ({ loadProfile: async () => ({ exists: false, travellers: null, travellersInvalid: false, travellersSavedAt: null, travellersConsentedAt: null, setupDoneAt: '2026-10-20T00:00:00.000Z', revision: 0 }) }));
 vi.mock('@/app/account/actions', () => ({ createDraft: vi.fn(), renameDraft: vi.fn(), deleteDraft: vi.fn(), saveName: vi.fn() }));
 
@@ -66,7 +65,7 @@ describe('the rows', () => {
     const h = await body();
     const s = section(h);
     expect(h.indexOf('id="profile"')).toBeLessThan(h.indexOf('account-ways')); // Profile leads, then Travellers, then the ways (spec 2.1)
-    expect(h.indexOf('account-ways')).toBeLessThan(h.indexOf('id="saved-trips"'));
+    expect(h.indexOf('account-ways')).toBeLessThan(h.indexOf('id="my-trips"'));
     expect(s).toContain('<h2 id="ways-to-sign-in" class="ways-title">Ways to sign in</h2>');
     expect(s).toContain('aria-labelledby="ways-to-sign-in"');
     const t = text(s);

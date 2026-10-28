@@ -111,6 +111,8 @@ test.describe('signed-in Mine, accountTrips on', () => {
     const retry = page.getByRole('button', { name: /Retry sending changes to Dolomites/ });
     await expect(retry).toBeVisible();
     await expect(retry).toContainText('Not synced · Retry');
+    // said once, by name, in the list's polite region (review ACCT-PR SF11)
+    await expect(page.locator('.mytrips > .sr-only[aria-live="polite"]')).toHaveText('Dolomites: not synced. Retry is next to it.');
     expect((await retry.boundingBox())!.height).toBeGreaterThanOrEqual(44);
     await expect(page.locator('a.crow-link')).toHaveAttribute('aria-label', /, not synced$/);
     // the state is announced politely, once
@@ -153,13 +155,15 @@ test.describe('signed-in Mine, accountTrips on', () => {
 
   test.describe('the routes are not there', () => {
     for (const mode of [404, 503, 500, 'net'] as const) {
-      test(`${mode}: the copy stays on this device, the chip says so, nothing is lost`, async ({ page }) => {
+      test(`${mode}: the copy stays on this device, the card line says so (no chip on every row), nothing is lost`, async ({ page }) => {
         const account = new FakeAccount();
         account.mode = mode;
         await open(page, account, [copy(IDS.a)]);
         await expect(page.locator('.crow')).toHaveCount(1);
-        await expect(page.locator('.crow-chip')).toHaveText('On this device');
         await expect(page.locator('.mine-card')).toContainText('can’t reach your account');
+        // every row in the same state, said by the card: no per-row chip (review ACCT-PR SF10); the row's name still says it
+        await expect(page.locator('.crow-chip')).toHaveCount(0);
+        await expect(page.locator('.crow-link')).toHaveAttribute('aria-label', /on this device only/);
         expect(await device(page)).toEqual([IDS.a]);
         // it moves on its own when the account answers
         account.mode = 'ok';
@@ -170,13 +174,13 @@ test.describe('signed-in Mine, accountTrips on', () => {
     }
   });
 
-  test('a copy over the cap stays on the device with the chip and the card line', async ({ page }) => {
+  test('copies over the cap stay on the device; with every row there, the card line says it and no row repeats it', async ({ page }) => {
     const account = new FakeAccount();
     account.overCap = true;
     await open(page, account, [copy(IDS.a), copy(IDS.c, { slug: 'algonquin-muskoka-2026', title: 'Algonquin', start: '2027-09-01' })]);
-    await expect(page.locator('.crow-chip')).toHaveCount(2);
-    await expect(page.locator('.crow-chip').first()).toHaveText('On this device');
     await expect(page.locator('.mine-card')).toContainText('2 trips are on this device only: your account holds 50.');
+    await expect(page.locator('.crow')).toHaveCount(2);
+    await expect(page.locator('.crow-chip')).toHaveCount(0);
     expect(await device(page)).toHaveLength(2);
   });
 
@@ -191,12 +195,12 @@ test.describe('signed-in Mine, accountTrips on', () => {
     expect(account.calls).toEqual([]);
   });
 
-  test('no horizontal overflow at 320, with a chip on every row', async ({ page }) => {
+  test('no horizontal overflow at 320 with the account out of reach', async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 700 });
     const account = new FakeAccount();
     account.mode = 503;
     await open(page, account, [copy(IDS.a)]);
-    await expect(page.locator('.crow-chip')).toHaveText('On this device');
+    await expect(page.locator('.mine-card')).toContainText('can’t reach your account');
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
   });
 });

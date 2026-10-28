@@ -4,17 +4,17 @@ import { createElement, type ReactElement, type ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-const state = vi.hoisted(() => ({ profile: 'ok' as 'ok' | 'saved' | 'missing' | 'throws', setup: true, drafts: 'ok' as 'ok' | 'throws', name: 'Nitin' as string | null }));
+const state = vi.hoisted(() => ({ profile: 'ok' as 'ok' | 'saved' | 'missing' | 'throws', setup: true, name: 'Nitin' as string | null }));
 vi.mock('next/server', () => ({ connection: async () => undefined }));
 vi.mock('next/navigation', () => ({ usePathname: () => '/account/', useRouter: () => ({ refresh: () => undefined }), redirect: () => undefined }));
 vi.mock('next/dynamic', () => ({ default: () => () => null }));
 vi.mock('@/lib/auth/server', () => ({ getUser: async () => ({ id: 'u1', email: 'nitin.test@gmail.com', name: state.name }) }));
 vi.mock('@/lib/auth/landing-server', () => ({ accountLanding: async () => 'returning' }));
 vi.mock('@/lib/auth/ways-server', () => ({ accountWays: async () => [{ providerId: 'credential', createdAt: 0 }], googleAddedNow: () => false }));
+// the page reads no title-only drafts any more (review ACCT-PR MF1): a read here would fail the test
 vi.mock('@/lib/server/drafts', () => ({
   readDrafts: async () => {
-    if (state.drafts === 'throws') throw new Error('db down');
-    return [{ id: 'd1', title: 'Old test draft', created_at: new Date('2026-10-20T00:00:00Z'), updated_at: new Date('2026-10-20T00:00:00Z') }];
+    throw new Error('the Account page must not read the title-only drafts');
   },
 }));
 vi.mock('@travel/core/db/profile.ts', () => ({
@@ -34,7 +34,7 @@ beforeEach(() => {
 afterEach(() => {
   vi.unstubAllEnvs();
   vi.restoreAllMocks();
-  Object.assign(state, { setup: true, profile: 'ok', drafts: 'ok', name: 'Nitin' });
+  Object.assign(state, { setup: true, profile: 'ok', name: 'Nitin' });
 });
 
 async function html(): Promise<string> {
@@ -76,7 +76,8 @@ describe('the page', () => {
   it('sections in the order of spec 2.1, one h1, one h2 each', async () => {
     const h = await html();
     expect(h.match(/<h1/g)).toHaveLength(1);
-    expect(h2s(h).filter((t) => !t.startsWith('No '))).toEqual(['Profile', 'Travellers', 'Ways to sign in', 'Saved trips · 1', 'Your data']);
+    expect(h2s(h).filter((t) => !t.startsWith('No '))).toEqual(['Profile', 'Travellers', 'Ways to sign in', 'My trips', 'Your data']);
+    expect(h).not.toContain('Saved trips');
     expect(h).toContain('Nitin');
   });
   it('has no create box and no live status text (AC 1)', async () => {
@@ -84,8 +85,18 @@ describe('the page', () => {
     for (const t of ['Draft title', 'Create draft', 'Reconnecting', 'live updates', 'Live<']) expect(h).not.toContain(t);
     expect(h).not.toContain('live-dot');
   });
-  it('keeps the old test drafts as rows', async () => {
-    expect(await html()).toContain('Old test draft');
+  it('My trips (MF1): the flag off says where copies are, with Open Mine; no Rename or Delete, no "saved" wording', async () => {
+    const h = await html();
+    expect(h).toContain('No trips in your account yet.');
+    expect(h).toContain('Trips you copy stay on this device for now. See them in Mine.');
+    expect(h).toMatch(/href="\/mine\/?\?show=trips"/);
+    for (const t of ['Rename', 'Delete', 'Draft actions', 'Saved ', 'saved here']) expect(h).not.toContain(t);
+  });
+  it('My trips with the accountTrips flag on: a loading row until the account answers (the rows are the client hook\'s)', async () => {
+    vi.stubEnv('NEXT_PUBLIC_ACCOUNT_TRIPS', '1');
+    const h = await html();
+    expect(h).toContain('aria-label="Loading your trips"');
+    expect(h).not.toContain('No trips in your account yet.');
   });
   it('Travellers: the empty state with the spec copy and its Add button; a saved party reads in words', async () => {
     let h = await html();
@@ -112,15 +123,20 @@ describe('the page', () => {
 });
 
 describe('fail closed', () => {
-  it('loadProfile throws: one profile error, no name editor, no travellers, other sections still render', async () => {
+  it('loadProfile throws (SF5): the Name row still shows (it is Neon Auth\'s), Travellers keeps its heading with the error, no setup card', async () => {
     state.profile = 'throws';
+    state.setup = false;
     const log = vi.spyOn(console, 'error').mockImplementation(() => undefined);
     const h = await html();
-    expect(h).toContain("We couldn&#x27;t load your profile.");
-    expect(h).not.toContain('Your name');
+    expect(h2s(h).slice(0, 2)).toEqual(['Profile', 'Travellers']);
+    expect(h).toContain('Nitin');
+    expect(h).toContain('Edit name');
+    expect(h).toContain("We couldn&#x27;t load your travellers.");
+    expect(h).not.toContain("We couldn&#x27;t load your profile.");
     expect(h).not.toContain('No travellers saved.');
+    expect(h).not.toContain('Set up your account');
     expect(h).toContain('Ways to sign in');
-    expect(h).toContain('Old test draft');
+    expect(h).toContain('My trips');
     expect(JSON.stringify(log.mock.calls)).not.toContain('db down');
   });
   it('the table is missing (migration 0012 not applied): the name section only, one fixed log code', async () => {
@@ -132,11 +148,12 @@ describe('fail closed', () => {
     expect(h).toContain('Nitin');
     expect(warn).toHaveBeenCalledWith('[account] profile_table_missing');
   });
-  it('the drafts read throws: Saved trips shows its own error, the rest renders', async () => {
-    state.drafts = 'throws';
-    vi.spyOn(console, 'error').mockImplementation(() => undefined);
-    const h = await html();
-    expect(h).toContain("We couldn&#x27;t load your saved trips.");
-    expect(h).toContain('Profile');
+  it('the signed-out page never says "saved" for trips', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SIGN_IN', '0');
+    vi.resetModules();
+    const { default: AccountPage } = await import('@/app/account/page');
+    const h = renderToStaticMarkup((await AccountPage({ searchParams: Promise.resolve({}) })) as ReactElement);
+    expect(h).toContain('Sign in to keep your trips and travellers in your account.');
+    expect(h).not.toContain('drafts');
   });
 });

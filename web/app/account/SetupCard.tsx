@@ -61,7 +61,8 @@ export function SetupCard({ userId, owner, initialName, revision, initialStep }:
   useEffect(() => {
     if (!moved.current) return;
     heading.current?.focus();
-    setAnnounce(step === 'name' ? 'Step 1 of 2: What should we call you?' : step === 'travellers' ? 'Step 2 of 2: Who usually travels with you?' : 'All set');
+    // focus on the heading reads its words; the live region adds only the counter, so nothing is said twice (review ACCT-PR N11)
+    setAnnounce(step === 'name' ? 'Step 1 of 2' : step === 'travellers' ? 'Step 2 of 2' : '');
   }, [step]);
 
   const go = (next: Step) => {
@@ -74,9 +75,15 @@ export function SetupCard({ userId, owner, initialName, revision, initialStep }:
 
   const check = checkName(name);
 
+  // Continue is always enabled (review ACCT-PR SF7; spec 2.3 rule 1 amended): an empty name moves on and saves nothing, as Skip does;
+  // an invalid one shows its error on the press, never while typing.
   async function continueName(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (pending) return;
+    if (!name.trim()) {
+      go('travellers');
+      return;
+    }
     if (!check.ok) {
       setNameErr(nameError(check.reason));
       return;
@@ -105,7 +112,8 @@ export function SetupCard({ userId, owner, initialName, revision, initialStep }:
   }
 
   async function saveParty(doc: Travellers): Promise<EditorOutcome> {
-    const r = await saveTravellers(userId, { doc, revision, finishSetup: true });
+    // Save travellers is pressed beside the AP-15 wording: that is the consent (review-em-s S3)
+    const r = await saveTravellers(userId, { doc, revision, finishSetup: true, consent: true });
     if (r.kind === 'rejected' && r.reason === 'UNAUTHENTICATED') {
       leaveSession();
       return 'handled';
@@ -153,16 +161,31 @@ export function SetupCard({ userId, owner, initialName, revision, initialStep }:
     <section className="acct-section acct-setup" aria-labelledby={`${id}-h`}>
       <div className="acct-card acct-setup-card">
         <div className="acct-setup-top">
-          <span className="acct-label">{step === 'done' ? 'All set' : 'Set up your account'}</span>
-          {counter ? <span className="acct-label acct-setup-count">{counter}</span> : null}
+          <span className="acct-label">Set up your account</span>
+          {counter ? (
+            <span className="acct-setup-nav">
+              {/* Back sits by the counter, out of the sticky bar, so the bar is one row on a phone (SF9) */}
+              {step === 'travellers' ? (
+                <>
+                  <Button type="button" variant="ghost" size="sm" className="acct-setup-back" onClick={() => go('name')} disabled={pending}>
+                    Back
+                  </Button>
+                  <span className="acct-setup-sep" aria-hidden="true">
+                    &middot;
+                  </span>
+                </>
+              ) : null}
+              <span className="acct-label acct-setup-count">{counter}</span>
+            </span>
+          ) : null}
         </div>
-        {step !== 'done' ? <p className="acct-note">Two short steps. You can change both later.</p> : null}
+        {step === 'name' ? <p className="acct-note">Two short steps. You can change both later.</p> : null}
         <h2 id={`${id}-h`} className="acct-setup-h" tabIndex={-1} ref={heading}>
           {step === 'name' ? 'What should we call you?' : step === 'travellers' ? 'Who usually travels with you?' : 'All set'}
         </h2>
         {step === 'name' ? (
           <form className="acct-setup-body" onSubmit={continueName} noValidate>
-            <Field label="Your name" help="Shown only to you, here and in the menu." error={nameErr ?? (name.trim() && !check.ok ? nameError(check.reason) : undefined)}>
+            <Field label="Your name" help="Shown only to you, here and in the menu." error={nameErr ?? undefined}>
               {(a) => (
                 <Input
                   name="name"
@@ -174,13 +197,13 @@ export function SetupCard({ userId, owner, initialName, revision, initialStep }:
                     setNameErr(null);
                   }}
                   {...a}
-                  error={nameErr !== null || (name.trim() !== '' && !check.ok)}
+                  error={nameErr !== null}
                 />
               )}
             </Field>
             {failed ? <Banner kind="notice">We couldn&apos;t save. Your changes are still here; try again.</Banner> : null}
             <div className="acct-editor-actions acct-sticky">
-              <Button type="submit" variant="primary" loading={pending} disabled={!check.ok}>
+              <Button type="submit" variant="primary" loading={pending}>
                 Continue
               </Button>
               <Button type="button" variant="ghost" onClick={() => go('travellers')} disabled={pending}>
@@ -200,18 +223,13 @@ export function SetupCard({ userId, owner, initialName, revision, initialStep }:
               sticky
               lead={device ? <p className="acct-note">Filled in from this browser: {partyText(device, ', ')}. Check the ages and save.</p> : undefined}
               onSave={saveParty}
+              notice={failed ? <Banner kind="notice">We couldn&apos;t save. Your changes are still here; try again.</Banner> : null}
               actions={
-                <>
-                  <Button type="button" variant="ghost" onClick={() => void skipTravellers()} disabled={pending}>
-                    Skip for now
-                  </Button>
-                  <Button type="button" variant="ghost" onClick={() => go('name')} disabled={pending}>
-                    Back
-                  </Button>
-                </>
+                <Button type="button" variant="ghost" onClick={() => void skipTravellers()} disabled={pending}>
+                  Skip for now
+                </Button>
               }
             />
-            {failed ? <Banner kind="notice">We couldn&apos;t save. Your changes are still here; try again.</Banner> : null}
           </div>
         ) : null}
         {step === 'done' ? (

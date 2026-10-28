@@ -11,7 +11,7 @@ import { safeError } from '@/lib/server/safe-error';
 import { checkName } from '@/lib/account/name';
 import { takeNameChange } from '@/lib/account/name-quota';
 import { takeProfile } from '@/lib/account/profile-quota';
-import { finishSetup as finishSetupRow, removeTravellers as removeTravellersRow, saveTravellers as saveTravellersRow } from '@travel/core/db/profile.ts';
+import { finishSetup as finishSetupRow, loadProfile, removeTravellers as removeTravellersRow, saveTravellers as saveTravellersRow } from '@travel/core/db/profile.ts';
 
 /**
  * Typed results, not throws: in production Next.js hides a thrown error's message. Each write
@@ -158,21 +158,39 @@ async function profileWriteQuota(userId: string): Promise<{ kind: 'rejected'; re
 
 export type TravellersResult =
   | { kind: 'saved'; revision: number }
-  | { kind: 'conflict' }
+  /** `revision`: the row's revision now, so "Save mine anyway" can re-save at it (review ACCT-PR SF3); absent if it could not be read */
+  | { kind: 'conflict'; revision?: number }
   | { kind: 'rejected'; reason: 'INVALID_INPUT'; issues: string[] }
   | { kind: 'rejected'; reason: 'UNAUTHENTICATED' | 'RATE_LIMITED' | 'SERVICE_UNAVAILABLE' };
 
-/** Save the travellers document at the revision the page loaded (a guarded write). `finishSetup` also ends the setup card. */
-export async function saveTravellers(pageUserId: string, raw: { doc: unknown; revision: unknown; finishSetup?: unknown }): Promise<TravellersResult> {
+/** The revision the row holds now, for a conflict answer; undefined when it cannot be read (the page then offers Show the latest). */
+async function revisionNow(userId: string): Promise<number | undefined> {
+  try {
+    return (await loadProfile(userId)).revision;
+  } catch (e) {
+    console.error('[account] travellers_revision_failed', safeError(e));
+    return undefined;
+  }
+}
+
+/**
+ * Save the travellers document at the revision the page loaded (a guarded write). `finishSetup` also ends the setup card. `consent`
+ * says the AP-15 wording was beside the button pressed (Save travellers, the Undo of a removal): only `true` counts, and the version
+ * recorded is the server's (core/src/db/profile.ts). A save that creates travellers without it is refused by 0012's trigger.
+ */
+export async function saveTravellers(pageUserId: string, raw: { doc: unknown; revision: unknown; finishSetup?: unknown; consent?: unknown }): Promise<TravellersResult> {
   const user = await getUser(pageUserId, { fresh: true });
   if (!user) return { kind: 'rejected', reason: 'UNAUTHENTICATED' };
   if (typeof raw?.revision !== 'number' || !Number.isInteger(raw.revision)) return { kind: 'rejected', reason: 'INVALID_INPUT', issues: ['$: revision'] };
   const limited = await profileWriteQuota(user.id);
   if (limited) return limited;
   try {
-    const res = await saveTravellersRow(user.id, raw.doc, raw.revision, { finishSetup: raw.finishSetup === true });
+    const res = await saveTravellersRow(user.id, raw.doc, raw.revision, { finishSetup: raw.finishSetup === true, ...(raw.consent === true ? { consent: true } : {}) });
     if (res.kind === 'rejected') return { kind: 'rejected', reason: 'INVALID_INPUT', issues: res.issues };
-    if (res.kind === 'conflict') return { kind: 'conflict' };
+    if (res.kind === 'conflict') {
+      const now = await revisionNow(user.id);
+      return now === undefined ? { kind: 'conflict' } : { kind: 'conflict', revision: now };
+    }
     console.info('[account] travellers_saved');
     return { kind: 'saved', revision: res.revision };
   } catch (e) {
