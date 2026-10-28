@@ -58,3 +58,10 @@ export function ownHosts(env: Record<string, string | undefined> = process.env):
   const extra = (env.OWN_HOSTS_EXTRA ?? '').split(',').map(hostOf);
   return [...new Set([...CORE_OWN_HOSTS, hostOf(env.SITE_ORIGIN), ...extra].filter((h): h is string => !!h))];
 }
+
+/** The longest trip name a person can give a copy (SW-012), and the length past which the cover steps its display size down. */
+export const TRIP_NAME_MAX = 60;
+export const TITLE_LONG_CHARS = 26;
+
+/** SW-003: numbered stop pins that sit closer than this many screen pixels draw as one pill ("2 · 3") that fans out on hover or tap, as on the Google map. */
+export const MAP_PIN_NEAR_PX = 20;

@@ -5,7 +5,7 @@ import { keyboardUp, toTopVisible } from '@/lib/to-top';
 
 // Blocked while any of these is rendered and visible (a mounted but hidden or inline listbox does not count), a toast is showing,
 // or the non-modal trip map sheet is open (`.tl-mapcol[data-sheet]`; a later fixed bottom panel adds its own attribute here).
-const OVERLAY = '[role="dialog"],[role="menu"],[role="listbox"],[aria-modal="true"],.toast-region .toast,.tl-mapcol[data-sheet]';
+const OVERLAY = '[role="dialog"],[role="menu"],[role="listbox"],[aria-modal="true"],.toast-region .toast,.tl-mapcol[data-sheet],.tl-add-panel';
 const SHEET_ATTRS = ['data-sheet', 'aria-modal', 'open', 'hidden'];
 
 function overlayOpen(): boolean {

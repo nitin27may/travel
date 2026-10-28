@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { revealEntry } from '../revealEntry';
 import { fmtHM } from '@travel/core/schedule/rules.ts';
 import type { DayTimeline as DayTimelineData, Profile, ScheduleItem, TimelineEntry } from '@travel/core/schedule/types.ts';
 import { Button } from '@/components/ui/Button';
@@ -89,6 +90,15 @@ function DayLink({ day }: { day: number }) {
 /** One day as a timeline (design 4): header, totals and warnings, the entries on a time rail, add to this day, Know before you go. */
 export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, onSplit, onVariant, onAdd, onRemove, addedKeys, engine, loadEngine, profile, override, addedItems, index }: Props) {
   const [prefs] = usePrefs();
+  const { toast } = useToast();
+  // SW-013: an addition says so, offers Undo, and scrolls to the new row once the scheduler has placed it
+  const [justAdded, setJustAdded] = useState<string | null>(null);
+  const add = (key: string) => {
+    const c = candidates.find((x) => x.key === key);
+    onAdd(key);
+    setJustAdded(c?.name ?? null);
+    toast({ message: `Added ${c?.name ?? 'a place'} to Day ${day.n}`, actionLabel: 'Undo', onAction: () => { setJustAdded(null); onRemove(key); } });
+  };
   const suitCtx = useTripSuit();
   const [knowOpen, setKnowOpen] = useState(false);
   const [lane, setLane] = useState<string | null>(null);
@@ -134,6 +144,14 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
   const lead = sel?.notes.lead ?? null;
   // display only: a time-zone line and a flight change what the clock says, never the scheduled day
   const entries = useMemo(() => localEntries(flightEntries(tl.entries, day.flight), day.zone), [tl.entries, day.flight, day.zone]);
+  useEffect(() => {
+    if (!justAdded) return;
+    const hit = tl.entries.find((e) => e.addedBy === 'visitor' && e.title === justAdded);
+    if (!hit) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-shot: the new row is found, so the request is done
+    setJustAdded(null);
+    window.requestAnimationFrame(() => revealEntry(`${hit.day}:${hit.id}`));
+  }, [justAdded, tl.entries]);
   const run = useMemo(() => (day.zone ? zoneRun(tl.entries, day.zone) : null), [tl.entries, day.zone]);
   const items = useMemo(() => new Map(day.input.variants.flatMap((v) => v.items).map((i) => [i.id, i])), [day.input]);
   const sun = sunShort(day.light);
@@ -281,7 +299,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
         </ol>
         {(tl.blocks ? tl.entries.length === 0 : tl.entries.length <= 2) ? <p className="tl-empty">No stops are planned for this day yet.</p> : null}
         {snap.gone.length ? <p className="tl-gone num" role="status">Left out now there is less room: {snap.gone.join(', ')}.</p> : null}
-        <AddToDay day={day.n} candidates={candidates} taken={taken} onAdd={onAdd} engine={engine} loadEngine={loadEngine} input={day.input} profile={profile} variant={override} added={addedItems} />
+        <AddToDay day={day.n} candidates={candidates} taken={taken} onAdd={add} engine={engine} loadEngine={loadEngine} input={day.input} profile={profile} variant={override} added={addedItems} />
         <div className="tl-day-foot" data-print="hide">
           {knowCount > 0 ? (
             <button type="button" className="btn btn-sm btn-ghost tl-know-btn" aria-expanded={knowOpen} aria-controls={`know-${day.n}`} onClick={() => setKnowOpen((v) => !v)}>

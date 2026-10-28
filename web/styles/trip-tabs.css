@@ -66,7 +66,7 @@
 .tl-main { min-width: 0; }
 
 /* ---------- Summary (spec 3.5) ---------- */
-.sum-sec { max-width: 62rem; margin: 0 0 var(--s-8); }
+.sum-sec { margin: 0 0 var(--s-8); }
 .sum-sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-1) var(--s-4); margin-bottom: var(--s-3); }
 .sum-sec-note { font: var(--t-meta); color: var(--muted); }
 .sum-sec-note a, .sum-suits-note a { color: var(--accent-text); }
@@ -79,7 +79,9 @@
 .sum-toggle:checked ~ .sum-more-label .sum-more-off { display: none; }
 
 /* count cards (components 3.6): the whole card is one link; a card that leads nowhere is a plain box */
-.sum-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); max-width: 62rem; margin: 0 0 var(--s-8); padding: 0; list-style: none; }
+/* SW-028, SW-029: the cards fill the container; as many fit a row as keep a readable line (the minimum is one token of this block) */
+.sum-cards { --sum-card-min: 11rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--sum-card-min), 1fr)); gap: var(--s-3); margin: 0 0 var(--s-8); padding: 0; list-style: none; }
+.sum-card-li { display: grid; }
 .sum-card {
   display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s-2); box-sizing: border-box; height: 100%; min-height: 72px; padding: 12px 14px;
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-3); color: var(--ink); text-decoration: none;
@@ -91,10 +93,9 @@ a.sum-card:active { transform: translateY(1px); }
 a.sum-card:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 .sum-card-body { display: grid; gap: var(--s-1); min-width: 0; }
 .sum-card-v { font: var(--t-row); }
-.sum-card-sub { font: var(--t-meta); color: var(--muted); }
-/* balanced rows (P-1): three across from 640 px (3 x 2 for six cards), the whole set on one row from 1000 px where the 62 rem column holds it */
-@media (min-width: 640px) { .sum-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sum-cards[data-count='2'] { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sum-cards[data-count='4'] { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-@media (min-width: 1000px) { .sum-cards[data-count='5'] { grid-template-columns: repeat(5, minmax(0, 1fr)); } .sum-cards[data-count='6'] { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.sum-card-sub { font: var(--t-meta); color: var(--muted); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+/* two across on phones, the auto-fit grid from 640 px (a six-card set keeps its 3 x 2 only when the width does not allow six across) */
+@media (max-width: 639px) { .sum-cards { --sum-card-min: 8rem; } }
 
 /* highlight cards (components 3.7): two by two on phones with "Show 4 more", two rows of four on desktop */
 .sum-hl-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-3); margin: 0; padding: 0; list-style: none; }
@@ -123,7 +124,7 @@ a.sum-card:focus-visible { outline: var(--focus-ring); outline-offset: var(--foc
 }
 
 /* who it suits, know before you go */
-.sum-foot { display: grid; gap: var(--s-8); max-width: 62rem; }
+.sum-foot { display: grid; gap: var(--s-8); }
 @media (min-width: 900px) { .sum-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: var(--s-10); } }
 .sum-suits { margin-top: var(--s-2); font: var(--t-mono); color: var(--ink); }
 .sum-suits-note { margin-top: var(--s-1); font: var(--t-body); color: var(--ink-2); }
@@ -218,3 +219,6 @@ html[data-trip-tab='days'] #trip-tab-summary::after, html[data-trip-tab='booking
   .sum-lead-text { display: block; }
   .sum-hl[data-extra] { display: grid; }
 }
+
+/* SW-021, SW-030: the stuck tab bar covers the same width as the plan bar under it (the day card's edge no longer shows beside it) and keeps the labels where they were */
+.trip-tabbar { margin-inline: calc(var(--s-1) * -1); padding-inline: var(--s-1); }

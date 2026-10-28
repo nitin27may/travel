@@ -87,7 +87,7 @@ test.describe('My trips rows', () => {
     await page.getByRole('menuitem', { name: 'Remove' }).click();
     await expect(page.locator('.crow')).toHaveCount(0);
     await expect(other.locator('.crow')).toHaveCount(0);
-    await expect(other.getByText('No trips copied yet')).toBeVisible();
+    await expect(other.getByText('No trips yet')).toBeVisible();
   });
 
   test('past trips sit in a collapsed group with their count', async ({ page, site }) => {
@@ -131,7 +131,7 @@ test.describe('My trips rows', () => {
 
   test('empty: the prompt and the way to trips', async ({ page, site }) => {
     await page.goto(`${site.url}/mine/`);
-    await expect(page.getByText('No trips copied yet')).toBeVisible();
+    await expect(page.getByText('No trips yet')).toBeVisible();
     await expect(page.getByRole('link', { name: 'Browse trips' })).toBeVisible();
   });
 });

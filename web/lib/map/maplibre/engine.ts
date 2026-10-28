@@ -184,6 +184,7 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
     const images = pinImages(palette);
     for (const [k, img] of Object.entries(images)) if (img && !map.hasImage(`pin-${k}`)) map.addImage(`pin-${k}`, img, { pixelRatio: 2 });
 
+    groups = groupPins(spec.pins, map.getZoom());
     map.addSource('lines', { type: 'geojson', data: lineData() });
     map.addSource('pins', { type: 'geojson', data: pinData() });
     const line = (id: string, filter: unknown, paint: Record<string, unknown>, layout: Record<string, unknown> = {}) =>
@@ -302,7 +303,16 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
     const e = ev as unknown as { error?: { message?: string }; sourceId?: string };
     if (!styleLoaded && !e.sourceId && !destroyed) opts.onFail?.(e.error?.message ?? 'The map style failed to load.');
   });
-  map.on('zoomend', applyTerrain);
+  // SW-003: the pill grouping follows the zoom; regroup only when the groups would differ
+  const regroup = () => {
+    const next = groupPins(spec.pins, map.getZoom());
+    if (next.length === groups.length && next.every((g, i) => g.id === groups[i]?.id)) return;
+    groups = next;
+    if (styleLoaded && map.getSource('pins')) (map.getSource('pins') as GeoJSONSource).setData(pinData() as never);
+    collapseFan();
+    refreshSelected();
+  };
+  map.on('zoomend', () => { applyTerrain(); regroup(); });
   map.on('mousemove', (e) => {
     if (!map.getLayer('pin-hit')) return;
     const f = map.queryRenderedFeatures(e.point, { layers: ['pin-hit'] })[0];
@@ -364,7 +374,7 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
     },
     update(next) {
       spec = next;
-      groups = groupPins(spec.pins);
+      groups = groupPins(spec.pins, map.getZoom());
       if (styleLoaded && map.getSource('pins')) {
         (map.getSource('pins') as GeoJSONSource).setData(pinData() as never);
         (map.getSource('lines') as GeoJSONSource).setData(lineData() as never);

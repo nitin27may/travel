@@ -426,3 +426,21 @@
 .tl-entry .ch { min-width: 0; max-width: 100%; }
 .tl-entry .ci { max-width: 100%; white-space: normal; align-items: flex-start; min-height: 0; padding-block: 4px; border-radius: var(--r-3); }
 .tl-entry .ci > svg { margin-top: 2px; }
+
+/* ---------- sweep 2026-10-28 ---------- */
+/* SW-002: a day's own warning lines start on the day's text column, not on an entry's indent */
+.tl-day-warns .tl-warn { margin-left: 0; }
+/* SW-004: a leg's glyph sits on the first text line */
+.tl-leg-text { align-items: flex-start; }
+.tl-leg-text > svg { margin-top: 3px; flex: none; }
+/* SW-013: the visible way back for an addition */
+.tl-remove-now { min-height: 28px; padding: 0 var(--s-1); font: var(--t-meta); }
+@media (max-width: 639px) {
+  /* SW-004: a long name wraps beside the glyph; it never drops the glyph onto its own line */
+  .tl-title { flex: 1 1 10ch; }
+  .tl-remove-now { min-height: var(--touch-min); min-width: var(--touch-min); }
+}
+/* SW-005: the phone day rail fades where more days wait; the keyword colour is a mask's alpha, not a colour on screen */
+@media (max-width: 639px) {
+  .tl-rail-days[data-more] { -webkit-mask-image: linear-gradient(to right, black calc(100% - var(--s-8)), transparent); mask-image: linear-gradient(to right, black calc(100% - var(--s-8)), transparent); }
+}

@@ -20,7 +20,7 @@ export function DeviceNotice({ signIn, onGotIt }: { signIn: boolean; onGotIt: ()
         </span>
       }
     >
-      Your trips and favourites are kept in this browser only. Clearing browser data, using a private window or switching devices loses them, and some browsers clear site data after a few weeks without a visit.{signIn ? ' Sign in to keep them in your account.' : ''}
+      The card above says where they are kept. Clearing browser data, using a private window or switching devices loses your trips and favourites, and some browsers clear site data after a few weeks without a visit.{signIn ? ' Sign in to keep them in your account.' : ''}
     </Banner>
   );
 }

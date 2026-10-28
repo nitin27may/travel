@@ -4,6 +4,7 @@ import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
 import { imageSrcSet, sizedImage } from '@/lib/format/image';
 import type { PublicTrip } from '@/lib/public/types';
+import { TITLE_LONG_CHARS } from '@/lib/config/product';
 import { driveLabel, lengthLabel } from './format';
 import { TripActions } from './TripActions';
 
@@ -34,7 +35,7 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
           <p className="trip-kicker">
             {trip.depth === 'overview' ? 'Overview' : 'Published plan'} &middot; {trip.region}
           </p>
-          <h1 className="trip-title">{trip.title}</h1>
+          <h1 className="trip-title" data-long={trip.title.length > TITLE_LONG_CHARS || undefined}>{trip.title}</h1>
           <p className="trip-standfirst">{trip.subtitle}</p>
           <ul className="trip-chips" aria-label="About this plan">
             {trip.effort ? (
@@ -109,7 +110,7 @@ export function OwnCover({ kicker, title, photo, standfirst, chips, glance, stat
         <div className="trip-cover-scrim" aria-hidden="true" />
         <div className="trip-cover-text">
           <p className="trip-kicker">{kicker}</p>
-          <h1 className="trip-title">{title}</h1>
+          <h1 className="trip-title" data-long={title.length > TITLE_LONG_CHARS || undefined}>{title}</h1>
           <p className="trip-standfirst">{standfirst}</p>
           {chips.length ? (
             <ul className="trip-chips" aria-label="About your trip">

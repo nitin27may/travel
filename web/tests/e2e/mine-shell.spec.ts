@@ -154,9 +154,9 @@ test.describe('/mine/ shell', () => {
     expect(tab.height).toBe(44);
     const box = (await tablist.boundingBox())!;
     expect(box.width).toBeGreaterThan(340); // full width on a phone
-    await expect(page.getByRole('tabpanel', { name: 'My trips' })).toContainText('No trips copied yet');
+    await expect(page.getByRole('tabpanel', { name: 'My trips' })).toContainText('No trips yet');
     await expect(page.getByRole('tabpanel', { name: 'My trips' }).getByRole('link', { name: 'Browse trips' })).toHaveAttribute('href', '/trips/');
-    await expect(page.getByText('kept in this browser only. Clearing')).toHaveCount(0);
+    await expect(page.getByText('Clearing browser data, using a private window')).toHaveCount(0);
   });
 
   test('arrow keys switch tabs and ?show= follows; Home and End jump; the empty Favourites state', async ({ page, site }) => {
@@ -193,7 +193,7 @@ test.describe('/mine/ shell', () => {
     await expect(page.getByRole('tab', { name: 'My trips, 1' })).toBeVisible();
     await expect(page.getByRole('tab', { name: 'Favourites, 1' })).toHaveAttribute('aria-selected', 'true'); // the heart is newer
     await expect(page.getByRole('tabpanel', { name: 'Favourites' })).toContainText('Lago di Braies');
-    const notice = page.getByRole('status').filter({ hasText: 'kept in this browser only. Clearing browser data' });
+    const notice = page.getByRole('status').filter({ hasText: 'Clearing browser data, using a private window' });
     await expect(notice).toBeVisible();
     await notice.getByRole('button', { name: 'Got it' }).click();
     await expect(notice).toHaveCount(0);
@@ -239,7 +239,7 @@ test.describe('/mine/ shell', () => {
     const nb = (await notice.boundingBox())!;
     const tb = (await page.getByRole('tablist', { name: 'Mine' }).boundingBox())!;
     expect(nb.y + nb.height).toBeLessThanOrEqual(tb.y);
-    await expect(page.getByRole('tabpanel', { name: 'My trips' })).toContainText('No trips copied yet');
+    await expect(page.getByRole('tabpanel', { name: 'My trips' })).toContainText('No trips yet');
     await expect(page.getByRole('status')).toHaveCount(1);
     expect(await page.locator('.empty[role="status"]').count()).toBe(0);
   });
