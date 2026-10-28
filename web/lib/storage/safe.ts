@@ -9,3 +9,18 @@ export const removeLocal = (k: string): boolean => { try { window.localStorage.r
 export const readSession = (k: string): string | null => { try { return window.sessionStorage.getItem(k); } catch { return null; } };
 export const writeSession = (k: string, v: string): boolean => { try { window.sessionStorage.setItem(k, v); return true; } catch { return false; } };
 export const removeSession = (k: string): boolean => { try { window.sessionStorage.removeItem(k); return true; } catch { return false; } };
+/** Removes every sessionStorage key that starts with `prefix` (sign-out clears the tab's undo stacks). Returns how many went. */
+export const removeSessionWithPrefix = (prefix: string): number => {
+  try {
+    const s = window.sessionStorage;
+    const keys: string[] = [];
+    for (let i = 0; i < s.length; i++) {
+      const k = s.key(i);
+      if (k !== null && k.startsWith(prefix)) keys.push(k);
+    }
+    for (const k of keys) s.removeItem(k);
+    return keys.length;
+  } catch {
+    return 0;
+  }
+};

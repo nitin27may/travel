@@ -1,7 +1,7 @@
 // How a place fits a day (edit-mode-spec 7.3): "fits after Maligne Canyon · +15 min ≈ · ends 17:55", "Day full", or a Fix-level reason. Read
 // from the template scheduler by trying the addition on the day, as the Move to day list does for a move (lib/trip-edit/moveFit.ts), so the
 // words are the day the person gets after Add. Pure over the engine.
-import { warnLevel } from '@travel/core/plan/warnings.ts';
+import { warnLevel } from '@/lib/trip-edit/model';
 import { fmtHM } from '@travel/core/schedule/rules.ts';
 import type { DayTimeline, Profile, ScheduleDayInput, ScheduleItem, TimelineEntry } from '@travel/core/schedule/types.ts';
 import { candidateToItem, type AddCandidate } from '@/components/trips/timeline/model';

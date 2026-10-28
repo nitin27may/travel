@@ -10,6 +10,7 @@ import {
   updateCopies,
 } from '@travel/core/schema/copies.ts';
 import type { AddResult, CopyInput, CopyItem, MoveResult, StorageLike } from '@travel/core/schema/copies.ts';
+import { clearUndoOf, restoreDeviceEntry, takeDeviceEntry, type DeviceEntry } from '@/lib/trip-edit/deviceStore';
 import { notifyMineChanged } from './dot';
 
 /**
@@ -32,7 +33,8 @@ export function moveLegacyOnce(storage: StorageLike, now: Date = new Date()): Mo
 // ---- adding (the copy sheet) ----
 
 export type SaveOutcome =
-  | { kind: 'added'; item: CopyItem; replaced: CopyItem | null }
+  /** `replacedEdits`: the replaced copy's device edits, taken off the device with it (review STEP2-ES ES-002); Undo puts them back */
+  | { kind: 'added'; item: CopyItem; replaced: CopyItem | null; replacedEdits: DeviceEntry | null }
   | { kind: 'exists'; existing: CopyItem }
   | { kind: 'cap' }
   | { kind: 'failed'; reason: WriteFailure };
@@ -46,7 +48,12 @@ export function saveCopy(storage: StorageLike, input: CopyInput, opts: { replace
   if (r.ok) {
     notifyMineChanged();
     const a = r.value;
-    if (a.ok) return { kind: 'added', item: a.item, replaced: a.replaced };
+    if (a.ok) {
+      // the replaced copy's notes and edits, and its undo stack in this tab, go with it
+      const replacedEdits = a.replaced ? takeDeviceEntry(storage, a.replaced.id) : null;
+      if (a.replaced) clearUndoOf(a.replaced.id);
+      return { kind: 'added', item: a.item, replaced: a.replaced, replacedEdits };
+    }
     return { kind: 'failed', reason: 'invalid' };
   }
   const a = r.value;
@@ -58,38 +65,51 @@ export function saveCopy(storage: StorageLike, input: CopyInput, opts: { replace
   return { kind: 'failed', reason: r.reason };
 }
 
-/** Undo of a copy: removes the new item and puts back the one it replaced. */
-export function undoSave(storage: StorageLike, item: CopyItem, replaced: CopyItem | null): boolean {
+/** Undo of a copy: removes the new item and puts back the one it replaced, with the edits it kept. */
+export function undoSave(storage: StorageLike, item: CopyItem, replaced: CopyItem | null, replacedEdits: DeviceEntry | null = null): boolean {
   const r = updateCopies(storage, (env) => {
     const items = env.items.filter((x) => x.id !== item.id);
     if (replaced && !items.some((x) => x.slug === replaced.slug)) items.push(replaced);
     return { envelope: { ...env, items }, value: null };
   });
-  if (r.ok) notifyMineChanged();
+  if (r.ok) {
+    takeDeviceEntry(storage, item.id);
+    if (replaced) restoreDeviceEntry(storage, replaced.id, replacedEdits);
+    notifyMineChanged();
+  }
   return r.ok;
 }
 
 // ---- removing, restoring, changing (Mine) ----
 
-export function removeById(storage: StorageLike, id: string): { ok: true; removed: CopyItem } | { ok: false; reason: WriteFailure } {
+/**
+ * Remove: the copy leaves `copies/1`, and its device edits (notes, removed and moved stops, day changes, Maybe) and its undo stack in this
+ * tab leave with it (review STEP2-ES ES-002), so a shared browser keeps nothing of a removed trip. `edits` is held by the toast for Undo.
+ */
+export function removeById(storage: StorageLike, id: string): { ok: true; removed: CopyItem; edits: DeviceEntry | null } | { ok: false; reason: WriteFailure } {
   const r = updateCopies(storage, (env) => {
     const x = removeCopy(env, id);
     return x.removed ? { envelope: x.envelope, value: x.removed } : { envelope: null, value: null };
   });
   if (r.ok && r.value) {
+    const edits = takeDeviceEntry(storage, id);
+    clearUndoOf(id);
     notifyMineChanged();
-    return { ok: true, removed: r.value };
+    return { ok: true, removed: r.value, edits };
   }
   return { ok: false, reason: r.ok ? 'refused' : r.reason };
 }
 
-/** Undo of Remove. False when the trip was copied again meanwhile or the cap is full (the toast then says so). */
-export function undoRemove(storage: StorageLike, item: CopyItem): boolean {
+/** Undo of Remove, with the edits Remove took. False when the trip was copied again meanwhile or the cap is full (the toast then says so). */
+export function undoRemove(storage: StorageLike, item: CopyItem, edits: DeviceEntry | null = null): boolean {
   const r = updateCopies(storage, (env) => {
     const x = restoreCopy(env, item);
     return x.ok ? { envelope: x.envelope, value: null } : { envelope: null, value: null };
   });
-  if (r.ok) notifyMineChanged();
+  if (r.ok) {
+    restoreDeviceEntry(storage, item.id, edits);
+    notifyMineChanged();
+  }
   return r.ok;
 }
 

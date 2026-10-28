@@ -51,6 +51,9 @@ test.describe('/t/<id>/ read mode', () => {
     const cc = res.headers()['cache-control'] ?? '';
     expect(cc).toContain('no-store');
     expect(cc).toContain('private');
+    // as headers too (review STEP2-ES ES-011)
+    expect(res.headers()['x-robots-tag']).toBe('noindex, nofollow');
+    expect(res.headers()['referrer-policy']).toBe('same-origin');
     const html = await res.text();
     expect(html).toMatch(/<meta name="robots" content="noindex, nofollow"/);
     expect(html).not.toMatch(/rel="canonical"/);

@@ -7,6 +7,7 @@ import { landingFor } from '@travel/core/trips/party.ts';
 import {
   changeDates, moveLegacyOnce, partyText, removeById, saveCopy, undoChange, undoRemove, undoSave,
 } from '@/lib/mine/copies';
+import { pruneOrphanEdits, readOverview } from '@/lib/mine/overview';
 import { countdown, groupRows, openHref, openQuery, rowModel, rowTitle } from '@/lib/mine/rows';
 
 // NAV-2: the device list's reads and writes, over a memory store. The envelope is only ever written through the core's compare-and-set.
@@ -302,5 +303,60 @@ describe('EM-B: a copy opens with its own party', () => {
   });
   it('B3: a copy carries the marker mine=1 after view=day', () => {
     expect(land(input('t')).q.endsWith('&view=day&mine=1')).toBe(true);
+  });
+});
+
+// Review STEP2-ES ES-002: a copy's device edits (notes, removed and moved stops, Maybe) and its undo stack in the tab leave with the copy.
+describe('a removed or replaced copy takes its device edits with it (ES-002)', () => {
+  const DEVICE = 'travel.trip-edit.device';
+  const entry = { added: [], removed: [{ op: 'o-1', day: 2, item: 'x' }], moved: [], days: [], maybe: [], notes: { '2': 'Emma nap 13:00' } };
+  const plant = (id: string) => s.setItem(DEVICE, JSON.stringify({ v: 1, items: { ...(JSON.parse(s.getItem(DEVICE) ?? '{"items":{}}') as { items: object }).items, [id]: entry } }));
+  let session: Map<string, string>;
+  beforeEach(() => {
+    session = new Map();
+    vi.stubGlobal('window', {
+      dispatchEvent: () => true,
+      sessionStorage: {
+        get length() { return session.size; },
+        key: (i: number) => [...session.keys()][i] ?? null,
+        getItem: (k: string) => session.get(k) ?? null,
+        setItem: (k: string, v: string) => void session.set(k, v),
+        removeItem: (k: string) => void session.delete(k),
+      },
+    });
+  });
+
+  it('Remove deletes the entry and the undo stack; Undo of Remove puts the entry back', () => {
+    const a = saveCopy(s, input('a'));
+    if (a.kind !== 'added') throw new Error('x');
+    plant(a.item.id);
+    session.set(`travel.trip-edit.undo.${a.item.id}`, '{"v":1,"past":[],"future":[]}');
+    const r = removeById(s, a.item.id);
+    if (!r.ok) throw new Error('x');
+    expect(s.getItem(DEVICE)).toBeNull();
+    expect(session.has(`travel.trip-edit.undo.${a.item.id}`)).toBe(false);
+    expect(undoRemove(s, r.removed, r.edits)).toBe(true);
+    expect(JSON.parse(s.getItem(DEVICE)!).items[a.item.id]).toEqual(entry);
+  });
+
+  it('a replace takes the replaced copy\'s entry; Undo of the replace puts it back', () => {
+    const a = saveCopy(s, input('a'));
+    if (a.kind !== 'added') throw new Error('x');
+    plant(a.item.id);
+    const r = saveCopy(s, input('a', { start: '2027-09-01' }), { replace: true });
+    if (r.kind !== 'added') throw new Error('x');
+    expect(r.replacedEdits).toEqual(entry);
+    expect(s.getItem(DEVICE)).toBeNull();
+    expect(undoSave(s, r.item, r.replaced, r.replacedEdits)).toBe(true);
+    expect(JSON.parse(s.getItem(DEVICE)!).items[a.item.id]).toEqual(entry);
+  });
+
+  it('Mine\'s load drops entries whose copy is gone, and keeps the live ones', () => {
+    const a = saveCopy(s, input('a'));
+    if (a.kind !== 'added') throw new Error('x');
+    plant(a.item.id);
+    plant('00000000-0000-4000-8000-000000000000');
+    pruneOrphanEdits(s, readOverview(s));
+    expect(Object.keys(JSON.parse(s.getItem(DEVICE)!).items)).toEqual([a.item.id]);
   });
 });

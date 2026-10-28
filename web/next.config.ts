@@ -26,6 +26,21 @@ const config: NextConfig = {
   outputFileTracingExcludes: {
     '*': ['out/**', 'tests/**', 'test-results/**', 'playwright-report/**', 'public/img/**', 'public/og/**', '.og-cache/**', '.fixture-*/**', ...NEVER_SHIPPED_GLOBS.map(fromWebDir)],
   },
+  // A person's own trip at /t/<id>/ is private (review STEP2-ES ES-011, edit-mode-spec EA13): no index and no referrer beyond this origin,
+  // as headers, not only the page's robots meta. `Cache-Control: private, no-store` comes from the page's `force-dynamic` (Next overwrites
+  // a Cache-Control set here for pages); tests/trip-edit/headers.test.ts pins both. Only with the flag on: off, /t/ is not in the build.
+  async headers() {
+    if (process.env.NEXT_PUBLIC_TRIP_EDIT !== '1') return [];
+    return [
+      {
+        source: '/t/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+          { key: 'Referrer-Policy', value: 'same-origin' },
+        ],
+      },
+    ];
+  },
   // /favourites/ redirects to the Favourites tab of Mine with a 308: app/favourites/page.tsx (FAV-1, briefs-bundle-A D7 and review P5)
   ...(process.env.NEXT_DIST_DIR ? { distDir: process.env.NEXT_DIST_DIR } : {}),
 };

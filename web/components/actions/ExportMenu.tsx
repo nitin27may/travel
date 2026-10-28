@@ -210,7 +210,12 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
         label: none ? `${head}: no licensed points` : `${head}${counts}`,
         icon: 'download',
         disabled: none,
-        onSelect: () => void run(f === 'gpx' ? downloadGpx : downloadKml),
+        onSelect: () =>
+          void run((d, r) => {
+            // the person's own trip: the route file names the public trip, not their title (review STEP2-ES ES-010)
+            const own = d.type === 'trip' ? getOwn(d.slug) : null;
+            return (f === 'gpx' ? downloadGpx : downloadKml)(own ? { ...d, title: own.routeTitle } : d, r);
+          }),
       });
     } else if (f === 'csv') {
       if (target.type === 'trip') {

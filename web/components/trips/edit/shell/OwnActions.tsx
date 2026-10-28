@@ -19,11 +19,16 @@ const ExportMenu = dynamic(() => import('@/components/actions/ExportMenu').then(
 const FORMATS: ExportFormat[] = ['pdf', 'ics', 'gpx', 'kml', 'csv'];
 
 interface Props {
-  /** The public trip's slug: the files and the print are made from the page's plan. */
-  slug: string;
-  title: string;
-  /** The public trip's address, for Share (never the person's settings, edit-mode-spec 14). */
-  url: string;
+  /**
+   * The public trip's slug: the files and the print are made from the page's plan. null for a built trip (no template): it has no public
+   * export or address until STEP2-B1 defines them, so Export and Share are not offered and its private id never goes into a request path
+   * or a shared link (review STEP2-ES ES-008).
+   */
+  slug: string | null;
+  /** The public trip's title, for Share: the person's own title stays on the device (review STEP2-ES ES-007). */
+  shareTitle: string;
+  /** The public trip's address, for Share (never the person's settings, edit-mode-spec 14). null with no public trip. */
+  url: string | null;
   onEdit: () => void;
   onPrefetch?: () => void;
   /** null: the trip has no dates yet, so the second button is Add dates. */
@@ -42,7 +47,7 @@ interface Props {
  * (undated) the first secondary, then Export and Share as on the published plan. `TripActions` is the published plan's and is not touched:
  * it sits in the public page's start chunk, which has under 1 KB of headroom.
  */
-export function OwnActions({ slug, title, url, onEdit, onPrefetch, onCalendar, onAddDates, editing, loading, onDone, tripMenu }: Props) {
+export function OwnActions({ slug, shareTitle, url, onEdit, onPrefetch, onCalendar, onAddDates, editing, loading, onDone, tripMenu }: Props) {
   return (
     <div className="trip-actions" data-print="hide">
       {editing ? (
@@ -61,8 +66,8 @@ export function OwnActions({ slug, title, url, onEdit, onPrefetch, onCalendar, o
           <Icon name="calendar" size={15} /> Add dates
         </Button>
       )}
-      <ExportMenu target={{ type: 'trip', slug }} formats={FORMATS} label="Export trip" />
-      <ShareButton url={url} title={title} />
+      {slug ? <ExportMenu target={{ type: 'trip', slug }} formats={FORMATS} label="Export trip" /> : null}
+      {slug && url ? <ShareButton url={url} title={shareTitle} /> : null}
       {tripMenu}
     </div>
   );

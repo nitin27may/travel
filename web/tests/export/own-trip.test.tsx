@@ -3,6 +3,7 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { privacyHits } from '@travel/core/privacy/detect.ts';
+import { nearHome } from '@travel/core/privacy/home.ts';
 import { copyToPlanDraft } from '@travel/core/plan/doc.ts';
 import { scheduleTrip } from '@travel/core/schedule/schedule.ts';
 import type { DayTimeline, TimelineEntry } from '@travel/core/schedule/types.ts';
@@ -123,13 +124,16 @@ describe('the other files of your own trip', () => {
 describe('privacy: no field beyond the person\'s own download rules', () => {
   const html = renderToStaticMarkup(TripPrintView({ data: model, session, own: withNotes }));
   const ics = ownIcs(data, session, withNotes).text;
-  const PRIVATE = /height_cm|weight_kg|age_years|citizenship|confirmation|contact|price_paid|insurer|passport|household|HOME_POINT/i;
+  const PRIVATE = /height_cm|weight_kg|age_years|citizenship|confirmation|contact|price_paid|insurer|passport|household/i;
+  const src = { title: withNotes.routeTitle, url: model.url, waypoints: model.waypoints, lines: model.lines, skipped: model.skipped };
+  const gpx = buildGpx(src).xml;
+  const kml = buildKml(src).xml;
   it('the print, the calendar, the CSV and the route files pass the scan and name no household field', () => {
-    for (const body of [html.replace(/<[^>]+>/g, ' '), tripCsv(model), JSON.stringify(model)]) {
+    // the calendar is scanned too (review STEP2-ES ES-012: a clock time before a road name is no longer read as an address)
+    for (const body of [html.replace(/<[^>]+>/g, ' '), tripCsv(model), JSON.stringify(model), ics, gpx, kml]) {
       expect(privacyHits(body)).toEqual([]);
       expect(body).not.toMatch(PRIVATE);
     }
-    expect(ics).not.toMatch(PRIVATE);
     // the calendar is dated by the person's own start and holds no other date: every date in it lies inside the trip's days
     const dates = parseIcs(ics).events.flatMap((e) => [e.get('DTSTART'), e.get('DTEND')]).map((v) => (v ?? '').slice(0, 8));
     expect(dates.length).toBeGreaterThan(0);
@@ -137,6 +141,24 @@ describe('privacy: no field beyond the person\'s own download rules', () => {
     for (const d of dates) expect(d >= '20290908' && d <= last, d).toBe(true);
     // the party is words (no ages), and the children's age is not in any file
     expect(`${html}${ics}${tripCsv(model)}`).not.toMatch(/\b10 years|age 10\b/);
+  });
+  it('no point of the GPX or the KML is near the home point', () => {
+    const pts = [
+      ...[...gpx.matchAll(/lat="(-?[\d.]+)" lon="(-?[\d.]+)"/g)].map((m) => [Number(m[1]), Number(m[2])] as const),
+      ...[...kml.matchAll(/<coordinates>([^<]+)<\/coordinates>/g)].flatMap((m) => m[1]!.trim().split(/\s+/).map((c) => c.split(',').map(Number)).map(([lon, lat]) => [lat!, lon!] as const)),
+    ];
+    expect(pts.length).toBeGreaterThan(10);
+    for (const [lat, lon] of pts) expect(nearHome(lat, lon), `${lat},${lon}`).toBe(false);
+  });
+  it('the route files name the public trip, never the person\'s own title (ES-010)', () => {
+    const mine = ownTripOf({ doc: draft, slug: SLUG, title: 'Rockies with Emma and Leo', ourTitle: 'Canadian Rockies, 14 nights', party: { adults: 2, children: [10] }, days: page.timeline!.days, addables: () => undefined });
+    expect(mine.routeTitle).toBe('Your copy of Canadian Rockies');
+    expect(mine.title).toBe('Rockies with Emma and Leo');
+    const files = [buildGpx({ ...src, title: mine.routeTitle }).xml, buildKml({ ...src, title: mine.routeTitle }).xml];
+    for (const f of files) {
+      expect(f).toContain('Your copy of Canadian Rockies');
+      expect(f).not.toContain('Emma');
+    }
   });
 });
 

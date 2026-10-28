@@ -182,7 +182,8 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   const days = model.days.length;
   const end = endOf(doc);
   const changes = changesLine(changeCount(doc));
-  const publicUrl = slug ? `${location.origin}/trips/${slug}/` : location.href;
+  // the public trip's address, never this page's: `/t/<id>/` is private (review STEP2-ES ES-008)
+  const publicUrl = slug ? `${location.origin}/trips/${slug}/` : null;
 
   const stops = model.sections.reduce((n, s) => n + s.rows.length, 0);
   const photos = model.gallery.length >= PHOTOS_TAB_MIN ? model.gallery.length : 0;
@@ -249,7 +250,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
             {changes ? <span className="own-changes">{changes}</span> : null}
           </>
         }
-        actions={<OwnActions slug={slug ?? id} title={title} url={publicUrl} onEdit={edit.start} onPrefetch={edit.prefetch} editing={edit.editing} loading={edit.loading} onDone={edit.done} tripMenu={edit.cover} onCalendar={doc.start && slug ? () => void calendar() : null} onAddDates={() => setSettings(true)} />}
+        actions={<OwnActions slug={slug} shareTitle={ourTitle ?? 'Trip'} url={publicUrl} onEdit={edit.start} onPrefetch={edit.prefetch} editing={edit.editing} loading={edit.loading} onDone={edit.done} tripMenu={edit.cover} onCalendar={doc.start && slug ? () => void calendar() : null} onAddDates={() => setSettings(true)} />}
       />
       <TripPlan
         slug={slug ?? id}

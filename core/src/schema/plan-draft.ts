@@ -166,7 +166,8 @@ const NO_CONTROL = /^[^\u0000-\u001f\u007f]+$/;
 export const planRef = apiPlaceRef.regex(NO_ORIGIN_KEY, "a public ref, never a private origin key").regex(NO_CONTROL, "no control characters");
 /** A public slug with no month and year in it (public-ref-aliases 2: the line). */
 export const planSlug = apiSlug.regex(NO_DATED_FOLDER_RE, "a public slug holds no month and year");
-const name = z.string().min(1).max(120).regex(/\S/, "not blank");
+// a title goes into calendar names and file names: no control characters (review STEP2-ES ES-009)
+const name = z.string().min(1).max(120).regex(/\S/, "not blank").regex(NO_CONTROL, "no control characters");
 const isoDateTime = z.iso.datetime();
 
 /** Trip mode: one country (TB14) and the chosen region groups or regions (empty until step 2). */

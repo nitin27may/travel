@@ -30,8 +30,12 @@ import { DATED_FOLDER_RE } from "../catalogue/alias.ts";
 
 /** The household's planning notes: a plan link, a stay idea, a base camp (dateless.ts HOUSEHOLD_TEXT, without its loose address rule). */
 export const PLANNING_NOTE = /\bplanned as\b|\b(?:hotel|stay|lodging|airbnb|accommodation|campsite|hut)\s+(?:idea|ideas|choice|pick|booked)\b|\bbase camp:/i;
-/** A street address, case-sensitive: the scrub's case-insensitive rule reads "30 min each way" as one. */
-export const STREET_ADDRESS = /\b\d{2,5}\s+[A-Z][\w'. -]{2,30}\s(?:Rd|Road|St|Street|Ave|Avenue|Dr|Drive|Ln|Lane|Blvd)\b/;
+/**
+ * A street address, case-sensitive: the scrub's case-insensitive rule reads "30 min each way" as one. The number is not the minutes of a
+ * clock time (review STEP2-ES ES-012): a published day line "19:00 Vermilion Lakes Drive" in a calendar file is a time and a road, not a
+ * house number. Only a digit run preceded by a colon or another digit is let through; "12 Vermilion Lakes Drive" still fails.
+ */
+export const STREET_ADDRESS = /(?<![\d:])\b\d{2,5}\s+[A-Z][\w'. -]{2,30}\s(?:Rd|Road|St|Street|Ave|Avenue|Dr|Drive|Ln|Lane|Blvd)\b/;
 /** The place status a household sets: the key `status` is private only with one of these values (an access window is also "open"). */
 export const STATUS_WORDS: readonly string[] = ["idea", "shortlisted", "planned", "visited", "dropped"];
 /**

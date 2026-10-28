@@ -4,6 +4,7 @@ import { FAV_LOCAL_KEY, SNOOZE_MORE } from '@travel/core/schema/favourites.ts';
 import type { FavItem } from '@travel/core/schema/favourites.ts';
 import { readFavourites, snoozeNotice, updateFavourites } from '@travel/core/favourites/envelope.ts';
 import { updateCopies } from '@travel/core/schema/copies.ts';
+import { pruneDeviceEdits } from '@/lib/trip-edit/deviceStore';
 
 /** What one list holds, or why it could not be read. A failed read never writes (the envelope stays as it is). */
 export type ListState<T> = { ok: true; items: readonly T[]; newest: number; snoozedUntil: string | null; snoozedAtCount: number | null } | { ok: false; reason: 'corrupt' | 'newer' | 'invalid' };
@@ -35,6 +36,14 @@ export function readOverview(storage: StorageLike): Overview {
       ? { ok: true, items: f.envelope.items, newest: Math.max(0, ...f.envelope.items.map((i) => at(i.favouredAt))), snoozedUntil: f.envelope.snoozedUntil, snoozedAtCount: f.envelope.snoozedAtCount }
       : { ok: false, reason: f.reason },
   };
+}
+
+/**
+ * Device edits of copies that are no longer in `copies/1` go (review STEP2-ES ES-002): a copy removed in another tab, merged into the
+ * account, or lost to a damaged write leaves no notes behind. Only after a good read: a list that could not be read prunes nothing.
+ */
+export function pruneOrphanEdits(storage: StorageLike, o: Overview): void {
+  if (o.copies.ok) pruneDeviceEdits(storage, o.copies.items.map((c) => c.id));
 }
 
 export type MineTab = 'trips' | 'favourites';

@@ -194,7 +194,7 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
             message: `Removed ${r.title} from Mine`,
             actionLabel: 'Undo',
             onAction: () => {
-              if (undoRemove(storage, res.removed)) {
+              if (undoRemove(storage, res.removed, res.edits)) {
                 setRestored(res.removed.id);
                 focusNext.current = { id: res.removed.id };
                 onChanged();
