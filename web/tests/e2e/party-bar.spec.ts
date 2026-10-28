@@ -362,6 +362,11 @@ test.describe('B2: the sticky bar with eight children', () => {
       expect(m.editRight).toBeLessThanOrEqual(m.win);
       expect(m.partyTitle, 'the full party is the title when the line is cut').toContain('8 children');
       expect(m.partyText).toContain('8 children');
+      // SW-006/B2: the separator belongs to the pace, so a cut party never trails a lone "·" (no loose text between the two spans)
+      const loose = await page.locator('.tl-planbar-who').evaluate((el) => [...el.childNodes].filter((n) => n.nodeType === 3 && n.textContent!.trim()).length);
+      expect(loose).toBe(0);
+      const pace = await page.locator('.tl-planbar-pace').evaluate((el) => ({ text: el.textContent, shown: el.getBoundingClientRect().width }));
+      expect(pace.text).toMatch(/^ · /);
       const hit = await page.evaluate(() => {
         const b = document.querySelector<HTMLElement>('.tl-planbar .tl-railedit')!;
         const cs = getComputedStyle(b, '::after');

@@ -86,6 +86,7 @@ type PushIn = Omit<TimelineEntry, "id" | "day" | "tz" | "lane" | "optional" | "a
 /** One lane from start to end. `squeeze` 1 shortens meals, 2 also drops generated breaks (spec 2.9 steps 6 and 7). */
 function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneOpts): LaneResult {
   const { input } = ctx;
+  stops = [...stops];
   const pr = PACE_RULES[profile.pace];
   const wins = mealWindows(profile);
   const entries: TimelineEntry[] = [];
@@ -333,6 +334,14 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
   for (let si = 0; si < stops.length; si++) {
     const stop = stops[si]!;
     const it = stop.item;
+    // The plan's own lunch row is the day's one lunch: no rule makes a second while it lies ahead. Behind what the person added, it
+    // comes first once lunch is due on arrival (an unpinned row; the plan's order is kept).
+    const j = stops.findIndex((s, k) => k > si && s.item.kind === "meal" && s.item.sub === "lunch");
+    const ahead = j > 0;
+    if (ahead && !lunchDone && !stops[j]!.item.start && stops.slice(si, j).every((s) => s.addedBy === "visitor") && t + (loc && !samePlace(loc, endOf(it)) ? RL(loc, endOf(it)).minutes : 0) >= wins.lunch.from) {
+      stops.splice(si--, 0, ...stops.splice(j, 1));
+      continue;
+    }
     ctx.items.set(it.id, it);
     before = it.id;
     // the rejoin pin is a moment in the place the party already is: no leg
@@ -348,18 +357,15 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     // the pinned time of this stop
     let pinStart: number | null = null;
     let conf: Confidence = "suggested";
-    let src: TimeSource = "rule";
     let anchor: TimelineEntry["time"]["anchor"] | undefined;
     if (it.start && !o.released.has(it.id)) {
       pinStart = m(it.start.time);
       conf = it.start.confidence;
-      src = it.start.source;
     } else if (it.needs && ctx.sun) {
       const a = anchorTime(ctx.sun, it.needs.sun, it.needs.offsetMin);
       if (a) {
         pinStart = ceil5(a.mid);
         conf = "anchored";
-        src = "sun";
         anchor = { to: it.needs.sun, offsetMin: it.needs.offsetMin, range: a.range };
       }
     }
@@ -388,7 +394,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
 
     // lunch is due where we stand
     const L = wins.lunch;
-    if (!lunchDone && t >= L.from && it.kind !== "meal" && !stop.isRejoin && (gate === null || gate - t >= 75)) {
+    if (!lunchDone && !ahead && t >= L.from && it.kind !== "meal" && !stop.isRejoin && (gate === null || gate - t >= 75)) {
       lunchDone = true;
       if (t <= L.to + 30) addMeal("lunch", /town|village|cafe|restaurant/i.test(lastPlace()?.name ?? "") ? "sit-down" : "picnic", lastPlace());
     }
@@ -415,7 +421,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
 
     // lunch at the destination, when we arrive after the window opens
     // (also when the stop would run across the whole window: lunch comes first, after a short wait for it to open)
-    if (!lunchDone && it.kind !== "meal" && !stop.isRejoin && (gate === null || gate - arrive >= 40) && (arrive >= L.from || (arrive >= L.from - 30 && arrive + duration > L.to && duration < 150))) {
+    if (!lunchDone && !ahead && it.kind !== "meal" && !stop.isRejoin && (gate === null || gate - arrive >= 40) && (arrive >= L.from || (arrive >= L.from - 30 && arrive + duration > L.to && duration < 150))) {
       lunchDone = true;
       if (arrive <= L.to + 30) {
         if (t < L.from) t = L.from;
@@ -465,7 +471,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
 
     // a long outing that spans the lunch window carries lunch with it (on-trail, no extra time)
     let onTrailAt: number | null = null;
-    if (!lunchDone && it.kind !== "meal" && !stop.isRejoin && duration >= 150 && s0 <= L.from + 30 && s0 + duration >= L.to - 30) {
+    if (!lunchDone && !ahead && it.kind !== "meal" && !stop.isRejoin && duration >= 150 && s0 <= L.from + 30 && s0 + duration >= L.to - 30) {
       lunchDone = true;
       onTrailAt = Math.min(Math.max(s0 + 60, Math.min(L.to - 20, s0 + duration)), s0 + duration - 5);
     }

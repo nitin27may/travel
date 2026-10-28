@@ -21,7 +21,7 @@ interface ToolsProps {
   onDone: () => void;
 }
 
-/** The sticky day bar's right end from 640 px (patterns 3.13 item 4): Undo, Redo, the changes count, the sync word, Settings, then Done, the one filled button. */
+/** The sticky day bar's right end from 640 px (patterns 3.13 item 4): Undo, Redo, the changes count, a sync that failed, Settings, then Done, the one filled button. */
 export function EditTools(p: ToolsProps) {
   return (
     <div className="edit-tools" role="group" aria-label="Edit tools">
@@ -37,7 +37,9 @@ export function EditTools(p: ToolsProps) {
           {p.changes} {p.changes === 1 ? 'change' : 'changes'}
         </button>
       ) : null}
-      <SyncState word={p.word} onRetry={p.onRetry} />
+      {/* the quiet sync words live in the cover meta (ER-022), so the tools fit beside the day strip more often; a sync that needs the
+          person (not synced, Retry) stays here, where they are working (P6) */}
+      {p.word.startsWith('Not synced') ? <SyncState word={p.word} onRetry={p.onRetry} /> : null}
       <Button onClick={p.onSettings}>Settings</Button>
       <Button variant="primary" onClick={p.onDone}>Done</Button>
     </div>

@@ -545,7 +545,7 @@ one of our trips (template mode, it keeps following our plan) and a trip the bui
    `--bg`), never inside the tab row, and it scrolls to the first Fix warning. From 640 px the sticky row's right end holds
    Undo and Redo (icon buttons 38 px, hit 44, disabled when the stack is empty), the changes count on a copy ("4
    changes"), the fix count as a button, **Settings** (secondary) and **Done** (primary); when they do not fit beside the
-   tabs, they take a second line of the sticky row and the tabs never truncate. The day strip has priority: below 1600 px the tools take the second line (right-aligned) so the strip shows every day; from 1600 px they sit beside it. Under 640 px the edit bar also holds Undo and Redo (components 8.6).
+   tabs, they take a second line of the sticky row and the tabs never truncate. The day strip has priority, and the place is measured, not a breakpoint (ER-022): the tools sit beside the strip when every day, every tool and Export fit on that line (the party words step aside first, since Settings owns Who is going while editing), else they take the second line (right-aligned). The quiet sync word is in the cover meta, not the sticky row; a failed sync with Retry stays with the tools. Under 640 px the edit bar also holds Undo and Redo (components 8.6).
 5. **Every stop and every day, by button first** (Q-BE3, WCAG 2.5.7). Any stop can be removed (published, added, from
    our trip, engine-placed) and moved. Each stop's `⋯` opens the item sheet on a phone and the same rows as an anchored
    menu on desktop (components 8.7); each day header's `⋯` does the same for the day. Drag is an accelerator only:

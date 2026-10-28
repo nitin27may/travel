@@ -1,9 +1,12 @@
 // The invariants of "add a place to a day" (spec 3.7), checked over every ordered sequence of one to three candidate places on every
-// Rockies and Dolomites day, then removing them again. Deterministic: the candidates are the first of each group, in model order.
+// Rockies and Dolomites day, then removing them again, and over every single candidate the picker offers on each day. Deterministic: the
+// sequences take the first of each group, in model order. The round trips of the edit operations (add then remove, move then move back)
+// give back the published day byte for byte.
 import { describe, expect, it } from 'vitest';
 import { diffTimelines } from '@travel/core/schedule/diff.ts';
 import { mealWindows } from '@travel/core/schedule/rules.ts';
 import { scheduleDay } from '@travel/core/schedule/schedule.ts';
+import { emptyDayEdit, moveItem, removeItem, scheduleEdited, stopsOf, type EditedDay } from '@travel/core/schedule/template.ts';
 import { type DayTimeline, type Profile, type ScheduleItem, type TimelineEntry } from '@travel/core/schedule/types.ts';
 import { createPublicData } from '@/lib/public';
 
@@ -22,6 +25,34 @@ async function load() {
     return { slug, trip, model: m.timeline! };
   });
   return { trips, candidateToItem };
+}
+
+const lunches = (t: DayTimeline) => t.entries.filter((e) => e.kind === 'meal' && e.sub === 'lunch').length;
+const dinners = (t: DayTimeline) => t.entries.filter((e) => e.kind === 'meal' && e.sub === 'dinner').length;
+
+/**
+ * One meal of each kind at most, no negative or reversed time, and no two timed rows of one lane at once, unless the day says so: a day
+ * past midnight is clamped (S_MIDNIGHT), a set time it cannot reach is kept and named (S_FIXED_MISSED).
+ */
+function sane(t: DayTimeline): string[] {
+  const out: string[] = [];
+  if (lunches(t) > 1) out.push(`${lunches(t)} lunches`);
+  if (dinners(t) > 1) out.push(`${dinners(t)} dinners`);
+  const late = t.warnings.some((w) => w.code === 'S_MIDNIGHT');
+  for (const e of t.entries) {
+    if (e.durationMin < 0 || at(e.start) < 0) out.push(`${e.id} negative time ${e.start} +${e.durationMin}`);
+    else if (!late && at(e.end) < at(e.start)) out.push(`${e.id} ends ${e.end} before it starts ${e.start}`);
+  }
+  if (late) return out;
+  for (const lane of t.lanes) {
+    const rows = t.entries
+      .filter((e) => (e.lane === lane || e.lane === 'all') && reported(e) && e.durationMin > 0 && !e.insideOf && !e.block)
+      .sort((a, b) => at(a.start) - at(b.start));
+    // a set time the day cannot reach keeps its time and says so (S_FIXED_MISSED names it): that overlap is declared, not hidden
+    const missed = new Set(t.warnings.filter((w) => w.code === 'S_FIXED_MISSED').map((w) => w.entryId));
+    for (let i = 1; i < rows.length; i++) if (at(rows[i]!.start) < at(rows[i - 1]!.end) && !missed.has(rows[i]!.id) && !missed.has(rows[i - 1]!.id)) out.push(`${rows[i - 1]!.id} (${rows[i - 1]!.start}-${rows[i - 1]!.end}) overlaps ${rows[i]!.id} (${rows[i]!.start})`);
+  }
+  return out;
 }
 
 const perms = <T,>(xs: T[], n: number): T[][] => (n === 0 ? [[]] : xs.flatMap((x, i) => perms([...xs.slice(0, i), ...xs.slice(i + 1)], n - 1).map((r) => [x, ...r])));
@@ -62,10 +93,9 @@ describe('add a place to a day: invariants', () => {
             // one lunch and one dinner, as the plan had them; dinner by 19:30 unless the plan's own was later; lunch where it can be eaten
             // a day pushed past midnight (S_MIDNIGHT) is already declared impossible in its warnings; the lunch it loses is not asserted
             const impossible = after.warnings.some((w) => w.code === 'S_MIDNIGHT');
-            // KNOWN, owner LEG (core/src/schedule, not this lane's): a long hike (Cavell Meadows) added to Rockies Day 8 draws a second lunch. The picker offered
-            // it only by search before the "Elsewhere on this trip" group was filled (ER-005); that one case is skipped so the rest of the day still checks.
-            const knownTwoLunches = slug === 'canadian-rockies-2029' && d.n === 8 && seq.includes('cavell-meadows');
-            if ((!knownTwoLunches && lunchOf(after).length > 1) || (!impossible && lunchOf(after).length < lunchOf(base).length)) bad(`lunch count ${lunchOf(after).length} vs ${lunchOf(base).length}`);
+            // the plan's own lunch row is the day's one lunch: an addition before it never draws a second (Cavell Meadows on Rockies Day 8 did)
+            if (lunchOf(after).length > 1 || (!impossible && lunchOf(after).length < lunchOf(base).length)) bad(`lunch count ${lunchOf(after).length} vs ${lunchOf(base).length}`);
+            for (const x of sane(after)) bad(x);
             if (dinnerOf(after).length > 1 || (dinnerOf(after).length < dinnerOf(base).length && !said)) bad(`dinner count ${dinnerOf(after).length} vs ${dinnerOf(base).length}`);
             const dn = dinnerOf(after)[0];
             const dn0 = dinnerOf(base)[0];
@@ -106,5 +136,77 @@ describe('add a place to a day: invariants', () => {
     console.log(`add-invariants: ${cases} cases`);
     expect(fails.slice(0, 40)).toEqual([]);
     expect(cases).toBeGreaterThan(500);
+  }, 600000);
+
+  it('holds for every candidate the picker offers on every day, alone: one lunch, one dinner, no negative time, no overlap', async () => {
+    const { trips, candidateToItem } = await load();
+    let cases = 0;
+    const fails: string[] = [];
+    for (const { slug, trip, model } of trips) {
+      const P: Profile = trip.schedule!.defaultProfile;
+      for (const d of trip.days) {
+        const input = d.scheduleInput!;
+        const base = scheduleDay(input, P);
+        for (const x of sane(base)) fails.push(`${slug} day ${d.n} as published: ${x}`);
+        for (const k of model.addByDay[d.n] ?? []) {
+          cases += 1;
+          const item = candidateToItem(model.addables[k]!);
+          // the picker's two ways in: placed by cheapest insertion, and put after a stop (the edit session's add after)
+          for (const x of sane(scheduleDay(input, P, { added: [item] }))) fails.push(`${slug} day ${d.n} +${k}: ${x}`);
+          const day: EditedDay = { input, base: {}, edit: emptyDayEdit() };
+          for (const s of stopsOf(day, P).filter((s) => s.lane === 'main')) {
+            const t = scheduleEdited({ ...day, edit: { removed: [], placed: [{ item, addedBy: 'visitor', at: { after: s.item.id } }] } }, P);
+            for (const x of sane(t)) fails.push(`${slug} day ${d.n} +${k} after ${s.item.id}: ${x}`);
+          }
+        }
+      }
+    }
+    console.log(`add-invariants, every candidate: ${cases} cases`);
+    expect(fails.slice(0, 40)).toEqual([]);
+    expect(cases).toBeGreaterThan(200);
+  }, 600000);
+});
+
+describe('edit round trips give back the published day byte for byte', () => {
+  it('add then remove, and move a stop then move it back, on every Rockies and Dolomites day', async () => {
+    const { trips, candidateToItem } = await load();
+    const fails: string[] = [];
+    let cases = 0;
+    for (const { slug, trip, model } of trips) {
+      const P: Profile = trip.schedule!.defaultProfile;
+      for (const d of trip.days) {
+        const day: EditedDay = { input: d.scheduleInput!, base: {}, edit: emptyDayEdit() };
+        const want = JSON.stringify(scheduleEdited(day, P));
+        const tag = `${slug} day ${d.n}`;
+        // add (by insertion, and after each stop) then remove
+        for (const k of (model.addByDay[d.n] ?? []).slice(0, 4)) {
+          const item = candidateToItem(model.addables[k]!);
+          const ins: EditedDay = { ...day, base: { added: [item] } };
+          const back = removeItem(ins, P, item.id);
+          cases += 1;
+          if (!back || JSON.stringify(back.timeline) !== want) fails.push(`${tag} +${k} by insertion, removed: not the published day`);
+          for (const s of stopsOf(day, P).filter((s) => s.lane === 'main')) {
+            const put: EditedDay = { ...day, edit: { removed: [], placed: [{ item, addedBy: 'visitor', at: { after: s.item.id } }] } };
+            const r = removeItem(put, P, item.id);
+            cases += 1;
+            if (!r || JSON.stringify(r.timeline) !== want) fails.push(`${tag} +${k} after ${s.item.id}, removed: not the published day`);
+          }
+        }
+        // move each stop of the party's lane to the end and to the start, then back after the stop it followed
+        const main = stopsOf(day, P).filter((s) => s.lane === 'main').map((s) => s.item.id);
+        main.forEach((id, i) => {
+          for (const to of ['end', 'start'] as const) {
+            const there = moveItem(day, day, P, id, to);
+            if (!there) { fails.push(`${tag} move ${id} to ${to}: refused`); continue; }
+            const home = moveItem(there.to.day, there.to.day, P, id, i === 0 ? 'start' : { after: main[i - 1]! });
+            cases += 1;
+            if (!home || JSON.stringify(home.to.timeline) !== want) fails.push(`${tag} move ${id} to ${to} and back: not the published day`);
+          }
+        });
+      }
+    }
+    console.log(`edit round trips: ${cases} cases`);
+    expect(fails.slice(0, 40)).toEqual([]);
+    expect(cases).toBeGreaterThan(300);
   }, 600000);
 });

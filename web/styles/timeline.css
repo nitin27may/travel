@@ -444,10 +444,11 @@
   .tl-title { flex: 1 1 10ch; }
   .tl-remove-now { min-height: var(--touch-min); min-width: var(--touch-min); }
 }
-/* SW-005: the phone day rail fades where more days wait; the keyword colour is a mask's alpha, not a colour on screen */
-@media (max-width: 639px) {
-  .tl-rail-days[data-more] { -webkit-mask-image: linear-gradient(to right, black calc(100% - var(--s-8)), transparent); mask-image: linear-gradient(to right, black calc(100% - var(--s-8)), transparent); }
-}
+/* SW-005: a day rail longer than its strip says where more days wait, at every width. PlanBar measures the cells: a day cut by the
+   strip's edge is not drawn (a cut "12" read as "1" at 768, ERFIX 12-rail-day*), and the last whole day before more days is dimmed */
+.tl-rail-days > li[data-edge='cut'] > .tl-rail-cell { opacity: 0; }
+.tl-rail-days > li[data-edge='cut'] > .tl-rail-cell:focus-visible { opacity: 1; }
+.tl-rail-days > li[data-edge='dim'] > .tl-rail-cell:not([data-active]) { opacity: 0.45; }
 
 /* Your own trip reserves the width of edit mode's leading handle slot in read mode too, so entering or leaving edit mode moves nothing (ER-023; patterns 3.13). The widths are drag.css's. */
 .trip-page[data-own] { --drag-w: 28px; }
