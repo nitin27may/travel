@@ -107,7 +107,7 @@ the photo is 28 px in a 2 px identity ring with keyline, label "Switch", first p
 | public (signed out or in) | **Trips · Places · Globe · Search · Mine** (`cards`, `pin`, `globe`, `search` as a button that opens the header search, `layers`) | NAV-1; replaces the interim ACCT-PH "Sign in / Account" item 1:1 |
 | signed in, planner stage | Home · Trips · Places · Mine · More (Globe first in More) | later, NAV-M (nav spec 7, Q207) |
 | inside a trip | [photo] Plan · Today · Bookings · More | planner |
-| your trip in edit mode (`/t/<id>/?edit=1`) | none: the **edit bar** (8.6) Settings · Done replaces this bar while edit mode is on | Step 2 |
+| your trip in edit mode (`/t/<id>/?edit=1`) | none: the **edit bar** (8.6) Undo · Redo · Settings · Done replaces this bar while edit mode is on | Step 2 |
 | builder stages 0 to 4 (`/plan/`) | none: the builder's action bar (9.4) replaces this bar | builder |
 
 Mine's label and icon never change with the session (no session read in the bar). Mine is current on `/mine/**`
@@ -779,11 +779,10 @@ together, and there is no second editor bar.
 
 Anatomy: fixed to the bottom above the safe area, `--surface`, 1 px `--line-2` top (decorative: the buttons carry their
 names), padding 12 px 14 px 30 px (home inset), height about 84 px (the bottom bar's `phone-bottombar-h`, so the page's
-bottom padding does not change), `--z-header`. Two buttons, both `lg` 50 px, 8 px apart at least: **Settings** at the left
+bottom padding does not change), `--z-header`. Four controls, 8 px apart at least: **Undo** and **Redo** at the left (ghost icon buttons, 44 px wide by 50 px high, the existing `undo` and `redo` glyphs at 20 px, `aria-label` "Undo: Remove Lake Louise from Day 2" naming the step, disabled while the stack is empty), then two `lg` 50 px buttons that share the rest: **Settings** (left of the pair)
 (secondary: `--ink` on `--surface` 16.06 / 13.83, 1 px `--line-2`) opens the Settings sheet at full height; **Done** at
 the right (primary: `--accent-ink` on `--accent` 6.96 / 6.96), the one filled button on the screen (ruling C1), which
-leaves edit mode (`pushState` removes `edit=1`) and swaps the public bar back. Nothing else sits in the bar: **Undo and
-Redo are never bar buttons** (they are in the toast and the cover's `⋯`), and the fix count is its own button under the
+leaves edit mode (`pushState` removes `edit=1`) and swaps the public bar back. Undo and Redo sit in the bar because the toast lasts 6 s: a mistake found later is one tap away, not a scroll to the cover's `⋯` (P3; they stay in the `⋯` too). At 360 px the four fit (44 + 44 + 110 + 110 + 3 gaps of 8 in 332). The "n changes" link is not in the bar (it would crowd the labels); it stays in the cover's `⋯` and at the top of the Summary. Nothing else sits in the bar; the fix count is its own button under the
 sticky row (patterns 3.13 item 4).
 
 Behaviour: it enters with the bottom bar's 200 ms rise when edit mode starts (a jump under reduced motion); it hides while
@@ -823,7 +822,7 @@ Day rows: **Add a day after Day 5** · **Add a note** · **Version of Day 5** (c
 earlier** and **later** (built, within one base's run) · **Reset Day 5** (copies) · divider · **Drop Day 5** (`--crit`;
 the stops question or the booking confirm of patterns 4.4).
 
-Trip rows (the cover's `⋯` on your trip): **Undo** · **Redo** (the phone's only Undo and Redo besides the toast) · **Make
+Trip rows (the cover's `⋯` on your trip): **Undo** · **Redo** (also in the phone edit bar, 8.6) · **Make
 it yours** (copies) · **Rebuild** (built) · **Reset to our plan** (copies; confirms over 3 changes, patterns 4.4) ·
 **Print** · divider · **Remove from My trips** (`--crit`).
 
@@ -897,7 +896,7 @@ required, T2). Motion `--d-sheet` `--e-out`; reduced motion jumps.
   `--muted` ("about 5 days (4 nights) ≈"); both truncate, never wrap; right the primary, `lg` 50 px, naming the next
   stage ("Next: Days", or "Build my day" for a day trip). Tap on the summary opens the tray sheet.
 - **After the build: one bar, the edit bar** (FLOW TF18 as amended by Step 2 ruling R2). The action bar ends at Build
-  my days. On the trip details page in edit mode the phone bar is the **edit bar, Settings · Done** (8.6); there is no
+  my days. On the trip details page in edit mode the phone bar is the **edit bar, Undo · Redo · Settings · Done** (8.6); there is no
   Review button (no Review screen) and no second editor bar. **Undo is never a bar button**: it lives in the Undo toast
   (5.3) and in the cover's `⋯` (8.7: Undo, Redo, Make it yours, Rebuild, Reset to our plan, Print, Remove from My trips).
   Nothing needs "Close plan": Done leaves edit mode, and every edit is already kept.

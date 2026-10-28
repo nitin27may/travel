@@ -75,21 +75,24 @@ html[data-trip-editing] .bottom-bar, html[data-trip-editing] .to-top { display: 
 .edit-changes-btn { min-height: var(--touch-min); padding: 0 var(--s-1); border: 0; background: none; color: var(--accent-text); font: var(--t-meta); text-decoration: underline; cursor: pointer; white-space: nowrap; }
 .edit-tools .own-sync { color: var(--muted); white-space: nowrap; }
 @media (min-width: 640px) { .tl-planbar-tools { display: block; } }
-/* below 1200 px the tools do not fit beside the day rail: they take a second line of the bar, at its right, and nothing truncates (patterns 3.13 item 4) */
-@media (min-width: 640px) and (max-width: 1199px) {
+/* the day strip has priority at every width: the tools take a second line of the bar, at its right, with Export beside them, and nothing truncates (patterns 3.13 item 4).
+   15 days need about 700 px beside the identity cell; the tools need about 640 px more, so one line would need a 2300 px window. */
+@media (min-width: 640px) {
   .tl-planbar:has(.tl-planbar-tools) { flex-wrap: wrap; row-gap: 0; }
-  .tl-planbar-tools { flex: 1 0 100%; margin-left: 0; }
+  .tl-planbar-tools { flex: 1 0 calc(100% - 8rem); margin-left: 0; }
   .tl-planbar-tools .edit-tools { justify-content: flex-end; }
 }
+@media (min-width: 640px) and (max-width: 1023px) { .tl-planbar-tools { flex-basis: 100%; } }
 
 /* the cover's `⋯` */
 .edit-trip-more { flex: none; }
 
-/* ---- the phone's edit bar (components 8.6): Settings left, Done right; replaces the public bar ---- */
+/* ---- the phone's edit bar (components 8.6): Undo, Redo, Settings, Done; replaces the public bar ---- */
 .edit-bar { display: none; }
 @media (max-width: 639px) {
-  .edit-bar { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2); position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-header); box-sizing: border-box; height: var(--phone-bottombar-h); padding: 12px 14px 30px; background: var(--surface); border-top: 1px solid var(--line-2); animation: edit-rise var(--d-base) var(--e-out); }
+  .edit-bar { display: grid; grid-template-columns: var(--touch-min) var(--touch-min) 1fr 1fr; gap: var(--s-2); position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-header); box-sizing: border-box; height: var(--phone-bottombar-h); padding: 12px 14px 30px; background: var(--surface); border-top: 1px solid var(--line-2); animation: edit-rise var(--d-base) var(--e-out); }
   .edit-bar .btn { height: 50px; width: 100%; }
+  .edit-bar .edit-bar-step { width: var(--touch-min); }
   /* a bottom sheet above the bar hides it, as it hides the public bar */
   html:has(.sheet-bottom-frame) .edit-bar { visibility: hidden; }
 }

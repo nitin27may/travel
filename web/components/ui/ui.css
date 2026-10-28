@@ -422,6 +422,14 @@ td[data-align='right'] { text-align: right; font: var(--t-mono); }
 .sheet-photo::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, var(--photo-scrim-top), var(--photo-scrim-bottom)); }
 .sheet-photo::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; z-index: 3; background: var(--tc, var(--line-2)); }
 .sheet-media { position: absolute; inset: 0; }
+/* a side sheet with no photo (add picker, Settings, Changes, Keys): the light header, never a dark band over a light body (components 5.1) */
+.sheet-photo-plain { align-items: center; min-height: 0; padding: var(--s-4) 0 var(--s-3); background: var(--surface); color: var(--ink); border-bottom: 1px solid var(--line-2); overflow: visible; }
+.sheet-photo-plain::before, .sheet-photo-plain::after { content: none; }
+.sheet-photo-plain .sheet-photo-text { padding-left: 22px; padding-right: 64px; }
+.sheet-photo-plain .sheet-kicker { color: var(--muted); }
+.sheet-photo-plain .sheet-heading:focus-visible { outline-color: var(--focus); }
+.sheet-photo-plain .sheet-close { top: 50%; transform: translateY(-50%); right: var(--s-3); background: none; color: var(--ink); border-color: transparent; }
+.sheet-photo-plain .sheet-close:hover { background: var(--surface-2); }
 .sheet-media img { width: 100%; height: 100%; object-fit: cover; filter: brightness(var(--img)); }
 .sheet-photo-text { position: relative; z-index: 2; padding: 0 18px 14px; padding-right: 64px; min-width: 0; }
 .sheet-kicker { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: uppercase; color: var(--kicker-on-photo); }

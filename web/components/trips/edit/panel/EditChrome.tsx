@@ -44,12 +44,30 @@ export function EditTools(p: ToolsProps) {
   );
 }
 
-/** The phone's edit bar (components 8.6): Settings left, Done right, nothing else. It replaces the public bottom bar. */
-export function EditBar({ title, onSettings, onDone }: { title: string; onSettings: () => void; onDone: () => void }) {
+interface BarProps {
+  title: string;
+  canUndo: boolean;
+  canRedo: boolean;
+  undoLabel: string | null;
+  redoLabel: string | null;
+  onUndo: () => void;
+  onRedo: () => void;
+  onSettings: () => void;
+  onDone: () => void;
+}
+
+/** The phone's edit bar (components 8.6): Undo and Redo icon buttons, then Settings and Done. It replaces the public bottom bar. After the toast is gone a mistake is still one tap from undone (P3). */
+export function EditBar(p: BarProps) {
   return (
-    <div className="edit-bar" role="group" aria-label={`Editing ${title}`} data-print="hide">
-      <Button size="lg" onClick={onSettings}>Settings</Button>
-      <Button size="lg" variant="primary" onClick={onDone}>Done</Button>
+    <div className="edit-bar" role="group" aria-label={`Editing ${p.title}`} data-print="hide">
+      <Button icon variant="ghost" className="edit-bar-step" aria-label={p.undoLabel ? `Undo: ${p.undoLabel}` : 'Undo'} disabled={!p.canUndo} onClick={p.onUndo}>
+        <Icon name="undo" size={20} />
+      </Button>
+      <Button icon variant="ghost" className="edit-bar-step" aria-label={p.redoLabel ? `Redo: ${p.redoLabel}` : 'Redo'} disabled={!p.canRedo} onClick={p.onRedo}>
+        <Icon name="redo" size={20} />
+      </Button>
+      <Button size="lg" onClick={p.onSettings}>Settings</Button>
+      <Button size="lg" variant="primary" onClick={p.onDone}>Done</Button>
     </div>
   );
 }
