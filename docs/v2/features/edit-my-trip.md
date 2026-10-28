@@ -1,5 +1,7 @@
 # Edit my trip: one editable trip, saved on the device and synced to the account
 
+> **Superseded in part 27 Oct 2026 by Step 2 ([design/step2/](../design/step2/README.md), R-285):** section 5.2 (the bridge on `/trips/<slug>/#mine=`; copies open at `/t/<id>/` from STEP2-T1, ruling R3), 5.3 step 6 (phones also drag, by long-press on the handle within a day: Q-BE3, ruling R4), and section 8's EM-3, EM-RV, EM-4 and EM-5 rows (STEP2-T1, STEP2-E1 to E6, B2, B3, P2). The edit experience is [edit-mode-spec.md](../design/step2/edit-mode-spec.md). Sections 1 to 4, 6, 7 (the document, the table, sync, privacy) stand.
+
 > **Amended 27 Oct 2026 (TB-FLOW, [FLOW.md](../design/trip-builder/FLOW.md) TF9, TF10, TF12):** Q-EM1 yes. The one account table is named `plan_draft` (owner, F-Q6): EM-M renames `planner_draft`, adds the columns of section 3, and ships with the code that names the table (+1 h). A copy opens in the editor with a non-modal "Make it yours" card; the first engine action converts it to a built draft **in place** with Undo for the session (owner, F-Q3; supersedes Q-EM11's "new draft"). EM-4 merges with TB-W3's editor half into task ED: one action layer `web/components/plan/editor/**`, mounted at `/t/<id>/` for copies and plans; the builder's `/plan/` editor mount is removed in the same task (owner, F-Q2).
 
 Status: **spec, planned only** (27 Oct 2026, travel-planner, Opus, task TRIP-EDIT-I). No app code. Owner feedback of

@@ -1,5 +1,7 @@
 # Trip builder: the end-to-end flow (create, build, customise, copy, review)
 
+> **Superseded in part 27 Oct 2026 by Step 2 ([design/step2/](../step2/README.md), R-285; owner: "the builder ends by handing the trip to the details page; it has no editor of its own"):** TF9 (the editor is the trip details page in edit mode at `/t/<id>/`; there is never a `/plan/?s=plan` screen), TF18 (the phone bar in edit mode is Settings · Done), the plan screen of stages 5 to 7 (its content is the details page's Days tab in edit mode; the Plan grid is not built) and stage 8 as a screen (its content is the Summary and Bookings tabs), task ED (STEP2-E1 to E6, B1 to B3), and TB-W1's "just-built landing in `/plan/?s=plan`" (STEP2-B1 hands off to `/t/<id>/?edit=1`). Rulings R2, R5, R6, R9 in [README](../step2/README.md) 6. Stages 0 to 4, the decisions on kinds, driving, picks and placement (TF1 to TF8, TF10 to TF17, TF19, TF20) stand.
+
 Status: **design, planned only; revised after review TB-N2** (27 Oct 2026, travel-planner, Opus, task TB-FLOW). No app
 code. Owner requirement of 27 Oct 2026: "the Trip Builder is not just a create wizard; it is the full end-to-end
 experience of building a trip and editing it". TODO rows of 27 Oct 2026; BACKLOG 15.353; PLAN R-278, R-279. Review:
