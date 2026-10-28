@@ -2,6 +2,7 @@
 // dataset: the scheduler inputs per day, the default profile's timelines, and the pre-filtered list of places a visitor may add
 // to a day (never the whole catalogue: principle P8). Nothing here reads a file.
 import type { DayTimeline, ItemKind, Point, Profile, ScheduleDayInput, ScheduleItem } from '@travel/core/schedule/types.ts';
+import { ADD_NEARBY_KM } from '@travel/core/config/nearby.ts';
 import { haversineM } from '@travel/core/geo/distance.ts';
 import { kindLabel } from '@/lib/entities/labels';
 import { parseHoursRange } from '@/lib/public/quantities';
@@ -74,7 +75,7 @@ export function candidateToItem(c: AddCandidate): ScheduleItem {
   };
 }
 
-const kindOf = (k: string): { kind: ItemKind; sub: string | null } => {
+export const kindOf = (k: string): { kind: ItemKind; sub: string | null } => {
   if (k === 'trail') return { kind: 'trail', sub: 'hike' };
   if (k === 'eatery') return { kind: 'meal', sub: 'lunch' };
   if (k === 'lift') return { kind: 'visit', sub: 'lift-ride' };
@@ -100,10 +101,9 @@ function fromPlace(p: PublicPlaceCard, km: number): AddCandidate {
   };
 }
 
-const NEARBY_KM = 30;
 const PER_DAY = { variant: 4, trip: 6, nearby: 8 } as const;
 
-/** The candidates for each day: the day's other versions, the trip's stops at this base, and places within 30 km that have a page. */
+/** The candidates for each day: the day's other versions, the trip's stops at this base, and places within `ADD_NEARBY_KM` that have a page. */
 function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables: Record<string, AddCandidate>; addByDay: Record<number, string[]> } {
   const addables: Record<string, AddCandidate> = {};
   const addByDay: Record<number, string[]> = {};
@@ -120,10 +120,10 @@ function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables:
       addables[c.key] ??= c;
       keys.push(c.key);
     };
-    // every candidate must be within 30 km of something the day places: its base or a stop with a coordinate
+    // every candidate must be within ADD_NEARBY_KM of something the day places: its base or a stop with a coordinate
     const anchors: Point[] = [...(input.base?.point ? [input.base.point] : []), ...input.variants.flatMap((v) => v.items.flatMap((i) => (i.point ? [i.point] : [])))];
     const nearest = (p: Point | null): number | null => (p && anchors.length ? Math.min(...anchors.map((a) => haversineM(a, p) / 1000)) : null);
-    const within = (km: number | null): km is number => km !== null && km <= NEARBY_KM;
+    const within = (km: number | null): km is number => km !== null && km <= ADD_NEARBY_KM;
     // 1. other versions of this day
     const chosen = input.variants.find((v) => v.key === 'B') ?? input.variants[0]!;
     const inChosen = new Set(chosen.items.map((i) => i.id));
@@ -147,7 +147,7 @@ function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables:
         take(fromItem(it, 'trip', Math.round(km * 10) / 10), 'trip', seenB);
       }
     }
-    // 3. catalogue places with a page within 30 km (SW-014: a park or an area is never a stop, TB-PIN R1)
+    // 3. catalogue places with a page within ADD_NEARBY_KM (SW-014: a park or an area is never a stop, TB-PIN R1)
     const near = nearby
       .filter((p) => p.point && p.kind !== 'stay' && p.kind !== 'area' && !onDay.has(p.slug))
       .map((p) => ({ p, km: nearest({ lat: p.point!.lat, lon: p.point!.lon }) }))

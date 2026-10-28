@@ -56,6 +56,8 @@ export const TRIP_EDIT_UI = {
   syncWordDelayMs: 1000,
   /** the live region clears its message after this long, so the same words can be said twice */
   announceClearMs: 1500,
+  /** the add picker searches this long after the last key (STEP2-E3) */
+  addSearchMs: 250,
 } as const;
 
 /**

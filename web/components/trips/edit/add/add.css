@@ -1,0 +1,56 @@
+/* The add-a-place picker (STEP2-E3; edit-mode-spec 7; components 5.1 side sheet, 5.5 bottom sheet). Tokens only (tests/no-hex.test.ts). Loaded with the edit chunk. */
+
+.add-sheet .sheet-body { padding: 0; }
+.add-picker { display: grid; align-content: start; min-width: 0; }
+/* the header stays put while the groups scroll under it */
+.add-head { position: sticky; top: 0; z-index: 2; display: grid; gap: var(--s-3); padding: var(--s-3) var(--s-4); background: var(--surface); border-bottom: 1px solid var(--line); }
+.add-meta { margin: 0; font: var(--t-meta); color: var(--muted); }
+.add-search { position: relative; display: flex; align-items: center; }
+.add-search > svg { position: absolute; left: var(--s-3); color: var(--muted); pointer-events: none; }
+.add-q { width: 100%; box-sizing: border-box; min-height: var(--touch-min); padding-left: calc(var(--s-3) * 2 + 16px); }
+.add-chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.add-chip { min-height: 36px; padding: 0 var(--s-3); border: 1px solid var(--line-2); border-radius: var(--r-full); background: var(--surface); color: var(--ink-2); font: var(--t-chip); cursor: pointer; }
+.add-chip:hover { background: var(--surface-2); }
+.add-chip[aria-pressed='true'] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-text); }
+.add-chip:focus-visible, .add-btn:focus-visible, .add-undo:focus-visible, .add-more:focus-visible, .add-new:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+@media (max-width: 639px) { .add-chip { min-height: var(--touch-min); } }
+
+.add-groups { display: grid; gap: var(--s-4); padding: var(--s-3) var(--s-4) var(--s-6); }
+.add-group { display: grid; gap: var(--s-1); }
+.add-h { margin: 0; font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
+.add-list { list-style: none; margin: 0; padding: 0; display: grid; }
+.add-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--s-3); padding: var(--s-3) 0; border-top: 1px solid var(--line); }
+.add-list > .add-row:first-child { border-top: 0; }
+.add-main { display: grid; gap: 2px; min-width: 0; }
+.add-name { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1) var(--s-2); margin: 0; min-width: 0; }
+.add-title { font: var(--t-title); color: var(--ink); overflow-wrap: anywhere; }
+.add-fit, .add-dist { margin: 0; font: var(--t-meta); color: var(--ink-2); overflow-wrap: anywhere; }
+.add-dist { color: var(--muted); }
+.add-fit[data-fit='full'], .add-fit[data-fit='fix'] { color: var(--crit); }
+.add-fit[data-fit='tight'] { color: var(--warn); }
+.add-fit[data-fit='wait'] { color: var(--muted); }
+.add-row[data-far] .add-title { color: var(--ink-2); }
+.add-act { display: flex; align-items: center; justify-content: flex-end; min-width: 0; }
+.add-btn { min-height: var(--touch-min); white-space: nowrap; }
+.add-new { min-height: var(--touch-min); display: inline-flex; align-items: center; text-align: center; white-space: normal; }
+.add-done { display: inline-flex; align-items: center; gap: var(--s-2); font: var(--t-small); color: var(--ink-2); }
+.add-undo { min-height: var(--touch-min); padding: 0 var(--s-2); border: 0; background: none; color: var(--accent-text); font: var(--t-small); text-decoration: underline; cursor: pointer; }
+.add-more { justify-self: start; min-height: var(--touch-min); }
+.add-empty { margin: 0; padding: var(--s-4) var(--s-4) 0; font: var(--t-small); color: var(--muted); }
+.add-foot { margin: 0; font: var(--t-meta); color: var(--muted); }
+.add-added { margin: 0; padding: var(--s-3); border: 1px solid var(--line-2); border-radius: var(--r-3); background: var(--surface-2); font: var(--t-small); color: var(--ink); }
+
+/* the place a page sent, pinned at the top */
+.add-pin { display: flex; align-items: flex-start; gap: var(--s-3); }
+.add-pin-name { margin: 0; font: var(--t-title); color: var(--ink); }
+.add-pin-sub { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); margin: 0; font: var(--t-meta); color: var(--muted); }
+.add-pin-note { margin: var(--s-1) 0 0; font: var(--t-small); color: var(--ink-2); }
+.add-far { display: grid; gap: var(--s-3); justify-items: start; }
+.add-far-line { margin: 0; font: var(--t-small); color: var(--ink); }
+.add-dayrow { grid-template-columns: minmax(0, 1fr) auto; }
+.add-date { font: var(--t-meta); color: var(--muted); }
+.add-dayrow[data-current] .add-title { color: var(--muted); }
+
+/* the add row of a day, in edit mode (the dashed row of the public timeline, unchanged) */
+@media (min-width: 640px) { .add-sheet .add-head, .add-sheet .add-groups { padding-left: var(--s-5); padding-right: var(--s-5); } }
+@media (max-width: 639px) { .add-groups, .add-head { padding-left: var(--s-4); padding-right: var(--s-4); } .add-btn { min-width: 64px; } .add-dayrow { grid-template-columns: minmax(0, 1fr) auto; } }

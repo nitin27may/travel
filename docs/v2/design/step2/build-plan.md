@@ -403,6 +403,7 @@ otherwise).
 
 | Date | Change |
 |---|---|
+| 2026-10-28 | STEP2-E3 (15.368): the add picker; `ADD_NEARBY_KM` and `ADD_PIN_FAR_KM` in `core/src/config/nearby.ts`; the places come from `/api/v1/places/` (`bbox`, `q`, `ids`) because `near` is `not_available` until N2 (edit-mode-spec 7) |
 | 2026-10-28 | STEP2-E1B (15.366b, owner requirement): every row of a day removable and restorable, including the rows the rules make; `core/src/schedule/ruleRows.ts` (new), `DayEdit.hidden`, `ScheduleOptions.hidden`, the `canEdit` slot; no plan-draft schema change (edit-mode-spec 5.4) |
 | 2026-10-27 | Created (STEP2-PLAN, travel-planner, Opus) |
 | 2026-10-28 | STEP2-E1 built (see edit-mode-spec change log): lazy `EditLayer` chunk, `EditHost` in read mode, slots in `timeline/editSlots.ts` (new file, with the `useTimeline.ts`, `TripPlan`-free wiring of `scheduleTemplate`), `web/lib/trip-edit/{undo,stopOps,changes,moveFit,deviceEdits,editMode}.ts` |

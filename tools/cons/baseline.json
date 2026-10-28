@@ -147,7 +147,7 @@
   },
   "km-constant": {
    "core/src/config/nearby.ts": {
-    "count": 6,
+    "count": 8,
     "reason": "The single source of the nearby, walk and drive-band numbers (CONS-2); the radii read API_LIMITS in core/src/schema/api/limits.ts."
    },
    "core/src/geo/distance.ts": {
@@ -162,10 +162,6 @@
     "count": 4,
     "reason": "The Python mirror of core/src/geo/distance.ts and core/src/config/nearby.ts; the parity test pins the band numbers to nearby.ts."
    },
-   "web/components/trips/timeline/model.ts": {
-    "count": 1,
-    "reason": "Single-module constant with its own meaning (not the 25 km near or the 100 km day-trip threshold), kept on purpose (CONS-2)."
-   },
    "web/lib/public/quantities.ts": {
     "count": 1,
     "reason": "Single-module constant with its own meaning (not the 25 km near or the 100 km day-trip threshold), kept on purpose (CONS-2)."
@@ -179,10 +175,6 @@
    "core/src/sources/links.ts": {
     "count": 1,
     "reason": "motion and timing constants until a foundation motion-token ruling (EXECUTION-PLAN 5.3: listed)"
-   },
-   "web/lib/auth/google.ts": {
-    "count": 1,
-    "reason": "Google start timeout (GOOGLE_START_TIMEOUT_MS, GSI-R S3): how long the card waits for sign-in/social before string 13; a behavioural timeout, not a motion token. Its home is GOOGLE_SIGN_IN in core/src/config/auth-limits.ts, which the security lane owned during GSI-UX: move it there next"
    },
    "web/components/search/useQueryParse.ts": {
     "count": 1,
@@ -203,6 +195,10 @@
    "web/components/ui/urgency.ts": {
     "count": 2,
     "reason": "motion and timing constants until a foundation motion-token ruling (EXECUTION-PLAN 5.3: listed)"
+   },
+   "web/lib/auth/google.ts": {
+    "count": 1,
+    "reason": "Google start timeout (GOOGLE_START_TIMEOUT_MS, GSI-R S3): how long the card waits for sign-in/social before string 13; a behavioural timeout, not a motion token. Its home is GOOGLE_SIGN_IN in core/src/config/auth-limits.ts, which the security lane owned during GSI-UX: move it there next"
    },
    "web/lib/globe/flight.ts": {
     "count": 1,
