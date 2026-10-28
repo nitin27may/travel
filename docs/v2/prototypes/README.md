@@ -46,3 +46,7 @@ Each script takes Playwright arguments (`-g sun` for one group, `-g builder` for
 - Planner-only fields (notes, item done, stale, private) still live in `proto.planner.ext` until the planner moves to `trip.ext` (`contract.js` keeps `ext` as a plain object).
 - Demo trips are seeded into `proto.trips` only when it is empty. The planner's "Reseed" and "Clear" replace every trip in the browser.
 - Walkthrough screenshots are not committed (repo rule: shots only when a spec names them).
+
+## Status (27 Oct 2026)
+
+The owner accepted the three prototypes as OK for now. They are not pixel perfect (he named the checkboxes among other issues) and he will list the gaps later; do not polish further until that list exists (PLAN R-280).
