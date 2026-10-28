@@ -235,8 +235,31 @@
     if (navigator.share) { navigator.share({ title: park.name, text: park.name + ' on Trip Plans', url: url }).catch(function (err) { if (!err || err.name !== 'AbortError') ownSheet(); }); return; }
     ownSheet();
   }
+  /* STEP2-PR: Save to a trip opens the trip picker (spec 2.4): rows are My trips; the last row starts a new trip with this place.
+     Picking a trip opens it in edit mode with the add picker on this place. Trips are read from proto.trips; the demo trips are
+     seeded by /trip/ code (loaded on demand) when there are none. */
+  function loadTripSeed(done) {
+    var list = ['../shared/contract.js', '../shared/sun.js', '../shared/ics.js', '../builder/data.js', '../shared/engine.js', '../trip/ours.js', '../trip/doc.js'], i = 0;
+    (function next() { if (i >= list.length) { window.TripDoc.seed(); return done(); } var sc = document.createElement('script'); sc.src = list[i++]; sc.onload = next; sc.onerror = done; document.head.appendChild(sc); })();
+  }
+  function myTrips() { try { var a = JSON.parse(localStorage.getItem('proto.trips') || '[]'); return Array.isArray(a) ? a.filter(function (t) { return t && t.id && t.inMine !== false; }) : []; } catch (e) { return []; } }
+  function openTripPicker(opener) {
+    function draw() {
+      var trips = myTrips(), name = park.name;
+      var rows = trips.map(function (t) {
+        var d = t.dates || {}, when = d.from ? d.from : (d.month ? 'Month ' + d.month : 'No date'), n = (t.days || []).length;
+        return '<a class="btn trow" href="../trip/?id=' + encodeURIComponent(t.id) + '&amp;edit=1&amp;add=' + encodeURIComponent(slug) + '" data-trip="' + esc(t.id) + '"><span><b>' + esc(t.title) + '</b><br><small>' + esc(when) + ' · ' + n + ' days</small></span></a>';
+      }).join('');
+      A.layer({ cls: 'sheet', id: 'tripsheet', label: 'Add ' + name + ' to a trip', opener: opener, initial: '.trow, #newtrip',
+        html: '<button class="btn ic x" aria-label="Close" data-close>&times;</button><h2>Add ' + esc(name) + ' to a trip</h2>' + (rows ? '<div class="trows" style="display:flex;flex-direction:column;gap:8px;margin:12px 0">' + rows + '</div>' : '<p class="cov">No trips yet.</p>') +
+          '<div class="btns"><a class="btn pri" id="newtrip" href="/builder/index.html?add=' + encodeURIComponent(slug) + '&amp;p=' + encodeURIComponent(park.slug) + '">Start a new trip with ' + esc(name) + '</a></div>' +
+          '<p style="margin-top:12px"><button class="btn" id="justsave">' + (A.isSaved(slug) ? 'Remove from saved' : 'Save for later, no trip') + '</button></p>',
+        mount: function (d) { d.querySelector('#justsave').onclick = function () { var on = A.toggleSaved(slug); A.toast(on ? 'Saved to your trip list' : 'Removed from saved'); var c = d.querySelector('[data-close]'); if (c) c.click(); }; } });
+    }
+    if (myTrips().length) draw(); else loadTripSeed(draw);
+  }
   function wire() {
-    var sv = document.getElementById('save'); sv.onclick = function () { var on = A.toggleSaved(slug); A.toast(on ? 'Saved to your trip list' : 'Removed from saved'); };
+    var sv = document.getElementById('save'); sv.onclick = function () { openTripPicker(sv); };
     document.getElementById('fav').onclick = function () { var f = favs(), i = f.indexOf(slug); if (i >= 0) f.splice(i, 1); else f.push(slug); try { localStorage.setItem('proto.fav', JSON.stringify(f)); } catch (e) {} render('#fav'); };
     document.getElementById('share').onclick = function (e) { openShare(e.currentTarget); };
     app.querySelectorAll('[data-more]').forEach(function (b) { b.onclick = function () { var li = b.closest('li'); li.classList.toggle('open'); b.setAttribute('aria-expanded', li.classList.contains('open')); b.textContent = li.classList.contains('open') ? 'Details ▴' : 'Details ▾'; }; });

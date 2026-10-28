@@ -1,0 +1,26 @@
+<!doctype html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Trip page frames (prototype)</title>
+<script src="../shared/theme.js"></script><link rel="stylesheet" href="/themes.css">
+<style>body{font:16px/1.5 system-ui,sans-serif;max-width:760px;margin:0 auto;padding:24px 16px;background:var(--bg);color:var(--ink)}a{color:var(--accent-text)}h2{margin-top:28px}li{margin:6px 0}small{color:var(--muted)}:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset)}</style></head><body>
+<h1>Trip page: every frame of edit-mode-spec 17</h1>
+<p><small>Placeholder content. The copy is "demo-copy" (template mode, 5 changes from our plan); the built trip is "demo-built". Each link is one frame; use Prototype controls on the page to change theme, sync state and offline.</small></p>
+<h2>Flows</h2><ul>
+<li><a href="/parks-app/park.html?slug=banff-national-park">Park page</a>, Save to a trip, pick a trip, edit mode with the picker open</li>
+<li><a href="/builder/index.html?m=trip&amp;cc=IT">Builder</a>, Build my days, lands on the trip page in edit mode</li>
+<li><a href="/trip/?copy=dolomites">Copy our Dolomites trip</a> (Make it yours card, Undo removes the copy)</li>
+<li><a href="/planner/index.html">Mine</a></li></ul>
+<h2>Our copy (template mode)</h2><ul>
+<li><a href="/trip/?id=demo-copy&amp;view=day">Read mode, Days</a> · <a href="/trip/?id=demo-copy">Read mode, Summary</a></li>
+<li><a href="/trip/?id=demo-copy&amp;edit=1">Edit mode at rest</a></li>
+<li><a href="/trip/?id=demo-copy&amp;edit=1&amp;sheet=item:seceda">Item sheet</a> · <a href="/trip/?id=demo-copy&amp;edit=1&amp;sheet=move:seceda">Move to day</a></li>
+<li><a href="/trip/?id=demo-copy&amp;edit=1&amp;sheet=add:7">Add a place to Day 7</a> · <a href="/trip/?id=demo-copy&amp;edit=1&amp;add=moraine-lake">Arriving with a place (Moraine Lake)</a> · <a href="/trip/?id=demo-copy&amp;edit=1&amp;add=banff-national-park">Arriving with a park</a></li>
+<li><a href="/trip/?id=demo-copy&amp;edit=1&amp;sheet=settings">Settings</a> · <a href="/trip/?id=demo-copy&amp;edit=1&amp;sheet=convert">Convert notice</a></li>
+<li><a href="/trip/?id=demo-copy&amp;edit=1&amp;sheet=changes">Changes from our plan</a></li>
+<li><a href="/trip/?id=demo-copy&amp;edit=1&amp;makeit=1">Make it yours</a> · <a href="/trip/?id=demo-copy&amp;edit=1&amp;sheet=day:3">Day menu</a> · <a href="/trip/?id=demo-copy&amp;edit=1&amp;sheet=drop:8">Drop a day</a></li></ul>
+<h2>Sync states and offline</h2><ul>
+<li><a href="/trip/?id=demo-copy&amp;edit=1&amp;sync=device">On this device</a> · <a href="/trip/?id=demo-copy&amp;edit=1&amp;sync=account">In your account</a> · <a href="/trip/?id=demo-copy&amp;edit=1&amp;sync=syncing">Syncing</a> · <a href="/trip/?id=demo-copy&amp;edit=1&amp;sync=pending">Not synced yet</a> · <a href="/trip/?id=demo-copy&amp;edit=1&amp;sync=failed">Not synced · Retry</a></li>
+<li><a href="/trip/?id=demo-copy&amp;edit=1&amp;offline=1">Offline</a> · <a href="/trip/?id=nothing-here&amp;edit=1">Not found</a></li></ul>
+<h2>Our trip made yours (built mode)</h2><ul>
+<li><a href="/trip/?id=demo-built&amp;view=day">Read mode, Days</a> · <a href="/trip/?id=demo-built&amp;edit=1">Edit mode at rest</a></li>
+<li><a href="/trip/?id=demo-built&amp;edit=1&amp;built=1">Just-built landing</a></li>
+<li><a href="/trip/?id=demo-built&amp;edit=1&amp;sheet=item:moraine-lake">Item sheet (Keep on day, Must see)</a> · <a href="/trip/?id=demo-built&amp;edit=1&amp;sheet=add:2">Add picker (your picks not on a day)</a> · <a href="/trip/?id=demo-built&amp;edit=1&amp;sheet=settings">Settings</a></li></ul>
+</body></html>

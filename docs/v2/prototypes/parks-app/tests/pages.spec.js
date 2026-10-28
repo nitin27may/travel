@@ -190,6 +190,7 @@ test('source links and row links open their stored URL (a placeholder URL, shown
 test('Save toggles and survives a reload; Saved drawer returns focus', async ({ page, base }) => {
   await page.goto(base + '/parks-app/park.html?slug=jasper-national-park');
   await page.locator('#save').click();
+  await page.locator('#justsave').click();   // STEP2-PR: Save to a trip opens the trip picker; the last choice saves for later
   await expect(page.locator('#save')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.locator('#savedn')).toHaveText('1');
   await page.locator('#savedbtn').focus(); await page.keyboard.press('Enter');
