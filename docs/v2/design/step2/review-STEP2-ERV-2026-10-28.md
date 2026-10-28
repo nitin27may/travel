@@ -100,13 +100,13 @@ Branch `step2/ERFIX`, code commit `744f301a`. Evidence is in `/Users/nks/workspa
 | ER-019 | fixed | stepper labels use the field label style in the sheet. `05-settings-*`; e2e ER-019 |
 | ER-020 | fixed | the line above the tabs is for Days only. e2e ER-017/020 |
 | ER-021 | fixed | ⌘Z and ⇧⌘Z on Apple platforms |
-| ER-022 | **deferred** | owner package UI1 (sticky bar layout). The content column is width-capped, so the 15-day strip and the tools cannot share one line at any window width; the fix needs UI1's bar rework with the sync word moved to the cover meta, measured, not a breakpoint |
+| ER-022 | fixed (STEP2 LUNCH) | measured, not a breakpoint: PlanBar puts the tools on the strip's line when every day, every tool and Export fit there (first with the party words, then without them, since Settings owns Who is going while editing), else on the second line. The quiet sync word moved to the cover meta (a failed sync with Retry stays in the tools). The 15-day Rockies copy: one 57 px line at 1440 and 1760 (was 95), a second line at 1280. e2e `t-edit-chrome` laptop 1280/1440/1760 |
 | ER-023 | fixed | the handle slot's width is reserved on your own trip in read mode. e2e ER-023 |
 | ER-024 | fixed | towns leave the near list and the plan model's nearby candidates (a search still finds them) |
 | ER-025 | UI2 | not in this lane |
 | ER-026 | fixed | spec 8 and README 4.3 now say 460 px |
 
-Found while fixing: Rockies Day 8 with Cavell Meadows added gets a second lunch (the add-invariants test skips that one case, with a comment; owner LEG, `core/src/schedule`).
+Found while fixing: Rockies Day 8 with Cavell Meadows added gets a second lunch. Fixed in STEP2 LUNCH (`core/src/schedule/schedule.ts`): the plan's own lunch row is the day's one lunch, so no rule generates a second while it lies ahead, and behind a stop the person added it is pulled forward once lunch is due. The add-invariants test runs that case again and every candidate on every Rockies and Dolomites day.
 
 ## What works (keep)
 

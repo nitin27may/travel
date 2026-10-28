@@ -336,3 +336,28 @@ describe("a whole trip", () => {
     expect(kinds(scheduleDay(rockies5(), family(6))).length).toBeGreaterThan(10);
   });
 });
+
+describe("the plan's own lunch row is the day's one lunch (ERFIX double lunch)", () => {
+  const stops = (lunch: Partial<Parameters<typeof item>[3]> = {}) => [
+    item("museum", "visit", "Museum", { durationMin: 240 }),
+    item("added", "visit", "Added stop", { durationMin: 60 }),
+    item("lunch", "meal", "Lunch at the lodge", { sub: "lunch", durationMin: 45, ...lunch }),
+    item("walk", "trail", "Walk", { sub: "hike", durationMin: 60 }),
+  ];
+  const lunches = (t: DayTimeline) => t.entries.filter((e) => e.kind === "meal" && e.sub === "lunch");
+
+  it("an addition before it, once lunch is due: the plan's row comes first, no generated lunch, the plan's order kept", () => {
+    const t = scheduleDay(day([variant("main", stops())]), profile(), { visitor: ["added"] });
+    expect(lunches(t).map((e) => e.id)).toEqual(["lunch"]);
+    const order = t.entries.filter((e) => ["museum", "added", "lunch", "walk"].includes(e.id)).map((e) => e.id);
+    expect(order).toEqual(["museum", "lunch", "added", "walk"]);
+  });
+  it("a pinned lunch row stays where it is pinned, and no rule draws another before it", () => {
+    const t = scheduleDay(day([variant("main", stops({ start: at("14:30") }))]), profile(), { visitor: ["added"] });
+    expect(lunches(t).map((e) => [e.id, e.start])).toEqual([["lunch", "14:30"]]);
+  });
+  it("without an addition the published day is unchanged: one lunch, the plan's", () => {
+    const t = scheduleDay(day([variant("main", stops().filter((i) => i.id !== "added"))]), profile());
+    expect(lunches(t).map((e) => e.id)).toEqual(["lunch"]);
+  });
+});

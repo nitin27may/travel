@@ -47,18 +47,40 @@ export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, map
   const rail = useRef<HTMLOListElement>(null);
   const kept = useRailParty();
   const tools = useExtras()?.tools;
-  // SW-005: a rail longer than the screen fades at the edge that has more days, so 6 visible days do not read as the whole trip
+  const bar = useRef<HTMLElement>(null);
+  // SW-005: a rail longer than the screen says so at the edge that has more days, so 6 visible days do not read as the whole trip. The cells
+  // are measured: a day cut by the strip's edge is not drawn (it would read "1" for 12) and the last whole day before it is dimmed (the 768
+  // rail, ERFIX shots 12-rail-day*). The cut cell stays focusable, and focus scrolls it into view.
   const [more, setMore] = useState(false);
   useEffect(() => {
     const box = rail.current;
     if (!box) return;
-    const sync = () => setMore(box.scrollWidth - box.clientWidth - box.scrollLeft > 2);
+    const sync = () => {
+      setMore(box.scrollWidth - box.clientWidth - box.scrollLeft > 2);
+      const b = box.getBoundingClientRect();
+      const cells = [...box.querySelectorAll<HTMLElement>('li')];
+      const seen = cells.map((li) => {
+        const r = li.getBoundingClientRect();
+        return r.right <= b.left + 1 || r.left >= b.right - 1 ? 'out' : r.left < b.left - 1 || r.right > b.right + 1 ? 'cut' : 'in';
+      });
+      const first = seen.indexOf('in');
+      const last = seen.lastIndexOf('in');
+      cells.forEach((li, i) => {
+        const edge = seen[i] === 'cut' ? 'cut' : (i === first && i > 0) || (i === last && i < cells.length - 1) ? 'dim' : null;
+        if (edge) li.dataset.edge = edge;
+        else delete li.dataset.edge;
+      });
+    };
     sync();
     box.addEventListener('scroll', sync, { passive: true });
     window.addEventListener('resize', sync);
+    // the strip's own width changes without a scroll or a window resize (the tools move to or from its line, the party words load)
+    const watch = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(sync);
+    watch?.observe(box);
     return () => {
       box.removeEventListener('scroll', sync);
       window.removeEventListener('resize', sync);
+      watch?.disconnect();
     };
   }, [model.days.length]);
   // the active day sits in the middle of the strip. The strip's width changes after the first paint (the tools row wraps to a second line
@@ -85,14 +107,51 @@ export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, map
     watch.observe(box);
     return () => watch.disconnect();
   }, [active]);
+  // ER-022: the edit tools sit on the strip's line when everything fits there, measured (not a breakpoint): first with the party words,
+  // then without them (Settings owns Who is going while editing, ER-009); otherwise they take the bar's second line. Every day stays visible.
+  const [fit, setFit] = useState<'inline' | 'bare' | null>(null);
+  const lineW = useRef(0);
+  useEffect(() => {
+    const nav = bar.current;
+    const box = rail.current;
+    if (!nav || !box || !tools || typeof ResizeObserver === 'undefined') {
+      setFit(null);
+      return;
+    }
+    const measure = () => {
+      const kit = nav.querySelector<HTMLElement>('.tl-planbar-tools .edit-tools');
+      const shown = (el: Element | null): el is HTMLElement => !!el && (el as HTMLElement).offsetParent !== null;
+      if (!shown(kit)) return setFit(null);
+      const kids = [...kit.children] as HTMLElement[];
+      const toolsW = kids.length ? kids[kids.length - 1]!.getBoundingClientRect().right - kids[0]!.getBoundingClientRect().left : 0;
+      const line = nav.querySelector<HTMLElement>('.tl-planbar-line');
+      if (shown(line)) lineW.current = line.getBoundingClientRect().width;
+      const css = getComputedStyle(nav);
+      const gap = parseFloat(css.columnGap) || 0;
+      const room = nav.clientWidth - parseFloat(css.paddingLeft) - parseFloat(css.paddingRight);
+      const parts = [nav.querySelector('.own-id'), nav.querySelector('.tl-planbar-export')].filter(shown).map((el) => el.getBoundingClientRect().width);
+      const base = [...parts, box.scrollWidth, toolsW];
+      const need = (xs: number[]) => xs.reduce((n, x) => n + x, 0) + gap * (xs.length - 1);
+      setFit(need([...base, lineW.current]) <= room ? 'inline' : need(base) <= room ? 'bare' : null);
+    };
+    measure();
+    // every part of the bar is watched, not only the bar: Export's menu loads after the first paint, and on one line a part that grows
+    // does not resize the bar
+    const watch = new ResizeObserver(measure);
+    watch.observe(nav);
+    for (const el of [...nav.children, ...nav.querySelectorAll('.edit-tools, .tl-planbar-export > *')]) watch.observe(el);
+    return () => watch.disconnect();
+  }, [tools, kept, model.days.length]);
   return (
-    <nav className="tl-planbar" aria-label="Days" data-print="hide">
+    <nav className="tl-planbar" aria-label="Days" data-print="hide" ref={bar} data-tools={tools ? (fit ?? 'below') : undefined}>
       {lead}
       <p className="tl-planbar-line num">
         <span className="tl-planbar-who">
           {kept ? (
             <>
-              <span className="tl-planbar-party" title={kept.shared ? undefined : partyText(kept)}>{kept.shared ? (kept.own ? 'Your copy' : 'Shared plan') : partyText(kept)}</span> · <span className="tl-planbar-pace">{PACE_WORD[kept.pace]}</span>
+              <span className="tl-planbar-party" title={kept.shared ? undefined : partyText(kept)}>{kept.shared ? (kept.own ? 'Your copy' : 'Shared plan') : partyText(kept)}</span>
+              {/* the separator is the pace's own first word, so it shrinks away with the pace and never trails a truncated party ("… ·", SW-006/B2) */}
+              <span className="tl-planbar-pace">{' · '}{PACE_WORD[kept.pace]}</span>
             </>
           ) : (
             label

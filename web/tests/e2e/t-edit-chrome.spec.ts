@@ -67,35 +67,60 @@ test.describe('edit chrome by width', () => {
     });
   }
 
-  for (const width of [1280, 1440]) {
-    test(`laptop ${width}: the day strip shows every day and the tools take a second line`, async ({ page, site }) => {
+  // ER-022: the tools share the strip's line when every day and every tool fit there, measured, not a breakpoint; else a second line.
+  // The 15-day Rockies copy: 1280 has no room (second line); 1440 and 1760 do once the party words step aside (Settings owns them).
+  for (const [width, want] of [[1280, 'below'], [1440, 'bare'], [1760, 'bare']] as const) {
+    test(`laptop ${width}: every day shows and the tools sit ${want === 'below' ? 'on a second line' : 'on the strip\'s line'}`, async ({ page, site }) => {
       await page.setViewportSize({ width, height: 900 });
       await open(page, site);
+      const bar = page.locator('.tl-planbar');
+      await expect(bar).toHaveAttribute('data-tools', want);
       const rail = page.locator('.tl-planbar .tl-rail-days');
-      const fits = await rail.evaluate((el) => el.scrollWidth <= el.clientWidth + 1);
-      expect(fits).toBe(true);
+      expect(await rail.evaluate((el) => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
       expect(await rail.locator('li').count()).toBe(days);
-      const bar = (await page.locator('.tl-planbar').boundingBox())!;
+      expect(await rail.locator('li[data-edge]').count()).toBe(0);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
+      const b = (await bar.boundingBox())!;
       const tools = (await page.locator('.tl-planbar .edit-tools').boundingBox())!;
-      const railBox = (await rail.boundingBox())!;
-      expect(tools.y).toBeGreaterThanOrEqual(railBox.y + railBox.height - 1);
-      expect(tools.y + tools.height).toBeLessThanOrEqual(bar.y + bar.height + 1);
+      const r = (await rail.boundingBox())!;
       expect(tools.x + tools.width).toBeLessThanOrEqual(width);
+      expect(tools.y + tools.height).toBeLessThanOrEqual(b.y + b.height + 1);
+      if (want === 'below') expect(tools.y).toBeGreaterThanOrEqual(r.y + r.height - 1);
+      else {
+        expect(Math.abs(tools.y + tools.height / 2 - (r.y + r.height / 2))).toBeLessThan(6);
+        expect(tools.x).toBeGreaterThanOrEqual(r.x + r.width);
+        expect(b.height).toBeLessThan(70);
+        // Export (its menu loads after the first paint) sits on the same line, centred with the tools
+        const exp = page.locator('.tl-planbar-export button').first();
+        await expect(exp).toBeVisible();
+        const e = (await exp.boundingBox())!;
+        expect(Math.abs(e.y + e.height / 2 - (tools.y + tools.height / 2))).toBeLessThan(6);
+        expect(e.x + e.width).toBeLessThanOrEqual(width);
+      }
+      // the quiet sync word is in the cover meta, not the sticky row
+      await expect(page.locator('.tl-planbar .own-sync')).toHaveCount(0);
+      await expect(page.locator('.own-state .own-sync')).toHaveText('On this device');
     });
   }
 
-  test('laptop 1760: still every day, tools and Export on the second line', async ({ page, site }) => {
-    await page.setViewportSize({ width: 1760, height: 900 });
+  test('768: a day cut by the strip edge is not drawn, and the last whole day before more days is dimmed', async ({ page, site }) => {
+    await page.setViewportSize({ width: 768, height: 1024 });
     await open(page, site);
+    await page.waitForTimeout(600);
     const rail = page.locator('.tl-planbar .tl-rail-days');
-    expect(await rail.evaluate((el) => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
-    const bar = (await page.locator('.tl-planbar').boundingBox())!;
-    const exp = (await page.locator('.tl-planbar-export').boundingBox())!;
-    const tools = (await page.locator('.tl-planbar .edit-tools').boundingBox())!;
-    expect(Math.abs(exp.y - tools.y)).toBeLessThan(40);
-    expect(exp.y + exp.height).toBeLessThanOrEqual(bar.y + bar.height + 1);
-    expect(bar.height).toBeLessThan(130);
+    const seen = await rail.evaluate((box) => {
+      const b = box.getBoundingClientRect();
+      return [...box.querySelectorAll('li')].map((li) => {
+        const r = li.getBoundingClientRect();
+        const cell = li.querySelector('a')!;
+        const cut = r.right > b.left + 1 && r.left < b.right - 1 && (r.left < b.left - 1 || r.right > b.right + 1);
+        return { cut, edge: li.dataset.edge ?? null, opacity: Number(getComputedStyle(cell).opacity) };
+      });
+    });
+    expect(seen.some((c) => c.edge === 'dim')).toBe(true);
+    for (const c of seen) if (c.cut) expect(c.opacity).toBe(0);
   });
+
   test('the public sticky row is unchanged: no tools, one line at 1440', async ({ page, site }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(`${site.url}/trips/${SLUG}/?view=day`);

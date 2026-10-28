@@ -54,4 +54,5 @@
 .tl-railedit::after { content: ''; position: absolute; inset: 50% auto auto 50%; width: max(100%, var(--touch-min)); height: var(--touch-min); transform: translate(-50%, -50%); }
 .tl-railedit:hover { background: var(--surface-2); color: var(--ink); }
 .tl-railedit:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
-@media (max-width: 639px) { .tl-planbar .tl-planbar-line { max-width: none; } }
+/* the party line is the phone bar's whole first row, so the day strip always wraps to its own row (it never shrinks beside a short party line) */
+@media (max-width: 639px) { .tl-planbar .tl-planbar-line { max-width: none; flex: 1 0 100%; } }

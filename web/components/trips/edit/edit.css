@@ -88,6 +88,11 @@ html[data-trip-editing] .bottom-bar, html[data-trip-editing] .to-top { display: 
   .tl-planbar-tools .edit-tools { justify-content: flex-end; }
 }
 @media (min-width: 640px) and (max-width: 1023px) { .tl-planbar-tools { flex-basis: 100%; } }
+/* ER-022: measured by PlanBar, the tools share the strip's line when every day and every tool fit there; without the party words when
+   only that makes room (Settings owns Who is going while editing). One line: the bar is about 52 px instead of 95 */
+.tl-planbar[data-tools='inline'], .tl-planbar[data-tools='bare'] { flex-wrap: nowrap; }
+.tl-planbar[data-tools='inline'] .tl-planbar-tools, .tl-planbar[data-tools='bare'] .tl-planbar-tools { flex: none; margin-left: auto; }
+.tl-planbar[data-tools='bare'] .tl-planbar-line { display: none; }
 
 /* the cover's `⋯` */
 .edit-trip-more { flex: none; }

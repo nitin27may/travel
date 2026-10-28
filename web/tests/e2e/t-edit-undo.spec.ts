@@ -97,7 +97,8 @@ test.describe('edit mode: undo, redo, changes, reset', () => {
 
   test('the sync word reads On this device on a signed-out device, and edit mode is announced', async ({ page, site }) => {
     await open(page, site);
-    await expect(page.locator('.edit-tools .own-sync')).toHaveText('On this device');
+    await expect(page.locator('.own-state .own-sync')).toHaveText('On this device');
+    await expect(page.locator('.edit-tools .own-sync')).toHaveCount(0); // ER-022: the quiet word is in the cover meta, not the sticky row
     await removeFirst(page, 1);
     await expect(page.locator('[role="status"][aria-live="polite"]').filter({ hasText: /Removed .+ from Day 1/ }).first()).toBeAttached();
   });

@@ -79,8 +79,12 @@ test.describe('edit mode: the Stops tab, print and export', () => {
     await page.getByRole('menuitem', { name: /^Remove from Day 3/ }).click();
     await page.locator('#day-5 .tl-add-open').click();
     const dlg = page.getByRole('dialog', { name: /Add a place|Add /i });
-    const row = dlg.locator('.add-row').filter({ has: page.getByRole('button', { name: /^Add .* to Day 5$/ }) }).filter({ hasNotText: 'Day full' }).first();
-    const added = (await row.locator('.add-title').textContent())!.trim();
+    // the fit lines are worked out after the list paints ("Working out the day"): pick once they have settled, then click that row by
+    // its name, so a row that turns "Day full" meanwhile cannot shift which place is added
+    await expect(dlg.locator('.add-row .add-fit[data-fit="wait"]')).toHaveCount(0);
+    const pick = dlg.locator('.add-row').filter({ has: page.getByRole('button', { name: /^Add .* to Day 5$/ }) }).filter({ hasNotText: 'Day full' }).first();
+    const added = (await pick.locator('.add-title').textContent())!.trim();
+    const row = dlg.locator('.add-row').filter({ has: page.locator('.add-title', { hasText: new RegExp(`^${added.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`) }) }).first();
     await row.getByRole('button', { name: /^Add / }).click();
     await page.keyboard.press('Escape');
     await expect.poll(() => stopTitles(page, 5)).toContain(added);
@@ -105,8 +109,12 @@ test.describe('edit mode: the Stops tab, print and export', () => {
     await page.getByRole('menuitem', { name: /^Remove from Day 3/ }).click();
     await page.locator('#day-5 .tl-add-open').click();
     const dlg = page.getByRole('dialog', { name: /Add a place|Add /i });
-    const row = dlg.locator('.add-row').filter({ has: page.getByRole('button', { name: /^Add .* to Day 5$/ }) }).filter({ hasNotText: 'Day full' }).first();
-    const added = (await row.locator('.add-title').textContent())!.trim();
+    // the fit lines are worked out after the list paints ("Working out the day"): pick once they have settled, then click that row by
+    // its name, so a row that turns "Day full" meanwhile cannot shift which place is added
+    await expect(dlg.locator('.add-row .add-fit[data-fit="wait"]')).toHaveCount(0);
+    const pick = dlg.locator('.add-row').filter({ has: page.getByRole('button', { name: /^Add .* to Day 5$/ }) }).filter({ hasNotText: 'Day full' }).first();
+    const added = (await pick.locator('.add-title').textContent())!.trim();
+    const row = dlg.locator('.add-row').filter({ has: page.locator('.add-title', { hasText: new RegExp(`^${added.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`) }) }).first();
     await row.getByRole('button', { name: /^Add / }).click();
     await page.keyboard.press('Escape');
     await expect.poll(() => stopTitles(page, 5)).toContain(added);
