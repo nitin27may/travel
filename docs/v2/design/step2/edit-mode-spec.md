@@ -65,8 +65,8 @@ reopened later from Mine opens in read mode (2.3), because the 90% reopen is to 
 |---|---|
 | URL | `edit=1` added with `pushState`; Back returns to read mode at the same tab, day and scroll (P5). Edit mode is never the only way to a fact: everything in edit mode is readable in read mode |
 | Loading | the edit chunk (`web/components/trips/edit/**`) loads on the first **Edit trip** press or when `edit=1` is in the URL; hovering or focusing Edit trip prefetches it. While it loads, the button shows a 14 px spinner and the page stays as it is |
-| Desktop chrome | the sticky row (plan bar on Days) shows, at its right: **Undo**, **Redo** (icon buttons, 38 px, hit 44, disabled when the stack is empty), the changes count for copies ("4 changes"), **Settings**, **Done** (the only filled button). The cover's Edit trip becomes Done too |
-| Phone chrome | the public bottom bar is replaced by the **edit bar**: Settings (left) · Done (right, filled); Undo and Redo live in the toast and in the cover's `⋯` (FLOW TF18). The edit bar sits above the safe area; the back-to-top button hides while it shows |
+| Desktop chrome | the sticky row (plan bar on Days) shows, at its right: **Undo**, **Redo** (icon buttons, 38 px, hit 44, disabled when the stack is empty), the changes count for copies ("4 changes"), **Settings**, **Done** (the only filled button). The cover's Edit trip becomes a secondary **Done** (outlined, never filled) so the page never shows two filled buttons (README ruling C1). The cover title keeps its display size and box: the title is the input itself, with a dashed underline and a pencil, Enter saves, Esc reverts (P5, patterns 4.3) |
+| Phone chrome | the public bottom bar is replaced by the **edit bar**: Settings (left) · Done (right, filled; the cover's Done is secondary there too); the "n to fix" count is a button on its own line under the tabs that jumps to the first Fix warning, never inside the tab row; Undo and Redo live in the toast and in the cover's `⋯` (FLOW TF18). The edit bar sits above the safe area; the back-to-top button hides while it shows |
 | Done | turns edit mode off (`pushState` removes `edit=1`), keeps the day and scroll, toast none (nothing to confirm: every edit is saved). If an op is still in the outbox the sync word says "Syncing" or "Not synced yet"; Done never waits |
 | Keyboard | `E` toggles edit mode when focus is on the page and not in a field (listed under `?`, turned off with the single-letter keys setting, WCAG 2.1.4) |
 | Screen reader | the cover region announces "Editing Canadian Rockies" (polite) on entry and "Done editing" on exit |
@@ -129,7 +129,7 @@ leaves the Bookings tab with it and comes back on Undo (trip-overview 5.4).
 | Free time | "2 h 10 free" from the day's timeline |
 | Driving change | "+35 min driving ≈" from the drive model (`modelDrive` for a template copy; the re-flow chunk for built) |
 | Fit chip | **Fits** or **Tight** (Tight: the day would raise a Check-level warning); a day that would raise a Fix-level warning says why ("Closed on Thursdays") and stays choosable (never block, Q-BE6) |
-| Current day | listed first, disabled, "Now on Day 3" |
+| Current day | in day order like the others, disabled, "Now on Day 3" (README ruling C3: listing it first breaks the order a reader scans by) |
 
 Inserted days are listed with their label ("Day 6 (added)"). The sheet has at most `PLAN_DOC_LIMITS.templateDays` rows; a
 long trip scrolls inside the sheet.
@@ -164,7 +164,7 @@ and turn off with one setting in the `?` list (FLOW 7.1, WCAG 2.1.4).
 | Version of Day n | day `⋯` and the existing day menu (copies, before conversion) **[assumed Q-BE2]** | `setVariant` | gone after conversion | the menu shows each version's consequence line (exists) | toast "Day 5 now uses version C · Undo" |
 | Add a note | day `⋯`, or "Add a note" under the day title | `setNote` (key the day) | `setNote` | | |
 | Reorder days | **built mode only**, day `⋯` "Move Day 5 earlier" or "later", **inside one base's run** (`moveDay`, new in STEP2-C1); never on a copy | | `moveDay` | a copy's days are tied to our plan's bases, versions and bookings; moving stops covers the need | toast with Undo |
-| An emptied day | | | | "No stops on Day 4 · Add a place to Day 4 · Drop Day 4" | |
+| An emptied day | | | | "No stops on Day 4 · Add a place to Day 4 · Drop Day 4"; dropping an empty day happens at once with an Undo toast, no question (foundation 4.4) | |
 
 ## 7. The add-a-place picker
 
@@ -210,8 +210,7 @@ it; the sheet's close returns focus to the day's add row. Each add is one undo s
 ### 7.4 Arriving with a place (`add=<slug>`)
 
 The picker opens with that place pinned at the top as "Moraine Lake" with one row per day, best fit first ("Day 5 · Lake
-Louise · fits after Lake Agnes · +20 min ≈"); **Add to Day 5** on each. A park slug opens the park's members group instead
-(the park itself is never a stop, TB-PIN R1). A slug the catalogue does not hold: "We do not have this place any more."
+Louise · fits after Lake Agnes · +20 min ≈"); **Add to Day 5** on each. A park slug opens the park's members instead (the park itself is never a stop, TB-PIN R1): titled "Add a place in Banff National Park", members not on the trip first, each with its best day and **Add to Day n**; members already on the trip show "On Day n" and no Move button (README ruling C5). A place or park beyond `ADD_PIN_FAR_KM` (100 km) of every base shows one line, "Moraine Lake is 8,100 km from this trip's bases.", and **Start a new trip with Moraine Lake**, with no day rows (an impossible leg is never Tight; README ruling M3). A slug the catalogue does not hold: "We do not have this place any more."
 `add` is removed from the URL once the picker opens.
 
 ### 7.5 Limits and empty
@@ -274,7 +273,7 @@ a URL, share text, log or export other than the person's own.
 | Sync and undo | an undo is a new op (the inverse) sent like any other; a step whose target another device removed is dropped from the stack with the rebase notice (12) |
 | Reset Day n (copies) | one op (`reset` with the day), undoable; no confirm |
 | Reset to our plan (copies) | one op (`reset` with `day: null`), undoable this session; confirms when it discards more than `PLAN_EDIT.resetConfirmOver` (3) changes: "Reset to our plan? Your 7 changes are removed. You can undo this until you leave the page." **Reset** (danger) · Cancel first in tab order (ruling R7). After conversion the same label replaces the trip with our current plan as a new copy in place (the confirm says so) |
-| Changes from our plan (copies) | one collapsed line above Day 1 and at the top of the Summary: "4 changes from our plan · Show" (P3); Show opens the **Changes from our plan** sheet (the prototype's Compare before-and-after sheet is not built; this list is the comparison): one row per template entry (added, removed, moved, version, day ops, notes), newest first, each with what and where ("Removed Moose Lake Loop from Day 5") and **Restore** (an op with an inverse, `deleteEntry` or `restoreEntry`); a header link "Open our Canadian Rockies trip" (new tab) |
+| Changes from our plan (copies) | one collapsed line above Day 1 and at the top of the Summary: "4 changes from our plan · Show" (P3); Show opens the **Changes from our plan** sheet (the prototype's Compare before-and-after sheet is not built; this list is the comparison): one row per template entry (added, removed, moved, version, day ops, notes), newest first, each with what and where ("Removed Moose Lake Loop from Day 5"; a note shows its text) and one button that names its action (an op with an inverse, `deleteEntry` or `restoreEntry`): **Remove it** on an Added row, **Put it back** on a Removed row, **Move it back** on a Moved row, **Remove note**, **Use our version**, **Remove day** (README ruling C4); a header link "Open our Canadian Rockies trip" (new tab) |
 | No History list | not in v1 (Q-BE4) |
 
 ## 11. Warnings: two levels, never block (Q-BE6)
@@ -464,4 +463,5 @@ No number above becomes a literal in code. Each lives in one home; the build pac
 
 | Date | Change |
 |---|---|
+| 2026-10-28 | Amended by the rulings of README 6.1 (C1 to C6): cover Done secondary, title keeps its size, current day in order, park and far pins in 7.4, per-kind verbs in 10, empty day drops at once |
 | 2026-10-27 | Created (STEP2-PLAN, travel-planner, Opus) |
