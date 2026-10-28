@@ -1,5 +1,7 @@
 # Capture research backlog: places and relations the migration could not create
 
+> Pending data work from this list is ordered in [DATA-PLAN](../docs/v2/build/DATA-PLAN.md) 2.4.5 (28 Oct 2026).
+
 For the gap-filling pass (capture contract 11, step 7). Each item is a record or a relation that the spec's worked examples (2.7.1)
 need and that no lane has researched. The migration does not invent them: a name, a point and a source come from research, a
 `part/<ref>#<slug>` or `offer/<ref>#<slug>` ref is given, and the relation is stored in the trip's capture sidecar.
