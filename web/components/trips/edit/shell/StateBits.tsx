@@ -13,7 +13,7 @@ export function SyncState({ word, onRetry }: { word: SyncWord; onRetry: (() => v
   const retry = word === 'Not synced · Retry';
   return (
     <span className="own-sync num" data-busy={word === 'Syncing' || undefined} data-retry={retry || undefined} role="status">
-      <span className="own-dot" aria-hidden="true" />
+      {word === 'In your account' ? <Icon name="cloud" size={14} className="own-sync-ico" /> : word === 'On this device' ? <Icon name="device" size={14} className="own-sync-ico" /> : <span className="own-dot" aria-hidden="true" />}
       {retry && onRetry ? (
         <>
           Not synced
@@ -93,5 +93,14 @@ export function NotBuilt({ id }: { id: string }) {
       why="This trip has places but no days yet."
       action={<ButtonLink variant="primary" href={`/plan/?draft=${id}&s=4`}>Open the builder</ButtonLink>}
     />
+  );
+}
+
+/** "4 changes from our plan · Show": one collapsed line above Day 1 (P3); Show opens the changes sheet (edit-mode-spec 10). */
+export function ChangesLine({ text, onShow }: { text: string; onShow: () => void }) {
+  return (
+    <p className="own-changes-line" data-print="hide">
+      <b>{text}</b> · <button type="button" className="own-link" onClick={onShow}>Show</button>
+    </p>
   );
 }

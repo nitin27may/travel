@@ -6,7 +6,7 @@ import type { TimelineUrlState } from '@travel/core/schedule/profileCodec.ts';
 import type { Profile } from '@travel/core/schedule/types.ts';
 import type { PlanOp } from '@travel/core/plan/ops.ts';
 import type { PlanDraft } from '@travel/core/schema/plan-draft.ts';
-import type { TimelineChange, TimelineSource } from '@/components/trips/timeline/useTimeline';
+import type { SourceDelta, TimelineChange, TimelineSource } from '@/components/trips/timeline/useTimeline';
 
 /** The age a child of unknown age is planned for (core `DEFAULT_CHILD_AGE`, pinned equal in tests/trip-edit/source.test.ts). */
 const CHILD_AGE = 10;
@@ -79,15 +79,29 @@ export function opsFor(d: PlanDraft, next: TimelineUrlState, change: TimelineCha
   }
 }
 
+/** The removals, moves and explicit placements of a template document, as the timeline's scheduler reads them. */
+export function deltaOfDraft(d: PlanDraft): SourceDelta {
+  const t = d.template;
+  if (!t) return { removed: [], moved: [], added: [] };
+  return {
+    removed: t.removed.map((r) => ({ op: r.op, day: r.day, item: r.item })),
+    moved: t.moved.map((m) => ({ op: m.op, day: m.day, item: m.item, toDay: m.toDay, ...(m.after ? { after: m.after } : {}) })),
+    added: t.added.filter((a) => a.ref.startsWith(PLACE)).map((a) => ({ op: a.op, day: a.day, slug: a.ref.slice(PLACE.length), ...(a.after ? { after: a.after } : {}) })),
+  };
+}
+
 /** The source for one document. `apply` saves operations (open.ts) and answers whether they were taken. */
 export function documentSource(d: PlanDraft, defaults: Profile, apply: (ops: PlanOp[]) => unknown, newId?: () => string): TimelineSource {
   const state = stateOfDraft(d, defaults);
-  const changed = planChanged(state);
+  const delta = deltaOfDraft(d);
+  const edited = delta.removed.length > 0 || delta.moved.length > 0;
+  const changed = planChanged(state) || edited;
   return {
     state,
     defaults,
+    delta,
     // the server's timelines stand while the document plans exactly as the plan was written
-    plain: !isChanged(state, defaults),
+    plain: !isChanged(state, defaults) && !edited,
     changed,
     write: (next, change) => {
       const ops = opsFor(d, next, change, newId);

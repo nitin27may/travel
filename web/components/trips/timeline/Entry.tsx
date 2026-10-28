@@ -14,6 +14,7 @@ import { CONF_LABEL, fixedLabel, honestyLabel, KIND_WORD, MODE_WORD, SOURCE_LABE
 import { entryKey } from '../mapPins';
 import { useMapLink } from './MapLink';
 import { FLIGHT_NOTE } from './marks';
+import { useTimelineExtras } from './editSlots';
 import { Prose } from './Prose';
 
 const GLYPH: Record<string, { ui?: IconName; tl?: TlIconName }> = {
@@ -29,6 +30,9 @@ function Glyph({ e, size = 15 }: { e: TimelineEntry; size?: number }) {
   const g = GLYPH[`${e.kind}:${e.sub ?? ''}`] ?? GLYPH[e.kind] ?? { ui: 'pin' as IconName };
   return g.tl ? <TlIcon name={g.tl} size={size} /> : <Icon name={g.ui ?? 'pin'} size={size} />;
 }
+
+// the flag is written out here so a build with it off folds the hook away (the public page carries none of this)
+const useExtras: typeof useTimelineExtras = process.env.NEXT_PUBLIC_TRIP_EDIT === '1' ? useTimelineExtras : () => null;
 
 const QUIET = new Set(['meal', 'break', 'rest', 'checkin', 'checkout', 'end', 'start', 'booking']);
 
@@ -82,13 +86,20 @@ interface Props {
   last?: string | null;
   dimmed?: boolean;
   laneOff?: boolean;
+  /** The day's entries in time order, for the edit slots (Move up and Move down). */
+  dayEntries?: readonly TimelineEntry[];
 }
 
 /** One entry on the day's time rail (design 4.2): time, node, glyph, title, chips, meta, note, warnings; opens to its sources. */
-export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last }: Props) {
+export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last, dayEntries }: Props) {
   const [open, setOpen] = useState(false);
   const [prefs] = usePrefs();
   const link = useMapLink();
+  // your own trip (STEP2-E1): marks under the title, and in edit mode the handle and `⋯` slots; null on the public page
+  const extras = useExtras();
+  const edit = extras?.edit;
+  const marks = extras?.marks?.(e).slice(0, 2) ?? [];
+  const stop = !!e.sourceItemId && !e.insideOf && !e.block && e.kind !== 'sun' && e.kind !== 'leg' && e.kind !== 'booking';
   const ek = entryKey(e.day, e.id);
   const num = link?.numbers.get(ek);
   const pinId = link?.pins.get(ek);
@@ -117,6 +128,7 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last }: Pr
       data-inside={e.insideOf ? '' : undefined}
       data-entry={`${e.day}:${e.id}`}
       data-pin={pinId}
+      data-edit={(edit && stop) || undefined}
     >
       <span className="tl-time num" data-conf={e.time.confidence} data-block={e.block ? '' : undefined}>
         <span aria-hidden="true">{e.block ?? timeText(e)}</span>
@@ -147,7 +159,7 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last }: Pr
           {link?.missing.has(ek) ? <span className="tl-nomap num">· not on the map</span> : null}
           {!quiet && e.kind !== 'leg' ? <EntrySuit slug={e.at?.placeSlug} title={e.title} kind={e.kind} /> : null}
           {e.addedBy === 'visitor' ? <Chip kind="idea" icon={false}>You added this</Chip> : null}
-          {e.addedBy === 'visitor' && onRemove ? (
+          {e.addedBy === 'visitor' && onRemove && !(edit && stop) ? (
             <button type="button" className="tl-remove tl-remove-now" data-print="hide" aria-label={`Remove ${e.title} from Day ${e.day}`} onClick={onRemove}>Remove</button>
           ) : null}
           {e.optional ? <Chip kind="neutral" icon={false}>Optional</Chip> : null}
@@ -156,6 +168,11 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last }: Pr
           ))}
           {moveText ? <span className="tl-moved num">{moveText}</span> : null}
         </p>
+        {marks.length ? (
+          <p className="tl-marks" aria-label="Changes to this stop">
+            {marks.map((m) => <Chip key={m} kind="neutral" icon={false}>{m}</Chip>)}
+          </p>
+        ) : null}
         {meta.length ? <p className="tl-meta num">{meta.join(' · ')}</p> : null}
         {e.time.note && (e.kind !== 'start' || e.time.note.startsWith(FLIGHT_NOTE)) ? <p className="tl-note"><Prose text={e.time.note} /></p> : null}
         {warnings.map((w) => (
@@ -207,6 +224,8 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last }: Pr
           </>
         ) : null}
       </div>
+      {edit && stop ? <div className="tl-edit-trail" data-print="hide">{edit.trail(e, dayEntries ?? [])}</div> : null}
+      {edit?.handle && stop ? <div className="tl-edit-handle" data-print="hide">{edit.handle(e)}</div> : null}
     </li>
   );
 }

@@ -5,7 +5,7 @@ import type { PlanDraft } from '@travel/core/schema/plan-draft.ts';
 export function changeCount(d: PlanDraft): number {
   const t = d.template;
   if (!t) return 0;
-  return Object.keys(t.overrides).length + t.added.length + t.removed.length + t.moved.length + t.days.length + Object.keys(t.notes).length;
+  return Object.keys(t.overrides).length + t.added.length + t.removed.length + t.moved.length + t.days.length + t.maybe.length + Object.keys(t.notes).length;
 }
 
 /** "3 changes from our plan"; '' for none. */
@@ -39,4 +39,14 @@ export function endOf(d: PlanDraft): string | null {
   if (!d.start || d.nights === null) return null;
   const t = Date.parse(`${d.start}T00:00:00Z`) + d.nights * 86_400_000;
   return new Date(t).toISOString().slice(0, 10);
+}
+
+/** The marks of one stop in words (edit-mode-spec 4.1; never colour alone): "Added by you", "Moved from Day 3". Template mode; built marks come with STEP2-B2. */
+export function entryMarks(d: PlanDraft): (e: { id: string; day: number; addedBy: string }) => string[] {
+  const moved = d.template?.moved ?? [];
+  return (e) => {
+    if (e.addedBy === 'visitor') return [ADDED_MARK];
+    const m = moved.find((x) => x.item === e.id && x.toDay === e.day && x.day !== e.day);
+    return m ? [`Moved from Day ${m.day}`] : [];
+  };
 }

@@ -8,6 +8,9 @@ import { PACE_WORD, partyText } from '@travel/core/trips/partyWords.ts';
 import { Icon } from '@/components/ui/Icon';
 import type { TimelineModel } from './model';
 import { railOpen, useRailParty } from './railWords';
+import { useTimelineExtras } from './editSlots';
+
+const useExtras: typeof useTimelineExtras = process.env.NEXT_PUBLIC_TRIP_EDIT === '1' ? useTimelineExtras : () => null;
 
 // Export trip at the right end of the bar from 1024 px (map note): the menu is its own chunk, so the bar's start JS does not carry it
 const ExportMenu = dynamic(() => import('@/components/actions/ExportMenu').then((m) => m.ExportMenu), { ssr: false });
@@ -43,6 +46,7 @@ export function MapButton({ onClick, open }: { onClick: () => void; open?: boole
 export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, mapOpen, lead }: Props) {
   const rail = useRef<HTMLOListElement>(null);
   const kept = useRailParty();
+  const tools = useExtras()?.tools;
   // SW-005: a rail longer than the screen fades at the edge that has more days, so 6 visible days do not read as the whole trip
   const [more, setMore] = useState(false);
   useEffect(() => {
@@ -103,6 +107,7 @@ export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, map
         ))}
       </ol>
       {onMap ? <MapButton onClick={onMap} open={mapOpen} /> : null}
+      {tools ? <div className="tl-planbar-tools" data-print="hide">{tools}</div> : null}
       <div className="tl-planbar-export" data-print="hide">
         <ExportMenu target={{ type: 'trip', slug }} formats={EXPORT_FORMATS} size="sm" />
       </div>

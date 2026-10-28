@@ -118,8 +118,9 @@ test.describe('/t/<id>/ read mode', () => {
 
   test('the settings sheet saves the party, the name and the start date at once', async ({ page, site }) => {
     await open(page, site, '?view=day');
-    await page.getByRole('button', { name: 'Edit trip' }).click();
-    const sheet = page.getByRole('dialog', { name: 'Edit trip' });
+    // the party line's Edit opens Settings (Edit trip now turns edit mode on, tests/e2e/t-edit-remove.spec.ts)
+    await page.locator('.pb-edit').click();
+    const sheet = page.getByRole('dialog', { name: 'Settings' });
     await expect(sheet).toBeVisible();
     await sheet.getByRole('button', { name: 'Fewer children' }).click();
     await expect(page.getByTestId('party-line')).toContainText('2 adults · Standard pace');
@@ -137,7 +138,9 @@ test.describe('/t/<id>/ read mode', () => {
     await expect(page.locator('h1.trip-title')).toHaveText('Rockies with the cousins');
     await expect(page.getByTestId('party-line')).toContainText('2 adults · Relaxed pace');
     const c = await stored(page);
-    expect(c).toMatchObject({ title: 'Rockies with the cousins', start: '2029-09-15', adults: 2, children: [] });
+    // the calendar offers days from today on, so which day the 21st offered is depends on the date the suite runs
+    expect(c).toMatchObject({ title: 'Rockies with the cousins', adults: 2, children: [] });
+    expect(c?.start).not.toBe('2029-09-08');
     expect(await page.evaluate((k) => localStorage.getItem(k), PARTY_KEY)).toBeNull();
   });
 

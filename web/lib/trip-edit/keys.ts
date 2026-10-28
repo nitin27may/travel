@@ -16,3 +16,11 @@ export const tripHref = (id: string, query = ''): string => `/t/${id}/${query ? 
 
 /** Mine's Open link: the trip on its days (edit-mode-spec 2.3). */
 export const openTripHref = (id: string): string => tripHref(id, 'view=day');
+
+/** The tab session's undo and redo stack for one trip (edit-mode-spec 10): sessionStorage, so a reload in the same tab keeps it; never synced. */
+export const undoKey = (id: string): string => `travel.trip-edit.undo.${id}`;
+/**
+ * The template lists a device copy cannot hold in `copies/1` (removed, moved, day operations, notes, Maybe, and the operation ids of
+ * its added places), per copy id. Device only; STEP2-P2 folds it when the device list becomes `plan-drafts/1`.
+ */
+export const DEVICE_EDITS_KEY = 'travel.trip-edit.device';

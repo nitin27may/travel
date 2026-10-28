@@ -10,6 +10,8 @@ export interface SummaryOwnProps {
   kids: number[];
   pace: string;
   changes: string;
+  /** Show on the changes line: opens the changes sheet. */
+  onShow?: () => void;
   /** The published trip's address and name, or null for a trip built from scratch. */
   ours: { href: string; title: string } | null;
 }
@@ -18,7 +20,7 @@ export interface SummaryOwnProps {
  * The Summary tab of the person's own trip (read mode). The published plan's Summary reads the whole catalogue trip; this one says what is
  * the person's: the dates, who is going, the pace and how the trip differs from ours, with the way back to our full plan.
  */
-export function SummaryOwn({ start, end, days, adults, kids, pace, changes, ours }: SummaryOwnProps) {
+export function SummaryOwn({ start, end, days, adults, kids, pace, changes, onShow, ours }: SummaryOwnProps) {
   return (
     <section className="own-sum sum-sec" aria-labelledby="own-sum-h">
       <h2 id="own-sum-h" className="trip-kicker-h">Your trip</h2>
@@ -42,7 +44,7 @@ export function SummaryOwn({ start, end, days, adults, kids, pace, changes, ours
         {changes ? (
           <div>
             <dt>Your changes</dt>
-            <dd>{changes}</dd>
+            <dd>{changes}{onShow ? <> · <button type="button" className="own-link" onClick={onShow}>Show</button></> : null}</dd>
           </div>
         ) : null}
       </dl>
