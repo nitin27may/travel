@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ADD_NEARBY_KM } from '@travel/core/config/nearby.ts';
 import { dayCapMin, fmtHM } from '@travel/core/schedule/rules.ts';
-import type { Profile } from '@travel/core/schedule/types.ts';
+import type { Profile, TimelineEntry } from '@travel/core/schedule/types.ts';
 import { BottomSheet } from '@/components/ui/BottomSheet';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
@@ -17,14 +17,20 @@ import { usePrefs } from '@/lib/format/prefs';
 import { formatDistance } from '@/lib/format/units';
 import { dayDate } from '@/lib/trip-edit/moveFit';
 import type { PlanDraft, PlanOp } from '@/lib/trip-edit/model';
-import { dayRef, movedWords, moveToDayOps, newOpId } from '@/lib/trip-edit/stopOps';
+import { dayRef, movedWords, moveToDayOps, newOpId, removeOps, swapForOps, swappedForWords } from '@/lib/trip-edit/stopOps';
 import { usePhone } from '../panel/useMatchMedia';
 import { Arrival } from './Arrival';
 import type { Fit } from './fit';
 import { PickRowView } from './PickRowView';
-import { anyRows, buildSections, centreOf, daysByDistance, titleWords, withGhosts, type Chips, type Ghost, type GroupId, type PickRow } from './rows';
+import { anyRows, isRainy, buildSections, centreOf, daysByDistance, titleWords, withGhosts, type Chips, type Ghost, type GroupId, type PickRow } from './rows';
 import { apiAvailable, newTripHref } from './source';
 import { useDayView, useDebounced, useFitter, useNearRows, useRowsOf, useSearchRows } from './useAdd';
+
+/** Swap for a nearby place: the stop the chosen place replaces, and its day's stops in time order (the slot it takes). */
+export interface SwapTarget {
+  entry: TimelineEntry;
+  stops: readonly { id: string }[];
+}
 
 export interface PickerProps {
   doc: PlanDraft;
@@ -34,6 +40,8 @@ export interface PickerProps {
   /** the day the picker adds to; null for an arrival with a place (`slug`) that names the days itself */
   day: number | null;
   slug: string | null;
+  /** set: the picker swaps this stop for the place chosen (one undo step) and closes */
+  swap?: SwapTarget;
   onClose: () => void;
   /** one undo step with its toast; false when it could not be made */
   commit: (ops: PlanOp[], label: string, opts?: { toast?: boolean }) => boolean;
@@ -62,7 +70,7 @@ const firstPages = (): Record<GroupId, number> => ({ versions: PAGE_SIZE.list, r
 /** The sheet: a bottom sheet on a phone, the side sheet from 640 px. */
 export function AddPicker(p: PickerProps) {
   const phone = usePhone();
-  const title = p.day !== null ? titleWords(p.day) : 'Add a place';
+  const title = p.day !== null ? (p.swap ? 'Swap for a nearby place' : titleWords(p.day)) : 'Add a place';
   const body = p.day !== null ? <DayPicker {...p} day={p.day} /> : <Arrival {...p} />;
   const change = (o: boolean) => {
     if (!o) p.onClose();
@@ -80,14 +88,14 @@ export function AddPicker(p: PickerProps) {
 
 /** What each row's button did, and the words under the day's name. */
 function DayPicker(p: PickerProps & { day: number }) {
-  const { doc, day, commit, register } = p;
+  const { doc, day, commit, register, swap } = p;
   const [prefs] = usePrefs();
   const fmt = useCallback((km: number) => formatDistance(km, prefs.distance), [prefs.distance]);
   const fitter = useFitter(doc, p.model, p.profile);
   // the days as the page shows them, so Day n here is Day n there after a day was added or dropped
   const model = useDayView(p.model, fitter);
   const centre = centreOf(model, day);
-  const near = useNearRows(centre);
+  const near = useNearRows(swap?.entry.at?.point ?? centre);
   const youngest = p.profile.party === 'family' ? p.profile.youngest : null;
   const month = monthOf(p.start, day);
   const [q, setQ] = useState('');
@@ -100,6 +108,8 @@ function DayPicker(p: PickerProps & { day: number }) {
   const maybeSlugs = useMemo(() => (doc.template?.maybe ?? []).map((m) => m.ref.replace(/^place\//, '')).filter((s) => !model.addables[s]), [doc, model]);
   const maybeRows = useRowsOf(maybeSlugs);
   const searchBox = useRef<HTMLInputElement>(null);
+  // Rainy day filters the catalogue's `indoor` flag; the chip is drawn only once some place on show carries it (no chip that narrows to nothing)
+  const rainyKnown = [...near.rows, ...search.rows, ...(maybeRows ?? [])].some((f) => isRainy(f));
 
   // `/` focuses the search field (edit-mode-spec 7.1)
   useEffect(() => {
@@ -173,12 +183,27 @@ function DayPicker(p: PickerProps & { day: number }) {
       ops = moveToDayOps(doc, r.on.entry, day, fitter.lastStop(day));
       label = movedWords(r.on.entry, day);
       kind = 'move';
+    } else if (swap && r.cand && r.slug) {
+      if (!model.addables[r.slug]) register(r.cand);
+      const swapped = swapForOps(doc, swap.entry, r.slug, swap.stops);
+      if (!swapped) return;
+      ops = swapped;
+      label = swappedForWords(swap.entry, r.name);
     } else if (r.cand && r.slug) {
       if (!model.addables[r.slug]) register(r.cand);
       ops = [{ kind: 'addPlace', id: newOpId(), day: dayRef(doc, day), ref: `place/${r.slug}` }];
       label = `Added ${r.name} to Day ${day}`;
     } else return;
+    if (swap && r.back) {
+      ops = [...removeOps(doc, swap.entry), ...ops];
+      label = swappedForWords(swap.entry, r.name);
+    }
+    if (swap && r.on) return;
     if (!commit(ops, label)) return;
+    if (swap) {
+      p.onClose();
+      return;
+    }
     setDone((d) => ({ ...d, [r.key]: { label, kind } }));
     if (r.back) {
       const s = sections?.find((x) => x.rows.some((y) => y.key === r.key));
@@ -196,7 +221,7 @@ function DayPicker(p: PickerProps & { day: number }) {
   const d = model.days.find((x) => x.n === day);
   const was = fitter?.base.get(day);
   const free = was && !was.blocks ? Math.max(0, dayCapMin(p.profile) - was.span.minutes) : null;
-  const meta = [d?.base ? `Base: ${d.base}` : null, free !== null && free > 0 ? `${fmtHM(free)} free` : null, dayDate(p.start, day)].filter(Boolean).join(' · ');
+  const meta = [swap ? `Replacing ${swap.entry.title}` : null, d?.base ? `Base: ${d.base}` : null, free !== null && free > 0 ? `${fmtHM(free)} free` : null, dayDate(p.start, day)].filter(Boolean).join(' · ');
   const more = (id: GroupId) => {
     const s = shownSections?.find((x) => x.id === id);
     if (s && s.more > 0) setLimit((l) => ({ ...l, [id]: l[id] + PAGE_SIZE.list }));
@@ -216,7 +241,7 @@ function DayPicker(p: PickerProps & { day: number }) {
           <input ref={searchBox} type="search" className="input add-q" placeholder="Search places" aria-label="Search places to add" value={q} onChange={(e) => setQ(e.target.value)} />
         </div>
         <div className="add-chips" role="group" aria-label="Narrow the places">
-          <button type="button" className="add-chip" aria-pressed={chips.rainy} onClick={() => setChips((c) => ({ ...c, rainy: !c.rainy }))}>Rainy day</button>
+          {rainyKnown || chips.rainy ? <button type="button" className="add-chip" aria-pressed={chips.rainy} onClick={() => setChips((c) => ({ ...c, rainy: !c.rainy }))}>Rainy day</button> : null}
           {youngest !== null ? <button type="button" className="add-chip" aria-pressed={chips.kids} onClick={() => setChips((c) => ({ ...c, kids: !c.kids }))}>Kids</button> : null}
           {month !== null ? <button type="button" className="add-chip" aria-pressed={chips.month !== null} onClick={() => setChips((c) => ({ ...c, month: c.month === null ? month : null }))}>Open in {MONTHS[month - 1]}</button> : null}
         </div>
@@ -229,7 +254,7 @@ function DayPicker(p: PickerProps & { day: number }) {
             <ul className="add-list">
               {s.rows.map((r) => {
                 const f = fitOf(r);
-                return <PickRowView key={r.key} row={r} day={day} fit={f?.fit ?? null} waiting={!f} done={doneOf(r)} fmt={fmt} newTrip={newTripHref} full={f?.tryDay ? String(f.tryDay) : null} showKids={youngest !== null} onAct={act} />;
+                return <PickRowView key={r.key} row={r} day={day} fit={f?.fit ?? null} waiting={!f} done={doneOf(r)} fmt={fmt} newTrip={newTripHref} full={f?.tryDay ? String(f.tryDay) : null} showKids={youngest !== null} onAct={act} swapFor={swap?.entry.title} noAct={!!swap && !!r.on} />;
               })}
             </ul>
             {s.more > 0 || hasNext(s.id) ? (

@@ -47,7 +47,7 @@ export function ActionPanel({ label, title, open, onOpenChange, trigger, trigger
         <button ref={opener} type="button" className={triggerClassName} aria-label={label} aria-haspopup="dialog" aria-expanded={open} onClick={() => onOpenChange(true)}>
           {glyph}
         </button>
-        <BottomSheet open={open} onOpenChange={onOpenChange} title={title} snaps={['half', 'full']} initial="half" className="edit-sheet">
+        <BottomSheet open={open} onOpenChange={onOpenChange} title={title} snaps={['full']} initial="full" className="edit-sheet" sizeButtons={false} fit>
           {meta ? <p className="edit-meta num">{meta}</p> : null}
           <div role="menu" aria-label={label} className="edit-rows" onKeyDown={menuKeys}>
             {children}

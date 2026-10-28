@@ -32,13 +32,15 @@ interface Props {
   label?: string;
   /** no button at all: the place has no day to go on */
   noAct?: boolean;
+  /** the stop this pick replaces (Swap for a nearby place): the button says Swap and names both */
+  swapFor?: string;
 }
 
 /** The row's button word: Add, Move here, Put back. */
 export const actionWord = (r: PickRow): string => (r.back ? r.back.verb : r.on ? 'Move here' : 'Add');
 
 /** One place in the picker (edit-mode-spec 7.3): glyph, name and kind chip; the fit line; the distance; and the 44 px button. */
-export function PickRowView({ row: r, day, fit, waiting, done, fmt, newTrip, full, showKids, onAct, move = true, label, noAct }: Props) {
+export function PickRowView({ row: r, day, fit, waiting, done, fmt, newTrip, full, showKids, onAct, move = true, label, noAct, swapFor }: Props) {
   const dist = distanceWords(r, fmt);
   const kid = showKids && r.found && r.found.kidFit !== 'unknown' ? KID_LABELS[r.found.kidFit] : null;
   const word = actionWord(r);
@@ -71,8 +73,8 @@ export function PickRowView({ row: r, day, fit, waiting, done, fmt, newTrip, ful
         ) : r.far ? (
           r.slug && newTrip(r.slug) ? <a className="btn btn-sm add-new" href={newTrip(r.slug)!}>Start a new trip with {r.name}</a> : null
         ) : (r.on && !move) || noAct ? null : (
-          <Button size="sm" className="add-btn" disabled={!r.cand && !r.back} onClick={() => onAct(r)} aria-label={word === 'Move here' ? `Move ${r.name} to Day ${day}` : `${word} ${r.name}${word === 'Put back' ? '' : ` to Day ${day}`}`}>
-            {label ?? word}
+          <Button size="sm" className="add-btn" disabled={!r.cand && !r.back} onClick={() => onAct(r)} aria-label={swapFor ? `Swap ${swapFor} for ${r.name}` : word === 'Move here' ? `Move ${r.name} to Day ${day}` : `${word} ${r.name}${word === 'Put back' ? '' : ` to Day ${day}`}`}>
+            {label ?? (swapFor ? 'Swap' : word)}
           </Button>
         )}
       </div>

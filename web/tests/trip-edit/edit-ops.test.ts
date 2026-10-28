@@ -6,8 +6,9 @@ import type { PlanDraft } from '@travel/core/schema/plan-draft.ts';
 import { changeRows } from '@/lib/trip-edit/changes';
 import { changeCount, entryMarks } from '@/lib/trip-edit/marks';
 import { openTrip, saveOps } from '@/lib/trip-edit/open';
-import { maybeOps, moveToDayOps, noteOps, nudgeOps, removeOps, removedWords, stopTarget } from '@/lib/trip-edit/stopOps';
+import { maybeOps, moveToDayOps, noteOps, nudgeOps, removeOps, removedWords, stopTarget, swapForOps, swapOps } from '@/lib/trip-edit/stopOps';
 import { afterRedo, afterUndo, emptyStack, loadStack, pushStep, saveStack } from '@/lib/trip-edit/undo';
+import { renameOps } from '@/lib/trip-edit/titleOps';
 import { withEdit } from '@/lib/trip-edit/editMode';
 import { copy, ID_A, memory } from './helpers';
 
@@ -206,5 +207,74 @@ describe('the address', () => {
     expect(withEdit(new URL('https://x.test/t/abc/?view=day#day-3'), true)).toBe('/t/abc/?view=day&edit=1#day-3');
     expect(withEdit(new URL('https://x.test/t/abc/?view=day&edit=1#day-3'), false)).toBe('/t/abc/?view=day#day-3');
     expect(withEdit(new URL('https://x.test/t/abc/?edit=1'), false)).toBe('/t/abc/');
+  });
+});
+
+describe('swapping', () => {
+  const day = (...ids: string[]) => ids.map((x) => ({ id: x }));
+  const by: Record<number, { id: string }[]> = { 3: day('a', 'b', 'c', 'd'), 4: day('p', 'q', 'r') };
+  const of = (n: number) => by[n]!;
+
+  it('swaps two stops of different days: each takes the other\'s slot, as two moves in one step', () => {
+    const d = base();
+    const ops = swapOps(d, stop({ id: 'b', day: 3 }), stop({ id: 'q', day: 4 }), of, id)!;
+    expect(ops.map((o) => o.kind)).toEqual(['moveItem', 'moveItem']);
+    expect(ops[0]).toMatchObject({ item: 'b', toDay: 4, after: 'p' });
+    expect(ops[1]).toMatchObject({ item: 'q', toDay: 3, after: 'a' });
+    const r = applyOps(d, ops);
+    expect(r.doc.template?.moved).toHaveLength(2);
+    // one inverse undoes both
+    expect(applyOps(r.doc, r.inverse).doc.template?.moved).toEqual([]);
+  });
+
+  it('a stop that goes to the start of a day has no `after`', () => {
+    const ops = swapOps(base(), stop({ id: 'a', day: 3 }), stop({ id: 'p', day: 4 }), of, id)!;
+    expect(ops[0]).toMatchObject({ item: 'a', toDay: 4 });
+    expect(ops[0]).not.toHaveProperty('after');
+    expect(ops[1]).not.toHaveProperty('after');
+  });
+
+  it('swaps within a day: neighbours put the one that lands second after the one that landed first', () => {
+    const ops = swapOps(base(), stop({ id: 'b', day: 3 }), stop({ id: 'c', day: 3 }), of, id)!;
+    // new order a, c, b: c goes after a, then b after c
+    expect(ops).toEqual([expect.objectContaining({ item: 'c', after: 'a' }), expect.objectContaining({ item: 'b', after: 'c' })]);
+    const far = swapOps(base(), stop({ id: 'a', day: 3 }), stop({ id: 'd', day: 3 }), of, id)!;
+    // new order d, b, c, a
+    expect(far.find((o) => (o as { item?: string }).item === 'd')).not.toHaveProperty('after');
+    expect(far.find((o) => (o as { item?: string }).item === 'a')).toMatchObject({ after: 'c' });
+  });
+
+  it('is null for the same stop, and an added place is never an anchor', () => {
+    expect(swapOps(base(), stop({ id: 'a', day: 3 }), stop({ id: 'a', day: 3 }), of, id)).toBeNull();
+    const withAdd = { 3: day('a', 'add-x', 'c'), 4: day('p', 'q') };
+    const ops = swapOps(base(), stop({ id: 'c', day: 3 }), stop({ id: 'q', day: 4 }), (n) => withAdd[n as 3 | 4], id)!;
+    expect(ops[0]).toMatchObject({ item: 'c', after: 'p' });
+    expect(ops[1]).toMatchObject({ item: 'q', after: 'a' });
+  });
+
+  it('swapping for a place is a removal and an addition in the same slot, one undo step', () => {
+    const d = base();
+    const ops = swapForOps(d, stop({ id: 'c', day: 3 }), 'pyramid-lake', day('a', 'b', 'c', 'd'), id)!;
+    expect(ops.map((o) => o.kind)).toEqual(['removePlace', 'addPlace']);
+    expect(ops[1]).toMatchObject({ ref: 'place/pyramid-lake', after: 'b' });
+    const r = applyOps(d, ops);
+    expect(r.doc.template?.removed).toHaveLength(1);
+    expect(r.doc.template?.added).toHaveLength(1);
+    const back = applyOps(r.doc, r.inverse).doc;
+    expect(back.template?.removed).toEqual([]);
+    expect(back.template?.added).toEqual([]);
+    expect(swapForOps({ ...d, template: undefined } as unknown as PlanDraft, stop(), 'x', [], id)).toBeNull();
+  });
+});
+
+describe('renaming the trip', () => {
+  it('sets the typed name, trims it, and does nothing for the same name', () => {
+    expect(renameOps('Dolomites', '  Dolomites with Mia  ', 'Dolomites', 'device', id)).toMatchObject({ ops: [{ kind: 'setTitle', title: 'Dolomites with Mia' }], label: 'Renamed the trip to Dolomites with Mia' });
+    expect(renameOps('Dolomites', 'Dolomites ', 'Dolomites', 'device', id)).toBeNull();
+  });
+  it('an empty name puts our trip\'s name back (a device copy) or derives it (an account trip)', () => {
+    expect(renameOps('Mia trip', '', 'Dolomites', 'device', id)?.ops[0]).toMatchObject({ title: 'Dolomites' });
+    expect(renameOps('Mia trip', '', 'Dolomites', 'account', id)?.ops[0]).toMatchObject({ title: null });
+    expect(renameOps('Dolomites', '', 'Dolomites', 'device', id)).toBeNull();
   });
 });

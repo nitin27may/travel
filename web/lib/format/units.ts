@@ -50,7 +50,8 @@ export function formatDistance(km: number, unit: DistanceUnit): string {
   const v = unit === 'mi' ? km / KM_PER_MI : km;
   // from 100 up a whole number reads faster than one decimal (169.5 mi -> 170 mi)
   const r = round1(v);
-  return `${Math.abs(r) >= 100 ? Math.round(r) : r.toFixed(1)} ${unit}`;
+  // thousands get their separator (7,995 km), as elevations do
+  return `${Math.abs(r) >= 100 ? Math.round(r).toLocaleString('en-US') : r.toFixed(1)} ${unit}`;
 }
 
 /** Elevations to the nearest 10, in metres or feet. Input is metres. */

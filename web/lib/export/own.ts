@@ -12,7 +12,7 @@ import { categoryOf } from '@/lib/public/taxonomy';
 import { noteKeyOf } from '@/lib/trip-edit/stopOps';
 import { formatDate } from './dates';
 import { fileName, saveFile } from './download';
-import { placeKindOf, type OwnAddable, type OwnTrip } from './ownState';
+import { nameKey, placeKindOf, type OwnAddable, type OwnTrip } from './ownState';
 import type { TimelineSession } from './timelineState';
 import type { ExportDay, ExportStop, ExportWaypoint, TripExport } from './types';
 
@@ -26,7 +26,7 @@ export function ownTripOf(a: {
   ourTitle: string | null;
   party: { adults: number; children: number[] };
   /** The published days with the items of each version: a removed stop is found here by its id. */
-  days: readonly { n: number; input: { variants: readonly { items: readonly { id: string; placeSlug?: string | null }[] }[] } }[];
+  days: readonly { n: number; input: { variants: readonly { items: readonly { id: string; title?: string; placeSlug?: string | null }[] }[] } }[];
   addables: (placeSlug: string) => OwnAddable | undefined;
 }): OwnTrip {
   const { doc } = a;
@@ -35,16 +35,24 @@ export function ownTripOf(a: {
   const ours = a.ourTitle?.replace(/,\s*\d+ nights?$/, '') ?? null;
   const lead = copy ? (ours ? `Your copy of ${ours}` : 'Your copy') : 'Your trip';
   const gone = new Set<string>();
+  const goneNames = new Set<string>();
   const slugsOf = (n: number | string): string[] => {
     const day = typeof n === 'number' ? a.days.find((d) => d.n === n) : undefined;
     return day ? day.input.variants.flatMap((v) => v.items.flatMap((it) => (it.placeSlug ? [it.placeSlug] : []))) : [];
   };
+  const namesOf = (n: number | string): string[] => {
+    const day = typeof n === 'number' ? a.days.find((d) => d.n === n) : undefined;
+    return day ? day.input.variants.flatMap((v) => v.items.flatMap((it) => (!it.placeSlug && it.title ? [nameKey(it.title)] : []))) : [];
+  };
   for (const r of doc.template?.removed ?? []) {
     const day = a.days.find((d) => d.n === r.day);
-    for (const v of day?.input.variants ?? []) for (const it of v.items) if (it.id === r.item && it.placeSlug) gone.add(it.placeSlug);
+    for (const v of day?.input.variants ?? []) for (const it of v.items) if (it.id === r.item) { if (it.placeSlug) gone.add(it.placeSlug); else if (it.title) goneNames.add(nameKey(it.title)); }
   }
   // a dropped day takes its stops with it unless they moved to another day (then a day still holds them and they are listed)
-  for (const x of doc.template?.days ?? []) if (x.kind === 'drop') for (const slug of slugsOf(x.day)) gone.add(slug);
+  for (const x of doc.template?.days ?? []) if (x.kind === 'drop') {
+    for (const slug of slugsOf(x.day)) gone.add(slug);
+    for (const k of namesOf(x.day)) goneNames.add(k);
+  }
   const header = [lead, doc.start ? formatDate(doc.start) : null, partyShortText(a.party)].filter(Boolean).join(' · ');
   return {
     slug: a.slug,
@@ -53,6 +61,7 @@ export function ownTripOf(a: {
     routeTitle: lead,
     start: doc.start ?? null,
     gone: (slug) => gone.has(slug),
+    goneName: (k) => goneNames.has(k),
     noteOf: (e) => (copy ? (doc.template!.notes[noteKeyOf(doc, e)] ?? '') : ''),
     dayNote: (n) => (copy ? (doc.template!.notes[dayNoteKey(doc, n)] ?? '') : ''),
     addable: a.addables,

@@ -105,7 +105,7 @@ test.describe('edit mode: the add picker', () => {
     await expect.poll(() => titles(page, 5)).toContain(name);
   });
 
-  test('search reaches the whole catalogue, nearest the base first; Rainy day narrows places and says so when nothing is marked', async ({ page, site }) => {
+  test('search reaches the whole catalogue, nearest the base first; the Rainy day chip is drawn only when a place on show is marked indoor', async ({ page, site }) => {
     await open(page, site);
     await page.locator('#day-5 .tl-add-open').click();
     const dlg = picker(page);
@@ -113,8 +113,9 @@ test.describe('edit mode: the add picker', () => {
     await expect(dlg.getByRole('heading', { name: 'Search results' })).toBeVisible();
     const names = await dlg.locator('#add-h-search + ul .add-title').allTextContents();
     expect(names.length).toBeGreaterThan(1);
-    await dlg.getByRole('button', { name: 'Rainy day' }).click();
-    await expect(dlg.getByRole('button', { name: 'Rainy day' })).toHaveAttribute('aria-pressed', 'true');
+    // no place in the catalogue carries the indoor flag yet, so the chip is not drawn (a chip that narrows to nothing is worse than none)
+    await expect(dlg.getByRole('group', { name: 'Narrow the places' })).toBeVisible();
+    await expect(dlg.getByRole('button', { name: 'Rainy day' })).toHaveCount(0);
   });
 
   test('add=<slug> opens the picker with that place, one row per day, and leaves the address; a park opens its members; a far place gets no day', async ({ page, site }) => {

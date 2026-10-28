@@ -19,6 +19,7 @@ const ROWS: { keys: string[]; what: string }[] = [
 ];
 const SINGLE: { keys: string[]; what: string }[] = [
   { keys: ['M'], what: 'on a stop: Move to day…' },
+  { keys: ['S'], what: 'on a stop: Swap with…' },
   { keys: ['A'], what: 'on a day or a stop: add a place to that day' },
   { keys: ['Delete'], what: 'on a stop: remove it' },
   { keys: ['E'], what: 'finish editing' },

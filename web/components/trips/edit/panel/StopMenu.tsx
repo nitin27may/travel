@@ -8,6 +8,7 @@ import { Icon } from '@/components/ui/Icon';
 import { candidateToItem, type TimelineModel } from '@/components/trips/timeline/model';
 import { deltaOfDraft } from '@/lib/trip-edit/source';
 import { dayChoices, type DayChoice } from '@/lib/trip-edit/moveFit';
+import { peekTimeline } from '@/lib/export/timelineState';
 import { maybeOps, noteOf, placeRefOf, stopTarget } from '@/lib/trip-edit/stopOps';
 import { ruleItemOfEntry, ruleNote } from '@/lib/trip-edit/ruleRows';
 import type { PlanDraft } from '@/lib/trip-edit/model';
@@ -19,6 +20,10 @@ export interface StopAct {
   nudge: (e: TimelineEntry, dir: -1 | 1) => void;
   maybe: (e: TimelineEntry) => void;
   note: (e: TimelineEntry, text: string) => void;
+  /** Swap with another stop of the trip (edit-mode-spec 5.2): both change places, one undo step. */
+  swap: (e: TimelineEntry, other: TimelineEntry) => void;
+  /** Swap for a nearby place: opens the add picker for this stop. Absent when the trip is not a copy. */
+  swapNearby?: (e: TimelineEntry, dayEntries: readonly TimelineEntry[]) => void;
 }
 
 interface Props {
@@ -33,15 +38,15 @@ interface Props {
   act: StopAct;
 }
 
-type View = 'rows' | 'days' | 'note';
+type View = 'rows' | 'days' | 'note' | 'swap';
 
 /** The stops a day holds, in time order: the entries that are stops, not legs, meals the rules placed or the sun (the ones with a source id). */
 export const stopsOfDay = (entries: readonly TimelineEntry[]): TimelineEntry[] =>
   entries.filter((e) => !!e.sourceItemId && !e.insideOf && !e.block && e.kind !== 'sun' && e.kind !== 'leg' && e.kind !== 'booking');
 
 /**
- * The `⋯` of one row and the sheet or menu it opens (components 8.7): Move to day…, Move up, Move down, Add to Maybe, Add a note, Open
- * place page, then Remove last. A row the rules made (a meal, a rest, the hire car, check-in, the end of the day; STEP2-E1B) is not a
+ * The `⋯` of one row and the sheet or menu it opens (components 8.7): Move to day…, Move up, Move down, Swap with…, Swap for a nearby
+ * place, Add to Maybe, Add a note, Open place page, then Remove last. A row the rules made (a meal, a rest, the hire car, check-in, the end of the day; STEP2-E1B) is not a
  * place and keeps its place in the day, so it offers Add a note and Remove only, with one line on what stays when removing it leaves the
  * day relying on it (edit-mode-spec 5.4).
  */
@@ -65,6 +70,7 @@ export function StopMenu({ entry: e, dayEntries, doc, model, defaults, profile, 
     reset(false);
     fn();
   };
+  const others = rule || i < 0 || !swappable(e) ? [] : otherStopsOf(e);
   const upBlock = i <= 0 ? (alone ? `${e.title} is the only stop on Day ${e.day}` : `${e.title} is already first on Day ${e.day}`) : null;
   const downBlock = i < 0 || i >= stops.length - 1 ? (alone ? `${e.title} is the only stop on Day ${e.day}` : `${e.title} is already last on Day ${e.day}`) : null;
   return (
@@ -85,6 +91,16 @@ export function StopMenu({ entry: e, dayEntries, doc, model, defaults, profile, 
                 </button>
               </div>
               {upBlock ? <p className="edit-why">{upBlock}</p> : downBlock ? <p className="edit-why">{downBlock}</p> : null}
+              {others.length ? (
+                <button type="button" role="menuitem" className="edit-row" onClick={() => setView('swap')}>
+                  <Icon name="swap" size={16} /> <span>Swap with…</span>
+                </button>
+              ) : null}
+              {act.swapNearby ? (
+                <button type="button" role="menuitem" className="edit-row" onClick={done(() => act.swapNearby!(e, dayEntries))}>
+                  <Icon name="pin" size={16} /> <span>Swap for a nearby place</span>
+                </button>
+              ) : null}
             </>
           )}
           {canMaybe ? (
@@ -106,12 +122,51 @@ export function StopMenu({ entry: e, dayEntries, doc, model, defaults, profile, 
             <Icon name="close" size={16} /> <span>Remove from Day {e.day}</span>
           </button>
         </>
+      ) : view === 'swap' ? (
+        <SwapList entry={e} others={others} back={() => setView('rows')} pick={(o) => done(() => act.swap(e, o))()} />
       ) : view === 'days' ? (
         <DayList entry={e} doc={doc} model={model} defaults={defaults} profile={profile} start={start} back={() => setView('rows')} pick={(n, after) => done(() => act.moveTo(e, n, after))()} />
       ) : (
         <NoteField initial={noteOf(doc, e)} back={() => setView('rows')} save={(t) => done(() => act.note(e, t))()} />
       )}
     </ActionPanel>
+  );
+}
+
+/** A place the person visits: the stops that swap (a regroup row, a meal or a break is not one). */
+const swappable = (e: TimelineEntry): boolean => e.kind === 'visit' || e.kind === 'trail';
+
+/** The other stops of the trip, in day order, from the timelines the page shows. */
+function otherStopsOf(e: TimelineEntry): TimelineEntry[] {
+  const tls = peekTimeline()?.timelines ?? [];
+  return [...tls].sort((a, b) => a.day - b.day).flatMap((tl) => stopsOfDay(tl.entries)).filter((o) => swappable(o) && !(o.id === e.id && o.day === e.day));
+}
+
+function SwapList({ entry: e, others, back, pick }: { entry: TimelineEntry; others: TimelineEntry[]; back: () => void; pick: (o: TimelineEntry) => void }) {
+  const days = [...new Set(others.map((o) => o.day))];
+  return (
+    <div className="edit-days">
+      <BackRow onBack={back} title="Swap with" />
+      <ul className="edit-daylist">
+        {days.map((d) => (
+          <li key={d} className="edit-swap-day">
+            <p className="edit-swap-h num">{d === e.day ? `Day ${d} (this day)` : `Day ${d}`}</p>
+            <ul className="edit-daylist">
+              {others.filter((o) => o.day === d).map((o) => (
+                <li key={o.id}>
+                  <button type="button" role="menuitem" className="edit-row edit-day" onClick={() => pick(o)} aria-label={`Swap ${e.title} with ${o.title}, Day ${o.day}`}>
+                    <span className="edit-day-main">
+                      <span className="edit-day-name">{o.title}</span>
+                      {o.start ? <span className="edit-day-sub num">{o.start}</span> : null}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

@@ -86,6 +86,60 @@ export function nudgeOps(d: PlanDraft, e: StopEntry, stops: readonly { id: strin
   return [{ kind: 'moveItem', id: newId(), ...target(d, e), toDay: dayRef(d, day), ...(after ? { after } : {}) }];
 }
 
+/** The nearest stop before position `i` that the plan wrote (an added place is no anchor in a template, the schedule has no id for it). */
+function anchorBefore(d: PlanDraft, order: readonly { id: string }[], i: number, skipId: string): string | null {
+  for (let k = i - 1; k >= 0; k--) {
+    const s = order[k]!;
+    if (s.id !== skipId && (!d.template || !s.id.startsWith('add-'))) return s.id;
+  }
+  return null;
+}
+
+/** One stop to the day, after `after` (null: the start of the day), in the draft's own form. */
+function placeOp(d: PlanDraft, e: StopEntry, toDay: number, after: string | null, newId: NewId): PlanOp {
+  if (!d.template) return after === null ? { kind: 'moveItem', id: newId(), ref: e.id, toDay, first: true } : { kind: 'moveItem', id: newId(), ref: e.id, toDay, afterRef: after };
+  return { kind: 'moveItem', id: newId(), ...target(d, e), toDay: dayRef(d, toDay), ...(after ? { after } : {}) };
+}
+
+/**
+ * Swap with another stop of the trip (edit-mode-spec 5.2): each takes the other's place in the other's day. Two moves, returned together so
+ * the caller makes them one undo step. `stopsOf` gives a day's stops in time order. A same-day swap exchanges the two positions. Null when
+ * the two are the same stop.
+ */
+export function swapOps(d: PlanDraft, a: StopEntry & { day: number }, b: StopEntry & { day: number }, stopsOf: (day: number) => readonly { id: string }[], newId: NewId = newOpId): PlanOp[] | null {
+  if (a.id === b.id && a.day === b.day) return null;
+  const same = a.day === b.day;
+  const orderA = stopsOf(a.day).map((s) => ({ id: s.id }));
+  const orderB = same ? orderA : stopsOf(b.day).map((s) => ({ id: s.id }));
+  const ia = orderA.findIndex((s) => s.id === a.id);
+  const ib = orderB.findIndex((s) => s.id === b.id);
+  if (ia < 0 || ib < 0) return null;
+  if (same) {
+    orderA[ia] = { id: b.id };
+    orderA[ib] = { id: a.id };
+  } else {
+    orderA[ia] = { id: b.id };
+    orderB[ib] = { id: a.id };
+  }
+  // where each lands in its new day: after the stop that now stands before it
+  const newA = (same ? orderA : orderB).findIndex((s) => s.id === a.id);
+  const newB = orderA.findIndex((s) => s.id === b.id);
+  const afterA = anchorBefore(d, same ? orderA : orderB, newA, a.id);
+  const afterB = anchorBefore(d, orderA, newB, b.id);
+  const moveA = () => placeOp(d, a, b.day, afterA, newId);
+  const moveB = () => placeOp(d, b, a.day, afterB, newId);
+  // a stop that goes right after the other waits for it to have moved
+  return afterA === b.id ? [moveB(), moveA()] : [moveA(), moveB()];
+}
+
+/** Swap for another place (copies): the stop leaves and the chosen place takes its slot in the day, as one step. Null for a built trip. */
+export function swapForOps(d: PlanDraft, e: StopEntry, slug: string, dayStops: readonly { id: string }[], newId: NewId = newOpId): PlanOp[] | null {
+  if (!d.template) return null;
+  const i = dayStops.findIndex((s) => s.id === e.id);
+  const after = i < 0 ? null : anchorBefore(d, dayStops, i, e.id);
+  return [...removeOps(d, e, newId), { kind: 'addPlace', id: newId(), day: dayRef(d, e.day), ref: `${PLACE}${slug}`, ...(after ? { after } : {}) }];
+}
+
 /** Add to Maybe (copies): the stop leaves its day and joins the Maybe list, as one step. Null for a stop with no place page. */
 export function maybeOps(d: PlanDraft, e: StopEntry, newId: NewId = newOpId): PlanOp[] | null {
   const ref = placeRefOf(e);
@@ -108,6 +162,8 @@ export const noteOf = (d: PlanDraft, e: StopEntry): string => (d.template ? (d.t
 export const removedWords = (e: StopEntry): string => `Removed ${rowName(e)} from Day ${e.day}`;
 export const movedWords = (e: StopEntry, to: number): string => `Moved ${e.title} to Day ${to}`;
 export const nudgedWords = (e: StopEntry, dir: -1 | 1): string => `Moved ${e.title} ${dir === -1 ? 'up' : 'down'}`;
+export const swappedWords = (a: StopEntry, b: StopEntry): string => `Swapped ${a.title} and ${b.title}`;
+export const swappedForWords = (a: StopEntry, name: string): string => `Swapped ${a.title} for ${name}`;
 export const maybeWords = (e: StopEntry): string => `Moved ${e.title} to Maybe`;
 
 /** What the Move to day list needs to try a move: the stop's schedule id, its published day, the day it shows on, and its added-place op. */

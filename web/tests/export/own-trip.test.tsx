@@ -9,7 +9,8 @@ import { scheduleTrip } from '@travel/core/schedule/schedule.ts';
 import type { DayTimeline, TimelineEntry } from '@travel/core/schedule/types.ts';
 import type { PlanDraft } from '@travel/core/schema/plan-draft.ts';
 import { TripPrintView } from '@/components/actions/TripPrintView';
-import { ownSections } from '@/components/trips/edit/stops/useOwnStops';
+import { entryOfRow, noActionsWhy, ownSections, rowJoin } from '@/components/trips/edit/stops/useOwnStops';
+import type { CategoryRowModel } from '@/components/trips/model';
 import { buildTripPageModel } from '@/components/trips/model';
 import { buildTripExport } from '@/lib/export/build.server';
 import { tripCsv } from '@/lib/export/csv';
@@ -185,3 +186,33 @@ describe('the Stops tab rows follow the days', () => {
     expect(before.length).toBeGreaterThan(0);
   });
 });
+
+describe('the Stops tab rows without a place page, and the tab count', () => {
+  const row = (over: Partial<CategoryRowModel>): CategoryRowModel => ({ key: 'k', name: 'Row', kind: 'sight', placeSlug: null, days: [], time: null, area: null, detail: null, nights: null, bookRule: null, bookNote: null, ...over });
+  const canEdit = (e: TimelineEntry) => !!e.sourceItemId;
+  it('a stay or a logistics row is joined to no day and says why it has no actions', () => {
+    const stay = row({ key: 'stay:banff-1', kind: 'stay', name: 'Banff' });
+    const logi = row({ key: 'logistics:pass', kind: 'booking', name: 'Parks Canada pass' });
+    expect(rowJoin(stay)).toBeNull();
+    expect(rowJoin(logi)).toBeNull();
+    expect(entryOfRow(stay, plain, canEdit)).toBeNull();
+    expect(noActionsWhy(stay)).toMatch(/^Stays follow your dates/);
+    expect(noActionsWhy(logi)).toMatch(/^Travel and booking rows/);
+  });
+  it('a row with no place page is joined to the day stop of the same name; a place on no day has no actions and says so', () => {
+    const named = visits(plain, day).find((e) => !e.at?.placeSlug);
+    const area = row({ key: `sight:${named?.title}`, name: named?.title ?? 'none' });
+    if (named) expect(entryOfRow(area, plain, canEdit)?.e.id).toBe(named.id);
+    const absent = row({ key: 'sight:nowhere', name: 'Nowhere in particular' });
+    expect(entryOfRow(absent, plain, canEdit)).toBeNull();
+    expect(noActionsWhy(absent)).toMatch(/Not a stop on any day/);
+  });
+  it('the tab count is the rows left: one fewer after a removal, one more after an add', () => {
+    const total = (secs: { rows: unknown[] }[]) => secs.reduce((n, s) => n + s.rows.length, 0);
+    const none = ownSections(page.sections, plain, addable0, () => false);
+    const on = ownSections(page.sections, edited, addable0, own.gone);
+    expect(total(none)).toBe(total(page.sections));
+    expect(total(on)).toBe(total(none) - (edited.some((t) => t.entries.some((e) => e.at?.placeSlug === removed.at!.placeSlug)) ? 0 : 1) + 1);
+  });
+});
+const addable0 = (k: string) => (k === 'test-added-viewpoint' ? { name: ADDED, kind: 'visit' as const, sub: 'viewpoint', label: 'Viewpoint' } : undefined);

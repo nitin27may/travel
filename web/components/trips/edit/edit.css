@@ -47,6 +47,10 @@ html[data-trip-editing] .bottom-bar, html[data-trip-editing] .to-top { display: 
 .edit-fit { flex: none; display: inline-flex; align-items: center; height: 24px; padding: 0 9px; border: 1px solid var(--line-2); border-radius: var(--r-full); font: var(--t-chip); color: var(--ink-2); }
 .edit-fit[data-fit='tight'] { background: var(--warn-soft); border-color: transparent; color: var(--warn); }
 
+/* Swap with…: the other stops of the trip, a short heading per day */
+.edit-swap-day { display: grid; }
+.edit-swap-h { margin: 0; padding: var(--s-2) var(--s-2) var(--s-1); font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
+
 /* the note field (serif 17, as inline edits everywhere: patterns 4.3) */
 .edit-note { display: grid; gap: var(--s-2); }
 .edit-note-t { width: 100%; box-sizing: border-box; padding: var(--s-2) var(--s-3); border: 1px solid var(--line-2); border-radius: var(--r-3); background: var(--surface); color: var(--ink); font: var(--t-title); resize: vertical; }
