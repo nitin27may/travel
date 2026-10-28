@@ -11,6 +11,7 @@ import { anchorsOf, bandWords, basesOf, buildSections, centreOf, daysByDistance,
 import { newTripHref } from '@/components/trips/edit/add/source';
 import type { AddCandidate, TimelineModel } from '@/components/trips/timeline/model';
 import { deltaOfDraft } from '@/lib/trip-edit/source';
+import { dayRef } from '@/lib/trip-edit/stopOps';
 import { PAGE_SIZE } from '@/lib/config/product';
 import { copy } from './helpers';
 
@@ -267,6 +268,31 @@ describe('how a place fits a day (the template scheduler)', () => {
     const found = f.onTrip.get(planned.at!.placeSlug!);
     expect(found?.day).toBeLessThanOrEqual(3);
     expect(found?.entry.title).toBeTruthy();
+  });
+});
+
+describe('the fit and the add after a day was inserted (STEP2-INT)', () => {
+  it('Day n is the day the page shows: the new day is empty, the stops that followed it moved down one, and an add to it names its ref', async () => {
+    const model = await rockies();
+    const engine = await import('@travel/core/schedule/template.ts');
+    let d = draft();
+    d = applyOps(d, [{ kind: 'insertDay', id: 'o-day', after: 2 } as never]).doc;
+    const plain = makeFitter({ engine, days: model.days, delta: deltaOfDraft(draft()), overrides: {}, profile, candidates: model.addables, model });
+    const f = makeFitter({ engine, days: model.days, delta: deltaOfDraft(d), overrides: {}, profile, candidates: model.addables, model });
+    expect(f.eff).not.toBeNull();
+    expect(f.refOf(2)).toBe(2);
+    expect(f.refOf(3)).toBe('o-day');
+    expect(f.refOf(4)).toBe(3);
+    expect(f.base.get(3)!.entries.filter((e) => e.sourceItemId && !e.insideOf && e.kind !== 'leg' && e.kind !== 'sun')).toEqual([]);
+    expect(f.base.get(4)!.entries.map((e) => e.title)).toEqual(plain.base.get(3)!.entries.map((e) => e.title));
+    expect(f.base.get(4)!.entries.every((e) => e.day === 4)).toBe(true);
+    // an add to the new day is an op with the day's ref, and the scheduler puts the place on shown Day 3
+    const key = Object.keys(model.addables).find((k) => model.addables[k]!.kind === 'trail')!;
+    const r = applyOps(d, [{ kind: 'addPlace', id: id(), day: dayRef(d, 3), ref: `place/${key}` }]);
+    expect(r.skipped).toEqual([]);
+    const after = makeFitter({ engine, days: model.days, delta: deltaOfDraft(r.doc), overrides: {}, profile, candidates: model.addables, model });
+    expect(after.onTrip.get(key)?.day).toBe(3);
+    expect(['fits', 'tight', 'full', 'fix']).toContain(f.fit(model.addables[key]!, 3).state);
   });
 });
 

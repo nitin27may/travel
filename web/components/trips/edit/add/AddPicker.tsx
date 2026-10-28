@@ -17,14 +17,14 @@ import { usePrefs } from '@/lib/format/prefs';
 import { formatDistance } from '@/lib/format/units';
 import { dayDate } from '@/lib/trip-edit/moveFit';
 import type { PlanDraft, PlanOp } from '@/lib/trip-edit/model';
-import { movedWords, moveToDayOps, newOpId } from '@/lib/trip-edit/stopOps';
+import { dayRef, movedWords, moveToDayOps, newOpId } from '@/lib/trip-edit/stopOps';
 import { usePhone } from '../panel/useMatchMedia';
 import { Arrival } from './Arrival';
 import type { Fit } from './fit';
 import { PickRowView } from './PickRowView';
 import { anyRows, buildSections, centreOf, daysByDistance, titleWords, withGhosts, type Chips, type Ghost, type GroupId, type PickRow } from './rows';
 import { apiAvailable, newTripHref } from './source';
-import { useDebounced, useFitter, useNearRows, useRowsOf, useSearchRows } from './useAdd';
+import { useDayView, useDebounced, useFitter, useNearRows, useRowsOf, useSearchRows } from './useAdd';
 
 export interface PickerProps {
   doc: PlanDraft;
@@ -80,10 +80,12 @@ export function AddPicker(p: PickerProps) {
 
 /** What each row's button did, and the words under the day's name. */
 function DayPicker(p: PickerProps & { day: number }) {
-  const { doc, model, day, commit, register } = p;
+  const { doc, day, commit, register } = p;
   const [prefs] = usePrefs();
   const fmt = useCallback((km: number) => formatDistance(km, prefs.distance), [prefs.distance]);
-  const fitter = useFitter(doc, model, p.profile);
+  const fitter = useFitter(doc, p.model, p.profile);
+  // the days as the page shows them, so Day n here is Day n there after a day was added or dropped
+  const model = useDayView(p.model, fitter);
   const centre = centreOf(model, day);
   const near = useNearRows(centre);
   const youngest = p.profile.party === 'family' ? p.profile.youngest : null;
@@ -173,7 +175,7 @@ function DayPicker(p: PickerProps & { day: number }) {
       kind = 'move';
     } else if (r.cand && r.slug) {
       if (!model.addables[r.slug]) register(r.cand);
-      ops = [{ kind: 'addPlace', id: newOpId(), day, ref: `place/${r.slug}` }];
+      ops = [{ kind: 'addPlace', id: newOpId(), day: dayRef(doc, day), ref: `place/${r.slug}` }];
       label = `Added ${r.name} to Day ${day}`;
     } else return;
     if (!commit(ops, label)) return;

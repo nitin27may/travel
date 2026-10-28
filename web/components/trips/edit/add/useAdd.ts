@@ -25,11 +25,16 @@ export function useFitter(doc: PlanDraft, model: TimelineModel, profile: Profile
   return useMemo(() => {
     if (!engine) return null;
     try {
-      return makeFitter({ engine, days: model.days, delta: deltaOfDraft(doc), overrides: doc.template?.overrides ?? {}, profile, candidates: model.addables });
+      return makeFitter({ engine, days: model.days, delta: deltaOfDraft(doc), overrides: doc.template?.overrides ?? {}, profile, candidates: model.addables, model });
     } catch {
       return null;
     }
   }, [engine, doc, model, profile]);
+}
+
+/** The model with the days the page shows (an inserted or dropped day changes the numbers); the published model when there are no day edits. */
+export function useDayView(model: TimelineModel, fitter: Fitter | null): TimelineModel {
+  return useMemo(() => (fitter?.eff ? { ...model, days: fitter.eff.days } : model), [model, fitter]);
 }
 
 export interface Paged {

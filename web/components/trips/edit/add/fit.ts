@@ -7,6 +7,8 @@ import type { DayTimeline, Profile, ScheduleDayInput, ScheduleItem, TimelineEntr
 import { candidateToItem, type AddCandidate } from '@/components/trips/timeline/model';
 import { LATEST_END } from '@/components/trips/timeline/consequence';
 import type { SourceDelta, TemplateEngine } from '@/components/trips/timeline/useTimeline';
+import type { TimelineModel } from '@/components/trips/timeline/model';
+import { effectiveDays, type Effective } from '../day/effective';
 import type { OnTrip } from './rows';
 
 export interface Fit {
@@ -27,6 +29,8 @@ export interface FitEnv {
   profile: Profile;
   /** every place the delta's additions name, by slug */
   candidates: Readonly<Record<string, AddCandidate>>;
+  /** the published model: with inserted or dropped days the picker reads the days as the page shows them (STEP2-INT) */
+  model?: TimelineModel;
 }
 
 const PREVIEW = 'preview';
@@ -41,8 +45,12 @@ const short = (s: string): string => {
 export const isStopEntry = (e: TimelineEntry): boolean => !!e.sourceItemId && !e.insideOf && !e.block && e.kind !== 'sun' && e.kind !== 'leg' && e.kind !== 'booking';
 
 export interface Fitter {
-  /** the copy's days as they stand now, by day number */
+  /** the copy's days as they stand now, by the day number the page shows */
   base: ReadonlyMap<number, DayTimeline>;
+  /** the days as the page draws them once a day was inserted or dropped; null for a copy with its published days */
+  eff: Effective | null;
+  /** the document's name for a shown day: a published number, or an inserted day's operation id */
+  refOf: (n: number) => number | string;
   /** where each place stands now, by slug and by schedule id */
   onTrip: Map<string, OnTrip>;
   /** the schedule id of a day's last stop, so a move lands at the end of the day */
@@ -52,8 +60,8 @@ export interface Fitter {
 }
 
 export function makeFitter(env: FitEnv): Fitter {
-  const run = (delta: SourceDelta, items: Map<string, ScheduleItem>): Map<number, DayTimeline> => {
-    const out = env.engine.scheduleTemplate(
+  const schedule = (delta: SourceDelta, items: Map<string, ScheduleItem>) =>
+    env.engine.scheduleTemplate(
       env.days.map((d) => d.input),
       {
         overrides: env.overrides,
@@ -63,14 +71,18 @@ export function makeFitter(env: FitEnv): Fitter {
         }),
         removed: delta.removed,
         moved: delta.moved,
-        days: [],
+        days: delta.days ?? [],
       },
       env.profile,
     );
-    return new Map(out.days.filter((d) => typeof d.ref === 'number').map((d) => [d.ref as number, d.timeline]));
-  };
+  const run = (delta: SourceDelta, items: Map<string, ScheduleItem>): Map<number, DayTimeline> => new Map(schedule(delta, items).days.map((d) => [d.n, d.timeline]));
   const known = new Map(Object.entries(env.candidates).map(([k, c]) => [k, candidateToItem(c)]));
-  const base = run(env.delta, known);
+  const first = schedule(env.delta, known);
+  // with a day inserted or dropped the numbers shift and the entries carry the published day: read them as the page does (E4's `effectiveDays`)
+  const eff = env.model && env.delta.days?.length ? effectiveDays(env.model, first) : null;
+  const base = new Map((eff ? eff.timelines : first.days.map((d) => d.timeline)).map((t, i) => [first.days[i]!.n, t] as const));
+  const refs = new Map(first.days.map((d) => [d.n, d.ref] as const));
+  const refOf = (n: number): number | string => refs.get(n) ?? n;
 
   const onTrip = new Map<string, OnTrip>();
   for (const [n, t] of [...base].sort((a, b) => a[0] - b[0])) {
@@ -86,7 +98,7 @@ export function makeFitter(env: FitEnv): Fitter {
   const fit = (c: AddCandidate, day: number): Fit => {
     const was = base.get(day);
     const withIt = new Map(known).set(c.key, candidateToItem(c));
-    const now = run({ ...env.delta, added: [...env.delta.added, { op: PREVIEW, day, slug: c.key }] }, withIt).get(day);
+    const now = run({ ...env.delta, added: [...env.delta.added, { op: PREVIEW, day: refOf(day), slug: c.key }] }, withIt).get(day);
     if (!now || !was) return { state: 'fits', words: 'fits the day', ends: null, driveMin: 0 };
     const before = new Set(was.warnings.map(key));
     const fresh = now.warnings.filter((w) => !before.has(key(w)));
@@ -108,5 +120,5 @@ export function makeFitter(env: FitEnv): Fitter {
     ].filter(Boolean);
     return { state: checks.length ? 'tight' : 'fits', words: parts.join(' · '), ends, driveMin };
   };
-  return { base, onTrip, lastStop, fit };
+  return { base, eff, refOf, onTrip, lastStop, fit };
 }

@@ -22,8 +22,8 @@ async function seed(page: Page, values: Record<string, string>) {
     for (const [k, v] of Object.entries(kv)) localStorage.setItem(k, v);
   }, values);
 }
-const titles = (page: Page, day: number) => page.locator(`#day-${day} li.tl-entry[data-edit] .tl-title`).allTextContents();
-const handle = (page: Page, day: number, i: number) => page.locator(`#day-${day} li.tl-entry[data-edit]`).nth(i).locator('.drag-handle');
+const titles = (page: Page, day: number) => page.locator(`#day-${day} li.tl-entry[data-edit="stop"] .tl-title`).allTextContents();
+const handle = (page: Page, day: number, i: number) => page.locator(`#day-${day} li.tl-entry[data-edit="stop"]`).nth(i).locator('.drag-handle');
 const say = (page: Page) => page.locator('.sr-only[role="status"]');
 
 test.describe('the keyboard model', () => {
@@ -65,7 +65,7 @@ test.describe('the keyboard model', () => {
     await expect(say(page)).toContainText(`Moved ${before[0]}, position`);
     // focus stays on the moved stop's handle
     await expect.poll(() => page.evaluate(() => (document.activeElement as HTMLElement | null)?.dataset.dragHandle ?? '')).toMatch(/^2:/);
-    await expect(page.locator('#day-2 li.tl-entry[data-edit] .drag-handle:focus')).toHaveCount(1);
+    await expect(page.locator('#day-2 li.tl-entry[data-edit="stop"] .drag-handle:focus')).toHaveCount(1);
     await page.keyboard.press('ControlOrMeta+z');
     await expect.poll(() => titles(page, 2)).toEqual(before);
   });
@@ -168,7 +168,7 @@ test.describe('the keyboard model', () => {
     await expect(page.getByRole('dialog', { name: 'Keys in edit mode' }).getByRole('switch', { name: /Single-letter shortcuts/ })).toHaveAttribute('aria-checked', 'false');
   });
 
-  test('M opens Move to day, A opens the add panel of the day, E leaves edit mode', async ({ page, site }) => {
+  test('M opens Move to day, A opens the add picker of the day, E leaves edit mode', async ({ page, site }) => {
     await open(page, site);
     await handle(page, 2, 0).focus();
     await page.keyboard.press('m');
@@ -177,7 +177,8 @@ test.describe('the keyboard model', () => {
     await page.keyboard.press('Escape');
     await handle(page, 2, 0).focus();
     await page.keyboard.press('a');
-    await expect(page.locator('#day-2').getByRole('group', { name: 'Add to Day 2' })).toBeVisible();
+    await expect(page.getByRole('dialog').getByRole('heading', { name: 'Add a place to Day 2' }).first()).toBeVisible(); // E3's picker
+    await expect(page.getByRole('dialog')).toBeVisible();
     await page.keyboard.press('Escape');
     await handle(page, 2, 0).focus();
     await page.keyboard.press('e');
@@ -188,7 +189,7 @@ test.describe('the keyboard model', () => {
   test('letters typed in a field do nothing else: the note field takes e, m, a and Delete as text', async ({ page, site }) => {
     await open(page, site);
     const before = await titles(page, 1);
-    await page.locator('#day-1 li.tl-entry[data-edit] .tl-edit-trail button').first().click();
+    await page.locator('#day-1 li.tl-entry[data-edit="stop"] .tl-edit-trail button').first().click();
     await page.getByRole('menuitem', { name: 'Add a note' }).click();
     const field = page.getByRole('textbox', { name: 'Note' });
     await field.fill('');

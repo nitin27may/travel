@@ -22,8 +22,8 @@ async function seed(page: Page, values: Record<string, string>) {
     for (const [k, v] of Object.entries(kv)) localStorage.setItem(k, v);
   }, values);
 }
-const titles = (page: Page, day: number) => page.locator(`#day-${day} li.tl-entry[data-edit] .tl-title`).allTextContents();
-const row = (page: Page, day: number, i: number) => page.locator(`#day-${day} li.tl-entry[data-edit]`).nth(i);
+const titles = (page: Page, day: number) => page.locator(`#day-${day} li.tl-entry[data-edit="stop"] .tl-title`).allTextContents();
+const row = (page: Page, day: number, i: number) => page.locator(`#day-${day} li.tl-entry[data-edit="stop"]`).nth(i);
 const handle = (page: Page, day: number, i: number) => row(page, day, i).locator('.drag-handle');
 async function centre(l: Locator): Promise<{ x: number; y: number }> {
   const b = (await l.boundingBox())!;
@@ -31,7 +31,7 @@ async function centre(l: Locator): Promise<{ x: number; y: number }> {
 }
 /** Scrolls so stop `i` of a day sits a third of the way down the window: clear of the sticky bars on top and the autoscroll edges. */
 const mid = (page: Page, day: number, i = 0) =>
-  page.locator(`#day-${day} li.tl-entry[data-edit]`).nth(i).evaluate((e) => window.scrollTo(0, e.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.33));
+  page.locator(`#day-${day} li.tl-entry[data-edit="stop"]`).nth(i).evaluate((e) => window.scrollTo(0, e.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.33));
 async function ready(page: Page, site: { url: string }, days: number, query = '?view=day&edit=1') {
   await seed(page, { [COPIES_KEY]: envelope([copy(days)]) });
   await page.goto(`${site.url}/t/${ID}/${query}`);
@@ -50,7 +50,7 @@ async function planDays(playwright: { request: { newContext: () => Promise<impor
 }
 /** The y a pointer must be at to land before stop `i` of a day (the top quarter of that row), or after the last. */
 async function slotY(page: Page, day: number, i: number): Promise<{ x: number; y: number }> {
-  const stops = page.locator(`#day-${day} li.tl-entry[data-edit]:not([data-drag-origin])`);
+  const stops = page.locator(`#day-${day} li.tl-entry[data-edit="stop"]:not([data-drag-origin])`);
   const n = await stops.count();
   if (i >= n) {
     const b = (await stops.nth(n - 1).boundingBox())!;
@@ -70,7 +70,7 @@ test.describe('drag on a desktop', () => {
   test('every stop has a handle named for it with its day, and the content column narrows by the handle', async ({ page, site }) => {
     await ready(page, site, days);
     for (let d = 1; d <= Math.min(days, 3); d++) {
-      const n = await page.locator(`#day-${d} li.tl-entry[data-edit]`).count();
+      const n = await page.locator(`#day-${d} li.tl-entry[data-edit="stop"]`).count();
       for (let i = 0; i < n; i++) await expect(handle(page, d, i)).toHaveAttribute('aria-label', new RegExp(`^Move .+, Day ${d}$`));
     }
     const h = (await handle(page, 2, 0).boundingBox())!;

@@ -1,6 +1,6 @@
 // What the drag code needs to know about the rows on the page, read from the page itself so the timeline files stay as E1 left them.
 // Each handle writes its entry here when it renders (the slot gives it the entry); the stops of a day in time order come from the DOM:
-// the rows with `data-edit` are exactly the stops that can be edited (Entry.tsx), and `data-entry` is "<day>:<id>".
+// the rows with `data-edit="stop"` are the stops that move (rule rows are `data-edit="rule"`: no handle, not a slot), and `data-entry` is "<day>:<id>".
 import type { TimelineEntry } from '@travel/core/schedule/types.ts';
 
 const entries = new Map<string, TimelineEntry>();
@@ -13,7 +13,7 @@ export const parseKey = (key: string): { day: number; id: string } => {
 };
 
 /** The stop rows of a day, in page order. */
-export const stopRows = (day: number): HTMLElement[] => [...document.querySelectorAll<HTMLElement>(`#day-${day} li.tl-entry[data-edit]`)];
+export const stopRows = (day: number): HTMLElement[] => [...document.querySelectorAll<HTMLElement>(`#day-${day} li.tl-entry[data-edit="stop"]`)];
 /** The days on the page, in order. */
 export const dayNumbers = (): number[] => [...document.querySelectorAll<HTMLElement>('li.tl-day[id^="day-"]')].map((d) => Number(d.id.slice(4)));
 /** The entries of a day's stop rows (the ones the handles have registered), in page order. */

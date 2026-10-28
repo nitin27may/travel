@@ -28,12 +28,15 @@ function read(storage: StorageLike): Envelope {
   return { v: 1, items: {} };
 }
 
-/** The document with the device's template lists laid over it. `added` is used only while it still names the same places as the copy. */
+/** The document with the device's template lists laid over it. `added` is used only while its numbered days still name the same places as the copy. */
 export function withDeviceEdits(storage: StorageLike, id: string, doc: PlanDraft): PlanDraft {
   const t = doc.template;
   const e = read(storage).items[id];
   if (!t || !e) return doc;
-  const same = Array.isArray(e.added) && e.added.length === t.added.length && (e.added as { day: unknown; ref: string }[]).every((a, i) => a.day === t.added[i]!.day && a.ref === t.added[i]!.ref);
+  // `copies/1` holds an added place only by a published day number, so a place added to a day the person inserted (its day is an operation id)
+  // lives only here: compare the numbered ones with the copy's, and keep the rest (STEP2-INT)
+  const mine = Array.isArray(e.added) ? (e.added as { day: unknown; ref: string }[]).filter((a) => typeof a.day === 'number') : [];
+  const same = Array.isArray(e.added) && mine.length === t.added.length && mine.every((a, i) => a.day === t.added[i]!.day && a.ref === t.added[i]!.ref);
   const next = { ...doc, template: { ...t, added: same ? e.added : t.added, removed: e.removed, moved: e.moved, days: e.days, maybe: e.maybe, notes: e.notes ?? {} } };
   const r = parsePlanDraft(next);
   return r.success ? (r.data as PlanDraft) : doc;

@@ -28,7 +28,7 @@ function addedOp(d: PlanDraft, e: StopEntry): string | null {
  * The document names a day by its ref (a published number, or an inserted day's operation id); the page shows it as Day n, which differs
  * once a day was inserted or dropped (STEP2-E4, lib/trip-edit/dayMap.ts). Every operation here goes through this.
  */
-const dayRef = (d: PlanDraft, n: number): DayRef => (d.template ? refOfDay(d.template.days, n) : n);
+export const dayRef = (d: PlanDraft, n: number): DayRef => (d.template ? refOfDay(d.template.days, n) : n);
 
 /** A published stop's own day: where our plan has it, which differs from where it shows once the person moved it. */
 function publishedDay(d: PlanDraft, e: StopEntry): number {
