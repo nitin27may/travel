@@ -71,6 +71,7 @@ test('park page with the keyboard only: Save, favourite, details, show all, Plan
   await page.goto(base + '/parks-app/park.html?slug=jasper-national-park');
   await tabTo(page, '#save');
   await page.keyboard.press('Space');
+  await page.locator('#justsave').click();   // STEP2-PR: the trip picker opens first
   await expect(page.locator('#save')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.locator('#savedn')).toHaveText('1');
   expect(await page.evaluate(() => document.activeElement.id)).toBe('save');
@@ -95,6 +96,7 @@ test('park page with the keyboard only: Save, favourite, details, show all, Plan
 test('Saved drawer: focus goes in, stays in, comes back; removing keeps focus inside', async ({ page, base }) => {
   await page.goto(base + '/parks-app/park.html?slug=yoho-national-park');
   await page.locator('#save').click();
+  await page.locator('#justsave').click();   // STEP2-PR
   await page.locator('[data-psave]').first().click();
   await page.locator('#savedbtn').focus(); await page.keyboard.press('Enter');
   const dr = page.getByRole('dialog', { name: 'My saved places' });
