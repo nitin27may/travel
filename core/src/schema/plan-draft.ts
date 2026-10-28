@@ -436,9 +436,9 @@ export const planNotes = z.record(z.string().regex(PLAN_NOTE_KEY_RE, "trip, a da
 /** Built mode's notes (the top-level `notes`): the trip, a day, or a pick by its ref. */
 export const planBuiltNotes = z.record(z.string().regex(PLAN_BUILT_NOTE_KEY_RE, "trip, a day number or a pick's ref"), planNoteText);
 
-/** The trip identity colours (foundation tokens 4; `IDENTITY_KEYS` of web/components/ui/Chip.tsx, pinned equal by core/test/plan). */
-export const PLAN_IDENTITY_KEYS = ["blue", "orange", "rose", "teal", "sky", "yellow", "vermillion", "none"] as const;
-export type PlanIdentity = (typeof PLAN_IDENTITY_KEYS)[number];
+/** The trip identity colours (foundation tokens 4; `IDENTITY_KEYS` of web/components/ui/Chip.tsx, pinned equal by core/test/plan). One list, in ./identity.ts. */
+import { PLAN_IDENTITY_KEYS } from "./identity.ts";
+export { PLAN_IDENTITY_KEYS, type PlanIdentity } from "./identity.ts";
 
 /** The template block (edit-my-trip 2): the public trip a copy follows and the person's changes to it. `custom` and `stays` (REQ, STY-2C) are not in `/1`: their shapes are not specified yet, so they arrive as `plan-draft/2`. */
 export const planTemplate = z.strictObject({

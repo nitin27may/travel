@@ -23,13 +23,17 @@ export function rowTitle(c: Pick<CopyItem, 'title' | 'slug'>): string {
   return c.slug.replace(/-/g, ' ').replace(/^./, (s) => s.toUpperCase());
 }
 
-export type Group = 'upcoming' | 'past';
+/** Upcoming, then No date (a copy kept without a start, SW-008; nav 2.3), then Past. */
+export type Group = 'upcoming' | 'nodate' | 'past';
+
+/** Line 2 of an undated row, and the word the row's accessible name uses. */
+export const NO_DATE = 'No date';
 
 export interface RowModel {
   item: CopyItem;
   title: string;
   href: string;
-  /** Line 2: "Sat 3 Jul 2027 · in 251 days" */
+  /** Line 2: "Sat 3 Jul 2027 · in 251 days", or "No date" */
   when: string;
   /** Line 3: "14 days · 2 adults, 1 child" */
   who: string;
@@ -77,26 +81,28 @@ export function openHref(c: CopyItem): string {
 }
 
 export function rowModel(item: CopyItem, today: string): RowModel {
+  const who = [item.days ? num(item.days, 'day') : '', partyText(item)].filter(Boolean).join(' · ');
+  const base = { item, title: rowTitle(item), href: openHref(item), who };
+  if (item.start === null) return { ...base, when: NO_DATE, group: 'nodate' };
   const cd = countdown(item.start, item.days, today);
-  return {
-    item,
-    title: rowTitle(item),
-    href: openHref(item),
-    when: `${formatDate(item.start)} · ${cd.text}`,
-    who: [item.days ? num(item.days, 'day') : '', partyText(item)].filter(Boolean).join(' · '),
-    group: cd.group,
-  };
+  return { ...base, when: `${formatDate(item.start)} · ${cd.text}`, group: cd.group };
 }
 
-/** Upcoming soonest first, Past most recent first (spec 5.2). */
-export function groupRows(items: readonly CopyItem[], today: string): { upcoming: RowModel[]; past: RowModel[] } {
+const startOf = (r: RowModel): string => r.item.start ?? '';
+
+/** Upcoming soonest first, No date most recently copied first, Past most recent first (spec 5.2). */
+export function groupRows(items: readonly CopyItem[], today: string): { upcoming: RowModel[]; nodate: RowModel[]; past: RowModel[] } {
   const rows = items.map((i) => rowModel(i, today));
-  const upcoming = rows.filter((r) => r.group === 'upcoming').sort((a, b) => a.item.start.localeCompare(b.item.start) || a.title.localeCompare(b.title));
-  const past = rows.filter((r) => r.group === 'past').sort((a, b) => b.item.start.localeCompare(a.item.start) || a.title.localeCompare(b.title));
-  return { upcoming, past };
+  const upcoming = rows.filter((r) => r.group === 'upcoming').sort((a, b) => startOf(a).localeCompare(startOf(b)) || a.title.localeCompare(b.title));
+  const nodate = rows
+    .filter((r) => r.group === 'nodate')
+    .sort((a, b) => Date.parse(b.item.copiedAt) - Date.parse(a.item.copiedAt) || a.title.localeCompare(b.title));
+  const past = rows.filter((r) => r.group === 'past').sort((a, b) => startOf(b).localeCompare(startOf(a)) || a.title.localeCompare(b.title));
+  return { upcoming, nodate, past };
 }
 
-export const endDate = (c: Pick<CopyItem, 'start' | 'days'>): string => addDays(c.start, Math.max(0, (c.days ?? 1) - 1));
+/** The last day of a dated copy; null for an undated one. */
+export const endDate = (c: Pick<CopyItem, 'start' | 'days'>): string | null => (c.start === null ? null : addDays(c.start, Math.max(0, (c.days ?? 1) - 1)));
 
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 

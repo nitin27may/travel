@@ -30,11 +30,13 @@ test.describe('copy, export, share', () => {
     await expect(page.getByRole('menuitem', { name: /^Calendar/ })).toBeDisabled();
   });
 
-  test('copy sheet: primary off until a date is picked, then a dated calendar downloads and the copy is kept in Mine', async ({ page, site }) => {
+  // SW-008 (copies/2): the date is optional, so Copy is on from the start; only the calendar waits for a date
+  test('copy sheet: Copy works without a date, the calendar waits for one, a child\'s age is needed, then a dated calendar downloads and the copy is kept in Mine', async ({ page, site }) => {
     await page.goto(`${site.url}/specimen/`);
     await page.getByRole('button', { name: /Open copy sheet/ }).click();
     const copy = page.getByRole('button', { name: 'Copy to my trips' });
-    await expect(copy).toBeDisabled();
+    await expect(copy).toBeEnabled();
+    await expect(page.getByTestId('copy-date')).toHaveText('No date yet');
     await expect(page.getByRole('button', { name: /Calendar \(\.ics\): pick a start date first/ })).toBeDisabled();
     await page.locator('.cal-cell[data-season]:not([disabled])').first().click();
     await expect(page.getByRole('group', { name: 'Adults' }).locator('output')).toHaveText('2'); // the sheet starts at the page's default: 2 adults

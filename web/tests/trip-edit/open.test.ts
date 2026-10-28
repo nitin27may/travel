@@ -31,10 +31,10 @@ describe('openTrip', () => {
 
   it('answers newer for a list written by a newer version, and never writes it', () => {
     const s = memory();
-    s.setItem('travel.copies.local', JSON.stringify({ schema: 'copies/2', items: [] }));
+    s.setItem('travel.copies.local', JSON.stringify({ schema: 'copies/3', items: [] }));
     expect(findCopy(s, ID_A)).toEqual({ kind: 'newer' });
     expect(saveOps(ID_A, [op({ kind: 'setTitle', title: 'x' })], { storage: s })).toEqual({ ok: false, reason: 'newer' });
-    expect(s.getItem('travel.copies.local')).toBe(JSON.stringify({ schema: 'copies/2', items: [] }));
+    expect(s.getItem('travel.copies.local')).toBe(JSON.stringify({ schema: 'copies/3', items: [] }));
   });
 
   it('prefers the account document when the engine holds one', () => {
@@ -144,5 +144,41 @@ describe('copyWithDraft and the words', () => {
     expect(changesLine(0)).toBe('');
     expect(kickerWords(d, 'Dolomites')).toBe('Your copy · from our Dolomites trip');
     expect(endOf(d)).toBe('2027-07-16');
+  });
+});
+
+// SW-008 and SW-026 (copies/2): a device copy can be undated, and its document carries the copy's ring colour.
+describe('copies/2 on the device', () => {
+  it('"No date" in Settings clears the copy\'s start; a date puts it back; the envelope is written as copies/2', () => {
+    const s = memory([copy()]);
+    expect(saveOps(ID_A, [op({ kind: 'setDates', start: null })], { storage: s })).toEqual({ ok: true });
+    expect(items(s)[0]!.start).toBeNull();
+    expect(JSON.parse(s.raw()!).schema).toBe('copies/2');
+    const open = openTrip(ID_A, { storage: s });
+    expect(open.kind === 'ok' && open.doc.start).toBeUndefined();
+    expect(saveOps(ID_A, [op({ kind: 'setDates', start: '2027-08-01' })], { storage: s })).toEqual({ ok: true });
+    expect(items(s)[0]!.start).toBe('2027-08-01');
+  });
+
+  it('an undated copy opens as a document with no start and no month', () => {
+    const r = openTrip(ID_A, { storage: memory([copy({ start: null })]) });
+    expect(r.kind).toBe('ok');
+    if (r.kind !== 'ok') return;
+    expect(r.doc.start).toBeUndefined();
+    expect(r.doc.month).toBeNull();
+  });
+
+  it('the document carries the copy\'s colour, or its slug\'s for a copy made before copies/2 (the sticky bar\'s ring)', () => {
+    const given = openTrip(ID_A, { storage: memory([copy({ identity: 'vermillion' })]) });
+    expect(given.kind === 'ok' && given.doc.identity).toBe('vermillion');
+    const old = openTrip(ID_A, { storage: memory([copy()]) });
+    expect(old.kind === 'ok' && old.doc.identity).toBeTruthy();
+    expect(old.kind === 'ok' && old.doc.identity).not.toBe('rose');
+  });
+
+  it('copyWithDraft writes "no start" back as null, never as the old date', () => {
+    const c = copy();
+    const d = copyToPlanDraft({ ...c, start: null }) as { success: true; data: PlanDraft };
+    expect(copyWithDraft(c, d.data).start).toBeNull();
   });
 });

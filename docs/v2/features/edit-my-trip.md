@@ -163,6 +163,12 @@ Rules (cross-field, in rule functions; never a bare `.parse`, as today):
 `rev`, `fromRef`, `gw`. This replaces `docOf` in `core/src/schema/copies.ts` (EM-C). The snapshot fields `days`, `cc`,
 `photo` become columns of the row (light list, P8), not document keys.
 
+**`copies/2` (SW-008, SW-026, 28 Oct 2026):** an undated copy (`start: null`) maps to a document with no `start` and
+`month: null`, and its row's `start` column is null (Mine's "No date" group); the copy's `identity` (or its slug's colour
+for a copy made before `copies/2`) becomes the document's `identity`. No database change: `plan_draft.start` was already
+nullable. M3 reads account documents only for rows whose trip and start match a copy, so an undated copy is always
+inserted as its own row (no loss; at worst beside an undated row of the same trip).
+
 ## 3. The account table
 
 Migration slug `plan_doc` (number at merge; it absorbs NAV-D's `draft-cap` and the column half of CUS-C's

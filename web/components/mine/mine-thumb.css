@@ -1,3 +1,8 @@
 /* The Mine row thumbnail (My trips and Favourites share it). Tokens only. */
 .mthumb { align-self: start; display: grid; place-items: center; width: 56px; aspect-ratio: 4 / 3; border-radius: var(--r-2); overflow: hidden; background: var(--well); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
 .mthumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* SW-026: a trip row's identity ring (tokens 4): 2 px gap in the row's own background, 2.5 px colour, 1 px --line-2 keyline outside it.
+   The ring needs 5.5 px round the photo inside the 56 px column (the row clips at its edge), so the photo is 50 x 37.5, the row's text
+   stays where it was. */
+.mthumb[data-ring] { width: 50px; margin: 0 0 0 6px; box-shadow: 0 0 0 2px var(--bg), 0 0 0 4.5px var(--tc, var(--line-2)), 0 0 0 5.5px var(--line-2); }
+a:hover > .mthumb[data-ring] { box-shadow: 0 0 0 2px var(--surface-2), 0 0 0 4.5px var(--tc, var(--line-2)), 0 0 0 5.5px var(--line-2); }

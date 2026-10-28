@@ -381,9 +381,11 @@ export async function mergeRoute(request: Request, deps: PlansDeps = defaultPlan
       const a = deps.aliasOf(s);
       return trips.has(a) ? a : null;
     };
+    // M3 compares a copy with the account rows of the same trip and start; an undated copy (copies/2) matches none (the rows with no
+    // start are not read), so it is always inserted as its own row: never lost, at worst beside an undated row of the same trip
     const pairs = copies.data.flatMap((c) => {
       const trip = publicSlug(c.slug);
-      return trip === null ? [] : [{ trip, start: c.start }];
+      return trip === null || c.start === null ? [] : [{ trip, start: c.start }];
     });
     const keys = await deps.db.mergeKeys(user.id, pairs);
     const account: AccountPlanKey[] = keys.map((k) => ({ id: k.id, source_trip: k.source_trip, start: k.start, content: contentOf(k.doc) }));

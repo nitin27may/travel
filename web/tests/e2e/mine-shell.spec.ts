@@ -213,7 +213,7 @@ test.describe('/mine/ shell', () => {
   });
 
   test('an envelope this version cannot read is reported and left untouched', async ({ page, site }) => {
-    const bad = '{"schema":"copies/2","items":[]}';
+    const bad = '{"schema":"copies/3","items":[]}';
     await seed(page, { [COPIES_KEY]: bad });
     await page.goto(`${site.url}/mine/`, { waitUntil: 'networkidle' });
     await expect(page.getByRole('tab', { name: /^My trips$/ })).toBeVisible(); // no count rather than a wrong one
@@ -245,7 +245,7 @@ test.describe('/mine/ shell', () => {
   });
 
   test('a list written by a newer version offers Reload; a damaged one has no action (S4)', async ({ page, site }) => {
-    const newer = '{"schema":"copies/2","items":[]}';
+    const newer = '{"schema":"copies/3","items":[]}';
     await seed(page, { [COPIES_KEY]: newer, [FAV_KEY]: '{not json' });
     await page.goto(`${site.url}/mine/`, { waitUntil: 'networkidle' });
     const trips = page.getByRole('tabpanel', { name: 'My trips' });

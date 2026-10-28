@@ -6,6 +6,9 @@
 .copy-date-input { display: flex; align-items: center; gap: var(--s-2); height: 42px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: var(--r-2); background: var(--surface); font: var(--t-mono); font-size: 13.5px; color: var(--ink); }
 .copy-date-input[data-empty] { color: var(--muted); }
 .copy-summary { font: var(--t-small); color: var(--ink-2); margin: 0; }
+/* SW-008: the picked range, with "No date yet" beside it to clear it; with no date, one muted line says the date is optional */
+.copy-when-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: var(--s-2) var(--s-3); }
+.copy-nodate { color: var(--muted); }
 
 .cal { display: grid; gap: var(--s-3); }
 .cal-months { display: grid; gap: var(--s-4); grid-template-columns: minmax(0, 1fr); }

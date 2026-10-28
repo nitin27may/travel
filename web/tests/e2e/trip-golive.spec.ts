@@ -16,8 +16,13 @@ async function printed(page: Page, url: string) {
         text: view?.textContent ?? '',
         sections: [...(view?.querySelectorAll('section.print-model-day') ?? [])].map((s) => s.textContent ?? ''),
         book: view?.querySelector('section.print-model-book')?.textContent ?? null,
-        // the park lines (PA-W) sit above the rows; the Book ahead section is the first section after them
-        bookFirst: view?.querySelector('h1 ~ section:not(.print-model-parks)')?.classList.contains('print-model-book') ?? false,
+        // Q305 (STEP2-E6, edit-mode-spec 14, patterns 3.10 item 8): the Bookings print after the days, so no day section follows a booking section
+        bookAfterDays: (() => {
+          const all = [...(view?.querySelectorAll('section') ?? [])];
+          const firstBook = all.findIndex((x) => x.classList.contains('print-model-book'));
+          const lastDay = all.map((x) => x.classList.contains('print-model-day')).lastIndexOf(true);
+          return firstBook > lastDay && lastDay >= 0;
+        })(),
       });
       window.dispatchEvent(new Event('afterprint'));
     };
@@ -27,7 +32,7 @@ async function printed(page: Page, url: string) {
   await page.locator('.trip-cover').getByRole('button', { name: 'Export trip', exact: true }).click();
   await page.getByRole('menuitem', { name: 'Print or save as PDF' }).click();
   await expect.poll(() => page.evaluate(() => (window as unknown as { __printed: unknown[] }).__printed.length)).toBe(1);
-  return (await page.evaluate(() => (window as unknown as { __printed: { text: string; sections: string[]; book: string | null; bookFirst: boolean }[] }).__printed))[0]!;
+  return (await page.evaluate(() => (window as unknown as { __printed: { text: string; sections: string[]; book: string | null; bookAfterDays: boolean }[] }).__printed))[0]!;
 }
 
 test.describe('trip page go-live fixes', () => {
@@ -43,13 +48,16 @@ test.describe('trip page go-live fixes', () => {
     expect(day).not.toMatch(/Drive on to /);
   });
 
-  test('MUST-6: the Rockies and Dolomites prints have a Book ahead section after the meta line, before Day 1; Dolomites words its windows dateless', async ({ page, site }) => {
+  // Q305 (owner yes, UXB 3.4; built in STEP2-E6): Book ahead prints after the days, not before Day 1 as MUST-6 first had it
+  test('MUST-6 and Q305: the Rockies print has a Book ahead section after the last day; Dolomites words its windows dateless', async ({ page, site }) => {
     const r = await printed(page, `${site.url}${ROCKIES}?p=family-6#day-8`);
     expect(r.book, 'a Book ahead section').toBeTruthy();
-    expect(r.bookFirst).toBe(true);
+    expect(r.bookAfterDays).toBe(true);
     expect(r.book).toMatch(/^Book ahead/);
     expect(r.book).not.toMatch(/INFERENCE|\bGAP\b|no booking expected/i);
-    expect(r.text.indexOf('Book ahead')).toBeLessThan(r.text.indexOf('Day 1: '));
+    // in the text too: the booking section starts after the last day's section ends
+    const lastDay = r.sections.at(-1)!;
+    expect(r.text.indexOf(r.book!)).toBeGreaterThan(r.text.indexOf(lastDay) + lastDay.length - 1);
   });
 
   test('MUST-6: Dolomites prints each booking\'s rule, dateless', async ({ page, site }) => {

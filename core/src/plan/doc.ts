@@ -9,6 +9,7 @@
 import {
   ACCOUNT_DRAFT_CAP,
   copyContentKey,
+  copyIdentity,
   parseCopy,
   planMerge,
   templateContentKey,
@@ -108,7 +109,8 @@ function draftOfCopy(c: CopyItem, opts: CopyMapOptions): Checked<PlanTemplateDra
     nights: days - 1,
     pace: c.profile?.pace ?? "standard",
     moves: "balanced",
-    month: monthOf(c.start),
+    // an undated copy (copies/2) has no month either
+    month: c.start === null ? null : monthOf(c.start),
     party: "trip",
     picks: [],
     bases: [],
@@ -131,8 +133,10 @@ function draftOfCopy(c: CopyItem, opts: CopyMapOptions): Checked<PlanTemplateDra
       notes: {},
       maybe: [],
     },
-    start: c.start,
+    ...(c.start !== null ? { start: c.start } : {}),
     travellers: { adults: c.adults, children: [...c.children] },
+    // the copy's ring colour, or its slug's for a copy made before copies/2, so the account keeps the colour Mine showed (SW-026)
+    identity: copyIdentity(c),
     ...(c.fromRef !== undefined ? { fromRef: c.fromRef } : {}),
     ...(c.gw !== undefined ? { gw: { in: c.gw.in, out: c.gw.out } } : {}),
   };

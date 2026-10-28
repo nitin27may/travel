@@ -23,7 +23,7 @@ interface Props {
   bookings: readonly { name: string; day: number | null }[];
   open: boolean;
   copy: boolean;
-  /** A trip in the account can have no date; a copy on this device always keeps its start (copies/1 holds a date), so it is not offered there. */
+  /** "No date" is offered: a trip in the account and, since copies/2 (SW-008), a copy on this device can both be undated. */
   canClear: boolean;
   run: (ops: PlanOp[], label: string) => boolean;
 }

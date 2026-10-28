@@ -71,6 +71,16 @@ describe('the own trip model', () => {
   it('names the header the way the spec says', () => {
     expect(own.header).toMatch(/^Your copy of Canadian Rockies · Sat 8 Sep 2029 · 2 adults, 1 child$/);
   });
+  it('SW-008: an undated copy prints its header without a date, and its calendar asks for dates first', () => {
+    const undated = (copyToPlanDraft(copy({ slug: SLUG, title: 'Canadian Rockies', start: null, adults: 2, children: [10], overrides: {} })) as { success: true; data: PlanDraft }).data;
+    const o = ownTripOf({ doc: undated, slug: SLUG, title: 'Canadian Rockies', ourTitle: 'Canadian Rockies', party: { adults: 2, children: [10] }, days: page.timeline!.days, addables: () => undefined });
+    expect(o.header).toBe('Your copy of Canadian Rockies · 2 adults, 1 child');
+    expect(o.start).toBeNull();
+    expect(() => ownIcs(data, session, o)).toThrow(/no start date/);
+    const html = renderToStaticMarkup(TripPrintView({ data: ownModel(data, session, o), session, own: o }));
+    expect(html).toContain('Your copy of Canadian Rockies · 2 adults, 1 child');
+    expect(html).not.toMatch(/\b(Mon|Tue|Wed|Thu|Fri|Sat|Sun) \d{1,2} [A-Z][a-z]{2} \d{4}/);
+  });
 });
 
 describe('the print view of your own trip', () => {

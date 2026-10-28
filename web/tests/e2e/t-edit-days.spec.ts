@@ -330,13 +330,24 @@ test.describe('edit mode: Settings', () => {
   test('a new start date relabels the days and moves no stop', async ({ page, site }) => {
     const sheet = await open(page, site);
     const before = await stops(page, 2);
-    // a device copy always keeps a date, so there is no "No date" button here
-    await expect(sheet.getByRole('button', { name: 'No date' })).toHaveCount(0);
+    // SW-008 (copies/2): a device copy can be undated too, so "No date" is offered here as on an account trip
+    await expect(sheet.getByRole('button', { name: 'No date', exact: true })).toBeVisible();
     await sheet.locator('.own-set-date').click();
     await sheet.locator('.cal-cell[data-date="2029-09-15"]').click();
     await expect(toast(page, /^The trip starts .* days relabelled, no stop moved/)).toBeVisible();
     await expect(sheet.locator('.own-set-date')).not.toContainText('8 Sep');
     expect(await stops(page, 2)).toEqual(before);
+    await undo(page);
+    await expect(sheet.locator('.own-set-date')).toContainText('8 Sep 2029');
+  });
+
+  test('SW-008: No date clears a device copy\'s start, the days are numbered only, and Undo puts the date back', async ({ page, site }) => {
+    const sheet = await open(page, site);
+    await sheet.getByRole('button', { name: 'No date', exact: true }).click();
+    await expect(toast(page, 'The trip has no dates · days are numbered only')).toBeVisible();
+    await expect(sheet.locator('.own-set-date')).toContainText('No date');
+    const env = await page.evaluate(() => JSON.parse(localStorage.getItem('travel.copies.local') ?? 'null') as { schema: string; items: { start: string | null }[] });
+    expect(env).toMatchObject({ schema: 'copies/2', items: [{ start: null }] });
     await undo(page);
     await expect(sheet.locator('.own-set-date')).toContainText('8 Sep 2029');
   });

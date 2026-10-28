@@ -144,7 +144,8 @@ const readJson = (raw: string | null): unknown => {
 /** An account trip as the Mine rows and the Open link read it (`CopyItem` shape; never parsed: it is built from a parsed document). */
 export function copyOfRow(row: Pick<CachedRow, 'id' | 'title' | 'days'>, d: PlanDraft): CopyItem | null {
   const t = d.template;
-  if (!t || !d.start || !d.travellers) return null;
+  // an undated trip is a row too (Mine's "No date" group, SW-008)
+  if (!t || !d.travellers) return null;
   const added = t.added.flatMap((a) => (typeof a.day === 'number' && a.ref.startsWith('place/') ? [{ day: a.day, placeSlug: a.ref.slice('place/'.length) }] : []));
   return {
     id: row.id,
@@ -153,7 +154,7 @@ export function copyOfRow(row: Pick<CachedRow, 'id' | 'title' | 'days'>, d: Plan
     days: row.days ?? (d.nights === null ? null : d.nights + 1),
     cc: d.where.mode === 'trip' ? d.where.cc : null,
     photo: null,
-    start: d.start,
+    start: d.start ?? null,
     adults: d.travellers.adults,
     children: [...d.travellers.children],
     profile: t.profile,
@@ -163,6 +164,7 @@ export function copyOfRow(row: Pick<CachedRow, 'id' | 'title' | 'days'>, d: Plan
     ...(t.rev ? { rev: t.rev } : {}),
     ...(d.fromRef !== undefined ? { fromRef: d.fromRef } : {}),
     ...(d.gw !== undefined ? { gw: d.gw } : {}),
+    ...(d.identity !== undefined ? { identity: d.identity } : {}),
   } as CopyItem;
 }
 
@@ -673,7 +675,7 @@ export class AccountSync {
   }
 
   /** Change dates (Mine's menu): the start, and the party with the profile that plans for it, together (bug B1). */
-  changeDates(id: string, c: { start: string; adults: number; children: number[] }): EditResult {
+  changeDates(id: string, c: { start: string | null; adults: number; children: number[] }): EditResult {
     const doc = this.view(id);
     if (!doc?.template) return { ok: false, reason: 'unknown' };
     const youngest = c.children.length ? Math.min(...c.children) : null;

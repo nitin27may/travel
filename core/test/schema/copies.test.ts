@@ -6,6 +6,12 @@ import {
   addCopy,
   copiesEnvelope,
   COPIES_KEY,
+  COPIES_SCHEMA,
+  COPY_RING_KEYS,
+  copyContentKey,
+  copyIdentity,
+  pickIdentity,
+  slugIdentity,
   copyItem,
   copyToDraftRow,
   copyToTripCustom,
@@ -41,6 +47,7 @@ import {
   type StorageLike,
 } from "../../src/schema/copies.ts";
 import { ORIGIN_REFERENCE, parseTripCustom, tripCustom } from "../../src/schema/trip-custom.ts";
+import { PLAN_IDENTITY_KEYS } from "../../src/schema/identity.ts";
 
 // copies/1 (navigation-and-mine.md 3, 4.2; Q204): the envelope, compare-and-set writes, the old-key move, the storage probe, the merge
 // rule as property tests, and the detector keys for a planted copy field. Review NAV-C (26 Oct 2026) findings are named where tested.
@@ -185,7 +192,7 @@ describe("copies/1 envelope", () => {
 
   it("reads absent as fresh, and leaves a newer, corrupt or invalid value untouched", () => {
     expect(readCopies(null)).toMatchObject({ ok: true, fresh: true, envelope: emptyCopies() });
-    const newer = JSON.stringify({ schema: "copies/2", items: [{ anything: true }] });
+    const newer = JSON.stringify({ schema: "copies/3", items: [{ anything: true }] });
     expect(readCopies(newer)).toMatchObject({ ok: false, reason: "newer" });
     expect(readCopies("{not json")).toMatchObject({ ok: false, reason: "corrupt" });
     expect(readCopies(JSON.stringify({ ...emptyCopies(), extra: 1 }))).toMatchObject({ ok: false, reason: "invalid" });
@@ -296,7 +303,7 @@ describe("copies/1 envelope", () => {
 describe("compare-and-set writes (review C1)", () => {
   it("refuses to overwrite a newer envelope", () => {
     const s = spyStorage();
-    const newer = JSON.stringify({ schema: "copies/2", items: [] });
+    const newer = JSON.stringify({ schema: "copies/3", items: [] });
     s.map.set(COPIES_KEY, newer);
     // a stale tab that read copies/1 before the upgrade, and one that read nothing
     expect(writeCopies(s, emptyCopies(), JSON.stringify(emptyCopies()))).toEqual({ ok: false, reason: "newer" });
@@ -455,7 +462,7 @@ describe("storage probe (nav 3.3)", () => {
     expect(writeCopies(spyStorage({ throwOnGet: true }), env, null)).toEqual({ ok: false, reason: "blocked" });
     expect(writeCopies(spyStorage({ dropWrites: true }), env, null)).toEqual({ ok: false, reason: "unverified" });
     const s = spyStorage();
-    expect(writeCopies(s, { ...env, schema: "copies/2" } as unknown as CopiesEnvelope, null)).toEqual({ ok: false, reason: "invalid" });
+    expect(writeCopies(s, { ...env, schema: "copies/3" } as unknown as CopiesEnvelope, null)).toEqual({ ok: false, reason: "invalid" });
     expect(s.map.size).toBe(0);
   });
 });
@@ -736,7 +743,7 @@ describe("NAV-2C: legacy drafts map leniently and move once (NAV-C-HANDOFF M3, L
       if (!env.ok) continue;
       expect(env.envelope.items.length, at).toBe(res.moved); // into an empty envelope, a moved draft is a new copy (or replaced a same-trip one)
       // a draft is dropped exactly when it has no valid slug or start
-      const usable = (d: unknown) => !!d && typeof d === "object" && !Array.isArray(d) && typeof (d as { slug?: unknown }).slug === "string" && /^[a-z0-9][a-z0-9-]{0,99}$/.test((d as { slug: string }).slug) && parseCopy({ ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", copiedAt: NOW.toISOString(), start: (d as { start?: unknown }).start }).success;
+      const usable = (d: unknown) => !!d && typeof d === "object" && !Array.isArray(d) && typeof (d as { slug?: unknown }).slug === "string" && /^[a-z0-9][a-z0-9-]{0,99}$/.test((d as { slug: string }).slug) && typeof (d as { start?: unknown }).start === "string" && parseCopy({ ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", copiedAt: NOW.toISOString(), start: (d as { start?: unknown }).start }).success;
       expect(res.dropped, at).toBe(parsedList.filter((d) => !usable(d)).length);
       expect(s.map.get(LEGACY_MOVED_KEY), at).toBe(MOVE_AT.toISOString());
       // what is left under the old key is exactly the kept and the dropped entries
@@ -767,7 +774,7 @@ describe("NAV-2C: legacy drafts map leniently and move once (NAV-C-HANDOFF M3, L
       expect(failing.map.has(LEGACY_MOVED_KEY)).toBe(false);
     }
     const newer = spyStorage();
-    newer.map.set(COPIES_KEY, JSON.stringify({ schema: "copies/2", items: [] }));
+    newer.map.set(COPIES_KEY, JSON.stringify({ schema: "copies/3", items: [] }));
     newer.map.set(LEGACY_COPIES_KEY, JSON.stringify([legacy("a", undefined)]));
     expect(moveLegacyCopies(newer, { newId: ids(64) })).toEqual({ status: "failed", reason: "newer" });
     expect(newer.map.has(LEGACY_MOVED_KEY)).toBe(false);
@@ -1056,5 +1063,114 @@ describe("privacy detector: planted copy fields (NAV-C, origin spec 8.1)", () =>
       expect(ORIGIN_REFERENCE.test(ref)).toBe(true);
       expect(ORIGIN_REFERENCE_VALUE.test(ref)).toBe(true);
     }
+  });
+});
+
+// copies/2 (SW-008, SW-026; 28 Oct 2026): an undated copy and the ring colour, read-compatible with copies/1 and one-way safe.
+describe("copies/2: undated copies and the ring colour", () => {
+  const V1 = (items: unknown[]) => JSON.stringify({ schema: "copies/1", items, noteSeen: null, snoozedUntil: null, merged: {} });
+  const OLD = { ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", copiedAt: NOW.toISOString() };
+
+  it("is the current version; a copies/1 envelope still reads, upgraded in memory, and the next write is copies/2", () => {
+    expect(COPIES_SCHEMA).toBe("copies/2");
+    const raw = V1([OLD]);
+    const r = readCopies(raw);
+    expect(r).toMatchObject({ ok: true, fresh: false, envelope: { schema: "copies/2", items: [OLD] } });
+    const s = spyStorage();
+    s.map.set(COPIES_KEY, raw);
+    const u = updateCopies(s, (env) => ({ envelope: env, value: null }));
+    expect(u.ok).toBe(true);
+    expect(JSON.parse(s.map.get(COPIES_KEY)!).schema).toBe("copies/2");
+    // an old copy keeps every field; it gains nothing on disk until something changes it
+    expect(JSON.parse(s.map.get(COPIES_KEY)!).items[0]).toEqual(OLD);
+  });
+
+  it("a copies/1 envelope may not hold what only copies/2 can (an undated copy, a colour): that is invalid, not upgraded", () => {
+    expect(readCopies(V1([{ ...OLD, start: null }]))).toMatchObject({ ok: false, reason: "invalid", issues: ["$.items.0.start: a date in copies/1"] });
+    expect(readCopies(V1([{ ...OLD, identity: "blue" }]))).toMatchObject({ ok: false, reason: "invalid", issues: ["$.items.0.identity: not in copies/1"] });
+  });
+
+  it("copies/3 is newer: read-only, never overwritten (the same rule an older tab applies to copies/2)", () => {
+    const s = spyStorage();
+    const newer = JSON.stringify({ schema: "copies/3", items: [{ start: null }] });
+    s.map.set(COPIES_KEY, newer);
+    expect(readCopies(newer)).toMatchObject({ ok: false, reason: "newer" });
+    expect(updateCopies(s, (env) => ({ envelope: env, value: null }))).toEqual({ ok: false, reason: "newer" });
+    expect(s.map.get(COPIES_KEY)).toBe(newer);
+  });
+
+  it("an undated copy is added, written, read back, changed to a date and back (SW-008)", () => {
+    const s = memoryStorage();
+    const a = addCopy(emptyCopies(), { ...INPUT, start: null }, { now: NOW, newId: ids(5) });
+    if (!a.ok) throw new Error(a.reason);
+    expect(a.item.start).toBeNull();
+    expect(writeCopies(s, a.envelope, null).ok).toBe(true);
+    const back = readCopies(s.getItem(COPIES_KEY));
+    expect(back).toMatchObject({ ok: true, envelope: { items: [{ start: null }] } });
+    expect(parseCopy({ ...a.item, start: "2027-07-03" }).success).toBe(true);
+    expect(parseCopy({ ...a.item, start: "" }).success).toBe(false);
+    expect(parseCopy({ ...a.item, start: undefined }).success).toBe(false); // null, never absent
+  });
+
+  it("the merge inserts an undated copy as its own row: it never matches a dated or an undated account row by trip (M3 needs a start)", () => {
+    const c = mustCopy({ ...OLD, start: null });
+    const acct: AccountDraftKey[] = [
+      { id: "11111111-1111-4111-8111-111111111111", source_trip: c.slug, start: null, content: null },
+      { id: "22222222-2222-4222-8222-222222222222", source_trip: c.slug, start: "2027-07-03", content: null },
+    ];
+    const p = mustPlan([c], acct);
+    expect(p.insert.map((r) => r.id)).toEqual([c.id]);
+    expect(p.sameTrip).toEqual([]);
+    expect(p.insert[0]!.doc.start).toBeUndefined();
+  });
+
+  it("every new copy gets a ring colour from the six (no rose, no none); a re-copy keeps the trip's; the device's copies differ while colours last (SW-026)", () => {
+    expect(COPY_RING_KEYS.every((k) => (PLAN_IDENTITY_KEYS as readonly string[]).includes(k))).toBe(true);
+    expect(COPY_RING_KEYS).not.toContain("rose");
+    expect(COPY_RING_KEYS).not.toContain("none");
+    let env = emptyCopies();
+    const newId = ids(9);
+    for (const slug of SLUGS.slice(0, 6)) {
+      const a = addCopy(env, { ...INPUT, slug }, { now: NOW, newId });
+      if (!a.ok) throw new Error(a.reason);
+      env = a.envelope;
+    }
+    const colours = env.items.map((c) => c.identity);
+    expect(new Set(colours).size).toBe(6);
+    expect(colours.every((k) => (COPY_RING_KEYS as readonly string[]).includes(k!))).toBe(true);
+    // a seventh shares a colour (six exist) and is still one of the six
+    const seventh = addCopy(env, { ...INPUT, slug: SLUGS[6]! }, { now: NOW, newId });
+    expect(seventh.ok && COPY_RING_KEYS.includes(seventh.item.identity as (typeof COPY_RING_KEYS)[number])).toBe(true);
+    // a replace keeps the replaced copy's colour; a supplied colour wins
+    const first = env.items[0]!;
+    const again = addCopy(env, { ...INPUT, slug: first.slug }, { now: NOW, newId, replace: true });
+    expect(again.ok && again.item.identity).toBe(first.identity);
+    const given = addCopy(emptyCopies(), { ...INPUT, identity: "sky" }, { now: NOW, newId });
+    expect(given.ok && given.item.identity).toBe("sky");
+  });
+
+  it("a copy made before copies/2 reads its colour from its slug: stable, one of the six, the same for the same slug", () => {
+    for (const slug of SLUGS) {
+      const k = slugIdentity(slug);
+      expect(COPY_RING_KEYS).toContain(k);
+      expect(slugIdentity(slug)).toBe(k);
+      expect(copyIdentity({ slug })).toBe(k);
+      expect(copyIdentity({ slug, identity: "rose" })).toBe("rose"); // a stored colour is read as it is
+    }
+    // the hash spreads: thirty slugs use every colour
+    expect(new Set(SLUGS.map(slugIdentity)).size).toBe(COPY_RING_KEYS.length);
+    expect(pickIdentity([], "trip-1")).toBe(slugIdentity("trip-1"));
+  });
+
+  it("the colour is not household data and not content: two copies differing only in colour have the same M3 key", () => {
+    const a = mustCopy({ ...OLD, identity: "blue" });
+    const b = mustCopy({ ...OLD, identity: "orange" });
+    expect(copyContentKey(a)).toBe(copyContentKey(b));
+    expect(privacyHits({ identity: "blue" })).toEqual([]);
+  });
+
+  it("the retired trip-custom mapping still holds an undated copy (no start key)", () => {
+    const r = copyToTripCustom({ ...OLD, start: null });
+    expect(r.success && "start" in r.data).toBe(false);
   });
 });

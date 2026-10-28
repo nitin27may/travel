@@ -26,15 +26,15 @@ export interface CopySheetProps {
   trip: { slug: string; title: string; nights: number; days: number; window?: { from: string; to: string }; seasonMonths?: number[]; cc?: string | null; photo?: string | null };
   open: boolean;
   onClose: () => void;
-  /** Change dates from Mine: the sheet opens with this copy's date and travellers and saves over it, keeping its id (NAV-2). */
-  initial?: { id: string; start: string; adults: number; children: number[] };
+  /** Change dates from Mine: the sheet opens with this copy's date (null: none yet) and travellers and saves over it, keeping its id (NAV-2). */
+  initial?: { id: string; start: string | null; adults: number; children: number[] };
   /** Called after a copy was added, changed or undone, so Mine re-reads its list. */
   onSaved?: () => void;
   /**
    * Change dates on a trip kept in the account (edit-my-trip, EM-2): the caller applies the change through the sync and shows its own
    * toast; return false when it could not be applied. Without it the change is written to this device's copies, as before.
    */
-  commit?: (change: { start: string; adults: number; children: number[] }) => boolean;
+  commit?: (change: { start: string | null; adults: number; children: number[] }) => boolean;
   /** The trip page's print: the list shows its PDF button only when this is given (on Mine, Print is in the row menu). */
   onPrint?: () => void;
 }
@@ -85,9 +85,11 @@ const localToday = (): string => {
 
 /**
  * Copy to my trips (patterns 3.7). Asks for a start date and who is going, nothing else; the copy keeps days, and the
- * dates attach here. Nothing is picked for the visitor, so the primary stays off until a date is chosen. Signing in is a
- * later lane: until then the copy is held in this browser, and the sheet says so and points at the files.
- * The exports are live in both steps: the calendar uses the picked start date.
+ * dates attach here. The date is optional (SW-008): nothing is picked for the visitor, and with none picked the field reads
+ * "No date yet" and Copy still works, so a family still deciding when to go can keep the trip and add dates later (Mine's
+ * "No date" group, the trip's Settings). A picked date can be cleared with "No date yet". Signing in is a later lane: until
+ * then the copy is held in this browser, and the sheet says so and points at the files.
+ * The exports are live in both steps: the calendar uses the picked start date, and asks for one when there is none.
  */
 export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPrint }: CopySheetProps) {
   const phone = usePhone();
@@ -146,8 +148,9 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
   const check = useMemo(() => (start ? checkWindow(seasonWin, start, length) : null), [start, seasonWin, length]);
   const hasCalendar = data ? data.depth !== 'overview' && data.days.length > 0 : true;
 
-  const ready = !!start && children.every((a) => a !== null);
-  const missing = [!start && 'a start date', !children.every((a) => a !== null) && 'each child’s age'].filter(Boolean) as string[];
+  // the date is optional (SW-008); only each child's age is needed
+  const ready = children.every((a) => a !== null);
+  const missing = [!children.every((a) => a !== null) && 'each child’s age'].filter(Boolean) as string[];
 
   // the build flag read directly: importing `lib/capabilities` here would share that module between the page's start chunk and this lazy chunk and split it (start JS)
   const keptNote = process.env.NEXT_PUBLIC_SIGN_IN === '1' ? 'Kept in this browser. Sign in to keep it on every device.' : 'Kept in this browser.';
@@ -174,7 +177,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
   };
 
   const copy = (replace = false) => {
-    if (!start || !children.every((a) => a !== null)) return;
+    if (!children.every((a) => a !== null)) return;
     let probe = mineStorage();
     const ages = children as number[];
     setPrompt(null);
@@ -189,7 +192,11 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
       let r = changeDates(probe.storage, initial.id, { start, adults, children: ages });
       if (!r.ok && r.reason === 'changed') r = changeDates(probe.storage, initial.id, { start, adults, children: ages });
       if (!r.ok) return setProblem(problemFor(r.reason));
-      toast({ message: `${trip.title} now starts ${formatDate(start)}`, actionLabel: 'Undo', onAction: () => void (undoChange(probe.storage, r.before), onSaved?.()) });
+      toast({
+        message: start ? `${trip.title} now starts ${formatDate(start)}` : `${trip.title} has no date now`,
+        actionLabel: 'Undo',
+        onAction: () => void (undoChange(probe.storage, r.before), onSaved?.()),
+      });
       onSaved?.();
       close();
       return;
@@ -240,16 +247,23 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
       <div className="copy-body">
         <section className="copy-step" aria-labelledby="copy-when">
           <h3 id="copy-when">When does it start</h3>
-          <div className="copy-date-input" data-empty={start ? undefined : ''} aria-live="polite">
+          <div className="copy-date-input" data-empty={start ? undefined : ''} data-testid="copy-date" aria-live="polite">
             <Icon name="calendar" size={16} />
-            {start ? formatDate(start) : 'Pick the day 1 date'}
+            {start ? formatDate(start) : 'No date yet'}
           </div>
           {today ? <CalendarPicker value={start} onChange={setStart} year={Number(/-(\d{4})$/.exec(trip.slug)?.[1]) || undefined} window={seasonWin} length={length} today={today} /> : null}
           {start && end ? (
-            <p className="copy-summary">
-              {trip.days} days, {formatDate(start, false)} to {formatDate(end)}
-            </p>
-          ) : null}
+            <div className="copy-when-row">
+              <p className="copy-summary">
+                {trip.days} days, {formatDate(start, false)} to {formatDate(end)}
+              </p>
+              <Button size="sm" variant="secondary" onClick={() => setStart(null)} aria-label="No date yet: clear the start date">
+                <Icon name="close" size={14} /> No date yet
+              </Button>
+            </div>
+          ) : (
+            <p className="copy-summary copy-nodate">Optional. Pick Day 1 now, or copy it without a date and add dates later in Mine.</p>
+          )}
           {check && !check.ok ? (
             <Banner kind="caution">
               {check.startOutside ? 'Day 1 falls' : 'The last day falls'} outside the season this plan is built for
@@ -280,7 +294,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
         <p>
           <strong>{trip.title}</strong>
           <br />
-          {trip.days} days from {start ? formatDate(start) : ''} · {partyText({ adults, children: children as number[] })}
+          {start ? `${trip.days} days from ${formatDate(start)}` : `${trip.days} days · No date yet`} · {partyText({ adults, children: children as number[] })}
         </p>
         <ExportList start={start} trip={trip} data={data} hasCalendar={hasCalendar} onRun={run} print={onPrint} />
         {held ? <p className="copy-note">{keptNote}</p> : null}
@@ -288,7 +302,9 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
     );
 
   const note = prompt
-    ? `You already have a copy from ${formatDate(prompt.start)}. Copy again to replace it.`
+    ? prompt.start
+      ? `You already have a copy from ${formatDate(prompt.start)}. Copy again to replace it.`
+      : 'You already have a copy of this trip with no date yet. Copy again to replace it.'
     : problem
       ? PROBLEM_TEXT[problem]
       : ready
@@ -318,7 +334,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
           </>
         ) : (
           <Button variant="primary" disabled={!ready} aria-describedby="copy-foot-note" onClick={() => copy()}>
-            {initial ? 'Change dates' : 'Copy to my trips'}
+            {initial ? (initial.start ? 'Change dates' : 'Add dates') : 'Copy to my trips'}
           </Button>
         )}
         <p className="copy-note" id="copy-foot-note" aria-live="polite">
@@ -338,7 +354,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
       </div>
     );
 
-  const common = { open, title: initial ? 'Change dates' : 'Copy to my trips', footer, className: 'copy-sheet' } as const;
+  const common = { open, title: initial ? (initial.start ? 'Change dates' : 'Add dates') : 'Copy to my trips', footer, className: 'copy-sheet' } as const;
   const change = (o: boolean) => {
     if (!o) close();
   };

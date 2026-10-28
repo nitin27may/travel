@@ -33,9 +33,19 @@
 // `copiedAt`, `travellers`, `fromRef`, `gw` or `added`, or an origin reference under `from`. Snapshot fields are `title`, `days`, `cc`
 // and `photo` only (P8: no facts, links, times or suitability).
 //
-// Forward compatibility: see the header of ./trip-custom.ts. Once NAV-2 stores envelopes, a new key is `copies/2`.
+// Forward compatibility: see the header of ./trip-custom.ts.
+//
+// VERSIONS. `copies/2` (SW-008, SW-026, 28 Oct 2026) adds two things to a copy, both additive: `start` may be null (an undated copy,
+// "No date yet") and `identity` (the trip's ring colour, given at copy time). A `copies/1` envelope is still read, and upgraded in
+// memory (its copies are all dated and carry no colour, so nothing in it changes but the version); every write is `copies/2`. One way
+// safe: a tab running the older code reads a `copies/2` envelope as `newer` and leaves it untouched (it shows the error state and
+// writes nothing), never as `invalid`. A later `copies/3` is `newer` here in the same way.
 import { z } from "zod";
 import { PLAN_DOC_LIMITS } from "../config/plans.ts";
+import { copyIdentity, PLAN_IDENTITY_KEYS, pickIdentity } from "./identity.ts";
+
+// the ring helpers live in ./identity.ts (no zod) so a chunk that draws a ring does not load this schema
+export { COPY_RING_KEYS, copyIdentity, pickIdentity, slugIdentity } from "./identity.ts";
 import {
   byteLength,
   type Checked,
@@ -55,7 +65,11 @@ import {
   type TripCustom,
 } from "./trip-custom.ts";
 
-export const COPIES_SCHEMA = "copies/1";
+export const COPIES_SCHEMA = "copies/2";
+/** The versions this code reads; the first is upgraded on read. */
+export const COPIES_SCHEMA_V1 = "copies/1";
+/** The highest version number this code reads: anything above it is `newer`. */
+const COPIES_VERSION = 2;
 /** The envelope's localStorage key. */
 export const COPIES_KEY = "travel.copies.local";
 /** The pre-NAV key web/lib/export/draft.ts wrote: an array of CopyDraft, no version, no id, no cap. */
@@ -97,7 +111,8 @@ export const copyItem = z.strictObject({
   cc: z.string().regex(/^[A-Z]{2}$/).nullable(),
   photo: z.string().regex(SITE_PATH, "a site path").nullable(),
   // the visitor's choices (private)
-  start: z.iso.date(),
+  /** Day 1; null for a copy kept without a date ("No date yet", copies/2) */
+  start: z.iso.date().nullable(),
   adults: travellersSchema.shape.adults,
   children: travellersSchema.shape.children,
   profile: timelineProfile.nullable(),
@@ -110,10 +125,16 @@ export const copyItem = z.strictObject({
   gw: gateways.optional(),
   /** reserved: the public trip's content revision when copied; becomes `plan_draft.source_revision` at the merge */
   rev: sourceRevision.optional(),
+  /**
+   * copies/2: the trip's identity colour (foundation tokens 4), given at copy time (`addCopy`); absent on a copy made before, which
+   * reads its colour from its slug (`copyIdentity`). Becomes `plan_draft.doc.identity` at the merge
+   */
+  identity: z.enum(PLAN_IDENTITY_KEYS).optional(),
 });
 
 export const copiesEnvelope = z.strictObject({
-  schema: z.literal(COPIES_SCHEMA),
+  /** `copies/1` is read and upgraded; every write is `copies/2` */
+  schema: z.enum([COPIES_SCHEMA_V1, COPIES_SCHEMA]),
   items: z.array(copyItem).max(DEVICE_COPY_CAP),
   /** when the device notice was last seen */
   noteSeen: isoDateTime.nullable(),
@@ -156,9 +177,18 @@ function listRules(items: readonly CopyItem[], at: string): string[] {
   return out;
 }
 
-/** The envelope's rules: each copy's, unique ids, one copy per trip, at most MERGED_MAX accounts, at most ENVELOPE_MAX_BYTES. */
+/**
+ * The envelope's rules: each copy's, unique ids, one copy per trip, at most MERGED_MAX accounts, at most ENVELOPE_MAX_BYTES; and a
+ * `copies/1` envelope holds only what copies/1 could (a date on every copy, no colour).
+ */
 export function envelopeRules(e: CopiesEnvelope): string[] {
   const out = listRules(e.items, "$.items");
+  if (e.schema === COPIES_SCHEMA_V1) {
+    e.items.forEach((c, i) => {
+      if (c.start === null) out.push(`$.items.${i}.start: a date in copies/1`);
+      if (c.identity !== undefined) out.push(`$.items.${i}.identity: not in copies/1`);
+    });
+  }
   if (Object.keys(e.merged).length > MERGED_MAX) out.push(`$.merged: at most ${MERGED_MAX} accounts`);
   if (byteLength(JSON.stringify(e)) > ENVELOPE_MAX_BYTES) out.push(`$: an envelope is at most ${ENVELOPE_MAX_BYTES} bytes`);
   return out;
@@ -207,14 +237,15 @@ function isNewerText(raw: string | null): boolean {
   if (raw === null) return false;
   try {
     const v = versionOf(JSON.parse(raw));
-    return v !== null && v > 1;
+    return v !== null && v > COPIES_VERSION;
   } catch {
     return false;
   }
 }
 
 /**
- * Reads the stored text. Absent: a fresh envelope. Not JSON: `corrupt`. A later version (`copies/2` written by a newer tab): `newer`.
+ * Reads the stored text. Absent: a fresh envelope. Not JSON: `corrupt`. A later version (`copies/3` written by a newer tab): `newer`.
+ * A `copies/1` envelope is returned as `copies/2` (the upgrade on read; nothing is written until the caller writes).
  * Anything else that fails: `invalid`. A failed read never writes; the caller shows the error state and leaves the value untouched.
  * Issues name a path and a rule, never a value (the party is household data).
  */
@@ -227,9 +258,9 @@ export function readCopies(raw: string | null): ReadResult {
     return { ok: false, reason: "corrupt", issues: ["$: not JSON"] };
   }
   const v = versionOf(x);
-  if (v !== null && v > 1) return { ok: false, reason: "newer", issues: [`$.schema: copies/${v}`] };
+  if (v !== null && v > COPIES_VERSION) return { ok: false, reason: "newer", issues: [`$.schema: copies/${v}`] };
   const r = parseEnvelope(x);
-  return r.success ? { ok: true, envelope: r.data, fresh: false } : { ok: false, reason: "invalid", issues: r.issues };
+  return r.success ? { ok: true, envelope: { ...r.data, schema: COPIES_SCHEMA }, fresh: false } : { ok: false, reason: "invalid", issues: r.issues };
 }
 
 // ---- storage ----
@@ -295,8 +326,10 @@ export type WriteResult = { ok: true; raw: string } | { ok: false; reason: "inva
  * write (one synchronous task), rather than closing it; that is enough for a visitor's own tabs.
  */
 export function writeCopies(storage: StorageLike, env: CopiesEnvelope, base: string | null): WriteResult {
-  if (!parseEnvelope(env).success) return { ok: false, reason: "invalid" };
-  const text = JSON.stringify(env);
+  // every write is the current version: a copies/1 envelope read earlier goes back as copies/2
+  const next: CopiesEnvelope = env.schema === COPIES_SCHEMA_V1 ? { ...env, schema: COPIES_SCHEMA } : env;
+  if (!parseEnvelope(next).success) return { ok: false, reason: "invalid" };
+  const text = JSON.stringify(next);
   try {
     const now = storage.getItem(COPIES_KEY);
     if (isNewerText(now)) return { ok: false, reason: "newer" };
@@ -601,16 +634,25 @@ export type AddResult =
 
 /**
  * Adds a copy. A second copy of the same trip returns `exists` with the first (the copy sheet asks "Copy again to replace it");
- * with `replace` it takes the first one's place under a new id. The 21st copy returns `cap` (copy in nav 9).
+ * with `replace` it takes the first one's place under a new id. The 21st copy returns `cap` (copy in nav 9). A copy with no
+ * `identity` is given one (`pickIdentity`); a replacing copy keeps the colour of the one it replaces, so the trip's ring stays.
  */
 export function addCopy(env: CopiesEnvelope, input: CopyInput, opts: { now: Date; newId: () => string; replace?: boolean }): AddResult {
   const existing = env.items.find((x) => x.slug === input.slug) ?? null;
   if (existing && !opts.replace) return { ok: false, reason: "exists", existing };
   if (!existing && env.items.length >= DEVICE_COPY_CAP) return { ok: false, reason: "cap" };
-  const r = parseCopy({ ...input, id: opts.newId(), copiedAt: opts.now.toISOString() });
+  const identity =
+    input.identity ??
+    (existing
+      ? copyIdentity(existing)
+      : pickIdentity(
+          env.items.filter((x) => x.slug !== input.slug),
+          input.slug,
+        ));
+  const r = parseCopy({ ...input, identity, id: opts.newId(), copiedAt: opts.now.toISOString() });
   if (!r.success) return { ok: false, reason: "invalid", issues: r.issues };
   const items = existing ? env.items.map((x) => (x.id === existing.id ? r.data : x)) : [...env.items, r.data];
-  return { ok: true, envelope: { ...env, items }, item: r.data, replaced: existing };
+  return { ok: true, envelope: { ...env, schema: COPIES_SCHEMA, items }, item: r.data, replaced: existing };
 }
 
 /** Removes a copy by id; returns the removed item for the toast's Undo. */
@@ -802,7 +844,7 @@ function docOf(c: CopyItem): TripCustom {
     profile: c.profile,
     overrides: { ...c.overrides },
     added: c.added.map((a, i) => ({ op: `o-${i + 1}`, day: a.day, ref: `place/${a.placeSlug}` })),
-    start: c.start,
+    ...(c.start !== null ? { start: c.start } : {}),
     travellers: { adults: c.adults, children: [...c.children] },
     ...(c.fromRef !== undefined ? { fromRef: c.fromRef } : {}),
     ...(c.gw !== undefined ? { gw: { ...c.gw } } : {}),

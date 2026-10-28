@@ -771,3 +771,17 @@ describe('the tab undo stacks at sign-out (ES-006)', () => {
     }
   });
 });
+
+// SW-008, SW-026: an undated account trip is a Mine row (the "No date" group), and its colour comes with it.
+describe('copyOfRow (copies/2)', () => {
+  it('an account trip with no start is a row with start null, and carries the document\'s colour', async () => {
+    const { copyOfRow } = await import('@/lib/mine/sync');
+    const base = copyToPlanDraft(copy('6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b', { start: null, identity: 'sky' }));
+    if (!base.success) throw new Error(base.issues.join('; '));
+    expect(base.data.start).toBeUndefined();
+    const item = copyOfRow({ id: base.data.id, title: 'Dolomites', days: 14 }, base.data);
+    expect(item).not.toBeNull();
+    expect(item!.start).toBeNull();
+    expect(item!.identity).toBe('sky');
+  });
+});

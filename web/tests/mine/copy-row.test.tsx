@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import type { CopyItem } from '@travel/core/schema/copies.ts';
 import { CopyRow } from '@/components/mine/CopyRow';
 import { rowModel } from '@/lib/mine/rows';
+import { slugIdentity } from '@travel/core/schema/identity.ts';
 
 const item: CopyItem = {
   id: '6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b', slug: 'dolomites-2027', title: 'Dolomites', days: 14, cc: 'IT', photo: null, start: '2027-07-03',
@@ -36,5 +37,21 @@ describe('the signed-in chip', () => {
   it('sits inside the row link, in the grid, as a fourth line (never absolutely placed)', () => {
     const h = html({ chip: true });
     expect(h).toMatch(/<a [^>]*data-chip[^>]*>.*On this device<\/span><\/a>/);
+  });
+});
+
+// SW-008: an undated row names itself without a date; SW-026: the ring is the copy's colour, or its slug's.
+describe('copies/2 rows', () => {
+  it('an undated copy reads "No date" and its link says "no date", not "from"', () => {
+    const h = renderToStaticMarkup(<ul><CopyRow row={rowModel({ ...item, start: null }, '2026-10-25')} {...props} /></ul>);
+    expect(h).toContain('>No date<');
+    expect(h).toContain('aria-label="Dolomites, no date, 14 days, 2 adults, 1 child"');
+  });
+  it('the thumbnail carries the copy\'s ring colour, its slug\'s when it has none, and no ring for a trip no longer listed', () => {
+    const given = renderToStaticMarkup(<ul><CopyRow row={rowModel({ ...item, identity: 'teal' }, '2026-10-25')} {...props} /></ul>);
+    expect(given).toContain('data-ring="teal"');
+    expect(given).toContain('--tc:var(--id-teal)');
+    expect(html()).toContain(`data-ring="${slugIdentity(item.slug)}"`);
+    expect(html({ unlisted: true })).not.toContain('data-ring');
   });
 });
