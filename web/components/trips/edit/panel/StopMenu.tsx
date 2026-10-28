@@ -9,6 +9,7 @@ import { candidateToItem, type TimelineModel } from '@/components/trips/timeline
 import { deltaOfDraft } from '@/lib/trip-edit/source';
 import { dayChoices, type DayChoice } from '@/lib/trip-edit/moveFit';
 import { maybeOps, noteOf, placeRefOf, stopTarget } from '@/lib/trip-edit/stopOps';
+import { ruleItemOfEntry, ruleNote } from '@/lib/trip-edit/ruleRows';
 import type { PlanDraft } from '@/lib/trip-edit/model';
 import { ActionPanel } from './ActionPanel';
 
@@ -38,7 +39,12 @@ type View = 'rows' | 'days' | 'note';
 export const stopsOfDay = (entries: readonly TimelineEntry[]): TimelineEntry[] =>
   entries.filter((e) => !!e.sourceItemId && !e.insideOf && !e.block && e.kind !== 'sun' && e.kind !== 'leg' && e.kind !== 'booking');
 
-/** The `⋯` of one stop and the sheet or menu it opens (components 8.7): Move to day…, Move up, Move down, Add to Maybe, Add a note, Open place page, then Remove last. */
+/**
+ * The `⋯` of one row and the sheet or menu it opens (components 8.7): Move to day…, Move up, Move down, Add to Maybe, Add a note, Open
+ * place page, then Remove last. A row the rules made (a meal, a rest, the hire car, check-in, the end of the day; STEP2-E1B) is not a
+ * place and keeps its place in the day, so it offers Add a note and Remove only, with one line on what stays when removing it leaves the
+ * day relying on it (edit-mode-spec 5.4).
+ */
 export function StopMenu({ entry: e, dayEntries, doc, model, defaults, profile, start, act }: Props) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<View>('rows');
@@ -47,8 +53,10 @@ export function StopMenu({ entry: e, dayEntries, doc, model, defaults, profile, 
   const alone = stops.length <= 1;
   const base = model.days.find((d) => d.n === e.day)?.base ?? null;
   const meta = [`Day ${e.day}`, e.start && e.kind !== 'leg' ? e.start : null, base ? `Base: ${base}` : null].filter(Boolean).join(' · ');
-  const href = e.at?.placeSlug ? `/places/${e.at.placeSlug}/` : null;
-  const canMaybe = !!doc.template && !!placeRefOf(e) && maybeOps(doc, e) !== null;
+  const rule = !!doc.template && ruleItemOfEntry(e) !== null;
+  const consequence = rule ? ruleNote(e, dayEntries) : null;
+  const href = !rule && e.at?.placeSlug ? `/places/${e.at.placeSlug}/` : null;
+  const canMaybe = !rule && !!doc.template && !!placeRefOf(e) && maybeOps(doc, e) !== null;
   const reset = (o: boolean) => {
     setOpen(o);
     if (!o) setView('rows');
@@ -63,18 +71,22 @@ export function StopMenu({ entry: e, dayEntries, doc, model, defaults, profile, 
     <ActionPanel label={`Actions for ${e.title}, Day ${e.day}`} title={e.title} meta={view === 'rows' ? meta : undefined} open={open} onOpenChange={reset}>
       {view === 'rows' ? (
         <>
-          <button type="button" role="menuitem" className="edit-row" onClick={() => setView('days')}>
-            <Icon name="arrow" size={16} /> <span>Move to day…</span>
-          </button>
-          <div className="edit-pair">
-            <button type="button" role="menuitem" className="edit-row" disabled={!!upBlock} onClick={done(() => act.nudge(e, -1))}>
-              <Icon name="chevronUp" size={16} /> <span>Move up</span>
-            </button>
-            <button type="button" role="menuitem" className="edit-row" disabled={!!downBlock} onClick={done(() => act.nudge(e, 1))}>
-              <Icon name="chevronDown" size={16} /> <span>Move down</span>
-            </button>
-          </div>
-          {upBlock && downBlock ? <p className="edit-why">{upBlock}</p> : upBlock ? <p className="edit-why">{upBlock}</p> : downBlock ? <p className="edit-why">{downBlock}</p> : null}
+          {rule ? null : (
+            <>
+              <button type="button" role="menuitem" className="edit-row" onClick={() => setView('days')}>
+                <Icon name="arrow" size={16} /> <span>Move to day…</span>
+              </button>
+              <div className="edit-pair">
+                <button type="button" role="menuitem" className="edit-row" disabled={!!upBlock} onClick={done(() => act.nudge(e, -1))}>
+                  <Icon name="chevronUp" size={16} /> <span>Move up</span>
+                </button>
+                <button type="button" role="menuitem" className="edit-row" disabled={!!downBlock} onClick={done(() => act.nudge(e, 1))}>
+                  <Icon name="chevronDown" size={16} /> <span>Move down</span>
+                </button>
+              </div>
+              {upBlock ? <p className="edit-why">{upBlock}</p> : downBlock ? <p className="edit-why">{downBlock}</p> : null}
+            </>
+          )}
           {canMaybe ? (
             <button type="button" role="menuitem" className="edit-row" onClick={done(() => act.maybe(e))}>
               <Icon name="layers" size={16} /> <span>Add to Maybe</span>
@@ -89,7 +101,8 @@ export function StopMenu({ entry: e, dayEntries, doc, model, defaults, profile, 
             </a>
           ) : null}
           <hr className="edit-sep" />
-          <button type="button" role="menuitem" className="edit-row edit-crit" onClick={done(() => act.remove(e))}>
+          {consequence ? <p className="edit-why edit-consequence" id={`edit-why-${e.day}-${e.id}`}>{consequence}</p> : null}
+          <button type="button" role="menuitem" className="edit-row edit-crit" aria-describedby={consequence ? `edit-why-${e.day}-${e.id}` : undefined} onClick={done(() => act.remove(e))}>
             <Icon name="close" size={16} /> <span>Remove from Day {e.day}</span>
           </button>
         </>

@@ -20,8 +20,8 @@ async function seed(page: Page, values: Record<string, string>) {
     for (const [k, v] of Object.entries(kv)) localStorage.setItem(k, v);
   }, values);
 }
-const titles = (page: Page, day: number) => page.locator(`#day-${day} li.tl-entry[data-edit] .tl-title`).allTextContents();
-const trail = (page: Page, day: number, i: number) => page.locator(`#day-${day} li.tl-entry[data-edit] .tl-edit-trail button`).nth(i);
+const titles = (page: Page, day: number) => page.locator(`#day-${day} li.tl-entry[data-edit="stop"] .tl-title`).allTextContents();
+const trail = (page: Page, day: number, i: number) => page.locator(`#day-${day} li.tl-entry[data-edit="stop"] .tl-edit-trail button`).nth(i);
 
 test.describe('edit mode: the stop menu', () => {
   let days = 0;
@@ -57,7 +57,7 @@ test.describe('edit mode: the stop menu', () => {
     await expect(page.getByRole('button', { name: 'Edit trip' })).toBeVisible();
   });
 
-  test('EA1: every stop of every day has its menu with Remove last, and Remove then Undo puts the stop back where it was', async ({ page, site }) => {
+  test('EA1: every row of every day (stops and the rows the rules made) has its menu with Remove last, and Remove then Undo puts the stop back where it was', async ({ page, site }) => {
     await open(page, site);
     for (let d = 1; d <= days; d++) {
       const day = page.locator(`#day-${d}`);
@@ -121,6 +121,86 @@ test.describe('edit mode: the stop menu', () => {
     await expect(page.getByRole('menuitem', { name: 'Move up' })).toBeDisabled();
     await page.getByRole('menuitem', { name: 'Move down' }).click();
     await expect.poll(async () => (await titles(page, 2)).indexOf(before[0]!)).toBeGreaterThan(0);
+  });
+});
+
+// STEP2-E1B: the rows the rules made (meals, rests, the hire car, check-in, the end of the day) are removable and come back.
+test.describe('edit mode: removing a row the rules made', () => {
+  let days = 0;
+  test.beforeAll(async ({ playwright, site }) => {
+    const ctx = await playwright.request.newContext();
+    const probe = await ctx.get(`${site.url}/t/${ID}/`);
+    test.skip(probe.status() === 404, 'needs the build with NEXT_PUBLIC_TRIP_EDIT=1');
+    days = ((await (await ctx.get(`${site.url}/api/v1/trips/${SLUG}/plan-model/`)).json()) as { days: unknown[] }).days.length;
+    await ctx.dispose();
+  });
+  const rule = (page: Page, day: number, kind: string, sub?: string) =>
+    page.locator(`#day-${day} li.tl-entry[data-edit="rule"][data-kind="${kind}"]`).filter(sub ? { hasText: sub } : {}).first();
+  const startOf = async (page: Page, day: number, title: string) =>
+    (await page.locator(`#day-${day} li.tl-entry`, { hasText: title }).first().locator('.tl-time').innerText()).trim().slice(0, 5);
+
+  test('a meal: its menu offers Add a note and Remove only; Remove re-flows the day, Undo brings it back', async ({ page, site }) => {
+    await seed(page, { [COPIES_KEY]: envelope([copy(days)]) });
+    await page.goto(`${site.url}/t/${ID}/?view=day&edit=1`);
+    const lunch = rule(page, 1, 'meal');
+    await expect(lunch).toBeVisible();
+    const name = (await lunch.locator('.tl-title').innerText()).trim();
+    const stops = await titles(page, 1);
+    const after = stops[0]!;
+    const was = await startOf(page, 1, after);
+    await lunch.locator('.tl-edit-trail button').click();
+    const menu = page.getByRole('menu');
+    await expect(menu.getByRole('menuitem')).toHaveText(['Add a note', 'Remove from Day 1']);
+    await menu.getByRole('menuitem', { name: 'Remove from Day 1' }).click();
+    await expect(page.locator('.toast', { hasText: `Removed ${name} from Day 1` })).toBeVisible();
+    await expect(page.locator('#day-1 li.tl-entry[data-kind="meal"]', { hasText: name })).toHaveCount(0);
+    // the stops after it start earlier, none is lost
+    await expect.poll(() => startOf(page, 1, after)).not.toBe(was);
+    expect(await titles(page, 1)).toEqual(stops);
+    await page.locator('.toast').getByRole('button', { name: 'Undo' }).click();
+    await expect(page.locator('#day-1 li.tl-entry[data-kind="meal"]', { hasText: name })).toHaveCount(1);
+    await expect.poll(() => startOf(page, 1, after)).toBe(was);
+  });
+
+  test('the hire car: one line says what stays; removed it is kept across a reload, listed in the changes, and Put it back restores it', async ({ page, site }) => {
+    await seed(page, { [COPIES_KEY]: envelope([copy(days)]) });
+    await page.goto(`${site.url}/t/${ID}/?view=day&edit=1`);
+    const car = rule(page, 1, 'visit', 'Collect the hire car');
+    await car.locator('.tl-edit-trail button').click();
+    const menu = page.getByRole('menu');
+    await expect(menu.getByText(/^The drive to .+ stays; nothing meets the car\.$/)).toBeVisible();
+    await expect(menu.getByRole('menuitem', { name: 'Remove from Day 1' })).toHaveAccessibleDescription(/nothing meets the car/);
+    await menu.getByRole('menuitem', { name: 'Remove from Day 1' }).click();
+    await expect(page.locator('.toast', { hasText: 'Removed Collect the hire car from Day 1' })).toBeVisible();
+    await expect(page.locator('#day-1 li.tl-entry', { hasText: 'Collect the hire car' })).toHaveCount(0);
+    await page.reload();
+    await expect(page.locator('#day-1 li.tl-entry', { hasText: 'Collect the hire car' })).toHaveCount(0);
+    await page.getByRole('button', { name: 'Show' }).first().click();
+    const sheet = page.getByRole('dialog', { name: 'Changes from our plan' });
+    await expect(sheet.getByText('Removed Collect the hire car from Day 1')).toBeVisible();
+    await sheet.getByRole('button', { name: 'Put it back' }).click();
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#day-1 li.tl-entry', { hasText: 'Collect the hire car' })).toHaveCount(1);
+  });
+
+  test('the end of the day takes the drive back with it; Reset to our plan restores both', async ({ page, site }) => {
+    await seed(page, { [COPIES_KEY]: envelope([copy(days)]) });
+    await page.goto(`${site.url}/t/${ID}/?view=day&edit=1`);
+    const end = rule(page, 2, 'end');
+    const back = (await end.locator('.tl-title').innerText()).trim();
+    const legs = await page.locator('#day-2 li.tl-leg').count();
+    await end.locator('.tl-edit-trail button').click();
+    await expect(page.getByRole('menu').getByText(/goes; the day ends after /)).toBeVisible();
+    await page.getByRole('menuitem', { name: 'Remove from Day 2' }).click();
+    await expect(page.locator('.toast', { hasText: /^Removed the drive (back|on) to .+ from Day 2/ })).toBeVisible();
+    await expect(page.locator('#day-2 li.tl-entry[data-kind="end"]')).toHaveCount(0);
+    await expect.poll(() => page.locator('#day-2 li.tl-leg').count()).toBeLessThan(legs);
+    await page.getByRole('button', { name: 'Show' }).first().click();
+    const sheet = page.getByRole('dialog', { name: 'Changes from our plan' });
+    await sheet.getByRole('button', { name: 'Reset to our plan' }).click();
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#day-2 li.tl-entry[data-kind="end"]', { hasText: back })).toHaveCount(1);
+    await expect.poll(() => page.locator('#day-2 li.tl-leg').count()).toBe(legs);
   });
 });
 

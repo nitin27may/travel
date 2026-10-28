@@ -30,6 +30,8 @@ interface Ctx {
   /** Where an arrival day starts or a short trip begins: the airport or the start point. */
   origin: LegEnd | null;
   items: Map<string, ScheduleItem>;
+  /** Generated rows the person removed (STEP2-E1B), by id: drawn nowhere and, but for a rest (a wait for a set time), taking no time. */
+  hidden: string[];
 }
 
 interface Stop {
@@ -62,7 +64,7 @@ const refOf = (b: { name: string; placeSlug: string | null; point: { lat: number
   b ? { name: b.name, placeSlug: b.placeSlug, point: b.point } : null;
 const endOf = (it: ScheduleItem): LegEnd => ({ ids: [it.id, ...(it.placeSlug ? [it.placeSlug] : [])], point: it.point });
 
-function makeCtx(input: ScheduleDayInput, profile: Profile): Ctx {
+function makeCtx(input: ScheduleDayInput, profile: Profile, hidden: string[] = []): Ctx {
   const sun = input.sunPoint && input.sunWindow ? sunReference(input.sunPoint, input.tz, input.sunWindow) : null;
   const end = (b: ScheduleDayInput["base"], id: string): LegEnd | null => (b ? { ids: [id, ...(b.placeSlug ? [b.placeSlug] : [])], point: b.point } : null);
   return {
@@ -71,6 +73,7 @@ function makeCtx(input: ScheduleDayInput, profile: Profile): Ctx {
     nextBase: end(input.nextBase, "next-base"),
     origin: input.origin ? { ids: ["origin"], point: input.origin.point } : null,
     items: new Map(),
+    hidden,
   };
 }
 
@@ -105,8 +108,9 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     const entry: TimelineEntry = {
       day: input.day, lane: current, tz: input.tz, optional: false, addedBy: "scheduler", honesty: [], sourceItemId: null, at: null, from: null, to: null, ...e, id: e.id ?? nextId(e.kind, e.sub), end: "",
     };
+    if (ctx.hidden.includes(entry.id)) entry.durationMin = 0;
+    else entries.push(entry);
     entry.end = clock(m(entry.start) + entry.durationMin);
-    entries.push(entry);
     return entry;
   };
   const RL = (a: LegEnd, b: LegEnd): ResolvedLeg => resolveLeg(a, b, input.legs, ctx.base?.point ?? null);
@@ -152,8 +156,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     if (o.squeeze >= 2) return false;
     align();
     if (deadline !== null && t + minutes > deadline) return false;
-    push({ kind: "break", sub, title, start: clock(t), durationMin: minutes, at, time: ruleTime(), duration: ruleDur(`break.${sub}`, minutes) });
-    t += minutes;
+    t += push({ kind: "break", sub, title, start: clock(t), durationMin: minutes, at, time: ruleTime(), duration: ruleDur(`break.${sub}`, minutes) }).durationMin;
     lastKind = "break";
     return true;
   };
@@ -166,19 +169,17 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     const src: TimeSource = r.basis === "routed" ? "data" : r.basis === "plan" ? "plan" : "rule";
     const honesty: TimelineEntry["honesty"] = r.mode === "drive" && r.basis !== "routed" ? ["drive_estimated"] : [];
     const part = (minutes: number, breaks: number, name = title): void => {
-      push({
+      t += push({
         kind: "leg", sub: r.mode, title: name, start: clock(t), durationMin: minutes, at: null, from, to: toRef,
         time: { confidence: "suggested", source: src, pinned: false, note: null }, duration: { source: src, basis: legText(r) },
         leg: { mode: r.mode, km: r.km, basis: r.basis, breaks }, honesty: [...honesty],
-      });
-      t += minutes;
+      }).durationMin;
     };
     if (r.mode === "drive" && r.minutes > breakEveryMin(profile) && o.squeeze < 2) {
       const first = Math.max(5, Math.round(r.minutes / 10) * 5);
       part(first, 1);
       align();
-      push({ kind: "break", sub: "leg-stretch", title: "Stretch break", start: clock(t), durationMin: 15, at: null, time: ruleTime(), duration: ruleDur("break.leg-stretch", 15) });
-      t += 15;
+      t += push({ kind: "break", sub: "leg-stretch", title: "Stretch break", start: clock(t), durationMin: 15, at: null, time: ruleTime(), duration: ruleDur("break.leg-stretch", 15) }).durationMin;
       part(r.minutes - first, 1, rest);
     } else part(r.minutes, 0);
     lastKind = "leg";
@@ -196,12 +197,11 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     const w = wins[which];
     if (maxMin !== null) minutes = Math.min(minutes, maxMin);
     const title = which === "dinner" ? (at ? `Dinner in ${at.name}` : "Dinner") : st === "picnic" ? "Picnic lunch" : "Lunch";
-    push({
+    t += push({
       kind: "meal", sub: which, style: st, title, start: clock(t), durationMin: minutes, at,
       time: { confidence: "suggested", source: "rule", pinned: false, window: { from: fmtMin(w.from), to: fmtMin(w.to), why: `${profile.party === "family" ? "family" : "adult"} ${which} window` }, note: null },
       duration: ruleDur(id, minutes),
-    });
-    t += minutes;
+    }).durationMin;
     lastKind = "meal";
   };
 
@@ -221,11 +221,10 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     const start = early ? t : Math.max(t, 15 * 60);
     if (start - t > REST_THRESHOLD_MIN) addRest(start - t, "free-time", "Free time before check-in", ref);
     else t = start;
-    push({
+    t += push({
       kind: "checkin", sub: "stay", title: early ? `Drop bags, ${ref?.name ?? "your stay"}` : `Check in, ${ref?.name ?? "your stay"}`, start: clock(t), durationMin: minutes, at: ref,
       time: ruleTime("From 15:00 unless your stay says otherwise"), duration: ruleDur("checkin", minutes),
-    });
-    t += minutes;
+    }).durationMin;
     checkedIn = true;
     lastKind = "checkin";
   };
@@ -313,14 +312,12 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     loc = startEnd;
     if (input.kind === "arrival") {
       const r = rule("arrival.car-hire");
-      push({ kind: "visit", sub: "car-hire", title: "Collect the hire car", start: clock(t), durationMin: r.minutes, at: where, time: ruleTime(), duration: ruleDur("arrival.car-hire", r.minutes) });
-      t += r.minutes;
+      t += push({ kind: "visit", sub: "car-hire", title: "Collect the hire car", start: clock(t), durationMin: r.minutes, at: where, time: ruleTime(), duration: ruleDur("arrival.car-hire", r.minutes) }).durationMin;
       lastKind = "visit";
     }
     if (input.kind === "departure") {
       const r = rule("checkout");
-      push({ kind: "checkout", sub: "stay", title: input.base ? `Check out of ${input.base.name}` : "Check out", start: clock(t), durationMin: r.minutes, at: baseRef, time: ruleTime(), duration: ruleDur("checkout", r.minutes) });
-      t += r.minutes;
+      t += push({ kind: "checkout", sub: "stay", title: input.base ? `Check out of ${input.base.name}` : "Check out", start: clock(t), durationMin: r.minutes, at: baseRef, time: ruleTime(), duration: ruleDur("checkout", r.minutes) }).durationMin;
       lastKind = "checkout";
     }
   } else {
@@ -685,7 +682,7 @@ function blocksDay(input: ScheduleDayInput, profile: Profile, opts: ScheduleOpti
 export function scheduleDay(input: ScheduleDayInput, profile: Profile, opts: ScheduleOptions = {}): DayTimeline {
   const sel = opts.selection ?? selectVariant(input, profile, opts.variant);
   if (input.blocks) return blocksDay(input, profile, opts, sel);
-  const ctx = makeCtx(input, profile);
+  const ctx = makeCtx(input, profile, opts.hidden);
   let stops: Stop[] = sel.variant.items.map((item) => ({ item, addedBy: opts.visitor?.includes(item.id) ? "visitor" : "author" }));
   // dark-sky watching waits for a dark sky: when that is past the evening it follows the day instead of being scheduled in it
   const dark = stops.filter((s) => afterDark(s.item)).map((s) => s.item);
@@ -733,8 +730,9 @@ export function scheduleDay(input: ScheduleDayInput, profile: Profile, opts: Sch
   entries = sortEntries([...entries, ...sunRows(ctx, entries), ...dark.map((it) => darkEntry(ctx, it, dayEnd, profile))]);
   const real = entries.filter((e) => e.kind !== "sun" && !e.block);
   const partyLane = (e: TimelineEntry): boolean => e.lane === "all" || e.lane === mainLabel;
-  const startM = Math.min(...real.map((e) => m(e.start)));
-  const endM = Math.max(...real.filter(partyLane).map((e) => m(e.start) + e.durationMin));
+  // a day whose every row the person removed (STEP2-E1B) has a zero span, not an infinite one
+  const startM = Math.min(...real.map((e) => m(e.start)), MINUTES_PER_DAY - 1);
+  const endM = Math.max(startM, ...real.filter(partyLane).map((e) => m(e.start) + e.durationMin));
   const span = { start: fmtMin(startM), end: clock(endM), minutes: endM - startM };
   const totals = totalsOf(real.filter(partyLane), (e) => e.kind === "visit" || e.kind === "trail" || e.kind === "leg");
   if (!sel.fits) notes.unshift({ kind: "no-fit", text: sel.reason });

@@ -16,6 +16,7 @@ import { changeRows, type ChangeRow } from '@/lib/trip-edit/changes';
 import { changeCount } from '@/lib/trip-edit/marks';
 import type { PlanDraft, PlanOp } from '@/lib/trip-edit/model';
 import type { SaveResult, SyncWord, Where } from '@/lib/trip-edit/open';
+import { ruleItemOfEntry, ruleName } from '@/lib/trip-edit/ruleRows';
 import { maybeOps, maybeWords, movedWords, moveToDayOps, newOpId, noteOps, nudgeOps, nudgedWords, removeOps, removedWords } from '@/lib/trip-edit/stopOps';
 import type { Published } from './shell/EditHost';
 import { EditBar, EditTools } from './panel/EditChrome';
@@ -59,8 +60,15 @@ export function EditLayer(p: LayerProps) {
   const names = useMemo(() => {
     const items = new Map<string, string>();
     for (const d of model.days) for (const v of d.input.variants) for (const it of v.items) items.set(it.id, it.title);
-    return { item: (id: string) => items.get(id) ?? null, place: (slug: string) => model.addables[slug]?.name ?? null };
+    return {
+      item: (id: string) => items.get(id) ?? null,
+      place: (slug: string) => model.addables[slug]?.name ?? null,
+      rule: (day: number, item: string) => ruleName(model.defaultTimelines, day, item),
+    };
   }, [model]);
+  // every row of a day has actions (STEP2-E1B): the stops, and on a copy the rows the rules made (a built trip's wait for STEP2-B2)
+  const copy = !!doc.template;
+  const canEdit = useCallback((e: TimelineEntry) => stopsOfDay([e]).length === 1 || (copy && ruleItemOfEntry(e) !== null), [copy]);
   const rows = useMemo(() => changeRows(doc, names, newOpId), [doc, names]);
 
   // a request from outside (Show on the changes line) opens the sheet once per press
@@ -110,7 +118,7 @@ export function EditLayer(p: LayerProps) {
   const act = useMemo(
     () => ({
       remove: (e: TimelineEntry, dayEntries: readonly TimelineEntry[]) => {
-        const stops = stopsOfDay(dayEntries);
+        const stops = dayEntries.filter(canEdit);
         const i = stops.findIndex((x) => x.id === e.id);
         const next = stops[i + 1]?.id ?? stops[i - 1]?.id ?? null;
         if (commit(removeOps(doc, e), removedWords(e))) focusAfter({ next, day: e.day });
@@ -130,7 +138,7 @@ export function EditLayer(p: LayerProps) {
         commit(noteOps(doc, e, text), text.trim() ? `Saved a note on ${e.title}` : `Removed the note on ${e.title}`);
       },
     }),
-    [doc, commit, focusAfter],
+    [doc, commit, focusAfter, canEdit],
   );
 
   const resetAll = useCallback(() => {
@@ -144,9 +152,9 @@ export function EditLayer(p: LayerProps) {
   );
 
   const { publish } = p;
-  const copy = !!doc.template;
   const published = useMemo<Published>(() => {
     const edit: EditSlots = {
+      canEdit,
       trail: (e, dayEntries) => (
         <StopMenu
           entry={e}
@@ -180,7 +188,7 @@ export function EditLayer(p: LayerProps) {
       ),
       cover: <TripMenu id={p.id} title={p.title} where={p.where} copy={copy} changes={changes} canUndo={s.canUndo} canRedo={s.canRedo} onUndo={undo} onRedo={redo} onReset={resetAll} />,
     };
-  }, [doc, model, p.defaults, p.profile, p.start, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
+  }, [canEdit, doc, model, p.defaults, p.profile, p.start, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
   useEffect(() => {
     publish(published);
   }, [published, publish]);
