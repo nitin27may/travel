@@ -322,11 +322,57 @@ test.describe('layout and axe', () => {
       expect(await fits()).toBe(true);
       await axe('closed');
       await openParty(page);
-      for (let i = 0; i < 7; i++) await page.getByRole('button', { name: 'More children' }).click({ force: true });
+      for (let i = 0; i < 7; i++) {
+        // centre the stepper first: a forced click at the bottom of the viewport lands on the fixed tab bar (the first click opened Mine)
+        const more = page.getByRole('button', { name: 'More children' });
+        await more.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+        await more.click({ force: true });
+      }
       await page.locator('#plan-for .tl-more').click();
       await page.waitForTimeout(400);
       expect(await fits()).toBe(true);
       await axe('open, 8 children, More open');
+    });
+  }
+});
+
+test.describe('B2: the sticky bar with eight children', () => {
+  for (const width of [320, 360, 390, 768]) {
+    test(`${width}: the bar never scrolls sideways; the party line shortens, Edit and Map stay on screen and 44 px high`, async ({ page, site }) => {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto(`${site.url}${ROCKIES}?view=day`);
+      await page.waitForTimeout(400);
+      await openParty(page);
+      for (let i = 0; i < 7; i++) {
+        const more = page.getByRole('button', { name: 'More children' });
+        await more.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+        await more.click({ force: true });
+      }
+      await page.evaluate(() => document.querySelector('#day-1')?.scrollIntoView());
+      await page.waitForTimeout(300);
+      const m = await page.evaluate(() => {
+        const bar = document.querySelector<HTMLElement>('.tl-planbar')!;
+        const edit = document.querySelector<HTMLElement>('.tl-planbar .tl-railedit')!.getBoundingClientRect();
+        const party = document.querySelector<HTMLElement>('.tl-planbar-party')!;
+        return { doc: document.documentElement.scrollWidth, win: window.innerWidth, barScroll: bar.scrollWidth, barClient: bar.clientWidth, editRight: edit.right, editLeft: edit.left, partyTitle: party.title, partyText: party.textContent };
+      });
+      expect(m.doc).toBeLessThanOrEqual(m.win);
+      expect(m.barScroll).toBeLessThanOrEqual(m.barClient);
+      expect(m.editLeft).toBeGreaterThanOrEqual(0);
+      expect(m.editRight).toBeLessThanOrEqual(m.win);
+      expect(m.partyTitle, 'the full party is the title when the line is cut').toContain('8 children');
+      expect(m.partyText).toContain('8 children');
+      const hit = await page.evaluate(() => {
+        const b = document.querySelector<HTMLElement>('.tl-planbar .tl-railedit')!;
+        const cs = getComputedStyle(b, '::after');
+        return Math.max(b.getBoundingClientRect().height, parseFloat(cs.height) || 0);
+      });
+      expect(hit).toBeGreaterThanOrEqual(44);
+      const map = page.locator('.tl-planbar .tl-mapbtn');
+      if (await map.count()) {
+        const r = (await map.first().boundingBox())!;
+        if (r.width > 0) expect(r.x + r.width).toBeLessThanOrEqual(width);
+      }
     });
   }
 });

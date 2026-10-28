@@ -1,4 +1,4 @@
-import type { ResolveRow, TripLegs, TripPlanModel } from '@travel/core/schema/api/index.ts';
+import type { PlaceRow, ResolveRow, TripLegs, TripPlanModel } from '@travel/core/schema/api/index.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import type { EntityDescriptor, FacetParam, ListState } from '@/lib/entities/types';
 import type { GlobeCardFile, GlobeTree, LightPin } from '@/lib/globe/types';
@@ -95,6 +95,13 @@ export interface DataClient {
    * request; the caller keeps its stored snapshots then too.
    */
   resolveRefs(refs: readonly string[]): Promise<ResolveRow[] | null>;
+
+  /**
+   * One page of light place rows for a map box (`bbox` "west,south,east,north"), words (`q`) or a few slugs (`ids`): `GET /api/v1/places/`.
+   * The add picker's three reads (STEP2-E3; P8: one page at a time, never the list). Null when the adapter has no such endpoint (the
+   * StaticAdapter) or the request failed or was aborted.
+   */
+  placesPage(q: { q?: string; bbox?: string; ids?: readonly string[] }, page: number, pageSize: number, signal?: AbortSignal): Promise<{ items: PlaceRow[]; nextPage: number | null } | null>;
 
   // ---- API-3: the server's evaluation (P9) ---------------------------------------------------------------------------------------
   // The ApiAdapter has these three and answers them from /api/v1/; the StaticAdapter does not, and data.ts evaluates the same in the

@@ -41,10 +41,12 @@
 @media print { .pb { display: none; } }
 
 /* ---- the sticky day rail: "2 adults · 1 child (10) · Standard · Edit"; the pace truncates first ---- */
-.tl-planbar .tl-planbar-line { display: flex; align-items: center; gap: var(--s-2); min-width: 0; max-width: 24rem; overflow: visible; white-space: nowrap; }
-.tl-planbar-who { display: inline-flex; min-width: 0; gap: var(--s-1); }
-.tl-planbar-party { flex: none; }
-.tl-planbar-pace { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.tl-planbar .tl-planbar-line { display: flex; align-items: center; gap: var(--s-2); min-width: 0; max-width: 24rem; overflow: visible; white-space: nowrap; flex: 0 1 auto; min-width: 0; }
+/* B2: eight children with ages made the party line wider than the phone. The words shrink (the pace first, then the party, each with an
+   ellipsis; the full text is the party span's title) and Edit, outside .tl-planbar-who, always keeps its place. */
+.tl-planbar-who { display: inline-flex; flex: 0 1 auto; min-width: 0; gap: var(--s-1); overflow: hidden; }
+.tl-planbar-party { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.tl-planbar-pace { flex: 0 20 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .tl-railedit {
   position: relative; flex: none; display: inline-flex; align-items: center; gap: var(--s-1); min-height: 28px; padding: 0 var(--s-2); cursor: pointer;
   border: 0; border-radius: var(--r-2); background: none; color: var(--accent-text); font: var(--t-meta); font-weight: 600;

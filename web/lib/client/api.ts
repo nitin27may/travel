@@ -26,7 +26,7 @@ import { staticClient } from './static';
 export interface ApiCalls {
   search(q: SearchQuery): Promise<ApiSearchResult>;
   parse(input: ParseInput): Promise<ParsedQuery>;
-  listPlaces(q: PlaceQuery, page: { page?: number; pageSize?: number }): Promise<Paged<PlaceRow>>;
+  listPlaces(q: PlaceQuery, page: { page?: number; pageSize?: number }, signal?: AbortSignal): Promise<Paged<PlaceRow>>;
   countPlaces(q: CountQuery): Promise<FacetCounts>;
   listUnchecked(q: UncheckedQuery, page: { page?: number; pageSize?: number }): Promise<UncheckedPage>;
   searchCards(q: CardQuery): Promise<CardHits>;
@@ -113,7 +113,7 @@ export function fetchCalls(): ApiCalls {
       if (input.dropped?.length) p.set('dropped', input.dropped.join(','));
       return read('parse', at('/parse', p));
     },
-    listPlaces: (q, page) => read('listPlaces', at('/places', list(q, page))),
+    listPlaces: (q, page, signal) => read('listPlaces', at('/places', list(q, page)), signal ? { signal } : undefined),
     countPlaces: (q) => {
       const p = filters(q);
       if (q.parsed) {
@@ -356,6 +356,16 @@ export function createApiClient(calls: ApiCalls): DataClient {
         if (!row) throw new Error('resolveRefs: the answer is missing a row');
         return row;
       });
+    },
+    async placesPage(q, page, pageSize, signal): Promise<{ items: PlaceRow[]; nextPage: number | null } | null> {
+      // one page of a bbox, a words or an ids read; a failed read is null (the add picker falls back to the trip's own lists)
+      try {
+        const bbox = q.bbox ? (q.bbox.split(',').map(Number) as [number, number, number, number]) : undefined;
+        const got = await calls.listPlaces({ ...(q.q ? { q: q.q } : {}), ...(bbox ? { bbox } : {}), ...(q.ids ? { ids: [...q.ids] } : {}) }, { page, pageSize }, signal);
+        return { items: got.items, nextPage: got.nextPage ?? null };
+      } catch {
+        return null;
+      }
     },
     async reportProblem(input): Promise<ReportResult> {
       // reporting is off in the product settings until the feedback repo exists: nothing to ask the server then

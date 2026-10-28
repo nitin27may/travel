@@ -323,6 +323,8 @@ describe('the reads are light (P8) and fall back without an API', () => {
     vi.unstubAllEnvs();
   });
   it('near asks for one page of one box, drops what is outside the circle and any park, and sorts nearest first', async () => {
+    // the data module's dev-time schema check wants whole PlaceRow rows; these are the picker's few fields
+    vi.stubEnv('NODE_ENV', 'production');
     const calls: string[] = [];
     const row = (slug: string, kind: string, lat: number, lon: number) => ({ slug, name: slug, kind, kindLabel: kind, lat, lon, km: null, gain_m: null, area_name: '', kid_fit: 'unknown', kids_from: null, flags: [], season: [] });
     globalThis.fetch = (async (u: string) => {
