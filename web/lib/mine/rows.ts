@@ -1,6 +1,8 @@
 import { PLACEHOLDER_TITLE } from '@travel/core/schema/copies.ts';
 import type { CopyItem } from '@travel/core/schema/copies.ts';
 import { addDays, formatDate, parseIso } from '@/lib/export/dates';
+import { TRIP_EDIT_ON } from '@/lib/trip-edit/flag';
+import { openTripHref } from '@/lib/trip-edit/keys';
 import { partyText } from './copies';
 
 /**
@@ -67,8 +69,9 @@ export function openQuery(c: CopyItem): string {
   return out.join('&');
 }
 
-/** `/trips/<slug>/` with the copy's choices. */
+/** `/trips/<slug>/` with the copy's choices; with `tripEdit` on, the copy's own page `/t/<id>/?view=day` (STEP2-T1). */
 export function openHref(c: CopyItem): string {
+  if (TRIP_EDIT_ON) return openTripHref(c.id);
   const q = openQuery(c);
   return `/trips/${c.slug}/${q ? `?${q}` : ''}`;
 }

@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { useEffect, useRef } from 'react';
+import type { ReactNode } from 'react';
 import type { ExportFormat } from '@/components/actions/ExportMenu';
 import { PACE_WORD, partyShortText } from '@travel/core/trips/partyWords.ts';
 import { Icon } from '@/components/ui/Icon';
@@ -25,6 +26,8 @@ interface Props {
   /** Phone only: opens the map sheet. Lives in the strip so nothing floats over the page. */
   onMap?: () => void;
   mapOpen?: boolean;
+  /** The person's own trip (STEP2-T1): its identity cell and title, first in the bar (scenario rule 1). */
+  lead?: ReactNode;
 }
 
 /** The Map control of the sticky strip on a phone (44 px, icon and the word Map). Hidden from 640 px up, where the map has its own column. */
@@ -37,7 +40,7 @@ export function MapButton({ onClick, open }: { onClick: () => void; open?: boole
 }
 
 /** Sticky under the header while the days scroll: the profile in a few words and a rail of day numbers (design 3.4). */
-export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, mapOpen }: Props) {
+export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, mapOpen, lead }: Props) {
   const rail = useRef<HTMLOListElement>(null);
   const kept = useRailParty();
   useEffect(() => {
@@ -48,6 +51,7 @@ export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, map
   }, [active]);
   return (
     <nav className="tl-planbar" aria-label="Days" data-print="hide">
+      {lead}
       <p className="tl-planbar-line num">
         <span className="tl-planbar-who">
           {kept ? (

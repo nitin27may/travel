@@ -28,7 +28,7 @@ import { TripSuitProvider } from '@/components/suit/TripSuit';
 import { TripPanel } from './tabs/TripPanel';
 import { followLink, useTripTabs } from './tabs/useTripTabs';
 import { useScrollSpy } from './timeline/useScrollSpy';
-import { useTimeline } from './timeline/useTimeline';
+import { useTimeline, type TimelineSource } from './timeline/useTimeline';
 import { useSwap } from './timeline/useSwap';
 import { useTripUrl } from './useTripUrl';
 
@@ -83,6 +83,8 @@ interface Props {
   slots: { summaryTop: ReactNode; summaryBottom: ReactNode; bookings: ReactNode; photos: ReactNode };
   /** The facts the trip's shape needs besides the timelines; null draws no shape (a trip with no schedule). */
   shape: ShapeFacts | null;
+  /** STEP2-T1: where the profile, versions and additions live, and the person's chrome around them. Absent: the address (the published plan). */
+  source?: TimelineSource;
 }
 
 const reduced = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -135,8 +137,8 @@ function Tabs({ tabs, api }: { tabs: Props['tabs']; api: ReturnType<typeof useTr
   );
 }
 
-function TimelinePlan({ slug, model, depth, season, tabs, slots, shape, tlModel, url }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
-  const api = useTimeline(tlModel, url);
+function TimelinePlan({ slug, model, depth, season, tabs, slots, shape, tlModel, url, source }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
+  const api = useTimeline(tlModel, url, source);
   const tabApi = useTripTabs(slug, url, tabs.available);
   const tab = tabApi.tab;
   const onDays = tab === 'days';
@@ -309,7 +311,7 @@ function TimelinePlan({ slug, model, depth, season, tabs, slots, shape, tlModel,
     <TripSuitProvider value={{ byPlace: tlModel.suit, youngest: p.party === 'family' ? p.youngest : null }}>
     <MapLinkContext.Provider value={placed ? link : null}>
     <div className="tl-wrap trip-tabs" data-tab={tab} onClick={(e) => followLink(e, tabApi.follow)}>
-      <ProfileBar model={tlModel} api={api} edit={edit} setEdit={setEdit} label={planLabel} />
+      {source?.chrome ? source.chrome.party({ model: tlModel, api, edit, setEdit }) : <ProfileBar model={tlModel} api={api} edit={edit} setEdit={setEdit} label={planLabel} />}
       <Tabs tabs={tabs} api={tabApi} />
 
       <TripPanel tab="summary" current={tab}>
@@ -321,7 +323,7 @@ function TimelinePlan({ slug, model, depth, season, tabs, slots, shape, tlModel,
 
       <div className="tl-lists" hidden={!inLists}>
         {onDays ? <TimesBanner condensed={tlModel.condensed} /> : null}
-        {onDays ? <PlanBar slug={slug} model={tlModel} label={planLabel} active={current} onPick={pickDay} onEdit={editPlan} onMap={onMap} mapOpen={sheet} /> : null}
+        {onDays ? <PlanBar slug={slug} model={tlModel} label={planLabel} active={current} onPick={pickDay} onEdit={editPlan} onMap={onMap} mapOpen={sheet} lead={source?.chrome?.lead} /> : null}
 
         <div className="tl-cols" data-map={(placed && inLists) || undefined} data-sheet-open={sheet || undefined}>
           <div className="tl-main">

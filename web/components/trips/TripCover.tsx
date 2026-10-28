@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { ageLabel } from '@/lib/format/age';
 import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
@@ -70,3 +71,67 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
   );
 }
 
+
+/** What a person's own trip adds to the cover (STEP2-T1; step2 README 4.1): their words in place of the published plan's, and their actions. */
+export interface OwnCoverProps {
+  /** "Your copy · from our Canadian Rockies trip" */
+  kicker: ReactNode;
+  title: string;
+  /** A same-origin photo path, or null for the fallback. */
+  photo: string | null;
+  /** One line under the title: the dates and who is going. */
+  standfirst: string;
+  /** Neutral chips: the changes from our plan. */
+  chips: string[];
+  glance: { k: string; v: string }[];
+  /** The state line under the chips: the sync word and the changes (a node, so it can hold the Retry button). */
+  state: ReactNode;
+  /** `TripActions` in its own-trip variant. */
+  actions: ReactNode;
+}
+
+/**
+ * The same cover as the published plan's (same frame, photo, scrim, glance strip), fed by the person's trip: `/t/<id>/`. Nothing here
+ * is about our plan's authorship or honesty labels; those stay on the public page.
+ */
+export function OwnCover({ kicker, title, photo, standfirst, chips, glance, state, actions }: OwnCoverProps) {
+  return (
+    <header className="trip-head" data-own="">
+      <div className="trip-cover">
+        {photo ? (
+          // eslint-disable-next-line @next/next/no-img-element -- the build's own rendition, same as the public cover
+          <img className="trip-cover-img" src={sizedImage(photo, 960)} srcSet={imageSrcSet(photo)} sizes="100vw" alt="" width={960} height={540} loading="eager" fetchPriority="high" decoding="async" />
+        ) : (
+          <div className="trip-cover-fallback" aria-hidden="true">
+            <Icon name="mountain" size={48} />
+          </div>
+        )}
+        <div className="trip-cover-scrim" aria-hidden="true" />
+        <div className="trip-cover-text">
+          <p className="trip-kicker">{kicker}</p>
+          <h1 className="trip-title">{title}</h1>
+          <p className="trip-standfirst">{standfirst}</p>
+          {chips.length ? (
+            <ul className="trip-chips" aria-label="About your trip">
+              {chips.map((c) => (
+                <li key={c}>
+                  <Chip kind="neutral" icon={false}>{c}</Chip>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <div className="own-state">{state}</div>
+          {actions}
+        </div>
+      </div>
+      <dl className="trip-glance">
+        {glance.map((g) => (
+          <div key={g.k}>
+            <dt>{g.k}</dt>
+            <dd>{g.v}</dd>
+          </div>
+        ))}
+      </dl>
+    </header>
+  );
+}
