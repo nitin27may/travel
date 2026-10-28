@@ -72,6 +72,11 @@
   margin: -46px var(--s-6) 0; background: var(--line); border: 1px solid var(--line); border-radius: var(--r-4);
 }
 .trip-glance > div { background: var(--surface); padding: var(--s-4) var(--s-5); display: grid; gap: var(--s-1); align-content: start; }
+/* 4 cells in 3 auto-fit columns at tablet width left a tinted hole (STEP2-INT): two columns there, and an odd last cell fills its row */
+@media (min-width: 640px) and (max-width: 899px) {
+  .trip-glance { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .trip-glance > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
 .trip-glance dt { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
 .trip-glance dd { font: var(--t-title); color: var(--ink); }
 
@@ -192,6 +197,7 @@
   .trip-title[data-long] { max-width: 100%; font-size: clamp(26px, 8vw, 34px); line-height: 1; }
   .trip-standfirst { font-size: 17px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .trip-glance { margin: -46px var(--s-3) 0; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .trip-glance > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .trip-glance > div { padding: var(--s-3); }
   .trip-map-surface { height: 340px; }
   .trip-seg { display: flex; width: 100%; }

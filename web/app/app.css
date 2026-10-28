@@ -136,6 +136,12 @@ html.theme-fade img { transition: none !important; }
   body { padding-bottom: var(--phone-bottombar-h); }
   .bottom-bar { display: grid; position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-header); }
   .toast-region { bottom: calc(var(--phone-bottombar-h) + 12px); }
+  /* a bottom sheet is open (the add picker, an actions sheet): it covers the bottom bar, so the toast sits on the sheet's edge, one at a time, and a
+     tap that lands on it goes to the row under it; only Undo takes the tap (the sheet's own rows say Added and Undo as well) */
+  body:has(.sheet-bottom-frame) .toast-region { bottom: 12px; }
+  body:has(.sheet-bottom-frame) .toast-region .toast:not(:last-child) { display: none; }
+  body:has(.sheet-bottom-frame) .toast { pointer-events: none; }
+  body:has(.sheet-bottom-frame) .toast-action { pointer-events: auto; }
 }
 
 /* back-to-top (S28): phone only, rendered after mount, above the bottom bar, under scrims and sheets */

@@ -5,6 +5,10 @@ import { expect, test } from './fixtures';
 // NAV-2: My trips on the device and the copy sheet's saving (docs/v2/design/shell/mine-and-bar-spec.md 5.2, 7; briefs-bundle-A 7.9).
 // Seeds localStorage for what Mine shows; the copy flow itself runs on the real trip page.
 
+// With the build made under NEXT_PUBLIC_TRIP_EDIT=1 a copy opens at its own page /t/<id>/ and the copy sheet's link reads "Open your trip"
+// (STEP2-T1); run the spec with the same variable the build had.
+const TRIP_EDIT = process.env.NEXT_PUBLIC_TRIP_EDIT === '1';
+const OPEN_LINK = TRIP_EDIT ? 'Open your trip' : 'Open in Mine';
 const COPIES_KEY = 'travel.copies.local';
 const LEGACY_KEY = 'travel:v1:copy-drafts';
 const MOVED_KEY = 'travel.copies.legacyMovedAt';
@@ -42,7 +46,8 @@ test.describe('My trips rows', () => {
     await expect(page.getByRole('menuitem')).toHaveText([/Open/, /Add to calendar/, /Print/, /Change dates/, /Remove/]);
     await page.keyboard.press('Escape');
     await row.locator('a.crow-link').click();
-    await expect(page).toHaveURL(/\/trips\/dolomites-2027\/\?p=family-6&pace=relaxed&a=2&d=5C&view=day&mine=1$/);
+    if (TRIP_EDIT) await expect(page).toHaveURL(new RegExp(`/t/${ID1}/\\?view=day$`));
+    else await expect(page).toHaveURL(/\/trips\/dolomites-2027\/\?p=family-6&pace=relaxed&a=2&d=5C&view=day&mine=1$/);
     expect(page.url()).not.toMatch(/adults|children|copiedAt/);
   });
 
@@ -160,13 +165,17 @@ test.describe('the copy sheet saves into Mine', () => {
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
     await expect(page.locator('.toast-region .toast')).toHaveCount(0); // the sheet is modal: no toast, Undo is in its footer
     await expect(sheet.getByRole('button', { name: 'Undo' })).toBeVisible();
-    const open = sheet.getByRole('link', { name: 'Open in Mine' });
+    const open = sheet.getByRole('link', { name: OPEN_LINK });
     await expect(open).toBeVisible();
     // Open in Mine comes first, then the export list, then Done
-    const order = await sheet.evaluate((el) => [...el.querySelectorAll('a, button')].map((b) => b.textContent?.trim() ?? '').filter((t) => /^(Open in Mine|Calendar|Done)/.test(t)));
-    expect(order[0]).toBe('Open in Mine');
+    const order = await sheet.evaluate((el) => [...el.querySelectorAll('a, button')].map((b) => b.textContent?.trim() ?? '').filter((t) => /^(Open in Mine|Open your trip|Calendar|Done)/.test(t)));
+    expect(order[0]).toBe(OPEN_LINK);
     expect(order[order.length - 1]).toBe('Done');
     await open.click();
+    if (TRIP_EDIT) {
+      await expect(page).toHaveURL(/\/t\/[0-9a-f-]{36}\//);
+      await page.goto(`${site.url}/mine/?show=trips`);
+    }
     await expect(page).toHaveURL(/\/mine\/\?show=trips$/);
     await page.reload();
     await expect(page.locator('.crow')).toHaveCount(1);
@@ -187,7 +196,7 @@ test.describe('the copy sheet saves into Mine', () => {
     await expect(sheet.getByRole('button', { name: 'Copy to my trips' })).toBeVisible();
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
     await sheet.getByRole('button', { name: 'Replace' }).click();
-    await expect(sheet.getByRole('link', { name: 'Open in Mine' })).toBeVisible();
+    await expect(sheet.getByRole('link', { name: OPEN_LINK })).toBeVisible();
     const env = await stored(page);
     expect(env!.items).toHaveLength(1);
     expect(env!.items[0]!.start).not.toBe('2027-07-03');
@@ -220,7 +229,7 @@ test.describe('the copy sheet saves into Mine', () => {
     await fill(sheet, false);
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
     await expect(sheet.getByText('This browser is not keeping data, so this copy lasts until you close this tab. The calendar file keeps your dates.')).toBeVisible();
-    await expect(sheet.getByRole('link', { name: 'Open in Mine' })).toHaveCount(0); // a new page would lose it
+    await expect(sheet.getByRole('link', { name: OPEN_LINK })).toHaveCount(0); // a new page would lose it
     const [ics] = await Promise.all([page.waitForEvent('download'), sheet.getByRole('button', { name: /^Calendar \(\.ics\)/ }).click()]);
     expect(readFileSync((await ics.path())!, 'utf8')).toContain('BEGIN:VCALENDAR');
   });
@@ -274,7 +283,7 @@ test.describe('Print from Mine', () => {
     await page.goto(`${site.url}/mine/`);
     await page.getByRole('button', { name: 'Actions for Dolomites' }).click();
     await page.getByRole('menuitem', { name: 'Print' }).click();
-    await expect(page).toHaveURL(/\/trips\/dolomites-2027\//);
+    await expect(page).toHaveURL(TRIP_EDIT ? new RegExp(`/t/${ID1}/`) : /\/trips\/dolomites-2027\//);
     expect(page.url()).not.toMatch(/print/i); // never a URL key
     await expect.poll(() => page.evaluate(() => (window as unknown as { __prints: number }).__prints), { timeout: 15_000 }).toBe(1);
     expect(await page.evaluate(() => sessionStorage.getItem('travel.mine.print'))).toBeNull();
@@ -340,7 +349,8 @@ test('privacy: no copy, party or start date reaches /api/v1 while copying and br
   const picked = (await sheet.locator('.copy-date-input').innerText()).trim();
   expect(picked).not.toBe('');
   await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
-  await sheet.getByRole('link', { name: 'Open in Mine' }).click();
+  await sheet.getByRole('link', { name: OPEN_LINK }).click();
+  if (TRIP_EDIT) await page.goto(`${site.url}/mine/`);
   await expect(page.locator('.crow')).toHaveCount(1);
   await page.waitForLoadState('networkidle');
   const start = (await stored(page))!.items[0]!.start as string;

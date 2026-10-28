@@ -13,7 +13,7 @@ import { PAGE_SIZE } from '@/lib/config/product';
 import { usePrefs } from '@/lib/format/prefs';
 import { formatDistance } from '@/lib/format/units';
 import { dayDate } from '@/lib/trip-edit/moveFit';
-import { movedWords, moveToDayOps, newOpId } from '@/lib/trip-edit/stopOps';
+import { dayRef, movedWords, moveToDayOps, newOpId } from '@/lib/trip-edit/stopOps';
 import type { PlanOp } from '@/lib/trip-edit/model';
 import type { Fit, Fitter } from './fit';
 import type { PickerProps } from './AddPicker';
@@ -21,7 +21,7 @@ import { PickRowView } from './PickRowView';
 import { candidateOf, kmBetween, type Found } from './place';
 import { daysByDistance, farKmOf, rowOfFound, type PickRow } from './rows';
 import { newTripHref, oneRow } from './source';
-import { useFitter, useNearRows } from './useAdd';
+import { useDayView, useFitter, useNearRows } from './useAdd';
 
 const RANK: Record<Fit['state'], number> = { fits: 0, tight: 1, fix: 2, full: 3 };
 
@@ -49,9 +49,10 @@ export function Arrival(p: PickerProps) {
     return () => c.abort();
   }, [slug]);
   const fitter = useFitter(p.doc, p.model, p.profile);
+  const view = useDayView(p.model, fitter);
   if (!got || got.slug !== slug) return <p className="add-empty" role="status">Looking up the place</p>;
   if (!got.found) return <p className="add-empty">{got.failed ? 'We could not look that place up just now. Try again in a moment.' : 'We do not have this place any more.'}</p>;
-  return got.found.kind === 'area' ? <Park park={got.found} fitter={fitter} p={p} /> : <OnePlace place={got.found} fitter={fitter} p={p} />;
+  return got.found.kind === 'area' ? <Park park={got.found} fitter={fitter} p={{ ...p, model: view }} /> : <OnePlace place={got.found} fitter={fitter} p={{ ...p, model: view }} />;
 }
 
 function Pinned({ f, children }: { f: Found; children?: React.ReactNode }) {
@@ -98,7 +99,7 @@ function OnePlace({ place: f, fitter, p }: { place: Found; fitter: Fitter | null
       label = movedWords(on.entry, day);
     } else {
       if (!p.model.addables[f.slug]) p.register(cand);
-      ops = [{ kind: 'addPlace', id: newOpId(), day, ref: `place/${f.slug}` }];
+      ops = [{ kind: 'addPlace', id: newOpId(), day: dayRef(p.doc, day), ref: `place/${f.slug}` }];
       label = `Added ${f.name} to Day ${day}`;
     }
     if (p.commit(ops, label)) setLast({ label, day });
@@ -186,7 +187,7 @@ function Park({ park, fitter, p }: { park: Found; fitter: Fitter | null; p: Pick
     if (!r.cand || !r.slug || x.day === null) return;
     if (!p.model.addables[r.slug]) p.register(r.cand);
     const label = `Added ${r.name} to Day ${x.day}`;
-    if (p.commit([{ kind: 'addPlace', id: newOpId(), day: x.day, ref: `place/${r.slug}` }], label)) setLast({ label });
+    if (p.commit([{ kind: 'addPlace', id: newOpId(), day: dayRef(p.doc, x.day), ref: `place/${r.slug}` }], label)) setLast({ label });
   };
   return (
     <div className="add-picker">

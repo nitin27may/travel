@@ -28,7 +28,7 @@ describe('themes.css and the css that uses it', () => {
     const all = files.map((f) => readFileSync(f, 'utf8')).join('\n') + themes;
     const defined = new Set([...all.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1]));
     // custom properties set from TSX (inline style) or by a lane
-    const runtime = new Set(['--tc', '--fill', '--bar-h', '--sbw', '--count-n']);
+    const runtime = new Set(['--tc', '--fill', '--bar-h', '--sbw', '--count-n', '--settle-ms']);
     const missing = new Set<string>();
     for (const f of files) {
       for (const m of readFileSync(f, 'utf8').matchAll(/var\((--[\w-]+)/g)) if (!defined.has(m[1]) && !runtime.has(m[1])) missing.add(`${path.relative(WEB, f)}: ${m[1]}`);

@@ -46,8 +46,9 @@ function ToastView({ item, onDone }: { item: Item; onDone: (id: number) => void 
     <div
       className="toast"
       data-leaving={item.leaving || undefined}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      // a pointer that hovers pauses the clock; a touch fires the same events and never sends the leave, so a tap near the toast kept it for good
+      onPointerEnter={(e) => e.pointerType === 'mouse' && setPaused(true)}
+      onPointerLeave={(e) => e.pointerType === 'mouse' && setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >

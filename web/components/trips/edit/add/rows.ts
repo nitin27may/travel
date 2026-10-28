@@ -5,6 +5,7 @@ import { estimateLeg } from '@travel/core/schedule/legs.ts';
 import type { Point, TimelineEntry } from '@travel/core/schedule/types.ts';
 import type { AddCandidate, TimelineModel } from '@/components/trips/timeline/model';
 import { isRuleItem } from '@/lib/trip-edit/ruleRows';
+import { dayRef } from '@/lib/trip-edit/stopOps';
 import type { PlanDraft, PlanOp } from '@/lib/trip-edit/model';
 import { bearingOf, candidateOf, kmBetween, type Found } from './place';
 
@@ -205,7 +206,7 @@ function maybeRows(i: Inputs, needle: string): PickRow[] {
     out.push({
       ...(base ?? { slug, name, kind: 'sight', kindLabel: 'Stop', cand: null, km: null, bearing: null, driveMin: null, here: false, on: here ?? null, far: false, farKm: null, found: null, back: null, note: null, key: '' }),
       key: `maybe:${m.op}`, note: 'In Maybe',
-      back: { ops: (id) => [{ kind: 'deleteEntry', id: id(), target: m.op }, { kind: 'addPlace', id: id(), day: i.day, ref }], label: `Added ${name} to Day ${i.day}`, verb: 'Add' },
+      back: { ops: (id) => [{ kind: 'deleteEntry', id: id(), target: m.op }, { kind: 'addPlace', id: id(), day: dayRef(i.doc, i.day), ref }], label: `Added ${name} to Day ${i.day}`, verb: 'Add' },
     });
   }
   return out;
