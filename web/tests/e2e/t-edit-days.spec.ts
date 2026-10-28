@@ -223,7 +223,10 @@ test.describe('edit mode: day actions', () => {
     await panel(page).getByRole('menuitem', { name: 'Edit the note' }).click();
     await page.locator('#edit-note-t').fill('');
     await page.getByRole('button', { name: 'Remove note' }).click();
-    await expect(page.getByTestId('day-status-1')).toHaveCount(0);
+    // The wrapper stays mounted (it hosts the warnings) but holds nothing and takes no space.
+    await expect(page.getByTestId('day-status-1')).toBeEmpty();
+    await expect(page.getByTestId('day-status-1')).toBeHidden();
+    await expect(page.locator('#day-1')).not.toContainText('Leave by 8');
   });
 
   test('Version of Day n lists each version with its consequence, changes it with Undo, and leaves nothing over the page', async ({ page, site }) => {
