@@ -1,5 +1,4 @@
 /* ---------- When to go, in the Summary (spec trip-and-places-ux-fixes.md 6.2, W4; components 4.7). Tokens only; no colour carries a state alone. ---------- */
-.wtg { max-width: 62rem; }
 .wtg-hero { margin-top: var(--s-2); }
 .wtg-head { margin: 0; }
 .wtg-head > h2, .wtg-head > p { display: inline; }

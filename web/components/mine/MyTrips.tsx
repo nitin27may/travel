@@ -277,8 +277,8 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
         <EmptyState
           quiet
           glyph="layers"
-          title="No trips copied yet"
-          why="Open a trip and choose Copy to my trips. It stays here with your dates."
+          title="No trips yet"
+          why="Copy one of our trips. It stays here."
           action={<ButtonLink href="/trips/" variant="primary">Browse trips</ButtonLink>}
         />
       </div>

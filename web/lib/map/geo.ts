@@ -1,4 +1,6 @@
 import { haversineKm } from '@travel/core/geo/distance.ts';
+import { MAP_PIN_NEAR_PX } from '@/lib/config/product';
+import { worldPx } from './camera';
 import type { Line, LngLat, MapSpec, Pin } from './types';
 
 export type Bounds = [LngLat, LngLat];
@@ -41,13 +43,26 @@ export interface PinGroup {
 const RANK: Pin['style'][] = ['base', 'stop-numbered', 'trailhead', 'parking', 'place', 'trip', 'stop'];
 
 /** Pins within about 11 m share one group, so co-located stops draw as one pin with a "3 · 5" badge. */
-export function groupPins(pins: Pin[]): PinGroup[] {
+export function groupPins(pins: Pin[], zoom?: number): PinGroup[] {
   const by = new Map<string, Pin[]>();
   for (const p of pins) {
     const k = `${p.at.lng.toFixed(4)},${p.at.lat.toFixed(4)}`;
     by.set(k, [...(by.get(k) ?? []), p]);
   }
-  return [...by.values()].map((members) => {
+  let cells = [...by.values()];
+  // SW-003: given the zoom, numbered pins that overlap on screen join one group, so two numbers never sit on top of each other
+  if (zoom !== undefined) {
+    const isNum = (m: Pin[]): boolean => m[0]!.style === 'stop-numbered' && m[0]!.number != null;
+    const num = cells.filter(isNum);
+    const px = num.map((m) => worldPx(m[0]!.at, zoom));
+    const parent = num.map((_, i) => i);
+    const find = (i: number): number => (parent[i] === i ? i : (parent[i] = find(parent[i]!)));
+    for (let i = 0; i < num.length; i++) for (let j = i + 1; j < num.length; j++) if (Math.hypot(px[i]!.x - px[j]!.x, px[i]!.y - px[j]!.y) < MAP_PIN_NEAR_PX) parent[find(j)] = find(i);
+    const joined = new Map<number, Pin[]>();
+    num.forEach((m, i) => joined.set(find(i), [...(joined.get(find(i)) ?? []), ...m]));
+    cells = [...cells.filter((m) => !isNum(m)), ...joined.values()];
+  }
+  return cells.map((members) => {
     const sorted = [...members].sort((a, b) => (a.number ?? 1e9) - (b.number ?? 1e9));
     const nums = sorted.map((p) => p.number).filter((n): n is number => n != null);
     const style = [...sorted].sort((a, b) => RANK.indexOf(a.style) - RANK.indexOf(b.style))[0].style;

@@ -147,6 +147,9 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last }: Pr
           {link?.missing.has(ek) ? <span className="tl-nomap num">· not on the map</span> : null}
           {!quiet && e.kind !== 'leg' ? <EntrySuit slug={e.at?.placeSlug} title={e.title} kind={e.kind} /> : null}
           {e.addedBy === 'visitor' ? <Chip kind="idea" icon={false}>You added this</Chip> : null}
+          {e.addedBy === 'visitor' && onRemove ? (
+            <button type="button" className="tl-remove tl-remove-now" data-print="hide" aria-label={`Remove ${e.title} from Day ${e.day}`} onClick={onRemove}>Remove</button>
+          ) : null}
           {e.optional ? <Chip kind="neutral" icon={false}>Optional</Chip> : null}
           {flagged.map((h) => (
             <Chip key={h} kind="honest" icon={false}>{honestyLabel(h)}</Chip>

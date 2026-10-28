@@ -15,6 +15,8 @@ interface Props {
   /** ISO date of today (the first selectable day). */
   today: string;
   label?: string;
+  /** The year the trip is named for, if any: the calendar opens on that year's season. */
+  year?: number;
 }
 
 const monthStart = (d: string) => `${d.slice(0, 7)}-01`;
@@ -32,9 +34,11 @@ function sameDayIn(d: string, n: number): string {
 }
 
 /** First date on or after `today` that falls on the window's opening day; where the picker opens. */
-function openingDate(today: string, w?: SeasonWindow): string {
+function openingDate(today: string, w?: SeasonWindow, year?: number): string {
   if (!w) return today;
   const md = w.from.length >= 10 ? w.from.slice(5, 10) : w.from.slice(0, 5);
+  // a trip named for a year (canadian-rockies-2029) opens on that year's season, not on the next one that comes round (SW-010)
+  if (year && year >= +today.slice(0, 4) && `${year}-${md}` >= today) return `${year}-${md}`;
   const thisYear = `${today.slice(0, 4)}-${md}`;
   return thisYear >= today ? thisYear : `${+today.slice(0, 4) + 1}-${md}`;
 }
@@ -44,8 +48,8 @@ function openingDate(today: string, w?: SeasonWindow): string {
  * the trip's season window underlined. `role="grid"`; arrows move a day, PageUp and PageDown a month, Home and End
  * the week; Enter or Space picks. Nothing is selected until the visitor picks.
  */
-export function CalendarPicker({ value, onChange, window: season, length, today, label = 'Start date' }: Props) {
-  const start = useMemo(() => value ?? openingDate(today, season), [value, today, season]);
+export function CalendarPicker({ value, onChange, window: season, length, today, label = 'Start date', year }: Props) {
+  const start = useMemo(() => value ?? openingDate(today, season, year), [value, today, season, year]);
   const [shown, setShown] = useState(monthStart(start));
   const [focus, setFocus] = useState(start);
   const grid = useRef<HTMLDivElement>(null);

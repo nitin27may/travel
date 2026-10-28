@@ -4,17 +4,21 @@ import { useEffect, useState } from 'react';
 import type { PlanOp } from '@/lib/trip-edit/model';
 import type { Profile } from '@travel/core/schedule/types.ts';
 import type { PlanDraft } from '@/lib/trip-edit/model';
-import { CHILD_MAX_AGE, DEFAULT_CHILD_AGE, PARTY_MAX_ADULTS, PARTY_MAX_CHILDREN, PARTY_MIN_ADULTS } from '@travel/core/trips/party.ts';
+import { planAge } from '@travel/core/trips/party.ts';
 import { BottomSheet } from '@/components/ui/BottomSheet';
 import { Banner } from '@/components/ui/Banner';
 import { Button } from '@/components/ui/Button';
 import { Field, Input } from '@/components/ui/Input';
 import { Segmented } from '@/components/ui/Segmented';
-import { Select } from '@/components/ui/Select';
 import { SideSheet } from '@/components/ui/SideSheet';
-import { Stepper } from '@/components/ui/Stepper';
+import { Icon } from '@/components/ui/Icon';
+import { CalendarPicker } from '@/components/actions/CalendarPicker';
+import { Travellers } from '@/components/actions/Travellers';
+import { formatDate, iso } from '@/lib/export/dates';
+import { TRIP_NAME_MAX } from '@/lib/config/product';
 import { partyOps, profileOfDraft } from '@/lib/trip-edit/source';
 import type { SaveResult, Where } from '@/lib/trip-edit/open';
+import '@/components/actions/actions.css';
 import './shell.css';
 
 const PACES = [
@@ -22,8 +26,6 @@ const PACES = [
   { value: 'standard', label: 'Standard' },
   { value: 'full', label: 'Full' },
 ] as const;
-const AGES = Array.from({ length: CHILD_MAX_AGE + 1 }, (_, i) => i);
-const ageName = (n: number): string => (n === 0 ? 'Under 1' : String(n));
 const newOpId = (): string => `o-${crypto.randomUUID().replace(/-/g, '').slice(0, 16)}`;
 
 interface Props {
@@ -37,13 +39,20 @@ interface Props {
   ourTitle: string | null;
   where: Where;
   save: (ops: readonly PlanOp[]) => SaveResult;
+  /** The trip's length, for the calendar's range tint. */
+  days?: number;
 }
 
 /**
  * The trip's name, start date, who is going and pace: the edits the page already had, now saved to the document (STEP2-T1). A bottom
  * sheet on a phone, a side sheet from 640 px, as the copy sheet. Every control saves at once; there is no Save button (edit-mode-spec 3).
  */
-export function TripSettings({ open, onClose, doc, defaults, title, ourTitle, where, save }: Props) {
+export function TripSettings({ open, onClose, doc, defaults, title, ourTitle, where, save, days = 1 }: Props) {
+  const [calendar, setCalendar] = useState(false);
+  const [today, setToday] = useState<string | null>(null);
+  // the calendar needs the local date, read after hydration
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { const d = new Date(); setToday(iso(new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())))); }, [open]);
   const [phone, setPhone] = useState(false);
   useEffect(() => {
     const q = window.matchMedia('(max-width: 639px)');
@@ -65,11 +74,6 @@ export function TripSettings({ open, onClose, doc, defaults, title, ourTitle, wh
   const profile = profileOfDraft(doc, defaults);
   const party = doc.travellers ?? { adults: profile.adults, children: profile.youngest === null ? [] : [profile.youngest] };
   const setParty = (next: { adults: number; children: number[] }) => run(partyOps(doc, defaults, next, profile.pace, newOpId));
-  const setChildren = (n: number) => {
-    const children = party.children.slice(0, n);
-    while (children.length < n) children.push(DEFAULT_CHILD_AGE);
-    setParty({ adults: party.adults, children });
-  };
   const commitName = () => {
     const next = name.trim();
     if (next === title) return;
@@ -87,7 +91,7 @@ export function TripSettings({ open, onClose, doc, defaults, title, ourTitle, wh
           <Input
             {...c}
             value={name}
-            maxLength={120}
+            maxLength={TRIP_NAME_MAX}
             placeholder={ourTitle ?? 'Your trip'}
             onChange={(e) => setName(e.target.value)}
             onBlur={commitName}
@@ -97,37 +101,31 @@ export function TripSettings({ open, onClose, doc, defaults, title, ourTitle, wh
           />
         )}
       </Field>
-      <Field label="Starts">
-        {(c) => (
-          <Input
-            {...c}
-            type="date"
-            value={doc.start ?? ''}
-            onChange={(e) => {
-              const v = e.target.value;
-              if (/^\d{4}-\d{2}-\d{2}$/.test(v) && v !== doc.start) run([{ kind: 'setDates', id: newOpId(), start: v }]);
-            }}
-          />
-        )}
-      </Field>
-      <div className="own-set-row" role="group" aria-label="Who is going">
-        <Stepper label="Adults" value={party.adults} min={PARTY_MIN_ADULTS} max={PARTY_MAX_ADULTS} decLabel="Fewer adults" incLabel="More adults" onChange={(n) => setParty({ adults: n, children: party.children })} />
-        <Stepper label="Children" value={party.children.length} min={0} max={PARTY_MAX_CHILDREN} decLabel="Fewer children" incLabel="More children" onChange={setChildren} />
-        {party.children.length ? (
-          <div className="own-set-ages">
-            {party.children.map((a, i) => (
-              <div className="own-set-age" key={i}>
-                <label className="field-label" htmlFor={`own-age-${i}`}>Child {i + 1} age</label>
-                <Select id={`own-age-${i}`} value={String(a)} onChange={(e) => setParty({ adults: party.adults, children: party.children.map((x, j) => (j === i ? Number(e.target.value) : x)) })}>
-                  {AGES.map((n) => (
-                    <option key={n} value={n}>{ageName(n)}</option>
-                  ))}
-                </Select>
-              </div>
-            ))}
+      <section className="own-set-when" aria-labelledby="own-when-h">
+        <h3 id="own-when-h" className="field-label">Starts</h3>
+        <button type="button" className="own-set-date" aria-expanded={calendar} aria-controls="own-set-cal" data-empty={doc.start ? undefined : ''} onClick={() => setCalendar((v) => !v)}>
+          <Icon name="calendar" size={16} />
+          <span>{doc.start ? formatDate(doc.start) : 'Pick the day 1 date'}</span>
+          <Icon name={calendar ? 'chevronUp' : 'chevronDown'} size={16} />
+        </button>
+        {calendar && today ? (
+          <div id="own-set-cal">
+            <CalendarPicker
+              value={doc.start ?? null}
+              onChange={(v) => {
+                if (/^\d{4}-\d{2}-\d{2}$/.test(v) && v !== doc.start) run([{ kind: 'setDates', id: newOpId(), start: v }]);
+                setCalendar(false);
+              }}
+              length={Math.max(1, days)}
+              today={today}
+            />
           </div>
         ) : null}
-      </div>
+      </section>
+      <section className="own-set-party trav" role="group" aria-labelledby="own-who-h">
+        <h3 id="own-who-h" className="field-label">Who is going</h3>
+        <Travellers party={party} onChange={(p) => setParty({ adults: p.adults, children: p.children.map(planAge) })} />
+      </section>
       <div className="own-set-row">
         <span className="field-label" id="own-pace-l">Pace</span>
         <Segmented label="Pace" segments={[...PACES]} value={profile.pace} onChange={(p) => run(partyOps(doc, defaults, party, p, newOpId))} />
@@ -142,11 +140,11 @@ export function TripSettings({ open, onClose, doc, defaults, title, ourTitle, wh
     if (!o) onClose();
   };
   return phone ? (
-    <BottomSheet open={open} onOpenChange={change} title="Trip settings" snaps={['half', 'full']} initial="full" footer={footer}>
+    <BottomSheet open={open} onOpenChange={change} title="Edit trip" snaps={['half', 'full']} initial="full" footer={footer} className="own-sheet">
       {body}
     </BottomSheet>
   ) : (
-    <SideSheet open={open} onOpenChange={change} title="Trip settings" kicker={ourTitle ?? undefined} footer={footer}>
+    <SideSheet open={open} onOpenChange={change} title="Edit trip" kicker={ourTitle ?? undefined} footer={footer} className="own-sheet">
       {body}
     </SideSheet>
   );

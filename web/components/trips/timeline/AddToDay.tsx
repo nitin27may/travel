@@ -43,7 +43,7 @@ export function AddToDay(props: Props) {
           <Icon name="plus" size={15} /> Add a place to Day {props.day}
         </button>
       ) : (
-        <AddToDayPanel {...props} id={id} onClose={() => setOpen(false)} />
+        <AddToDayPanel {...props} id={id} onClose={() => setOpen(false)} onAdd={(k) => { props.onAdd(k); setOpen(false); }} />
       )}
     </div>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { ExportFormat } from '@/components/actions/ExportMenu';
 import { PACE_WORD, partyShortText } from '@travel/core/trips/partyWords.ts';
@@ -43,6 +43,20 @@ export function MapButton({ onClick, open }: { onClick: () => void; open?: boole
 export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, mapOpen, lead }: Props) {
   const rail = useRef<HTMLOListElement>(null);
   const kept = useRailParty();
+  // SW-005: a rail longer than the screen fades at the edge that has more days, so 6 visible days do not read as the whole trip
+  const [more, setMore] = useState(false);
+  useEffect(() => {
+    const box = rail.current;
+    if (!box) return;
+    const sync = () => setMore(box.scrollWidth - box.clientWidth - box.scrollLeft > 2);
+    sync();
+    box.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    return () => {
+      box.removeEventListener('scroll', sync);
+      window.removeEventListener('resize', sync);
+    };
+  }, [model.days.length]);
   useEffect(() => {
     const el = rail.current?.querySelector<HTMLElement>('[data-active]');
     if (!el || !rail.current) return;
@@ -69,7 +83,7 @@ export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, map
           <Icon name="pencil" size={13} /> Edit
         </button>
       </p>
-      <ol className="tl-rail-days" ref={rail}>
+      <ol className="tl-rail-days" ref={rail} data-more={more || undefined}>
         {model.days.map((d) => (
           <li key={d.n}>
             <a

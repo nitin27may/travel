@@ -7,6 +7,9 @@ import { PHOTOS_TAB_MIN } from '@/components/trips/summary/text';
 import { tripTabsFor, type TripTab } from '@travel/core/trips/tabs.ts';
 import { OwnCover } from '@/components/trips/TripCover';
 import { TripPlan } from '@/components/trips/TripPlan';
+import { BookingsPanel } from '@/components/trips/tabs/BookingsPanel';
+import { bookingCounts } from '@travel/core/export/bookings.ts';
+import type { ExportBooking } from '@travel/core/export/types.ts';
 import { PhotosPanel } from '@/components/trips/tabs/PhotosPanel';
 import type { TripPageModel } from '@/components/trips/model';
 import { lengthLabel } from '@/components/trips/format';
@@ -85,6 +88,19 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
     };
   }, [pickKey]);
 
+  // SW-011: the book-by list is the plan's own, read from the per-trip export (one item, P8), the same rows the published Bookings tab shows
+  const [bookings, setBookings] = useState<{ slug: string; rows: ExportBooking[] } | null>(null);
+  useEffect(() => {
+    if (!slug) return;
+    let live = true;
+    void import('@/lib/export/client')
+      .then((c) => c.loadExport('trip', slug))
+      .then((d) => live && setBookings({ slug, rows: d.bookings }))
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+  }, [slug]);
   const { toast } = useToast();
   const [settings, setSettings] = useState(false);
 
@@ -122,8 +138,10 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
 
   const stops = model.sections.reduce((n, s) => n + s.rows.length, 0);
   const photos = model.gallery.length >= PHOTOS_TAB_MIN ? model.gallery.length : 0;
-  const available: TripTab[] = tripTabsFor({ days, stops, bookings: 0, photos });
-  const counts: Partial<Record<TripTab, number>> = { stops, photos };
+  const book = bookings && bookings.slug === slug ? bookings.rows : [];
+  const toBook = bookingCounts(book).toBook;
+  const available: TripTab[] = tripTabsFor({ days, stops, bookings: book.length, photos });
+  const counts: Partial<Record<TripTab, number>> = { stops, photos, ...(toBook > 0 ? { bookings: toBook } : {}) };
 
   const calendar = async () => {
     if (!doc.start || !slug) return;
@@ -150,7 +168,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   const slots = {
     summaryTop: <SummaryOwn start={doc.start ?? null} end={end} days={days} adults={party.adults} kids={party.children} pace={profile.pace} changes={changes} ours={slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null} />,
     summaryBottom: null,
-    bookings: null,
+    bookings: book.length ? <BookingsPanel bookings={book} /> : null,
     photos: photos ? <PhotosPanel photos={model.gallery} rows={model.sections.flatMap((s) => s.rows).map((r) => ({ name: r.name, placeSlug: r.placeSlug, days: r.days }))} /> : null,
   };
 
@@ -160,7 +178,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
         kicker={kickerWords(doc, ourTitle)}
         title={title}
         photo={photo}
-        standfirst={[doc.start ? `${formatDate(doc.start)}${end && end !== doc.start ? ` to ${formatDate(end)}` : ''}` : 'Dates not set yet', partyText({ adults: party.adults, children: party.children })].join(' · ')}
+        standfirst={doc.start ? `${formatDate(doc.start)}${end && end !== doc.start ? ` to ${formatDate(end)}` : ''}` : 'Dates not set yet'}
         chips={[]}
         glance={[
           { k: 'Length', v: lengthLabel(doc.nights, days) },

@@ -25,6 +25,12 @@ export interface CountCard {
 
 const plural = (n: number, one: string, many: string): string => `${n} ${n === 1 ? one : many}`;
 const km = (n: number): string => String(Math.round(n * 10) / 10);
+/** The card has room for one clause: the rule up to its first semicolon, without a lead word the booking's name already says ("(lottery)" then "lottery: ..."). */
+function ruleBrief(name: string, rule: string): string {
+  const first = rule.split(';')[0].trim();
+  const m = /^([a-z][a-z -]{1,24}):\s+/i.exec(first);
+  return m && name.toLowerCase().includes(m[1].toLowerCase()) ? first.slice(m[0].length) : first;
+}
 const lower = (s: string): string => s.charAt(0).toLowerCase() + s.slice(1);
 
 /**
@@ -47,7 +53,7 @@ export function countCards(s: TripSummary, link: LinkTabs, groups = 0): CountCar
   }
   if (s.flags.bookings) {
     const b = c.bookings;
-    const sub = b.dated === 0 ? datedPhrase(0) : b.earliest ? `earliest: ${b.earliest.name}, ${lower(b.earliest.rule)}` : null;
+    const sub = b.dated === 0 ? datedPhrase(0) : b.earliest ? `earliest: ${b.earliest.name}, ${lower(ruleBrief(b.earliest.name, b.earliest.rule))}` : null;
     out.push({ key: 'bookings', value: `${b.count} to book ahead`, sub, href: link.bookings ? '?view=bookings' : null });
   }
   if (c.photos > 0) out.push({ key: 'photos', value: plural(c.photos, 'photo', 'photos'), sub: groups > 0 ? sectionsLabel(groups) : null, href: link.photos ? '?view=photos' : null });

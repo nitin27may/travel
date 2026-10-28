@@ -244,7 +244,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
             <Icon name="calendar" size={16} />
             {start ? formatDate(start) : 'Pick the day 1 date'}
           </div>
-          {today ? <CalendarPicker value={start} onChange={setStart} window={seasonWin} length={length} today={today} /> : null}
+          {today ? <CalendarPicker value={start} onChange={setStart} year={Number(/-(\d{4})$/.exec(trip.slug)?.[1]) || undefined} window={seasonWin} length={length} today={today} /> : null}
           {start && end ? (
             <p className="copy-summary">
               {trip.days} days, {formatDate(start, false)} to {formatDate(end)}
@@ -268,8 +268,9 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
     ) : (
       <div className="copy-body copy-done">
         {held ? (
-          <ButtonLink variant="primary" href="/mine/?show=trips">
-            Open in Mine
+          // SW-009: the copy itself opens (README step 2); where its page is not built, Mine still lists it
+          <ButtonLink variant="primary" href={process.env.NEXT_PUBLIC_TRIP_EDIT === '1' && undoable ? `/t/${undoable.item.id}/` : '/mine/?show=trips'}>
+            {process.env.NEXT_PUBLIC_TRIP_EDIT === '1' && undoable ? 'Open your trip' : 'Open in Mine'}
           </ButtonLink>
         ) : (
           <Banner kind="caution" icon="warn">

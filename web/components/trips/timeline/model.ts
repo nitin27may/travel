@@ -147,9 +147,9 @@ function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables:
         take(fromItem(it, 'trip', Math.round(km * 10) / 10), 'trip', seenB);
       }
     }
-    // 3. catalogue places with a page within 30 km
+    // 3. catalogue places with a page within 30 km (SW-014: a park or an area is never a stop, TB-PIN R1)
     const near = nearby
-      .filter((p) => p.point && p.kind !== 'stay' && !onDay.has(p.slug))
+      .filter((p) => p.point && p.kind !== 'stay' && p.kind !== 'area' && !onDay.has(p.slug))
       .map((p) => ({ p, km: nearest({ lat: p.point!.lat, lon: p.point!.lon }) }))
       .filter((x): x is { p: PublicPlaceCard; km: number } => within(x.km))
       .sort((a, b) => a.km - b.km || a.p.slug.localeCompare(b.p.slug))

@@ -52,11 +52,15 @@
 .trip-head { position: relative; margin-bottom: var(--s-10); }
 .trip-cover { position: relative; min-height: 620px; display: flex; flex-direction: column; justify-content: flex-end; border-radius: var(--r-5); overflow: hidden; background: var(--well); color: var(--header-ink); }
 .trip-cover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(var(--img)); }
-.trip-cover-fallback { position: absolute; inset: 0; display: grid; place-items: center; background: var(--well); color: var(--muted); }
+.trip-cover-fallback { position: absolute; inset: 0; background: var(--header); color: var(--header-mute); }
+/* SW-001: the no-photo glyph sits in the top-right corner, outside the text column, and the base is the dark header colour so the light text keeps its contrast whatever the title height (SW-012) */
+.trip-cover-fallback > svg { position: absolute; top: var(--s-6); right: var(--s-6); opacity: 0.6; }
 .trip-cover-scrim { position: absolute; inset: 0; background: linear-gradient(to bottom, var(--photo-scrim-top) 10%, var(--photo-scrim-bottom) 88%); }
 .trip-cover-text { position: relative; width: 100%; box-sizing: border-box; padding: var(--s-10) var(--s-8) 76px; display: grid; gap: var(--s-4); justify-items: start; color: var(--header-ink); }
 .trip-kicker { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--kicker-on-photo); }
 .trip-title { font: var(--t-cover); text-transform: uppercase; max-width: 16ch; color: var(--header-ink); overflow-wrap: break-word; }
+/* SW-012: a name past two lines steps the display size down */
+.trip-title[data-long] { max-width: 28ch; font-size: clamp(28px, 4vw, 44px); line-height: 1; }
 .trip-standfirst { font: 400 21px/1.4 var(--font-body); max-width: 46rem; color: var(--header-ink); }
 .trip-chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
 .trip-chips .chip { background: var(--surface); color: var(--ink); border-color: var(--line-2); }
@@ -71,7 +75,7 @@
 .trip-glance dt { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
 .trip-glance dd { font: var(--t-title); color: var(--ink); }
 
-.trip-season, .trip-sec { max-width: 62rem; margin: 0 0 var(--s-12); }
+.trip-season, .trip-sec { margin: 0 0 var(--s-12); }
 .trip-kicker-h { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
 .trip-window { font: var(--t-trip); text-transform: uppercase; color: var(--accent-text); margin-top: var(--s-2); }
 .trip-why { font: var(--t-body-l); color: var(--ink-2); margin: var(--s-3) 0 var(--s-5); max-width: 46rem; }
@@ -185,6 +189,7 @@
   .trip-cover { min-height: 420px; border-radius: var(--r-4); }
   .trip-cover-text { padding: var(--s-8) var(--s-4) 64px; gap: var(--s-3); }
   .trip-title { max-width: 100%; font-size: clamp(36px, 12vw, 56px); line-height: 0.95; }
+  .trip-title[data-long] { max-width: 100%; font-size: clamp(26px, 8vw, 34px); line-height: 1; }
   .trip-standfirst { font-size: 17px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .trip-glance { margin: -46px var(--s-3) 0; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .trip-glance > div { padding: var(--s-3); }

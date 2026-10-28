@@ -119,15 +119,18 @@ test.describe('/t/<id>/ read mode', () => {
   test('the settings sheet saves the party, the name and the start date at once', async ({ page, site }) => {
     await open(page, site, '?view=day');
     await page.getByRole('button', { name: 'Edit trip' }).click();
-    const sheet = page.getByRole('dialog', { name: 'Trip settings' });
+    const sheet = page.getByRole('dialog', { name: 'Edit trip' });
     await expect(sheet).toBeVisible();
     await sheet.getByRole('button', { name: 'Fewer children' }).click();
     await expect(page.getByTestId('party-line')).toContainText('2 adults · Standard pace');
     await sheet.getByRole('radio', { name: 'Relaxed' }).click();
     await sheet.getByLabel('Trip name').fill('Rockies with the cousins');
     await sheet.getByLabel('Trip name').blur();
-    await sheet.getByLabel('Starts').fill('2029-09-15');
-    await expect.poll(async () => (await stored(page))?.start).toBe('2029-09-15');
+    const before = (await stored(page))?.start;
+    // SW-018: the date reads as everywhere else and is picked from the calendar
+    await sheet.locator('.own-set-date').click();
+    await sheet.locator('[role="grid"] button:not([disabled])').nth(20).click();
+    await expect.poll(async () => (await stored(page))?.start).not.toBe(before);
     await sheet.getByRole('button', { name: 'Done' }).click();
     await expect(page.locator('h1.trip-title')).toHaveText('Rockies with the cousins');
     await page.reload();
