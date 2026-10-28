@@ -49,7 +49,7 @@
 // operations, their inverses and `rebase` in core/src/plan/ops.ts; the outbox in core/src/plan/sync.ts. The caps are
 // core/src/config/plans.ts (pure constants: the browser may load them).
 import { z } from "zod";
-import { PLAN_DOC_LIMITS } from "../config/plans.ts";
+import { PLAN_DOC_LIMITS, PLAN_EDIT } from "../config/plans.ts";
 import { apiPlaceRef, apiSlug, apiTownId, NO_DATED_FOLDER_RE } from "./api/common.ts";
 
 export const PLAN_DRAFT_SCHEMA = "plan-draft/1";
@@ -77,6 +77,8 @@ export const PLAN_LIMITS = {
   regions: 20,
   /** one-way drive limit in near mode, minutes, in steps of `step` */
   driveLimitMin: { min: 30, max: 480, step: 15 },
+  /** the longest drive in one day the visitor allows (FLOW 8 `driveDayMin`, stage 4), minutes, in steps of `step`; absent: from the pace */
+  driveDayMin: { min: 60, max: 480, step: 15 },
   /** reasons carried by one base, day or left-out pick */
   reasons: 4,
   /** warning codes on one built day (the 16 day checks) */
@@ -173,11 +175,15 @@ export const planWhereTrip = z.strictObject({
   cc: z.string().regex(PLAN_COUNTRY_RE),
   regions: z.array(planRegionId).max(PLAN_LIMITS.regions),
 });
-/** Near mode: the start and the one-way drive limit (2.2). */
+/**
+ * Near mode: the start and the one-way drive limit (2.2), and optionally the travel regions that narrow the reach (FLOW TF5, TB-C2;
+ * STEP2-C1). Absent: the whole reach. A region names its own country, so near regions may span a border.
+ */
 export const planWhereNear = z.strictObject({
   mode: z.literal("near"),
   start: planOrigin,
   driveLimitMin: z.int().min(PLAN_LIMITS.driveLimitMin.min).max(PLAN_LIMITS.driveLimitMin.max).multipleOf(PLAN_LIMITS.driveLimitMin.step),
+  regions: z.array(planRegionId).max(PLAN_LIMITS.regions).optional(),
 });
 export const planWhere = z.discriminatedUnion("mode", [planWhereTrip, planWhereNear]);
 
@@ -189,6 +195,11 @@ export const planPick = z.strictObject({
   name,
   /** "must see": never dropped by the packer; a must that cannot fit is a did-not-fit with a fix */
   must: z.boolean(),
+  /**
+   * the person added it on the trip's page after a build or a conversion (`addPick`, `replacePick`; edit-mode-spec 4.1 "Added by you").
+   * Absent for the picks of the builder's stage 3 and for our trip's stops at a conversion (STEP2-C1)
+   */
+  added: z.literal(true).optional(),
 });
 
 /** A base: a towns-layer town, pinned by the visitor (a constraint at any step, TB2) or accepted from a suggestion. */
@@ -199,11 +210,19 @@ export const planBaseChoice = z.strictObject({
   pinned: z.boolean(),
 });
 
-/** One day the visitor edited (`o=` of 2.5): its picks in order; `locked` ones keep their day and position on every rebuild (4.6). */
+/**
+ * One day the visitor edited (`o=` of 2.5): its picks in order; `locked` ones keep their day and position on every rebuild (4.6).
+ * STEP2-C1 (FLOW TF11, M2; edit-mode-spec 4.1, 13.2): `placed` are the refs the person put on this day by hand (a move, a reorder, an
+ * add to a day, a swap, a replace: "Moved by you"), and `fromTrip` the refs a conversion placed here from our trip ("From our trip").
+ * Both stay on their day on every rebuild and re-flow, as locks do ("Kept on Day n"); `release` lets the plan move them again. Each is a
+ * ref of this day's `refs`, once, and a ref is never both placed and from our trip. Absent: none.
+ */
 export const planDayEdit = z.strictObject({
   day: z.int().min(1).max(PLAN_LIMITS.days),
   refs: z.array(planRef).max(PLAN_LIMITS.picks),
   locked: z.array(planRef).max(PLAN_LIMITS.picks),
+  placed: z.array(planRef).max(PLAN_LIMITS.picks).optional(),
+  fromTrip: z.array(planRef).max(PLAN_LIMITS.picks).optional(),
 });
 
 // ---- outputs: the last build ------------------------------------------------------------------------------------------------------
@@ -379,16 +398,32 @@ export const planAdded = z.strictObject({ op: planOpId, day: planDayRef, ref: pl
 export const planRemoved = z.strictObject({ op: planOpId, day: planTemplateDay, item: planScheduleId });
 /** A published stop the person moved: from `day` to `toDay` (the same day for a reorder), after `after` (absent: the start). */
 export const planMoved = z.strictObject({ op: planOpId, day: planTemplateDay, item: planScheduleId, toDay: planDayRef, after: planScheduleId.optional() });
-/** A day inserted after a day (0: before Day 1), or a published day dropped. */
+/**
+ * A day inserted after a day (0: before Day 1), or a published day dropped. A drop's `to` (STEP2-C1; edit-mode-spec 6 "its 2 stops
+ * move to Day 6") is the day its stops move to, published or inserted; absent, the stops go with the day (the Maybe choice is
+ * `addMaybe` entries made in the same undo step).
+ */
 export const planDayOp = z.discriminatedUnion("kind", [
   z.strictObject({ op: planOpId, kind: z.literal("insert"), after: z.number().int().min(0).max(PLAN_DOC_LIMITS.templateDays) }),
-  z.strictObject({ op: planOpId, kind: z.literal("drop"), day: planTemplateDay }),
+  z.strictObject({ op: planOpId, kind: z.literal("drop"), day: planTemplateDay, to: planDayRef.optional() }),
 ]);
 /** A place on the Maybe list. */
 export const planMaybe = z.strictObject({ op: planOpId, ref: planRef });
 
-/** A note's key: the trip, a published day, or an inserted day's operation id. */
-export const PLAN_NOTE_KEY_RE = /^(?:trip|[1-9]\d?|o-[A-Za-z0-9_-]{1,40})$/;
+/**
+ * A template note's key: the trip, a published day, or an operation id (an inserted day's: a day note; a place the person added: a stop
+ * note, STEP2-C1; operation ids are unique across the block, R7, so the id says which), or a published stop (STEP2-C1; edit-mode-spec 5
+ * "Add a note", key `<day>:<item>`): its day in our plan, a colon and its schedule id. Day numbers count the PUBLISHED days, so a
+ * stop's note keeps its key when the stop moves.
+ */
+export const PLAN_NOTE_KEY_RE = /^(?:trip|[1-9]\d?|o-[A-Za-z0-9_-]{1,40}|[1-9]\d?:[A-Za-z0-9][A-Za-z0-9._:#/-]{0,119})$/;
+/** The published-stop form of a template note key, split: the day and the schedule id. */
+export const PLAN_STOP_NOTE_KEY_RE = /^([1-9]\d?):([A-Za-z0-9][A-Za-z0-9._:#/-]{0,119})$/;
+/**
+ * A built note's key (the top-level `notes`, STEP2-C1): the trip, a day of the plan (1 to PLAN_LIMITS.days), or a pick's public ref
+ * (a stop note: a pick is on one day at most, so its ref names the stop wherever it moves).
+ */
+export const PLAN_BUILT_NOTE_KEY_RE = /^(?:trip|[1-9]\d?|[a-z][a-z0-9-]*\/[^\u0000-\u001f\u007f]{1,158})$/;
 /** A note: free text (line breaks and tabs allowed, no other control character). Personal: never public, never sent to research. */
 export const planNoteText = z
   .string()
@@ -396,7 +431,13 @@ export const planNoteText = z
   .max(PLAN_DOC_LIMITS.noteChars)
   .regex(/\S/, "not blank")
   .regex(/^[^\u0000-\u0008\u000b-\u001f\u007f]*$/, "no control characters");
-export const planNotes = z.record(z.string().regex(PLAN_NOTE_KEY_RE, "trip, a day number or an inserted day"), planNoteText);
+export const planNotes = z.record(z.string().regex(PLAN_NOTE_KEY_RE, "trip, a day number, an inserted day or a stop"), planNoteText);
+/** Built mode's notes (the top-level `notes`): the trip, a day, or a pick by its ref. */
+export const planBuiltNotes = z.record(z.string().regex(PLAN_BUILT_NOTE_KEY_RE, "trip, a day number or a pick's ref"), planNoteText);
+
+/** The trip identity colours (foundation tokens 4; `IDENTITY_KEYS` of web/components/ui/Chip.tsx, pinned equal by core/test/plan). */
+export const PLAN_IDENTITY_KEYS = ["blue", "orange", "rose", "teal", "sky", "yellow", "vermillion", "none"] as const;
+export type PlanIdentity = (typeof PLAN_IDENTITY_KEYS)[number];
 
 /** The template block (edit-my-trip 2): the public trip a copy follows and the person's changes to it. `custom` and `stays` (REQ, STY-2C) are not in `/1`: their shapes are not specified yet, so they arrive as `plan-draft/2`. */
 export const planTemplate = z.strictObject({
@@ -457,6 +498,22 @@ export const planDraft = z.strictObject({
   fromRef: planOriginRef.optional(),
   /** the airports picked. Household data */
   gw: planGateways.optional(),
+  // ---- Step 2 (STEP2-C1, gap-analysis D1; absorbs TB-C2's keys): optional, so every earlier document reads as before ----
+  /** the trip's identity colour (FLOW TF19, foundation tokens 4), given at creation; absent: none chosen yet. Both modes */
+  identity: z.enum(PLAN_IDENTITY_KEYS).optional(),
+  /** built mode: the longest drive in one day (FLOW 8, stage 4); absent: from the pace. An engine input */
+  driveDayMin: z.int().min(PLAN_LIMITS.driveDayMin.min).max(PLAN_LIMITS.driveDayMin.max).multipleOf(PLAN_LIMITS.driveDayMin.step).optional(),
+  /** built mode's notes on the trip, a day or a stop (a template draft keeps its notes in `template.notes`). Household data */
+  notes: planBuiltNotes.optional(),
+  /** when a copy became the person's own trip (`convert`, edit-mode-spec 13.2): built mode only, with `seed` naming our trip */
+  convertedAt: isoDateTime.optional(),
+  /**
+   * built mode: the ids of the latest operations applied to this draft that change its placement, picks, bases, notes, nights or
+   * build (core/src/plan/ops.ts names the field setters it leaves out), newest last, at most PLAN_EDIT.builtOpLog, so a resend after
+   * a lost answer changes nothing (a template block holds its operation ids in its entries instead). A sync ledger, not content: undo
+   * leaves it as it is, and a conversion starts it empty
+   */
+  opLog: z.array(planOpId).max(PLAN_EDIT.builtOpLog).optional(),
 });
 
 export const planDrafts = z.strictObject({
@@ -547,8 +604,9 @@ export function planInputRules(
       if (!(r.startsWith(`${cc}/`) || r.startsWith(`${cc.toLowerCase()}-`))) out.push(`${at}.where.regions[${i}]: a region of the draft's country`);
     });
     if (dupes(w.regions).length) out.push(`${at}.where.regions: each region once`);
-  } else if (d.nights !== null && d.nights > PLAN_LIMITS.nearNights) {
-    out.push(`${at}.nights: near mode plans at most ${PLAN_LIMITS.nearNights} nights`);
+  } else {
+    if (d.nights !== null && d.nights > PLAN_LIMITS.nearNights) out.push(`${at}.nights: near mode plans at most ${PLAN_LIMITS.nearNights} nights`);
+    if (w.regions !== undefined && dupes(w.regions).length) out.push(`${at}.where.regions: each region once`);
   }
   const refs = d.picks.map((p) => p.ref);
   if (dupes(refs).length) out.push(`${at}.picks: each place once`);
@@ -571,6 +629,15 @@ export function planInputRules(
     const inDay = new Set(e.refs);
     if (e.locked.some((r) => !inDay.has(r))) out.push(`${at}.edits[${i}].locked: a locked place is in its day`);
     if (dupes(e.locked).length) out.push(`${at}.edits[${i}].locked: each place once`);
+    // STEP2-C1: placed and from-our-trip refs are in their day, each once, and never both
+    for (const k of ["placed", "fromTrip"] as const) {
+      const xs = e[k];
+      if (xs === undefined) continue;
+      if (xs.some((r) => !inDay.has(r))) out.push(`${at}.edits[${i}].${k}: a kept place is in its day`);
+      if (dupes(xs).length) out.push(`${at}.edits[${i}].${k}: each place once`);
+    }
+    if (e.placed && e.fromTrip && e.placed.some((r) => e.fromTrip!.includes(r))) out.push(`${at}.edits[${i}]: a place is placed by the person or from our trip, not both`);
+    if (dupes(e.refs).length) out.push(`${at}.edits[${i}].refs: each place once`);
     placed.push(...e.refs);
   });
   if (dupes(placed).length) out.push(`${at}.edits: a place is on one day at most`);
@@ -600,7 +667,19 @@ export function planTemplateRules(t: PlanTemplate, at = "$.template"): string[] 
   t.moved.forEach((m, i) => {
     if (!known(m.toDay)) out.push(`${at}.moved[${i}].toDay: an inserted day of this draft`);
   });
-  for (const k of Object.keys(t.notes)) if (k.startsWith("o-") && !inserted.has(k)) out.push(`${at}.notes: a note's inserted day exists`);
+  const addedOps = new Set(t.added.map((a) => a.op));
+  for (const k of Object.keys(t.notes)) {
+    // an operation id names an inserted day (a day note) or a place the person added (a stop note, STEP2-C1)
+    if (k.startsWith("o-") && !inserted.has(k) && !addedOps.has(k)) out.push(`${at}.notes: a note's inserted day exists`);
+    const item = PLAN_STOP_NOTE_KEY_RE.exec(k)?.[2];
+    if (item !== undefined && !planScheduleId.safeParse(item).success) out.push(`${at}.notes: a stop note names a schedule id`);
+  }
+  t.days.forEach((x, i) => {
+    if (x.kind !== "drop" || x.to === undefined) return;
+    if (!known(x.to)) out.push(`${at}.days[${i}].to: an inserted day of this draft`);
+    if (x.to === x.day) out.push(`${at}.days[${i}].to: another day`);
+    if (typeof x.to === "number" && t.days.some((y) => y.kind === "drop" && y.day === x.to)) out.push(`${at}.days[${i}].to: a day that is not dropped`);
+  });
   if (dupes(t.removed.map((r) => `${r.day}\u0000${r.item}`)).length) out.push(`${at}.removed: each stop once`);
   if (dupes(t.moved.map((m) => `${m.day}\u0000${m.item}`)).length) out.push(`${at}.moved: each stop once`);
   if (dupes(t.added.map((a) => a.ref)).length) out.push(`${at}.added: each place once`);
@@ -624,8 +703,13 @@ export function planModeRules(d: PlanDraft, at = "$"): string[] {
   const t = d.template;
   if (t === undefined) {
     if (d.nights !== null && d.nights > PLAN_LIMITS.nights) out.push(`${at}.nights: a built plan has at most ${PLAN_LIMITS.nights} nights (R2)`);
+    out.push(...planBuiltRules(d, at));
     return out;
   }
+  if (d.notes !== undefined) out.push(`${at}.notes: a template draft keeps its notes in template.notes`);
+  if (d.opLog !== undefined) out.push(`${at}.opLog: a template draft keeps its operation ids in its entries`);
+  if (d.convertedAt !== undefined) out.push(`${at}.convertedAt: only on a converted trip (built mode)`);
+  if (d.driveDayMin !== undefined) out.push(`${at}.driveDayMin: an engine input, built mode only (R1)`);
   if (d.picks.length) out.push(`${at}.picks: a template draft has none (R1)`);
   if (d.bases.length) out.push(`${at}.bases: a template draft has none (R1)`);
   if (d.edits.length) out.push(`${at}.edits: a template draft has none (R1)`);
@@ -636,6 +720,27 @@ export function planModeRules(d: PlanDraft, at = "$"): string[] {
   if (d.origin !== null) out.push(`${at}.origin: a template draft keeps its origin in fromRef (R1)`);
   if (t.profile !== null && d.pace !== t.profile.pace) out.push(`${at}.pace: the profile's pace (R1)`);
   out.push(...planTemplateRules(t, `${at}.template`));
+  return out;
+}
+
+/**
+ * A built draft's Step 2 rules (STEP2-C1): its notes name the trip, a day of the plan or one of its picks, and hold at most
+ * PLAN_DOC_LIMITS.noteChars characters in all; a converted trip names our trip in `seed`. Paths and rules only, never a value.
+ */
+export function planBuiltRules(d: PlanDraft, at = "$"): string[] {
+  const out: string[] = [];
+  if (d.convertedAt !== undefined && d.seed === null) out.push(`${at}.seed: a converted trip names our trip`);
+  if (d.opLog !== undefined && dupes(d.opLog).length) out.push(`${at}.opLog: each operation id once`);
+  const notes = d.notes;
+  if (notes === undefined) return out;
+  const chars = Object.values(notes).reduce((n, s) => n + s.length, 0);
+  if (chars > PLAN_DOC_LIMITS.noteChars) out.push(`${at}.notes: at most ${PLAN_DOC_LIMITS.noteChars} characters in all`);
+  const picks = new Set(d.picks.map((p) => p.ref));
+  const lastDay = d.nights === null ? PLAN_LIMITS.days : d.nights + 1;
+  for (const k of Object.keys(notes)) {
+    if (k === "trip") continue;
+    if (/^\d+$/.test(k) ? Number(k) > lastDay : !picks.has(k)) out.push(`${at}.notes: a note names a day or a pick of this draft`);
+  }
   return out;
 }
 

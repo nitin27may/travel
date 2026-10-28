@@ -20,10 +20,10 @@ const undo = (d: PlanDraft, inverse: PlanOp[]): PlanDraft => {
 const T0 = templateDraft();
 
 describe("each operation and its inverse", () => {
-  it("covers the set of 4.4 item 1 and the two entry forms", () => {
-    expect([...PLAN_OP_KINDS].sort()).toEqual(
-      ["setTitle", "setDates", "setParty", "setVariant", "setNote", "setWindow", "addPlace", "removePlace", "moveItem", "insertDay", "dropDay", "addMaybe", "reset", "deleteEntry", "restoreEntry"].sort(),
-    );
+  it("covers the set of 4.4 item 1, the two entry forms, and Step 2's operations (STEP2-C1, gap-analysis D2)", () => {
+    const em = ["setTitle", "setDates", "setParty", "setVariant", "setNote", "setWindow", "addPlace", "removePlace", "moveItem", "insertDay", "dropDay", "addMaybe", "reset", "deleteEntry", "restoreEntry"];
+    const step2 = ["setIdentity", "setRev", "addPick", "removePick", "swapItems", "replacePick", "lock", "unlock", "release", "setMust", "moveDay", "setPace", "setNights", "setBase", "setOrigin", "setWhere", "setDriveDay", "setBuild", "convert", "toTemplate", "restoreFields"];
+    expect([...PLAN_OP_KINDS].sort()).toEqual([...em, ...step2].sort());
   });
   it("setTitle, setDates (the month follows the start), setParty (the profile and pace follow the travellers, bug B1)", () => {
     const a = must(T0, { kind: "setTitle", id: "o-t1", title: "Summer in the Dolomites" });

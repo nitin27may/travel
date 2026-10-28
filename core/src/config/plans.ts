@@ -49,3 +49,19 @@ export const PLAN_SYNC = {
   /** tombstones one account keeps; the delete drops the oldest beyond it (B2). Live rows (at most 50) and these fit one list answer */
   tombstoneCap: 150,
 } as const;
+
+/**
+ * Edit mode on the trip details page (edit-mode-spec 10, 18; task STEP2-C1). The undo stack lives in the tab's session storage and is
+ * never synced; Reset to our plan confirms only past `resetConfirmOver` changes (README ruling R7, a foundation exception).
+ */
+export const PLAN_EDIT = {
+  /** undo steps kept per trip per tab session; the oldest drops when a new step passes it (EA5) */
+  undoSteps: 50,
+  /** Reset to our plan asks first when it would discard more than this many changes (Q-BE4) */
+  resetConfirmOver: 3,
+  /**
+   * operation ids a built document remembers (`opLog`): a resend of operations already applied (a lost answer) is skipped instead of
+   * applied twice. A device rarely holds more unconfirmed changes to one trip than this; about 1 KB of the 16 KB document
+   */
+  builtOpLog: 64,
+} as const;
