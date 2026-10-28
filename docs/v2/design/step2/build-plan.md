@@ -226,6 +226,7 @@ scenario rule 1, EA12, EA13; shots at 1440 and 390, light and dark.
 | Never | everything E1 owns except through its slots |
 | Depends | STEP2-E1 |
 | Acceptance | EA3 (drag part, WebKit with touch emulation), EA4; a press on the row body scrolls on a phone |
+| Built (28 Oct 2026) | `drag/` (DragHandle in the `handle` slot, lazy DragLayer with one delegated set of listeners, pure `plan.ts`, `?` keys list with the single-letter switch). Differences from the spec: a lifted stop previews as the line and pill and moves on the drop (one undo step); the scheduler has the last word on order (a fixed-time stop holds its place), so the live region says where the stop really landed; a day cell stays the drop target until the pointer moves (the rail follows the scrolled-to day). `S`, `L`, Shift+M and `E` from read mode are left to the packages that own those actions |
 
 ### STEP2-E3: the add-a-place picker (15.368)
 
