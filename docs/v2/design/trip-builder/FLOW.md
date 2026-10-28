@@ -412,6 +412,18 @@ Answered by the owner on 27 Oct 2026 ("go ahead with recommendations"):
 | Rainy day (review 9) | TF20 |
 | Deferred | none |
 
+## Prototype notes (27 Oct 2026)
+
+Deviations in the clickable prototype (`docs/v2/prototypes/builder/`) that this page does not specify. They are prototype-only until the owner accepts them; no decision above changes. See [FINDINGS](../../prototypes/FINDINGS-2026-10-27.md).
+
+| Prototype behaviour | Where | FLOW position |
+|---|---|---|
+| Opt-in link "Let the plan move places from our trip" in the convert notice | Convert notice (C5) | C5 has no such link; copied stops stay placed. The link frees them so a driving or pace change re-flows the plan |
+| "Swap for indoor" row in the item menu | Editor, rain plan | Matches TF20 in intent; the exact row and sheet are not specified |
+| Key "?" opens the shortcut list | Editor | 7.1 lists the keys but not a help key |
+| "Half a day" switch on an item | Item sheet | Not specified; used by the fill when a full visit does not fit |
+| "Remove this day" when no place fits a free day | Fill free days sheet | Not specified; reduces nights by one |
+
 ## Change log
 
 - 2026-10-27: created (TB-FLOW, travel-planner, Opus) from the owner's requirement and the approved plan (Lane A), with

@@ -25,21 +25,22 @@ then open `http://127.0.0.1:4300/`. The three apps share `localStorage` (`proto.
 
 ## Test
 
-```
-bash docs/v2/prototypes/tests/run.sh                 # all shared tests (about 20 s)
-bash docs/v2/prototypes/tests/run.sh -g sun          # one group (Playwright -g)
-PROTO_STRICT=1 bash docs/v2/prototypes/tests/run.sh  # the page sweep also fails on contrast, focus traps, unnamed controls
-```
+Run each suite from the repo root. Each uses Playwright from `web/node_modules` (no new dependency) and starts `serve.py` on a free port.
 
-Uses Playwright from `web/node_modules` (no new dependency) and starts `serve.py` on a free port. `shared/tests/` holds the unit tests
-(`sun`, `contract`, `ics`), the map and engine specs, and the helpers to reuse in later phases: `serve.js`, `contrast.js`
-(`checkContrast(page)`, light and dark), `keyboard.js` (`walkKeyboard(page)`), `a11y.js` (`dumpA11y(page, file)`). The page sweep
-writes findings and accessibility-tree dumps to `docs/v2/prototypes/test-results/sweep/` (ignored).
+| Suite | Command | Covers |
+|---|---|---|
+| Everything | `bash docs/v2/prototypes/tests/run.sh` | The root run picks up every `<app>/tests/` folder: shared (`sun`, `contract`, `ics`, map, engine, page sweep), builder (no own `run.sh`; its specs run here), parks and planner |
+| Parks only | `bash docs/v2/prototypes/parks-app/tests/run.sh` | index, pages, keyboard, a11y, data |
+| Planner only | `bash docs/v2/prototypes/planner/tests/run.sh` | travellers re-flow, dates, ICS, map and sun, offline, header, deep links |
+
+Each script takes Playwright arguments (`-g sun` for one group, `-g builder` for the builder's specs by title). `PROTO_STRICT=1` makes the page sweep fail on contrast, focus traps and unnamed controls. In total the suites hold 304+ specs. Shared helpers: `serve.js`, `contrast.js` (`checkContrast(page)`, light and dark), `keyboard.js` (`walkKeyboard(page)`), `a11y.js` (`dumpA11y(page, file)`). The page sweep writes findings and accessibility-tree dumps to `docs/v2/prototypes/test-results/sweep/` (ignored).
 
 ## Gotchas
 - All data is placeholder: places, drive times, airports, prices and counts. Drive minutes come from coordinates and a factor, not routing.
 - `themes.css` is a snapshot of `web/app/themes.css`; regenerate it from there, never edit it here.
 - Builder deep links: `?m=near&n=0|1|2&p=<park>`, `?m=trip&cc=CA&p=<park>`, `?add=<park>--<place>&p=<park>`, `?saved=1`, `?copy=dolomites`, `?edit=<id>`, `?review=<id>`; `?fast` skips the build delay.
 - Every app reads and writes `proto.trips` and `proto.requests` through `shared/contract.js`; `shared/sun.js` is the only source of sunrise and sunset.
+- Planner deep links: `planner/trip.html?id=<id>`, `planner/today.html?id=<id>` and `planner/print.html?id=<id>` open the demo trips even when the builder seeded `proto.trips` first (spec `planner/tests/deeplink.spec.js`).
+- Planner-only fields (notes, item done, stale, private) still live in `proto.planner.ext` until the planner moves to `trip.ext` (`contract.js` keeps `ext` as a plain object).
 - Demo trips are seeded into `proto.trips` only when it is empty. The planner's "Reseed" and "Clear" replace every trip in the browser.
 - Walkthrough screenshots are not committed (repo rule: shots only when a spec names them).
