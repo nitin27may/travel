@@ -5,6 +5,7 @@ import type { CatalogueStore } from '@travel/core/catalogue/store.ts';
 import { API_LIMITS, PLACE_ROW_KEYS, RESOLVE_MAX, TRIP_ROW_KEYS, globeCardKey, reportInput, resolveRow, type ApiError } from '@travel/core/schema/api/index.ts';
 import { gazetteerOf } from '@travel/core/privacy/towns.ts';
 import { ownHosts } from '@/lib/config/product';
+import { planModelRun } from './planModel';
 import { privacyHits, rowOutsideAllowlist } from './privacy';
 import { getStore } from './store';
 
@@ -107,6 +108,8 @@ export const ENDPOINTS = {
   getTrip: { cache: CACHE.data, run: (s, r, p) => decoded('getTrip', r, p, (st, a) => (a.method === 'getTrip' ? st.getTrip(a.slug, a.profile) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s), movedTo: (slug) => `/api/v1/trips/${slug}/` },
   // API-3 (store.ts A34)
   tripLegs: { cache: CACHE.data, run: pathOnly((s, _r, p) => s.tripLegs(p.slug ?? '')), movedTo: (slug) => `/api/v1/trips/${slug}/legs/` },
+  // STEP2-M (gap-analysis D6): the model the public trip page embeds, public and cached by revision like getTrip
+  tripPlanModel: { cache: CACHE.data, run: pathOnly((s, _r, p) => planModelRun(s, p.slug ?? '')), movedTo: (slug) => `/api/v1/trips/${slug}/plan-model/` },
   getExport: { cache: CACHE.export, run: (s, r, p) => decoded('getExport', r, p, (st, a) => (a.method === 'getExport' ? st.getExport(a.q) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
   globeTree: { cache: CACHE.globe, run: pathOnly((s) => s.globeTree()) },
   globePins: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globePins(p.cc ?? '')) },

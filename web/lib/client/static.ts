@@ -285,6 +285,8 @@ export const staticClient: DataClient = {
   loadExport: loadExport as DataClient['loadExport'],
   // tripLegs (TRP2b): the static files carry no legs
   tripLegs: () => Promise.resolve(null),
+  // tripPlanModel (STEP2-M): the static files carry no plan model (the page embeds its own), so `/t/` shows its not-found state
+  tripPlanModel: () => Promise.resolve(null),
   globeTree, globePins, globeCard, globeLine, reportProblem,
   shardRows: (type, id) => shardRows(type, id),
   textIndex,

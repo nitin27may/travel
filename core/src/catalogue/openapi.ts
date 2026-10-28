@@ -79,7 +79,25 @@ export function buildOpenApi(): Json {
     }
     paths[path] = { ...(paths[path] ?? {}), [verb.toLowerCase()]: op };
   }
-  paths["/api/v1/openapi.json"] = { get: { operationId: "openapi", summary: "this document", responses: { "200": { description: "ok", content: { "application/json": { schema: { type: "object" } } } } } } };
+  // STEP2-M (gap-analysis D6): the model a public trip's page embeds. Not a store method: respond() answers it from getTrip (which trip,
+  // which revision) and the page's own model builder, so it sits beside the contract's paths like this document does.
+  const slugJs = z.toJSONSchema(S.tripSlugInput.shape.slug, { target: "draft-2020-12", unrepresentable: "any" }) as Json;
+  delete slugJs.$schema;
+  paths["/api/v1/trips/{slug}/plan-model"] = {
+    get: {
+      operationId: "tripPlanModel",
+      summary: "tripPlanModel",
+      description: "The model the public trip page renders (days, timeline inputs, addables per day, sections, route, gallery), public data only. A copy's own changes are applied on the device, never sent.",
+      parameters: [{ name: "slug", in: "path", required: true, schema: slugJs }],
+      responses: {
+        "200": { description: "ok", headers: { ETag: { schema: { type: "string" } } }, content: { "application/json": { schema: schemaOf("TripPlanModel", S.tripPlanModelLookup, components) } } },
+        "308": { description: "the slug moved; Location is the current URL, with the query kept" },
+        ...Object.fromEntries([400, 404, 500].map((s) => [String(s), { description: STATUS_TEXT[s], ...errorBody }])),
+        "304": { description: "If-None-Match matched the revision" },
+      },
+    },
+  };
+  paths["/api/v1/openapi.json"] ={ get: { operationId: "openapi", summary: "this document", responses: { "200": { description: "ok", content: { "application/json": { schema: { type: "object" } } } } } } };
   return {
     openapi: "3.1.0",
     info: { title: "Trip plans catalogue API", version: "1", description: "Read-only catalogue API (API-1b). Generated from core/src/schema/api; do not edit by hand. The site sets trailingSlash, so every path is served with a trailing slash (a request without one is redirected with 308)." },

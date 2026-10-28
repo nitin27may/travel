@@ -1,4 +1,4 @@
-import type { CardHits, CardQuery, CountQuery, FacetCounts, ParseInput, ParsedQuery, PlaceQuery, PlaceRow, ReportResult as ApiReportResult, SearchQuery, SearchResult as ApiSearchResult, GlobeCardFile as ApiGlobeCard, GlobeTree as ApiGlobeTree, LightPin as ApiLightPin, ExportFile, Paged, ResolveAnswer, ResolveRow, TripLegs as ApiTripLegs, UncheckedPage, UncheckedQuery } from '@travel/core/schema/api/index.ts';
+import type { CardHits, CardQuery, CountQuery, FacetCounts, ParseInput, ParsedQuery, PlaceQuery, PlaceRow, ReportResult as ApiReportResult, SearchQuery, SearchResult as ApiSearchResult, GlobeCardFile as ApiGlobeCard, GlobeTree as ApiGlobeTree, LightPin as ApiLightPin, ExportFile, Paged, ResolveAnswer, ResolveRow, TripLegs as ApiTripLegs, TripPlanModel, UncheckedPage, UncheckedQuery } from '@travel/core/schema/api/index.ts';
 import { reportLink, reportUrl } from '@/lib/config/product';
 import { defaultOrder } from '@/lib/entities/sort';
 import { SHARD_ROWS } from '@/lib/entities/shards';
@@ -38,6 +38,8 @@ export interface ApiCalls {
   report(page: string): Promise<ApiReportResult | null>;
   /** tripLegs (TRP2b): null for a trip the server does not list. */
   tripLegs(slug: string): Promise<ApiTripLegs | null>;
+  /** tripPlanModel (STEP2-M): null for a trip the server does not list. */
+  tripPlanModel(slug: string): Promise<TripPlanModel | null>;
   /** resolveRefs (FAV-1W): one row per value, in order; null when the server answers not_available. */
   resolveRefs(refs: readonly string[]): Promise<ResolveAnswer | null>;
 }
@@ -55,6 +57,8 @@ async function check(method: string, data: unknown): Promise<void> {
   const { CATALOGUE_CONTRACT } = await import('@travel/core/catalogue/store.ts');
   const entry = (CATALOGUE_CONTRACT as Record<string, { output: { parse(x: unknown): unknown } }>)[method];
   entry?.output.parse(data);
+  // the plan model is a page model beside the store's methods (STEP2-M), so its schema is not in the store's table
+  if (method === 'tripPlanModel') (await import('@travel/core/schema/api/trip.ts')).tripPlanModel.parse(data);
 }
 
 async function read<T>(method: string, url: string, init?: RequestInit): Promise<T> {
@@ -138,6 +142,7 @@ export function fetchCalls(): ApiCalls {
     globeLine: (id) => readOrNull('globeLine', at(`/globe/feature/${seg(id)}/line`)),
     exportFile: (type, slug, format) => read('getExport', at(`/export/${type}/${seg(slug)}`, new URLSearchParams({ format }))),
     tripLegs: (slug) => readOrNull('tripLegs', at(`/trips/${seg(slug)}/legs`)),
+    tripPlanModel: (slug) => readOrNull('tripPlanModel', at(`/trips/${seg(slug)}/plan-model`)),
     resolveRefs: async (refs) => {
       // `ref` once per value (core/src/favourites/resolve.ts resolveSearchOf; written here so no schema code loads)
       const p = new URLSearchParams();
@@ -210,6 +215,7 @@ function placeQueryOf(state: ListState): PlaceQuery | null {
 export function createApiClient(calls: ApiCalls): DataClient {
   const exports = new Map<string, Promise<TripExport | PlaceExport>>();
   const legs = new Map<string, Promise<ApiTripLegs | null>>();
+  const models = new Map<string, Promise<TripPlanModel | null>>();
   let tree: Promise<GlobeTree> | null = null;
   const pins = new Map<string, Promise<LightPin[]>>();
   const cards = new Map<string, Promise<GlobeCardFile | null>>();
@@ -238,6 +244,16 @@ export function createApiClient(calls: ApiCalls): DataClient {
         p = calls.tripLegs(slug);
         p.catch(() => legs.delete(slug));
         legs.set(slug, p);
+      }
+      return p;
+    },
+    // tripPlanModel (STEP2-M): one request per trip per page view, like the legs; a failure is forgotten so the next ask retries
+    tripPlanModel(slug) {
+      let p = models.get(slug);
+      if (!p) {
+        p = calls.tripPlanModel(slug);
+        p.catch(() => models.delete(slug));
+        models.set(slug, p);
       }
       return p;
     },

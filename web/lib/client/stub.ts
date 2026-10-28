@@ -1,6 +1,9 @@
 import type { CatalogueStore } from '@travel/core/catalogue/store.ts';
 import { StubStore } from '@travel/core/catalogue/stub/index.ts';
 import type { Result } from '@travel/core/catalogue/result.ts';
+import type { TripDetail, TripPlanModel } from '@travel/core/schema/api/index.ts';
+import { buildTripPageModel } from '@/components/trips/model';
+import type { PublicTrip } from '@/lib/public/types';
 import { createApiClient, type ApiCalls } from './api';
 import type { DataClient } from './contract';
 
@@ -18,8 +21,22 @@ const orNull = async <T>(p: Promise<Result<T>>): Promise<T | null> => {
   throw new Error(`${r.error.code}: ${r.error.message}`);
 };
 
+/** How the stub answers tripPlanModel: a function of the store and the slug (a test may pass the server's own, `publicTripPlanModel`). */
+export type StubPlanModel = (store: CatalogueStore, slug: string) => Promise<TripPlanModel | null>;
+
+/**
+ * The stub's default plan model (STEP2-M): the page's model builder over the store's own trip detail, with no place lookup and no
+ * nearby list (a stub store has no photos or points for the page to borrow), so it answers for any store's trips.
+ */
+export const planModelFromDetail: StubPlanModel = async (store, slug) => {
+  const r = await store.getTrip(slug);
+  if (!r.ok || 'moved' in r.data) return null;
+  const trip = r.data as TripDetail as unknown as PublicTrip;
+  return JSON.parse(JSON.stringify(buildTripPageModel(trip, () => null, []))) as TripPlanModel;
+};
+
 /** The calls of the ApiAdapter, answered by a store. */
-export function callsFromStore(store: CatalogueStore, reportOn = true): ApiCalls {
+export function callsFromStore(store: CatalogueStore, reportOn = true, planModel: StubPlanModel = planModelFromDetail): ApiCalls {
   return {
     search: async (q) => unwrap(await store.search(q)),
     parse: async (input) => unwrap(await store.parse(input)),
@@ -36,6 +53,7 @@ export function callsFromStore(store: CatalogueStore, reportOn = true): ApiCalls
       const r = await store.tripLegs(slug);
       return r.ok && !('moved' in r.data) ? r.data : null;
     },
+    tripPlanModel: (slug) => planModel(store, slug),
     resolveRefs: async (refs) => {
       const r = await store.resolveRefs({ refs: [...refs] });
       if (!r.ok && r.error.code === 'not_available') return null;

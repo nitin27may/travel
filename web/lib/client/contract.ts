@@ -1,4 +1,4 @@
-import type { ResolveRow, TripLegs } from '@travel/core/schema/api/index.ts';
+import type { ResolveRow, TripLegs, TripPlanModel } from '@travel/core/schema/api/index.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import type { EntityDescriptor, FacetParam, ListState } from '@/lib/entities/types';
 import type { GlobeCardFile, GlobeTree, LightPin } from '@/lib/globe/types';
@@ -70,6 +70,13 @@ export interface DataClient {
    * dashed estimates only.
    */
   tripLegs(slug: string): Promise<TripLegs | null>;
+  /**
+   * The model one public trip's page embeds (`GET /api/v1/trips/{slug}/plan-model/`, STEP2-M): its days, timeline inputs, addables per day,
+   * sections, route and gallery, so `/t/<id>/` renders a copy from the same model and applies the person's delta on the device (P9). One
+   * trip a call (P8); cached by the catalogue revision. Resolves to null for an unknown trip, or when the adapter has no such endpoint (the
+   * static files): the caller shows its not-found state. Rejects for a failed request.
+   */
+  tripPlanModel(slug: string): Promise<TripPlanModel | null>;
   /**
    * The rows of one list file (a country, or one 300-row part of a large one) in the list's default order. `d` is the list's descriptor and
    * `countryRows` the number of rows the list's manifest says that country has, so an adapter can ask for all of them at once.

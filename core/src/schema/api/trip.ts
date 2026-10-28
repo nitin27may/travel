@@ -5,6 +5,7 @@ import { apiPoint, apiSlug } from "./common.ts";
 import { API_LIMITS } from "./limits.ts";
 import { HONESTY_IDS, PLACE_CATEGORIES, placeQuery, tripSortSpec } from "./place.ts";
 import { BOOK_RULE_KINDS, BOOKING_KINDS } from "../../export/types.ts";
+import type { DayTimeline, Profile, ScheduleDayInput } from "../../schedule/types.ts";
 
 export const TRIP_DEPTHS = ["full", "summary", "overview"] as const;
 
@@ -103,6 +104,9 @@ const chip = z.strictObject({
   textNoTime: z.string().optional(),
 });
 
+/** A stop's three suitability chips and its badge (S1; web/lib/public/types.ts `ItemSuit`). */
+const itemSuit = z.strictObject({ chips: z.array(chip), kidsFrom: z.number().nullable(), kidsBasis: z.enum(["rule", "advice"]).nullable(), badge: z.string().nullable() });
+
 const dayItem = z.strictObject({
   id: z.string(),
   name: z.string(),
@@ -117,11 +121,34 @@ const dayItem = z.strictObject({
   note: z.string().nullable(),
   stats: z.strictObject({ distanceKm: z.number().nullable(), gainM: z.number().nullable(), hours: z.string().nullable() }).nullable(),
   access: z.string().nullable(),
-  suit: z.strictObject({ chips: z.array(chip), kidsFrom: z.number().nullable(), kidsBasis: z.enum(["rule", "advice"]).nullable(), badge: z.string().nullable() }).nullable().optional(),
+  suit: itemSuit.nullable().optional(),
 });
 
 /** The scheduler's own shapes (core/src/schedule/types.ts) are kept open here: the scheduler, not the API, owns them. */
 const schedulerShape = z.looseObject({});
+
+/** One version of a day (web/lib/public/types.ts `DayVariantInfo`). */
+const dayVariantInfo = z.strictObject({
+  key: z.enum(["A", "B", "C", "main"]),
+  label: z.string(),
+  title: z.string().nullable(),
+  audience: z.enum(["adults", "family", "easy", "any"]),
+  relation: z.enum(["alternative", "parallel"]),
+  notes: z.strictObject({ lead: cleanProse.nullable(), know: z.array(knowGroup) }),
+});
+
+/** A time-zone line crossed during a day (web/lib/public/types.ts `DayZone`). */
+const dayZone = z.strictObject({
+  place: z.string(),
+  label: z.string(),
+  abbr: z.string(),
+  /** The trip's own base zone, never the household's (PRIV-TD; alignment 2.6 S3). */
+  home: z.string(),
+  /** The abbreviation of `home`: the trip's own base zone, never the household's. */
+  homeAbbr: z.string(),
+  offsetMin: z.int(),
+  items: z.array(z.string()),
+});
 
 const publicDay = z.strictObject({
   n: z.int().min(0),
@@ -134,28 +161,11 @@ const publicDay = z.strictObject({
   items: z.array(dayItem),
   tracks: z.array(z.strictObject({ id: z.enum(["A", "B", "C"]), label: z.string(), title: z.string(), items: z.array(dayItem), notes: z.string().nullable() })).nullable(),
   scheduleInput: schedulerShape.nullable(),
-  variants: z.array(z.strictObject({
-    key: z.enum(["A", "B", "C", "main"]),
-    label: z.string(),
-    title: z.string().nullable(),
-    audience: z.enum(["adults", "family", "easy", "any"]),
-    relation: z.enum(["alternative", "parallel"]),
-    notes: z.strictObject({ lead: cleanProse.nullable(), know: z.array(knowGroup) }),
-  })),
+  variants: z.array(dayVariantInfo),
   know: z.array(knowGroup),
   summaryProse: cleanProse.nullable(),
   light: z.string().nullable(),
-  zone: z.strictObject({
-    place: z.string(),
-    label: z.string(),
-    abbr: z.string(),
-    /** The trip's own base zone, never the household's (PRIV-TD; alignment 2.6 S3). */
-    home: z.string(),
-    /** The abbreviation of `home`: the trip's own base zone, never the household's. */
-    homeAbbr: z.string(),
-    offsetMin: z.int(),
-    items: z.array(z.string()),
-  }).optional(),
+  zone: dayZone.optional(),
   flight: z.boolean().optional(),
 });
 
@@ -295,6 +305,144 @@ export const movedTrip = z.strictObject({ moved: apiSlug, ref: tripRefId });
 /** What getTrip returns: the trip, or where it moved. */
 export const tripLookup = z.union([tripDetail, movedTrip]);
 
+// ---- the plan model (STEP2-M; build-plan 3, gap-analysis D6, D7) ------------------------------------------------------------------
+//
+// `GET /api/v1/trips/{slug}/plan-model`: the model the public trip page builds on the server and hands its client components
+// (web/components/trips/model.ts `TripPageModel`), so `/t/<id>/` renders a copy from the same model with the person's delta applied on
+// the device (P9: one boundary; nothing private goes to the server). Public data only: the trip, its places' points and photos, and
+// the pre-filtered places a visitor may add to a day (never the catalogue, P8). `tripPageModelForBuilt` (core/src/plan/pageModel.ts)
+// maps a builder draft's last build onto the same shape. The scheduler's own shapes stay open, as on `tripDetail`, but typed.
+
+/** A scheduler shape (core/src/schedule/types.ts): checked as an object at run time, typed as the scheduler's own interface. */
+const scheduled = <T>() => schedulerShape as unknown as z.ZodType<T>;
+
+const stopStats = z.strictObject({ distanceKm: z.number().nullable(), gainM: z.number().nullable(), hours: z.string().nullable() });
+
+/** One stop row of a day (`StopModel`). */
+export const planStop = z.strictObject({
+  id: z.string(),
+  name: z.string(),
+  kind: z.string(),
+  time: z.string().nullable(),
+  stats: stopStats.nullable(),
+  note: z.string().nullable(),
+  access: z.string().nullable(),
+  variant: z.string().nullable(),
+  placeSlug: apiSlug.nullable(),
+});
+
+const trackId = z.enum(["A", "B", "C"]);
+
+/** One day row (`DayRowModel`): the Days list and the print read these. */
+export const planDayRow = z.strictObject({
+  n: z.int().min(0),
+  title: z.string(),
+  base: z.string().nullable(),
+  /** "≈1 h 10", or null when the day has no drive */
+  drive: z.string().nullable(),
+  driveIsEstimate: z.boolean(),
+  thumb: z.strictObject({ url: z.string(), alt: z.string() }).nullable(),
+  glyph: z.string(),
+  summary: z.string().nullable(),
+  stops: z.array(planStop),
+  tracks: z.array(z.strictObject({ id: trackId, label: z.string(), title: z.string(), stops: z.array(planStop), notes: z.string().nullable() })).nullable(),
+  defaultTrack: trackId.nullable(),
+});
+
+/** The Stops tab's sections (`CategorySectionModel`), in the six categories' order. */
+export const planSection = z.strictObject({
+  id: z.enum(PLACE_CATEGORIES),
+  label: z.string(),
+  count: z.int().min(0),
+  rows: z.array(z.strictObject({
+    key: z.string(),
+    name: z.string(),
+    kind: z.string(),
+    placeSlug: apiSlug.nullable(),
+    days: z.array(z.int().min(0)),
+    time: z.string().nullable(),
+    area: z.string().nullable(),
+    detail: z.string().nullable(),
+    nights: z.int().min(0).nullable(),
+    bookRule: z.string().nullable(),
+    bookNote: z.string().nullable(),
+  })),
+});
+
+const routePoint = z.strictObject({ key: z.string(), name: z.string(), lng: z.number(), lat: z.number(), placeSlug: apiSlug.nullable() });
+/** The map's model (`RouteModel`): bases and each day's placed stops; a stop with no point is counted, never drawn. */
+export const planRoute = z.strictObject({
+  bases: z.array(z.strictObject({ id: z.string(), name: z.string(), lng: z.number(), lat: z.number(), days: z.array(z.int().min(0)) })),
+  days: z.array(z.strictObject({ n: z.int().min(0), title: z.string(), base: z.string().nullable(), points: z.array(routePoint), unplaced: z.int().min(0).optional() })),
+  unplaced: z.int().min(0),
+});
+
+/** A photo credit (`CreditModel`). */
+export const planCredit = z.strictObject({ title: z.string().optional(), author: z.string(), licence: z.string(), licenceUrl: z.string().optional(), sourceUrl: z.string().optional() });
+
+/** A place a visitor may add to a day (`AddCandidate`); `key` is what `add=<day>.<key>` carries. */
+export const planAddCandidate = z.strictObject({
+  key: z.string(),
+  name: z.string(),
+  kind: z.enum(["visit", "trail", "meal", "break", "rest", "checkin", "checkout", "transfer"]),
+  sub: z.string().nullable(),
+  placeSlug: apiSlug.nullable(),
+  point: z.strictObject({ lat: z.number(), lon: z.number() }).nullable(),
+  durationMin: z.number().nullable(),
+  durationRange: z.tuple([z.number(), z.number()]).nullable(),
+  stats: z.strictObject({ distanceKm: z.number().nullable(), gainM: z.number().nullable() }).nullable(),
+  label: z.string(),
+  km: z.number().nullable(),
+  group: z.enum(["variant", "trip", "nearby"]),
+});
+
+/** One day of the timeline (`TimelineDayModel`): the scheduler's input for the day and the words around it. */
+export const planTimelineDay = z.strictObject({
+  n: z.int().min(0),
+  title: z.string(),
+  base: z.string().nullable(),
+  thumb: z.strictObject({ url: z.string() }).nullable(),
+  glyph: z.string(),
+  summary: z.string().nullable(),
+  light: z.string().nullable(),
+  input: scheduled<ScheduleDayInput>(),
+  variants: z.array(dayVariantInfo),
+  know: z.array(knowGroup),
+  zone: dayZone.optional(),
+  flight: z.boolean().optional(),
+});
+
+/** The timeline (`TimelineModel`): the default profile without the adults count, the default timelines, and the addables by day. */
+export const planTimeline = z.strictObject({
+  slug: z.string(),
+  defaultProfile: scheduled<Omit<Profile, "adults">>(),
+  writtenFor: z.string(),
+  condensed: z.boolean(),
+  hasSplit: z.boolean(),
+  hasVariants: z.boolean(),
+  days: z.array(planTimelineDay),
+  defaultTimelines: z.array(scheduled<DayTimeline>()),
+  addables: z.record(z.string(), planAddCandidate),
+  /** day number (as a JSON key) -> the addable keys offered on that day */
+  addByDay: z.record(z.string().regex(/^\d{1,3}$/), z.array(z.string())),
+  /** place slug, or `n:<normalised name>` -> the stop's chips */
+  suit: z.record(z.string(), itemSuit),
+});
+
+/** `TripPlanModel`: everything the trip details page renders from the plan (web `TripPageModel`), as JSON. */
+export const tripPlanModel = z.strictObject({
+  /** null for an overview trip, or a build with no schedule files */
+  timeline: planTimeline.nullable(),
+  days: z.array(planDayRow),
+  sections: z.array(planSection),
+  route: planRoute,
+  gallery: z.array(photo),
+  credits: z.array(planCredit),
+});
+
+/** What the plan-model endpoint returns: the model, or where the trip moved (308, like getTrip). */
+export const tripPlanModelLookup = z.union([tripPlanModel, movedTrip]);
+
 export type TripRow = z.infer<typeof tripRow>;
 export type TripQuery = z.infer<typeof tripQuery>;
 export type TripProfile = z.infer<typeof tripProfile>;
@@ -302,3 +450,11 @@ export type TripDetail = z.infer<typeof tripDetail>;
 export type TripLookup = z.infer<typeof tripLookup>;
 export type TripPark = z.infer<typeof tripPark>;
 export type BookRule = z.infer<typeof bookRule>;
+export type TripPlanModel = z.infer<typeof tripPlanModel>;
+export type TripPlanModelLookup = z.infer<typeof tripPlanModelLookup>;
+export type PlanTimeline = z.infer<typeof planTimeline>;
+export type PlanTimelineDay = z.infer<typeof planTimelineDay>;
+export type PlanDayRow = z.infer<typeof planDayRow>;
+export type PlanStop = z.infer<typeof planStop>;
+export type PlanSection = z.infer<typeof planSection>;
+export type PlanAddCandidate = z.infer<typeof planAddCandidate>;
