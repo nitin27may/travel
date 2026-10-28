@@ -7,6 +7,13 @@ import { NEVER_SHIPPED_GLOBS, SERVER_RUNTIME_GLOBS, fromWebDir } from './lib/ser
 const config: NextConfig = {
   trailingSlash: true,
   images: { unoptimized: true },
+  // STEP2-T1F: an unset NEXT_PUBLIC_TRIP_EDIT is not inlined by Next, so the flag stayed a runtime read and the code behind it shipped.
+  // Defaulting it to '0' makes `process.env.NEXT_PUBLIC_TRIP_EDIT === '1'` a build-time constant: off, the public pages hold none of it.
+  env: { NEXT_PUBLIC_TRIP_EDIT: process.env.NEXT_PUBLIC_TRIP_EDIT ?? '0' },
+  // The route /t/<id>/ is the file app/t/[id]/page.edit.tsx, a page only when the flag is on. Off, the route is not in the build at all
+  // (404 as before T1) and its modules take no part in the client module graph: a bundler lengthens the module ids as the module count
+  // grows, which cost every page's start JS 20 to 100 B, and a dynamic import behind the flag is still built.
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js', ...(process.env.NEXT_PUBLIC_TRIP_EDIT === '1' ? ['edit.tsx'] : [])],
   // @travel/core is TypeScript source (the schemas the loaders validate against)
   transpilePackages: ['@travel/core'],
   // Server traces. The dataset is read from the repository root (`process.cwd()/..`, a runtime value), so the bundler cannot follow it:

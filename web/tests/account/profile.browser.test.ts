@@ -47,6 +47,8 @@ beforeAll(async () => {
     configFile: false,
     root: fileURLToPath(web),
     resolve: { alias: { '@': fileURLToPath(web) } },
+    // Next inlines this name; Vite does not, and lib/mine/rows.ts (through the trips list) reads it (STEP2-T1F)
+    define: { 'process.env.NEXT_PUBLIC_TRIP_EDIT': '"0"' },
     server: { host: '127.0.0.1', port: 0, cors: true },
     plugins: [
       {

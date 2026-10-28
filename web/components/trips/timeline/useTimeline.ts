@@ -82,7 +82,7 @@ export interface TimelineApi {
  */
 export function useTimeline(model: TimelineModel, url: TripUrl, source?: TimelineSource): TimelineApi {
   const fromUrl = useUrlSource(model, url);
-  const src = source ?? fromUrl;
+  const src = (process.env.NEXT_PUBLIC_TRIP_EDIT === '1' && source) || fromUrl;
   const { state, defaults, plain } = src;
   const { added, droppedAdds } = useMemo(() => {
     const byDay: TimelineApi['added'] = {};

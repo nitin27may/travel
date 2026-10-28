@@ -36,21 +36,21 @@ describe('/t/[id]/', () => {
   const params = Promise.resolve({ id: ID_A });
 
   it('answers notFound() when the flag is off, whatever the id', async () => {
-    const page = await import('@/app/t/[id]/page');
+    const page = await import('@/app/t/[id]/page.edit');
     await expect(page.default({ params })).rejects.toThrow('NEXT_NOT_FOUND');
     await expect(page.default({ params: Promise.resolve({ id: 'anything' }) })).rejects.toThrow('NEXT_NOT_FOUND');
   });
 
   it('renders the shell when the flag is on, and knows nothing of the trip on the server', async () => {
     vi.stubEnv('NEXT_PUBLIC_TRIP_EDIT', '1');
-    const page = await import('@/app/t/[id]/page');
+    const page = await import('@/app/t/[id]/page.edit');
     const el = (await page.default({ params })) as { props: Record<string, unknown> };
     expect(el.props.id).toBe(ID_A);
     expect(Object.keys(el.props).sort()).toEqual(['id', 'signIn']);
   });
 
   it('is private: noindex, no canonical, no share image', async () => {
-    const page = await import('@/app/t/[id]/page');
+    const page = await import('@/app/t/[id]/page.edit');
     const meta = page.generateMetadata();
     expect(meta.robots).toEqual({ index: false, follow: false });
     expect(meta.alternates).toBeUndefined();

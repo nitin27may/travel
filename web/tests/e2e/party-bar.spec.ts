@@ -17,6 +17,9 @@ async function seed(page: Page, values: Record<string, string>) {
 }
 const party = (adults: number, children: (number | null)[]) => JSON.stringify({ v: 1, adults, children });
 const long = (page: Page) => page.locator('#plan-for .pb-long');
+// STEP2-T1: with NEXT_PUBLIC_TRIP_EDIT on, Mine's Open goes to the copy's own page /t/<id>/?view=day; off, to /trips/<slug>/ with the choices.
+// The build decides, so ask it: /t/<id>/ answers 404 when the flag is off.
+const tripEditBuild = async (page: Page, siteUrl: string) => (await page.request.get(`${siteUrl}/t/6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b/`)).status() !== 404;
 const stored = (page: Page) => page.evaluate((k) => localStorage.getItem(k), PARTY_KEY);
 
 test.describe('collapsed bar', () => {
@@ -269,6 +272,13 @@ test.describe('Mine opens a copy on its days with the adults', () => {
     await seed(page, { 'travel.copies.local': copies });
     await page.goto(`${site.url}/mine/`);
     await page.locator('a.crow-link').click();
+    if (await tripEditBuild(page, site.url)) {
+      await expect(page).toHaveURL(/\/t\/6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b\/\?view=day$/);
+      await expect(page.locator('[role="tab"][aria-selected="true"]')).toHaveText(/^Days/);
+      await expect(page.getByTestId('party-line').locator('.pb-long')).toContainText(/^3 adults/);
+      expect(new URL(page.url()).search).not.toMatch(/9|children|mine/);
+      return;
+    }
     await expect(page).toHaveURL(/\/trips\/dolomites-2027\/\?p=family-6&a=3&view=day&mine=1$/);
     await expect(page.locator('[role="tab"][aria-selected="true"]')).toHaveText(/^Days/);
     await expect(long(page)).toHaveText('Your copy: family, youngest 6, 3 adults · Standard pace');
@@ -286,6 +296,12 @@ test.describe('EM-B: a copy opens with its own party', () => {
     await seed(page, { 'travel.copies.local': copies, [PARTY_KEY]: party(2, [7, 10]) });
     await page.goto(`${site.url}/mine/`);
     await page.locator('a.crow-link').click();
+    if (await tripEditBuild(page, site.url)) {
+      await expect(page).toHaveURL(/\/t\/6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b\/\?view=day$/);
+      await expect(page.getByTestId('party-line').locator('.pb-long')).toContainText(/^2 adults/);
+      await expect(page.getByTestId('party-line').locator('.pb-long')).not.toContainText(/child/); // the kept family party was not applied over it
+      return;
+    }
     await expect(page).toHaveURL(/\/trips\/dolomites-2027\/\?p=adults&a=2&view=day&mine=1$/);
     await expect(long(page)).toHaveText('Your copy: adults only · Standard pace');
     await expect(page).toHaveURL(/p=adults/); // the kept family party was not applied over it

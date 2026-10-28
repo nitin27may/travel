@@ -7,4 +7,5 @@ export function tripEditFlag(env: { tripEdit?: string } = { tripEdit: process.en
   return env.tripEdit === '1';
 }
 
-export const TRIP_EDIT_ON: boolean = tripEditFlag();
+/** A literal comparison on the inlined name, so a build with the flag off folds it to `false` and drops what sits behind it. */
+export const TRIP_EDIT_ON: boolean = process.env.NEXT_PUBLIC_TRIP_EDIT === '1';

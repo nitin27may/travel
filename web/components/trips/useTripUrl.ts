@@ -52,10 +52,13 @@ export function tripQuery(tab: TabState, timeline: string, extra = ''): string {
 }
 
 // STEP2-T1: a `mine=<id>` link (not the older `mine=1` marker) goes to the copy's own page. The lazy module answers only with `tripEdit` on.
-const useRedirectMine = (): void =>
-  useEffect(() => {
-    if (/[?&]mine=(?!1(&|$))/.test(window.location.search)) void import('@/lib/trip-edit/redirect').then((m) => m.followMineLink());
-  }, []);
+// the flag is written out at the site, not imported: a bundler folds the inlined name here but not a constant exported from another module
+const useRedirectMine: () => void = process.env.NEXT_PUBLIC_TRIP_EDIT === '1'
+  ? () =>
+      useEffect(() => {
+        if (/[?&]mine=(?!1(&|$))/.test(window.location.search)) void import('@/lib/trip-edit/redirect').then((m) => m.followMineLink());
+      }, [])
+  : () => {};
 
 /** The trip page's own URL state: not list state, so it does not share `useUrlState`. */
 export function useTripUrl(): TripUrl {

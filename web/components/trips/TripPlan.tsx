@@ -137,7 +137,9 @@ function Tabs({ tabs, api }: { tabs: Props['tabs']; api: ReturnType<typeof useTr
   );
 }
 
-function TimelinePlan({ slug, model, depth, season, tabs, slots, shape, tlModel, url, source }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
+function TimelinePlan({ slug, model, depth, season, tabs, slots, shape, tlModel, url, source: given }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
+  // the person's own trip passes a source; a build with the flag off folds this to `undefined` (STEP2-T1F; the name is written out, see useTripUrl)
+  const source = process.env.NEXT_PUBLIC_TRIP_EDIT === '1' ? given : undefined;
   const api = useTimeline(tlModel, url, source);
   const tabApi = useTripTabs(slug, url, tabs.available);
   const tab = tabApi.tab;

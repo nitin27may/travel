@@ -1,6 +1,6 @@
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { parseTimelineUrl, serialiseTimelineUrl } from '@travel/core/schedule/profileCodec.ts';
 import { DEFAULT_PROFILE, type Profile } from '@travel/core/schedule/types.ts';
 import { applyOps, type PlanOp } from '@travel/core/plan/ops.ts';
@@ -178,7 +178,28 @@ describe('the URL source is the page as it was', () => {
 });
 
 describe('an explicit source replaces the address', () => {
+  afterEach(() => vi.unstubAllEnvs());
+
+  it('is ignored with tripEdit off: the address stays the source (STEP2-T1F, the flag is read where it is used so a build folds it)', () => {
+    vi.stubEnv('NEXT_PUBLIC_TRIP_EDIT', '0');
+    const write = vi.fn();
+    const src = { state: { profile: { ...DEFAULT_PROFILE, adults: 3 }, overrides: {}, added: [] }, defaults: DEFAULT_PROFILE, plain: false, changed: true, write };
+    const go = vi.fn();
+    const url = { view: null, hash: '', day: null, category: null, timeline: '', go } as unknown as TripUrl;
+    let api!: TimelineApi;
+    const C = () => {
+      api = useTimeline(model, url, src);
+      return null;
+    };
+    renderToStaticMarkup(createElement(C));
+    expect(api.state.profile.adults).toBe(2);
+    api.reset();
+    expect(write).not.toHaveBeenCalled();
+    expect(go).toHaveBeenCalled();
+  });
+
   it('reads its state and writes through it, never to the address', () => {
+    vi.stubEnv('NEXT_PUBLIC_TRIP_EDIT', '1');
     const write = vi.fn();
     const state = { profile: { ...DEFAULT_PROFILE, adults: 3 }, overrides: { 2: 'B' }, added: [] };
     const src = { state, defaults: DEFAULT_PROFILE, plain: false, changed: true, write };

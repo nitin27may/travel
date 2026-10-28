@@ -61,7 +61,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   useEffect(() => {
     if (!slug) return;
     let live = true;
-    void Promise.all([import('@/lib/client/data').then((m) => m.tripPlanModel(slug)).catch(() => null), resolveAll([`trip:${slug}`])]).then(([model, rows]) => {
+    void Promise.all([import('@/lib/trip-edit/planModel').then((m) => m.tripPlanModel(slug)).catch(() => null), resolveAll([`trip:${slug}`])]).then(([model, rows]) => {
       if (!live) return;
       setPlan({ slug, model, ours: rows[0] && rows[0].state !== 'unknown' ? rows[0] : null });
       if (model) setFacts(() => (s: string) => (s === slug ? { cc: rows[0]?.cc ?? 'XX', days: model.days.length } : null));
