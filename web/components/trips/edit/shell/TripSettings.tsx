@@ -140,11 +140,11 @@ export function TripSettings({ open, onClose, doc, defaults, title, ourTitle, wh
     if (!o) onClose();
   };
   return phone ? (
-    <BottomSheet open={open} onOpenChange={change} title="Edit trip" snaps={['half', 'full']} initial="full" footer={footer} className="own-sheet">
+    <BottomSheet open={open} onOpenChange={change} title="Settings" snaps={['half', 'full']} initial="full" footer={footer} className="own-sheet">
       {body}
     </BottomSheet>
   ) : (
-    <SideSheet open={open} onOpenChange={change} title="Edit trip" kicker={ourTitle ?? undefined} footer={footer} className="own-sheet">
+    <SideSheet open={open} onOpenChange={change} title="Settings" kicker={ourTitle ?? undefined} footer={footer} className="own-sheet">
       {body}
     </SideSheet>
   );

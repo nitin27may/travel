@@ -23,6 +23,7 @@ import { Prose } from './Prose';
 import { variantLine, type VariantLine } from './consequence';
 import { flightEntries, localEntries, zoneNotes, zoneRun } from './marks';
 import type { Engine } from './useTimeline';
+import { useTimelineExtras } from './editSlots';
 import { dayReason, useTripSuit } from '@/components/suit/TripSuit';
 
 interface Props {
@@ -65,6 +66,7 @@ function lastStart(item: ScheduleItem | undefined): string | null {
 }
 
 const KNOW_VISIBLE = 3;
+const useExtras: typeof useTimelineExtras = process.env.NEXT_PUBLIC_TRIP_EDIT === '1' ? useTimelineExtras : () => null;
 
 /** "Copy link to this day": the day's anchor with the profile, versions and additions the visitor is looking at. */
 function DayLink({ day }: { day: number }) {
@@ -91,6 +93,7 @@ function DayLink({ day }: { day: number }) {
 export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, onSplit, onVariant, onAdd, onRemove, addedKeys, engine, loadEngine, profile, override, addedItems, index }: Props) {
   const [prefs] = usePrefs();
   const { toast } = useToast();
+  const slots = useExtras()?.edit;
   // SW-013: an addition says so, offers Undo, and scrolls to the new row once the scheduler has placed it
   const [justAdded, setJustAdded] = useState<string | null>(null);
   const add = (key: string) => {
@@ -205,6 +208,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
                 </span>
               ) : null}
             </span>
+            {slots?.dayMenu ? <span className="tl-day-menu" data-print="hide">{slots.dayMenu(day.n)}</span> : null}
           </div>
           <h3 className="tl-day-title">{title}</h3>
           <p className="tl-day-totals num">
@@ -222,6 +226,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
       </header>
 
       <div className="tl-day-body">
+        {slots?.dayStatus ? slots.dayStatus(day.n) : null}
         {reasonText && day.variants.length > 1 ? <p className="tl-reason num" title={reasonText}><Prose text={reasonText} /></p> : null}
         {noFit ? (
           <p className="tl-nofit" role="note">
@@ -293,13 +298,14 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
                 moved={snap.moved.get(e.id) ?? null}
                 onRemove={e.addedBy === 'visitor' && addedKeys.has(e.id) ? () => onRemove(addedKeys.get(e.id)!) : undefined}
                 laneOff={split && e.lane !== 'all' && e.lane !== activeLane}
+                dayEntries={tl.entries}
               />
             ),
           ])}
         </ol>
         {(tl.blocks ? tl.entries.length === 0 : tl.entries.length <= 2) ? <p className="tl-empty">No stops are planned for this day yet.</p> : null}
         {snap.gone.length ? <p className="tl-gone num" role="status">Left out now there is less room: {snap.gone.join(', ')}.</p> : null}
-        <AddToDay day={day.n} candidates={candidates} taken={taken} onAdd={add} engine={engine} loadEngine={loadEngine} input={day.input} profile={profile} variant={override} added={addedItems} />
+        {slots?.addPicker ? slots.addPicker(day.n) : <AddToDay day={day.n} candidates={candidates} taken={taken} onAdd={add} engine={engine} loadEngine={loadEngine} input={day.input} profile={profile} variant={override} added={addedItems} />}
         <div className="tl-day-foot" data-print="hide">
           {knowCount > 0 ? (
             <button type="button" className="btn btn-sm btn-ghost tl-know-btn" aria-expanded={knowOpen} aria-controls={`know-${day.n}`} onClick={() => setKnowOpen((v) => !v)}>

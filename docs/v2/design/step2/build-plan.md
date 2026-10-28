@@ -404,3 +404,4 @@ otherwise).
 | Date | Change |
 |---|---|
 | 2026-10-27 | Created (STEP2-PLAN, travel-planner, Opus) |
+| 2026-10-28 | STEP2-E1 built (see edit-mode-spec change log): lazy `EditLayer` chunk, `EditHost` in read mode, slots in `timeline/editSlots.ts` (new file, with the `useTimeline.ts`, `TripPlan`-free wiring of `scheduleTemplate`), `web/lib/trip-edit/{undo,stopOps,changes,moveFit,deviceEdits,editMode}.ts` |

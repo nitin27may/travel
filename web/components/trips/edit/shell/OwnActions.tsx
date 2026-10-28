@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import type { ReactNode } from 'react';
 import type { ExportFormat } from '@/components/actions/ExportMenu';
 import { ShareButton } from '@/components/actions/ShareButton';
 import { Button } from '@/components/ui/Button';
@@ -28,6 +29,12 @@ interface Props {
   /** null: the trip has no dates yet, so the second button is Add dates. */
   onCalendar: (() => void) | null;
   onAddDates: () => void;
+  /** Edit mode is on: Edit trip becomes a secondary Done (ruling C1) and the cover gains its `⋯`. */
+  editing?: boolean;
+  /** The edit chunk is loading after a press: a 14 px spinner, the page unchanged (patterns 3.13 item 14). */
+  loading?: boolean;
+  onDone?: () => void;
+  tripMenu?: ReactNode;
 }
 
 /**
@@ -35,12 +42,16 @@ interface Props {
  * (undated) the first secondary, then Export and Share as on the published plan. `TripActions` is the published plan's and is not touched:
  * it sits in the public page's start chunk, which has under 1 KB of headroom.
  */
-export function OwnActions({ slug, title, url, onEdit, onPrefetch, onCalendar, onAddDates }: Props) {
+export function OwnActions({ slug, title, url, onEdit, onPrefetch, onCalendar, onAddDates, editing, loading, onDone, tripMenu }: Props) {
   return (
     <div className="trip-actions" data-print="hide">
-      <Button variant="primary" onClick={onEdit} onPointerEnter={onPrefetch} onFocus={onPrefetch}>
-        <Icon name="pencil" size={15} /> Edit trip
-      </Button>
+      {editing ? (
+        <Button onClick={onDone}>Done</Button>
+      ) : (
+        <Button variant="primary" loading={loading} onClick={onEdit} onPointerEnter={onPrefetch} onFocus={onPrefetch}>
+          <Icon name="pencil" size={15} /> Edit trip
+        </Button>
+      )}
       {onCalendar ? (
         <Button onClick={onCalendar}>
           <Icon name="calendar" size={15} /> Add to calendar
@@ -52,6 +63,7 @@ export function OwnActions({ slug, title, url, onEdit, onPrefetch, onCalendar, o
       )}
       <ExportMenu target={{ type: 'trip', slug }} formats={FORMATS} label="Export trip" />
       <ShareButton url={url} title={title} />
+      {tripMenu}
     </div>
   );
 }

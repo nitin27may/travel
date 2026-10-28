@@ -7,6 +7,14 @@ import type { TripUrl } from '../useTripUrl';
 import { candidateToItem, type TimelineModel } from './model';
 
 export type Engine = typeof import('@travel/core/schedule/schedule.ts');
+export type TemplateEngine = typeof import('@travel/core/schedule/template.ts');
+
+/** The person's changes to a copy's stops (STEP2-E1): plain lists the scheduler's `scheduleTemplate` reads (a mirror of the template block). */
+export interface SourceDelta {
+  removed: { op: string; day: number; item: string }[];
+  moved: { op: string; day: number; item: string; toDay: number | string; after?: string }[];
+  added: { op: string; day: number | string; slug: string; after?: string }[];
+}
 
 /** What a write changes, so a source that keeps operations (the document) can name them; the URL source needs only the next state. */
 export type TimelineChange =
@@ -30,6 +38,8 @@ export interface TimelineSource {
   /** Anything differs from the plan's own settings. */
   changed: boolean;
   write: (next: TimelineUrlState, change: TimelineChange) => void;
+  /** Removed and moved stops (edit mode); absent on the address source. */
+  delta?: SourceDelta;
   /** The person's own trip (STEP2-T1): their party line in place of the party bar, and the identity cell at the start of the sticky day bar. */
   chrome?: {
     party: (ctx: { model: TimelineModel; api: TimelineApi; edit: boolean; setEdit: (v: boolean) => void }) => ReactNode;
@@ -49,6 +59,24 @@ function useUrlSource(model: TimelineModel, url: TripUrl): TimelineSource {
     write: (next, change) => url.go({ hash: url.hash || undefined, timeline: change.kind === 'reset' ? '' : serialiseTimelineUrl(next, defaults) }, 'push'),
   };
 }
+
+/** The template scheduler, loaded only when the person has removed or moved a stop. Flag off: no state, no effect, no chunk. */
+const useTemplateEngine: (d: SourceDelta | undefined) => { delta: SourceDelta | undefined; tmplNeeded: boolean; tmpl: TemplateEngine | null } =
+  process.env.NEXT_PUBLIC_TRIP_EDIT === '1'
+    ? (delta) => {
+        const tmplNeeded = !!delta && (delta.removed.length > 0 || delta.moved.length > 0);
+        const [tmpl, setTmpl] = useState<TemplateEngine | null>(null);
+        useEffect(() => {
+          if (!tmplNeeded || tmpl) return;
+          let live = true;
+          import('@travel/core/schedule/template.ts').then((m) => live && setTmpl(m));
+          return () => {
+            live = false;
+          };
+        }, [tmplNeeded, tmpl]);
+        return { delta, tmplNeeded, tmpl };
+      }
+    : () => ({ delta: undefined, tmplNeeded: false, tmpl: null });
 
 export interface TimelineApi {
   state: TimelineUrlState;
@@ -111,22 +139,45 @@ export function useTimeline(model: TimelineModel, url: TripUrl, source?: Timelin
     };
   }, [plain, wanted, engine]);
   const loadEngine = useCallback(() => setWanted(true), []);
+  // STEP2-E1: removed and moved stops need the template scheduler (its own chunk); a build with the flag off folds the hook to nothing
+  const { delta, tmplNeeded, tmpl } = useTemplateEngine(src.delta);
   const timelines = useMemo(() => {
     if (plain || !engine) return model.defaultTimelines;
+    if (delta && tmplNeeded) {
+      if (!tmpl) return model.defaultTimelines;
+      const out = tmpl.scheduleTemplate(
+        model.days.map((d) => d.input),
+        {
+          overrides: Object.fromEntries(Object.entries(state.overrides).map(([k, v]) => [k, v])),
+          added: delta.added.flatMap((a) => {
+            const cand = model.addables[a.slug];
+            return cand ? [{ op: a.op, day: a.day, item: candidateToItem(cand), ...(a.after ? { after: a.after } : {}) }] : [];
+          }),
+          removed: delta.removed,
+          moved: delta.moved,
+          days: [],
+        },
+        state.profile,
+      );
+      return model.days.map((d) => out.days.find((x) => x.ref === d.n)!.timeline);
+    }
     return engine.scheduleTrip(
       model.days.map((d) => d.input),
       state.profile,
       state.overrides,
       Object.fromEntries(Object.entries(added).map(([n, list]) => [Number(n), list.map((x) => x.item)])),
     );
-  }, [plain, engine, model, state.profile, state.overrides, added]);
+  }, [plain, engine, model, state.profile, state.overrides, added, delta, tmplNeeded, tmpl]);
 
   const write = src.write;
 
-  const changedDays = useMemo(() => new Set([...Object.keys(state.overrides).map(Number), ...state.added.map((a) => a.day)]), [state]);
+  const changedDays = useMemo(
+    () => new Set([...Object.keys(state.overrides).map(Number), ...state.added.map((a) => a.day), ...(delta?.removed.map((r) => r.day) ?? []), ...(delta?.moved.flatMap((m) => [m.day, Number(m.toDay)]) ?? [])]),
+    [state, delta],
+  );
 
   return {
-    state, engine, pending: !plain && !engine, loadEngine, timelines, changedDays, changed: src.changed, droppedAdds, added,
+    state, engine, pending: !plain && (!engine || (tmplNeeded && !tmpl)), loadEngine, timelines, changedDays, changed: src.changed, droppedAdds, added,
     setProfile: (patch) => {
       const profile = { ...state.profile, ...patch };
       // adults only has no youngest; a family has one (default 10 when it was never set)

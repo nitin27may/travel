@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { tripPageModelForBuilt, type PlanTripFacts } from '@/lib/trip-edit/model';
 import type { ResolveRow, TripPlanModel } from '@travel/core/schema/api/index.ts';
 import { PHOTOS_TAB_MIN } from '@/components/trips/summary/text';
@@ -18,11 +18,13 @@ import { formatDate } from '@/lib/export/dates';
 import { mineStorage } from '@/lib/mine/storage';
 import { partyText } from '@travel/core/trips/partyWords.ts';
 import { placedBuild } from '@/lib/trip-edit/built';
-import { changeCount, changesLine, endOf, kickerWords } from '@/lib/trip-edit/marks';
+import { changeCount, changesLine, endOf, entryMarks, kickerWords } from '@/lib/trip-edit/marks';
 import { findCopy } from '@/lib/trip-edit/open';
 import { documentSource, profileOfDraft } from '@/lib/trip-edit/source';
 import { useTripDocument } from '@/lib/trip-edit/useTripDocument';
-import { IdentityCell, Newer, NotBuilt, NotFound, SyncState, TripSkeleton } from './StateBits';
+import { ChangesLine, IdentityCell, Newer, NotBuilt, NotFound, SyncState, TripSkeleton } from './StateBits';
+import { EditHost, type EditApi } from './EditHost';
+import type { TimelineModel } from '@/components/trips/timeline/model';
 import { OwnActions } from './OwnActions';
 import { PartyLine } from './PartyLine';
 import { SummaryOwn } from './SummaryOwn';
@@ -103,6 +105,8 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   }, [slug]);
   const { toast } = useToast();
   const [settings, setSettings] = useState(false);
+  const marks = useMemo(() => (doc ? entryMarks(doc) : () => []), [doc]);
+  const openSettings = useCallback(() => setSettings(true), []);
 
   const model = useMemo<TripPlanModel | null>(() => {
     if (!doc) return null;
@@ -155,18 +159,22 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
     }
   };
 
+  const build = (edit: EditApi) => {
   const source = {
     ...documentSource(doc, defaults, (ops) => save(ops)),
     chrome: {
       party: (ctx: { edit: boolean; setEdit: (v: boolean) => void; api: Parameters<typeof PartyLine>[0]['api'] }) => (
-        <PartyLine doc={doc} api={ctx.api} defaults={defaults} title={title} ourTitle={ourTitle} where={state.where} save={save} edit={ctx.edit || settings} setEdit={(v) => { ctx.setEdit(v); setSettings(v); }} />
+        <>
+          <PartyLine doc={doc} api={ctx.api} defaults={defaults} title={title} ourTitle={ourTitle} where={state.where} save={save} edit={ctx.edit || settings} setEdit={(v) => { ctx.setEdit(v); setSettings(v); }} />
+          {changes && doc.template ? <ChangesLine text={changes} onShow={edit.showChanges} /> : null}
+        </>
       ),
       lead: <IdentityCell title={title} photo={photo} identity={doc.identity} />,
     },
   };
 
   const slots = {
-    summaryTop: <SummaryOwn start={doc.start ?? null} end={end} days={days} adults={party.adults} kids={party.children} pace={profile.pace} changes={changes} ours={slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null} />,
+    summaryTop: <SummaryOwn start={doc.start ?? null} end={end} days={days} adults={party.adults} kids={party.children} pace={profile.pace} changes={changes} onShow={edit.showChanges} ours={slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null} />,
     summaryBottom: null,
     bookings: book.length ? <BookingsPanel bookings={book} /> : null,
     photos: photos ? <PhotosPanel photos={model.gallery} rows={model.sections.flatMap((s) => s.rows).map((r) => ({ name: r.name, placeSlug: r.placeSlug, days: r.days }))} /> : null,
@@ -192,7 +200,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
             {changes ? <span className="own-changes">{changes}</span> : null}
           </>
         }
-        actions={<OwnActions slug={slug ?? id} title={title} url={publicUrl} onEdit={() => setSettings(true)} onCalendar={doc.start && slug ? () => void calendar() : null} onAddDates={() => setSettings(true)} />}
+        actions={<OwnActions slug={slug ?? id} title={title} url={publicUrl} onEdit={edit.start} onPrefetch={edit.prefetch} editing={edit.editing} loading={edit.loading} onDone={edit.done} tripMenu={edit.cover} onCalendar={doc.start && slug ? () => void calendar() : null} onAddDates={() => setSettings(true)} />}
       />
       <TripPlan
         slug={slug ?? id}
@@ -205,5 +213,16 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
         source={source}
       />
     </article>
+  );
+  };
+
+  const layer = {
+    id, doc, save, title, ours: slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null,
+    model: model.timeline as unknown as TimelineModel, defaults, profile, start: doc.start ?? null, where: state.where, word: state.word, retry: state.retry, onSettings: openSettings,
+  };
+  return (
+    <EditHost marks={marks as Parameters<typeof EditHost>[0]['marks']} layer={layer}>
+      {build}
+    </EditHost>
   );
 }

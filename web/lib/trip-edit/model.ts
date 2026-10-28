@@ -4,3 +4,4 @@ export type { PlanOp } from '@travel/core/plan/ops.ts';
 export type { PlanTripFacts } from '@travel/core/plan/doc.ts';
 export type { PlanDraft } from '@travel/core/schema/plan-draft.ts';
 export { tripPageModelForBuilt } from '@travel/core/plan/pageModel.ts';
+export { applyOps } from '@travel/core/plan/ops.ts';

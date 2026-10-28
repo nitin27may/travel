@@ -10,6 +10,7 @@ import { copyToPlanDraft, type PlanTripFacts } from '@travel/core/plan/doc.ts';
 import { COPIES_KEY, readCopies, updateCopies, type CopyItem, type StorageLike } from '@travel/core/schema/copies.ts';
 import type { PlanDraft } from '@travel/core/schema/plan-draft.ts';
 import { isTripId } from './keys';
+import { storeDeviceEdits, withDeviceEdits } from './deviceEdits';
 
 /** The slice of the EM-2 engine this module uses (a test passes a fake). */
 export interface AccountHandle {
@@ -56,7 +57,7 @@ export function openTrip(id: string, deps: OpenDeps): OpenResult {
   if (found.kind !== 'ok') return found;
   const d = copyToPlanDraft(found.copy, { facts: deps.facts });
   if (!d.success) return { kind: 'missing' };
-  return { kind: 'ok', doc: d.data, where: 'device', copy: found.copy };
+  return { kind: 'ok', doc: withDeviceEdits(deps.storage, id, d.data), where: 'device', copy: found.copy };
 }
 
 /** The device copy with a document's choices written back: the keys a template document holds, over the item as it was. */
@@ -95,7 +96,11 @@ export function saveOps(id: string, ops: readonly PlanOp[], deps: OpenDeps): Sav
   if (applied.skipped.length) return { ok: false, reason: 'invalid' };
   const copy = copyWithDraft(open.copy!, applied.doc);
   const w = updateCopies(deps.storage, (env) => ({ envelope: { ...env, items: env.items.map((c) => (c.id === id ? copy : c)) }, value: null }));
-  if (w.ok) return { ok: true };
+  if (w.ok) {
+    const live = readCopies(deps.storage.getItem(COPIES_KEY));
+    storeDeviceEdits(deps.storage, id, applied.doc, live.ok ? live.envelope.items.map((c) => c.id) : [id]);
+    return { ok: true };
+  }
   return { ok: false, reason: w.reason === 'newer' ? 'newer' : w.reason === 'quota' ? 'full' : 'storage' };
 }
 
