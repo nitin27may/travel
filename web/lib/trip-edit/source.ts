@@ -82,11 +82,12 @@ export function opsFor(d: PlanDraft, next: TimelineUrlState, change: TimelineCha
 /** The removals, moves and explicit placements of a template document, as the timeline's scheduler reads them. */
 export function deltaOfDraft(d: PlanDraft): SourceDelta {
   const t = d.template;
-  if (!t) return { removed: [], moved: [], added: [] };
+  if (!t) return { removed: [], moved: [], added: [], days: [] };
   return {
     removed: t.removed.map((r) => ({ op: r.op, day: r.day, item: r.item })),
     moved: t.moved.map((m) => ({ op: m.op, day: m.day, item: m.item, toDay: m.toDay, ...(m.after ? { after: m.after } : {}) })),
     added: t.added.filter((a) => a.ref.startsWith(PLACE)).map((a) => ({ op: a.op, day: a.day, slug: a.ref.slice(PLACE.length), ...(a.after ? { after: a.after } : {}) })),
+    days: t.days.map((x) => (x.kind === 'insert' ? { op: x.op, kind: 'insert' as const, after: x.after } : { op: x.op, kind: 'drop' as const, day: x.day, ...(x.to !== undefined ? { to: x.to } : {}) })),
   };
 }
 
@@ -94,7 +95,7 @@ export function deltaOfDraft(d: PlanDraft): SourceDelta {
 export function documentSource(d: PlanDraft, defaults: Profile, apply: (ops: PlanOp[]) => unknown, newId?: () => string): TimelineSource {
   const state = stateOfDraft(d, defaults);
   const delta = deltaOfDraft(d);
-  const edited = delta.removed.length > 0 || delta.moved.length > 0;
+  const edited = delta.removed.length > 0 || delta.moved.length > 0 || (delta.days?.length ?? 0) > 0;
   const changed = planChanged(state) || edited;
   return {
     state,

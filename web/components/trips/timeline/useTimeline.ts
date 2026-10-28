@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { isChanged, parseTimelineUrl, serialiseTimelineUrl, type TimelineUrlState } from '@travel/core/schedule/profileCodec.ts';
-import type { DayTimeline, Profile, ScheduleItem } from '@travel/core/schedule/types.ts';
+import type { DayTimeline, Profile, ScheduleItem, TemplateDayOp } from '@travel/core/schedule/types.ts';
+import type { Effective } from '../edit/day/effective';
 import type { TripUrl } from '../useTripUrl';
 import { candidateToItem, type TimelineModel } from './model';
 
@@ -14,7 +15,10 @@ export interface SourceDelta {
   removed: { op: string; day: number; item: string }[];
   moved: { op: string; day: number; item: string; toDay: number | string; after?: string }[];
   added: { op: string; day: number | string; slug: string; after?: string }[];
+  /** Inserted and dropped days (STEP2-E4). */
+  days?: TemplateDayOp[];
 }
+type EffectiveModule = typeof import('../edit/day/effective');
 
 /** What a write changes, so a source that keeps operations (the document) can name them; the URL source needs only the next state. */
 export type TimelineChange =
@@ -61,11 +65,13 @@ function useUrlSource(model: TimelineModel, url: TripUrl): TimelineSource {
 }
 
 /** The template scheduler, loaded only when the person has removed or moved a stop. Flag off: no state, no effect, no chunk. */
-const useTemplateEngine: (d: SourceDelta | undefined) => { delta: SourceDelta | undefined; tmplNeeded: boolean; tmpl: TemplateEngine | null } =
+const useTemplateEngine: (d: SourceDelta | undefined) => { delta: SourceDelta | undefined; tmplNeeded: boolean; tmpl: TemplateEngine | null; eff: EffectiveModule | null } =
   process.env.NEXT_PUBLIC_TRIP_EDIT === '1'
     ? (delta) => {
-        const tmplNeeded = !!delta && (delta.removed.length > 0 || delta.moved.length > 0);
+        const tmplNeeded = !!delta && (delta.removed.length > 0 || delta.moved.length > 0 || (delta.days?.length ?? 0) > 0);
+        const dayEdits = (delta?.days?.length ?? 0) > 0;
         const [tmpl, setTmpl] = useState<TemplateEngine | null>(null);
+        const [eff, setEff] = useState<EffectiveModule | null>(null);
         useEffect(() => {
           if (!tmplNeeded || tmpl) return;
           let live = true;
@@ -74,9 +80,18 @@ const useTemplateEngine: (d: SourceDelta | undefined) => { delta: SourceDelta | 
             live = false;
           };
         }, [tmplNeeded, tmpl]);
-        return { delta, tmplNeeded, tmpl };
+        // the page's days are drawn from the scheduler's answer only once the person has inserted or dropped a day
+        useEffect(() => {
+          if (!dayEdits || eff) return;
+          let live = true;
+          import('../edit/day/effective').then((m) => live && setEff(m));
+          return () => {
+            live = false;
+          };
+        }, [dayEdits, eff]);
+        return { delta, tmplNeeded, tmpl, eff };
       }
-    : () => ({ delta: undefined, tmplNeeded: false, tmpl: null });
+    : () => ({ delta: undefined, tmplNeeded: false, tmpl: null, eff: null });
 
 export interface TimelineApi {
   state: TimelineUrlState;
@@ -88,6 +103,8 @@ export interface TimelineApi {
   loadEngine: () => void;
   /** One timeline per day, for the profile in the URL. The server's default timelines when the URL has no profile keys. */
   timelines: DayTimeline[];
+  /** The days as drawn once the person inserted or dropped a day (STEP2-E4); null: the model's own days. */
+  eff: Effective | null;
   /** Days with a version picked by hand, or with a place added. */
   changedDays: Set<number>;
   /** Anything differs from the plan's own settings. */
@@ -140,11 +157,13 @@ export function useTimeline(model: TimelineModel, url: TripUrl, source?: Timelin
   }, [plain, wanted, engine]);
   const loadEngine = useCallback(() => setWanted(true), []);
   // STEP2-E1: removed and moved stops need the template scheduler (its own chunk); a build with the flag off folds the hook to nothing
-  const { delta, tmplNeeded, tmpl } = useTemplateEngine(src.delta);
-  const timelines = useMemo(() => {
-    if (plain || !engine) return model.defaultTimelines;
+  const { delta, tmplNeeded, tmpl, eff } = useTemplateEngine(src.delta);
+  const dayEdits = (delta?.days?.length ?? 0) > 0;
+  const { timelines, eff: drawn } = useMemo((): { timelines: DayTimeline[]; eff: Effective | null } => {
+    const some = (t: DayTimeline[]) => ({ timelines: t, eff: null });
+    if (plain || !engine) return some(model.defaultTimelines);
     if (delta && tmplNeeded) {
-      if (!tmpl) return model.defaultTimelines;
+      if (!tmpl || (dayEdits && !eff)) return some(model.defaultTimelines);
       const out = tmpl.scheduleTemplate(
         model.days.map((d) => d.input),
         {
@@ -155,19 +174,23 @@ export function useTimeline(model: TimelineModel, url: TripUrl, source?: Timelin
           }),
           removed: delta.removed,
           moved: delta.moved,
-          days: [],
+          days: delta.days ?? [],
         },
         state.profile,
       );
-      return model.days.map((d) => out.days.find((x) => x.ref === d.n)!.timeline);
+      if (dayEdits && eff) {
+        const e = eff.effectiveDays(model, out);
+        return { timelines: e.timelines, eff: e };
+      }
+      return some(model.days.map((d) => out.days.find((x) => x.ref === d.n)!.timeline));
     }
-    return engine.scheduleTrip(
+    return some(engine.scheduleTrip(
       model.days.map((d) => d.input),
       state.profile,
       state.overrides,
       Object.fromEntries(Object.entries(added).map(([n, list]) => [Number(n), list.map((x) => x.item)])),
-    );
-  }, [plain, engine, model, state.profile, state.overrides, added, delta, tmplNeeded, tmpl]);
+    ));
+  }, [plain, engine, model, state.profile, state.overrides, added, delta, tmplNeeded, tmpl, eff, dayEdits]);
 
   const write = src.write;
 
@@ -177,7 +200,7 @@ export function useTimeline(model: TimelineModel, url: TripUrl, source?: Timelin
   );
 
   return {
-    state, engine, pending: !plain && (!engine || (tmplNeeded && !tmpl)), loadEngine, timelines, changedDays, changed: src.changed, droppedAdds, added,
+    state, engine, pending: !plain && (!engine || (tmplNeeded && (!tmpl || (dayEdits && !eff)))), loadEngine, timelines, eff: drawn, changedDays, changed: src.changed, droppedAdds, added,
     setProfile: (patch) => {
       const profile = { ...state.profile, ...patch };
       // adults only has no youngest; a family has one (default 10 when it was never set)

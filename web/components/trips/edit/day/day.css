@@ -1,0 +1,30 @@
+/* Day actions in edit mode (STEP2-E4; components 8.7 day rows, patterns 4.4). Tokens only (tests/no-hex.test.ts). Loaded with the edit chunk. */
+
+/* the `⋯` on a day header: at the header's top right, so it never wraps onto a line of its own */
+.tl-day-head { position: relative; }
+.tl-day-menu { position: absolute; top: var(--s-2); right: var(--s-2); display: inline-flex; }
+.tl-day-head:has(.tl-day-menu) .tl-day-top { padding-right: var(--touch-min); }
+@media (max-width: 639px) { .tl-day-menu { top: var(--s-1); right: var(--s-1); } }
+
+/* Drop Day n: the stops question and the booking confirm, in the same sheet */
+.edit-drop { display: grid; gap: var(--s-3); }
+.edit-drop-set { display: grid; gap: var(--s-1); margin: 0; padding: 0 var(--s-2); border: 0; min-width: 0; }
+.edit-drop-legend { padding: 0; margin-bottom: var(--s-1); font: var(--t-meta); color: var(--muted); }
+.edit-drop-move { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
+.edit-drop .check { min-height: var(--touch-min); }
+.edit-drop-ask { padding: 0 var(--s-2); color: var(--crit); }
+.edit-drop .edit-confirm-foot { padding: var(--s-2); }
+/* the half-height phone sheet shows the title "Day 5" already, and Cancel goes back: the question fits without its own back row */
+@media (max-width: 639px) { .edit-drop .edit-back { display: none; } .edit-drop { gap: var(--s-2); } }
+@media (max-width: 639px) { .edit-drop .edit-confirm-foot .btn { min-height: var(--touch-min); flex: 1; } }
+
+/* under the day header: the person's note and the two warning levels, words first */
+.day-status { display: grid; gap: var(--s-1); }
+.day-note, .day-warn { display: flex; align-items: flex-start; gap: var(--s-2); margin: 0; font: var(--t-small); color: var(--ink-2); overflow-wrap: anywhere; }
+.day-note > svg, .day-warn > svg { flex: none; margin-top: 3px; }
+.day-note > svg { color: var(--muted); }
+.day-note-label { color: var(--ink); font-weight: 600; }
+.day-warn[data-level='fix'], .day-warn[data-level='fix'] > svg { color: var(--crit); }
+.day-warn[data-level='check'], .day-warn[data-level='check'] > svg { color: var(--warn); }
+.day-warn b { font-weight: 600; }
+.day-warn-more { color: var(--muted); }

@@ -208,7 +208,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
                 </span>
               ) : null}
             </span>
-            {slots?.dayMenu ? <span className="tl-day-menu" data-print="hide">{slots.dayMenu(day.n)}</span> : null}
+            {slots?.dayMenu ? <span className="tl-day-menu" data-print="hide">{slots.dayMenu(day.n, { tl, day })}</span> : null}
           </div>
           <h3 className="tl-day-title">{title}</h3>
           <p className="tl-day-totals num">
@@ -226,7 +226,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
       </header>
 
       <div className="tl-day-body">
-        {slots?.dayStatus ? slots.dayStatus(day.n) : null}
+        {slots?.dayStatus ? slots.dayStatus(day.n, { tl, day }) : null}
         {reasonText && day.variants.length > 1 ? <p className="tl-reason num" title={reasonText}><Prose text={reasonText} /></p> : null}
         {noFit ? (
           <p className="tl-nofit" role="note">
@@ -303,7 +303,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
             ),
           ])}
         </ol>
-        {(tl.blocks ? tl.entries.length === 0 : tl.entries.length <= 2) ? <p className="tl-empty">No stops are planned for this day yet.</p> : null}
+        {(tl.blocks ? tl.entries.length === 0 : slots ? !tl.entries.some((e) => e.sourceItemId !== null && e.kind !== 'sun') : tl.entries.length <= 2) ? <p className="tl-empty">No stops are planned for this day yet.</p> : null}
         {snap.gone.length ? <p className="tl-gone num" role="status">Left out now there is less room: {snap.gone.join(', ')}.</p> : null}
         {slots?.addPicker ? slots.addPicker(day.n) : <AddToDay day={day.n} candidates={candidates} taken={taken} onAdd={add} engine={engine} loadEngine={loadEngine} input={day.input} profile={profile} variant={override} added={addedItems} />}
         <div className="tl-day-foot" data-print="hide">

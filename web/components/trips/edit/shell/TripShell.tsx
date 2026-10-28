@@ -159,13 +159,14 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
     }
   };
 
+  const bookingRows = book.map((b) => ({ name: b.name, day: b.kind === 'booking' ? b.day : null }));
   const build = (edit: EditApi) => {
   const source = {
     ...documentSource(doc, defaults, (ops) => save(ops)),
     chrome: {
-      party: (ctx: { edit: boolean; setEdit: (v: boolean) => void; api: Parameters<typeof PartyLine>[0]['api'] }) => (
+      party: (ctx: { model: TimelineModel; edit: boolean; setEdit: (v: boolean) => void; api: Parameters<typeof PartyLine>[0]['api'] }) => (
         <>
-          <PartyLine doc={doc} api={ctx.api} defaults={defaults} title={title} ourTitle={ourTitle} where={state.where} save={save} edit={ctx.edit || settings} setEdit={(v) => { ctx.setEdit(v); setSettings(v); }} />
+          <PartyLine doc={doc} api={ctx.api} defaults={defaults} title={title} ourTitle={ourTitle} where={state.where} save={save} edit={ctx.edit || settings} setEdit={(v) => { ctx.setEdit(v); setSettings(v); }} commit={edit.commit ?? undefined} days={ctx.model.days.length} bookings={bookingRows} />
           {changes && doc.template ? <ChangesLine text={changes} onShow={edit.showChanges} /> : null}
         </>
       ),
@@ -218,7 +219,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
 
   const layer = {
     id, doc, save, title, ours: slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null,
-    model: model.timeline as unknown as TimelineModel, defaults, profile, start: doc.start ?? null, where: state.where, word: state.word, retry: state.retry, onSettings: openSettings,
+    model: model.timeline as unknown as TimelineModel, bookings: bookingRows, defaults, profile, start: doc.start ?? null, where: state.where, word: state.word, retry: state.retry, onSettings: openSettings,
   };
   return (
     <EditHost marks={marks as Parameters<typeof EditHost>[0]['marks']} layer={layer}>

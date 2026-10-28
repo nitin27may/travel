@@ -5,17 +5,19 @@
 // the edit session (the undo stack, the toasts, the announcements), publishes the slots the timeline draws (`TimelineExtras.edit`, the
 // sticky bar's tools, the cover's `⋯`) through EditHost, and mounts the phone's edit bar and the changes sheet.
 //
-// Slots left for the other E packages, wired but empty: `handle` (E2, drag), `addPicker` (E3), `dayMenu` (E4), `dayStatus` (E5); see
-// components/trips/timeline/editSlots.ts.
+// Slots: `handle` (E2, drag), `addPicker` (E3, still empty), `dayMenu` and `dayStatus` (E4: the day's `⋯` and its note and warning levels;
+// E5 adds the fixes); see components/trips/timeline/editSlots.ts.
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import type { TimelineEntry, Profile } from '@travel/core/schedule/types.ts';
 import type { TimelineModel } from '@/components/trips/timeline/model';
-import type { EditSlots } from '@/components/trips/timeline/editSlots';
+import type { DayCtx, EditSlots } from '@/components/trips/timeline/editSlots';
 import { TRIP_EDIT_UI } from '@/lib/config/product';
 import { changeRows, type ChangeRow } from '@/lib/trip-edit/changes';
 import { changeCount } from '@/lib/trip-edit/marks';
 import type { PlanDraft, PlanOp } from '@/lib/trip-edit/model';
 import type { SaveResult, SyncWord, Where } from '@/lib/trip-edit/open';
+import { refOfDay } from '@/lib/trip-edit/dayMap';
+import { candidateToItem } from '@/components/trips/timeline/model';
 import { ruleItemOfEntry, ruleName } from '@/lib/trip-edit/ruleRows';
 import { maybeOps, maybeWords, movedWords, moveToDayOps, newOpId, noteOps, nudgeOps, nudgedWords, removeOps, removedWords } from '@/lib/trip-edit/stopOps';
 import type { Published } from './shell/EditHost';
@@ -24,6 +26,9 @@ import { ChangesSheet } from './panel/ChangesSheet';
 import { StopMenu, stopsOfDay } from './panel/StopMenu';
 import { TripMenu } from './panel/TripMenu';
 import { DragHandle } from './drag/DragHandle';
+import { DayMenu } from './day/DayMenu';
+import { DayStatus } from './day/DayStatus';
+import { addDayOps, addedDayNumber, dayBookings, dayNoteOf, dayNoteOps, droppedWords, dropDayOps, resetDayOps, versionOps, type DropHow } from './day/dayOps';
 import { useEditSession } from './useEditSession';
 import './edit.css';
 
@@ -41,6 +46,8 @@ export interface LayerProps {
   profile: Profile;
   start: string | null;
   where: Where;
+  /** the rows of the Bookings tab (name and the day each counts from), so Drop Day n can ask when a booking is on it */
+  bookings: readonly { name: string; day: number | null }[];
   word: SyncWord;
   retry: (() => void) | null;
   /** edit mode is on (the address says so) */
@@ -72,7 +79,11 @@ export function EditLayer(p: LayerProps) {
   }, [model]);
   // every row of a day has actions (STEP2-E1B): the stops, and on a copy the rows the rules made (a built trip's wait for STEP2-B2)
   const copy = !!doc.template;
-  const canEdit = useCallback((e: TimelineEntry) => stopsOfDay([e]).length === 1 || (copy && ruleItemOfEntry(e) !== null), [copy]);
+  // a row the rules made on a day the person added has no published day number to key its removal on (edit-mode-spec 5.4), so it has no menu
+  const canEdit = useCallback(
+    (e: TimelineEntry) => stopsOfDay([e]).length === 1 || (copy && ruleItemOfEntry(e) !== null && typeof refOfDay(doc.template?.days ?? [], e.day) === 'number'),
+    [copy, doc.template?.days],
+  );
   const rows = useMemo(() => changeRows(doc, names, newOpId), [doc, names]);
 
   // a request from outside (Show on the changes line) opens the sheet once per press
@@ -145,6 +156,53 @@ export function EditLayer(p: LayerProps) {
     [doc, commit, focusAfter, canEdit],
   );
 
+  // the day actions (STEP2-E4): each is one undo step; the new or neighbouring day is scrolled to once the scheduler has drawn it
+  const afterDays = useCallback((selector: string) => {
+    const t0 = performance.now();
+    const look = () => {
+      const el = document.querySelector<HTMLElement>(selector);
+      if (el) {
+        el.scrollIntoView({ block: 'nearest' });
+        el.focus({ preventScroll: true });
+      } else if (performance.now() - t0 < 2500) requestAnimationFrame(look);
+    };
+    requestAnimationFrame(look);
+  }, []);
+  const dayAct = useMemo(
+    () => ({
+      add: (n: number) => {
+        const ops = addDayOps(doc, n);
+        const at = addedDayNumber(doc, ops[0]!);
+        if (commit(ops, `Added Day ${at ?? n + 1}`) && at) afterDays(`#day-${at} .tl-add-open`);
+      },
+      drop: (n: number, how: DropHow, stops: readonly TimelineEntry[]) => {
+        if (commit(dropDayOps(doc, n, how, stops), droppedWords(n, how, stops.length))) afterDays(`#day-${Math.max(1, n - 1)} .day-more`);
+      },
+      reset: (n: number) => {
+        const ops = resetDayOps(doc, n);
+        if (ops) commit(ops, `Day ${n} is back to our plan`);
+      },
+      note: (n: number, text: string) => {
+        commit(dayNoteOps(doc, n, text), text.trim() ? `Saved a note on Day ${n}` : `Removed the note on Day ${n}`);
+      },
+      version: (n: number, key: 'A' | 'B' | 'C' | null) => {
+        const ops = versionOps(doc, n, key);
+        if (ops) commit(ops, key ? `Day ${n} now uses version ${key}` : `Day ${n} is back to the version chosen for your settings`);
+      },
+    }),
+    [doc, commit, afterDays],
+  );
+  const addedFor = useCallback(
+    (n: number) => {
+      const ref = refOfDay(doc.template?.days ?? [], n);
+      return (doc.template?.added ?? []).flatMap((a) => {
+        const c = a.day === ref && a.ref.startsWith('place/') ? model.addables[a.ref.slice('place/'.length)] : undefined;
+        return c ? [candidateToItem(c)] : [];
+      });
+    },
+    [doc, model],
+  );
+
   const resetAll = useCallback(() => {
     commit([{ kind: 'reset', id: newOpId(), day: null } as PlanOp], 'Reset to our plan');
   }, [commit]);
@@ -160,6 +218,25 @@ export function EditLayer(p: LayerProps) {
     const edit: EditSlots = {
       canEdit,
       handle: (e) => <DragHandle entry={e} />,
+      ...(copy
+        ? {
+            dayMenu: (n: number, ctx: DayCtx) => (
+              <DayMenu
+                n={n}
+                doc={doc}
+                tl={ctx.tl}
+                day={ctx.day}
+                published={model.days.length}
+                start={p.start}
+                profile={p.profile}
+                bookings={dayBookings(ctx.tl, p.bookings, typeof ctx.day.ref === 'number' ? ctx.day.ref : null)}
+                addedItems={addedFor(n)}
+                act={dayAct}
+              />
+            ),
+            dayStatus: (n: number, ctx: DayCtx) => <DayStatus n={n} note={dayNoteOf(doc, n)} tl={ctx.tl} />,
+          }
+        : {}),
       trail: (e, dayEntries) => (
         <StopMenu
           entry={e}
@@ -191,9 +268,10 @@ export function EditLayer(p: LayerProps) {
           onDone={p.onDone}
         />
       ),
+      commit: (ops, label) => commit(ops, label),
       cover: <TripMenu id={p.id} title={p.title} where={p.where} copy={copy} changes={changes} canUndo={s.canUndo} canRedo={s.canRedo} onUndo={undo} onRedo={redo} onReset={resetAll} />,
     };
-  }, [canEdit, doc, model, p.defaults, p.profile, p.start, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
+  }, [canEdit, doc, model, p.defaults, p.profile, p.start, p.bookings, dayAct, addedFor, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, commit, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
   useEffect(() => {
     publish(published);
   }, [published, publish]);

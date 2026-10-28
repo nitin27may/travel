@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
 import type { PlanOp } from '@/lib/trip-edit/model';
 import type { Profile } from '@travel/core/schedule/types.ts';
 import type { PlanDraft } from '@/lib/trip-edit/model';
@@ -10,8 +11,11 @@ import { Icon } from '@/components/ui/Icon';
 import type { SaveResult, Where } from '@/lib/trip-edit/open';
 import { setRailParty } from '@/components/trips/timeline/railWords';
 import type { TimelineApi } from '@/components/trips/timeline/useTimeline';
-import { TripSettings } from './TripSettings';
+import type { SettingsProps } from '../settings/TripSettings';
 import '@/styles/party-bar.css';
+
+// the sheet is its own chunk: it loads on the first press of Edit (or Settings), never with the page
+const TripSettings = dynamic(() => import('../settings/TripSettings').then((m) => m.TripSettings), { ssr: false });
 
 interface Props {
   doc: PlanDraft;
@@ -24,6 +28,10 @@ interface Props {
   save: (ops: readonly PlanOp[]) => SaveResult;
   edit: boolean;
   setEdit: (v: boolean) => void;
+  /** Edit mode's session, when it is on: the sheet's changes then get an Undo toast */
+  commit?: SettingsProps['commit'];
+  days?: number;
+  bookings?: SettingsProps['bookings'];
 }
 
 /**
@@ -31,7 +39,10 @@ interface Props {
  * the device (`travel.party`) and in the address; a trip's party is its own and lives in its document, so this line replaces that bar here
  * and never touches the device party (step2 README 8, EM-B).
  */
-export function PartyLine({ doc, api, defaults, title, ourTitle, where, save, edit, setEdit }: Props) {
+export function PartyLine({ doc, api, defaults, title, ourTitle, where, save, edit, setEdit, commit, days, bookings }: Props) {
+  // mounted from the first open on, so the closing slide plays
+  const [used, setUsed] = useState(false);
+  if (edit && !used) setUsed(true);
   const p = api.state.profile;
   const party = doc.travellers ?? { adults: p.adults, children: p.youngest === null ? [] : [p.youngest] };
   const words = partyLine({ adults: party.adults, children: party.children }, p.pace, false);
@@ -57,7 +68,7 @@ export function PartyLine({ doc, api, defaults, title, ourTitle, where, save, ed
           </Button>
         </div>
       </div>
-      <TripSettings open={edit} onClose={() => setEdit(false)} doc={doc} defaults={defaults} title={title} ourTitle={ourTitle} where={where} save={save} />
+      {used ? <TripSettings open={edit} onClose={() => setEdit(false)} doc={doc} defaults={defaults} title={title} ourTitle={ourTitle} where={where} save={save} commit={commit} days={days} timelines={api.timelines} bookings={bookings} /> : null}
     </section>
   );
 }

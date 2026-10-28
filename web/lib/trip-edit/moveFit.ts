@@ -2,7 +2,7 @@
 // read from the scheduler by trying the move on each day. Nothing is ever disabled because of a warning (Q-BE6); a Fix-level reason says
 // why in words and the day stays choosable. Pure over the engine, the model's day inputs and the document.
 import { warnLevel } from '@travel/core/plan/warnings.ts';
-import type { DayTimeline, Profile, ScheduleDayInput, ScheduleItem } from '@travel/core/schedule/types.ts';
+import type { Profile, ScheduleDayInput, ScheduleItem, TemplateDay } from '@travel/core/schedule/types.ts';
 import { fmtHM } from '@travel/core/schedule/rules.ts';
 import type { SourceDelta } from '@/components/trips/timeline/useTimeline';
 import type { TemplateEngine } from '@/components/trips/timeline/useTimeline';
@@ -41,6 +41,7 @@ const short = (s: string): string => {
 
 interface Args {
   engine: TemplateEngine;
+  /** the published days (their inputs); the inserted and dropped days come from `delta.days` */
   days: { n: number; base: string | null; input: ScheduleDayInput }[];
   delta: SourceDelta;
   overrides: Record<string, string>;
@@ -51,8 +52,9 @@ interface Args {
   stop: { id: string; day: number; from: number; added: string | null };
 }
 
-function schedule(a: Args, delta: SourceDelta): Map<number, DayTimeline> {
-  const out = a.engine.scheduleTemplate(
+/** The copy's days as the page shows them (inserted and dropped days applied), scheduled with `delta`. */
+function schedule(a: Args, delta: SourceDelta): TemplateDay[] {
+  return a.engine.scheduleTemplate(
     a.days.map((d) => d.input),
     {
       overrides: a.overrides,
@@ -62,28 +64,29 @@ function schedule(a: Args, delta: SourceDelta): Map<number, DayTimeline> {
       }),
       removed: delta.removed,
       moved: delta.moved,
-      days: [],
+      days: delta.days ?? [],
     },
     a.profile,
-  );
-  return new Map(out.days.map((d) => [d.ref as number, d.timeline]));
+  ).days;
 }
 
 /** The last stop of a day's timeline: an entry with a source id that is not a leg, the sun or a booking. */
-const lastOf = (t: DayTimeline | undefined): string | null => [...(t?.entries ?? [])].reverse().find((e) => !!e.sourceItemId && !e.insideOf && e.kind !== 'leg' && e.kind !== 'sun' && e.kind !== 'booking')?.id ?? null;
+const lastOf = (t: TemplateDay['timeline'] | undefined): string | null => [...(t?.entries ?? [])].reverse().find((e) => !!e.sourceItemId && !e.insideOf && e.kind !== 'leg' && e.kind !== 'sun' && e.kind !== 'booking')?.id ?? null;
 
 export function dayChoices(a: Args): DayChoice[] {
   const base = schedule(a, a.delta);
-  return a.days.map((d) => {
+  return base.map((d) => {
     const date = dayDate(a.start, d.n);
     const label = date ? `Day ${d.n} · ${date}` : `Day ${d.n}`;
-    const was = base.get(d.n);
-    if (d.n === a.stop.from) return { n: d.n, label, base: d.base, current: true, ends: null, driving: null, fit: 'fits' as const, reason: null, last: lastOf(was) };
+    const name = d.input.base?.name ?? null;
+    const was = d.timeline;
+    if (d.n === a.stop.from) return { n: d.n, label, base: name, current: true, ends: null, driving: null, fit: 'fits' as const, reason: null, last: lastOf(was) };
+    // the document names the day by its ref (a published number, or an inserted day's operation id)
     const move = a.stop.added
-      ? { ...a.delta, added: a.delta.added.map((x) => (x.op === a.stop.added ? { ...x, day: d.n, after: undefined } : x)) }
-      : { ...a.delta, moved: [...a.delta.moved.filter((m) => !(m.day === a.stop.day && m.item === a.stop.id)), { op: 'preview', day: a.stop.day, item: a.stop.id, toDay: d.n }] };
-    const now = schedule(a, move).get(d.n);
-    if (!now || !was) return { n: d.n, label, base: d.base, current: false, ends: null, driving: null, fit: 'fits' as const, reason: null, last: lastOf(was) };
+      ? { ...a.delta, added: a.delta.added.map((x) => (x.op === a.stop.added ? { ...x, day: d.ref, after: undefined } : x)) }
+      : { ...a.delta, moved: [...a.delta.moved.filter((m) => !(m.day === a.stop.day && m.item === a.stop.id)), { op: 'preview', day: a.stop.day, item: a.stop.id, toDay: d.ref }] };
+    const now = schedule(a, move).find((x) => x.ref === d.ref)?.timeline;
+    if (!now) return { n: d.n, label, base: name, current: false, ends: null, driving: null, fit: 'fits' as const, reason: null, last: lastOf(was) };
     const before = new Set(was.warnings.map(key));
     const fresh = now.warnings.filter((w) => !before.has(key(w)));
     const fixes = fresh.filter((w) => warnLevel(w.code) === 'fix');
@@ -93,7 +96,7 @@ export function dayChoices(a: Args): DayChoice[] {
     return {
       n: d.n,
       label,
-      base: d.base,
+      base: name,
       current: false,
       ends: now.span.end || null,
       driving: dd === 0 ? null : `${dd > 0 ? '+' : '-'}${fmtHM(Math.abs(dd))} driving`,

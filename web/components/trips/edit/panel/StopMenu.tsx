@@ -115,7 +115,7 @@ export function StopMenu({ entry: e, dayEntries, doc, model, defaults, profile, 
   );
 }
 
-function BackRow({ onBack, title }: { onBack: () => void; title: string }) {
+export function BackRow({ onBack, title }: { onBack: () => void; title: string }) {
   return (
     <div className="edit-back">
       <button type="button" className="edit-back-btn" onClick={onBack} aria-label="Back to actions">
@@ -126,7 +126,7 @@ function BackRow({ onBack, title }: { onBack: () => void; title: string }) {
   );
 }
 
-function NoteField({ initial, back, save }: { initial: string; back: () => void; save: (t: string) => void }) {
+export function NoteField({ initial, back, save }: { initial: string; back: () => void; save: (t: string) => void }) {
   const [t, setT] = useState(initial);
   return (
     <form
