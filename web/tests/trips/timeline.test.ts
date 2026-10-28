@@ -152,7 +152,12 @@ describe('Dolomites: authored times stay, routed legs are not estimates (check 8
     expect(t.entries.find((e) => e.sourceItemId === 'i5')!.time.confidence).toBe('fixed');
   });
   it('legs carry the stored minutes with no estimate mark where the cache has them', () => {
-    const legs = tl.flatMap((t) => t.entries.filter((e) => e.kind === 'leg'));
+    // the walk from a car park to a trailhead is the scheduler's rule (SW-022), not a leg the cache holds: a walk, never a drive estimate
+    const all = tl.flatMap((t) => t.entries.filter((e) => e.kind === 'leg'));
+    const walkIns = all.filter((l) => l.duration.basis.startsWith('rule: park walk in'));
+    expect(walkIns.length).toBeGreaterThan(0);
+    expect(walkIns.every((l) => l.leg!.mode === 'walk' && l.honesty.length === 0)).toBe(true);
+    const legs = all.filter((l) => !walkIns.includes(l));
     expect(legs.filter((l) => l.leg!.basis === 'routed').length).toBeGreaterThan(30);
     expect(legs.filter((l) => l.leg!.basis !== 'routed')).toEqual([]);
     expect(legs.every((l) => !l.honesty.includes('drive_estimated'))).toBe(true);

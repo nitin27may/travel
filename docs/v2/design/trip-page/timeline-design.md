@@ -265,7 +265,7 @@ Entry kinds (spec 1.1; durations come from the spec's rule table 2.3, never from
 | trail (hike, walk, bike, paddle, via-ferrata) | walker | distance · climb · time · character |
 | meal (breakfast, lunch, dinner; sit-down, picnic, on-trail, at-base) | fork | quiet row; a named eatery links to Food; on-trail lunch is drawn inside the trail entry as its last meta item |
 | break (coffee, snack, fuel, leg-stretch, groceries) | cup; fuel pump for fuel | quiet row; a break inside a drive splits the leg |
-| rest (free-time, at-base, downtime) | house | quiet row, shown when over 20 min |
+| rest (free-time, at-base, downtime) | house | quiet row, shown when over 10 min (SW-022) |
 | checkin, checkout | bed | nights · stay status; "Check out, Banff" |
 | booking (slot, timed-entry, day-use-permit, departure, meeting-point) | ticket | fixed node, "Slot" label; "opens 30 days before Day 3 at 08:00 local" |
 | sun (sunrise, golden-am, golden-pm, sunset, civil-dusk, no-sunset) | sun or sunset glyph | a one-line row (4.4) |

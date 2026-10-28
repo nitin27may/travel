@@ -130,6 +130,12 @@ export interface ScheduleItem {
   title: string;
   placeSlug: string | null;
   point: Point | null;
+  /**
+   * The place page's map point (public, licensed: the one the route map draws) of a stop whose plan carries no `point`. The published day
+   * never reads it: its legs are the plan's. A stop moved to another day takes it as its point (template.ts), so the leg ladder estimates
+   * its new legs point to point instead of a 10 minute local move (STEP2-C2 gap).
+   */
+  placePoint?: Point | null;
   /** Rule id to use for the duration when no data duration is given (rules.ts). */
   rule: string | null;
   /** Authored or data duration in minutes. */
@@ -178,7 +184,8 @@ export interface StoredLeg {
   mode: LegMode;
   minutes: number;
   km: number | null;
-  basis: "routed" | "plan" | "matrix";
+  /** `estimate`: made by the template for a stop moved to another day (template.ts `movedLegs`), never read from a file. */
+  basis: "routed" | "plan" | "matrix" | "estimate";
   /** True when the source marked the value an estimate. Routed legs are never estimates. */
   estimate: boolean;
   /** Both directions use the same value unless a reverse row exists. */

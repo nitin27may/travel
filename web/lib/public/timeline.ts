@@ -266,6 +266,21 @@ function rockiesVariant(
   };
 }
 
+/**
+ * Each stop that has a place page carries that page's map point as `placePoint` (a plain copy of lat and lon). The published day does not
+ * read it (its legs are the plan's); a stop moved to another day takes it as its point, so its new legs are estimated point to point.
+ */
+function withPoints(v: DayVariant, pointOf: TimelineArgs['pointOf']): DayVariant {
+  if (!pointOf) return v;
+  return {
+    ...v,
+    items: v.items.map((it) => {
+      const p = !it.point && it.placeSlug ? pointOf(it.placeSlug) : null;
+      return p ? { ...it, placePoint: { lat: p.lat, lon: p.lon } } : it;
+    }),
+  };
+}
+
 // ---- the Dolomites ----
 
 const DOLO_SUB: Record<string, string> = { lake: 'lake', viewpoint: 'viewpoint', lift: 'lift-ride', hut: 'sight', pass: 'viewpoint', sight: 'sight', town: 'town', activity: 'activity' };
@@ -328,6 +343,12 @@ export interface TimelineArgs {
   protoDays?: ProtoDay[];
   /** Summary trips */
   pub?: ProtoPubTrip;
+  /**
+   * A place page's map point by slug: the public point the route map already draws (licensed, scrubbed near home with the trip). The
+   * Rockies records carry none, so without it a stop moved to another base had no position and took a 10 minute local move (C2 gap).
+   * Read into `ScheduleItem.placePoint` only: the published days schedule as before.
+   */
+  pointOf?: (slug: string) => { lat: number; lon: number } | null;
   log: DropLog;
 }
 interface ProtoDay {
@@ -383,7 +404,10 @@ export function attachTimeline(a: TimelineArgs): TripSchedule | null {
       const kind: DayKind = dayFile.kind ?? (idx === 0 ? 'arrival' : idx === itin.length - 1 ? 'departure' : prevId !== rd.base_id ? 'transfer' : 'normal');
       const startBase = kind === 'arrival' ? baseOf(file, rd.base_id) : baseOf(file, prevId);
       const nextBase = kind === 'transfer' ? baseOf(file, rd.base_id) : kind === 'departure' ? baseOf(file, 'calgary-airport') : null;
-      const variants = (['A', 'B', 'C'] as const).map((k) => rockiesVariant(k, rd, file, dayFile, R, `${where} day ${rd.n}`, a.log, names, linkOf)).filter((v): v is DayVariant => v !== null);
+      const variants = (['A', 'B', 'C'] as const)
+        .map((k) => rockiesVariant(k, rd, file, dayFile, R, `${where} day ${rd.n}`, a.log, names, linkOf))
+        .filter((v): v is DayVariant => v !== null)
+        .map((v) => withPoints(v, a.pointOf));
       const sun = sunLine(startBase?.point ?? null, tz, window);
       // the track notes: one lead line and grouped bullets per version
       const prep = (what: string): PrepareOpts => ({ sun: sun.range, scrub: (x) => undatedSentences(x, `${where} day ${rd.n} ${what}`, a.log), names });

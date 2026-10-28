@@ -396,6 +396,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
             kind: full ?? 'summary', slug, src, days, bases, seasonMonths: sunMonths, ageFit: pub?.ageFit ?? null, log,
             ...(full === 'dolomites' ? { protoPlaces: protoPlace, protoDays: snap.trip.days } : {}),
             ...(full === null && pub ? { pub } : {}),
+            pointOf: (s) => pb.bySlug.get(s)?.point ?? null,
           });
 
     // "Drive a day" on the cover: the mean of the drive each day shows (core/src/trips/drive.ts; spec 4.7, finding I14). The days'

@@ -160,7 +160,11 @@ test.describe('trip timeline (L3c)', () => {
     await expect(d3.locator('.tl-entry', { hasText: 'Tre Cime di Lavaredo loop' }).locator('.tl-time').first()).toHaveText('11:30');
     await expect(d3.locator('.tl-entry', { hasText: 'Cadini di Misurina viewpoint' }).locator('.tl-time').first()).toHaveText('16:30');
     await expect(d3.locator('.tl-leg').first()).toBeVisible();
-    await expect(d3.locator('.tl-leg .tl-est')).toHaveCount(0);
+    // the drives are routed; the walk from the car park to the Tre Cime trailhead is the rule's 10 minutes, drawn (SW-022) and marked ≈
+    await expect(d3.locator('.tl-leg[data-mode="drive"] .tl-est')).toHaveCount(0);
+    await expect(d3.locator('.tl-leg[data-mode="walk"]', { hasText: 'to the start of Tre Cime di Lavaredo loop' })).toHaveCount(1);
+    await expect(d3.locator('.tl-entry', { hasText: 'Free time' })).toBeVisible();
+    await expect(d3).toContainText('1 h 40 driving');
     await page.goto(`${site.url}${ROCKIES}#day-5`);
     await expect(page.locator('#day-5 .tl-leg .tl-est').first()).toBeVisible();
   });

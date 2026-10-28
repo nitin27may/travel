@@ -125,7 +125,9 @@ describe("Dolomites Day 3: authored times stay, ORS legs are not estimates", () 
     expect(legs[0]).toMatchObject({ durationMin: 55 });
     expect(legs[0]!.leg).toMatchObject({ basis: "routed" });
     expect(legs[0]!.honesty).not.toContain("drive_estimated");
-    expect(legs[1]).toMatchObject({ durationMin: 18 });
+    // the walk from the car park to the trailhead is drawn (SW-022), then the routed drive on to Cadini
+    expect(legs[1]).toMatchObject({ sub: "walk", durationMin: 10, title: "Walk to the start of Tre Cime di Lavaredo loop" });
+    expect(legs.filter((e) => e.leg?.mode === "drive")[1]).toMatchObject({ durationMin: 18 });
   });
   it("puts lunch on the trail (the walk spans the window) and dinner at the base", () => {
     expect(t.entries.find((e) => e.style === "on-trail")).toMatchObject({ insideOf: "tre-cime" });

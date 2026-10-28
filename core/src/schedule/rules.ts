@@ -2,6 +2,7 @@
 // entry can say "Our rule for a lake viewpoint: 45 min". These are rules of thumb, not research: they live in this one
 // file so the owner can tune them (spec open question 5).
 import { toMin } from "../checks/time.ts";
+import { FREE_ROW_MIN } from "../config/schedule.ts";
 import type { Pace, Profile, ScheduleItem } from "./types.ts";
 
 export interface DurationRule {
@@ -113,8 +114,8 @@ export function mealWindows(p: Profile): MealWindows {
 
 /** Dinner starts this long after the window opens: settle in first. */
 export const DINNER_SETTLE_MIN = 15;
-/** A wait before a pinned entry becomes a `rest` only when longer than this. */
-export const REST_THRESHOLD_MIN = 20;
+/** A wait before a pinned entry, a meal or a check-in becomes a `rest` row only when longer than this (SW-022: the rail's times add up). */
+export const REST_THRESHOLD_MIN = FREE_ROW_MIN;
 /** A gap this long before a pinned entry earns a coffee before the rest. */
 export const COFFEE_GAP_MIN = 40;
 /** Round suggested starts to this many minutes. */
@@ -135,9 +136,12 @@ export interface ResolvedDuration {
 /** Generated durations are shown to the nearest 5 minutes: a rule of thumb does not know the minute. */
 export const round5 = (min: number): number => Math.max(5, Math.round(min / 5) * 5);
 
+/** The minutes a duration is shown as: the nearest 5, and a zero stays zero. A day's drive total is the sum of these (SW-022). */
+export const shownMin = (exact: number): number => (exact > 0 ? round5(exact) : 0);
+
 /** Every duration and total is shown to the nearest 5 minutes; stored minutes (a routed leg's) stay exact in the data. */
 const fmt = (exact: number): string => {
-  const min = exact > 0 ? round5(exact) : 0;
+  const min = shownMin(exact);
   const h = Math.floor(min / 60);
   const m = Math.round(min % 60);
   return h > 0 ? (m > 0 ? `${h} h ${String(m).padStart(2, "0")}` : `${h} h`) : `${m} min`;
