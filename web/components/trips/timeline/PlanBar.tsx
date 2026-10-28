@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { ExportFormat } from '@/components/actions/ExportMenu';
-import { PACE_WORD, partyShortText } from '@travel/core/trips/partyWords.ts';
+import { PACE_WORD, partyText } from '@travel/core/trips/partyWords.ts';
 import { Icon } from '@/components/ui/Icon';
 import type { TimelineModel } from './model';
 import { railOpen, useRailParty } from './railWords';
@@ -70,7 +70,7 @@ export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, map
         <span className="tl-planbar-who">
           {kept ? (
             <>
-              <span className="tl-planbar-party">{kept.shared ? (kept.own ? 'Your copy' : 'Shared plan') : partyShortText(kept)}</span> · <span className="tl-planbar-pace">{PACE_WORD[kept.pace]}</span>
+              <span className="tl-planbar-party">{kept.shared ? (kept.own ? 'Your copy' : 'Shared plan') : partyText(kept)}</span> · <span className="tl-planbar-pace">{PACE_WORD[kept.pace]}</span>
             </>
           ) : (
             label
