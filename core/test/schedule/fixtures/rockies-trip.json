@@ -80,7 +80,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.18421,
+       "lon": -115.58261
+      }
      },
      {
       "id": "vermilion-lakes",
@@ -106,7 +110,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.17806,
+       "lon": -115.59889
+      }
      },
      {
       "id": "elk-rut",
@@ -129,7 +137,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.17508,
+       "lon": -115.57208
+      }
      }
     ],
     "rank": 2
@@ -263,7 +275,11 @@
       "minAge": 13,
       "minAgeRule": "plan",
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.11493,
+       "lon": -115.76374
+      }
      }
     ],
     "rank": 3,
@@ -370,7 +386,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.15086,
+       "lon": -115.56062
+      }
      }
     ],
     "rank": 2,
@@ -431,7 +451,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.16944,
+       "lon": -115.59111
+      }
      },
      {
       "id": "banff-upper-hot-springs",
@@ -454,7 +478,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.15086,
+       "lon": -115.56062
+      }
      }
     ],
     "rank": 1
@@ -580,7 +608,11 @@
       "minAge": 13,
       "minAgeRule": "plan",
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.1356,
+       "lon": -115.79
+      }
      }
     ],
     "rank": 3,
@@ -626,7 +658,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.25001,
+       "lon": -115.83543
+      }
      },
      {
       "id": "marble-canyon-walk",
@@ -652,7 +688,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.18667,
+       "lon": -116.12528
+      }
      },
      {
       "id": "paint-pots-walk",
@@ -678,7 +718,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.16992,
+       "lon": -116.14761
+      }
      }
     ],
     "rank": 2,
@@ -716,7 +760,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.18667,
+       "lon": -116.12528
+      }
      }
     ],
     "rank": 1
@@ -872,7 +920,11 @@
       "minAge": 13,
       "minAgeRule": "plan",
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.25002,
+       "lon": -117.23558
+      }
      }
     ],
     "rank": 3,
@@ -915,7 +967,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.66444,
+       "lon": -116.44861
+      }
      },
      {
       "id": "peyto-lake-lookout",
@@ -946,7 +1002,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.725,
+       "lon": -116.52222
+      }
      },
      {
       "id": "saskatchewan-crossing",
@@ -1025,7 +1085,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.25917,
+       "lon": -117.27806
+      }
      }
     ],
     "rank": 2,
@@ -1063,7 +1127,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.66444,
+       "lon": -116.44861
+      }
      },
      {
       "id": "peyto-lake",
@@ -1086,7 +1154,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.725,
+       "lon": -116.52222
+      }
      },
      {
       "id": "glacier-skywalk",
@@ -1109,7 +1181,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.25917,
+       "lon": -117.27806
+      }
      }
     ],
     "rank": 1
@@ -1287,7 +1363,11 @@
       "minAge": 13,
       "minAgeRule": "plan",
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.72667,
+       "lon": -117.64458
+      }
      }
     ],
     "rank": 3,
@@ -1356,7 +1436,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.72667,
+       "lon": -117.64458
+      }
      },
      {
       "id": "moose-lake-loop",
@@ -1382,7 +1466,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.72131,
+       "lon": -117.64221
+      }
      },
      {
       "id": "pyramid-lake",
@@ -1408,7 +1496,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.9225,
+       "lon": -118.096
+      }
      }
     ],
     "rank": 2,
@@ -1589,7 +1681,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 53.0825,
+       "lon": -119.19278
+      }
      }
     ],
     "rank": 3,
@@ -1627,7 +1723,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 53.11056,
+       "lon": -119.15667
+      }
      },
      {
       "id": "overlander-falls-trail",
@@ -1653,7 +1753,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 53.0333,
+       "lon": -119.2
+      }
      },
      {
       "id": "jasper-skytram",
@@ -1687,7 +1791,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.85134,
+       "lon": -118.12371
+      }
      }
     ],
     "rank": 2,
@@ -1725,7 +1833,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 53.11056,
+       "lon": -119.15667
+      }
      },
      {
       "id": "jasper-skytram",
@@ -1748,7 +1860,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.85134,
+       "lon": -118.12371
+      }
      }
     ],
     "rank": 1
@@ -1984,7 +2100,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 53.13035,
+       "lon": -117.76979
+      }
      },
      {
       "id": "lake-annette-loop",
@@ -2010,7 +2130,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.9016,
+       "lon": -118.04827
+      }
      },
      {
       "id": "jasper-dark-sky",
@@ -2036,7 +2160,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.86934,
+       "lon": -118.05812
+      }
      }
     ],
     "rank": 2,
@@ -2074,7 +2202,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 53.13035,
+       "lon": -117.76979
+      }
      }
     ],
     "rank": 1
@@ -2235,7 +2367,11 @@
       "minAge": 13,
       "minAgeRule": "plan",
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.18083,
+       "lon": -117.09222
+      }
      }
     ],
     "rank": 3,
@@ -2278,7 +2414,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.66444,
+       "lon": -117.88377
+      }
      },
      {
       "id": "sunwapta-falls",
@@ -2301,7 +2441,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.53233,
+       "lon": -117.64463
+      }
      },
      {
       "id": "toe-glacier-walk",
@@ -2416,7 +2560,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.66444,
+       "lon": -117.88377
+      }
      },
      {
       "id": "sunwapta-falls",
@@ -2439,7 +2587,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.53233,
+       "lon": -117.64463
+      }
      },
      {
       "id": "columbia-icefield-athabasca-glacier",
@@ -2462,7 +2614,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 52.19083,
+       "lon": -117.25528
+      }
      }
     ],
     "rank": 1
@@ -2691,7 +2847,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.49972,
+       "lon": -116.47278
+      }
      },
      {
       "id": "emerald-lake-canoe",
@@ -2774,7 +2934,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.38181,
+       "lon": -116.53024
+      }
      }
     ],
     "rank": 2,
@@ -2812,7 +2976,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.49972,
+       "lon": -116.47278
+      }
      },
      {
       "id": "natural-bridge",
@@ -2835,7 +3003,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.38181,
+       "lon": -116.53024
+      }
      },
      {
       "id": "emerald-lake-canoe",
@@ -3028,7 +3200,11 @@
       "minAge": 13,
       "minAgeRule": "plan",
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.3936,
+       "lon": -116.2726
+      }
      }
     ],
     "rank": 3,
@@ -3121,7 +3297,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.44214,
+       "lon": -116.16119
+      }
      }
     ],
     "rank": 2,
@@ -3159,7 +3339,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.41167,
+       "lon": -116.22806
+      }
      },
      {
       "id": "lake-louise-gondola",
@@ -3182,7 +3366,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.44214,
+       "lon": -116.16119
+      }
      }
     ],
     "rank": 1
@@ -3369,7 +3557,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.3225,
+       "lon": -116.18556
+      }
      },
      {
       "id": "moraine-lakeshore",
@@ -3456,7 +3648,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.3225,
+       "lon": -116.18556
+      }
      }
     ],
     "rank": 1
@@ -3591,7 +3787,11 @@
       "minAge": 13,
       "minAgeRule": "plan",
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.06417,
+       "lon": -115.39972
+      }
      }
     ],
     "rank": 3,
@@ -3658,7 +3858,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.07222,
+       "lon": -115.40694
+      }
      },
      {
       "id": "canmore-nordic-centre",
@@ -3681,7 +3885,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.0925,
+       "lon": -115.39
+      }
      }
     ],
     "rank": 2,
@@ -3719,7 +3927,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 50.96944,
+       "lon": -115.10778
+      }
      },
      {
       "id": "canmore-nordic-centre",
@@ -3742,7 +3954,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.0925,
+       "lon": -115.39
+      }
      }
     ],
     "rank": 1
@@ -3937,7 +4153,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 50.63157,
+       "lon": -115.13998
+      }
      },
      {
       "id": "rockwall-lookout",
@@ -3963,7 +4183,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 50.68633,
+       "lon": -115.11493
+      }
      },
      {
       "id": "kananaskis-lakes-day-use",
@@ -3986,7 +4210,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 50.6181,
+       "lon": -115.154
+      }
      },
      {
       "id": "rawson-lake",
@@ -4053,7 +4281,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 50.6181,
+       "lon": -115.154
+      }
      }
     ],
     "rank": 1
@@ -4212,7 +4444,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 50.60291,
+       "lon": -114.98171
+      }
      },
      {
       "id": "wedge-pond-loop",
@@ -4241,7 +4477,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 50.87278,
+       "lon": -115.14917
+      }
      }
     ],
     "rank": 2
@@ -4273,7 +4513,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 50.5994,
+       "lon": -114.988
+      }
      },
      {
       "id": "wedge-pond",
@@ -4296,7 +4540,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 50.87278,
+       "lon": -115.14917
+      }
      }
     ],
     "rank": 1
@@ -4437,7 +4685,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 50.94806,
+       "lon": -115.14444
+      }
      }
     ],
     "rank": 2
@@ -4469,7 +4721,11 @@
       "minAge": null,
       "minAgeRule": null,
       "needsDaylight": false,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 50.87278,
+       "lon": -115.14917
+      }
      }
     ],
     "rank": 1

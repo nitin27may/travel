@@ -61,7 +61,7 @@ There is no A/B/C choice on each day.
 | `trail` | `hike`, `walk`, `bike`, `paddle`, `via-ferrata` | a walk or ride with distance and climb | data hours, Naismith rule, × pace (2.4) | `trail` |
 | `meal` | `breakfast`, `lunch`, `dinner`; `style`: `sit-down`, `picnic`, `on-trail`, `at-base` | eating, inside a meal window | rule, or the eatery's data | `meal` |
 | `break` | `coffee`, `snack`, `fuel`, `leg-stretch`, `groceries` | short stops on a day or a drive | rule | `break` |
-| `rest` | `free-time`, `at-base`, `downtime` | time with nothing planned. It is shown, not hidden, when over 20 min | the gap between entries | `rest` |
+| `rest` | `free-time`, `at-base`, `downtime` | time with nothing planned. It is shown, not hidden, when over 10 min (`FREE_ROW_MIN`, core/src/config/schedule.ts; SW-022) | the gap between entries | `rest` |
 | `checkin` | `stay`, `hut`, `campsite` | arriving at the night's base | rule (30 min) or the stay's check-in window | `checkin` |
 | `checkout` | `stay` | leaving a base for good | rule (20 min) | `checkout` |
 | `booking` | `slot`, `timed-entry`, `day-use-permit`, `departure`, `meeting-point` | a fixed operator time: a boat, a timed ticket, a shuttle, a guided tour | operator | an `activity` row with `booking_id` and `start` |
@@ -301,15 +301,15 @@ Breaks on long drives:
 | lunch | 12:00 to 13:30 | 11:30 to 13:00 | at the first boundary between entries inside the window. When a trail covers the whole window, a `meal` with `style: 'on-trail'` and `insideOf` the trail (no extra time). When a town or eatery is on the day near the window, sit-down; else picnic |
 | dinner | 18:30 to 20:30 | 17:30 to 19:00 | at the base, unless the plan names a restaurant. An evening outing after dinner is kept in the authored order |
 
-- **Buffers** (2.4) go between consecutive non-leg entries, and after a car park walk-in.
-- A **gap** of more than 20 min before a pinned entry becomes a `rest` entry ("Free time by the lake").
-- A gap of 20 min or less widens the buffer instead.
+- **Buffers** (2.4) go between consecutive non-leg entries. The car park walk-in after a drive out to a trailhead is drawn as a `leg` (mode `walk`, "Walk to the start of ...", rule `park.walk-in`), not hidden in the trail's start (SW-022).
+- A **gap** of more than 10 min (`FREE_ROW_MIN`) before a pinned entry becomes a `rest` entry ("Free time by the lake"); the walk-in follows the rest and ends at the pin.
+- A gap of 10 min or less widens the buffer instead: the times on the rail add up to within 10 minutes.
 
 ### 2.7 Opening hours, last rides and slots
 
 - Windows come from our data: `open_from` and `open_to`, closed weekdays, `last_up` and `last_down` for lifts, booking slot times.
 - They are read for the season window. 2026 hours carry the `pattern_2026` chip.
-- A visit before opening waits; the wait becomes `rest` when over 20 min.
+- A visit before opening waits; the wait becomes `rest` when over 10 min.
 - A visit that would end after closing, or a lift ride after the last ride up, raises a warning (2.11). The scheduler never moves an authored item to another day to fix it.
 - Weekday closures cannot be checked on a dateless page. They show as a rule chip ("Closed Tuesdays") and turn into a warning once dates attach (dateless page, weekday rules).
 
@@ -329,14 +329,14 @@ Breaks on long drives:
 4. **Set the day start**: the authored start; else back-solve from the first pinned entry (its time minus the legs and buffers before it); else the profile default. An early start before 06:00 is allowed only when it is pinned or anchored by the plan; otherwise `W_EARLY`.
 5. **Forward pass** over the authored order:
    - the leg (2.5), with drive breaks;
-   - the park walk-in;
-   - a wait until the next pin or the opening time (a wait over 20 min becomes `rest`);
+   - a wait until the next pin or the opening time (a wait over 10 min becomes `rest`);
+   - the park walk-in, drawn as a walking leg;
    - the entry;
    - the buffer.
 6. **Insert meals and snacks** (2.6) at boundaries. If a meal would push a pinned entry late, it is shortened to its minimum (lunch 30) or becomes a picnic, before anything else moves.
 7. **Back-pressure**: when an unpinned entry would end after a pinned one starts, reduce buffers to 5 min, then drop generated coffee and snacks, then raise `S_FIXED_MISSED`. Pinned entries never move.
 8. **Close the day**: the leg back to the base (or on to the next base on a transfer day), `checkin`, a `rest` until dinner, dinner, any authored evening item, `end`.
-9. **Round** suggested starts to 5 min (pinned and operator times stay exact). Compute `span` and `totals`.
+9. **Round** suggested starts to 5 min (pinned and operator times stay exact). Compute `span` and `totals`. `totals.driveMin` is the sum of the drive legs as each is drawn (to 5 min), so the day header and the legs under it agree (SW-022).
 10. **Validate** (2.11) and return.
 
 The function is deterministic. There is no randomness, no clock and no locale. Entries tie-break by `(start, lane order, kind order, id)`.
@@ -791,3 +791,4 @@ Sources checked on 18 Oct 2026:
 | Date | Change |
 |---|---|
 | 2026-10-18 | First version. Supersedes the per-day Track A · B · C segment (L3 step 9, patterns 3.4). |
+| 2026-10-28 | SW-022 (S2-LEG): a wait over 10 min is a row (was 20); the car park walk-in is a walking leg; the day's drive total is the sum of the drawn legs. A stop moved to another day gets real legs (template.ts: point to point from `placePoint`, else the stored way from its own base plus the drive between the bases, else `MOVED_STOP_LEGS`), always ≈ |

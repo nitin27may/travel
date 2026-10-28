@@ -11,11 +11,15 @@
 // Only the touched days change: an untouched day is scheduled from the same input and options as the public page, and its
 // generated ids keep the PUBLISHED day number, so the ids a delta names survive inserted and dropped days (`TemplateDay.n` is the
 // number to show). This file is outside the page entry (browser.ts): it loads with edit mode, not with /trips/<slug>/.
+import { MOVED_STOP_LEGS } from "../config/schedule.ts";
+import { haversineM } from "../geo/distance.ts";
+import { estimateLeg } from "./legs.ts";
+import { LOCAL_MOVE_MIN, ROUND_MIN } from "./rules.ts";
 import { isRuleItem, RULE_PREFIX, ruleKeyOf, rowsOfKeys } from "./ruleRows.ts";
 import { scheduleDay } from "./schedule.ts";
 import { selectVariant, variantFits } from "./select.ts";
 import type {
-  DayEdit, DayTimeline, DayVariant, PlacedStop, Profile, ScheduleDayInput, ScheduleItem, ScheduleOptions, StoredLeg, TemplateDay, TemplateDayRef,
+  DayEdit, DayTimeline, DayVariant, PlacedStop, Point, Profile, ScheduleDayInput, ScheduleItem, ScheduleOptions, StoredLeg, TemplateDay, TemplateDayRef,
   TemplateDelta, TemplateSchedule, TemplateSkip,
 } from "./types.ts";
 
@@ -144,14 +148,124 @@ export function removeItem(d: EditedDay, profile: Profile, id: string): EditedRe
 const sameBase = (a: ScheduleDayInput, b: ScheduleDayInput): boolean => !!a.base && !!b.base && a.base.name === b.base.name;
 const endsOf = (it: ScheduleItem): string[] => [it.id, ...(it.placeSlug ? [it.placeSlug] : [])];
 
-/** The source day's base legs of a stop, when it moves to a day at the same base: its road time from the base stays the plan's. */
-function carryLegs(to: ScheduleDayInput, from: ScheduleDayInput, it: ScheduleItem): ScheduleDayInput {
-  if (to === from || !sameBase(to, from)) return to;
-  const ends = endsOf(it);
-  const has = (l: StoredLeg): boolean => to.legs.some((x) => x.from === l.from && x.to === l.to && x.mode === l.mode);
-  const add = from.legs.filter((l) => ((ends.includes(l.from) && l.to === "base") || (l.from === "base" && ends.includes(l.to))) && !has(l));
-  return add.length ? { ...to, legs: [...to.legs, ...add] } : to;
+/** The day's own published stop of this id, or null: a stop that comes back to its day comes back exactly as published. */
+const ownStop = (d: ScheduleDayInput, id: string): ScheduleItem | null => {
+  for (const v of d.variants) for (const i of v.items) if (i.id === id) return i;
+  return null;
+};
+
+/**
+ * A stop as it lands on another day (edit-mode-spec 5 Move to day, 6 Drop): its own day's stop as published when it goes home, else the
+ * stop with its place page's map point as its point, so the leg ladder reaches it point to point (the published day never reads it).
+ */
+function arriving(it: ScheduleItem, to: ScheduleDayInput): ScheduleItem {
+  const own = ownStop(to, it.id);
+  if (own) return own;
+  return it.point || !it.placePoint ? it : { ...it, point: { lat: it.placePoint.lat, lon: it.placePoint.lon } };
 }
+
+/**
+ * The shortest way over a day's stored legs from each of its bases ("base", "next-base"; never "origin", the start of an arrival day) to
+ * a stop: [which base, its point, minutes, km or null]. Legs are symmetric unless marked otherwise; a stop is known by its id and slug.
+ */
+function waysFromBases(d: ScheduleDayInput, ends: string[]): ["base" | "next-base", Point | null, number, number | null][] {
+  const name = (x: string): string => (ends.includes(x) ? "@stop" : x);
+  const out: ["base" | "next-base", Point | null, number, number | null][] = [];
+  for (const [start, at] of [["base", d.base], ["next-base", d.nextBase]] as const) {
+    if (!at) continue;
+    const best = new Map<string, [number, number | null]>([[start, [0, 0]]]);
+    const queue: string[] = [start];
+    // Bellman-Ford style relaxation: a day holds a handful of legs, so the plain loop is enough
+    while (queue.length) {
+      const x = queue.shift()!;
+      const [min, km] = best.get(x)!;
+      for (const l of d.legs) {
+        const a = name(l.from);
+        const b = name(l.to);
+        const next = a === x ? b : l.symmetric !== false && b === x ? a : null;
+        if (!next || next === "origin") continue;
+        const was = best.get(next);
+        if (was && was[0] <= min + l.minutes) continue;
+        best.set(next, [min + l.minutes, km === null || l.km === null ? null : km + l.km]);
+        if (next !== "@stop") queue.push(next);
+      }
+    }
+    const hit = best.get("@stop");
+    if (hit) out.push([start, at.point, hit[0], hit[1]]);
+  }
+  return out;
+}
+
+const round5 = (min: number): number => Math.max(ROUND_MIN, Math.round(min / ROUND_MIN) * ROUND_MIN);
+const estimated = (from: string, to: string, minutes: number, km: number | null): StoredLeg => ({ from, to, mode: "drive", minutes: round5(minutes), km, basis: "estimate", estimate: true, symmetric: true });
+
+/** The drive between two points as the ladder estimates it; nothing for the same spot (under the ladder's walking distance). */
+const between = (a: Point, b: Point): { minutes: number; km: number | null } => (haversineM(a, b) < 1200 ? { minutes: 0, km: 0 } : estimateLeg(a, b));
+
+/**
+ * The legs a day needs for a stop with no map point moved in from another day (STEP2-C2 gap). From the base: at another base, the drive
+ * between the two bases plus the stored way from the stop's own base (or `MOVED_STOP_LEGS.nearOwnBaseMin` when the plan stores none, or
+ * `unknownMin` when a base has no point); at the same base, the stored way (none: the ladder's local move, as before). To each of the
+ * day's stops that has no point either, the way through the base. All `estimate` (≈). A stop with a point needs none: the ladder
+ * estimates from the point. The home point is never read: only the two days' bases and stored legs.
+ */
+function movedLegs(to: ScheduleDayInput, from: ScheduleDayInput, it: ScheduleItem, others: ScheduleItem[]): StoredLeg[] {
+  if (it.point) return [];
+  const ends = endsOf(it);
+  const here = to.base?.point ?? null;
+  const same = sameBase(to, from);
+  const out: StoredLeg[] = [];
+  const atBase = (ids: string[], legs: StoredLeg[]): boolean => legs.some((l) => (ids.includes(l.from) && (l.to === "base" || l.to === "next-base")) || (ids.includes(l.to) && (l.from === "base" || l.from === "next-base")));
+  // the stop's way from the base: what the day already holds (the same base's legs carried), else estimated here
+  const fromBase = (ids: string[]): number | null => waysFromBases(to, ids).find(([w]) => w === "base")?.[2] ?? null;
+  let base = fromBase(ends);
+  if (base === null && !same && !atBase(ends, to.legs)) {
+    let est: { minutes: number; km: number | null };
+    if (!here || !from.base?.point) est = { minutes: MOVED_STOP_LEGS.unknownMin, km: null };
+    else {
+      const ways = waysFromBases(from, ends).flatMap(([, p, min, km]) => {
+        if (!p) return [];
+        const b = between(here, p);
+        return [{ minutes: b.minutes + min, km: b.km === null || km === null ? null : b.km + km }];
+      });
+      const b = between(here, from.base.point);
+      est = ways.sort((x, y) => x.minutes - y.minutes)[0] ?? { minutes: b.minutes + MOVED_STOP_LEGS.nearOwnBaseMin, km: null };
+    }
+    out.push(estimated("base", it.id, est.minutes, est.km === null ? null : Math.round(est.km)));
+    base = round5(est.minutes);
+  }
+  if (base === null) return out;
+  const legs = [...to.legs, ...out];
+  for (const o of others) {
+    if (o.id === it.id || o.point) continue;
+    const oe = endsOf(o);
+    if (legs.some((l) => (ends.includes(l.from) && oe.includes(l.to)) || (oe.includes(l.from) && ends.includes(l.to)))) continue;
+    out.push(estimated(it.id, o.id, base + (fromBase(oe) ?? LOCAL_MOVE_MIN), null));
+  }
+  return out;
+}
+
+/**
+ * The legs a stop brings to another day: the plan's legs between it and another stop (true on any day); at the same base, its own day's
+ * base legs (its road time from the base stays the plan's); then the estimates of `movedLegs`. A stop going back to its own published day
+ * brings nothing: that day already has its legs.
+ */
+function carryLegs(to: ScheduleDayInput, from: ScheduleDayInput, it: ScheduleItem, others: ScheduleItem[] = []): ScheduleDayInput {
+  if (to === from || ownStop(to, it.id)) return to;
+  const ends = endsOf(it);
+  const isBase = (x: string): boolean => x === "base" || x === "next-base" || x === "origin";
+  const has = (l: StoredLeg): boolean => to.legs.some((x) => x.from === l.from && x.to === l.to && x.mode === l.mode);
+  const mine = (l: StoredLeg): boolean => ends.includes(l.from) || ends.includes(l.to);
+  const stopLegs = from.legs.filter((l) => mine(l) && !isBase(l.from) && !isBase(l.to) && !has(l));
+  const baseLegs = sameBase(to, from) ? from.legs.filter((l) => mine(l) && (l.to === "base" || l.from === "base") && !has(l)) : [];
+  const step = [...stopLegs, ...baseLegs];
+  const mid: ScheduleDayInput = step.length ? { ...to, legs: [...to.legs, ...step] } : to;
+  const add = movedLegs(mid, from, it, others);
+  return add.length ? { ...mid, legs: [...mid.legs, ...add] } : mid;
+}
+
+/** Every stop a day holds or may hold (all its versions, the stops placed there, the visitor's additions): the ends a moved stop may meet. */
+const allStops = (d: EditedDay): ScheduleItem[] => [...d.input.variants.flatMap((v) => v.items), ...d.edit.placed.map((p) => p.item), ...(d.base.added ?? [])];
 
 /**
  * Moves a stop to another day, or within its day when `from` and `to` are the same day (edit-mode-spec 5 Move to day, Move up and
@@ -163,8 +277,9 @@ export function moveItem(from: EditedDay, to: EditedDay, profile: Profile, id: s
   const off = takeOff(from, id);
   const same = from.input.day === to.input.day;
   const target = same ? off.day : to;
-  const placed: PlacedStop = { item: stop.item, addedBy: stop.addedBy, at };
-  const next: EditedDay = { ...target, input: carryLegs(target.input, from.input, stop.item), edit: { ...target.edit, placed: [...target.edit.placed, placed] } };
+  const item = arriving(stop.item, target.input);
+  const placed: PlacedStop = { item, addedBy: stop.addedBy, at };
+  const next: EditedDay = { ...target, input: carryLegs(target.input, from.input, item, allStops(target)), edit: { ...target.edit, placed: [...target.edit.placed, placed] } };
   const toR = result(next, profile);
   return { from: same ? toR : result(off.day, profile), to: toR };
 }
@@ -199,9 +314,10 @@ export function dropDay(dropped: EditedDay, to: EditedDay | null, profile: Profi
   if (!to) return { to: null, carried: [] };
   const added = new Set(dropped.base.added ?? []);
   const stops = stopsOf(dropped, profile).filter((s) => s.lane === "main");
-  const carried = stops.filter((s) => !added.has(s.item)).map((s): PlacedStop => ({ item: s.item, addedBy: s.addedBy, at: "end" }));
+  const carried = stops.filter((s) => !added.has(s.item)).map((s): PlacedStop => ({ item: arriving(s.item, to.input), addedBy: s.addedBy, at: "end" }));
   let input = to.input;
-  for (const s of stops) input = carryLegs(input, dropped.input, s.item);
+  const others = allStops(to);
+  for (const s of stops) input = carryLegs(input, dropped.input, arriving(s.item, to.input), [...others, ...carried.map((c) => c.item)]);
   const next: EditedDay = {
     input,
     base: { ...to.base, added: [...(to.base.added ?? []), ...(dropped.base.added ?? [])] },

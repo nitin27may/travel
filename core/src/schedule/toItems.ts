@@ -35,7 +35,11 @@ export function toItems(t: DayTimeline, opts: ItemRowOptions = {}): Row[] {
     if (e.kind === "sun" || e.kind === "start" || e.kind === "end") continue;
     if (e.kind === "leg") {
       const prev = pending[e.lane];
-      pending[e.lane] = { mode: e.leg?.mode ?? "drive", minutes: (prev?.minutes ?? 0) + e.durationMin, basis: e.leg?.basis ?? "estimate", km: e.leg?.km ?? null };
+      // a drive then the walk in to a trailhead (SW-022) is one way to the stop, by car: the drive's mode, basis and km, the walk's minutes added
+      const keep = prev?.mode === "drive" && e.leg?.mode === "walk";
+      pending[e.lane] = keep
+        ? { ...prev!, minutes: prev!.minutes + e.durationMin }
+        : { mode: e.leg?.mode ?? "drive", minutes: (prev?.minutes ?? 0) + e.durationMin, basis: e.leg?.basis ?? "estimate", km: e.leg?.km ?? null };
       continue;
     }
     if (opts.generated === false && e.addedBy === "scheduler" && (e.kind === "meal" || e.kind === "break" || e.kind === "rest")) continue;

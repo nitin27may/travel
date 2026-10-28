@@ -3,7 +3,7 @@
 import { fmtMin, toMin } from "../checks/time.ts";
 import { resolveLeg, samePlace, type LegEnd } from "./legs.ts";
 import {
-  breakEveryMin, COFFEE_GAP_MIN, DINNER_SETTLE_MIN, fmtHM, mealWindows, PACE_RULES, REST_THRESHOLD_MIN, resolveDuration, ROUND_MIN, rule,
+  breakEveryMin, COFFEE_GAP_MIN, DINNER_SETTLE_MIN, fmtHM, mealWindows, PACE_RULES, REST_THRESHOLD_MIN, resolveDuration, ROUND_MIN, rule, shownMin,
 } from "./rules.ts";
 import { selectVariant } from "./select.ts";
 import { anchorTime, sunReference, type SunRange, type SunRef } from "./sun.ts";
@@ -151,17 +151,16 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     lastKind = "rest";
   };
 
-  /** A generated break the next squeeze level drops. Returns false when it was not placed. */
-  const addBreak = (sub: string, minutes: number, title: string, at: PlaceRef | null, deadline: number | null): boolean => {
-    if (o.squeeze >= 2) return false;
+  /** A coffee before a long wait: a generated break the next squeeze level drops, placed only when it ends by `deadline`. */
+  const addCoffee = (at: PlaceRef | null, deadline: number): void => {
+    if (o.squeeze >= 2) return;
     align();
-    if (deadline !== null && t + minutes > deadline) return false;
-    t += push({ kind: "break", sub, title, start: clock(t), durationMin: minutes, at, time: ruleTime(), duration: ruleDur(`break.${sub}`, minutes) }).durationMin;
+    if (t + 20 > deadline) return;
+    t += push({ kind: "break", sub: "coffee", title: "Coffee and a snack", start: clock(t), durationMin: 20, at, time: ruleTime(), duration: ruleDur("break.coffee", 20) }).durationMin;
     lastKind = "break";
-    return true;
   };
 
-  const addLeg = (toRef: PlaceRef | null, r: ResolvedLeg, title: string): void => {
+  const addLeg = (toRef: PlaceRef | null, r: ResolvedLeg, title: string, dur?: TimelineEntry["duration"]): void => {
     const from = lastPlace();
     // a way through the base reads as one leg "via Jasper"; the second half of a split drive carries on, it does not start again
     if (r.via && input.base) title += ` via ${input.base.name}`;
@@ -171,7 +170,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     const part = (minutes: number, breaks: number, name = title): void => {
       t += push({
         kind: "leg", sub: r.mode, title: name, start: clock(t), durationMin: minutes, at: null, from, to: toRef,
-        time: { confidence: "suggested", source: src, pinned: false, note: null }, duration: { source: src, basis: legText(r) },
+        time: { confidence: "suggested", source: src, pinned: false, note: null }, duration: dur ?? { source: src, basis: legText(r) },
         leg: { mode: r.mode, km: r.km, basis: r.basis, breaks }, honesty: [...honesty],
       }).durationMin;
     };
@@ -185,12 +184,17 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     lastKind = "leg";
   };
 
-  const addMeal = (which: "lunch" | "dinner", style: "sit-down" | "picnic" | "at-base", at: PlaceRef | null, deadline: number | null, maxMin: number | null = null): void => {
+  /** The walk from the car park to a trailhead after a drive out (rule park.walk-in): drawn, so the rail's times add up (SW-022). */
+  const addWalkIn = (it: ScheduleItem, minutes: number): void =>
+    addLeg(placeOf(it), { mode: "walk", minutes, km: null, basis: "estimate", estimate: true }, `Walk to the start of ${it.title}`, ruleDur("park.walk-in", minutes));
+
+  const addMeal = (which: "lunch" | "dinner", style: "sit-down" | "picnic" | "at-base", at: PlaceRef | null, maxMin: number | null = null): void => {
     align();
     let st = style;
     const id = which === "dinner" ? "meal.dinner" : st === "sit-down" ? "meal.lunch.sit-down" : "meal.lunch.picnic";
     let minutes = rule(id).minutes;
-    if (which === "lunch" && (o.squeeze >= 1 || (deadline !== null && t + minutes + 5 > deadline && o.squeeze >= 1))) {
+    // the first squeeze level shortens lunch to a picnic
+    if (which === "lunch" && o.squeeze >= 1) {
       st = "picnic";
       minutes = Math.min(minutes, 30);
     }
@@ -247,7 +251,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       else t = dinnerStart;
     }
     dinnerDone = true;
-    if (t <= wins.dinner.to + 120) addMeal("dinner", "at-base", ref, deadline, maxMin);
+    if (t <= wins.dinner.to + 120) addMeal("dinner", "at-base", ref, maxMin);
     before = was;
     // what the visitor added or an optional stop moved after dinner, or a dinner that cannot hold, is said so, naming the cause
     const named = stops.filter((x) => x.addedBy === "visitor").map((x) => x.item.title).join(", ");
@@ -386,7 +390,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     const L = wins.lunch;
     if (!lunchDone && t >= L.from && it.kind !== "meal" && !stop.isRejoin && (gate === null || gate - t >= 75)) {
       lunchDone = true;
-      if (t <= L.to + 30) addMeal("lunch", /town|village|cafe|restaurant/i.test(lastPlace()?.name ?? "") ? "sit-down" : "picnic", lastPlace(), gate);
+      if (t <= L.to + 30) addMeal("lunch", /town|village|cafe|restaurant/i.test(lastPlace()?.name ?? "") ? "sit-down" : "picnic", lastPlace());
     }
 
     // the leg to this stop
@@ -415,7 +419,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       lunchDone = true;
       if (arrive <= L.to + 30) {
         if (t < L.from) t = L.from;
-        addMeal("lunch", it.sub === "town" ? "sit-down" : "picnic", placeOf(it), gate);
+        addMeal("lunch", it.sub === "town" ? "sit-down" : "picnic", placeOf(it));
       }
       arrive = t;
     }
@@ -426,12 +430,14 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       const arrival = arrive + walkIn;
       const gateT = gate ?? pinStart;
       const gap = gateT - arrival;
+      // the wait is spent at the car park, then the walk in: the walk ends at the gate
       if (gap > REST_THRESHOLD_MIN && !(stop.isRejoin && !o.isMain)) {
         const place = leg ? placeOf(it) : lastPlace();
-        if (gap >= COFFEE_GAP_MIN) addBreak("coffee", 20, "Coffee and a snack", place, gateT);
-        const left = gateT - t;
+        if (gap >= COFFEE_GAP_MIN) addCoffee(place, gateT - walkIn);
+        const left = gateT - walkIn - t;
         if (left > REST_THRESHOLD_MIN) addRest(left, "free-time", "Free time", place);
       }
+      if (walkIn) addWalkIn(it, walkIn);
       if (arrival > pinStart) {
         warnings.push({ code: "S_FIXED_MISSED", entryId: it.id, lane: current, message: `Arrives ${fmtMin(arrival)} for the ${fmtMin(pinStart)} ${it.sub === "together" ? "regroup" : it.title}.` });
       }
@@ -445,7 +451,8 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       s0 = pinStart;
     } else {
       const buffer = !leg && lastKind !== null && lastKind !== "start" && lastKind !== "rest" && lastKind !== "leg" ? 5 : 0;
-      s0 = ceil5(arrive + walkIn + buffer);
+      if (walkIn) addWalkIn(it, walkIn);
+      s0 = ceil5(t + buffer);
       if (it.start && o.released.has(it.id)) {
         warnings.push({ code: "S_FIXED_MISSED", entryId: it.id, lane: current, message: `${it.title} moves from ${it.start.time} to about ${fmtMin(s0)}: earlier stops take longer.` });
       }
@@ -506,7 +513,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
         }
         if (t < L.from && L.from - t > REST_THRESHOLD_MIN) addRest(L.from - t, "at-base", "Rest at the base", baseRef);
         else if (t < L.from) t = L.from;
-        addMeal("lunch", "picnic", lastPlace(), null);
+        addMeal("lunch", "picnic", lastPlace());
       }
     }
     if (input.kind === "transfer") {
@@ -646,7 +653,9 @@ const totalsOf = (es: TimelineEntry[], active: (e: TimelineEntry) => boolean): D
   const trails = es.filter((e) => e.kind === "trail");
   return {
     activeMin: sumBy(es.filter((e) => !e.optional && active(e)), (e) => e.durationMin),
-    driveMin: sumBy(es.filter((e) => e.kind === "leg" && e.leg?.mode === "drive"), (e) => e.durationMin),
+    // the sum of the drives as each is drawn (to 5 min), so the header and the legs under it agree (SW-022: 48 + 10 + 39 read 50 + 10 + 40
+    // under a header of 1 h 35)
+    driveMin: sumBy(es.filter((e) => e.kind === "leg" && e.leg?.mode === "drive"), (e) => shownMin(e.durationMin)),
     walkKm: Math.round(sumBy(trails, (e) => e.stats?.distanceKm ?? 0) * 10) / 10,
     gainM: sumBy(trails, (e) => e.stats?.gainM ?? 0),
   };
