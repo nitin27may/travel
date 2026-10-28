@@ -10,7 +10,7 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { Menu } from '@/components/ui/Menu';
 import { useToast } from '@/components/ui/Toast';
 import { formFromParty, formFromTravellers, emptyForm, localDay, type TravellersForm } from '@/lib/account/travellers-form';
-import { keepPartyAsOwn, seedParty, setAccountParty } from '@/lib/account/seed-party';
+import { dropForeignParty, keepPartyAsOwn, prefillParty, seedParty, setAccountParty } from '@/lib/account/seed-party';
 import { readParty } from '@/lib/storage/partyKey';
 import { leaveSession } from '@/lib/auth/session-lost';
 import { removeTravellers, saveTravellers, type TravellersResult } from './actions';
@@ -20,6 +20,8 @@ const EDIT_ID = 'acct-trav-edit';
 
 interface Props {
   userId: string;
+  /** `accountHash(userId)`, computed on the server: the owner tag of the party this page writes (review ACCT-PSEC B2). */
+  owner: string;
   travellers: Travellers | null;
   /** A stored document no longer parses (kept in the row, never shown): offer to save again. */
   invalid: boolean;
@@ -41,7 +43,7 @@ function outcomeOf(r: TravellersResult): 'saved' | 'conflict' | 'failed' | 'unau
  * blocked, another device saved first. After hydration it seeds the device party from the account (5.2); it never writes back from the
  * device on its own (5.3).
  */
-export function TravellersSection({ userId, travellers, invalid, revision: initialRevision, today }: Props) {
+export function TravellersSection({ userId, owner, travellers, invalid, revision: initialRevision, today }: Props) {
   const router = useRouter();
   const { toast } = useToast();
   const [doc, setDoc] = useState(travellers);
@@ -58,10 +60,14 @@ export function TravellersSection({ userId, travellers, invalid, revision: initi
   const [failed, setFailed] = useState(false);
   const returnFocus = useRef(false);
 
-  // Seed the device from the account once the page is hydrated (spec 5.2). A party this browser chose itself is left alone.
+  // Seed the device from the account once the page is hydrated (spec 5.2). A party this browser chose itself is left alone; one another
+  // account wrote is replaced, or removed when this account has nothing saved (B2).
   useEffect(() => {
-    if (!travellers) return;
-    const out = seedParty(partyOf(travellers, today));
+    if (!travellers) {
+      dropForeignParty(owner);
+      return;
+    }
+    const out = seedParty(partyOf(travellers, today), owner);
     /* eslint-disable react-hooks/set-state-in-effect -- the seed reads this browser's storage, which only exists after mount */
     if (out === 'blocked') setBlocked(true);
     else if (out === 'differs') setDiffers(readParty());
@@ -124,7 +130,7 @@ export function TravellersSection({ userId, travellers, invalid, revision: initi
     setConflict(false);
     setDoc(next);
     setRevision(r.revision);
-    setBlocked(!setAccountParty(partyOf(next, editorDay)));
+    setBlocked(!setAccountParty(partyOf(next, editorDay), owner));
     setDiffers(null);
     close();
     return 'saved';
@@ -136,7 +142,7 @@ export function TravellersSection({ userId, travellers, invalid, revision: initi
     try {
       const r = await saveTravellers(userId, { doc: next, revision: atRevision });
       if (!settle(r, next)) return false;
-      const out = seedParty(partyOf(next, localDay(new Date())));
+      const out = seedParty(partyOf(next, localDay(new Date())), owner);
       setBlocked(out === 'blocked');
       setDiffers(out === 'differs' ? readParty() : null);
       return true;
@@ -155,7 +161,7 @@ export function TravellersSection({ userId, travellers, invalid, revision: initi
     try {
       const r = await removeTravellers(userId, { revision });
       if (!settle(r, null) || r.kind !== 'saved') return;
-      keepPartyAsOwn();
+      keepPartyAsOwn(owner);
       setConfirming(false);
       setDiffers(null);
       returnFocus.current = true;
@@ -185,7 +191,7 @@ export function TravellersSection({ userId, travellers, invalid, revision: initi
                 size="sm"
                 variant="primary"
                 onClick={() => {
-                  setBlocked(!setAccountParty(partyOf(doc, today)));
+                  setBlocked(!setAccountParty(partyOf(doc, today), owner));
                   setDiffers(null);
                 }}
               >
@@ -306,7 +312,7 @@ export function TravellersSection({ userId, travellers, invalid, revision: initi
                 id={EDIT_ID}
                 variant="primary"
                 onClick={() => {
-                  const device = readParty();
+                  const device = prefillParty(owner);
                   open(device ? formFromParty(device) : emptyForm(), device ? `Filled in from this browser: ${partyText(device, ', ')}. Check the ages and save.` : null);
                 }}
               >

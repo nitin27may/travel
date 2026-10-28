@@ -10,8 +10,7 @@ import { Button, ButtonLink } from '@/components/ui/Button';
 import { Field, Input } from '@/components/ui/Input';
 import { checkName, nameError, NAME_COPY } from '@/lib/account/name';
 import { emptyForm, formFromParty, localDay } from '@/lib/account/travellers-form';
-import { setAccountParty } from '@/lib/account/seed-party';
-import { readParty } from '@/lib/storage/partyKey';
+import { dropForeignParty, prefillParty, setAccountParty } from '@/lib/account/seed-party';
 import { leaveSession } from '@/lib/auth/session-lost';
 import { finishSetup, saveName, saveTravellers } from './actions';
 import { TravellersEditor, type EditorOutcome } from './TravellersEditor';
@@ -36,7 +35,7 @@ function writeStep(step: Step | null): void {
  * was read and `setup_done_at` is empty. Skip on step 2, Save and Close all end it for good (the server records it); leaving mid-way
  * shows it again next time. Step changes move focus to the step heading and are announced politely.
  */
-export function SetupCard({ userId, initialName, revision, initialStep }: { userId: string; initialName: string; revision: number; initialStep: SetupStep }) {
+export function SetupCard({ userId, owner, initialName, revision, initialStep }: { userId: string; owner: string; initialName: string; revision: number; initialStep: SetupStep }) {
   const router = useRouter();
   const id = useId();
   const [step, setStep] = useState<Step>(initialStep);
@@ -51,11 +50,13 @@ export function SetupCard({ userId, initialName, revision, initialStep }: { user
   const heading = useRef<HTMLHeadingElement>(null);
   const moved = useRef(false);
 
-  // The device party prefills step 2; read it after hydration (the server cannot see it).
+  // The device party prefills step 2; read it after hydration (the server cannot see it). A party another account wrote is removed and
+  // never offered (review ACCT-PSEC B2): the setup card shows only while nothing is saved, so this account has no party of its own here.
   useEffect(() => {
+    dropForeignParty(owner);
     // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time read of this browser's party after mount (the server cannot see it)
-    setDevice(readParty());
-  }, []);
+    setDevice(prefillParty(owner));
+  }, [owner]);
 
   useEffect(() => {
     if (!moved.current) return;
@@ -116,7 +117,7 @@ export function SetupCard({ userId, initialName, revision, initialStep }: { user
     }
     if (r.kind !== 'saved') return 'failed';
     const party = partyOf(doc, localDay(new Date()));
-    setAccountParty(party);
+    setAccountParty(party, owner);
     setDone(`Trips now plan for ${partyText(party, ' and ')} wherever you sign in.`);
     go('done');
     return 'saved';
