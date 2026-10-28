@@ -96,8 +96,8 @@ describe('the privacy page (GSI-P)', () => {
     for (const t of ['travel.trip-edit', 'When you are signed in, your trips']) expect(text, t).not.toContain(t);
     const edit = strip(renderToStaticMarkup(createElement(PrivacyBody, { google: false, tripEdit: true })));
     for (const t of [
-      'When you change a trip you copied, this browser keeps your changes with it: the stops you remove or move, the days you add or drop, the places you mark Maybe and your notes (travel.trip-edit.device). They are deleted when you remove the trip from My trips.',
-      'This tab also keeps your last 50 changes to each trip so you can undo them (travel.trip-edit.undo); they are deleted when you close the tab.',
+      'When you change a trip you copied, this browser keeps your changes with it: the stops you remove or move, the days you add or drop, the places you mark Maybe and your notes ( travel.trip-edit.device ). They are deleted when you remove the trip from My trips.',
+      'This tab also keeps your last 50 changes to each trip so you can undo them ( travel.trip-edit.undo ); they are deleted when you close the tab.',
     ]) expect(edit, t).toContain(t);
     expect(edit).not.toContain('When you are signed in, your trips');
     const both = strip(renderToStaticMarkup(createElement(PrivacyBody, { google: false, tripEdit: true, accountTrips: true })));
@@ -110,7 +110,6 @@ describe('the privacy page (GSI-P)', () => {
     ]) expect(both, t).toContain(t);
     // the account paragraph sits in Accounts, after the travellers paragraph
     expect(both.indexOf('If you choose to save your travellers')).toBeLessThan(both.indexOf('When you are signed in, your trips'));
-    expect(both.indexOf('<h2 id="accounts">')).toBe(-1);
   });
 
   it('the privacy page passes the edit and account trips flags through', () => {

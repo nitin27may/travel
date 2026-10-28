@@ -195,6 +195,33 @@ test.describe('signed-in Mine, accountTrips on', () => {
     expect(account.calls).toEqual([]);
   });
 
+  test('the merge carries the device edits: removals, notes and Maybe reach the account, and nothing of them stays on the device (review STEP2-ES ES-001)', async ({ page }) => {
+    const NOTE = 'Bring the blue bag';
+    const edits = {
+      v: 1,
+      items: { [IDS.a]: { added: [], removed: [{ day: 2, item: 'tre-cime-loop', op: 'o-rm' }], moved: [], days: [], maybe: [{ ref: 'place/lago-di-braies', op: 'o-mb' }], notes: { '3': NOTE } } },
+    };
+    const account = new FakeAccount();
+    await account.install(page);
+    await seed(page, { [COPIES_KEY]: envelope([copy(IDS.a)]), 'travel.trip-edit.device': JSON.stringify(edits) });
+    await page.goto(`${on.url}/mine/`);
+    await expect(page.locator('.toast-region')).toContainText('1 trip added to your account');
+    // the whole document was sent at the insert revision
+    await expect.poll(() => account.rows.get(IDS.a)?.revision).toBe(1);
+    const t = account.rows.get(IDS.a)!.doc!.template;
+    expect(t.notes).toEqual({ '3': NOTE });
+    expect(t.removed).toEqual([{ day: 2, item: 'tre-cime-loop', op: 'o-rm' }]);
+    expect((t.maybe as { ref: string }[]).map((m) => m.ref)).toEqual(['place/lago-di-braies']);
+    // the copy and its edits left the device; the account cache holds the document until sign-out
+    expect(await device(page)).toEqual([]);
+    expect(await page.evaluate(() => localStorage.getItem('travel.trip-edit.device'))).toBeNull();
+    // a reload reads the account and sends nothing more
+    const puts = account.calls.filter((c) => c.startsWith('PUT')).length;
+    await page.reload();
+    await expect(page.locator('.crow')).toHaveCount(1);
+    expect(account.calls.filter((c) => c.startsWith('PUT')).length).toBe(puts);
+  });
+
   test('no horizontal overflow at 320 with the account out of reach', async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 700 });
     const account = new FakeAccount();
