@@ -22,6 +22,7 @@ import { partyText } from '@travel/core/trips/partyWords.ts';
 import { placedBuild } from '@/lib/trip-edit/built';
 import { changeCount, changesLine, endOf, entryMarks, kickerWords } from '@/lib/trip-edit/marks';
 import { findCopy } from '@/lib/trip-edit/open';
+import { slugIdentity } from '@travel/core/schema/identity.ts';
 import { documentSource, profileOfDraft } from '@/lib/trip-edit/source';
 import { useTripDocument } from '@/lib/trip-edit/useTripDocument';
 import { ChangesLine, IdentityCell, Newer, NotBuilt, NotFound, SyncState, TripSkeleton } from './StateBits';
@@ -235,7 +236,8 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
           {changes && doc.template ? <ChangesLine text={changes} onShow={edit.showChanges} /> : null}
         </>
       ),
-      lead: <IdentityCell title={title} photo={photo} identity={doc.identity} />,
+      // an account trip merged before copies/2 has no colour: its slug's, the ring Mine draws for it (SW-026)
+      lead: <IdentityCell title={title} photo={photo} identity={doc.identity ?? (slug ? slugIdentity(slug) : undefined)} />,
     },
   };
 

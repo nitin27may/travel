@@ -80,7 +80,7 @@ test.describe('signed-in Mine, accountTrips on', () => {
     await expect(page.locator('.crow-l2')).toContainText('Mon 2 Aug 2027');
   });
 
-  test('Change dates goes through the sync; offline it reads Not synced yet; it sends when the network is back', async ({ page }) => {
+  test('Change dates goes through the sync; offline the page reads Not synced yet (no row chip with one row, SF10); it sends when the network is back', async ({ page }) => {
     const account = new FakeAccount();
     account.add(IDS.a, 'Dolomites');
     await open(page, account);
@@ -89,7 +89,9 @@ test.describe('signed-in Mine, accountTrips on', () => {
     await changeDates(page, '2027-07-10');
     await expect(page.locator('.toast-region')).toContainText('Dolomites now starts Sat 10 Jul 2027');
     await expect(page.locator('.crow-l2')).toContainText('Sat 10 Jul 2027');
-    await expect(page.locator('.crow-chip')).toHaveText('Not synced yet');
+    // one row, so every row is offline and the page's line says it: the row draws no chip (SF10, chipsBare since 1964b150); its name keeps the state
+    await expect(page.getByText('Not synced yet. Your changes will sync when you are online.')).toBeVisible();
+    await expect(page.locator('.crow-chip')).toHaveCount(0);
     await expect(page.locator('a.crow-link')).toHaveAttribute('aria-label', /not synced yet, will sync when online$/);
     expect((await outbox(page))[0]).toBeGreaterThan(0);
     account.mode = 'ok';

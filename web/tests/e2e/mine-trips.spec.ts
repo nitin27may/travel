@@ -127,7 +127,7 @@ test.describe('My trips rows', () => {
   });
 
   test('a newer envelope is left as it is and Mine says so', async ({ page, site }) => {
-    const text = JSON.stringify({ schema: 'copies/2', items: [] });
+    const text = JSON.stringify({ schema: 'copies/3', items: [] });
     await seed(page, { [COPIES_KEY]: text });
     await page.goto(`${site.url}/mine/`);
     await expect(page.getByText('This list was written by a newer version of the site')).toBeVisible();
@@ -159,7 +159,8 @@ async function fill(sheet: ReturnType<Page['locator']>, children = true) {
 test.describe('the copy sheet saves into Mine', () => {
   test('copy, then Open in Mine; the copy is there after a reload with its party', async ({ page, site }) => {
     const sheet = await openSheet(page, site);
-    await expect(sheet.locator('.copy-note')).toContainText('Still needed');
+    // SW-008: the date is optional; nothing is picked and the field says so
+    await expect(sheet.getByTestId('copy-date')).toHaveText('No date yet');
     await fill(sheet);
     await expect(sheet.locator('.copy-note')).toHaveText('Kept in this browser.'); // sign-in is off in this build
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
@@ -316,6 +317,50 @@ test.describe('Remove focus, and Change dates', () => {
     await page.getByRole('button', { name: 'Actions for Dolomites' }).click();
     await page.getByRole('menuitem', { name: 'Remove' }).click();
     await expect(page.getByRole('link', { name: 'Browse trips' })).toBeFocused();
+  });
+
+  test('SW-008: a copy without a date is kept, sits under No date, its calendar asks for dates first, and Add dates gives it one', async ({ page, site }) => {
+    const sheet = await openSheet(page, site);
+    await expect(sheet.getByTestId('copy-date')).toHaveText('No date yet');
+    await expect(sheet.locator('.copy-nodate')).toContainText('Optional.');
+    // a picked date can be taken back
+    await sheet.locator('.cal-cell[data-season]:not([disabled])').first().click();
+    await expect(sheet.getByTestId('copy-date')).not.toHaveText('No date yet');
+    await sheet.getByRole('button', { name: 'No date yet' }).click();
+    await expect(sheet.getByTestId('copy-date')).toHaveText('No date yet');
+    await expect(sheet.getByRole('button', { name: 'Copy to my trips' })).toBeEnabled();
+    await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
+    await expect(sheet).toContainText('14 days · No date yet');
+    const env = await stored(page);
+    expect(env).toMatchObject({ schema: 'copies/2', items: [{ slug: 'dolomites-2027', start: null }] });
+    expect(['blue', 'orange', 'teal', 'sky', 'yellow', 'vermillion']).toContain(env!.items[0]!.identity);
+    await page.goto(`${site.url}/mine/`);
+    await expect(page.locator('#mt-nodate')).toContainText('No date');
+    const row = page.locator('.crow');
+    await expect(row.locator('.crow-l2')).toHaveText('No date');
+    await expect(row.locator('.mthumb')).toHaveAttribute('data-ring', String(env!.items[0]!.identity));
+    await row.getByRole('button', { name: 'Actions for Dolomites' }).click();
+    await expect(page.getByRole('menuitem', { name: 'Calendar: add dates first' })).toHaveAttribute('aria-disabled', 'true');
+    await page.getByRole('menuitem', { name: 'Add dates', exact: true }).click();
+    const again = page.locator('.copy-sheet');
+    await expect(again.getByTestId('copy-date')).toHaveText('No date yet');
+    // an undated copy's calendar opens where a new copy's does (the season, or today): pick its first open day
+    const cell = again.locator('.cal-cell:not([disabled])').first();
+    const picked = await cell.getAttribute('data-date');
+    await cell.click();
+    await again.getByRole('button', { name: 'Add dates' }).click();
+    await expect(page.locator('.toast-region')).toContainText(' now starts ');
+    await expect(page.locator('#mt-nodate')).toHaveCount(0);
+    expect((await stored(page))!.items[0]).toMatchObject({ start: picked });
+  });
+
+  test('SW-026: a copy made before copies/2 has a ring from its slug, the same on every visit', async ({ page, site }) => {
+    await seed(page, { [COPIES_KEY]: envelope([item()]) });
+    await page.goto(`${site.url}/mine/`);
+    const ring = await page.locator('.crow .mthumb').getAttribute('data-ring');
+    expect(['blue', 'orange', 'teal', 'sky', 'yellow', 'vermillion']).toContain(ring);
+    await page.reload();
+    await expect(page.locator('.crow .mthumb')).toHaveAttribute('data-ring', ring!);
   });
 
   test('Change dates reopens the sheet with the copy\'s date and party and keeps the row\'s id', async ({ page, site }) => {

@@ -259,6 +259,16 @@ If NAV-1 cannot fit the dot inside the trip start-JS budget (section 6), the dot
 Key `travel.copies.local` in `localStorage`, validated by a Zod schema in `core/src/schema/copies.ts` on every read; a bad
 or newer envelope is left untouched and the list shows the error state (as the favourites envelope, visitor spec 4.2).
 
+**`copies/2` (SW-008, SW-026; 28 Oct 2026).** Two additive changes: `start` may be `null` (a copy kept with "No date yet";
+Mine's **No date** group; Add to calendar reads "Calendar: add dates first", disabled; the menu's Change dates reads Add
+dates), and an optional `identity`, the trip's ring colour (tokens 4) given at copy time from `COPY_RING_KEYS` (blue,
+orange, teal, sky, yellow, vermillion: no green, no purple), the first colour no other copy on the device shows, starting
+at the slug's own; a re-copy keeps it; a copy without one reads its slug's colour (`core/src/schema/identity.ts`). It
+becomes the document's `identity` at the merge. A `copies/1` envelope still reads (upgraded in memory) and every write is
+`copies/2`; a `copies/1` envelope may not hold an undated or coloured copy (invalid). One way safe: older code reads
+`copies/2` as **newer** and leaves it untouched. An undated copy never matches an account row in M3 (that needs a start):
+it is inserted as its own row.
+
 ```json
 { "schema": "copies/1",
   "items": [ { "id": "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", "slug": "dolomites-july-2027",
@@ -278,6 +288,8 @@ or newer envelope is left untouched and the list shows the error state (as the f
 | Size | at most 4 KB per copy (at most 30 additions, 60 overrides) | keeps the envelope under 80 KB |
 | Snapshot fields | `title`, `days`, `cc`, `photo` only, from the light row the trip page already has | P8: no facts, links, times or suitability |
 | Private fields | `adults`, `children`, `profile.youngest` | household data; stays on the device until a signed-in merge to an RLS table |
+| Start | an ISO date, or `null` from `copies/2` ("No date yet") | a family still deciding when to go keeps the trip (SW-008) |
+| Ring colour | `identity`, optional, from `copies/2` | every trip has an identity in cross-trip lists (scenario rule 3; SW-026) |
 
 ### 3.2 Moving the old key
 

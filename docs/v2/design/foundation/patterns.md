@@ -261,9 +261,11 @@ no value is not drawn, and empty link tabs are not drawn.
 
 **Copy to my trips** (the cover's primary on a public trip, P7): a sheet (side sheet on desktop, bottom sheet on a phone)
 asking only the start date (date picker with the shading; the valid window pre-highlighted) and who is going (the party
-block shared with Trip settings); nothing is preselected and the primary, also **Copy to my trips**, stays disabled until a
-date is picked (L5; an undated copy is the open sweep item SW-008, an owner call). The copy keeps days, not dates. It is
-kept **in this browser** as one `copies/1` item per trip and, signed in with account trips on, in the account (a second
+block shared with Trip settings); nothing is preselected. The date is optional (SW-008, 28 Oct 2026): with none picked
+the field reads **No date yet**, a muted line says "Optional. Pick Day 1 now, or copy it without a date and add dates
+later in Mine.", and **Copy to my trips** is enabled (only a child's missing age holds it); a picked date shows its range
+with a ghost **No date yet** that clears it. The copy keeps days, not dates. It is
+kept **in this browser** as one `copies/2` item per trip (`copies/1` still reads) and, signed in with account trips on, in the account (a second
 copy of the same trip asks "You already have a copy from Sat 3 Jul 2027. Copy again to replace it." **Replace** ·
 Cancel; at most 20 per device, 50 per account, and the sheet says so at the cap, never failing silently). Footer note,
 signed out: "Kept in this browser. Sign in to keep it on every device."
@@ -298,7 +300,8 @@ checks: [mine-and-bar-spec.md](../shell/mine-and-bar-spec.md) 5 to 12.
    with the newest item; My trips when both are empty. `?show=` keeps the choice.
 4. **My trips**: **one list** for copies and the trips the builder made (Step 2 ruling R8; no "My plans" tab). Groups
    Upcoming (soonest first) · No date · Past (collapsed, "Past (3)"). Row (switcher row anatomy, components 1.3): photo
-   52 x 38 (identity ring signed in, keyline signed out), name `--t-row` with a 44 px `⋯` menu button on line 1 only,
+   50 x 38 with the trip's identity ring, signed in or out (SW-026: the copy stores its colour, `copies/2`; a copy made before
+   reads its colour from its slug; a trip no longer listed has the keyline only), name `--t-row` with a 44 px `⋯` menu button on line 1 only,
    line 2 mono 12.5 "Sat 3 Jul 2027 · in 251 days", line 3 mono 12.5 "14 days · 2 adults, 1 child" (party words from
    the one shared function; the format with or without ages is the open sweep item SW-006); a converted copy's line 3
    adds "your trip, from our Dolomites trip". Lines 2 and 3 run under the menu column so both fit at 320 px. The row is

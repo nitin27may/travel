@@ -83,7 +83,7 @@ export function undoSave(storage: StorageLike, item: CopyItem, replaced: CopyIte
 // ---- removing, restoring, changing (Mine) ----
 
 /**
- * Remove: the copy leaves `copies/1`, and its device edits (notes, removed and moved stops, day changes, Maybe) and its undo stack in this
+ * Remove: the copy leaves the envelope, and its device edits (notes, removed and moved stops, day changes, Maybe) and its undo stack in this
  * tab leave with it (review STEP2-ES ES-002), so a shared browser keeps nothing of a removed trip. `edits` is held by the toast for Undo.
  */
 export function removeById(storage: StorageLike, id: string): { ok: true; removed: CopyItem; edits: DeviceEntry | null } | { ok: false; reason: WriteFailure } {
@@ -114,7 +114,8 @@ export function undoRemove(storage: StorageLike, item: CopyItem, edits: DeviceEn
 }
 
 export interface DatesChange {
-  start: string;
+  /** null: "No date yet" (copies/2) */
+  start: string | null;
   adults: number;
   children: number[];
 }

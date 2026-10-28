@@ -8,7 +8,7 @@ import {
   changeDates, moveLegacyOnce, partyText, removeById, saveCopy, undoChange, undoRemove, undoSave,
 } from '@/lib/mine/copies';
 import { pruneOrphanEdits, readOverview } from '@/lib/mine/overview';
-import { countdown, groupRows, openHref, openQuery, rowModel, rowTitle } from '@/lib/mine/rows';
+import { countdown, endDate, groupRows, openHref, openQuery, rowModel, rowTitle } from '@/lib/mine/rows';
 
 // NAV-2: the device list's reads and writes, over a memory store. The envelope is only ever written through the core's compare-and-set.
 
@@ -58,9 +58,9 @@ describe('saveCopy', () => {
     expect(saveCopy(s, input('trip-3'), { replace: true }).kind).toBe('added');
   });
   it('leaves a newer or damaged envelope exactly as it is', () => {
-    s.setItem(COPIES_KEY, JSON.stringify({ schema: 'copies/2', items: [] }));
+    s.setItem(COPIES_KEY, JSON.stringify({ schema: 'copies/3', items: [] }));
     expect(saveCopy(s, input('a'))).toEqual({ kind: 'failed', reason: 'newer' });
-    expect(s.getItem(COPIES_KEY)).toBe(JSON.stringify({ schema: 'copies/2', items: [] }));
+    expect(s.getItem(COPIES_KEY)).toBe(JSON.stringify({ schema: 'copies/3', items: [] }));
     s.setItem(COPIES_KEY, '{nope');
     expect(saveCopy(s, input('a'))).toEqual({ kind: 'failed', reason: 'corrupt' });
     expect(s.getItem(COPIES_KEY)).toBe('{nope');
@@ -127,7 +127,7 @@ describe('the one-time move of the old key', () => {
     expect(read(s).items).toHaveLength(DEVICE_COPY_CAP - 1);
   });
   it('leaves everything alone when the envelope is newer', () => {
-    s.setItem(COPIES_KEY, JSON.stringify({ schema: 'copies/2', items: [] }));
+    s.setItem(COPIES_KEY, JSON.stringify({ schema: 'copies/3', items: [] }));
     s.setItem(LEGACY_COPIES_KEY, JSON.stringify([draft('a')]));
     expect(moveLegacyOnce(s)).toMatchObject({ status: 'failed' });
     expect(s.getItem(LEGACY_COPIES_KEY)).not.toBeNull();
@@ -165,6 +165,45 @@ describe('rows', () => {
   it('names a moved legacy copy from its slug until the catalogue gives the name', () => {
     expect(rowTitle({ title: 'Trip', slug: 'canadian-rockies-sept-2029' })).toBe('Canadian rockies sept 2029');
     expect(rowTitle({ title: 'Dolomites', slug: 'x' })).toBe('Dolomites');
+  });
+  it('SW-008: an undated copy is kept, reads "No date", and sits in its own group, most recently copied first', () => {
+    const m = memoryStorage();
+    vi.stubGlobal('window', { dispatchEvent: () => true });
+    saveCopy(m, input('dated', { start: '2027-09-01' }), { now: new Date('2026-10-20T10:00:00Z') });
+    saveCopy(m, input('older-idea', { start: null }), { now: new Date('2026-10-21T10:00:00Z') });
+    saveCopy(m, input('newer-idea', { start: null }), { now: new Date('2026-10-22T10:00:00Z') });
+    const g = groupRows(read(m).items, '2026-10-25');
+    expect(g.upcoming.map((r) => r.item.slug)).toEqual(['dated']);
+    expect(g.nodate.map((r) => r.item.slug)).toEqual(['newer-idea', 'older-idea']);
+    expect(g.past).toEqual([]);
+    expect(g.nodate[0]!.when).toBe('No date');
+    expect(g.nodate[0]!.who).toBe('14 days · 2 adults');
+    expect(endDate({ start: null, days: 14 })).toBeNull();
+    expect(endDate({ start: '2027-07-03', days: 14 })).toBe('2027-07-16');
+  });
+  it('SW-008: Change dates can clear a date and Undo puts it back; adding dates moves the row to Upcoming', () => {
+    const m = memoryStorage();
+    vi.stubGlobal('window', { dispatchEvent: () => true });
+    saveCopy(m, input('a'));
+    const id = read(m).items[0]!.id;
+    const r = changeDates(m, id, { start: null, adults: 2, children: [] });
+    if (!r.ok) throw new Error(r.reason);
+    expect(read(m).items[0]!.start).toBeNull();
+    expect(groupRows(read(m).items, '2026-10-25').nodate).toHaveLength(1);
+    expect(undoChange(m, r.before)).toBe(true);
+    expect(read(m).items[0]!.start).toBe('2027-07-03');
+  });
+  it('SW-026: each copy keeps the ring colour it was given, and a replace keeps the trip\'s', () => {
+    const m = memoryStorage();
+    vi.stubGlobal('window', { dispatchEvent: () => true });
+    saveCopy(m, input('a'));
+    saveCopy(m, input('b'));
+    const [a, b] = read(m).items;
+    expect(a!.identity).toBeTruthy();
+    expect(b!.identity).toBeTruthy();
+    expect(a!.identity).not.toBe(b!.identity);
+    saveCopy(m, input('a', { start: '2027-08-01' }), { replace: true });
+    expect(read(m).items.find((x) => x.slug === 'a')!.identity).toBe(a!.identity);
   });
   it('groups Upcoming soonest first and Past latest first', () => {
     const m = memoryStorage();

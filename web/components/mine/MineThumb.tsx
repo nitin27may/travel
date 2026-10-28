@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Icon } from '@/components/ui/Icon';
 import type { IconName } from '@/components/ui/Icon';
+import type { IdentityKey } from '@/components/ui/Chip';
 import { useThumb } from '@/lib/mine/thumb';
 import './mine-thumb.css';
 
@@ -17,18 +18,30 @@ interface Props {
   icon: IconName;
   /** Grid area in the row. */
   area?: string;
+  /**
+   * A trip's identity colour (foundation tokens 4, scenario rule 3; SW-026): drawn as the ring round the photo, 2 px gap, 2.5 px colour,
+   * 1 px `--line-2` keyline. Absent: the plain keyline (favourites, a trip no longer listed).
+   */
+  ring?: IdentityKey;
 }
 
 /**
  * The thumbnail of a Mine row, the same for My trips and Favourites (owner, 27 Oct 2026): a fixed 4:3 box, a decorative lazy image from
  * our own rendition (alt "": the name sits beside it), and the type icon when there is no photo. Never Commons (P8, P9).
  */
-export function MineThumb({ space, slug, known, off, icon, area }: Props) {
+export function MineThumb({ space, slug, known, off, icon, area, ring }: Props) {
   const { box, thumb } = useThumb(space, slug, known, !off);
   const [broken, setBroken] = useState(false);
   const shown = !!thumb && !broken && !off;
   return (
-    <span className="mthumb" ref={box} data-missing={shown ? undefined : ''} style={area ? { gridArea: area } : undefined} aria-hidden="true">
+    <span
+      className="mthumb"
+      ref={box}
+      data-missing={shown ? undefined : ''}
+      data-ring={ring ?? undefined}
+      style={{ ...(area ? { gridArea: area } : {}), ...(ring ? { ['--tc' as string]: `var(--id-${ring})` } : {}) }}
+      aria-hidden="true"
+    >
       {shown ? (
         // eslint-disable-next-line @next/next/no-img-element -- a same-origin rendition from the build's image step
         <img src={thumb.src} srcSet={thumb.srcSet} sizes="56px" alt="" width={56} height={42} loading="lazy" decoding="async" onError={() => setBroken(true)} />

@@ -23,7 +23,9 @@ export const copy = (over: Partial<CopyItem> = {}): CopyItem => ({
 
 export function memory(items: CopyItem[] = []): StorageLike & { raw(): string | null } {
   const m = new Map<string, string>();
-  if (items.length) m.set(COPIES_KEY, JSON.stringify({ schema: 'copies/1', items, noteSeen: null, snoozedUntil: null, merged: {} }));
+  // the oldest version that holds the items: copies/1 still reads (back compatibility), copies/2 for an undated or coloured copy
+  const v2 = items.some((c) => c.start === null || c.identity !== undefined);
+  if (items.length) m.set(COPIES_KEY, JSON.stringify({ schema: v2 ? 'copies/2' : 'copies/1', items, noteSeen: null, snoozedUntil: null, merged: {} }));
   return {
     getItem: (k) => m.get(k) ?? null,
     setItem: (k, v) => void m.set(k, String(v)),

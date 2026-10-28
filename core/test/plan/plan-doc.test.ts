@@ -53,6 +53,7 @@ import {
   planTravellers,
   type PlanDraft,
 } from "../../src/schema/plan-draft.ts";
+import { slugIdentity } from "../../src/schema/identity.ts";
 import { gateways, originRef, overrides, sourceRevision, timelineProfile, travellers } from "../../src/schema/trip-custom.ts";
 import { COPIED_AT, COPY_ID, copyOf, int, pick, rng, templateDraft } from "./doc-helpers.ts";
 import { sampleDraft } from "./helpers.ts";
@@ -227,8 +228,17 @@ describe("R5 to R7: the template block's caps and ids", () => {
 });
 
 describe("the copy mapper (replaces docOf; edit-my-trip 2 'Mapping a device copy')", () => {
-  it("maps a copy to the template draft", () => {
-    expect(copyToPlanDraft(copyOf())).toEqual({ success: true, data: templateDraft() });
+  it("maps a copy to the template draft, with its slug's ring colour when the copy has none (SW-026)", () => {
+    expect(copyToPlanDraft(copyOf())).toEqual({ success: true, data: { ...templateDraft(), identity: slugIdentity(copyOf().slug) } });
+  });
+  it("copies/2: the copy's own colour goes to the document, and an undated copy maps to a draft with no start and no month (SW-008)", () => {
+    const r = copyToPlanDraft({ ...copyOf(), identity: "orange", start: null });
+    if (!r.success) throw new Error(r.issues.join("; "));
+    expect(r.data.identity).toBe("orange");
+    expect("start" in r.data).toBe(false);
+    expect(r.data.month).toBeNull();
+    const row = copyToPlanRow({ ...copyOf(), start: null });
+    expect(row.success && row.data.start).toBeNull();
   });
   it("keeps fromRef, gw and rev; a title other than the copy's becomes the person's own", () => {
     const r = copyToPlanDraft({ ...copyOf(), fromRef: "town:in-mh-mumbai", gw: { in: "YEG", out: "YYC" }, rev: "2026-10-20.a1b2" }, { title: fromDeviceTitle("Dolomites") });

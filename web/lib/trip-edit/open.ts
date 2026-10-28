@@ -1,7 +1,7 @@
 // Opening and saving a trip's document (STEP2-T1 step 2). Two homes, one answer:
 //   - the account (signed in, `accountTrips` on): the EM-2 engine holds the confirmed document and the outbox; an edit goes to its
 //     `edit()` (the outbox first, then the server) and the screen shows the document with the pending changes applied;
-//   - the device: `travel.copies.local` (`copies/1`). The copy is read as a template `plan-draft/1` (core `copyToPlanDraft`), the
+//   - the device: `travel.copies.local` (`copies/2`; `copies/1` is read and upgraded). The copy is read as a template `plan-draft/1` (core `copyToPlanDraft`), the
 //     operations are applied to it, and the result is written back into the same copy item (its photo, id, copy date and the keys the
 //     document does not hold stay as they were).
 // Pure over a `StorageLike` and an account handle, so a test passes a memory store. No React; the hook is useTripDocument.ts.
@@ -68,7 +68,9 @@ export function copyWithDraft(copy: CopyItem, d: PlanDraft): CopyItem {
   return {
     ...copy,
     title: d.title ?? copy.title,
-    start: d.start ?? copy.start,
+    // the document is the copy's: no start in it is "No date" (Settings), not "unchanged"
+    start: d.start ?? null,
+    ...(d.identity !== undefined ? { identity: d.identity } : {}),
     adults: d.travellers?.adults ?? copy.adults,
     children: d.travellers ? [...d.travellers.children] : copy.children,
     profile: t.profile,

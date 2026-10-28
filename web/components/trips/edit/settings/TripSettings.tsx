@@ -67,7 +67,7 @@ export function TripSettings(p: SettingsProps) {
     <div className="own-set">
       {failed ? <Banner kind="urgent">Could not save that change. Nothing was changed.</Banner> : null}
       <TitleSection title={p.title} ourTitle={p.ourTitle} where={p.where} open={p.open} run={run} />
-      <DatesSection doc={p.doc} days={p.days ?? 1} timelines={p.timelines} bookings={p.bookings ?? []} open={p.open} copy={copy} canClear={p.where === 'account'} run={run} />
+      <DatesSection doc={p.doc} days={p.days ?? 1} timelines={p.timelines} bookings={p.bookings ?? []} open={p.open} copy={copy} canClear run={run} />
       <PartySection doc={p.doc} defaults={p.defaults} run={run} />
       {copy && p.windows?.length ? <WindowSection windows={p.windows} current={p.doc.template?.window ?? null} run={run} /> : null}
       {copy && commit ? <MakeItYours onClose={onClose} /> : null}

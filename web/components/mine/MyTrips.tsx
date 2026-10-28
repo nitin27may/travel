@@ -45,7 +45,7 @@ interface Props {
 
 const reduced = (): boolean => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/** The My trips panel (spec 5.2): Upcoming, Past (collapsed with its count), rows with the menu, Undo for Remove and Change dates. */
+/** The My trips panel (spec 5.2): Upcoming, No date (SW-008), Past (collapsed with its count), rows with the menu, Undo for Remove and Change dates. */
 export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }: Props) {
   const { toast } = useToast();
   const [today] = useState(() => localToday());
@@ -76,9 +76,9 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
       const l = listing?.get(r.item.slug);
       return l?.state === 'listed' && l.title && r.title !== r.item.title ? { ...r, title: l.title } : r;
     };
-    return { upcoming: g.upcoming.map(name), past: g.past.map(name) };
+    return { upcoming: g.upcoming.map(name), nodate: g.nodate.map(name), past: g.past.map(name) };
   }, [items, today, listing]);
-  const flat = useMemo(() => [...groups.upcoming, ...(pastOpen ? groups.past : [])], [groups, pastOpen]);
+  const flat = useMemo(() => [...groups.upcoming, ...groups.nodate, ...(pastOpen ? groups.past : [])], [groups, pastOpen]);
 
   // each row's sync state; with one state on every row that the card line already says, no row draws a chip (SF10)
   const stateOf = useCallback(
@@ -96,7 +96,7 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
     const before = seenStates.current;
     seenStates.current = now;
     if (!before) return;
-    const turned = groups.upcoming.concat(groups.past).filter((r) => now.get(r.item.id) === 'retry' && before.get(r.item.id) !== 'retry');
+    const turned = groups.upcoming.concat(groups.nodate, groups.past).filter((r) => now.get(r.item.id) === 'retry' && before.get(r.item.id) !== 'retry');
     if (turned.length) setRowSaid(turned.map((r) => retryAnnouncement(r.title)).join(' '));
   }, [acct, items, stateOf, groups]);
 
@@ -122,10 +122,13 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
 
   const calendar = useCallback(
     async (r: RowModel) => {
+      // the menu entry is disabled for an undated copy ("Calendar: add dates first"); this is the guard behind it
+      if (r.item.start === null) return;
+      const start = r.item.start;
       try {
         const c = await import('@/lib/export/client');
         const d = await c.loadExport('trip', r.item.slug);
-        const out = c.downloadIcs(d as Parameters<typeof c.downloadIcs>[0], r.item.start);
+        const out = c.downloadIcs(d as Parameters<typeof c.downloadIcs>[0], start);
         toast({ message: `Downloaded ${out.name} · ${out.summary}` });
       } catch (e) {
         toast({ message: (e as Error)?.name === 'NoCalendarError' ? 'This trip has no day plan to put in a calendar.' : 'Could not build that file. Try again.' });
@@ -307,6 +310,19 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
           </ul>
         </section>
       ) : null}
+      {groups.nodate.length ? (
+        <section aria-labelledby="mt-nodate">
+          <h2 className="mt-head" id="mt-nodate">
+            <span>No date<span className="sr-only">, {groups.nodate.length} {groups.nodate.length === 1 ? 'trip' : 'trips'}</span></span>
+            <span className="mt-count" aria-hidden="true">{groups.nodate.length}</span>
+          </h2>
+          <ul className="mt-list">
+            {groups.nodate.map((r) => (
+              <CopyRow key={r.item.id} {...rowProps(r)} />
+            ))}
+          </ul>
+        </section>
+      ) : null}
       {groups.past.length ? (
         <section aria-labelledby="mt-past">
           <h2 className="mt-head mt-head-past" id="mt-past">
@@ -337,7 +353,7 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
                   const r = acct.engine.changeDates(editing.id, c);
                   if (!r.ok) return false;
                   toast({
-                    message: `${rowTitle(editing)} now starts ${formatDate(c.start)}`,
+                    message: c.start === null ? `${rowTitle(editing)} has no date now` : `${rowTitle(editing)} now starts ${formatDate(c.start)}`,
                     actionLabel: 'Undo',
                     onAction: () => void acct.engine.undo(editing.id, r.inverse),
                   });

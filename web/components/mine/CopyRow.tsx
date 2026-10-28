@@ -6,6 +6,7 @@ import { Icon } from '@/components/ui/Icon';
 import { Menu } from '@/components/ui/Menu';
 import type { MenuEntry } from '@/components/ui/Menu';
 import { MineThumb } from './MineThumb';
+import { copyIdentity } from '@travel/core/schema/identity.ts';
 import type { RowModel } from '@/lib/mine/rows';
 import { CHIP_NAME, CHIP_WORDS } from '@/lib/mine/chips';
 import type { RowSync } from '@/lib/mine/chips';
@@ -52,11 +53,15 @@ function MoreGlyph() {
 /** One My trips row (mine-and-bar-spec 5.2): photo, name, date and countdown, length and party, and the menu at the right of line 1. */
 export function CopyRow({ row, unlisted, collapsing, restored, chip, sync, linkOnly, note, onCalendar, onPrint, onChangeDates, onRemove }: Props) {
   const { item, title } = row;
+  const dated = item.start !== null;
   const entries: MenuEntry[] = [
     { label: 'Open', icon: 'arrow', href: row.href },
-    { label: 'Add to calendar', icon: 'calendar', onSelect: () => onCalendar?.(row) },
+    // an undated copy has nothing to put in a calendar: the entry stays, disabled, and says what unlocks it (SW-008; ExportMenu's words)
+    dated
+      ? { label: 'Add to calendar', icon: 'calendar', onSelect: () => onCalendar?.(row) }
+      : { label: 'Calendar: add dates first', icon: 'calendar', disabled: true },
     { label: 'Print', icon: 'print', onSelect: () => onPrint?.(row) },
-    { label: 'Change dates', icon: 'pencil', onSelect: () => onChangeDates?.(row) },
+    { label: dated ? 'Change dates' : 'Add dates', icon: 'pencil', onSelect: () => onChangeDates?.(row) },
     { label: 'Remove', icon: 'close', destructive: true, separatorBefore: true, onSelect: () => onRemove?.(row) },
   ];
   // the copy's own snapshot photo first; a copy made before photos were kept asks the trip's small card file as the row nears the screen
@@ -64,7 +69,8 @@ export function CopyRow({ row, unlisted, collapsing, restored, chip, sync, linkO
   // a Retry chip is a button, so it sits beside the link, not inside it
   const inLink = (sync ? syncWords !== null && sync.state !== 'retry' : !!chip) || !!note;
   const retry = sync?.state === 'retry';
-  const photo = <MineThumb space="trip" slug={item.slug} known={item.photo} off={unlisted} icon={unlisted ? 'warn' : 'route'} area="photo" />;
+  // the trip's ring (SW-026): the colour the copy was given, or its slug's for a copy made before copies/2; none on a trip no longer listed
+  const photo = <MineThumb space="trip" slug={item.slug} known={item.photo} off={unlisted} icon={unlisted ? 'warn' : 'route'} area="photo" ring={unlisted ? undefined : copyIdentity(item)} />;
   return (
     <li className="crow" data-copy-id={item.id} data-collapsing={collapsing || undefined} data-restored={restored || undefined} data-link-only={linkOnly || undefined}>
       <div className="crow-inner">
@@ -83,7 +89,7 @@ export function CopyRow({ row, unlisted, collapsing, restored, chip, sync, linkO
             data-chip={inLink || undefined}
             data-retry={retry || undefined}
             href={row.href}
-            aria-label={`${title}, from ${row.when.replace(' · ', ', ')}${row.who ? `, ${row.who.replace(' · ', ', ')}` : ''}${sync ? CHIP_NAME[sync.state] : chip ? ', on this device' : ''}${note ? `, ${note}` : ''}`}
+            aria-label={`${title}, ${dated ? `from ${row.when.replace(' · ', ', ')}` : 'no date'}${row.who ? `, ${row.who.replace(' · ', ', ')}` : ''}${sync ? CHIP_NAME[sync.state] : chip ? ', on this device' : ''}${note ? `, ${note}` : ''}`}
           >
             {photo}
             <span className="crow-name">{title}</span>
