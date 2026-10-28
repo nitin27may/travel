@@ -1,14 +1,14 @@
 // Where the add picker's places come from (STEP2-E3; P8, P9): light Places list rows, one page at a time, from the catalogue's HTTP
-// contract. Three reads, none of them bulk: the places inside a box round a day's base (`near`; the near API answers `not_available` until
+// contract through the data module (`placesPage`, P9). Three reads, none of them bulk: the places inside a box round a day's base (`near`; the near API answers `not_available` until
 // N2, so the list's `bbox` stands in and is filtered to the circle here), a search page, and the rows of a few named slugs. A build with
 // the static adapter has no API: every read answers null and the picker falls back to the lists the trip's own plan model carries.
-// This is the one file to point at `DataClient` (`nearPlaces`, `placeRows`) when lib/client grows them.
+// When the API grows `near`, `nearPage` is the one function to move onto it.
 import { ADD_NEARBY_KM } from '@travel/core/config/nearby.ts';
 import type { Point } from '@travel/core/schedule/types.ts';
+import { placesPage } from '@/lib/client/data';
 import { PAGE_SIZE } from '@/lib/config/product';
 import { bboxAround, isStop, kmBetween, type Found } from './place';
 
-const PLACES = '/api/v1/places/';
 /** The most slugs one `ids` read takes (core API_LIMITS.query.ids; a literal here so no API schema code loads with the picker). */
 const IDS_MAX = 100;
 
@@ -41,20 +41,14 @@ export const foundOf = (r: ApiRow): Found => ({
 
 export const apiAvailable = (): boolean => process.env.NEXT_PUBLIC_DATA_ADAPTER !== 'static';
 
-async function read(params: Record<string, string>, signal?: AbortSignal): Promise<{ items: ApiRow[]; nextPage: number | null } | null> {
+async function read(params: { q?: string; bbox?: string; ids?: readonly string[] }, page: number, pageSize: number, signal?: AbortSignal): Promise<{ items: ApiRow[]; nextPage: number | null } | null> {
   if (!apiAvailable()) return null;
-  try {
-    const res = await fetch(`${PLACES}?${new URLSearchParams(params)}`, { signal });
-    if (!res.ok) return null;
-    return (await res.json()) as { items: ApiRow[]; nextPage: number | null };
-  } catch {
-    return null;
-  }
+  return placesPage(params, page, pageSize, signal);
 }
 
 /** One page of the places within `km` of `centre`, nearest first within the page. Rows outside the circle (the box is wider) are dropped. */
 export async function nearPage(centre: Point, page: number, signal?: AbortSignal, km: number = ADD_NEARBY_KM): Promise<Page | null> {
-  const got = await read({ bbox: bboxAround(centre, km), pageSize: String(PAGE_SIZE.list), page: String(page) }, signal);
+  const got = await read({ bbox: bboxAround(centre, km) }, page, PAGE_SIZE.list, signal);
   if (!got) return null;
   const rows = got.items
     .map(foundOf)
@@ -65,7 +59,7 @@ export async function nearPage(centre: Point, page: number, signal?: AbortSignal
 
 /** One page of the catalogue's places matching the words, all of them (a stop may be anywhere); the caller orders them by the day's base. */
 export async function searchPage(q: string, page: number, signal?: AbortSignal): Promise<Page | null> {
-  const got = await read({ q, pageSize: String(PAGE_SIZE.list), page: String(page) }, signal);
+  const got = await read({ q }, page, PAGE_SIZE.list, signal);
   return got ? { rows: got.items.map(foundOf).filter(isStop), next: got.nextPage } : null;
 }
 
@@ -73,7 +67,7 @@ export async function searchPage(q: string, page: number, signal?: AbortSignal):
 export async function rowsOf(slugs: readonly string[], signal?: AbortSignal): Promise<Found[] | null> {
   const out: Found[] = [];
   for (let i = 0; i < slugs.length; i += IDS_MAX) {
-    const got = await read({ ids: slugs.slice(i, i + IDS_MAX).join(','), pageSize: String(Math.min(IDS_MAX, PAGE_SIZE.list * 2)) }, signal);
+    const got = await read({ ids: slugs.slice(i, i + IDS_MAX) }, 1, Math.min(IDS_MAX, PAGE_SIZE.list * 2), signal);
     if (!got) return null;
     out.push(...got.items.map(foundOf));
   }

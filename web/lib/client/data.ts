@@ -1,4 +1,4 @@
-import type { ResolveRow, TripLegs } from '@travel/core/schema/api/index.ts';
+import type { PlaceRow, ResolveRow, TripLegs } from '@travel/core/schema/api/index.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import { filterRows, facetCounts, gapCounts, gapNotes, matchesRow, scopeTotal } from '@/lib/entities/filter';
 import { searchTexts } from '@/lib/search/fulltext';
@@ -117,6 +117,11 @@ const legsAsked = new Map<string, Promise<TripLegs | null>>();
  */
 export function resolveRefs(refs: readonly string[]): Promise<ResolveRow[] | null> {
   return client().resolveRefs(refs);
+}
+
+/** One page of light place rows for a box, words or slugs (the add picker, STEP2-E3). Null when the build has no places API or the read failed. */
+export function placesPage(q: { q?: string; bbox?: string; ids?: readonly string[] }, page: number, pageSize: number, signal?: AbortSignal): Promise<{ items: PlaceRow[]; nextPage: number | null } | null> {
+  return client().placesPage(q, page, pageSize, signal);
 }
 
 /** The area tree with counts. No pins. */

@@ -74,7 +74,7 @@ export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, map
         <span className="tl-planbar-who">
           {kept ? (
             <>
-              <span className="tl-planbar-party">{kept.shared ? (kept.own ? 'Your copy' : 'Shared plan') : partyText(kept)}</span> · <span className="tl-planbar-pace">{PACE_WORD[kept.pace]}</span>
+              <span className="tl-planbar-party" title={kept.shared ? undefined : partyText(kept)}>{kept.shared ? (kept.own ? 'Your copy' : 'Shared plan') : partyText(kept)}</span> · <span className="tl-planbar-pace">{PACE_WORD[kept.pace]}</span>
             </>
           ) : (
             label

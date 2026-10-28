@@ -292,4 +292,6 @@ export const staticClient: DataClient = {
   textIndex,
   // resolveRefs (FAV-1W): the static files carry no resolve answer (not_available), so a list keeps its stored snapshots
   resolveRefs: () => Promise.resolve(null),
+  // placesPage (STEP2-E3): no places API in the static files
+  placesPage: () => Promise.resolve(null),
 };
