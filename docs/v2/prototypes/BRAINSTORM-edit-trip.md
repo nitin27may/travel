@@ -5,6 +5,16 @@ Owner instruction of 27 Oct 2026 (the "brainstorm prototype list"). PLAN R-284; 
 until the owner answers Q-BE1 to Q-BE8 (section 9). Where a recommendation would change a spec page, the page is named;
 it is not edited until the owner answers.
 
+**Scope decision (owner, 27 Oct 2026):** the edit experience is "part 2" of the program and is one experience for both
+sources: a trip generated from scratch by the builder and a published trip that was copied and customised. In both cases
+the trip is edited from the trip details page (`/trips/<id>/`, read-only today), together with the enhancements still
+pending for that page. The builder (part 1) ends by handing the trip to that page; it does not carry its own editor.
+
+**Answers (owner, 27 Oct 2026, all as recommended):** Q-BE1 yes (same page in edit mode, changes marked inline, Restore);
+Q-BE3 yes (move buttons plus handle-only long-press drag); Q-BE4 yes (undo 50 steps kept across reload, Reset Day n and
+Reset to our plan, no History in v1); Q-BE5 yes (relabel and re-check, ask where days go, never auto-move); Q-BE6 yes (two
+warning levels, never block). Still unanswered: Q-BE2, Q-BE7, Q-BE8.
+
 Inputs: the planner and builder prototypes in this folder; [FLOW.md](../design/trip-builder/FLOW.md) (TF9 to TF11,
 5, 7.1), [edit-my-trip.md](../features/edit-my-trip.md) (EM1 to EM8, 2, 4.4, 5), reviews
 [TB-N2](../reviews/review-TB-N2-trip-builder-flow-2026-10-27.md) and
