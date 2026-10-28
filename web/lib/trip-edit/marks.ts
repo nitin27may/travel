@@ -1,5 +1,6 @@
 // The words that say how a trip differs from ours (edit-mode-spec 4.1, 10; the vocabulary of step2 README 5). Pure.
 import type { PlanDraft } from '@travel/core/schema/plan-draft.ts';
+import { dayWordOf, refOfDay } from './dayMap';
 
 /** How many changes the person made to our plan: a chosen version, an added or removed place, a moved stop, a day change, a note. Zero for a built trip. */
 export function changeCount(d: PlanDraft): number {
@@ -44,9 +45,12 @@ export function endOf(d: PlanDraft): string | null {
 /** The marks of one stop in words (edit-mode-spec 4.1; never colour alone): "Added by you", "Moved from Day 3". Template mode; built marks come with STEP2-B2. */
 export function entryMarks(d: PlanDraft): (e: { id: string; day: number; addedBy: string }) => string[] {
   const moved = d.template?.moved ?? [];
+  const ops = d.template?.days ?? [];
   return (e) => {
     if (e.addedBy === 'visitor') return [ADDED_MARK];
-    const m = moved.find((x) => x.item === e.id && x.toDay === e.day && x.day !== e.day);
-    return m ? [`Moved from Day ${m.day}`] : [];
+    // the page shows Day n; the document names a day by its ref (lib/trip-edit/dayMap.ts)
+    const here = refOfDay(ops, e.day);
+    const m = moved.find((x) => x.item === e.id && x.toDay === here && x.day !== here);
+    return m ? [`Moved from ${dayWordOf(ops, m.day)}`] : [];
   };
 }

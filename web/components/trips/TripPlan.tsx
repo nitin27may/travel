@@ -123,6 +123,15 @@ export function TripPlan(props: Props) {
   return <TimelinePlan {...props} tlModel={tlModel} url={url} />;
 }
 
+/** The published day an added day follows (it borrows that day's add list: the places near the base it sleeps at); Day 1's when none precedes it. */
+function previousPublished(days: readonly { n: number; ref?: number | string }[], at: number): number {
+  for (let i = at; i >= 0; i--) {
+    const r = days[i]?.ref;
+    if (typeof r === 'number') return r;
+  }
+  return 1;
+}
+
 /** The tab bar of the full page: labels from core, counts only where they add a fact. */
 function Tabs({ tabs, api }: { tabs: Props['tabs']; api: ReturnType<typeof useTripTabs> }) {
   return (
@@ -137,10 +146,17 @@ function Tabs({ tabs, api }: { tabs: Props['tabs']; api: ReturnType<typeof useTr
   );
 }
 
-function TimelinePlan({ slug, model, depth, season, tabs, slots, shape, tlModel, url, source: given }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
+function TimelinePlan({ slug, model: pageModel, depth, season, tabs, slots, shape, tlModel: baseModel, url, source: given }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
   // the person's own trip passes a source; a build with the flag off folds this to `undefined` (STEP2-T1F; the name is written out, see useTripUrl)
   const source = process.env.NEXT_PUBLIC_TRIP_EDIT === '1' ? given : undefined;
-  const api = useTimeline(tlModel, url, source);
+  const api = useTimeline(baseModel, url, source);
+  // a copy whose person inserted or dropped a day draws the days the scheduler answered, numbered in order (STEP2-E4); every other page is unchanged
+  const eff = api.eff;
+  const tlModel = useMemo(() => (eff ? { ...baseModel, days: eff.days } : baseModel), [baseModel, eff]);
+  const model = useMemo(
+    () => (eff ? { ...pageModel, route: eff.route(pageModel.route), sections: pageModel.sections.map((c) => ({ ...c, rows: c.rows.map((r) => ({ ...r, days: r.days.flatMap((n) => eff.nOf(n) ?? []) })) })) } : pageModel),
+    [pageModel, eff],
+  );
   const tabApi = useTripTabs(slug, url, tabs.available);
   const tab = tabApi.tab;
   const onDays = tab === 'days';
@@ -338,8 +354,12 @@ function TimelinePlan({ slug, model, depth, season, tabs, slots, shape, tlModel,
               ) : null}
               <ol className="tl-days" data-swap={swap.phase} onMouseOver={(e) => hoverRow(e, true)} onMouseOut={(e) => hoverRow(e, false)} onFocus={(e) => hoverRow(e, true)} onBlur={(e) => hoverRow(e, false)}>
                 {tlModel.days.map((d, di) => {
-                  const tl = shown.find((t) => t.day === d.n)!;
-                  const mine = api.added[d.n] ?? [];
+                  const tl = shown.find((t) => t.day === d.n);
+                  // the document names a day by its published number or an added day's id; the page shows Day n
+                  const ref = (d as { ref?: number | string }).ref ?? d.n;
+                  const pub = typeof ref === 'number' ? ref : null;
+                  const mine = (pub !== null && api.added[pub]) || [];
+                  if (!tl) return null;
                   return (
                     <DayTimeline
                       key={d.n}
@@ -347,20 +367,20 @@ function TimelinePlan({ slug, model, depth, season, tabs, slots, shape, tlModel,
                       engine={api.engine}
                       loadEngine={api.loadEngine}
                       profile={api.state.profile}
-                      override={api.state.overrides[d.n] ?? null}
+                      override={(pub !== null && api.state.overrides[pub]) || null}
                       addedItems={mine.map((x) => x.item)}
                       day={d}
                       tl={tl}
                       picked={current === d.n}
-                      changed={api.changedDays.has(d.n) && (api.state.overrides[d.n] !== undefined || mine.length > 0)}
-                      candidates={(tlModel.addByDay[d.n] ?? []).map((k) => tlModel.addables[k]!).filter(Boolean)}
+                      changed={pub !== null && api.changedDays.has(pub) && (api.state.overrides[pub] !== undefined || mine.length > 0)}
+                      candidates={(tlModel.addByDay[pub ?? previousPublished(tlModel.days, di)] ?? []).map((k) => tlModel.addables[k]!).filter(Boolean)}
                       taken={mine.map((x) => x.key)}
                       addedKeys={new Map(mine.map((x) => [x.item.id, x.key]))}
                       age={p.party === 'family' ? p.youngest : null}
                       onSplit={(on) => api.setProfile({ split: on })}
-                      onVariant={(k) => api.setVariant(d.n, k)}
-                      onAdd={(k) => api.addPlace(d.n, k)}
-                      onRemove={(k) => api.removePlace(d.n, k)}
+                      onVariant={(k) => pub !== null && api.setVariant(pub, k)}
+                      onAdd={(k) => api.addPlace(ref as number, k)}
+                      onRemove={(k) => api.removePlace(ref as number, k)}
                     />
                   );
                 })}

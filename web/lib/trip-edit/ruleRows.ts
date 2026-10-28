@@ -18,10 +18,19 @@ export interface RowFields {
   lane?: string;
 }
 
+/**
+ * A generated row's id starts with the day number the scheduler made it on (`5-all-meal-lunch`), and that number does not change when a day
+ * is inserted or dropped (STEP2-E4: the page shows Day n, the entries keep their ids). The key is read from the id's own number.
+ */
+const nativeDay = <T extends { id: string; day: number }>(e: T): T => {
+  const m = /^(\d+)-/.exec(e.id);
+  return m && Number(m[1]) !== e.day ? { ...e, day: Number(m[1]) } : e;
+};
+
 /** The `removed` item of a generated row (`rule:all-car-hire`), or null for a stop, a leg or the sun. */
 export function ruleItemOfEntry(e: RowFields): string | null {
   if (e.kind === undefined || e.sourceItemId === undefined) return null;
-  const key = ruleKeyOf({ id: e.id, day: e.day, kind: e.kind as TimelineEntry['kind'], sub: e.sub ?? null, addedBy: e.addedBy as TimelineEntry['addedBy'], sourceItemId: e.sourceItemId, lane: (e.lane ?? 'all') as TimelineEntry['lane'] });
+  const key = ruleKeyOf({ id: e.id, day: nativeDay(e).day, kind: e.kind as TimelineEntry['kind'], sub: e.sub ?? null, addedBy: e.addedBy as TimelineEntry['addedBy'], sourceItemId: e.sourceItemId, lane: (e.lane ?? 'all') as TimelineEntry['lane'] });
   return key === null ? null : ruleItemOf(key);
 }
 
@@ -75,7 +84,7 @@ export function ruleName(timelines: readonly DayTimeline[], day: number, item: s
  * car, check-in, and the drive back. Null for any other row. `day` is the day's entries in time order.
  */
 export function ruleNote(e: TimelineEntry, day: readonly TimelineEntry[]): string | null {
-  const key = ruleKeyOf(e);
+  const key = ruleKeyOf(nativeDay(e));
   if (key === null) return null;
   const stem = key.slice(key.indexOf('-') + 1);
   if (stem === 'car-hire') {
@@ -86,7 +95,7 @@ export function ruleNote(e: TimelineEntry, day: readonly TimelineEntry[]): strin
   if (stem === 'checkin') return `You still sleep in ${e.at?.name ?? 'your stay'}; nothing checks you in.`;
   if (stem === 'end') {
     const lane = key.slice(0, key.indexOf('-'));
-    const drives = rowsOfKeys(day, [`${lane}-end`]).filter((x) => x.kind === 'leg');
+    const drives = rowsOfKeys(day.map(nativeDay), [`${lane}-end`]).filter((x) => x.kind === 'leg');
     if (!drives.length) return null;
     const last = [...day].reverse().find((x) => x.lane === e.lane && x.sourceItemId && !x.insideOf && x.kind !== 'sun');
     const name = endName(e.sub, e.at?.name ?? null);

@@ -3,9 +3,16 @@
 // The slots your own trip fills in the timeline (STEP2-E1; components 4.3 "Slots on your own trip", patterns 3.13). The public page never
 // provides this context, so its entries are unchanged. Two parts: `marks` (words under a stop's title, read mode too, from the document)
 // and `edit` (what edit mode adds, from the lazy edit chunk). The other E packages fill the empty members: E2 `handle`, E3 `addPicker`,
-// E4 `dayMenu`, E5 `dayStatus`.
+// E4 `dayMenu` and `dayStatus` (the note and the warning levels; E5 adds the fixes).
 import { createContext, useContext, type ReactNode } from 'react';
-import type { TimelineEntry } from '@travel/core/schedule/types.ts';
+import type { DayTimeline, TimelineEntry } from '@travel/core/schedule/types.ts';
+import type { TimelineDayModel } from './model';
+
+/** What a day slot may read about its day: the timeline on screen and the day's model (its versions, base, ref when the copy added or dropped days). */
+export interface DayCtx {
+  tl: DayTimeline;
+  day: TimelineDayModel & { ref?: number | string };
+}
 
 export interface EditSlots {
   /** The leading handle (E2, drag). Not drawn until a package fills it. */
@@ -15,9 +22,9 @@ export interface EditSlots {
   /** Which entries get the `⋯` (STEP2-E1B: the rows the rules made too); absent, the stops only. */
   canEdit?: (e: TimelineEntry) => boolean;
   /** The day header's `⋯` (E4). */
-  dayMenu?: (day: number) => ReactNode;
+  dayMenu?: (day: number, ctx: DayCtx) => ReactNode;
   /** Warnings and status under a day header (E5). */
-  dayStatus?: (day: number) => ReactNode;
+  dayStatus?: (day: number, ctx: DayCtx) => ReactNode;
   /** Replaces the inline add panel of a day with the picker (E3): the node is the "Add a place to Day n" row. */
   addPicker?: (day: number) => ReactNode;
 }

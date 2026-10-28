@@ -1,0 +1,49 @@
+/* The Settings sheet of your own trip (STEP2-E4: sections Title, Dates, Who is going, Pace, Window, Make it yours). Tokens only. */
+
+.own-set { display: grid; gap: var(--s-5); }
+.own-set-row { display: grid; gap: var(--s-2); }
+.own-set-note { font: var(--t-meta); color: var(--muted); }
+.own-set-when, .own-set-party { display: grid; gap: var(--s-2); margin: 0; }
+.own-set-when h3, .own-set-party h3 { margin: 0; }
+/* the date reads as in the copy sheet and everywhere else (SW-018): the formatted day, a calendar behind it */
+.own-set-date { display: flex; align-items: center; gap: var(--s-2); min-height: 44px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: var(--r-3); background: var(--surface); color: var(--ink); font: var(--t-mono); font-size: 13.5px; text-align: left; cursor: pointer; }
+.own-set-date > span { flex: 1; min-width: 0; }
+.own-set-date[data-empty] { color: var(--muted); }
+.own-set-date:hover { border-color: var(--ink); }
+/* pace: three segments of one width (SW-019) */
+.own-set .seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; width: max-content; max-width: 100%; }
+/* phone: every control in the sheet is 44 px high (SW-016; foundation 44 on phones) */
+@media (max-width: 639px) {
+  .own-sheet .sheet-head-actions .btn { width: var(--touch-min); height: var(--touch-min); }
+  .own-sheet .input, .own-sheet .selbox { min-height: var(--touch-min); }
+  .own-sheet .seg-btn { height: var(--touch-min); }
+  .own-sheet .sheet-foot .btn { height: var(--touch-min); }
+}
+
+
+/* the title's count, the dates row and the length question (STEP2-E4) */
+.own-set-count { color: var(--muted); font: var(--t-meta); white-space: nowrap; }
+.own-set-dates { display: flex; align-items: center; gap: var(--s-2); }
+.own-set-dates .own-set-date { flex: 1; min-width: 0; }
+.own-set-length { display: grid; gap: var(--s-3); margin-top: var(--s-2); }
+.own-set-ask { display: grid; gap: var(--s-3); padding: var(--s-3); border: 1px solid var(--line-2); border-radius: var(--r-3); background: var(--surface-2); }
+.own-set-pick { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); }
+.own-set-pick-l { font: var(--t-small); color: var(--ink); }
+.own-set-pick .selbox { flex: 0 1 15rem; min-width: 0; }
+.own-set-effect { margin: 0; font: var(--t-small); color: var(--ink); overflow-wrap: anywhere; }
+.own-set-crit, .own-set-why { color: var(--crit); }
+.own-set-why { margin: 0; font: var(--t-meta); }
+.own-set-apply { display: flex; justify-content: flex-end; gap: var(--s-2); }
+@media (max-width: 639px) {
+  .own-set-apply .btn, .own-set-dates .btn { min-height: var(--touch-min); }
+  .own-sheet .stepper-ctl .btn, .own-sheet .stepper button { min-width: var(--touch-min); min-height: var(--touch-min); }
+}
+
+/* Make it yours: the card's choices as 44 px link rows */
+.own-set-yours { display: grid; gap: var(--s-2); }
+.own-set-yours h3 { margin: 0; }
+.own-set-links { list-style: none; margin: 0; padding: 0; display: grid; border: 1px solid var(--accent); border-radius: var(--r-3); background: var(--accent-soft); overflow: hidden; }
+.own-set-links li + li { border-top: 1px solid var(--line-2); }
+.own-set-link { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); width: 100%; min-height: var(--touch-min); padding: 0 var(--s-3); border: 0; background: none; color: var(--accent-text); font: var(--t-mono); font-weight: 600; text-align: left; cursor: pointer; }
+.own-set-link:hover { text-decoration: underline; }
+.own-set-link:focus-visible { outline: var(--focus-ring); outline-offset: -2px; }

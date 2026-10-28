@@ -8,6 +8,7 @@ import { TimelineExtrasContext, type EditSlots, type TimelineExtras } from '@/co
 import { useEditMode } from '@/lib/trip-edit/editMode';
 import type { LayerProps } from '../EditLayer';
 import type { TimelineEntry } from '@travel/core/schedule/types.ts';
+import type { PlanOp } from '@/lib/trip-edit/model';
 
 /** What the loaded chunk hands back to the page. */
 export interface Published {
@@ -15,6 +16,8 @@ export interface Published {
   tools: ReactNode;
   /** the cover's `⋯` trip menu */
   cover: ReactNode;
+  /** the session's way to change the trip as one undo step with a toast (the Settings sheet uses it while editing) */
+  commit: (ops: PlanOp[], label: string) => boolean;
 }
 
 export interface EditApi {
@@ -30,6 +33,8 @@ export interface EditApi {
   /** Show on the changes line */
   showChanges: () => void;
   cover: ReactNode;
+  /** applies a change with an Undo toast; null while the edit chunk is not ready */
+  commit: ((ops: PlanOp[], label: string) => boolean) | null;
 }
 
 type Rest = Omit<LayerProps, 'on' | 'onDone' | 'publish' | 'command'>;
@@ -74,6 +79,7 @@ export function EditHost({ marks, layer, children }: { marks: (e: TimelineEntry)
     done,
     showChanges,
     cover: editing ? pub!.cover : null,
+    commit: editing ? pub!.commit : null,
   };
   return (
     <TimelineExtrasContext.Provider value={extras}>

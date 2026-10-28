@@ -1,6 +1,7 @@
 // The operations behind each stop action (edit-mode-spec 5; template and built columns). Pure: the document, the entry the person
 // pressed and an id maker go in, a list of operations (one undo step) and the words for the toast come out.
 import type { PlanOp, PlanDraft } from './model';
+import { refOfDay, type DayRef } from './dayMap';
 import { rowName, ruleItemOfEntry, type RowFields } from './ruleRows';
 
 /** The slice of a timeline entry these functions read; `kind`, `sub`, `sourceItemId` and `lane` tell a row the rules made (STEP2-E1B). */
@@ -23,15 +24,25 @@ function addedOp(d: PlanDraft, e: StopEntry): string | null {
   return d.template?.added.find((a) => a.ref === ref)?.op ?? null;
 }
 
+/**
+ * The document names a day by its ref (a published number, or an inserted day's operation id); the page shows it as Day n, which differs
+ * once a day was inserted or dropped (STEP2-E4, lib/trip-edit/dayMap.ts). Every operation here goes through this.
+ */
+const dayRef = (d: PlanDraft, n: number): DayRef => (d.template ? refOfDay(d.template.days, n) : n);
+
 /** A published stop's own day: where our plan has it, which differs from where it shows once the person moved it. */
 function publishedDay(d: PlanDraft, e: StopEntry): number {
-  return d.template?.moved.find((m) => m.item === e.id && m.toDay === e.day)?.day ?? e.day;
+  const here = dayRef(d, e.day);
+  return d.template?.moved.find((m) => m.item === e.id && m.toDay === here)?.day ?? (typeof here === 'number' ? here : e.day);
 }
 
 const target = (d: PlanDraft, e: StopEntry): { added: string } | { day: number; item: string } => {
   // a row the rules made (a meal, a rest, the hire car, check-in, the end of the day) is named by its rule key on the day it shows
   const rule = ruleItemOfEntry(e);
-  if (rule) return { day: e.day, item: rule };
+  if (rule) {
+    const day = dayRef(d, e.day);
+    return { day: typeof day === 'number' ? day : e.day, item: rule };
+  }
   const op = addedOp(d, e);
   return op ? { added: op } : { day: publishedDay(d, e), item: e.id };
 };
@@ -45,7 +56,7 @@ export function removeOps(d: PlanDraft, e: StopEntry, newId: NewId = newOpId): P
 /** Move to another day: the end of that day (a published stop moved with no `after` goes to the start, so the caller passes the last stop). */
 export function moveToDayOps(d: PlanDraft, e: StopEntry, toDay: number, after: string | null, newId: NewId = newOpId): PlanOp[] {
   if (!d.template) return [{ kind: 'moveItem', id: newId(), ref: e.id, toDay, ...(after ? { afterRef: after } : {}) }];
-  return [{ kind: 'moveItem', id: newId(), ...target(d, e), toDay, ...(after ? { after } : {}) }];
+  return [{ kind: 'moveItem', id: newId(), ...target(d, e), toDay: dayRef(d, toDay), ...(after ? { after } : {}) }];
 }
 
 /**
@@ -72,7 +83,7 @@ export function nudgeOps(d: PlanDraft, e: StopEntry, stops: readonly { id: strin
   if (!d.template) {
     return after === null ? [{ kind: 'moveItem', id: newId(), ref: e.id, toDay: day, first: true }] : [{ kind: 'moveItem', id: newId(), ref: e.id, toDay: day, afterRef: after }];
   }
-  return [{ kind: 'moveItem', id: newId(), ...target(d, e), toDay: day, ...(after ? { after } : {}) }];
+  return [{ kind: 'moveItem', id: newId(), ...target(d, e), toDay: dayRef(d, day), ...(after ? { after } : {}) }];
 }
 
 /** Add to Maybe (copies): the stop leaves its day and joins the Maybe list, as one step. Null for a stop with no place page. */
