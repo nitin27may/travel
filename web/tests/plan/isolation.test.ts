@@ -35,6 +35,43 @@ const inside = (r: string, roots: readonly string[]) => roots.some((p) => r === 
  */
 const EXTENSION_IMPORTERS = ['web/app/mine/MineShell.tsx', 'web/lib/client/data.ts', 'core/src/schema/api/index.ts', 'web/lib/server/plans.ts', 'web/lib/mine/sync.ts'];
 
+/**
+ * Folder extension points (Step 2, gap-analysis D12; STEP2-C1): every file under `root` may import the builder files in `targets`,
+ * and no other builder file.
+ *
+ * X-S2 (edit-mode-spec; README gotcha 2): edit mode on the trip details page, web/lib/trip-edit/**, applies the document's operations,
+ * syncs, maps copies, reads the plan model adapter and the warning levels, so it imports core/src/plan/ops.ts, sync.ts, doc.ts,
+ * pageModel.ts (STEP2-M), warnings.ts and core/src/schema/plan-draft.ts. It is a lazy chunk loaded only on /t/<id>/; the public
+ * /trips/<slug>/ page never loads it (EA12, held by the budget report). Nothing of the builder's UI or API is reachable from it.
+ *
+ * X10 (FLOW TF9, re-pointed by Step 2 ruling R2): the details page's Settings sheet, web/components/trips/edit/settings/**, mounts the
+ * builder's stage components lazily, so it imports web/components/plan/stages/** and nothing else of the builder.
+ */
+export const EXTENSION_ROOTS: readonly { id: string; root: string; targets: readonly string[] }[] = [
+  {
+    id: 'X-S2',
+    root: 'web/lib/trip-edit',
+    targets: ['core/src/plan/ops', 'core/src/plan/sync', 'core/src/plan/doc', 'core/src/plan/pageModel', 'core/src/plan/warnings', 'core/src/schema/plan-draft'],
+  },
+  { id: 'X10', root: 'web/components/trips/edit/settings', targets: ['web/components/plan/stages'] },
+];
+
+/** The builder files a file imports (repo paths without the extension). */
+export const builderTargets = (fromRel: string, text: string): string[] =>
+  [...text.matchAll(SPECIFIER)].flatMap((m) => {
+    const t = targetOf(fromRel, m[1]!);
+    return t !== null && inside(t, BUILDER_TARGETS) ? [t] : [];
+  });
+
+/** True when a file may import builder code: inside the builder, a named extension file, or an extension folder for every target. */
+export function allowedImporter(fromRel: string, text: string): boolean {
+  if (inside(fromRel, BUILDER_PATHS) || EXTENSION_IMPORTERS.includes(fromRel)) return true;
+  const point = EXTENSION_ROOTS.find((x) => inside(fromRel, [x.root]));
+  const targets = builderTargets(fromRel, text);
+  if (!targets.length) return true;
+  return point !== undefined && targets.every((t) => inside(t, point.targets));
+}
+
 function files(roots: readonly string[]): { rel: string; text: string }[] {
   const out: { rel: string; text: string }[] = [];
   for (const r of roots) {
@@ -114,8 +151,25 @@ describe('the trip builder stays inside its fence (15.4 G1 to G5)', () => {
   });
 
   it('G1: only the builder and the extension points import builder code', () => {
-    const hits = PRODUCT.filter((s) => !inside(s.rel, BUILDER_PATHS) && !EXTENSION_IMPORTERS.includes(s.rel) && importsBuilder(s.rel, s.text)).map((s) => s.rel);
+    const hits = PRODUCT.filter((s) => !allowedImporter(s.rel, s.text)).map((s) => s.rel);
     expect(hits).toEqual([]);
+  });
+
+  it('X-S2 and X10: the edit-mode folders import only their named builder files', () => {
+    const ok = (from: string, line: string) => allowedImporter(from, line);
+    expect(ok('web/lib/trip-edit/store.ts', "import { applyOp } from '@travel/core/plan/ops.ts';")).toBe(true);
+    expect(ok('web/lib/trip-edit/a/b.ts', "import { planDraft } from '@travel/core/schema/plan-draft.ts';")).toBe(true);
+    expect(ok('web/lib/trip-edit/levels.ts', "import { warnLevel } from '@travel/core/plan/warnings.ts';")).toBe(true);
+    expect(ok('web/lib/trip-edit/model.ts', "const m = await import('@travel/core/plan/pageModel.ts');")).toBe(true);
+    expect(ok('web/lib/trip-edit/x.ts', "import Tray from '@/components/plan/Tray';")).toBe(false);
+    expect(ok('web/lib/trip-edit/x.ts', "import { planBuild } from '@travel/core/schema/api/plan.ts';")).toBe(false);
+    expect(ok('web/lib/trip-edit/x.ts', "import { k } from '@/lib/plan/keys';")).toBe(false);
+    expect(ok('web/components/trips/edit/settings/Where.tsx', "import Where from '@/components/plan/stages/Where';")).toBe(true);
+    expect(ok('web/components/trips/edit/settings/Where.tsx', "import { applyOp } from '@travel/core/plan/ops.ts';")).toBe(false);
+    expect(ok('web/components/trips/edit/Bar.tsx', "import Where from '@/components/plan/stages/Where';")).toBe(false);
+    expect(ok('web/components/trips/timeline/Entry.tsx', "import { applyOp } from '@travel/core/plan/ops.ts';")).toBe(false);
+    expect(ok('web/app/trips/[slug]/page.tsx', "import { applyOp } from '@travel/core/plan/ops.ts';")).toBe(false);
+    expect(ok('web/lib/trip-edit-x/a.ts', "import { applyOp } from '@travel/core/plan/ops.ts';")).toBe(false);
   });
 
   it('G2: builder device keys are named in web/lib/plan/keys.ts only', () => {

@@ -126,6 +126,20 @@ All of H1 to H10 are slots or one-line conditions in the shared files; the edit 
 | D11 | No database migration in Step 2: the document lives in `plan_draft.doc` (jsonb); `kind`, `source_trip`, `start`, `days` already exist | none | | |
 | D12 | Isolation: extension point **X-S2**, `web/lib/trip-edit/**` may import `core/src/plan/ops.ts`, `sync.ts`, `doc.ts`, `pageModel.ts`, `warnings.ts` and `plan-draft.ts`; it is a lazy chunk loaded only on `/t/`. **X10** (FLOW TF9) is re-pointed: `web/components/trips/edit/settings/**` may import `web/components/plan/stages/**` | fence | `web/tests/plan/isolation.test.ts` `EXTENSION_IMPORTERS` | STEP2-C1 |
 
+**As built (STEP2-C1, 28 Oct 2026).** D1, D2, D3, D9 and D12 are in `core/src/schema/plan-draft.ts`, `core/src/plan/ops.ts`,
+`core/src/plan/warnings.ts`, `core/src/config/plans.ts` (`PLAN_EDIT`) and `web/tests/plan/isolation.test.ts`. Differences from the
+rows above, all optional keys of `/1`: `picks[].added` (true for a pick the person added after a build or a conversion: the built
+"Added by you" mark needs it); `opLog` (built mode: the last `PLAN_EDIT.builtOpLog` = 64 operation ids, so a resend after a lost
+answer is skipped instead of applied twice; template entries already carry their ids); a template drop's `to` (the day its stops
+move to; the Maybe choice is `addMaybe` entries in the same step); template stop notes keyed `<day>:<item>` for a published stop
+and by the entry's operation id for an added place; built notes keyed `trip`, a day or a pick's ref. Operations beyond D2:
+`setOrigin`, `setWhere`, `setDriveDay` (edit-mode-spec 8), `setBuild` (a build or re-flow result, so Rebuild has Undo),
+`setIdentity`, `setRev` (11.3 "OK records the new rev"), `toTemplate` (the inverse of `convert`, and "Reset to our plan" on a
+converted trip), and the inverse form `restoreFields`. `builtDays(draft)` in ops.ts is the one placement rule (an `edits` entry where
+a day has one, else the last build) for STEP2-M and STEP2-B2. `convert` sets `seed` to our trip; `planRowFields`
+(`core/src/plan/doc.ts`, not in C1's paths) still derives `source_trip` from `template.trip` only, so a converted row's `source_trip`
+reads null until STEP2-B3 (or a doc.ts follow-up) reads `seed` when `convertedAt` is set.
+
 ## 5. Pending trip-page enhancements: in Step 2, later, or dropped
 
 Every open item that touches the trip details page or its rows, with its id and a ruling.
@@ -180,3 +194,4 @@ From [prototypes/TODO.md](../../prototypes/TODO.md); only rows Step 2 owns.
 | Date | Change |
 |---|---|
 | 2026-10-27 | Created (STEP2-PLAN, travel-planner, Opus) |
+| 2026-10-28 | "As built" note under section 4 (STEP2-C1): the extra optional keys and operations, and the `source_trip` follow-up |
