@@ -44,6 +44,7 @@ html[data-trip-editing] .bottom-bar, html[data-trip-editing] .to-top { display: 
 .edit-day-name { font: var(--t-mono); font-weight: 600; }
 .edit-day-sub { font: var(--t-meta); color: var(--muted); }
 .edit-day-reason { font: var(--t-meta); color: var(--crit); }
+.edit-day-reason[data-level='check'] { color: var(--warn); }
 .edit-fit { flex: none; display: inline-flex; align-items: center; height: 24px; padding: 0 9px; border: 1px solid var(--line-2); border-radius: var(--r-full); font: var(--t-chip); color: var(--ink-2); }
 .edit-fit[data-fit='tight'] { background: var(--warn-soft); border-color: transparent; color: var(--warn); }
 

@@ -74,7 +74,8 @@ export function TripSettings(p: SettingsProps) {
       <p className="own-set-note">{p.where === 'device' ? 'Kept in this browser. Sign in to keep it on every device.' : 'Kept in your account and on this device.'}</p>
     </div>
   );
-  const footer = <Button variant="primary" onClick={onClose}>Done</Button>;
+  // "Close", and not the filled "Done": Done leaves edit mode, and one word must not mean two things on one screen (ER-014)
+  const footer = <Button onClick={onClose}>Close</Button>;
   const change = (o: boolean) => {
     if (!o) onClose();
   };

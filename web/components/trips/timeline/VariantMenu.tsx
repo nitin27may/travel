@@ -9,6 +9,8 @@ export interface MenuEntry {
   detail?: string | null;
   /** Why it does not fit this party; drawn in the warning colour. */
   warn?: string | null;
+  /** Fix (a rule fails) or Check (advice); Check reads in the warning colour, Fix in the critical one (ER-016). */
+  warnLevel?: 'fix' | 'check' | null;
   onSelect: () => void;
 }
 
@@ -67,7 +69,7 @@ export function VariantMenu({ label, ariaLabel, entries, onOpenChange }: Props) 
             >
               <span className="tl-menu-label">{e.label}</span>
               {e.detail ? <span className="tl-menu-detail num">{e.detail}</span> : null}
-              {e.warn ? <span className="tl-menu-warn">{e.warn}</span> : null}
+              {e.warn ? <span className="tl-menu-warn" data-level={e.warnLevel ?? 'fix'}>{e.warn}</span> : null}
             </button>
           ))}
         </div>

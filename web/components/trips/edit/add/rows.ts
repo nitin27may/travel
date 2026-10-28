@@ -91,6 +91,22 @@ export interface Inputs {
 
 const dayOf = (m: TimelineModel, n: number) => m.days.find((d) => d.n === n) ?? null;
 
+/**
+ * The group a candidate stands in on one day. The model keeps one candidate per key, whichever day listed it first, so its own `group` can
+ * belong to another day (ER-005): a stop that is a version's extra on Day 2 is "nearby" on Day 6. The days' inputs say which it is here: a
+ * stop of one of this day's other versions, else a stop of the plan on another day at this base, else a place with a page near the base.
+ */
+export function groupOn(m: TimelineModel, day: number, c: AddCandidate): AddCandidate['group'] {
+  const d = dayOf(m, day);
+  if (!d) return c.group;
+  const idOf = (i: { id: string; placeSlug: string | null }): string => i.placeSlug ?? i.id;
+  const chosen = d.input.variants.find((v) => v.key === 'B') ?? d.input.variants[0];
+  const inChosen = new Set((chosen?.items ?? []).flatMap((i) => [i.id, idOf(i)]));
+  if (!inChosen.has(c.key) && d.input.variants.some((v) => v !== chosen && v.items.some((i) => idOf(i) === c.key))) return 'variant';
+  if (d.base && m.days.some((o) => o.n !== day && o.base === d.base && o.input.variants.some((v) => (v.key === 'B' || v.key === 'main') && v.items.some((i) => idOf(i) === c.key)))) return 'trip';
+  return 'nearby';
+}
+
 /** The points a day is anchored on: its base and every stop with a coordinate in any version. */
 export function anchorsOf(m: TimelineModel, n: number): Point[] {
   const d = dayOf(m, n);
@@ -238,7 +254,7 @@ export function buildSections(i: Inputs): Section[] {
     return true;
   });
   const keys = i.model.addByDay[i.day] ?? [];
-  const cands = (group: AddCandidate['group']) => keys.map((k) => i.model.addables[k]).filter((c): c is AddCandidate => !!c && c.group === group && matches(needle, c.name, c.label));
+  const cands = (group: AddCandidate['group']) => keys.map((k) => i.model.addables[k]).filter((c): c is AddCandidate => !!c && groupOn(i.model, i.day, c) === group && matches(needle, c.name, c.label));
 
   // 1. the other versions of this day (a copy whose day has versions)
   if (i.doc.template) push('versions', 'From the other versions of this day', take(cands('variant').map((c) => rowOfCandidate(c, i, 'versions')).filter(shown)));

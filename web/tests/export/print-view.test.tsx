@@ -24,8 +24,8 @@ const text = (html: string) => html.replace(/<[^>]+>/g, '|').replace(/\|+/g, '|'
 describe('the print view', () => {
   const html = renderToStaticMarkup(TripPrintView({ data: model, session }));
   it('says who the plan is for, as the page says it', () => {
-    expect(profileLine(profile)).toBe('Family, 6 · Standard');
-    expect(html).toContain('Planned for Family, 6 · Standard');
+    expect(profileLine(profile)).toBe('2 adults · youngest 6 · Standard pace');
+    expect(html).toContain('Planned for 2 adults · youngest 6 · Standard pace');
   });
   it('prints the timeline\'s time for each stop of day 3, in the timeline\'s order', () => {
     const day3 = session.timelines.find((t) => t.day === 3)!.entries.filter((e) => ['visit', 'trail'].includes(e.kind) && !e.insideOf);

@@ -9,6 +9,8 @@ export interface PageTab<V extends string> {
   label: string;
   /** Drawn after the label from 640 px (components 1.6) and always part of the accessible name; null or absent draws nothing. */
   count?: number | null;
+  /** What the count counts, said in the accessible name and as the tooltip: "places in this trip (stops and options)". */
+  hint?: string;
 }
 
 interface Props<V extends string> {
@@ -61,7 +63,8 @@ export function PageTabs<V extends string>({ label, tabs, value, onActivate, onF
               id={`${idPrefix}-tab-${t.value}`}
               aria-selected={on}
               aria-controls={`${idPrefix}-panel-${t.value}`}
-              aria-label={n === null ? undefined : `${t.label}, ${n}`}
+              aria-label={n === null ? undefined : `${t.label}, ${n}${t.hint ? ` ${t.hint}` : ''}`}
+              title={n !== null && t.hint ? `${n} ${t.hint}` : undefined}
               tabIndex={on ? 0 : -1}
               className="trip-tab"
               data-tab={t.value}

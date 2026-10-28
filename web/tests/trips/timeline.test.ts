@@ -288,9 +288,28 @@ describe('review round two', () => {
     const { listPlaces, getPlace } = await import('@/lib/public');
     const m = buildTripPageModel(rockies, (s) => { const p = getPlace(s); return p ? { point: p.point ? { lat: p.point.lat, lon: p.point.lon } : null, photo: p.photo } : null; }, listPlaces());
     expect(JSON.stringify(m.timeline)).not.toMatch(/"adults":/);
-    for (const c of Object.values(m.timeline!.addables)) expect(c.km!).toBeLessThanOrEqual(30);
+    // a place with a known distance is within 30 km; only the plan's own stops (a version's, a day's at this base) may have none, when no coordinate is known
+    for (const c of Object.values(m.timeline!.addables)) {
+      if (c.km === null) expect(c.group === 'variant' || c.group === 'trip').toBe(true);
+      else expect(c.km).toBeLessThanOrEqual(30);
+    }
     const d5 = m.timeline!.addByDay[5]!.map((k) => m.timeline!.addables[k]!);
     expect(d5.some((c) => /bow lake|peyto|mount robson/i.test(c.name))).toBe(false);
+  });
+  it('a day with versions offers the other versions\' stops as group 1, and the days at one base as group 5 (ER-005)', async () => {
+    const { buildTripPageModel } = await import('@/components/trips/model');
+    const { groupOn } = await import('@/components/trips/edit/add/rows');
+    const { listPlaces, getPlace } = await import('@/lib/public');
+    const m = buildTripPageModel(rockies, (s) => { const p = getPlace(s); return p ? { point: p.point ? { lat: p.point.lat, lon: p.point.lon } : null, photo: p.photo } : null; }, listPlaces());
+    const tl = m.timeline!;
+    const groups = (n: number) => (tl.addByDay[n] ?? []).map((k) => groupOn(tl, n, tl.addables[k]!));
+    // Rockies has versions A, B and C on its days: most of them have a stop with a page that the chosen version does not
+    expect(tl.days.filter((d) => d.input.variants.length > 1 && groups(d.n).includes('variant')).length).toBeGreaterThanOrEqual(8);
+    // Banff has two days (1 and 2): each offers the other's stops
+    expect(groups(1)).toContain('trip');
+    expect(groups(2)).toContain('trip');
+    // a candidate that is a version's extra on one day is not "From the other versions" on a day where it is only a nearby place
+    for (const n of Object.keys(tl.addByDay).map(Number)) for (const k of tl.addByDay[n]!) if (groupOn(tl, n, tl.addables[k]!) === 'variant') expect(tl.days.find((d) => d.n === n)!.input.variants.some((v) => v.items.some((i) => (i.placeSlug ?? i.id) === k))).toBe(true);
   });
   it('generated times are on 5 minute marks at the default profile', () => {
     for (const t of rockies.schedule!.timelines) for (const e of t.entries) if (e.addedBy === 'scheduler' && e.kind !== 'leg' && e.kind !== 'sun') expect(Number(e.start.slice(3)) % 5, `${t.day} ${e.title} ${e.start}`).toBe(0);

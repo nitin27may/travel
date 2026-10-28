@@ -6,6 +6,8 @@ import type { Profile } from '@travel/core/schedule/types.ts';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import { candidateToItem, type TimelineModel } from '@/components/trips/timeline/model';
+import { usePrefs } from '@/lib/format/prefs';
+import { formatDistance } from '@/lib/format/units';
 import { deltaOfDraft } from '@/lib/trip-edit/source';
 import { dayChoices, type DayChoice } from '@/lib/trip-edit/moveFit';
 import { peekTimeline } from '@/lib/export/timelineState';
@@ -204,6 +206,7 @@ export function NoteField({ initial, back, save }: { initial: string; back: () =
 
 function DayList({ entry: e, doc, model, defaults, profile, start, back, pick }: Pick<Props, 'entry' | 'doc' | 'model' | 'defaults' | 'profile' | 'start'> & { back: () => void; pick: (n: number, after: string | null) => void }) {
   const [rows, setRows] = useState<DayChoice[] | null>(null);
+  const [prefs] = usePrefs();
   useEffect(() => {
     let live = true;
     void import('@travel/core/schedule/template.ts').then((engine) => {
@@ -225,7 +228,7 @@ function DayList({ entry: e, doc, model, defaults, profile, start, back, pick }:
         setRows(r);
       } catch {
         // the scheduler could not try a day: the list still offers every day, with no fit words
-        setRows(model.days.map((d) => ({ n: d.n, label: `Day ${d.n}`, base: d.base, current: d.n === e.day, ends: null, driving: null, fit: 'fits' as const, reason: null, last: null })));
+        setRows(model.days.map((d) => ({ n: d.n, label: `Day ${d.n}`, base: d.base, current: d.n === e.day, ends: null, driving: null, fit: 'fits' as const, reason: null, last: null, km: null, near: true })));
       }
     });
     return () => {
@@ -247,7 +250,7 @@ function DayList({ entry: e, doc, model, defaults, profile, start, back, pick }:
               <button type="button" role="menuitem" className="edit-row edit-day" disabled={r.current} onClick={() => pick(r.n, r.last)} data-fit={r.fit}>
                 <span className="edit-day-main">
                   <span className="edit-day-name">{r.current ? `Now on Day ${r.n}` : r.label}</span>
-                  <span className="edit-day-sub num">{[r.base ? `Base: ${r.base}` : null, r.ends ? `ends ${r.ends}` : null, r.driving ? `${r.driving} ≈` : null].filter(Boolean).join(' · ')}</span>
+                  <span className="edit-day-sub num">{[!r.current && r.km !== null ? `${formatDistance(r.km, prefs.distance)} from ${r.base ?? 'the day'}` : r.base ? `Base: ${r.base}` : null, r.ends ? `ends ${r.ends}` : null, r.driving ? `${r.driving} ≈` : null].filter(Boolean).join(' · ')}</span>
                   {r.reason ? <span className="edit-day-reason">{r.reason}</span> : null}
                 </span>
                 {r.current || r.fit === 'fix' ? null : <span className="edit-fit" data-fit={r.fit}>{r.fit === 'fits' ? 'Fits' : 'Tight'}</span>}

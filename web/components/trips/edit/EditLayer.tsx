@@ -19,6 +19,7 @@ import type { SaveResult, SyncWord, Where } from '@/lib/trip-edit/open';
 import { refOfDay } from '@/lib/trip-edit/dayMap';
 import { candidateToItem } from '@/components/trips/timeline/model';
 import { ruleItemOfEntry, ruleName } from '@/lib/trip-edit/ruleRows';
+import { shownLevel } from '@/lib/trip-edit/warnings';
 import { maybeOps, maybeWords, movedWords, moveToDayOps, newOpId, noteOps, nudgeOps, nudgedWords, removeOps, removedWords, swappedWords, swapOps } from '@/lib/trip-edit/stopOps';
 import { peekTimeline } from '@/lib/export/timelineState';
 import type { Published } from './shell/EditHost';
@@ -33,7 +34,8 @@ import { DayMenu } from './day/DayMenu';
 import { DayStatus } from './day/DayStatus';
 import { clearAll } from './warnings/store';
 import { SummaryChecks } from './warnings/WarnCount';
-import { addDayOps, addedDayNumber, dayBookings, dayNoteOf, dayNoteOps, droppedWords, dropDayOps, resetDayOps, versionOps, type DropHow } from './day/dayOps';
+import { Button } from '@/components/ui/Button';
+import { addDayOps, addedDayNumber, dayBookings, dayChanged, dayCount, dayNoteOf, dayNoteOps, droppedWords, dropDayOps, resetDayOps, versionOps, type DropHow } from './day/dayOps';
 import { useEditSession } from './useEditSession';
 import './add/add.css';
 import './edit.css';
@@ -282,6 +284,14 @@ export function EditLayer(p: LayerProps) {
                 act={dayAct}
               />
             ),
+            differs: (n: number) => dayChanged(doc, refOfDay(doc.template?.days ?? [], n)),
+            emptyDay: (n: number, ctx: DayCtx) =>
+              dayBookings(ctx.tl, p.bookings, typeof ctx.day.ref === 'number' ? ctx.day.ref : null).length === 0 && dayCount(doc, model.days.length) > 1 ? (
+                <Button size="sm" variant="ghost" className="edit-drop-empty" onClick={() => dayAct.drop(n, { kind: 'remove' }, [])}>
+                  Drop Day {n}
+                </Button>
+              ) : null,
+            graded: (w: { code: string; message: string }) => shownLevel(w) !== null,
             dayStatus: (n: number, ctx: DayCtx) => <DayStatus n={n} note={dayNoteOf(doc, n)} tl={ctx.tl} plan={{ doc, model, profile: p.profile, start: p.start }} canEdit={canEdit} act={{ moveTo: act.moveTo, remove: act.remove }} />,
           }
         : {}),

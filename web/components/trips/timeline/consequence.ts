@@ -2,6 +2,7 @@ import { fmtHM } from '@travel/core/schedule/rules.ts';
 import type { DayTimeline, Profile, ScheduleDayInput, ScheduleItem, ScheduleOptions } from '@travel/core/schedule/types.ts';
 import { formatDistance, type DistanceUnit } from '@/lib/format/units';
 import type { Engine } from './useTimeline';
+import { warnText } from './warnText';
 
 // What a change would do to a day, worked out by the scheduler itself so the figure on the button is the figure the day shows after
 // the click (principle P6: the cost sits where the choice is made). Nothing here is typed by hand.
@@ -41,6 +42,8 @@ export interface VariantLine {
   line: string;
   /** Why it does not fit this party, or that the day runs long; null when nothing needs saying. */
   warn: string | null;
+  /** How a warning reads (ER-016): a rule the party fails is Fix (the minimum age of a stop), the day running long is advice, Check. */
+  level: 'fix' | 'check' | null;
 }
 
 /** The consequence of picking a version, from the scheduled day itself. */
@@ -52,5 +55,6 @@ export function variantLine(tl: DayTimeline, unit: DistanceUnit): VariantLine {
   ].filter(Boolean);
   const noFit = tl.notes.find((n) => n.kind === 'no-fit');
   const cap = tl.warnings.find((w) => w.code === 'S_DAY_CAP');
-  return { line: parts.join(' · '), warn: noFit ? noFit.text.replace(/^.*?picked for this day\.\s*/, '').replace(/\.$/, '') : cap ? cap.message.replace(/ Optional: .*$/, '') : null };
+  const warn = noFit ? noFit.text.replace(/^.*?picked for this day\.\s*/, '').replace(/\.$/, '') : cap ? warnText(cap.message.replace(/ Optional: .*$/, '')) : null;
+  return { line: parts.join(' · '), warn, level: noFit ? 'fix' : cap ? 'check' : null };
 }

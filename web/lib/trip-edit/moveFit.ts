@@ -1,8 +1,9 @@
 // The Move to day list (edit-mode-spec 5.1; components 8.7): each day with its base, the day's end, the driving change and Fits or Tight,
 // read from the scheduler by trying the move on each day. Nothing is ever disabled because of a warning (Q-BE6); a Fix-level reason says
 // why in words and the day stays choosable. Pure over the engine, the model's day inputs and the document.
+import { ADD_NEARBY_KM } from '@travel/core/config/nearby.ts';
 import { warnLevel } from '@travel/core/plan/warnings.ts';
-import type { Profile, ScheduleDayInput, ScheduleItem, TemplateDay } from '@travel/core/schedule/types.ts';
+import type { Point, Profile, ScheduleDayInput, ScheduleItem, TemplateDay } from '@travel/core/schedule/types.ts';
 import { fmtHM } from '@travel/core/schedule/rules.ts';
 import type { SourceDelta } from '@/components/trips/timeline/useTimeline';
 import type { TemplateEngine } from '@/components/trips/timeline/useTimeline';
@@ -21,6 +22,41 @@ export interface DayChoice {
   reason: string | null;
   /** the schedule id of the day's last stop, so a move lands at the end of the day */
   last: string | null;
+  /** straight-line km from the stop to this day's base (else the nearest anchor of the day); null when either has no point (ER-001) */
+  km: number | null;
+  /** within ADD_NEARBY_KM of the day: the only days a Fix offers; a day or stop with no point is not known to be far, so it stays near */
+  near: boolean;
+}
+
+const rad = (d: number): number => (d * Math.PI) / 180;
+/** Straight-line km between two points (haversine). */
+export function kmApart(a: Point, b: Point): number {
+  const h = Math.sin(rad(b.lat - a.lat) / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(rad(b.lon - a.lon) / 2) ** 2;
+  return 12742 * Math.asin(Math.min(1, Math.sqrt(h)));
+}
+
+/**
+ * Where the stop being moved is: the point of its schedule item in any version of its day, else (a gondola or a boat has no coordinate of
+ * its own in the plan) the base of the day it was published on, which is where the plan puts it; for a place that was added, its point.
+ */
+function stopPoint(a: Args): Point | null {
+  if (a.stop.added) {
+    const x = a.delta.added.find((y) => y.op === a.stop.added);
+    return x ? (a.addItem(x)?.point ?? null) : null;
+  }
+  const day = a.days.find((d) => d.n === a.stop.day);
+  for (const v of day?.input.variants ?? []) {
+    const it = v.items.find((i) => i.id === a.stop.id);
+    if (it?.point) return it.point;
+  }
+  return day?.input.base?.point ?? null;
+}
+
+/** The distance the Move to day row says: "212 km from Jasper" is built from this in the panel. */
+function dayKm(d: TemplateDay, p: Point | null): number | null {
+  if (!p) return null;
+  const pts = d.input.base?.point ? [d.input.base.point] : d.input.variants.flatMap((v) => v.items.flatMap((i) => (i.point ? [i.point] : [])));
+  return pts.length ? Math.min(...pts.map((q) => kmApart(q, p))) : null;
 }
 
 const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -75,18 +111,21 @@ const lastOf = (t: TemplateDay['timeline'] | undefined): string | null => [...(t
 
 export function dayChoices(a: Args): DayChoice[] {
   const base = schedule(a, a.delta);
+  const where = stopPoint(a);
   return base.map((d) => {
+    const km = dayKm(d, where);
+    const near = km === null || km <= ADD_NEARBY_KM;
     const date = dayDate(a.start, d.n);
     const label = date ? `Day ${d.n} · ${date}` : `Day ${d.n}`;
     const name = d.input.base?.name ?? null;
     const was = d.timeline;
-    if (d.n === a.stop.from) return { n: d.n, label, base: name, current: true, ends: null, driving: null, fit: 'fits' as const, reason: null, last: lastOf(was) };
+    if (d.n === a.stop.from) return { n: d.n, label, base: name, current: true, ends: null, driving: null, fit: 'fits' as const, reason: null, last: lastOf(was), km, near };
     // the document names the day by its ref (a published number, or an inserted day's operation id)
     const move = a.stop.added
       ? { ...a.delta, added: a.delta.added.map((x) => (x.op === a.stop.added ? { ...x, day: d.ref, after: undefined } : x)) }
       : { ...a.delta, moved: [...a.delta.moved.filter((m) => !(m.day === a.stop.day && m.item === a.stop.id)), { op: 'preview', day: a.stop.day, item: a.stop.id, toDay: d.ref }] };
     const now = schedule(a, move).find((x) => x.ref === d.ref)?.timeline;
-    if (!now) return { n: d.n, label, base: name, current: false, ends: null, driving: null, fit: 'fits' as const, reason: null, last: lastOf(was) };
+    if (!now) return { n: d.n, label, base: name, current: false, ends: null, driving: null, fit: 'fits' as const, reason: null, last: lastOf(was), km, near };
     const before = new Set(was.warnings.map(key));
     const fresh = now.warnings.filter((w) => !before.has(key(w)));
     const fixes = fresh.filter((w) => warnLevel(w.code) === 'fix');
@@ -100,9 +139,12 @@ export function dayChoices(a: Args): DayChoice[] {
       current: false,
       ends: now.span.end || null,
       driving: dd === 0 ? null : `${dd > 0 ? '+' : '-'}${fmtHM(Math.abs(dd))} driving`,
-      fit: fixes.length ? 'fix' : checks.length ? 'tight' : 'fits',
+      // a day beyond ADD_NEARBY_KM of the stop is never "Fits", whatever the scheduler priced the leg at (ER-001)
+      fit: fixes.length ? 'fix' : checks.length || !near ? 'tight' : 'fits',
       reason: fixes.length ? short(fixes[0]!.message) : null,
       last: lastOf(was),
+      km,
+      near,
     };
   });
 }

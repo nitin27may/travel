@@ -16,6 +16,7 @@ import { useMapLink } from './MapLink';
 import { FLIGHT_NOTE } from './marks';
 import { useTimelineExtras } from './editSlots';
 import { Prose } from './Prose';
+import { warnText } from './warnText';
 
 const GLYPH: Record<string, { ui?: IconName; tl?: TlIconName }> = {
   start: { tl: 'key' }, 'start:land': { ui: 'flight' }, 'start:leave-home': { ui: 'home' },
@@ -41,6 +42,8 @@ export function LegRow({ e }: { e: TimelineEntry }) {
   const [prefs] = usePrefs();
   const est = e.leg ? e.leg.basis !== 'routed' : false;
   const word = MODE_WORD[e.leg?.mode ?? 'drive'] ?? 'Travel';
+  // a drive nobody priced (no routed time, no distance: the scheduler's 10 minute local move) is not a time to plan by (ER-001)
+  const unpriced = !!e.leg && e.leg.mode === 'drive' && e.leg.basis === 'estimate' && e.leg.km == null;
   const to = e.to?.name ? e.title.replace(/^(Drive|Walk|Shuttle|Bus|Train|Boat|Ferry|Lift|Flight) (?:on )?to |^Back to /, '') : '';
   const back = /^(Back to|Drive on to)/.test(e.title);
   // N3: a split drive's halves both carry the whole route's km (the schedule does not store each half's share), so the distance is said once,
@@ -54,10 +57,10 @@ export function LegRow({ e }: { e: TimelineEntry }) {
       <span className="tl-node" aria-hidden="true" />
       <p className="tl-leg-text">
         <Glyph e={e} size={14} />
-        <span className="sr-only">{`${e.start}, ${word} ${fmtHM(e.durationMin)}${est ? ', estimated' : ''}${to ? `, to ${to}` : ''}. `}</span>
+        <span className="sr-only">{`${e.start}, ${unpriced ? `${word} time estimated` : `${word} ${fmtHM(e.durationMin)}${est ? ', estimated' : ''}`}${to ? `, to ${to}` : ''}. `}</span>
         <span aria-hidden="true">
-          {est ? <><span className="tl-est" title="A straight line or the plan's own figure, not a routed road time">≈</span>{' '}</> : null}
-          {word} <b>{fmtHM(e.durationMin)}</b>
+          {est && !unpriced ? <><span className="tl-est" title="A straight line or the plan's own figure, not a routed road time">≈</span>{' '}</> : null}
+          {unpriced ? <b>{word} time estimated</b> : <>{word} <b>{fmtHM(e.durationMin)}</b></>}
           {split ? null : km}
           {to && !back ? ` to ${to}` : back ? ` ${e.title.replace(/^Drive on to /, 'on to ')}` : ''}
           {split ? km : null}
@@ -132,6 +135,8 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last, dayE
       data-pin={pinId}
       data-edit={editable ? (stop ? 'stop' : 'rule') : undefined}
     >
+      {/* first in the DOM so the Tab order is handle, content, then the row's menu (ER-011); it is drawn in its own absolute slot */}
+      {edit?.handle && stop ? <div className="tl-edit-handle" data-print="hide">{edit.handle(e)}</div> : null}
       <span className="tl-time num" data-conf={e.time.confidence} data-block={e.block ? '' : undefined}>
         <span aria-hidden="true">{e.block ?? timeText(e)}</span>
         {e.tz.length <= 3 ? <span className="tl-tz" aria-hidden="true">{e.tz}</span> : null}
@@ -179,7 +184,7 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last, dayE
         {e.time.note && (e.kind !== 'start' || e.time.note.startsWith(FLIGHT_NOTE)) ? <p className="tl-note"><Prose text={e.time.note} /></p> : null}
         {warnings.map((w) => (
           <p key={`${w.code}:${w.message}`} className="tl-warn" data-code={w.code}>
-            <Icon name="warn" size={14} /> <Prose text={w.message} />
+            <Icon name="warn" size={14} /> <Prose text={warnText(w.message)} />
           </p>
         ))}
         {hasMore ? (
@@ -227,7 +232,6 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last, dayE
         ) : null}
       </div>
       {editable ? <div className="tl-edit-trail" data-print="hide">{edit!.trail(e, dayEntries ?? [])}</div> : null}
-      {edit?.handle && stop ? <div className="tl-edit-handle" data-print="hide">{edit.handle(e)}</div> : null}
     </li>
   );
 }

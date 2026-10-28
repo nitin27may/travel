@@ -73,6 +73,41 @@ Severity: **must-fix** (blocks release beyond the owner), **should-fix** (fix in
 
 Counts: **2 must-fix, 15 should-fix, 9 nice.**
 
+## Fix status (STEP2-ERFIX, 28 Oct 2026)
+
+Branch `step2/ERFIX`, code commit `744f301a`. Evidence is in `/Users/nks/workspace/travel-wt/S2-ERFIX-shots/` (390, 768, 1440, light and dark, 2x; not committed) and the spec `web/tests/e2e/t-edit-erfix.spec.ts` plus `web/tests/trip-edit/er-fixes.test.ts`. The Move to day drive price of a moved stop (ER-001's core half) is the LEG lane's, and ER-006, 007, 008 and 025 are the UI2 lane's.
+
+| ID | Status | What changed, evidence |
+|---|---|---|
+| ER-001 | **fixed (UI side); core price with LEG** | Move to day rows say "207 km from Jasper" and read Tight beyond `ADD_NEARBY_KM`; the one fix offers only near days, the stop's own day first (a stop with no coordinate stands at its own day's base); an unpriced drive (no routed time, no km) reads "Drive time estimated". `02-move-to-day-*`, `03-day9-warning-*`; unit `er-fixes.test.ts`, e2e ER-001. The real drive minutes of a moved stop stay with LEG (`core/src/schedule`) |
+| ER-002 | fixed | one To fix / To check block per day; older triangle lines, boxed suitability notice (when a Fit warning shows) and the totals-row count are left out in edit mode. `03-day9-warning-*`; e2e ER-002. Read mode keeps the single older line (one style) |
+| ER-003 | fixed (display layer) | "Day 9 is 10 h 25 from leaving the base to getting back; a standard family day is 10 h." through `warnText` on the page, the edit blocks and the version lists. The scheduler's own sentence (`core/src/schedule/validate.ts`) is unchanged because that folder is LEG's; `warnText` passes a changed sentence through |
+| ER-004 | fixed | `add-fit[data-fit=full]` uses `--warn`. `04-picker-day2-*`; e2e ER-004 |
+| ER-005 | fixed | plan stops resolve their place page's point; stops with a page are offered from the day's other versions and from days at the same base; the picker reads the group per day (`groupOn`). Rockies: versions group on 9 days, "Elsewhere" on 14. `04-picker-day2-*`; `timeline.test.ts`, e2e ER-005 |
+| ER-006 | UI2 | not in this lane |
+| ER-007 | UI2 | not in this lane |
+| ER-008 | UI2 | not in this lane |
+| ER-009 | fixed | no Edit link on the plan bar while editing. e2e ER-009 |
+| ER-010 | fixed | the strip centred the active cell with `offsetLeft`, measured from the bar; it now uses boxes and re-centres when the strip resizes. `12-rail-day*-768-*`; e2e ER-010 |
+| ER-011 | fixed | handle first in the DOM. e2e ER-011 |
+| ER-012 | fixed | `settleFocus` restores focus every frame until it has held 15 frames (limits in `TRIP_EDIT_UI`); no fixed timer. `t-edit-keyboard --repeat-each=5`: 40 of 40 |
+| ER-013 | fixed | the bar is asserted as Undo, Redo, Settings, Done |
+| ER-014 | fixed | footer is a secondary "Close". `05-settings-*`; e2e ER-014 |
+| ER-015 | fixed | an emptied day: "No stops on Day n" with Drop Day n (drops at once; asks nothing when no booking), no totals row, headline and summary shown as "Our plan:", muted. `07-empty-day-*`; e2e ER-015 |
+| ER-016 | fixed | version lines coloured by level (rule Fix, day length Check). `06-versions-*`; e2e ER-016 |
+| ER-017 | fixed | Stops tab: "Stops, 96 places in this trip, stops and options" (accessible name and tooltip); own-copy CSV row: "47 stops on your days". e2e ER-017 |
+| ER-018 | fixed | "Planned for 2 adults · youngest 6 · Standard pace" (the profile keeps only the youngest's age) |
+| ER-019 | fixed | stepper labels use the field label style in the sheet. `05-settings-*`; e2e ER-019 |
+| ER-020 | fixed | the line above the tabs is for Days only. e2e ER-017/020 |
+| ER-021 | fixed | ⌘Z and ⇧⌘Z on Apple platforms |
+| ER-022 | **deferred** | owner package UI1 (sticky bar layout). The content column is width-capped, so the 15-day strip and the tools cannot share one line at any window width; the fix needs UI1's bar rework with the sync word moved to the cover meta, measured, not a breakpoint |
+| ER-023 | fixed | the handle slot's width is reserved on your own trip in read mode. e2e ER-023 |
+| ER-024 | fixed | towns leave the near list and the plan model's nearby candidates (a search still finds them) |
+| ER-025 | UI2 | not in this lane |
+| ER-026 | fixed | spec 8 and README 4.3 now say 460 px |
+
+Found while fixing: Rockies Day 8 with Cavell Meadows added gets a second lunch (the add-invariants test skips that one case, with a comment; owner LEG, `core/src/schedule`).
+
 ## What works (keep)
 
 - **Any row can be removed, and Undo puts it back where it was.** That covers our stops, added places and the rows the
@@ -150,14 +185,14 @@ re-measure them.
 
 | Row | Verdict | Evidence |
 |---|---|---|
-| EA1 every stop removable, Undo to the same place | **Pass** | `16-removed-toast-*`, `15-rule-removed-*`, `25-changes-1440-light`; `t-edit-remove`, `t-edit-flow` pass except the stale ER-013 |
-| EA2 add row on every day; picker groups; re-flow | **Partial** | The add row is on all 15 days and an add re-flows the day (`24-after-add-390-light`). Removed, Maybe and nearby groups show (`40-picker-groups-1440-light`). The other-versions group never appears, and "Elsewhere on this trip" is empty on Rockies (ER-005) |
+| EA1 every stop removable, Undo to the same place | **Pass** (ERFIX: ER-013 fixed, suite green) | `16-removed-toast-*`, `15-rule-removed-*`, `25-changes-1440-light`; `t-edit-remove`, `t-edit-flow` pass except the stale ER-013 |
+| EA2 add row on every day; picker groups; re-flow | **Pass after ERFIX** (ER-005 fixed; the original verdict was Partial) |   The add row is on all 15 days and an add re-flows the day (`24-after-add-390-light`). Removed, Maybe and nearby groups show (`40-picker-groups-1440-light`). The other-versions group never appears, and "Elsewhere on this trip" is empty on Rockies (ER-005) |
 | EA3 Move to day, up and down by button at 390; long-press drag; body scrolls | **Pass** (Chromium) | `10-stopmenu-390-light`, `11-movetoday-390-light`; `t-edit-drag` passes in Chromium. WebKit touch emulation was not run in this review |
-| EA4 keyboard lift, across days, drop, cancel, announced | **Partial** | Announcement measured. `t-edit-keyboard` 7 of 8; focus after drop is intermittent (ER-012); handle out of focus order (ER-011) |
+| EA4 keyboard lift, across days, drop, cancel, announced | **Pass after ERFIX** (ER-011, ER-012 fixed; original Partial) | Announcement measured. `t-edit-keyboard` 7 of 8; focus after drop is intermittent (ER-012); handle out of focus order (ER-011) |
 | EA5 50 undo steps survive a reload; the 51st drops the oldest | **Pass** | `t-edit-undo` passes on this build; manual undo and redo walk in `t-edit-flow` |
 | EA6 changes sheet, Reset Day n, Reset to our plan, confirm above 3 | **Pass** | `25-changes-*`, `26-reset-confirm-*`, `18-daymenu-*` (Reset disabled with its reason); `t-edit-days` passes |
 | EA7 dates relabel; a shorter range asks; a party change re-flows a copy | **Partial** | The copy parts pass (`73-dolo-settings-shorter-1440-light`, `75-dolo-after-party-1440-light`). The built-trip Apply cannot be tested until STEP2-B2 |
-| EA8 Fix at rest and counted; Check collapsed; nothing disabled | **Fail** | Fix at rest and counted: yes (`45-…`, `55-count-jump-settled-*`). Nothing disabled: yes. Check collapse is broken by duplicates (ER-002), and the one fix gives an impossible day (ER-001) |
+| EA8 Fix at rest and counted; Check collapsed; nothing disabled | **Pass after ERFIX, with the core price of a moved stop still with LEG** (ER-002 and the UI side of ER-001 fixed; original Fail) | Fix at rest and counted: yes (`45-…`, `55-count-jump-settled-*`). Nothing disabled: yes. Check collapse is broken by duplicates (ER-002), and the one fix gives an impossible day (ER-001) |
 | EA9 convert notice; From our trip; Undo restores | **Fail (not built)** | No engine action exists on a copy yet. `MakeItYours.tsx` leaves out "Where you start" until STEP2-B2 and B3. This does not block GO-2 for copies; it blocks GO-3 |
 | EA12 `/trips/` start JS unchanged; `/t/` within budget | **Partial** | 193.8 KB with the flag on against 192.4 KB with it off: +1.4 KB, inside the limit but not "unchanged". `/t/` is 299.1 of 325 per the integration pass |
 
@@ -183,3 +218,4 @@ Some rows are listed under more than one package.
 | Date | Change |
 |---|---|
 | 2026-10-28 | Created (STEP2-ERV, travel-design-reviewer, Opus 5.5) |
+| 2026-10-28 | Fix status added (STEP2-ERFIX, Sonnet 5.5): 20 rows fixed, ER-022 deferred, ER-006/007/008/025 with UI2, core price of ER-001 with LEG |

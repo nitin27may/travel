@@ -220,10 +220,12 @@ test.describe('edit mode on a phone (EA3, no drag)', () => {
     await page.goto(`${site.url}/t/${ID}/?view=day&edit=1`);
     const bar = page.getByRole('group', { name: 'Editing Canadian Rockies' });
     await expect(bar).toBeVisible();
-    // STEP2-UI1 (I11): Undo and Redo are icon buttons in the bar, so the labelled ones are Settings and Done
-    await expect(bar.getByRole('button').filter({ hasText: /\S/ })).toHaveText(['Settings', 'Done']);
-    await expect(bar.getByRole('button', { name: /^Undo/ })).toBeVisible();
-    await expect(bar.getByRole('button', { name: /^Redo/ })).toBeVisible();
+    // Undo and Redo came with the edit bar (UI1): four buttons, in this order (ER-013)
+    await expect(bar.getByRole('button')).toHaveCount(4);
+    await expect(bar.getByRole('button').nth(0)).toHaveAccessibleName(/^Undo/);
+    await expect(bar.getByRole('button').nth(1)).toHaveAccessibleName(/^Redo/);
+    await expect(bar.getByRole('button').nth(2)).toHaveText('Settings');
+    await expect(bar.getByRole('button').nth(3)).toHaveText('Done');
     await expect(page.locator('.bottom-bar')).toBeHidden();
     const first = (await titles(page, 1))[0]!;
     await trail(page, 1, 0).scrollIntoViewIfNeeded();

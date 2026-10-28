@@ -66,3 +66,5 @@
 .trip-title-input { display: block; width: 100%; box-sizing: border-box; margin: 0; padding: 0; border: 0; border-bottom: 2px dashed currentColor; border-radius: 0; background: transparent; color: inherit; font: inherit; text-transform: inherit; letter-spacing: inherit; line-height: inherit; resize: none; overflow: hidden; outline: none; overflow-wrap: break-word; }
 .trip-title-input:focus-visible { outline: var(--focus-ring); outline-offset: 6px; }
 .trip-title-input::placeholder { color: inherit; opacity: 0.6; }
+/* "n changes from our plan" is said once per view: the cover and the Summary's Your changes cell carry it, so the line above the tabs is for Days only (ER-020; edit-mode-spec 10) */
+.tl-wrap:not([data-tab='days']) .own-changes-line { display: none; }

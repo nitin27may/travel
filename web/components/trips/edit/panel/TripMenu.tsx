@@ -12,6 +12,9 @@ import { ActionPanel } from './ActionPanel';
 import { ResetConfirm } from './ResetConfirm';
 import { printTrip } from '@/lib/export/printRequest';
 
+/** The shortcut hints follow the platform: ⌘ on Apple devices, Ctrl elsewhere (ER-021). The menu is client-only, so reading the platform here cannot mismatch the server's HTML. */
+const APPLE = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
+
 interface Props {
   id: string;
   /** the public trip's slug, which the export menu prints under */
@@ -57,10 +60,10 @@ export function TripMenu({ id, slug, title, where, copy, changes, canUndo, canRe
       ) : (
         <>
           <button type="button" role="menuitem" className="edit-row" disabled={!canUndo} onClick={act(onUndo)}>
-            <Icon name="undo" size={16} /> <span>Undo</span> <span className="edit-key num">Ctrl Z</span>
+            <Icon name="undo" size={16} /> <span>Undo</span> <span className="edit-key num">{APPLE ? '⌘Z' : 'Ctrl Z'}</span>
           </button>
           <button type="button" role="menuitem" className="edit-row" disabled={!canRedo} onClick={act(onRedo)}>
-            <Icon name="redo" size={16} /> <span>Redo</span> <span className="edit-key num">Ctrl Shift Z</span>
+            <Icon name="redo" size={16} /> <span>Redo</span> <span className="edit-key num">{APPLE ? '⇧⌘Z' : 'Ctrl Shift Z'}</span>
           </button>
           {copy && changes > 0 ? (
             <button type="button" role="menuitem" className="edit-row" onClick={() => (changes > PLAN_EDIT.resetConfirmOver ? setConfirm(true) : act(onReset)())}>

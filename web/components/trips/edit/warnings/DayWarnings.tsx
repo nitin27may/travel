@@ -4,6 +4,7 @@ import { useEffect, useId, useMemo, useState } from 'react';
 import type { DayTimeline, TimelineEntry } from '@travel/core/schedule/types.ts';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
+import { warnText } from '@/components/trips/timeline/warnText';
 import { rowName } from '@/lib/trip-edit/ruleRows';
 import { collect, entryOf, type Warn } from '@/lib/trip-edit/warnings';
 import { clearDay, report } from './store';
@@ -32,7 +33,7 @@ function FixRow({ w, tl, plan, canEdit, act }: { w: Warn } & Omit<Props, 'n'>) {
       <p className="wn-text">
         <Icon name="warn" size={14} />
         <span>
-          <b>To fix:</b> {w.message}
+          <b>To fix:</b> {warnText(w.message)}
         </span>
       </p>
       {entry && fix ? (
@@ -72,7 +73,7 @@ export function DayWarnings({ n, tl, plan, canEdit, act }: Props) {
           <p className="wn-text">
             <Icon name="warn" size={14} />
             <span>
-              <b>To check:</b> {checks[0]!.message}
+              <b>To check:</b> {warnText(checks[0]!.message)}
             </span>
           </p>
         </div>
@@ -90,7 +91,7 @@ export function DayWarnings({ n, tl, plan, canEdit, act }: Props) {
           {open ? (
             <ul id={listId} className="wn-list">
               {checks.map((w) => (
-                <li key={`${w.code}|${w.entryId ?? ''}|${w.message}`}>{w.message}</li>
+                <li key={`${w.code}|${w.entryId ?? ''}|${w.message}`}>{warnText(w.message)}</li>
               ))}
             </ul>
           ) : null}

@@ -61,11 +61,29 @@ export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, map
       window.removeEventListener('resize', sync);
     };
   }, [model.days.length]);
+  // the active day sits in the middle of the strip. The strip's width changes after the first paint (the tools row wraps to a second line
+  // at tablet widths, the window resizes), so it is centred again whenever its box changes size, not only when the day changes (ER-010)
   useEffect(() => {
-    const el = rail.current?.querySelector<HTMLElement>('[data-active]');
-    if (!el || !rail.current) return;
     const box = rail.current;
-    box.scrollTo({ left: el.offsetLeft - box.clientWidth / 2 + el.clientWidth / 2, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    if (!box) return;
+    const centre = (smooth: boolean) => {
+      const el = box.querySelector<HTMLElement>('[data-active]');
+      if (!el) return;
+      const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // the cell's place inside the strip, by boxes: offsetLeft is measured from the bar, not the strip, once the strip does not start at the bar's edge (ER-010)
+      const at = el.getBoundingClientRect().left - box.getBoundingClientRect().left + box.scrollLeft;
+      box.scrollTo({ left: at - box.clientWidth / 2 + el.clientWidth / 2, behavior: smooth && !calm ? 'smooth' : 'auto' });
+    };
+    centre(true);
+    if (typeof ResizeObserver === 'undefined') return;
+    let width = box.clientWidth;
+    const watch = new ResizeObserver(() => {
+      if (box.clientWidth === width) return;
+      width = box.clientWidth;
+      centre(false);
+    });
+    watch.observe(box);
+    return () => watch.disconnect();
   }, [active]);
   return (
     <nav className="tl-planbar" aria-label="Days" data-print="hide">
@@ -80,12 +98,15 @@ export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, map
             label
           )}
         </span>{' '}
-        <button type="button" className="tl-railedit" onClick={() => {
-            railOpen.from = true;
-            onEdit();
-          }}>
-          <Icon name="pencil" size={13} /> Edit
-        </button>
+        {/* ER-009: while the trip itself is being edited (the tools are on the bar), "Edit" would read as "Edit trip"; Settings owns Who is going */}
+        {tools ? null : (
+          <button type="button" className="tl-railedit" onClick={() => {
+              railOpen.from = true;
+              onEdit();
+            }}>
+            <Icon name="pencil" size={13} /> Edit
+          </button>
+        )}
       </p>
       <ol className="tl-rail-days" ref={rail} data-more={more || undefined}>
         {model.days.map((d) => (
