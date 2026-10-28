@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Field, Input } from '@/components/ui/Input';
 import { TRIP_NAME_MAX } from '@/lib/config/product';
 import type { PlanOp } from '@/lib/trip-edit/model';
-import { newOpId } from '@/lib/trip-edit/stopOps';
+import { renameOps } from '@/lib/trip-edit/titleOps';
 import type { Where } from '@/lib/trip-edit/open';
 
 interface Props {
@@ -22,12 +22,8 @@ export function TitleSection({ title, ourTitle, where, open, run }: Props) {
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setName(title), [title, open]);
   const commit = () => {
-    const next = name.trim();
-    if (next === title) return;
-    // an empty name puts our trip's name back: a device copy keeps its name as the copy's title, an account trip derives it (null)
-    const put = next === '' ? (where === 'device' ? ourTitle : null) : next;
-    if (next === '' && put === title) return;
-    run([{ kind: 'setTitle', id: newOpId(), title: put }], put ? `Renamed the trip to ${put}` : `The trip is named ${ourTitle ?? 'as it was'} again`);
+    const r = renameOps(title, name, ourTitle, where);
+    if (r) run(r.ops, r.label);
   };
   return (
     <Field label="Trip name" help={ourTitle ? `Left empty, it reads ${ourTitle}.` : undefined}>

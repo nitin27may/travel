@@ -18,6 +18,9 @@ export function placeKindOf(a: Pick<OwnAddable, 'kind' | 'sub'>): string {
   return a.sub;
 }
 
+/** A name as a key: the Stops tab joins an area row (no place page) to a day's stop by it. */
+export const nameKey = (s: string): string => s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, ' ').trim();
+
 export interface OwnTrip {
   /** The public trip the copy follows (the export model is read under this slug). */
   slug: string;
@@ -29,6 +32,8 @@ export interface OwnTrip {
   start: string | null;
   /** The place was taken off the trip by the person (removed, sent to Maybe, or on a dropped day): the Stops tab does not list it unless a day still holds it. */
   gone: (placeSlug: string) => boolean;
+  /** The same for an area-level row with no place page (Marble Canyon): by its name, through `nameKey`. */
+  goneName?: (nameKey: string) => boolean;
   /** The note the person wrote on a stop or a row (empty when none). */
   noteOf: (e: TimelineEntry) => string;
   /** The note on Day n (empty when none). */

@@ -450,11 +450,11 @@ export default function DragLayer(props: DragProps) {
         focusBack(key, i + dir);
       }
     };
-    const openMoveToDay = (row: HTMLElement) => {
+    const openMenuItem = (row: HTMLElement, name: RegExp) => {
       row.querySelector<HTMLElement>('.tl-edit-trail button')?.click();
       let tries = 0;
       const find = () => {
-        const item = [...document.querySelectorAll<HTMLElement>('[role="menuitem"]')].find((n) => /^Move to day/.test(n.textContent?.trim() ?? ''));
+        const item = [...document.querySelectorAll<HTMLElement>('[role="menuitem"]')].find((n) => name.test(n.textContent?.trim() ?? ''));
         if (item) item.click();
         else if (++tries < 30) w.requestAnimationFrame(find);
       };
@@ -519,7 +519,11 @@ export default function DragLayer(props: DragProps) {
       if (!row || !key) return;
       if (k === 'm') {
         ev.preventDefault();
-        return openMoveToDay(row);
+        return openMenuItem(row, /^Move to day/);
+      }
+      if (k === 's') {
+        ev.preventDefault();
+        return openMenuItem(row, /^Swap with/);
       }
       if (ev.key === 'Delete' || ev.key === 'Backspace') {
         const e = entryFor(key);

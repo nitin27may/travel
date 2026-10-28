@@ -452,6 +452,10 @@ td[data-align='right'] { text-align: right; font: var(--t-mono); }
 .sheet-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); padding: var(--s-2) var(--s-4) var(--s-2) var(--s-5); }
 .sheet-title { font: var(--t-section); }
 .sheet-head-actions { display: flex; gap: var(--s-1); }
+/* Close and the snap buttons are 44 px (components 5.5; WCAG 2.5.8) */
+.sheet-head-actions .btn { min-width: var(--touch-min); min-height: var(--touch-min); }
+/* an action sheet names the item in the title style, two lines at most, so its rows show at once (ER-007) */
+.edit-sheet .sheet-title { font: var(--t-title); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
 
 .sheet-bottom-frame {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-menu); pointer-events: none; overflow: hidden;

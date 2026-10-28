@@ -89,13 +89,15 @@ export interface OwnCoverProps {
   state: ReactNode;
   /** `TripActions` in its own-trip variant. */
   actions: ReactNode;
+  /** Edit mode: the heading's content, an inline editor in the display font (patterns 4.3). Absent: the title as text. */
+  titleEditor?: ReactNode;
 }
 
 /**
  * The same cover as the published plan's (same frame, photo, scrim, glance strip), fed by the person's trip: `/t/<id>/`. Nothing here
  * is about our plan's authorship or honesty labels; those stay on the public page.
  */
-export function OwnCover({ kicker, title, photo, standfirst, chips, glance, state, actions }: OwnCoverProps) {
+export function OwnCover({ kicker, title, photo, standfirst, chips, glance, state, actions, titleEditor }: OwnCoverProps) {
   return (
     <header className="trip-head" data-own="">
       <div className="trip-cover">
@@ -110,7 +112,7 @@ export function OwnCover({ kicker, title, photo, standfirst, chips, glance, stat
         <div className="trip-cover-scrim" aria-hidden="true" />
         <div className="trip-cover-text">
           <p className="trip-kicker">{kicker}</p>
-          <h1 className="trip-title" data-long={title.length > TITLE_LONG_CHARS || undefined}>{title}</h1>
+          <h1 className="trip-title" data-long={title.length > TITLE_LONG_CHARS || undefined} data-editing={titleEditor ? '' : undefined}>{titleEditor ?? title}</h1>
           <p className="trip-standfirst">{standfirst}</p>
           {chips.length ? (
             <ul className="trip-chips" aria-label="About your trip">

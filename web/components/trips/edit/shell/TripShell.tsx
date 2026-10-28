@@ -1,7 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { tripPageModelForBuilt, type PlanTripFacts } from '@/lib/trip-edit/model';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { tripPageModelForBuilt, type PlanOp, type PlanTripFacts } from '@/lib/trip-edit/model';
 import type { ResolveRow, TripPlanModel } from '@travel/core/schema/api/index.ts';
 import { PHOTOS_TAB_MIN } from '@/components/trips/summary/text';
 import { tripTabsFor, type TripTab } from '@travel/core/trips/tabs.ts';
@@ -28,6 +28,8 @@ import { ChangesLine, IdentityCell, Newer, NotBuilt, NotFound, SyncState, TripSk
 import { EditHost, type EditApi } from './EditHost';
 import type { AddCandidate, TimelineModel } from '@/components/trips/timeline/model';
 import { missingSlugs, readExtras, withExtras } from '../add/extras';
+import { StopCount } from '../stops/useOwnStops';
+import { InlineTitle } from './InlineTitle';
 import { OwnActions } from './OwnActions';
 import { PartyLine } from './PartyLine';
 import { SummaryOwn } from './SummaryOwn';
@@ -52,7 +54,13 @@ const words = (slug: string): string => slug.replace(/-\d{4}$/, '').replace(/-/g
  */
 export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   const [facts, setFacts] = useState<((slug: string) => PlanTripFacts | null) | undefined>(undefined);
-  const { state, save } = useTripDocument(id, signIn, facts);
+  const { state, save: saveDoc } = useTripDocument(id, signIn, facts);
+  // a device copy keeps its name in the copy item, so "back to our name" (an empty name, or Undo of a rename) writes our trip's name; an account trip derives it from null
+  const titleBack = useRef<string | null>(null);
+  const save = useCallback(
+    (ops: readonly PlanOp[]) => saveDoc(titleBack.current ? ops.map((o) => (o.kind === 'setTitle' && o.title === null ? { ...o, title: titleBack.current } : o)) : ops),
+    [saveDoc],
+  );
   const doc = state.status === 'ok' ? state.doc : null;
   const copyTitle = state.status === 'ok' ? (state.copy?.title ?? null) : null;
 
@@ -138,6 +146,12 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
     };
   }, [lacking]);
 
+  const ourTitle = plan?.ours?.name ?? (slug ? words(slug) : null);
+  const whereNow = state.status === 'ok' ? state.where : null;
+  useEffect(() => {
+    titleBack.current = whereNow === 'device' ? ourTitle : null;
+  }, [whereNow, ourTitle]);
+
   // the export, the print and the Stops tab read the person's trip from here (STEP2-E6); the builder is its own chunk, fetched once the page is up
   useEffect(() => () => publishOwn(null), []);
   useEffect(() => {
@@ -164,6 +178,9 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
     };
   }, [doc, slug, timelineModel, plan, copyTitle]);
 
+  // the Stops tab's count from the person's days; a leaf reads the stores so a timeline publish does not re-render this page
+  const [editedStops, setEditedStops] = useState<number | null>(null);
+
   if (state.status === 'loading') return <TripSkeleton />;
   if (state.status === 'newer') return <><h1 className="sr-only">Your trip</h1><Newer /></>;
   if (state.status === 'missing' || !doc) return <><h1 className="sr-only">Your trip</h1><NotFound /></>;
@@ -172,7 +189,6 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   if (doc.template && plan && plan.slug === slug && !plan.model) return <><h1 className="sr-only">Your trip</h1><NotFound /></>;
   if (!model || !model.timeline) return <TripSkeleton />;
 
-  const ourTitle = plan?.ours?.name ?? (slug ? words(slug) : null);
   // a device copy keeps the person's name as the copy's title (the document maps it back as null); an account trip keeps it in the document
   const title = doc.title ?? copyTitle ?? ourTitle ?? 'Your trip';
   const photo = state.copy?.photo ?? model.gallery[0]?.url ?? null;
@@ -184,7 +200,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   const changes = changesLine(changeCount(doc));
   const publicUrl = slug ? `${location.origin}/trips/${slug}/` : location.href;
 
-  const stops = model.sections.reduce((n, s) => n + s.rows.length, 0);
+  const stops = editedStops ?? model.sections.reduce((n, s) => n + s.rows.length, 0);
   const photos = model.gallery.length >= PHOTOS_TAB_MIN ? model.gallery.length : 0;
   const book = bookings && bookings.slug === slug ? bookings.rows : [];
   const toBook = bookingCounts(book).toBook;
@@ -234,6 +250,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
       <OwnCover
         kicker={kickerWords(doc, ourTitle)}
         title={title}
+        titleEditor={edit.editing && edit.commit ? <InlineTitle title={title} ourTitle={ourTitle} where={state.where} commit={edit.commit} /> : undefined}
         photo={photo}
         standfirst={doc.start ? `${formatDate(doc.start)}${end && end !== doc.start ? ` to ${formatDate(end)}` : ''}` : 'Dates not set yet'}
         chips={[]}
@@ -270,8 +287,11 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
     model: (timelineModel ?? model.timeline) as unknown as TimelineModel, register, bookings: bookingRows, defaults, profile, start: doc.start ?? null, where: state.where, word: state.word, retry: state.retry, onSettings: openSettings,
   };
   return (
+    <>
+    <StopCount sections={model.sections} slug={slug} onCount={setEditedStops} />
     <EditHost marks={marks as Parameters<typeof EditHost>[0]['marks']} layer={layer}>
       {build}
     </EditHost>
+    </>
   );
 }

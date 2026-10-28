@@ -17,8 +17,13 @@ describe('distance: one decimal, km or mi', () => {
   it('prints a whole number from 100 up (P2)', () => {
     expect(formatDistance(272.8, 'mi')).toBe('170 mi'); // 169.5 mi
     expect(formatDistance(99.94, 'km')).toBe('99.9 km');
+    expect(formatDistance(7995, 'km')).toBe('7,995 km');
+    expect(formatDistance(1000, 'km')).toBe('1,000 km');
+    expect(formatDistance(999.4, 'km')).toBe('999 km');
+    expect(formatDistance(12874, 'mi')).toBe('8,000 mi');
+    expect(formatDistance(-1500, 'km')).toBe('-1,500 km');
     expect(formatDistance(100.4, 'km')).toBe('100 km');
-    expect(formatDistance(1234.56, 'km')).toBe('1235 km');
+    expect(formatDistance(1234.56, 'km')).toBe('1,235 km');
     expect(formatDistance(160.934, 'mi')).toBe('100 mi');
   });
 });

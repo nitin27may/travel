@@ -19,7 +19,8 @@ import type { SaveResult, SyncWord, Where } from '@/lib/trip-edit/open';
 import { refOfDay } from '@/lib/trip-edit/dayMap';
 import { candidateToItem } from '@/components/trips/timeline/model';
 import { ruleItemOfEntry, ruleName } from '@/lib/trip-edit/ruleRows';
-import { maybeOps, maybeWords, movedWords, moveToDayOps, newOpId, noteOps, nudgeOps, nudgedWords, removeOps, removedWords } from '@/lib/trip-edit/stopOps';
+import { maybeOps, maybeWords, movedWords, moveToDayOps, newOpId, noteOps, nudgeOps, nudgedWords, removeOps, removedWords, swappedWords, swapOps } from '@/lib/trip-edit/stopOps';
+import { peekTimeline } from '@/lib/export/timelineState';
 import type { Published } from './shell/EditHost';
 import { EditBar, EditTools } from './panel/EditChrome';
 import { ChangesSheet } from './panel/ChangesSheet';
@@ -27,6 +28,7 @@ import { StopMenu, stopsOfDay } from './panel/StopMenu';
 import { TripMenu } from './panel/TripMenu';
 import { DragHandle } from './drag/DragHandle';
 import { AddRow } from './add/AddRow';
+import type { SwapTarget } from './add/AddPicker';
 import { DayMenu } from './day/DayMenu';
 import { DayStatus } from './day/DayStatus';
 import { clearAll } from './warnings/store';
@@ -77,11 +79,16 @@ export function EditLayer(p: LayerProps) {
   const { commit, undo, redo } = s;
   const [changesOpen, setChangesOpen] = useState(false);
   // the add picker: for a day (the add row), or for a place a page sent (`add=<slug>`, edit-mode-spec 7.4)
-  const [pick, setPick] = useState<{ day: number | null; slug: string | null } | null>(null);
+  const [pick, setPick] = useState<{ day: number | null; slug: string | null; swap?: SwapTarget } | null>(null);
   const pickDay = useRef<number | null>(null);
   const openPicker = useCallback((day: number) => {
     pickDay.current = day;
     setPick({ day, slug: null });
+  }, []);
+  // Swap for a nearby place: the picker for the stop's day, with the stop it replaces
+  const openSwap = useCallback((e: TimelineEntry, dayEntries: readonly TimelineEntry[]) => {
+    pickDay.current = e.day;
+    setPick({ day: e.day, slug: null, swap: { entry: e, stops: stopsOfDay(dayEntries).map((x) => ({ id: x.id })) } });
   }, []);
   // closing returns focus to the day's add row (edit-mode-spec 7.3)
   const closePicker = useCallback(() => {
@@ -184,6 +191,11 @@ export function EditLayer(p: LayerProps) {
         const ops = maybeOps(doc, e);
         if (ops) commit(ops, maybeWords(e));
       },
+      swap: (e: TimelineEntry, other: TimelineEntry) => {
+        const tls = peekTimeline()?.timelines ?? [];
+        const ops = swapOps(doc, e, other, (n) => stopsOfDay(tls.find((t) => t.day === n)?.entries ?? []));
+        if (ops && commit(ops, swappedWords(e, other))) focusAfter({ entry: `${other.day}:${e.id}` });
+      },
       note: (e: TimelineEntry, text: string) => {
         commit(noteOps(doc, e, text), text.trim() ? `Saved a note on ${e.title}` : `Removed the note on ${e.title}`);
       },
@@ -282,7 +294,7 @@ export function EditLayer(p: LayerProps) {
           defaults={p.defaults}
           profile={p.profile}
           start={p.start}
-          act={{ remove: (x) => act.remove(x, dayEntries), moveTo: act.moveTo, nudge: (x, d) => act.nudge(x, d, dayEntries), maybe: act.maybe, note: act.note }}
+          act={{ remove: (x) => act.remove(x, dayEntries), moveTo: act.moveTo, nudge: (x, d) => act.nudge(x, d, dayEntries), maybe: act.maybe, note: act.note, swap: act.swap, ...(copy ? { swapNearby: openSwap } : {}) }}
         />
       ),
     };
@@ -308,7 +320,7 @@ export function EditLayer(p: LayerProps) {
       checks: copy ? <SummaryChecks /> : null,
       cover: <TripMenu id={p.id} slug={p.slug} title={p.title} where={p.where} copy={copy} changes={changes} canUndo={s.canUndo} canRedo={s.canRedo} onUndo={undo} onRedo={redo} onReset={resetAll} />,
     };
-  }, [canEdit, openPicker, doc, model, p.defaults, p.profile, p.start, p.bookings, dayAct, addedFor, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, commit, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
+  }, [canEdit, openPicker, openSwap, doc, model, p.defaults, p.profile, p.start, p.bookings, dayAct, addedFor, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, commit, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
   useEffect(() => {
     publish(published);
   }, [published, publish]);
@@ -327,7 +339,7 @@ export function EditLayer(p: LayerProps) {
       {on ? <EditBar title={p.title} canUndo={s.canUndo} canRedo={s.canRedo} undoLabel={s.undoLabel} redoLabel={s.redoLabel} onUndo={undo} onRedo={redo} onSettings={p.onSettings} onDone={p.onDone} /> : null}
       {pick && copy ? (
         <Suspense fallback={null}>
-          <AddPicker doc={doc} model={model} profile={p.profile} start={p.start} day={pick.day} slug={pick.slug} onClose={closePicker} commit={commit} register={p.register} undo={undo} undoLabel={s.undoLabel} />
+          <AddPicker doc={doc} model={model} profile={p.profile} start={p.start} day={pick.day} slug={pick.slug} swap={pick.swap} onClose={closePicker} commit={commit} register={p.register} undo={undo} undoLabel={s.undoLabel} />
         </Suspense>
       ) : null}
       <ChangesSheet open={changesOpen} onClose={() => setChangesOpen(false)} rows={rows} ours={p.ours} onRow={onRow} onReset={resetAll} />

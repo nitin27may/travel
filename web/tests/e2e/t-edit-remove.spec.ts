@@ -220,7 +220,8 @@ test.describe('edit mode on a phone (EA3, no drag)', () => {
     await page.goto(`${site.url}/t/${ID}/?view=day&edit=1`);
     const bar = page.getByRole('group', { name: 'Editing Canadian Rockies' });
     await expect(bar).toBeVisible();
-    await expect(bar.getByRole('button')).toHaveText(['Settings', 'Done']);
+    // Undo and Redo are icon buttons (STEP2-UI1), then Settings and Done
+    await expect(bar.getByRole('button')).toHaveText(['', '', 'Settings', 'Done']);
     await expect(page.locator('.bottom-bar')).toBeHidden();
     const first = (await titles(page, 1))[0]!;
     await trail(page, 1, 0).scrollIntoViewIfNeeded();

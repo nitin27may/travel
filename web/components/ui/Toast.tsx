@@ -85,7 +85,9 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
   const toast = useCallback((options: ToastOptions) => {
     const id = next.current++;
-    setItems((list) => [...list.filter((t) => !t.leaving), { ...options, id }].slice(-MAX));
+    // on a phone one toast at a time: the newest replaces the older (its Undo stays in the edit bar), so a stack never covers the day being edited
+    const max = typeof window !== 'undefined' && window.matchMedia('(max-width: 639px)').matches ? 1 : MAX;
+    setItems((list) => [...list.filter((t) => !t.leaving), { ...options, id }].slice(-max));
   }, []);
 
   const api = useMemo(() => ({ toast }), [toast]);

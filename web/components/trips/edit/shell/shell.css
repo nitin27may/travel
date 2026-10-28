@@ -57,3 +57,12 @@
 .own-link:focus-visible { outline: var(--focus-ring); outline-offset: -2px; border-radius: var(--r-2); }
 .own-sum .own-link { min-height: 0; padding: 0; }
 .own-sync-ico { flex: none; }
+
+/* the cover title while editing (patterns 4.3, G-12): the heading keeps its display font, size and box; the input is the heading itself */
+.trip-title-edit { display: inline; max-width: 100%; padding: 0; border: 0; border-bottom: 2px dashed transparent; background: none; color: inherit; font: inherit; text-transform: inherit; letter-spacing: inherit; text-align: left; cursor: text; overflow-wrap: break-word; }
+.trip-title-edit:hover, .trip-title-edit:focus-visible { border-bottom-color: currentColor; }
+.trip-title-edit:focus-visible { outline: var(--focus-ring); outline-offset: 4px; }
+.trip-title-edit svg { display: inline-block; vertical-align: middle; margin-left: var(--s-2); width: 0.5em; height: 0.5em; opacity: 0.85; }
+.trip-title-input { display: block; width: 100%; box-sizing: border-box; margin: 0; padding: 0; border: 0; border-bottom: 2px dashed currentColor; border-radius: 0; background: transparent; color: inherit; font: inherit; text-transform: inherit; letter-spacing: inherit; line-height: inherit; resize: none; overflow: hidden; outline: none; overflow-wrap: break-word; }
+.trip-title-input:focus-visible { outline: var(--focus-ring); outline-offset: 6px; }
+.trip-title-input::placeholder { color: inherit; opacity: 0.6; }

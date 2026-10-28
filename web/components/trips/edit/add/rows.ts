@@ -9,6 +9,10 @@ import { dayRef } from '@/lib/trip-edit/stopOps';
 import type { PlanDraft, PlanOp } from '@/lib/trip-edit/model';
 import { bearingOf, candidateOf, kmBetween, type Found } from './place';
 
+/** The row flags the Rainy day chip filters on (the capture `indoor` property; `indoor-or-rainy-day` is the facet's name for it). */
+const RAINY_FLAGS: readonly string[] = ['indoor', 'indoor-or-rainy-day'];
+export const isRainy = (f: Pick<Found, 'flags'>): boolean => f.flags.some((x) => RAINY_FLAGS.includes(x));
+
 export type GroupId = 'versions' | 'removed' | 'maybe' | 'trip' | 'near' | 'search';
 
 /** Where a place already stands on the trip. */
@@ -157,7 +161,7 @@ export const rowOfCandidate = (c: AddCandidate, i: Pick<Inputs, 'model' | 'onTri
 
 /** The chips narrow places from the catalogue only: the trip's own stops are never hidden by them (a stop that is not Rainy day still belongs to the trip). */
 export function passesChips(f: Found, chips: Chips, youngest: number | null): boolean {
-  if (chips.rainy && !f.flags.some((x) => x === 'indoor' || x === 'indoor-or-rainy-day')) return false;
+  if (chips.rainy && !isRainy(f)) return false;
   if (chips.kids) {
     if (f.kidFit === 'no') return false;
     if (youngest !== null && f.kidsFrom !== null && f.kidsFrom > youngest) return false;
