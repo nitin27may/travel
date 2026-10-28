@@ -115,6 +115,9 @@ P.endsAfterSunset=(t,d,it)=>{const b=P.baseOf(t,d);if(!b||!it.time)return false;
 P.seedTrips=()=>window.PEngine.seedTrips().map(t=>Object.assign(t,{updated:new Date().toISOString()}));
 P.reseed=()=>P.save(P.seedTrips());
 if(!P.trips().length&&!P.state().noSeed)P.reseed();
+/* a deep link to a demo trip works even when another app (the builder) seeded proto.trips first with different ids */
+P.ensureDemo=id=>{if(!id||P.trips().some(t=>t.id===id)||P.state().noSeed)return;const s=P.seedTrips().find(t=>t.id===id);if(s){const a=P.trips();a.push(s);P.save(a)}};
+try{P.ensureDemo(new URLSearchParams(location.search).get('id'))}catch(e){}
 /* ui helpers */
 P.toast=(msg,undo)=>{let w=document.getElementById('toasts');if(!w){w=document.createElement('div');w.id='toasts';w.setAttribute('role','status');document.body.appendChild(w)}
  const el=document.createElement('div');el.className='toast';el.innerHTML=`<span>${P.esc(msg)}</span>${undo?'<button type="button">Undo</button>':''}`;w.appendChild(el);let tm;const kill=()=>{clearTimeout(tm);el.remove()};
