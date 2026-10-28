@@ -17,6 +17,18 @@ function airDrive(c,ap){const km=hav(c,ap);return Math.max(10,Math.round(km*1.3/
 function fd(m){m=Math.round(m);if(m<60)return m+' min';const h=Math.floor(m/60),r=m%60;return r?h+' h '+String(r).padStart(2,'0'):h+' h'}
 function hm(m){m=Math.round(m);return String(Math.floor(m/60)%24).padStart(2,'0')+':'+String(m%60).padStart(2,'0')}
 function sunsetMin(month){if(!month)return null;const[t]=SUNSET[month-1].split(':');const[h,mm]=SUNSET[month-1].split(':').map(Number);return h*60+mm}
+/* Sun times come from shared/sun.js (ProtoSun, a port of core/src/sun); the SUNSET table is only the fallback when sun.js is not loaded.
+   zoneOf: IANA zone for a point (placeholder data holds Italy and Canada only). dayIso: the date of plan day n (0-based), a mid-month date when only a month is known. */
+function zoneOf(pt){const cc=(pt&&pt.cc)||'CA';if(cc==='IT')return'Europe/Rome';if(cc==='IS')return'Atlantic/Reykjavik';if(cc==='CA')return pt.lon<-110?'America/Edmonton':'America/Toronto';return'UTC'}
+function dayIso(S,n){const w=whenInfo(S);let t=null;if(w.from){t=new Date(w.from);t.setDate(t.getDate()+n)}else if(w.month){t=new Date(w.month<=10?2027:2026,w.month-1,15);t.setDate(t.getDate()+n)}return t?iso(t):null}
+/** sunset in minutes after local midnight for plan day `d` ({n, base}) at its base, or null without a month */
+function sunsetFor(S,d){const date=dayIso(S,d.n);if(!date)return null;const b=d.base||S.origin;
+ if(typeof ProtoSun==='undefined')return sunsetMin(whenInfo(S).month);
+ const pt={lat:b.lat,lon:b.lon,cc:(PL[b.id]&&PL[b.id].cc)||(b.cc)||S.origin.cc};const r=ProtoSun.sunFor(pt.lat,pt.lon,date,zoneOf(pt));return r?r.setMin:null}
+/* Departure: S.departAt is the clock time (minutes) of the flight, or of the time you must be home by; default 16:00 by air, 17:00 by car. */
+function defaultDepart(S){return S.flyMode==='fly'?16*60:17*60}
+/** minutes free on the last day for a stop: depart time minus the airport buffer (2 h 30 by air), the drive to the airport or home, and an 08:30 start */
+function departSlack(S,base){const dep=S.departAt==null?defaultDepart(S):S.departAt;return dep-(S.flyMode==='fly'?150:0)-drive(base,endPt(S))-510}
 function dateOf(s){const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)}
 function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function fmtDate(d,long){return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]+' '+d.getDate()+' '+MS[d.getMonth()]+(long?' '+d.getFullYear():'')}
@@ -79,7 +91,9 @@ function blankDay(n,base,moveFrom,budget){return{n,base,moveFrom,items:[],note:'
 function buildPlan(S,prev){
  const K=KINDS[S.kind],E=eff(S);S.flyMode=flyMode(S);
  const N=S.kind==='day'?0:Math.max(1,S.nights),nd=N+1,air=S.flyMode==='fly';
- const picks=S.picks.map(i=>PL[i]).filter(p=>p&&!PARKS[p.id]);
+ const keptPrev=new Set(prev?prev.days.flatMap(d=>d.items.filter(it=>it.locked||it.placed||(it.fromTrip&&!S.releaseTrip)).map(it=>it.pid)):[]);
+ const misfitOut=[];
+ const picks=S.picks.map(i=>PL[i]).filter(p=>p&&!PARKS[p.id]).filter(p=>{if(!prev||keptPrev.has(p.id)||!misfit(S,p).length)return true;misfitOut.push({pid:p.id,reason:misfit(S,p).join(', ')});return false});
  const sights=picks.filter(p=>p.type!=='town');
  const cen=sights.length?{lat:sights.reduce((s,p)=>s+p.lat,0)/sights.length,lon:sights.reduce((s,p)=>s+p.lon,0)/sights.length}:(picks[0]||S.origin);
  let bases=[];
@@ -116,7 +130,7 @@ function buildPlan(S,prev){
  const unfit=[];
  const fixed=new Set();
  // keep what the person placed or locked
- if(prev){prev.days.forEach((pd,di)=>pd.items.forEach(it=>{if(!picks.find(p=>p.id===it.pid)&&!(it.auto&&(it.locked||it.placed)))return;if(!(it.locked||it.placed||(it.fromTrip&&!S.releaseTrip)))return;const d=days[Math.min(di,nd-1)];const p=PL[it.pid];const last=d.items.length?PL[d.items[d.items.length-1].pid]:(d.moveFrom||d.base);const leg=drive(last,p);d.items.push({pid:it.pid,locked:it.locked,placed:it.placed,fromTrip:it.fromTrip});d.used+=leg+p.dur*E.P.mult;d.dsum+=leg;fixed.add(it.pid)}))}
+ if(prev){prev.days.forEach((pd,di)=>pd.items.forEach(it=>{if(!picks.find(p=>p.id===it.pid)&&!(it.auto&&(it.locked||it.placed)))return;if(!(it.locked||it.placed||(it.fromTrip&&!S.releaseTrip)))return;const d=days[Math.min(di,nd-1)];const p=PL[it.pid];const last=d.items.length?PL[d.items[d.items.length-1].pid]:(d.moveFrom||d.base);const leg=drive(last,p);d.items.push({pid:it.pid,locked:it.locked,placed:it.placed,fromTrip:it.fromTrip,half:it.half});d.used+=leg+p.dur*E.P.mult;d.dsum+=leg;fixed.add(it.pid)}))}
  days.forEach(d=>{if(d.items.length){const l=PL[d.items[d.items.length-1].pid];d.back=drive(l,d.base)}});
  const baseOf=new Map();bases.forEach((b,i)=>{});
  const itemsFree=sights.concat(picks.filter(p=>p.type==='town'&&!bases.find(b=>b.id===p.id))).filter(p=>!fixed.has(p.id));
@@ -134,8 +148,13 @@ function buildPlan(S,prev){
    if(!placed&&S.must[p.id]){const d=days.slice().sort((a,b)=>a.used-b.used)[0];d.items.push({pid:p.id});d.used+=drive(d.base,p)+p.dur*E.P.mult;placed=true}
    if(!placed)unfit.push({pid:p.id,reason:drive(b,p)*2>limit?'Too far for a day out from your base':'Every day is full'})})});
  // light arrival stop on day 1 when the arrival budget allows
- if(nd>1&&!days[0].items.length){const d0=days[0];const st=air?13*60+drive(AIRPORTS[S.arrive],d0.base)+45:9*60+drive(S.origin,d0.base);const ss=sunsetMin(whenInfo(S).month)||1110;
+ if(nd>1&&!days[0].items.length){const d0=days[0];const st=air?13*60+drive(AIRPORTS[S.arrive],d0.base)+45:9*60+drive(S.origin,d0.base);const ss=sunsetFor(S,d0)||1110;
   if(st<=Math.min(ss-90,17*60+30)){const ex=new Set(S.picks.concat(days.flatMap(d=>d.items.map(i=>i.pid))));const l=lightStop(S,d0.base,ex);if(l)d0.items.push({pid:l.id,auto:true})}}
+ // light stop on the departure day only when the departure time leaves 3 h or more (departSlack)
+ if(nd>1&&!days[nd-1].items.length){const dl=days[nd-1];const slack=departSlack(S,dl.base);
+  if(slack>=180){const ex=new Set(S.picks.concat(days.flatMap(d=>d.items.map(i=>i.pid))));const l=lightStop(S,dl.base,ex);
+   if(l&&drive(dl.base,l)*2+l.dur*E.P.mult<=slack)dl.items.push({pid:l.id,auto:true})}}
+ misfitOut.forEach(m=>unfit.push(m));
  const plan={days:days.map(d=>({n:d.n,base:d.base,moveFrom:d.moveFrom,items:d.items,note:(prev&&prev.days[d.n]&&prev.days[d.n].note)||''})),bases,unfit,builtAt:Date.now(),nights:N};
  recalc(plan,S);return plan}
 function dayStart(plan,S,d){const air=S.flyMode==='fly';if(d.n===0&&plan.days.length>1){const A=arrPt(S);const m=drive(A,d.base);return air?Math.min(19*60,13*60+(air?airDriveMin(S,d.base):m)+45):9*60+m}
@@ -143,13 +162,14 @@ function dayStart(plan,S,d){const air=S.flyMode==='fly';if(d.n===0&&plan.days.le
 function airDriveMin(S,b){return drive(AIRPORTS[S.arrive],b)}
 function recalc(plan,S){const E=eff(S),n=plan.days.length,m=whenInfo(S).month;
  plan.days.forEach(d=>{d.kind=n>1&&d.n===0?'arrival':n>1&&d.n===n-1?'departure':null;let cur=dayStart(plan,S,d);let lunch=false,legs=0;let loc=d.moveFrom||d.base;d.lunchAfter=-1;
-  d.items.forEach((it,i)=>{const p=PL[it.pid];if(!p)return;const leg=drive(loc,p);it.leg=leg;legs+=leg;cur+=leg;it.t=cur;it.dur=Math.round(p.dur*E.P.mult/5)*5;cur+=it.dur;if(!lunch&&cur>=12*60+30&&cur<=14*60+30){lunch=true;d.lunchAfter=i;cur+=45}loc=p});
+  d.items.forEach((it,i)=>{const p=PL[it.pid];if(!p)return;const leg=drive(loc,p);it.leg=leg;legs+=leg;cur+=leg;it.t=cur;it.dur=Math.round(p.dur*E.P.mult*(it.half?.5:1)/5)*5;cur+=it.dur;if(!lunch&&cur>=12*60+30&&cur<=14*60+30){lunch=true;d.lunchAfter=i;cur+=45}loc=p});
   const last=d.n===n-1&&n>1;const tgt=last?(S.flyMode==='fly'?AIRPORTS[S.leave]:S.origin):d.base;
   d.endLeg=last||d.items.length?drive(loc,tgt):0;d.endTo=last?(S.flyMode==='fly'?S.leave:S.origin.name):d.base.name;
   legs+=d.endLeg;d.drive=legs;d.end=cur+d.endLeg;d.visit=d.items.reduce((s,i)=>s+(i.dur||0),0);
   d.warns=[];const lim=E.driveDay;
   if(d.drive>lim+10&&n>1||(S.kind==='day'&&d.drive>Math.max(lim,S.reachH*120+30)))d.warns.push({k:'drive',t:'Drives '+fd(d.drive)+', over your '+fd(lim)+' a day',fix:'drive'});
-  const ss=sunsetMin(m);if(ss&&d.items.length&&cur>ss+10)d.warns.push({k:'sun',t:'Day ends '+fd(cur-ss)+' after sunset',fix:'move'});
+  const ss=sunsetFor(S,d);if(ss&&d.items.length&&cur>ss+10)d.warns.push({k:'sun',t:'Day ends '+fd(cur-ss)+' after sunset ('+hm(ss)+')',fix:'move'});
+  d.items.forEach(it=>{const p=PL[it.pid];it.sunWarn=false;if(ss&&p&&p.type==='hike'&&it.t+it.dur>ss-30){it.sunWarn=true;d.warns.push({k:'hike',t:p.name+' ends '+hm(it.t+it.dur)+', '+(it.t+it.dur>ss?'after':'within 30 min of')+' sunset ('+hm(ss)+')',pid:it.pid,fix:'hike'})}});
   if(d.visit>E.P.vis*1.15)d.warns.push({k:'long',t:'Long day: '+fd(d.visit)+' of visiting',fix:'move'});
   d.items.forEach(it=>{const p=PL[it.pid];if(m&&p&&p.cl&&p.cl.includes(m))d.warns.push({k:'closed',t:p.name+' is closed in '+MS[m-1],pid:it.pid,fix:'remove'})});
   d.free=Math.max(0,E.P.vis-d.visit-d.drive*.5)});
@@ -163,7 +183,8 @@ function bookAhead(plan,S){const w=whenInfo(S);const out=[];plan.days.forEach(d=
  if(w.from&&w.dated){const t=new Date(w.from);t.setDate(t.getDate()+d.n-p.bk[1]);by=t;label=fmtDate(t)}
  else if(w.month){const y=w.month<=10?2027:2026;const t=new Date(y,w.month-1,1);t.setDate(t.getDate()-p.bk[1]);by=t;label='about '+t.getDate()+' '+MS[t.getMonth()]+' ≈ (for early '+MONTHS[w.month-1]+')'}
  out.push({pid:p.id,item:p.bk[0],place:p.name,days:p.bk[1],by,label:label||null,day:d.n+1})}));return out}
-function icsOf(plan,S){const w=whenInfo(S);if(!w.from)return'';const L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//proto//EN'];plan.days.forEach(d=>{const t=new Date(w.from);t.setDate(t.getDate()+d.n);L.push('BEGIN:VEVENT','UID:d'+d.n+'@proto','DTSTART;VALUE=DATE:'+iso(t).replace(/-/g,''),'SUMMARY:Day '+(d.n+1)+' '+d.base.name+': '+d.items.map(i=>PL[i.pid].name).join(', '),'END:VEVENT')});bookAhead(plan,S).forEach(b=>{if(b.by)L.push('BEGIN:VEVENT','UID:b'+b.pid+'@proto','DTSTART;VALUE=DATE:'+iso(b.by).replace(/-/g,''),'SUMMARY:Book by today: '+b.item,'END:VEVENT')});L.push('END:VCALENDAR');return L.join('\r\n')}
+/* Calendar text for a plan. Delegates to shared/ics.js (timed events per stop, all-day book-by events); '' when the trip has no dates. */
+function icsOf(plan,S){if(typeof ProtoICS==='undefined'||!whenInfo(S).from)return'';const t=toTrip(Object.assign({},S,{plan}));return ProtoICS.build(typeof ProtoContract!=='undefined'?ProtoContract.normalise(t):t).text}
 /* planner contract: proto.trips */
 function toTrip(S){const p=S.plan;const st=p?planStats(p,S):null;const w=whenInfo(S);const y=S.when;
  const id=S.id;const tripD=p?p.days.map(d=>({n:d.n+1,label:'Day '+(d.n+1)+' · '+d.base.name+(d.moveFrom?' (move day)':''),base:d.base.name,notes:d.note||'',items:d.items.map(it=>{const pl=PL[it.pid];return{id:it.pid,name:pl.name,slug:pl.id,park:pl.park||undefined,time:hm(it.t),durMin:it.dur,driveMin:it.leg,locked:!!it.locked,placed:!!it.placed,mustSee:!!S.must[it.pid],note:''}})})):[];
@@ -171,7 +192,7 @@ function toTrip(S){const p=S.plan;const st=p?planStats(p,S):null;const w=whenInf
  const cl=(S.checklist||[]).map(c=>({label:c.label,done:!!c.done}));
  const costs=st?st.free.map(p=>({label:p.name,free:true})).concat(p.days.flatMap(d=>d.items).map(i=>PL[i.pid]).filter(q=>q.pr>0).map(q=>({label:q.name,amount:q.pr}))):[];
  return{id,title:S.title,kind:S.kind,mode:KINDS[S.kind].mode,start:{city:S.origin.name,airport:KINDS[S.kind].mode==='trip'?S.airFrom:undefined},party:S.party.map(t=>({name:t.name||undefined,type:t.type,age:t.type==='child'?t.age:undefined,needs:t.needs||[]})),
-  dates:{from:y.type==='dates'?y.from:undefined,to:y.type==='dates'?y.to:undefined,month:w.month||undefined,flexible:y.type==='flex'||undefined},nights:S.nights,identity:S.identity,inMine:true,updated:new Date().toISOString(),
+  dates:{from:w.dated&&w.from?iso(w.from):undefined,to:w.dated&&w.to?iso(w.to):undefined,month:w.month||undefined,flexible:y.type==='flex'||undefined},nights:S.nights,identity:S.identity,inMine:true,updated:new Date().toISOString(),
   days:tripD,gettingThere:KINDS[S.kind].mode==='trip'?{from:S.airFrom,arrive:S.arrive,leave:S.leave,mode:S.flyMode}:{from:S.origin.name,mode:'drive'},bookings:bk,checklist:cl,costs}}
 
 /* ---- public API (see engine-api.md). Globals above stay for builder.js; the planner uses window.ProtoEngine. ---- */
@@ -189,20 +210,23 @@ function fits(S,plan,di,pid,opts){opts=opts||{};const d=plan.days[di],p=PL[pid];
  if(closedIn(S,p))reasons.push('Closed this month');
  const m=misfit(S,p);if(m.length)reasons.push(m.join(', '));
  return{ok:!reasons.length,reasons,legMin:leg,backMin:back,durMin:dur}}
-/** Fill empty days (no items, not arrival or departure). Pass 1 is strict (light stop within 30 min of the base);
-    pass 2 relaxes radius and duration (nearest unused place that fits, half a day allowed). Mutates plan, returns
-    {plan, filled:[dayIndex], stillEmpty:[dayIndex]}. Never touches items the person placed or locked. */
-function fillFree(S,plan){const filled=[];
+/** Fill empty days (no items, not arrival or departure) in two passes. Pass 1 is strict: a light stop within 30 min of the base.
+    Pass 2 relaxes the radius and the limits (1.5x), first with the full duration, then with half the duration (the item gets
+    `half:true`, which recalc honours). Mutates plan, returns {plan, filled:[dayIndex], relaxed:[dayIndex filled in pass 2],
+    half:[dayIndex filled with a half-day item], stillEmpty:[dayIndex]}. A day in stillEmpty can be removed (nights minus one) or
+    given a place by hand. Never touches items the person placed or locked. */
+function fillFree(S,plan){const filled=[],relaxed=[],half=[];
  const used=()=>new Set(S.picks.concat(plan.days.flatMap(d=>d.items.map(i=>i.pid))));
- const pool=()=>PLACES.filter(p=>p.type!=='town'&&(S.area?p.park===S.area:S.regions.includes(p.reg)||KINDS[S.kind].mode==='near'&&drive(S.origin,p)<=S.reachH*60+60));
+ const pool=()=>PLACES.filter(p=>p.type!=='town'&&!closedIn(S,p)&&(S.area?p.park===S.area:S.regions.includes(p.reg)||KINDS[S.kind].mode==='near'&&drive(S.origin,p)<=S.reachH*60+60));
  plan.days.forEach((d,di)=>{if(d.items.length||d.kind)return;
   const ex=used();const strict=lightStop(S,d.base,ex);
   if(strict&&fits(S,plan,di,strict.id).ok){d.items.push({pid:strict.id,auto:true});filled.push(di);recalc(plan,S);return}
   const cands=pool().filter(p=>!ex.has(p.id)).map(p=>({p,m:drive(d.base,p)})).sort((a,b)=>a.m-b.m);
-  for(const c of cands){const r=fits(S,plan,di,c.p.id,{relax:true,half:true});if(r.ok){d.items.push({pid:c.p.id,auto:true,half:r.durMin<c.p.dur*.75||undefined});filled.push(di);recalc(plan,S);return}}});
+  for(const mode of [{relax:true},{relax:true,half:true}]){
+   for(const c of cands){const r=fits(S,plan,di,c.p.id,mode);if(r.ok){d.items.push({pid:c.p.id,auto:true,half:mode.half||undefined});filled.push(di);relaxed.push(di);if(mode.half)half.push(di);recalc(plan,S);return}}}});
  recalc(plan,S);
- return{plan,filled,stillEmpty:plan.days.map((d,i)=>(!d.items.length&&!d.kind)?i:-1).filter(i=>i>=0)}}
+ return{plan,filled,relaxed,half,stillEmpty:plan.days.map((d,i)=>(!d.items.length&&!d.kind)?i:-1).filter(i=>i>=0)}}
 /** Build a plan from nothing; rebuild keeps what was placed or locked in `prev`. */
 function build(S){return buildPlan(S,null)}
 function rebuild(S,prev){return buildPlan(S,prev)}
-window.ProtoEngine={build,rebuild,fillFree,fits,recalc,freeDays,planStats,bookAhead,toTrip,whenInfo,drive,hav,fd,hm,eff,misfit,closedIn,lightStop,KINDS,PACE};
+window.ProtoEngine={build,rebuild,fillFree,fits,recalc,freeDays,planStats,bookAhead,toTrip,whenInfo,drive,hav,fd,hm,eff,misfit,closedIn,lightStop,KINDS,PACE,sunsetFor,departSlack,defaultDepart,icsOf};

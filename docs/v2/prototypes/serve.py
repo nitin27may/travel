@@ -11,6 +11,12 @@ HERE = Path(__file__).resolve().parent
 FONTS = HERE.parent / "design" / "redesign" / "fonts"
 
 
+class Server(http.server.ThreadingHTTPServer):
+    # the default backlog of 5 resets connections when a browser opens a page's scripts in parallel (flaky tests, 27 Oct 2026)
+    request_queue_size = 128
+    daemon_threads = True
+
+
 class Handler(http.server.SimpleHTTPRequestHandler):
     def translate_path(self, path: str) -> str:
         clean = path.split("?", 1)[0].split("#", 1)[0]
@@ -22,6 +28,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 if __name__ == "__main__":
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 4300
     handler = functools.partial(Handler, directory=str(HERE))
-    with http.server.ThreadingHTTPServer(("127.0.0.1", port), handler) as srv:
+    with Server(("127.0.0.1", port), handler) as srv:
         print(f"prototypes on http://127.0.0.1:{port}/")
         srv.serve_forever()

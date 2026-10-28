@@ -66,3 +66,15 @@ test('contract: requests default, validate, add and persist', () => {
   expect(C.readRequests(s)).toHaveLength(1);
   expect(C.normaliseRequest({ kind: 'zzz', status: 'zzz', name: 'A' })).toMatchObject({ kind: 'place', status: 'Requested' });
 });
+
+test('contract: ext (the planner extension bag) survives normalise and a store round trip; non-objects are refused', () => {
+  const s = store();
+  const t = { ...good(), ext: { notes: 'n', done: { a: true }, parkTicks: [1, 2] } };
+  expect(C.validate(C.normalise(t))).toEqual([]);
+  expect(C.writeTrips(s, [t]).ok).toBe(true);
+  expect(C.readTrips(s)[0].ext).toEqual(t.ext);
+  expect(C.normalise(good()).ext).toBeUndefined();
+  expect(C.normalise({ ...good(), ext: [1] }).ext).toBeUndefined();
+  expect(C.validate({ ...C.normalise(good()), ext: 'x' }).map((p) => p.path)).toContain('ext');
+  expect(C.validate({ ...C.normalise(good()), ext: [] }).map((p) => p.path)).toContain('ext');
+});

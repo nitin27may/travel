@@ -8,6 +8,8 @@
      extras:  [{id, lat, lon, label}],                 // unnumbered markers (a base, an airport): small square
      outline: [[lat, lon], ...] or [[[lat, lon], ...], ...],   // optional park boundary, drawn closed
      selected: id, height: px (default: 3/4 of width, 220 to 520), label: 'accessible name of the map',
+     pinLabel: function (point, dayN, stopNo) -> aria-label string (default "Day N, stop K: Name"),
+     numbered: false  // pins show no number and are labelled with the name only (default true)
      onPin: function (id, point, dayN) {}   // click, Enter or Space on a pin
    }) -> {update(opts), destroy(), svg}
    Day colours cycle through DAY_COLOURS. Every pin is a focusable role=button with aria-label "Day 2, stop 3: Name". */
@@ -73,12 +75,12 @@
       (d.points || []).forEach(function (p, i) {
         var sel = o.selected === p.id, x = P.x(p.lon), y = P.y(p.lat);
         var g = el('g', { transform: 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ')', role: 'button', tabindex: 0, 'data-pin': p.id, 'data-day': d.n,
-          'aria-label': 'Day ' + d.n + ', stop ' + (i + 1) + ': ' + (p.label || p.id), style: 'cursor:pointer;outline:none' }, svg);
+          'aria-label': o.pinLabel ? o.pinLabel(p, d.n, i + 1) : (o.numbered === false ? (p.label || p.id) : 'Day ' + d.n + ', stop ' + (i + 1) + ': ' + (p.label || p.id)), style: 'cursor:pointer;outline:none' }, svg);
         el('circle', { r: 22, fill: 'transparent' }, g); // 44 px touch target
         if (sel) el('circle', { r: 19, fill: 'none', stroke: 'var(--map-select-ring)', 'stroke-width': 3 }, g);
         el('circle', { r: 14, fill: 'var(--map-pin)', stroke: dayColour(di), 'stroke-width': 4 }, g);
         var t = el('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central', fill: 'var(--map-pin-ink)', 'font-size': 13, 'font-weight': 700, 'font-family': 'var(--font-body)', 'aria-hidden': 'true' }, g);
-        t.textContent = String(i + 1);
+        t.textContent = o.numbered === false ? '' : String(i + 1);
         if (sel && p.label) {
           var tw = Math.min(W - 8, p.label.length * 7.2 + 16), lx = Math.max(4 - x, Math.min(-tw / 2, W - 4 - tw - x)), ly = y > 50 ? -48 : 24;
           el('rect', { x: lx, y: ly, width: tw, height: 24, rx: 6, fill: 'var(--map-pin)', stroke: 'var(--map-border)' }, g);

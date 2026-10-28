@@ -34,7 +34,19 @@
       "run": ["bash docs/v2/prototypes/tests/run.sh"],
       "cost": "m", "group": "web", "always_at": 3,
       "inputs": ["docs/v2/prototypes/**", "core/src/sun/**", "core/bin/sun.ts"],
-      "tests": ["docs/v2/prototypes/shared/tests/*.{test,spec}.js"]
+      "tests": ["docs/v2/prototypes/*/tests/*.{test,spec}.js"]
+    },
+    "proto.planner": {
+      "run": ["bash docs/v2/prototypes/planner/tests/run.sh"],
+      "cost": "m", "group": "web", "always_at": 3,
+      "inputs": ["docs/v2/prototypes/planner/**", "docs/v2/prototypes/shared/**", "docs/v2/prototypes/builder/data.js", "docs/v2/prototypes/themes.css", "docs/v2/prototypes/serve.py"],
+      "tests": ["docs/v2/prototypes/planner/tests/*.spec.js"]
+    },
+    "proto.parks": {
+      "run": ["bash docs/v2/prototypes/parks-app/tests/run.sh"],
+      "cost": "m", "group": "web", "always_at": 3,
+      "inputs": ["docs/v2/prototypes/parks-app/**", "docs/v2/prototypes/shared/**", "docs/v2/prototypes/themes.css", "docs/v2/prototypes/serve.py"],
+      "tests": ["docs/v2/prototypes/parks-app/tests/*.{test,spec}.js"]
     },
     "locations": {
       "run": ["python3 tools/locations.py validate", "python3 tools/locations.py build --check"],
@@ -357,7 +369,9 @@
       "e2e": ["places.spec.ts", "trips.spec.ts", "globe.spec.ts"] },
 
     { "id": "prototypes-shared", "why": "the throwaway prototypes share sun, contract, ics, map and engine code with their own Playwright tests; sun.js is checked against core/bin/sun.ts",
-      "paths": ["docs/v2/prototypes/**", "core/src/sun/**", "core/bin/sun.ts"], "suites": ["proto.shared"] },
+      "paths": ["docs/v2/prototypes/**", "core/src/sun/**", "core/bin/sun.ts"], "suites": ["proto.shared", "proto.planner"] },
+    { "id": "prototypes-parks", "why": "the parks prototype has its own Playwright specs (data, pages, index, keyboard, a11y sweep) beside shared/tests helpers",
+      "paths": ["docs/v2/prototypes/parks-app/**"], "suites": ["proto.parks"] },
     { "id": "docs-inputs", "why": "documents a test or a check reads",
       "paths": ["docs/v2/build/public-site/README.md"], "suites": ["hardcode", "web.unit"], "tests": ["web/tests/cons/env-table.test.ts"] },
     { "id": "docs-schema-sql", "why": "core/src/db/inventory.ts pins the 62 tables of the proposal", "paths": ["docs/v2/schema.sql"],

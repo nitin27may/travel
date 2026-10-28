@@ -10,7 +10,8 @@
      nights (int >= 0), identity, inMine (bool), updated (ISO string),
      days [{n (1-based), label, base, notes, items [{id, name, slug, park?, time:'HH:MM', durMin, driveMin, locked, placed, mustSee, note}]}],
      gettingThere {from, arrive?, leave?, mode}, bookings [{label, by:'YYYY-MM-DD'|'<n>d', link, done}], checklist [{label, done}],
-     costs [{label, free?, amount?}]
+     costs [{label, free?, amount?}],
+     ext? (optional plain object kept as is by normalise: the planner's extra fields such as notes, item done/stale/private)
    Request: {id, kind:'place'|'region', name, note, status:'Requested'|'Researching'|'Added', created (ISO)} */
 (function (root) {
   'use strict';
@@ -87,6 +88,7 @@
       gettingThere: { from: str(gt.from), arrive: gt.arrive ? str(gt.arrive) : undefined, leave: gt.leave ? str(gt.leave) : undefined, mode: str(gt.mode, 'drive') },
       bookings: arr(t.bookings).map(function (b) { b = b || {}; return { label: str(b.label), by: str(b.by), link: str(b.link), done: !!b.done }; }),
       checklist: arr(t.checklist).map(function (c) { c = c || {}; return { label: str(c.label), done: !!c.done }; }),
+      ext: t.ext && typeof t.ext === 'object' && !Array.isArray(t.ext) ? JSON.parse(JSON.stringify(t.ext)) : undefined,
       costs: arr(t.costs).map(function (c) { c = c || {}; var o = { label: str(c.label) }; if (c.free) o.free = true; if (c.amount != null) o.amount = Number(c.amount) || 0; return o; })
     };
   }
@@ -124,6 +126,7 @@
         if (!(it.durMin >= 0)) bad(ip + '.durMin', 'Must be 0 or more');
       });
     });
+    if (t.ext !== undefined && (t.ext === null || typeof t.ext !== 'object' || Array.isArray(t.ext))) bad('ext', 'Must be a plain object');
     ['bookings', 'checklist', 'costs'].forEach(function (k) { if (!Array.isArray(t[k])) bad(k, 'Must be a list'); });
     if (Array.isArray(t.bookings)) t.bookings.forEach(function (b, i) { if (!b.label) bad('bookings.' + i + '.label', 'Needs a label'); });
     return p;

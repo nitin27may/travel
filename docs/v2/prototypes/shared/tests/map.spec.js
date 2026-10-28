@@ -86,3 +86,13 @@ test('contrast checker catches a failing pair (self test)', async ({ page, base 
   const c = await checkContrast(page, { themes: ['light'] });
   expect(c.failures.some((f) => f.el === 'p#bad' && f.ratio < 4.5)).toBe(true);
 });
+
+test('map: pinLabel sets a custom aria-label per pin and numbered:false drops the numbers and "Day N, stop K"', async ({ page, base }) => {
+  await page.goto(base + '/shared/tests/harness.html');
+  await page.evaluate(() => { window.handle.update({ days: [{ n: 1, points: [{ id: 'p', lat: 1, lon: 1, label: 'Banff' }, { id: 'q', lat: 1.1, lon: 1.1, label: 'Lake Louise' }] }], pinLabel: (pt, d, k) => 'Park ' + pt.label + ' (' + d + '/' + k + ')' }); });
+  await expect(page.getByRole('button', { name: 'Park Banff (1/1)' })).toBeVisible();
+  await page.evaluate(() => { window.handle.update({ days: [{ n: 1, points: [{ id: 'p', lat: 1, lon: 1, label: 'Banff' }, { id: 'q', lat: 1.1, lon: 1.1, label: 'Lake Louise' }] }], numbered: false }); });
+  await expect(page.getByRole('button', { name: 'Banff', exact: true })).toBeVisible();
+  expect(await page.locator('#map svg text').allTextContents()).toEqual(['', '']);
+  await expect(page.getByRole('button', { name: /^Day \d, stop/ })).toHaveCount(0);
+});

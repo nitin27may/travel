@@ -1,7 +1,12 @@
-/* THROWAWAY prototype: shared store, helpers, shell. Not product code. */
+/* THROWAWAY prototype: shared store, helpers, shell. Not product code.
+   Loaded after shared/contract.js, sun.js, ics.js, map.js, builder/data.js, shared/engine.js, dates.js and glue.js.
+   Every read and write of proto.trips goes through shared/contract.js (readTrips, writeTrips). The contract keeps a fixed set of
+   fields, so the planner-only ones (notes, item done/stale/private, booking kind/rule/park, checklist group, park ticks,
+   country) live in proto.planner.ext keyed by trip id and are merged back on read. */
 (function(){
 const P=window.P={};
-const KEY='proto.trips', SKEY='proto.planner';
+const C=window.ProtoContract;
+const SKEY='proto.planner', XKEY='proto.planner.ext';
 const DAY=864e5, MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 P.esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 P.uid=p=>(p||'x')+Math.random().toString(36).slice(2,8);
@@ -15,20 +20,45 @@ P.iso=d=>d.toISOString().slice(0,10);
 P.add=(s,n)=>P.iso(new Date(P.parse(s).getTime()+n*DAY));
 P.diff=(a,b)=>Math.round((P.parse(b)-P.parse(a))/DAY);
 P.fmt=(s,short)=>{const d=P.parse(s);return `${DN[d.getUTCDay()]} ${d.getUTCDate()} ${MN[d.getUTCMonth()]}${short?'':' '+d.getUTCFullYear()}`};
-P.monthNum=m=>typeof m==='number'?m:(m?+String(m).slice(5,7):null);
-P.fmtMonth=m=>{if(typeof m==='number')return MN[m-1];const [y,mo]=String(m).split('-');return `${MN[+mo-1]} ${y}`};
-P.range=t=>{const d=t.dates||{};if(d.from&&d.to){const a=P.parse(d.from),b=P.parse(d.to);return a.getUTCMonth()===b.getUTCMonth()&&a.getUTCFullYear()===b.getUTCFullYear()?`${a.getUTCDate()}\u2013${b.getUTCDate()} ${MN[b.getUTCMonth()]} ${b.getUTCFullYear()}`:`${P.fmt(d.from,1)} \u2013 ${P.fmt(d.to)}`}if(d.from)return P.fmt(d.from);if(d.month)return P.fmtMonth(d.month)+(d.flexible?' (flexible)':'');return ''};
+P.monthNum=m=>C.monthNumber(m);
+P.fmtMonth=m=>MN[P.monthNum(m)-1]||'';
+P.range=t=>{const d=t.dates||{};if(d.from&&d.to&&d.to!==d.from){const a=P.parse(d.from),b=P.parse(d.to);return a.getUTCMonth()===b.getUTCMonth()&&a.getUTCFullYear()===b.getUTCFullYear()?`${a.getUTCDate()}–${b.getUTCDate()} ${MN[b.getUTCMonth()]} ${b.getUTCFullYear()}`:`${P.fmt(d.from,1)} – ${P.fmt(d.to)}`}if(d.from)return P.fmt(d.from);if(P.monthNum(d.month))return (d.flexible?'Around ':'')+P.fmtMonth(d.month)+(d.flexible?' (flexible)':'');if(d.flexible)return 'Flexible';return ''};
 P.hasDates=t=>!!(t.dates&&t.dates.from);
 P.mins=m=>{m=Math.round(m||0);if(m<60)return m+' min';const h=Math.floor(m/60),r=m%60;return r?`${h} h ${r} min`:`${h} h`};
 P.hm=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')};
 P.toMin=t=>{const [h,m]=String(t||'09:00').split(':');return (+h)*60+(+m||0)};
-/* store */
-P.trips=()=>{try{const a=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(a)?a:[]}catch(e){return []}};
-P.save=a=>localStorage.setItem(KEY,JSON.stringify(a));
+P.kindLabel=k=>(window.ProtoEngine.KINDS[k]&&window.ProtoEngine.KINDS[k].label)||k||'Trip';
+/* store: contract in, contract out; planner-only fields ride in proto.planner.ext */
+const xread=()=>{try{return JSON.parse(localStorage.getItem(XKEY)||'{}')||{}}catch(e){return {}}};
+const nonEmpty=o=>Object.keys(o).length>0;
+function pack(t){const x={};
+ if(t.notes)x.notes=t.notes;
+ if(t.parkDone&&nonEmpty(t.parkDone))x.parkDone=t.parkDone;
+ const g=t.gettingThere||{};if(g.abroad||g.country)x.gt={abroad:!!g.abroad,country:g.country||''};
+ const it={};(t.days||[]).forEach(d=>(d.items||[]).forEach(i=>{const e={};['done','stale','priv'].forEach(k=>{if(i[k])e[k]=1});if(nonEmpty(e))it[i.id]=e}));if(nonEmpty(it))x.items=it;
+ const bk={};(t.bookings||[]).forEach(b=>{const e={};['kind','rule','park'].forEach(k=>{if(b[k])e[k]=b[k]});if(nonEmpty(e))bk[b.label]=e});if(nonEmpty(bk))x.bookings=bk;
+ const ck={};(t.checklist||[]).forEach(c=>{if(c.group)ck[c.label]=c.group});if(nonEmpty(ck))x.checklist=ck;
+ return x}
+function unpack(t,x){x=x||{};
+ t.notes=x.notes||'';t.parkDone=x.parkDone||{};
+ t.gettingThere=Object.assign({},t.gettingThere,x.gt||{});
+ (t.days||[]).forEach(d=>(d.items||[]).forEach(i=>{Object.assign(i,{done:false,stale:false,priv:false},Object.fromEntries(Object.keys((x.items||{})[i.id]||{}).map(k=>[k,true])))}));
+ (t.bookings||[]).forEach(b=>Object.assign(b,(x.bookings||{})[b.label]||{}));
+ (t.checklist||[]).forEach(c=>{c.group=(x.checklist||{})[c.label]||'Other'});
+ return t}
+/* a stored trip the contract would refuse (no traveller, no start) would block every save, so mend those two fields on read */
+function mend(t){if(!t.party.length)t.party=[{type:'adult',needs:[]}];if(!t.start.city)t.start.city='Home';return t}
+P.trips=()=>{const ext=xread();return C.readTrips(localStorage).map(t=>mend(unpack(t,ext[t.id])))};
+P.save=a=>{const ext={};a.forEach(t=>{const x=pack(t);if(nonEmpty(x))ext[t.id]=x});
+ const r=C.writeTrips(localStorage,a);
+ if(!r.ok){console.error('proto.trips not saved',r.problems);P.toast&&P.toast('Could not save: '+r.problems[0].msg);return false}
+ localStorage.setItem(XKEY,JSON.stringify(ext));P.refreshHeader&&P.refreshHeader();return true};
 P.get=id=>P.trips().find(t=>t.id===id);
-P.update=(id,fn)=>{const a=P.trips(),t=a.find(x=>x.id===id);if(!t)return null;fn(t);t.updated=new Date().toISOString();P.save(a);return t};
+P.update=(id,fn)=>{const a=P.trips(),t=a.find(x=>x.id===id);if(!t)return null;fn(t);t.updated=new Date().toISOString();P.save(a);return P.get(id)};
+P.replace=(id,snap)=>{const a=P.trips(),i=a.findIndex(x=>x.id===id);if(i<0)return null;a[i]=snap;P.save(a);return P.get(id)};
+P.requests=()=>C.readRequests(localStorage);
 P.state=()=>{try{return JSON.parse(localStorage.getItem(SKEY)||'{}')||{}}catch(e){return {}}};
-P.setState=fn=>{const s=P.state();fn(s);localStorage.setItem(SKEY,JSON.stringify(s));return s};
+P.setState=fn=>{const s=P.state();fn(s);localStorage.setItem(SKEY,JSON.stringify(s));P.refreshHeader&&P.refreshHeader();return s};
 P.realToday=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
 P.today=()=>P.state().today||P.realToday();
 P.phase=t=>{if(!P.hasDates(t))return 'planning';const n=P.today();if(t.dates.to&&t.dates.to<n)return 'past';if(t.dates.from<=n)return 'now';return 'upcoming'};
@@ -43,11 +73,15 @@ P.nextDeadline=t=>{const l=(t.bookings||[]).filter(b=>!b.done).map(b=>({b,d:P.by
 P.money=n=>'$'+Math.round(n).toLocaleString('en-CA');
 P.totals=t=>{const it=P.items(t);return {nights:t.nights!=null?t.nights:Math.max(0,(t.days||[]).length-1),drive:it.reduce((s,x)=>s+(+x.driveMin||0),0),places:it.length}};
 P.dayDrive=d=>(d.items||[]).reduce((s,x)=>s+(+x.driveMin||0),0);
-P.abroad=t=>!!(t.gettingThere&&(t.gettingThere.abroad||t.gettingThere.mode==='air'));
+P.abroad=t=>{const g=t.gettingThere||{};return !!(g.abroad||g.mode==='air'||g.mode==='fly')};
+P.gettingSummary=t=>{const g=t.gettingThere||{};
+ if(g.mode==='fly'||g.mode==='air'){const a=AIRPORTS[g.arrive],f=AIRPORTS[g.from];return `Fly ${f?f.n+' ('+g.from+')':(g.from||'from home')} to ${a?a.n+' ('+g.arrive+')':(g.arrive||'your destination')}${g.leave&&g.leave!==g.arrive&&AIRPORTS[g.leave]?', home from '+AIRPORTS[g.leave].n+' ('+g.leave+')':''}, then drive. Drive times are placeholders.`}
+ return `By car from ${(t.start&&t.start.city)||'home'}. Drive times are placeholders, not routing.`};
 P.parkUrl=s=>'/parks-app/park.html?slug='+encodeURIComponent(s);
-P.dayColour=i=>['var(--id-blue)','var(--id-vermillion)','var(--id-rose)','var(--id-teal)','var(--id-orange)','var(--id-sky)','var(--id-yellow)'][i%7];
+/* the same order as shared/map.js, so a day has the same colour in the route list and on the map */
+P.dayColour=i=>['var(--id-blue)','var(--id-orange)','var(--id-rose)','var(--id-sky)','var(--id-vermillion)','var(--id-teal)','var(--id-yellow)'][i%7];
 P.order=a=>{const r={now:0,upcoming:1,planning:2,past:3};return a.slice().sort((x,y)=>{const px=r[P.phase(x)],py=r[P.phase(y)];if(px!==py)return px-py;return ((x.dates&&x.dates.from)||'9')<((y.dates&&y.dates.from)||'9')?-1:1})};
-/* reality checks */
+/* reality checks, packing */
 P.checks=t=>{const out=[],p=t.party||[];const kids=p.filter(x=>x.type!=='adult');const youngest=kids.reduce((m,x)=>Math.min(m,x.age!=null?x.age:99),99);
 (t.days||[]).forEach(d=>{const dr=P.dayDrive(d);const its=d.items||[];
  if(dr>300)out.push({sev:'warn',day:d.n,text:`Day ${d.n} has ${P.mins(dr)} of driving. Plan a long stop or move one place.`});
@@ -71,72 +105,73 @@ const kids=(t.party||[]).filter(x=>x.type!=='adult');if(kids.length){add('Kids',
 if((t.party||[]).some(x=>x.type==='infant')){add('Kids','Nappies, wipes and a changing mat');add('Kids','Baby carrier')}
 if(P.abroad(t)){add('Documents','Plug adapters');add('Documents','Copies of passports, kept apart from the originals')}
 return s};
-/* sun (approximate, placeholder for core/sun) */
-P.sun=(iso,lat)=>{lat=lat||45;const d=P.parse(iso),n=Math.floor((d-Date.UTC(d.getUTCFullYear(),0,0))/DAY);const decl=23.44*Math.sin(2*Math.PI*(284+n)/365)*Math.PI/180,l=lat*Math.PI/180;const h=Math.acos(Math.max(-1,Math.min(1,-Math.tan(l)*Math.tan(decl))))*12/Math.PI;return {rise:P.hm(12*60-h*60),set:P.hm(12*60+h*60),hours:h*2}};
-/* seed */
-const it=(name,time,dur,drive,o)=>Object.assign({id:P.uid('i'),name,slug:name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),time,durMin:dur,driveMin:drive,locked:false,placed:false,mustSee:false,note:''},o||{});
-P.seedTrips=()=>{const now=new Date().toISOString();
-const alg={id:'t-algonquin',title:'Algonquin weekend',kind:'Weekend near home',mode:'near',start:{city:'Toronto',airport:'YYZ'},party:[{name:'Nitin',type:'adult',needs:[]},{name:'Asha',type:'adult',needs:[]},{name:'Mira',type:'child',age:6,needs:[]}],dates:{month:'2027-09',flexible:true},nights:2,identity:'#0072B2',inMine:true,updated:now,
- days:[{n:1,label:'Drive up and the first trails',base:'Lake of Two Rivers campground',notes:'',items:[it('Algonquin Visitor Centre','12:30',60,200,{park:'algonquin-provincial-park',note:'Exhibits, a viewing deck and the lunch spot.'}),it('Hardwood Lookout Trail','14:30',45,10,{park:'algonquin-provincial-park',mustSee:true}),it('Spruce Bog Boardwalk','16:00',60,8,{park:'algonquin-provincial-park'})]},
- {n:2,label:'On the water, then the canyon',base:'Lake of Two Rivers campground',notes:'',items:[it('Canoe on Canoe Lake','09:00',240,25,{park:'algonquin-provincial-park',locked:true,note:'Half-day hire, life jackets included.'}),it('Peck Lake Trail','14:30',70,20,{park:'algonquin-provincial-park',stale:true}),it('Barron Canyon Trail','16:30',150,95,{park:'algonquin-provincial-park',placed:true,mustSee:true})]},
- {n:3,label:'Beaver pond and home',base:'Toronto',notes:'',items:[it('Beaver Pond Trail','09:00',60,10,{park:'algonquin-provincial-park'}),it('Drive home to Toronto','11:30',0,210)]}],
- gettingThere:{mode:'car',summary:'About 3 h by car from Toronto, 260 km.',abroad:false},
- bookings:[{label:'Campsite at Lake of Two Rivers',by:155,rule:'Opens 5 months ahead, fills fast',link:'https://reservations.ontarioparks.ca/',done:false,kind:'stay'},{label:'Canoe hire on Canoe Lake',by:21,link:'https://www.algonquinoutfitters.com/',done:false,kind:'activity'},{label:'Ontario Parks day-use permit',by:3,link:'https://reservations.ontarioparks.ca/',done:false,kind:'park',park:'algonquin-provincial-park'}],
- checklist:[{label:'Health cards and insurance',done:true,group:'Documents'},{label:'Bug spray',done:false,group:'Packing'}],costs:[{label:'Campsite, 2 nights',amount:84},{label:'Canoe hire',amount:90},{label:'Day-use permits',amount:null},{label:'Trails and boardwalks',free:true}],notes:''};
-const dol={id:'t-dolomites',title:'Dolomites week',kind:'Week by air',mode:'trip',start:{city:'Toronto',airport:'YYZ'},party:[{name:'Nitin',type:'adult',needs:[]},{name:'Asha',type:'adult',needs:[]},{name:'Mira',type:'child',age:9,needs:[]}],dates:{from:'2027-07-13',to:'2027-07-20'},nights:7,identity:'#D55E00',inMine:true,updated:now,
- days:[{n:1,label:'Land and drive to Ortisei',base:'Ortisei',notes:'',items:[it('Collect hire car at Venice airport','10:30',45,0),it('Drive to Ortisei','12:00',0,165),it('Ortisei old town and dinner','18:30',120,5)]},
- {n:2,label:'Seceda ridge',base:'Ortisei',notes:'',items:[it('Seceda cable car and ridge walk','08:30',300,10,{park:'puez-odle-nature-park',locked:true,mustSee:true,note:'Lift slot 08:30. Gusts above 50 km/h: swap for the museum.'}),it('Lunch at Rifugio Firenze','13:30',75,0,{park:'puez-odle-nature-park'}),it('Gherdeina museum','16:30',60,15,{priv:true})]},
- {n:3,label:'Alpe di Siusi',base:'Ortisei',notes:'',items:[it('Alpe di Siusi meadow walk','09:30',180,25,{park:'sciliar-catinaccio-nature-park',mustSee:true}),it('Seiser Alm lunch hut','13:00',75,0),it('Easy loop to Compatsch','15:00',90,0,{placed:true})]},
- {n:4,label:'Tre Cime',base:'Cortina',notes:'',items:[it('Drive to Tre Cime toll road','08:00',0,100),it('Tre Cime loop','09:30',240,15,{park:'tre-cime-nature-park',locked:true,mustSee:true,note:'Toll slot booked; start early.'}),it('Cortina dinner','19:00',90,50)]},
- {n:5,label:'Lago di Braies',base:'Cortina',notes:'',items:[it('Lago di Braies shore path','08:30',120,70,{park:'fanes-sennes-braies-nature-park',mustSee:true}),it('Rowing boat on the lake','11:00',45,0,{priv:true}),it('Drive on to Val di Funes','14:00',0,95)]},
- {n:6,label:'Val di Funes',base:'Ortisei',notes:'',items:[it('Santa Maddalena viewpoint','09:00',60,10,{park:'puez-odle-nature-park'}),it('Odle meadows walk','11:00',150,20,{park:'puez-odle-nature-park'})]},
- {n:7,label:'Bolzano and the last evening',base:'Ortisei',notes:'',items:[it('Otzi the Iceman museum','10:00',120,50),it('Market lunch in Bolzano','12:30',75,5),it('Evening packing and dinner','19:00',90,50)]},
- {n:8,label:'Fly home',base:'Venice',notes:'',items:[it('Drive to Venice airport','07:00',0,170),it('Flight home','12:30',0,0)]}],
- gettingThere:{mode:'air',abroad:true,country:'Italy',summary:'YYZ to Venice (VCE), then a hire car for 2 h 45 min to Ortisei.'},
- bookings:[{label:'Flights YYZ to Venice',by:330,rule:'Fares rise 5 months out',link:'https://www.aircanada.com/',done:true,kind:'flight'},{label:'Ortisei apartment, 5 nights',by:120,link:'https://www.booking.com/',done:true,kind:'stay'},{label:'Cortina apartment, 2 nights',by:100,link:'https://www.booking.com/',done:false,kind:'stay'},{label:'Hire car with child seat',by:90,link:'https://www.rentalcars.com/',done:false,kind:'car'},{label:'Seceda cable car slot',by:42,rule:'Slots open 6 weeks ahead',link:'https://www.seceda.it/',done:false,kind:'activity'},{label:'Tre Cime toll road slot',by:28,rule:'Slots open 4 weeks ahead',link:'https://www.tre-cime.info/',done:false,kind:'activity',park:'tre-cime-nature-park'},{label:'Lago di Braies car access (July)',by:14,link:'https://www.pragsertal.info/',done:false,kind:'park',park:'fanes-sennes-braies-nature-park'}],
- checklist:[{label:'Passports valid 6 months past return',done:true,group:'Documents'},{label:'International driving permit',done:false,group:'Documents'},{label:'Travel insurance, with hiking cover',done:false,group:'Documents'},{label:'Plug adapters (type F/L)',done:false,group:'Documents'},{label:'Rain jackets',done:false,group:'Packing'},{label:'Trekking poles',done:false,group:'Packing'},{label:'Snacks for the drives',done:false,group:'Kids'}],
- costs:[{label:'Flights, 3 people',amount:2400},{label:'Ortisei apartment',amount:1650},{label:'Cortina apartment',amount:640},{label:'Hire car, 8 days',amount:560},{label:'Seceda cable car',amount:96},{label:'Tre Cime toll',amount:30},{label:'Meals',amount:null},{label:'Ridge and meadow walks',free:true}],notes:'Ask Asha about the museum day if the weather turns.'};
-const ban={id:'t-banff',title:'Banff long weekend',kind:'Long weekend by car',mode:'near',start:{city:'Calgary',airport:'YYC'},party:[{name:'Nitin',type:'adult',needs:[]},{name:'Asha',type:'adult',needs:[]}],dates:{from:'2026-09-04',to:'2026-09-07'},nights:3,identity:'#CC79A7',inMine:true,updated:now,
- days:[{n:1,label:'Drive west and Tunnel Mountain',base:'Tunnel Mountain campground',notes:'Arrived 15:30, the campsite was great.',items:[it('Drive Calgary to Banff','13:00',0,90),it('Banff town and Bow Falls','15:30',90,10,{park:'banff-national-park'}),it('Tunnel Mountain summit','17:30',90,5,{park:'banff-national-park'})]},
- {n:2,label:'Lakes',base:'Tunnel Mountain campground',notes:'',items:[it('Moraine Lake shuttle and Rockpile','06:30',150,45,{park:'banff-national-park',mustSee:true,locked:true}),it('Lake Louise lakeshore','11:00',120,15,{park:'banff-national-park'}),it('Fairview Lookout','14:00',60,3,{park:'banff-national-park',placed:true})]},
- {n:3,label:'Canyon and Bow Valley',base:'Tunnel Mountain campground',notes:'',items:[it('Johnston Canyon to the Upper Falls','09:00',180,30,{park:'banff-national-park',mustSee:true}),it('Bow Valley Parkway drive','13:00',0,60),it('Sundance Canyon','15:30',90,10,{park:'banff-national-park'})]},
- {n:4,label:'Home',base:'Calgary',notes:'',items:[it('Two Jack Lake breakfast','08:00',60,10,{park:'banff-national-park'}),it('Drive home to Calgary','10:30',0,95)]}],
- gettingThere:{mode:'car',summary:'1 h 30 min west from Calgary on the Trans-Canada.',abroad:false},
- bookings:[{label:'Tunnel Mountain campsite',by:150,link:'https://reservation.pc.gc.ca/',done:true,kind:'stay'},{label:'Moraine Lake shuttle',by:40,link:'https://reservation.pc.gc.ca/',done:true,kind:'activity'},{label:'Parks Canada Discovery Pass',by:7,link:'https://parks.canada.ca/',done:true,kind:'park',park:'banff-national-park'}],
- checklist:[{label:'Discovery Pass printed',done:true,group:'Documents'},{label:'Bear spray',done:true,group:'Packing'},{label:'Layers for cold mornings',done:true,group:'Packing'}],
- costs:[{label:'Campsite, 3 nights',amount:93},{label:'Discovery Pass, 4 days',amount:42},{label:'Moraine Lake shuttle',amount:16},{label:'Hikes',free:true}],notes:'Johnston Canyon: the lower falls were busy, go before 09:00.'};
-return [alg,dol,ban]};
+/* sun: shared/sun.js, the port of core/src/sun. Longitude is positive east. */
+P.zoneOf=p=>p.cc==='IT'?'Europe/Rome':(p.lon<-100?'America/Edmonton':'America/Toronto');
+P.baseOf=(t,d)=>PLACES.find(p=>p.name===d.base)||PL[((d.items||[]).find(i=>PL[i.id])||{}).id]||CITIES.find(c=>c.name===d.base)||CITIES.find(c=>c.name===(t.start&&t.start.city))||null;
+P.sunDate=(t,n)=>{if(P.hasDates(t))return P.dayDate(t,n);const m=P.monthNum(t.dates&&t.dates.month);if(m){const td=P.today(),y=+td.slice(0,4)+(m<+td.slice(5,7)?1:0);return `${y}-${String(m).padStart(2,'0')}-15`}return P.today()};
+P.sunFor=(t,d)=>{const b=P.baseOf(t,d);if(!b)return null;const iso=P.sunDate(t,d.n),zone=P.zoneOf(b),s=window.ProtoSun.sunFor(b.lat,b.lon,iso,zone);return s?Object.assign({iso,zone,place:b.name,lat:b.lat,lon:b.lon},s):null};
+P.endsAfterSunset=(t,d,it)=>{const b=P.baseOf(t,d);if(!b||!it.time)return false;const p=PL[it.id]||b;const iso=P.sunDate(t,d.n);return window.ProtoSun.endsAfterSunset(p.lat,p.lon,iso,P.zoneOf(p),P.toMin(it.time)+(+it.durMin||0),30)};
+/* seed: the engine builds the demo trips, with the builder's date model ('next weekend' resolves through ProtoEngine.whenInfo) */
+P.seedTrips=()=>window.PEngine.seedTrips().map(t=>Object.assign(t,{updated:new Date().toISOString()}));
 P.reseed=()=>P.save(P.seedTrips());
 if(!P.trips().length&&!P.state().noSeed)P.reseed();
 /* ui helpers */
 P.toast=(msg,undo)=>{let w=document.getElementById('toasts');if(!w){w=document.createElement('div');w.id='toasts';w.setAttribute('role','status');document.body.appendChild(w)}
  const el=document.createElement('div');el.className='toast';el.innerHTML=`<span>${P.esc(msg)}</span>${undo?'<button type="button">Undo</button>':''}`;w.appendChild(el);let tm;const kill=()=>{clearTimeout(tm);el.remove()};
  if(undo)el.querySelector('button').onclick=()=>{kill();undo()};tm=setTimeout(kill,undo?9000:3500);return kill};
+const FOCUSABLE='a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 P.sheet=(title,html,opt)=>{opt=opt||{};document.querySelectorAll('.sheet-wrap').forEach(e=>e.remove());const prev=document.activeElement;const w=document.createElement('div');w.className='sheet-wrap';
- w.innerHTML=`<div class="scrim" data-close></div><div class="sheet" role="dialog" aria-modal="true" aria-label="${P.esc(title)}"><div class="sheet-h"><h2>${P.esc(title)}</h2><button class="icon-btn" data-close aria-label="Close">${P.ic('x')}</button></div><div class="sheet-b">${html}</div></div>`;
+ w.innerHTML=`<div class="scrim" data-close></div><div class="sheet" role="dialog" aria-modal="true" aria-label="${P.esc(title)}"><div class="sheet-h"><h2>${P.esc(title)}</h2><button type="button" class="icon-btn" data-close aria-label="Close">${P.ic('x')}</button></div><div class="sheet-b">${html}</div></div>`;
  document.body.appendChild(w);requestAnimationFrame(()=>w.classList.add('open'));
- const esc=e=>{if(e.key==='Escape')close()};
- const close=()=>{w.classList.remove('open');document.removeEventListener('keydown',esc);setTimeout(()=>{w.remove();if(prev&&prev.focus&&document.contains(prev))prev.focus()},200)};
- document.addEventListener('keydown',esc);
+ const key=e=>{if(e.key==='Escape'){e.preventDefault();close();return}
+  if(e.key==='Tab'){const f=[...w.querySelectorAll(FOCUSABLE)].filter(x=>x.offsetParent!==null);if(!f.length)return;const a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}else if(!w.contains(document.activeElement)){e.preventDefault();a.focus()}}};
+ const close=()=>{w.classList.remove('open');document.removeEventListener('keydown',key);setTimeout(()=>{w.remove();if(opt.onClose)opt.onClose();if(prev&&prev.focus&&document.contains(prev))prev.focus();else{const f=document.querySelector('[role=tab][aria-selected=true]')||document.querySelector('main h1,main');if(f){if(!f.hasAttribute('tabindex')&&!/^(BUTTON|A|INPUT)$/.test(f.tagName))f.setAttribute('tabindex','-1');f.focus()}}},200)};
+ document.addEventListener('keydown',key);
  w.addEventListener('click',e=>{if(e.target.closest('[data-close]'))close()});
  const f=w.querySelector('form');if(f)f.addEventListener('submit',e=>{e.preventDefault();opt.onSubmit&&opt.onSubmit(new FormData(f),close,f)});
- const first=w.querySelector('input,select,textarea');setTimeout(()=>first&&first.focus(),60);if(opt.mount)opt.mount(w,close);return {el:w,close}};
-document.addEventListener('click',e=>{document.querySelectorAll('.menu:not([hidden])').forEach(m=>{if(!m.parentElement.contains(e.target))m.hidden=true});const sw=document.getElementById('switcher');if(sw&&!sw.hidden&&!e.target.closest('#switcher,#chip'))sw.hidden=true});
-/* dates sheet and calendar */
-P.addDatesSheet=(id,done)=>{const t=P.get(id);if(!t)return;const n=t.nights!=null?t.nights:2;
- P.sheet(P.hasDates(t)?'Change dates':'Add dates',`<form><p class="small" style="margin-bottom:16px">${P.esc(t.title)}. Dates unlock book-by dates, opening-hours checks and the calendar file.</p><div class="field"><label for="d-from">First day</label><input id="d-from" name="from" type="date" required value="${P.esc((t.dates&&t.dates.from)||'')}"></div><div class="field"><label for="d-nights">Nights</label><input id="d-nights" name="nights" type="number" min="0" max="60" value="${n}"></div><p class="meta" id="d-to-note"></p><div class="sheet-f"><button type="button" class="btn" data-close>Cancel</button><button class="btn pri">Save dates</button></div></form>`,
- {mount:(w)=>{const upd=()=>{const f=w.querySelector('#d-from').value,nn=+w.querySelector('#d-nights').value||0;w.querySelector('#d-to-note').textContent=f?`Last day ${P.fmt(P.add(f,nn))}`:''};w.addEventListener('input',upd);upd()},
- onSubmit:(fd,close)=>{const from=fd.get('from'),nn=+fd.get('nights')||0;if(!from)return;P.update(id,t=>{t.dates={from,to:P.add(from,nn)};t.nights=nn});close();P.toast('Dates added. Book-by dates are now on Bookings.');done&&done()}})};
-P.ics=t=>{const esc=s=>String(s||'').replace(/([,;\\])/g,'\\$1').replace(/\n/g,'\\n'),ymd=s=>s.replace(/-/g,'');const L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Trip Plans prototype//EN','CALSCALE:GREGORIAN'];const stamp=new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z';
- const ev=(uid,d,sum,desc)=>L.push('BEGIN:VEVENT','UID:'+uid+'@proto.trips','DTSTAMP:'+stamp,'DTSTART;VALUE=DATE:'+ymd(d),'DTEND;VALUE=DATE:'+ymd(P.add(d,1)),'SUMMARY:'+esc(sum),'DESCRIPTION:'+esc(desc),'END:VEVENT');
- (t.days||[]).forEach(d=>{const dt=P.dayDate(t,d.n);if(dt)ev(t.id+'-d'+d.n,dt,`${t.title}: Day ${d.n}, ${d.label||''}`,(d.items||[]).map(i=>`${i.time} ${i.name}`).join('\n'))});
- (t.bookings||[]).forEach((b,i)=>{const d=P.byDate(t,b);if(d&&!b.done)ev(t.id+'-b'+i,d,`Book by today: ${b.label} (${t.title})`,b.link||'')});L.push('END:VCALENDAR');return L.join('\r\n')};
+ setTimeout(()=>{const first=w.querySelector(opt.focus||'input:not([type=radio]),select,textarea,[data-autofocus]')||w.querySelector('input:checked')||w.querySelector('.sheet-f .btn.pri')||w.querySelector('[data-close]');first&&first.focus()},60);if(opt.mount)opt.mount(w,close);return {el:w,close}};
+document.addEventListener('click',e=>{document.querySelectorAll('.menu:not([hidden])').forEach(m=>{if(!m.parentElement.contains(e.target))m.hidden=true})});
+/* sign-in: there are no accounts in the prototype, and nothing here pretends otherwise */
+P.signinSheet=()=>P.sheet('Sign in',`<p><span class="chip warn">Not in the prototype</span></p><p class="small" style="margin-top:12px">There are no accounts here and nothing is sent anywhere. Your trips live in this browser only. In the product, signing in moves the trips on this device into your account once.</p><div class="sheet-f"><button type="button" class="btn pri" data-close>Got it</button></div>`);
+/* dates sheet: exact range, a month, or a flexible window. One model shared with the builder (dates.js); nights are kept across modes */
+P.addDatesSheet=(id,done)=>{const t=P.get(id);if(!t)return;const D=window.PDates;let mode=D.modeOf(t);if(mode==='none')mode='exact';
+ const nights=t.nights!=null?t.nights:2,seed=D.seedFor(t,P.realToday());
+ const months=D.MN.map((m,i)=>`<option value="${i+1}">${m}</option>`).join('');
+ P.sheet(P.hasDates(t)||D.modeOf(t)!=='none'?'Change dates':'Add dates',`<form><p class="small" style="margin-bottom:16px">${P.esc(t.title)}. Exact dates unlock book-by dates, opening-hours checks and the calendar file. A month or a window still checks the season.</p>
+ <fieldset class="seg" style="border:0;padding:0;margin:0 0 16px"><legend class="lbl" style="margin-bottom:6px">How sure are the dates?</legend><div class="row">${D.MODES.map(([k,l])=>`<label class="chk"><input type="radio" name="mode" value="${k}" ${k===mode?'checked':''}> ${l}</label>`).join('')}</div></fieldset>
+ <div class="field" data-for="exact"><label for="d-from">First day</label><input id="d-from" name="from" type="date" value="${P.esc(seed.from)}"></div>
+ <div class="field" data-for="month flex"><label for="d-month">Month</label><select id="d-month" name="month">${months}</select></div>
+ <div class="field"><label for="d-nights">Nights</label><input id="d-nights" name="nights" type="number" min="0" max="60" value="${nights}"></div>
+ <p class="meta" id="d-note" aria-live="polite"></p><div class="sheet-f"><button type="button" class="btn" data-close>Cancel</button><button class="btn pri">Save dates</button></div></form>`,
+ {mount:(w)=>{w.querySelector('#d-month').value=String(seed.month);
+  const upd=()=>{const m=w.querySelector('input[name=mode]:checked').value,f=w.querySelector('#d-from').value,nn=+w.querySelector('#d-nights').value||0;
+   w.querySelectorAll('[data-for]').forEach(x=>x.hidden=!x.dataset.for.split(' ').includes(m));
+   const days=(t.days||[]).length,mm=+w.querySelector('#d-month').value;
+   w.querySelector('#d-note').textContent=(m==='exact'?(f?`Last day ${P.fmt(P.add(f,nn))}. `:''):m==='month'?`We use ${D.MN[mm-1]} for opening days and daylight. `:`A window around ${D.MN[mm-1]}, give or take two weeks. `)+(days&&days!==nn+1?`The plan has ${days} day${days===1?'':'s'}; use Edit plan to match ${nn} night${nn===1?'':'s'}.`:'')};
+  w.addEventListener('input',upd);w.addEventListener('change',upd);upd()},
+ onSubmit:(fd,close)=>{const m=fd.get('mode'),nn=Math.max(0,+fd.get('nights')||0),from=fd.get('from'),mo=+fd.get('month');
+  if(m==='exact'&&!from){const i=document.getElementById('d-from');i&&i.focus();return}
+  P.update(id,x=>{x.dates=D.datesFor(m,{from,nights:nn,month:mo});x.nights=nn});close();P.toast(m==='exact'?'Dates saved. Book-by dates are now on Bookings.':'Dates saved. Add exact dates later for book-by dates.');done&&done()}})};
+/* calendar: shared/ics.js, timed items plus all-day book-by events */
+P.icsFor=t=>{const c=JSON.parse(JSON.stringify(t));c.bookings=(t.bookings||[]).filter(b=>!b.done).map(b=>Object.assign({},b,{by:P.byDate(t,b)||b.by}));return window.ProtoICS.build(C.normalise(c))};
 P.download=(name,text,type)=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:type||'text/calendar'}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)};
-P.addToCalendar=t=>{P.download((t.title||'trip').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.ics',P.ics(t));P.toast('Calendar file downloaded: days and book-by dates.')};
+P.addToCalendar=t=>{const r=P.icsFor(t);if(!r.events){P.toast('Nothing to export yet: add exact dates and times first.');return r}
+ P.download((t.title||'trip').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.ics',r.text);P.toast(`Calendar file downloaded: ${r.events} events, timed stops and book-by days${r.skipped.length?` (${r.skipped.length} left out)`:''}.`);return r};
 P.copyLink=url=>{const done=()=>P.toast('Link copied');if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(done,()=>{window.prompt('Copy this link',url)});else window.prompt('Copy this link',url)};
 P.shareUrl=id=>location.origin+'/planner/trip.html?id='+encodeURIComponent(id)+'&shared=1';
 P.shareSheet=id=>{const t=P.get(id);if(!t)return;const hidden=P.items(t).filter(i=>i.priv).length;
- P.sheet('Share '+t.title,`<p class="small">Anyone with the link sees the days and public places only. Your party, bookings, costs and notes stay private.</p>${hidden?`<p class="callout warn small" style="margin-top:12px">${hidden} place${hidden>1?'s are':' is'} not public and will not show to the viewer.</p>`:''}<div class="field" style="margin-top:12px"><label for="sl">Link</label><input id="sl" type="text" readonly value="${P.esc(P.shareUrl(id))}"></div><div class="sheet-f"><a class="btn" href="${P.esc(P.shareUrl(id))}" target="_blank" rel="noopener">Preview shared view</a><button class="btn pri" data-copy>Copy link</button></div>`,{mount:w=>w.querySelector('[data-copy]').onclick=()=>P.copyLink(P.shareUrl(id))})};
+ P.sheet('Share '+t.title,`<p class="small">Anyone with the link sees the days and public places only. Your party, bookings, costs and notes stay private.</p>${hidden?`<p class="callout warn small" style="margin-top:12px">${hidden} place${hidden>1?'s are':' is'} not public and will not show to the viewer.</p>`:''}<div class="field" style="margin-top:12px"><label for="sl">Link</label><input id="sl" type="text" readonly value="${P.esc(P.shareUrl(id))}"></div><div class="sheet-f"><a class="btn" href="${P.esc(P.shareUrl(id))}" target="_blank" rel="noopener">Preview shared view</a><button type="button" class="btn pri" data-copy>Copy link</button></div>`,{mount:w=>w.querySelector('[data-copy]').onclick=()=>P.copyLink(P.shareUrl(id))})};
+/* an item sheet, opened from a map pin */
+P.itemSheet=(t,d,it,opt)=>{opt=opt||{};const pl=PL[it.id];
+ P.sheet(it.name,`<p class="cap">Day ${d.n}${P.hasDates(t)?' · '+P.fmt(P.dayDate(t,d.n)):''} · ${P.esc(d.base||'')}</p><p class="small" style="margin-top:8px"><b>${P.esc(it.time||'No time yet')}</b>${+it.durMin?' · '+P.mins(it.durMin):''}${+it.driveMin?' · drive '+P.mins(it.driveMin):''}</p>${pl&&pl.sub?`<p class="small" style="margin-top:6px">${P.esc(pl.sub)}</p>`:''}${it.note?`<p class="note" style="margin-top:6px">${P.esc(it.note)}</p>`:''}<div class="row" style="margin-top:6px">${it.locked?'<span class="chip ic-lock">'+P.ic('lock')+' Locked</span>':''}${it.placed?'<span class="chip">Placed by you</span>':''}${it.mustSee?'<span class="chip info">Must-see</span>':''}</div><div class="sheet-f">${it.park?`<a class="btn" href="${P.parkUrl(it.park)}">Park page</a>`:''}${opt.action?`<button type="button" class="btn pri" data-pin-act>${P.esc(opt.action)}</button>`:''}<button type="button" class="btn" data-close>Close</button></div>`,
+  {mount:(w,close)=>{const b=w.querySelector('[data-pin-act]');if(b)b.onclick=()=>{close();opt.onAction&&opt.onAction()}}})};
+/* offline: a real service worker (sw.js) caches the shell and the open trip; the badge follows navigator.onLine */
+P.secure=()=>location.protocol==='https:'||/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+P.swReady=null;
+if('serviceWorker' in navigator&&P.secure()){P.swReady=navigator.serviceWorker.register('sw.js').then(()=>navigator.serviceWorker.ready).catch(e=>{console.warn('service worker not registered',e);return null})}
+P.cacheTrip=t=>{if(!P.swReady||!t)return;P.swReady.then(r=>{const a=r&&(r.active||navigator.serviceWorker.controller);if(a)a.postMessage({type:'cache-trip',id:t.id,json:JSON.stringify(t)})})};
+P.netChip=()=>{const on=navigator.onLine;return `<span class="chip ${on?'ok':'warn'}" id="net-badge" data-online="${on}">${P.ic(on?'wifi':'off')} ${on?'Online · saved for offline':'Offline · using the copy on this device'}</span>`};
+P.watchNet=()=>{const f=()=>{const el=document.getElementById('net-badge');if(el)el.outerHTML=P.netChip();const h=document.getElementById('net');if(h)h.hidden=navigator.onLine};addEventListener('online',f);addEventListener('offline',f);f()};
 /* context switcher: switching keeps the page and the tab */
 P.tabMemory=id=>(P.state().tab||{})[id];
 P.go=id=>{const page=location.pathname.split('/').pop()||'index.html';const q='?id='+encodeURIComponent(id);P.setState(s=>s.ctx=id);
@@ -144,30 +179,42 @@ P.go=id=>{const page=location.pathname.split('/').pop()||'index.html';const q='?
  else if(page==='today.html')location.href='today.html'+q;
  else if(page==='print.html')location.href='print.html'+q;
  else location.href='trip.html'+q+'#'+(P.tabMemory(id)||'overview')};
-P.shell=function(o){o=o||{};const trips=P.trips(),st=P.state();const ctx=o.trip||trips.find(t=>t.id===st.ctx)||null;
+let HDR=null;
+function chipInner(ctx){return ctx?`<span class="dot" style="background:${P.esc(ctx.identity||'var(--id-none)')}"></span><span class="t">${P.esc(ctx.title)}</span><span class="d">${P.esc(P.range(ctx)||'No dates')}</span>${P.ic('chev')}`:`<span class="t">No trip open</span>${P.ic('chev')}`}
+function navInner(ctx,page){return `<a href="index.html" ${page==='index'?'aria-current="page"':''}>My trips</a>${ctx?`<a href="trip.html?id=${encodeURIComponent(ctx.id)}" ${page==='trip'?'aria-current="page"':''}>Plan</a><a href="today.html?id=${encodeURIComponent(ctx.id)}" ${page==='today'?'aria-current="page"':''}>Today</a>`:''}`}
+function switcherInner(trips,ctx){return `<div class="cap" style="padding:6px 12px">Switch trip. You stay on the same page.</div>`+P.order(trips).map(t=>{const nd=P.nextDeadline(t),ph=P.phase(t);return `<button type="button" class="sw-item" role="menuitem" data-sw="${P.esc(t.id)}" ${ctx&&ctx.id===t.id?'aria-current="true"':''}><span class="dot" style="background:${P.esc(t.identity||'var(--id-none)')}"></span><span style="flex:1"><b>${P.esc(t.title)}</b><span class="meta">${P.esc(P.range(t)||'No dates')}${ph==='now'?' · travelling now':''}${nd?' · next: '+P.esc(nd.b.label)+' by '+P.fmt(nd.d,1):''}</span></span>${ctx&&ctx.id===t.id?P.ic('check'):''}</button>`}).join('')+`<div class="sw-foot"><a class="btn sm" href="index.html">All my trips</a><a class="btn sm" href="/builder/index.html">New trip</a></div>`}
+/* re-render the header chip, the nav links and the switcher from the store: called on every save, delete, undo and switch */
+P.refreshHeader=()=>{if(!HDR||HDR.o.shared)return;const trips=P.trips(),st=P.state();const id=(HDR.o.trip&&HDR.o.trip.id)||st.ctx;const ctx=trips.find(t=>t.id===id)||null;
+ const chip=document.getElementById('chip');if(chip){chip.innerHTML=chipInner(ctx);chip.setAttribute('aria-label',ctx?`Current trip: ${ctx.title}. Switch trip`:'No trip open. Switch trip')}
+ const nav=document.getElementById('hdr-nav');if(nav)nav.innerHTML=navInner(ctx,HDR.o.page);
+ const sw=document.getElementById('switcher');if(sw)sw.innerHTML=switcherInner(trips,ctx)};
+P.shell=function(o){o=o||{};const trips=P.trips(),st=P.state();const ctx=o.trip||trips.find(t=>t.id===st.ctx)||null;HDR={o};
  const page=o.page||'';const h=document.createElement('header');h.className='hdr';
- const chip=ctx?`<button class="hdr-btn chip-trip" id="chip" aria-haspopup="true" aria-expanded="false" aria-label="Current trip: ${P.esc(ctx.title)}. Switch trip"><span class="dot" style="background:${P.esc(ctx.identity||'')}"></span><span class="t">${P.esc(ctx.title)}</span><span class="d">${P.esc(P.range(ctx)||'No dates')}</span>${P.ic('chev')}</button>`:`<button class="hdr-btn chip-trip" id="chip" aria-haspopup="true" aria-expanded="false"><span class="t">No trip open</span>${P.ic('chev')}</button>`;
- h.innerHTML=`<div class="hdr-in"><a class="brand" href="index.html">Trip Plans</a><nav aria-label="Main"><a href="index.html" ${page==='index'?'aria-current="page"':''}>My trips</a>${ctx?`<a href="trip.html?id=${encodeURIComponent(ctx.id)}" ${page==='trip'?'aria-current="page"':''}>Plan</a><a href="today.html?id=${encodeURIComponent(ctx.id)}" ${page==='today'?'aria-current="page"':''}>Today</a>`:''}</nav><span class="sp"></span>${o.shared?'<span class="chip">Shared view</span>':chip}<button class="hdr-btn" id="theme" aria-label="Switch theme">${P.ic('moon')}</button></div>`;
+ const chip=`<button type="button" class="hdr-btn chip-trip" id="chip" aria-haspopup="true" aria-expanded="false" aria-controls="switcher" aria-label="${ctx?'Current trip: '+P.esc(ctx.title)+'. Switch trip':'No trip open. Switch trip'}">${chipInner(ctx)}</button>`;
+ h.innerHTML=`<div class="hdr-in"><a class="brand" href="index.html">Trip Plans</a><nav aria-label="Main" id="hdr-nav">${navInner(ctx,page)}</nav><span class="sp"></span><span class="chip warn" id="net" hidden>${P.ic('off')} Offline</span>${o.shared?'<span class="chip">Shared view</span>':chip}<button type="button" class="hdr-btn" id="theme" aria-label="Switch theme">${P.ic('moon')}</button></div>`;
  document.body.prepend(h);
  const th=document.getElementById('theme');const setIc=()=>{th.innerHTML=P.ic(document.documentElement.dataset.theme==='dark'?'sun':'moon')};setIc();
  th.onclick=()=>{const n=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem('travel:v1:theme',n)}catch(e){}setIc()};
  if(!o.shared){
- const sw=document.createElement('div');sw.id='switcher';sw.hidden=true;sw.setAttribute('role','menu');
- sw.innerHTML=`<div class="cap" style="padding:6px 12px">Switch trip. You stay on the same page.</div>`+P.order(trips).map(t=>{const nd=P.nextDeadline(t),ph=P.phase(t);return `<button class="sw-item" role="menuitem" data-sw="${P.esc(t.id)}" ${ctx&&ctx.id===t.id?'aria-current="true"':''}><span class="dot" style="background:${P.esc(t.identity)}"></span><span style="flex:1"><b>${P.esc(t.title)}</b><span class="meta">${P.esc(P.range(t)||'No dates')}${ph==='now'?' · travelling now':''}${nd?' · next: '+P.esc(nd.b.label)+' by '+P.fmt(nd.d,1):''}</span></span>${ctx&&ctx.id===t.id?P.ic('check'):''}</button>`}).join('')+`<div class="sw-foot"><a class="btn sm" href="index.html">All my trips</a><a class="btn sm" href="/builder/index.html">New trip</a></div>`;
- document.body.appendChild(sw);
- const chipEl=document.getElementById('chip');chipEl.onclick=()=>{sw.hidden=!sw.hidden;chipEl.setAttribute('aria-expanded',String(!sw.hidden))};
- sw.addEventListener('click',e=>{const b=e.target.closest('[data-sw]');if(b){if(o.beforeSwitch)o.beforeSwitch();P.go(b.dataset.sw)}})}
+ const sw=document.createElement('div');sw.id='switcher';sw.className='switcher';sw.hidden=true;sw.setAttribute('role','menu');sw.setAttribute('aria-label','Switch trip');
+ sw.innerHTML=switcherInner(trips,ctx);document.body.appendChild(sw);
+ const chipEl=document.getElementById('chip');
+ const shut=back=>{sw.hidden=true;chipEl.setAttribute('aria-expanded','false');if(back)chipEl.focus()};
+ chipEl.addEventListener('click',()=>{sw.hidden=!sw.hidden;chipEl.setAttribute('aria-expanded',String(!sw.hidden));if(!sw.hidden){const c=sw.querySelector('[aria-current]')||sw.querySelector('.sw-item');c&&c.focus()}});
+ sw.addEventListener('click',e=>{const b=e.target.closest('[data-sw]');if(b){if(o.beforeSwitch)o.beforeSwitch();P.go(b.dataset.sw)}});
+ sw.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();shut(true)}else if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();const f=[...sw.querySelectorAll('.sw-item,.sw-foot a')];const i=f.indexOf(document.activeElement);f[(i+(e.key==='ArrowDown'?1:-1)+f.length)%f.length].focus()}else if(e.key==='Tab'){setTimeout(()=>{if(!sw.contains(document.activeElement))shut(false)},0)}});
+ document.addEventListener('click',e=>{if(!sw.hidden&&!e.target.closest('#switcher,#chip'))shut(false)})}
  /* prototype drawer */
- const pb=document.createElement('button');pb.id='proto-btn';pb.textContent='Prototype controls';pb.setAttribute('aria-expanded','false');document.body.appendChild(pb);
+ const pb=document.createElement('button');pb.type='button';pb.id='proto-btn';pb.textContent='Prototype controls';pb.setAttribute('aria-expanded','false');pb.setAttribute('aria-controls','proto-drawer');document.body.appendChild(pb);
  const dr=document.createElement('div');dr.id='proto-drawer';dr.hidden=true;dr.setAttribute('role','region');dr.setAttribute('aria-label','Prototype controls');
- dr.innerHTML=`<div class="cap" style="margin-bottom:8px">Prototype controls</div><div class="field"><label for="pt">Today's date${st.today?' (set by you)':' (real date)'}</label><input id="pt" type="date" value="${P.today()}"></div><button class="btn sm" id="pt-set">Set today</button><button class="btn sm" id="pt-real">Use real date</button><hr style="border:0;border-top:1px solid var(--line);margin:12px 0"><button class="btn sm" id="p-reseed">Reseed demo data</button><button class="btn sm" id="p-clear">Clear all trips</button><button class="btn sm" id="p-off">Offline badge: ${st.offline?'on':'off'}</button><p class="meta" style="margin-top:8px">Reseed and Clear replace every trip in this browser, including builder drafts.</p>`;
+ dr.innerHTML=`<div class="cap" style="margin-bottom:8px">Prototype controls</div><div class="field"><label for="pt">Today's date${st.today?' (set by you)':' (real date)'}</label><input id="pt" type="date" value="${P.today()}"></div><button type="button" class="btn sm" id="pt-set">Set today</button><button type="button" class="btn sm" id="pt-real">Use real date</button><hr style="border:0;border-top:1px solid var(--line);margin:12px 0"><button type="button" class="btn sm" id="p-reseed">Reseed demo data</button><button type="button" class="btn sm" id="p-clear">Clear all trips</button><p class="meta" style="margin-top:8px">Reseed and Clear replace every trip in this browser, including builder drafts. The offline badge follows your connection; use the browser's offline mode to see it.</p>`;
  document.body.appendChild(dr);
  pb.onclick=()=>{dr.hidden=!dr.hidden;pb.setAttribute('aria-expanded',String(!dr.hidden))};
  dr.querySelector('#pt-set').onclick=()=>{const v=dr.querySelector('#pt').value;if(v){P.setState(s=>s.today=v);location.reload()}};
  dr.querySelector('#pt-real').onclick=()=>{P.setState(s=>{delete s.today});location.reload()};
  dr.querySelector('#p-reseed').onclick=()=>{P.setState(s=>{delete s.noSeed;s.ctx=null});P.reseed();location.href='index.html'};
  dr.querySelector('#p-clear').onclick=()=>{P.setState(s=>{s.noSeed=true;s.ctx=null});P.save([]);location.href='index.html'};
- dr.querySelector('#p-off').onclick=()=>{P.setState(s=>s.offline=!s.offline);location.reload()};
  if(o.bottomBar)document.body.classList.add('has-bar');
+ P.watchNet();
 };
 })();

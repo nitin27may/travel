@@ -1,4 +1,5 @@
-/* THROWAWAY prototype shared code: theme, saved store, header, drawers, toast. */
+/* THROWAWAY prototype shared code: theme, saved store, header with real nav, phone bottom bar, drawers and sheets (focus trap and
+   focus return), toast, the Placeholder tag. */
 (function () {
   var P = window.PROTO, KEY = 'proto.saved';
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -12,7 +13,6 @@
     for (var i = 0; i < P.PARKS.length; i++) {
       var p = P.PARKS[i];
       if (p.slug === slug) return { name: p.name, sub: P.KIND_LABEL[p.kind] + ' · ' + p.region, href: 'park.html?slug=' + p.slug };
-      (p.todo || []).forEach(function () {});
       var hit = null;
       (p.todo || []).forEach(function (k) { k.items.forEach(function (it) { if (placeSlug(p, it.name) === slug) hit = { name: it.name, sub: 'Place in ' + p.name, href: 'park.html?slug=' + p.slug }; }); });
       if (hit) return hit;
@@ -25,33 +25,82 @@
   }
   function theme() { try { var t = localStorage.getItem('travel:v1:theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {} }
   theme();
+  /** The tag every invented value carries. */
+  function ph(text) { return '<span class="phtag">' + esc(text || 'Placeholder') + '</span>'; }
+
+  /* ---- navigation: the same four places in the header (desktop) and the bottom bar (phone, from design/park-page) ---- */
+  var NAV = [['Home', '../index.html'], ['Parks', 'index.html'], ['Trips', '../planner/index.html'], ['Plan', '../builder/index.html']];
+  var BAR = [['Home', '../index.html', 'M3 11 12 3l9 8M5 10v10h5v-6h4v6h5V10'], ['Parks', 'index.html', 'M4 20 10 8l4 7 2-3 4 8z'], ['Mine', '../planner/index.html', 'M12 3 3 8l9 5 9-5zM3 13l9 5 9-5'], ['Plan', '../builder/index.html', 'M12 5v14M5 12h14']];
   function header(active) {
     var h = document.getElementById('hdr'); if (!h) return;
     h.className = 'hdr';
-    h.innerHTML = '<a class="brand" href="index.html">TRIP PLANS</a><nav><span>Trips</span><span class="cur">' + (active || 'Parks') + '</span><span>Globe</span></nav><span class="sp"></span>' +
+    h.innerHTML = '<a class="brand" href="../index.html">TRIP PLANS</a><nav aria-label="Main">' + NAV.map(function (n) { return '<a href="' + n[1] + '"' + (n[0] === (active || 'Parks') ? ' class="cur" aria-current="page"' : '') + '>' + n[0] + '</a>'; }).join('') + '</nav><span class="sp"></span>' +
       '<button id="savedbtn" aria-haspopup="dialog">Saved <span id="savedn">0</span></button><button id="theme" aria-label="Switch theme">Theme</button>';
     document.getElementById('theme').onclick = function () { var r = document.documentElement, n = r.dataset.theme === 'dark' ? 'light' : 'dark'; r.dataset.theme = n; try { localStorage.setItem('travel:v1:theme', n); } catch (e) {} };
     document.getElementById('savedbtn').onclick = openSaved;
     function upd() { document.getElementById('savedn').textContent = getSaved().length; }
     upd(); document.addEventListener('saved-changed', upd);
+    var b = document.createElement('nav'); b.className = 'bbar'; b.id = 'bbar'; b.setAttribute('aria-label', 'Main (phone)');
+    b.innerHTML = BAR.map(function (n) { var cur = n[0] === (active || 'Parks'); return '<a href="' + n[1] + '"' + (cur ? ' class="cur" aria-current="page"' : '') + '><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + n[2] + '"/></svg><span>' + n[0] + '</span></a>'; }).join('');
+    document.body.appendChild(b);
+    var f = document.createElement('footer'); f.className = 'printfoot'; f.id = 'printfoot';
+    f.innerHTML = ph('Placeholder') + ' Prototype data, not for planning a trip. Printed ' + new Date().toISOString().slice(0, 10) + ' from the clickable prototype.';
+    document.body.appendChild(f);
   }
-  function openSaved() {
-    var old = document.getElementById('saveddrawer'); if (old) { old.remove(); document.getElementById('savedscrim').remove(); return; }
-    var sc = document.createElement('div'); sc.className = 'scrim'; sc.id = 'savedscrim';
-    var d = document.createElement('aside'); d.className = 'drawer'; d.id = 'saveddrawer'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-label', 'My saved places');
-    function close() { d.remove(); sc.remove(); document.removeEventListener('saved-changed', draw); document.removeEventListener('keydown', esck); }
-    function esck(e) { if (e.key === 'Escape') close(); }
-    function draw() {
+
+  /* ---- layers: a drawer or a sheet with a focus trap, Escape, scrim click, and focus returned to the opener ---- */
+  var FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+  /** opts: {cls:'drawer'|'sheet', id, label, html, opener, mount(panel, close), initial: selector} -> {panel, close} */
+  function layer(opts) {
+    var opener = opts.opener || document.activeElement;
+    var sc = document.createElement('div'); sc.className = 'scrim'; sc.id = opts.id + 'scrim';
+    var d = document.createElement('div'); d.className = opts.cls; d.id = opts.id; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', opts.label);
+    var closed = false;
+    function close() {
+      if (closed) return; closed = true;
+      d.remove(); sc.remove(); document.removeEventListener('keydown', key, true);
+      if (opts.onClose) opts.onClose();
+      if (opener && opener.isConnected && opener.focus) opener.focus();
+    }
+    function key(e) {
+      if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); return; }
+      if (e.key !== 'Tab') return;
+      var f = Array.prototype.filter.call(d.querySelectorAll(FOCUSABLE), function (x) { return x.offsetParent !== null || x === document.activeElement; });
+      if (!f.length) { e.preventDefault(); return; }
+      var first = f[0], last = f[f.length - 1];
+      if (!d.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+      else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    d.innerHTML = opts.html;
+    document.body.appendChild(sc); document.body.appendChild(d);
+    document.addEventListener('keydown', key, true); sc.onclick = close;
+    var x = d.querySelector('[data-close]'); if (x) x.onclick = close;
+    if (opts.mount) opts.mount(d, close);
+    var init = (opts.initial && d.querySelector(opts.initial)) || d.querySelector(FOCUSABLE); if (init) init.focus();
+    return { panel: d, close: close };
+  }
+
+  function openSaved(e) {
+    var old = document.getElementById('saveddrawer'); if (old) return;
+    var opener = (e && e.currentTarget) || document.getElementById('savedbtn');
+    function html() {
       var s = getSaved();
-      d.innerHTML = '<button class="btn ic x" aria-label="Close saved places" id="sclose">&times;</button><h2>My saved places</h2>' +
-        (s.length ? '<ul>' + s.map(function (x) { var l = lookup(x); return '<li><span><a href="' + esc(l.href) + '">' + esc(l.name) + '</a><br><span class="meta">' + esc(l.sub) + '</span></span><button class="btn sm" data-rm="' + esc(x) + '">Remove</button></li>'; }).join('') + '</ul>' +
+      return '<button class="btn ic x" aria-label="Close saved places" data-close>&times;</button><h2>My saved places</h2>' +
+        (s.length ? '<ul>' + s.map(function (x) { var l = lookup(x); return '<li><span><a href="' + esc(l.href) + '">' + esc(l.name) + '</a><br><span class="meta">' + esc(l.sub) + '</span></span><button class="btn sm" data-rm="' + esc(x) + '" aria-label="Remove ' + esc(l.name) + ' from saved">Remove</button></li>'; }).join('') + '</ul>' +
           '<a class="btn pri" id="planfrom" href="/builder/index.html?saved=1">Plan a trip from these</a>'
           : '<p class="cov">Nothing saved yet. Use Save to a trip on a park or a place.</p>');
-      d.querySelector('#sclose').onclick = close;
-      d.querySelectorAll('[data-rm]').forEach(function (b) { b.onclick = function () { toggleSaved(b.dataset.rm); }; });
     }
-    document.body.appendChild(sc); document.body.appendChild(d); draw();
-    document.addEventListener('saved-changed', draw); document.addEventListener('keydown', esck); sc.onclick = close; d.querySelector('#sclose').focus();
+    var L = layer({ cls: 'drawer', id: 'saveddrawer', label: 'My saved places', html: html(), opener: opener, onClose: function () { document.removeEventListener('saved-changed', redraw); } });
+    function redraw() {
+      var focusRm = document.activeElement && document.activeElement.getAttribute && document.activeElement.getAttribute('data-rm');
+      L.panel.innerHTML = html();
+      var x = L.panel.querySelector('[data-close]'); if (x) x.onclick = L.close;
+      L.panel.querySelectorAll('[data-rm]').forEach(function (b) { b.onclick = function () { toggleSaved(b.dataset.rm); }; });
+      var next = (focusRm && L.panel.querySelector('[data-rm]')) || L.panel.querySelector('[data-close]'); if (next) next.focus();
+    }
+    L.panel.querySelectorAll('[data-rm]').forEach(function (b) { b.onclick = function () { toggleSaved(b.dataset.rm); }; });
+    document.addEventListener('saved-changed', redraw);
   }
-  window.APP = { esc: esc, slugify: slugify, getSaved: getSaved, isSaved: isSaved, toggleSaved: toggleSaved, placeSlug: placeSlug, toast: toast, header: header, openSaved: openSaved };
+  window.APP = { esc: esc, slugify: slugify, getSaved: getSaved, isSaved: isSaved, toggleSaved: toggleSaved, placeSlug: placeSlug, toast: toast, header: header, openSaved: openSaved, layer: layer, ph: ph };
 })();

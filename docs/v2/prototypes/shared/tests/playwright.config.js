@@ -4,8 +4,9 @@ const path = require('node:path');
 const { defineConfig } = require('@playwright/test');
 
 module.exports = defineConfig({
-  testDir: __dirname,
-  testMatch: /.*\.(test|spec)\.js$/,
+  // every <app>/tests/ folder under docs/v2/prototypes (shared, builder, ...) is run together
+  testDir: path.resolve(__dirname, '..', '..'),
+  testMatch: /\/[a-z-]+\/tests\/[^/]+\.(test|spec)\.js$/,
   outputDir: path.resolve(__dirname, '..', '..', 'test-results', 'artifacts'),
   fullyParallel: false,
   workers: 1,

@@ -17,12 +17,18 @@
    <div id="bar"></div>
    <div id="sheets"></div>
    <div id="toast" class="off" role="status" aria-live="polite"></div>
+   <div id="live" class="sr" role="status" aria-live="assertive" aria-atomic="true"></div>
   </div>
  </main>
 </div>
 <button id="menubtn" aria-label="Stages and prototype controls"></button>
 <div class="print-only" id="printview"></div>
+<p id="kbhint" class="sr">Space lifts this stop, arrow keys move it, Enter drops it, Escape cancels. Enter without lifting opens its details.</p>
 <script src="data.js"></script>
+<script src="../shared/sun.js"></script>
+<script src="../shared/contract.js"></script>
+<script src="../shared/ics.js"></script>
+<script src="../shared/map.js"></script>
 <script src="../shared/engine.js"></script>
 <script src="builder.js"></script>
 </body>
