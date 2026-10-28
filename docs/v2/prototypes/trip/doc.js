@@ -97,9 +97,10 @@
       var big = d.items.slice().sort(function (a, b) { return b.driveMin - a.driveMin; })[0];
       check.push({ code: 'W_DRIVE_LIMIT', id: big && big.id, text: fd(st.drive) + ' driving, over your ' + fd(lim) + ' a day', fix: big ? 'Move ' + big.name + ' to a lighter day' : '' });
     }
-    if (st.free < 90 && st.drive <= lim) check.push({ code: 'W_PACE', id: null, text: 'A full day: ' + fd(st.visit + st.drive) + ' on the go', fix: '' });
+    var lastIt = d.items[d.items.length - 1];
+    if (st.free < 90 && st.drive <= lim) check.push({ code: 'W_PACE', id: lastIt && lastIt.id, text: 'A full day: ' + fd(st.visit + st.drive) + ' on the go', fix: lastIt ? 'Move a stop to a lighter day' : '' });
     var ss = month ? SUNSET[month - 1] : null;
-    if (ss && d.items.length && st.end > toMin(ss) && st.end > 0) check.push({ code: 'W_DAYLIGHT', id: null, text: 'Ends ' + E.hm(st.end) + ' ≈, after sunset at ' + ss, fix: '' });
+    if (ss && d.items.length && st.end > toMin(ss) && st.end > 0) check.push({ code: 'W_DAYLIGHT', id: lastIt && lastIt.id, text: 'Ends ' + E.hm(st.end) + ' ≈, after sunset at ' + ss, fix: lastIt ? 'Move a stop to a lighter day' : '' });
     return { fix: fix, check: check };
   }
   function summary(T) {
@@ -107,6 +108,38 @@
     T.days.forEach(function (_, i) { var w = warnings(T, i); fix += w.fix.length; check += w.check.length; });
     return { fix: fix, check: check };
   }
+
+  /* ---------- bases, nights, region, distance (review M7, M3) ---------- */
+  /** One entry per distinct base, in first-night order. A night is spent at the base of every day but the last (departure day). */
+  function basesNights(T) {
+    var out = [], idx = {};
+    T.days.forEach(function (d, i) {
+      if (!(d.base in idx)) { idx[d.base] = out.length; out.push({ base: d.base, nights: 0 }); }
+      if (i < T.days.length - 1) out[idx[d.base]].nights++;
+    });
+    return out;
+  }
+  /** The region named from the trip's own places, never a literal */
+  function whereOf(T) {
+    if (modeOf(T) === 'template' || (T.ext && T.ext.edit && T.ext.edit.converted)) return O.name;
+    var names = [];
+    T.days.forEach(function (d) { d.items.forEach(function (it) { var p = PL[it.id], r = p && REGIONS[p.reg]; if (r && names.indexOf(r.name) < 0) names.push(r.name); }); });
+    return names.join(', ') || 'Not set';
+  }
+  var PIN_FAR_KM = 100;                     // the product reads this from core/src/config/nearby.ts (ADD_PIN_FAR_KM)
+  /** Straight-line km from a point to the nearest base or stop of the trip (Infinity when the trip holds no point) */
+  function kmToTrip(T, pointOrId) {
+    var q = typeof pointOrId === 'string' ? (PL[pointOrId] || (typeof PARKS !== 'undefined' && PARKS[pointOrId])) : pointOrId, best = Infinity;
+    if (!q || q.lat == null) return Infinity;
+    T.days.forEach(function (d) {
+      var b = pt(d.base); if (b) best = Math.min(best, E.hav(b, q));
+      d.items.forEach(function (it) { if (PL[it.id]) best = Math.min(best, E.hav(PL[it.id], q)); });
+    });
+    return best;
+  }
+  function kmBases(T, q) { var best = Infinity; T.days.forEach(function (d) { var b = pt(d.base); if (b && q) best = Math.min(best, E.hav(b, q)); }); return best; }
+  function farFrom(T, q) { return kmBases(T, q) > PIN_FAR_KM; }
+  function kmText(km) { return km >= 100 ? (Math.round(km / 100) * 100).toLocaleString('en-CA') + ' km' : Math.round(km) + ' km'; }
 
   /* ---------- party ---------- */
   function partyWords(T) {
@@ -308,7 +341,8 @@
     act(T, { t: 'move', id: id, day: keyOfN(T, n), at: at });
     var now = locate(T, id), built = modeOf(T) === 'built';
     var where = n === loc.n ? (now.j < loc.j ? 'up' : now.j > loc.j ? 'down' : '') : 'to Day ' + n;
-    return { msg: 'Moved ' + loc.it.name + (where ? ' ' + where : '') + (built ? ' · kept there' : ''), from: loc, to: now };
+    return { msg: 'Moved ' + loc.it.name + (where ? ' ' + where : '') + (built ? ' · kept there' : ''), from: loc, to: now,
+      live: 'Moved ' + loc.it.name + (where ? ' ' + where : '') + ', position ' + (now.j + 1) + ' of ' + now.day.items.length };
   }
   function nudge(T, id, dir) {
     var loc = locate(T, id); if (!loc) return null;
@@ -358,7 +392,7 @@
     var e = ed(T), o = e.ops.find(function (x) { return x.oid === oid; }); if (!o) return null;
     e.ops = e.ops.filter(function (x) { return x !== o && !(o.t === 'add' && x.id === o.id); });
     rebuild(T); finalise(T);
-    return { msg: 'Restored: ' + opText(T, o, true) };
+    return { msg: 'Put back: ' + opText(T, o, true) };
   }
   function opText(T, o, past) {
     var n = function (k) { return dayN(T, k); };
@@ -370,15 +404,17 @@
         return loc && from && from !== loc.n ? 'Moved ' + nameOf(o.id) + ' from Day ' + from + ' to Day ' + loc.n : 'Moved ' + nameOf(o.id) + ' within Day ' + (loc ? loc.n : n(o.day));
       }
       case 'variant': return 'Day ' + n(o.day) + ' uses version ' + o.v;
-      case 'note': return o.id ? 'Note on ' + nameOf(o.id) : 'Note on Day ' + n(o.day);
+      case 'note': return (o.id ? 'Note on ' + nameOf(o.id) : 'Note on Day ' + n(o.day)) + (o.text ? ': ' + o.text : '');
       case 'insertDay': return 'Added a day after Day ' + (dayN(T, o.after));
       case 'dropDay': return 'Dropped Day ' + (keyNumber(o.key) || '');
     }
     return o.t;
   }
+  /** What each row's button does, in the words of the change (ruling C4): never "Restore" on an Added row */
+  var VERBS = { add: 'Remove it', remove: 'Put it back', move: 'Move it back', variant: 'Use our version', note: 'Remove note', insertDay: 'Remove day', dropDay: 'Put it back', moveDay: 'Move it back' };
   function changes(T) {
     var e = ed(T);
-    return e.ops.slice().reverse().map(function (o) { return { oid: o.oid, kind: o.t, text: opText(T, o) }; });
+    return e.ops.slice().reverse().map(function (o) { return { oid: o.oid, kind: o.t, text: opText(T, o), verb: VERBS[o.t] || 'Put it back' }; });
   }
   /** template -> built, in place (spec 13.2): every stop is kept "From our trip", the versions are flattened */
   function convert(T) {
@@ -393,6 +429,24 @@
   function setKeep(T, id, on) { var l = locate(T, id); if (!l) return null; l.it.locked = on; l.it.placed = on; return { msg: on ? 'Kept ' + l.it.name + ' on Day ' + l.n : l.it.name + ' can move with the plan' }; }
   function setMust(T, id, on) { var l = locate(T, id); if (!l) return null; l.it.mustSee = on; return { msg: on ? l.it.name + ' is a must see' : l.it.name + ' is no longer a must see' }; }
 
+  /** Settings > Length (spec 9.2). Longer: add days after Day `afterN` (default the end). Shorter: drop day `dropN` first, its stops to `to`
+      ('day' = the day before it, 'maybe', 'remove'), then days from the end. One call is one undo step (one commit in trip.js). */
+  function setLength(T, want, o) {
+    o = o || {}; var cur = T.days.length, msg;
+    if (want > cur) {
+      var at = o.afterN || cur;
+      for (var k = 0; k < want - cur; k++) insertDay(T, at);
+      msg = 'Added ' + (want - cur) + ' day' + (want - cur === 1 ? '' : 's') + (at === cur ? ' at the end' : ' after Day ' + at);
+    } else if (want < cur) {
+      var first = o.dropN || cur, n0 = first;
+      for (var j = 0; j < cur - want; j++) {
+        var dn = j === 0 ? first : T.days.length, tN = dn > 1 ? dn - 1 : 2;
+        dropDay(T, dn, o.to || 'day', tN);
+      }
+      msg = 'Dropped ' + (cur - want) + ' day' + (cur - want === 1 ? '' : 's') + (n0 ? ' · from Day ' + n0 : '');
+    } else return null;
+    return { msg: msg };
+  }
   function setTitle(T, title) { T.title = title || T.title; }
   function setDates(T, from) {
     if (from) T.dates = { from: from, to: addDays(from, Math.max(0, T.days.length - 1)) };
@@ -429,8 +483,8 @@
     flowDay(U.days, i);
     var after = stats(U, i), w = warnings(U, i);
     var cur = locate(T, id);
-    return { addDrive: cur && cur.n === n ? 0 : after.drive - before.drive, ends: E.hm(after.end), free: Math.max(0, after.free), over: after.free < 0, after: prevName,
-      fix: w.fix.filter(function (x) { return x.id === id; })[0] || null, tight: !!w.check.length && !warnings(T, i).check.length };
+    return { addDrive: cur && cur.n === n ? 0 : after.drive - before.drive, driveBefore: before.drive, driveAfter: after.drive, ends: E.hm(after.end), free: Math.max(0, after.free), over: after.free < 0, after: prevName,
+      fix: w.fix.filter(function (x) { return x.id === id; })[0] || null, tight: !!w.check.length && !warnings(T, i).check.length, dayFix: warnings(T, i).fix.length };
   }
   function bestDays(T, id) {
     return T.days.map(function (d, i) { var f = fitsIf(T, id, d.n); var near = pt(d.base) ? E.hav(pt(d.base), PL[id]) : 999; return { n: d.n, f: f, near: near, score: (f.fix ? 1000 : 0) + (f.tight || f.over ? 300 : 0) + near }; })
@@ -470,7 +524,7 @@
   /** "Copy to my trips": a template-mode copy of our Dolomites trip (spec 2.2) */
   function makeCopy(opts) {
     opts = opts || {};
-    var T = blank({ id: opts.id || 'copy-' + uid().slice(1), title: opts.title || 'Dolomites · your copy', dates: { from: opts.from || O.start },
+    var T = blank({ id: opts.id || 'copy-' + uid().slice(1), title: opts.title || O.name, dates: { from: opts.from || O.start },
       party: opts.party || clone(PARTY_DEMO), updated: new Date().toISOString() });
     T.ext = { edit: { mode: 'template', source: O.id, sourceName: O.name, rev: O.rev, ops: [], marks: {}, maybe: [], removed: [], unfit: [], pace: 'standard' } };
     T.days = O.days.map(function (d, i) { return { n: i + 1, label: '', base: d.base, notes: '', items: [] }; });
@@ -479,7 +533,7 @@
     return T;
   }
   function seedCopy() {
-    var T = makeCopy({ id: 'demo-copy', title: 'Dolomites · your copy' });
+    var T = makeCopy({ id: 'demo-copy', title: O.name });
     removeItem(T, 'sorapis');
     addItem(T, 'gherdeina', 7);
     moveItem(T, 'lagazuoi', 9);
@@ -512,6 +566,6 @@
     finalise: finalise, rebuild: rebuild, flowDay: flowDay,
     removeItem: removeItem, addItem: addItem, moveItem: moveItem, nudge: nudge, toMaybe: toMaybe, setNote: setNote, insertDay: insertDay, dropDay: dropDay, moveDay: moveDay,
     setVariant: setVariant, resetDay: resetDay, resetAll: resetAll, restoreOp: restoreOp, changes: changes, convert: convert, rebuildBuilt: rebuildBuilt,
-    setKeep: setKeep, setMust: setMust, setTitle: setTitle, setDates: setDates, setParty: setParty, previewParty: previewParty, fitsIf: fitsIf, bestDays: bestDays, ourItems: ourItems, originDay: originDay
+    setKeep: setKeep, setMust: setMust, setTitle: setTitle, setLength: setLength, basesNights: basesNights, whereOf: whereOf, kmToTrip: kmToTrip, kmBases: kmBases, farFrom: farFrom, kmText: kmText, PIN_FAR_KM: PIN_FAR_KM, setDates: setDates, setParty: setParty, previewParty: previewParty, fitsIf: fitsIf, bestDays: bestDays, ourItems: ourItems, originDay: originDay
   };
 })();

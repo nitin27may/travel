@@ -20,6 +20,11 @@
     B: 'Shorter, with fewer steps and a nap-friendly pace',
     C: 'Rainy day: indoors or under cover'
   };
+  /* Demo-only: two more Banff National Park members, so "arriving with a park" has something to add (review M4).
+     builder/data.js is not in this package, so they are added here to the shared PLACES list at load. Placeholder coordinates. */
+  [{ id: 'lake-minnewanka', name: 'Lake Minnewanka', type: 'sight', reg: 'rockies', park: 'banff-national-park', cc: 'CA', lat: 51.2560, lon: -115.5200, dur: 90, kids: 0, diff: 1, s: 1, st: 1, dg: 1, pr: 0, sub: 'Lakeshore path and boat cruise' },
+   { id: 'peyto-lake', name: 'Peyto Lake', type: 'sight', reg: 'rockies', park: 'banff-national-park', cc: 'CA', lat: 51.7213, lon: -116.5183, dur: 60, kids: 0, diff: 1, s: 1, st: 1, dg: 1, pr: 0, sub: 'Lookout over the glacier lake' }]
+    .forEach(function (p) { if (!PL[p.id]) { PLACES.push(p); PL[p.id] = p; } });
   window.OURS = {
     id: 'dolomites-trip', name: 'Dolomites', rev: '2026-10-20', revText: '20 Oct', start: '2027-07-13', nights: 9,
     days: D.map(function (d, i) { return { key: 'd' + (i + 1), n: i + 1, base: d.base, items: d.items, v: d.v || null }; }),

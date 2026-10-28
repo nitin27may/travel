@@ -116,7 +116,7 @@ not product tokens (no green, product direction).
 | 3 | A public trip the device or account already holds a copy of | one line under the cover actions: "You have a copy of this trip · Open it" (lazy, after hydration; the server HTML is unchanged) | `/t/<id>/` | gap-analysis 2.1 |
 | 4 | A place or park page | **Save to a trip** opens the trip picker: My trips rows, then "Start a new trip with Moraine Lake" | an existing trip: `/t/<id>/?edit=1&add=<slug>` with the add picker open on the best day; a new trip: `/plan/?p=<slug>` | edit-mode-spec 6.6; gap-analysis 2.4 |
 | 5 | A park page | **Plan a visit** (Day trip, 1 night, 2 nights, Part of a longer trip): the four links of park-page README 5 | `/plan/?m=near&n=<n>&p=<slug>` or `/plan/?m=trip&cc=<CC>&p=<slug>` | park-page README 5; TB-PIN |
-| 6 | The builder, stage 4 | **Build my days** builds on the server, then `history.replaceState` to the trip's own URL; the page opens in edit mode with the just-built status line ("Built 10 days · 1 did not fit · 1 warning"), Bases and Checks one line each, Day 1 open | `/t/<id>/?edit=1` | edit-mode-spec 2.1; ruling R2 |
+| 6 | The builder, stage 4 | **Build my days** builds on the server, then `history.replaceState` to the trip's own URL; the page opens in edit mode (`?edit=1&built=1`, `built=1` removed after first paint; ruling C6) with the just-built status line ("Built 10 days · 1 did not fit · 1 to check"), Bases and Checks one line each, Day 1 open | `/t/<id>/?edit=1` | edit-mode-spec 2.1; ruling R2 |
 | 7 | Mine › My trips | The row opens the trip in read mode on Days (`view=day`); the row menu has **Edit** | `/t/<id>/?view=day` or `?edit=1` | edit-mode-spec 2.3 |
 | 8 | Read mode | **Edit trip** switches the same page to edit mode (`pushState`, so Back returns to read mode); **Done** switches back. Every edit is already saved | same URL with or without `edit=1` | edit-mode-spec 3 |
 | 9 | Either mode | Sync is quiet: one state word; a notice only when a change could not apply | | edit-mode-spec 12 |
@@ -202,15 +202,15 @@ copy strings from this table; a new string goes here first.
 | Add row on a day | **Add a place to Day 5** | FLOW's "+ Add to Day n" |
 | Add picker groups | the live labels "From the other versions of this day", "Elsewhere on this trip, near here", "Within 30 km, with a place page", plus "Removed from this day", "Maybe", "Your picks not on a day", "In Banff National Park", "Search results" | the brainstorm's "Other options for this day" |
 | Trip `⋯` (own trip) | **Undo**, **Redo**, **Make it yours** (copies), **Rebuild** (built), **Reset to our plan** (copies), **Print**, **Remove from My trips** | "Back to our plan" (brainstorm Q7; one label, the confirm sentence says what it does) |
-| Changes line | "**4 changes from our plan · Show**"; sheet title "Changes from our plan"; per row **Restore** | |
+| Changes line | "**4 changes from our plan · Show**"; sheet title "Changes from our plan"; per row one button that names its action (**Remove it**, **Put it back**, **Move it back**, **Remove note**; ruling C4) | "Restore" on every row |
 | Marks on a stop | "**Added by you**", "**Moved from Day 3**" (copies), "**Moved by you**" (built), "**From our trip**" (after conversion), "**Kept on Day 4**" | FLOW "Placed by you", TB-N2R chip "Kept on Day n" kept |
 | Toasts | "Moved Seceda to Day 2 · kept there · Undo"; "Removed Moraine Lake from Day 5 · Undo"; "Added Pyramid Lake to Day 5 · Undo" | |
 | Sync word | **In your account** (signed in, quiet: shown in the header, no chip in Mine), **Syncing**, **Not synced yet**, **Not synced · Retry**, **On this device** | "Saved", "Saved to your account" (foundation bans "saved" for a copy, patterns 3.7) |
-| Place and park pages | **Save to a trip**; picker title "Add Moraine Lake to a trip"; rows are My trips; last row **Start a new trip with Moraine Lake** | the visitor note "Saving to a trip comes with the planner" (SaveToTrip.tsx) |
+| Place and park pages | **Save to a trip**; picker title "Add Moraine Lake to a trip"; rows are My trips; rows sorted by distance to the place (a trip beyond 100 km of it says "Far from Moraine Lake" and sorts last), then **Start a new trip with Moraine Lake** (a plain row, not filled), then **Save without a trip** | the visitor note the visitor note "Saving to a trip comes with the planner" (SaveToTrip.tsx) |
 | Place page line | "In your copy of Canadian Rockies · Day 5" or "In your trip Dolomites" | |
 | Mine row menu | **Open** · **Edit** · **Add to calendar** · **Print** · **Change dates** · divider · **Remove** | adds Edit |
 | Mine empty state | "No trips yet" · "Copy one of our trips or plan your own. It stays here." · **Browse trips** · **Plan your own trip** (with `planBuilder`) | "No trips copied yet" |
-| Builder hand-off | "**Build my days**"; status line "Built 10 days · 1 did not fit · 1 warning" | |
+| Builder hand-off | "**Build my days**"; status line "Built 10 days · 1 did not fit · 1 to check" (zero parts are left out: "Built 10 days · all fit"; "did not fit", "to fix" and "to check" are links) | |
 | Convert notice | "This makes it your own trip. Our later updates to the Dolomites trip will no longer change it. You can undo this until you leave the page." **Continue** · **Cancel** | FLOW C5 wording with "plan" → "trip" |
 
 ## 6. Rulings on conflicting specs
@@ -227,6 +227,25 @@ copy strings from this table; a new string goes here first.
 | R8 | trip-builder X6 (a separate Mine tab "My plans") against edit-my-trip ("one list in Mine") and FLOW TF13 | **one list, My trips**, for copies and builder plans; X6's tab is not built | one place to find a trip (P3) |
 | R9 | FLOW F-Q4 (Review's primary is Add to calendar or Add dates) against the owner's ask that a trip be obviously editable | OQ2: **Edit trip** is the primary on your own trip; Add to calendar or Add dates is the first secondary; Review has no screen (R2) | the owner's complaint was "seems not editable" (P4); calendar stays one tap away |
 | R10 | STY-2 (signed-in base tweaks on a copy as template `stays` ops) against FLOW's Q7 table (bases are an engine action that converts first) | **one path: a base change converts the copy, then runs the engine**; STY-2's template `stays` op is not built (OQ6) | two base-change engines would disagree |
+
+## 6.1 Rulings from the prototype review (28 Oct 2026)
+
+From [review-STEP2-PR-2026-10-28.md](review-STEP2-PR-2026-10-28.md), applied in STEP2-PRF. The spec text each one contradicted is
+amended in place.
+
+| # | Contradiction | Ruling | Amended in |
+|---|---|---|---|
+| C1 | edit-mode-spec 3 (the cover's Edit trip becomes Done, and Done is filled in the sticky row) against 4.1 ("Done, the only filled button while editing") | One filled **Done** at a time: the sticky row's on desktop, the edit bar's on a phone. The cover's Done is a secondary button. In Settings, **Apply** is secondary while the convert notice is open and **Continue** is the one filled button | edit-mode-spec 3 |
+| C2 | 5.2 builder hand-off "1 warning" against 5.1 (**To fix**, **To check**) | The status line uses the warning words: "Built 10 days · 1 did not fit · 1 to check". Zero parts are left out ("all fit") | 5.2 |
+| C3 | edit-mode-spec 5.1 (the current day listed first) | Days stay in order; the current day is in its place, disabled, "Now on Day 2" | edit-mode-spec 5.1 |
+| C4 | edit-mode-spec 10 (one verb, **Restore**, on every changes row) | Per-kind verbs: **Remove it** (Added), **Put it back** (Removed, Maybe, dropped day), **Move it back** (Moved), **Remove note**, **Use our version**, **Remove day**. The sheet header stays "Changes from our plan" | edit-mode-spec 10, 5.2 |
+| C5 | edit-mode-spec 7.4 (a park slug opens the members group, silent on days and on members already there) | Members not on the trip first, each with its best day; members on the trip show "On Day n" and no Move button; a place or park beyond `ADD_PIN_FAR_KM` (100 km, `core/src/config/nearby.ts`) of every base offers only **Start a new trip with ...** | edit-mode-spec 7.4 |
+| C6 | edit-mode-spec 2.1 (`?edit=1&built=1`) against 3 step 6 (`?edit=1`) | Both are right: `built=1` is removed with `replaceState` after first paint | 3 step 6 |
+
+Also settled by the review, with no contradiction: the cover title keeps its size in edit mode (P5, patterns 4.3); a Check
+warning has one fix button like a Fix warning (11.1), and Summary rows read "To fix:" or "To check:" (P6); dropping an empty day
+does not ask (foundation 4.4); the Save to a trip rows read like Mine's ("Tue 13 Jul – Thu 22 Jul · 10 days · 2 adults · 1 child (6)");
+the prototypes' navigation says **Trips** on all four pages until STEP2-P2 renames it **Mine** (the product word, section 5).
 
 ## 7. What this plan supersedes (pointer notes added to each page)
 
@@ -257,4 +276,5 @@ copy strings from this table; a new string goes here first.
 
 | Date | Change |
 |---|---|
+| 2026-10-28 | Rulings C1 to C6 from the prototype review added as 6.1; 5.2 amended (status line, changes-row verbs, Save to a trip rows, Save without a trip, built=1) |
 | 2026-10-27 | Created (STEP2-PLAN, travel-planner, Opus) from the owner's intent of 27 Oct, FLOW, edit-my-trip, the brainstorm, the park page design, the prototypes and a read of `web/` and `core/` on main ee3cd32f |

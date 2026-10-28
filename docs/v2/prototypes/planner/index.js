@@ -11,7 +11,7 @@ function card(t){
  return `<article class="card ${ph==='now'?'now':''}" style="--id:${P.esc(t.identity)}" data-id="${P.esc(t.id)}" aria-label="${P.esc(t.title)}">
  <div class="card-top"><div><div class="cap">${P.esc(P.kindLabel(t.kind))}${ph==='now'?' · travelling now':''}</div><h2>${P.esc(t.title)}</h2></div>
  <div class="menu-wrap"><button type="button" class="icon-btn" data-act="menu" aria-haspopup="true" aria-expanded="false" aria-label="Menu for ${P.esc(t.title)}">${P.ic('dots')}</button>
- <div class="menu" hidden role="menu"><button data-act="rename" role="menuitem">${P.ic('pen')} Rename</button><button data-act="dup" role="menuitem">${P.ic('copy')} Duplicate</button><button data-act="share" role="menuitem">${P.ic('share')} Share</button><button data-act="del" class="danger" role="menuitem">${P.ic('trash')} Delete</button></div></div></div>
+ <div class="menu" hidden role="menu"><button data-act="openit" role="menuitem">${P.ic('pin')} Open</button><button data-act="editit" role="menuitem">${P.ic('pen')} Edit</button><button data-act="rename" role="menuitem">${P.ic('pen')} Rename</button><button data-act="dup" role="menuitem">${P.ic('copy')} Duplicate</button><button data-act="share" role="menuitem">${P.ic('share')} Share</button><button data-act="del" class="danger" role="menuitem">${P.ic('trash')} Delete</button></div></div></div>
  <div class="facts">${P.hasDates(t)?`<span>${P.ic('cal')} ${P.esc(dates)}</span>`:`<span>${P.ic('cal')} ${dates?P.esc(dates)+' ·':''} <button class="btn ghost sm" style="min-height:32px;padding:0 6px" data-act="dates">Add dates</button></span>`}
   <span>${P.ic('pin')} ${P.esc((t.start&&t.start.city)||'')}</span></div>
  <div class="facts"><span class="avatars" aria-hidden="true">${av}</span><span>${(t.party||[]).length} traveller${(t.party||[]).length===1?'':'s'}</span><span>${t.nights!=null?t.nights:0} night${t.nights===1?'':'s'}</span></div>
@@ -19,7 +19,7 @@ function card(t){
   <div><div class="meta">Checklist ${c.done} of ${c.total}</div><div class="bar" role="progressbar" aria-label="Checklist done" aria-valuenow="${c.done}" aria-valuemax="${c.total}"><i style="width:${c.total?c.done/c.total*100:0}%"></i></div></div></div>
  ${nd?`<div class="small">Next: <b>${P.esc(nd.b.label)}</b> by ${P.fmt(nd.d,1)} ${P.dueChip(nd.d)}</div>`:''}
  ${stale?`<div><span class="chip crit">A place needs replacing</span></div>`:''}
- <div class="row"><span class="chip info">In Mine</span>${inCtx?'<span class="chip">Open now</span>':''}<span class="sp"></span>${ph==='now'?`<a class="btn sm" href="today.html?id=${encodeURIComponent(t.id)}">Today</a>`:''}<a class="btn pri" href="trip.html?id=${encodeURIComponent(t.id)}" data-act="open">Open</a></div></article>`}
+ <div class="row"><span class="chip info">In Mine</span>${inCtx?'<span class="chip">Open now</span>':''}<span class="sp"></span>${ph==='now'?`<a class="btn sm" href="today.html?id=${encodeURIComponent(t.id)}">Today</a>`:''}<a class="btn pri" href="/trip/?id=${encodeURIComponent(t.id)}&view=day" data-act="open">Open</a></div></article>`}
 function render(){
  const all=P.order(P.trips()),c=counts(all);
  const list=all.filter(t=>{const p=P.phase(t);return tab==='all'||(tab==='planning'&&p==='planning')||(tab==='past'&&p==='past')||(tab==='upcoming'&&(p==='upcoming'||p==='now'))});
@@ -40,6 +40,7 @@ document.addEventListener('click',e=>{
  if(act==='signin'){e.preventDefault();P.signinSheet();return}
  if(act==='menu'){const m=a.nextElementSibling;const was=m.hidden;document.querySelectorAll('.menu').forEach(x=>x.hidden=true);m.hidden=!was;a.setAttribute('aria-expanded',String(!m.hidden));if(!m.hidden)m.querySelector('button').focus();return}
  if(act==='open'){P.setState(s=>s.ctx=id);return}
+ if(act==='openit'||act==='editit'){P.setState(s=>s.ctx=id);location.href='/trip/?id='+encodeURIComponent(id)+(act==='editit'?'&edit=1':'&view=day');return}
  if(act==='dates'){P.addDatesSheet(id,render);return}
  if(act==='share'){P.shareSheet(id);return}
  if(act==='rename'){const t=P.get(id);P.sheet('Rename trip',`<form><div class="field"><label for="rn">Trip name</label><input id="rn" name="n" type="text" required maxlength="60" value="${P.esc(t.title)}"></div><div class="sheet-f"><button type="button" class="btn" data-close>Cancel</button><button class="btn pri">Rename</button></div></form>`,{onSubmit:(fd,close)=>{const n=(fd.get('n')||'').trim();if(n){P.update(id,x=>x.title=n);close();render();P.toast('Renamed')}}});return}

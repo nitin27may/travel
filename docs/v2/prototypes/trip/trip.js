@@ -17,6 +17,7 @@
     undo: '<path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/>', redo: '<path d="m15 14 5-5-5-5M20 9H10a6 6 0 0 0 0 12h3"/>',
     gear: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',
     alert: '<path d="M12 3 2.5 20h19z"/><path d="M12 10v4M12 17h.01"/>', chev: '<path d="m9 6 6 6-6 6"/>', x: '<path d="M6 6l12 12M18 6 6 18"/>', plus: '<path d="M12 5v14M5 12h14"/>',
+    pen: '<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',
     cloud: '<path d="M7 18a4 4 0 0 1-.5-8A6 6 0 0 1 18 9a4.5 4.5 0 0 1-1 9z"/>',
     town: '<path d="M4 20V10l5-4 5 4v10M14 20v-7h6v7M2 20h20"/>', sight: '<path d="M3 20h18M5 20V9h14v11M9 9V5h6v4M10 20v-5h4v5"/>', hike: '<path d="M3 20 10 7l4 7 2-3 5 9z"/>',
     activity: '<circle cx="12" cy="12" r="8"/><path d="m10 8 6 4-6 4z"/>', park: '<path d="M12 3 6 13h4l-3 5h10l-3-5h4zM12 18v3"/>'
@@ -26,7 +27,7 @@
 
   var Q = new URLSearchParams(location.search);
   var T = null, TID = null, stack = { past: [], future: [] };
-  var U = { edit: false, tab: 'summary', sheet: null, sync: 'device', syncTmp: null, offline: false, lift: null, makeit: false, built: false, checks: {}, ctl: false, openDay: 1, state: null, copied: false, mark: null };
+  var U = { edit: false, tab: 'summary', sheet: null, sync: 'device', syncTmp: null, offline: false, fails: 0, lift: null, makeit: false, built: false, checks: {}, ctl: false, openDay: 1, state: null, copied: false, mark: null };
   var toastTimer = null, syncTimer = null, drag = null, backKey = null, backEl = null;
   var phone = function () { return window.innerWidth < PHONE_PX; };
 
@@ -56,6 +57,7 @@
     stack.past.push(JSON.stringify(T)); T = JSON.parse(stack.future.pop()); saveStack(); persist(); kickSync(); say('Redone'); toast('Redone'); render();
   }
   function kickSync() {
+    if (U.sync !== 'device' && U.offline) { U.fails++; return; }          // a sync attempt that cannot reach the server (spec 15: the banner shows on the second)
     if (U.sync !== 'account' || U.offline) return;
     U.syncTmp = 'syncing'; clearTimeout(syncTimer);
     syncTimer = setTimeout(function () { U.syncTmp = null; paintSync(); }, SYNC_DELAY_MS);
@@ -65,7 +67,7 @@
     var s = syncState();
     if (s === 'syncing') return '<span class="sync" data-sync="syncing"><span class="spin" aria-hidden="true"></span>Syncing</span>';
     if (s === 'pending') return '<span class="sync" data-sync="pending">' + ic('cloud', 's') + 'Not synced yet</span>';
-    if (s === 'failed') return '<span class="sync bad" data-sync="failed">' + ic('alert', 's') + '<button class="btn sm ghost" data-a="syncretry" data-k="retry" style="color:var(--warn)">Not synced · Retry</button></span>';
+    if (s === 'failed') return '<span class="sync bad" data-sync="failed">' + ic('alert', 's') + '<button class="btn ghost retry" data-a="syncretry" data-k="retry">Not synced · Retry</button></span>';
     if (s === 'account') return '<span class="sync" data-sync="account">' + ic('cloud', 's') + 'In your account</span>';
     return '<span class="sync" data-sync="device">On this device</span>';
   }
@@ -74,7 +76,7 @@
   /* ---------- toast and live region ---------- */
   function toast(msg, withUndo) {
     var el = $('#toast'), can = withUndo && stack.past.length;
-    el.innerHTML = '<span>' + esc(msg) + (can ? ' · ' : '') + '</span>' + (can ? '<button data-a="undo" data-k="toast-undo">Undo</button>' : '');
+    el.innerHTML = '<span class="tt">' + esc(msg) + '</span>' + (can ? '<button data-a="undo" data-k="toast-undo">Undo</button>' : '');
     el.classList.remove('off'); clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { el.classList.add('off'); }, can ? TOAST_UNDO_MS : TOAST_MS);
   }
@@ -91,6 +93,7 @@
     U.edit = q.get('edit') === '1';
     U.tab = { day: 'days', days: 'days', stops: 'stops', bookings: 'bookings', photos: 'photos' }[v] || (U.edit ? 'days' : 'summary');
   }
+  function dropAddParam() { var q = new URLSearchParams(location.search); if (q.has('add')) { q.delete('add'); history.replaceState(null, '', location.pathname + '?' + q.toString()); } }
   function setEdit(on) {
     if (on && !editable()) return;
     if (on && U.tab === 'summary') U.tab = 'days';
@@ -123,50 +126,62 @@
     window.scrollTo(0, y);
     if (key && !(U.sheet && !focusKey)) { var el = $('[data-k="' + key + '"]'); if (el) el.focus({ preventScroll: true }); }
   }
-  var NAV = [['Home', '/index.html'], ['Parks', '/parks-app/index.html'], ['Mine', '/planner/index.html'], ['Plan', '/builder/index.html']];
+  var NAV = [['Home', '/index.html'], ['Parks', '/parks-app/index.html'], ['Trips', '/planner/index.html'], ['Plan', '/builder/index.html']];   // the word the park, Mine and builder prototypes use (the product word is Mine, README 5)
+  function navHtml() { return NAV.map(function (n) { return '<a href="' + n[1] + '"' + (n[0] === 'Trips' ? ' aria-current="true"' : '') + '>' + n[0] + '</a>'; }).join(''); }
   function renderHeader() {
-    $('#hdr').innerHTML = '<a class="brand" href="/index.html">Trip plans</a><nav aria-label="Main">' + NAV.map(function (n) { return '<a href="' + n[1] + '">' + n[0] + '</a>'; }).join('') + '</nav><span class="sp"></span><button class="hdr-btn" data-a="theme" aria-label="Switch theme">Theme</button>';
+    $('#hdr').innerHTML = '<a class="brand" href="/index.html">Trip plans</a><nav aria-label="Main">' + navHtml() + '</nav><span class="sp"></span><button class="hdr-btn" data-a="theme" aria-label="Switch theme">Theme</button>';
   }
   function renderBar() {
     var b = $('#bbar');
     if (U.edit) b.innerHTML = '<div class="editbar" role="toolbar" aria-label="Editing"><button class="btn" data-a="settings" data-k="settings-bar">' + ic('gear', 's') + ' Settings</button><button class="btn pri" data-a="done" data-k="done-bar">Done</button></div>';
-    else b.innerHTML = '<nav class="bbar" aria-label="Main">' + NAV.map(function (n) { return '<a href="' + n[1] + '">' + n[0] + '</a>'; }).join('') + '</nav>';
+    else b.innerHTML = '<nav class="bbar" aria-label="Main">' + navHtml() + '</nav>';
   }
   function renderNotFound() {
     renderHeader(); $('#bbar').innerHTML = '';
-    $('#app').innerHTML = '<div class="page"><div class="state" id="notfound"><h2>Trip not found</h2><p>This trip is not on this device or in your account.</p><a class="btn pri" href="/planner/index.html" data-k="openmine">Open Mine</a></div></div>';
+    $('#app').innerHTML = '<div class="page"><div class="state" id="notfound"><h2>Trip not found</h2><p>This trip is not on this device or in your account.</p><a class="btn pri" href="/planner/index.html" data-k="openmine">Open your trips</a></div></div>';
     $('#sheets').innerHTML = ''; renderCtl();
   }
 
   function pageHtml() {
     var e = D.ed(T), tpl = e.mode === 'template', sum = D.summary(T);
     var h = '<div class="page' + (U.edit ? ' edit' : '') + '" data-mode="' + e.mode + '">';
-    if (U.offline) h += '<div class="offline" role="status" style="margin-top:12px">You are offline. Edits are kept on this device and will sync when you are back online.</div>';
-    h += cover(e, tpl) + sticky(sum, tpl, e) + '<div class="layout"><div class="colmain" role="tabpanel" id="panel">' + tabHtml(e, tpl, sum) + '</div><aside class="colmap" aria-label="Map"><div class="mapcard"><h2>Day ' + U.openDay + ' on the map</h2><div class="mapbox" id="mapbox"></div></div></aside></div></div>';
+    if (U.offline && U.fails >= 2) h += '<div class="offline" role="status" style="margin-top:12px">You are offline. Edits are kept on this device and will sync when you are back online.</div>';
+    h += cover(e, tpl) + sticky(sum, tpl, e) + '<div class="layout"><div class="colmain" role="tabpanel" id="panel">' + tabHtml(e, tpl, sum) + '</div><aside class="colmap" aria-label="Map"><div class="mapcard"><h2 id="maph">Day ' + U.openDay + ' on the map</h2><div class="mapbox" id="mapbox"></div></div></aside></div></div>';
     return h;
   }
   function cover(e, tpl) {
     var kick = tpl ? 'Your copy · from our ' + O.name + ' trip' : e.converted ? 'Your trip · from our ' + O.name + ' trip' : 'Your trip';
-    return '<section class="cover" style="--id:' + esc(T.identity || 'var(--id-none)') + '" aria-label="Trip"><div class="kick"><a href="/planner/index.html">Mine</a> › ' + esc(kick) + '</div><div class="phone-only">' + syncHtml() + '</div>' +
-      (U.edit ? '<input class="title-edit" type="text" value="' + esc(T.title) + '" aria-label="Trip title" data-i="inlinetitle" data-k="title">' : '<h1 tabindex="-1" data-k="h1">' + esc(T.title) + '</h1>') +
+    /* the title keeps its display size in edit mode (P5, patterns 4.3): the input is the heading itself, a dashed underline and a pencil mark it */
+    var ttl = U.edit ? '<span class="title-wrap" data-v="' + esc(T.title) + '"><input class="title-edit" type="text" value="' + esc(T.title) + '" aria-label="Trip title" data-i="inlinetitle" data-k="title" maxlength="60"></span><button class="icon-btn pencil" data-a="focustitle" data-k="pencil" aria-label="Edit trip title">' + ic('pen') + '</button>'
+      : '<h1 tabindex="-1" data-k="h1">' + esc(T.title) + '</h1>';
+    return '<section class="cover" style="--id:' + esc(T.identity || 'var(--id-none)') + '" aria-label="Trip"><div class="kick"><a href="/planner/index.html">Trips</a> › ' + esc(kick) + '</div><div class="phone-only">' + syncHtml() + '</div>' +
+      '<div class="title-row">' + ttl + '</div>' +
       '<div class="chips"><span class="chip">' + esc(dateText()) + '</span><span class="chip">' + T.days.length + ' days</span><span class="chip">' + esc(D.partyWords(T)) + '</span></div>' +
-      '<div class="acts">' + (U.edit ? '<button class="btn pri" data-a="done" data-k="done">Done</button>' : '<button class="btn pri" data-a="edit" data-k="edit">Edit trip</button>') +
+      '<div class="acts">' + (U.edit ? '<button class="btn" data-a="done" data-k="done">Done</button>' : '<button class="btn pri" data-a="edit" data-k="edit">Edit trip</button>') +
       (T.dates && T.dates.from ? '<button class="btn" data-a="ics" data-k="ics">Add to calendar</button>' : '<button class="btn" data-a="settings" data-k="adddates">Add dates</button>') +
       '<button class="icon-btn" data-a="tripmenu" data-k="tripmenu" aria-haspopup="dialog" aria-label="Trip actions">' + ic('dots') + '</button></div></section>';
   }
   function sticky(sum, tpl, e) {
     var tabs = [['summary', 'Summary'], ['days', 'Days'], ['stops', 'Stops'], ['bookings', 'Bookings'], ['photos', 'Photos']];
     var h = '<div class="sticky"><div class="tabs" role="tablist" aria-label="Trip sections">' + tabs.map(function (t) {
-      return '<button class="tab" role="tab" data-a="tab" data-tab="' + t[0] + '" aria-selected="' + (U.tab === t[0]) + '" data-k="tab-' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div><div class="tools">';
+      return '<button class="tab" role="tab" data-a="tab" data-tab="' + t[0] + '" aria-selected="' + (U.tab === t[0]) + '" data-k="tab-' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div>' + (U.edit && sum.fix ? fixPill(sum) : '') + '<div class="tools">';
     if (U.edit) {
-      h += (sum.fix ? '<span class="chip crit" data-k="fixcount">' + ic('alert') + sum.fix + ' to fix</span>' : '') +
-        '<span class="desk-only row" style="gap:6px"><button class="icon-btn" data-a="undo" data-k="undo-btn" aria-label="Undo"' + (stack.past.length ? '' : ' disabled') + '>' + ic('undo') + '</button>' +
+      h += '<span class="desk-only row" style="gap:6px"><button class="icon-btn" data-a="undo" data-k="undo-btn" aria-label="Undo"' + (stack.past.length ? '' : ' disabled') + '>' + ic('undo') + '</button>' +
         '<button class="icon-btn" data-a="redo" data-k="redo-btn" aria-label="Redo"' + (stack.future.length ? '' : ' disabled') + '>' + ic('redo') + '</button>' +
         (tpl ? '<button class="lnk" data-a="changes" data-k="changes-btn" style="font:var(--t-meta)">' + e.ops.length + ' changes</button>' : '') + '</span>';
     }
     h += syncHtml();
     if (U.edit) h += '<span class="desk-only row" style="gap:6px"><button class="btn sm" data-a="settings" data-k="settings">' + ic('gear', 's') + ' Settings</button><button class="btn pri sm" data-a="done" data-k="done-row">Done</button></span>';
     return h + '</div></div>';
+  }
+  /* the one fact that needs action: a control that jumps to the first Fix warning (M5); on a phone it sits on its own line under the tabs */
+  function firstFix() {
+    for (var i = 0; i < T.days.length; i++) { var w = D.warnings(T, i); if (w.fix.length) return { n: T.days[i].n, w: w.fix[0] }; }
+    return null;
+  }
+  function fixPill(sum) {
+    var f = firstFix();
+    return '<button class="chip crit fixbtn" data-a="gotofix" data-k="fixcount">' + ic('alert') + sum.fix + ' to fix' + (f ? ' · Day ' + f.n : '') + '</button>';
   }
   function tabHtml(e, tpl, sum) {
     switch (U.tab) {
@@ -180,10 +195,9 @@
 
   /* ----- the three one-line facts of the just-built landing (spec 2.1) ----- */
   function basesLine() {
-    var runs = [];
-    T.days.forEach(function (d) { var l = runs[runs.length - 1]; if (l && l.b === d.base) l.n++; else runs.push({ b: d.base, n: 1 }); });
-    var names = runs.map(function (r) { return esc(r.b) + ' ' + r.n + ' night' + (r.n === 1 ? '' : 's'); }).join(', ');
-    return '<div class="line" data-line="bases"><span><b>' + runs.length + ' base' + (runs.length === 1 ? '' : 's') + '</b> · ' + names + ' · <button class="lnk" data-a="settings">Change</button></span></div>';
+    var bn = D.basesNights(T);
+    var names = bn.map(function (r) { return esc(r.base) + (r.nights ? ' ' + r.nights + ' night' + (r.nights === 1 ? '' : 's') : ' (day trip)'); }).join(', ');
+    return '<div class="line" data-line="bases"><span><b>' + bn.length + ' base' + (bn.length === 1 ? '' : 's') + '</b> · ' + names + ' · <button class="lnk" data-a="settings">Change</button></span></div>';
   }
   function checksLine() {
     var drives = T.days.map(function (_, i) { return D.stats(T, i).drive; }).filter(function (m) { return m > 0; });
@@ -194,8 +208,11 @@
     return '<div class="line" data-line="checks"><span>' + dur(avg) + ' driving a day ≈ · ' + moves + ' move' + (moves === 1 ? '' : 's') + ' · Book ahead ' + book + ' · Known costs: ' + priced + ' of ' + items.length + ' priced</span></div>';
   }
   function builtStatus(sum) {
-    var b = D.ed(T).built || { days: T.days.length, unfit: D.ed(T).unfit.length, warnings: sum.fix + sum.check };
-    return '<div class="note" id="builtline" role="status"><span class="tx"><b>Built ' + b.days + ' days · ' + b.unfit + ' did not fit · ' + b.warnings + ' warning' + (b.warnings === 1 ? '' : 's') + '</b></span></div>';
+    var b = D.ed(T).built || { days: T.days.length }, unfit = D.ed(T).unfit.length, parts = [];
+    if (unfit) parts.push('<button class="lnk" data-a="didnotfit" data-k="didnotfit">' + unfit + ' did not fit</button>');
+    if (sum.fix) parts.push('<button class="lnk" data-a="gotofix" data-k="fixlink">' + sum.fix + ' to fix</button>');
+    if (sum.check) parts.push('<button class="lnk" data-a="gotocheck" data-k="checklink">' + sum.check + ' to check</button>');
+    return '<div class="note" id="builtline" role="status"><span class="tx"><b>Built ' + b.days + ' days</b> · ' + (parts.length ? parts.join(' · ') : 'all fit') + '</span></div>';
   }
   function changesLine(e) {
     var n = e.ops.length;
@@ -210,8 +227,8 @@
     var any = false;
     T.days.forEach(function (d, i) {
       var w = D.warnings(T, i);
-      w.fix.forEach(function (x) { any = true; h += '<div class="srow"><div class="tx"><div class="wfix">' + ic('alert') + '<span>Day ' + d.n + ': ' + esc(x.text) + '</span></div></div><button class="btn sm" data-a="gotoday" data-n="' + d.n + '">Show</button></div>'; });
-      w.check.forEach(function (x) { any = true; h += '<div class="srow"><div class="tx"><span class="small">Day ' + d.n + ': ' + esc(x.text) + '</span></div><button class="btn sm" data-a="gotoday" data-n="' + d.n + '">Show</button></div>'; });
+      w.fix.forEach(function (x) { any = true; h += '<div class="srow"><div class="tx"><div class="wfix">' + ic('alert') + '<span>To fix: Day ' + d.n + ': ' + esc(x.text) + '</span></div></div><button class="btn sm" data-a="gotoday" data-n="' + d.n + '">Show</button></div>'; });
+      w.check.forEach(function (x) { any = true; h += '<div class="srow"><div class="tx"><span class="small">To check: Day ' + d.n + ': ' + esc(x.text) + '</span></div><button class="btn sm" data-a="gotoday" data-n="' + d.n + '">Show</button></div>'; });
     });
     if (!any) h += '<p class="small">Nothing to fix or check.</p>';
     h += '</div>' + basesLine() + checksLine();
@@ -240,8 +257,8 @@
     if (w.fix.length || w.check.length) {
       h += '<div class="warnbox">' + w.fix.map(function (x) {
         return '<div class="wfix" data-warn="fix">' + ic('alert') + '<span>' + esc(x.text) + '</span>' + (U.edit ? '<button class="btn sm crit" data-a="fixwarn" data-id="' + esc(x.id) + '" data-code="' + x.code + '" data-k="fx-' + esc(x.id) + '">' + esc(x.fix) + '</button>' : '') + '</div>'; }).join('');
-      if (w.check.length === 1) h += '<div class="wchk" data-warn="check">' + esc(w.check[0].text) + (U.edit && w.check[0].fix ? ' · <button class="lnk" data-a="fixwarn" data-id="' + esc(w.check[0].id) + '" data-code="' + w.check[0].code + '">' + esc(w.check[0].fix) + '</button>' : '') + '</div>';
-      else if (w.check.length > 1) h += '<div class="wchk" data-warn="check">' + (U.checks[n] ? w.check.map(function (x) { return esc(x.text); }).join(' · ') + ' · ' : w.check.length + ' to check · ') + '<button class="lnk" data-a="togglechecks" data-n="' + n + '">' + (U.checks[n] ? 'Hide' : 'Show') + '</button></div>';
+      if (w.check.length === 1) h += '<div class="wchk" data-warn="check">To check: ' + esc(w.check[0].text) + (U.edit && w.check[0].fix ? ' · <button class="lnk" data-a="fixwarn" data-id="' + esc(w.check[0].id) + '" data-code="' + w.check[0].code + '" data-k="fc-' + n + '">' + esc(w.check[0].fix) + '</button>' : '') + '</div>';
+      else if (w.check.length > 1) h += '<div class="wchk" data-warn="check">' + (U.checks[n] ? 'To check: ' + w.check.map(function (x) { return esc(x.text); }).join(' · ') + ' · ' : w.check.length + ' to check · ') + '<button class="lnk" data-a="togglechecks" data-n="' + n + '">' + (U.checks[n] ? 'Hide' : 'Show') + '</button></div>';
       h += '</div>';
     }
     if (d.notes) h += '<p class="daynote">' + esc(d.notes) + '</p>';
@@ -259,7 +276,7 @@
       '<span class="tm">' + esc(it.time) + '</span><div class="body"><div class="tx"><div class="nm">' + name + '</div>' +
       (marks.length ? '<div class="marks">' + marks.map(function (m) { return '<span class="chip mark">' + esc(m) + '</span>'; }).join('') + '</div>' : '') +
       '<div class="sub">' + dur(it.durMin) + (j ? ' · ' + dur(it.driveMin) + ' drive ≈' : it.driveMin > 5 ? ' · ' + dur(it.driveMin) + ' to get there ≈' : '') + bk + '</div>' +
-      (p ? '<div class="acts"><a href="' + mapsUrl(p) + '" target="_blank" rel="noopener" aria-label="Map: ' + esc(it.name) + ', opens in a new tab">Map: ' + esc(it.name) + '</a><a href="' + mapsUrl(p, 1) + '" target="_blank" rel="noopener" aria-label="Directions to ' + esc(it.name) + ', opens in a new tab">Directions</a></div>' : '') +
+      (p ? '<div class="acts"><a href="' + mapsUrl(p) + '" target="_blank" rel="noopener" aria-label="Map: ' + esc(it.name) + ', opens in a new tab">Map<span class="hide-phone">: ' + esc(it.name) + '</span></a><a href="' + mapsUrl(p, 1) + '" target="_blank" rel="noopener" aria-label="Directions to ' + esc(it.name) + ', opens in a new tab">Directions</a></div>' : '') +
       (it.note ? '<div class="eff">' + esc(it.note) + '</div>' : '') + '</div><div class="tile" aria-hidden="true">' + ic(p ? p.type : 'sight') + '</div></div>' +
       (U.edit ? '<button class="icon-btn" data-a="itemmenu" data-id="' + esc(it.id) + '" data-k="im-' + esc(it.id) + '" aria-haspopup="dialog" aria-label="Actions for ' + esc(it.name) + ', Day ' + n + '">' + ic('dots') + '</button>' : '') + '</li>';
   }
@@ -286,6 +303,19 @@
       extras: b ? [{ id: 'base', lat: b.lat, lon: b.lon, label: d.base, caption: d.base }] : [], label: 'Day ' + d.n + ' route', height: 360, onPin: function (id) { var el = $('#e-' + id); if (el) el.scrollIntoView({ block: 'center' }); } });
   }
 
+  /* the map follows the day in view (spec 1, S11) */
+  var followRaf = 0;
+  function followDay() {
+    followRaf = 0;
+    if (!T || U.tab !== 'days' || phone() || U.sheet) return;
+    var cur = null; $$('.day').forEach(function (d) { if (!cur && d.getBoundingClientRect().bottom > 220) cur = d; });
+    if (!cur) return;
+    var n = +cur.getAttribute('data-n'); if (n === U.openDay) return;
+    U.openDay = n; var h = $('#maph'); if (h) h.textContent = 'Day ' + n + ' on the map';
+    $$('.rail button').forEach(function (b) { if (+b.getAttribute('data-n') === n) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+    drawMap();
+  }
+
   /* ---------- sheets ---------- */
   function openSheet(s, trig) {
     var el = trig || document.activeElement;
@@ -305,15 +335,27 @@
     if (!s) { host.innerHTML = ''; document.body.classList.remove('nosc'); return; }
     var ae = document.activeElement, key = ae && ae.getAttribute && ae.closest('.sheet') ? ae.getAttribute('data-k') : null, pos = ae && ae.selectionStart;
     var kind = S.kinds[s.type], full = phone() && S.fullOnPhone[s.type];
+    var pop = !phone() && kind === 'menu';                       // desktop: an anchored popover menu, no scrim weight (spec 5, README 4.3)
     var style = '';
-    if (kind === 'menu' && !phone() && s.trigRect) style = ' style="--x:' + Math.max(8, Math.min(window.innerWidth - 356, s.trigRect.left)) + 'px;--y:' + Math.max(8, Math.min(window.innerHeight - 300, s.trigRect.bottom + 4)) + 'px"';
+    if (pop && s.trigRect) style = ' style="--x:' + Math.max(8, Math.min(window.innerWidth - 268, s.trigRect.left)) + 'px;--y:' + Math.max(8, s.trigRect.bottom + 4) + 'px"';
     var inner = S.render(T, s, { canUndo: stack.past.length > 0, canRedo: stack.future.length > 0 });
     if (!inner) { U.sheet = null; host.innerHTML = ''; return; }
-    host.innerHTML = '<div class="scrim" data-a="closesheet"></div><div class="sheet ' + kind + (full ? ' full' : '') + '" role="dialog" aria-modal="true" aria-labelledby="sh-t" data-type="' + s.type + '"' + style + '>' + inner + '</div>';
-    document.body.classList.add('nosc');
+    host.innerHTML = '<div class="scrim' + (pop ? ' clear' : '') + '" data-a="closesheet"></div><div class="sheet ' + kind + (pop ? ' pop' : '') + (full ? ' full' : '') + '" role="' + (pop ? 'menu' : 'dialog') + '"' + (pop ? '' : ' aria-modal="true"') + ' aria-labelledby="sh-t" data-type="' + s.type + '"' + style + '>' + inner + '</div>';
+    if (pop) document.body.classList.remove('nosc'); else document.body.classList.add('nosc');
     var sh = $('.sheet'), hh = $('#sh-t', sh); if (hh) { sh.setAttribute('aria-label', hh.firstChild.textContent.trim()); sh.removeAttribute('aria-labelledby'); }
+    if (pop) {
+      $$('.mrow', sh).forEach(function (r) { r.setAttribute('role', r.getAttribute('role') === 'switch' ? 'menuitemcheckbox' : 'menuitem'); });
+      $$('.sb, .pair', sh).forEach(function (r) { r.setAttribute('role', 'none'); });
+      if (s.trigRect) {                                          // keep the menu on screen: flip above its trigger, else clamp to the window
+        var hgt = sh.offsetHeight, y = s.trigRect.bottom + 4;
+        if (y + hgt > window.innerHeight - 8) y = s.trigRect.top - hgt - 4 >= 8 ? s.trigRect.top - hgt - 4 : Math.max(8, window.innerHeight - hgt - 8);
+        sh.style.setProperty('--y', y + 'px');
+      }
+    }
     var target = key && $('[data-k="' + key + '"]', sh);
-    if (!target && first) target = $('.sb button:not([disabled]), .sb a, .sb input, .sb textarea, .sb select', sh) || $('header .icon-btn', sh);
+    if (!target && first) {
+      target = phone() && s.type === 'add' ? hh : $('.sb button:not([disabled]), .sb a, .sb input, .sb textarea, .sb select', sh) || $('header .icon-btn', sh);   // a phone keeps its keyboard down until the person taps the search field
+    }
     if (target) { target.focus({ preventScroll: true }); if (pos != null && target.setSelectionRange) { try { target.setSelectionRange(pos, pos); } catch (er) { /* not a text field */ } } }
   }
   function trapTab(e) {
@@ -327,9 +369,11 @@
   }
   function settingsDraft() {
     var e = D.ed(T);
-    return { title: T.title, from: T.dates && T.dates.from || '', noDate: !(T.dates && T.dates.from), party: D.clone(T.party), pace: e.pace };
+    return { title: T.title, from: T.dates && T.dates.from || '', noDate: !(T.dates && T.dates.from), party: D.clone(T.party), pace: e.pace, len: T.days.length, dropN: T.days.length, dropTo: 'day', addAfter: T.days.length };
   }
-  function openAdd(n, extra, trig) { openSheet(Object.assign({ type: 'add', n: n, q: '', filt: {}, more: {}, added: {}, offline: U.offline }, extra || {}), trig); U.openDay = n; }
+  /* the chips start from the trip: Kids on when a child is going, Open in <month> on when the trip is dated (spec 7.1) */
+  function defaultFilt() { var kids = T.party.some(function (p) { return p.type !== 'adult'; }); return { kids: kids, open: !!(T.dates && T.dates.from) }; }
+  function openAdd(n, extra, trig) { openSheet(Object.assign({ type: 'add', n: n, q: '', filt: defaultFilt(), more: {}, added: {}, offline: U.offline }, extra || {}), trig); U.openDay = n; }
   function resolvePin(slug) {
     if (!slug) return null;
     if (PL[slug]) return { id: slug, name: PL[slug].name };
@@ -354,11 +398,15 @@
       case 'redo': redo(); return;
       case 'closesheet': closeSheet(); return;
       case 'gotoday': U.tab = 'days'; U.openDay = n; render(); var dh = $('#dh-' + n); if (dh) { dh.scrollIntoView({ block: 'start' }); dh.focus({ preventScroll: true }); } return;
+      case 'gotofix': { var ff = firstFix(); if (!ff) return; U.tab = 'days'; U.openDay = ff.n; render(); var fdh = $('#dh-' + ff.n); if (fdh) fdh.scrollIntoView({ block: 'start' }); var fb = $('[data-k="fx-' + ff.w.id + '"]'); if (fb) fb.focus({ preventScroll: true }); say('Day ' + ff.n + ': ' + ff.w.text); return; }
+      case 'gotocheck': { var cn0 = null; T.days.forEach(function (d, i) { if (!cn0 && D.warnings(T, i).check.length) cn0 = d.n; }); if (!cn0) return; U.tab = 'days'; U.openDay = cn0; render(); var cdh = $('#dh-' + cn0); if (cdh) { cdh.scrollIntoView({ block: 'start' }); cdh.focus({ preventScroll: true }); } return; }
+      case 'didnotfit': openAdd(1, null, t); return;
+      case 'focustitle': { var ti = $('.title-edit'); if (ti) { ti.focus(); ti.select(); } return; }
       case 'togglechecks': U.checks[n] = !U.checks[n]; render(); return;
       case 'itemmenu': U.openDay = sheetFor(id).n; openSheet({ type: 'item', id: id }, t); return;
       case 'openmove': s.type = 'move'; renderSheets(true); return;
       case 'openswap': s.type = 'swap'; renderSheets(true); return;
-      case 'openswapnear': openAdd(sheetFor(s.id).n, { mode: 'swap', from: s.id, filt: {} }); return;
+      case 'openswapnear': openAdd(sheetFor(s.id).n, { mode: 'swap', from: s.id }); return;
       case 'movedo': closeSheet(true); commit(function () { return D.moveItem(T, id, n, null); }, { focus: 'en-' + id }); scrollToEntry(id); return;
       case 'up': case 'down': { var r = commit(function () { return D.nudge(T, id, a === 'up' ? -1 : 1); }, { focus: 'en-' + id }); if (s) closeSheet(true); return; }
       case 'swapdo': { closeSheet(true); commit(function () { return swapTwo(id, t.getAttribute('data-with')); }, { focus: 'en-' + id }); return; }
@@ -372,12 +420,17 @@
       case 'addpickday': { var trig = t; if (s) { closeSheet(true); } openAdd(n, null, trig); return; }
       case 'padd': pickAdd(id); return;
       case 'pinadd': { var pid = s.pin.id; commit(function () { s.addedDay = n; return D.addItem(T, pid, n); }, { focus: 'pn-' + n }); return; }
+      case 'pmadd': { var pm = id, pn = n; commit(function () { s.added[pm] = pn; return D.addItem(T, pm, pn); }, { focus: 'pa-' + pm }); U.mark = pm; setTimeout(function () { U.mark = null; }, 6000); return; }
       case 'pfilt': { var f = t.getAttribute('data-f'); s.filt[f] = !s.filt[f]; renderSheets(); return; }
       case 'pmore': s.more[t.getAttribute('data-g')] = ((s.more[t.getAttribute('data-g')]) || 12) + 12; renderSheets(); return;
       case 'tripmenu': openSheet({ type: 'trip' }, t); return;
       case 'daymenu': U.openDay = n; openSheet({ type: 'day', n: n }, t); return;
       case 'insertday': closeSheet(true); commit(function () { return D.insertDay(T, n); }, { focus: 'ar-' + (n + 1) }); scrollToDay(n + 1); return;
-      case 'dropday': if (s) closeSheet(true); openSheet({ type: 'dropday', n: n, to: 'day' }, backEl); return;
+      case 'dropday': {
+        if (s) closeSheet(true);
+        if (!T.days[n - 1].items.length) { commit(function () { return D.dropDay(T, n, 'remove', null); }, { focus: 'ar-' + Math.max(1, n - 1) }); return; }   // nothing to lose: no question, an Undo toast (foundation 4.4)
+        openSheet({ type: 'dropday', n: n, to: 'day' }, backEl); return;
+      }
       case 'dropto': s.to = t.getAttribute('data-v'); renderSheets(); return;
       case 'dropgo': { var dn = s.n, to = s.to; closeSheet(true); commit(function () { return D.dropDay(T, dn, to, dn > 1 ? dn - 1 : 2); }); return; }
       case 'resetday': closeSheet(true); commit(function () { return D.resetDay(T, n); }); return;
@@ -397,13 +450,14 @@
       case 'rebuild': closeSheet(true); commit(function () { return D.rebuildBuilt(T); }); return;
       case 'apply': applySettings(); return;
       case 'stepadult': { var dd = +t.getAttribute('data-d'), P = s.draft.party, ad = P.filter(function (x) { return x.type === 'adult'; }).length; if (dd < 0 && ad > 1) P.splice(P.findIndex(function (x) { return x.type === 'adult'; }), 1); else if (dd > 0) P.unshift({ type: 'adult', needs: [] }); renderSettings(); return; }
+      case 'steplen': { var nl = s.draft.len + (+t.getAttribute('data-d')); if (nl >= 1 && nl <= 30) { s.draft.len = nl; if (nl < T.days.length && s.draft.dropN > T.days.length) s.draft.dropN = T.days.length; } renderSettings(); return; }
       case 'addkid': s.draft.party.push({ type: 'child', age: 8, needs: [] }); renderSettings(); return;
       case 'rmkid': { var kids = s.draft.party.filter(function (x) { return x.type !== 'adult'; }); s.draft.party.splice(s.draft.party.indexOf(kids[+t.getAttribute('data-idx')]), 1); renderSettings(); return; }
       case 'mytrav': s.draft.party = [{ type: 'adult', needs: [] }, { type: 'adult', needs: [] }, { type: 'child', age: 6, needs: [] }]; renderSettings(); toast('Filled from your travellers'); return;
       case 'engine': if (isBuilt()) return; s.convert = true; renderSettings(); { var cn = $('#convertnotice'); if (cn) cn.scrollIntoView({ block: 'center' }); var cg = $('[data-k="convertgo"]'); if (cg) cg.focus(); } return;
       case 'convertcancel': s.convert = false; renderSettings(); return;
       case 'convertgo': { var dr = s.draft; commit(function () { D.convert(T); return { msg: 'Now your own trip, from our ' + O.name + ' trip' }; }, { focus: 'apply' }); if (U.sheet) { U.sheet.convert = false; U.sheet.draft = settingsDraft(); renderSheets(); } return; }
-      case 'syncretry': U.sync = 'account'; U.syncTmp = null; kickSync(); paintSync(); say('Retrying'); return;
+      case 'syncretry': if (U.offline) { U.fails++; say('Still offline'); render('retry'); return; } U.sync = 'account'; U.syncTmp = null; kickSync(); paintSync(); say('Retrying'); return;
       case 'fixwarn': { var loc = sheetFor(id); if (!loc) return; var code = t.getAttribute('data-code'); openSheet(code === 'W_HOURS' ? { type: 'item', id: id } : { type: 'move', id: id }, t); return; }
       case 'ctl': U.ctl = !U.ctl; renderCtl(); return;
       case 'reseed': resetDemo(); return;
@@ -445,6 +499,7 @@
     closeSheet(true);
     commit(function () {
       if (dr.title && dr.title !== T.title) { D.setTitle(T, dr.title); msgs.push('Title saved'); }
+      if (dr.len !== T.days.length) { var lr = D.setLength(T, dr.len, { dropN: dr.dropN, to: dr.dropTo, afterN: dr.addAfter }); if (lr) msgs.push(lr.msg); }
       if (want !== fromNow) msgs.push(D.setDates(T, want || null).msg);
       if (partyChanged || paceChanged) msgs.push(D.setParty(T, dr.party, dr.pace).msg);
       return msgs.length ? { msg: msgs[msgs.length - 1] } : { none: true, msg: 'Nothing changed' };
@@ -482,7 +537,16 @@
   function cancelLift() { var id = U.lift.id; T = JSON.parse(U.lift.base); U.lift = null; render('h-' + id); say('Cancelled. ' + positionText(id)); }
   function onKey(e) {
     var tg = e.target, k = e.key;
-    if (U.sheet) { if (k === 'Escape') { e.preventDefault(); closeSheet(); } else if (k === 'Tab') trapTab(e); return; }
+    if (U.sheet) {
+      var popm = $('.sheet.pop');
+      if (k === 'Escape') { e.preventDefault(); closeSheet(); }
+      else if (popm && k === 'Tab') { closeSheet(true); }
+      else if (popm && ['ArrowDown', 'ArrowUp', 'Home', 'End'].indexOf(k) >= 0) {
+        e.preventDefault(); var mi = $$('[role^=menuitem]:not([disabled])', popm), at = mi.indexOf(document.activeElement);
+        mi[k === 'Home' ? 0 : k === 'End' ? mi.length - 1 : (at + (k === 'ArrowDown' ? 1 : -1) + mi.length) % mi.length].focus();
+      } else if (k === 'Tab') trapTab(e);
+      return;
+    }
     if (drag && drag.active && k === 'Escape') { endDrag(false); return; }
     if ((e.metaKey || e.ctrlKey) && k.toLowerCase() === 'z' && !/INPUT|TEXTAREA|SELECT/.test(tg.tagName)) { e.preventDefault(); e.shiftKey ? redo() : undo(); return; }
     if (!U.edit) { if (k.toLowerCase() === 'e' && !/INPUT|TEXTAREA|SELECT/.test(tg.tagName) && !e.metaKey && !e.ctrlKey) { setEdit(true); } return; }
@@ -590,7 +654,12 @@
     else if (i === 'nodate') { dr.noDate = t.checked; renderSettings(); return; }
     else if (i === 'age') { var kids = dr.party.filter(function (x) { return x.type !== 'adult'; }); kids[+t.getAttribute('data-idx')].age = +t.value; kids[+t.getAttribute('data-idx')].type = 'child'; }
     else if (i === 'pace') dr.pace = t.value;
+    else if (i === 'dropn') dr.dropN = +t.value;
+    else if (i === 'dropto') dr.dropTo = t.value;
+    else if (i === 'addafter') dr.addAfter = +t.value;
     var ef = $('#effect'); if (ef) ef.innerHTML = S.effect(T, dr);
+    var ap = $('[data-k="apply"]'); if (ap) ap.disabled = !S.changed(T, dr);
+    var ec = $('#dateecho'); if (ec) ec.textContent = dr.from && !dr.noDate ? D.fmtDate(dr.from) : '';
   }
   function onChange(e) {
     var t = e.target;
@@ -611,28 +680,34 @@
   function setSync(v) { U.syncForce = v; U.syncTmp = null; if (v === 'syncing' || v === 'pending' || v === 'failed') { U.sync = v === 'syncing' ? 'account' : v === 'pending' ? 'account' : 'failed'; U.syncTmp = v === 'syncing' ? 'syncing' : null; U.offline = v === 'pending'; } else { U.sync = v; U.offline = false; } render('ctlb'); }
 
   /* ---------- boot ---------- */
+  /* A frame is a link, so it must show its subject: the page is scrolled to the target and the sheet opened from its own trigger (review M6). */
+  function centre(el) { if (el) { el.scrollIntoView({ block: 'center' }); } }
   function applyFrame(q) {
-    var sh = q.get('sheet'), mine = $('[data-k="edit"]');
+    var sh = q.get('sheet');
     if (q.get('sync')) setSync(q.get('sync'));
-    if (q.get('offline') === '1') { U.offline = true; if (U.sync === 'device') U.sync = 'account'; }
+    if (q.get('offline') === '1') { U.offline = true; U.fails = 2; if (U.sync === 'device') U.sync = 'account'; }
     if (q.get('makeit') === '1') U.makeit = true;
     if (q.get('built') === '1') U.built = true;
     render();
     if (q.get('built') === '1') { say($('#builtline') ? $('#builtline').textContent : ''); history.replaceState(null, '', url(U.edit, tabParam())); }
-    if (q.get('add')) { var pin = resolvePin(q.get('add')), best = pin && pin.id ? D.bestDays(T, pin.id)[0].n : 1; openAdd(best, { pin: pin }); }
+    if (q.get('add')) {
+      var slug = q.get('add'), pin = resolvePin(slug), best = pin && pin.id && !D.farFrom(T, PL[pin.id]) ? D.bestDays(T, pin.id)[0].n : 1;
+      if (pin) pin.slug = slug;
+      var dh = $('#dh-' + best); if (dh && U.tab === 'days') dh.scrollIntoView({ block: 'start' });
+      openAdd(best, { pin: pin }, $('[data-k="ar-' + best + '"]')); dropAddParam();
+    }
     if (!sh) return;
     var p = sh.split(':'), kind = p[0], arg = p[1];
     var first = T.days.reduce(function (a, d) { return a || d.items[0]; }, null);
-    if (kind === 'item') { var en = $('#e-' + (arg || first.id)); if (en) en.scrollIntoView({ block: 'start' }); window.scrollBy(0, -260); }
-    if (kind === 'item') openSheet({ type: 'item', id: arg || first.id }, $('[data-k="im-' + (arg || first.id) + '"]'));
-    else if (kind === 'move') openSheet({ type: 'move', id: arg || first.id }, null);
-    else if (kind === 'add') openAdd(+arg || 1);
+    if (kind === 'item') { var iid = arg || first.id, trg = $('[data-k="im-' + iid + '"]'); centre(trg); openSheet({ type: 'item', id: iid }, trg); U.openDay = D.locate(T, iid).n; }
+    else if (kind === 'move') { var mid = arg || first.id; centre($('#e-' + mid)); openSheet({ type: 'move', id: mid }, null); }
+    else if (kind === 'add') { var an = +arg || 1, adh = $('#dh-' + an); if (adh) adh.scrollIntoView({ block: 'start' }); openAdd(an, null, $('[data-k="ar-' + an + '"]')); }
     else if (kind === 'settings') openSheet({ type: 'settings', draft: settingsDraft(), signed: U.sync !== 'device' }, null);
-    else if (kind === 'convert') openSheet({ type: 'settings', draft: settingsDraft(), signed: U.sync !== 'device', convert: true }, null);
+    else if (kind === 'convert') { openSheet({ type: 'settings', draft: settingsDraft(), signed: U.sync !== 'device', convert: true }, null); var cn = $('#convertnotice'); if (cn) cn.scrollIntoView({ block: 'center' }); }
     else if (kind === 'changes') openSheet({ type: 'changes' }, null);
-    else if (kind === 'day') openSheet({ type: 'day', n: +arg || 1 }, $('[data-k="dm-' + (+arg || 1) + '"]'));
-    else if (kind === 'trip') openSheet({ type: 'trip' }, null);
-    else if (kind === 'drop') openSheet({ type: 'dropday', n: +arg || 1, to: 'day' }, null);
+    else if (kind === 'day') { var dn = +arg || 1, dtr = $('[data-k="dm-' + dn + '"]'); centre(dtr); openSheet({ type: 'day', n: dn }, dtr); U.openDay = dn; }
+    else if (kind === 'trip') openSheet({ type: 'trip' }, $('[data-k="tripmenu"]'));
+    else if (kind === 'drop') { var dr = +arg || 1; centre($('#day-' + dr)); openSheet({ type: 'dropday', n: dr, to: 'day' }, null); }
   }
   function boot() {
     D.seed();
@@ -660,6 +735,7 @@
     window.addEventListener('pointerup', onUp);
     window.addEventListener('pointercancel', function () { if (drag) endDrag(false); });
     window.addEventListener('popstate', function () { readUrl(); U.sheet = null; U.lift = null; render(); });
+    window.addEventListener('scroll', function () { if (!followRaf) followRaf = requestAnimationFrame(followDay); }, { passive: true });
     window.addEventListener('resize', function () { if (T) drawMap(); });
     if (T) applyFrame(q); else render();
     if (copyMsg) { stack = { past: [], future: [] }; toast(copyMsg + ' · ', false); var tt = $('#toast'); tt.insertAdjacentHTML('beforeend', '<button data-a="undocopy">Undo</button>'); }

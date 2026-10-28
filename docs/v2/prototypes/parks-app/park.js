@@ -239,24 +239,34 @@
      Picking a trip opens it in edit mode with the add picker on this place. Trips are read from proto.trips; the demo trips are
      seeded by /trip/ code (loaded on demand) when there are none. */
   function loadTripSeed(done) {
+    if (window.TripDoc) { window.TripDoc.seed(); return done(); }
     var list = ['../shared/contract.js', '../shared/sun.js', '../shared/ics.js', '../builder/data.js', '../shared/engine.js', '../trip/ours.js', '../trip/doc.js'], i = 0;
     (function next() { if (i >= list.length) { window.TripDoc.seed(); return done(); } var sc = document.createElement('script'); sc.src = list[i++]; sc.onload = next; sc.onerror = done; document.head.appendChild(sc); })();
   }
   function myTrips() { try { var a = JSON.parse(localStorage.getItem('proto.trips') || '[]'); return Array.isArray(a) ? a.filter(function (t) { return t && t.id && t.inMine !== false; }) : []; } catch (e) { return []; } }
+  /* The rows read like Mine's: "Tue 13 Jul – Thu 22 Jul · 10 days · 2 adults · 1 child (6)". A trip far from this place says so, and sorts last (review M3, S12). */
+  function whenWords(t) {
+    var D = window.TripDoc, d = t.dates || {}, n = (t.days || []).length;
+    var when = d.from ? D.fmtDate(d.from) + ' – ' + D.fmtDate(d.to || D.addDays(d.from, Math.max(0, n - 1))) : d.month ? LIB.MONFULL[d.month - 1] : 'No date';
+    return when + ' · ' + n + ' days · ' + D.partyWords(t);
+  }
+  function pinPoint() { return typeof PARKS !== 'undefined' && PARKS[slug] ? PARKS[slug] : typeof PL !== 'undefined' && PL[slug] ? PL[slug] : null; }
   function openTripPicker(opener) {
     function draw() {
-      var trips = myTrips(), name = park.name;
-      var rows = trips.map(function (t) {
-        var d = t.dates || {}, when = d.from ? d.from : (d.month ? 'Month ' + d.month : 'No date'), n = (t.days || []).length;
-        return '<a class="btn trow" href="../trip/?id=' + encodeURIComponent(t.id) + '&amp;edit=1&amp;add=' + encodeURIComponent(slug) + '" data-trip="' + esc(t.id) + '"><span><b>' + esc(t.title) + '</b><br><small>' + esc(when) + ' · ' + n + ' days</small></span></a>';
+      var D = window.TripDoc, q = pinPoint(), name = park.name;
+      var trips = myTrips().map(function (t) { var km = D && q ? D.kmBases(t, q) : Infinity; return { t: t, km: km, far: !!(D && q && isFinite(km) && D.farFrom(t, q)) }; })
+        .sort(function (a, b) { return (a.far - b.far) || ((isFinite(a.km) ? a.km : 1e9) - (isFinite(b.km) ? b.km : 1e9)); });
+      var rows = trips.map(function (x) {
+        var t = x.t;
+        return '<a class="btn trow" href="../trip/?id=' + encodeURIComponent(t.id) + '&amp;edit=1&amp;add=' + encodeURIComponent(slug) + '" data-trip="' + esc(t.id) + '"><span><b>' + esc(t.title) + '</b><br><small>' + esc(D ? whenWords(t) : '') + '</small>' + (x.far ? '<br><small>Far from ' + esc(name) + '</small>' : '') + '</span></a>';
       }).join('');
       A.layer({ cls: 'sheet', id: 'tripsheet', label: 'Add ' + name + ' to a trip', opener: opener, initial: '.trow, #newtrip',
         html: '<button class="btn ic x" aria-label="Close" data-close>&times;</button><h2>Add ' + esc(name) + ' to a trip</h2>' + (rows ? '<div class="trows" style="display:flex;flex-direction:column;gap:8px;margin:12px 0">' + rows + '</div>' : '<p class="cov">No trips yet.</p>') +
-          '<div class="btns"><a class="btn pri" id="newtrip" href="/builder/index.html?add=' + encodeURIComponent(slug) + '&amp;p=' + encodeURIComponent(park.slug) + '">Start a new trip with ' + esc(name) + '</a></div>' +
-          '<p style="margin-top:12px"><button class="btn" id="justsave">' + (A.isSaved(slug) ? 'Remove from saved' : 'Save for later, no trip') + '</button></p>',
+          '<div class="btns"><a class="btn trow" id="newtrip" href="/builder/index.html?add=' + encodeURIComponent(slug) + '&amp;p=' + encodeURIComponent(park.slug) + '"><span>Start a new trip with ' + esc(name) + '</span></a></div>' +
+          '<p style="margin-top:12px"><button class="btn" id="justsave">' + (A.isSaved(slug) ? 'Remove from saved' : 'Save without a trip') + '</button></p>',
         mount: function (d) { d.querySelector('#justsave').onclick = function () { var on = A.toggleSaved(slug); A.toast(on ? 'Saved to your trip list' : 'Removed from saved'); var c = d.querySelector('[data-close]'); if (c) c.click(); }; } });
     }
-    if (myTrips().length) draw(); else loadTripSeed(draw);
+    loadTripSeed(draw);
   }
   function wire() {
     var sv = document.getElementById('save'); sv.onclick = function () { openTripPicker(sv); };

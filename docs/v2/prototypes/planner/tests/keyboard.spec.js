@@ -33,9 +33,9 @@ test('keyboard only: My trips tabs, card menu, open a trip', async ({ page, base
 
   await tabTo(page, /Menu for Algonquin/);
   await page.keyboard.press('Enter');
-  expect((await active(page)).name).toBe('Rename');
+  expect((await active(page)).name).toBe('Open');
   await page.keyboard.press('ArrowDown');
-  expect((await active(page)).name).toBe('Duplicate');
+  expect((await active(page)).name).toBe('Edit');
   await page.keyboard.press('Escape');
   expect((await active(page)).name).toMatch(/Menu for Algonquin/);
   await expect(page.locator('.menu:not([hidden])')).toHaveCount(0);
@@ -52,7 +52,7 @@ test('keyboard only: My trips tabs, card menu, open a trip', async ({ page, base
   await tabTo(page, /^Open$/);
   await tabTo(page, /^Open$/);
   await page.keyboard.press('Enter');
-  await expect(page).toHaveURL(/trip\.html\?id=t-dolomites/);
+  await expect(page).toHaveURL(/\/trip\/\?id=t-dolomites&view=day/);
 });
 
 test('keyboard only: Trip home tabs, Bookings, Checklist', async ({ page, base }) => {
