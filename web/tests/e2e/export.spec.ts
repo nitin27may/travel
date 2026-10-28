@@ -1,6 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { expect, test } from './fixtures';
 
+// With the build made under NEXT_PUBLIC_TRIP_EDIT=1 the copy sheet's link reads "Open your trip" and goes to the copy's own page /t/<id>/ (mine-trips.spec.ts does the same).
+const TRIP_EDIT = process.env.NEXT_PUBLIC_TRIP_EDIT === '1';
+
 // Exports end to end on the specimen page (which renders the three actions with the real Dolomites data): the files are
 // downloaded in the browser and read back. Lane L5.
 test.describe('copy, export, share', () => {
@@ -44,7 +47,8 @@ test.describe('copy, export, share', () => {
     expect(text).toContain('BEGIN:VCALENDAR');
     expect(text.match(/BEGIN:VEVENT/g)!.length).toBeGreaterThanOrEqual(14);
     await copy.click();
-    await expect(page.getByRole('link', { name: 'Open in Mine' })).toHaveAttribute('href', '/mine/?show=trips');
+    if (TRIP_EDIT) await expect(page.getByRole('link', { name: 'Open your trip' })).toHaveAttribute('href', /^\/t\/[^/]+\/(\?.*)?$/);
+    else await expect(page.getByRole('link', { name: 'Open in Mine' })).toHaveAttribute('href', '/mine/?show=trips');
     await expect(page.locator('.toast-region .toast')).toHaveCount(0); // the sheet is modal: Undo sits in its footer, not in a toast
     await expect(page.locator('.copy-sheet').getByRole('button', { name: 'Undo' })).toBeVisible();
   });
