@@ -27,8 +27,8 @@ for (const vp of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
       await expect(p.getByTestId('bk-summary')).not.toContainText(/task/); // UXB-6F: no kind is named that is not there
       await expect(p.locator('select, [role="combobox"], .facet-pill')).toHaveCount(0);
       await expect(page.locator('#trip-tab-bookings')).toHaveAttribute('aria-label', 'Bookings, 8');
-      await expect(p.locator('.bk-rule', { hasText: 'then 2 days before Day 10 at 08:00 local (60% of seats)' })).toHaveCount(1);
-      await expect(p.locator('.bk-rule', { hasText: 'then 2 days before Day 11 at 08:00 local (60% of seats)' })).toHaveCount(1);
+      await expect(p.locator('.bk-rule', { hasText: 'then 2 days before Day 10 at 08:00 (60%)' })).toHaveCount(1);
+      await expect(p.locator('.bk-rule', { hasText: 'then 2 days before Day 11 at 08:00 (60%)' })).toHaveCount(1);
       await expect(p.locator('[data-group="pass"]')).toContainText('Buy any time before Day 1');
       await expect(p.locator('[data-group="pass"]')).toContainText('Buy by 23:59 on Day 12');
       await expect(p.getByRole('link', { name: /Booking page for Parks Canada Lake Louise/ }).first()).toHaveAttribute('href', /^https:\/\/(?:reservation\.pc\.gc\.ca|parks\.canada\.ca)\//);

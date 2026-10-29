@@ -11,11 +11,13 @@ import { useToast } from '@/components/ui/Toast';
 export function CopyAddress({ text, name }: { text: string; name: string }) {
   const { toast } = useToast();
   const withPoint = text.includes('\n');
+  // the name starts with the visible words (WCAG 2.5.3, axe label-content-name-mismatch), then says which place
+  const label = withPoint ? 'Copy address and point' : 'Copy address';
   return (
     <Button
       size="sm"
       className="pl-addr-copy"
-      aria-label={`Copy the address${withPoint ? ' and map point' : ''} of ${name}`}
+      aria-label={`${label} of ${name}`}
       onClick={async () => {
         try {
           await navigator.clipboard.writeText(text);
@@ -25,7 +27,7 @@ export function CopyAddress({ text, name }: { text: string; name: string }) {
         }
       }}
     >
-      <Icon name="copy" size={14} /> {withPoint ? 'Copy address and point' : 'Copy address'}
+      <Icon name="copy" size={14} /> {label}
     </Button>
   );
 }

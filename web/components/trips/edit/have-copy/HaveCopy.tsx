@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { CHANGED_EVENT } from '@/lib/mine/keys';
+import { localStore } from '@/lib/storage/safe';
 import { findCopyId } from './find';
 import './have-copy.css';
 
@@ -15,8 +16,9 @@ export function HaveCopy({ slug }: { slug: string }) {
   const [id, setId] = useState<string | null>(null);
   useEffect(() => {
     const read = () => {
+      const store = localStore();
       try {
-        setId(findCopyId(window.localStorage, slug));
+        setId(store ? findCopyId(store, slug) : null);
       } catch {
         setId(null);
       }

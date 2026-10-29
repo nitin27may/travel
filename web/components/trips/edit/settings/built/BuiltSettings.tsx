@@ -93,7 +93,7 @@ export default function BuiltSettings({ doc, pace, onPace, run, start = null, on
     if (!start || started.current) return;
     started.current = true;
     onStarted?.();
-    if (start === 'rebuild') void go();
+    if (start === 'rebuild') queueMicrotask(() => void go()); // after the effect: go() sets state before its first await
     // eslint-disable-next-line react-hooks/exhaustive-deps -- once, on the mount the conversion made
   }, []);
   const discard = () => {

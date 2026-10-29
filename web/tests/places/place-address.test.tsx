@@ -37,7 +37,7 @@ describe('the Directions card: address (LT-M)', () => {
   it('a door place: the postal address under "To <place>", with a Copy address button that names the place', () => {
     const c = card(render(patch('athabasca-falls', { address: addr({ ref: own.sections!.ref, name: own.name }) })));
     expect(c).toContain('<span class="sr-only">Address: </span>224 Banff Avenue, Banff, T1L 1A3');
-    expect(c).toContain(`aria-label="Copy the address and map point of ${own.name}"`);
+    expect(c).toContain(`aria-label="Copy address and point of ${own.name}"`);
     expect(c).toContain('Copy address and point');
     expect(c.indexOf('To <strong>')).toBeLessThan(c.indexOf('pl-addr'));
     expect(c.indexOf('pl-addr')).toBeLessThan(c.indexOf('pl-dir-links'));

@@ -147,11 +147,20 @@ test.describe('edit mode: the add picker', () => {
   });
 
   test('add=<slug> opens the picker with that place, one row per day, and leaves the address; a park opens its members; a far place gets no day', async ({ page, site }) => {
+    // a place that is not on the trip yet (Moraine Lake is on Day 11 now, and then the picker offers Open Day 11 and a move instead)
+    await open(page, site, '?view=day&edit=1&add=cave-and-basin-national-historic-site');
+    const dlg = picker(page);
+    await expect(dlg.getByText('Cave and Basin National Historic Site').first()).toBeVisible();
+    await expect(page).not.toHaveURL(/add=/);
+    await expect(dlg.getByRole('button', { name: /^(Add|Move) to Day \d+$/ }).first()).toBeVisible();
+  });
+
+  test('add=<slug> for a place already on the trip says which day and offers to move it', async ({ page, site }) => {
     await open(page, site, '?view=day&edit=1&add=moraine-lake');
     const dlg = picker(page);
     await expect(dlg.getByText('Moraine Lake').first()).toBeVisible();
-    await expect(page).not.toHaveURL(/add=/);
-    await expect(dlg.getByRole('button', { name: /^(Add|Move) to Day \d+$/ }).first()).toBeVisible();
+    await expect(dlg.getByText(/on day \d+ of this trip/i)).toBeVisible();
+    await expect(dlg.getByRole('button', { name: /Move to another day/ })).toBeVisible();
   });
 
   test('an unknown slug says so', async ({ page, site }) => {
@@ -165,7 +174,7 @@ test.describe('edit mode: the add picker', () => {
     await expect(dlg.getByText('A park is not a stop. Pick a place in it.')).toBeVisible();
     await page.goto(`${site.url}/t/${ID}/?view=day&edit=1&add=cinque-torri`);
     const far = picker(page);
-    await expect(far.getByText(/from this trip's bases\./)).toBeVisible();
+    await expect(far.getByText(/from this trip's bases, so it cannot go on one of its days\./)).toBeVisible();
     await expect(far.getByRole('button', { name: /^Add to Day/ })).toHaveCount(0);
   });
 });

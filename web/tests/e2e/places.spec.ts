@@ -178,9 +178,15 @@ test.describe('place page', () => {
     }
   });
 
-  test('Save to a trip says it comes with the planner, with Copy link', async ({ page, site }) => {
+  // With the build made under NEXT_PUBLIC_TRIP_EDIT=1 the button opens the trip picker (STEP2-P1, save-to-trip.spec); with it off it keeps the note.
+  test('Save to a trip opens the picker with trip editing on, else says it comes with the planner, with Copy link', async ({ page, site }) => {
     await page.goto(`${site.url}${TRAIL}`);
     await page.getByRole('button', { name: 'Save to a trip' }).click();
+    if (process.env.NEXT_PUBLIC_TRIP_EDIT === '1') {
+      await expect(page.getByRole('dialog', { name: /^Add to a trip$/ })).toBeVisible();
+      await expect(page.getByText(/comes with the planner/)).toHaveCount(0);
+      return;
+    }
     await expect(page.getByText(/comes with the planner/)).toBeVisible();
     await expect(page.getByRole('button', { name: /Copy link/ })).toBeVisible();
   });

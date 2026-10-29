@@ -174,7 +174,9 @@ describe('the print view: park entry (PA-W, protected-area-entry 6.4)', () => {
 describe('the print view: the address under a stop (LT-M)', () => {
   const day3 = session.timelines.find((t) => t.day === 3)!.entries.find((e) => ['visit', 'trail'].includes(e.kind) && !e.insideOf && e.at?.placeSlug)!;
   const stop = model.stops.find((s) => s.day === 3 && s.placeSlug === day3.at?.placeSlug)!;
-  const withAddress = { ...model, stops: model.stops.map((s) => (s.id === stop.id ? { ...s, address: 'Via Roma 1, Bolzano' } : s)) };
+  // the real trip's stops carry addresses as the data fills them in, so the test sets its own: none on all but one
+  const noAddress = { ...model, stops: model.stops.map((s) => ({ ...s, address: undefined })) };
+  const withAddress = { ...model, stops: model.stops.map((s) => (s.id === stop.id ? { ...s, address: 'Via Roma 1, Bolzano' } : { ...s, address: undefined })) };
   it('prints one address line under the stop that has one, and nothing for the others', () => {
     const html = renderToStaticMarkup(TripPrintView({ data: withAddress, session }));
     expect(html.match(/print-model-addr/g)).toHaveLength(1);
@@ -183,6 +185,6 @@ describe('the print view: the address under a stop (LT-M)', () => {
     expect(li).toContain(stop.name.replace(/&/g, '&amp;').replace(/'/g, '&#x27;'));
   });
   it('a trip with no address data prints the same page as before', () => {
-    expect(renderToStaticMarkup(TripPrintView({ data: model, session }))).not.toContain('print-model-addr');
+    expect(renderToStaticMarkup(TripPrintView({ data: noAddress, session }))).not.toContain('print-model-addr');
   });
 });
