@@ -54,13 +54,15 @@ export function DraftRow({ row, collapsing, restored, chip, sync, onRemove }: Pr
         <Link
           className="crow-link"
           data-chip={words ? true : undefined}
+          data-from={row.label ? true : undefined}
           href={row.href}
-          aria-label={`${title}, ${dated ? `from ${row.when.replace(' · ', ', ')}` : 'no date'}${row.who ? `, ${row.who.replace(' · ', ', ')}` : ''}${state}`}
+          aria-label={`${title}, ${dated ? `from ${row.when.replace(' · ', ', ')}` : 'no date'}${row.who ? `, ${row.who.replace(' · ', ', ')}` : ''}${row.label ? `, ${row.label}` : ''}${state}`}
         >
           <MineThumb space="trip" slug={draft.slug ?? draft.id} off icon="route" area="photo" ring={ring} />
           <span className="crow-name">{title}</span>
           <span className="crow-l2">{row.when}</span>
           <span className="crow-l3">{row.who}</span>
+          {row.label ? <span className="crow-from">{row.label}</span> : null}
           {words ? (
             <span className="chip crow-chip" aria-hidden="true">
               {words}

@@ -23,6 +23,8 @@ export interface DeviceDraft {
   built: boolean;
   updatedAt: string;
   identity: string | null;
+  /** a converted copy's public trip (`seed`, set with `convertedAt`); null otherwise */
+  from: string | null;
 }
 
 export type DeviceDrafts = { ok: true; items: DeviceDraft[] } | { ok: false; reason: 'corrupt' | 'newer' | 'invalid' };
@@ -50,6 +52,7 @@ function rowOf(d: PlanDraft): DeviceDraft {
     built: d.lastBuild !== null || d.template !== undefined,
     updatedAt: d.updatedAt,
     identity: d.identity ?? null,
+    from: d.convertedAt !== undefined ? d.seed : null,
   };
 }
 

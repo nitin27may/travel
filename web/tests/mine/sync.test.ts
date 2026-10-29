@@ -785,3 +785,49 @@ describe('copyOfRow (copies/2)', () => {
     expect(item!.identity).toBe('sky');
   });
 });
+
+// STEP2-B3: a copy in the account becomes the person's own built trip (`convert`), is edited as one, and Undo gives the copy back.
+describe('a converted copy in the account (STEP2-B3)', () => {
+  const convert = (): Parameters<AccountSync['edit']>[1] => [
+    {
+      kind: 'convert',
+      id: 'o-cv1',
+      at: NOW.toISOString(),
+      picks: [{ ref: 'place/seceda', slug: 'seceda', name: 'Seceda', must: false }],
+      bases: [],
+      edits: [{ day: 1, refs: ['place/seceda'], locked: [], fromTrip: ['place/seceda'] }],
+      nights: 0,
+      lastBuild: { engine: 'copy', basis: 'estimate', bases: [], days: [{ day: 1, base: null, move: false, items: [{ ref: 'place/seceda', slug: 'seceda', name: 'Seceda', startMin: 540, visitMin: 60, driveMin: null, basis: null, locked: false }], returnMin: null, warnings: [], reasons: [] }], didNotFit: [], spareDays: 0, builtAt: NOW.toISOString() },
+    },
+  ];
+
+  it('is sent as a built document that still names our trip, and Undo sends the copy back unchanged', async () => {
+    const s = await withTrip();
+    // the write date moves with every edit; the rest of the document is what must come back
+    const same = (d: PlanDraft | null) => JSON.stringify({ ...d, updatedAt: null });
+    const before = same(s.server.rows.get(A)!.doc);
+    const r = s.engine.edit(A, convert());
+    if (!r.ok) throw new Error('convert refused');
+    // the screen has it at once
+    expect(s.engine.view(A)?.template).toBeUndefined();
+    await s.engine.sync();
+    const sent = s.server.rows.get(A)!.doc!;
+    expect(sent).toMatchObject({ seed: 'dolomites-2027', convertedAt: NOW.toISOString() });
+    expect(sent.template).toBeUndefined();
+    expect(s.server.rows.get(A)!.fields).toMatchObject({ kind: 'built', source_trip: 'dolomites-2027' });
+    // Undo is new changes: the template block comes back byte for byte
+    expect(s.engine.undo(A, r.inverse).ok).toBe(true);
+    await s.engine.sync();
+    expect(same(s.server.rows.get(A)!.doc)).toBe(before);
+  });
+
+  it('a built edit after the conversion goes through the same outbox', async () => {
+    const s = await withTrip();
+    expect(s.engine.edit(A, convert()).ok).toBe(true);
+    expect(s.engine.edit(A, [{ kind: 'setNote', id: 'o-n1', key: 'trip', text: 'Bring boots' }]).ok).toBe(true);
+    await s.engine.sync();
+    expect(s.server.rows.get(A)!.doc!.notes).toEqual({ trip: 'Bring boots' });
+    expect(unsentSummary(s.store).count).toBe(0);
+  });
+});
+

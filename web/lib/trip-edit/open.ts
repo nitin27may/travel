@@ -12,6 +12,7 @@ import type { PlanDraft } from '@travel/core/schema/plan-draft.ts';
 import { isTripId } from './keys';
 import { findBuilt, writeBuilt } from './built';
 import { storeDeviceEdits, withDeviceEdits } from './deviceEdits';
+import { builtToCopy, copyToBuilt } from './convertDevice';
 
 /** The slice of the EM-2 engine this module uses (a test passes a fake). */
 export interface AccountHandle {
@@ -104,8 +105,18 @@ export function saveOps(id: string, ops: readonly PlanOp[], deps: OpenDeps): Sav
   if (applied.skipped.length) return { ok: false, reason: 'invalid' };
   // a built trip is its document in the plans list; there is no copy item to carry the keys it cannot hold
   if (!open.copy) {
+    // "Reset to our plan" on a converted trip, or Undo of the conversion: it is a copy again, so its item goes back to the copies (STEP2-B3)
+    if (applied.doc.template) {
+      const m = builtToCopy(deps.storage, applied.doc, copyWithDraft);
+      return m.ok ? { ok: true } : { ok: false, reason: m.reason };
+    }
     const w = writeBuilt(deps.storage, applied.doc);
     return w.ok ? { ok: true } : { ok: false, reason: w.reason === 'missing' ? 'missing' : w.reason };
+  }
+  // a copy that became the person's own trip (`convert`): it moves to the builder's list under the same id
+  if (!applied.doc.template) {
+    const m = copyToBuilt(deps.storage, id, applied.doc);
+    return m.ok ? { ok: true } : { ok: false, reason: m.reason };
   }
   const copy = copyWithDraft(open.copy!, applied.doc);
   const w = updateCopies(deps.storage, (env) => ({ envelope: { ...env, items: env.items.map((c) => (c.id === id ? copy : c)) }, value: null }));

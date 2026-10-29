@@ -77,6 +77,8 @@ const DayTables = dynamic(() => tablesChunk().then((m) => m.DayTables), {
 const TableTools = dynamic(() => tablesChunk().then((m) => m.TableTools), { ssr: false });
 // the flag is written out here so a build with it off folds the hook away (the public page has no edit mode)
 const useEditing: () => boolean = process.env.NEXT_PUBLIC_TRIP_EDIT === '1' ? () => !!useTimelineExtras()?.edit : () => false;
+// what edit mode puts above Day 1 (the Make it yours card of a new copy)
+const useBeforeDays: () => ReactNode = process.env.NEXT_PUBLIC_TRIP_EDIT === '1' ? () => useTimelineExtras()?.edit?.beforeDays?.() ?? null : () => null;
 const TripShape = dynamic(() => import('./summary/TripShape').then((m) => m.TripShape));
 /** A tab took focus: its lazy chunk loads now, so the press that follows opens it at once (components 1.6). */
 const prefetchTab = (t: TripTab): void => {
@@ -296,6 +298,7 @@ function TimelinePlan({ slug, model: pageModel, depth, season, tabs, slots, shap
   );
   // Days as List or as Table (UXB-5): the same timelines, a view of the same question. The Table is a lazy chunk and read-only; the day in view stays in view.
   const editing = useEditing();
+  const beforeDays = useBeforeDays();
   const [rowsMode, setRowsMode] = useTableRows(slug, asTable);
   const areas = useMemo(() => Object.fromEntries(sections.flatMap((s) => s.rows).filter((r) => r.placeSlug && r.area).map((r) => [r.placeSlug!, r.area!])), [sections]);
   const keepDay = useRef<number | null>(null);
@@ -411,6 +414,7 @@ function TimelinePlan({ slug, model: pageModel, depth, season, tabs, slots, shap
                 />
                 {asTable ? <TableTools mode={rowsMode} onMode={setRowsMode} /> : null}
               </div>
+              {beforeDays}
               {asTable ? (
                 <DayTables days={tlModel.days} timelines={shown} areas={areas} mode={rowsMode} editing={editing} onList={() => setView('list')} onShown={() => { setTablesUp(true); restoreDay(); }} />
               ) : (

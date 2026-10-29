@@ -3,7 +3,7 @@ import { TRIP_EDIT_ON } from '@/lib/trip-edit/flag';
 import { openTripHref } from '@/lib/trip-edit/keys';
 import type { CopyItem } from '@travel/core/schema/copies.ts';
 import { partyText } from './party';
-import { countdown, editHref, groupRows, NO_DATE, rowTitle } from './rows';
+import { convertedLabel, countdown, editHref, groupRows, NO_DATE, rowTitle } from './rows';
 import type { Group, RowModel } from './rows';
 
 /**
@@ -23,6 +23,8 @@ export interface DraftFacts {
   built: boolean;
   updatedAt: string;
   identity: string | null;
+  /** the public trip a converted copy was made from (STEP2-B3); null for a trip the builder made */
+  from?: string | null;
 }
 
 /** The chip a draft with no build carries (gap-analysis 2.6; FLOW TF13). */
@@ -40,6 +42,8 @@ export interface DraftRowModel {
   group: Group;
   /** "Draft · ready to build", or null once the draft has a build */
   chip: string | null;
+  /** "Made from Canadian Rockies" for a copy that became the person's own trip (edit-mode-spec 13.2), else null */
+  label: string | null;
 }
 
 export type DeviceRow = RowModel | DraftRowModel;
@@ -61,6 +65,7 @@ export function draftRow(d: DraftFacts, today: string): DraftRowModel {
     editHref: opens ? editHref(d.id) : null,
     who,
     chip: d.built ? null : DRAFT_CHIP,
+    label: d.from ? convertedLabel(d.from) : null,
   };
   if (d.start === null) return { ...base, when: NO_DATE, group: 'nodate' };
   const cd = countdown(d.start, d.days, today);

@@ -178,3 +178,28 @@ describe('flags', () => {
     expect((await import('@/lib/mine/flag')).PLAN_BUILDER_ON).toBe(false);
   });
 });
+
+describe('a converted copy\'s row (STEP2-B3, edit-mode-spec 13.2)', () => {
+  const rowOf = (o: Record<string, unknown>) => {
+    putDrafts(s, { ...sampleDraft({ id: ID_A, title: 'Dolomites' }), ...o });
+    const d = readDeviceDrafts(s);
+    if (!d.ok) throw new Error(d.reason);
+    const row = [...groupDevice([], d.items, TODAY).nodate, ...groupDevice([], d.items, TODAY).upcoming][0]!;
+    if (!isDraftRow(row)) throw new Error('x');
+    return row;
+  };
+  it('names the trip it began as under the row, from the seed the document keeps', () => {
+    const row = rowOf({ seed: 'dolomites-2027', convertedAt: '2026-10-28T09:00:00.000Z' });
+    expect(row.label).toBe('Made from Dolomites');
+    const h = renderToStaticMarkup(<ul><DraftRow row={row} onRemove={() => undefined} /></ul>);
+    expect(h).toContain('crow-from');
+    expect(h).toContain('Made from Dolomites');
+    expect(h).toContain('data-from');
+  });
+  it('a trip the builder made has no such line, even with a seed (it started from a trip, it was not converted)', () => {
+    const row = rowOf({ seed: 'dolomites-2027' });
+    expect(row.label).toBeNull();
+    expect(renderToStaticMarkup(<ul><DraftRow row={row} onRemove={() => undefined} /></ul>)).not.toContain('crow-from');
+  });
+});
+

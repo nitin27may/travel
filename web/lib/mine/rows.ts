@@ -2,6 +2,7 @@ import type { CopyItem } from '@travel/core/schema/copies.ts';
 import { addDays, formatDate, parseIso } from '@/lib/export/dates';
 import { TRIP_EDIT_ON } from '@/lib/trip-edit/flag';
 import { openTripHref, tripHref } from '@/lib/trip-edit/keys';
+import { fromTripName } from '@/lib/trip-edit/fromTrip';
 import { partyText } from './party';
 
 /** core's PLACEHOLDER_TITLE; a plain copy so this module does not load the copies schema (Zod) at start. tests/mine pins them equal. */
@@ -24,6 +25,12 @@ export function rowTitle(c: Pick<CopyItem, 'title' | 'slug'>): string {
   if (c.title !== PLACEHOLDER_TITLE) return c.title;
   return c.slug.replace(/-/g, ' ').replace(/^./, (s) => s.toUpperCase());
 }
+
+/**
+ * Line 4 of a copy that became the person's own trip (edit-mode-spec 13.2; STEP2-B3): "Made from Canadian Rockies", from the slug the document keeps
+ * (`seed`). The row's name is the person's, and this says where it came from, so a trip stays findable by the trip it began as.
+ */
+export const convertedLabel = (seed: string): string => `Made from ${fromTripName(seed)}`;
 
 /** Upcoming, then No date (a copy kept without a start, SW-008; nav 2.3), then Past. */
 export type Group = 'upcoming' | 'nodate' | 'past';

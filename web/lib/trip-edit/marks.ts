@@ -2,6 +2,7 @@
 import type { PlanDraft } from '@travel/core/schema/plan-draft.ts';
 import { dayWordOf, refOfDay } from './dayMap';
 import { builtMarks } from './built';
+import { fromTripName } from './fromTrip';
 
 /** How many changes the person made to our plan: a chosen version, an added or removed place, a moved stop, a day change, a note. Zero for a built trip. */
 export function changeCount(d: PlanDraft): number {
@@ -33,6 +34,8 @@ export function addedByYou(d: PlanDraft): Map<number, string[]> {
 /** The kicker over the title: "Your copy · from our Canadian Rockies trip" (a copy) or "Your trip" (a built plan). */
 export function kickerWords(d: PlanDraft, ourTitle: string | null): string {
   if (d.template) return ourTitle ? `Your copy · from our ${ourTitle} trip` : 'Your copy';
+  // a copy that became the person's own trip (STEP2-B3): it keeps the name of the trip it was made from
+  if (d.convertedAt !== undefined && d.seed) return `Your trip · made from our ${fromTripName(d.seed)} trip`;
   return 'Your trip';
 }
 

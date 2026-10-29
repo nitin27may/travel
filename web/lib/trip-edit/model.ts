@@ -7,3 +7,4 @@ export { tripPageModelForBuilt } from '@travel/core/plan/pageModel.ts';
 export { applyOps } from '@travel/core/plan/ops.ts';
 export { warnLevel } from '@travel/core/plan/warnings.ts';
 export type { WarnLevel } from '@travel/core/plan/warnings.ts';
+export { emptyPlanTemplate, PLAN_LIMITS } from '@travel/core/schema/plan-draft.ts';
