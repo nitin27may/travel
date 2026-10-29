@@ -43,6 +43,24 @@
       "read": "2026-10-25",
       "method": "api",
       "run": "api-2026-10-25-data-d2b-us"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.fs.usda.gov/r09/whitemountain/alerts",
+      "title": "Alerts, White Mountain National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.fs.usda.gov/r09/whitemountain/maps-guides",
+      "title": "Visitor maps and guides, White Mountain National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
     }
   ],
   "records": [
@@ -124,8 +142,51 @@
           "src": [
             "src-0003"
           ]
+        },
+        {
+          "kind": "conditions",
+          "url": "https://www.fs.usda.gov/r09/whitemountain/alerts",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://www.fs.usda.gov/r09/whitemountain/maps-guides",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0006"
+          ]
         }
-      ]
+      ],
+      "run_by": "operator/usda-forest-service",
+      "closures": {
+        "v": [
+          {
+            "from": "2026-06",
+            "to": "2026-11",
+            "status": "closed",
+            "why": "Lincoln Woods Trail closed for restoration work"
+          },
+          {
+            "from": "2023-12",
+            "status": "closed",
+            "why": "Sawyer River Road (Bartlett) closed to vehicles after storm damage"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-28",
+        "quote": "Lincoln Woods Trail will close beginning June 15th through November 2026 when when restoration work commences.",
+        "note": "Seasonal forest road closures are also listed on the alerts page.",
+        "applies_to": "2026"
+      }
     },
     {
       "ref": "part/place/white-mountain-national-forest#lincoln-woods-lot",

@@ -366,6 +366,25 @@
       "read": "2026-10-19",
       "method": "api",
       "run": "api-2026-10-19-cs7c-overpass"
+    },
+    {
+      "id": "src-0041",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap elements by id and car parks, trailheads and roads near each place (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    },
+    {
+      "id": "src-0042",
+      "url": "https://www.dolomitiunesco.info/",
+      "title": "Dolomiti Patrimonio Mondiale UNESCO",
+      "publisher": "Fondazione Dolomiti UNESCO",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
     }
   ],
   "records": [
@@ -2920,7 +2939,46 @@
         "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Dolomites"
+      "name": "Dolomites",
+      "osm_ref": {
+        "v": "relation/2139488",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0041"
+        ],
+        "read": "2026-10-28",
+        "note": "The region relation Dolomiti (boundary=region) tagged with the store QID and Wikidata's P402 (LT-WHERE, high)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.dolomitiunesco.info/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0042"
+          ]
+        },
+        {
+          "kind": "conditions",
+          "state": "searched_none",
+          "on": "2026-10-28",
+          "query": "Fondazione Dolomiti UNESCO site: no conditions or closures page (the nine systems are managed by their own parks)",
+          "src": [
+            "src-0042"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "state": "searched_none",
+          "on": "2026-10-28",
+          "query": "Fondazione Dolomiti UNESCO site: no printable map sheet of the property found on the home page",
+          "src": [
+            "src-0042"
+          ]
+        }
+      ]
     },
     {
       "ref": "place/funbob-monte-baranci",
