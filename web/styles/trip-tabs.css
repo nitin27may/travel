@@ -93,7 +93,7 @@ a.sum-card:active { transform: translateY(1px); }
 a.sum-card:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 .sum-card-body { display: grid; gap: var(--s-1); min-width: 0; }
 .sum-card-v { font: var(--t-row); }
-.sum-card-sub { font: var(--t-meta); color: var(--muted); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+.sum-card-sub { font: var(--t-meta); color: var(--muted); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; }
 /* two across on phones, the auto-fit grid from 640 px (a six-card set keeps its 3 x 2 only when the width does not allow six across) */
 @media (max-width: 639px) { .sum-cards { --sum-card-min: 8rem; } }
 
