@@ -7,7 +7,9 @@ import { Menu } from '@/components/ui/Menu';
 import type { MenuEntry } from '@/components/ui/Menu';
 import { MineThumb } from './MineThumb';
 import { copyIdentity } from '@travel/core/schema/identity.ts';
+import { editHref } from '@/lib/mine/rows';
 import type { RowModel } from '@/lib/mine/rows';
+import { TRIP_EDIT_ON } from '@/lib/trip-edit/flag';
 import { CHIP_NAME, CHIP_WORDS } from '@/lib/mine/chips';
 import type { RowSync } from '@/lib/mine/chips';
 
@@ -56,6 +58,8 @@ export function CopyRow({ row, unlisted, collapsing, restored, chip, sync, linkO
   const dated = item.start !== null;
   const entries: MenuEntry[] = [
     { label: 'Open', icon: 'arrow', href: row.href },
+    // Edit opens the copy in edit mode (patterns 3.8); there is no edit page with `tripEdit` off
+    ...(TRIP_EDIT_ON ? [{ label: 'Edit', icon: 'pencil' as const, href: editHref(item.id) }] : []),
     // an undated copy has nothing to put in a calendar: the entry stays, disabled, and says what unlocks it (SW-008; ExportMenu's words)
     dated
       ? { label: 'Add to calendar', icon: 'calendar', onSelect: () => onCalendar?.(row) }

@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { Banner } from '@/components/ui/Banner';
 import { BottomSheet } from '@/components/ui/BottomSheet';
@@ -93,6 +94,7 @@ const localToday = (): string => {
  */
 export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPrint }: CopySheetProps) {
   const phone = usePhone();
+  const router = useRouter();
   const { toast } = useToast();
   const [start, setStart] = useState<string | null>(null);
   const [party, setPartyState] = useState<Party>({ adults: 2, children: [] });
@@ -230,8 +232,27 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
     if (r.kind === 'failed') return setProblem(problemFor(r.reason));
     setHeld(probe.kind === 'local');
     setUndo({ item: r.item, replaced: r.replaced, replacedEdits: r.replacedEdits, storage: probe.storage });
-    setStep('done');
     onSaved?.();
+    // Step 2 (OQ7, patterns 3.7): with `tripEdit` on the copy opens the copy, in edit mode on its days, and the toast carries Undo (the sheet is
+    // gone by then, so the toast is out of no focus trap). Storage blocked keeps the done step: the copy lasts only in this tab, and the done
+    // step says so and leads with the calendar file. The flag is written out so a build with it off drops this branch.
+    if (process.env.NEXT_PUBLIC_TRIP_EDIT === '1' && probe.kind === 'local') {
+      const { item, replaced, replacedEdits } = r;
+      const storage = probe.storage;
+      toast({
+        message: `Copied ${trip.title.replace(/,\s*\d+ nights?$/, '')} to My trips`,
+        actionLabel: 'Undo',
+        onAction: () => {
+          undoSave(storage, item, replaced, replacedEdits);
+          onSaved?.();
+          router.push(`/trips/${trip.slug}/`);
+        },
+      });
+      router.push(`/t/${item.id}/?edit=1&view=day`);
+      close();
+      return;
+    }
+    setStep('done');
     // no toast: the sheet is modal, so a toast's Undo is out of the focus trap; the done step's footer holds Undo
   };
   const undo = () => {
@@ -282,9 +303,9 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
     ) : (
       <div className="copy-body copy-done">
         {held ? (
-          // SW-009: the copy itself opens (README step 2); where its page is not built, Mine still lists it
-          <ButtonLink variant="primary" href={process.env.NEXT_PUBLIC_TRIP_EDIT === '1' && undoable ? `/t/${undoable.item.id}/` : '/mine/?show=trips'}>
-            {process.env.NEXT_PUBLIC_TRIP_EDIT === '1' && undoable ? 'Open your trip' : 'Open in Mine'}
+          // tripEdit off (production until GO-2): the done step leads with Open in Mine. With it on the copy opens straight away (above)
+          <ButtonLink variant="primary" href="/mine/?show=trips">
+            Open in Mine
           </ButtonLink>
         ) : (
           <Banner kind="caution" icon="warn">

@@ -2,7 +2,7 @@ import { PLACEHOLDER_TITLE } from '@travel/core/schema/copies.ts';
 import type { CopyItem } from '@travel/core/schema/copies.ts';
 import { addDays, formatDate, parseIso } from '@/lib/export/dates';
 import { TRIP_EDIT_ON } from '@/lib/trip-edit/flag';
-import { openTripHref } from '@/lib/trip-edit/keys';
+import { openTripHref, tripHref } from '@/lib/trip-edit/keys';
 import { partyText } from './copies';
 
 /**
@@ -79,6 +79,9 @@ export function openHref(c: CopyItem): string {
   const q = openQuery(c);
   return `/trips/${c.slug}/${q ? `?${q}` : ''}`;
 }
+
+/** The copy's own page in edit mode, on its days (patterns 3.8: the row menu's Edit; only with `tripEdit` on). */
+export const editHref = (id: string): string => tripHref(id, 'edit=1&view=day');
 
 export function rowModel(item: CopyItem, today: string): RowModel {
   const who = [item.days ? num(item.days, 'day') : '', partyText(item)].filter(Boolean).join(' · ');
