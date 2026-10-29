@@ -94,3 +94,15 @@ export function hasColumn(table: CreatedTable, column: string): boolean {
   const re = new RegExp(`(?:^|[(,\\n])\\s*"?${column.replace(/[^a-z0-9_]/gi, "")}"?\\s+[a-z]`, "i");
   return re.test(table.body);
 }
+
+const ALTER_RE = /alter\s+table\s+(?:if\s+exists\s+)?(?:only\s+)?(?:public\.)?([a-z_][a-z0-9_]*)\s+([^;]*);/gi;
+const ADD_COLUMN_RE = /add\s+column\s+(?:if\s+not\s+exists\s+)?"?([a-z_][a-z0-9_]*)"?\s+[a-z]/gi;
+
+/** Every `alter table <t> add column [if not exists] <c> <type>` of one migration's SQL (several per statement), in order. */
+export function addedColumns(sql: string): { table: string; column: string }[] {
+  const out: { table: string; column: string }[] = [];
+  for (const m of stripComments(sql).matchAll(ALTER_RE)) {
+    for (const c of m[2]!.matchAll(ADD_COLUMN_RE)) out.push({ table: m[1]!.toLowerCase(), column: c[1]!.toLowerCase() });
+  }
+  return out;
+}

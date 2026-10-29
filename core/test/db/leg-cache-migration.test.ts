@@ -26,4 +26,18 @@ describe("migration 0014 leg_cache_server_write", () => {
     expect(sql).toMatch(/t:\[1-9\]/);
     expect(sql).toMatch(/g:\[0-9bcdefghjkmnpqrstuvwxyz\]\{6\}/);
   });
+
+  it("marks who wrote a row (SEEDC): existing rows backfilled 'seed', new rows 'server', the app role may write only 'server' rows", () => {
+    const sql = m!.sql;
+    expect(sql).toMatch(/add column if not exists origin text not null default 'seed' check \(origin in \('seed', 'server'\)\)/);
+    // the default flips only after the column exists, so the backfill is 'seed' and every later insert without an origin is the server's
+    expect(sql.indexOf("alter column origin set default 'server'")).toBeGreaterThan(sql.indexOf("add column if not exists origin"));
+    expect(sql).toMatch(/add constraint leg_cache_origin_keys\s+check \(\(origin = 'server'\) = \(public\.leg_cache_key_ok\(from_cell\) and public\.leg_cache_key_ok\(to_cell\)\)\)/);
+    const policy = (name: string) => new RegExp(`create policy ${name}[^;]*;`).exec(sql)![0];
+    expect(policy("leg_cache_insert")).toMatch(/with check \(origin = 'server' and/);
+    expect(policy("leg_cache_update")).toMatch(/using \(origin = 'server' and/);
+    expect(policy("leg_cache_update")).toMatch(/with check \(origin = 'server' and/);
+    // the prune drops server rows only; the seed sync owns its own
+    expect(/create or replace function leg_cache_prune[\s\S]*?\$\$;/.exec(sql)![0]).toMatch(/where origin = 'server'/);
+  });
 });

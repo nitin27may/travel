@@ -162,7 +162,7 @@ flowchart LR
 | `suitability`, `relevance`, `relevance_signal` | sidecars and signal files | `ref`; `(source, key)` | RIS-L remainder |
 | `evidence`, `research_job`, `research_gap`, `changeset`, `change` | Vals and conflicts, run records, changeset files | `content_hash`, run id, changeset id | RIS-L remainder; `evidence` is append-only |
 | `place_row`, `place_page`, `trip_row`, `trip_page`, `relevance_derived` | computed by the same core code as `JsonStore` | `slug`; `(trip_slug, ref)` | written last; never hand-loaded |
-| `leg_cache` | `data/schedules/legs/*.json` stored legs | `(from_cell, to_cell, mode)` | through STY-L; a cache, so sync may delete |
+| `leg_cache` | `data/schedules/legs/*.json` stored legs | `(from_cell, to_cell, mode)` | through STY-L; a cache, so sync may delete, but **only its own rows**: the table is shared with the server leg service (TB-L), so the contract scopes it to `origin = 'seed'` (contract v2, SEEDC 28 Oct 2026; migration 0014 adds `origin`). Server rows (`origin = 'server'`) are never read, updated or deleted by a sync; `leg_cache_prune` drops them. The two key spaces are disjoint by a check constraint: server rows use `r:`, `t:` and `g:` keys on both ends, seed rows keep at least one stop id |
 | `freshness_rule` | `data/schema/freshness.json` | `field_prefix` | RIS-L remainder |
 | `catalogue_meta` | the revision of the commit | `key` | written last, in the same transaction, so readers see one revision |
 
@@ -909,6 +909,7 @@ None of these tables has a `meta` column yet (RIS-M), so `stampSeedMeta` is not 
 | 2026-10-25 | First version (travel-planner, Opus): answer to "is migration blocked", the seed-of-record strategy, local Docker matching Neon, the Neon side, measured seed size, tasks LOCAL-1 to LOCAL-5, LOCAL-C, BKP-1, MIG-N, conflicts L1 to L8, Q180 to Q187 |
 | 2026-10-25 | LOCAL-C built (travel-builder, Opus 5.5), branch `public/LOCAL-C`: `core/src/seed/**`, `core/src/config/database.ts`, section 12 |
 | 2026-10-25 | LOCAL-2 built (travel-builder, Sonnet 5.5), branch `public/LOCAL-2`: seed engine, `core/bin/db-seed.ts`, the reference families, the resolver on the guard, section 13 |
+| 2026-10-28 | SEEDC (travel-builder, Opus 5.5): contract v2 adds `scope` (a shared table's own rows); `leg_cache` scoped to `origin = 'seed'`, so a sync never deletes a server-written leg; the engine scopes reads, updates, deletes and the db:seed emptiness check, and refuses an unscoped seed row (E_SEED_SCOPE). Unapplied 0014 amended in place (`origin`, `leg_cache_origin_keys`, server-only prune). Go-live: [runbook-leg-cache-switch-on.md](../build/runbook-leg-cache-switch-on.md) |
 | 2026-10-26 | Owner decision: the catalogue load moves forward to v0.5 ([CATALOGUE-EARLY.md](../build/CATALOGUE-EARLY.md)). Q183 and the 1.4 row superseded; 8.1 waves note. Measured on 9b556fb: the reference seed is now 13,243 rows (11,759 towns) and 8.0 MB in Postgres |
 
 Sources for Neon and Docker facts: [Neon plans](https://neon.com/docs/introduction/plans) (Free: 1 GB per project, 10 branches,
