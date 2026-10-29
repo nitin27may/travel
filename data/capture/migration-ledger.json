@@ -8673,6 +8673,21 @@
       "element": "node/269752450",
       "on": "2026-10-28",
       "reason": "the pin was a derived trailhead at the destination's centre; the record's own OSM trailhead was researched in DG-02 (research/runs/dg2-2026-10-28-stop-points.md)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+      "was": [
+        53.1299,
+        -117.771
+      ],
+      "derived": "trailhead \"Miette Hot Springs\" at legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
+      "now": [
+        53.203884,
+        -117.926217
+      ],
+      "element": "node/2383706255",
+      "on": "2026-10-29",
+      "reason": "Researched OSM trailhead node 2383706255 replaces the derived Miette Hot Springs point; held back in DG-02/DG2F only until the towns layer could take a new anchor (towns.py build from the cached 27 Oct dump, FIX2)"
     }
   ]
 }

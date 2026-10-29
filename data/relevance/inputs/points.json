@@ -590,10 +590,10 @@
       "point_source": "OSM node 269821248 North Interlakes (amenity=parking)"
     },
     "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail": {
-      "lat": 53.1299,
-      "lon": -117.771,
-      "coord_src": "wikidata",
-      "point_source": "trailhead \"Miette Hot Springs\" at legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs"
+      "lat": 53.20388,
+      "lon": -117.92622,
+      "coord_src": "osm",
+      "point_source": "OSM node 2383706255, highway=trailhead \"Miette coal trail\", beside car park way 229826695; Parks Canada: \"On Miette Road, 200 m from the intersection with Highway 16\" (OSM puts the junction about 215 m away)"
     },
     "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop": {
       "lat": 51.19958,
