@@ -10,12 +10,21 @@ import { useToast } from '@/components/ui/Toast';
 import { UNIT_PATTERN } from '@/lib/format/convert';
 import { appleMapsUrl, directionsUrl } from '@/lib/map/links';
 import type { LngLat } from '@/lib/map/types';
+import { InYourTripsLazy, TripPickerLazy } from '@/components/trip-picker/Lazy';
+import { TRIP_EDIT_ON } from '@/lib/trip-edit/flag';
+
+/** What the place page tells the trip picker (STEP2-P1): the park flag, and the public trips that use the place (slugs only). */
+export interface EditProps {
+  /** a protected area or range: the picker offers its members, never the area itself */
+  park: boolean;
+  trips: string[];
+}
 
 /**
  * "Save to a trip" for a visitor: the public site has no account, so the button opens a plain note that saving comes with
  * the planner, with Copy link and the GPX export as the things that work today (patterns 3.6, backlog 2.13).
  */
-export function SaveToTrip({ url, slug, formats, primary = false }: { url: string; slug: string; formats: ExportFormat[]; /** the cover's one primary action, when there is no Directions button */ primary?: boolean }) {
+export function SaveToTrip({ url, slug, formats, primary = false, edit }: { url: string; slug: string; formats: ExportFormat[]; /** the cover's one primary action, when there is no Directions button */ primary?: boolean; /** with `tripEdit` on (STEP2-P1): the trip picker replaces the note; the page passes it only then, so a build with the flag off carries nothing */ edit?: EditProps }) {
   const [open, setOpen] = useState(false);
   const id = useId();
   const { toast } = useToast();
@@ -36,6 +45,21 @@ export function SaveToTrip({ url, slug, formats, primary = false }: { url: strin
       host.remove();
     };
   }, [live]);
+  // the "In your trips" line goes right under the action row (a portal into a slot after it), as its own chunk
+  const [line, setLine] = useState<HTMLElement | null>(null);
+  const picking = TRIP_EDIT_ON && !!edit;
+  useEffect(() => {
+    const row = picking && live ? document.querySelector('.pl-actions') : null;
+    if (!row) return;
+    const host = document.createElement('div');
+    host.className = 'pl-in-trips';
+    row.after(host);
+    setLine(host);
+    return () => {
+      host.remove();
+      setLine(null);
+    };
+  }, [picking, live]);
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(url);
@@ -49,7 +73,9 @@ export function SaveToTrip({ url, slug, formats, primary = false }: { url: strin
       <Button variant="primary" className={primary ? 'pl-primary' : undefined} aria-expanded={open} aria-controls={id} onClick={() => setOpen((o) => !o)}>
         <Icon name="plus" size={15} /> Save to a trip
       </Button>
-      {open ? (
+      {picking && open ? <TripPickerLazy place={{ slug, name: placeName(slug), park: edit.park }} onClose={() => setOpen(false)} /> : null}
+      {picking && line ? createPortal(<InYourTripsLazy slug={slug} publicTrips={edit.trips} />, line) : null}
+      {!picking && open ? (
         <div id={id} className="pl-save-note" role="status">
           <p>Saving to a trip comes with the planner, which is not open yet. For now, copy the link or take the GPX.</p>
           <p className="pl-save-actions">
@@ -66,6 +92,9 @@ export function SaveToTrip({ url, slug, formats, primary = false }: { url: strin
 }
 
 const noSubscribe = () => () => {};
+
+/** The page's name, from its h1 (the heart reads it the same way: no new prop crosses the server boundary). */
+const placeName = (slug: string): string => document.querySelector('h1')?.textContent?.trim() || slug.replace(/-/g, ' ');
 
 /**
  * The cover Directions button (R4-C1): the same two choices as the Directions card in the rail, Google Maps and Apple Maps, both from our

@@ -1,0 +1,25 @@
+/* The trip picker (STEP2-P1; components 5.1 side sheet, 5.5 bottom sheet) and the "In your trips" line. Tokens only (tests/no-hex.test.ts). */
+
+.tpk-sheet .sheet-body { padding: 0; }
+.tpk { display: grid; align-content: start; gap: var(--s-3); padding: var(--s-3) var(--s-4) var(--s-6); min-width: 0; }
+@media (min-width: 640px) { .tpk { padding-left: var(--s-5); padding-right: var(--s-5); } }
+.tpk-lead { margin: 0; font: var(--t-small); color: var(--ink-2); }
+.tpk-list, .tpk-more { list-style: none; margin: 0; padding: 0; display: grid; }
+.tpk-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--s-3); padding: var(--s-3) 0; border-top: 1px solid var(--line); }
+.tpk-list > .tpk-row:first-child { border-top: 0; }
+.tpk-main { display: grid; gap: 2px; min-width: 0; }
+.tpk-main p { margin: 0; overflow-wrap: anywhere; }
+.tpk-name { font: var(--t-title); color: var(--ink); }
+.tpk-when, .tpk-who { font: var(--t-meta); color: var(--ink-2); }
+.tpk-day { font: var(--t-meta); color: var(--muted); }
+.tpk-add { min-height: var(--touch-min); min-width: 64px; white-space: nowrap; }
+.tpk-more { border-top: 1px solid var(--line); }
+.tpk-more > li + li { border-top: 1px solid var(--line); }
+.tpk-plain { display: flex; align-items: center; justify-content: flex-start; gap: var(--s-2); width: 100%; min-height: var(--touch-min); padding: 0; border: 0; background: none; color: var(--ink); font: var(--t-body); text-decoration: none; cursor: pointer; }
+.tpk-plain:hover { color: var(--accent-text); }
+.tpk-plain:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+
+/* the place page's line under the action row */
+.tpk-in { margin: var(--s-2) 0 0; font: var(--t-small); color: var(--ink-2); }
+.tpk-in a { color: var(--accent-text); }
+.tpk-in-note, .tpk-in-more { color: var(--muted); }

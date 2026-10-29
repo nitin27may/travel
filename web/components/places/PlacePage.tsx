@@ -26,6 +26,7 @@ import { dedupeMapPoints } from './mapPoints';
 import type { PlaceMapPoint } from './PlaceMap';
 import { PlaceShell } from './PlaceShell';
 import { DirectionsChooser, SaveToTrip } from './SaveToTrip';
+import { TRIP_EDIT_ON } from '@/lib/trip-edit/flag';
 import { TrailExport } from './TrailExport';
 import { TrailMap } from './TrailMap';
 import { TrailProfile } from './TrailProfile';
@@ -462,7 +463,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
           ) : null}
           <div className="pl-actions">
             {target ? <DirectionsChooser at={target.at} label={target.label} /> : null}
-            <SaveToTrip url={url} slug={place.slug} formats={['gpx']} primary={!target} />
+            <SaveToTrip url={url} slug={place.slug} formats={['gpx']} primary={!target} edit={TRIP_EDIT_ON ? { park: place.kind === 'area' || place.subkind === 'range', trips: place.trips.map((t) => t.slug) } : undefined} />
             <TrailExport slug={place.slug} lines={place.lines} />
             <ShareButton url={url} title={place.name} />
             {place.point ? (
