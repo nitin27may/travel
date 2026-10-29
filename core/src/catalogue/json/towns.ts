@@ -3,8 +3,8 @@
 // `publicTownLayer()` (core/src/privacy/towns.ts) runs on every row at load and builds the gazetteer the privacy detector accepts by
 // identity. Nothing here names a town or knows where the household lives: a town is never special.
 //
-// What it answers: `towns()` (a centre and a radius, or a name prefix inside one region) and the `city=` filter of a list. `near`,
-// `nearbyForPlace` and `globeCity` stay `not_available` until their own lanes (LST2c, PLC2b, GLB2b) fill them.
+// What it answers: `towns()` (a centre and a radius, or a name prefix inside one region), the `city=` filter of a list and the town of a
+// `near(city=)` centre (`town()`). `nearbyForPlace` and `globeCity` stay `not_available` until their own lanes (PLC2b, GLB2b) fill them.
 import type { TownRow } from "../../derive/townsData.ts";
 import { publicTownLayer, type PublicGazetteer } from "../../privacy/towns.ts";
 import * as S from "../../schema/api/index.ts";
@@ -90,7 +90,7 @@ export class TownsLayer {
 
   // ---- towns() -------------------------------------------------------------------------------------------------------------------
 
-  private centre(near: string | undefined, city: string | undefined, place: (slug: string) => S.PlaceRow | undefined): Outcome<S.NearPage["centre"]> {
+  private centre(near: string | undefined, city: string | undefined, place: (slug: string) => S.PlaceRow | undefined): Outcome<S.NearNamedCentre> {
     if (city) {
       const t = this.byId.get(city);
       return t ? { ok: true, data: { kind: "town", key: city, name: t.name, lat: t.lat, lon: t.lon } } : fail("not_found", "No town has that id.");

@@ -1,4 +1,4 @@
-import type { PlaceRow, ResolveRow, TripLegs, TripPlanModel } from '@travel/core/schema/api/index.ts';
+import type { NearRow, PlaceRow, ResolveRow, TripLegs, TripPlanModel } from '@travel/core/schema/api/index.ts';
 import type { PlanBuildAnswer, PlanBuildInput, PlanCandidatePage, PlanCandidatesQuery, PlanErrorCode, PlanRegions, PlanStarts } from '@travel/core/schema/api/plan.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import type { EntityDescriptor, FacetParam, ListState } from '@/lib/entities/types';
@@ -48,6 +48,18 @@ export interface ReportInput {
 
 /** `link`: open this URL (today). `submitted`: a server stored the report (`POST /api/v1/report`, same input). `off`: not available yet, render nothing. */
 export type ReportResult = { kind: 'link'; url: string } | { kind: 'submitted'; id: string } | { kind: 'off' };
+
+/**
+ * One `nearPage` read (N2; store.ts A41): a centre, a radius and an optional kind filter. A `point` is the asker's own point: the
+ * adapter rounds it to the near cell before it builds the URL and never sends it finer; `place` is a public slug.
+ */
+export interface NearRead {
+  centre: { point: { lat: number; lon: number } } | { place: string } | { town: string };
+  /** km; the server clamps above its cap */
+  r: number;
+  /** place kinds to keep (the `kind` facet); absent: every kind */
+  kinds?: readonly string[];
+}
 
 export interface DataClient {
   searchManifest(): Promise<SearchManifest>;
@@ -103,6 +115,14 @@ export interface DataClient {
    * StaticAdapter) or the request failed or was aborted.
    */
   placesPage(q: { q?: string; bbox?: string; ids?: readonly string[] }, page: number, pageSize: number, signal?: AbortSignal): Promise<{ items: PlaceRow[]; nextPage: number | null } | null>;
+
+  /**
+   * One page of the places around a centre, nearest first, each with its straight-line distance, bearing and drive band (an
+   * estimate): `GET /api/v1/near/` (N2, store.ts A41). A point centre is rounded to the near cell first, so distances are from the
+   * cell (within `nearCellSlackKm()` of the asker's own). Null when the adapter has no such endpoint (the StaticAdapter), the server
+   * answers 501, or the read failed or was aborted: the caller keeps its fallback.
+   */
+  nearPage(q: NearRead, page: number, pageSize: number, signal?: AbortSignal): Promise<{ items: NearRow[]; total: number; nextPage: number | null } | null>;
 
   // ---- TB-API: the trip builder's three calls (trip-builder.md 5; X2) ----------------------------------------------------------------
   /**

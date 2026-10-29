@@ -262,6 +262,7 @@ export function toSearchParams(q: S.PlaceQuery | S.NearQuery | S.CountQuery | S.
   if (page.pageSize) p.set("pageSize", String(page.pageSize));
   if (q.ids?.length) p.set("ids", q.ids.join(","));
   if ("near" in q && q.near) p.set("near", q.near);
+  if ("city" in q && q.city && !q.facets?.city?.length) p.set("city", q.city);
   if ("r" in q && q.r !== undefined) p.set("r", String(q.r));
   if ("parsed" in q && q.parsed) {
     if (q.parsed.q) p.set("parsed.q", q.parsed.q);

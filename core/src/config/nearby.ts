@@ -5,6 +5,7 @@
 // the presets are part of the published contract). This module re-exports them under the names the rest of the code uses and adds the
 // numbers the contract does not carry (the walk and drive band arithmetic, the household exclusion radius). Change a radius in
 // limits.ts only; nothing else holds a copy.
+import { haversineKm } from "../geo/distance.ts";
 import { API_LIMITS } from "../schema/api/limits.ts";
 
 /** "Near" (nearby spec 5.1): places within this many km of a place or the visitor's centre. Also the default `near` radius. */
@@ -28,6 +29,18 @@ export const RADIUS_PRESETS: readonly number[] = API_LIMITS.nearRadius.presets;
 export const RADIUS_CAP: number = API_LIMITS.nearRadius.max;
 /** The default radius when the centre is an area rather than a point. */
 export const AREA_DEFAULT_R: number = API_LIMITS.nearRadius.areaDefault;
+/** The decimals a `near=point:<lat>,<lon>` coordinate may carry (store.ts A41): the cell a client rounds its point to before it asks. */
+export const NEAR_POINT_DECIMALS: number = API_LIMITS.nearPoint.decimals;
+/** A coordinate rounded to the near cell, as the URL carries it. */
+export const toNearCell = (deg: number): number => Number(deg.toFixed(NEAR_POINT_DECIMALS)) || 0;
+/**
+ * The most a distance from the cell can differ from the distance from the asker's own point inside it: half the cell's diagonal at the
+ * equator, where a degree of longitude is longest (about 0.79 km). A client that re-measures from its exact point asks for `r` plus this.
+ */
+export function nearCellSlackKm(): number {
+  const half = 0.5 / 10 ** NEAR_POINT_DECIMALS;
+  return haversineKm({ lat: 0, lon: 0 }, { lat: half, lon: half });
+}
 
 /** Under this many km of straight line a place is a walk (nearby spec 5.1). */
 export const WALK_KM = 1.2;

@@ -183,29 +183,37 @@ describe('GET /api/v1/plan/candidates', () => {
     expect(page.items.length).toBeGreaterThan(0);
     expect(page.items.every((r) => r.driveMin !== null && r.driveMin <= 120)).toBe(true);
     const pick = page.items[0]!;
-    // the real JsonStore answers `near` with not_available until phase E (N2): the service passes that code through
-    const real = await get('candidates', `/candidates/?m=near&from=hub:calgary&r=120&near=${pick.slug}&limit=6`);
-    expect(real.status).toBe(501);
-    // a store whose `near` works (here: the neighbours by region) gives a strip of at most `limit` rows, never the pick itself
-    const base = getStore();
-    const withNear = new Proxy(base, {
-      get: (t, k, r) =>
-        k === 'near'
-          ? async (_q: unknown, pg: { page?: number }) => {
-              const l = await t.listPlaces({ facets: { country: ['CA'], region: ['alberta'] } }, { page: pg.page ?? 1, pageSize: 100 });
-              return l.ok ? { ...l, data: { ...l.data, items: l.data.items.map((x) => ({ ...x, distanceKm: 1, bearing: 'N', band: 'lt15', basis: 'estimate', minutes: 10 })) } } : l;
-            }
-          : Reflect.get(t, k, r),
-    });
-    const d = deps();
-    d.service = createPlanService({ store: withNear, legs: null, reference, drive: defaultDrive, now: () => NOW });
-    const strip = await get('candidates', `/candidates/?m=near&from=hub:calgary&r=120&near=${pick.slug}&limit=6`, {}, d);
+    // the real JsonStore answers `near` (N2, store.ts A41): a strip of at most `limit` rows around the pick, never the pick itself
+    const strip = await get('candidates', `/candidates/?m=near&from=hub:calgary&r=120&near=${pick.slug}&limit=6`);
     const stripBody = await strip.json();
-    expect(stripBody.error).toBeUndefined();
+    expect(strip.status, JSON.stringify(stripBody.error)).toBe(200);
     const stripPage = planCandidatePage.parse(stripBody);
     expect(stripPage.items.length).toBeLessThanOrEqual(6);
     expect(stripPage.items.length).toBeGreaterThan(0);
     expect(stripPage.items.some((r) => r.slug === pick.slug)).toBe(false);
+  });
+
+  it('a town start resolves to the public gazetteer point through near(city=) and answers like a hub start there (N2)', async () => {
+    const town = await getStore().near({ city: 'ca-ab-calgary', r: 1 }, { page: 1, pageSize: 1 });
+    expect(town.ok).toBe(true);
+    const res = await get('candidates', '/candidates/?m=near&from=town:ca-ab-calgary&r=120');
+    const body = await res.json();
+    expect(res.status, JSON.stringify(body.error)).toBe(200);
+    const page = planCandidatePage.parse(body);
+    expect(page.items.length).toBeGreaterThan(0);
+    expect(page.items.every((r) => r.driveMin !== null && r.driveMin <= 120)).toBe(true);
+    // the start is never echoed in the answer (the detector's `from` rule)
+    expect(JSON.stringify(body)).not.toContain('ca-ab-calgary');
+    const unknown = await get('candidates', '/candidates/?m=near&from=town:ca-ab-no-such-town&r=120');
+    expect(unknown.status).toBe(501);
+  });
+
+  it('a build with a town start and a town origin builds (N2)', async () => {
+    const picks = await someCandidates(3);
+    const res = await post(buildBody(picks, { where: { mode: 'near', start: { kind: 'town', id: 'ca-ab-calgary' }, driveLimitMin: 240 }, nights: 0, origin: { kind: 'town', id: 'ca-ab-calgary' } }));
+    const body = await res.json();
+    expect(res.status, JSON.stringify(body.error)).toBe(200);
+    expect(planBuildAnswer.safeParse(body).success).toBe(true);
   });
 
   it('a start no public file knows is not_available, never guessed', async () => {

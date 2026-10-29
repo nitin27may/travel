@@ -1,11 +1,12 @@
 // Where the add picker's places come from (STEP2-E3; P8, P9): light Places list rows, one page at a time, from the catalogue's HTTP
-// contract through the data module (`placesPage`, P9). Three reads, none of them bulk: the places inside a box round a day's base (`near`; the near API answers `not_available` until
-// N2, so the list's `bbox` stands in and is filtered to the circle here), a search page, and the rows of a few named slugs. A build with
-// the static adapter has no API: every read answers null and the picker falls back to the lists the trip's own plan model carries.
-// When the API grows `near`, `nearPage` is the one function to move onto it.
-import { ADD_NEARBY_KM } from '@travel/core/config/nearby.ts';
+// contract through the data module (P9). Three reads, none of them bulk: the places round a day's base (`nearPage`: the near API since
+// N2, `GET /api/v1/near/?near=point:<cell>`, nearest first; the base is rounded to the near cell before it is sent, store.ts A41, so the
+// read asks for the radius plus the cell slack and the circle and order are re-measured here from the exact base; a server without near
+// answers null once and the list's `bbox` stands in for the rest of the visit), a search page, and the rows of a few named slugs. A
+// build with the static adapter has no API: every read answers null and the picker falls back to the lists the trip's own plan model carries.
+import { ADD_NEARBY_KM, nearCellSlackKm } from '@travel/core/config/nearby.ts';
 import type { Point } from '@travel/core/schedule/types.ts';
-import { placesPage } from '@/lib/client/data';
+import { nearPage as nearRead, placesPage } from '@/lib/client/data';
 import { PAGE_SIZE } from '@/lib/config/product';
 import { bboxAround, isStop, kmBetween, type Found } from './place';
 
@@ -46,16 +47,35 @@ async function read(params: { q?: string; bbox?: string; ids?: readonly string[]
   return placesPage(params, page, pageSize, signal);
 }
 
-/** One page of the places within `km` of `centre`, nearest first within the page. Rows outside the circle (the box is wider) are dropped. */
+/** False once the near API answered null in this visit (no endpoint, 501, a failed read): the box read stands in from then on. */
+let nearWorks = true;
+/** Tests: the near API is asked again. */
+export const resetNearSource = (): void => {
+  nearWorks = true;
+};
+
+/** One page of the places within `km` of `centre`, nearest first within the page. Rows outside the circle are dropped. */
 export async function nearPage(centre: Point, page: number, signal?: AbortSignal, km: number = ADD_NEARBY_KM): Promise<Page | null> {
-  const got = await read({ bbox: bboxAround(centre, km) }, page, PAGE_SIZE.list, signal);
-  if (!got) return null;
-  const rows = got.items
+  if (!apiAvailable()) return null;
+  let items: ApiRow[] | null = null;
+  let next: number | null = null;
+  if (nearWorks) {
+    const got = await nearRead({ centre: { point: centre }, r: km + nearCellSlackKm() }, page, PAGE_SIZE.list, signal);
+    if (got) [items, next] = [got.items, got.nextPage];
+    else if (!signal?.aborted) nearWorks = false;
+  }
+  if (!items) {
+    if (signal?.aborted) return null;
+    const got = await read({ bbox: bboxAround(centre, km) }, page, PAGE_SIZE.list, signal);
+    if (!got) return null;
+    [items, next] = [got.items, got.nextPage];
+  }
+  const rows = items
     .map(foundOf)
     // a town is where the day is based, not a place to go to: it stays out of the near list, though a search still finds it (ER-024)
     .filter((f) => isStop(f) && f.kind !== 'town' && f.lat !== null && f.lon !== null && kmBetween(centre, { lat: f.lat, lon: f.lon }) <= km)
     .sort((a, b) => kmBetween(centre, { lat: a.lat!, lon: a.lon! }) - kmBetween(centre, { lat: b.lat!, lon: b.lon! }) || a.slug.localeCompare(b.slug));
-  return { rows, next: got.nextPage };
+  return { rows, next };
 }
 
 /** One page of the catalogue's places matching the words, all of them (a stop may be anywhere); the caller orders them by the day's base. */

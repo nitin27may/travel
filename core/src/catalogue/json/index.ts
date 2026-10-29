@@ -2,8 +2,8 @@
 // (./source.ts), so core never imports web. This class owns what the contract owns (store.ts A1 to A23): input validation, the caps
 // (principle P8: inside the methods), the sort and paging rule, region/`ids`/`q` resolution, the error codes and the revision.
 //
-// Until phase E fills them, `near`, `nearbyForPlace` and `globeCity` answer `not_available` (cases K3, K4, K5, K17 are pending on this
-// target with the task that fills them). `towns`, `city=` and the gazetteer (`publicTowns()`) come from the source's towns layer (META-2,
+// `near` is filled by N2 (store.ts A41, ../near.ts). Until their lanes fill them, `nearbyForPlace` (PLC2b) and `globeCity` (GLB2b)
+// answer `not_available`. `towns`, `city=` and the gazetteer (`publicTowns()`) come from the source's towns layer (META-2,
 // json/towns.ts); a source with no towns layer answers `not_available` for them as before. Parsed counts, listUnchecked, searchCards, tripLegs and the json
 // export (API-3b) are implemented here over the source's members.
 import type { z } from "zod";
@@ -23,6 +23,7 @@ import { mergeParsed, type CatalogueStore } from "../store.ts";
 import { resolveRefsAnswer, resolveSetupOf, type ResolveSetup } from "../resolve.ts";
 import { uncheckedPageOf } from "../unchecked.ts";
 import { noLegs, tripLegsOf } from "./legs.ts";
+import { POINT_CENTRE, driveBander, nearRadius, pointOfToken, rankNear } from "../near.ts";
 import { NO_TOWNS, TownsLayer } from "./towns.ts";
 import type { JsonSource, ListFilter } from "./source.ts";
 
@@ -215,12 +216,62 @@ export class JsonStore implements CatalogueStore, PublicTownsHolder {
     return fail("not_available", "Nearby lands in phase E (N2).");
   }
 
+  /**
+   * The centre of a near query (A41) and the country the drive model reads for it, resolved through indexes only for a place, a town or
+   * a point (case K4: an unknown place reads no row); an area is the mean of its exact points.
+   */
+  private nearCentre(near: string | undefined, city: string | undefined): Result<{ centre: S.NearPage["centre"]; at: { lat: number; lon: number }; cc: string | null }> {
+    if (city) {
+      const layer = this.layer();
+      if (!layer) return fail("not_available", NO_TOWNS);
+      const t = layer.town(city);
+      if (!t) return fail("not_found", "No town has that id.");
+      return ok({ centre: { kind: "town", key: city, name: t.name, lat: t.lat, lon: t.lon }, at: { lat: t.lat, lon: t.lon }, cc: t.cc.toUpperCase() }, "");
+    }
+    if (!near) return fail("invalid_scope", "A near query needs a centre: `near` (place:<slug>, area:<id> or point:<lat>,<lon>) or `city` (a town id).");
+    const point = pointOfToken(near);
+    if (point) return ok({ centre: POINT_CENTRE, at: point, cc: null }, "");
+    const at = near.indexOf(":");
+    const [kind, id] = [near.slice(0, at), near.slice(at + 1)];
+    if (kind === "place") {
+      const r = this.placeBySlug.get(currentSlug(this.source.registry, id) ?? id);
+      if (!r || r.lat === null || r.lon === null) return fail("not_found", "No place with a point has that slug.");
+      if (r.approx) return fail("not_found", "That place's point is approximate, so no distance can be measured from it.");
+      return ok({ centre: { kind: "place", key: near, name: r.name, lat: r.lat, lon: r.lon }, at: { lat: r.lat, lon: r.lon }, cc: r.country.toUpperCase() }, "");
+    }
+    if (kind !== "area") return fail("invalid_input", "A near token is place:<slug>, area:<id> or point:<lat>,<lon>.");
+    const inArea = this.source.placeRows.filter((r) => r.lat !== null && r.lon !== null && !r.approx && (r.area === id || `${r.country.toLowerCase()}/${r.region}/${r.area}` === id));
+    if (!inArea.length) return fail("not_found", "No area with an exact point has that id.");
+    const lat = inArea.reduce((s, r) => s + r.lat!, 0) / inArea.length;
+    const lon = inArea.reduce((s, r) => s + r.lon!, 0) / inArea.length;
+    return ok({ centre: { kind: "area", key: near, name: inArea[0]!.area_name, lat, lon }, at: { lat, lon }, cc: inArea[0]!.country.toUpperCase() }, "");
+  }
+
   async near(q: S.NearQuery, page?: S.ApiPage): Promise<Result<S.NearPage>> {
     const qi = check(S.nearQuery, q);
     if (!qi.ok) return qi;
     const pi = check(S.apiPage, page ?? {});
     if (!pi.ok) return pi;
-    return fail("not_available", "Near mode lands in phase E (N2).");
+    const pageSize = pi.value.pageSize ?? S.API_LIMITS.pageSize.default;
+    if (pageSize > S.API_LIMITS.pageSize.max) return fail("too_large", `pageSize is at most ${S.API_LIMITS.pageSize.max}.`, { max: S.API_LIMITS.pageSize.max });
+    const { near, city: cityKey, r: asked, ...list } = qi.value;
+    const city = cityKey ?? list.facets?.city?.[0];
+    const c = this.nearCentre(near, city);
+    if (!c.ok) return c;
+    const { centre, at, cc } = c.data;
+    const { r, clamped } = nearRadius(asked, centre.kind);
+    // a town that is the centre is not also the city filter (the city wins over `near`, nearby spec 5.3)
+    const facets = Object.fromEntries(Object.entries(list.facets ?? {}).filter(([k]) => !(k === "city" && centre.kind === "town")));
+    const { facets: _all, ...rest } = list;
+    const lq: S.PlaceQuery = Object.keys(facets).length ? { ...rest, facets } : rest;
+    const prep = this.prepare(this.source.placeRows, lq, placeHaystack, this.source.placeEngine, "places");
+    if ("code" in prep) return { ok: false, error: prep };
+    const matched = this.source.placeEngine.match(prep.rows, prep.filter);
+    const drive = this.source.drive?.();
+    const ranked = rankNear(matched, at, r, drive ? driveBander(drive, cc) : undefined);
+    const paged = await this.page(ranked.rows, { ...pi.value, pageSize });
+    if (!paged.ok) return paged;
+    return ok({ ...paged.data, centre, r, clamped, basis: { distance: "straight_line", excludedApprox: ranked.excludedApprox } }, paged.revision);
   }
 
   async towns(q: S.TownQuery): Promise<Result<S.TownList>> {

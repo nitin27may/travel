@@ -59,6 +59,11 @@ export function callsFromStore(store: CatalogueStore, reportOn = true, planModel
       if (!r.ok && r.error.code === 'not_available') return null;
       return unwrap(r);
     },
+    near: async (q, page) => {
+      const r = await store.near(q, page);
+      if (!r.ok && r.error.code === 'not_available') return null;
+      return unwrap(r);
+    },
     report: async (page) => {
       if (!reportOn) return null;
       return orNull(store.report({ page }));

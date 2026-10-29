@@ -204,10 +204,18 @@ export function createPlanService(deps: PlanServiceDeps): PlanService {
   async function resolveOrigin(o: PlanOrigin): Promise<PlanPoint | null> {
     if (o.kind === 'hub') return reference.hub(o.id);
     if (o.kind === 'airport') return reference.airport(o.iata);
-    const t = await store.towns({ city: o.id, r: 1 });
-    if (!t.ok) return null;
-    const hit = t.data.items.find((x) => x.id === o.id);
-    return hit ? { lat: hit.lat, lon: hit.lon, cc: hit.cc.toUpperCase() } : null;
+    return townPoint(o.id);
+  }
+
+  /**
+   * A town's public gazetteer point (store.ts A33), through `near(city=)`'s centre (N2, A41): `towns({city})` lists the towns AROUND a
+   * town and leaves the town itself out, so it cannot name it. One row is asked for, at the smallest radius; the rows are not read.
+   * The country is the town id's first segment (`ca-ab-canmore`, apiTownId).
+   */
+  async function townPoint(id: string): Promise<PlanPoint | null> {
+    const n = await store.near({ city: id, r: 1 }, { page: 1, pageSize: 1 });
+    if (!n.ok || n.data.centre.kind !== 'town' || n.data.centre.lat === null || n.data.centre.lon === null) return null;
+    return { lat: n.data.centre.lat, lon: n.data.centre.lon, cc: id.slice(0, 2).toUpperCase() };
   }
 
   /** Region ids (`CC/slug` or a group `cc-id`) as `CC/slug` ids; null names the first id that is a group nobody defines. */
