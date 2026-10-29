@@ -5,7 +5,8 @@
 //
 // Each day belongs to one base for packing (its picks go on that base's days): the base slept at after it, and the last day to the
 // last base. A move day therefore takes stops of the base it moves INTO, on the way or near it. The move's own drive is the day's
-// direct way, so the packer's budgets are what is left of the day after it, and its drive cap is `driveDayMin` less the move.
+// direct way, so the packer's budgets are what is left of the day after it, and its drive cap is `driveDayMin` less the move (at least
+// a stop near the line, `lineCap`). An arrival or departure day's cap is the same: the day's driving less the way in or out.
 import { BUILDER_PACK } from "../config/builder.ts";
 import type { DayKind } from "../schedule/types.ts";
 import type { PlanReason } from "../schema/plan-draft.ts";
@@ -57,13 +58,13 @@ export function routeFrame(a: {
     const owner = after ?? last;
     const common = { day, from, to, owner, sleeps: after };
     if (day === 1) {
-      out.push({ ...common, kind: "arrival", budgetMin: edgeBudget(from, to), driveCapMin: a.driveMin, move: false, moveMin: null, moveRouted: false });
+      out.push({ ...common, kind: "arrival", budgetMin: edgeBudget(from, to), driveCapMin: lineCap(a.driveMin, from === to ? 0 : a.table.minutes(from, to)), softDriveCapMin: a.driveMin, move: false, moveMin: null, moveRouted: false });
     } else if (after === null) {
-      out.push({ ...common, kind: "departure", budgetMin: edgeBudget(from, to), driveCapMin: a.driveMin, move: false, moveMin: null, moveRouted: false });
+      out.push({ ...common, kind: "departure", budgetMin: edgeBudget(from, to), driveCapMin: lineCap(a.driveMin, from === to ? 0 : a.table.minutes(from, to)), softDriveCapMin: a.driveMin, move: false, moveMin: null, moveRouted: false });
     } else if (before !== after) {
       const c = a.table.get(from, to);
       const room = c.min === null ? 0 : Math.max(0, a.dayMin - c.min);
-      out.push({ ...common, kind: "transfer", budgetMin: room, driveCapMin: c.min === null ? 0 : Math.max(0, a.driveMin - c.min), move: true, moveMin: c.min, moveRouted: c.routed });
+      out.push({ ...common, kind: "transfer", budgetMin: room, driveCapMin: lineCap(a.driveMin, c.min), move: true, moveMin: c.min, moveRouted: c.routed });
     } else {
       out.push({ ...common, kind: "normal", budgetMin: a.dayMin, driveCapMin: a.driveMin, move: false, moveMin: null, moveRouted: false });
     }
@@ -89,6 +90,16 @@ export function moveCheck(m: { fromName: string; toName: string; min: number | n
     warnings.push("W_DRIVE_LIMIT");
   }
   return { reasons, warnings };
+}
+
+/**
+ * The driving a day with a way in, out or a move allows beyond that way: what is left of the day's driving after it, and at least a stop
+ * near the line (BUILDER_PACK.lineDetourMin, 4.6 step 2 "the picks within 30 min of the line") when the way alone takes it all. No road:
+ * nothing beyond.
+ */
+export function lineCap(driveMin: number, directMin: number | null): number {
+  if (directMin === null) return 0;
+  return Math.max(BUILDER_PACK.lineDetourMin, driveMin - directMin);
 }
 
 /** Kept here so a client re-flow (TB-E4) reads the same share as the server. */

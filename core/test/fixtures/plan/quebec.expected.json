@@ -1,5 +1,5 @@
 {
-  "engine": "tb-e2.0",
+  "engine": "tb-e2.1",
   "basis": "estimate",
   "bases": [
     {
@@ -49,12 +49,51 @@
       "day": 1,
       "base": "ca-qc-levis",
       "move": false,
-      "items": [],
-      "returnMin": null,
+      "items": [
+        {
+          "ref": "place/plains-of-abraham",
+          "slug": "plains-of-abraham",
+          "name": "Plains Of Abraham",
+          "startMin": 995,
+          "visitMin": 90,
+          "driveMin": 290,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/old-quebec",
+          "slug": "old-quebec",
+          "name": "Old Quebec",
+          "startMin": 1095,
+          "visitMin": 150,
+          "driveMin": 7,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 8,
       "warnings": [
+        "W_PACE",
         "W_DRIVE_LIMIT"
       ],
-      "reasons": []
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Plains Of Abraham",
+            "b": "Old Quebec",
+            "apartMin": 7
+          },
+          "text": "Plains Of Abraham and Old Quebec are 7 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 305
+          },
+          "text": "5 h 05 ≈ of driving"
+        }
+      ]
     },
     {
       "day": 2,
@@ -117,50 +156,12 @@
       "day": 3,
       "base": null,
       "move": false,
-      "items": [
-        {
-          "ref": "place/old-quebec",
-          "slug": "old-quebec",
-          "name": "Old Quebec",
-          "startMin": 510,
-          "visitMin": 150,
-          "driveMin": 8,
-          "basis": "estimate",
-          "locked": false
-        },
-        {
-          "ref": "place/plains-of-abraham",
-          "slug": "plains-of-abraham",
-          "name": "Plains Of Abraham",
-          "startMin": 670,
-          "visitMin": 90,
-          "driveMin": 7,
-          "basis": "estimate",
-          "locked": false
-        }
-      ],
-      "returnMin": 277,
+      "items": [],
+      "returnMin": 280,
       "warnings": [
         "W_DRIVE_LIMIT"
       ],
-      "reasons": [
-        {
-          "code": "close_pair",
-          "values": {
-            "a": "Old Quebec",
-            "b": "Plains Of Abraham",
-            "apartMin": 7
-          },
-          "text": "Old Quebec and Plains Of Abraham are 7 min ≈ apart"
-        },
-        {
-          "code": "day_drive",
-          "values": {
-            "driveMin": 292
-          },
-          "text": "4 h 52 ≈ of driving"
-        }
-      ]
+      "reasons": []
     }
   ],
   "didNotFit": [

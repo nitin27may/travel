@@ -12,8 +12,10 @@ import type { EnginePlace } from "./engineTypes.ts";
  */
 export function isAreaPlace(p: Pick<EnginePlace, "kind" | "type" | "visitMin" | "visitRange">): boolean {
   if (p.visitMin !== null || p.visitRange !== null) return false;
-  if ((BUILDER_AREA.kinds as readonly string[]).includes(p.kind)) return true;
   const t = p.type;
+  // an island, a rock or a valley listed under the list row's `area` kind is a place someone visits, not a park (Perce Rock, Bonaventure)
+  if (t !== null && BUILDER_AREA.stopTypePrefixes.some((x) => t === x || t.startsWith(`${x}.`))) return false;
+  if ((BUILDER_AREA.kinds as readonly string[]).includes(p.kind)) return true;
   if (t === null) return false;
   if ((BUILDER_AREA.types as readonly string[]).includes(t)) return true;
   return BUILDER_AREA.typePrefixes.some((x) => t === x || t.startsWith(`${x}.`));
@@ -21,11 +23,19 @@ export function isAreaPlace(p: Pick<EnginePlace, "kind" | "type" | "visitMin" | 
 
 /**
  * True when `p` lies inside `area`: by the place's `within` closure when it carries one, else (until EG-Q) when its point is at most
- * BUILDER_AREA.fallbackMemberKm from the area's point. An area is never its own member; a place with no point and no `within` is not one.
+ * the area's fallback radius from the area's point (BUILDER_AREA.fallbackMemberKm; a national park's is larger, RB-002: Jasper's
+ * Athabasca Glacier lies 80 km from the park's point). An area is never its own member; a place with no point and no `within` is not one.
  */
-export function inArea(p: Pick<EnginePlace, "ref" | "point" | "within">, area: Pick<EnginePlace, "ref" | "point">): boolean {
+export function inArea(p: Pick<EnginePlace, "ref" | "point" | "within">, area: Pick<EnginePlace, "ref" | "point"> & Partial<Pick<EnginePlace, "type">>): boolean {
   if (p.ref === area.ref) return false;
   if (p.within !== undefined) return p.within.includes(area.ref);
   if (!p.point || !area.point) return false;
-  return haversineKm(p.point, area.point) <= BUILDER_AREA.fallbackMemberKm;
+  return haversineKm(p.point, area.point) <= memberKmOf(area);
+}
+
+/** The fallback member radius of an area: a national park's, else the general one (BUILDER_AREA). */
+export function memberKmOf(area: Pick<EnginePlace, "point"> & Partial<Pick<EnginePlace, "type">>): number {
+  const t = area.type ?? null;
+  const hit = t === null ? undefined : BUILDER_AREA.fallbackMemberKmByType.find((x) => t === x.type || t.startsWith(`${x.type}.`));
+  return hit?.km ?? BUILDER_AREA.fallbackMemberKm;
 }

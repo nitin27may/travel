@@ -9,7 +9,7 @@
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "golden:update": "GOLDEN_UPDATE=1 vitest run test/plan/golden.test.ts",
+    "golden:update": "GOLDEN_UPDATE=1 vitest run test/plan/golden.test.ts test/plan/review-trips.test.ts",
     "golden:timing": "TB_TIMING=1 vitest run test/plan/golden-timing.test.ts"
   },
   "dependencies": {

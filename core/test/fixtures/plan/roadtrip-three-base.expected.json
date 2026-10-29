@@ -1,5 +1,5 @@
 {
-  "engine": "tb-e2.0",
+  "engine": "tb-e2.1",
   "basis": "estimate",
   "bases": [
     {
@@ -111,10 +111,48 @@
       "day": 1,
       "base": "ca-on-ottawa",
       "move": false,
-      "items": [],
-      "returnMin": null,
+      "items": [
+        {
+          "ref": "place/pink-lake",
+          "slug": "pink-lake",
+          "name": "Pink Lake",
+          "startMin": 710,
+          "visitMin": 60,
+          "driveMin": 32,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/byward-market",
+          "slug": "byward-market",
+          "name": "Byward Market",
+          "startMin": 835,
+          "visitMin": 90,
+          "driveMin": 24,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 13,
       "warnings": [],
-      "reasons": []
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Pink Lake",
+            "b": "Byward Market",
+            "apartMin": 24
+          },
+          "text": "Pink Lake and Byward Market are 24 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 69
+          },
+          "text": "1 h 09 ≈ of driving"
+        }
+      ]
     },
     {
       "day": 2,
@@ -130,46 +168,17 @@
           "driveMin": 11,
           "basis": "estimate",
           "locked": false
-        },
-        {
-          "ref": "place/pink-lake",
-          "slug": "pink-lake",
-          "name": "Pink Lake",
-          "startMin": 640,
-          "visitMin": 60,
-          "driveMin": 23,
-          "basis": "estimate",
-          "locked": false
-        },
-        {
-          "ref": "place/byward-market",
-          "slug": "byward-market",
-          "name": "Byward Market",
-          "startMin": 765,
-          "visitMin": 90,
-          "driveMin": 24,
-          "basis": "estimate",
-          "locked": false
         }
       ],
-      "returnMin": 13,
+      "returnMin": 11,
       "warnings": [],
       "reasons": [
         {
-          "code": "close_pair",
-          "values": {
-            "a": "Parliament Hill",
-            "b": "Pink Lake",
-            "apartMin": 23
-          },
-          "text": "Parliament Hill and Pink Lake are 23 min ≈ apart"
-        },
-        {
           "code": "day_drive",
           "values": {
-            "driveMin": 71
+            "driveMin": 22
           },
-          "text": "1 h 11 ≈ of driving"
+          "text": "22 min ≈ of driving"
         }
       ]
     },
@@ -177,9 +186,21 @@
       "day": 3,
       "base": "ca-qc-quebec",
       "move": true,
-      "items": [],
-      "returnMin": 465,
+      "items": [
+        {
+          "ref": "place/old-quebec",
+          "slug": "old-quebec",
+          "name": "Old Quebec",
+          "startMin": 960,
+          "visitMin": 150,
+          "driveMin": 461,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 7,
       "warnings": [
+        "W_PACE",
         "W_DRIVE_LIMIT"
       ],
       "reasons": [
@@ -199,6 +220,13 @@
             "limitMin": 240
           },
           "text": "The move is 7 h 45 ≈, over your 4 h of driving a day: break the drive"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 468
+          },
+          "text": "7 h 48 ≈ of driving"
         }
       ]
     },
@@ -208,22 +236,12 @@
       "move": false,
       "items": [
         {
-          "ref": "place/old-quebec",
-          "slug": "old-quebec",
-          "name": "Old Quebec",
-          "startMin": 490,
-          "visitMin": 150,
-          "driveMin": 7,
-          "basis": "estimate",
-          "locked": false
-        },
-        {
           "ref": "place/montmorency-falls",
           "slug": "montmorency-falls",
           "name": "Montmorency Falls",
-          "startMin": 665,
+          "startMin": 510,
           "visitMin": 75,
-          "driveMin": 23,
+          "driveMin": 27,
           "basis": "estimate",
           "locked": false
         }
@@ -232,20 +250,11 @@
       "warnings": [],
       "reasons": [
         {
-          "code": "close_pair",
-          "values": {
-            "a": "Old Quebec",
-            "b": "Montmorency Falls",
-            "apartMin": 23
-          },
-          "text": "Old Quebec and Montmorency Falls are 23 min ≈ apart"
-        },
-        {
           "code": "day_drive",
           "values": {
-            "driveMin": 57
+            "driveMin": 54
           },
-          "text": "57 min ≈ of driving"
+          "text": "54 min ≈ of driving"
         }
       ]
     },
@@ -337,9 +346,10 @@
           "code": "too_far",
           "values": {
             "min": 455,
-            "radiusMin": 120
+            "radiusMin": 120,
+            "dayDriveMin": 240
           },
-          "text": "Too far from your bases: 7 h 35 ≈ from Ottawa, the nearest, over your 2 h each way"
+          "text": "Too far from your bases: 7 h 35 ≈ from Ottawa, the nearest, over the 2 h each way your 4 h of driving a day allows"
         }
       ]
     }

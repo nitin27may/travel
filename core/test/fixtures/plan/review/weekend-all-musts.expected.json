@@ -1,0 +1,314 @@
+{
+  "engine": "tb-e2.1",
+  "basis": "estimate",
+  "bases": [
+    {
+      "town": "ca-ab-banff",
+      "name": "Banff",
+      "nights": 1,
+      "pinned": false,
+      "picks": 7,
+      "reasons": [
+        {
+          "code": "covers_picks",
+          "values": {
+            "n": 7,
+            "of": 7,
+            "avgMin": 39,
+            "maxMin": 57
+          },
+          "text": "Closest town to 7 of your 7 picks (avg 39 min ≈, longest 57 min ≈)"
+        },
+        {
+          "code": "from_start",
+          "values": {
+            "min": 103
+          },
+          "text": "1 h 43 ≈ from your start to Banff"
+        },
+        {
+          "code": "next_best_base",
+          "values": {
+            "town": "Canmore",
+            "extraMin": 204
+          },
+          "text": "Canmore would add 3 h 24 ≈ of driving in all"
+        }
+      ]
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "base": "ca-ab-banff",
+      "move": false,
+      "items": [
+        {
+          "ref": "legacy/canadian-rockies-2029/adventures/lake-louise-gondola",
+          "slug": "lake-louise-summer-gondola",
+          "name": "Lake Louise Summer Gondola",
+          "startMin": 890,
+          "visitMin": 180,
+          "driveMin": 158,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/lake-louise",
+          "slug": "lake-louise",
+          "name": "Lake Louise",
+          "startMin": 1085,
+          "visitMin": 45,
+          "driveMin": 14,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "legacy/canadian-rockies-2029/sights/moraine-lake",
+          "slug": "moraine-lake",
+          "name": "Moraine Lake",
+          "startMin": 1150,
+          "visitMin": 45,
+          "driveMin": 20,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "legacy/canadian-rockies-2029/trails/sunshine-meadows-citadel-pass",
+          "slug": "sunshine-meadows-to-citadel-pass",
+          "name": "Sunshine Meadows to Citadel Pass",
+          "startMin": 1250,
+          "visitMin": 385,
+          "driveMin": 54,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 25,
+      "warnings": [
+        "W_DAYLIGHT",
+        "W_CEILING",
+        "W_FIT",
+        "W_PACE",
+        "W_DRIVE_LIMIT"
+      ],
+      "reasons": [
+        {
+          "code": "over_pace",
+          "values": {
+            "n": 1,
+            "addDays": 1
+          },
+          "text": "Over your pace: 1 must-see kept on this day; 1 more day gives it room"
+        },
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Lake Louise Summer Gondola",
+            "b": "Lake Louise",
+            "apartMin": 14
+          },
+          "text": "Lake Louise Summer Gondola and Lake Louise are 14 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 271
+          },
+          "text": "4 h 31 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "base": null,
+      "move": false,
+      "items": [
+        {
+          "ref": "legacy/canadian-rockies-2029/adventures/banff-gondola",
+          "slug": "banff-gondola",
+          "name": "Banff Gondola",
+          "startMin": 510,
+          "visitMin": 180,
+          "driveMin": 9,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "legacy/canadian-rockies-2029/trails/larch-valley-sentinel-pass",
+          "slug": "larch-valley-to-sentinel-pass",
+          "name": "Larch Valley to Sentinel Pass",
+          "startMin": 795,
+          "visitMin": 385,
+          "driveMin": 62,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "legacy/canadian-rockies-2029/sights/johnston-canyon",
+          "slug": "johnston-canyon",
+          "name": "Johnston Canyon",
+          "startMin": 1215,
+          "visitMin": 20,
+          "driveMin": 35,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 120,
+      "warnings": [
+        "W_CEILING",
+        "W_FIT",
+        "W_PACE"
+      ],
+      "reasons": [
+        {
+          "code": "over_pace",
+          "values": {
+            "n": 1,
+            "addDays": 2
+          },
+          "text": "Over your pace: 1 must-see kept on this day; 2 more days give it room"
+        },
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Larch Valley to Sentinel Pass",
+            "b": "Johnston Canyon",
+            "apartMin": 35
+          },
+          "text": "Larch Valley to Sentinel Pass and Johnston Canyon are 35 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 226
+          },
+          "text": "3 h 46 ≈ of driving"
+        }
+      ]
+    }
+  ],
+  "didNotFit": [],
+  "spareDays": 0,
+  "matrix": {
+    "refs": [
+      "legacy/canadian-rockies-2029/adventures/lake-louise-gondola",
+      "legacy/canadian-rockies-2029/trails/larch-valley-sentinel-pass",
+      "legacy/canadian-rockies-2029/trails/sunshine-meadows-citadel-pass",
+      "legacy/canadian-rockies-2029/adventures/banff-gondola",
+      "legacy/canadian-rockies-2029/sights/johnston-canyon",
+      "place/lake-louise",
+      "legacy/canadian-rockies-2029/sights/moraine-lake"
+    ],
+    "minutes": [
+      [
+        0,
+        23,
+        50,
+        57,
+        39,
+        14,
+        23
+      ],
+      [
+        23,
+        0,
+        44,
+        52,
+        35,
+        19,
+        4
+      ],
+      [
+        50,
+        44,
+        0,
+        25,
+        26,
+        50,
+        44
+      ],
+      [
+        57,
+        52,
+        25,
+        0,
+        32,
+        59,
+        52
+      ],
+      [
+        39,
+        35,
+        26,
+        32,
+        0,
+        40,
+        35
+      ],
+      [
+        14,
+        19,
+        50,
+        59,
+        40,
+        0,
+        20
+      ],
+      [
+        23,
+        4,
+        44,
+        52,
+        35,
+        20,
+        0
+      ]
+    ],
+    "estimated": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ]
+  }
+}

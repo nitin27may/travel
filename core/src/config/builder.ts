@@ -3,7 +3,7 @@
 // change to a weight or a cap is a change to this file only; core/test/plan/engine.test.ts pins the ones the spec states.
 
 /** The engine version a build carries (`lastBuild.engine`, PLAN_ENGINE_RE): bump it when a change moves a placement. */
-export const BUILDER_ENGINE = "tb-e2.0";
+export const BUILDER_ENGINE = "tb-e2.1";
 
 /** Stage 1, the candidate score (4.3). Integer points, so ties are exact. */
 export const BUILDER_SCORE = {
@@ -79,6 +79,24 @@ export const BUILDER_PACK = {
   addDaysMax: 3,
   /** a trail with no time, no range and no length gets this many minutes, shown as an estimate */
   trailFallbackMin: 120,
+  /**
+   * Spreading the stops (review TB-R1 RB-001): the days fill in order, each with up to this many stops at the pace before the next day
+   * gets one (more when the stops outnumber the days), so a week never holds three stops on one day and five empty days
+   */
+  stopsPerDay: { relaxed: 1, standard: 2, full: 3 },
+  /** a stop this many minutes (either way) from one already on a day joins it beyond the quota: two lakes 15 min apart share a day */
+  clusterMin: 30,
+  /** how many such close stops a day may take beyond its quota (so a chain of close stops never empties the next day) */
+  clusterExtra: 1,
+  /** sweep rotations the seed tries when the quota is large (more stops than days); with a small quota every rotation is tried */
+  seedRotationsMax: 8,
+  /** swaps between days are tried while the quota is at most this (beyond it the days are full and swaps cost more than they give) */
+  swapQuotaMax: 4,
+  /**
+   * a day with a way in, out or a move may drive this many minutes beyond it even when the way alone takes the day's driving: a stop
+   * near the line (4.6 step 2, "the picks within 30 min of the line go first"; Athabasca Glacier on the Banff to Jasper move)
+   */
+  lineDetourMin: 30,
 } as const;
 
 /**
@@ -91,6 +109,21 @@ export const BUILDER_BASES = {
   nightsFloor: 2,
   /** each move day that starts or ends at a base adds this share of a day to the base's demand (4.5 "plus 0.5 for each move day") */
   moveDayDemandShare: 0.5,
+  /**
+   * "Let the plan choose" (review TB-R1 RB-002; FLOW TF8): with no base the visitor pinned, the plan adds a base near the picks beyond a
+   * day out from its first base, while each base can have this many nights by the moves preference (4.4 Kmax): 7 nights and Fewer
+   * moves allow one move (two bases), Balanced and Shorter drives one base per 2 nights. At most PLAN_LIMITS.bases
+   */
+  autoNightsPerBase: { fewer: 3, balanced: 2, shorter: 2 },
+  /** two towns whose plans cost within this many minutes of each other in all are a tie: the larger town wins (a lodge loses to Jasper) */
+  autoTieMin: 20,
+  /** M of the base objective (4.4): the minutes a move costs in packing and check-in, by the moves preference */
+  moveCostMin: { fewer: 240, balanced: 120, shorter: 60 },
+  /**
+   * what a pick no base reaches costs in that objective, minutes: a pick the person made is worth more than a move (240 at Fewer) and
+   * the drive to a base near it, so Maligne Lake and Athabasca Glacier bring Jasper in a week (RB-002); a must is worth a whole day
+   */
+  autoUncoveredMin: { must: 1440, other: 720 },
 } as const;
 
 /** The candidate scan (P8: server side only, bounded). */
@@ -123,6 +156,16 @@ export const BUILDER_AREA = {
    * km (straight line) from the area's point at most. A place that carries `within` is never measured: its list is the answer.
    */
   fallbackMemberKm: 30,
+  /**
+   * The fallback radius by area type, first match (type id or a prefix of it): a national park is a long valley system (Banff and Jasper
+   * run 200 km and more along the Icefields Parkway), so its members reach further than a provincial park's (review TB-R1 RB-002)
+   */
+  fallbackMemberKmByType: [{ type: "nature.protected.national_park", km: 100 }, { type: "national_park", km: 100 }],
+  /**
+   * Type prefixes that keep a pick of an area KIND a stop: an island or a rock (`nature.landform.island`, Perce Rock) is visited, not
+   * the trip's area. A park, zone or region stays an area
+   */
+  stopTypePrefixes: ["nature.landform"],
   /**
    * An area picked with nothing inside it stands for the stops not picked yet: the base objective adds this many round trips from the
    * town into the area per day of the plan (a stop counts one round trip in all), so the base sits near the area, not near the start

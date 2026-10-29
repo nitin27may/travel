@@ -1,0 +1,1240 @@
+{
+ "name": "quebec-family",
+ "build": {
+  "bases": [],
+  "edits": [],
+  "party": {
+   "adults": 2,
+   "children": [
+    7
+   ],
+   "walkKm": null
+  },
+  "where": {
+   "mode": "trip",
+   "cc": "CA",
+   "regions": [
+    "CA/quebec"
+   ]
+  },
+  "nights": 7,
+  "pace": "standard",
+  "moves": "balanced",
+  "month": 7,
+  "origin": {
+   "kind": "airport",
+   "iata": "YQB"
+  },
+  "picks": [
+   {
+    "ref": "place/montmorency-falls",
+    "must": true
+   },
+   {
+    "ref": "place/canyon-sainte-anne",
+    "must": false
+   },
+   {
+    "ref": "place/perce-rock",
+    "must": true
+   },
+   {
+    "ref": "place/bonaventure-island",
+    "must": false
+   },
+   {
+    "ref": "place/cap-bon-ami",
+    "must": false
+   },
+   {
+    "ref": "place/mont-saint-alban",
+    "must": false
+   },
+   {
+    "ref": "place/canyon-des-portes-de-lenfer",
+    "must": false
+   }
+  ]
+ },
+ "start": null,
+ "gateway": {
+  "lat": 46.7911,
+  "lon": -71.3933,
+  "cc": "CA"
+ },
+ "tz": "America/Toronto",
+ "towns": [
+  {
+   "id": "ca-qc-quebec",
+   "name": "Québec",
+   "point": {
+    "lat": 46.81228,
+    "lon": -71.21454,
+    "cc": "CA",
+    "population": 531902
+   },
+   "population": 531902,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-levis",
+   "name": "Lévis",
+   "point": {
+    "lat": 46.80326,
+    "lon": -71.17793,
+    "cc": "CA",
+    "population": 143414
+   },
+   "population": 143414,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-neufchatel-est-lebourgneuf",
+   "name": "Neufchâtel-Est–Lebourgneuf",
+   "point": {
+    "lat": 46.85436,
+    "lon": -71.34191,
+    "cc": "CA",
+    "population": 37540
+   },
+   "population": 37540,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-georges",
+   "name": "Saint-Georges",
+   "point": {
+    "lat": 46.11353,
+    "lon": -70.66526,
+    "cc": "CA",
+    "population": 31173
+   },
+   "population": 31173,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-thetford-mines",
+   "name": "Thetford-Mines",
+   "point": {
+    "lat": 46.09371,
+    "lon": -71.30539,
+    "cc": "CA",
+    "population": 25704
+   },
+   "population": 25704,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-augustin-de-desmaures",
+   "name": "Saint-Augustin-de-Desmaures",
+   "point": {
+    "lat": 46.74064,
+    "lon": -71.45131,
+    "cc": "CA",
+    "population": 17281
+   },
+   "population": 17281,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-l-ancienne-lorette",
+   "name": "L'Ancienne-Lorette",
+   "point": {
+    "lat": 46.79392,
+    "lon": -71.35191,
+    "cc": "CA",
+    "population": 16516
+   },
+   "population": 16516,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-gaspe",
+   "name": "Gaspé",
+   "point": {
+    "lat": 48.83341,
+    "lon": -64.48194,
+    "cc": "CA",
+    "population": 14819
+   },
+   "population": 14819,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-sainte-marie",
+   "name": "Sainte-Marie",
+   "point": {
+    "lat": 46.43401,
+    "lon": -71.01168,
+    "cc": "CA",
+    "population": 13565
+   },
+   "population": 13565,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-laurentides",
+   "name": "Laurentides",
+   "point": {
+    "lat": 47.13336,
+    "lon": -72.28239,
+    "cc": "CA",
+    "population": 12710
+   },
+   "population": 12710,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-montmagny",
+   "name": "Montmagny",
+   "point": {
+    "lat": 46.98043,
+    "lon": -70.55493,
+    "cc": "CA",
+    "population": 11724
+   },
+   "population": 11724,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-romuald",
+   "name": "Saint Romuald",
+   "point": {
+    "lat": 46.75818,
+    "lon": -71.23921,
+    "cc": "CA",
+    "population": 11663
+   },
+   "population": 11663,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-raymond-8593826",
+   "name": "Saint-Raymond",
+   "point": {
+    "lat": 46.8901,
+    "lon": -71.83415,
+    "cc": "CA",
+    "population": 11108
+   },
+   "population": 11108,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-la-malbaie",
+   "name": "La Malbaie",
+   "point": {
+    "lat": 47.654,
+    "lon": -70.15268,
+    "cc": "CA",
+    "population": 8959
+   },
+   "population": 8959,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-pont-rouge",
+   "name": "Pont-Rouge",
+   "point": {
+    "lat": 46.75468,
+    "lon": -71.69566,
+    "cc": "CA",
+    "population": 8723
+   },
+   "population": 8723,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-boischatel",
+   "name": "Boischatel",
+   "point": {
+    "lat": 46.89434,
+    "lon": -71.1448,
+    "cc": "CA",
+    "population": 8231
+   },
+   "population": 8231,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-apollinaire",
+   "name": "Saint-Apollinaire",
+   "point": {
+    "lat": 46.61289,
+    "lon": -71.51258,
+    "cc": "CA",
+    "population": 7968
+   },
+   "population": 7968,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-chandler",
+   "name": "Chandler",
+   "point": {
+    "lat": 48.34935,
+    "lon": -64.67926,
+    "cc": "CA",
+    "population": 7914
+   },
+   "population": 7914,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-donnacona",
+   "name": "Donnacona",
+   "point": {
+    "lat": 46.68042,
+    "lon": -71.7239,
+    "cc": "CA",
+    "population": 7200
+   },
+   "population": 7200,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-baie-saint-paul",
+   "name": "Baie-Saint-Paul",
+   "point": {
+    "lat": 47.44109,
+    "lon": -70.49858,
+    "cc": "CA",
+    "population": 7146
+   },
+   "population": 7146,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-plessisville",
+   "name": "Plessisville",
+   "point": {
+    "lat": 46.21856,
+    "lon": -71.76201,
+    "cc": "CA",
+    "population": 6677
+   },
+   "population": 6677,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-beauceville",
+   "name": "Beauceville",
+   "point": {
+    "lat": 46.21785,
+    "lon": -70.77873,
+    "cc": "CA",
+    "population": 6354
+   },
+   "population": 6354,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-princeville",
+   "name": "Princeville",
+   "point": {
+    "lat": 46.17163,
+    "lon": -71.87462,
+    "cc": "CA",
+    "population": 5693
+   },
+   "population": 5693,
+   "lodging": null
+  },
+  {
+   "id": "ca-nb-ile-de-lameque",
+   "name": "Île-de-Lamèque",
+   "point": {
+    "lat": 47.84661,
+    "lon": -64.59607,
+    "cc": "CA",
+    "population": 5627
+   },
+   "population": 5627,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-shannon",
+   "name": "Shannon",
+   "point": {
+    "lat": 46.88026,
+    "lon": -71.51464,
+    "cc": "CA",
+    "population": 5086
+   },
+   "population": 5086,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-henri",
+   "name": "Saint-Henri",
+   "point": {
+    "lat": 46.69314,
+    "lon": -71.06927,
+    "cc": "CA",
+    "population": 5023
+   },
+   "population": 5023,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-sainte-catherine-de-la-jacques-cartier",
+   "name": "Sainte Catherine de la Jacques Cartier",
+   "point": {
+    "lat": 46.85244,
+    "lon": -71.62056,
+    "cc": "CA",
+    "population": 5021
+   },
+   "population": 5021,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-joseph-de-beauce",
+   "name": "Saint-Joseph-de-Beauce",
+   "point": {
+    "lat": 46.3,
+    "lon": -70.86667,
+    "cc": "CA",
+    "population": 5014
+   },
+   "population": 5014,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-breakeyville",
+   "name": "Breakeyville",
+   "point": {
+    "lat": 46.68037,
+    "lon": -71.22327,
+    "cc": "CA",
+    "population": 5000
+   },
+   "population": 5000,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-la-pocatiere",
+   "name": "La Pocatière",
+   "point": {
+    "lat": 47.36733,
+    "lon": -70.03484,
+    "cc": "CA",
+    "population": 4575
+   },
+   "population": 4575,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-agapit",
+   "name": "Saint-Agapit",
+   "point": {
+    "lat": 46.55674,
+    "lon": -71.44186,
+    "cc": "CA",
+    "population": 4526
+   },
+   "population": 4526,
+   "lodging": null
+  },
+  {
+   "id": "ca-nb-caraquet",
+   "name": "Caraquet",
+   "point": {
+    "lat": 47.79413,
+    "lon": -64.9386,
+    "cc": "CA",
+    "population": 4285
+   },
+   "population": 4285,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-l-islet-sur-mer",
+   "name": "L'Islet-sur-Mer",
+   "point": {
+    "lat": 47.12868,
+    "lon": -70.3707,
+    "cc": "CA",
+    "population": 3803
+   },
+   "population": 3803,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-neuville",
+   "name": "Neuville",
+   "point": {
+    "lat": 46.69823,
+    "lon": -71.58275,
+    "cc": "CA",
+    "population": 3638
+   },
+   "population": 3638,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-l-ange-gardien",
+   "name": "L'Ange-Gardien",
+   "point": {
+    "lat": 46.91976,
+    "lon": -71.08253,
+    "cc": "CA",
+    "population": 3634
+   },
+   "population": 3634,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-chateau-richer",
+   "name": "Château-Richer",
+   "point": {
+    "lat": 46.96031,
+    "lon": -71.03219,
+    "cc": "CA",
+    "population": 3563
+   },
+   "population": 3563,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-sainte-claire",
+   "name": "Sainte-Claire",
+   "point": {
+    "lat": 46.60134,
+    "lon": -70.86319,
+    "cc": "CA",
+    "population": 3526
+   },
+   "population": 3526,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-pascal",
+   "name": "Saint-Pascal",
+   "point": {
+    "lat": 47.51813,
+    "lon": -69.80301,
+    "cc": "CA",
+    "population": 3490
+   },
+   "population": 3490,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-grande-riviere",
+   "name": "Grande-Riviere",
+   "point": {
+    "lat": 48.40026,
+    "lon": -64.50108,
+    "cc": "CA",
+    "population": 3384
+   },
+   "population": 3384,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-st-jean-port-joli",
+   "name": "St-Jean-Port-Joli",
+   "point": {
+    "lat": 47.21418,
+    "lon": -70.26969,
+    "cc": "CA",
+    "population": 3304
+   },
+   "population": 3304,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-portneuf",
+   "name": "Portneuf",
+   "point": {
+    "lat": 46.69058,
+    "lon": -71.89011,
+    "cc": "CA",
+    "population": 3107
+   },
+   "population": 3107,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-perce",
+   "name": "Perce",
+   "point": {
+    "lat": 48.48794,
+    "lon": -64.29852,
+    "cc": "CA",
+    "population": 3095
+   },
+   "population": 3095,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-beaupre",
+   "name": "Beaupré",
+   "point": {
+    "lat": 47.04428,
+    "lon": -70.89529,
+    "cc": "CA",
+    "population": 2803
+   },
+   "population": 2803,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-cap-sante",
+   "name": "Cap-Santé",
+   "point": {
+    "lat": 46.67159,
+    "lon": -71.78812,
+    "cc": "CA",
+    "population": 2666
+   },
+   "population": 2666,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-adstock",
+   "name": "Adstock",
+   "point": {
+    "lat": 46.05007,
+    "lon": -71.08235,
+    "cc": "CA",
+    "population": 2643
+   },
+   "population": 2643,
+   "lodging": null
+  },
+  {
+   "id": "ca-nb-shippagan",
+   "name": "Shippagan",
+   "point": {
+    "lat": 47.74424,
+    "lon": -64.70804,
+    "cc": "CA",
+    "population": 2580
+   },
+   "population": 2580,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-anselme",
+   "name": "Saint-Anselme",
+   "point": {
+    "lat": 46.62922,
+    "lon": -70.9734,
+    "cc": "CA",
+    "population": 2541
+   },
+   "population": 2541,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-raphael",
+   "name": "Saint-Raphaël",
+   "point": {
+    "lat": 46.796,
+    "lon": -70.75576,
+    "cc": "CA",
+    "population": 2458
+   },
+   "population": 2458,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-lambert-de-lauzon",
+   "name": "Saint-Lambert-de-Lauzon",
+   "point": {
+    "lat": 46.58624,
+    "lon": -71.20892,
+    "cc": "CA",
+    "population": 2443
+   },
+   "population": 2443,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-marc-des-carrieres",
+   "name": "Saint-Marc-des-Carrières",
+   "point": {
+    "lat": 46.68335,
+    "lon": -72.0491,
+    "cc": "CA",
+    "population": 2358
+   },
+   "population": 2358,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-pamphile",
+   "name": "Saint-Pamphile",
+   "point": {
+    "lat": 46.9578,
+    "lon": -69.7806,
+    "cc": "CA",
+    "population": 2274
+   },
+   "population": 2274,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-wendake",
+   "name": "Wendake",
+   "point": {
+    "lat": 46.86136,
+    "lon": -71.35727,
+    "cc": "CA",
+    "population": 2200
+   },
+   "population": 2200,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-sainte-anne-de-la-perade",
+   "name": "Sainte-Anne-de-la-Pérade",
+   "point": {
+    "lat": 46.58335,
+    "lon": -72.1991,
+    "cc": "CA",
+    "population": 2031
+   },
+   "population": 2031,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-fossambault-sur-le-lac",
+   "name": "Fossambault-sur-le-Lac",
+   "point": {
+    "lat": 46.87662,
+    "lon": -71.61541,
+    "cc": "CA",
+    "population": 2000
+   },
+   "population": 2000,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-vallee-jonction",
+   "name": "Vallée-Jonction",
+   "point": {
+    "lat": 46.37441,
+    "lon": -70.91881,
+    "cc": "CA",
+    "population": 1940
+   },
+   "population": 1940,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-east-broughton",
+   "name": "East Broughton",
+   "point": {
+    "lat": 46.21358,
+    "lon": -71.07674,
+    "cc": "CA",
+    "population": 1832
+   },
+   "population": 1832,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-sainte-perpetue",
+   "name": "Sainte-Perpétue",
+   "point": {
+    "lat": 47.06416,
+    "lon": -69.92935,
+    "cc": "CA",
+    "population": 1715
+   },
+   "population": 1715,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-antoine-de-tilly",
+   "name": "Saint-Antoine-de-Tilly",
+   "point": {
+    "lat": 46.66346,
+    "lon": -71.57335,
+    "cc": "CA",
+    "population": 1462
+   },
+   "population": 1462,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-ubalde",
+   "name": "Saint-Ubalde",
+   "point": {
+    "lat": 46.75006,
+    "lon": -72.2658,
+    "cc": "CA",
+    "population": 1456
+   },
+   "population": 1456,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-ephrem-de-beauce",
+   "name": "Saint-Éphrem-de-Beauce",
+   "point": {
+    "lat": 46.06677,
+    "lon": -70.94905,
+    "cc": "CA",
+    "population": 1385
+   },
+   "population": 1385,
+   "lodging": null
+  },
+  {
+   "id": "ca-nb-bas-caraquet",
+   "name": "Bas-Caraquet",
+   "point": {
+    "lat": 47.80059,
+    "lon": -64.83195,
+    "cc": "CA",
+    "population": 1311
+   },
+   "population": 1311,
+   "lodging": null
+  },
+  {
+   "id": "ca-nb-lameque",
+   "name": "Lamèque",
+   "point": {
+    "lat": 47.79361,
+    "lon": -64.6475,
+    "cc": "CA",
+    "population": 1301
+   },
+   "population": 1301,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-mont-carmel",
+   "name": "Mont-Carmel",
+   "point": {
+    "lat": 47.44084,
+    "lon": -69.85657,
+    "cc": "CA",
+    "population": 1200
+   },
+   "population": 1200,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-saint-pacome",
+   "name": "Saint-Pacôme",
+   "point": {
+    "lat": 47.40457,
+    "lon": -69.95025,
+    "cc": "CA",
+    "population": 1087
+   },
+   "population": 1087,
+   "lodging": null
+  },
+  {
+   "id": "ca-qc-sainte-genevieve-de-batiscan",
+   "name": "Sainte-Geneviève-de-Batiscan",
+   "point": {
+    "lat": 46.53005,
+    "lon": -72.33881,
+    "cc": "CA",
+    "population": 1028
+   },
+   "population": 1028,
+   "lodging": null
+  }
+ ],
+ "places": [
+  {
+   "ref": "place/montmorency-falls",
+   "slug": "montmorency-falls",
+   "name": "Montmorency Falls",
+   "kind": "waterfall",
+   "type": "water.falls.waterfall",
+   "tags": [
+    "family",
+    "suspension-bridge"
+   ],
+   "point": {
+    "lat": 46.89083,
+    "lon": -71.1475,
+    "cc": "CA"
+   },
+   "region": "quebec",
+   "country": "CA",
+   "season": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "draw": "journey",
+   "complete": true,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/canyon-sainte-anne",
+   "slug": "canyon-sainte-anne",
+   "name": "Canyon Sainte-Anne",
+   "kind": "waterfall",
+   "type": "nature.landform.canyon",
+   "tags": [
+    "family",
+    "suspension-bridge",
+    "viewpoint",
+    "waterfall"
+   ],
+   "point": {
+    "lat": 47.07255,
+    "lon": -70.87476,
+    "cc": "CA"
+   },
+   "region": "quebec",
+   "country": "CA",
+   "season": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "draw": null,
+   "complete": true,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/perce-rock",
+   "slug": "perce-rock",
+   "name": "Percé Rock",
+   "kind": "area",
+   "type": "nature.landform.island",
+   "tags": [
+    "photography",
+    "coast",
+    "landmark"
+   ],
+   "point": {
+    "lat": 48.52389,
+    "lon": -64.19944,
+    "cc": "CA"
+   },
+   "region": "quebec",
+   "country": "CA",
+   "season": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "draw": "journey",
+   "complete": true,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/bonaventure-island",
+   "slug": "bonaventure-island",
+   "name": "Bonaventure Island",
+   "kind": "area",
+   "type": "nature.landform.island",
+   "tags": [
+    "family",
+    "boat",
+    "gannets",
+    "sepaq"
+   ],
+   "point": {
+    "lat": 48.49516,
+    "lon": -64.16053,
+    "cc": "CA"
+   },
+   "region": "quebec",
+   "country": "CA",
+   "season": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "draw": "journey",
+   "complete": true,
+   "suitability": {
+    "minAge": 6,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/cap-bon-ami",
+   "slug": "cap-bon-ami",
+   "name": "Cap-Bon-Ami",
+   "kind": "viewpoint",
+   "type": "nature.viewpoint.viewpoint",
+   "tags": [
+    "cliffs",
+    "coast",
+    "parks-canada"
+   ],
+   "point": {
+    "lat": 48.81389,
+    "lon": -64.22222,
+    "cc": "CA"
+   },
+   "region": "quebec",
+   "country": "CA",
+   "season": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "draw": null,
+   "complete": true,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/mont-saint-alban",
+   "slug": "mont-saint-alban",
+   "name": "Mont Saint-Alban",
+   "kind": "viewpoint",
+   "type": "nature.summit.summit",
+   "tags": [
+    "hiking",
+    "viewpoint",
+    "parks-canada"
+   ],
+   "point": {
+    "lat": 48.81111,
+    "lon": -64.23611,
+    "cc": "CA"
+   },
+   "region": "quebec",
+   "country": "CA",
+   "season": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "draw": null,
+   "complete": true,
+   "suitability": {
+    "minAge": 6,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/canyon-des-portes-de-lenfer",
+   "slug": "canyon-des-portes-de-lenfer",
+   "name": "Canyon des Portes de l'Enfer",
+   "kind": "waterfall",
+   "type": "nature.landform.canyon",
+   "tags": [
+    "suspension-bridge",
+    "waterfall"
+   ],
+   "point": {
+    "lat": 48.26111,
+    "lon": -68.53889,
+    "cc": "CA"
+   },
+   "region": "quebec",
+   "country": "CA",
+   "season": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "draw": "detour",
+   "complete": true,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  }
+ ]
+}

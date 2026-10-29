@@ -1,0 +1,100 @@
+{
+  "engine": "tb-e2.1",
+  "basis": "estimate",
+  "bases": [],
+  "days": [
+    {
+      "day": 1,
+      "base": null,
+      "move": false,
+      "items": [
+        {
+          "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+          "slug": "ragged-falls",
+          "name": "Ragged Falls",
+          "startMin": 665,
+          "visitMin": 20,
+          "driveMin": 166,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/oxtongue-lake",
+          "slug": "oxtongue-lake",
+          "name": "Oxtongue Lake",
+          "startMin": 735,
+          "visitMin": 45,
+          "driveMin": 9,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/dwight",
+          "slug": "dwight",
+          "name": "Dwight",
+          "startMin": 800,
+          "visitMin": 90,
+          "driveMin": 20,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 160,
+      "warnings": [
+        "W_DRIVE_LIMIT"
+      ],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Ragged Falls",
+            "b": "Oxtongue Lake",
+            "apartMin": 9
+          },
+          "text": "Ragged Falls and Oxtongue Lake are 9 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 355
+          },
+          "text": "5 h 55 ≈ of driving"
+        }
+      ]
+    }
+  ],
+  "didNotFit": [],
+  "spareDays": 0,
+  "matrix": {
+    "refs": [
+      "place/dwight",
+      "trip/algonquin-muskoka-2026/sight:ragged falls",
+      "place/oxtongue-lake"
+    ],
+    "minutes": [
+      [
+        0,
+        23,
+        20
+      ],
+      [
+        23,
+        0,
+        9
+      ],
+      [
+        20,
+        9,
+        0
+      ]
+    ],
+    "estimated": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7
+    ]
+  }
+}

@@ -1,0 +1,467 @@
+{
+  "engine": "tb-e2.1",
+  "basis": "estimate",
+  "bases": [
+    {
+      "town": "ca-qc-boischatel",
+      "name": "Boischatel",
+      "nights": 2,
+      "pinned": false,
+      "picks": 2,
+      "reasons": [
+        {
+          "code": "base_share",
+          "values": {
+            "index": 1,
+            "nights": 2,
+            "n": 2,
+            "of": 7,
+            "maxMin": 37
+          },
+          "text": "Base 1: Boischatel, 2 nights, 2 of your 7 picks within 37 min ≈"
+        }
+      ]
+    },
+    {
+      "town": "ca-qc-perce",
+      "name": "Perce",
+      "nights": 3,
+      "pinned": false,
+      "picks": 4,
+      "reasons": [
+        {
+          "code": "base_share",
+          "values": {
+            "index": 2,
+            "nights": 3,
+            "n": 4,
+            "of": 7,
+            "maxMin": 43
+          },
+          "text": "Base 2: Perce, 3 nights, 4 of your 7 picks within 43 min ≈"
+        },
+        {
+          "code": "added_base",
+          "values": {
+            "n": 4,
+            "fromBase": "Boischatel"
+          },
+          "text": "Added for 4 of your picks beyond a day out from Boischatel"
+        }
+      ]
+    },
+    {
+      "town": "ca-qc-saint-pascal",
+      "name": "Saint-Pascal",
+      "nights": 2,
+      "pinned": false,
+      "picks": 1,
+      "reasons": [
+        {
+          "code": "base_share",
+          "values": {
+            "index": 3,
+            "nights": 2,
+            "n": 1,
+            "of": 7,
+            "maxMin": 115
+          },
+          "text": "Base 3: Saint-Pascal, 2 nights, 1 of your 7 picks within 1 h 55 ≈"
+        },
+        {
+          "code": "added_base",
+          "values": {
+            "n": 1,
+            "fromBase": "Boischatel"
+          },
+          "text": "Added for 1 of your picks beyond a day out from Boischatel"
+        }
+      ]
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "base": "ca-qc-boischatel",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/canyon-sainte-anne",
+          "slug": "canyon-sainte-anne",
+          "name": "Canyon Sainte-Anne",
+          "startMin": 790,
+          "visitMin": 20,
+          "driveMin": 69,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/montmorency-falls",
+          "slug": "montmorency-falls",
+          "name": "Montmorency Falls",
+          "startMin": 850,
+          "visitMin": 20,
+          "driveMin": 38,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 3,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "arrive",
+          "values": {
+            "min": 32,
+            "airport": "YQB"
+          },
+          "text": "Fly into YQB, then 32 min ≈ to Boischatel"
+        },
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Canyon Sainte-Anne",
+            "b": "Montmorency Falls",
+            "apartMin": 38
+          },
+          "text": "Canyon Sainte-Anne and Montmorency Falls are 38 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 110
+          },
+          "text": "1 h 50 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "base": "ca-qc-boischatel",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 3,
+      "base": "ca-qc-perce",
+      "move": true,
+      "items": [],
+      "returnMin": 450,
+      "warnings": [
+        "W_DRIVE_LIMIT"
+      ],
+      "reasons": [
+        {
+          "code": "move_day",
+          "values": {
+            "fromBase": "Boischatel",
+            "toBase": "Perce",
+            "min": 450
+          },
+          "text": "Move from Boischatel to Perce: 7 h 30 ≈ of driving"
+        },
+        {
+          "code": "long_move",
+          "values": {
+            "min": 450,
+            "limitMin": 240
+          },
+          "text": "The move is 7 h 30 ≈, over your 4 h of driving a day: break the drive"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "base": "ca-qc-perce",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/mont-saint-alban",
+          "slug": "mont-saint-alban",
+          "name": "Mont Saint-Alban",
+          "startMin": 525,
+          "visitMin": 30,
+          "driveMin": 43,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/cap-bon-ami",
+          "slug": "cap-bon-ami",
+          "name": "Cap-Bon-Ami",
+          "startMin": 560,
+          "visitMin": 30,
+          "driveMin": 4,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 43,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Mont Saint-Alban",
+            "b": "Cap-Bon-Ami",
+            "apartMin": 4
+          },
+          "text": "Mont Saint-Alban and Cap-Bon-Ami are 4 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 90
+          },
+          "text": "1 h 30 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "base": "ca-qc-perce",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/perce-rock",
+          "slug": "perce-rock",
+          "name": "Percé Rock",
+          "startMin": 500,
+          "visitMin": 180,
+          "driveMin": 17,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/bonaventure-island",
+          "slug": "bonaventure-island",
+          "name": "Bonaventure Island",
+          "startMin": 735,
+          "visitMin": 180,
+          "driveMin": 11,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 19,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Percé Rock",
+            "b": "Bonaventure Island",
+            "apartMin": 11
+          },
+          "text": "Percé Rock and Bonaventure Island are 11 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 47
+          },
+          "text": "47 min ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "base": "ca-qc-saint-pascal",
+      "move": true,
+      "items": [
+        {
+          "ref": "place/canyon-des-portes-de-lenfer",
+          "slug": "canyon-des-portes-de-lenfer",
+          "name": "Canyon des Portes de l'Enfer",
+          "startMin": 800,
+          "visitMin": 20,
+          "driveMin": 262,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 115,
+      "warnings": [
+        "W_DRIVE_LIMIT"
+      ],
+      "reasons": [
+        {
+          "code": "move_day",
+          "values": {
+            "fromBase": "Perce",
+            "toBase": "Saint-Pascal",
+            "min": 352
+          },
+          "text": "Move from Perce to Saint-Pascal: 5 h 52 ≈ of driving"
+        },
+        {
+          "code": "long_move",
+          "values": {
+            "min": 352,
+            "limitMin": 240
+          },
+          "text": "The move is 5 h 52 ≈, over your 4 h of driving a day: break the drive"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 377
+          },
+          "text": "6 h 17 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 7,
+      "base": "ca-qc-saint-pascal",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 8,
+      "base": null,
+      "move": false,
+      "items": [],
+      "returnMin": 130,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "depart",
+          "values": {
+            "min": 130,
+            "airport": "YQB"
+          },
+          "text": "2 h 10 ≈ from Saint-Pascal to YQB, then fly home"
+        }
+      ]
+    }
+  ],
+  "didNotFit": [],
+  "spareDays": 2,
+  "matrix": {
+    "refs": [
+      "place/montmorency-falls",
+      "place/canyon-sainte-anne",
+      "place/perce-rock",
+      "place/bonaventure-island",
+      "place/cap-bon-ami",
+      "place/mont-saint-alban",
+      "place/canyon-des-portes-de-lenfer"
+    ],
+    "minutes": [
+      [
+        0,
+        38,
+        457,
+        459,
+        464,
+        463,
+        207
+      ],
+      [
+        38,
+        0,
+        435,
+        437,
+        442,
+        441,
+        184
+      ],
+      [
+        457,
+        435,
+        0,
+        11,
+        40,
+        40,
+        268
+      ],
+      [
+        459,
+        437,
+        11,
+        0,
+        43,
+        42,
+        270
+      ],
+      [
+        464,
+        442,
+        40,
+        43,
+        0,
+        4,
+        270
+      ],
+      [
+        463,
+        441,
+        40,
+        42,
+        4,
+        0,
+        269
+      ],
+      [
+        207,
+        184,
+        268,
+        270,
+        270,
+        269,
+        0
+      ]
+    ],
+    "estimated": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ]
+  }
+}

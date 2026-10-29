@@ -1,0 +1,1999 @@
+{
+ "name": "italy-15-days",
+ "build": {
+  "bases": [],
+  "edits": [],
+  "party": {
+   "adults": 2,
+   "children": [
+    7
+   ],
+   "walkKm": null
+  },
+  "where": {
+   "mode": "trip",
+   "cc": "IT",
+   "regions": [
+    "it-ne"
+   ]
+  },
+  "nights": 14,
+  "pace": "standard",
+  "moves": "balanced",
+  "month": 7,
+  "origin": {
+   "kind": "airport",
+   "iata": "VCE"
+  },
+  "picks": [
+   {
+    "ref": "place/lago-di-braies",
+    "must": true
+   },
+   {
+    "ref": "place/ortisei",
+    "must": false
+   },
+   {
+    "ref": "place/bolzano",
+    "must": false
+   },
+   {
+    "ref": "place/selva-di-val-gardena",
+    "must": false
+   },
+   {
+    "ref": "place/croda-del-becco",
+    "must": false
+   },
+   {
+    "ref": "place/adolf-munkel-weg",
+    "must": false
+   },
+   {
+    "ref": "place/tre-cime-di-lavaredo-loop",
+    "must": false
+   },
+   {
+    "ref": "place/alpe-di-siusi",
+    "must": false
+   },
+   {
+    "ref": "place/seceda-ridge",
+    "must": false
+   },
+   {
+    "ref": "place/lago-di-sorapis",
+    "must": false
+   },
+   {
+    "ref": "place/cinque-torri",
+    "must": false
+   },
+   {
+    "ref": "place/lago-di-carezza",
+    "must": false
+   }
+  ]
+ },
+ "start": null,
+ "gateway": {
+  "lat": 45.5053,
+  "lon": 12.3519,
+  "cc": "IT"
+ },
+ "tz": "Europe/Rome",
+ "towns": [
+  {
+   "id": "it-32-trento",
+   "name": "Trento",
+   "point": {
+    "lat": 46.06787,
+    "lon": 11.12108,
+    "cc": "IT",
+    "population": 120709
+   },
+   "population": 120709,
+   "lodging": null
+  },
+  {
+   "id": "it-32-bolzano",
+   "name": "Bolzano",
+   "point": {
+    "lat": 46.49067,
+    "lon": 11.33982,
+    "cc": "IT",
+    "population": 107436
+   },
+   "population": 107436,
+   "lodging": null
+  },
+  {
+   "id": "it-36-pordenone",
+   "name": "Pordenone",
+   "point": {
+    "lat": 45.95689,
+    "lon": 12.66051,
+    "cc": "IT",
+    "population": 49878
+   },
+   "population": 49878,
+   "lodging": null
+  },
+  {
+   "id": "it-32-merano",
+   "name": "Merano",
+   "point": {
+    "lat": 46.66817,
+    "lon": 11.15953,
+    "cc": "IT",
+    "population": 41051
+   },
+   "population": 41051,
+   "lodging": null
+  },
+  {
+   "id": "it-34-conegliano",
+   "name": "Conegliano",
+   "point": {
+    "lat": 45.88805,
+    "lon": 12.30201,
+    "cc": "IT",
+    "population": 30765
+   },
+   "population": 30765,
+   "lodging": null
+  },
+  {
+   "id": "it-34-belluno",
+   "name": "Belluno",
+   "point": {
+    "lat": 46.14262,
+    "lon": 12.2156,
+    "cc": "IT",
+    "population": 25064
+   },
+   "population": 25064,
+   "lodging": null
+  },
+  {
+   "id": "it-34-vittorio-veneto",
+   "name": "Vittorio Veneto",
+   "point": {
+    "lat": 45.98026,
+    "lon": 12.30065,
+    "cc": "IT",
+    "population": 24789
+   },
+   "population": 24789,
+   "lodging": null
+  },
+  {
+   "id": "it-36-sacile",
+   "name": "Sacile",
+   "point": {
+    "lat": 45.95412,
+    "lon": 12.50274,
+    "cc": "IT",
+    "population": 16626
+   },
+   "population": 16626,
+   "lodging": null
+  },
+  {
+   "id": "it-36-cordenons",
+   "name": "Cordenons",
+   "point": {
+    "lat": 45.9836,
+    "lon": 12.70038,
+    "cc": "IT",
+    "population": 15962
+   },
+   "population": 15962,
+   "lodging": null
+  },
+  {
+   "id": "it-32-bressanone",
+   "name": "Bressanone",
+   "point": {
+    "lat": 46.71503,
+    "lon": 11.65598,
+    "cc": "IT",
+    "population": 15868
+   },
+   "population": 15868,
+   "lodging": null
+  },
+  {
+   "id": "at-7-schwaz",
+   "name": "Schwaz",
+   "point": {
+    "lat": 47.35169,
+    "lon": 11.71014,
+    "cc": "AT",
+    "population": 13728
+   },
+   "population": 13728,
+   "lodging": null
+  },
+  {
+   "id": "it-34-feltre",
+   "name": "Feltre",
+   "point": {
+    "lat": 46.02085,
+    "lon": 11.90031,
+    "cc": "IT",
+    "population": 13643
+   },
+   "population": 13643,
+   "lodging": null
+  },
+  {
+   "id": "at-7-hall-in-tirol",
+   "name": "Hall in Tirol",
+   "point": {
+    "lat": 47.28333,
+    "lon": 11.51667,
+    "cc": "AT",
+    "population": 13334
+   },
+   "population": 13334,
+   "lodging": null
+  },
+  {
+   "id": "it-36-fontanafredda",
+   "name": "Fontanafredda",
+   "point": {
+    "lat": 45.97556,
+    "lon": 12.56833,
+    "cc": "IT",
+    "population": 12987
+   },
+   "population": 12987,
+   "lodging": null
+  },
+  {
+   "id": "it-36-porcia",
+   "name": "Porcia",
+   "point": {
+    "lat": 45.96301,
+    "lon": 12.61642,
+    "cc": "IT",
+    "population": 12987
+   },
+   "population": 12987,
+   "lodging": null
+  },
+  {
+   "id": "it-32-brunico",
+   "name": "Brunico",
+   "point": {
+    "lat": 46.79942,
+    "lon": 11.93429,
+    "cc": "IT",
+    "population": 12282
+   },
+   "population": 12282,
+   "lodging": null
+  },
+  {
+   "id": "it-36-spilimbergo",
+   "name": "Spilimbergo",
+   "point": {
+    "lat": 46.11345,
+    "lon": 12.89241,
+    "cc": "IT",
+    "population": 11789
+   },
+   "population": 11789,
+   "lodging": null
+  },
+  {
+   "id": "at-7-lienz",
+   "name": "Lienz",
+   "point": {
+    "lat": 46.8289,
+    "lon": 12.76903,
+    "cc": "AT",
+    "population": 11572
+   },
+   "population": 11572,
+   "lodging": null
+  },
+  {
+   "id": "it-32-pergine-valsugana",
+   "name": "Pergine Valsugana",
+   "point": {
+    "lat": 46.06434,
+    "lon": 11.23758,
+    "cc": "IT",
+    "population": 11538
+   },
+   "population": 11538,
+   "lodging": null
+  },
+  {
+   "id": "it-36-gemona",
+   "name": "Gemona",
+   "point": {
+    "lat": 46.27405,
+    "lon": 13.12237,
+    "cc": "IT",
+    "population": 11141
+   },
+   "population": 11141,
+   "lodging": null
+  },
+  {
+   "id": "it-32-laives",
+   "name": "Laives",
+   "point": {
+    "lat": 46.42679,
+    "lon": 11.33841,
+    "cc": "IT",
+    "population": 10710
+   },
+   "population": 10710,
+   "lodging": null
+  },
+  {
+   "id": "it-36-maniago",
+   "name": "Maniago",
+   "point": {
+    "lat": 46.16644,
+    "lon": 12.70602,
+    "cc": "IT",
+    "population": 10395
+   },
+   "population": 10395,
+   "lodging": null
+  },
+  {
+   "id": "it-34-pieve-di-soligo",
+   "name": "Pieve di Soligo",
+   "point": {
+    "lat": 45.89836,
+    "lon": 12.17128,
+    "cc": "IT",
+    "population": 9516
+   },
+   "population": 9516,
+   "lodging": null
+  },
+  {
+   "id": "it-32-lana",
+   "name": "Lana",
+   "point": {
+    "lat": 46.61209,
+    "lon": 11.15653,
+    "cc": "IT",
+    "population": 9244
+   },
+   "population": 9244,
+   "lodging": null
+  },
+  {
+   "id": "it-34-san-vendemiano",
+   "name": "San Vendemiano",
+   "point": {
+    "lat": 45.88732,
+    "lon": 12.35164,
+    "cc": "IT",
+    "population": 8776
+   },
+   "population": 8776,
+   "lodging": null
+  },
+  {
+   "id": "it-34-col-san-martino",
+   "name": "Col San Martino",
+   "point": {
+    "lat": 45.9002,
+    "lon": 12.11575,
+    "cc": "IT",
+    "population": 8425
+   },
+   "population": 8425,
+   "lodging": null
+  },
+  {
+   "id": "it-36-vigonovo-fontanafredda",
+   "name": "Vigonovo-Fontanafredda",
+   "point": {
+    "lat": 45.98927,
+    "lon": 12.54707,
+    "cc": "IT",
+    "population": 8283
+   },
+   "population": 8283,
+   "lodging": null
+  },
+  {
+   "id": "it-36-aviano",
+   "name": "Aviano",
+   "point": {
+    "lat": 46.07056,
+    "lon": 12.59472,
+    "cc": "IT",
+    "population": 8225
+   },
+   "population": 8225,
+   "lodging": null
+  },
+  {
+   "id": "it-36-tolmezzo",
+   "name": "Tolmezzo",
+   "point": {
+    "lat": 46.39996,
+    "lon": 13.02051,
+    "cc": "IT",
+    "population": 8078
+   },
+   "population": 8078,
+   "lodging": null
+  },
+  {
+   "id": "it-34-ponte-nell-alpi",
+   "name": "Ponte nelle Alpi",
+   "point": {
+    "lat": 46.18083,
+    "lon": 12.28333,
+    "cc": "IT",
+    "population": 7913
+   },
+   "population": 7913,
+   "lodging": null
+  },
+  {
+   "id": "it-34-farra-di-soligo",
+   "name": "Farra di Soligo",
+   "point": {
+    "lat": 45.90528,
+    "lon": 12.12444,
+    "cc": "IT",
+    "population": 7892
+   },
+   "population": 7892,
+   "lodging": null
+  },
+  {
+   "id": "at-7-wattens",
+   "name": "Wattens",
+   "point": {
+    "lat": 47.29419,
+    "lon": 11.5907,
+    "cc": "AT",
+    "population": 7881
+   },
+   "population": 7881,
+   "lodging": null
+  },
+  {
+   "id": "it-32-renon",
+   "name": "Renon",
+   "point": {
+    "lat": 46.54152,
+    "lon": 11.45728,
+    "cc": "IT",
+    "population": 6993
+   },
+   "population": 6993,
+   "lodging": null
+  },
+  {
+   "id": "it-32-mezzolombardo",
+   "name": "Mezzolombardo",
+   "point": {
+    "lat": 46.20774,
+    "lon": 11.09636,
+    "cc": "IT",
+    "population": 6754
+   },
+   "population": 6754,
+   "lodging": null
+  },
+  {
+   "id": "it-36-san-daniele-del-friuli",
+   "name": "San Daniele del Friuli",
+   "point": {
+    "lat": 46.15714,
+    "lon": 13.00726,
+    "cc": "IT",
+    "population": 6700
+   },
+   "population": 6700,
+   "lodging": null
+  },
+  {
+   "id": "it-32-borgo-valsugana",
+   "name": "Borgo Valsugana",
+   "point": {
+    "lat": 46.05119,
+    "lon": 11.45756,
+    "cc": "IT",
+    "population": 6587
+   },
+   "population": 6587,
+   "lodging": null
+  },
+  {
+   "id": "it-32-lavis",
+   "name": "Lavis",
+   "point": {
+    "lat": 46.14131,
+    "lon": 11.10931,
+    "cc": "IT",
+    "population": 6404
+   },
+   "population": 6404,
+   "lodging": null
+  },
+  {
+   "id": "it-36-buia",
+   "name": "Buia",
+   "point": {
+    "lat": 46.21222,
+    "lon": 13.11691,
+    "cc": "IT",
+    "population": 6327
+   },
+   "population": 6327,
+   "lodging": null
+  },
+  {
+   "id": "it-34-valdobbiadene",
+   "name": "Valdobbiadene",
+   "point": {
+    "lat": 45.89689,
+    "lon": 11.98245,
+    "cc": "IT",
+    "population": 6307
+   },
+   "population": 6307,
+   "lodging": null
+  },
+  {
+   "id": "it-36-caneva",
+   "name": "Caneva",
+   "point": {
+    "lat": 45.97078,
+    "lon": 12.45261,
+    "cc": "IT",
+    "population": 6224
+   },
+   "population": 6224,
+   "lodging": null
+  },
+  {
+   "id": "it-32-caldaro-sulla-strada-del-vino",
+   "name": "Caldaro sulla Strada del Vino",
+   "point": {
+    "lat": 46.41326,
+    "lon": 11.24616,
+    "cc": "IT",
+    "population": 6183
+   },
+   "population": 6183,
+   "lodging": null
+  },
+  {
+   "id": "it-32-levico-terme",
+   "name": "Levico Terme",
+   "point": {
+    "lat": 46.01217,
+    "lon": 11.30427,
+    "cc": "IT",
+    "population": 6171
+   },
+   "population": 6171,
+   "lodging": null
+  },
+  {
+   "id": "it-34-san-vendemiano-fossamerlo",
+   "name": "San Vendemiano-Fossamerlo",
+   "point": {
+    "lat": 45.8918,
+    "lon": 12.32992,
+    "cc": "IT",
+    "population": 6034
+   },
+   "population": 6034,
+   "lodging": null
+  },
+  {
+   "id": "it-32-san-michele",
+   "name": "San Michele",
+   "point": {
+    "lat": 46.45472,
+    "lon": 11.26178,
+    "cc": "IT",
+    "population": 5967
+   },
+   "population": 5967,
+   "lodging": null
+  },
+  {
+   "id": "it-32-cles",
+   "name": "Cles",
+   "point": {
+    "lat": 46.36294,
+    "lon": 11.03276,
+    "cc": "IT",
+    "population": 5903
+   },
+   "population": 5903,
+   "lodging": null
+  },
+  {
+   "id": "it-34-setteville",
+   "name": "Setteville",
+   "point": {
+    "lat": 45.92125,
+    "lon": 11.93109,
+    "cc": "IT",
+    "population": 5820
+   },
+   "population": 5820,
+   "lodging": null
+  },
+  {
+   "id": "it-36-majano",
+   "name": "Majano",
+   "point": {
+    "lat": 46.18752,
+    "lon": 13.06162,
+    "cc": "IT",
+    "population": 5690
+   },
+   "population": 5690,
+   "lodging": null
+  },
+  {
+   "id": "it-32-valle-aurina-ahrntal",
+   "name": "Valle Aurina - Ahrntal",
+   "point": {
+    "lat": 46.99623,
+    "lon": 11.97988,
+    "cc": "IT",
+    "population": 5517
+   },
+   "population": 5517,
+   "lodging": null
+  },
+  {
+   "id": "it-34-sedico",
+   "name": "Sedico",
+   "point": {
+    "lat": 46.10563,
+    "lon": 12.0933,
+    "cc": "IT",
+    "population": 5478
+   },
+   "population": 5478,
+   "lodging": null
+  },
+  {
+   "id": "it-36-aviano-castello",
+   "name": "Aviano-Castello",
+   "point": {
+    "lat": 46.06759,
+    "lon": 12.58324,
+    "cc": "IT",
+    "population": 5465
+   },
+   "population": 5465,
+   "lodging": null
+  },
+  {
+   "id": "it-34-cortina-d-ampezzo",
+   "name": "Cortina d'Ampezzo",
+   "point": {
+    "lat": 46.5369,
+    "lon": 12.13903,
+    "cc": "IT",
+    "population": 5423
+   },
+   "population": 5423,
+   "lodging": null
+  },
+  {
+   "id": "it-32-vipiteno",
+   "name": "Vipiteno",
+   "point": {
+    "lat": 46.89313,
+    "lon": 11.42961,
+    "cc": "IT",
+    "population": 5356
+   },
+   "population": 5356,
+   "lodging": null
+  },
+  {
+   "id": "it-36-roveredo-in-piano",
+   "name": "Roveredo in Piano",
+   "point": {
+    "lat": 46.00847,
+    "lon": 12.61938,
+    "cc": "IT",
+    "population": 5323
+   },
+   "population": 5323,
+   "lodging": null
+  },
+  {
+   "id": "at-7-vomp",
+   "name": "Vomp",
+   "point": {
+    "lat": 47.33333,
+    "lon": 11.68333,
+    "cc": "AT",
+    "population": 5283
+   },
+   "population": 5283,
+   "lodging": null
+  },
+  {
+   "id": "it-32-mattarello",
+   "name": "Mattarello",
+   "point": {
+    "lat": 46.00865,
+    "lon": 11.12984,
+    "cc": "IT",
+    "population": 5214
+   },
+   "population": 5214,
+   "lodging": null
+  },
+  {
+   "id": "it-34-ponte-nelle-alpi-polpet",
+   "name": "Ponte nelle Alpi-Polpet",
+   "point": {
+    "lat": 46.18833,
+    "lon": 12.27833,
+    "cc": "IT",
+    "population": 5089
+   },
+   "population": 5089,
+   "lodging": null
+  },
+  {
+   "id": "it-32-mezzocorona",
+   "name": "Mezzocorona",
+   "point": {
+    "lat": 46.21159,
+    "lon": 11.12253,
+    "cc": "IT",
+    "population": 4975
+   },
+   "population": 4975,
+   "lodging": null
+  },
+  {
+   "id": "it-34-cordignano",
+   "name": "Cordignano",
+   "point": {
+    "lat": 45.94936,
+    "lon": 12.41567,
+    "cc": "IT",
+    "population": 4974
+   },
+   "population": 4974,
+   "lodging": null
+  },
+  {
+   "id": "it-34-san-pietro-di-feletto",
+   "name": "San Pietro di Feletto",
+   "point": {
+    "lat": 45.91391,
+    "lon": 12.25101,
+    "cc": "IT",
+    "population": 4890
+   },
+   "population": 4890,
+   "lodging": null
+  },
+  {
+   "id": "at-7-neustift-im-stubaital",
+   "name": "Neustift im Stubaital",
+   "point": {
+    "lat": 47.11667,
+    "lon": 11.31667,
+    "cc": "AT",
+    "population": 4747
+   },
+   "population": 4747,
+   "lodging": null
+  },
+  {
+   "id": "it-32-povo",
+   "name": "Povo",
+   "point": {
+    "lat": 46.06698,
+    "lon": 11.15503,
+    "cc": "IT",
+    "population": 4689
+   },
+   "population": 4689,
+   "lodging": null
+  },
+  {
+   "id": "it-34-santa-giustina",
+   "name": "Santa Giustina",
+   "point": {
+    "lat": 46.08118,
+    "lon": 12.03822,
+    "cc": "IT",
+    "population": 4587
+   },
+   "population": 4587,
+   "lodging": null
+  },
+  {
+   "id": "it-32-silandro",
+   "name": "Silandro",
+   "point": {
+    "lat": 46.62831,
+    "lon": 10.76809,
+    "cc": "IT",
+    "population": 4517
+   },
+   "population": 4517,
+   "lodging": null
+  },
+  {
+   "id": "at-7-mils-bei-solbad-hall",
+   "name": "Mils bei Solbad Hall",
+   "point": {
+    "lat": 47.28333,
+    "lon": 11.53333,
+    "cc": "AT",
+    "population": 4377
+   },
+   "population": 4377,
+   "lodging": null
+  },
+  {
+   "id": "it-32-racines",
+   "name": "Racines",
+   "point": {
+    "lat": 46.86667,
+    "lon": 11.3,
+    "cc": "IT",
+    "population": 4363
+   },
+   "population": 4363,
+   "lodging": null
+  },
+  {
+   "id": "it-32-ortisei",
+   "name": "Ortisei",
+   "point": {
+    "lat": 46.57603,
+    "lon": 11.67176,
+    "cc": "IT",
+    "population": 4306
+   },
+   "population": 4306,
+   "lodging": null
+  },
+  {
+   "id": "it-32-predazzo",
+   "name": "Predazzo",
+   "point": {
+    "lat": 46.3114,
+    "lon": 11.5996,
+    "cc": "IT",
+    "population": 4254
+   },
+   "population": 4254,
+   "lodging": null
+  },
+  {
+   "id": "it-34-cappella-maggiore",
+   "name": "Cappella Maggiore",
+   "point": {
+    "lat": 45.97222,
+    "lon": 12.35855,
+    "cc": "IT",
+    "population": 4151
+   },
+   "population": 4151,
+   "lodging": null
+  },
+  {
+   "id": "it-32-naturno",
+   "name": "Naturno",
+   "point": {
+    "lat": 46.64801,
+    "lon": 11.00129,
+    "cc": "IT",
+    "population": 4023
+   },
+   "population": 4023,
+   "lodging": null
+  },
+  {
+   "id": "it-32-racines-ratschings",
+   "name": "Racines - Ratschings",
+   "point": {
+    "lat": 46.88183,
+    "lon": 11.37827,
+    "cc": "IT",
+    "population": 4010
+   },
+   "population": 4010,
+   "lodging": null
+  },
+  {
+   "id": "it-34-agordo",
+   "name": "Agordo",
+   "point": {
+    "lat": 46.28201,
+    "lon": 12.03608,
+    "cc": "IT",
+    "population": 3861
+   },
+   "population": 3861,
+   "lodging": null
+  },
+  {
+   "id": "at-7-volders",
+   "name": "Volders",
+   "point": {
+    "lat": 47.28333,
+    "lon": 11.56667,
+    "cc": "AT",
+    "population": 3754
+   },
+   "population": 3754,
+   "lodging": null
+  },
+  {
+   "id": "at-7-mayrhofen",
+   "name": "Mayrhofen",
+   "point": {
+    "lat": 47.16667,
+    "lon": 11.86667,
+    "cc": "AT",
+    "population": 3720
+   },
+   "population": 3720,
+   "lodging": null
+  },
+  {
+   "id": "it-36-montereale-valcellina",
+   "name": "Montereale Valcellina",
+   "point": {
+    "lat": 46.1511,
+    "lon": 12.64771,
+    "cc": "IT",
+    "population": 3541
+   },
+   "population": 3541,
+   "lodging": null
+  },
+  {
+   "id": "it-34-orsago",
+   "name": "Orsago",
+   "point": {
+    "lat": 45.92965,
+    "lon": 12.42712,
+    "cc": "IT",
+    "population": 3533
+   },
+   "population": 3533,
+   "lodging": null
+  },
+  {
+   "id": "it-34-godega",
+   "name": "Godega",
+   "point": {
+    "lat": 45.92859,
+    "lon": 12.39687,
+    "cc": "IT",
+    "population": 3506
+   },
+   "population": 3506,
+   "lodging": null
+  },
+  {
+   "id": "it-32-egna",
+   "name": "Egna",
+   "point": {
+    "lat": 46.31777,
+    "lon": 11.27337,
+    "cc": "IT",
+    "population": 3474
+   },
+   "population": 3474,
+   "lodging": null
+  },
+  {
+   "id": "it-32-san-giacomo",
+   "name": "San Giacomo",
+   "point": {
+    "lat": 46.45624,
+    "lon": 11.33365,
+    "cc": "IT",
+    "population": 3404
+   },
+   "population": 3404,
+   "lodging": null
+  },
+  {
+   "id": "it-34-auronzo",
+   "name": "Auronzo",
+   "point": {
+    "lat": 46.5592,
+    "lon": 12.42456,
+    "cc": "IT",
+    "population": 3347
+   },
+   "population": 3347,
+   "lodging": null
+  },
+  {
+   "id": "it-34-pieve-di-cadore",
+   "name": "Pieve di Cadore",
+   "point": {
+    "lat": 46.42466,
+    "lon": 12.36416,
+    "cc": "IT",
+    "population": 3342
+   },
+   "population": 3342,
+   "lodging": null
+  },
+  {
+   "id": "it-34-pedavena",
+   "name": "Pedavena",
+   "point": {
+    "lat": 46.03951,
+    "lon": 11.8831,
+    "cc": "IT",
+    "population": 3221
+   },
+   "population": 3221,
+   "lodging": null
+  },
+  {
+   "id": "it-32-ora",
+   "name": "Ora",
+   "point": {
+    "lat": 46.34687,
+    "lon": 11.29747,
+    "cc": "IT",
+    "population": 3198
+   },
+   "population": 3198,
+   "lodging": null
+  },
+  {
+   "id": "it-34-limana",
+   "name": "Limana",
+   "point": {
+    "lat": 46.10039,
+    "lon": 12.18552,
+    "cc": "IT",
+    "population": 3128
+   },
+   "population": 3128,
+   "lodging": null
+  },
+  {
+   "id": "it-32-vandoies-vintl",
+   "name": "Vandoies - Vintl",
+   "point": {
+    "lat": 46.81513,
+    "lon": 11.72068,
+    "cc": "IT",
+    "population": 3108
+   },
+   "population": 3108,
+   "lodging": null
+  },
+  {
+   "id": "it-32-cavalese",
+   "name": "Cavalese",
+   "point": {
+    "lat": 46.29048,
+    "lon": 11.45862,
+    "cc": "IT",
+    "population": 3107
+   },
+   "population": 3107,
+   "lodging": null
+  },
+  {
+   "id": "it-32-ravina",
+   "name": "Ravina",
+   "point": {
+    "lat": 46.03944,
+    "lon": 11.11215,
+    "cc": "IT",
+    "population": 3093
+   },
+   "population": 3093,
+   "lodging": null
+  },
+  {
+   "id": "at-7-fulpmes",
+   "name": "Fulpmes",
+   "point": {
+    "lat": 47.15202,
+    "lon": 11.34922,
+    "cc": "AT",
+    "population": 3038
+   },
+   "population": 3038,
+   "lodging": null
+  },
+  {
+   "id": "it-32-ultimo-ulten",
+   "name": "Ultimo - Ulten",
+   "point": {
+    "lat": 46.54832,
+    "lon": 11.00417,
+    "cc": "IT",
+    "population": 3006
+   },
+   "population": 3006,
+   "lodging": null
+  },
+  {
+   "id": "it-32-lagundo",
+   "name": "Lagundo",
+   "point": {
+    "lat": 46.68113,
+    "lon": 11.12572,
+    "cc": "IT",
+    "population": 2977
+   },
+   "population": 2977,
+   "lodging": null
+  },
+  {
+   "id": "it-32-baselga-di-pine",
+   "name": "Baselga di Pinè",
+   "point": {
+    "lat": 46.1325,
+    "lon": 11.24648,
+    "cc": "IT",
+    "population": 2966
+   },
+   "population": 2966,
+   "lodging": null
+  },
+  {
+   "id": "it-32-caldonazzo",
+   "name": "Caldonazzo",
+   "point": {
+    "lat": 45.99367,
+    "lon": 11.26426,
+    "cc": "IT",
+    "population": 2946
+   },
+   "population": 2946,
+   "lodging": null
+  },
+  {
+   "id": "it-34-san-fior-di-sopra",
+   "name": "San Fior di Sopra",
+   "point": {
+    "lat": 45.92219,
+    "lon": 12.36137,
+    "cc": "IT",
+    "population": 2898
+   },
+   "population": 2898,
+   "lodging": null
+  },
+  {
+   "id": "it-32-termeno",
+   "name": "Termeno",
+   "point": {
+    "lat": 46.34151,
+    "lon": 11.24228,
+    "cc": "IT",
+    "population": 2853
+   },
+   "population": 2853,
+   "lodging": null
+  },
+  {
+   "id": "it-32-san-michele-all-adige",
+   "name": "San Michele All'Adige",
+   "point": {
+    "lat": 46.18967,
+    "lon": 11.13212,
+    "cc": "IT",
+    "population": 2808
+   },
+   "population": 2808,
+   "lodging": null
+  },
+  {
+   "id": "it-32-salorno",
+   "name": "Salorno",
+   "point": {
+    "lat": 46.24062,
+    "lon": 11.21192,
+    "cc": "IT",
+    "population": 2783
+   },
+   "population": 2783,
+   "lodging": null
+  },
+  {
+   "id": "at-7-steinach-am-brenner",
+   "name": "Steinach am Brenner",
+   "point": {
+    "lat": 47.08333,
+    "lon": 11.46667,
+    "cc": "AT",
+    "population": 2716
+   },
+   "population": 2716,
+   "lodging": null
+  },
+  {
+   "id": "it-32-rasun-anterselva-rasen-antholz",
+   "name": "Rasun Anterselva - Rasen-Antholz",
+   "point": {
+    "lat": 46.77853,
+    "lon": 12.04729,
+    "cc": "IT",
+    "population": 2700
+   },
+   "population": 2700,
+   "lodging": null
+  },
+  {
+   "id": "at-7-aldrans",
+   "name": "Aldrans",
+   "point": {
+    "lat": 47.25,
+    "lon": 11.45,
+    "cc": "AT",
+    "population": 2684
+   },
+   "population": 2684,
+   "lodging": null
+  },
+  {
+   "id": "it-32-scena-schenna",
+   "name": "Scena - Schenna",
+   "point": {
+    "lat": 46.69012,
+    "lon": 11.18627,
+    "cc": "IT",
+    "population": 2677
+   },
+   "population": 2677,
+   "lodging": null
+  },
+  {
+   "id": "it-32-sinigo",
+   "name": "Sinigo",
+   "point": {
+    "lat": 46.63488,
+    "lon": 11.17926,
+    "cc": "IT",
+    "population": 2657
+   },
+   "population": 2657,
+   "lodging": null
+  },
+  {
+   "id": "at-7-fuegen",
+   "name": "Fügen",
+   "point": {
+    "lat": 47.347,
+    "lon": 11.84939,
+    "cc": "AT",
+    "population": 2617
+   },
+   "population": 2617,
+   "lodging": null
+  },
+  {
+   "id": "it-36-artegna",
+   "name": "Artegna",
+   "point": {
+    "lat": 46.23929,
+    "lon": 13.15399,
+    "cc": "IT",
+    "population": 2588
+   },
+   "population": 2588,
+   "lodging": null
+  },
+  {
+   "id": "it-34-domegge-di-cadore",
+   "name": "Domegge di Cadore",
+   "point": {
+    "lat": 46.45666,
+    "lon": 12.40724,
+    "cc": "IT",
+    "population": 2548
+   },
+   "population": 2548,
+   "lodging": null
+  },
+  {
+   "id": "it-32-chiusa",
+   "name": "Chiusa",
+   "point": {
+    "lat": 46.64001,
+    "lon": 11.56573,
+    "cc": "IT",
+    "population": 2497
+   },
+   "population": 2497,
+   "lodging": null
+  },
+  {
+   "id": "it-36-osoppo",
+   "name": "Osoppo",
+   "point": {
+    "lat": 46.25536,
+    "lon": 13.08453,
+    "cc": "IT",
+    "population": 2493
+   },
+   "population": 2493,
+   "lodging": null
+  },
+  {
+   "id": "at-7-matrei-in-osttirol",
+   "name": "Matrei in Osttirol",
+   "point": {
+    "lat": 47,
+    "lon": 12.53333,
+    "cc": "AT",
+    "population": 2482
+   },
+   "population": 2482,
+   "lodging": null
+  },
+  {
+   "id": "at-7-weerberg",
+   "name": "Weerberg",
+   "point": {
+    "lat": 47.29841,
+    "lon": 11.66592,
+    "cc": "AT",
+    "population": 2482
+   },
+   "population": 2482,
+   "lodging": null
+  },
+  {
+   "id": "it-32-laces",
+   "name": "Laces",
+   "point": {
+    "lat": 46.61641,
+    "lon": 10.85726,
+    "cc": "IT",
+    "population": 2468
+   },
+   "population": 2468,
+   "lodging": null
+  },
+  {
+   "id": "it-34-cosniga-zoppe",
+   "name": "Cosniga-Zoppè",
+   "point": {
+    "lat": 45.8875,
+    "lon": 12.36028,
+    "cc": "IT",
+    "population": 2456
+   },
+   "population": 2456,
+   "lodging": null
+  },
+  {
+   "id": "it-36-budoia",
+   "name": "Budoia",
+   "point": {
+    "lat": 46.04453,
+    "lon": 12.53429,
+    "cc": "IT",
+    "population": 2449
+   },
+   "population": 2449,
+   "lodging": null
+  },
+  {
+   "id": "it-32-bronzolo",
+   "name": "Bronzolo",
+   "point": {
+    "lat": 46.40346,
+    "lon": 11.32078,
+    "cc": "IT",
+    "population": 2448
+   },
+   "population": 2448,
+   "lodging": null
+  },
+  {
+   "id": "at-7-igls",
+   "name": "Igls",
+   "point": {
+    "lat": 47.23127,
+    "lon": 11.41018,
+    "cc": "AT",
+    "population": 2444
+   },
+   "population": 2444,
+   "lodging": null
+  },
+  {
+   "id": "at-7-debant",
+   "name": "Debant",
+   "point": {
+    "lat": 46.83333,
+    "lon": 12.81667,
+    "cc": "AT",
+    "population": 2441
+   },
+   "population": 2441,
+   "lodging": null
+  },
+  {
+   "id": "it-32-naz-sciaves-natz-schabs",
+   "name": "Naz-Sciaves - Natz-Schabs",
+   "point": {
+    "lat": 46.76883,
+    "lon": 11.66558,
+    "cc": "IT",
+    "population": 2430
+   },
+   "population": 2430,
+   "lodging": null
+  },
+  {
+   "id": "it-32-giovo",
+   "name": "Giovo",
+   "point": {
+    "lat": 46.15581,
+    "lon": 11.15278,
+    "cc": "IT",
+    "population": 2392
+   },
+   "population": 2392,
+   "lodging": null
+  },
+  {
+   "id": "it-32-funes-villnoess",
+   "name": "Funes - Villnoess",
+   "point": {
+    "lat": 46.64282,
+    "lon": 11.67828,
+    "cc": "IT",
+    "population": 2379
+   },
+   "population": 2379,
+   "lodging": null
+  },
+  {
+   "id": "it-32-dobbiaco",
+   "name": "Dobbiaco",
+   "point": {
+    "lat": 46.72878,
+    "lon": 12.22225,
+    "cc": "IT",
+    "population": 2373
+   },
+   "population": 2373,
+   "lodging": null
+  },
+  {
+   "id": "it-34-castion",
+   "name": "Castion",
+   "point": {
+    "lat": 46.12147,
+    "lon": 12.23507,
+    "cc": "IT",
+    "population": 2357
+   },
+   "population": 2357,
+   "lodging": null
+  },
+  {
+   "id": "it-32-tuenno",
+   "name": "Tuenno",
+   "point": {
+    "lat": 46.32844,
+    "lon": 11.02306,
+    "cc": "IT",
+    "population": 2349
+   },
+   "population": 2349,
+   "lodging": null
+  },
+  {
+   "id": "it-32-castelbello-ciardes-kastelbell-tschars",
+   "name": "Castelbello-Ciardes - Kastelbell-Tschars",
+   "point": {
+    "lat": 46.62832,
+    "lon": 10.90666,
+    "cc": "IT",
+    "population": 2328
+   },
+   "population": 2328,
+   "lodging": null
+  }
+ ],
+ "places": [
+  {
+   "ref": "place/lago-di-braies",
+   "slug": "lago-di-braies",
+   "name": "Lago di Braies",
+   "kind": "lake",
+   "type": "water.body.lake",
+   "tags": [],
+   "point": {
+    "lat": 46.6946,
+    "lon": 12.0853,
+    "cc": "IT"
+   },
+   "region": "south-tyrol",
+   "country": "IT",
+   "season": [
+    7,
+    8,
+    9
+   ],
+   "draw": "journey",
+   "complete": true,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": 3.7,
+   "gainM": 30,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/croda-del-becco",
+   "slug": "croda-del-becco",
+   "name": "Croda del Becco",
+   "kind": "trail",
+   "type": "nature.trail.hike",
+   "tags": [],
+   "point": {
+    "lat": 46.69898,
+    "lon": 12.08554,
+    "cc": "IT"
+   },
+   "region": "south-tyrol",
+   "country": "IT",
+   "season": [],
+   "draw": null,
+   "complete": false,
+   "suitability": {
+    "minAge": 12,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": 180,
+   "visitRange": null,
+   "distanceKm": 14.6,
+   "gainM": 1314,
+   "needsDaylight": true
+  },
+  {
+   "ref": "place/adolf-munkel-weg",
+   "slug": "adolf-munkel-weg",
+   "name": "Adolf Munkel Weg",
+   "kind": "trail",
+   "type": "nature.trail.hike",
+   "tags": [],
+   "point": {
+    "lat": 46.63567,
+    "lon": 11.76576,
+    "cc": "IT"
+   },
+   "region": "south-tyrol",
+   "country": "IT",
+   "season": [],
+   "draw": "detour",
+   "complete": false,
+   "suitability": {
+    "minAge": 10,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": 240,
+   "visitRange": null,
+   "distanceKm": 12.4,
+   "gainM": 593,
+   "needsDaylight": true
+  },
+  {
+   "ref": "place/tre-cime-di-lavaredo-loop",
+   "slug": "tre-cime-di-lavaredo-loop",
+   "name": "Tre Cime di Lavaredo loop",
+   "kind": "trail",
+   "type": "nature.trail.hike",
+   "tags": [],
+   "point": {
+    "lat": 46.61203,
+    "lon": 12.29648,
+    "cc": "IT"
+   },
+   "region": "veneto",
+   "country": "IT",
+   "season": [
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "draw": "journey",
+   "complete": true,
+   "suitability": {
+    "minAge": 10,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": 180,
+   "visitRange": null,
+   "distanceKm": 10,
+   "gainM": 450,
+   "needsDaylight": true
+  },
+  {
+   "ref": "place/alpe-di-siusi",
+   "slug": "alpe-di-siusi",
+   "name": "Alpe di Siusi",
+   "kind": "trail",
+   "type": "nature.trail.hike",
+   "tags": [],
+   "point": {
+    "lat": 46.54236,
+    "lon": 11.617,
+    "cc": "IT"
+   },
+   "region": "south-tyrol",
+   "country": "IT",
+   "season": [],
+   "draw": "journey",
+   "complete": false,
+   "suitability": {
+    "minAge": 8,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": 180,
+   "visitRange": null,
+   "distanceKm": 9.9,
+   "gainM": 333,
+   "needsDaylight": true
+  },
+  {
+   "ref": "place/seceda-ridge",
+   "slug": "seceda-ridge",
+   "name": "Seceda ridge",
+   "kind": "viewpoint",
+   "type": "nature.trail.walk",
+   "tags": [],
+   "point": {
+    "lat": 46.5996,
+    "lon": 11.7231,
+    "cc": "IT"
+   },
+   "region": "south-tyrol",
+   "country": "IT",
+   "season": [],
+   "draw": "detour",
+   "complete": false,
+   "suitability": {
+    "minAge": 6,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": 90,
+   "visitRange": null,
+   "distanceKm": 13,
+   "gainM": 100,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/lago-di-sorapis",
+   "slug": "lago-di-sorapis",
+   "name": "Lago di Sorapis",
+   "kind": "trail",
+   "type": "nature.trail.hike",
+   "tags": [],
+   "point": {
+    "lat": 46.55605,
+    "lon": 12.20487,
+    "cc": "IT"
+   },
+   "region": "veneto",
+   "country": "IT",
+   "season": [],
+   "draw": "journey",
+   "complete": false,
+   "suitability": {
+    "minAge": 10,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": 240,
+   "visitRange": null,
+   "distanceKm": 10.5,
+   "gainM": 434,
+   "needsDaylight": true
+  },
+  {
+   "ref": "place/ortisei",
+   "slug": "ortisei",
+   "name": "Ortisei",
+   "kind": "town",
+   "type": "settlement.town",
+   "tags": [],
+   "point": {
+    "lat": 46.5747,
+    "lon": 11.6714,
+    "cc": "IT"
+   },
+   "region": "south-tyrol",
+   "country": "IT",
+   "season": [],
+   "draw": "local",
+   "complete": false,
+   "suitability": null,
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/bolzano",
+   "slug": "bolzano",
+   "name": "Bolzano",
+   "kind": "town",
+   "type": "settlement.town",
+   "tags": [],
+   "point": {
+    "lat": 46.4983,
+    "lon": 11.3548,
+    "cc": "IT"
+   },
+   "region": "south-tyrol",
+   "country": "IT",
+   "season": [],
+   "draw": null,
+   "complete": false,
+   "suitability": null,
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/selva-di-val-gardena",
+   "slug": "selva-di-val-gardena",
+   "name": "Selva di Val Gardena",
+   "kind": "town",
+   "type": "settlement.town",
+   "tags": [],
+   "point": {
+    "lat": 46.5556,
+    "lon": 11.7612,
+    "cc": "IT"
+   },
+   "region": "south-tyrol",
+   "country": "IT",
+   "season": [],
+   "draw": null,
+   "complete": false,
+   "suitability": null,
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/cinque-torri",
+   "slug": "cinque-torri",
+   "name": "Cinque Torri",
+   "kind": "sight",
+   "type": "nature.trail.walk",
+   "tags": [],
+   "point": {
+    "lat": 46.505,
+    "lon": 12.05,
+    "cc": "IT"
+   },
+   "region": "veneto",
+   "country": "IT",
+   "season": [],
+   "draw": "detour",
+   "complete": false,
+   "suitability": {
+    "minAge": 6,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": 90,
+   "visitRange": null,
+   "distanceKm": 2,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/lago-di-carezza",
+   "slug": "lago-di-carezza",
+   "name": "Lago di Carezza",
+   "kind": "lake",
+   "type": "water.body.lake",
+   "tags": [],
+   "point": {
+    "lat": 46.4093,
+    "lon": 11.5751,
+    "cc": "IT"
+   },
+   "region": "south-tyrol",
+   "country": "IT",
+   "season": [],
+   "draw": "detour",
+   "complete": false,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  }
+ ]
+}

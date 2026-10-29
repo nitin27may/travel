@@ -1,0 +1,411 @@
+{
+  "engine": "tb-e2.1",
+  "basis": "estimate",
+  "bases": [
+    {
+      "town": "ca-ab-banff",
+      "name": "Banff",
+      "nights": 4,
+      "pinned": false,
+      "picks": 5,
+      "reasons": [
+        {
+          "code": "base_share",
+          "values": {
+            "index": 1,
+            "nights": 4,
+            "n": 5,
+            "of": 7,
+            "maxMin": 94
+          },
+          "text": "Base 1: Banff, 4 nights, 5 of your 7 picks within 1 h 34 ≈"
+        },
+        {
+          "code": "from_start",
+          "values": {
+            "min": 103
+          },
+          "text": "1 h 43 ≈ from your start to Banff"
+        }
+      ]
+    },
+    {
+      "town": "ca-ab-jasper",
+      "name": "Jasper",
+      "nights": 3,
+      "pinned": false,
+      "picks": 2,
+      "reasons": [
+        {
+          "code": "base_share",
+          "values": {
+            "index": 2,
+            "nights": 3,
+            "n": 2,
+            "of": 7,
+            "maxMin": 99
+          },
+          "text": "Base 2: Jasper, 3 nights, 2 of your 7 picks within 1 h 39 ≈"
+        },
+        {
+          "code": "added_base",
+          "values": {
+            "n": 2,
+            "fromBase": "Banff"
+          },
+          "text": "Added for 2 of your picks beyond a day out from Banff"
+        }
+      ]
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "base": "ca-ab-banff",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/lake-louise",
+          "slug": "lake-louise",
+          "name": "Lake Louise",
+          "startMin": 895,
+          "visitMin": 45,
+          "driveMin": 160,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "legacy/canadian-rockies-2029/sights/moraine-lake",
+          "slug": "moraine-lake",
+          "name": "Moraine Lake",
+          "startMin": 960,
+          "visitMin": 45,
+          "driveMin": 20,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 50,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Lake Louise",
+            "b": "Moraine Lake",
+            "apartMin": 20
+          },
+          "text": "Lake Louise and Moraine Lake are 20 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 230
+          },
+          "text": "3 h 50 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "base": "ca-ab-banff",
+      "move": false,
+      "items": [
+        {
+          "ref": "legacy/canadian-rockies-2029/sights/peyto-lake",
+          "slug": "peyto-lake-lookout-banff",
+          "name": "Peyto Lake Lookout",
+          "startMin": 590,
+          "visitMin": 30,
+          "driveMin": 94,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "legacy/canadian-rockies-2029/sights/johnston-canyon",
+          "slug": "johnston-canyon",
+          "name": "Johnston Canyon",
+          "startMin": 735,
+          "visitMin": 20,
+          "driveMin": 75,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 30,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Peyto Lake Lookout",
+            "b": "Johnston Canyon",
+            "apartMin": 75
+          },
+          "text": "Peyto Lake Lookout and Johnston Canyon are 1 h 15 ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 199
+          },
+          "text": "3 h 19 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "base": "ca-ab-banff",
+      "move": false,
+      "items": [
+        {
+          "ref": "legacy/canadian-rockies-2029/adventures/banff-gondola",
+          "slug": "banff-gondola",
+          "name": "Banff Gondola",
+          "startMin": 490,
+          "visitMin": 180,
+          "driveMin": 9,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 9,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 18
+          },
+          "text": "18 min ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "base": "ca-ab-banff",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 5,
+      "base": "ca-ab-jasper",
+      "move": true,
+      "items": [
+        {
+          "ref": "place/athabasca-glacier",
+          "slug": "athabasca-glacier",
+          "name": "Athabasca Glacier",
+          "startMin": 660,
+          "visitMin": 45,
+          "driveMin": 163,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/maligne-lake",
+          "slug": "maligne-lake",
+          "name": "Maligne Lake",
+          "startMin": 805,
+          "visitMin": 45,
+          "driveMin": 60,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 48,
+      "warnings": [
+        "W_DRIVE_LIMIT"
+      ],
+      "reasons": [
+        {
+          "code": "move_day",
+          "values": {
+            "fromBase": "Banff",
+            "toBase": "Jasper",
+            "min": 249
+          },
+          "text": "Move from Banff to Jasper: 4 h 09 ≈ of driving"
+        },
+        {
+          "code": "long_move",
+          "values": {
+            "min": 249,
+            "limitMin": 240
+          },
+          "text": "The move is 4 h 09 ≈, over your 4 h of driving a day: break the drive"
+        },
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Athabasca Glacier",
+            "b": "Maligne Lake",
+            "apartMin": 60
+          },
+          "text": "Athabasca Glacier and Maligne Lake are 1 h ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 271
+          },
+          "text": "4 h 31 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "base": "ca-ab-jasper",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 7,
+      "base": "ca-ab-jasper",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 8,
+      "base": null,
+      "move": false,
+      "items": [],
+      "returnMin": 303,
+      "warnings": [
+        "W_DRIVE_LIMIT"
+      ],
+      "reasons": []
+    }
+  ],
+  "didNotFit": [],
+  "spareDays": 3,
+  "matrix": {
+    "refs": [
+      "place/lake-louise",
+      "legacy/canadian-rockies-2029/sights/moraine-lake",
+      "legacy/canadian-rockies-2029/sights/johnston-canyon",
+      "legacy/canadian-rockies-2029/adventures/banff-gondola",
+      "legacy/canadian-rockies-2029/sights/peyto-lake",
+      "place/maligne-lake",
+      "place/athabasca-glacier"
+    ],
+    "minutes": [
+      [
+        0,
+        20,
+        40,
+        59,
+        46,
+        166,
+        115
+      ],
+      [
+        20,
+        0,
+        35,
+        52,
+        55,
+        175,
+        124
+      ],
+      [
+        40,
+        35,
+        0,
+        32,
+        75,
+        194,
+        145
+      ],
+      [
+        59,
+        52,
+        32,
+        0,
+        97,
+        212,
+        165
+      ],
+      [
+        46,
+        55,
+        75,
+        97,
+        0,
+        128,
+        76
+      ],
+      [
+        166,
+        175,
+        194,
+        212,
+        128,
+        0,
+        60
+      ],
+      [
+        115,
+        124,
+        145,
+        165,
+        76,
+        60,
+        0
+      ]
+    ],
+    "estimated": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ]
+  }
+}

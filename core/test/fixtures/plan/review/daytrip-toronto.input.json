@@ -1,0 +1,142 @@
+{
+ "name": "daytrip-toronto",
+ "build": {
+  "bases": [],
+  "edits": [],
+  "party": {
+   "adults": 2,
+   "children": [
+    7
+   ],
+   "walkKm": null
+  },
+  "where": {
+   "mode": "near",
+   "start": {
+    "kind": "hub",
+    "id": "toronto"
+   },
+   "driveLimitMin": 180
+  },
+  "nights": 0,
+  "pace": "standard",
+  "moves": "fewer",
+  "month": 7,
+  "origin": null,
+  "picks": [
+   {
+    "ref": "place/dwight",
+    "must": false
+   },
+   {
+    "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+    "must": false
+   },
+   {
+    "ref": "place/oxtongue-lake",
+    "must": false
+   }
+  ]
+ },
+ "start": {
+  "lat": 43.67028,
+  "lon": -79.38667,
+  "cc": "CA"
+ },
+ "gateway": null,
+ "tz": "America/Toronto",
+ "towns": [],
+ "places": [
+  {
+   "ref": "place/dwight",
+   "slug": "dwight",
+   "name": "Dwight",
+   "kind": "town",
+   "type": "settlement.town",
+   "tags": [],
+   "point": {
+    "lat": 45.32726,
+    "lon": -79.01127,
+    "cc": "CA"
+   },
+   "region": "ontario",
+   "country": "CA",
+   "season": [],
+   "draw": null,
+   "complete": false,
+   "suitability": null,
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+   "slug": "ragged-falls",
+   "name": "Ragged Falls",
+   "kind": "waterfall",
+   "type": "water.falls.waterfall",
+   "tags": [],
+   "point": {
+    "lat": 45.39167,
+    "lon": -78.90611,
+    "cc": "CA"
+   },
+   "region": "ontario",
+   "country": "CA",
+   "season": [],
+   "draw": "detour",
+   "complete": false,
+   "suitability": {
+    "minAge": 3,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/oxtongue-lake",
+   "slug": "oxtongue-lake",
+   "name": "Oxtongue Lake",
+   "kind": "lake",
+   "type": "water.body.lake",
+   "tags": [],
+   "point": {
+    "lat": 45.36783,
+    "lon": -78.92115,
+    "cc": "CA"
+   },
+   "region": "ontario",
+   "country": "CA",
+   "season": [],
+   "draw": null,
+   "complete": false,
+   "suitability": null,
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  }
+ ]
+}

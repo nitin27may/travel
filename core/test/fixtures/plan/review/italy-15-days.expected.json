@@ -1,0 +1,781 @@
+{
+  "engine": "tb-e2.1",
+  "basis": "estimate",
+  "bases": [
+    {
+      "town": "it-34-cortina-d-ampezzo",
+      "name": "Cortina d'Ampezzo",
+      "nights": 7,
+      "pinned": false,
+      "picks": 5,
+      "reasons": [
+        {
+          "code": "base_share",
+          "values": {
+            "index": 1,
+            "nights": 7,
+            "n": 5,
+            "of": 12,
+            "maxMin": 37
+          },
+          "text": "Base 1: Cortina d'Ampezzo, 7 nights, 5 of your 12 picks within 37 min ≈"
+        },
+        {
+          "code": "added_base_saves",
+          "values": {
+            "n": 5,
+            "savedMin": 306
+          },
+          "text": "Added: 5 of your picks are nearer to it, 5 h 06 ≈ less driving in all"
+        }
+      ]
+    },
+    {
+      "town": "it-32-ortisei",
+      "name": "Ortisei",
+      "nights": 7,
+      "pinned": false,
+      "picks": 7,
+      "reasons": [
+        {
+          "code": "base_share",
+          "values": {
+            "index": 2,
+            "nights": 7,
+            "n": 7,
+            "of": 12,
+            "maxMin": 46
+          },
+          "text": "Base 2: Ortisei, 7 nights, 7 of your 12 picks within 46 min ≈"
+        }
+      ]
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "base": "it-34-cortina-d-ampezzo",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/cinque-torri",
+          "slug": "cinque-torri",
+          "name": "Cinque Torri",
+          "startMin": 850,
+          "visitMin": 90,
+          "driveMin": 152,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 21,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "arrive",
+          "values": {
+            "min": 131,
+            "airport": "VCE"
+          },
+          "text": "Fly into VCE, then 2 h 11 ≈ to Cortina d'Ampezzo"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 173
+          },
+          "text": "2 h 53 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "base": "it-34-cortina-d-ampezzo",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/lago-di-braies",
+          "slug": "lago-di-braies",
+          "name": "Lago di Braies",
+          "startMin": 520,
+          "visitMin": 45,
+          "driveMin": 36,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/croda-del-becco",
+          "slug": "croda-del-becco",
+          "name": "Croda del Becco",
+          "startMin": 570,
+          "visitMin": 290,
+          "driveMin": 3,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 37,
+      "warnings": [
+        "W_CEILING",
+        "W_FIT"
+      ],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Lago di Braies",
+            "b": "Croda del Becco",
+            "apartMin": 3
+          },
+          "text": "Lago di Braies and Croda del Becco are 3 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 76
+          },
+          "text": "1 h 16 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "base": "it-34-cortina-d-ampezzo",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/tre-cime-di-lavaredo-loop",
+          "slug": "tre-cime-di-lavaredo-loop",
+          "name": "Tre Cime di Lavaredo loop",
+          "startMin": 525,
+          "visitMin": 290,
+          "driveMin": 42,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 32,
+      "warnings": [
+        "W_CEILING",
+        "W_FIT"
+      ],
+      "reasons": [
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 74
+          },
+          "text": "1 h 14 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "base": "it-34-cortina-d-ampezzo",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/lago-di-sorapis",
+          "slug": "lago-di-sorapis",
+          "name": "Lago di Sorapis",
+          "startMin": 500,
+          "visitMin": 385,
+          "driveMin": 16,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 16,
+      "warnings": [
+        "W_CEILING",
+        "W_FIT"
+      ],
+      "reasons": [
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 32
+          },
+          "text": "32 min ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "base": "it-34-cortina-d-ampezzo",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 6,
+      "base": "it-34-cortina-d-ampezzo",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 7,
+      "base": "it-34-cortina-d-ampezzo",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 8,
+      "base": "it-32-ortisei",
+      "move": true,
+      "items": [
+        {
+          "ref": "place/lago-di-carezza",
+          "slug": "lago-di-carezza",
+          "name": "Lago di Carezza",
+          "startMin": 550,
+          "visitMin": 45,
+          "driveMin": 67,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/alpe-di-siusi",
+          "slug": "alpe-di-siusi",
+          "name": "Alpe di Siusi",
+          "startMin": 640,
+          "visitMin": 290,
+          "driveMin": 43,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 17,
+      "warnings": [
+        "W_CEILING",
+        "W_FIT"
+      ],
+      "reasons": [
+        {
+          "code": "move_day",
+          "values": {
+            "fromBase": "Cortina d'Ampezzo",
+            "toBase": "Ortisei",
+            "min": 58
+          },
+          "text": "Move from Cortina d'Ampezzo to Ortisei: 58 min ≈ of driving"
+        },
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Lago di Carezza",
+            "b": "Alpe di Siusi",
+            "apartMin": 33
+          },
+          "text": "Lago di Carezza and Alpe di Siusi are 33 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 127
+          },
+          "text": "2 h 07 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 9,
+      "base": "it-32-ortisei",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/ortisei",
+          "slug": "ortisei",
+          "name": "Ortisei",
+          "startMin": 485,
+          "visitMin": 90,
+          "driveMin": 2,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/bolzano",
+          "slug": "bolzano",
+          "name": "Bolzano",
+          "startMin": 625,
+          "visitMin": 90,
+          "driveMin": 46,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 46,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Ortisei",
+            "b": "Bolzano",
+            "apartMin": 46
+          },
+          "text": "Ortisei and Bolzano are 46 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 94
+          },
+          "text": "1 h 34 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 10,
+      "base": "it-32-ortisei",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/seceda-ridge",
+          "slug": "seceda-ridge",
+          "name": "Seceda ridge",
+          "startMin": 495,
+          "visitMin": 90,
+          "driveMin": 15,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/adolf-munkel-weg",
+          "slug": "adolf-munkel-weg",
+          "name": "Adolf Munkel Weg",
+          "startMin": 605,
+          "visitMin": 385,
+          "driveMin": 16,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 24,
+      "warnings": [
+        "W_CEILING",
+        "W_FIT"
+      ],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Seceda ridge",
+            "b": "Adolf Munkel Weg",
+            "apartMin": 16
+          },
+          "text": "Seceda ridge and Adolf Munkel Weg are 16 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 55
+          },
+          "text": "55 min ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 11,
+      "base": "it-32-ortisei",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 12,
+      "base": "it-32-ortisei",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 13,
+      "base": "it-32-ortisei",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 14,
+      "base": "it-32-ortisei",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 15,
+      "base": null,
+      "move": false,
+      "items": [
+        {
+          "ref": "place/selva-di-val-gardena",
+          "slug": "selva-di-val-gardena",
+          "name": "Selva di Val Gardena",
+          "startMin": 520,
+          "visitMin": 90,
+          "driveMin": 20,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 141,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "depart",
+          "values": {
+            "min": 145,
+            "airport": "VCE"
+          },
+          "text": "2 h 25 ≈ from Ortisei to VCE, then fly home"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 161
+          },
+          "text": "2 h 41 ≈ of driving"
+        }
+      ]
+    }
+  ],
+  "didNotFit": [],
+  "spareDays": 7,
+  "matrix": {
+    "refs": [
+      "place/lago-di-braies",
+      "place/ortisei",
+      "place/bolzano",
+      "place/selva-di-val-gardena",
+      "place/croda-del-becco",
+      "place/adolf-munkel-weg",
+      "place/tre-cime-di-lavaredo-loop",
+      "place/alpe-di-siusi",
+      "place/seceda-ridge",
+      "place/lago-di-sorapis",
+      "place/cinque-torri",
+      "place/lago-di-carezza"
+    ],
+    "minutes": [
+      [
+        0,
+        56,
+        85,
+        50,
+        3,
+        46,
+        37,
+        61,
+        51,
+        36,
+        41,
+        73
+      ],
+      [
+        56,
+        0,
+        46,
+        20,
+        56,
+        25,
+        70,
+        16,
+        15,
+        62,
+        51,
+        39
+      ],
+      [
+        85,
+        46,
+        0,
+        53,
+        86,
+        56,
+        102,
+        40,
+        52,
+        92,
+        77,
+        38
+      ],
+      [
+        50,
+        20,
+        53,
+        0,
+        51,
+        23,
+        63,
+        27,
+        17,
+        55,
+        43,
+        41
+      ],
+      [
+        3,
+        56,
+        86,
+        51,
+        0,
+        46,
+        37,
+        61,
+        51,
+        37,
+        41,
+        73
+      ],
+      [
+        46,
+        25,
+        56,
+        23,
+        46,
+        0,
+        62,
+        33,
+        16,
+        56,
+        47,
+        50
+      ],
+      [
+        37,
+        70,
+        102,
+        63,
+        37,
+        62,
+        0,
+        76,
+        65,
+        24,
+        42,
+        85
+      ],
+      [
+        61,
+        16,
+        40,
+        27,
+        61,
+        33,
+        76,
+        0,
+        25,
+        66,
+        55,
+        33
+      ],
+      [
+        51,
+        15,
+        52,
+        17,
+        51,
+        16,
+        65,
+        25,
+        0,
+        59,
+        48,
+        44
+      ],
+      [
+        36,
+        62,
+        92,
+        55,
+        37,
+        56,
+        24,
+        66,
+        59,
+        0,
+        30,
+        74
+      ],
+      [
+        41,
+        51,
+        77,
+        43,
+        41,
+        47,
+        42,
+        55,
+        48,
+        30,
+        0,
+        59
+      ],
+      [
+        73,
+        39,
+        38,
+        41,
+        73,
+        50,
+        85,
+        33,
+        44,
+        74,
+        59,
+        0
+      ]
+    ],
+    "estimated": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142
+    ]
+  }
+}
