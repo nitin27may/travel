@@ -2,10 +2,10 @@
 
 import { useId, useRef, useState, type KeyboardEvent } from 'react';
 import { Icon } from '@/components/ui/Icon';
-import type { LinkTab } from './model';
+import type { LeanTab } from './model';
 
 /** Links as tabs by group, with a count on each (patterns 3.6). Arrow keys move between tabs. */
-export function LinksTabs({ tabs, checked }: { tabs: LinkTab[]; checked: string | null }) {
+export function LinksTabs({ tabs, checked }: { tabs: LeanTab[]; checked: string | null }) {
   const id = useId();
   const first = tabs.find((t) => t.links.length)?.id ?? tabs[0].id;
   const [current, setCurrent] = useState(first);
@@ -42,7 +42,7 @@ export function LinksTabs({ tabs, checked }: { tabs: LinkTab[]; checked: string 
             onKeyDown={(e) => onKey(e, i)}
           >
             {t.label}{' '}
-            {t.links.length || t.none.length ? <span className="num pl-tab-n">{t.links.length}</span> : <span className="pl-tab-gap">· not checked yet</span>}
+            {t.links.length || t.none?.length ? <span className="num pl-tab-n">{t.links.length}</span> : <span className="pl-tab-gap">· not checked yet</span>}
           </button>
         ))}
       </div>
@@ -65,7 +65,7 @@ export function LinksTabs({ tabs, checked }: { tabs: LinkTab[]; checked: string 
             ))}
           </ul>
         ) : null}
-        {active.none.length ? (
+        {active.none?.length ? (
           <ul className="pl-links pl-links-none">
             {active.none.map((n) => (
               <li key={n.label}>

@@ -89,22 +89,14 @@ interface IconProps extends Omit<SVGProps<SVGSVGElement>, 'name'> {
   size?: number;
 }
 
+/**
+ * The stroke style (fill none, currentColor, 1.75, round caps and joins) is one rule on `.ic` in app/app.css at specificity zero,
+ * the weight a presentation attribute has, so any rule that styled these icons before still wins. As attributes it was about
+ * 190 B per icon, written twice (markup and payload) on every page (DATA-PLAN 2.4, S2D-SIZE).
+ */
 export function Icon({ name, size = 16, className, ...rest }: IconProps) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.75}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      focusable="false"
-      className={className}
-      {...rest}
-    >
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" className={className ? `ic ${className}` : 'ic'} {...rest}>
       <path d={PATHS[name]} />
     </svg>
   );

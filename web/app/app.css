@@ -4,6 +4,9 @@
  * Colour, type, space and motion come only from the tokens in themes.css (var(--...)); no colour literals here.
  */
 
+/* Icon stroke style (components/ui/Icon.tsx), at specificity zero like the presentation attributes it replaces */
+:where(svg.ic) { fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
 :root { --page-pad: var(--margin); }
 @media (max-width: 639px) { :root { --margin: 14px; --header-h: var(--phone-header-h); } }
 
