@@ -2,7 +2,7 @@
 // navigates to the address it returns; nothing else of the builder knows how the details page opens a built trip.
 //
 // CONTRACT (STEP2-B1 owns the page side):
-//   in:  a built-mode `plan-draft/1` with `lastBuild` set (`outputsOf` of the build answer), `party: "device"`, an `id` that is a UUID v4
+//   in:  a built-mode `plan-draft/1` with `lastBuild` set (`outputsOf` of the build answer), `party: "trip"` with `travellers` (the party the build used, RB-004), an `id` that is a UUID v4
 //        and an `identity` colour. The picks matrix is not part of it.
 //   does: adds the document to the device list `plan-drafts/1` under the local key of keys.ts, newest first, replacing a document
 //        of the same id; fires `travel:plans-changed` and the trip page's `travel:trip-doc-changed`; clears the builder's screen state.

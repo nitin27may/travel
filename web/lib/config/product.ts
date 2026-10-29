@@ -129,6 +129,8 @@ export const PLAN_BUILDER_UI = {
   driveDayChoicesMin: [120, 180, 240, 360],
   /** fewer than this many places in reach is a thin count (FLOW stage 1, F-Q1) */
   thinCount: 5,
+  /** a town within this many km of a picked town is that town ("Stay here" asks the towns read for it) */
+  stayTownKm: 8,
   /** the day-out driving slider, minutes (= PLAN_LIMITS.driveDayMin), and where it starts when the person turns "Let the pace decide" off */
   driveDay: { min: 60, max: 480, step: 15, defaultMin: 240 },
   /** a build waits this long before the progress card says it is still working */

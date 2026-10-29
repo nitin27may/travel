@@ -122,7 +122,8 @@ function dayParts(d: PlanDayOut, baseName: (town: string | null) => string | nul
         at: null, from: prevPlace, to: here,
         time: { confidence: "suggested", source: "rule", pinned: false, note: null },
         duration: { source: "rule", basis: est ? "estimate" : "routed" },
-        leg: { mode: "drive", km: null, basis: est ? "estimate" : "routed", breaks: 0 },
+        // "matrix", not "estimate": a leg with minutes from the drive table is a priced estimate (≈ minutes). "estimate" with no km is the page's "Drive time estimated" with no figure (RB-017)
+        leg: { mode: "drive", km: null, basis: est ? "matrix" : "routed", breaks: 0 },
         optional: false, addedBy: "scheduler", sourceItemId: null, honesty: est ? ["drive_estimated"] : [],
       });
     }
@@ -154,7 +155,7 @@ function dayParts(d: PlanDayOut, baseName: (town: string | null) => string | nul
       at: null, from: prevPlace, to,
       time: { confidence: "suggested", source: "rule", pinned: false, note: null },
       duration: { source: "rule", basis: "estimate" },
-      leg: { mode: "drive", km: null, basis: "estimate", breaks: 0 },
+      leg: { mode: "drive", km: null, basis: "matrix", breaks: 0 },
       optional: false, addedBy: "scheduler", sourceItemId: null, honesty: [],
     });
   }

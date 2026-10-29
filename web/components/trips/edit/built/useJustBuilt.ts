@@ -5,6 +5,9 @@
 // shows the just-built line again. The line stays for this page view.
 import { useEffect, useRef, useState } from 'react';
 
+/** Set when Build my days opened this page view; the just-built line takes it once to scroll and focus (it may remount later, and must not scroll again). */
+export const landing = { pending: false };
+
 const EVENT = 'travel:trip-url';
 const BUILT = 'built';
 
@@ -29,6 +32,7 @@ export function useJustBuilt(ready: boolean): boolean {
   useEffect(() => {
     const u = new URL(window.location.href);
     if (u.searchParams.get(BUILT) !== '1') return;
+    landing.pending = true;
     // read after the commit, not in an initialiser: a client-side navigation from the builder renders this page before the address has changed
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setFlag(true);

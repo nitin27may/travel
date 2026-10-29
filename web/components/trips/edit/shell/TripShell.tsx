@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { tripPageModelForBuilt, type PlanOp, type PlanTripFacts } from '@/lib/trip-edit/model';
+import { tripPageModelForBuilt, type PlanDraft, type PlanOp, type PlanTripFacts } from '@/lib/trip-edit/model';
 import type { ResolveRow, TripPlanModel } from '@travel/core/schema/api/index.ts';
 import { PHOTOS_TAB_MIN } from '@/components/trips/summary/text';
 import { tripTabsFor, type TripTab } from '@travel/core/trips/tabs.ts';
@@ -25,6 +25,8 @@ import { BuiltSummary } from '../built/BuiltSummary';
 import { JustBuilt } from '../built/JustBuilt';
 import { ReflowOffer } from '../built/ReflowOffer';
 import { useJustBuilt } from '../built/useJustBuilt';
+import { useBuiltCover } from '../built/useBuiltCover';
+import { draftTitle } from '@/lib/trip-edit/title';
 import { changeCount, changesLine, endOf, entryMarks, kickerWords } from '@/lib/trip-edit/marks';
 import { findCopy } from '@/lib/trip-edit/open';
 import { slugIdentity } from '@travel/core/schema/identity.ts';
@@ -50,6 +52,9 @@ async function resolveAll(refs: readonly string[]): Promise<ResolveRow[]> {
   for (let i = 0; i < refs.length; i += 48) rows.push(...((await resolveRefs(refs.slice(i, i + 48)).catch(() => null)) ?? []));
   return rows;
 }
+
+/** The name the page shows: a copy's own, its copy title or our trip's; a built trip's own or the one derived from its towns and length (RB-015). */
+const nameOf = (d: PlanDraft, copyTitle: string | null, ours: string | null): string => (d.template ? (d.title ?? copyTitle ?? ours ?? 'Your trip') : draftTitle(d));
 
 const words = (slug: string): string => slug.replace(/-\d{4}$/, '').replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
 
@@ -98,6 +103,8 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   const bf = useMemo(() => (doc && !doc.template ? builtFacts(doc) : null), [doc]);
   const misses = useMemo(() => (doc && !doc.template ? missRows(doc) : []), [doc]);
   const justBuilt = useJustBuilt(!!placed && state.status === 'ok');
+  const ownPhoto = !!doc && !doc.template && !(state.status === 'ok' && state.copy?.photo);
+  const builtPhoto = useBuiltCover(ownPhoto && doc ? doc.picks.map((p) => p.slug) : NO_PICKS, ownPhoto);
   const [builtRows, setBuiltRows] = useState<ResolveRow[] | null>(null);
   const pickRefs = doc && !doc.template ? doc.picks.map((p) => p.ref) : NO_PICKS;
   const pickKey = pickRefs.join(',');
@@ -139,7 +146,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
 
   useEffect(() => {
     if (!doc) return;
-    const t = doc.title ?? copyTitle ?? plan?.ours?.name ?? (slug ? words(slug) : 'Your trip');
+    const t = nameOf(doc, copyTitle, plan?.ours?.name ?? (slug ? words(slug) : null));
     document.title = `${t} · Your trip`;
   }, [doc, plan, slug, copyTitle]);
 
@@ -176,7 +183,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
         o.ownTripOf({
           doc,
           slug: key,
-          title: doc.title ?? copyTitle ?? ourTitle ?? 'Your trip',
+          title: nameOf(doc, copyTitle, ourTitle),
           ourTitle,
           party: doc.travellers ?? { adults: profile.adults, children: profile.youngest === null ? [] : [profile.youngest] },
           days: timelineModel.days,
@@ -204,8 +211,8 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   if (!model || !model.timeline) return <TripSkeleton />;
 
   // a device copy keeps the person's name as the copy's title (the document maps it back as null); an account trip keeps it in the document
-  const title = doc.title ?? copyTitle ?? ourTitle ?? 'Your trip';
-  const photo = state.copy?.photo ?? model.gallery[0]?.url ?? null;
+  const title = nameOf(doc, copyTitle, ourTitle);
+  const photo = state.copy?.photo ?? model.gallery[0]?.url ?? builtPhoto;
   const defaults = { ...model.timeline.defaultProfile, adults: 2 };
   const profile = profileOfDraft(doc, defaults);
   const party = doc.travellers ?? { adults: profile.adults, children: profile.youngest === null ? [] : [profile.youngest] };
@@ -262,7 +269,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   };
 
   return (
-    <article className="trip-page" data-own="" data-where={state.where}>
+    <article className="trip-page" data-own="" data-where={state.where} data-built={doc.template ? undefined : ''} style={doc.template ? undefined : { ['--tc' as string]: `var(--id-${doc.identity ?? 'none'})` }}>
       <OwnCover
         kicker={kickerWords(doc, ourTitle)}
         title={title}

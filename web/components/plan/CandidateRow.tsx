@@ -18,6 +18,8 @@ interface Props {
   /** the plan already holds as many places as it can */
   full?: boolean;
   className?: string;
+  /** "Stay here" on a picked town (RB-022): present only for a picked town; the toggle makes it a base */
+  stay?: { on: boolean; busy: boolean; failed: boolean; onToggle: () => void } | null;
   /** a row of a left-out list ("Not for your party", "Closed in October"): it shows why and cannot be picked (TB-W2) */
   why?: string | null;
 }
@@ -26,12 +28,12 @@ interface Props {
 export function rowMeta(row: PlanCandidateRow): string {
   const parts: string[] = [row.kindLabel];
   if (row.km) parts.push(`${row.km} km`);
-  if (row.visitMin) parts.push(durationText(row.visitMin));
+  if (row.visitMin) parts.push(`${durationText(row.visitMin)} there`);
   return parts.join(' · ');
 }
 
 /** A candidate (components 9.2, 9.5): name and kind line, the drive from the start or the pick, up to three chips, and the Pick control. */
-export function CandidateRow({ row, picked, onToggle, youngest, from, full, className, why }: Props) {
+export function CandidateRow({ row, picked, onToggle, youngest, from, full, className, why, stay }: Props) {
   const chips: { kind: 'ok' | 'toBook' | 'honest' | 'neutral'; text: string }[] = [];
   if (youngest !== null && row.fit === 'pass') chips.push({ kind: 'ok', text: `Fits ${youngest}` });
   if (row.booking && row.booking !== 'none') chips.push({ kind: 'toBook', text: row.booking });
@@ -46,7 +48,7 @@ export function CandidateRow({ row, picked, onToggle, youngest, from, full, clas
       </span>
       <div className="cand-body">
         <p className="cand-name">
-          <Link href={`/places/${row.slug}/`} target="_blank" rel="noopener noreferrer">
+          <Link href={`/places/${row.slug}/`} target="_blank" rel="noopener noreferrer" prefetch={false}>
             {row.name}
             <span className="sr-only"> (opens in a new tab)</span>
           </Link>
@@ -57,6 +59,15 @@ export function CandidateRow({ row, picked, onToggle, youngest, from, full, clas
           {row.kind === 'area' ? ' · we choose its stops' : ''}
         </p>
         {why ? <p className="cand-why">{why}</p> : null}
+        {stay ? (
+          <p className="cand-stay">
+            <button type="button" className="stay-btn" aria-pressed={stay.on} aria-busy={stay.busy || undefined} disabled={stay.busy} onClick={stay.onToggle} aria-label={`${stay.on ? 'Stop staying in' : 'Stay in'} ${row.name}`}>
+              <Icon name={stay.on ? 'check' : 'pin'} size={14} />
+              {stay.on ? 'Staying here' : 'Stay here'}
+            </button>
+            {stay.failed ? <span className="cand-why"> We could not place a base here.</span> : null}
+          </p>
+        ) : null}
         {chips.length && !why ? (
           <p className="cand-chips">
             {chips.slice(0, 3).map((c) => (

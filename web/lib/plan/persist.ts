@@ -14,5 +14,7 @@ export function persistFlow(flow: FlowState): SaveResult | null {
   const doc = draftOf(flow, identity, null);
   if (!doc) return null;
   // a document that was already built keeps its build until the person builds again
-  return saveDraft(mine?.lastBuild ? { ...doc, lastBuild: mine.lastBuild } : doc);
+  const kept = mine?.lastBuild ? { ...doc, lastBuild: mine.lastBuild } : doc;
+  // and the party it was built with (RB-004): the screen state never holds one
+  return saveDraft(mine?.party === 'trip' && mine.travellers ? { ...kept, party: 'trip', travellers: mine.travellers } : kept);
 }

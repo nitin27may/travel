@@ -8,19 +8,19 @@ import { useToast } from '@/components/ui/Toast';
 import { PLAN_BUILDER_UI } from '@/lib/config/product';
 import { defaultPace } from '@/lib/plan/flow';
 import { draftName, draftStateWords, youngestOf } from '@/lib/plan/draft';
-import { kindDef, kindOfDraft, KINDS } from '@/lib/plan/kinds';
+import { KINDS } from '@/lib/plan/kinds';
 import { plural } from '@/lib/plan/format';
 import { removeDraft, saveDraft } from '@/lib/plan/store';
 import { useDrafts } from '@/lib/plan/useDrafts';
 import { openTripHref } from '@/lib/trip-edit/keys';
 import type { StageProps } from './types';
 
-/** Stage 0 (FLOW 4): six kind tiles (a tap advances, L4), then Your plans and the other ways in. */
+/** Stage 0 (FLOW 4): six kind tiles (a tap advances, L4), then Your trips and the other ways in. */
 export function KindStage({ flow, dispatch, party, now, onResume }: StageProps & { onResume: (d: PlanDraft) => void }) {
   const { drafts, ready, status } = useDrafts();
   const { toast } = useToast();
   const full = drafts.length >= PLAN_BUILDER_UI.deviceDrafts;
-  // three newest, then "All plans in Mine"; at the cap every plan is listed so one can be removed (X1)
+  // three newest, then "All trips in Mine"; at the cap every plan is listed so one can be removed (X1)
   const shown = full ? drafts : drafts.slice(0, 3);
   const youngest = youngestOf(party);
 
@@ -42,7 +42,11 @@ export function KindStage({ flow, dispatch, party, now, onResume }: StageProps &
                 <span className="kind-mark" aria-hidden="true" />
                 <span className="kind-text">
                   <span className="kind-name">{k.label}</span>
-                  <span className="kind-meta">{k.meta}</span>
+                  <span className="kind-meta">
+                    {k.meta.split(' · ').map((part, i) => (
+                      <span key={i}>{i ? ' ' : ''}{part}</span>
+                    ))}
+                  </span>
                 </span>
               </button>
             </li>
@@ -55,18 +59,18 @@ export function KindStage({ flow, dispatch, party, now, onResume }: StageProps &
         {ready && (shown.length || full || status === 'newer') ? (
           <section aria-labelledby="plan-plans-h" className="plan-sec">
             <h2 id="plan-plans-h" className="plan-h3">
-              Your plans
+              Your trips
             </h2>
-            {status === 'newer' ? <Banner kind="caution">These plans were saved by a newer version of the site, so they are left alone.</Banner> : null}
+            {status === 'newer' ? <Banner kind="caution">These trips were saved by a newer version of the site, so they are left alone.</Banner> : null}
             {full ? (
               <Banner kind="caution" action={<Link href="/mine/">Open Mine</Link>}>
-                {PLAN_BUILDER_UI.deviceDrafts} plans on this device. Remove one to start another.
+                {PLAN_BUILDER_UI.deviceDrafts} trips on this device. Remove one to start another.
               </Banner>
             ) : null}
             <ul className="plan-rows" role="list">
               {shown.map((d) => {
-                const kl = kindDef(kindOfDraft(d.nights, d.where.mode)).label;
-                const words = `${draftName(d, kl)} · ${plural(d.picks.length, 'place')} · ${draftStateWords(d)}`;
+                const name = draftName(d);
+                const words = `${name} · ${plural(d.picks.length, 'place')} · ${draftStateWords(d)}`;
                 return (
                   <li key={d.id} className="plan-row">
                     {d.lastBuild || d.template ? (
@@ -78,7 +82,7 @@ export function KindStage({ flow, dispatch, party, now, onResume }: StageProps &
                         {words}
                       </button>
                     )}
-                    <Button variant="ghost" size="sm" aria-label={`Remove ${draftName(d, kl)}`} onClick={() => remove(d)}>
+                    <Button variant="ghost" size="sm" aria-label={`Remove ${name}`} onClick={() => remove(d)}>
                       Remove
                     </Button>
                   </li>
@@ -86,7 +90,7 @@ export function KindStage({ flow, dispatch, party, now, onResume }: StageProps &
               })}
             </ul>
             <p className="plan-more">
-              <Link href="/mine/">All plans in Mine</Link>
+              <Link href="/mine/">All trips in Mine</Link>
             </p>
           </section>
         ) : null}

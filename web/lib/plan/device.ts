@@ -5,11 +5,12 @@
 import type { StorageLike } from '@travel/core/schema/copies.ts';
 import { PLAN_DRAFTS_SCHEMA, readPlanDrafts, type PlanDraft } from '@travel/core/schema/plan-draft.ts';
 import { PLANS_KEY } from './keys';
+import { draftTitle } from '@/lib/trip-edit/title';
 
 /** What a Mine row needs of a draft; nothing of the plan itself leaves this file. */
 export interface DeviceDraft {
   id: string;
-  /** the person's own title, or null (the row then names it) */
+  /** the person's own title or, for a plan the builder made, its derived one; null for a copy without a title (the row then names it) */
   title: string | null;
   /** a copy's public trip (template mode); null for a built plan */
   slug: string | null;
@@ -43,7 +44,8 @@ export const hasDeviceDrafts = (s: StorageLike): boolean => get(s) !== null;
 function rowOf(d: PlanDraft): DeviceDraft {
   return {
     id: d.id,
-    title: d.title,
+    // a template copy is named from its public trip by Mine; a plan the builder made carries its derived name (RB-015, one name everywhere)
+    title: d.template ? d.title : draftTitle(d),
     slug: d.template?.trip ?? null,
     start: d.start ?? null,
     days: d.nights === null ? null : d.nights + 1,

@@ -373,7 +373,7 @@ export function EditLayer(p: LayerProps) {
           }
         : {
             dayMenu: (n: number, ctx: DayCtx) => <BuiltDayMenu n={n} doc={doc} base={ctx.day.base ?? null} start={p.start} act={builtDayAct} />,
-            dayStatus: (n: number) => <BuiltDayStatus n={n} doc={doc} />,
+            dayStatus: (n: number) => <BuiltDayStatus n={n} doc={doc} onSettings={p.onSettings} />,
             emptyDay: (n: number) =>
               builtDayCount(doc) > 1 ? (
                 <Button size="sm" variant="ghost" className="edit-drop-empty" onClick={() => builtDayAct.drop(n, { kind: 'remove' }, 0)}>

@@ -7,7 +7,7 @@ import type { PlanDraft } from '@travel/core/schema/plan-draft.ts';
 import { Banner } from '@/components/ui/Banner';
 import { Button } from '@/components/ui/Button';
 import { PLAN_BUILDER_UI } from '@/lib/config/product';
-import { buildInputOf, draftOf, nextIdentity, outputsOf, stateOfDraft } from '@/lib/plan/draft';
+import { buildInputOf, draftOf, nextIdentity, outputsOf, stateOfDraft, withParty } from '@/lib/plan/draft';
 import { parseEntry, hasEntry } from '@/lib/plan/entry';
 import { canAdvance, flowReducer, isLastStage, modeOf, newFlow, STAGE_NAMES, stepCount, stepNumber, type FlowAction, type Stage } from '@/lib/plan/flow';
 import { plural } from '@/lib/plan/format';
@@ -33,14 +33,17 @@ const nowIso = (): string => new Date().toISOString();
 /** "Start from this trip" (X7): the public trip is read once, then the plan is the visitor's own. */
 type Seeding = { status: 'idle' } | { status: 'loading' } | { status: 'ok'; name: string | null; skipped: number } | { status: 'missing' | 'empty' | 'failed' };
 
-type Building = { status: 'idle' } | { status: 'building'; slow: boolean } | { status: 'failed'; message: string; code: string };
+type Building = { status: 'idle' } | { status: 'building'; slow: boolean } | { status: 'failed'; message: string; code: string; retryAt?: number };
+
+/** "14:35" in the person's own clock. */
+const clock = (ms: number): string => new Date(ms).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
 
 /** The words of a build that did not finish (FLOW stage 5 states): the plan stays on the device either way. */
-function buildFailure(e: unknown): { message: string; code: string } {
+function buildFailure(e: unknown): { message: string; code: string; retryAt?: number } {
   const code = (e as { code?: string }).code ?? 'internal';
   if (e instanceof HandOffError) {
     const why: Record<string, string> = {
-      cap: `${PLAN_BUILDER_UI.deviceDrafts} plans on this device. Remove one from Your plans, then build again.`,
+      cap: `${PLAN_BUILDER_UI.deviceDrafts} trips on this device. Remove one from Your trips, then build again.`,
       full: 'This browser has no room left to keep the plan. Free some space, then build again.',
       blocked: 'This browser does not let the site keep plans. Allow site data, then build again.',
       newer: 'These plans were saved by a newer version of the site. Reload the page, then build again.',
@@ -50,10 +53,12 @@ function buildFailure(e: unknown): { message: string; code: string } {
     return { message: why[e.reason] ?? 'We could not keep the plan on this device.', code: `hand_off_${e.reason}` };
   }
   if (code === 'rate_limited') {
+    // RB-030: the clock time, and the button waits for it
     const wait = (e as { retryAfterS?: number | null }).retryAfterS;
-    return { message: `Too many builds just now. Try again ${wait ? `in ${plural(Math.max(1, Math.ceil(wait / 60)), 'minute')}` : 'a little later'}. Your plan is kept.`, code };
+    const retryAt = wait ? Date.now() + wait * 1000 : undefined;
+    return { message: `Too many builds just now. ${retryAt ? `You can build again after ${clock(retryAt)}` : 'Try again a little later'}. Your plan is kept.`, code, ...(retryAt ? { retryAt } : {}) };
   }
-  if (code === 'plan_paused') return { message: 'Planning is paused. Your plan is safe on this device.', code };
+  if (code === 'plan_paused') return { message: 'Planning is paused for now. Your plan is safe on this device; come back later.', code };
   if (code === 'not_available') return { message: 'We cannot plan from that starting point yet. Pick another one, or plan a trip by air.', code };
   if (code === 'too_large') return { message: 'That is more than one build can take. Take a few places out.', code };
   return { message: 'We could not build your days. Your plan is kept.', code };
@@ -72,6 +77,17 @@ export function PlanFlow() {
   const [seeding, setSeeding] = useState<Seeding>({ status: 'idle' });
   const [announce, setAnnounce] = useState('');
   const heading = useRef<HTMLHeadingElement>(null);
+  // a rate-limited build's Try again waits for the time it named
+  const retryAt = building.status === 'failed' ? building.retryAt : undefined;
+  const [clockNow, setClockNow] = useState(() => Date.now());
+  useEffect(() => {
+    if (!retryAt) return;
+    const wait = retryAt - Date.now();
+    if (wait <= 0) return;
+    const t = setTimeout(() => setClockNow(Date.now()), wait + 50);
+    return () => clearTimeout(t);
+  }, [retryAt]);
+  const waiting = !!retryAt && retryAt > clockNow;
   const reasonId = useId();
   const stageSeen = useRef<Stage | null>(null);
   const abort = useRef<AbortController | null>(null);
@@ -82,7 +98,13 @@ export function PlanFlow() {
   useEffect(() => {
     const entry = parseEntry(window.location.search);
     const id = crypto.randomUUID();
-    if (entry.seed) {
+    const mine = entry.draft ? readDrafts().drafts.find((d) => d.id === entry.draft) : undefined;
+    if (mine) {
+      // Mine's "Continue" (RB-021): the draft opens on the stage the link names (Days for a draft with picks), never on a stale screen state
+      window.history.replaceState(window.history.state, '', window.location.pathname);
+      const st = stateOfDraft(mine);
+      dispatch({ t: 'load', state: { ...st, stage: entry.stage ?? st.stage } });
+    } else if (entry.seed) {
       // X7: a public trip's places, bases and nights become the first answers; the link is read once and stripped, like the other entries
       const slug = entry.seed;
       window.history.replaceState(window.history.state, '', window.location.pathname);
@@ -120,7 +142,6 @@ export function PlanFlow() {
       const saved = readFlow();
       dispatch({ t: 'load', state: saved ?? newFlow(id, nowIso()) });
     }
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- the saved draft is in the browser, so the first paint is the server's shell and this is the switch to the real one
     setReady(true);
   }, []);
 
@@ -148,7 +169,7 @@ export function PlanFlow() {
     if (!ready || !flow.id) return;
     const t = setTimeout(() => {
       const r = persistFlow(flow);
-      setSaveNote(r && !r.ok ? (r.reason === 'cap' ? `${PLAN_BUILDER_UI.deviceDrafts} plans on this device. Remove one from Your plans to keep this one.` : 'This plan could not be kept on this device. It will be lost if you leave.') : null);
+      setSaveNote(r && !r.ok ? (r.reason === 'cap' ? `${PLAN_BUILDER_UI.deviceDrafts} trips on this device. Remove one from Your trips to keep this one.` : 'This plan could not be kept on this device. It will be lost if you leave.') : null);
     }, PLAN_BUILDER_UI.autosaveMs);
     return () => clearTimeout(t);
   }, [flow, ready]);
@@ -214,8 +235,10 @@ export function PlanFlow() {
       if (answer === null) throw Object.assign(new Error('no builder'), { code: 'internal' });
       const list = readDrafts();
       const identity = list.drafts.find((d) => d.id === flow.id)?.identity ?? nextIdentity(list.drafts.map((d) => d.identity));
-      const doc = draftOf({ ...flow, updatedAt: nowIso() }, identity, { ...outputsOf(answer) });
-      if (!doc) throw new Error('incomplete');
+      const built = draftOf({ ...flow, updatedAt: nowIso() }, identity, { ...outputsOf(answer) });
+      if (!built) throw new Error('incomplete');
+      // the page, its checks and a rebuild plan for the party this build used (RB-004)
+      const doc = withParty(built, party);
       // the schema (Zod) loads here, once, to be sure the details page can open what we store
       const { parsePlanDraft } = await import('@travel/core/schema/plan-draft.ts');
       const checked = parsePlanDraft(doc);
@@ -263,7 +286,7 @@ export function PlanFlow() {
 
         {saveNote ? <Banner kind="caution">{saveNote}</Banner> : null}
         {building.status === 'failed' ? (
-          <Banner kind="urgent" action={<Button size="sm" onClick={() => void build()}>Try again</Button>}>
+          <Banner kind="urgent" action={building.code === 'plan_paused' ? undefined : <Button size="sm" disabled={waiting} onClick={() => void build()}>Try again</Button>}>
             {building.message}
           </Banner>
         ) : null}
