@@ -10,7 +10,7 @@ import type { PlanDraft } from '@/lib/trip-edit/model';
 import { deltaOfDraft } from '@/lib/trip-edit/source';
 import { makeFitter, type Fitter } from './fit';
 import type { Found } from './place';
-import { apiAvailable, nearPage, rowsOf, searchPage, type Page } from './source';
+import { apiAvailable, nearPage, parkMembers, rowsOf, searchPage, type Page } from './source';
 
 /** The template scheduler (its own chunk, loaded with the picker), then the copy's days as they stand. Null while it loads. */
 export function useFitter(doc: PlanDraft, model: TimelineModel, profile: Profile): Fitter | null {
@@ -87,6 +87,27 @@ export const useSearchRows = (q: string): Paged => {
   const words = q.trim();
   return usePaged(words.length >= 2 && apiAvailable() ? words : null, (page, signal) => searchPage(words, page, signal));
 };
+
+const NO_ROWS: Found[] = [];
+
+/** A park's places (members.ts), read once per park: `loading`, then `ok` with the rows, or `off` with no API or a failed read. */
+export function useParkMembers(park: Found | null): { status: 'loading' | 'ok' | 'off'; rows: Found[] } {
+  const key = park && apiAvailable() ? park.slug : null;
+  const [got, setGot] = useState<{ key: string; rows: Found[] | null } | null>(null);
+  const parkRef = useRef(park);
+  useEffect(() => {
+    parkRef.current = park;
+  });
+  useEffect(() => {
+    if (!key || !parkRef.current) return;
+    const c = new AbortController();
+    void parkMembers(parkRef.current, c.signal).then((rows) => !c.signal.aborted && setGot({ key, rows }));
+    return () => c.abort();
+  }, [key]);
+  if (!key) return { status: 'off', rows: NO_ROWS };
+  if (got?.key !== key) return { status: 'loading', rows: NO_ROWS };
+  return got.rows ? { status: 'ok', rows: got.rows } : { status: 'off', rows: NO_ROWS };
+}
 
 /** The rows of these slugs, read once. Null while on its way or when the read failed. */
 export function useRowsOf(slugs: readonly string[]): Found[] | null {

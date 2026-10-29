@@ -11,7 +11,7 @@ import { SeasonStrip } from '@/components/ui/SeasonStrip';
 import { KID_LABELS } from '@/lib/entities/labels';
 import { seasonLabel } from '@/lib/format/season';
 import { allTrailsLink, appleMapsUrl, directionsUrl, formatPoint, osmElementUrl, osmPointUrl, searchUrl } from '@/lib/map/links';
-import { addressCopy, addressLine } from '@/lib/public/address';
+import { addressClipboard, addressLine } from '@/lib/public/address';
 import type { LngLat } from '@/lib/map/types';
 import type { AccessPoint, Fact, PlaceLine as PlaceLineT, PublicPlace, PublicPlaceCard } from '@/lib/public/types';
 import { Interactions } from '@/components/suit/Interactions';
@@ -279,7 +279,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
         {addrIsTarget ? null : <strong>{addr.name}: </strong>}
         {addressLine(addr)}
       </span>
-      <CopyAddress text={addressCopy(addr)} name={addr.name} />
+      <CopyAddress text={addressClipboard(addr, target.at ? { lat: target.at.lat, lon: target.at.lng } : null)} name={addr.name} />
     </p>
   ) : null;
   const googleBtn = target ? (

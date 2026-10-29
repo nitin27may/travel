@@ -131,6 +131,9 @@ export function ownModel(data: TripExport, session: Pick<TimelineSession, 'timel
         links: src?.links ?? (slug && origin ? [`${origin}/places/${slug}/`] : []),
         point: src?.point ?? null,
         ...(src?.bookAhead ? { bookAhead: src.bookAhead } : {}),
+        // the Directions target's address the published stop carries (an access point's, else the place's own; review STEP2-PRV PR-012): the
+        // print line, the CSV cell and the ICS LOCATION read it. A place the person added has none on the device (the add list is light, P8)
+        ...(src?.address ? { address: src.address } : {}),
       });
     }
   }

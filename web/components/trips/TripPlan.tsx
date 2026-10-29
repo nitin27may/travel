@@ -275,10 +275,10 @@ function TimelinePlan({ slug, model: pageModel, depth, season, tabs, slots, shap
     publishTimeline({
       slug, profile: api.state.profile, defaults: { ...tlModel.defaultProfile, adults: 2 }, overrides: api.state.overrides, added: api.state.added.map((a) => ({ day: a.day, placeSlug: a.slug })),
       timelines: api.timelines, display: api.timelines.map((t) => { const d = tlModel.days.find((x) => x.n === t.day); return { ...t, entries: localEntries(flightEntries(t.entries, d?.flight), d?.zone) }; }),
-      sunPoints: Object.fromEntries(tlModel.days.map((d) => [d.n, d.input.sunPoint])), route: model.route,
+      sunPoints: Object.fromEntries(tlModel.days.map((d) => [d.n, d.input.sunPoint])), route: model.route, pending: api.pending,
     });
     return () => publishTimeline(null);
-  }, [slug, tlModel, api.state, api.timelines, model.route]);
+  }, [slug, tlModel, api.state, api.timelines, model.route, api.pending]);
   // A pick scrolls itself (lock, sticky offsets, pin) and writes the hash; the hash effect skips a hash it did not receive from outside.
   const goUrl = url.go;
   const daysView = tabApi.daysView;

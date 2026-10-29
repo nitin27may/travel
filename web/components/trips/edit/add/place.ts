@@ -18,6 +18,8 @@ export interface Found {
   gainM: number | null;
   /** "Banff National Park" or the area's name; empty when the row has none */
   area: string;
+  /** the area's slug (`banff-national-park`), when the row came from the catalogue: a park's members are read by it (members.ts) */
+  areaSlug?: string;
   kidFit: string;
   /** the youngest age the place suits, when known */
   kidsFrom: number | null;

@@ -24,9 +24,30 @@ export function addressLine(a: Pick<PageAddress, 'kind' | 'lines' | 'locality' |
   return [...a.lines, a.locality, a.postcode].filter((x): x is string => !!x).join(', ');
 }
 
-/** The address as text to paste into a map or a message: the same words without "Near" (the road is what a search needs). */
+/** The address words alone (no "Near"): what the home-town check reads. Never what a person copies (review STEP2-PRV PR-013). */
 export function addressCopy(a: Pick<PageAddress, 'lines' | 'locality' | 'postcode'>): string {
   return [...a.lines, a.locality, a.postcode].filter((x): x is string => !!x).join(', ');
+}
+
+/**
+ * What Copy address puts on the clipboard (review STEP2-PRV PR-013, T5): the words exactly as the card shows them, so a nearest-road address
+ * keeps its "Near" and a sat-nav does not read "Lake Louise Drive, Improvement District No. 9" as a street address, then the point the card
+ * goes to on a second line ("51.41667, -116.21771"), which every map app takes as it is.
+ */
+export function addressClipboard(a: Pick<PageAddress, 'kind' | 'lines' | 'locality' | 'postcode'>, at: { lat: number; lon: number } | null): string {
+  const pt = at ? `${at.lat.toFixed(5)}, ${at.lon.toFixed(5)}` : null;
+  return [addressLine(a), pt].filter((x): x is string => !!x).join('\n');
+}
+
+/**
+ * The address a print line, a CSV cell and an ICS LOCATION carry (review STEP2-PRV PR-012): the Directions target's, as the card words it,
+ * and named when it is not the place's own record ("Lake Louise Lakeshore parking, near Lake Louise Drive, Improvement District No. 9"), since
+ * a file has no card around it to say whose address it is.
+ */
+export function exportAddress(a: PageAddress, ownRef: string | null): string {
+  const line = addressLine(a);
+  if (ownRef !== null && a.ref === ownRef) return line;
+  return `${a.name}, ${a.kind === 'nearest_road' ? `near ${line.slice('Near '.length)}` : line}`;
 }
 
 /** The OpenStreetMap element of a record, whichever form `osm_ref` is stored in, or null. */

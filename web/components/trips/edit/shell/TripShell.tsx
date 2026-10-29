@@ -15,8 +15,8 @@ import type { TripPageModel } from '@/components/trips/model';
 import { lengthLabel } from '@/components/trips/format';
 import { useToast } from '@/components/ui/Toast';
 import { formatDate } from '@/lib/export/dates';
-import { builtExportOf, getOwn, publishOwn } from '@/lib/export/ownState';
-import { getTimeline } from '@/lib/export/timelineState';
+import { builtExportOf, publishOwn } from '@/lib/export/ownState';
+import { calendarMessage, downloadTripCalendar, useCalendarHandOff } from '@/lib/export/ownCalendar';
 import { mineStorage } from '@/lib/mine/storage';
 import { partyText } from '@travel/core/trips/partyWords.ts';
 import { BUILT_KEY, BUILT_SHARE_TITLE, builtFacts, builtShareUrl, missRows, placedBuild, type MissRow } from '@/lib/trip-edit/built';
@@ -188,6 +188,9 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
       live = false;
     };
   }, [doc, slug, key, timelineModel, plan, copyTitle]);
+  // Mine's Add to calendar opens this page and asks for the file here, so both buttons make the same file (review STEP2-PRV PR-011)
+  const say = useCallback((message: string) => toast({ message }), [toast]);
+  useCalendarHandOff({ id, key, slug, start: doc?.start ?? null }, say);
 
   // the Stops tab's count from the person's days; a leaf reads the stores so a timeline publish does not re-render this page
   const [editedStops, setEditedStops] = useState<number | null>(null);
@@ -222,19 +225,14 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
 
   // a built trip's export model is made on the device from its days (never fetched under its id)
   const device = !doc.template ? builtExportOf({ id: BUILT_KEY, title, origin: location.origin, nights: doc.nights ?? Math.max(0, days - 1), days: model.days.map((d) => ({ n: d.n, title: d.title, base: d.base })) }) : undefined;
+  // the person's calendar is made from the timelines on the page (their removals, additions and notes), not from the published plan; Mine's
+  // Add to calendar reaches the same builder through the hand-off above
   const calendar = async () => {
     if (!doc.start || !key) return;
     try {
-      const c = await import('@/lib/export/client');
-      const d = device ?? (await c.loadExport('trip', slug!));
-      // the person's calendar is made from the timelines on the page (their removals, additions and notes), not from the published plan
-      const mine = getOwn(key);
-      const sess = getTimeline(key);
-      const o = mine && sess ? await import('@/lib/export/own') : null;
-      const out = o && mine && sess ? o.downloadOwnIcs(d, sess, mine) : c.downloadIcs(d as Parameters<typeof c.downloadIcs>[0], doc.start);
-      toast({ message: `Downloaded ${out.name} · ${out.summary}` });
-    } catch (e) {
-      toast({ message: (e as Error)?.name === 'NoCalendarError' || (e as Error)?.constructor?.name === 'NoCalendarError' ? 'This trip has no day plan to put in a calendar.' : 'Could not build that file. Try again.' });
+      toast({ message: calendarMessage(await downloadTripCalendar({ key, slug, start: doc.start, device })) });
+    } catch (error) {
+      toast({ message: calendarMessage({ error }) });
     }
   };
 

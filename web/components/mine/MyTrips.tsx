@@ -24,6 +24,8 @@ import type { AccountSync, SyncSnapshot } from '@/lib/mine/sync';
 import { chipsBare, retryAnnouncement } from '@/lib/mine/chips';
 import type { RowChip } from '@/lib/mine/chips';
 import { PLAN_BUILDER_ON } from '@/lib/mine/flag';
+import { requestCalendar } from '@/lib/export/ownCalendar';
+import { TRIP_EDIT_ON } from '@/lib/trip-edit/flag';
 import { CopyRow } from './CopyRow';
 import { DraftRow } from './DraftRow';
 import './my-trips.css';
@@ -137,6 +139,12 @@ export function MyTrips({ items, drafts = [], removeDraft, storage, signedIn, di
       // the menu entry is disabled for an undated copy ("Calendar: add dates first"); this is the guard behind it
       if (r.item.start === null) return;
       const start = r.item.start;
+      // with tripEdit on, the copy's own page makes the file, with the same builder as its cover's Add to calendar (review STEP2-PRV PR-011)
+      if (TRIP_EDIT_ON) {
+        requestCalendar(r.item.id);
+        router.push(openHref(r.item));
+        return;
+      }
       try {
         const c = await import('@/lib/export/client');
         const d = await c.loadExport('trip', r.item.slug);
@@ -146,7 +154,7 @@ export function MyTrips({ items, drafts = [], removeDraft, storage, signedIn, di
         toast({ message: (e as Error)?.name === 'NoCalendarError' ? 'This trip has no day plan to put in a calendar.' : 'Could not build that file. Try again.' });
       }
     },
-    [toast],
+    [toast, router],
   );
 
   /** Undo of an account Remove (or of "removed on another device"): the tombstone is cleared and the trip comes back. */
