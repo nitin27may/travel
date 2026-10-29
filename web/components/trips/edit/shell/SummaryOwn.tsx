@@ -27,7 +27,7 @@ export function SummaryOwn({ start, end, days, adults, kids, pace, changes, onSh
       <dl className="own-sum-grid">
         <div>
           <dt>Dates</dt>
-          <dd>{start ? `${formatDate(start)}${end && end !== start ? ` to ${formatDate(end)}` : ''}` : 'Not set yet'}</dd>
+          <dd>{start ? `${formatDate(start)}${end && end !== start ? ` to ${formatDate(end)}` : ''}` : 'No date yet'}</dd>
         </div>
         <div>
           <dt>Length</dt>

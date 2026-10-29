@@ -57,7 +57,8 @@
 .trip-cover-fallback > svg { position: absolute; top: var(--s-6); right: var(--s-6); opacity: 0.6; }
 .trip-cover-scrim { position: absolute; inset: 0; background: linear-gradient(to bottom, var(--photo-scrim-top) 10%, var(--photo-scrim-bottom) 88%); }
 .trip-cover-text { position: relative; width: 100%; box-sizing: border-box; padding: var(--s-10) var(--s-8) 76px; display: grid; gap: var(--s-4); justify-items: start; color: var(--header-ink); }
-.trip-kicker { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--kicker-on-photo); }
+/* the kicker sits on a header-coloured pill (PR-018): 80% white straight on a bright sky was 2.4 to 2.75:1; ink on this pill is above 7:1 over white */
+.trip-kicker { width: fit-content; max-width: 100%; padding: 3px var(--s-2); border-radius: var(--r-2); background: color-mix(in srgb, var(--header) 82%, transparent); font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--header-ink); }
 .trip-title { font: var(--t-cover); text-transform: uppercase; max-width: 16ch; color: var(--header-ink); overflow-wrap: break-word; }
 /* SW-012: a name past two lines steps the display size down */
 .trip-title[data-long] { max-width: 28ch; font-size: clamp(28px, 4vw, 44px); line-height: 1; }

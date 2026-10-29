@@ -4,7 +4,7 @@ import { LEGACY_COPIES_KEY, LEGACY_MOVED_KEY, memoryStorage, readCopies, COPIES_
 import type { CopyInput, StorageLike } from '@travel/core/schema/copies.ts';
 import { PLAN_DRAFTS_SCHEMA } from '@travel/core/schema/plan-draft.ts';
 import { moveLegacyOnce, saveCopy } from '@/lib/mine/copies';
-import { DRAFT_CHIP, deviceCount, deviceRowId, groupDevice, isDraftRow } from '@/lib/mine/deviceList';
+import { DRAFT_CHIP, DRAFT_CLOSED_CHIP, deviceCount, deviceRowId, groupDevice, isDraftRow } from '@/lib/mine/deviceList';
 import { PLANS_KEY, draftHref } from '@/lib/plan/keys';
 import { hasDeviceDrafts, readDeviceDrafts, removeDeviceDraft } from '@/lib/plan/device';
 import { DraftRow } from '@/components/mine/DraftRow';
@@ -102,7 +102,7 @@ describe('the builder drafts reader', () => {
     putDrafts(s, unbuilt());
     const d = readDeviceDrafts(s);
     if (!d.ok) throw new Error(d.reason);
-    const row = groupDevice([], d.items, TODAY).nodate[0]!;
+    const row = groupDevice([], d.items, TODAY, true).nodate[0]!;
     if (!isDraftRow(row)) throw new Error('not a draft row');
     expect(row.chip).toBe(DRAFT_CHIP);
     expect(row.href).toBe(draftHref(ID_A));
@@ -127,11 +127,11 @@ describe('the builder drafts reader', () => {
 });
 
 describe('a draft row', () => {
-  const rowOf = (o: Record<string, unknown> = {}) => {
+  const rowOf = (o: Record<string, unknown> = {}, builder = true) => {
     putDrafts(s, { ...unbuilt(), ...o });
     const d = readDeviceDrafts(s);
     if (!d.ok) throw new Error(d.reason);
-    const row = groupDevice([], d.items, TODAY).nodate[0]!;
+    const row = groupDevice([], d.items, TODAY, builder).nodate[0]!;
     if (!isDraftRow(row)) throw new Error('x');
     return row;
   };
@@ -140,7 +140,23 @@ describe('a draft row', () => {
     expect(h).toContain('Draft · ready to build');
     expect(h).toContain('aria-label="Actions for Alps loop"');
     expect(h).toMatch(new RegExp(`href="/plan/?\\?draft=${ID_A}&amp;s=4"`));
-    expect(h).toContain('aria-label="Alps loop, no date, 4 days, draft, ready to build"');
+    // the link's name is its visible text (PR-023): no aria-label rewriting it
+    expect(h).not.toContain('aria-label="Alps loop');
+  });
+  it('with the builder off an unbuilt draft is no link, says why, and its menu holds Remove only (PR-010)', () => {
+    const row = rowOf({}, false);
+    expect(row.href).toBeNull();
+    expect(row.chip).toBe(DRAFT_CLOSED_CHIP);
+    const h = renderToStaticMarkup(<ul><DraftRow row={row} onRemove={() => undefined} /></ul>);
+    expect(h).not.toContain('<a ');
+    expect(h).not.toContain('/plan/');
+    expect(h).toContain('Draft · the planner is not open yet');
+    expect(h).toContain('aria-label="Actions for Alps loop"');
+  });
+  it('a built draft opens only where tripEdit is on; with neither flag it leads nowhere, and says so', () => {
+    const row = rowOf({ lastBuild: sampleDraft().lastBuild }, false);
+    expect(row.href).toBeNull();
+    expect(row.chip).toBe(DRAFT_CLOSED_CHIP);
   });
   it('a built draft has no Draft chip', () => {
     const row = rowOf({ lastBuild: sampleDraft().lastBuild });

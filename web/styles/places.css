@@ -50,7 +50,7 @@
 /* the cover body sits on the surface under the photo: no chip rides on a photo (PS6) */
 .pl-cover-body { display: grid; gap: var(--s-3); padding: var(--s-4) var(--s-5); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-4); }
 .pl-cover-body .pl-summary { color: var(--ink); max-width: 68ch; font: var(--t-body-l); }
-.pl-kicker { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: uppercase; color: var(--kicker-on-photo); margin: 0; }
+.pl-kicker { width: fit-content; max-width: 100%; padding: 3px var(--s-2); border-radius: var(--r-2); background: color-mix(in srgb, var(--header) 82%, transparent); font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: uppercase; color: var(--header-ink); margin: 0; }
 .pl-cover h1 { font: var(--t-cover); text-transform: uppercase; max-width: 16ch; padding-top: 0.1em; }
 .pl-cover .pl-kicker { margin-bottom: var(--s-1); }
 .pl-summary { font: var(--t-body-l); max-width: 54ch; color: var(--header-ink); }
@@ -199,3 +199,5 @@
 .pl-addr { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-3); margin: 0; }
 .pl-addr-text { flex: 1 1 14rem; min-width: 0; font: var(--t-body); color: var(--ink); overflow-wrap: anywhere; }
 .pl-addr-copy { flex: none; }
+/* the Directions card's buttons are 44 px targets (PR-014): Copy address was 30 px, the map buttons 38 */
+.pl-addr-copy, .pl-dir-links .btn { min-height: var(--touch-min); }

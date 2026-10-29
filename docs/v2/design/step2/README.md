@@ -186,6 +186,7 @@ copy strings from this table; a new string goes here first.
 | Places the engine could not fit | **Did not fit** | "Dropped" | |
 | Where the trip sleeps | **base** ("Base: Jasper, 4 nights") | "hub" in UI text | |
 | The people going | **who is going**; party words from the one function shared with Mine ("2 adults · 1 child (6)") | names (AD2) | |
+| A trip with no start date | **No date yet** (cover line, the Starts stat, the copy sheet); Mine's group head is the shorter **No date** | "Dates not set yet", "Not set yet" | STEP2-PRV PR-009 |
 | Warnings | **To fix** (level Fix) and **To check** (level Check) | "Error", "Problem" | brainstorm Q6 levels |
 
 ### 5.2 Buttons and labels

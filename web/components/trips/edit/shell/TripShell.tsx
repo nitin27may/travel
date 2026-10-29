@@ -270,11 +270,11 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
         title={title}
         titleEditor={edit.editing && edit.commit ? <InlineTitle title={title} ourTitle={ourTitle} where={state.where} commit={edit.commit} /> : undefined}
         photo={photo}
-        standfirst={doc.start ? `${formatDate(doc.start)}${end && end !== doc.start ? ` to ${formatDate(end)}` : ''}` : 'Dates not set yet'}
+        standfirst={doc.start ? `${formatDate(doc.start)}${end && end !== doc.start ? ` to ${formatDate(end)}` : ''}` : 'No date yet'}
         chips={[]}
         glance={[
           { k: 'Length', v: lengthLabel(doc.nights, days) },
-          { k: 'Starts', v: doc.start ? formatDate(doc.start) : 'Not set yet' },
+          { k: 'Starts', v: doc.start ? formatDate(doc.start) : 'No date yet' },
           { k: 'Who is going', v: partyText({ adults: party.adults, children: party.children }) },
           { k: 'Pace', v: profile.pace.charAt(0).toUpperCase() + profile.pace.slice(1) },
         ]}
