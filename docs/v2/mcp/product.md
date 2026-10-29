@@ -7,6 +7,12 @@ ships our research method, schema discovery, validation and dry runs, and render
 negotiable. TODO row of 26 Oct 2026; BACKLOG 15.313 to 15.326 (after 15.300 to 15.312 of the property matrix); owner
 questions QX1 to QX12 (section 6).
 
+> **28 Oct 2026:** the owner's decision of 27 Oct 2026 removes anonymous MCP: every call is signed in, on one endpoint
+> `/mcp/` (README decision record, PLAN R-291). "Visitor" below means a signed-in account at the `catalogue` level. Phases,
+> hours and tools are re-cut in [BUILD-READINESS.md](BUILD-READINESS.md) and [tool-catalogue.md](tool-catalogue.md); identity
+> and the admin panel are [identity-and-roles.md](identity-and-roles.md) and
+> [tool-registry-and-admin-controls.md](tool-registry-and-admin-controls.md). Section 5 below carries the new hours.
+
 Builds on: [README.md](README.md) (principles, rule 1.1 = PLAN R-252), [auth-and-sign-in.md](auth-and-sign-in.md)
 (sign-in, levels, add-ons, quotas), [security.md](security.md) (T1 to T15), [tools-v1-from-api.md](tools-v1-from-api.md)
 (the API-derived read tools, which become layer 1 below), [../features/property-display-matrix.md](../features/property-display-matrix.md)
@@ -32,7 +38,7 @@ bundle H2 after H, against an MCP that only mirrors read endpoints and offers no
 | V1 | Install in any client and plan: retrieve any trip, answer anything in our data, show a trip in detail, customise it into their Mine | public read tools; `copy_trip` and customise tools on the user's copy; `whoami`; anything the UI does, MCP does | [product-roles-and-tools.md](product-roles-and-tools.md) |
 | V2 | The model learns our format from the MCP | `get_type`, `get_format`, examples, the property catalogue, validators as tools | [product-method-and-discovery.md](product-method-and-discovery.md) |
 | V3 | Define new plans in our format; user scope or, for admins, the shared catalogue | `create_plan` with private places (user scope); `stage_batch` into the staging area (admin) | [product-staging-and-admin-writes.md](product-staging-and-admin-writes.md) |
-| V4 | Roles decide the tools: anonymous, signed-in user, admin | the six access levels of auth 14.2 mapped to personas; `tools/list` filtered per level | [product-roles-and-tools.md](product-roles-and-tools.md) 2 |
+| V4 | Roles decide the tools: signed-in user (from the `catalogue` level up), researcher, admin (no anonymous access since 27 Oct 2026) | the six access levels of auth 14.2 mapped to personas; `tools/list` filtered per level | [product-roles-and-tools.md](product-roles-and-tools.md) 2 |
 | V5 | Ship the research skills and method; schema discovery; validation and dry runs; later a public research toolkit | resources and prompts generated from `research/`; `validate`, `gap_report`, `diff`, `preview` | [product-method-and-discovery.md](product-method-and-discovery.md) |
 | V6 | Generative UI hints: cards, calendar, map, timelines, booking lists, comparisons; small payloads, summaries first | `travel-view/1` in `structuredContent`; MCP Apps views; text fallback | [product-response-format.md](product-response-format.md) |
 | V7 | Security and integrity designed in | same operations, server-side role checks, staging and review, provenance, audit, quotas, no household data, injection resistance, OAuth per client, the bundle H plan | [product-security.md](product-security.md) |
@@ -87,15 +93,15 @@ method generator.
 
 | Phase | Feature label, bundle | Who | What | Agent hours |
 |---|---|---|---|---|
-| M1 | v0.19, H | anonymous | read, discovery, method, stateless validation, structured payloads with view hints | 40 |
-| M2 | v0.20, H | signed-in, read | the user's copies, plans and favourites read; `whoami`; Connected apps | 41 |
-| M3 | v0.20a, **H2** (new) | signed-in, write | copy into Mine, customise, create own plans with private places, favourites, requests; previews and approvals; MCP Apps views | 60 |
-| M4 | v0.20b, **H2** | owner (researchers later) | research batches into staging, gap and refresh work lists, review and decide, intake queue | 55 |
-| M5 | later | everyone | public research toolkit, directory listings, long-running jobs, export | not scheduled |
+| M1 | v0.19, H | signed in, `catalogue` | authenticated catalogue read: OAuth and PATs, grants, consent, Connected apps, `whoami`, discovery, method, validation, the admin panel and locks | 123.5 |
+| M2 | v0.20, H | signed in, `plans_read` | the user's copies, plans, favourites, requests and map, read | 8 |
+| M3 | v0.20a, **H2** (new) | signed-in, write | copy into Mine, customise, create own plans with private places, favourites, requests, profile; previews and approvals; MCP Apps views | 63 |
+| M4 | v0.20b, **H2** | owner (researchers later) | research batches into staging, gap and refresh work lists, review and decide, intake queue | 56 |
+| M5 | v1.3, bundle L (QX13) | signed in | tasks extension, export, Agent Skills bundle, directory listings, researchers | 30 |
 
 API and contract prerequisites before H (property matrix, facts, endpoint table, validate, method routes): 41.5 h in bundles
-D, E and G; the user-plan and staging contracts are inside M3 and M4. In all 237.5 h, +159.5 h against the plan before
-26 Oct.
+D, E and G; the user-plan and staging contracts are inside M3 and M4. In all **322 h** (28 Oct 2026; was 237.5 h on 26 Oct and
+239.5 h after the 27 Oct builder changes): BUILD-READINESS 0.
 
 ## 6. Owner questions (QX1 to QX12)
 
@@ -109,13 +115,16 @@ D, E and G; the user-plan and staging contracts are inside M3 and M4. In all 237
 | QX6 | MCP Apps views (trip card, day timeline, map, booking list, date picker) in v0.20a, built in `web/` with the design system and reviewed like any UI, while every tool from v0.19 already returns text plus typed payloads with view hints? | **Yes** | about 19 h and a design review; the views follow the "no new HTML" rule because they are web app builds |
 | QX7 | Fix the response contract `travel-view/1` (text summary, structured payload, view hint, resource links) at v0.19 so later views need no tool change? | **Yes** | one more contract before v0.19 |
 | QX8 | Publish the research method (README, capture contract sections, type checklists, lanes, formats, examples) as public resources and prompts from v0.19, generated from `research/` and privacy-scanned? | **Yes** | our method becomes visible to anyone; it is already in a public repository after the publish decision |
-| QX9 | A public, stateless `validate` tool and route (size-capped, rate-limited) from v0.19? | **Yes** | some compute for anonymous users, against a model that cannot check its own drafts |
+| QX9 | A stateless `validate` tool and route (size-capped, rate-limited) from v0.19? (since 27 Oct 2026 for signed-in accounts only) | **Yes** | some compute for any signed-in account, against a model that cannot check its own drafts |
 | QX10 | Model-in-the-loop evals at T3 of H and H2 with owner-supplied API keys, capped at USD 20 a run? | **Yes** | money and an owner key step, against shipping tools no model can use |
 | QX11 | Staging is owner-only in v0.20b; invited researchers get `research` later, after a month of owner use and MCP-S4? | **Yes** | slower research throughput |
 | QX12 | Defer the public research toolkit and directory listings (Anthropic, OpenAI) until after v1.0? | **Yes** | fewer installs before v1.0 |
+
+QX13 to QX20 (28 Oct 2026, the build-ready plan) are in [product-packaging-and-phases.md](product-packaging-and-phases.md) 8. QX12 stands and is made concrete by QX13 (M5 as bundle L, v1.3, after v1.0).
 
 QM1 to QM10 of the property matrix page still stand; QM4, QM6, QM8, QM9 and QM10 apply to the read layer unchanged.
 
 ## Change log
 
 - 26 Oct 2026: written (travel-planner, Opus 5.5) on `public/PROP-MCP-SPEC` after the owner's MCP-as-product direction.
+- 28 Oct 2026: banner and section 5 for the owner's decision of 27 Oct 2026 (no anonymous endpoint) and the build-ready plan (travel-planner, Opus 5.5).

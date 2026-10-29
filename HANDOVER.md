@@ -21,6 +21,7 @@
 | D1b points follow-up | `v2-DATA-D1b`, `public/DATA-D1b` | running (Opus) |
 | D3a trail facts, D4a activities, D7-R Rockies best-time windows, D9-R Rockies stay bases | `v2-DATA-D3a`, `D4a`, `D7R`, `D9R` | running (Opus), launched 25 Oct |
 | D5a/D5b photos, D8-R, D2b, L1 (locations basics tools), D6a-W (show seasons) | see `docs/v2/build/public-site/DATA-ROADMAP.md` | not started |
+| MCP plan build-ready (28 Oct; owner decision 27 Oct: no anonymous MCP, one signed-in endpoint `/mcp/`; R-286 to R-291; `docs/v2/mcp/BUILD-READINESS.md`, 322 h; QX2, QX13 to QX20 open) | branch `public/MCP-PLAN`, docs only | not merged |
 | MCP sign-in spec written (`docs/v2/mcp/auth-and-sign-in.md`; Neon's OAuth provider plugin is off on both branches; spike MCP-0 needs the owner to switch it on for the child branch) | docs only | not built |
 
 Specs written 25 Oct, none built: trip overview, best-time windows and customisation (R-62 to R-67), favourites and suggestions (R-70 to R-75), stay bases and optimisation (R-76 to R-80), Google sign-in (R-81 to R-85), feedback and reports (R-90 to R-96), email (R-100 to R-107), data research (R-110 to R-113), MCP and master-plan audit (R-120 to R-129; `docs/v2/MASTER-PLAN-AUDIT-2026-10-25.md`).

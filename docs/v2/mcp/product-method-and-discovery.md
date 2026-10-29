@@ -113,7 +113,7 @@ Generated from README 9 and `sources-and-licences.md`, remote edition:
 | Code | the same functions as `node core/bin/validate.ts`, `suitability.ts check`, `relevance.ts check`, `capture.ts run --check` and the completeness engine, run against an in-memory tree: the batch plus the published catalogue as read-only context (refs resolve against both) |
 | Output | `{ok, errors[], warnings[], completeness{level, missing_required, missing_applicable, conditional}, licence[], refs{unresolved[], new[]}}`; codes and paths, never values echoed beyond the caller's own input |
 | Licence block | link-only hosts used as sources (E_CAP_LINK_ONLY), quotes over 300 characters, sources with no URL or read date, Google coordinates (W_PLACE_POINT), photos without licence |
-| Caps | 256 KB per document, 1 MB per batch, 200 records per batch; 20 validations per minute per IP anonymous (bucket `mcp:validate:ip`), 120 per hour per user |
+| Caps | 256 KB per document, 1 MB per batch, 200 records per batch; 120 validations an hour per user (bucket `mcp:validate:user`; anonymous use withdrawn 27 Oct 2026; was `mcp:validate:ip`), 120 per hour per user |
 | Side effects | none; nothing is stored; the body is not logged (auth 14.10 item 8) |
 | Privacy | the detector runs on the **input** too: a draft with household strings (`travellers`, an origin reference, a street address) is answered with `E_PRIVACY_INPUT` and the path, so a model learns not to put them in a public-bound record |
 
