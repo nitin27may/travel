@@ -10745,6 +10745,500 @@
       "x-private": [],
       "x-rules": []
     },
+    "sidecar.reference_airports": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string",
+          "pattern": "^reference-airports\\/1$",
+          "x-type": "text"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date",
+          "x-type": "date"
+        },
+        "run": {
+          "type": "string",
+          "pattern": "^\\S+$",
+          "x-type": "text"
+        },
+        "note": {
+          "type": "string",
+          "pattern": "\\S",
+          "x-type": "text"
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "wikidata",
+                "ourairports"
+              ]
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1
+            },
+            "terms": {
+              "type": "string",
+              "minLength": 1
+            },
+            "licence": {
+              "type": "string",
+              "enum": [
+                "CC0-1.0",
+                "public-domain"
+              ]
+            },
+            "read": {
+              "type": "string",
+              "format": "date"
+            },
+            "user_agent": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "id",
+            "url",
+            "terms",
+            "licence",
+            "read",
+            "user_agent"
+          ],
+          "additionalProperties": false,
+          "x-type": "json"
+        },
+        "airports": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Z0-9-]{3,10}$"
+              },
+              "iata": {
+                "type": "string",
+                "pattern": "^[A-Z]{3}$"
+              },
+              "ref": {
+                "type": "string",
+                "pattern": "^iata:[A-Z]{3}$"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "city": {
+                "type": "string",
+                "minLength": 1
+              },
+              "cc": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "iso_3166_2": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$"
+              },
+              "size": {
+                "type": "string",
+                "enum": [
+                  "large",
+                  "medium"
+                ]
+              },
+              "lat": {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90
+              },
+              "lon": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "wikidata",
+                  "ourairports"
+                ]
+              },
+              "source_key": {
+                "type": "string",
+                "pattern": "^\\d+$"
+              },
+              "licence": {
+                "type": "string",
+                "enum": [
+                  "CC0-1.0",
+                  "public-domain"
+                ]
+              },
+              "read": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            "required": [
+              "id",
+              "iata",
+              "ref",
+              "name",
+              "city",
+              "cc",
+              "iso_3166_2",
+              "size",
+              "lat",
+              "lon",
+              "source",
+              "source_key",
+              "licence",
+              "read"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        }
+      },
+      "required": [
+        "schema",
+        "updated",
+        "run",
+        "note",
+        "source",
+        "airports"
+      ],
+      "additionalProperties": false,
+      "x-family": "sidecar",
+      "x-table": "reference_airports",
+      "x-single": true,
+      "x-pk": [],
+      "x-sql": {},
+      "x-ui": {
+        "label": "Airports"
+      },
+      "x-private": [],
+      "x-rules": []
+    },
+    "sidecar.reference_hubs": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string",
+          "pattern": "^reference-hubs\\/1$",
+          "x-type": "text"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date",
+          "x-type": "date"
+        },
+        "run": {
+          "type": "string",
+          "pattern": "^\\S+$",
+          "x-type": "text"
+        },
+        "note": {
+          "type": "string",
+          "pattern": "\\S",
+          "x-type": "text"
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "wikidata",
+                "ourairports"
+              ]
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1
+            },
+            "terms": {
+              "type": "string",
+              "minLength": 1
+            },
+            "licence": {
+              "type": "string",
+              "enum": [
+                "CC0-1.0",
+                "public-domain"
+              ]
+            },
+            "read": {
+              "type": "string",
+              "format": "date"
+            },
+            "user_agent": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "id",
+            "url",
+            "terms",
+            "licence",
+            "read",
+            "user_agent"
+          ],
+          "additionalProperties": false,
+          "x-type": "json"
+        },
+        "hubs": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 60,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "ref": {
+                "type": "string",
+                "pattern": "^hub:[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "city",
+                  "town"
+                ]
+              },
+              "cc": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "iso_3166_2": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$"
+              },
+              "lat": {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90
+              },
+              "lon": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180
+              },
+              "wikidata": {
+                "type": "string",
+                "pattern": "^Q[1-9]\\d*$"
+              },
+              "town": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[a-z]{2}-[a-z0-9]+-[a-z0-9-]+$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "wikidata",
+                  "ourairports"
+                ]
+              },
+              "licence": {
+                "type": "string",
+                "enum": [
+                  "CC0-1.0",
+                  "public-domain"
+                ]
+              },
+              "read": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            "required": [
+              "id",
+              "ref",
+              "name",
+              "kind",
+              "cc",
+              "iso_3166_2",
+              "lat",
+              "lon",
+              "wikidata",
+              "town",
+              "source",
+              "licence",
+              "read"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        }
+      },
+      "required": [
+        "schema",
+        "updated",
+        "run",
+        "note",
+        "source",
+        "hubs"
+      ],
+      "additionalProperties": false,
+      "x-family": "sidecar",
+      "x-table": "reference_hubs",
+      "x-single": true,
+      "x-pk": [],
+      "x-sql": {},
+      "x-ui": {
+        "label": "Public hubs"
+      },
+      "x-private": [],
+      "x-rules": []
+    },
+    "sidecar.region_groups": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string",
+          "pattern": "^region-groups\\/1$",
+          "x-type": "text"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date",
+          "x-type": "date"
+        },
+        "run": {
+          "type": "string",
+          "pattern": "^\\S+$",
+          "x-type": "text"
+        },
+        "note": {
+          "type": "string",
+          "pattern": "\\S",
+          "x-type": "text"
+        },
+        "min_places": {
+          "type": "integer",
+          "minimum": 1,
+          "x-type": "int"
+        },
+        "groups": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 48,
+                "pattern": "^[a-z]{2}-[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "cc": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "basis": {
+                "type": "string",
+                "enum": [
+                  "nuts-1",
+                  "census-division",
+                  "traveller"
+                ]
+              },
+              "basis_code": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Z0-9]{1,4}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "regions": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "locations_regions": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Z]{2}\\/[A-Za-z0-9-]+$"
+                }
+              },
+              "places": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "offered": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "cc",
+              "name",
+              "basis",
+              "basis_code",
+              "regions",
+              "locations_regions",
+              "places",
+              "offered"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        }
+      },
+      "required": [
+        "schema",
+        "updated",
+        "run",
+        "note",
+        "min_places",
+        "groups"
+      ],
+      "additionalProperties": false,
+      "x-family": "sidecar",
+      "x-table": "region_groups",
+      "x-single": true,
+      "x-pk": [],
+      "x-sql": {},
+      "x-ui": {
+        "label": "Region groups"
+      },
+      "x-private": [],
+      "x-rules": []
+    },
     "sidecar.relevance": {
       "type": "object",
       "properties": {

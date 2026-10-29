@@ -133,7 +133,7 @@ data-seat row of [MASTER-ORDER](MASTER-ORDER.md) 5.4. Ids marked (new) had no ta
 | 51 | DT-T0 (27 Oct) | Terrain classes and wave 0 `data/reference/drive/areas.json` (about 25 areas) | 3 | Opus | DT-C | | D | D window |
 | 52 | DT-S0 research (27 Oct) | Wave 0 seasonal roads and passes (code half in seat B3) | 5 | Opus | DT-1a | | E | E window |
 | 53 | DT-F0 research (27 Oct) | Wave 0 ferries and CA-US crossings (code half in seat B3) | 5 | Opus | DT-1a | | E | E window |
-| 54 | TB-RG (27 Oct) | Region groups for IT, CA, US, FR, IS (`data/reference/region-groups.json`, new) | 6 | Opus 3, Sonnet 3 | LST2b-C | Q-TB7 | E | E window |
+| 54 | TB-RG (27 Oct) | Region groups for IT, CA, US, FR, IS (`data/reference/region-groups.json`, new) | 6 | Opus 3, Sonnet 3 | LST2b-C | Q-TB7 | E | **done 28 Oct 2026** (branch `fs1/REF`): `region-groups/1` with 17 groups for CA, US, IT, FR, IS, AR, CH (QB7 bases: NUTS-1, census divisions, traveller groups), plus `hubs.json` (27 hubs, Wikidata CC0) and `airports.json` (652 airports, OurAirports public domain) for PlanService; schemas `core/src/schema/reference.ts`; flat file per PlanService, not the per-country macro/travel shape of trip-builder-location-metadata 3 (DC-5 or TB-MD reshapes) |
 | 55 | TK-S rules (27 Oct) | Type default seasons per category (code half in seat B3) | 2 | Opus | TK-C | | E | E window |
 | 56 | TK-L (27 Oct) | `derive-landscape`: DEM relief, Natural Earth coast, type rules (one at a time on `core/bin/capture.ts`) | 7 | Sonnet 6, Opus review 1 | TK-C2, DC-L | Q-TK5 | E | E window |
 | 57 | DC-5 (27 Oct) | Region groups for wave 1 countries over 25 first-level units (extends row 54's file) | 2 | Opus | TB-RG, DC-C | | E | E window |
