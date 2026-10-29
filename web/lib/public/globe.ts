@@ -5,6 +5,7 @@ import { slugify } from '@/lib/globe/geoWork';
 import { CONTINENT_OF } from './taxonomy';
 import { normName } from './places';
 import { TRIP_SLUGS } from './slugs';
+import { tripScope } from './world';
 import type { DrawTier, GlobeIndex, GlobeNode, GlobePin, PublicPlace, PublicTrip } from './types';
 
 /** Country of each trip (ISO alpha-2 and alpha-3), written out: overview trips have no day data to infer it from. */
@@ -44,11 +45,13 @@ export function readDrawTiers(root: string): Map<string, DrawTier> {
   const dir = path.join(root, 'data', 'relevance', 'derived');
   const out = new Map<string, DrawTier>();
   if (!existsSync(dir)) return out;
+  const scope = tripScope(root);
   for (const f of readdirSync(dir).filter((n) => n.endsWith('.json')).sort()) {
+    if (scope.tripHidden(f.slice(0, -'.json'.length))) continue; // a hidden trip's records never size a pin
     let items: { ref?: unknown; effective_draw?: unknown }[] = [];
     try { items = (JSON.parse(readFileSync(path.join(dir, f), 'utf8')) as { items?: typeof items }).items ?? []; } catch { continue; }
     for (const it of items) {
-      if (typeof it.ref !== 'string' || !isTier(it.effective_draw)) continue;
+      if (typeof it.ref !== 'string' || !isTier(it.effective_draw) || scope.isPrivate(it.ref)) continue;
       const name = it.ref.slice(it.ref.lastIndexOf(':') + 1).split('#')[0];
       const key = normName(name);
       const have = out.get(key);

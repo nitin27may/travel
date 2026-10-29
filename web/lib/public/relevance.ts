@@ -4,6 +4,7 @@ import { incomingOf, primaryRef, type World } from '@travel/core/capture/records
 import { NEAR_KM } from '@travel/core/config/nearby.ts';
 import type { RelevanceRecord } from '@travel/core/schema/relevance.ts';
 import { travelRoot } from '../data/root';
+import { scopeOf, withoutPrivate } from './world';
 import { BASIS_LABEL, TextScrub, lookupFor, longDate, readOf, type SourceRow } from './vals';
 
 // Relevance on place pages (relevance.md 3.2, 3.6, 3.7, 6.2; place-page-sections PS5, PS8 to PS10): the one badge, the `why`
@@ -62,11 +63,18 @@ export interface RelevanceContext {
 /** Reads every derived file and the Wikidata signals cache under `root`. */
 export function loadRelevanceContext(world: World, root: string = travelRoot(), scrub: TextScrub = new TextScrub()): RelevanceContext {
   const derived = new Map<string, DerivedItem>();
+  const scope = scopeOf(world);
   const dir = path.join(root, 'data', 'relevance', 'derived');
   if (existsSync(dir)) {
     for (const f of readdirSync(dir).filter((x) => x.endsWith('.json')).sort()) {
+      if (scope?.tripHidden(f.slice(0, -'.json'.length))) continue; // a hidden trip's derive, whole
       const doc = JSON.parse(readFileSync(path.join(dir, f), 'utf8')) as { items?: DerivedItem[] };
-      for (const it of doc.items ?? []) if (!derived.has(it.ref)) derived.set(it.ref, it);
+      for (const raw of doc.items ?? []) {
+        if (derived.has(raw.ref)) continue;
+        // a hidden trip's item is not read, and no stand-in, pair, pointer, Plan B or part of a built one names a hidden trip's record
+        const it = scope ? (scope.isPrivate(raw.ref) ? null : withoutPrivate(raw, scope, world)) : raw;
+        if (it) derived.set(it.ref, it);
+      }
     }
   }
   let wikidata: Record<string, WikidataSignal> = {};

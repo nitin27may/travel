@@ -21,7 +21,8 @@ describe('trips', () => {
     // unlisted: built and reachable, but not listed
     expect(f.listTrips().map((t) => t.slug)).not.toContain('vermont-fall-2026');
     expect(f.getTrip('vermont-fall-2026')?.visibility).toBe('unlisted');
-    const json = JSON.stringify({ a: f.listTrips(), b: f.listPlaces(), c: f.globeIndex(), d: f.tripSlugs(), p: f.placeSlugs().map((s) => f.getPlace(s)) });
+    // every public function: lists, pages of both kinds, the globe and the redirects (the API, search, exports and sitemap: private-trip-scan.test.ts)
+    const json = JSON.stringify({ a: f.listTrips(), b: f.listPlaces(), c: f.globeIndex(), d: f.tripSlugs(), p: f.placeSlugs().map((s) => f.getPlace(s)), t: f.tripSlugs().map((s) => f.getTrip(s)), g: f.globePaths(), r: f.legacyPlaceRedirects() });
     expect(json).not.toContain('patagonia-2027');
     expect(json).not.toContain('patagonia-feb-mar-2027');
     expect(json).not.toMatch(/Patagonia with kids/);
