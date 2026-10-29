@@ -1,0 +1,42 @@
+Tier: required · family park (nature.protected, nature.garden, access.pass)
+
+Per layer (EXECUTION-PLAN 6.4 columns; records answering each)
+layer         records area_id point osm_id wikidata official photos season where operator price duration window min_age
+place              31      27    31     21       20       25      1      0     0       14    16        0      2       0
+offer              11       0     0      0        0       11      0     11    10       10    11        0     11       0
+
+place: 31 record(s), 22 with the required tier complete
+  access_points                        asked   31  answered   22  missing    9
+  links                                asked   31  answered   25  missing    6
+  access_cost                          asked   31  answered   26  missing    5
+  access_season                        asked   31  answered   26  missing    5
+  class_key                            asked   31  answered   26  missing    5
+  distinction                          asked   31  answered   26  missing    5
+  draw                                 asked   31  answered   26  missing    5
+  easy_payoff                          asked   31  answered   26  missing    5
+  hazards                              asked   31  answered   26  missing    5
+  on_site_min                          asked   31  answered   26  missing    5
+  signals                              asked   31  answered   26  missing    5
+  standing                             asked   31  answered   26  missing    5
+  summary                              asked   31  answered   26  missing    5
+  weather                              asked   31  answered   26  missing    5
+  why                                  asked   31  answered   26  missing    5
+  wikidata                             asked   31  answered   26  missing    5
+  price                                asked   17  answered   16  missing    1
+  closures                             asked   10  answered   10  missing    0
+  kid_note                             asked   31  answered   31  missing    0
+  name                                 asked   31  answered   31  missing    0
+  type                                 asked   31  answered   31  missing    0
+  window                               asked    2  answered    2  missing    0
+
+offer: 11 record(s), 10 with the required tier complete
+  hours                                asked    1  answered    0  missing    1
+  at                                   asked   11  answered   11  missing    0
+  entry                                asked   11  answered   11  missing    0
+  links                                asked   11  answered   11  missing    0
+  name                                 asked   11  answered   11  missing    0
+  price                                asked   11  answered   11  missing    0
+  season                               asked   11  answered   11  missing    0
+  summary                              asked   11  answered   11  missing    0
+  type                                 asked   11  answered   11  missing    0
+  window                               asked   11  answered   11  missing    0

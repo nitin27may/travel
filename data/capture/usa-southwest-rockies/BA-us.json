@@ -97,6 +97,97 @@
       "kind": "official",
       "read": "2026-10-25",
       "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.nps.gov/arch/planyourvisit/conditions.htm",
+      "title": "Alerts and Conditions, Arches National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.nps.gov/arch/planyourvisit/maps.htm",
+      "title": "Maps, Arches National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.nps.gov/brca/planyourvisit/conditions.htm",
+      "title": "Current Conditions, Bryce Canyon National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.nps.gov/brca/planyourvisit/maps.htm",
+      "title": "Maps, Bryce Canyon National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://www.nps.gov/cany/planyourvisit/conditions.htm",
+      "title": "Alerts and Conditions, Canyonlands National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://www.nps.gov/cany/planyourvisit/maps.htm",
+      "title": "Maps, Canyonlands National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://www.nps.gov/zion/planyourvisit/conditions.htm",
+      "title": "Current Conditions, Zion National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://www.nps.gov/zion/planyourvisit/maps.htm",
+      "title": "Maps, Zion National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.nps.gov/brca/planyourvisit/directions.htm",
+      "title": "Directions, Bryce Canyon National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://nominatim.openstreetmap.org/reverse",
+      "title": "Nominatim reverse lookups of the car park points (zoom 16 and 17)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
     }
   ],
   "records": [
@@ -178,8 +269,38 @@
           "src": [
             "src-0003"
           ]
+        },
+        {
+          "kind": "conditions",
+          "url": "https://www.nps.gov/arch/planyourvisit/conditions.htm",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0011"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://www.nps.gov/arch/planyourvisit/maps.htm",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0012"
+          ]
         }
-      ]
+      ],
+      "run_by": "operator/national-park-service",
+      "closures": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "nps.gov/arch Alerts and Conditions (alerts load by script and were not in the page read)"
+        ],
+        "note": "The page says the park is open 24 hours, all year, with entry delayed on very busy days; no dated closure is printed."
+      }
     },
     {
       "ref": "part/place/arches-national-park#visitor-center-lot",
@@ -226,7 +347,24 @@
             "src-0004"
           ]
         }
-      ]
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Main Park Road"
+          ],
+          "locality": "Grand County",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0020"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (LT-WHERE, 2026-10-28), 19 m away; the locality is the county OSM gives. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      }
     },
     {
       "ref": "place/bryce-canyon-national-park",
@@ -306,8 +444,38 @@
           "src": [
             "src-0003"
           ]
+        },
+        {
+          "kind": "conditions",
+          "url": "https://www.nps.gov/brca/planyourvisit/conditions.htm",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0013"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://www.nps.gov/brca/planyourvisit/maps.htm",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0014"
+          ]
         }
-      ]
+      ],
+      "run_by": "operator/national-park-service",
+      "closures": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "nps.gov/brca Current Conditions (alerts load by script and were not in the page read)"
+        ],
+        "note": "No dated closure is printed; the page carries a standing hiker advisory for the damaged Under-the-Rim Trail."
+      }
     },
     {
       "ref": "part/place/bryce-canyon-national-park#visitor-center-lot",
@@ -354,7 +522,24 @@
             "src-0004"
           ]
         }
-      ]
+      ],
+      "address": {
+        "v": {
+          "kind": "postal",
+          "lines": [
+            "UT-63"
+          ],
+          "locality": "Bryce",
+          "postcode": "84764"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0019"
+        ],
+        "read": "2026-10-28",
+        "note": "The park's physical address on the NPS directions page, with the visitor center's GPS point."
+      }
     },
     {
       "ref": "place/canyonlands-national-park",
@@ -434,8 +619,46 @@
           "src": [
             "src-0003"
           ]
+        },
+        {
+          "kind": "conditions",
+          "url": "https://www.nps.gov/cany/planyourvisit/conditions.htm",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0015"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://www.nps.gov/cany/planyourvisit/maps.htm",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0016"
+          ]
         }
-      ]
+      ],
+      "run_by": "operator/national-park-service",
+      "closures": {
+        "v": [
+          {
+            "from": "2026",
+            "to": "2026",
+            "status": "limited",
+            "why": "Grand View Point remodel, late summer to early fall 2026"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0015"
+        ],
+        "read": "2026-10-28",
+        "quote": "Grand View Point remodel (late summer to early fall 2024, 2025, and 2026)",
+        "note": "The page gives no exact dates.",
+        "applies_to": "2026"
+      }
     },
     {
       "ref": "part/place/canyonlands-national-park#island-in-the-sky-lot",
@@ -482,7 +705,24 @@
             "src-0004"
           ]
         }
-      ]
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Grand View Point Road"
+          ],
+          "locality": "San Juan County",
+          "postcode": "84532"
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0020"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (LT-WHERE, 2026-10-28), 1 m away; the locality is the county OSM gives. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      }
     },
     {
       "ref": "place/zion-national-park",
@@ -562,8 +802,38 @@
           "src": [
             "src-0003"
           ]
+        },
+        {
+          "kind": "conditions",
+          "url": "https://www.nps.gov/zion/planyourvisit/conditions.htm",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0017"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://www.nps.gov/zion/planyourvisit/maps.htm",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0018"
+          ]
         }
-      ]
+      ],
+      "run_by": "operator/national-park-service",
+      "closures": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "nps.gov/zion Current Conditions (alerts load by script and were not in the page read)"
+        ],
+        "note": "No dated closure is printed; the Narrows closes when the Virgin River runs above 150 cfs or a flash flood warning is issued."
+      }
     },
     {
       "ref": "part/place/zion-national-park#visitor-center-lot",

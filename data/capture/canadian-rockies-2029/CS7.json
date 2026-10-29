@@ -86,6 +86,26 @@
       "kind": "official",
       "read": "2026-10-27",
       "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://nominatim.openstreetmap.org/reverse",
+      "title": "Nominatim reverse lookups of the car park points (zoom 16 and 17)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap elements by id and car parks, trailheads and roads near each place (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
     }
   ],
   "records": [
@@ -1380,7 +1400,9 @@
       "name": "Maligne Lake parking",
       "osm_ref": "relation/21018594",
       "parks_for": [
-        "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island"
+        "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
+        "place/maligne-lake",
+        "place/curly-phillips-boathouse"
       ],
       "links": [
         {
@@ -1397,6 +1419,23 @@
           "from": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
           "reason": "Lake access point (CS7 goal 5): OSM relation 21018594, name 'Maligne Lake Parking', fee=no; at the north end, the cruise dock for Spirit Island."
         }
+      },
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Maligne Lake road"
+          ],
+          "locality": "Improvement District No. 12",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0010"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28), 49 m away; the locality is the district OSM gives. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
       }
     },
     {
@@ -1509,7 +1548,8 @@
       "name": "Wedge Pond parking",
       "osm_ref": "way/262156429",
       "parks_for": [
-        "legacy/canadian-rockies-sept-2029/sights/wedge-pond"
+        "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+        "place/spray-valley-provincial-park"
       ],
       "links": [
         {
@@ -1526,6 +1566,24 @@
           "from": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
           "reason": "Lake access point (CS7 goal 5): OSM way 262156429, name 'Wedge Pond Parking Lot'."
         }
+      },
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Wedge Pond"
+          ],
+          "locality": "Kananaskis Improvement District",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0011",
+          "src-0010"
+        ],
+        "read": "2026-10-28",
+        "note": "The named road within 400 m (Overpass) and the district from Nominatim (2026-10-28). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
       }
     },
     {
@@ -1613,6 +1671,24 @@
           "from": "place/lake-louise",
           "reason": "Lake access point (CS7 goal 5): OSM way 26752321, fee=yes."
         }
+      },
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Lake Louise Drive"
+          ],
+          "locality": "Improvement District No. 9",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0011",
+          "src-0010"
+        ],
+        "read": "2026-10-28",
+        "note": "The named road within 400 m (Overpass) and the district from Nominatim (2026-10-28); Nominatim itself answers with a lakeshore path. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
       }
     },
     {

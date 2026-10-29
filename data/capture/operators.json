@@ -1,6 +1,6 @@
 {
   "schema": "capture-operators/1",
-  "updated": "2026-10-27",
+  "updated": "2026-10-28",
   "operators": [
     {
       "ref": "operator/3-zinnen-dolomites-lift-operator",
@@ -64,6 +64,19 @@
           "src": "src-0068",
           "publisher": "Banff Trail Riders",
           "url": "https://horseback.com/tours/bow-river-ride/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/bc-parks",
+      "name": "BC Parks",
+      "url": "https://bcparks.ca/",
+      "derived_from": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "src": "src-0034",
+          "publisher": "BC Parks",
+          "url": "https://bcparks.ca/mount-robson-park/"
         }
       ]
     },
@@ -224,6 +237,19 @@
       ]
     },
     {
+      "ref": "operator/national-park-service",
+      "name": "U.S. National Park Service",
+      "url": "https://www.nps.gov/",
+      "derived_from": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "src": "src-0011",
+          "publisher": "U.S. National Park Service",
+          "url": "https://www.nps.gov/arch/planyourvisit/conditions.htm"
+        }
+      ]
+    },
+    {
       "ref": "operator/parks-canada",
       "name": "Parks Canada",
       "url": "https://parks.canada.ca/",
@@ -298,6 +324,19 @@
           "src": "src-0078",
           "publisher": "SunDog Tours",
           "url": "https://www.sundogtours.com/package/sunrise-photography-and-wildlife-tour"
+        }
+      ]
+    },
+    {
+      "ref": "operator/usda-forest-service",
+      "name": "USDA Forest Service",
+      "url": "https://www.fs.usda.gov/",
+      "derived_from": [
+        {
+          "file": "data/capture/new-hampshire-stopover-2026/BA-us.json",
+          "src": "src-0005",
+          "publisher": "USDA Forest Service",
+          "url": "https://www.fs.usda.gov/r09/whitemountain/alerts"
         }
       ]
     },

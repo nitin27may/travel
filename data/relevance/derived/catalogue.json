@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "catalogue",
-  "as_of": "2026-10-27",
+  "as_of": "2026-10-28",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -17,6 +17,2249 @@
   },
   "window": null,
   "items": [
+    {
+      "ref": "place/ashlar-ridge",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 94,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "part/place/jasper-national-park#jasper-information-centre",
+            "km": 37.8,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+            "km": 96.3,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/jasper-national-park",
+        "km": 37.8,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+          "km": 7.6
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 94 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "draw_suggested": "national",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 230,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+            "km": 0,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+            "km": 3.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "timed_entry"
+            ],
+            "family_effort": null
+          },
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+            "km": 2.3,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+            "km": 0,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+            "km": 3.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "timed_entry"
+            ],
+            "family_effort": null
+          },
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+            "km": 2.3,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+          "km": 7.8
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 230 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 82,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+        "km": 0.2,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+          "km": 0.2,
+          "how": "walk",
+          "extra_min": 125,
+          "on_site_min": 120,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [
+        {
+          "ref": "place/maligne-lake",
+          "km": 10
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (82)"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 82 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/maligne-lake",
+      "draw_suggested": "national",
+      "effective_draw": "national",
+      "access_load": "hard",
+      "detour_min": 106,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
+            "km": 0,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "boat_or_ferry"
+            ],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
+            "km": 0,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "boat_or_ferry"
+            ],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/curly-phillips-boathouse",
+          "km": 10
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+          "km": 10.1
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; hard access drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 56,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/mount-kerkeslin",
+            "km": 15.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          },
+          {
+            "ref": "part/place/jasper-national-park#jasper-information-centre",
+            "km": 23.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/mount-robson",
+            "km": 88.6,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
+            "km": 54.9,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/mount-kerkeslin",
+            "km": 15.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          },
+          {
+            "ref": "part/place/jasper-national-park#jasper-information-centre",
+            "km": 23.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+            "km": 88.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 56 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 74,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/mount-edith-cavell",
+            "km": 15.7,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/mount-edith-cavell",
+            "km": 15.7,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "part/place/jasper-national-park#jasper-information-centre",
+            "km": 30.6,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
+        "km": 13.6,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
+          "km": 4.2
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 74 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/jasper",
+      "draw_suggested": "world",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
+            "km": 0.2,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
+            "km": 0.2,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+          "km": 3.8
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, but distinction common: an anchor needs unique or rare, or a world draw"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/barrier-lake",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 32,
+      "detour_basis": "town",
+      "detour_town": "Kananaskis Village",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+            "km": 84.7,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [
+              "shuttle_only"
+            ],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/banff-national-park",
+        "km": 39,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+          "km": 7.1
+        },
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
+          "km": 10.4
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 32 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 48,
+      "detour_basis": "town",
+      "detour_town": "Kananaskis Village",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
+            "km": 32.5,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+            "km": 50.5,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/upper-elk-lake",
+            "km": 30.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [
+              "long_walk_in",
+              "high_clearance_4wd"
+            ],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+        "km": 43.5,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (48)"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 48 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/highwood-pass",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 92,
+      "detour_basis": "town",
+      "detour_town": "Kananaskis Village",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
+            "km": 0.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
+            "km": 0.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/upper-elk-lake",
+          "km": 10
+        },
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+          "km": 12.4
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 92 min is over 30"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Kananaskis Village",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "place/banff-national-park",
+        "km": 41.4,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
+          "km": 3.4
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+          "km": 5
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+          "km": 6.4
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 46,
+      "detour_basis": "town",
+      "detour_town": "Banff",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+            "km": 16,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#banff-visitor-centre",
+            "km": 18.6,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/yoho-valley",
+            "km": 94.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+            "km": 16,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+            "km": 54.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 1
+          },
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",
+            "km": 54.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/sinclair-canyon",
+            "km": 65.9,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/chancellor-peak",
+            "km": 80.4,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#banff-visitor-centre",
+            "km": 18.6,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+            "km": 25.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+            "km": 67.8,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
+            "km": 68.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+            "km": 85.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+        "km": 16.3,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
+          "km": 2.3
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (46)"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 46 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/paddys-flat",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 74,
+      "detour_basis": "town",
+      "detour_town": "Kananaskis Village",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+            "km": 40.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 2
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 74 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 24,
+      "detour_basis": "town",
+      "detour_town": "Kananaskis Village",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "part/place/banff-national-park#lake-louise-area",
+            "km": 86,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [
+              "shuttle_only"
+            ],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/yoho-national-park#lake-ohara",
+            "km": 89.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "permit_lottery",
+              "long_walk_in",
+              "shuttle_only"
+            ],
+            "family_effort": null
+          },
+          {
+            "ref": "place/kootenay-national-park",
+            "km": 63,
+            "draw": "national",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/kananaskis-country",
+            "km": 25.1,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/banff-national-park",
+        "km": 37.4,
+        "draw": "world",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+          "km": 9.8
+        },
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
+          "km": 11.5
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 82,
+      "detour_basis": "town",
+      "detour_town": "Kananaskis Village",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
+            "km": 0,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
+            "km": 0,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+          "km": 1.8
+        },
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+          "km": 2.1
+        },
+        {
+          "ref": "place/upper-elk-lake",
+          "km": 8
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
+          "km": 11.9
+        },
+        {
+          "ref": "place/highwood-pass",
+          "km": 12.2
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
+          "km": 12.3
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing top"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 82 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Local favourite",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 444,
+      "detour_basis": "town",
+      "detour_town": "Calgary",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (444)"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 444 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 528,
+      "detour_basis": "town",
+      "detour_town": "Calgary",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 528 min is over 30"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/waterton-park",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 542,
+      "detour_basis": "town",
+      "detour_town": "Calgary",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/mount-blakiston",
+          "km": 10.5
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 542 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "hard",
+      "detour_min": 100,
+      "detour_basis": "town",
+      "detour_town": "Kananaskis Village",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
+            "km": 61.5,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+            "km": 80.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/burstall-lakes",
+            "km": 30.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [
+              "long_walk_in"
+            ],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+          "km": 6.4
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
+          "km": 10
+        },
+        {
+          "ref": "place/highwood-pass",
+          "km": 10
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (100); hard access drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; hard access drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 218,
+      "detour_basis": "town",
+      "detour_town": "Kananaskis Village",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (218)"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 218 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 168,
+      "detour_basis": "town",
+      "detour_town": "Banff",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+            "km": 1.9,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+            "km": 67,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/mount-lawrence-grassi",
+            "km": 65.9,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+            "km": 1.9,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#banff-visitor-centre",
+            "km": 69.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+            "km": 85.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
+            "km": 88.6,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+            "km": 90.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 168 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "draw_suggested": "national",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 192,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
+          "km": 2.1
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view",
+          "km": 6
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+          "km": 9.9
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 192 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/mount-robson",
+      "draw_suggested": "world",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 186,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+            "km": 9.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/mount-edith-cavell",
+            "km": 88.6,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
+            "km": 92.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+            "km": 9.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/jasper-national-park#jasper-information-centre",
+            "km": 76.5,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
+          "km": 9.1
+        }
+      ],
+      "part_of": [
+        "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint"
+      ],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction unique"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 186 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_DISTINCTION",
+          "message": "distinction is unique but place/mount-edith-cavell has the same class within 100 km"
+        }
+      ],
+      "layer": "place"
+    },
+    {
+      "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 192,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/mount-robson",
+            "km": 9.7,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/mount-robson",
+            "km": 9.7,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/mount-edith-cavell",
+            "km": 88.7,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
+            "km": 97.9,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/jasper-national-park#jasper-information-centre",
+            "km": 78.9,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/ashlar-ridge",
+            "km": 96.3,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [
+              "long_walk_in",
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/mount-robson",
+        "km": 9.7,
+        "draw": "national",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
+          "km": 2
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+          "km": 9.6
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 192 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 78,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+            "km": 19.5,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+            "km": 26,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 1
+          },
+          {
+            "ref": "place/mount-lawrence-grassi",
+            "km": 80.4,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+            "km": 19.5,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
+            "km": 32.3,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#banff-visitor-centre",
+            "km": 65.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+            "km": 73.9,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/yoho-valley",
+        "km": 34.5,
+        "draw": "national",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (78)"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 78 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/field",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 54,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "place/lake-louise",
+        "km": 18.2,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
+          "km": 3.3
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+          "km": 6
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+          "km": 11.6
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 54 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/yoho-valley",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 64,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+            "km": 15.2,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+            "km": 79,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/mount-lawrence-grassi",
+            "km": 94.8,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+            "km": 15.2,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
+            "km": 26.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#banff-visitor-centre",
+            "km": 76.8,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+          "km": 4.9
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
+          "km": 10
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+          "km": 10.5
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+          "km": 10.6
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 64 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/golden",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 138,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 138 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
     {
       "ref": "place/banff-national-park",
       "draw_suggested": "world",
@@ -248,7 +2491,7 @@
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
-          "km": 5.8
+          "km": 5.7
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
@@ -260,7 +2503,7 @@
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-          "km": 11.4
+          "km": 10.9
         }
       ],
       "part_of": [
@@ -337,6 +2580,14 @@
             "family_effort": null
           },
           {
+            "ref": "place/spray-valley-provincial-park",
+            "km": 63,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "place/kananaskis-country",
             "km": 87.6,
             "draw": "regional",
@@ -348,7 +2599,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "place/sinclair-canyon",
+          "km": 1.9
+        }
+      ],
       "part_of": [
         "part/place/kootenay-national-park#kootenay-visitor-centre"
       ],
@@ -421,6 +2677,14 @@
             "standing": "good",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/spray-valley-provincial-park",
+            "km": 25.1,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
           }
         ]
       },
@@ -432,6 +2696,10 @@
       },
       "pair_with": [],
       "pair_pending": [
+        {
+          "ref": "place/barrier-lake",
+          "km": 3.8
+        },
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
           "km": 10.6
@@ -530,6 +2798,14 @@
             "family_effort": null
           },
           {
+            "ref": "place/spray-valley-provincial-park",
+            "km": 86,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "place/kananaskis-country",
             "km": 90.8,
             "draw": "regional",
@@ -547,20 +2823,20 @@
           "km": 2.1
         },
         {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+          "km": 2.8
+        },
+        {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
           "km": 2.9
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
-          "km": 3.8
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+          "km": 11.1
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
           "km": 11.1
-        },
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
-          "km": 11.6
         }
       ],
       "part_of": [
@@ -659,6 +2935,14 @@
             "family_effort": null
           },
           {
+            "ref": "place/spray-valley-provincial-park",
+            "km": 89.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "place/kananaskis-country",
             "km": 97.4,
             "draw": "regional",
@@ -672,12 +2956,12 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
-          "km": 9.5
-        },
-        {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
           "km": 10.4
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+          "km": 10.5
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
@@ -742,9 +3026,27 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/mount-lawrence-grassi",
+            "km": 18.6,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
           }
         ],
         "area": [
+          {
+            "ref": "place/yoho-valley",
+            "km": 76.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          },
           {
             "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
             "km": 3.1,
@@ -766,6 +3068,30 @@
             "km": 40.3,
             "draw": "regional",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/sinclair-canyon",
+            "km": 69.4,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/mount-lawrence-grassi",
+            "km": 18.6,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/chancellor-peak",
+            "km": 65.7,
+            "draw": "local",
+            "standing": "good",
             "access_cost": [],
             "family_effort": null
           },
@@ -889,6 +3215,16 @@
         ],
         "area": [
           {
+            "ref": "place/yoho-valley",
+            "km": 26.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          },
+          {
             "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
             "km": 28.6,
             "draw": "regional",
@@ -909,6 +3245,30 @@
             "km": 52.8,
             "draw": "regional",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/sinclair-canyon",
+            "km": 88.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/chancellor-peak",
+            "km": 32.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/mount-lawrence-grassi",
+            "km": 68.7,
+            "draw": "local",
+            "standing": "good",
             "access_cost": [],
             "family_effort": null
           },
@@ -947,10 +3307,10 @@
         ]
       },
       "far_pointer": {
-        "ref": "part/place/banff-national-park#lake-louise-area",
-        "km": 0,
-        "draw": "world",
-        "same_class": false
+        "ref": "place/yoho-valley",
+        "km": 26.4,
+        "draw": "national",
+        "same_class": true
       },
       "pair_with": [],
       "pair_pending": [
@@ -1008,8 +3368,37 @@
       "detour_town": "Jasper",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
+        "near": [
+          {
+            "ref": "place/mount-edith-cavell",
+            "km": 23.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          }
+        ],
         "area": [
+          {
+            "ref": "place/mount-edith-cavell",
+            "km": 23.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/mount-robson",
+            "km": 76.5,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
           {
             "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
             "km": 34.9,
@@ -1017,14 +3406,41 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/mount-kerkeslin",
+            "km": 30.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/ashlar-ridge",
+            "km": 37.8,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [
+              "long_walk_in",
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+            "km": 78.9,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
           }
         ]
       },
       "far_pointer": {
-        "ref": "place/jasper-national-park",
-        "km": 0,
-        "draw": "world",
-        "same_class": false
+        "ref": "place/mount-edith-cavell",
+        "km": 23.4,
+        "draw": "national",
+        "same_class": true
       },
       "pair_with": [],
       "pair_pending": [
@@ -1076,6 +3492,24 @@
       "substitutes": {
         "near": [
           {
+            "ref": "place/yoho-valley",
+            "km": 15.2,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/chancellor-peak",
+            "km": 19.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
             "km": 21.9,
             "draw": "local",
@@ -1085,6 +3519,16 @@
           }
         ],
         "area": [
+          {
+            "ref": "place/yoho-valley",
+            "km": 15.2,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
             "km": 34.9,
@@ -1106,6 +3550,30 @@
             "km": 70.4,
             "draw": "regional",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/sinclair-canyon",
+            "km": 90.4,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/chancellor-peak",
+            "km": 19.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/mount-lawrence-grassi",
+            "km": 85.7,
+            "draw": "local",
+            "standing": "good",
             "access_cost": [],
             "family_effort": null
           },
@@ -1136,10 +3604,10 @@
         ]
       },
       "far_pointer": {
-        "ref": "place/yoho-national-park",
-        "km": 0,
+        "ref": "place/yoho-valley",
+        "km": 15.2,
         "draw": "national",
-        "same_class": false
+        "same_class": true
       },
       "pair_with": [],
       "pair_pending": [
@@ -1197,7 +3665,16 @@
       "detour_town": "Banff",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
+        "near": [
+          {
+            "ref": "place/sinclair-canyon",
+            "km": 1.9,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          }
+        ],
         "area": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
@@ -1220,6 +3697,30 @@
             "km": 69,
             "draw": "regional",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/sinclair-canyon",
+            "km": 1.9,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/mount-lawrence-grassi",
+            "km": 67.8,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/chancellor-peak",
+            "km": 73.9,
+            "draw": "local",
+            "standing": "good",
             "access_cost": [],
             "family_effort": null
           },
@@ -1329,6 +3830,22 @@
             "km": 79.7,
             "draw": "regional",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/sinclair-canyon",
+            "km": 85.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/mount-lawrence-grassi",
+            "km": 25.7,
+            "draw": "local",
+            "standing": "good",
             "access_cost": [],
             "family_effort": null
           },

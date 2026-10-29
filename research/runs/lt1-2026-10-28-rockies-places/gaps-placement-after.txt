@@ -1,0 +1,15 @@
+Placement gaps: catalogue
+records 159 · no area 0 · no point 0 · approximate 19 · no nearest town 0 · outside its area 0 · offers saying nowhere 0
+
+Placement gaps: canadian-rockies-2029
+records 206 · no area 8 · no point 0 · approximate 8 · no nearest town 0 · outside its area 0 · offers saying nowhere 0
+  legacy/canadian-rockies-sept-2029/sights/castle-provincial-park no area          role centre      hint: capture.ts derive-area (parent, then point); else a new area in the locations store
+Placement gaps: usa-southwest-rockies
+records 8 · no area 0 · no point 0 · approximate 0 · no nearest town 0 · outside its area 0 · offers saying nowhere 0
+
+Placement gaps: new-hampshire-stopover-2026
+records 2 · no area 0 · no point 0 · approximate 0 · no nearest town 0 · outside its area 0 · offers saying nowhere 0
+
+Placement gaps: dolomites-2027
+records 76 · no area 2 · no point 0 · approximate 1 · no nearest town 0 · outside its area 0 · offers saying nowhere 0
+  part/place/rafting-on-the-rienza#place                       no area          role centre      hint: capture.ts derive-area (parent, then point); else a new area in the locations store

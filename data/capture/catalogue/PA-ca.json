@@ -293,6 +293,118 @@
       "kind": "computed",
       "read": "2026-10-27",
       "method": "read"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://pcweb2.azureedge.net/-/media/pn-np/ab/banff/WET4/visit/depliants-brochures/PDF/2026_VisitorGuideNEW_BNP_EN.pdf",
+      "title": "Banff National Park visitor guide 2026 (PDF, with the park map)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/2024-points-of-interest-jnp.pdf",
+      "title": "Jasper National Park points of interest map (PDF)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0035",
+      "url": "https://pcweb2.azureedge.net/-/media/pn-np/bc/yoho/WET4/pdf/maps/ynp-map-overview-2022.pdf",
+      "title": "Yoho National Park map (PDF)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://pcweb2.azureedge.net/-/media/pn-np/bc/kootenay/WET4/visit/visitor-guide-visiteur/2026/2026_KNP_PointsOfInterest_EN_PDF.pdf",
+      "title": "Kootenay National Park points of interest map 2026 (PDF)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0037",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/library/kananaskis-country-maps/",
+      "title": "Kananaskis Country maps",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0038",
+      "url": "https://api.openstreetmap.org/api/0.6/relation/7707395/history",
+      "title": "OSM API history of relation 7707395",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    },
+    {
+      "id": "src-0039",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap elements by id and car parks, trailheads and roads near each place (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    },
+    {
+      "id": "src-0040",
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities",
+      "title": "Wikidata entities of the 40 places (labels, P31, P625, P2044, P1566, P856, P402)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    },
+    {
+      "id": "src-0041",
+      "url": "https://nominatim.openstreetmap.org/reverse",
+      "title": "Nominatim reverse lookups of the car park points (zoom 16 and 17)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    },
+    {
+      "id": "src-0042",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/services",
+      "title": "Facilities and services, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0043",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/services",
+      "title": "Facilities and services, Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0044",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/kananaskis-contacts/kananaskis-visitor-information-centre/",
+      "title": "Kananaskis Visitor Information Centre",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
     }
   ],
   "records": [
@@ -393,6 +505,15 @@
           "on": "2026-10-27",
           "src": [
             "src-0031"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://pcweb2.azureedge.net/-/media/pn-np/ab/banff/WET4/visit/depliants-brochures/PDF/2026_VisitorGuideNEW_BNP_EN.pdf",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0033"
           ]
         }
       ],
@@ -500,6 +621,15 @@
           "src": [
             "src-0031"
           ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/2024-points-of-interest-jnp.pdf",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0034"
+          ]
         }
       ],
       "meta": {
@@ -605,6 +735,15 @@
           "src": [
             "src-0031"
           ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://pcweb2.azureedge.net/-/media/pn-np/bc/yoho/WET4/pdf/maps/ynp-map-overview-2022.pdf",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0035"
+          ]
         }
       ],
       "meta": {
@@ -634,7 +773,27 @@
       },
       "name": "Kootenay National Park",
       "area_id": "CA/BC/kootenay-national-park",
-      "osm_ref": "relation/7707395",
+      "osm_ref": {
+        "v": "way/673733022",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0038",
+          "src-0039"
+        ],
+        "read": "2026-10-28",
+        "note": "Relation 7707395 was deleted on 3 May 2026 (version 17) after it was reduced to the one outer way 673733022, which now carries the boundary tags and the QID.",
+        "conflicts": [
+          {
+            "v": "relation/7707395",
+            "basis": "community",
+            "src": [
+              "src-0040"
+            ],
+            "note": "Wikidata P402 still names the deleted relation"
+          }
+        ]
+      },
       "covers_areas": [
         "CA/BC/kootenay-national-park"
       ],
@@ -704,11 +863,20 @@
         },
         {
           "kind": "osm",
-          "url": "https://www.openstreetmap.org/relation/7707395",
+          "url": "https://www.openstreetmap.org/way/673733022",
           "state": "filled",
-          "on": "2026-10-27",
+          "on": "2026-10-28",
           "src": [
-            "src-0031"
+            "src-0038"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://pcweb2.azureedge.net/-/media/pn-np/bc/kootenay/WET4/visit/visitor-guide-visiteur/2026/2026_KNP_PointsOfInterest_EN_PDF.pdf",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0036"
           ]
         }
       ],
@@ -810,6 +978,15 @@
           "on": "2026-10-27",
           "src": [
             "src-0031"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/library/kananaskis-country-maps/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0037"
           ]
         }
       ],
@@ -968,6 +1145,23 @@
       "meta": {
         "schema_version": 1,
         "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      },
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Banff Avenue"
+          ],
+          "locality": "Banff",
+          "postcode": "T1L 1B3"
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0041"
+        ],
+        "read": "2026-10-28",
+        "note": "Nominatim reverse at the centre's point (LT-WHERE lookup, 2026-10-28); the house number is left out (run note). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
       }
     },
     {
@@ -1062,6 +1256,23 @@
       "meta": {
         "schema_version": 1,
         "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      },
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Connaught Drive"
+          ],
+          "locality": "Municipality of Jasper",
+          "postcode": "T0E 1E0"
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0041"
+        ],
+        "read": "2026-10-28",
+        "note": "Nominatim reverse at the centre's point (LT-WHERE lookup, 2026-10-28); the house number is left out (run note). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
       }
     },
     {
@@ -1113,6 +1324,23 @@
       "meta": {
         "schema_version": 1,
         "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      },
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Trans-Canada Highway"
+          ],
+          "locality": "Field",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0043"
+        ],
+        "read": "2026-10-28",
+        "note": "Parks Canada: the centre is on the Trans-Canada Highway at Field, B.C."
       }
     },
     {
@@ -1164,6 +1392,24 @@
       "meta": {
         "schema_version": 1,
         "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      },
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Main Street East"
+          ],
+          "locality": "Radium Hot Springs",
+          "postcode": "V0A 1M0"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0042",
+          "src-0041"
+        ],
+        "read": "2026-10-28",
+        "note": "Street from the Parks Canada services page, house number left out (run note); postcode from Nominatim (LT-WHERE, 2026-10-28). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
       }
     },
     {
@@ -1215,6 +1461,24 @@
       "meta": {
         "schema_version": 1,
         "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      },
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Highway 40"
+          ],
+          "locality": "Kananaskis Improvement District",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0044",
+          "src-0041"
+        ],
+        "read": "2026-10-28",
+        "note": "Alberta Parks: along Highway 40, about 7 km south of the Trans-Canada Highway; district from Nominatim (LT-WHERE, 2026-10-28). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
       }
     },
     {

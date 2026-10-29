@@ -1,0 +1,44 @@
+== gaps --promote osm_ref --family park
+Promotion: osm_ref to R on family park (nature.protected, nature.garden, access.pass)
+records of the family 42 · records that would gain an unanswered required key 10 · keys added 10
+W_TIER_REQUIRED 382 -> 384 · W_TIER_REQUIRED.keys 3658 -> 3668
+== gaps --promote run_by --family park
+Promotion: run_by to R on family park (nature.protected, nature.garden, access.pass)
+records of the family 42 · records that would gain an unanswered required key 17 · keys added 17
+W_TIER_REQUIRED 382 -> 390 · W_TIER_REQUIRED.keys 3658 -> 3675
+== gaps --promote links.conditions --family park
+Promotion: links.conditions to R on family park (nature.protected, nature.garden, access.pass)
+records of the family 42 · records that would gain an unanswered required key 29 · keys added 29
+W_TIER_REQUIRED 382 -> 402 · W_TIER_REQUIRED.keys 3658 -> 3687
+== gaps --promote links.map_sheet --family park
+Promotion: links.map_sheet to R on family park (nature.protected, nature.garden, access.pass)
+records of the family 42 · records that would gain an unanswered required key 29 · keys added 29
+W_TIER_REQUIRED 382 -> 402 · W_TIER_REQUIRED.keys 3658 -> 3687
+== gaps --promote address --family park
+Promotion: address to R on family park (nature.protected, nature.garden, access.pass)
+records of the family 42 · records that would gain an unanswered required key 31 · keys added 31
+W_TIER_REQUIRED 382 -> 404 · W_TIER_REQUIRED.keys 3658 -> 3689
+== gaps --promote osm_ref --family sight
+Promotion: osm_ref to R on family sight (nature.summit, nature.viewpoint, nature.landform, nature.wildlife, water.body, water.falls, water.swim, water.thermal, animals.see, culture.museum, culture.heritage, culture.under)
+records of the family 187 · records that would gain an unanswered required key 116 · keys added 116
+W_TIER_REQUIRED 382 -> 393 · W_TIER_REQUIRED.keys 3658 -> 3774
+== gaps --promote address --family sight
+Promotion: address to R on family sight (nature.summit, nature.viewpoint, nature.landform, nature.wildlife, water.body, water.falls, water.swim, water.thermal, animals.see, culture.museum, culture.heritage, culture.under)
+records of the family 187 · records that would gain an unanswered required key 178 · keys added 178
+W_TIER_REQUIRED 382 -> 439 · W_TIER_REQUIRED.keys 3658 -> 3836
+== gaps --promote osm_ref --family town
+Promotion: osm_ref to R on family town (settlement)
+records of the family 52 · records that would gain an unanswered required key 28 · keys added 28
+W_TIER_REQUIRED 382 -> 383 · W_TIER_REQUIRED.keys 3658 -> 3686
+== gaps --promote links.tourism_board --family town
+Promotion: links.tourism_board to R on family town (settlement)
+records of the family 52 · records that would gain an unanswered required key 31 · keys added 31
+W_TIER_REQUIRED 382 -> 386 · W_TIER_REQUIRED.keys 3658 -> 3689
+== gaps --promote address --family access
+Promotion: address to R on family access (access.start, access.park, access.transit, access.amenity)
+records of the family 100 · records that would gain an unanswered required key 69 · keys added 69
+W_TIER_REQUIRED 382 -> 425 · W_TIER_REQUIRED.keys 3658 -> 3727
+== gaps --promote osm_ref --family access
+Promotion: osm_ref to R on family access (access.start, access.park, access.transit, access.amenity)
+records of the family 100 · records that would gain an unanswered required key 10 · keys added 10
+W_TIER_REQUIRED 382 -> 385 · W_TIER_REQUIRED.keys 3658 -> 3668

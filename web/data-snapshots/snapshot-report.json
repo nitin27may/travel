@@ -1,7 +1,7 @@
 {
   "schema": "snapshot-report/1",
   "note": "Dropped from the public view because it carries a calendar date. Rewrite each as a season, a day number or a rule.",
-  "count": 252,
+  "count": 284,
   "items": [
     {
       "where": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre wikidata note",
@@ -774,13 +774,38 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/ashlar-ridge wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Ashlar Ridge', instance of ridge, P625 0.3 km from OSM peak node 2699282960; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/athabasca-glacier wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Athabasca Glacier', instance of glacier, P625 0.35 km from OSM relation 19256027; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/banff-national-park wikidata note",
       "text": "Agent-checked 2026-10-27; needs a person's check.",
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/barrier-lake wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Barrier Lake', instance of reservoir, P625 1.2 km from the centre of OSM way 328698965; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/beauvais-lake wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Beauvais Lake', instance of lake, P625 0.2 km from OSM way 23260039; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/bonaventure-island wikidata note",
       "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Bonaventure Island', instance of island, P625 inside the OSM park relation 6989318; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/burstall-lakes wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Burstall Lakes', P625 0.2 km from OSM way 303566618; needs a person's check",
       "why": "agent or review-queue process note; never published"
     },
     {
@@ -814,9 +839,39 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/chancellor-peak wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Chancellor Peak', instance of mountain, two P625 values 0.7 km apart, 0.1 km from OSM peak node 5613035260; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/croda-del-becco effort.drivers.gain_m conflict",
       "text": "Computed, not published: the confirmed OSM track (relation 1155861, Lago di Braies to the summit) gives 1,467 m up one way (7.31 km).",
       "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/curly-phillips-boathouse wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Curly Phillips Boathouse', instance of boathouse, P625 at the north end of Maligne Lake; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/field wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Field', unincorporated community, P625 0.25 km from OSM village node 51970759; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/golden wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Golden', instance of town, P625 0.35 km from OSM place node 51971610; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/highwood-pass wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Highwood Pass', instance of mountain pass, P625 0.4 km from OSM saddle node 1339315277; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/jasper wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Jasper', specialized municipality, P625 0.2 km from OSM place node 51971014; needs a person's check",
+      "why": "agent or review-queue process note; never published"
     },
     {
       "where": "place/jasper-national-park wikidata note",
@@ -826,6 +881,11 @@
     {
       "where": "place/kananaskis-country wikidata note",
       "text": "Agent-checked 2026-10-27; needs a person's check.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/kananaskis-village wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Kananaskis Village', unincorporated community, P625 0.02 km from OSM place node 283707361; needs a person's check",
       "why": "agent or review-queue process note; never published"
     },
     {
@@ -864,6 +924,16 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/maligne-lake kid_note",
+      "text": "Spirit Island is 14 km up the lake with no road or trail: only tour boats and paddlers reach it.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/maligne-lake wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Maligne Lake', instance of lake, P625 0.6 km from OSM relation 5760911; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/mont-saint-alban wikidata note",
       "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Mont Saint-Alban', instance of mountain, P2044 282 m; its P625 is 0.6 km from the OSM peak node 1305146822, which is kept as the point; needs a person's check",
       "why": "agent or review-queue process note; never published"
@@ -889,6 +959,56 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/mount-blakiston wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Mount Blakiston', instance of mountain, P625 0.02 km from OSM peak node 9005199647; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/mount-edith-cavell access_season note",
+      "text": "Outside 2026 the road also closes 1 November to 15 May for caribou.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/mount-edith-cavell closures",
+      "text": "2026-01-01 2026-12-31 closed Cavell Road closed for the whole 2026 season for assessment and rehabilitation; 11-01 05-15 closed Tonquin caribou winter closure: all access to Cavell Road prohibited",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/mount-edith-cavell kid_note",
+      "text": "Vehicles over 25 feet are not allowed on the road.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/mount-edith-cavell wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Mount Edith Cavell', instance of mountain, P625 0.05 km from OSM peak node 2698521553; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/mount-kerkeslin wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Mount Kerkeslin', instance of mountain, P625 0.05 km from OSM peak node 2699165524; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/mount-lawrence-grassi wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Mount Lawrence Grassi', instance of mountain, P625 0.1 km from OSM peak node 2684623546; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/mount-robson wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Mount Robson', instance of mountain, P625 0.07 km from OSM peak node 2699332830; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/mount-robson-provincial-park wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Mount Robson Provincial Park', instance of provincial park, P625 inside OSM relation 2235398; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/paddys-flat wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label \"Paddy's Flat\", instance of plain, P625 0.6 km from OSM locality node 12780122240; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/perce-rock wikidata note",
       "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Perce Rock', a rock formation off the coast of Quebec, P2044 88 m, P625 in Percé Bay; needs a person's check",
       "why": "agent or review-queue process note; never published"
@@ -899,8 +1019,48 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/sinclair-canyon wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Sinclair Canyon', instance of valley, P625 0.15 km from OSM gorge way 1137486801; needs a person's check",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/spray-valley-provincial-park wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Spray Valley Provincial Park', instance of provincial park, P625 2.8 km from the OSM boundary relation's nearest point; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/upper-elk-lake wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Upper Elk Lake', instance of lake, P625 0.2 km from OSM way 302530307; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/upper-kananaskis-lake wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Upper Kananaskis Lake', instance of lake, P625 0.24 km from OSM relation 4011900; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/waterton-park wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Waterton Park', hamlet, P625 0.5 km from OSM hamlet node 9174974666; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/white-mountain-national-forest closures",
+      "text": "2026-06 2026-11 closed Lincoln Woods Trail closed for restoration work; 2023-12 closed Sawyer River Road (Bartlett) closed to vehicles after storm damage",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/whiteswan-lake wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Whiteswan Lake', instance of lake, P625 0.5 km from OSM way 126512023; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/yoho-national-park wikidata note",
       "text": "Agent-checked 2026-10-27; needs a person's check.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/yoho-valley wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Yoho Valley', instance of valley, P625 3.4 km from the centre of OSM way 1137461973; needs a person's check",
       "why": "agent or review-queue process note; never published"
     },
     {

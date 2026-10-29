@@ -910,6 +910,38 @@
       }
     },
     {
+      "id": "s-05f7bc27b7",
+      "url": "https://api.openstreetmap.org/api/0.6/relation/7707395/history",
+      "title": "OSM API history of relation 7707395",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "osm_ref"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-9e3f4c9286",
       "url": "https://argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf",
       "title": "Mapa de pasarelas, Glaciar Perito Moreno",
@@ -1772,20 +1804,65 @@
       "publisher": "BC Parks",
       "kind": "official",
       "first_read": "2026-10-19",
-      "last_read": "2026-10-19",
+      "last_read": "2026-10-28",
       "used_by": [
         {
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
           "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/upper-elk-lake#elk-lakes-trailhead",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/upper-elk-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/upper-elk-lake",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/upper-elk-lake",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/upper-elk-lake",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/upper-elk-lake",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/upper-elk-lake",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/upper-elk-lake",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/upper-elk-lake",
+          "field": "suitability.wheelchair"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 730,
-        "fact_type": "grades_geography"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "unchecked",
@@ -1795,15 +1872,30 @@
     {
       "id": "s-9e703d1294",
       "url": "https://bcparks.ca/mount-robson-park",
-      "title": "Mount Robson Provincial Park",
+      "title": "Mount Robson Park",
       "publisher": "BC Parks",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-19",
+      "last_read": "2026-10-28",
       "used_by": [
         {
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/berg-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson-provincial-park",
           "field": "links"
         },
         {
@@ -1834,6 +1926,36 @@
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson-provincial-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson-provincial-park",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson-provincial-park",
           "field": "signals.designations"
         },
         {
@@ -1855,14 +1977,59 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
           "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson-provincial-park",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson-provincial-park",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson-provincial-park",
+          "field": "suitability.on_site_min"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 365,
-        "fact_type": "rules"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "ok",
@@ -1954,6 +2121,73 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-5d3813d05d",
+      "url": "https://bcparks.ca/whiteswan-lake-park",
+      "title": "Whiteswan Lake Park",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/whiteswan-lake#home-basin",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/whiteswan-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/whiteswan-lake",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/whiteswan-lake",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/whiteswan-lake",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/whiteswan-lake",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/whiteswan-lake",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/whiteswan-lake",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/whiteswan-lake",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -4431,6 +4665,158 @@
       }
     },
     {
+      "id": "s-00630e8c70",
+      "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts",
+      "title": "English Wikipedia introductions of the Rockies places",
+      "publisher": "Wikipedia (CC BY-SA)",
+      "kind": "community",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/beauvais-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/field",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/golden",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/jasper",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/kananaskis-village",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-lawrence-grassi",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson-provincial-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/spray-valley-provincial-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/upper-kananaskis-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/waterton-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-lawrence-grassi",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-a1b2c510ff",
       "url": "https://engage.gov.bc.ca/bcparksblog/2022/03/02/awesome-camping-and-hiking-opportunities-in-the-robson-valley",
       "title": "Awesome Camping and Hiking Opportunities in the Robson Valley – BC Parks Blog",
@@ -6236,6 +6622,148 @@
       }
     },
     {
+      "id": "s-c0abd0ff73",
+      "url": "https://nominatim.openstreetmap.org/reverse",
+      "title": "Nominatim reverse lookups of the car park points (zoom 16 and 17)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "ref": "part/place/lake-louise#parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/ashlar-ridge#miette-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/barrier-lake#day-use",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/beauvais-lake#beaver-creek-day-use",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/burstall-lakes#burstall-pass-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/highwood-pass#highwood-meadows",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-blakiston#red-rock-canyon-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-edith-cavell#upper-lot",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-kerkeslin#athabasca-falls-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-lawrence-grassi#grassi-lakes-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/paddys-flat#campground-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/sinclair-canyon#pullout",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/upper-elk-lake#elk-lakes-trailhead",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/upper-kananaskis-lake#north-interlakes",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/yoho-valley#takakkaw-falls-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/banff-national-park#banff-visitor-centre",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/jasper-national-park#jasper-information-centre",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "part/place/arches-national-park#visitor-center-lot",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "part/place/canyonlands-national-park#island-in-the-sky-lot",
+          "field": "address"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-a08974c6b9",
       "url": "https://olympicpeninsula.org",
       "title": "Olympic Peninsula",
@@ -6391,12 +6919,27 @@
     {
       "id": "s-af92053c73",
       "url": "https://overpass-api.de/api/interpreter",
-      "title": "OpenStreetMap data via the Overpass API (is_in admin areas, route relations, huts)",
-      "publisher": "OpenStreetMap contributors",
+      "title": "OpenStreetMap elements by id and car parks, trailheads and roads near each place (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
       "kind": "community",
       "first_read": "2026-10-19",
-      "last_read": "2026-10-27",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/CS7.json",
+          "ref": "part/place/lake-louise#parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "place/lake-louise",
+          "field": "osm_ref"
+        },
         {
           "file": "data/capture/catalogue/BA-it.json",
           "ref": "part/place/capri#ferry",
@@ -6453,6 +6996,231 @@
           "field": "links"
         },
         {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/ashlar-ridge#miette-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/athabasca-glacier#toe-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/barrier-lake#day-use",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/beauvais-lake#beaver-creek-day-use",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/burstall-lakes#burstall-pass-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/highwood-pass#highwood-meadows",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/highwood-pass#highwood-meadows",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-blakiston#red-rock-canyon-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-edith-cavell#upper-lot",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-kerkeslin#athabasca-falls-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-lawrence-grassi#grassi-lakes-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/paddys-flat#campground-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/sinclair-canyon#pullout",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/upper-elk-lake#elk-lakes-trailhead",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/upper-kananaskis-lake#north-interlakes",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/whiteswan-lake#home-basin",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/yoho-valley#takakkaw-falls-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/yoho-valley#takakkaw-falls-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/beauvais-lake",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/burstall-lakes",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/field",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/golden",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/jasper",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/kananaskis-village",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-lawrence-grassi",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson-provincial-park",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/paddys-flat",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/spray-valley-provincial-park",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/upper-elk-lake",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/upper-kananaskis-lake",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/waterton-park",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/whiteswan-lake",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "osm_ref"
+        },
+        {
           "file": "data/capture/catalogue/PA-ca.json",
           "ref": "part/place/banff-national-park#banff-visitor-centre",
           "field": "links"
@@ -6488,6 +7256,16 @@
           "field": "links"
         },
         {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/dolomites",
+          "field": "osm_ref"
+        },
+        {
           "file": "data/relevance/catalogue/PA-ca.json",
           "ref": "part/place/jasper-national-park#jasper-information-centre",
           "field": "wikidata"
@@ -6496,6 +7274,21 @@
           "file": "data/relevance/catalogue/PA-ca.json",
           "ref": "part/place/yoho-national-park#yoho-visitor-centre",
           "field": "wikidata"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "suitability.altitude_m"
         }
       ],
       "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
@@ -10407,18 +11200,204 @@
       }
     },
     {
+      "id": "s-d2300b0ce1",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/athabasca",
+      "title": "Athabasca Falls, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-kerkeslin#athabasca-falls-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "suitability.exposure"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c7cb65a73b",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell",
+      "title": "Mount Edith Cavell, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-edith-cavell#upper-lot",
+          "field": "closures"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-edith-cavell#upper-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "closures"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9e0a60131c",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/glacier-athabasca",
+      "title": "Columbia Icefield area and the Athabasca Glacier",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/athabasca-glacier#toe-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-fb35a53997",
       "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne",
-      "title": "Maligne Lake",
+      "title": "Maligne Lake, Jasper National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "links"
+        },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
           "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/curly-phillips-boathouse",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "signals.designations"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -10433,6 +11412,16 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
           "field": "suitability.hazards"
         }
       ],
@@ -10885,8 +11874,23 @@
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/jasper",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "draw"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
@@ -11221,14 +12225,109 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
           "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/curly-phillips-boathouse",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/curly-phillips-boathouse",
+          "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/jasper",
+          "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "suitability.wheelchair"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 365,
-        "fact_type": "rules"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "ok",
@@ -11434,24 +12533,79 @@
     {
       "id": "s-60a68064a6",
       "url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving",
-      "title": "Scenic drives",
+      "title": "Scenic drives, Waterton Lakes National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-19",
-      "last_read": "2026-10-19",
+      "last_read": "2026-10-28",
       "used_by": [
         {
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
           "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-blakiston#red-rock-canyon-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "suitability.walk_m"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 730,
-        "fact_type": "grades_geography"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "unchecked",
@@ -11471,6 +12625,38 @@
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
           "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9430cf5607",
+      "url": "https://parks.canada.ca/pn-np/ab/waterton/visit/cartes-maps/carte-parc-park-map",
+      "title": "Waterton Lakes National Park map",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/waterton-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/waterton-park",
+          "field": "signals.designations"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -11539,8 +12725,18 @@
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "signals.designations"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
@@ -11829,6 +13025,73 @@
       }
     },
     {
+      "id": "s-264adf98f5",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive",
+      "title": "Scenic drive, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/sinclair-canyon#pullout",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "suitability.carrier_ok"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-af553acf67",
       "url": "https://parks.canada.ca/pn-np/bc/kootenay/sources-radium-springs",
       "title": "Radium Hot Springs",
@@ -11899,8 +13162,13 @@
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-27",
-      "last_read": "2026-10-27",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+          "field": "address"
+        },
         {
           "file": "data/capture/catalogue/PA-ca.json",
           "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
@@ -11910,14 +13178,19 @@
           "file": "data/capture/catalogue/PA-ca.json",
           "ref": "place/kootenay-national-park",
           "field": "links"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "suitability.access_season"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 730,
-        "fact_type": "grades_geography"
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
       },
       "link": {
         "status": "unchecked",
@@ -12125,12 +13398,57 @@
     {
       "id": "s-08252b09bc",
       "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
-      "title": "Places to visit, Yoho National Park",
+      "title": "Points of interest, Yoho National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/yoho-valley#takakkaw-falls-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/field",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/field",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "signals.designations"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
@@ -12240,14 +13558,34 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
           "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "suitability.on_site_min"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 180,
-        "fact_type": "seasons_closures"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "ok",
@@ -12569,6 +13907,21 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
           "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "suitability.wheelchair"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -12718,6 +14071,48 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-7a451ed859",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/services",
+      "title": "Facilities and services, Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/field",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+          "field": "address"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/field",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
       },
       "link": {
         "status": "unchecked",
@@ -13671,6 +15066,246 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0f2f91dea6",
+      "url": "https://pcweb2.azureedge.net/-/media/pn-np/ab/banff/WET4/visit/depliants-brochures/PDF/2026_VisitorGuideNEW_BNP_EN.pdf",
+      "title": "Banff National Park visitor guide 2026 (PDF, with the park map)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/banff-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9ebeb355b2",
+      "url": "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/2024-points-of-interest-jnp.pdf",
+      "title": "Jasper National Park points of interest map (PDF)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/jasper-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-d62b3bfcbe",
+      "url": "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf",
+      "title": "Jasper National Park Day Hiking Guide 2026",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/ashlar-ridge#miette-parking",
+          "field": "closures"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/ashlar-ridge#miette-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-ee91c57012",
+      "url": "https://pcweb2.azureedge.net/-/media/pn-np/bc/kootenay/WET4/visit/visitor-guide-visiteur/2026/2026_KNP_PointsOfInterest_EN_PDF.pdf",
+      "title": "Kootenay National Park points of interest map 2026 (PDF)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-60803aeea1",
+      "url": "https://pcweb2.azureedge.net/-/media/pn-np/bc/yoho/WET4/pdf/maps/ynp-map-overview-2022.pdf",
+      "title": "Yoho National Park map (PDF)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/yoho-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -15710,6 +17345,38 @@
       }
     },
     {
+      "id": "s-93cb4f344a",
+      "url": "https://watertontourism.com",
+      "title": "Waterton Lakes: visitor site",
+      "publisher": "Waterton Lakes (watertontourism.com)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/waterton-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/waterton-park",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-1b02b68711",
       "url": "https://weather.gc.ca/en/location/index.html?coords=43.129%2C-79.06",
       "title": "Forecast: Niagara Falls (Environment Canada)",
@@ -16583,6 +18250,88 @@
       }
     },
     {
+      "id": "s-cda70a0075",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake",
+      "title": "Barrier Lake day use, Bow Valley Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/barrier-lake#day-use",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "suitability.toilets"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-0bbad52b55",
       "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/mt-lorette-ponds",
       "title": "Mt. Lorette Ponds day use",
@@ -16666,8 +18415,13 @@
       "publisher": "Alberta Parks",
       "kind": "official",
       "first_read": "2026-10-27",
-      "last_read": "2026-10-27",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+          "field": "address"
+        },
         {
           "file": "data/capture/catalogue/PA-ca.json",
           "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
@@ -16731,6 +18485,182 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-961e57b1f6",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes",
+      "title": "Grassi Lakes day use, Canmore Nordic Centre Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/mount-lawrence-grassi#grassi-lakes-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-lawrence-grassi",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-lawrence-grassi",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-lawrence-grassi",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-lawrence-grassi",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-lawrence-grassi",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-lawrence-grassi",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-lawrence-grassi",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-lawrence-grassi",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-149254f680",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat",
+      "title": "Paddy's Flat campground, Elbow River Provincial Recreation Area",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/paddys-flat#campground-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/paddys-flat",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/paddys-flat",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/paddys-flat",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/paddys-flat",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/paddys-flat",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/paddys-flat",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/paddys-flat",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/paddys-flat",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-dcd71e6b05",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/evan-thomas-pra/information-facilities/special-facilities/kananaskis-village",
+      "title": "Kananaskis Village, Evan-Thomas Provincial Recreation Area",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/kananaskis-village",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/kananaskis-village",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/kananaskis-village",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/kananaskis-village",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -17333,6 +19263,38 @@
       }
     },
     {
+      "id": "s-ac17038069",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/library/kananaskis-country-maps",
+      "title": "Kananaskis Country maps",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/spray-valley-provincial-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kananaskis-country",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-2a2d4a0899",
       "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp",
       "title": "Peter Lougheed Provincial Park",
@@ -17420,13 +19382,266 @@
       }
     },
     {
+      "id": "s-32c1136bff",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/burstall-pass",
+      "title": "Burstall Pass day use, Peter Lougheed Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/burstall-lakes#burstall-pass-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/burstall-lakes",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/burstall-lakes",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/burstall-lakes",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/burstall-lakes",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/burstall-lakes",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/burstall-lakes",
+          "field": "suitability.age_band"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-f3233e4c8f",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows",
+      "title": "Highwood Meadows day use, Peter Lougheed Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/highwood-pass#highwood-meadows",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-988f8b44bc",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake",
+      "title": "Upper Lake day use, Peter Lougheed Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/upper-kananaskis-lake#north-interlakes",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/upper-kananaskis-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/upper-kananaskis-lake",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/upper-kananaskis-lake",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/upper-kananaskis-lake",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/upper-kananaskis-lake",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/upper-kananaskis-lake",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/upper-kananaskis-lake",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/upper-kananaskis-lake",
+          "field": "suitability.toilets"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/upper-kananaskis-lake",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-4c5e8fbb79",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp",
+      "title": "Spray Valley Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/spray-valley-provincial-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/spray-valley-provincial-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/spray-valley-provincial-park",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/spray-valley-provincial-park",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/spray-valley-provincial-park",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/spray-valley-provincial-park",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-ed8ec0aac6",
       "url": "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/information-facilities/day-use/wedge-pond",
       "title": "Wedge Pond day use",
       "publisher": "Alberta Parks",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
@@ -17462,6 +19677,16 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
           "field": "suitability.toilets"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/spray-valley-provincial-park",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/spray-valley-provincial-park",
+          "field": "suitability.hazards"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -17474,6 +19699,100 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-82c0273586",
+      "url": "https://www.albertaparks.ca/parks/south/beauvais-lake-pp",
+      "title": "Beauvais Lake Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/beauvais-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/beauvais-lake",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/beauvais-lake",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-2809a1bf48",
+      "url": "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/day-use/beaver-creek",
+      "title": "Beaver Creek day use, Beauvais Lake Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "part/place/beauvais-lake#beaver-creek-day-use",
+          "field": "links"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/beauvais-lake",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/beauvais-lake",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/beauvais-lake",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/beauvais-lake",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/beauvais-lake",
+          "field": "suitability.toilets"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/beauvais-lake",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -19371,6 +21690,58 @@
       }
     },
     {
+      "id": "s-bbf1e00a10",
+      "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/rentals",
+      "title": "Maligne Lake boat rentals",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/curly-phillips-boathouse",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/curly-phillips-boathouse",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/curly-phillips-boathouse",
+          "field": "season"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/curly-phillips-boathouse",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/curly-phillips-boathouse",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/curly-phillips-boathouse",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-53e6e1fa7f",
       "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/tickets",
       "title": "Maligne Lake Cruise tickets",
@@ -20461,6 +22832,33 @@
       "recheck": {
         "cadence_days": 365,
         "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e1a28f679d",
+      "url": "https://www.dolomitiunesco.info",
+      "title": "Dolomiti Patrimonio Mondiale UNESCO",
+      "publisher": "Fondazione Dolomiti UNESCO",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/dolomites",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -21833,6 +24231,33 @@
       }
     },
     {
+      "id": "s-ef9e401861",
+      "url": "https://www.field.ca/about",
+      "title": "About Field, BC",
+      "publisher": "field.ca (community of Field)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/field",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-668686aa8d",
       "url": "https://www.fingerlakes.org",
       "title": "Finger Lakes Tourism Alliance",
@@ -22078,6 +24503,65 @@
       }
     },
     {
+      "id": "s-d069536b1e",
+      "url": "https://www.fs.usda.gov/r09/whitemountain/alerts",
+      "title": "Alerts, White Mountain National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/new-hampshire-stopover-2026/BA-us.json",
+          "ref": "place/white-mountain-national-forest",
+          "field": "closures"
+        },
+        {
+          "file": "data/capture/new-hampshire-stopover-2026/BA-us.json",
+          "ref": "place/white-mountain-national-forest",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-335da1d03c",
+      "url": "https://www.fs.usda.gov/r09/whitemountain/maps-guides",
+      "title": "Visitor maps and guides, White Mountain National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/new-hampshire-stopover-2026/BA-us.json",
+          "ref": "place/white-mountain-national-forest",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-cde0ef276d",
       "url": "https://www.fs.usda.gov/r09/whitemountain/passes",
       "title": "Recreation passes - White Mountain National Forest",
@@ -22263,6 +24747,33 @@
           "file": "data/relevance/catalogue/R9-us.json",
           "ref": "place/breckenridge",
           "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-4beba38dce",
+      "url": "https://www.golden.ca",
+      "title": "Town of Golden",
+      "publisher": "Town of Golden",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/golden",
+          "field": "links"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -22837,6 +25348,65 @@
       "recheck": {
         "cadence_days": 180,
         "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-8d47ca7c9a",
+      "url": "https://www.jasper-alberta.ca",
+      "title": "Municipality of Jasper",
+      "publisher": "Municipality of Jasper",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/jasper",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-b6f9deb686",
+      "url": "https://www.jasper.travel",
+      "title": "Jasper National Park official guide",
+      "publisher": "Tourism Jasper",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/jasper",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/jasper",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -24101,8 +26671,13 @@
       "publisher": "NPS Arches",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/arches-national-park",
+          "field": "links"
+        },
         {
           "file": "data/relevance/utah-five-parks/R5.json",
           "ref": "trip/utah-five-parks/trail:delicate arch trail",
@@ -24268,6 +26843,33 @@
       "recheck": {
         "cadence_days": 180,
         "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-d51088e6c3",
+      "url": "https://www.nps.gov/arch/planyourvisit/maps.htm",
+      "title": "Maps, Arches National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/arches-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -24452,8 +27054,13 @@
       "publisher": "NPS Bryce Canyon",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/bryce-canyon-national-park",
+          "field": "links"
+        },
         {
           "file": "data/suitability/utah-five-parks/R5.json",
           "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
@@ -24550,6 +27157,33 @@
       }
     },
     {
+      "id": "s-7201fcbdeb",
+      "url": "https://www.nps.gov/brca/planyourvisit/directions.htm",
+      "title": "Directions, Bryce Canyon National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "part/place/bryce-canyon-national-park#visitor-center-lot",
+          "field": "address"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-61c18cc724",
       "url": "https://www.nps.gov/brca/planyourvisit/fees.htm",
       "title": "Fees & Passes - Bryce Canyon National Park",
@@ -24627,6 +27261,33 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-89b80a0155",
+      "url": "https://www.nps.gov/brca/planyourvisit/maps.htm",
+      "title": "Maps, Bryce Canyon National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/bryce-canyon-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -24911,6 +27572,38 @@
       }
     },
     {
+      "id": "s-73ad47248a",
+      "url": "https://www.nps.gov/cany/planyourvisit/conditions.htm",
+      "title": "Alerts and Conditions, Canyonlands National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/canyonlands-national-park",
+          "field": "closures"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/canyonlands-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-f5ffc99318",
       "url": "https://www.nps.gov/cany/planyourvisit/fees.htm",
       "title": "Fees & Passes - Canyonlands National Park",
@@ -25044,6 +27737,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-b82bff8653",
+      "url": "https://www.nps.gov/cany/planyourvisit/maps.htm",
+      "title": "Maps, Canyonlands National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/canyonlands-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -26666,8 +29386,13 @@
       "publisher": "NPS Zion",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/zion-national-park",
+          "field": "links"
+        },
         {
           "file": "data/suitability/utah-five-parks/R5.json",
           "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
@@ -26712,6 +29437,33 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-3b1f99fb0f",
+      "url": "https://www.nps.gov/zion/planyourvisit/maps.htm",
+      "title": "Maps, Zion National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/zion-national-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -31071,6 +33823,38 @@
       }
     },
     {
+      "id": "s-36a4963428",
+      "url": "https://www.tourismgolden.com",
+      "title": "Golden, BC: the official travel and tourism site",
+      "publisher": "Tourism Golden",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/golden",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/golden",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-e6a5dabbee",
       "url": "https://www.tourismgolden.com/accommodations/hotels",
       "title": "Tourism Golden",
@@ -32473,12 +35257,312 @@
     {
       "id": "s-73a44e8b9b",
       "url": "https://www.wikidata.org/w/api.php?action=wbgetentities",
-      "title": "Wikidata entities read by QID (labels, descriptions, P625 coordinates, sitelinks)",
-      "publisher": "Wikidata",
+      "title": "Wikidata entities of the 40 places (labels, P31, P625, P2044, P1566, P856, P402)",
+      "publisher": "Wikidata (CC0)",
       "kind": "community",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/beauvais-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/burstall-lakes",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/curly-phillips-boathouse",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/field",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/field",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/golden",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/golden",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/jasper",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/jasper",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/kananaskis-village",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/kananaskis-village",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-lawrence-grassi",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson-provincial-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/paddys-flat",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/spray-valley-provincial-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/upper-elk-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/upper-kananaskis-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/waterton-park",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/waterton-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/whiteswan-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/PA-ca.json",
+          "ref": "place/kootenay-national-park",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/ashlar-ridge",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/athabasca-glacier",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/barrier-lake",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/beauvais-lake",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/burstall-lakes",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/curly-phillips-boathouse",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/field",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/golden",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/highwood-pass",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/jasper",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/kananaskis-village",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/maligne-lake",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-edith-cavell",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-kerkeslin",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-lawrence-grassi",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/mount-robson-provincial-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/paddys-flat",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/sinclair-canyon",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/spray-valley-provincial-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/upper-elk-lake",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/upper-kananaskis-lake",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/waterton-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/whiteswan-lake",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT1-ca.json",
+          "ref": "place/yoho-valley",
+          "field": "wikidata"
+        },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
           "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
@@ -32523,6 +35607,16 @@
           "file": "data/relevance/patagonia-2027/R3.json",
           "ref": "trip/patagonia-2027/viewpoint:lapataia bay",
           "field": "wikidata"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/chancellor-peak",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT1-ca.json",
+          "ref": "place/mount-blakiston",
+          "field": "suitability.altitude_m"
         }
       ],
       "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",

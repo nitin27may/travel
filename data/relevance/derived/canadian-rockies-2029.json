@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "canadian-rockies-2029",
-  "as_of": "2026-10-27",
+  "as_of": "2026-10-28",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -84,7 +84,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "place/mount-blakiston",
+          "km": 11.5
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -273,6 +278,10 @@
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
           "km": 2.5
+        },
+        {
+          "ref": "place/mount-lawrence-grassi",
+          "km": 4.1
         }
       ],
       "part_of": [],
@@ -351,9 +360,25 @@
           "draw": "national",
           "standing": "top",
           "hand_picked": false
+        },
+        {
+          "ref": "place/curly-phillips-boathouse",
+          "km": 0.5,
+          "how": "walk",
+          "extra_min": 136,
+          "on_site_min": 120,
+          "on_site_estimated": false,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
         }
       ],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "place/maligne-lake",
+          "km": 10.2
+        }
+      ],
       "part_of": [
         "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop"
       ],
@@ -405,6 +430,27 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/burstall-lakes",
+            "km": 50.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [
+              "long_walk_in"
+            ],
+            "family_effort": null
+          },
+          {
+            "ref": "place/upper-elk-lake",
+            "km": 80.6,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [
+              "long_walk_in",
+              "high_clearance_4wd"
+            ],
+            "family_effort": null
           }
         ]
       },
@@ -450,7 +496,7 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 60,
+      "detour_min": 62,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -458,7 +504,7 @@
         "near": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
-            "km": 21.3,
+            "km": 22.7,
             "draw": "regional",
             "standing": "top",
             "access_cost": [
@@ -470,7 +516,7 @@
         "area": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
-            "km": 21.3,
+            "km": 22.7,
             "draw": "regional",
             "standing": "top",
             "access_cost": [
@@ -480,7 +526,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
-            "km": 27.5,
+            "km": 27.8,
             "draw": "regional",
             "standing": "top",
             "access_cost": [
@@ -492,39 +538,27 @@
       },
       "far_pointer": {
         "ref": "place/lake-louise",
-        "km": 21.3,
+        "km": 21.9,
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
-          "km": 0.9,
-          "how": "walk",
-          "extra_min": 116,
-          "on_site_min": 90,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
-        }
-      ],
+      "pair_with": [],
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
-          "km": 6.9
+          "km": 6.4
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-          "km": 7.4
+          "km": 7.6
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
-          "km": 7.4
+          "km": 8.2
         }
       ],
       "part_of": [
-        "legacy/canadian-rockies-sept-2029/sights/emerald-lake"
+        "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe"
       ],
       "plan_b": null,
       "fits": {
@@ -539,7 +573,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 60 min is over 30"
+          "reason": "detour 62 min is over 30"
         }
       },
       "role": "highlight",
@@ -568,7 +602,7 @@
         "near": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
-            "km": 18.2,
+            "km": 18.4,
             "draw": "national",
             "standing": "top",
             "access_cost": [
@@ -578,7 +612,7 @@
           },
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
-            "km": 24.8,
+            "km": 24.9,
             "draw": "national",
             "standing": "top",
             "access_cost": [
@@ -590,7 +624,7 @@
         "area": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
-            "km": 18.2,
+            "km": 18.4,
             "draw": "national",
             "standing": "top",
             "access_cost": [
@@ -600,7 +634,7 @@
           },
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
-            "km": 24.8,
+            "km": 24.9,
             "draw": "national",
             "standing": "top",
             "access_cost": [
@@ -610,7 +644,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
-            "km": 65.3,
+            "km": 65.4,
             "draw": "regional",
             "standing": "top",
             "access_cost": [],
@@ -619,20 +653,30 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [],
-      "pair_pending": [
+      "pair_with": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
-          "km": 7.4
-        },
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
-          "km": 8.2
+          "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+          "km": 0.7,
+          "how": "walk",
+          "extra_min": 111,
+          "on_site_min": 90,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
         }
       ],
-      "part_of": [
-        "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls"
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+          "km": 7.5
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+          "km": 7.6
+        }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -673,7 +717,16 @@
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "place/paddys-flat",
+            "km": 40.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": 3
+          }
+        ]
       },
       "far_pointer": null,
       "pair_with": [],
@@ -683,12 +736,20 @@
           "km": 3.8
         },
         {
+          "ref": "place/upper-elk-lake",
+          "km": 9.1
+        },
+        {
           "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
           "km": 11.3
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
           "km": 11.6
+        },
+        {
+          "ref": "place/highwood-pass",
+          "km": 11.7
         }
       ],
       "part_of": [],
@@ -741,6 +802,17 @@
         "same_class": false
       },
       "pair_with": [
+        {
+          "ref": "place/mount-lawrence-grassi",
+          "km": 1.3,
+          "how": "walk",
+          "extra_min": 84,
+          "on_site_min": 45,
+          "on_site_estimated": true,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        },
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
           "km": 1,
@@ -811,6 +883,27 @@
             "standing": "good",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/burstall-lakes",
+            "km": 32.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [
+              "long_walk_in"
+            ],
+            "family_effort": null
+          },
+          {
+            "ref": "place/upper-elk-lake",
+            "km": 61.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [
+              "long_walk_in",
+              "high_clearance_4wd"
+            ],
+            "family_effort": null
           }
         ]
       },
@@ -821,7 +914,12 @@
         "same_class": false
       },
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "place/mount-lawrence-grassi",
+          "km": 2.3
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -856,7 +954,7 @@
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": 10,
+      "detour_min": 6,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -864,7 +962,7 @@
         "near": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
-            "km": 10.3,
+            "km": 10.2,
             "draw": "regional",
             "standing": "top",
             "access_cost": [
@@ -874,7 +972,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
-            "km": 21.3,
+            "km": 22.7,
             "draw": "regional",
             "standing": "top",
             "access_cost": [],
@@ -884,7 +982,7 @@
         "area": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
-            "km": 10.3,
+            "km": 10.2,
             "draw": "regional",
             "standing": "top",
             "access_cost": [
@@ -894,7 +992,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
-            "km": 21.3,
+            "km": 22.7,
             "draw": "regional",
             "standing": "top",
             "access_cost": [],
@@ -904,16 +1002,16 @@
       },
       "far_pointer": {
         "ref": "place/lake-louise",
-        "km": 0,
+        "km": 1,
         "draw": "world",
         "same_class": false
       },
       "pair_with": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
-          "km": 0.9,
+          "km": 0.1,
           "how": "walk",
-          "extra_min": 87,
+          "extra_min": 63,
           "on_site_min": 60,
           "on_site_estimated": false,
           "draw": "regional",
@@ -924,24 +1022,22 @@
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
-          "km": 3.7
+          "km": 4.7
         },
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
-          "km": 5.7
+          "km": 4.8
         },
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
-          "km": 7.9
+          "km": 8.4
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
-          "km": 9.9
+          "km": 10.2
         }
       ],
-      "part_of": [
-        "place/lake-louise"
-      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -994,7 +1090,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-            "km": 24.8,
+            "km": 24.9,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -1014,7 +1110,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-            "km": 24.8,
+            "km": 24.9,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -1034,20 +1130,20 @@
       "pair_with": [],
       "pair_pending": [
         {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+          "km": 3.1
+        },
+        {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
           "km": 3.1
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
-          "km": 3.2
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
+          "km": 8.3
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
-          "km": 7.9
-        },
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
-          "km": 8.3
+          "km": 8.4
         },
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
@@ -1057,7 +1153,7 @@
       "part_of": [],
       "plan_b": {
         "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-        "km": 24.8,
+        "km": 24.9,
         "draw": "national",
         "standing": "top",
         "access_cost": [],
@@ -1129,9 +1225,25 @@
           "draw": "national",
           "standing": "top",
           "hand_picked": false
+        },
+        {
+          "ref": "place/curly-phillips-boathouse",
+          "km": 0.5,
+          "how": "walk",
+          "extra_min": 136,
+          "on_site_min": 120,
+          "on_site_estimated": false,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
         }
       ],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "place/maligne-lake",
+          "km": 10.2
+        }
+      ],
       "part_of": [
         "legacy/canadian-rockies-sept-2029/trails/bald-hills"
       ],
@@ -1213,6 +1325,10 @@
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
           "km": 11.2
+        },
+        {
+          "ref": "place/athabasca-glacier",
+          "km": 11.2
         }
       ],
       "part_of": [],
@@ -1268,7 +1384,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-            "km": 18.2,
+            "km": 18.4,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -1288,7 +1404,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-            "km": 18.2,
+            "km": 18.4,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -1308,30 +1424,30 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
-          "km": 3.7
-        },
-        {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
           "km": 4.6
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+          "km": 4.7
         },
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
           "km": 9.4
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
           "km": 9.7
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
-          "km": 10
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+          "km": 9.7
         }
       ],
       "part_of": [],
       "plan_b": {
         "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-        "km": 18.2,
+        "km": 18.4,
         "draw": "national",
         "standing": "top",
         "access_cost": [],
@@ -1390,6 +1506,17 @@
       "far_pointer": null,
       "pair_with": [
         {
+          "ref": "place/highwood-pass",
+          "km": 0.8,
+          "how": "walk",
+          "extra_min": 83,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
           "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
           "km": 0.6,
           "how": "walk",
@@ -1402,6 +1529,10 @@
         }
       ],
       "pair_pending": [
+        {
+          "ref": "place/upper-elk-lake",
+          "km": 10.6
+        },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
           "km": 11.6
@@ -1467,8 +1598,16 @@
       "pair_with": [],
       "pair_pending": [
         {
+          "ref": "place/upper-elk-lake",
+          "km": 6.4
+        },
+        {
           "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
           "km": 12.1
+        },
+        {
+          "ref": "place/highwood-pass",
+          "km": 12.4
         }
       ],
       "part_of": [],
@@ -1584,7 +1723,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-            "km": 65.3,
+            "km": 65.4,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -1700,6 +1839,10 @@
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+          "km": 6.7
+        },
+        {
+          "ref": "place/athabasca-glacier",
           "km": 6.7
         }
       ],
@@ -2134,18 +2277,18 @@
           "hand_picked": false
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
-          "km": 0.6,
+          "ref": "place/curly-phillips-boathouse",
+          "km": 0.9,
           "how": "walk",
-          "extra_min": 169,
-          "on_site_min": 150,
-          "on_site_estimated": true,
-          "draw": "regional",
+          "extra_min": 147,
+          "on_site_min": 120,
+          "on_site_estimated": false,
+          "draw": "local",
           "standing": "good",
           "hand_picked": false
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
           "km": 0.6,
           "how": "walk",
           "extra_min": 169,
@@ -2156,7 +2299,12 @@
           "hand_picked": false
         }
       ],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "place/maligne-lake",
+          "km": 9.7
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -2192,7 +2340,7 @@
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": 28,
+      "detour_min": 26,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -2200,7 +2348,7 @@
         "near": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
-            "km": 10.3,
+            "km": 10.2,
             "draw": "regional",
             "standing": "top",
             "access_cost": [
@@ -2212,7 +2360,7 @@
         "area": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
-            "km": 10.3,
+            "km": 10.2,
             "draw": "regional",
             "standing": "top",
             "access_cost": [
@@ -2222,7 +2370,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
-            "km": 27.5,
+            "km": 27.8,
             "draw": "regional",
             "standing": "top",
             "access_cost": [],
@@ -2232,39 +2380,27 @@
       },
       "far_pointer": {
         "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "km": 0,
+        "km": 0.5,
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
-          "km": 0.5,
-          "how": "walk",
-          "extra_min": 106,
-          "on_site_min": 90,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
-        }
-      ],
+      "pair_with": [],
       "pair_pending": [
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
-          "km": 3.2
+          "km": 3.1
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
-          "km": 10
+          "km": 9.7
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
-          "km": 10.5
+          "km": 10.1
         }
       ],
       "part_of": [
-        "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+        "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe"
       ],
       "plan_b": null,
       "fits": {
@@ -2329,6 +2465,22 @@
             "km": 41,
             "draw": "regional",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/chancellor-peak",
+            "km": 26,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/mount-lawrence-grassi",
+            "km": 54.4,
+            "draw": "local",
+            "standing": "good",
             "access_cost": [],
             "family_effort": null
           },
@@ -2500,6 +2652,14 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/athabasca-glacier",
+            "km": 2.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 4
           }
         ],
         "area": [
@@ -2520,6 +2680,14 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/athabasca-glacier",
+            "km": 2.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 4
           }
         ]
       },
@@ -2726,21 +2894,30 @@
           "draw": "regional",
           "standing": "top",
           "hand_picked": false
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+          "km": 0.9,
+          "how": "walk",
+          "extra_min": 177,
+          "on_site_min": 150,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": false
         }
       ],
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-          "km": 7.4
+          "km": 6.7
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
           "km": 7.4
         }
       ],
-      "part_of": [
-        "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore"
-      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -2788,6 +2965,10 @@
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
           "km": 3.9
+        },
+        {
+          "ref": "place/mount-robson",
+          "km": 4
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
@@ -2883,12 +3064,38 @@
       "detour_town": "Jasper",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/maligne-lake",
+            "km": 0,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "boat_or_ferry"
+            ],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/maligne-lake",
+            "km": 0,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "boat_or_ferry"
+            ],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
       "pair_with": [],
       "pair_pending": [
+        {
+          "ref": "place/curly-phillips-boathouse",
+          "km": 10
+        },
         {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
           "km": 10.1
@@ -2994,21 +3201,30 @@
           "draw": "regional",
           "standing": "top",
           "hand_picked": false
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+          "km": 0.5,
+          "how": "walk",
+          "extra_min": 165,
+          "on_site_min": 150,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": false
         }
       ],
       "pair_pending": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
-          "km": 10.3
-        },
-        {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
           "km": 10.5
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+          "km": 10.7
         }
       ],
-      "part_of": [
-        "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore"
-      ],
+      "part_of": [],
       "plan_b": {
         "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
         "km": 27.5,
@@ -3320,6 +3536,17 @@
           "draw": "regional",
           "standing": "top",
           "hand_picked": false
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+          "km": 1,
+          "how": "walk",
+          "extra_min": 179,
+          "on_site_min": 150,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": false
         }
       ],
       "pair_pending": [
@@ -3328,17 +3555,15 @@
           "km": 5.7
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
           "km": 9.9
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
-          "km": 10.3
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+          "km": 9.9
         }
       ],
-      "part_of": [
-        "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore"
-      ],
+      "part_of": [],
       "plan_b": {
         "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
         "km": 21.3,
@@ -3407,7 +3632,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "place/mount-kerkeslin",
+          "km": 4.2
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -3637,8 +3867,8 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
-        "km": 9.1,
+        "ref": "place/mount-robson-provincial-park",
+        "km": 2.1,
         "draw": "national",
         "same_class": false
       },
@@ -3646,6 +3876,10 @@
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+          "km": 9.1
+        },
+        {
+          "ref": "place/mount-robson",
           "km": 9.1
         }
       ],
@@ -3767,9 +4001,7 @@
           "km": 8.2
         }
       ],
-      "part_of": [
-        "legacy/canadian-rockies-sept-2029/trails/iceline-trail"
-      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -3828,7 +4060,9 @@
           "km": 9.1
         }
       ],
-      "part_of": [],
+      "part_of": [
+        "place/mount-robson"
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -3993,12 +4227,38 @@
       "detour_town": "Kananaskis Village",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/highwood-pass",
+            "km": 0.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/highwood-pass",
+            "km": 0.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
       "pair_with": [],
       "pair_pending": [
+        {
+          "ref": "place/upper-elk-lake",
+          "km": 10
+        },
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
           "km": 12.1
@@ -4117,8 +4377,26 @@
       "detour_town": "Jasper",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/jasper",
+            "km": 0.2,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/jasper",
+            "km": 0.2,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": {
         "ref": "place/jasper-national-park",
@@ -4276,6 +4554,14 @@
       "substitutes": {
         "near": [
           {
+            "ref": "place/athabasca-glacier",
+            "km": 0,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 4
+          },
+          {
             "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
             "km": 3.9,
             "draw": "national",
@@ -4295,6 +4581,14 @@
           }
         ],
         "area": [
+          {
+            "ref": "place/athabasca-glacier",
+            "km": 0,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 4
+          },
           {
             "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
             "km": 3.9,
@@ -4369,7 +4663,7 @@
       "warnings": [
         {
           "code": "W_REL_DISTINCTION",
-          "message": "distinction is unique but legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer has the same class within 100 km"
+          "message": "distinction is unique but place/athabasca-glacier has the same class within 100 km"
         }
       ],
       "layer": "place"
@@ -4408,6 +4702,14 @@
             "km": 41,
             "draw": "regional",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/mount-lawrence-grassi",
+            "km": 54.4,
+            "draw": "local",
+            "standing": "good",
             "access_cost": [],
             "family_effort": null
           },
@@ -4505,8 +4807,26 @@
       "detour_town": "Kananaskis Village",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/upper-kananaskis-lake",
+            "km": 0,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/upper-kananaskis-lake",
+            "km": 0,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
       "pair_with": [],
@@ -4520,8 +4840,16 @@
           "km": 2.1
         },
         {
+          "ref": "place/upper-elk-lake",
+          "km": 8
+        },
+        {
           "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
           "km": 11.9
+        },
+        {
+          "ref": "place/highwood-pass",
+          "km": 12.2
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
@@ -4631,6 +4959,10 @@
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
           "km": 2.5
+        },
+        {
+          "ref": "place/mount-lawrence-grassi",
+          "km": 4.3
         }
       ],
       "part_of": [],
@@ -4897,8 +5229,25 @@
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [],
-      "pair_pending": [],
+      "pair_with": [
+        {
+          "ref": "place/curly-phillips-boathouse",
+          "km": 0.2,
+          "how": "walk",
+          "extra_min": 125,
+          "on_site_min": 120,
+          "on_site_estimated": false,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [
+        {
+          "ref": "place/maligne-lake",
+          "km": 10.1
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -5120,6 +5469,14 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/barrier-lake",
+            "km": 84.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
           }
         ]
       },
@@ -5131,7 +5488,9 @@
       },
       "pair_with": [],
       "pair_pending": [],
-      "part_of": [],
+      "part_of": [
+        "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore"
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -5218,7 +5577,9 @@
           "km": 8.2
         }
       ],
-      "part_of": [],
+      "part_of": [
+        "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore"
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -5259,6 +5620,14 @@
       "substitutes": {
         "near": [
           {
+            "ref": "place/mount-lawrence-grassi",
+            "km": 16,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "part/place/banff-national-park#banff-visitor-centre",
             "km": 3.1,
             "draw": "local",
@@ -5268,6 +5637,16 @@
           }
         ],
         "area": [
+          {
+            "ref": "place/yoho-valley",
+            "km": 79,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
             "km": 41,
@@ -5281,6 +5660,22 @@
             "km": 41,
             "draw": "regional",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/sinclair-canyon",
+            "km": 67,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/mount-lawrence-grassi",
+            "km": 16,
+            "draw": "local",
+            "standing": "good",
             "access_cost": [],
             "family_effort": null
           },
@@ -5401,8 +5796,34 @@
         "near": [],
         "area": [
           {
+            "ref": "place/mount-edith-cavell",
+            "km": 54.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "seasonal_road"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/mount-robson",
+            "km": 92.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "part/place/jasper-national-park#jasper-information-centre",
             "km": 34.9,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+            "km": 97.9,
             "draw": "local",
             "standing": "ordinary",
             "access_cost": [],
@@ -5474,6 +5895,14 @@
             "family_effort": null
           },
           {
+            "ref": "place/athabasca-glacier",
+            "km": 3.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 4
+          },
+          {
             "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
             "km": 1.6,
             "draw": "regional",
@@ -5490,6 +5919,14 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/athabasca-glacier",
+            "km": 3.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 4
           },
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
@@ -5580,7 +6017,12 @@
         "same_class": false
       },
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "place/athabasca-glacier",
+          "km": 7.8
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -5824,6 +6266,10 @@
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
           "km": 2.5
+        },
+        {
+          "ref": "place/mount-lawrence-grassi",
+          "km": 4.3
         }
       ],
       "part_of": [],
@@ -5973,6 +6419,27 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/burstall-lakes",
+            "km": 50.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [
+              "long_walk_in"
+            ],
+            "family_effort": null
+          },
+          {
+            "ref": "place/upper-elk-lake",
+            "km": 80.6,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [
+              "long_walk_in",
+              "high_clearance_4wd"
+            ],
+            "family_effort": null
           }
         ]
       },
@@ -6034,6 +6501,17 @@
         "same_class": false
       },
       "pair_with": [
+        {
+          "ref": "place/mount-lawrence-grassi",
+          "km": 1.3,
+          "how": "walk",
+          "extra_min": 84,
+          "on_site_min": 45,
+          "on_site_estimated": true,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        },
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
           "km": 1,
@@ -6105,6 +6583,27 @@
             "standing": "good",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/burstall-lakes",
+            "km": 32.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [
+              "long_walk_in"
+            ],
+            "family_effort": null
+          },
+          {
+            "ref": "place/upper-elk-lake",
+            "km": 61.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [
+              "long_walk_in",
+              "high_clearance_4wd"
+            ],
+            "family_effort": null
           }
         ]
       },
@@ -6115,7 +6614,12 @@
         "same_class": false
       },
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "place/mount-lawrence-grassi",
+          "km": 2.3
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -6165,6 +6669,10 @@
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
           "km": 3.9
+        },
+        {
+          "ref": "place/mount-robson",
+          "km": 4
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
@@ -6224,7 +6732,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-            "km": 24.8,
+            "km": 24.9,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -6244,7 +6752,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-            "km": 24.8,
+            "km": 24.9,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -6264,20 +6772,20 @@
       "pair_with": [],
       "pair_pending": [
         {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+          "km": 3.1
+        },
+        {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
           "km": 3.1
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
-          "km": 3.2
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
+          "km": 8.3
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
-          "km": 7.9
-        },
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
-          "km": 8.3
+          "km": 8.4
         },
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
@@ -6287,7 +6795,7 @@
       "part_of": [],
       "plan_b": {
         "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-        "km": 24.8,
+        "km": 24.9,
         "draw": "national",
         "standing": "top",
         "access_cost": [],
@@ -6347,8 +6855,16 @@
       "pair_with": [],
       "pair_pending": [
         {
+          "ref": "place/upper-elk-lake",
+          "km": 6.4
+        },
+        {
           "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
           "km": 12.1
+        },
+        {
+          "ref": "place/highwood-pass",
+          "km": 12.4
         }
       ],
       "part_of": [],
@@ -6525,7 +7041,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "place/mount-kerkeslin",
+          "km": 4.2
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -6648,8 +7169,8 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
-        "km": 9.1,
+        "ref": "place/mount-robson-provincial-park",
+        "km": 2.1,
         "draw": "national",
         "same_class": false
       },
@@ -6657,6 +7178,10 @@
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+          "km": 9.1
+        },
+        {
+          "ref": "place/mount-robson",
           "km": 9.1
         }
       ],
@@ -6782,9 +7307,7 @@
           "km": 8.2
         }
       ],
-      "part_of": [
-        "legacy/canadian-rockies-sept-2029/trails/iceline-trail"
-      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -6842,6 +7365,14 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/athabasca-glacier",
+            "km": 2.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 4
           }
         ],
         "area": [
@@ -6862,6 +7393,14 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/athabasca-glacier",
+            "km": 2.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 4
           }
         ]
       },

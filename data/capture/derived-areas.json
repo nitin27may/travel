@@ -18,14 +18,14 @@
       "via": "point",
       "from": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sky-bistro",
       "km": 1.4,
-      "rival_km": 15.5
+      "rival_km": 13.5
     },
     "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling": {
       "area_id": "CA/AB/banff-national-park",
       "via": "point",
       "from": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
       "km": 5.3,
-      "rival_km": 22.5
+      "rival_km": 20.7
     },
     "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre": {
       "area_id": "CA/AB/kananaskis-country",
@@ -37,13 +37,13 @@
       "via": "point",
       "from": "part/place/banff-national-park#banff-visitor-centre",
       "km": 0.3,
-      "rival_km": 18.5
+      "rival_km": 16.2
     },
     "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 7.8,
+      "from": "part/place/athabasca-glacier#toe-parking",
+      "km": 6,
       "rival_km": 86.8
     },
     "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge": {
@@ -56,16 +56,16 @@
     "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
-      "from": "part/place/jasper-national-park#jasper-information-centre",
-      "km": 0.2,
-      "rival_km": 76.6
+      "from": "place/jasper",
+      "km": 0.1,
+      "rival_km": 76.5
     },
     "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
       "from": "locations store",
       "km": 1.7,
-      "rival_km": 78.3
+      "rival_km": 78.2
     },
     "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram": {
       "area_id": "CA/AB/jasper-national-park",
@@ -100,7 +100,7 @@
       "via": "point",
       "from": "part/legacy/canadian-rockies-sept-2029/sights/lake-minnewanka#parking",
       "km": 4.5,
-      "rival_km": 20.2
+      "rival_km": 17.5
     },
     "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer": {
       "area_id": "CA/AB/kananaskis-country",
@@ -112,8 +112,8 @@
     "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway": {
       "area_id": "CA/AB/waterton-lakes-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 3.8,
+      "from": "place/waterton-park",
+      "km": 3.6,
       "rival_km": 40.2
     },
     "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail": {
@@ -121,21 +121,21 @@
       "via": "point",
       "from": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sky-bistro",
       "km": 1.2,
-      "rival_km": 15.7
+      "rival_km": 13.7
     },
     "legacy/canadian-rockies-sept-2029/sights/athabasca-falls": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 4.2,
-      "rival_km": 98.8
+      "from": "part/place/mount-kerkeslin#athabasca-falls-parking",
+      "km": 0.2,
+      "rival_km": 98.7
     },
     "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp": {
       "area_id": "CA/AB/beauvais-lake-provincial-park",
       "via": "point",
-      "from": "locations store",
-      "km": 1.3,
-      "rival_km": 36.1
+      "from": "part/place/beauvais-lake#beaver-creek-day-use",
+      "km": 0.2,
+      "rival_km": 32.2
     },
     "legacy/canadian-rockies-sept-2029/sights/berg-lake": {
       "area_id": "CA/BC/mount-robson-provincial-park",
@@ -163,7 +163,7 @@
       "via": "point",
       "from": "part/place/banff-national-park#banff-visitor-centre",
       "km": 1.7,
-      "rival_km": 19
+      "rival_km": 16.9
     },
     "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier": {
       "area_id": "CA/AB/jasper-national-park",
@@ -175,9 +175,9 @@
     "legacy/canadian-rockies-sept-2029/sights/elbow-falls": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
-      "km": 5.1,
-      "rival_km": 42.1
+      "from": "place/paddys-flat",
+      "km": 4.7,
+      "rival_km": 40.8
     },
     "legacy/canadian-rockies-sept-2029/sights/emerald-lake": {
       "area_id": "CA/BC/yoho-national-park",
@@ -191,7 +191,7 @@
       "via": "point",
       "from": "locations store",
       "km": 0,
-      "rival_km": 10
+      "rival_km": 8
     },
     "legacy/canadian-rockies-sept-2029/sights/jasper-townsite": {
       "area_id": "CA/AB/jasper-national-park",
@@ -219,35 +219,35 @@
       "via": "point",
       "from": "locations store",
       "km": 3.9,
-      "rival_km": 77.9
+      "rival_km": 77.8
     },
     "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka": {
       "area_id": "CA/AB/banff-national-park",
       "via": "point",
       "from": "part/legacy/canadian-rockies-sept-2029/sights/lake-minnewanka#parking",
       "km": 8.9,
-      "rival_km": 22.8
+      "rival_km": 19.7
     },
     "legacy/canadian-rockies-sept-2029/sights/maligne-canyon": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
       "from": "part/place/jasper-national-park#jasper-information-centre",
       "km": 6.7,
-      "rival_km": 79.5
+      "rival_km": 79.4
     },
     "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
       "from": "locations store",
       "km": 0,
-      "rival_km": 119.7
+      "rival_km": 119.6
     },
     "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 5.4,
-      "rival_km": 92.6
+      "from": "part/place/ashlar-ridge#miette-parking",
+      "km": 0.1,
+      "rival_km": 92.5
     },
     "legacy/canadian-rockies-sept-2029/sights/moraine-lake": {
       "area_id": "CA/AB/banff-national-park",
@@ -259,14 +259,14 @@
     "legacy/canadian-rockies-sept-2029/sights/mount-edith-cavell": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 1.8,
-      "rival_km": 88.2
+      "from": "part/place/mount-edith-cavell#upper-lot",
+      "km": 0.7,
+      "rival_km": 88.1
     },
     "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
+      "from": "place/kananaskis-village",
       "km": 6.4,
       "rival_km": 35.7
     },
@@ -287,8 +287,8 @@
     "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view": {
       "area_id": "CA/BC/mount-robson-provincial-park",
       "via": "point",
-      "from": "locations store",
-      "km": 2.1,
+      "from": "part/place/mount-robson-provincial-park#welcome-centre",
+      "km": 2,
       "rival_km": 76.9
     },
     "legacy/canadian-rockies-sept-2029/sights/peyto-lake": {
@@ -301,8 +301,8 @@
     "legacy/canadian-rockies-sept-2029/sights/prince-of-wales-hotel": {
       "area_id": "CA/AB/waterton-lakes-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 1.1,
+      "from": "place/waterton-park",
+      "km": 0.9,
       "rival_km": 41.4
     },
     "legacy/canadian-rockies-sept-2029/sights/pyramid-lake": {
@@ -310,7 +310,7 @@
       "via": "point",
       "from": "part/place/jasper-national-park#jasper-information-centre",
       "km": 5.1,
-      "rival_km": 74
+      "rival_km": 73.9
     },
     "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs": {
       "area_id": "CA/BC/kootenay-national-park",
@@ -322,8 +322,8 @@
     "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway": {
       "area_id": "CA/AB/waterton-lakes-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 4.2,
+      "from": "part/place/mount-blakiston#red-rock-canyon-parking",
+      "km": 0.1,
       "rival_km": 31.3
     },
     "legacy/canadian-rockies-sept-2029/sights/smith-dorrien-trail": {
@@ -336,8 +336,8 @@
     "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls": {
       "area_id": "CA/BC/yoho-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 4.9,
+      "from": "part/place/yoho-valley#takakkaw-falls-parking",
+      "km": 0.8,
       "rival_km": 18.2
     },
     "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes": {
@@ -345,26 +345,26 @@
       "via": "point",
       "from": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
       "km": 1.3,
-      "rival_km": 20
+      "rival_km": 17.9
     },
     "legacy/canadian-rockies-sept-2029/sights/wapta-falls": {
       "area_id": "CA/BC/yoho-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 6.2,
+      "from": "place/chancellor-peak",
+      "km": 6.1,
       "rival_km": 29.7
     },
     "legacy/canadian-rockies-sept-2029/sights/waterton-townsite": {
       "area_id": "CA/AB/waterton-lakes-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 0.5,
+      "from": "place/waterton-park",
+      "km": 0,
       "rival_km": 42.2
     },
     "legacy/canadian-rockies-sept-2029/sights/wedge-pond": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
+      "from": "place/kananaskis-village",
       "km": 5,
       "rival_km": 35.8
     },
@@ -385,16 +385,16 @@
     "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 4.2,
-      "rival_km": 98.8
+      "from": "part/place/mount-kerkeslin#athabasca-falls-parking",
+      "km": 0.2,
+      "rival_km": 98.7
     },
     "legacy/canadian-rockies-sept-2029/trails/bald-hills": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
       "from": "locations store",
       "km": 0.5,
-      "rival_km": 110
+      "rival_km": 109.9
     },
     "legacy/canadian-rockies-sept-2029/trails/bears-hump": {
       "area_id": "CA/AB/waterton-lakes-national-park",
@@ -406,36 +406,36 @@
     "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail": {
       "area_id": "CA/AB/beauvais-lake-provincial-park",
       "via": "point",
-      "from": "locations store",
-      "km": 1.2,
-      "rival_km": 36.3
+      "from": "part/place/beauvais-lake#beaver-creek-day-use",
+      "km": 0.5,
+      "rival_km": 32.4
     },
     "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail": {
       "area_id": "CA/BC/mount-robson-provincial-park",
       "via": "point",
-      "from": "locations store",
-      "km": 2.1,
-      "rival_km": 78.4
+      "from": "part/place/mount-robson-provincial-park#welcome-centre",
+      "km": 1.8,
+      "rival_km": 78.3
     },
     "legacy/canadian-rockies-sept-2029/trails/burstall-pass": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
-      "km": 2.4,
+      "from": "part/place/burstall-lakes#burstall-pass-parking",
+      "km": 0,
       "rival_km": 29.9
     },
     "legacy/canadian-rockies-sept-2029/trails/cavell-meadows": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 2.2,
-      "rival_km": 87.6
+      "from": "part/place/mount-edith-cavell#upper-lot",
+      "km": 0,
+      "rival_km": 87.5
     },
     "legacy/canadian-rockies-sept-2029/trails/chester-lake": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
-      "km": 2.6,
+      "from": "part/place/burstall-lakes#burstall-pass-parking",
+      "km": 0.2,
       "rival_km": 29.8
     },
     "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop": {
@@ -443,35 +443,35 @@
       "via": "point",
       "from": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
       "km": 5.2,
-      "rival_km": 22.7
+      "rival_km": 20.9
     },
     "legacy/canadian-rockies-sept-2029/trails/crypt-lake": {
       "area_id": "CA/AB/waterton-lakes-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 2.7,
+      "from": "place/waterton-park",
+      "km": 2.4,
       "rival_km": 44.6
     },
     "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
-      "km": 5.3,
-      "rival_km": 41.9
+      "from": "place/paddys-flat",
+      "km": 4.9,
+      "rival_km": 40.7
     },
     "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper": {
       "area_id": "CA/BC/elk-lakes-provincial-park",
       "via": "point",
-      "from": "locations store",
-      "km": 2.6,
-      "rival_km": 8
+      "from": "part/place/upper-elk-lake#elk-lakes-trailhead",
+      "km": 0,
+      "rival_km": 7.8
     },
     "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint": {
       "area_id": "CA/BC/elk-lakes-provincial-park",
       "via": "point",
-      "from": "locations store",
-      "km": 2.6,
-      "rival_km": 8
+      "from": "part/place/upper-elk-lake#elk-lakes-trailhead",
+      "km": 0,
+      "rival_km": 7.8
     },
     "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore": {
       "area_id": "CA/BC/yoho-national-park",
@@ -490,15 +490,15 @@
     "legacy/canadian-rockies-sept-2029/trails/fryatt-valley": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 4.9,
+      "from": "part/place/mount-kerkeslin#athabasca-falls-parking",
+      "km": 2.2,
       "rival_km": 98.7
     },
     "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
-      "km": 3.1,
+      "from": "part/place/mount-lawrence-grassi#grassi-lakes-parking",
+      "km": 0,
       "rival_km": 12.2
     },
     "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak": {
@@ -511,37 +511,37 @@
     "legacy/canadian-rockies-sept-2029/trails/iceline-trail": {
       "area_id": "CA/BC/yoho-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 4.9,
+      "from": "part/place/yoho-valley#takakkaw-falls-parking",
+      "km": 0.3,
       "rival_km": 18.4
     },
     "legacy/canadian-rockies-sept-2029/trails/interlakes-trail": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
-      "km": 1.8,
+      "from": "part/place/upper-kananaskis-lake#north-interlakes",
+      "km": 0,
       "rival_km": 9.1
     },
     "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 5.4,
-      "rival_km": 92.5
+      "from": "part/place/ashlar-ridge#miette-parking",
+      "km": 0.1,
+      "rival_km": 92.4
     },
     "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop": {
       "area_id": "CA/AB/banff-national-park",
       "via": "point",
       "from": "part/legacy/canadian-rockies-sept-2029/sights/lake-minnewanka#parking",
       "km": 5.5,
-      "rival_km": 17.7
+      "rival_km": 14.8
     },
     "legacy/canadian-rockies-sept-2029/trails/kinney-lake": {
       "area_id": "CA/BC/mount-robson-provincial-park",
       "via": "point",
-      "from": "locations store",
-      "km": 2.1,
-      "rival_km": 78.4
+      "from": "part/place/mount-robson-provincial-park#welcome-centre",
+      "km": 1.8,
+      "rival_km": 78.3
     },
     "legacy/canadian-rockies-sept-2029/trails/lake-agnes": {
       "area_id": "CA/AB/banff-national-park",
@@ -555,12 +555,12 @@
       "via": "point",
       "from": "part/place/jasper-national-park#jasper-information-centre",
       "km": 3.5,
-      "rival_km": 77.7
+      "rival_km": 77.6
     },
     "legacy/canadian-rockies-sept-2029/trails/lillian-lake": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
+      "from": "place/kananaskis-village",
       "km": 6.6,
       "rival_km": 34.7
     },
@@ -569,14 +569,14 @@
       "via": "point",
       "from": "locations store",
       "km": 0.5,
-      "rival_km": 110
+      "rival_km": 109.9
     },
     "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
       "from": "locations store",
       "km": 0.9,
-      "rival_km": 110.4
+      "rival_km": 110.3
     },
     "legacy/canadian-rockies-sept-2029/trails/mount-fairview": {
       "area_id": "CA/AB/banff-national-park",
@@ -588,14 +588,14 @@
     "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
-      "km": 1.8,
+      "from": "part/place/upper-kananaskis-lake#north-interlakes",
+      "km": 0,
       "rival_km": 9.1
     },
     "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
+      "from": "place/kananaskis-village",
       "km": 6.4,
       "rival_km": 35.7
     },
@@ -604,7 +604,7 @@
       "via": "point",
       "from": "locations store",
       "km": 0.5,
-      "rival_km": 110.6
+      "rival_km": 110.5
     },
     "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail": {
       "area_id": "CA/BC/mount-robson-provincial-park",
@@ -620,6 +620,13 @@
       "km": 6.3,
       "rival_km": 20.4
     },
+    "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque": {
+      "area_id": "CA/AB/kananaskis-country",
+      "via": "point",
+      "from": "locations store",
+      "km": 0.6,
+      "rival_km": 8.5
+    },
     "legacy/canadian-rockies-sept-2029/trails/rawson-lake": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
@@ -630,8 +637,8 @@
     "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop": {
       "area_id": "CA/AB/waterton-lakes-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 4.1,
+      "from": "part/place/mount-blakiston#red-rock-canyon-parking",
+      "km": 0,
       "rival_km": 31.3
     },
     "legacy/canadian-rockies-sept-2029/trails/ribbon-creek": {
@@ -640,6 +647,13 @@
       "from": "locations store",
       "km": 1.7,
       "rival_km": 35.5
+    },
+    "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout": {
+      "area_id": "CA/AB/kananaskis-country",
+      "via": "point",
+      "from": "part/place/upper-kananaskis-lake#north-interlakes",
+      "km": 6.3,
+      "rival_km": 14.9
     },
     "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge": {
       "area_id": "CA/AB/kananaskis-country",
@@ -653,20 +667,20 @@
       "via": "point",
       "from": "locations store",
       "km": 0.6,
-      "rival_km": 110
+      "rival_km": 109.9
     },
     "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 5.5,
-      "rival_km": 92.6
+      "from": "part/place/ashlar-ridge#miette-parking",
+      "km": 0.1,
+      "rival_km": 92.5
     },
     "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk": {
       "area_id": "CA/BC/yoho-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 4.9,
+      "from": "part/place/yoho-valley#takakkaw-falls-parking",
+      "km": 0.8,
       "rival_km": 18.2
     },
     "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe": {
@@ -679,8 +693,8 @@
     "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 2.9,
+      "from": "part/place/athabasca-glacier#toe-parking",
+      "km": 0,
       "rival_km": 80.9
     },
     "legacy/canadian-rockies-sept-2029/trails/troll-falls": {
@@ -693,29 +707,29 @@
     "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
-      "km": 1.8,
+      "from": "part/place/upper-kananaskis-lake#north-interlakes",
+      "km": 0,
       "rival_km": 9.1
     },
     "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail": {
       "area_id": "CA/BC/yoho-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 5.7,
-      "rival_km": 28.7
+      "from": "place/chancellor-peak",
+      "km": 5.6,
+      "rival_km": 28.4
     },
     "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
+      "from": "place/kananaskis-village",
       "km": 5,
       "rival_km": 35.8
     },
     "legacy/canadian-rockies-sept-2029/trails/wilcox-pass": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
-      "from": "locations store",
-      "km": 6.7,
+      "from": "part/place/athabasca-glacier#toe-parking",
+      "km": 4.2,
       "rival_km": 84.1
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa": {
@@ -723,21 +737,21 @@
       "via": "point",
       "from": "locations store",
       "km": 0.9,
-      "rival_km": 17.1
+      "rival_km": 14.9
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place": {
       "area_id": "CA/AB/banff-national-park",
       "via": "point",
       "from": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sky-bistro",
       "km": 1.2,
-      "rival_km": 16
+      "rival_km": 13.9
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch": {
       "area_id": "CA/AB/banff-national-park",
       "via": "point",
       "from": "locations store",
       "km": 0.8,
-      "rival_km": 17.3
+      "rival_km": 15.1
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting": {
       "area_id": "CA/BC/yoho-national-park",
@@ -749,15 +763,15 @@
     "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
-      "km": 4.1,
+      "from": "part/place/mount-lawrence-grassi#grassi-lakes-parking",
+      "km": 1.2,
       "rival_km": 12.4
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
-      "km": 4.7,
+      "from": "part/place/mount-lawrence-grassi#grassi-lakes-parking",
+      "km": 3.9,
       "rival_km": 15.9
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top": {
@@ -777,21 +791,21 @@
       "via": "point",
       "from": "locations store",
       "km": 1.1,
-      "rival_km": 34
+      "rival_km": 33.9
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon": {
       "area_id": "CA/BC/columbia-shuswap-regional-district",
       "via": "point",
       "from": "locations store",
       "km": 1.1,
-      "rival_km": 34
+      "rival_km": 33.9
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-upper-section": {
       "area_id": "CA/BC/columbia-shuswap-regional-district",
       "via": "point",
       "from": "locations store",
       "km": 1.1,
-      "rival_km": 34
+      "rival_km": 33.9
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top": {
       "area_id": "CA/AB/banff-national-park",
@@ -803,13 +817,13 @@
       "via": "point",
       "from": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
       "km": 2.7,
-      "rival_km": 22.4
+      "rival_km": 20.1
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
-      "from": "locations store",
-      "km": 4.8,
+      "from": "part/place/mount-lawrence-grassi#grassi-lakes-parking",
+      "km": 3.8,
       "rival_km": 15.8
     },
     "part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking": {
