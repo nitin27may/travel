@@ -109,7 +109,7 @@ test.describe('Save to a trip with the trip picker on', () => {
 });
 
 const DOLO = { ...copy, id: '1a1d2e3f-4a5b-4c6d-8e7f-0a1b2c3d4e5f', slug: 'dolomites-2027', title: 'Dolomites', cc: 'IT', start: '2027-07-03' };
-const VT = { ...copy, id: '3c1d2e3f-4a5b-4c6d-8e7f-0a1b2c3d4e5f', slug: 'new-hampshire-stopover-2026', title: 'New Hampshire stopover', cc: 'US', start: '2026-11-20' };
+const VT = { ...copy, id: '3c1d2e3f-4a5b-4c6d-8e7f-0a1b2c3d4e5f', slug: 'iceland-ring-road-2027', title: 'Iceland ring road', cc: 'IS', start: '2026-11-20' };
 
 test.describe('the picker ranks trips by distance (PR-001, PR-002, PR-006, PR-017)', () => {
   test.beforeEach(() => test.skip(!on, 'needs the build with NEXT_PUBLIC_TRIP_EDIT=1'));
@@ -121,12 +121,12 @@ test.describe('the picker ranks trips by distance (PR-001, PR-002, PR-006, PR-01
     await page.getByRole('button', { name: 'Save to a trip' }).click();
     const dlg = dialog(page, /^Add to a trip$/);
     await expect(dlg.locator('.tpk-row')).toHaveCount(3);
-    await expect(dlg.locator('.tpk-name')).toHaveText(['Canadian Rockies', 'New Hampshire stopover', 'Dolomites'].map((t) => new RegExp(`^${t}`)));
+    await expect(dlg.locator('.tpk-name')).toHaveText(['Canadian Rockies', 'Iceland ring road', 'Dolomites'].map((t) => new RegExp(`^${t}`)));
     await expect(dlg.locator('.tpk-day')).toHaveText(['On Day 11 in this trip', 'Far from Moraine Lake', 'Far from Moraine Lake']);
     await expect(dlg.getByRole('link', { name: /^Moraine Lake is on Day 11 of Canadian Rockies: open Day 11$/ })).toHaveAttribute('href', `/t/${ID}/?view=day#day-11`);
-    await expect(dlg.getByRole('link', { name: 'Open trip' })).toHaveCount(2);
+    await expect(dlg.locator('a.tpk-add', { hasText: 'Open trip' })).toHaveCount(2);
     // the base points were looked up once and kept on the device
-    expect(await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('travel.copy-bases.local') ?? '{}')).sort())).toEqual(['canadian-rockies-2029', 'dolomites-2027', 'new-hampshire-stopover-2026']);
+    expect(await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('travel.copy-bases.local') ?? '{}')).sort())).toEqual(['canadian-rockies-2029', 'dolomites-2027', 'iceland-ring-road-2027']);
   });
 
   test('a far trip is not a dead end: Back to the place and Save without a trip', async ({ page, site }) => {

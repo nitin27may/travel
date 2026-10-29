@@ -94,6 +94,27 @@ export function TripPicker({ place, onClose }: Props) {
       window.clearTimeout(timer);
     };
   }, [missing, s]);
+  // Tab wraps at the sheet's ends: the primitive's trap parks focus on a guard element and then the page, so the wrap is made here (PR-017)
+  useEffect(() => {
+    const wrap = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const dlg = (document.activeElement as HTMLElement | null)?.closest<HTMLElement>('[role="dialog"]');
+      if (!dlg || !dlg.querySelector('.tpk')) return;
+      const stops = [...dlg.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')].filter((el) => el.offsetParent !== null || el === document.activeElement);
+      const first = stops[0];
+      const last = stops[stops.length - 1];
+      if (!first || !last) return;
+      if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      } else if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    };
+    document.addEventListener('keydown', wrap);
+    return () => document.removeEventListener('keydown', wrap);
+  }, []);
   const rows = useMemo(() => pickRows(items, place.slug, localToday(), s, { at: place.at ?? null, bases, planDays: place.planDays }), [items, place.slug, place.at, place.planDays, bases, s]);
   const hasNew = newTripHref(place.slug);
   const title = 'Add to a trip';

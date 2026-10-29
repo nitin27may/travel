@@ -255,21 +255,22 @@ test.describe('the Table takes the whole content width (PR-015)', () => {
 
 test.describe('the tables at 768', () => {
   test.use({ viewport: { width: 768, height: 1024 } });
-  test('six columns, no sideways scroll', async ({ page, site }) => {
+  test('every column, no sideways scroll', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}?view=table`);
     await expect(tables(page).first()).toBeVisible();
-    await expect(page.locator('#day-4 thead th:visible')).toHaveCount(6);
+    // Where is drawn only when some stop has an area of its own: the Rockies' stops have none, so five columns
+    await expect(page.locator('#day-4 thead th:visible')).toHaveCount(5);
     expect(await overflow(page)).toBeLessThanOrEqual(0);
   });
 });
 
 test.describe('print', () => {
   test.use({ viewport: { width: 1280, height: 900 } });
-  test('prints the six columns, hides the switch and the tools, and keeps the List unchanged', async ({ page, site }) => {
+  test('prints every column, hides the switch and the tools, and keeps the List unchanged', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}?view=table`);
     await expect(tables(page).first()).toBeVisible();
     await page.emulateMedia({ media: 'print' });
-    await expect(page.locator('#day-4 thead th:visible')).toHaveCount(6);
+    await expect(page.locator('#day-4 thead th:visible')).toHaveCount(5);
     await expect(page.locator('.tl-viewbar')).toBeHidden();
     await expect(page.locator('.dt-fold').first()).toBeHidden();
     await page.emulateMedia({ media: 'screen' });
