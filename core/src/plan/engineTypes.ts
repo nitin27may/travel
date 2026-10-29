@@ -6,7 +6,7 @@
 // cache and never returned (the drive-key rule of core/src/drive/keys.ts: a visitor start is never a cell).
 import type { DriveIndex } from "../drive/model.ts";
 import type { Suitability } from "../schedule/types.ts";
-import type { PlanBuildInput } from "../schema/api/plan.ts";
+import type { PlanBuildInput, PlanPointBasis } from "../schema/api/plan.ts";
 
 /** A point the drive model reads (core/src/drive ModelPoint, without a cache key). Longitude positive east. */
 export interface EnginePoint {
@@ -32,8 +32,15 @@ export interface EnginePlace {
   type: string | null;
   /** tag ids */
   tags: string[];
-  /** null without a point, or when the point is approximate (TB_UNKNOWN: "We do not have a location for this yet") */
+  /**
+   * The point the drive model reads: the row's exact point, or the one the service located by PLAN_POINT_BASES (RB-003: a town's gazetteer
+   * town, the record's own point its page holds back, the place's car park or trailhead, the record a part belongs to; never an approximate
+   * pin). Null: no location yet (TB_UNKNOWN, "We do
+   * not have a location for this yet"); the candidates never offer such a place.
+   */
   point: EnginePoint | null;
+  /** RB-003: where `point` comes from; absent: the row's exact point or none */
+  pointBasis?: PlanPointBasis;
   /** the canonical region slug and the country (upper case), for scoping */
   region: string | null;
   country: string | null;

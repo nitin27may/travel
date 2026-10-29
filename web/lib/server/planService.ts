@@ -8,11 +8,10 @@ import { aliasKey, cellKey } from '@travel/core/drive/keys.ts';
 import { indexDriveData, type DriveIndex } from '@travel/core/drive/model.ts';
 import type { PublicDrivePoint } from '@travel/core/drive/types.ts';
 import { zoneNear } from '@travel/core/export/tz.ts';
-import { gatherCandidateRows, rankCandidates } from '@travel/core/plan/candidates.ts';
+import { gatherCandidateRows, locateRow, matchTown, placeAt, rankCandidates, TOWN_MATCH, type LocateHints, type LocatedPoint } from '@travel/core/plan/candidates.ts';
 import { routedKey, placeNode, townNode } from '@travel/core/plan/driveTable.ts';
 import { buildPlan, dayTripRadiusMin } from '@travel/core/plan/engine.ts';
 import type { EnginePlace, EnginePoint, EngineTown, RoutedLegs } from '@travel/core/plan/engineTypes.ts';
-import { placeFromRow } from '@travel/core/plan/candidates.ts';
 import type { PlaceRow } from '@travel/core/schema/api/index.ts';
 import { API_LIMITS } from '@travel/core/schema/api/index.ts';
 import {
@@ -35,6 +34,9 @@ import {
 } from '@travel/core/schema/api/plan.ts';
 import type { PlanOrigin } from '@travel/core/schema/plan-draft.ts';
 import { travelRoot } from '@/lib/data/root';
+import { recordPoint } from '@/lib/public/timeline';
+import { folderAliases } from '@/lib/public/aliases';
+import { privateRef } from '@travel/core/catalogue/alias.ts';
 import { runLegBatch, type LegService } from './legs';
 
 // PlanService (trip-builder.md 15.1 ISO-5; task TB-API): the builder's own server service. It reads the public CatalogueStore (and adds no method
@@ -45,7 +47,14 @@ import { runLegBatch, type LegService } from './legs';
 // PRIVACY (trip-builder 7): the party arrives in `build()`'s body only and goes straight to the engine; it is never kept, logged or echoed. A
 // near-mode start is a REFERENCE (hub, airport, town) that this service resolves to a public point and uses in memory: that point is never a
 // leg-cache key (the visitor-start rule of core/src/drive/keys.ts: the engine routes the start as its own node, never looked up), never logged
-// and never returned. Candidates carry no party at all (a band at most), so they are cacheable for everyone.
+// and never returned. Candidates carry no party at all (a band at most); a query with a start or a band arrives through a no-store POST
+// (RB-010, shared.ts), so only public queries are cached.
+//
+// LOCATION (RB-003): the candidates and the build place a row by ONE ladder (core/src/plan/candidates.ts `locateRow`) over facts this
+// service reads from the public store (a town row's gazetteer town, a car park or trailhead from the detail, the record a part belongs to)
+// and the record's own public point its page holds back for size (web/lib/public/timeline.ts `recordPoint`, the plan model's reader). A
+// row the ladder cannot place is never offered, so every Pick resolves in the build. Rows with an exact point read nothing extra; the rest
+// are located once per store revision (locatorCache).
 //
 // Routing: builds read `leg_cache` only (`allowRouting: false`), so a build never spends the OpenRouteService day budget; an uncached cell is the
 // drive model's estimate, flagged (the engine's basis `estimate` or `mixed`). Routing for builds is the deps field `allowRouting`, set per request from the server switch PLAN_ROUTING (shared.ts); a cell the router cannot answer stays the model's estimate.
@@ -197,6 +206,16 @@ const slugOfRegion = (id: string): string | null => /^[A-Z]{2}\/(.+)$/.exec(id)?
 
 const toEnginePoint = (p: PlanPoint): EnginePoint => ({ lat: p.lat, lon: p.lon, cc: p.cc });
 
+/** Rows located per process and store revision (the store is in memory today; a SQL store reads the same facts in one query). */
+const LOCATED_CAP = 5000;
+
+const partParent = (ref: string): string | null => /^part\/([^#]+)#/.exec(ref)?.[1] ?? null;
+const exactRow = (r: Pick<PlaceRow, 'lat' | 'lon' | 'approx'>): boolean => r.lat !== null && r.lon !== null && !r.approx;
+const point2 = (x: number): string => (Math.round(x * 100) / 100).toFixed(2);
+
+/** One locator cache per store: the located point of a row by ref, for the revision it was read at. */
+const locatorCache = new WeakMap<CatalogueStore, { revision: string; byRef: Map<string, LocatedPoint | null> }>();
+
 export function createPlanService(deps: PlanServiceDeps): PlanService {
   const { store, reference } = deps;
 
@@ -216,6 +235,113 @@ export function createPlanService(deps: PlanServiceDeps): PlanService {
     const n = await store.near({ city: id, r: 1 }, { page: 1, pageSize: 1 });
     if (!n.ok || n.data.centre.kind !== 'town' || n.data.centre.lat === null || n.data.centre.lon === null) return null;
     return { lat: n.data.centre.lat, lon: n.data.centre.lon, cc: id.slice(0, 2).toUpperCase() };
+  }
+
+  // ---- where a row is (RB-003) ------------------------------------------------------------------------------------------------
+  // The candidates and the build read ONE ladder (core/src/plan/candidates.ts `locateRow`), over facts read here from the public store:
+  // a town row's gazetteer town, a place's car park or trailhead, the record a part belongs to. Nothing here reads the visitor's start.
+
+  /**
+   * The gazetteer town a town row is (core `matchTown`): among the towns around its pin (measured from the row itself when its point is
+   * exact, else from the exact place nearest the pin), else by name in its region and the regions grouped with it (a South Tyrol row's
+   * towns sit under Trentino-Alto Adige in the gazetteer).
+   */
+  async function gazetteerTown(row: PlaceRow): Promise<{ id: string; point: EnginePoint } | null> {
+    const of = (t: { id: string; lat: number; lon: number; cc: string; pop: number | null } | null) =>
+      t ? { id: t.id, point: { lat: t.lat, lon: t.lon, cc: t.cc.toUpperCase(), population: t.pop } } : null;
+    const pin = row.lat !== null && row.lon !== null ? { lat: row.lat, lon: row.lon } : null;
+    if (pin) {
+      const centre = exactRow(row) ? `place:${row.slug}` : await exactNeighbour(pin);
+      if (centre) {
+        const t = await store.towns({ near: centre, r: TOWN_MATCH.equalKm + TOWN_MATCH.pinNeighbourKm });
+        const hit = t.ok ? matchTown(row, t.data.items) : null;
+        if (hit) return of(hit);
+      }
+    }
+    const first = row.name.split(/[\s,]+/)[0] ?? '';
+    if (!first) return null;
+    const siblings = reference.groups(row.country).filter((g) => g.regions.includes(row.region)).flatMap((g) => g.regions);
+    for (const region of [...new Set([row.region, ...siblings].filter(Boolean))]) {
+      const t = await store.towns({ prefix: first.slice(0, 60), cc: row.country.toLowerCase(), region });
+      const hit = t.ok ? matchTown(row, t.data.items) : null;
+      if (hit) return of(hit);
+    }
+    return null;
+  }
+
+  /** `place:<slug>` of the exact-point place nearest a pin (within TOWN_MATCH.pinNeighbourKm), the centre a `towns` query can take; null: none. */
+  async function exactNeighbour(pin: { lat: number; lon: number }): Promise<string | null> {
+    const n = await store.near({ near: `point:${point2(pin.lat)},${point2(pin.lon)}`, r: TOWN_MATCH.pinNeighbourKm }, { page: 1, pageSize: 1 });
+    const first = n.ok ? n.data.items[0] : undefined;
+    return first ? `place:${first.slug}` : null;
+  }
+
+  /** The place's own access point from its detail: the first car park, else the trailhead; exact points only. */
+  async function accessPoint(row: PlaceRow): Promise<EnginePoint | null> {
+    const d = await store.getPlace(row.slug);
+    if (!d.ok || 'moved' in d.data) return null;
+    const a = d.data.access;
+    const p = [...(a?.parking ?? []), ...(a?.trailhead ? [a.trailhead] : [])].find((x) => !x.approx && Number.isFinite(x.lat) && Number.isFinite(x.lon));
+    return p ? { lat: p.lat, lon: p.lon, cc: row.country || null } : null;
+  }
+
+  /** The rows of some refs, by ref (current refs only: a part's parent is a `place/<slug>` ref). */
+  async function rowsByRef(refs: readonly string[]): Promise<Map<string, PlaceRow>> {
+    const out = new Map<string, PlaceRow>();
+    if (!refs.length) return out;
+    const asked = await store.resolveRefs({ refs: [...refs] });
+    if (!asked.ok) return out;
+    const slugOf = new Map<string, string>();
+    for (const r of asked.data.items) if ((r.state === 'current' || r.state === 'moved' || r.state === 'merged') && r.slug) slugOf.set(String(r.asked), r.slug);
+    if (!slugOf.size) return out;
+    const list = await store.listPlaces({ ids: [...new Set(slugOf.values())] }, { page: 1, pageSize: API_LIMITS.pageSize.max });
+    if (!list.ok) return out;
+    const bySlug = new Map(list.data.items.map((r) => [r.slug, r]));
+    for (const [ref, slug] of slugOf) {
+      const row = bySlug.get(slug);
+      if (row) out.set(ref, row);
+    }
+    return out;
+  }
+
+  /** What the ladder needs for one row, read from the store (none for an exact non-town row). */
+  async function hintsFor(row: PlaceRow, depth = 0): Promise<LocateHints> {
+    if (row.kind === 'town') {
+      const town = await gazetteerTown(row);
+      if (town || exactRow(row)) return { town };
+    }
+    if (exactRow(row)) return {};
+    // the record's own OpenStreetMap or Wikidata point, by the place-page join's rule, when the page holds it back for size (join-deferred)
+    // (the sidecars key a record by its dated folder: the public ref is turned back in memory only, never served)
+    const own = recordPoint(travelRoot(), privateRef(row.ref, folderAliases()));
+    if (own) return { record: { lat: own.lat, lon: own.lon, cc: row.country || null } };
+    const access = await accessPoint(row);
+    if (access) return { access };
+    if (depth > 0) return {};
+    // a part with no point is where the record it is part of is (a lake's walk); an activity with no point is at its own `#place` part
+    const parentRef = partParent(row.ref);
+    const linked = parentRef ?? `part/${row.ref}#place`;
+    const other = (await rowsByRef([linked])).get(linked);
+    return other ? { parent: locateRow(other, await hintsFor(other, depth + 1)) } : {};
+  }
+
+  /** The located point of each row, by ref (null: no location yet), cached per store revision. */
+  async function locateRows(rows: readonly PlaceRow[]): Promise<Map<string, LocatedPoint | null>> {
+    const revision = await store.revision();
+    let cache = locatorCache.get(store);
+    if (!cache || cache.revision !== revision || cache.byRef.size > LOCATED_CAP) locatorCache.set(store, (cache = { revision, byRef: new Map() }));
+    const out = new Map<string, LocatedPoint | null>();
+    for (const row of rows) {
+      if (out.has(row.ref)) continue;
+      // the common case reads nothing: an exact point that is not a town
+      if (row.kind !== 'town' && exactRow(row)) {
+        out.set(row.ref, locateRow(row));
+        continue;
+      }
+      if (!cache.byRef.has(row.ref)) cache.byRef.set(row.ref, locateRow(row, await hintsFor(row)));
+      out.set(row.ref, cache.byRef.get(row.ref)!);
+    }
+    return out;
   }
 
   /** Region ids (`CC/slug` or a group `cc-id`) as `CC/slug` ids; null names the first id that is a group nobody defines. */
@@ -272,7 +398,7 @@ export function createPlanService(deps: PlanServiceDeps): PlanService {
       if (!p.ok) return err(p.error.code, p.error.message, p.error.details);
       const row = p.data.items[0];
       if (!row) return err('not_found', 'No such place.');
-      centre = placeFromRow(row).point;
+      centre = (await locateRows([row])).get(row.ref)?.point ?? null;
     } else if (q.mode === 'near') {
       const s = await resolveOrigin(q.start);
       if (!s) return err('not_available', 'That start is not in our public list yet.');
@@ -280,54 +406,59 @@ export function createPlanService(deps: PlanServiceDeps): PlanService {
     }
     const rows = await gatherCandidateRows(store, q, { centre });
     if (!rows.ok) return err(rows.error.code, rows.error.message, rows.error.details);
-    const ranked = rankCandidates(rows.data, q, { centre, drive: deps.drive() });
+    const located = await locateRows(rows.data);
+    const ranked = rankCandidates(rows.data, q, { centre, drive: deps.drive(), locate: (r) => located.get(r.ref) ?? null });
     if (!ranked.ok) return err(ranked.code, ranked.message, ranked.max !== undefined ? { max: ranked.max } : undefined);
     const parsed = planCandidatePage.safeParse(ranked.data);
     if (!parsed.success) return err('internal', 'The answer could not be built.');
     return ok(parsed.data, rows.revision || (await store.revision()));
   }
 
-  /** The picks' rows by the ref the body named, with the detail's trail figures where the row has none. */
-  async function picksPlaces(refs: readonly string[]): Promise<Map<string, EnginePlace>> {
-    const out = new Map<string, EnginePlace>();
-    const asked = await store.resolveRefs({ refs: [...refs] });
-    if (!asked.ok) return out;
-    const slugs = new Map<string, string>();
-    asked.data.items.forEach((r) => {
-      if ((r.state === 'current' || r.state === 'moved' || r.state === 'merged') && r.slug) slugs.set(String(r.asked), r.slug);
-    });
-    if (slugs.size === 0) return out;
-    const list = await store.listPlaces({ ids: [...new Set(slugs.values())] }, { page: 1, pageSize: API_LIMITS.pageSize.max });
-    if (!list.ok) return out;
-    const bySlug = new Map<string, PlaceRow>(list.data.items.map((r) => [r.slug, r]));
+  /**
+   * The picks' places by the ref the body named, each at the point the candidates offered it at (the same ladder, RB-003), with the
+   * detail's trail figures where the row has none; and the picked towns as base candidates (FLOW stage 3: a town is a place to stay).
+   */
+  async function picksPlaces(refs: readonly string[]): Promise<{ places: Map<string, EnginePlace>; pickedTowns: Map<string, EngineTown> }> {
+    const places = new Map<string, EnginePlace>();
+    const pickedTowns = new Map<string, EngineTown>();
+    const rows = await rowsByRef(refs);
+    const located = await locateRows([...rows.values()]);
     await Promise.all(
-      [...slugs].map(async ([askedRef, slug]) => {
-        const row = bySlug.get(slug);
-        if (!row) return;
+      [...rows].map(async ([askedRef, row]) => {
         const extra: Partial<EnginePlace> = { ref: askedRef };
         if (row.km === null || row.gain_m === null) {
-          const d = await store.getPlace(slug);
+          const d = await store.getPlace(row.slug);
           if (d.ok && !('moved' in d.data)) {
             extra.distanceKm = row.km ?? d.data.stats.distanceKm;
             extra.gainM = row.gain_m ?? d.data.stats.gainM;
           }
         }
-        out.set(askedRef, placeFromRow(row, extra));
+        const at = located.get(row.ref) ?? null;
+        places.set(askedRef, placeAt(row, at, extra));
+        if (at?.townId) pickedTowns.set(askedRef, { id: at.townId, name: row.name, point: at.point, population: at.point.population ?? null, lodging: null });
       }),
     );
-    return out;
+    return { places, pickedTowns };
   }
 
   /** Candidate base towns: the towns around the first picks, the pinned and accepted bases, the largest first. */
-  async function townsFor(b: PlanBuildInput, places: ReadonlyMap<string, EnginePlace>): Promise<EngineTown[]> {
+  async function townsFor(b: PlanBuildInput, places: ReadonlyMap<string, EnginePlace>, pickedTowns: ReadonlyMap<string, EngineTown> = new Map()): Promise<EngineTown[]> {
     const found = new Map<string, EngineTown>();
     const add = (t: { id: string; name: string; lat: number; lon: number; pop: number | null; cc: string }) => {
       if (!found.has(t.id)) found.set(t.id, { id: t.id, name: t.name, point: { lat: t.lat, lon: t.lon, cc: t.cc.toUpperCase(), population: t.pop }, population: t.pop, lodging: null });
     };
     const radiusKm = Math.min(API_LIMITS.nearRadius.max, Math.round(dayTripRadiusMin(b) * 0.9));
-    const around = [...places.values()].filter((p) => p.point).slice(0, TOWNS_PER_PICK_QUERY);
+    // a picked town is a candidate by its gazetteer point (and a pick right where the base would be)
+    for (const t of pickedTowns.values()) if (!found.has(t.id)) found.set(t.id, t);
+    // around the first picks the build can place, exact points first; a pick placed by its car park, its parent or a pin is measured from
+    // the exact place nearest it (a `towns` centre is a named place or town, never a raw point)
+    const rank = (p: EnginePlace) => (p.pointBasis === undefined || p.pointBasis === 'exact' ? 0 : p.pointBasis === 'town' ? 1 : 2);
+    const around = [...places.values()].filter((p) => p.point).sort((a, c) => rank(a) - rank(c)).slice(0, TOWNS_PER_PICK_QUERY);
     for (const p of around) {
-      const t = await store.towns({ near: `place:${p.slug}`, r: radiusKm });
+      const town = pickedTowns.get(p.ref);
+      const centre = rank(p) === 0 ? { near: `place:${p.slug}` } : town ? { city: town.id } : await exactNeighbour(p.point!).then((c) => (c ? { near: c } : null));
+      if (!centre) continue;
+      const t = await store.towns({ ...centre, r: radiusKm });
       if (t.ok) t.data.items.forEach(add);
     }
     // A chosen base is a candidate by its own public point: `towns({city})` lists the towns AROUND a town and leaves the town out (same as
@@ -341,8 +472,12 @@ export function createPlanService(deps: PlanServiceDeps): PlanService {
       add({ id: base.town, name: n.data.centre.name, lat: n.data.centre.lat, lon: n.data.centre.lon, pop: null, cc: base.town.slice(0, 2) });
     }
     const pinned = new Set(b.bases.map((x) => x.town));
+    const picked = new Set([...pickedTowns.values()].map((t) => t.id));
     return [...found.values()]
-      .sort((a, c) => Number(pinned.has(c.id)) - Number(pinned.has(a.id)) || (c.population ?? 0) - (a.population ?? 0) || a.id.localeCompare(c.id))
+      .sort(
+        (a, c) =>
+          Number(pinned.has(c.id)) - Number(pinned.has(a.id)) || Number(picked.has(c.id)) - Number(picked.has(a.id)) || (c.population ?? 0) - (a.population ?? 0) || a.id.localeCompare(c.id),
+      )
       .slice(0, TOWNS_KEPT);
   }
 
@@ -393,8 +528,8 @@ export function createPlanService(deps: PlanServiceDeps): PlanService {
       const g = await resolveOrigin(b.origin);
       gateway = g ? toEnginePoint(g) : null;
     }
-    const places = await picksPlaces(b.picks.map((p) => p.ref));
-    const towns = near && b.nights === 0 ? [] : await townsFor(b, places);
+    const { places, pickedTowns } = await picksPlaces(b.picks.map((p) => p.ref));
+    const towns = near && b.nights === 0 ? [] : await townsFor(b, places, pickedTowns);
     const routed = await routedLegs(b, places, towns);
     const first = [...places.values()].find((p) => p.point)?.point ?? start;
     const tz = (first && zoneNear(first.lat, first.lon)) || 'UTC';
