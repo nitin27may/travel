@@ -47,6 +47,8 @@ const EXTENSION_IMPORTERS = [
   'web/lib/server/plans.ts',
   'web/lib/server/planService.ts',
   'web/lib/mine/sync.ts',
+  // the Mine dot counts unbuilt drafts: it reads the builder's device key by name (plain JSON, no schema), the X-point keys.ts only
+  'web/lib/mine/dot.ts',
 ];
 
 /**
