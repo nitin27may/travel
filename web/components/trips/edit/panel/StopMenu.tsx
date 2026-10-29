@@ -15,6 +15,7 @@ import { maybeOps, noteOf, placeRefOf, stopTarget } from '@/lib/trip-edit/stopOp
 import { ruleItemOfEntry, ruleNote } from '@/lib/trip-edit/ruleRows';
 import type { PlanDraft } from '@/lib/trip-edit/model';
 import { ActionPanel } from './ActionPanel';
+import { KeepSwitches } from '../built/KeepSwitches';
 
 export interface StopAct {
   remove: (e: TimelineEntry) => void;
@@ -26,6 +27,9 @@ export interface StopAct {
   swap: (e: TimelineEntry, other: TimelineEntry) => void;
   /** Swap for a nearby place: opens the add picker for this stop. Absent when the trip is not a copy. */
   swapNearby?: (e: TimelineEntry, dayEntries: readonly TimelineEntry[]) => void;
+  /** Keep on Day n and Must see (STEP2-B2): a built trip's stops only. */
+  keep?: (e: TimelineEntry, on: boolean) => void;
+  must?: (e: TimelineEntry, on: boolean) => void;
 }
 
 interface Props {
@@ -105,6 +109,7 @@ export function StopMenu({ entry: e, dayEntries, doc, model, defaults, profile, 
               ) : null}
             </>
           )}
+          {act.keep && act.must && !doc.template && !rule ? <KeepSwitches entry={e} doc={doc} onKeep={(on) => act.keep!(e, on)} onMust={(on) => act.must!(e, on)} /> : null}
           {canMaybe ? (
             <button type="button" role="menuitem" className="edit-row" onClick={done(() => act.maybe(e))}>
               <Icon name="layers" size={16} /> <span>Add to Maybe</span>

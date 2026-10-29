@@ -1,0 +1,37 @@
+/* The engine sections of a built trip's Settings (STEP2-B2; edit-mode-spec 8). Tokens only (tests/no-hex.test.ts); no green, no purple.
+   The builder's stages are written for a page (two columns from 1024 px, a sticky aside); inside the 460 px sheet they stack. */
+.bset { display: grid; gap: 0; border-top: 1px solid var(--line); padding-top: var(--s-3); }
+.bset > .field-label { margin: 0 0 var(--s-2); }
+.bset-sec { border-bottom: 1px solid var(--line); }
+.bset-h { margin: 0; }
+.bset-toggle { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; width: 100%; min-height: var(--touch-min); padding: var(--s-2) var(--s-6) var(--s-2) 0; border: 0; background: none; color: var(--ink); text-align: left; cursor: pointer; position: relative; }
+.bset-toggle::after { content: ''; position: absolute; right: var(--s-2); top: 50%; width: 8px; height: 8px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: translateY(-70%) rotate(45deg); transition: transform var(--d-base) var(--e-std); }
+.bset-toggle[aria-expanded='true']::after { transform: translateY(-30%) rotate(225deg); }
+.bset-toggle:focus-visible { outline: var(--focus-ring); outline-offset: 2px; border-radius: var(--r-2); }
+.bset-title { font: var(--t-row); font-weight: 600; }
+.bset-sum { font: var(--t-meta); color: var(--muted); overflow-wrap: anywhere; }
+.bset-body { padding: var(--s-2) 0 var(--s-5); }
+@media (prefers-reduced-motion: reduce) { .bset-toggle::after { transition: none; } }
+
+/* the builder's stage layout, one column inside the sheet */
+.bset .plan-two, .bset .plan-start { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5); }
+.bset .plan-col { gap: var(--s-4); }
+.bset .plan-aside { position: static; padding: var(--s-4); }
+.bset .plan-aside-list { padding: 0; }
+.bset .plan-field .stepper, .bset .plan-col > .stepper { max-width: none; }
+/* the moves preference is not a document input a built trip can change yet (no operation for it): left out here */
+.bset .plan-field:has(> #plan-moves-l) { display: none; }
+
+.bset-bases { display: grid; gap: var(--s-3); }
+.bset-base-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
+.bset-base { display: grid; gap: var(--s-2); padding: var(--s-3); border: 1px solid var(--line-2); border-radius: var(--r-3); }
+.bset-base-name { margin: 0; font: var(--t-row); color: var(--ink); }
+.bset-base-sub { font: var(--t-meta); color: var(--muted); }
+.bset-base-let { justify-self: start; }
+
+.bset-apply { display: grid; gap: var(--s-2); margin-top: var(--s-4); padding: var(--s-3); border: 1px solid var(--line-2); border-radius: var(--r-3); background: var(--surface-2); }
+.bset-apply-line { margin: 0; font: var(--t-small); color: var(--ink); overflow-wrap: anywhere; }
+.bset-apply-line b { font-weight: 600; }
+@media (max-width: 639px) {
+  .bset .btn, .bset .selbox, .bset .seg-btn { min-height: var(--touch-min); }
+}

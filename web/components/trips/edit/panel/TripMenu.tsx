@@ -28,10 +28,12 @@ interface Props {
   onUndo: () => void;
   onRedo: () => void;
   onReset: () => void;
+  /** a built trip: Rebuild opens Settings at its plan section, where the Apply line says what stays (STEP2-B2; README 5.2) */
+  onRebuild?: () => void;
 }
 
 /** The cover's `⋯` on your own trip (components 8.7 trip rows): Undo, Redo, Reset to our plan (copies), Print, then Remove from My trips last. */
-export function TripMenu({ id, slug, title, where, copy, changes, canUndo, canRedo, onUndo, onRedo, onReset }: Props) {
+export function TripMenu({ id, slug, title, where, copy, changes, canUndo, canRedo, onUndo, onRedo, onReset, onRebuild }: Props) {
   const [open, setOpen] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const { toast } = useToast();
@@ -68,6 +70,11 @@ export function TripMenu({ id, slug, title, where, copy, changes, canUndo, canRe
           {copy && changes > 0 ? (
             <button type="button" role="menuitem" className="edit-row" onClick={() => (changes > PLAN_EDIT.resetConfirmOver ? setConfirm(true) : act(onReset)())}>
               <Icon name="swap" size={16} /> <span>Reset to our plan</span>
+            </button>
+          ) : null}
+          {onRebuild ? (
+            <button type="button" role="menuitem" className="edit-row" onClick={act(onRebuild)}>
+              <Icon name="swap" size={16} /> <span>Rebuild…</span>
             </button>
           ) : null}
           <button type="button" role="menuitem" className="edit-row" onClick={act(() => printTrip(slug))}>

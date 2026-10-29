@@ -5,6 +5,7 @@
 // both import it. The shell publishes it from the document after the page is up; nothing here is stored or sent anywhere.
 import type { TimelineEntry } from '@travel/core/schedule/types.ts';
 import type { AddCandidate } from '@/components/trips/timeline/model';
+import type { TripExport } from './types';
 
 /** What the export needs to know about a place the person added: the plan model does not carry it. */
 export type OwnAddable = Pick<AddCandidate, 'name' | 'kind' | 'sub' | 'label' | 'placeSlug' | 'point' | 'durationMin'>;
@@ -60,3 +61,29 @@ export const subscribeOwn = (l: () => void): (() => void) => {
   listeners.add(l);
   return () => listeners.delete(l);
 };
+
+/**
+ * The export model of a built trip, made on the device (STEP2-B2; review STEP2-ES ES-008): a built trip has no public slug, so nothing is
+ * read from `/api/v1/` with its id in the path. The days come from the page's model; the stops, their times and notes are filled from the
+ * timelines on the page by `ownModel`, as for a copy. Built picks carry no licensed point on the device, so the route files have no
+ * waypoints (the menu says so) and there are no route lines. `origin` is the site's, for the place-page links; never the private address.
+ */
+export function builtExportOf(a: { id: string; title: string; origin: string; nights: number; days: readonly { n: number; title: string; base: string | null }[] }): TripExport {
+  return {
+    type: 'trip',
+    version: 2,
+    slug: a.id,
+    title: a.title,
+    url: `${a.origin}/`,
+    depth: 'full',
+    nights: a.nights,
+    days: a.days.map((d) => ({ n: d.n, title: d.title, base: d.base })),
+    stops: [],
+    bookings: [],
+    waypoints: [],
+    lines: [],
+    tz: null,
+    seasonLabel: null,
+    skipped: 0,
+  };
+}

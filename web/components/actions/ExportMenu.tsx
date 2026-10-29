@@ -36,6 +36,11 @@ export interface ExportMenuProps {
   label?: string;
   /** `sm` is the 36 px secondary button of the plan bar. */
   size?: 'sm' | 'md';
+  /**
+   * A built trip's export model, made on the device (lib/export/own.ts `builtExportOf`, STEP2-B2): nothing is read from the server under
+   * the trip's private id (review STEP2-ES ES-008), so no export model and no routed legs are fetched.
+   */
+  device?: TripExport;
 }
 
 const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
@@ -52,19 +57,20 @@ const asShown = (m: TripExport, session: ReturnType<typeof getTimeline>): TripEx
  * them, CSV is one row per stop. The calendar is not offered here for a public trip, because the public trip has no dates: it lives in Copy
  * to my trips. The routed legs are read once, when a route file is asked for (they are the map's request too, so it is the same answer).
  */
-export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: ExportMenuProps) {
+export function ExportMenu({ target, formats, label = 'Export', size = 'md', device }: ExportMenuProps) {
   const { toast } = useToast();
-  const [data, setData] = useState<TripExport | PlaceExport | null>(null);
+  const [fetched, setData] = useState<TripExport | PlaceExport | null>(null);
+  const data = device ?? fetched;
   const [printing, setPrinting] = useState<TripExport | null>(null);
-  const needsData = !!target.slug;
+  const needsData = !!target.slug && !device;
   // the plan on the page (profile and version): the files and their counts follow it
   const session = useSyncExternalStore(subscribeTimeline, () => (target.type === 'trip' && target.slug ? getTimeline(target.slug) : null), () => null);
   // the person's own trip (STEP2-E6): published by the shell; null on a published trip's page
   const own = useSyncExternalStore(subscribeOwn, () => (target.type === 'trip' && target.slug ? getOwn(target.slug) : null), () => null);
   // `undefined` until the legs settle; the map asks for the same file, so the browser has it once
-  const [legs, setLegs] = useState<TripLegs | null | undefined>(undefined);
+  const [legs, setLegs] = useState<TripLegs | null | undefined>(device ? null : undefined);
   useEffect(() => {
-    if (target.type !== 'trip' || !target.slug || !session) return;
+    if (target.type !== 'trip' || !target.slug || !session || device) return;
     let live = true;
     tripLegs(target.slug).catch(() => null).then((l) => live && setLegs(l));
     return () => { live = false; };
@@ -119,6 +125,7 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
     queueMicrotask(() => (needsTap ? setReady(true) : setPrinting(model)));
   }, [data, session, target.slug, target.type]);
   const model = useCallback(async () => data ?? (target.type === 'trip' ? await loadExport('trip', target.slug!) : await loadExport('place', target.slug!)), [data, target.slug, target.type]);
+  const local = !!device;
 
   const run = useCallback(
     async (make: (d: TripExport | PlaceExport, routes: ExportLine[]) => Generated) => {
@@ -127,14 +134,14 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
         // the plan on the page, not every version; the routed legs only for a trip, and a failed read leaves the points alone
         const sess = whole.type === 'trip' ? getTimeline(whole.slug) : null;
         const d = whole.type === 'trip' ? asShown(whole, sess) : whole;
-        const routes = d.type === 'trip' && whole.type === 'trip' ? routeLines(await tripLegs(d.slug).catch(() => null), getOwn(d.slug) ? d : whole, sess) : [];
+        const routes = d.type === 'trip' && whole.type === 'trip' && !local ? routeLines(await tripLegs(d.slug).catch(() => null), getOwn(d.slug) ? d : whole, sess) : [];
         const r = make(d, routes);
         toast({ message: `Downloaded ${r.name} · ${r.summary}` });
       } catch {
         toast({ message: 'Could not build that file. Try again.' });
       }
     },
-    [model, toast],
+    [model, toast, local],
   );
 
   // the person's calendar file: the edited timelines with their notes (never the published plan's)

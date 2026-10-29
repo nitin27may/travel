@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { lazy, Suspense, useCallback, useState } from 'react';
 import type { DayTimeline, Profile } from '@travel/core/schedule/types.ts';
 import type { PlanDraft, PlanOp } from '@/lib/trip-edit/model';
 import { BottomSheet } from '@/components/ui/BottomSheet';
@@ -14,6 +14,7 @@ import { MakeItYours } from './MakeItYours';
 import { PartySection } from './PartySection';
 import { TitleSection } from './TitleSection';
 import { WindowSection, type WindowChoice } from './WindowSection';
+import type { Pace } from './PartySection';
 import '@/components/actions/actions.css';
 import './settings.css';
 
@@ -49,6 +50,9 @@ export interface SettingsProps {
  * Each control changes the trip at once through the edit session (an Undo toast), or through the document's own save in read mode;
  * Dates asks one question before Apply when the length changes. There is no Save button (edit-mode-spec 3).
  */
+// a built trip's engine sections (STEP2-B2) are their own chunk: they carry the builder's stages, its state machine and the rebuild
+const BuiltSettings = lazy(() => import('./built/BuiltSettings'));
+
 export function TripSettings(p: SettingsProps) {
   const phone = usePhone();
   const [failed, setFailed] = useState(false);
@@ -63,12 +67,21 @@ export function TripSettings(p: SettingsProps) {
     [commit, save],
   );
   const copy = !!p.doc.template;
+  // a built trip's pace is staged until Apply (it needs a rebuild); a change to the document (an Apply, an Undo) clears it
+  const [staged, setStaged] = useState<{ at: string; pace: Pace | null }>({ at: p.doc.updatedAt, pace: null });
+  const stagedPace = staged.at === p.doc.updatedAt ? staged.pace : null;
+  const setPace = useCallback((pace: Pace | null) => setStaged({ at: p.doc.updatedAt, pace }), [p.doc.updatedAt]);
   const body = (
     <div className="own-set">
       {failed ? <Banner kind="urgent">Could not save that change. Nothing was changed.</Banner> : null}
       <TitleSection title={p.title} ourTitle={p.ourTitle} where={p.where} open={p.open} run={run} />
       <DatesSection doc={p.doc} days={p.days ?? 1} timelines={p.timelines} bookings={p.bookings ?? []} open={p.open} copy={copy} canClear run={run} />
-      <PartySection doc={p.doc} defaults={p.defaults} run={run} />
+      <PartySection doc={p.doc} defaults={p.defaults} run={run} {...(copy ? {} : { pace: { value: stagedPace, set: setPace } })} />
+      {copy ? null : (
+        <Suspense fallback={<p className="own-set-note">Loading the plan settings…</p>}>
+          <BuiltSettings key={p.doc.updatedAt} doc={p.doc} pace={stagedPace} onPace={setPace} run={run} />
+        </Suspense>
+      )}
       {copy && p.windows?.length ? <WindowSection windows={p.windows} current={p.doc.template?.window ?? null} run={run} /> : null}
       {copy && commit ? <MakeItYours onClose={onClose} /> : null}
       <p className="own-set-note">{p.where === 'device' ? 'Kept in this browser. Sign in to keep it on every device.' : 'Kept in your account and on this device.'}</p>
