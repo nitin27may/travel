@@ -174,13 +174,18 @@ describe('publicRelevance: the pointer and Plan B', () => {
   });
 
   it('drops a pointer whose target is the record\'s own part_of parent (backlog 3.16, PS9)', () => {
-    // the Moraine lakeshore's derived far pointer is Moraine Lake at 0 km, and Moraine Lake is its parent
-    const ref = find('trails/moraine-lakeshore');
-    expect(ctx.derived.get(ref)!.far_pointer?.ref).toMatch(/moraine-lake$/);
-    // the parent is in the derived (mutual, by point) part_of and not in the capture record (data finding F4): the guard reads both
-    expect(ctx.derived.get(ref)!.part_of.join()).toMatch(/moraine-lake/);
-    expect(publicRelevance(ctx, ref).pointer).toBeNull();
+    // Data-independent: take the first record that has a far pointer, give it that pointer's target as a derived part_of parent
+    // (the mutual, by-point relation of F4), and the pointer must go. The Moraine lakeshore was the fixture until DG2F gave it its
+    // own OSM point 0.5 km from Moraine Lake, which ended the derived part_of; the guard did not change.
+    const entry = [...ctx.derived.entries()].find(([r, it]) => it.far_pointer && publicRelevance(ctx, r).pointer);
+    expect(entry, 'a record with a public pointer').toBeDefined();
+    const [ref, item] = entry!;
+    const withParent = { ...item, part_of: [...item.part_of, item.far_pointer!.ref] };
+    const ctx2 = { ...ctx, derived: new Map(ctx.derived).set(ref, withParent as typeof item) };
+    expect(publicRelevance(ctx, ref).pointer).not.toBeNull();
+    expect(publicRelevance(ctx2, ref).pointer).toBeNull();
   });
+
 
   it('a capture part_of parent is the "Part of" line, and is never also the pointer', () => {
     let checked = 0;

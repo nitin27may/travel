@@ -8,8 +8,8 @@ const d = realData();
 const places = d.internals.places;
 const pointOf = (slug: string) => places.find((p) => p.slug === slug)?.point ?? null;
 
-// DG2F: the four lakeshore and Iceline trailheads are stored (their own OSM points) but held back from the page for S13; the plan model reads them
-const DEFERRED = ['sarrail-ridge', 'col-des-montets', 'thingvellir', 'toe-of-athabasca-glacier', 'emerald-lakeshore', 'lake-louise-lakeshore', 'iceline-trail', 'moraine-lakeshore'];
+// DG2F, FIX2: the four lakeshore and Iceline trailheads and the Miette Mine Trail's are stored (their own OSM points) but held back from the page for S13; the plan model reads them
+const DEFERRED = ['sarrail-ridge', 'col-des-montets', 'thingvellir', 'toe-of-athabasca-glacier', 'emerald-lakeshore', 'lake-louise-lakeshore', 'iceline-trail', 'moraine-lakeshore', 'miette-mine-trail'];
 const GAINED = [
   'bald-hills', 'delicate-arch-trail', 'devils-garden', 'fenland-loop', 'hickman-bridge', 'interlakes-trail-upper-and-lower-lake',
   'lago-federa-walk', 'lake-annette-loop', 'mary-schaffer-loop', 'mesa-arch', 'moose-lake-loop', 'paint-pots-walk', 'parker-ridge',
@@ -30,13 +30,13 @@ describe('the point join (places.ts joinPoint)', () => {
     expect(places.filter((p) => !p.point).length).toBe(30);
     expect(places.filter((p) => !p.point && p.kind === 'trail').length).toBe(20);
   });
-  it('holds back eight records (seven for the size gate, the Toe car park row), by capture ref, and nothing else', () => {
+  it('holds back nine records (eight for the size gate, the Toe car park row), by capture ref, and nothing else', () => {
     expect(JOIN_HELD_BACK.size).toBe(DEFERRED.length);
     for (const slug of DEFERRED) expect(pointOf(slug), slug).toBeNull();
   });
   it('never takes a derived trailhead or an approximate row as the record\'s own point', () => {
     // sidecar rows "trailhead ... at <ref>" are the place the trail starts from, not the trail's own coordinate
-    // (the Miette Mine Trail still has one: its OSM trailhead waits for the next towns refresh)
+    // (the Miette Mine Trail's own OSM trailhead is stored too, FIX2, and held back for the size gate)
     expect(pointOf('miette-mine-trail')).toBeNull();
     // the Braies walk's track is not confirmed: its first vertex is an approximate row and gives no pin
     expect(pointOf('lago-di-braies-walk')).toBeNull();

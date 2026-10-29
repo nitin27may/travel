@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "canadian-rockies-2029",
-  "as_of": "2026-10-28",
+  "as_of": "2026-10-29",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -2077,7 +2077,7 @@
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": 86,
+      "detour_min": 94,
       "detour_basis": "town",
       "detour_town": "Jasper",
       "from_hubs": {},
@@ -2086,7 +2086,7 @@
         "area": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
-            "km": 31.4,
+            "km": 34.6,
             "draw": "local",
             "standing": "top",
             "access_cost": [],
@@ -2094,7 +2094,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
-            "km": 46.2,
+            "km": 56.9,
             "draw": "local",
             "standing": "ordinary",
             "access_cost": [],
@@ -2104,20 +2104,13 @@
       },
       "far_pointer": {
         "ref": "place/jasper-national-park",
-        "km": 34.9,
+        "km": 37.8,
         "draw": "world",
         "same_class": false
       },
       "pair_with": [],
-      "pair_pending": [
-        {
-          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
-          "km": 2.4
-        }
-      ],
-      "part_of": [
-        "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs"
-      ],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -2131,7 +2124,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 86 min is over 30"
+          "reason": "detour 94 min is over 30"
         }
       },
       "role": "local_only",
@@ -2160,16 +2153,16 @@
         "near": [],
         "area": [
           {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
-            "km": 31.4,
+            "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+            "km": 33.9,
             "draw": "local",
             "standing": "ordinary",
             "access_cost": [],
             "family_effort": 1
           },
           {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
-            "km": 33.9,
+            "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+            "km": 34.6,
             "draw": "local",
             "standing": "ordinary",
             "access_cost": [],
@@ -2250,7 +2243,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
-            "km": 46.2,
+            "km": 56.9,
             "draw": "local",
             "standing": "ordinary",
             "access_cost": [],
@@ -5844,9 +5837,7 @@
           "km": 2.4
         }
       ],
-      "part_of": [
-        "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail"
-      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
