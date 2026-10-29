@@ -9,7 +9,8 @@ import { normalize } from '@/lib/search/normalize';
 import { GROUP_DEFAULT_LIMIT } from '@/lib/search/search';
 import { suggest as suggestFrom } from '@/lib/search/suggest';
 import type { SearchRecord, SearchResult } from '@/lib/search/types';
-import { RESOLVE_MAX_CLIENT, type DataClient, type GlobeLineFile, type ReportResult } from './contract';
+import type { PlanBuildAnswer, PlanBuildInput, PlanCandidatePage, PlanCandidatesQuery, PlanRegions } from '@travel/core/schema/api/plan.ts';
+import { PlanCallError, RESOLVE_MAX_CLIENT, type DataClient, type GlobeLineFile, type ReportResult } from './contract';
 import { staticClient } from './static';
 
 // ApiAdapter, the default (EXECUTION-PLAN 4.5): the data functions as calls on /api/v1/*. `ApiCalls` is the typed seam: `fetchCalls()`
@@ -42,6 +43,15 @@ export interface ApiCalls {
   tripPlanModel(slug: string): Promise<TripPlanModel | null>;
   /** resolveRefs (FAV-1W): one row per value, in order; null when the server answers not_available. */
   resolveRefs(refs: readonly string[]): Promise<ResolveAnswer | null>;
+  /** The trip builder's calls (TB-API); absent in a test's calls, where the adapter then answers null. */
+  plan?: PlanCalls;
+}
+
+/** The three builder calls; each is null when the server has none (flag off: 404; 501). Any other failure throws a `PlanCallError`. */
+export interface PlanCalls {
+  regions(cc: string): Promise<PlanRegions | null>;
+  candidates(q: PlanCandidatesQuery, signal?: AbortSignal): Promise<PlanCandidatePage | null>;
+  build(input: PlanBuildInput, signal?: AbortSignal): Promise<PlanBuildAnswer | null>;
 }
 
 // ---- the browser's calls ----------------------------------------------------------------------------------------------------------
@@ -160,6 +170,65 @@ export function fetchCalls(): ApiCalls {
       if (!r.ok) throw new Error(`report: ${r.status}`);
       return (await r.json()) as ApiReportResult;
     },
+    plan: planCalls(),
+  };
+}
+
+// ---- the trip builder's calls (TB-API) -----------------------------------------------------------------------------------------------
+
+/** A candidates query as the flat URL of api/plan.ts `planCandidatesHttpQuery` (the keys of trip-builder 2.5; written here so no schema code loads). */
+function candidateParams(q: PlanCandidatesQuery): URLSearchParams {
+  const p = new URLSearchParams({ m: q.mode });
+  if (q.mode === 'trip') p.set('cc', q.cc);
+  else {
+    const s = q.start;
+    p.set('from', s.kind === 'airport' ? `iata:${s.iata}` : `${s.kind}:${s.id}`);
+    p.set('r', String(q.driveLimitMin));
+  }
+  if (q.regions?.length) p.set('rg', q.regions.join(','));
+  for (const [k, v] of Object.entries(q.facets ?? {})) if (v.length) p.set(k, v.join(','));
+  if (q.month) p.set('mo', String(q.month));
+  if (q.party) p.set('p', q.party);
+  if (q.list && q.list !== 'main') p.set('list', q.list);
+  if (q.page && q.page > 1) p.set('page', String(q.page));
+  if (q.pageSize) p.set('pageSize', String(q.pageSize));
+  if (q.near) p.set('near', q.near);
+  if (q.limit) p.set('limit', String(q.limit));
+  return p;
+}
+
+/** A builder answer: null when there is no such endpoint (flag off, 404; 501), a `PlanCallError` for any other refusal, else the body (parsed with its schema in development). */
+async function planRead<T>(url: string, schema: 'regions' | 'candidates' | 'build', init?: RequestInit): Promise<T | null> {
+  const r = await fetch(url, init);
+  if (r.status === 404 || r.status === 501) {
+    await r.body?.cancel().catch(() => undefined);
+    return null;
+  }
+  if (!r.ok) {
+    let code: PlanCallError['code'] = 'internal';
+    try {
+      const body = (await r.json()) as { error?: { code?: PlanCallError['code'] } };
+      if (body.error?.code) code = body.error.code;
+    } catch {
+      // a body that is not ours (a proxy page): the status stands
+    }
+    const wait = Number(r.headers.get('retry-after'));
+    throw new PlanCallError(code, r.status, Number.isFinite(wait) && wait > 0 ? wait : null);
+  }
+  const data = (await r.json()) as T;
+  if (process.env.NODE_ENV !== 'production') {
+    const m = await import('@travel/core/schema/api/plan.ts');
+    (schema === 'regions' ? m.planRegions : schema === 'candidates' ? m.planCandidatePage : m.planBuildAnswer).parse(data);
+  }
+  return data;
+}
+
+function planCalls(): PlanCalls {
+  return {
+    regions: (cc) => planRead<PlanRegions>(at(`/plan/regions/${seg(cc)}`), 'regions'),
+    candidates: (q, signal) => planRead<PlanCandidatePage>(at('/plan/candidates', candidateParams(q)), 'candidates', signal ? { signal } : undefined),
+    build: (input, signal) =>
+      planRead<PlanBuildAnswer>(at('/plan/build'), 'build', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(input), cache: 'no-store', ...(signal ? { signal } : {}) }),
   };
 }
 
@@ -373,6 +442,10 @@ export function createApiClient(calls: ApiCalls): DataClient {
       const r = await calls.report(input.page);
       return r ?? { kind: 'off' };
     },
+    // TB-API: the builder's three calls; a test's calls without `plan`, like the static files, have none
+    planRegions: async (cc) => (calls.plan ? calls.plan.regions(cc) : null),
+    planCandidates: async (q, signal) => (calls.plan ? calls.plan.candidates(q, signal) : null),
+    planBuild: async (input, signal) => (calls.plan ? calls.plan.build(input, signal) : null),
     async shardRows(type, id, d, expected) {
       const m = /^([a-z]{2})(?:-(\d+))?$/.exec(id);
       // a row with no country has no country filter to ask for: its file stays a static one

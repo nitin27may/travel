@@ -1,4 +1,5 @@
 import type { PlaceRow, ResolveRow, TripLegs, TripPlanModel } from '@travel/core/schema/api/index.ts';
+import type { PlanBuildAnswer, PlanBuildInput, PlanCandidatePage, PlanCandidatesQuery, PlanErrorCode, PlanRegions } from '@travel/core/schema/api/plan.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import type { EntityDescriptor, FacetParam, ListState } from '@/lib/entities/types';
 import type { GlobeCardFile, GlobeTree, LightPin } from '@/lib/globe/types';
@@ -103,6 +104,21 @@ export interface DataClient {
    */
   placesPage(q: { q?: string; bbox?: string; ids?: readonly string[] }, page: number, pageSize: number, signal?: AbortSignal): Promise<{ items: PlaceRow[]; nextPage: number | null } | null>;
 
+  // ---- TB-API: the trip builder's three calls (trip-builder.md 5; X2) ----------------------------------------------------------------
+  /**
+   * The region groups and regions of one country with counts of researched places: `GET /api/v1/plan/regions/{cc}`, cached by the
+   * catalogue revision. Null when the adapter has no such endpoint (the StaticAdapter), the `planBuilder` flag is off (404) or the server
+   * answers 501. Rejects with a `PlanCallError` for any other failure.
+   */
+  planRegions(cc: string): Promise<PlanRegions | null>;
+  /** One page (40 at most) of ranked candidates: `GET /api/v1/plan/candidates`. Null and rejection as `planRegions`. The query carries no party, only a band. */
+  planCandidates(q: PlanCandidatesQuery, signal?: AbortSignal): Promise<PlanCandidatePage | null>;
+  /**
+   * Builds a plan: `POST /api/v1/plan/build`. The body holds the party and is sent over this call only (never a URL, never stored). Null
+   * and rejection as `planRegions`; a 429 rejects with code `rate_limited` and `retryAfterS`, a 503 with `plan_paused`.
+   */
+  planBuild(input: PlanBuildInput, signal?: AbortSignal): Promise<PlanBuildAnswer | null>;
+
   // ---- API-3: the server's evaluation (P9) ---------------------------------------------------------------------------------------
   // The ApiAdapter has these three and answers them from /api/v1/; the StaticAdapter does not, and data.ts evaluates the same in the
   // browser over the files it loaded. Each resolves to null when the server cannot answer the state (an advanced filter `f`, a saved
@@ -113,4 +129,16 @@ export interface DataClient {
   uncheckedGroups?(state: ListState, only?: readonly FacetParam[]): Promise<{ param: FacetParam; label: string; note: string; slugs: string[] }[] | null>;
   /** The slugs whose card text holds the words of `state.q`, best first, with every other filter of the state applied (at most 50). */
   cardRank?(state: ListState): Promise<string[] | null>;
+}
+
+/** A builder call the server refused or could not answer: the contract's code, the HTTP status and, for `rate_limited`, the seconds to wait. Never holds a body. */
+export class PlanCallError extends Error {
+  constructor(
+    readonly code: PlanErrorCode,
+    readonly status: number,
+    readonly retryAfterS: number | null = null,
+  ) {
+    super(`plan: ${code}`);
+    this.name = 'PlanCallError';
+  }
 }

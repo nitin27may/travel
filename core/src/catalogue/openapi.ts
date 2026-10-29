@@ -97,6 +97,51 @@ export function buildOpenApi(): Json {
       },
     },
   };
+  // TB-API (trip-builder.md 5): the builder's three routes, served by PlanService behind the `planBuilder` flag (404 with the flag off).
+  // Not store methods, so they sit beside the contract's paths like the plan model. Their codes are the builder's own (S.PLAN_ERROR_CODES).
+  const planErrors = (codes: number[]): Json =>
+    Object.fromEntries(codes.map((st) => [String(st), { description: `${S.PLAN_ERROR_CODES.filter((c) => S.PLAN_ERROR_STATUS[c] === st).join(" or ")}`, ...errorBody }]));
+  const ccJs = z.toJSONSchema(S.planRegionsInput.shape.cc, { target: "draft-2020-12", unrepresentable: "any" }) as Json;
+  delete ccJs.$schema;
+  paths["/api/v1/plan/regions/{cc}"] = {
+    get: {
+      operationId: "planRegions",
+      summary: "planRegions",
+      description: "The region groups and regions of one country with counts of researched places. Public, cached by the catalogue revision. Answers 404 when the planBuilder flag is off.",
+      parameters: [{ name: "cc", in: "path", required: true, schema: ccJs }],
+      responses: {
+        "200": { description: "ok", headers: { ETag: { schema: { type: "string" } } }, content: { "application/json": { schema: schemaOf("PlanRegions", S.planRegions, components) } } },
+        ...planErrors([400, 404, 500, 501]),
+        "304": { description: "If-None-Match matched the revision" },
+      },
+    },
+  };
+  paths["/api/v1/plan/candidates"] = {
+    get: {
+      operationId: "planCandidates",
+      summary: "planCandidates",
+      description: `One page (40 at most) of ranked candidates for trip mode (m=trip, cc, rg) or near mode (m=near, from=<hub:id|iata:XXX|town:id>, r=<one-way drive minutes>). Facets are the Places keys (pattern ${S.FACET_KEY_RE.source}); p is the party band (adults or family-<youngest>), never ages. Public, cached by the catalogue revision. Answers 404 when the planBuilder flag is off.`,
+      parameters: Object.keys(S.planCandidatesHttpQuery.shape).map((name) => ({ name, in: "query", required: false, schema: { type: "string" } })),
+      responses: {
+        "200": { description: "ok", headers: { ETag: { schema: { type: "string" } } }, content: { "application/json": { schema: schemaOf("PlanCandidatePage", S.planCandidatePage, components) } } },
+        ...planErrors([400, 404, 413, 500, 501]),
+        "304": { description: "If-None-Match matched the revision" },
+      },
+    },
+  };
+  paths["/api/v1/plan/build"] = {
+    post: {
+      operationId: "planBuild",
+      summary: "planBuild",
+      description: "Builds a plan: bases, nights, days, did-not-fit, reasons and the picks matrix. The party travels in this body only and is never echoed, logged or cached; the response is no-store. At most 30 builds an hour per client. Answers 404 when the planBuilder flag is off, 503 plan_paused while PLAN_BUILDER_PAUSED=1.",
+      parameters: [],
+      requestBody: { required: true, content: { "application/json": { schema: schemaOf("PlanBuildInput", S.planBuildInput, components) } } },
+      responses: {
+        "200": { description: "ok", content: { "application/json": { schema: schemaOf("PlanBuild", S.planBuildAnswer, components) } } },
+        ...planErrors([400, 404, 413, 429, 500, 501, 503]),
+      },
+    },
+  };
   paths["/api/v1/openapi.json"] ={ get: { operationId: "openapi", summary: "this document", responses: { "200": { description: "ok", content: { "application/json": { schema: { type: "object" } } } } } } };
   return {
     openapi: "3.1.0",
