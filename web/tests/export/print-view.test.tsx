@@ -170,3 +170,19 @@ describe('the print view: park entry (PA-W, protected-area-entry 6.4)', () => {
     expect(html).toContain('https://parks.canada.ca/voyage-travel/admission');
   });
 });
+
+describe('the print view: the address under a stop (LT-M)', () => {
+  const day3 = session.timelines.find((t) => t.day === 3)!.entries.find((e) => ['visit', 'trail'].includes(e.kind) && !e.insideOf && e.at?.placeSlug)!;
+  const stop = model.stops.find((s) => s.day === 3 && s.placeSlug === day3.at?.placeSlug)!;
+  const withAddress = { ...model, stops: model.stops.map((s) => (s.id === stop.id ? { ...s, address: 'Via Roma 1, Bolzano' } : s)) };
+  it('prints one address line under the stop that has one, and nothing for the others', () => {
+    const html = renderToStaticMarkup(TripPrintView({ data: withAddress, session }));
+    expect(html.match(/print-model-addr/g)).toHaveLength(1);
+    expect(html).toContain('<span class="print-model-note print-model-addr">Via Roma 1, Bolzano</span>');
+    const li = html.split('<li>').find((l) => l.includes('print-model-addr'))!;
+    expect(li).toContain(stop.name.replace(/&/g, '&amp;').replace(/'/g, '&#x27;'));
+  });
+  it('a trip with no address data prints the same page as before', () => {
+    expect(renderToStaticMarkup(TripPrintView({ data: model, session }))).not.toContain('print-model-addr');
+  });
+});

@@ -2842,6 +2842,61 @@
                                     }
                                   ]
                                 },
+                                "address": {
+                                  "type": "object",
+                                  "properties": {
+                                    "ref": {
+                                      "type": "string",
+                                      "minLength": 1,
+                                      "maxLength": 160,
+                                      "pattern": "^(?![\\s\\S]*[a-zA-Z0-9]-(?:[jJ][aA][nN](?:[uU][aA][rR][yY])?|[fF][eE][bB](?:[rR][uU][aA][rR][yY])?|[mM][aA][rR](?:[cC][hH])?|[aA][pP][rR](?:[iI][lL])?|[mM][aA][yY]|[jJ][uU][nN][eE]?|[jJ][uU][lL][yY]?|[aA][uU][gG](?:[uU][sS][tT])?|[sS][eE][pP][tT]?(?:[eE][mM][bB][eE][rR])?|[oO][cC][tT](?:[oO][bB][eE][rR])?|[nN][oO][vV](?:[eE][mM][bB][eE][rR])?|[dD][eE][cC](?:[eE][mM][bB][eE][rR])?)(?:-(?:[jJ][aA][nN](?:[uU][aA][rR][yY])?|[fF][eE][bB](?:[rR][uU][aA][rR][yY])?|[mM][aA][rR](?:[cC][hH])?|[aA][pP][rR](?:[iI][lL])?|[mM][aA][yY]|[jJ][uU][nN][eE]?|[jJ][uU][lL][yY]?|[aA][uU][gG](?:[uU][sS][tT])?|[sS][eE][pP][tT]?(?:[eE][mM][bB][eE][rR])?|[oO][cC][tT](?:[oO][bB][eE][rR])?|[nN][oO][vV](?:[eE][mM][bB][eE][rR])?|[dD][eE][cC](?:[eE][mM][bB][eE][rR])?))?-(?:19|20)[0-9]{2}(?![0-9]))",
+                                      "description": "Public ref of the capture or research record a block was drawn from: its ref with any dated folder replaced by its alias (public-ref-aliases 4)"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "kind": {
+                                      "type": "string",
+                                      "enum": [
+                                        "postal",
+                                        "nearest_road"
+                                      ]
+                                    },
+                                    "lines": {
+                                      "minItems": 1,
+                                      "maxItems": 3,
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "locality": {
+                                      "type": "string"
+                                    },
+                                    "postcode": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "ref",
+                                    "name",
+                                    "kind",
+                                    "lines",
+                                    "locality",
+                                    "postcode"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                "osmRef": {
+                                  "type": "string",
+                                  "pattern": "^(?:node|way|relation)\\/\\d+$"
+                                },
+                                "mapSheet": {
+                                  "type": "string"
+                                },
                                 "legacyMapped": {
                                   "type": "array",
                                   "items": {
@@ -20461,6 +20516,10 @@
                       ]
                     },
                     "bookAhead": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "address": {
                       "type": "string",
                       "minLength": 1
                     }

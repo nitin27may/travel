@@ -8,6 +8,7 @@ import type { Contract, Layer, Mark, PropertyDef, SectionId } from './contract';
 import { suitMarksFor, suitabilityRows, type SuitRow } from './suitability';
 import { WORDS, isRawVal, longDate, lookupFor, pval, type PVal, type RawVal, TextScrub, type Words } from './vals';
 import { nameOfRef, type RefLink } from './relevance';
+import { osmRefOfRecord, readAddress, type PageAddress } from './address';
 
 // The place, route and offer page model (capture-contract.md 6.1; place-page-sections.md PS1 to PS14; CC-adapter-requests).
 // For one record it returns the 14 fixed sections of the contract in order, each with its rows (value, value type, basis,
@@ -146,6 +147,16 @@ export interface PageModel {
   directions?: { mode: 'drive'; ref: string; name: string; lat: number; lon: number; pointSource: string; role: 'parks_for' | 'serves' | 'starts_at' } | { mode: 'transit'; stops: { ref: string; name: string }[] } | null;
   /** labels of the older record's facts that filled a row of this page (step 9); section 14 leaves them out */
   legacyMapped?: string[];
+  /**
+   * LT-M: the address of what the Directions card goes to (a drive access point's own, else this record's), when one is stored.
+   * Absent otherwise, so a page with no address data carries not one byte for it. Never a section row (the A gap of `address` is
+   * not drawn at rest) and never in a list row (P8).
+   */
+  address?: PageAddress;
+  /** LT-M: the record's `osm_ref` element (`node/123`), whichever form it is stored in; the page makes the link at read time. Absent when none. */
+  osmRef?: string;
+  /** LT-M: the official map sheet link, when the record holds one (`links` kind `map_sheet`). Absent when none. */
+  mapSheet?: string;
   /** the place checks: base R properties answered out of asked, with the engine's level */
   checks: { done: number; total: number; read: string | null; level: string };
 }
@@ -476,6 +487,9 @@ export function buildSections(world: World, rawRef: string, contract: Contract, 
     let anyAsked = false;
     const suitPaths: { key: string; def: PropertyDef; mark: Mark }[] = [];
     for (const p of sm.props) {
+      // LT-M: the address is drawn once, in the Directions card (location-type-requirements 8), from `PageModel.address`: never as a row of
+      // "How to get there", and its A gap is never the closing word at rest ("never at rest", 9.2)
+      if (p.key === 'address') continue;
       const isSuit = p.def.home.in === 'suitability';
       // an R? property is R when its condition holds, N when it does not, and A when the data cannot decide
       let mark: Mark = p.mark;
@@ -518,7 +532,7 @@ export function buildSections(world: World, rawRef: string, contract: Contract, 
       n: sm.n,
       id: sm.id,
       title: sm.id === 'around' ? AROUND_TITLE[layer] : titles[sm.id],
-      drawn: sm.drawn,
+      drawn: sm.drawn && sm.props.some((p) => p.key !== 'address'),
       rows,
       closing: closingLabels.length > 0 ? `${words.closingPrefix}${closingLabels.join(', ')}` : null,
       empty,
@@ -621,8 +635,21 @@ export function buildSections(world: World, rawRef: string, contract: Contract, 
     if (stops.length > 0 && !parking) directions = { mode: 'transit', stops: stops.map((a) => ({ ref: a.ref, name: a.name })) };
   }
 
+  // LT-M: the address of the Directions target. A drive access point's own when the card goes there, else the record's own.
+  const pointOf = (x: string): { lat: number; lon: number } | null => (isPoint(world.points[x]) ? (world.points[x] as { lat: number; lon: number }) : null);
+  const addressOf = (x: string): PageAddress | null => {
+    const rec = world.cap.get(x)?.rec;
+    return rec ? readAddress(x, rec.name ?? nameOfRef(world, x), rec, pointOf(x)) : null;
+  };
+  const address = (directions?.mode === 'drive' ? addressOf(directions.ref) : null) ?? addressOf(ref);
+  const osmRef = osmRefOfRecord(cap);
+  const sheet = (cap.links ?? []).find((l) => l.kind === 'map_sheet' && l.state !== 'searched_none' && typeof l.url === 'string' && /^https:\/\//.test(l.url));
+
   return {
     directions,
+    ...(address ? { address } : {}),
+    ...(osmRef ? { osmRef } : {}),
+    ...(sheet ? { mapSheet: sheet.url! } : {}),
     ref,
     type: cap.type,
     layer,

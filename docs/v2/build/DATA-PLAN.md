@@ -335,7 +335,7 @@ lost.
 | 76 | LT-3 | P4 (CA/ON, CA/QC, US/VT, US/NH): 30 places with the 6 store trails and the trail promotion | 3.5 | Sonnet 3, Opus 0.5 | LT-2; TRK-1 for tracks | | E | 5 |
 | 77 | LT-4 | P5 (no trip region): 39 places | 3 | Sonnet 2.5, Opus 0.5 | LT-3 | | E | 6 |
 | 78 | LT-RAT | Promotions the batches left, the final `gaps --budget --write`, an Opus cross-family 10-value sample | 1.5 | Opus | LT-4 | | E | 7 |
-| (code) | LT-M | UI: address on the Directions card, OSM link from `osm_ref`, official map link, print address, ICS `LOCATION` and `GEO`, CSV column, API detail and MCP (spec 9.2) | 7 | Sonnet builder 5, Opus reviewer 1, Sonnet verifier 1 | LT-C; S2D-SIZE | | E (Infra) | after LT-1 |
+| (code) | LT-M (done 28 Oct 2026, `nxt/LTM`) | UI: address on the Directions card, OSM link from `osm_ref`, official map link, print address, ICS `LOCATION` and `GEO`, CSV column, API detail and MCP (spec 9.2) | 7 | Sonnet builder 5, Opus reviewer 1, Sonnet verifier 1 | LT-C; S2D-SIZE | | E (Infra) | after LT-1 |
 
 Totals: **27 h of data work** (D 11, E 16) in seat 1's spare (D has about 15.5 h left after S2-C; E about 34 h after the
 27 Oct additions); **14 h of code** (LT-C in D, LT-M in E). **First batch: LT-C, then LT-WHERE, then LT-1.**

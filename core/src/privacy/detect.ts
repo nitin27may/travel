@@ -36,6 +36,17 @@ export const PLANNING_NOTE = /\bplanned as\b|\b(?:hotel|stay|lodging|airbnb|acco
  * house number. Only a digit run preceded by a colon or another digit is let through; "12 Vermilion Lakes Drive" still fails.
  */
 export const STREET_ADDRESS = /(?<![\d:])\b\d{2,5}\s+[A-Z][\w'. -]{2,30}\s(?:Rd|Road|St|Street|Ave|Avenue|Dr|Drive|Ln|Lane|Blvd)\b/;
+/**
+ * A PUBLIC place's address (LT-M): the page model's `address` object (a postal or nearest-road address of a place, never the household's) and
+ * the `address` string of an export stop. Both are street addresses by shape, so the street rule would refuse them; they are checked for the
+ * home town and nothing else, and only in these two shapes. An `address` anywhere else is still read in full.
+ */
+export function isPlaceAddressObject(o: Record<string, unknown>): boolean {
+  return (o.kind === "postal" || o.kind === "nearest_road") && Array.isArray(o.lines) && typeof o.locality === "string" && "postcode" in o && "ref" in o;
+}
+function isExportStopWithAddress(o: Record<string, unknown>): boolean {
+  return typeof o.address === "string" && typeof o.placeSlug !== "undefined" && "durationMin" in o && "links" in o;
+}
 /** The place status a household sets: the key `status` is private only with one of these values (an access window is also "open"). */
 export const STATUS_WORDS: readonly string[] = ["idea", "shortlisted", "planned", "visited", "dropped"];
 /**
@@ -406,7 +417,14 @@ export function privacyHits(body: unknown, limit = 20, opts: DetectOptions = {})
       }
       const draft = isDraftShape(o);
       if (draft && typeof o.schema === "string" && DRAFT_SCHEMA_VALUE.test(o.schema)) hits.push({ where: at, why: "a visitor's trip document" });
+      const stopAddress = isExportStopWithAddress(o);
       for (const [k, y] of Object.entries(o)) {
+        // a public place's address: the home town is still refused, the street shape is not (see isPlaceAddressObject)
+        if (k === "address" && (stopAddress || (y && typeof y === "object" && !Array.isArray(y) && isPlaceAddressObject(y as Record<string, unknown>)))) {
+          const texts = typeof y === "string" ? [y] : [...((y as { lines: unknown[] }).lines), (y as { locality: string }).locality];
+          if (texts.some((t) => typeof t === "string" && HOME_TOWN_RE.test(t))) hits.push({ where: `${at}.${k}`, why: "the home town" });
+          continue;
+        }
         if (PRIVATE_KEYS.includes(k) || BIRTH_KEY.test(k) || (k === "status" && typeof y === "string" && STATUS_WORDS.includes(y))) hits.push({ where: `${at}.${k}`, why: "a private key" });
         else if (draft && DRAFT_PRIVATE_KEYS.includes(k)) hits.push({ where: `${at}.${k}`, why: "a private key" });
         if (ORIGIN_VALUE_KEYS.includes(k) && isOriginValue(y)) hits.push({ where: `${at}.${k}`, why: "a visitor's origin" });

@@ -10,7 +10,8 @@ import { Icon, kindIcon } from '@/components/ui/Icon';
 import { SeasonStrip } from '@/components/ui/SeasonStrip';
 import { KID_LABELS } from '@/lib/entities/labels';
 import { seasonLabel } from '@/lib/format/season';
-import { allTrailsLink, appleMapsUrl, directionsUrl, formatPoint, searchUrl } from '@/lib/map/links';
+import { allTrailsLink, appleMapsUrl, directionsUrl, formatPoint, osmElementUrl, osmPointUrl, searchUrl } from '@/lib/map/links';
+import { addressCopy, addressLine } from '@/lib/public/address';
 import type { LngLat } from '@/lib/map/types';
 import type { AccessPoint, Fact, PlaceLine as PlaceLineT, PublicPlace, PublicPlaceCard } from '@/lib/public/types';
 import { Interactions } from '@/components/suit/Interactions';
@@ -25,6 +26,7 @@ import { LinksTabs } from './LinksTabs';
 import { dedupeMapPoints } from './mapPoints';
 import type { PlaceMapPoint } from './PlaceMap';
 import { PlaceShell } from './PlaceShell';
+import { CopyAddress } from './CopyAddress';
 import { DirectionsChooser, SaveToTrip } from './SaveToTrip';
 import { TRIP_EDIT_ON } from '@/lib/trip-edit/flag';
 import { TrailExport } from './TrailExport';
@@ -254,6 +256,42 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
   const target = shuttleOnly ? null : via ? { at: { lat: via.lat, lng: via.lon }, label: via.name, source: 'access' as const } : directionsTarget(place);
   const targetPoint = viaPoint ?? (target ? (target.source === 'parking' ? place.access?.parking[0] : target.source === 'trailhead' ? th : place.point) : null);
   const unconfirmed = place.honesty.some((h) => h.id === 'location_unconfirmed');
+  // LT-M: the address of what the card goes to. When it belongs to another record than the target (the place's own address under a car park
+  // of the older data), the line names whose it is. Nothing is drawn when none is stored.
+  const addr = target ? (place.sections?.address ?? null) : null;
+  const addrIsTarget = !!addr && (target?.source === 'place' ? addr.ref === place.sections?.ref : target?.source === 'access' ? addr.ref === via?.ref : false);
+  const sheet = place.sections?.mapSheet ?? null;
+  const osmEl = target?.source === 'place' ? osmElementUrl(place.sections?.osmRef) : null;
+  // the maps row grows only where the record holds something to show (an address, an OpenStreetMap element or an official map sheet)
+  const moreMaps = !!target && (!!addr || !!sheet || !!osmEl);
+  // The Directions card's lines are built here so that a page with nothing new to say renders the same elements as before (not one extra
+  // empty child in the page payload): the new lines and buttons replace the old tree only where a record holds an address, an OSM element
+  // or a map sheet.
+  const toLine = target ? (
+    <p className="small">
+      To <strong>{target.label}</strong>. Our point · {targetPoint ? <PointSource p={targetPoint} /> : null} <span className="num">{formatPoint(target.at)}</span>
+    </p>
+  ) : null;
+  const addrLine = target && addr ? (
+    <p className="pl-addr">
+      <span className="pl-addr-text">
+        <span className="sr-only">Address: </span>
+        {addrIsTarget ? null : <strong>{addr.name}: </strong>}
+        {addressLine(addr)}
+      </span>
+      <CopyAddress text={addressCopy(addr)} name={addr.name} />
+    </p>
+  ) : null;
+  const googleBtn = target ? (
+    <a className="btn" href={directionsUrl(target.at)} target="_blank" rel="noopener noreferrer">
+      <Icon name="navigate" size={14} /> Google Maps directions<span className="sr-only"> (opens in a new tab)</span>
+    </a>
+  ) : null;
+  const appleBtn = target ? (
+    <a className="btn" href={appleMapsUrl(target.at, target.label)} target="_blank" rel="noopener noreferrer">
+      Apple Maps<span className="sr-only"> (opens in a new tab)</span>
+    </a>
+  ) : null;
   const points: PlaceMapPoint[] = [
     ...(th ? [{ id: 'trailhead', at: pointAt(th), style: 'trailhead' as const, label: th.name }] : []),
     ...(place.access?.parking ?? []).map((p, i) => ({ id: `parking-${i}`, at: pointAt(p), style: 'parking' as const, label: p.name })),
@@ -753,9 +791,14 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
               <h2 id="h-dir">Directions</h2>
               {target ? (
                 <>
-                  <p className="small">
-                    To <strong>{target.label}</strong>. Our point · {targetPoint ? <PointSource p={targetPoint} /> : null} <span className="num">{formatPoint(target.at)}</span>
-                  </p>
+                  {addrLine ? (
+                    <>
+                      {toLine}
+                      {addrLine}
+                    </>
+                  ) : (
+                    toLine
+                  )}
                   {unconfirmed ? (
                     <p>
                       <Chip kind="honest" icon="warn" title="A person must confirm this location">
@@ -763,14 +806,25 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                       </Chip>
                     </p>
                   ) : null}
-                  <p className="pl-dir-links">
-                    <a className="btn" href={directionsUrl(target.at)} target="_blank" rel="noopener noreferrer">
-                      <Icon name="navigate" size={14} /> Google Maps directions<span className="sr-only"> (opens in a new tab)</span>
-                    </a>
-                    <a className="btn" href={appleMapsUrl(target.at, target.label)} target="_blank" rel="noopener noreferrer">
-                      Apple Maps<span className="sr-only"> (opens in a new tab)</span>
-                    </a>
-                  </p>
+                  {moreMaps ? (
+                    <p className="pl-dir-links">
+                      {googleBtn}
+                      {appleBtn}
+                      <a className="btn" href={osmEl ?? osmPointUrl(target.at)} target="_blank" rel="noopener noreferrer">
+                        OpenStreetMap<span className="sr-only"> (opens in a new tab)</span>
+                      </a>
+                      {sheet ? (
+                        <a className="btn" href={sheet} target="_blank" rel="noopener noreferrer">
+                          Official map<span className="sr-only"> (opens in a new tab)</span>
+                        </a>
+                      ) : null}
+                    </p>
+                  ) : (
+                    <p className="pl-dir-links">
+                      {googleBtn}
+                      {appleBtn}
+                    </p>
+                  )}
                   {via ? <p className="muted small">{place.name} has no car park of its own stored here, so directions go to {via.name}, where you {via.role === 'parks_for' ? 'park' : via.role === 'serves' ? 'catch the shuttle or bus' : 'start'}.</p> : null}
                   {target.source === 'parking' && th ? <p className="muted small">The trail starts at {th.name}, on foot from the car park.</p> : null}
                 </>

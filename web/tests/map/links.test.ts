@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { allTrailsLink, appleMapsUrl, directionsUrl, formatPoint, komootSearchUrl, searchUrl } from '@/lib/map/links';
+import { allTrailsLink, appleMapsUrl, directionsUrl, formatPoint, komootSearchUrl, osmElementUrl, osmPointUrl, searchUrl } from '@/lib/map/links';
 
 const braies = { lng: 12.08536, lat: 46.69421 };
 
@@ -40,5 +40,16 @@ describe('map links are built from our stored point', () => {
   });
   it('builds a Komoot search link', () => {
     expect(komootSearchUrl('Wilcox Pass', 'Banff')).toBe('https://www.komoot.com/discover?q=Wilcox+Pass+Banff');
+  });
+});
+
+describe('OpenStreetMap links (LT-M): made at read time, never stored', () => {
+  it('points at a stored element id, and only at a well-formed one', () => {
+    expect(osmElementUrl('node/123')).toBe('https://www.openstreetmap.org/node/123');
+    expect(osmElementUrl('relation/44741')).toBe('https://www.openstreetmap.org/relation/44741');
+    for (const bad of [null, undefined, '', 'way/', 'way/x', 'node/12/../x', 'https://evil.test/node/1', 'Way/1']) expect(osmElementUrl(bad as never), String(bad)).toBeNull();
+  });
+  it('marks our point at zoom 17 with 5-decimal coordinates and no key', () => {
+    expect(osmPointUrl({ lng: 12.0853612, lat: 46.6942149 })).toBe('https://www.openstreetmap.org/?mlat=46.69421&mlon=12.08536#map=17/46.69421/12.08536');
   });
 });

@@ -252,3 +252,24 @@ describe("STREET_ADDRESS and clock times (ES-012)", () => {
     expect(privacyHits("meet at 12 Vermilion Lakes Drive")).not.toEqual([]);
   });
 });
+
+// LT-M: a public place's address is a street address by shape. Its two typed shapes (the page model's `address` object and the `address` string of an
+// export stop) are checked for the home town only; the street rule above is unchanged everywhere else.
+describe("a public place's address (LT-M)", () => {
+  const postal = { ref: "place/x", name: "Banff Visitor Centre", kind: "postal", lines: ["224 Banff Avenue"], locality: "Banff", postcode: "T1L 1A3" };
+  it("passes in the typed shapes", () => {
+    expect(privacyHits({ sections: { address: postal } })).toEqual([]);
+    expect(privacyHits({ address: { ...postal, kind: "nearest_road", lines: ["12 Vermilion Lakes Drive"] } })).toEqual([]);
+    expect(privacyHits({ stops: [{ id: "s", placeSlug: "x", durationMin: null, links: [], address: "224 Banff Avenue, Banff, T1L 1A3" }] })).toEqual([]);
+  });
+  it("still refuses the home town in either shape", () => {
+    expect(privacyHits({ address: { ...postal, locality: "Whitby" } }).map((h) => h.why)).toEqual(["the home town"]);
+    expect(privacyHits({ stops: [{ id: "s", placeSlug: "x", durationMin: null, links: [], address: "5 Main Street, Whitby" }] }).map((h) => h.why)).toEqual(["the home town"]);
+  });
+  it("is no loophole: an `address` of any other shape is read in full", () => {
+    expect(privacyHits({ address: "12 Vermilion Lakes Drive" })).not.toEqual([]);
+    expect(privacyHits({ plan: { address: "12 Vermilion Lakes Drive" } })).not.toEqual([]);
+    expect(privacyHits({ address: { lines: ["12 Vermilion Lakes Drive"] } })).not.toEqual([]);
+    expect(privacyHits({ note: "224 Banff Avenue, Banff", address: postal })).not.toEqual([]);
+  });
+});

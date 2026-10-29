@@ -91,12 +91,12 @@ describe("the registry row (5.1)", () => {
     // the ICS override is address's alone: public trips are dateless
     expect(PROPERTIES.filter((p) => p.expose.export.includes("ics")).map((p) => p.key)).toEqual(["address"]);
   });
-  it("lands without a page: the public contract leaves its marks out until LT-M draws it, the research checklist keeps it", () => {
-    expect(a.pageTask).toBe("LT-M");
+  it("is drawn by the page since LT-M: the public contract carries its marks, the research checklist keeps them, no pageTask waits", () => {
+    expect(a.pageTask).toBeUndefined();
     const out = generate(DEFAULT_TYPES, REPO);
     const domains = out.filter((o) => /^data\/schema\/capture\/[a-z]+\.json$/.test(o.path) && !o.path.endsWith("contract.json"));
     expect(domains.length).toBeGreaterThan(10);
-    for (const d of domains) expect(d.text.includes('"address"'), d.path).toBe(false);
+    expect(domains.filter((d) => d.text.includes('"address"')).map((d) => d.path.split("/").pop()).sort()).toEqual(["access.json", "animals.json", "culture.json", "food.json", "nature.json", "play.json", "snow.json", "stay.json", "water.json"]);
     expect(out.find((o) => o.path === "research/types/culture.md")!.text).toContain("address");
   });
   it("the two new triggers are named, and sit on ends_at and gpx_licence (no mark names them yet)", () => {

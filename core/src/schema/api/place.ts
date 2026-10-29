@@ -374,6 +374,18 @@ const pageModel = z.strictObject({
     z.strictObject({ mode: z.literal("drive"), ref: apiRef, name: z.string(), lat: z.number(), lon: z.number(), pointSource: z.string(), role: z.enum(["parks_for", "serves", "starts_at"]) }),
     z.strictObject({ mode: z.literal("transit"), stops: z.array(z.strictObject({ ref: apiRef, name: z.string() })) }),
   ]).nullable().optional(),
+  // LT-M (location-type-requirements 8): the Directions target's address, the OpenStreetMap element and the official map sheet; each absent
+  // when the record holds none. Detail only, never a list row (P8).
+  address: z.strictObject({
+    ref: apiRef,
+    name: z.string(),
+    kind: z.enum(["postal", "nearest_road"]),
+    lines: z.array(z.string()).min(1).max(3),
+    locality: z.string(),
+    postcode: z.string().nullable(),
+  }).optional(),
+  osmRef: z.string().regex(/^(?:node|way|relation)\/\d+$/).optional(),
+  mapSheet: z.string().optional(),
   legacyMapped: z.array(z.string()).optional(),
   checks: z.strictObject({ done: z.int().min(0), total: z.int().min(0), read: z.string().nullable(), level: z.string() }),
 });

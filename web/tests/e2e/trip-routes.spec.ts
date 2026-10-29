@@ -257,7 +257,7 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
     expect(k.lines).toBe(10);
 
     const [csv] = await open(/^For a spreadsheet/);
-    expect(readFileSync((await csv.path())!, 'utf8')).toContain('Day,Time,Name,Kind,Category,Area,Lat,Lon,Approximate,Links');
+    expect(readFileSync((await csv.path())!, 'utf8')).toContain('Day,Time,Name,Kind,Category,Area,Address,Lat,Lon,Approximate,Links');
 
     for (const text of [gpxText]) expect(text).not.toMatch(/whitby/i);
     await page.locator('.tl-planbar').getByRole('button', { name: 'Export trip', exact: true }).click();

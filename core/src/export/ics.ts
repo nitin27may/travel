@@ -1,9 +1,9 @@
 import { addDays, compact, pad, parseIso } from './dates.ts';
-import { sourceLine } from './licence.ts';
+import { approxNote, checkPoint, sourceLine } from './licence.ts';
 import { knownZone, vtimezone } from './tz.ts';
 import { sunFor } from '../sun/index.ts';
 import type { DayTimeline, TimelineEntry } from '../schedule/types.ts';
-import type { TripExport } from './types.ts';
+import type { ExportStop, TripExport } from './types.ts';
 
 // RFC 5545. Only a dated copy has an ICS: the public trip is dateless, so `buildIcs` needs the copy's start date and
 // refuses an overview trip (no days to put on a calendar).
@@ -53,6 +53,20 @@ function localDateTime(date: string, hhmm: string, plusMin = 0): string {
   const dayShift = Math.floor(total / 1440);
   const t = ((total % 1440) + 1440) % 1440;
   return `${compact(addDays(date, dayShift))}T${pad(Math.floor(t / 60))}${pad(t % 60)}00`;
+}
+
+/**
+ * `LOCATION` and `GEO` of an event at a place (location-type-requirements 8). LOCATION is the place's address when one is stored, else its
+ * name; GEO is its point, only where the licence guard passes and the pin is surveyed or placed (an approximate pin is not a position to
+ * navigate to). The address is the only stored property that reaches a calendar file (registry `address` is the one row with `ics` in its
+ * exports). `GEO` is two floats joined by a literal `;`, which TEXT escaping must not touch (RFC 5545 3.8.1.6).
+ */
+export function locationLines(stop: Pick<ExportStop, 'name' | 'address' | 'point'> | null | undefined): string[] {
+  if (!stop) return [];
+  const p = stop.point && checkPoint(stop.point).ok && !approxNote(stop.point) ? stop.point : null;
+  if (!stop.address && !p) return [];
+  const num = (n: number): string => String(Number(n.toFixed(6)));
+  return [`LOCATION:${icsText(stop.address ?? stop.name)}`, ...(p ? [`GEO:${num(p.lat)};${num(p.lon)}`] : [])];
 }
 
 export function icsEventCount(trip: TripExport, timeline?: IcsTimeline): { allDay: number; timed: number } {
@@ -146,6 +160,7 @@ export function buildIcs(trip: TripExport, startDate: string, now: Date = new Da
           `DTEND${tzid}:${localDateTime(date, start, e.durationMin)}`,
           `SUMMARY:${icsText(e.title)}`,
           `DESCRIPTION:${icsText([label, e.time.note].filter(Boolean).join('. '))}`,
+          ...(e.kind === 'visit' || e.kind === 'trail' ? locationLines(stops.find((s) => s.id === e.sourceItemId || (!!s.placeSlug && s.placeSlug === e.at?.placeSlug))) : []),
           `URL:${trip.url}#day-${day.n}`,
           'END:VEVENT',
         );
@@ -161,6 +176,7 @@ export function buildIcs(trip: TripExport, startDate: string, now: Date = new Da
         `DTEND${tzid}:${localDateTime(date, s.time!, s.durationMin ?? 60)}`,
         `SUMMARY:${icsText(s.name)}`,
         ...(s.note ? [`DESCRIPTION:${icsText(s.note)}`] : []),
+        ...locationLines(s),
         `URL:${trip.url}#day-${day.n}`,
         'END:VEVENT',
       );
