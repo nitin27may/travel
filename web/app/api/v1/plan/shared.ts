@@ -142,13 +142,16 @@ export function decodeCandidates(params: URLSearchParams): { ok: true; query: Pl
 
 // ---- defaults and the handler ---------------------------------------------------------------------------------------------------------
 
+/** The run-time routing switch: PLAN_ROUTING set to one lets a build ask the router for cells the cache lacks (daily guard, server rows, model fallback). Anything else: cache reads only. Read per request. */
+export const routingOn = (env: Record<string, string | undefined>): boolean => env.PLAN_ROUTING === '1';
+
 let pgQuota: QuotaStore | undefined;
 
 export function defaultDeps(): PlanRouteDeps {
   const store = getStore();
   return {
     store,
-    service: createPlanService({ store, legs: getLegService(), reference: fileReference(), drive: defaultDrive, now: () => new Date() }),
+    service: createPlanService({ store, legs: getLegService(), reference: fileReference(), drive: defaultDrive, now: () => new Date(), allowRouting: routingOn(process.env) }),
     quota: () => (process.env.DATABASE_URL ? (pgQuota ??= createPgQuotaStore()) : null),
     env: () => process.env,
     now: () => new Date(),

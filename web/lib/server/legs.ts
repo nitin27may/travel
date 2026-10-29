@@ -30,7 +30,7 @@ import type { QuotaStore } from '@travel/core/quota/store.ts';
 import { travelRoot } from '@/lib/data/root';
 
 /** Why a cell is not routed (`basis.reason`); fixed codes, safe to log. */
-export type LegReason = 'not-allowed' | 'no-key' | 'quota' | 'breaker' | 'timeout' | 'error' | 'no-route';
+export type LegReason = 'not-allowed' | 'no-key' | 'quota' | 'breaker' | 'timeout' | 'error' | 'no-route' | 'home-unset';
 
 /** The estimate basis of one matrix answer: `routed` all cells routed or cached, `mixed`, or `estimate` (every cell from the model). */
 export interface LegBasis {
@@ -51,7 +51,7 @@ export interface LegService extends DriveEstimator {
   /** Same as estimateDriveMatrix, with the basis flag the builder shows ("Estimated" sheet, P6). */
   estimateMatrix(sources: DrivePoint[], targets: DrivePoint[], opts: EstimateOptions): Promise<LegMatrixResult>;
   /** Breaker and key state only; no datum of any trip or person. */
-  status(): { breaker: 'closed' | 'open' | 'half-open'; keyPresent: boolean };
+  status(): { breaker: 'closed' | 'open' | 'half-open'; keyPresent: boolean; homePoint: 'unknown' | 'set' | 'unset' };
 }
 
 // ----- the cache store ----------------------------------------------------------------------------------------------------------------
@@ -196,6 +196,8 @@ export interface LegServiceDeps {
   retries?: number;
   breaker?: { failures: number; openMs: number };
   log?: (code: string) => void;
+  /** the write-key test (default `writableLegKey`); a test injects one that throws the unset-home error */
+  writeKey?: typeof writableLegKey;
 }
 
 const isPublic = (p: DrivePoint): p is PublicDrivePoint => (p as { visitor?: unknown }).visitor === undefined && typeof (p as { key?: unknown }).key === 'string';
@@ -220,6 +222,23 @@ export function createLegService(deps: LegServiceDeps): LegService {
   let failures = 0;
   let openedAt: number | null = null;
   let probing = false;
+  let homePoint: 'unknown' | 'set' | 'unset' = 'unknown';
+  let homeLogged = false;
+  const keyOf = deps.writeKey ?? writableLegKey;
+  // The household exclusion cannot run without the home point: no cache read or write for the pair (every cell stays the model's estimate), and
+  // one fixed code in the log per process, no value, no coordinate.
+  const safeKey = (a: PublicDrivePoint, b: PublicDrivePoint): ReturnType<typeof writableLegKey> => {
+    try {
+      const k = keyOf(a, b);
+      if (homePoint !== 'unset') homePoint = 'set';
+      return k;
+    } catch (e) {
+      const unset = (e as { code?: unknown } | null)?.code === 'E_HOME_POINT_UNSET';
+      if (unset) homePoint = 'unset';
+      if (!homeLogged) { homeLogged = true; log(unset ? 'home-point-unset' : 'key-check-failed'); }
+      return null; // fail closed
+    }
+  };
 
   const breakerState = (): 'closed' | 'open' | 'half-open' => {
     if (openedAt === null) return 'closed';
@@ -246,7 +265,7 @@ export function createLegService(deps: LegServiceDeps): LegService {
         if (same(i, j)) continue;
         const a = sources[i]!;
         const b = targets[j]!;
-        if (isPublic(a) && isPublic(b) && writableLegKey(a, b)) keyed.push({ i, j, from: a.key, to: b.key });
+        if (isPublic(a) && isPublic(b) && safeKey(a, b)) keyed.push({ i, j, from: a.key, to: b.key });
         pending.add(`${i}|${j}`);
       }
     }
@@ -298,8 +317,7 @@ export function createLegService(deps: LegServiceDeps): LegService {
               const a = sources[i]!;
               const b = targets[j]!;
               if (isPublic(a) && isPublic(b)) {
-                let k: ReturnType<typeof writableLegKey> = null;
-                try { k = writableLegKey(a, b); } catch { k = null; } // home point unset: fail closed, no write
+                const k = safeKey(a, b); // home point unset: fail closed, no write
                 if (k) writes.push({ ...k, mode: 'drive', profile: 'driving-car', engine: 'ors', engine_version: null, seconds: Math.round(s), metres: Math.round(m), flags: [] });
               }
             }
@@ -315,6 +333,7 @@ export function createLegService(deps: LegServiceDeps): LegService {
 
   async function gateOrs(allowRouting: boolean): Promise<'ok' | LegReason> {
     if (!allowRouting) return 'not-allowed';
+    if (homePoint === 'unset') return 'home-unset'; // rows could not be written, so a call would only spend the day budget
     if (!deps.apiKey()) return 'no-key';
     const st = breakerState();
     if (st === 'open' || (st === 'half-open' && probing)) return 'breaker';
@@ -337,7 +356,7 @@ export function createLegService(deps: LegServiceDeps): LegService {
     estimateMatrix: matrix,
     estimateDriveMatrix: async (s, t, o) => (await matrix(s, t, o)).cells,
     estimateDrive: async (a, b, o) => (await matrix([a], [b], o)).cells[0]![0]!,
-    status: () => ({ breaker: breakerState(), keyPresent: Boolean(deps.apiKey()) }),
+    status: () => ({ breaker: breakerState(), keyPresent: Boolean(deps.apiKey()), homePoint }),
   };
 }
 

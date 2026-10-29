@@ -48,7 +48,7 @@ import { runLegBatch, type LegService } from './legs';
 // and never returned. Candidates carry no party at all (a band at most), so they are cacheable for everyone.
 //
 // Routing: builds read `leg_cache` only (`allowRouting: false`), so a build never spends the OpenRouteService day budget; an uncached cell is the
-// drive model's estimate, flagged (the engine's basis `estimate` or `mixed`). Turning routing on for builds is one deps field (TB-W1 decides).
+// drive model's estimate, flagged (the engine's basis `estimate` or `mixed`). Routing for builds is the deps field `allowRouting`, set per request from the server switch PLAN_ROUTING (shared.ts); a cell the router cannot answer stays the model's estimate.
 //
 // Extension point: this file imports the builder's engine and contracts, so it is registered in web/tests/plan/isolation.test.ts (X-API).
 
