@@ -104,7 +104,7 @@ describe("the Rockies-shaped plan: visits and park lines", () => {
   it("needs carry the row kind and the rule in words; the pass a fee is covered by is not a need of its own", () => {
     expect(byName.get("Banff National Park")!.needs).toEqual([{ name: "Banff daily admission", kind: "pass", text: "Buy any time before Day 3" }]);
     expect(byName.get("Kananaskis Country")!.needs).toEqual([{ name: "Conservation pass", kind: "pass", text: "Buy by 23:59 on Day 12" }]);
-    expect(byName.get("Lake O'Hara")!.needs).toEqual([{ name: "Lake O'Hara day-use bus", kind: "booking", text: "Lottery: apply usually in March; seats left after the draw until 15:30 the day before Day 9" }]);
+    expect(byName.get("Lake O'Hara")!.needs).toEqual([{ name: "Lake O'Hara day-use bus", kind: "booking", text: "Lottery: apply usually in March; leftover seats until 15:30 the day before Day 9" }]);
     expect(byName.get("Banff National Park")!.coveredBy).toBe("Discovery Pass");
   });
   it("the saving line once, on the first park the pass covers, with the day count across the parks it covers (QP5)", () => {

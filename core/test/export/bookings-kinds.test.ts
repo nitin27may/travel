@@ -29,19 +29,19 @@ describe("bookRuleText: every wording of 5.2", () => {
     expect(bookRuleText(r({ kind: "rolling", daysBefore: 2, dayN: 10, time: "08:00", tz: "America/Edmonton" }))).toBe("Opens 2 days before Day 10 at 08:00 local");
   });
   it("fixed_date", () => {
-    expect(bookRuleText(r({ kind: "fixed_date", months: [4, 4], time: "08:00", tz: "America/Edmonton" }))).toBe("Opens on a launch day each year, usually in April, at 08:00 local");
-    expect(bookRuleText(r({ kind: "fixed_date", months: [3, 5] }))).toBe("Opens on a launch day each year, usually between March and May");
-    expect(bookRuleText(r({ kind: "fixed_date" }))).toBe("Opens on a launch day each year");
+    expect(bookRuleText(r({ kind: "fixed_date", months: [4, 4], time: "08:00", tz: "America/Edmonton" }))).toBe("Opens on launch day, usually in April at 08:00 local");
+    expect(bookRuleText(r({ kind: "fixed_date", months: [3, 5] }))).toBe("Opens on launch day, usually between March and May");
+    expect(bookRuleText(r({ kind: "fixed_date" }))).toBe("Opens on launch day each year");
   });
-  it("lottery, with the seats left after the draw", () => {
+  it("lottery, with the leftover seats", () => {
     expect(bookRuleText(r({ kind: "lottery", months: [3, 3], dayN: 9, then: r({ kind: "anytime", dayN: 9, closes: { daysBefore: 1, time: "15:30" } }) }))).toBe(
-      "Lottery: apply usually in March; seats left after the draw until 15:30 the day before Day 9",
+      "Lottery: apply usually in March; leftover seats until 15:30 the day before Day 9",
     );
     expect(bookRuleText(r({ kind: "lottery", months: [3, 3] }))).toBe("Lottery: apply usually in March");
   });
   it("monthly_release", () => {
-    expect(bookRuleText(r({ kind: "monthly_release", monthLeadDays: 35, time: "09:00", tz: "America/Edmonton" }))).toBe("Opens in a monthly batch about 35 days before the month, at 09:00 local");
-    expect(bookRuleText(r({ kind: "monthly_release" }))).toBe("Opens in a monthly batch");
+    expect(bookRuleText(r({ kind: "monthly_release", monthLeadDays: 35, time: "09:00", tz: "America/Edmonton" }))).toBe("Opens monthly, about 35 days before the month, at 09:00 local");
+    expect(bookRuleText(r({ kind: "monthly_release" }))).toBe("Opens monthly");
   });
   it("same_day", () => {
     expect(bookRuleText(r({ kind: "same_day", dayN: 4, time: "07:00", tz: "Europe/Rome" }))).toBe("Opens on Day 4 at 07:00 local");
@@ -56,12 +56,12 @@ describe("bookRuleText: every wording of 5.2", () => {
   });
   it("two phases: a launch day, then the rolling release (6.3, the shuttle)", () => {
     expect(bookRuleText(r({ kind: "fixed_date", months: [4, 4], time: "08:00", tz: "America/Edmonton", dayN: 10, then: r({ kind: "rolling", daysBefore: 2, dayN: 10, time: "08:00", tz: "America/Edmonton" }) }))).toBe(
-      "Opens on a launch day each year, usually in April, at 08:00 local; then 2 days before Day 10 at 08:00 local",
+      "Opens on launch day, usually in April at 08:00 local; then 2 days before Day 10 at 08:00",
     );
   });
   it("a share of seats and a close on a rolling phase", () => {
     expect(bookRuleText(r({ kind: "fixed_date", months: [4, 4], sharePct: 40, then: r({ kind: "rolling", daysBefore: 2, dayN: 10, sharePct: 60 }) }))).toBe(
-      "Opens on a launch day each year, usually in April (40% of seats); then 2 days before Day 10 (60% of seats)",
+      "Opens on launch day, usually in April (40% of seats); then 2 days before Day 10 (60%)",
     );
     expect(bookRuleText(r({ kind: "rolling", daysBefore: 3, dayN: 5, closes: { daysBefore: 1, time: "18:00" } }))).toBe("Opens 3 days before Day 5, until 18:00 the day before Day 5");
   });
@@ -144,11 +144,11 @@ describe("bookRuleFromWindow: the capture windowSpec as a rule (15.223d)", () =>
       then: { kind: "rolling", daysBefore: 2, dayN: 10, time: "08:00", tz: "America/Edmonton" },
     });
   });
-  it("a lottery whose second phase has a close and no lead is 'seats left after the draw until ...'", () => {
-    expect(bookRuleText(bookRuleFromWindow(OHARA.window, 9)!)).toBe("Lottery: apply usually in March; seats left after the draw until 15:30 the day before Day 9");
+  it("a lottery whose second phase has a close and no lead is 'leftover seats until ...'", () => {
+    expect(bookRuleText(bookRuleFromWindow(OHARA.window, 9)!)).toBe("Lottery: apply usually in March; leftover seats until 15:30 the day before Day 9");
   });
   it("monthly release, anytime with a close, on arrival, a bare value", () => {
-    expect(bookRuleText(bookRuleFromWindow(SUPER.window, 11)!)).toBe("Opens in a monthly batch about 35 days before the month, at 09:00 local");
+    expect(bookRuleText(bookRuleFromWindow(SUPER.window, 11)!)).toBe("Opens monthly, about 35 days before the month, at 09:00 local");
     expect(bookRuleText(bookRuleFromWindow(KAN.window, 12)!)).toBe("Buy by 23:59 on Day 12");
     expect(bookRuleText(bookRuleFromWindow(PARKING.window, 10)!)).toBe("Pay on arrival");
     expect(bookRuleFromWindow({ rule: "rolling", days_before: 30 }, 3)).toEqual({ kind: "rolling", daysBefore: 30, dayN: 3, time: null, tz: null });
@@ -172,8 +172,8 @@ describe("requirementRows: rows from requirement records (6.2, 6.3)", () => {
     const rows = requirementRows(SHUTTLE, { key: "need:shuttle", days: [11, 10], park: "Banff National Park", placeSlug: "moraine-lake" });
     const out = tripBookings(rows);
     expect(out.map((b) => [b.ref, b.day, b.kind, b.rule])).toEqual([
-      ["need:shuttle:d10", 10, "booking", "Opens on a launch day each year, usually in April, at 08:00 local; then 2 days before Day 10 at 08:00 local"],
-      ["need:shuttle:d11", 11, "booking", "Opens on a launch day each year, usually in April, at 08:00 local; then 2 days before Day 11 at 08:00 local"],
+      ["need:shuttle:d10", 10, "booking", "Opens on launch day, usually in April at 08:00 local; then 2 days before Day 10 at 08:00"],
+      ["need:shuttle:d11", 11, "booking", "Opens on launch day, usually in April at 08:00 local; then 2 days before Day 11 at 08:00"],
     ]);
     expect(out[0]).toMatchObject({ park: "Banff National Park", link: "https://example.org/shuttle/book", name: "Moraine Lake and Lake Louise shuttle seat" });
   });

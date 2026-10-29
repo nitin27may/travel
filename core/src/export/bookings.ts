@@ -95,7 +95,7 @@ function closesClause(c: { daysBefore: number; time: string | null }, dayN: numb
   return `${c.time ? `${c.time}, ` : ''}${c.daysBefore} days before Day ${dayN}`;
 }
 
-const share = (r: BookRulePhase): string => (typeof r.sharePct === 'number' ? ` (${r.sharePct}% of seats)` : '');
+const share = (r: BookRulePhase, short = false): string => (typeof r.sharePct === 'number' ? ` (${r.sharePct}%${short ? '' : ' of seats'})` : '');
 
 /** One phase in words, starting with its verb ("Opens ...", "Lottery: ...", "Buy ...", "Pay on arrival"). */
 function phaseText(r: BookRulePhase): string {
@@ -103,11 +103,11 @@ function phaseText(r: BookRulePhase): string {
   const band = monthsText(r.months);
   switch (kind) {
     case 'fixed_date':
-      return `Opens on a launch day each year${band ? `, usually ${band}${r.time ? ',' : ''}` : ''}${clock(r.time, r.tz)}${share(r)}`;
+      return `Opens on launch day${band ? `, usually ${band}` : ' each year'}${clock(r.time, r.tz)}${share(r)}`;
     case 'lottery':
       return `Lottery: apply${band ? ` usually ${band}` : ' before the draw'}${share(r)}`;
     case 'monthly_release':
-      return `Opens in a monthly batch${typeof r.monthLeadDays === 'number' ? ` about ${r.monthLeadDays} days before the month` : ''}${r.time ? `,${clock(r.time, r.tz)}` : ''}${share(r)}`;
+      return `Opens monthly${typeof r.monthLeadDays === 'number' ? `, about ${r.monthLeadDays} days before the month` : ''}${r.time ? `,${clock(r.time, r.tz)}` : ''}${share(r)}`;
     case 'anytime':
       if (r.closes) return `Buy by ${closesClause(r.closes, r.dayN)}`;
       return r.dayN !== null ? `Buy any time before Day ${r.dayN}` : 'Buy any time before the trip';
@@ -125,23 +125,24 @@ function untilText(r: BookRulePhase): string {
   return r.closes && r.kind !== 'anytime' ? `, until ${closesClause(r.closes, r.dayN)}` : '';
 }
 
-/** The second phase: "then 2 days before Day 10 at 08:00 local"; after a lottery, "seats left after the draw until 15:30 the day before Day 9". */
+/** The second phase: "then 2 days before Day 10 at 08:00 local"; after a lottery, "leftover seats until 15:30 the day before Day 9". */
 function thenText(first: BookRulePhase, t: BookRulePhase): string {
   const kind = t.kind ?? 'rolling';
   const rel = kind === 'rolling' || kind === 'same_day';
   if (first.kind === 'lottery') {
     const open = rel && (kind === 'same_day' ? t.dayN !== null : t.daysBefore > 0) ? ` from ${relClause(kind === 'same_day' ? 0 : t.daysBefore, t.dayN)}${clock(t.time, t.tz)}` : '';
     const until = t.closes ? ` until ${closesClause(t.closes, t.dayN)}` : '';
-    return `seats left after the draw${open}${until}${share(t)}`;
+    return `${open || until ? 'leftover seats' : 'seats left after the draw'}${open}${until}${share(t)}`;
   }
-  if (rel) return `then ${relClause(kind === 'same_day' ? 0 : t.daysBefore, t.dayN)}${clock(t.time, t.tz)}${share(t)}${untilText(t)}`;
+  // the zone and the word "seats" are said once, in the first phase
+  if (rel) return `then ${relClause(kind === 'same_day' ? 0 : t.daysBefore, t.dayN)}${clock(t.time, first.tz && first.tz === t.tz ? null : t.tz)}${share(t, typeof first.sharePct === 'number')}${untilText(t)}`;
   const p = phaseText(t);
   return `then ${p.charAt(0).toLowerCase()}${p.slice(1)}${untilText(t)}`;
 }
 
 /**
- * The window as the page words it (protected-area-entry 5.2): "Opens 30 days before Day 3", "Opens on a launch day each year, usually in
- * April, at 08:00 local; then 2 days before Day 10 at 08:00 local", "Lottery: apply usually in March; seats left after the draw until
+ * The window as the page words it (protected-area-entry 5.2): "Opens 30 days before Day 3", "Opens on launch day, usually in
+ * April at 08:00 local (40% of seats); then 2 days before Day 10 at 08:00 (60%)", "Lottery: apply usually in March; leftover seats until
  * 15:30 the day before Day 9", "Buy by 23:59 on Day 12", "Pay on arrival". The trip page's chip and rows import this function (TRP-GL,
  * review F7); there is no second wording. Dateless: a month band is "usually in March", never a year or a calendar date.
  */
