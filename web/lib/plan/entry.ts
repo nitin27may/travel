@@ -10,6 +10,8 @@ export interface Entry {
   cc: string | null;
   /** a place to start with, as its public slug */
   place: string | null;
+  /** a public trip to start from (X7 "Start from this trip"), as its slug */
+  seed: string | null;
 }
 
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -20,6 +22,7 @@ export function parseEntry(search: string): Entry {
   const n = Number(q.get('n'));
   const cc = q.get('cc');
   const p = q.get('p');
+  const seed = q.get('seed');
   let kind: KindId | null = null;
   if (m === 'near') kind = !q.has('n') || !Number.isInteger(n) || n <= 0 ? 'day' : n <= 2 ? 'weekend' : n <= 4 ? 'long_weekend' : 'week_car';
   else if (m === 'trip') kind = 'week_air';
@@ -28,7 +31,8 @@ export function parseEntry(search: string): Entry {
     nights: m === 'near' && q.has('n') && Number.isInteger(n) && n >= 0 && n <= 9 ? n : null,
     cc: m === 'trip' && cc && /^[A-Za-z]{2}$/.test(cc) ? cc.toUpperCase() : null,
     place: p && p.length <= 120 && SLUG.test(p) ? p : null,
+    seed: seed && seed.length <= 120 && SLUG.test(seed) ? seed : null,
   };
 }
 
-export const hasEntry = (e: Entry): boolean => e.kind !== null || e.place !== null;
+export const hasEntry = (e: Entry): boolean => e.kind !== null || e.place !== null || e.seed !== null;

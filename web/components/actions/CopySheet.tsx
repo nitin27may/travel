@@ -63,6 +63,9 @@ const PROBLEM_TEXT = {
   error: 'This browser holds trip copies this version of the site cannot change, so nothing was written. Reload the page, or take the files below.',
 } as const;
 
+// the builder's two build flags, written out so a build with either off drops the link (and its words) from this chunk
+const startFromTrip = process.env.NEXT_PUBLIC_PLAN_BUILDER === '1' && process.env.NEXT_PUBLIC_TRIP_EDIT === '1';
+
 // a snapshot photo is a same-origin path (core: SITE_PATH); a remote URL is not kept
 const sitePath = (p: string | null | undefined): string | null => (p && /^\/(?![/\\])[^\s"<>\\]{1,299}$/.test(p) ? p : null);
 
@@ -299,6 +302,17 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
         </section>
 
         <ExportList start={start} trip={trip} data={data} hasCalendar={hasCalendar} onRun={run} print={onPrint} />
+
+        {startFromTrip && !initial ? (
+          // X7 (trip-builder 15.2; TB-W2): one plain link under the copy actions. The builder reads `?seed=` once; this sheet imports none of it
+          <section className="copy-step" aria-labelledby="copy-seed">
+            <h3 id="copy-seed">Make it your own</h3>
+            <ButtonLink variant="secondary" href={`/plan/?seed=${encodeURIComponent(trip.slug)}`} data-testid="start-from-trip">
+              Start from this trip
+            </ButtonLink>
+            <p className="copy-note">Opens the planner with this trip&apos;s places and nights filled in. This trip stays as it is.</p>
+          </section>
+        ) : null}
       </div>
     ) : (
       <div className="copy-body copy-done">

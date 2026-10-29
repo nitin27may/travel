@@ -3,6 +3,7 @@
 // state by draft.ts; the state itself is the builder's screen state (store.ts keeps it under the UI key).
 import type { PlanBaseChoice, PlanOrigin, PlanPick } from '@travel/core/schema/plan-draft.ts';
 import { PLAN_BUILDER_UI, PLAN_DAY_ON_SITE_MIN, PLAN_UNKNOWN_VISIT_MIN } from '@/lib/config/product';
+import { addBase, clampBases, moveBase, removeBase, setBaseNights, type BaseInfo } from './bases';
 import { kindDef, type KindId, type PlanMode } from './kinds';
 
 export type Stage = 0 | 1 | 2 | 3 | 4;
@@ -21,6 +22,8 @@ export interface Filters {
   stroller: boolean;
   /** a month for the list only; null: the trip's month */
   month: number | null;
+  /** trip mode (TB-W2): only these areas of the chosen ones (region ids); empty or absent: every chosen area */
+  areas?: string[];
 }
 
 export interface FlowState {
@@ -52,6 +55,13 @@ export interface FlowState {
   /** the longest drive in one day, minutes; null: from the pace */
   driveDayMin: number | null;
   bases: PlanBaseChoice[];
+  /** a public trip this plan started from (TB-W2, X7 `?seed=<slug>`), and its name for the screen; the document keeps the slug as `seed` */
+  seed?: string | null;
+  seedName?: string | null;
+  /** the names and public points of the bases, for the screen only (TB-W2); absent in a state saved before */
+  baseInfo?: Record<string, BaseInfo>;
+  /** the area's name of each pick by ref, for the tray's groups (TB-W2); screen state, absent in a state saved before */
+  pickAreas?: Record<string, string>;
   filters: Filters;
   createdAt: string;
   updatedAt: string;
@@ -163,7 +173,15 @@ export type FlowAction =
   | { t: 'country'; cc: string; name: string; now: string }
   | { t: 'region'; id: string; on: boolean; now: string }
   | { t: 'regions'; ids: string[]; now: string }
-  | { t: 'pick'; pick: PlanPick; visitMin: number | null; now: string }
+  | { t: 'pick'; pick: PlanPick; visitMin: number | null; now: string; area?: string | null }
+  /** nights, with the bases' nights cut to fit (a shorter trip takes nights back from the last bases) */
+  | { t: 'nights'; nights: number; now: string }
+  | { t: 'base-add'; town: string; info: BaseInfo; now: string }
+  | { t: 'base-remove'; town: string; now: string }
+  | { t: 'base-move'; town: string; by: -1 | 1; now: string }
+  | { t: 'base-nights'; town: string; nights: number | null; now: string }
+  /** "Let the plan choose": no base is pinned */
+  | { t: 'bases-auto'; now: string }
   | { t: 'unpick'; ref: string; now: string }
   | { t: 'must'; ref: string; now: string }
   | { t: 'filters'; patch: Partial<Filters>; now: string }
@@ -190,6 +208,7 @@ export function flowReducer(s: FlowState, a: FlowAction): FlowState {
         pace: defaultPace(a.youngest),
         moves: 'fewer',
         driveDayMin: null,
+        bases: [],
         driveLimitMin: k.reachMin ?? s.driveLimitMin,
         // the old kind's start does not carry across modes
         start: k.mode === 'near' ? s.start : null,
@@ -203,23 +222,47 @@ export function flowReducer(s: FlowState, a: FlowAction): FlowState {
         visit: s.kind && kindDef(s.kind).mode !== k.mode ? {} : s.visit,
       });
     }
-    case 'patch':
-      return touch(s, a.now, a.patch as Partial<FlowState>);
+    case 'patch': {
+      const patch = a.patch as Partial<FlowState>;
+      // fewer nights take nights back from the bases, so the document never holds more than the plan has
+      return touch(s, a.now, patch.nights !== undefined && patch.bases === undefined ? { ...patch, bases: clampBases(s.bases, patch.nights) } : patch);
+    }
     case 'country':
       // a different country drops the areas and the picks of the old one
-      return a.cc === s.cc ? s : touch(s, a.now, { cc: a.cc, ccName: a.name, regions: [], picks: [], visit: {} });
+      return a.cc === s.cc ? s : touch(s, a.now, { cc: a.cc, ccName: a.name, regions: [], picks: [], visit: {}, bases: [], baseInfo: {}, pickAreas: {}, filters: { ...s.filters, areas: [] } });
     case 'region':
       return touch(s, a.now, { regions: a.on ? [...new Set([...s.regions, a.id])] : s.regions.filter((r) => r !== a.id) });
-    case 'regions':
-      return touch(s, a.now, { regions: [...new Set(a.ids)] });
+    case 'regions': {
+      const ids = [...new Set(a.ids)];
+      // an area filter on the list can only name areas still chosen
+      const areas = (s.filters.areas ?? []).filter((r) => ids.includes(r));
+      return touch(s, a.now, { regions: ids, filters: { ...s.filters, areas } });
+    }
     case 'pick': {
       if (s.picks.some((p) => p.ref === a.pick.ref)) return s;
-      return touch(s, a.now, { picks: [...s.picks, a.pick], visit: { ...s.visit, [a.pick.ref]: a.visitMin } });
+      return touch(s, a.now, { picks: [...s.picks, a.pick], visit: { ...s.visit, [a.pick.ref]: a.visitMin }, ...(a.area ? { pickAreas: { ...s.pickAreas, [a.pick.ref]: a.area } } : {}) });
     }
+    case 'nights':
+      return touch(s, a.now, { nights: a.nights, bases: clampBases(s.bases, a.nights) });
+    case 'base-add':
+      return touch(s, a.now, { bases: addBase(s.bases, a.town), baseInfo: { ...s.baseInfo, [a.town]: a.info } });
+    case 'base-remove': {
+      const { [a.town]: _gone, ...baseInfo } = s.baseInfo ?? {};
+      void _gone;
+      return touch(s, a.now, { bases: removeBase(s.bases, a.town), baseInfo });
+    }
+    case 'base-move':
+      return touch(s, a.now, { bases: moveBase(s.bases, a.town, a.by) });
+    case 'base-nights':
+      return touch(s, a.now, { bases: setBaseNights(s.bases, a.town, a.nights, s.nights) });
+    case 'bases-auto':
+      return touch(s, a.now, { bases: [], baseInfo: {} });
     case 'unpick': {
       const { [a.ref]: _gone, ...visit } = s.visit;
+      const { [a.ref]: _area, ...pickAreas } = s.pickAreas ?? {};
       void _gone;
-      return touch(s, a.now, { picks: s.picks.filter((p) => p.ref !== a.ref), visit });
+      void _area;
+      return touch(s, a.now, { picks: s.picks.filter((p) => p.ref !== a.ref), visit, pickAreas });
     }
     case 'must':
       return touch(s, a.now, { picks: s.picks.map((p) => (p.ref === a.ref ? { ...p, must: !p.must } : p)) });

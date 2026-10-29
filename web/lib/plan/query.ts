@@ -18,6 +18,8 @@ export interface QueryExtra {
   strip?: boolean;
   /** override the reach (the stage 1 count and the reach control ask for other values than the state's) */
   driveLimitMin?: number;
+  /** the rows the default list left out, under their own headings (TB-W2 "Not for your party", "Closed in <month>") */
+  list?: 'not_for_party' | 'closed';
 }
 
 export function candidateQuery(s: FlowState, party: Party, x: QueryExtra = {}): PlanCandidatesQuery | null {
@@ -33,12 +35,15 @@ export function candidateQuery(s: FlowState, party: Party, x: QueryExtra = {}): 
     ...(band ? { party: band } : {}),
     ...(x.near ? { near: x.near } : {}),
     ...(x.limit ? { limit: x.limit } : {}),
+    ...(x.list ? { list: x.list } : {}),
     ...(x.page && x.page > 1 ? { page: x.page } : {}),
     pageSize: x.pageSize ?? PLAN_BUILDER_UI.pageSize,
   };
   if (modeOf(s) === 'trip') {
     if (!s.cc || !s.regions.length) return null;
-    return { mode: 'trip', cc: s.cc, regions: s.regions, ...common };
+    // the area pill narrows the list to some of the chosen areas (never to one that is not chosen)
+    const narrowed = (f.areas ?? []).filter((r) => s.regions.includes(r));
+    return { mode: 'trip', cc: s.cc, regions: x.strip || !narrowed.length ? s.regions : narrowed, ...common };
   }
   if (!s.start) return null;
   return { mode: 'near', start: s.start, driveLimitMin: x.driveLimitMin ?? s.driveLimitMin, ...(s.regions.length ? { regions: s.regions } : {}), ...common };

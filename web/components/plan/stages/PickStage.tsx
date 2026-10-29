@@ -13,6 +13,7 @@ import { modeOf, type FlowState } from '@/lib/plan/flow';
 import { MONTH_NAMES, plural, reachText, APPROX } from '@/lib/plan/format';
 import { candidateQuery } from '@/lib/plan/query';
 import { useCandidates } from '@/lib/plan/useCandidates';
+import { useRegions } from '@/lib/plan/useReference';
 import { AskUs } from '../AskUs';
 import { CandidateRow } from '../CandidateRow';
 import { ReachControl } from '../ReachControl';
@@ -33,6 +34,40 @@ const MONTH_OPTIONS = MONTH_NAMES.map((m, i) => ({ value: String(i + 1), label: 
 const MORE_OPTIONS = [{ value: 'stroller', label: 'Stroller friendly' }];
 
 const toPick = (r: PlanCandidateRow) => ({ ref: r.ref, slug: r.slug, name: r.name, must: false });
+const pickAction = (r: PlanCandidateRow, now: string) => ({ t: 'pick' as const, pick: toPick(r), visitMin: r.visitMin, now, area: r.region_name || null });
+
+/** "Not for your party (3)" and "Closed in October (2)" (FLOW stage 3, scenario S9): the rows the list left out, behind a toggle, each with its reason. They cannot be picked. */
+function RemovedList({ kind, count, label, flow, party, youngest }: { kind: 'not_for_party' | 'closed'; count: number; label: string; flow: FlowState; party: StageProps['party']; youngest: number | null }) {
+  const [open, setOpen] = useState(false);
+  const q = open ? candidateQuery(flow, party, { list: kind }) : null;
+  const { state, retry } = useCandidates(q);
+  const id = `plan-removed-${kind}`;
+  return (
+    <section className="plan-removed" data-testid={`removed-${kind}`}>
+      <button type="button" className="plan-toggle" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>
+        <span>
+          {label} <span className="num">({count})</span>
+        </span>
+        <Icon name={open ? 'chevronUp' : 'chevronDown'} size={16} />
+      </button>
+      <div id={id} hidden={!open}>
+        {open && state.status === 'loading' ? <p className="plan-help">Finding them…</p> : null}
+        {open && state.status === 'error' ? (
+          <Banner kind="urgent" action={<Button size="sm" onClick={retry}>Try again</Button>}>
+            We could not load them.
+          </Banner>
+        ) : null}
+        {open && state.status === 'ok' ? (
+          <ul className="cand-list" role="list">
+            {state.rows.map((r) => (
+              <CandidateRow key={r.ref} row={r} picked={false} onToggle={() => undefined} youngest={youngest} why={r.why ?? (kind === 'closed' ? 'Closed in this month' : 'Not for your party')} />
+            ))}
+          </ul>
+        ) : null}
+      </div>
+    </section>
+  );
+}
 
 /** "3 places near Lago di Braies · Show" (FLOW TF6): one collapsed strip under the latest pick, six two-line rows when open. */
 function NearStrip({ flow, party, dispatch, now, anchor, youngest }: StageProps & { anchor: { slug: string; name: string }; youngest: number | null }) {
@@ -55,7 +90,7 @@ function NearStrip({ flow, party, dispatch, now, anchor, youngest }: StageProps 
       {open ? (
         <ul className="near-rows" role="list">
           {rows.map((r) => (
-            <CandidateRow key={r.ref} row={r} picked={false} youngest={youngest} from={short} onToggle={(row) => dispatch({ t: 'pick', pick: toPick(row), visitMin: row.visitMin, now: now() })} full={flow.picks.length >= PLAN_BUILDER_UI.maxPicks} />
+            <CandidateRow key={r.ref} row={r} picked={false} youngest={youngest} from={short} onToggle={(row) => dispatch(pickAction(row, now()))} full={flow.picks.length >= PLAN_BUILDER_UI.maxPicks} />
           ))}
         </ul>
       ) : null}
@@ -71,7 +106,17 @@ export function PickStage({ flow, dispatch, party, now, onTray, trayOpen }: Stag
   const { state, more, retry } = useCandidates(query);
   const youngest = youngestOf(party);
   const f = flow.filters;
-  const hasFilters = f.kinds.length > 0 || f.stroller || f.month !== null || (youngest !== null && !f.kids);
+  const [areaList] = useRegions(mode === 'trip' && flow.regions.length > 1 ? flow.cc : null);
+  const areaOptions = useMemo(() => {
+    if (areaList.status !== 'ok') return [];
+    const all = [...areaList.data.groups.flatMap((g) => g.regions), ...areaList.data.ungrouped];
+    return flow.regions.flatMap((id) => {
+      const r = all.find((x) => x.id === id);
+      return r ? [{ value: r.id, label: r.count < PLAN_BUILDER_UI.thinCount ? `${r.name} · Thin: ${r.count}` : `${r.name} · ${r.count}` }] : [];
+    });
+  }, [areaList, flow.regions]);
+  const areas = f.areas ?? [];
+  const hasFilters = f.kinds.length > 0 || f.stroller || f.month !== null || areas.length > 0 || (youngest !== null && !f.kids);
   const rows = state.status === 'ok' || state.status === 'loading' || state.status === 'error' ? state.rows : [];
   const towns = rows.filter((r) => r.kind === 'town');
   const places = rows.filter((r) => r.kind !== 'town');
@@ -79,7 +124,7 @@ export function PickStage({ flow, dispatch, party, now, onTray, trayOpen }: Stag
   const latestRow = latest ? rows.find((r) => r.ref === latest.ref) : null;
   const full = flow.picks.length >= PLAN_BUILDER_UI.maxPicks;
   const toggle = (r: PlanCandidateRow) =>
-    flow.picks.some((p) => p.ref === r.ref) ? dispatch({ t: 'unpick', ref: r.ref, now: now() }) : dispatch({ t: 'pick', pick: toPick(r), visitMin: r.visitMin, now: now() });
+    flow.picks.some((p) => p.ref === r.ref) ? dispatch({ t: 'unpick', ref: r.ref, now: now() }) : dispatch(pickAction(r, now()));
   const month = f.month ?? flow.month;
   const countLine =
     state.status === 'ok'
@@ -112,6 +157,7 @@ export function PickStage({ flow, dispatch, party, now, onTray, trayOpen }: Stag
               Fits age {youngest}
             </button>
           ) : null}
+          {areaOptions.length > 1 ? <FilterPill label="Area" options={areaOptions} selected={areas} onChange={(v) => dispatch({ t: 'filters', patch: { areas: v }, now: now() })} mode="multi" searchAbove={20} /> : null}
           <FilterPill label="Looking for" options={KIND_OPTIONS} selected={f.kinds} onChange={(v) => dispatch({ t: 'filters', patch: { kinds: v }, now: now() })} mode="multi" searchAbove={20} />
           <FilterPill
             label="Month"
@@ -129,7 +175,7 @@ export function PickStage({ flow, dispatch, party, now, onTray, trayOpen }: Stag
             {countLine}
           </p>
           {hasFilters ? (
-            <button type="button" className="link-btn" onClick={() => dispatch({ t: 'filters', patch: { kinds: [], stroller: false, month: null, kids: true }, now: now() })}>
+            <button type="button" className="link-btn" onClick={() => dispatch({ t: 'filters', patch: { kinds: [], stroller: false, month: null, kids: true, areas: [] }, now: now() })}>
               Clear
             </button>
           ) : null}
@@ -181,9 +227,11 @@ export function PickStage({ flow, dispatch, party, now, onTray, trayOpen }: Stag
           </div>
         ) : null}
         {state.status === 'ok' && state.removed.not_for_party > 0 && youngest !== null && f.kids ? (
-          <p className="plan-help">{plural(state.removed.not_for_party, 'place')} left out because they do not fit age {youngest}. Turn off “Fits age {youngest}” to see them.</p>
+          <RemovedList kind="not_for_party" count={state.removed.not_for_party} label="Not for your party" flow={flow} party={party} youngest={youngest} />
         ) : null}
-        {state.status === 'ok' && state.removed.closed > 0 ? <p className="plan-help">{plural(state.removed.closed, 'place')} left out because they are closed in {month ? MONTH_NAMES[month - 1] : 'that month'}.</p> : null}
+        {state.status === 'ok' && state.removed.closed > 0 ? (
+          <RemovedList kind="closed" count={state.removed.closed} label={`Closed in ${month ? MONTH_NAMES[month - 1] : 'that month'}`} flow={flow} party={party} youngest={youngest} />
+        ) : null}
       </div>
 
       <aside className="plan-tray-col" aria-label="Your picks">

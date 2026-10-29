@@ -18,6 +18,8 @@ interface Props {
   /** the plan already holds as many places as it can */
   full?: boolean;
   className?: string;
+  /** a row of a left-out list ("Not for your party", "Closed in October"): it shows why and cannot be picked (TB-W2) */
+  why?: string | null;
 }
 
 /** The facts under the name: kind, length, time on site (all from the row). */
@@ -29,7 +31,7 @@ export function rowMeta(row: PlanCandidateRow): string {
 }
 
 /** A candidate (components 9.2, 9.5): name and kind line, the drive from the start or the pick, up to three chips, and the Pick control. */
-export function CandidateRow({ row, picked, onToggle, youngest, from, full, className }: Props) {
+export function CandidateRow({ row, picked, onToggle, youngest, from, full, className, why }: Props) {
   const chips: { kind: 'ok' | 'toBook' | 'honest' | 'neutral'; text: string }[] = [];
   if (youngest !== null && row.fit === 'pass') chips.push({ kind: 'ok', text: `Fits ${youngest}` });
   if (row.booking && row.booking !== 'none') chips.push({ kind: 'toBook', text: row.booking });
@@ -54,7 +56,8 @@ export function CandidateRow({ row, picked, onToggle, youngest, from, full, clas
           {drive ? <> · {drive}</> : null}
           {row.kind === 'area' ? ' · we choose its stops' : ''}
         </p>
-        {chips.length ? (
+        {why ? <p className="cand-why">{why}</p> : null}
+        {chips.length && !why ? (
           <p className="cand-chips">
             {chips.slice(0, 3).map((c) => (
               <Chip key={c.text} kind={c.kind} icon={c.kind === 'neutral' ? false : undefined}>
@@ -64,10 +67,14 @@ export function CandidateRow({ row, picked, onToggle, youngest, from, full, clas
           </p>
         ) : null}
       </div>
-      <button type="button" className="pick-btn" aria-pressed={picked} aria-label={`Pick ${row.name}`} disabled={disabled} onClick={() => onToggle(row)} title={disabled ? 'A plan holds at most 40 places' : undefined}>
-        <Icon name={picked ? 'check' : 'plus'} size={15} />
-        <span className="pick-word">{picked ? 'Picked' : 'Pick'}</span>
-      </button>
+      {why ? (
+        <span className="cand-aside" aria-hidden="true" />
+      ) : (
+        <button type="button" className="pick-btn" aria-pressed={picked} aria-label={`Pick ${row.name}`} disabled={disabled} onClick={() => onToggle(row)} title={disabled ? 'A plan holds at most 40 places' : undefined}>
+          <Icon name={picked ? 'check' : 'plus'} size={15} />
+          <span className="pick-word">{picked ? 'Picked' : 'Pick'}</span>
+        </button>
+      )}
     </li>
   );
 }

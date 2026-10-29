@@ -1,10 +1,11 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useId, useMemo, useState } from 'react';
 import type { PlanRegion, PlanRegionGroup, PlanRegions } from '@travel/core/schema/api/plan.ts';
 import { Banner } from '@/components/ui/Banner';
 import { Button } from '@/components/ui/Button';
 import { Checkbox } from '@/components/ui/Checkbox';
+import { Icon } from '@/components/ui/Icon';
 import { Select } from '@/components/ui/Select';
 import { PLAN_BUILDER_UI } from '@/lib/config/product';
 import { modeOf } from '@/lib/plan/flow';
@@ -27,20 +28,27 @@ function RegionRow({ r, on, onToggle }: { r: PlanRegion; on: boolean; onToggle: 
   );
 }
 
-function GroupRows({ g, chosen, onSet }: { g: PlanRegionGroup; chosen: readonly string[]; onSet: (ids: string[], on: boolean) => void }) {
+function GroupRows({ g, chosen, onSet, open, onOpen }: { g: PlanRegionGroup; chosen: readonly string[]; onSet: (ids: string[], on: boolean) => void; open: boolean; onOpen: (open: boolean) => void }) {
   const ids = g.regions.map((r) => r.id);
   const picked = ids.filter((i) => chosen.includes(i));
+  const subId = useId();
+  const thin = g.offered && g.count > 0 && g.count < PLAN_BUILDER_UI.thinCount;
   return (
     <li className="region-group">
       <div className="region-row region-row-group">
         <Checkbox checked={picked.length === ids.length && ids.length > 0} indeterminate={picked.length > 0 && picked.length < ids.length} disabled={!g.offered} onChange={(e) => onSet(ids, e.target.checked)}>
           <span className="region-name">{g.name}</span>
-          {!g.offered ? <span className="region-meta">Not researched enough yet. Ask us to research it.</span> : null}
+          {!g.offered ? <span className="region-meta">Not researched enough yet. Ask us to research it.</span> : thin ? <span className="region-meta">Thin: {plural(g.count, 'place')}</span> : picked.length ? <span className="region-meta">{picked.length} of {ids.length} chosen</span> : null}
         </Checkbox>
         <span className="region-count num">{g.count}</span>
+        {g.offered ? (
+          <button type="button" className="region-toggle" aria-expanded={open} aria-controls={subId} aria-label={`${g.name}: ${open ? 'hide' : 'show'} ${plural(g.regions.length, 'area')}`} onClick={() => onOpen(!open)}>
+            <Icon name={open ? 'chevronUp' : 'chevronDown'} size={16} />
+          </button>
+        ) : null}
       </div>
       {g.offered ? (
-        <ul className="region-sub" role="list">
+        <ul id={subId} className="region-sub" role="list" hidden={!open}>
           {g.regions.map((r) => (
             <RegionRow key={r.id} r={r} on={chosen.includes(r.id)} onToggle={(on) => onSet([r.id], on)} />
           ))}
@@ -50,11 +58,16 @@ function GroupRows({ g, chosen, onSet }: { g: PlanRegionGroup; chosen: readonly 
   );
 }
 
+/** Groups are folded to their header (P2); the ones holding a choice, and the offered group with the most places, start open (FLOW stage 2). */
 function RegionChooser({ data, chosen, onSet }: { data: PlanRegions; chosen: readonly string[]; onSet: (ids: string[], on: boolean) => void }) {
+  const [open, setOpen] = useState<Record<string, boolean>>(() => {
+    const biggest = data.groups.filter((g) => g.offered).sort((a, b) => b.count - a.count)[0]?.id;
+    return Object.fromEntries(data.groups.map((g) => [g.id, g.id === biggest || g.regions.some((r) => chosen.includes(r.id))]));
+  });
   return (
     <ul className="region-list" role="list">
       {data.groups.map((g) => (
-        <GroupRows key={g.id} g={g} chosen={chosen} onSet={onSet} />
+        <GroupRows key={g.id} g={g} chosen={chosen} onSet={onSet} open={open[g.id] ?? false} onOpen={(o) => setOpen((x) => ({ ...x, [g.id]: o }))} />
       ))}
       {data.ungrouped.map((r) => (
         <RegionRow key={r.id} r={r} on={chosen.includes(r.id)} onToggle={(on) => onSet([r.id], on)} />

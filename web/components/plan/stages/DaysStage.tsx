@@ -13,6 +13,7 @@ import { APPROX, durationText, plural } from '@/lib/plan/format';
 import { candidateQuery } from '@/lib/plan/query';
 import { useCandidates } from '@/lib/plan/useCandidates';
 import { CandidateRow } from '../CandidateRow';
+import { BaseEstimate, BasesSection } from './BasesSection';
 import type { StageProps } from './types';
 
 const PACES: { value: Pace; label: string }[] = [
@@ -53,6 +54,7 @@ export function DaysStage({ flow, dispatch, party, now }: StageProps) {
               {plural(flow.nights, 'night')} will leave about {plural(short, 'place')} out
             </p>
           ) : null}
+          <BaseEstimate flow={flow} />
         </div>
 
         <Stepper
@@ -63,8 +65,10 @@ export function DaysStage({ flow, dispatch, party, now }: StageProps) {
           decLabel="Fewer nights"
           incLabel="More nights"
           format={(n) => `${n} · ${plural(n + 1, 'day')}`}
-          onChange={(n) => dispatch({ t: 'patch', patch: { nights: n }, now: now() })}
+          onChange={(n) => dispatch({ t: 'nights', nights: n, now: now() })}
         />
+
+        {flow.nights >= 2 ? <BasesSection flow={flow} dispatch={dispatch} party={party} now={now} /> : null}
 
         {asksDriveDay(flow) ? (
           <div className="plan-field">
