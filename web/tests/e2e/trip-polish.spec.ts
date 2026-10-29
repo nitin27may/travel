@@ -99,8 +99,11 @@ test.describe('trip page polish (TRP, stage 4)', () => {
       await page.setViewportSize(size);
       await page.goto(`${site.url}${ROCKIES}`); // the whole-trip shape is in the Summary
       // the second pass finds the shape open (it is remembered for the trip)
-      if ((await page.locator('.shape-toggle').getAttribute('aria-expanded')) !== 'true') await page.locator('.shape-toggle').click();
-      await expect(page.locator('.shape-table')).toBeVisible();
+      // a click before hydration is lost, and the remembered state arrives after it, so open it until the table shows
+      await expect(async () => {
+        if ((await page.locator('.shape-toggle').getAttribute('aria-expanded')) !== 'true') await page.locator('.shape-toggle').click();
+        await expect(page.locator('.shape-table')).toBeVisible({ timeout: 2000 });
+      }).toPass({ timeout: 15_000 });
       await expect(page.locator('.tl-scale-tick')).toHaveCount(0);
       const clipped = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('.shape-drive, .shape-plan, .shape-notes')].filter((e) => e.scrollWidth > e.clientWidth + 1).length);
       expect(clipped, `${size.width}`).toBe(0);
