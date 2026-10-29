@@ -20,6 +20,11 @@ export interface TimelineSession {
   sunPoints: Record<number, { lat: number; lon: number } | null>;
   /** The map's own route model (bases and placed points), so a route file is made from the same chain as the map. */
   route?: RouteModel;
+  /**
+   * True while the page still shows the server's timelines for a plan the scheduler has not run yet (useTimeline's `pending`): a file made now
+   * would not be the person's days. Mine's calendar hand-off waits for false (review STEP2-PRV PR-011).
+   */
+  pending?: boolean;
 }
 
 let current: TimelineSession | null = null;
