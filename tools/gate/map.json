@@ -339,6 +339,7 @@
       "suites": ["web.fixture"], "e2e": ["auth-email*.spec.ts", "auth-google*.spec.ts", "shell-report.spec.ts"] },
     { "id": "web-trip-edit", "why": "a person's own trip page /t/<id>/ (Step 2): the document source, the shell and the flag",
       "paths": ["web/app/t/**", "web/lib/trip-edit/**", "web/components/trips/edit/**"], "suites": ["web.fixture"], "e2e": ["t-*.spec.ts", "trip-timeline.spec.ts", "party-bar.spec.ts", "mine-trips.spec.ts"] },
+    { "id": "web-plan-service", "why": "the builder's server side (TB-API, N2): the plan service feeds the add picker and the builder, so both specs run", "paths": ["web/lib/server/planService.ts", "web/app/api/v1/plan/**", "web/app/api/v1/near/**"], "e2e": ["plan-flow.spec.ts", "t-edit-add.spec.ts"] },
     { "id": "web-plan", "why": "the trip builder /plan/ (TB-W1): its page, stages, device store and hand-off, behind NEXT_PUBLIC_PLAN_BUILDER with NEXT_PUBLIC_TRIP_EDIT",
       "paths": ["web/app/plan/**", "web/components/plan/**", "web/lib/plan/**"], "suites": ["web.fixture"], "e2e": ["plan-flow.spec.ts"] },
     { "id": "web-mine", "why": "the Mine page, the bar item and the dot read the copies and favourites envelopes from storage",

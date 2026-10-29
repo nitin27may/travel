@@ -412,17 +412,17 @@ describe('what the public timeline says', () => {
 
 describe('the stops carry their public points for a move in edit mode (DG-02, DG2F)', () => {
   const items = (slug: string) => data.internals.trips.find((t) => t.slug === slug)!.days.flatMap((d) => (d.scheduleInput?.variants ?? []).flatMap((v) => v.items));
-  it('82 of the 91 Rockies stops have a point: the 66 page points, the eleven stops with no page link and Sarrail Ridge from their own records, the four OSM trailheads', () => {
+  it('83 of the 91 Rockies stops have a point: the 66 page points, the eleven stops with no page link and Sarrail Ridge from their own records, the four OSM trailheads and Miette Mine Trail (its OSM node, stored after the towns refresh)', () => {
     const rk = items('canadian-rockies-2029');
     expect(rk).toHaveLength(91);
-    expect(rk.filter((i) => i.placePoint).length).toBe(82);
+    expect(rk.filter((i) => i.placePoint).length).toBe(83);
     // the join gap of DG-02: no place-page slug, a capture record with an OSM point
     for (const id of ['banff-gondola', 'rawson-lake', 'lake-minnewanka-cruise', 'maligne-lake-cruise', 'emerald-lake-canoe', 'lake-louise-canoe', 'moraine-lake-canoe', 'columbia-icefield-ice-explorer']) {
       expect(rk.filter((i) => i.id === id).every((i) => i.placePoint), id).toBe(true);
     }
-    for (const id of ['iceline-trail', 'emerald-lakeshore', 'lake-louise-lakeshore', 'moraine-lakeshore', 'sarrail-ridge']) expect(rk.find((i) => i.id === id)!.placePoint, id).toBeTruthy();
-    // held for its place (the car park row), a derived trailhead waiting for the towns refresh, logistics: none
-    for (const id of ['toe-glacier-walk', 'jasper-miette-mine-trail', 'bear-spray-groceries', 'sunshine-gondola']) expect(rk.find((i) => i.id === id)!.placePoint ?? null, id).toBeNull();
+    for (const id of ['iceline-trail', 'emerald-lakeshore', 'lake-louise-lakeshore', 'moraine-lakeshore', 'sarrail-ridge', 'jasper-miette-mine-trail']) expect(rk.find((i) => i.id === id)!.placePoint, id).toBeTruthy();
+    // held for its place (the car park row), logistics: none
+    for (const id of ['toe-glacier-walk', 'bear-spray-groceries', 'sunshine-gondola']) expect(rk.find((i) => i.id === id)!.placePoint ?? null, id).toBeNull();
     // the published days never read it: every Rockies stop keeps point null, so its legs stay the plan's
     expect(rk.every((i) => i.point === null)).toBe(true);
   });
@@ -434,7 +434,8 @@ describe('the stops carry their public points for a move in edit mode (DG-02, DG
   it('recordPoint reads only a record\'s own point: never a derived trailhead, and never a row held back for its place', () => {
     const root = travelRoot();
     expect(recordPoint(root, 'legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe')).toMatchObject({ lat: expect.any(Number), lon: expect.any(Number) });
-    expect(recordPoint(root, 'legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail')).toBeNull();
+    // Miette Mine Trail: its own OSM node was stored after the towns refresh (held back from the place page, read by the plan model)
+    expect(recordPoint(root, 'legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail')).toMatchObject({ lat: expect.any(Number), lon: expect.any(Number) });
     expect(recordPoint(root, 'legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk')).toBeNull();
     expect(recordPoint(root, null)).toBeNull();
   });
