@@ -65,16 +65,27 @@ const EXTENSION_IMPORTERS = [
  * pageModel.ts (STEP2-M), warnings.ts, summary.ts (STEP2-B1: the just-built line's counts, one rule for the builder and the page) and core/src/schema/plan-draft.ts. It is a lazy chunk loaded only on /t/<id>/; the public
  * /trips/<slug>/ page never loads it (EA12, held by the budget report). Nothing of the builder's UI or API is reachable from it.
  *
+ * STEP2-B2 widens X-S2 by two files: the device re-flow (web/lib/trip-edit/reflow.ts) packs a built trip's days with the engine's own
+ * packer, core/src/plan/pack.ts (abstract: ids, minutes and a cost callback, written so a client re-flow can run it), and the Rebuild
+ * body is typed by core/src/schema/api/plan.ts (types only; the request goes through DataClient `planBuild`, P9).
+ *
  * X10 (FLOW TF9, re-pointed by Step 2 ruling R2): the details page's Settings sheet, web/components/trips/edit/settings/**, mounts the
- * builder's stage components lazily, so it imports web/components/plan/stages/** and nothing else of the builder.
+ * builder's stage components lazily, so it imports web/components/plan/stages/** and nothing else of the builder. STEP2-B2: the built
+ * Settings (settings/built/**) drive those stages with the builder's own state machine and document mapping (web/lib/plan/flow.ts,
+ * draft.ts), list Where you start and Getting there from the builder's reference hook (web/lib/plan/useReference.ts), and load the stages'
+ * stylesheet (web/components/plan/plan.css). No builder key, store or API is reachable from them.
  */
 export const EXTENSION_ROOTS: readonly { id: string; root: string; targets: readonly string[] }[] = [
   {
     id: 'X-S2',
     root: 'web/lib/trip-edit',
-    targets: ['core/src/plan/ops', 'core/src/plan/sync', 'core/src/plan/doc', 'core/src/plan/pageModel', 'core/src/plan/warnings', 'core/src/plan/summary', 'core/src/schema/plan-draft'],
+    targets: ['core/src/plan/ops', 'core/src/plan/sync', 'core/src/plan/doc', 'core/src/plan/pageModel', 'core/src/plan/warnings', 'core/src/plan/summary', 'core/src/schema/plan-draft', 'core/src/plan/pack', 'core/src/schema/api/plan'],
   },
-  { id: 'X10', root: 'web/components/trips/edit/settings', targets: ['web/components/plan/stages'] },
+  {
+    id: 'X10',
+    root: 'web/components/trips/edit/settings',
+    targets: ['web/components/plan/stages', 'web/lib/plan/flow', 'web/lib/plan/draft', 'web/lib/plan/useReference', 'web/components/plan/plan.css'],
+  },
 ];
 
 /** The builder files a file imports (repo paths without the extension). */
@@ -190,10 +201,15 @@ describe('the trip builder stays inside its fence (15.4 G1 to G5)', () => {
     expect(ok('web/lib/trip-edit/levels.ts', "import { warnLevel } from '@travel/core/plan/warnings.ts';")).toBe(true);
     expect(ok('web/lib/trip-edit/model.ts', "const m = await import('@travel/core/plan/pageModel.ts');")).toBe(true);
     expect(ok('web/lib/trip-edit/x.ts', "import Tray from '@/components/plan/Tray';")).toBe(false);
-    expect(ok('web/lib/trip-edit/x.ts', "import { planBuild } from '@travel/core/schema/api/plan.ts';")).toBe(false);
+    expect(ok('web/lib/trip-edit/x.ts', "import type { PlanBuildInput } from '@travel/core/schema/api/plan.ts';")).toBe(true);
+    expect(ok('web/lib/trip-edit/reflow.ts', "import { packDays } from '@travel/core/plan/pack.ts';")).toBe(true);
+    expect(ok('web/lib/trip-edit/x.ts', "import { buildPlan } from '@travel/core/plan/engine.ts';")).toBe(false);
     expect(ok('web/lib/trip-edit/x.ts', "import { k } from '@/lib/plan/keys';")).toBe(false);
     expect(ok('web/components/trips/edit/settings/Where.tsx', "import Where from '@/components/plan/stages/Where';")).toBe(true);
     expect(ok('web/components/trips/edit/settings/Where.tsx', "import { applyOp } from '@travel/core/plan/ops.ts';")).toBe(false);
+    expect(ok('web/components/trips/edit/settings/built/Built.tsx', "import { flowReducer } from '@/lib/plan/flow';")).toBe(true);
+    expect(ok('web/components/trips/edit/settings/built/Built.tsx', "import { saveDraft } from '@/lib/plan/store';")).toBe(false);
+    expect(ok('web/components/trips/edit/settings/built/Built.tsx', "import { k } from '@/lib/plan/keys';")).toBe(false);
     expect(ok('web/components/trips/edit/Bar.tsx', "import Where from '@/components/plan/stages/Where';")).toBe(false);
     expect(ok('web/components/trips/timeline/Entry.tsx', "import { applyOp } from '@travel/core/plan/ops.ts';")).toBe(false);
     expect(ok('web/app/trips/[slug]/page.tsx', "import { applyOp } from '@travel/core/plan/ops.ts';")).toBe(false);
