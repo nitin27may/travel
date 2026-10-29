@@ -71,6 +71,12 @@ describe("osm_ref as a bare id or a Val (5.2)", () => {
     let n = 0;
     for (const { rec } of w.cap.values()) {
       if (rec.osm_ref === undefined) continue;
+      // a dated searched_none (contract since LT-C) is no element; it reads as null and has no id to check
+      const o = rec.osm_ref as unknown;
+      if (typeof o === "object" && o !== null && (o as { state?: string }).state !== "value") {
+        expect(osmRefOf(rec), rec.ref).toBeNull();
+        continue;
+      }
       n++;
       expect(osmRefOf(rec), rec.ref).toMatch(/^(node|way|relation)\/\d+$/);
     }

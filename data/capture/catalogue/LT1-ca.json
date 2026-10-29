@@ -702,6 +702,18 @@
       "meta": {
         "schema_version": 1,
         "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "osm_ref": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Overpass building=boathouse within 1.5 km",
+          "LT-WHERE QID tag and name search"
+        ],
+        "note": "No OSM element for the boathouse."
       }
     },
     {
