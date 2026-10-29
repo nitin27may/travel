@@ -73,13 +73,16 @@ test.describe('trail whose route is not confirmed', () => {
 });
 
 test.describe('Rockies trail with no track', () => {
-  test('has a page with the research, the link checklist and an honest empty map', async ({ page, site }) => {
+  test('has a page with the research, the link checklist and a map of its point without a route line', async ({ page, site }) => {
     await page.goto(`${site.url}${LARCH}`);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Larch Valley to Sentinel Pass');
     await expect(page.locator('.pl-kicker')).toHaveText(/Trail · Banff · Alberta/);
     await expect(page.getByText('11.2 km').first()).toBeVisible();
     await expect(page.getByText('Shape estimated from length and climb')).toBeVisible();
-    await expect(page.getByText(/No point is stored for this place yet, so there is no map/)).toBeVisible();
+    // its trailhead point is stored now (the map shows it), but there is still no track to draw or to profile; a place with no point at all says so (PlacePage .pl-gap)
+    await expect(page.locator('.pl-mapcard')).toBeVisible();
+    await expect(page.getByText(/No point is stored for this place yet, so there is no map/)).toHaveCount(0);
+    await expect(page.getByRole('img', { name: /Elevation profile along the stored route/ })).toHaveCount(0);
     await expect(page.getByRole('tab')).toHaveText([/Official\s*[1-9]/, /Booking\s*· not checked yet/, /Route\s*[1-9]/, /Conditions\s*· not checked yet/, /Report\s*· not checked yet/]);
     await page.getByRole('tab', { name: /Route/ }).click();
     const alltrails = page.getByRole('tabpanel').locator('li', { hasText: 'AllTrails' });
