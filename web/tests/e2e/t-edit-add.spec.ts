@@ -105,7 +105,7 @@ test.describe('edit mode: the add picker', () => {
     await expect.poll(() => titles(page, 5)).toContain(name);
   });
 
-  test('search reaches the whole catalogue, nearest the base first; the Rainy day chip is drawn only when a place on show is marked indoor', async ({ page, site }) => {
+  test('search reaches the whole catalogue, nearest the base first; the Rainy day chip is not drawn on a day with no indoor place on show', async ({ page, site }) => {
     await open(page, site);
     await page.locator('#day-5 .tl-add-open').click();
     const dlg = picker(page);
@@ -113,9 +113,28 @@ test.describe('edit mode: the add picker', () => {
     await expect(dlg.getByRole('heading', { name: 'Search results' })).toBeVisible();
     const names = await dlg.locator('#add-h-search + ul .add-title').allTextContents();
     expect(names.length).toBeGreaterThan(1);
-    // no place in the catalogue carries the indoor flag yet, so the chip is not drawn (a chip that narrows to nothing is worse than none)
+    // Day 5 is at Jasper: no place within 30 km and no "lake" match is indoor (DG-01), so the chip is not drawn (a chip that narrows to nothing is worse than none)
     await expect(dlg.getByRole('group', { name: 'Narrow the places' })).toBeVisible();
     await expect(dlg.getByRole('button', { name: 'Rainy day' })).toHaveCount(0);
+  });
+
+  test('Rainy day is drawn on a Banff day, which has indoor places near it, and keeps only those', async ({ page, site }) => {
+    await open(page, site);
+    await page.locator('#day-1 .tl-add-open').click();
+    const dlg = picker(page);
+    const near = dlg.locator('#add-h-near + ul .add-title');
+    await expect(near.first()).toBeVisible();
+    const before = await near.allTextContents();
+    const chip = dlg.getByRole('button', { name: 'Rainy day' });
+    await expect(chip).toHaveAttribute('aria-pressed', 'false');
+    await chip.click();
+    await expect(chip).toHaveAttribute('aria-pressed', 'true');
+    // the indoor places within 30 km of Banff: Cave and Basin (from its record) and the Banff Springs spa (from its type); Kids is on for a
+    // child of 10, so the spa (from 18) drops out and Cave and Basin (from 8) stays
+    await expect.poll(() => near.allTextContents()).toEqual(['Cave and Basin National Historic Site']);
+    expect(before.length).toBeGreaterThan(1);
+    await chip.click();
+    await expect.poll(() => near.allTextContents()).toEqual(before);
   });
 
   test('add=<slug> opens the picker with that place, one row per day, and leaves the address; a park opens its members; a far place gets no day', async ({ page, site }) => {

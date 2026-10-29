@@ -9847,6 +9847,9 @@
               "operated_default": {
                 "type": "boolean"
               },
+              "indoor_default": {
+                "type": "boolean"
+              },
               "ext": {
                 "anyOf": [
                   {

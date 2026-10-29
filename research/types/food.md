@@ -6,7 +6,17 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 ## Places to eat (`food.eat`)
 
-Records: place. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D.
+Records: place. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
+
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of.
+
+Suitability: R wheelchair; R when operated none; A kid_note, stroller, stroller_extent, accessible_toilet, baby_change, access_season.
+
+Links: official; R? none; A menu, booking, osm.
+
+### Food truck (`food.eat.food_truck`)
+
+Records: place. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D. Rainy day: not indoor by type; a relevance weather of indoor on the record says yes.
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of.
 
@@ -16,7 +26,7 @@ Links: official; R? none; A menu, booking, osm.
 
 ## Breweries and wineries (`food.drink`)
 
-Records: place, offer. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D.
+Records: place, offer. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of.
 
@@ -29,6 +39,26 @@ Links: official; R? none; A menu, booking, osm.
 ## Markets (`food.market`)
 
 Records: place. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D.
+
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of.
+
+Suitability: R wheelchair; R when operated none; A kid_note, stroller, stroller_extent, accessible_toilet, baby_change, access_season.
+
+Links: official; R? none; A menu, booking, osm.
+
+### Food hall (`food.market.food_hall`)
+
+Records: place. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
+
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of.
+
+Suitability: R wheelchair; R when operated none; A kid_note, stroller, stroller_extent, accessible_toilet, baby_change, access_season.
+
+Links: official; R? none; A menu, booking, osm.
+
+### Grocery (`food.market.grocery`)
+
+Records: place. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of.
 

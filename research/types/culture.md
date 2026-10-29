@@ -6,7 +6,19 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 ## Museums (`culture.museum`)
 
-Records: place, offer. Suitability profile `sight` (never). Effort: none, time is shown. Sources, in order: O T F D.
+Records: place, offer. Suitability profile `sight` (never). Effort: none, time is shown. Sources, in order: O T F D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
+
+**place**: R name, type, point, area_id, wikidata, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of.
+
+**offer (ticket)**: R name, type, summary, season, hours, price, links, at; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, on, run_by, included.
+
+Suitability: R kid_note, stroller, wheelchair, on_site_min; R when operated none; A min_age, adult_required, age_band, carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, picnic, baby_change, access_season.
+
+Links: official; R? none; A hours_rates, booking, accessibility, tourism_board, osm, wikidata, wikipedia, commons.
+
+### Open air museum (`culture.museum.open_air_museum`)
+
+Records: place, offer. Suitability profile `sight` (never). Effort: none, time is shown. Sources, in order: O T F D. Rainy day: not indoor by type; a relevance weather of indoor on the record says yes.
 
 **place**: R name, type, point, area_id, wikidata, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of.
 
@@ -26,9 +38,29 @@ Suitability: R kid_note, stroller, wheelchair, on_site_min; R when operated none
 
 Links: official; R? none; A hours_rates, booking, accessibility, tourism_board, osm, wikidata, wikipedia, commons.
 
+### Palace (`culture.heritage.palace`)
+
+Records: place. Suitability profile `sight` (never). Effort: none, time is shown. Sources, in order: O T F D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
+
+**place**: R name, type, point, area_id, wikidata, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of.
+
+Suitability: R kid_note, stroller, wheelchair, on_site_min; R when operated none; A min_age, adult_required, age_band, carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, picnic, baby_change, access_season.
+
+Links: official; R? none; A hours_rates, booking, accessibility, tourism_board, osm, wikidata, wikipedia, commons.
+
+### Visitor centre (`culture.heritage.visitor_centre`)
+
+Records: place. Suitability profile `sight` (never). Effort: none, time is shown. Sources, in order: O T F D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
+
+**place**: R name, type, point, area_id, wikidata, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of.
+
+Suitability: R kid_note, stroller, wheelchair, on_site_min; R when operated none; A min_age, adult_required, age_band, carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, picnic, baby_change, access_season.
+
+Links: official; R? none; A hours_rates, booking, accessibility, tourism_board, osm, wikidata, wikipedia, commons.
+
 ## Show caves and mines (`culture.under`)
 
-Records: place, offer. Suitability profile `show_cave` (flag, extension cave). Effort: none, time is shown. Sources, in order: O T F D.
+Records: place, offer. Suitability profile `show_cave` (flag, extension cave). Effort: none, time is shown. Sources, in order: O T F D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
 
 **place**: R name, type, point, area_id, wikidata, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of.
 
@@ -48,9 +80,49 @@ Suitability: R kid_note, stroller, wheelchair, on_site_min; R when operated none
 
 Links: official; R? none; A hours_rates, booking, accessibility, tourism_board, osm, wikidata, wikipedia, commons.
 
+### Factory tour (`culture.tour.factory_tour`)
+
+Records: offer. Suitability profile `sight` (never). Effort: none, time is shown. Sources, in order: O T F D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
+
+**offer (experience)**: R name, type, summary, season, hours, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, on, cancellation, included.
+
+Suitability: R kid_note, stroller, wheelchair, on_site_min; R when operated none; A min_age, adult_required, age_band, carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, picnic, baby_change, access_season.
+
+Links: official; R? none; A hours_rates, booking, accessibility, tourism_board, osm, wikidata, wikipedia, commons.
+
+### Cooking class (`culture.tour.cooking_class`)
+
+Records: offer. Suitability profile `sight` (never). Effort: none, time is shown. Sources, in order: O T F D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
+
+**offer (experience)**: R name, type, summary, season, hours, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, on, cancellation, included.
+
+Suitability: R kid_note, stroller, wheelchair, on_site_min; R when operated none; A min_age, adult_required, age_band, carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, picnic, baby_change, access_season.
+
+Links: official; R? none; A hours_rates, booking, accessibility, tourism_board, osm, wikidata, wikipedia, commons.
+
+### Tasting (`culture.tour.tasting`)
+
+Records: offer. Suitability profile `sight` (never). Effort: none, time is shown. Sources, in order: O T F D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
+
+**offer (experience)**: R name, type, summary, season, hours, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, on, cancellation, included.
+
+Suitability: R kid_note, stroller, wheelchair, on_site_min; R when operated none; A min_age, adult_required, age_band, carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, picnic, baby_change, access_season.
+
+Links: official; R? none; A hours_rates, booking, accessibility, tourism_board, osm, wikidata, wikipedia, commons.
+
 ## Shows and games (`culture.show`)
 
 Records: offer. Suitability profile `sight` (never). Effort: none, time is shown. Sources, in order: O T F D.
+
+**offer (ticket)**: R name, type, summary, season, hours, price, links, at; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, on, run_by, included.
+
+Suitability: R kid_note, stroller, wheelchair, on_site_min; R when operated none; A min_age, adult_required, age_band, carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, picnic, baby_change, access_season.
+
+Links: official; R? none; A hours_rates, booking, accessibility, tourism_board, osm, wikidata, wikipedia, commons.
+
+### Performance (`culture.show.performance`)
+
+Records: offer. Suitability profile `sight` (never). Effort: none, time is shown. Sources, in order: O T F D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
 
 **offer (ticket)**: R name, type, summary, season, hours, price, links, at; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, on, run_by, included.
 

@@ -31,6 +31,11 @@ export const typeNode = z.strictObject({
   profile: z.string().min(1).optional(),
   /** the default of a profile's `operated` flag for records of this type that do not state it */
   operated_default: z.boolean().optional(),
+  /**
+   * Whether a place of this type is indoor or under cover, so it suits a rainy day (DG-01, S2D-IND): the type's default of the `indoor`
+   * property; children inherit it and may set false. Absent on a mixed type (a gondola, a hot spring): only a record can say.
+   */
+  indoor_default: z.boolean().optional(),
   /** the extension kind allowed on records of this node, when it differs from its profile's */
   ext: z.string().min(1).nullable().optional(),
   /** the layers whose records carry the suitability block (a lift's block sits on its ticket offer) */

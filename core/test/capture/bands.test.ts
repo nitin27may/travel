@@ -6,12 +6,13 @@ import { emptyIncoming } from "../../src/capture/records.ts";
 import type { Incoming, World } from "../../src/capture/records.ts";
 import type { CaptureRecord } from "../../src/schema/capture/records.ts";
 import type { SuitabilityRecord } from "../../src/schema/suitability.ts";
+import type { RelevanceRecord } from "../../src/schema/relevance.ts";
 import { sg, v, walk } from "../suitability/helpers.ts";
 
 const noInc = (): Incoming => emptyIncoming();
 const cv = <T>(x: T) => ({ v: x, state: "value" as const, basis: "operator_rule" as const, src: ["src-0001"] });
 
-function world(caps: CaptureRecord[], suits: SuitabilityRecord[]): World {
+function world(caps: CaptureRecord[], suits: SuitabilityRecord[], weather: Record<string, string> = {}): World {
   const cap = new Map(caps.map((r) => [r.ref, { rec: r, trip: "t", file: "" }]));
   const suit = new Map(suits.map((r) => [r.ref, { rec: r, trip: "t", file: "" }]));
   const incoming = new Map<string, Incoming>();
@@ -19,7 +20,8 @@ function world(caps: CaptureRecord[], suits: SuitabilityRecord[]): World {
     for (const t of r.at ?? []) incoming.set(t, { ...(incoming.get(t) ?? noInc()), at: [...(incoming.get(t)?.at ?? []), r.ref] });
     for (const t of r.on ?? []) incoming.set(t.ref, { ...(incoming.get(t.ref) ?? noInc()), on: [...(incoming.get(t.ref)?.on ?? []), r.ref] });
   }
-  return { root: "", cap, suit, rel: new Map(), points: {}, operators: new Map(), alias: new Map(), incoming, trips: new Map() };
+  const rel = new Map(Object.entries(weather).map(([ref, w]) => [ref, { rec: { ref, weather: cv(w) } as unknown as RelevanceRecord, trip: "t", file: "" }]));
+  return { root: "", cap, suit, rel, points: {}, operators: new Map(), alias: new Map(), incoming, trips: new Map() };
 }
 
 describe("band edges", () => {
@@ -142,10 +144,12 @@ describe("bandsOf", () => {
     expect(bandsOf(w, ref).flags).toEqual(["!swim"]);
   });
 
-  it("a sight with no hours and no values: every band is null, never a guess", () => {
+  it("a sight with no hours and no values: every band is null, never a guess; only its type's authored indoor default rides", () => {
     const ref = "place/museum";
     const w = world([{ ref, type: "culture.museum.museum", layer: "place", name: "Museum" }], []);
-    expect(bandsOf(w, ref)).toEqual(NO_BANDS);
+    expect(bandsOf(w, ref)).toEqual({ ...NO_BANDS, flags: ["indoor"] });
+    const view = world([{ ref: "place/v", type: "nature.viewpoint.viewpoint", layer: "place", name: "View" }], []);
+    expect(bandsOf(view, "place/v")).toEqual(NO_BANDS);
   });
 
   it("a sight's time is the on-site time", () => {
@@ -176,5 +180,31 @@ describe("bandsOf", () => {
     const b = bandsOf(w, ref);
     expect(Object.keys(b).sort()).toEqual([...BAND_KEYS].sort());
     for (const val of Object.values(b)) expect(typeof val === "string" || typeof val === "number" || val === null || (Array.isArray(val) && val.every((x) => typeof x === "string"))).toBe(true);
+  });
+});
+
+describe("indoor (DG-01): the type's default, else the record's relevance weather", () => {
+  const one = (type: string, weather?: string) => bandsOf(world([{ ref: "place/p", type, layer: "place", name: "P" }], [], weather ? { "place/p": weather } : {}), "place/p").flags;
+  it("indoor types: museum, visitor centre, show cave, aquarium, spa, cafe, indoor play", () => {
+    for (const t of ["culture.museum.museum", "culture.heritage.visitor_centre", "culture.under.show_cave", "animals.see.aquarium", "water.thermal.spa", "food.eat.cafe", "play.playground.indoor_play", "access.amenity.visitor_info"]) expect(one(t), t).toEqual(["indoor"]);
+  });
+  it("not indoor: a viewpoint, a weather-proof one included; an open-air museum and a food truck override their parent; mixed types say nothing", () => {
+    for (const t of ["nature.viewpoint.viewpoint", "nature.viewpoint.skywalk_platform", "culture.museum.open_air_museum", "food.eat.food_truck", "ride.lift.gondola", "water.thermal.hot_spring", "water.thermal.thermal_bath"]) expect(one(t), t).toEqual([]);
+    expect(one("nature.viewpoint.viewpoint", "any_weather")).toEqual([]);
+  });
+  it("a mixed type is indoor when its record's relevance weather says indoor", () => {
+    expect(one("ride.lift.gondola", "indoor")).toEqual(["indoor"]);
+    expect(one("culture.heritage.historic_site", "indoor")).toEqual(["indoor"]);
+  });
+  it("indoor rides first, so the six-flag cap never drops it", () => {
+    const ref = "place/x";
+    const w = world([{ ref, type: "water.swim.aquatic_centre", layer: "place", name: "X" }], [{
+      ref, kind: "lake", subkind: "lake",
+      suitability: { toilets: v(["flush"], "official_info"), change_rooms: v(true, "official_info"), wheelchair: v("step_free", "official_info"), stroller: v("yes", "official_info"), water_safety: { lifeguard: v(true, "official_info") }, participation: { guide: v("required", "official_info") } },
+      ext: { kind: "water", swimming: v("allowed", "official_info") },
+    } as unknown as SuitabilityRecord]);
+    const f = bandsOf(w, ref).flags;
+    expect(f[0]).toBe("indoor");
+    expect(f.length).toBeLessThanOrEqual(MAX_FLAGS);
   });
 });

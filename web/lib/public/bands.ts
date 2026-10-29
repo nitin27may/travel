@@ -2,6 +2,7 @@
 // source (principle P8): this module hands the card exactly the keys of `ListBands`, nothing else of the suitability record.
 import { bandsOf } from '@travel/core/capture/bands.ts';
 import { NO_BANDS } from '@travel/core/capture/bandKeys.ts';
+import { indoorDefaultOf } from '@travel/core/capture/indoor.ts';
 import type { ListBands } from '@travel/core/capture/bandKeys.ts';
 import type { World } from '@travel/core/capture/records.ts';
 import { normName } from './places';
@@ -55,7 +56,8 @@ export function placeFacets(world: World, root: string, places: readonly PublicP
     }
     const cap = ref ? world.cap.get(ref)?.rec : undefined;
     const type = cap?.type ?? types.byPair.get(`${p.kind}/${p.subkind ?? ''}`) ?? CATEGORY_OF_KIND[p.kind] ?? null;
-    out.set(p.slug, { type, ref: ref ?? null, bands: ref ? bandsOf(world, ref) : { ...NO_BANDS, flags: [] } });
+    // a place with no record still has the type its kind implies, and the type alone can say it is indoor (DG-01)
+    out.set(p.slug, { type, ref: ref ?? null, bands: ref ? bandsOf(world, ref) : { ...NO_BANDS, flags: indoorDefaultOf(type) ? ['indoor'] : [] } });
   }
   return out;
 }

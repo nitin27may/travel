@@ -12,6 +12,9 @@ import { bearingOf, candidateOf, kmBetween, type Found } from './place';
 /** The row flags the Rainy day chip filters on (the capture `indoor` property; `indoor-or-rainy-day` is the facet's name for it). */
 const RAINY_FLAGS: readonly string[] = ['indoor', 'indoor-or-rainy-day'];
 export const isRainy = (f: Pick<Found, 'flags'>): boolean => f.flags.some((x) => RAINY_FLAGS.includes(x));
+/** The plan model's own near places for a day that the Rainy day chip keeps (a build with no API; DG-01). */
+export const rainyCandidates = (m: TimelineModel, day: number): AddCandidate[] =>
+  (m.addByDay[day] ?? []).map((k) => m.addables[k]).filter((c): c is AddCandidate => !!c && c.indoor === true && groupOn(m, day, c) === 'nearby');
 
 export type GroupId = 'versions' | 'removed' | 'maybe' | 'trip' | 'near' | 'search';
 
@@ -265,7 +268,8 @@ export function buildSections(i: Inputs): Section[] {
   push('trip', 'Elsewhere on this trip, near here', take(cands('trip').map((c) => rowOfCandidate(c, i, 'trip')).filter(shown)));
   // 6. places with a page near the day's base: the catalogue's answer, else the plan model's own short list
   const nearFound = i.near ? i.near.filter((f) => matches(needle, f.name, f.kindLabel, f.area) && passesChips(f, i.chips, i.youngest)).map((f) => rowOfFound(f, i, 'near')) : cands('nearby').map((c) => rowOfCandidate(c, i, 'near'));
-  const filtered = i.near ? nearFound : i.chips.rainy || i.chips.kids ? [] : nearFound;
+  // with no API the model's candidates carry the indoor bit but no kid fit, so Kids still narrows them to nothing
+  const filtered = i.near ? nearFound : i.chips.kids ? [] : i.chips.rainy ? nearFound.filter((r) => r.cand?.indoor === true) : nearFound;
   push('near', `Within ${ADD_NEARBY_KM} km, with a place page`, take(filtered.filter(shown)));
   // 8. the catalogue's search results
   if (needle && i.search) {

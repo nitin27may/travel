@@ -46,6 +46,16 @@ Suitability: R none; R when operated none; A wheelchair, access_detail, accessib
 
 Links: official; R? booking; A status, webcam.
 
+### Visitor info (`access.amenity.visitor_info`)
+
+Records: place. Suitability profile `amenity` (never). Effort: none, time is shown. Sources, in order: F D C. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
+
+**place**: R name, type, point, area_id, summary, access_cost, links, parks_for; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, transit, pairs_with, part_of, serves.
+
+Suitability: R none; R when operated none; A wheelchair, access_detail, accessible_toilet, accessible_parking, toilets, water, access_season, limited_capacity_note.
+
+Links: official; R? booking; A status, webcam.
+
 ## Passes and permits (`access.pass`)
 
 Records: offer. No suitability profile. Effort: none, time is shown. Sources, in order: F D C.

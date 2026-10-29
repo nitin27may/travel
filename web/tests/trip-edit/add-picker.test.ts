@@ -7,7 +7,7 @@ import { DEFAULT_PROFILE, type Profile } from '@travel/core/schedule/types.ts';
 import { missingSlugs, withExtras } from '@/components/trips/edit/add/extras';
 import { makeFitter } from '@/components/trips/edit/add/fit';
 import { bboxAround, bearingOf, candidateOf, isStop, type Found } from '@/components/trips/edit/add/place';
-import { anchorsOf, bandWords, basesOf, buildSections, centreOf, daysByDistance, distanceWords, isFar, passesChips, withGhosts, type Chips, type Inputs } from '@/components/trips/edit/add/rows';
+import { anchorsOf, bandWords, basesOf, buildSections, centreOf, daysByDistance, distanceWords, isFar, passesChips, rainyCandidates, withGhosts, type Chips, type Inputs } from '@/components/trips/edit/add/rows';
 import { newTripHref } from '@/components/trips/edit/add/source';
 import type { AddCandidate, TimelineModel } from '@/components/trips/timeline/model';
 import { deltaOfDraft } from '@/lib/trip-edit/source';
@@ -177,8 +177,18 @@ describe('the chips', () => {
   const none: Chips = { rainy: false, kids: false, month: null };
   it('Rainy day keeps what is marked indoor or for a rainy day, and nothing else', () => {
     expect(passesChips(found({ flags: ['indoor-or-rainy-day'] }), { ...none, rainy: true }, 10)).toBe(true);
+    expect(passesChips(found({ flags: ['indoor', 'toilets'] }), { ...none, rainy: true }, 10)).toBe(true);
     expect(passesChips(found({ flags: ['toilets'] }), { ...none, rainy: true }, 10)).toBe(false);
     expect(passesChips(found({ flags: [] }), none, 10)).toBe(true);
+  });
+  it('Rainy day on the real Rockies model (DG-01): the Banff days carry indoor places, a Jasper day none; with no API the near group keeps only those', async () => {
+    const model = await rockies();
+    expect(rainyCandidates(model, 1).map((c) => c.key).sort()).toEqual(['cave-and-basin-national-historic-site', 'fairmont-banff-springs-spa']);
+    expect(rainyCandidates(model, 5)).toEqual([]);
+    const near = (day: number, rainy: boolean) => buildSections(inputs(model, draft(), { day, chips: { ...none, rainy } })).find((x) => x.id === 'near')?.rows.map((r) => r.slug) ?? [];
+    expect(near(1, false).length).toBeGreaterThan(2);
+    expect(near(1, true).sort()).toEqual(['cave-and-basin-national-historic-site', 'fairmont-banff-springs-spa']);
+    expect(near(5, true)).toEqual([]);
   });
   it('Kids drops what is not for kids or not for the youngest child, keeps what is not checked', () => {
     const k = { ...none, kids: true };

@@ -6,6 +6,7 @@ import { valOf, familyEffortOf, kidsFromBasisOf, strollerOkOf } from "../suitabi
 import { incomingOf, primaryRef } from "./records.ts";
 import type { World } from "./records.ts";
 import { EFFORT_NAMES, MAX_FLAGS } from "./bandKeys.ts";
+import { indoorOf } from "./indoor.ts";
 import type { BookingBand, ListBands, PriceBand, TimeBand, WalkBand } from "./bandKeys.ts";
 import { BEST_TIMES, SHAPES } from "./bandKeys.ts";
 
@@ -82,13 +83,18 @@ function linkedOffers(world: World, ref: string): Linked[] {
   return out;
 }
 
-function flagsOf(blocks: { block: SuitabilityBlock; rec: SuitabilityRecord }[]): string[] {
+/**
+ * The row flags. `indoor` comes first, from the type and the record's relevance weather (indoor.ts), and only when true: a type that
+ * is not indoor says nothing a list filters on, so `!indoor` would be bytes for no answer. The rest read the suitability blocks.
+ */
+function flagsOf(blocks: { block: SuitabilityBlock; rec: SuitabilityRecord }[], indoor: boolean | null = null): string[] {
   const yes: string[] = [];
   const no: string[] = [];
   const put = (id: string, v: boolean | null) => {
     if (v === null || yes.includes(id) || no.includes(`!${id}`)) return;
     (v ? yes : no).push(v ? id : `!${id}`);
   };
+  if (indoor) put("indoor", true);
   for (const { block: b, rec } of blocks) {
     const swim = rec.ext?.kind === "water" ? valOf(rec.ext.swimming) : null;
     if (swim) put("swim", swim === "allowed" || swim === "seasonal");
@@ -150,10 +156,11 @@ export function bandsOf(world: World, rawRef: string): ListBands {
     }
   }
   const time = minutes !== null ? timeBandOf(minutes) : type.startsWith("nature.trek") ? "multi-day" : null;
-  return finish(fe, kids, time, cap, offers, own, suits);
+  const indoor = indoorOf(type, valOf(world.rel.get(ref)?.rec.weather));
+  return finish(fe, kids, time, cap, offers, own, suits, indoor);
 }
 
-function finish(fe: number | null, kids: ReturnType<typeof kidsFromBasisOf>, time: TimeBand | null, cap: CaptureRecord | null, offers: Linked[], own: SuitabilityRecord | null, suits: SuitabilityRecord[]): ListBands {
+function finish(fe: number | null, kids: ReturnType<typeof kidsFromBasisOf>, time: TimeBand | null, cap: CaptureRecord | null, offers: Linked[], own: SuitabilityRecord | null, suits: SuitabilityRecord[], indoor: boolean | null): ListBands {
   // price: the lowest adult per-person price among the record and its offers
   let best: { amount: number; currency: string } | null = null;
   for (const c of [cap, ...offers.map((o) => o.cap)]) {
@@ -177,7 +184,7 @@ function finish(fe: number | null, kids: ReturnType<typeof kidsFromBasisOf>, tim
     time_band: time,
     price_band: best ? priceBandOf(best.amount, best.currency) : null,
     booking,
-    flags: flagsOf(blocks),
+    flags: flagsOf(blocks, indoor),
     ...extras(cap, own),
   };
 }

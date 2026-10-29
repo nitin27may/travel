@@ -24,6 +24,16 @@ Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, toilets, a
 
 Links: official; R? none; A hours_rates, booking, osm, commons.
 
+### Indoor play (`play.playground.indoor_play`)
+
+Records: place. Suitability profile `play` (flag). Effort: none, time is shown. Sources, in order: F O D C. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
+
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
+
+Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season; R when operated min_age, adult_required; A carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, signal, exposure, hazards.
+
+Links: official; R? none; A hours_rates, booking, osm, commons.
+
 ## Amusement (`play.amusement`)
 
 Records: place, offer. Suitability profile `theme_park` (always). Effort: none, time is shown. Sources, in order: F O D C.
@@ -45,6 +55,30 @@ Records: place, offer. Suitability profile `coaster` (always, extension coaster)
 **offer (ticket)**: R name, type, summary, season, hours, price, links, at; R? window (bookable); A names, transit, pairs_with, closures, photos, on, run_by, included.
 
 Suitability: R min_age, min_height_cm, max_height_cm, min_weight_kg, max_weight_kg, adult_required, solo, age_band, kid_note, on_site_min, access_season, participation.pregnancy, participation.weather_cancel, ext.coaster.max_riders, ext.coaster.max_load_kg, ext.coaster.driver_rule; R when operated none; A limit_reason, wheelchair, toilets, participation.medical, ext.coaster.brake.
+
+Links: official; R? none; A hours_rates, booking, osm, commons.
+
+### Trampoline park (`play.amusement.trampoline_park`)
+
+Records: place, offer. Suitability profile `theme_park` (always). Effort: none, time is shown. Sources, in order: F O D C. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
+
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
+
+**offer (ticket)**: R name, type, summary, season, hours, price, links, at; R? window (bookable); A names, transit, pairs_with, closures, photos, on, run_by, included.
+
+Suitability: R min_height_cm, adult_required, age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season, participation.pregnancy, participation.weather_cancel; R when operated none; A min_age, max_age, max_height_cm, min_weight_kg, max_weight_kg, limit_reason, solo, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, hazards, participation.medical, participation.waiver.
+
+Links: official; R? none; A hours_rates, booking, osm, commons.
+
+### Family centre (`play.amusement.family_centre`)
+
+Records: place, offer. Suitability profile `theme_park` (always). Effort: none, time is shown. Sources, in order: F O D C. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
+
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
+
+**offer (ticket)**: R name, type, summary, season, hours, price, links, at; R? window (bookable); A names, transit, pairs_with, closures, photos, on, run_by, included.
+
+Suitability: R min_height_cm, adult_required, age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season, participation.pregnancy, participation.weather_cancel; R when operated none; A min_age, max_age, max_height_cm, min_weight_kg, max_weight_kg, limit_reason, solo, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, hazards, participation.medical, participation.waiver.
 
 Links: official; R? none; A hours_rates, booking, osm, commons.
 

@@ -42,6 +42,8 @@ export interface ResolvedNode {
   profile: string | null;
   operated: Operated;
   operated_default: boolean | null;
+  /** the type's default of the `indoor` property (types.json `indoor_default`, nearest node in the chain); null for a mixed type */
+  indoor_default: boolean | null;
   ext: string | null;
   /** the profile's non-N cells with the node overrides applied; "op" is decided by the record's operated flag */
   suitability: Record<string, "R" | "A" | "op">;
@@ -78,6 +80,7 @@ export function resolveNode(id: string, file?: TypesFile): ResolvedNode | null {
   const profileName = profileHit?.value ?? null;
   const profile: TypeProfile | null = profileName ? profiles[profileName] ?? null : null;
   const operatedDefault = nearest(chain, "operated_default");
+  const indoorDefault = nearest(chain, "indoor_default");
   const extHit = nearest(chain, "ext");
   const ext = extHit ? (extHit.value as string | null) : profile ? profile.ext : null;
   const records = (nearest(chain, "records")?.value ?? []) as Layer[];
@@ -180,6 +183,7 @@ export function resolveNode(id: string, file?: TypesFile): ResolvedNode | null {
     profile: profileName,
     operated: profile ? profile.operated : "never",
     operated_default: operatedDefault ? (operatedDefault.value as boolean) : null,
+    indoor_default: indoorDefault ? (indoorDefault.value as boolean) : null,
     ext,
     suitability,
     suitability_why,
@@ -212,6 +216,7 @@ export function explain(node: ResolvedNode): string[] {
   out.push(`${node.id}  ${node.label}`);
   out.push(`inherits: ${node.chain.join(" > ")}`);
   out.push(`records: ${node.records.join(", ")}${node.profile ? `; suitability profile "${node.profile}" (${node.operated}${node.operated_default !== null ? `, default operated ${node.operated_default}` : ""}), ext ${node.ext ?? "none"}` : "; no suitability profile"}`);
+  if (node.indoor_default !== null) out.push(`indoor by default: ${node.indoor_default ? "yes" : "no"} (a relevance weather of indoor on the record says yes)`);
   out.push(`effort scales: ${node.effort.scales.length ? node.effort.scales.join(", ") : "none (time is shown instead)"}`);
   for (const l of node.records) {
     const rl = node.layers[l]!;

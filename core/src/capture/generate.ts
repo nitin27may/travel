@@ -37,7 +37,7 @@ function contractOf(n: ResolvedNode): Obj {
     for (const [k, m] of Object.entries(rl!.base)) base[k] = m;
     layers[l] = { offer_class: rl!.offer_class, carries_suitability: rl!.carries_suitability, base };
   }
-  return { records: n.records, profile: n.profile, operated: n.operated, operated_default: n.operated_default, ext: n.ext, suitability: n.suitability, effort: n.effort, relevance_class: n.relevance_class, layers, links: n.links, sources: n.sources, display: n.display };
+  return { records: n.records, profile: n.profile, operated: n.operated, operated_default: n.operated_default, indoor_default: n.indoor_default, ext: n.ext, suitability: n.suitability, effort: n.effort, relevance_class: n.relevance_class, layers, links: n.links, sources: n.sources, display: n.display };
 }
 
 /** draft, usable and complete as lists of property keys, per layer (the D/U/C checks of the kind profiles, generated). */
@@ -79,6 +79,7 @@ function nodeEntry(n: ResolvedNode, parent: ResolvedNode | null): Obj {
     profile: n.profile,
     operated: n.operated,
     ...(n.operated_default !== null ? { operated_default: n.operated_default } : {}),
+    ...(n.indoor_default !== null ? { indoor_default: n.indoor_default } : {}),
     ext: n.ext,
     suitability: n.suitability,
     effort: n.effort.scales,
@@ -195,7 +196,7 @@ function docFile(file: TypesFile, domain: string): Output {
     if (n.level === "subtype" || (n.level === "type" && parent && JSON.stringify(contractOf(r)) === JSON.stringify(contractOf(parent)))) continue; // identical to its parent
     const depth = n.level === "category" || n.category ? "##" : "###";
     out.push(`${depth} ${n.label} (\`${n.id}\`)`, "");
-    out.push(`Records: ${r.records.join(", ")}. ${r.profile ? `Suitability profile \`${r.profile}\` (${r.operated}${r.ext ? `, extension ${r.ext}` : ""}).` : "No suitability profile."} Effort: ${r.effort.scales.length ? r.effort.scales.join(", ") : "none, time is shown"}. Sources, in order: ${r.sources.join(" ") || "none"}.`, "");
+    out.push(`Records: ${r.records.join(", ")}. ${r.profile ? `Suitability profile \`${r.profile}\` (${r.operated}${r.ext ? `, extension ${r.ext}` : ""}).` : "No suitability profile."} Effort: ${r.effort.scales.length ? r.effort.scales.join(", ") : "none, time is shown"}. Sources, in order: ${r.sources.join(" ") || "none"}.${r.indoor_default === null ? "" : ` Rainy day: ${r.indoor_default ? "indoor by type" : "not indoor by type"}; a relevance weather of indoor on the record says yes.`}`, "");
     for (const l of r.records) {
       const rl = r.layers[l]!;
       const lv = levelsOf(r, l);
