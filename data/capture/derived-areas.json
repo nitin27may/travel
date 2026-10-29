@@ -253,7 +253,7 @@
       "area_id": "CA/AB/banff-national-park",
       "via": "point",
       "from": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
-      "km": 0,
+      "km": 0.5,
       "rival_km": 10.8
     },
     "legacy/canadian-rockies-sept-2029/sights/mount-edith-cavell": {
@@ -477,8 +477,8 @@
       "area_id": "CA/BC/yoho-national-park",
       "via": "point",
       "from": "part/place/yoho-national-park#yoho-visitor-centre",
-      "km": 5.8,
-      "rival_km": 18.8
+      "km": 5.7,
+      "rival_km": 19.3
     },
     "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline": {
       "area_id": "CA/BC/yoho-national-park",
@@ -513,7 +513,7 @@
       "via": "point",
       "from": "locations store",
       "km": 4.9,
-      "rival_km": 18.2
+      "rival_km": 18.4
     },
     "legacy/canadian-rockies-sept-2029/trails/interlakes-trail": {
       "area_id": "CA/AB/kananaskis-country",
@@ -546,7 +546,7 @@
     "legacy/canadian-rockies-sept-2029/trails/lake-agnes": {
       "area_id": "CA/AB/banff-national-park",
       "via": "point",
-      "from": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+      "from": "locations store",
       "km": 0,
       "rival_km": 7.9
     },
@@ -581,7 +581,7 @@
     "legacy/canadian-rockies-sept-2029/trails/mount-fairview": {
       "area_id": "CA/AB/banff-national-park",
       "via": "point",
-      "from": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+      "from": "locations store",
       "km": 0,
       "rival_km": 7.9
     },

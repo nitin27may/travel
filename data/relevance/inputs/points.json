@@ -542,10 +542,10 @@
       "point_source": "OSM way 102439897 (amenity=parking) at the end of the Elk River Forest Service Road, beside the Elk Lakes Cabin (way 173689739, Alpine Club of Canada) where Lower Elk Lake Trail (way 573768002) starts; BC Parks https://bcparks.ca/elk-lakes-park/ names the Elk Lakes trailhead parking lot and says the nearest lake is a 1 km walk. The D1 point (a park label node 4.6 km south-west) was wrong; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore": {
-      "lat": 51.444,
-      "lon": -116.531,
-      "coord_src": "wikidata",
-      "point_source": "trailhead \"Emerald Lake\" at legacy/canadian-rockies-sept-2029/sights/emerald-lake"
+      "lat": 51.43938,
+      "lon": -116.54149,
+      "coord_src": "osm",
+      "point_source": "OSM node 269747928, the first vertex of Emerald Lake Loop Trail (way 436275405) at Emerald Lake Parking (way 230454536); Parks Canada: Trailhead: Emerald Lake parking lot"
     },
     "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline": {
       "lat": 51.444,
@@ -578,10 +578,10 @@
       "point_source": "OSM way 1208175233 (public parking, unnamed), the lot nearest the start of the Ha Ling Trail way 119212025; agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/iceline-trail": {
-      "lat": 51.49972,
-      "lon": -116.47278,
-      "coord_src": "wikidata",
-      "point_source": "trailhead \"Takakkaw Falls parking\" at legacy/canadian-rockies-sept-2029/sights/takakkaw-falls"
+      "lat": 51.49579,
+      "lon": -116.4806,
+      "coord_src": "osm",
+      "point_source": "OSM node 2368078636, the first vertex of Iceline Trail (way 24829774) by Whiskey Jack Hostel; Parks Canada names the Takakkaw Falls parking lot, about 320 m north"
     },
     "legacy/canadian-rockies-sept-2029/trails/interlakes-trail": {
       "lat": 50.63157,
@@ -620,10 +620,10 @@
       "point_source": "Q22422872 P625"
     },
     "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore": {
-      "lat": 51.41167,
-      "lon": -116.22806,
-      "coord_src": "wikidata",
-      "point_source": "trailhead \"Lake Louise Lakeshore\" at place/lake-louise"
+      "lat": 51.41638,
+      "lon": -116.2163,
+      "coord_src": "osm",
+      "point_source": "OSM node 269752723, where the shore path (Plain of Six Glaciers Trail, way 24830044) starts on the lakefront below the Chateau"
     },
     "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass": {
       "lat": 51.32814,
@@ -656,10 +656,10 @@
       "point_source": "OSM node 13970495503 Moose Lake Trail (trail start by the Maligne Lake road); relation 16336077"
     },
     "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore": {
-      "lat": 51.3225,
-      "lon": -116.18556,
-      "coord_src": "wikidata",
-      "point_source": "trailhead \"Moraine Lake\" at legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+      "lat": 51.32664,
+      "lon": -116.18344,
+      "coord_src": "osm",
+      "point_source": "OSM node 269752450, the lodge end of Moraine Lake Shoreline (way 317597559); Parks Canada: the walk begins just beyond the lodge"
     },
     "legacy/canadian-rockies-sept-2029/trails/mount-fairview": {
       "lat": 51.41167,

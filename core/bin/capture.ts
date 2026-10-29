@@ -35,6 +35,10 @@ Commands:
   gaps --budget --check | --write [--reason "<why>"]
                           data/capture/gap-budget.json: --check exits 1 when a gap count rose (runs in tools/check-all.sh);
                           --write lowers the counts, and raises one only with a written reason
+  ledger-point --ref <ref> [--ref <ref> ...] --reason "<why>" [--write] | --check
+                          the one exception to the migration ledger's point pin: replace a derived trailhead ("trailhead X at
+                          <ref>") by the record's own OSM point in data/capture/points.json, logged in the ledger's \`replaced\`;
+                          run it after storing the point and before relevance.ts points --build; --check verifies every entry
   migrate-placement [--write | --check] [--json]
                           fill area_id (locations store, Wikidata, parent; never a guess) and trailheads from held tracks; idempotent,
                           dry run by default, --check exits 1 while there is something to write
@@ -243,6 +247,10 @@ async function main(argv: string[]): Promise<number> {
     case "migrate": {
       const { migrateCommand } = await import("../src/capture/migrateCli.ts");
       return migrateCommand(argv, root, out, err);
+    }
+    case "ledger-point": {
+      const { ledgerPointCommand } = await import("../src/capture/ledgerPoints.ts");
+      return ledgerPointCommand(argv, root, out, err);
     }
     case "migrate-placement": {
       const { migratePlacementCommand } = await import("../src/capture/migratePlacementCli.ts");

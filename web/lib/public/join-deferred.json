@@ -4,6 +4,10 @@
     { "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge", "why": "size: S13 gate (tests/data/place-size.test.ts) has 0.03% headroom on the median and this page is the one that crosses it" },
     { "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets", "why": "size: a 45 kB page that would pass +50% without being on the exception list" },
     { "ref": "trip/iceland-ring-road-2027/trail:thingvellir", "why": "size: a 42 kB page that would pass +50% without being on the exception list" },
+    { "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail", "why": "size: its own OSM trailhead (DG2F) feeds the plan model only; a pin adds about 3.7 kB to the page and the S13 median is already over (1.2539 of 1.25, DG-11)" },
+    { "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore", "why": "size: its own OSM trailhead (DG2F) feeds the plan model only; a pin adds about 3.7 kB to the page and the S13 median is already over (1.2539 of 1.25, DG-11)" },
+    { "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore", "why": "size: its own OSM trailhead (DG2F) feeds the plan model only; a pin adds about 3.7 kB to the page and the S13 median is already over (1.2539 of 1.25, DG-11)" },
+    { "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore", "why": "size: its own OSM trailhead (DG2F) feeds the plan model only; a pin adds about 3.7 kB to the page and the S13 median is already over (1.2539 of 1.25, DG-11)" },
     { "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk", "why": "place: its row is the car park 580 m from the toe, not the toe; the trip map must not put the stop there (tests/trips/route-map.test.ts)" }
   ]
 }
