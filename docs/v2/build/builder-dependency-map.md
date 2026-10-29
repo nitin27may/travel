@@ -4,7 +4,9 @@ Status: **plan, docs only** (27 Oct 2026, travel-planner, Opus; task BUILDER-DEP
 of 27 Oct 2026. Requirement numbers R-271 to R-279 are reserved here for the coordinator's PLAN rows (section 8). Owner
 questions Q-DEP1 to Q-DEP5 are new (section 7). Principles cited by number from
 [principles.md](../design/foundation/principles.md) (P1 to P9). **Progress:** TB-E1 done 28 Oct 2026 (`d7c7351b`, engine v1 with
-K = 1 in `core/src/plan/`; BACKLOG TB-E1); TB-G1 and TB-API are unblocked.
+K = 1 in `core/src/plan/`; BACKLOG TB-E1); TB-G1 and TB-API are unblocked. TB-E2 done 28 Oct 2026 (branch `nxt/TBE2`: several
+bases chosen by the visitor, nights by demand, move days; engine `tb-e2.0`; BACKLOG TB-E2): TB-W2's chosen bases and TB-E3 are
+unblocked on the engine side.
 
 > "Where you have done research and are adding these plans, make sure we write a detailed plan properly so that whenever
 > you are picking, we know. And create a DEPENDENCY HIERARCHY: what things need to be ready before we create that, so that

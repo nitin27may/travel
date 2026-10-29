@@ -1,0 +1,500 @@
+{
+  "engine": "tb-e2.0",
+  "basis": "estimate",
+  "bases": [
+    {
+      "town": "ca-on-ottawa",
+      "name": "Ottawa",
+      "nights": 2,
+      "pinned": true,
+      "picks": 3,
+      "reasons": [
+        {
+          "code": "base_share",
+          "values": {
+            "index": 1,
+            "nights": 2,
+            "n": 3,
+            "of": 8,
+            "maxMin": 32
+          },
+          "text": "Base 1: Ottawa, 2 nights, 3 of your 8 picks within 32 min ≈"
+        },
+        {
+          "code": "pinned_base",
+          "values": {
+            "nights": 2
+          },
+          "text": "You chose this town for 2 nights"
+        },
+        {
+          "code": "out_of_reach",
+          "values": {
+            "n": 1,
+            "radiusMin": 120
+          },
+          "text": "1 of your picks is beyond the day-trip reach of every base; this one is the nearest"
+        },
+        {
+          "code": "lodging",
+          "values": {
+            "cls": 3
+          },
+          "text": "Many places to stay listed on OpenStreetMap"
+        }
+      ]
+    },
+    {
+      "town": "ca-qc-quebec",
+      "name": "Quebec City",
+      "nights": 2,
+      "pinned": true,
+      "picks": 2,
+      "reasons": [
+        {
+          "code": "base_share",
+          "values": {
+            "index": 2,
+            "nights": 2,
+            "n": 2,
+            "of": 8,
+            "maxMin": 27
+          },
+          "text": "Base 2: Quebec City, 2 nights, 2 of your 8 picks within 27 min ≈"
+        },
+        {
+          "code": "pinned_base",
+          "values": {
+            "nights": 2
+          },
+          "text": "You chose this town for 2 nights"
+        },
+        {
+          "code": "lodging",
+          "values": {
+            "cls": 3
+          },
+          "text": "Many places to stay listed on OpenStreetMap"
+        }
+      ]
+    },
+    {
+      "town": "ca-qc-tadoussac",
+      "name": "Tadoussac",
+      "nights": 2,
+      "pinned": false,
+      "picks": 2,
+      "reasons": [
+        {
+          "code": "base_share",
+          "values": {
+            "index": 3,
+            "nights": 2,
+            "n": 2,
+            "of": 8,
+            "maxMin": 36
+          },
+          "text": "Base 3: Tadoussac, 2 nights, 2 of your 8 picks within 36 min ≈"
+        },
+        {
+          "code": "lodging",
+          "values": {
+            "cls": 2
+          },
+          "text": "Many places to stay listed on OpenStreetMap"
+        }
+      ]
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "base": "ca-on-ottawa",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 2,
+      "base": "ca-on-ottawa",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/parliament-hill",
+          "slug": "parliament-hill",
+          "name": "Parliament Hill",
+          "startMin": 495,
+          "visitMin": 120,
+          "driveMin": 11,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/pink-lake",
+          "slug": "pink-lake",
+          "name": "Pink Lake",
+          "startMin": 640,
+          "visitMin": 60,
+          "driveMin": 23,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/byward-market",
+          "slug": "byward-market",
+          "name": "Byward Market",
+          "startMin": 765,
+          "visitMin": 90,
+          "driveMin": 24,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 13,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Parliament Hill",
+            "b": "Pink Lake",
+            "apartMin": 23
+          },
+          "text": "Parliament Hill and Pink Lake are 23 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 71
+          },
+          "text": "1 h 11 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "base": "ca-qc-quebec",
+      "move": true,
+      "items": [],
+      "returnMin": 465,
+      "warnings": [
+        "W_DRIVE_LIMIT"
+      ],
+      "reasons": [
+        {
+          "code": "move_day",
+          "values": {
+            "fromBase": "Ottawa",
+            "toBase": "Quebec City",
+            "min": 465
+          },
+          "text": "Move from Ottawa to Quebec City: 7 h 45 ≈ of driving"
+        },
+        {
+          "code": "long_move",
+          "values": {
+            "min": 465,
+            "limitMin": 240
+          },
+          "text": "The move is 7 h 45 ≈, over your 4 h of driving a day: break the drive"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "base": "ca-qc-quebec",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/old-quebec",
+          "slug": "old-quebec",
+          "name": "Old Quebec",
+          "startMin": 490,
+          "visitMin": 150,
+          "driveMin": 7,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/montmorency-falls",
+          "slug": "montmorency-falls",
+          "name": "Montmorency Falls",
+          "startMin": 665,
+          "visitMin": 75,
+          "driveMin": 23,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 27,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Old Quebec",
+            "b": "Montmorency Falls",
+            "apartMin": 23
+          },
+          "text": "Old Quebec and Montmorency Falls are 23 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 57
+          },
+          "text": "57 min ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "base": "ca-qc-tadoussac",
+      "move": true,
+      "items": [
+        {
+          "ref": "place/tadoussac-whale-watching",
+          "slug": "tadoussac-whale-watching",
+          "name": "Tadoussac Whale Watching",
+          "startMin": 765,
+          "visitMin": 180,
+          "driveMin": 228,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 4,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "move_day",
+          "values": {
+            "fromBase": "Quebec City",
+            "toBase": "Tadoussac",
+            "min": 229
+          },
+          "text": "Move from Quebec City to Tadoussac: 3 h 49 ≈ of driving"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 232
+          },
+          "text": "3 h 52 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "base": "ca-qc-tadoussac",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/saguenay-fjord-lookout",
+          "slug": "saguenay-fjord-lookout",
+          "name": "Saguenay Fjord Lookout",
+          "startMin": 520,
+          "visitMin": 60,
+          "driveMin": 36,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 36,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 72
+          },
+          "text": "1 h 12 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 7,
+      "base": null,
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    }
+  ],
+  "didNotFit": [
+    {
+      "ref": "place/niagara-falls",
+      "code": "TB_TOO_FAR",
+      "fix": {
+        "kind": "add_base",
+        "town": "ca-on-st-catharines"
+      },
+      "reasons": [
+        {
+          "code": "too_far",
+          "values": {
+            "min": 455,
+            "radiusMin": 120
+          },
+          "text": "Too far from your bases: 7 h 35 ≈ from Ottawa, the nearest, over your 2 h each way"
+        }
+      ]
+    }
+  ],
+  "spareDays": 0,
+  "matrix": {
+    "refs": [
+      "place/parliament-hill",
+      "place/byward-market",
+      "place/pink-lake",
+      "place/old-quebec",
+      "place/montmorency-falls",
+      "place/tadoussac-whale-watching",
+      "place/saguenay-fjord-lookout",
+      "place/niagara-falls"
+    ],
+    "minutes": [
+      [
+        0,
+        5,
+        23,
+        453,
+        462,
+        652,
+        645,
+        447
+      ],
+      [
+        5,
+        0,
+        24,
+        452,
+        461,
+        651,
+        644,
+        448
+      ],
+      [
+        23,
+        24,
+        0,
+        460,
+        468,
+        657,
+        649,
+        444
+      ],
+      [
+        453,
+        452,
+        460,
+        0,
+        23,
+        224,
+        227,
+        888
+      ],
+      [
+        462,
+        461,
+        468,
+        23,
+        0,
+        213,
+        216,
+        898
+      ],
+      [
+        652,
+        651,
+        657,
+        224,
+        213,
+        0,
+        37,
+        1095
+      ],
+      [
+        645,
+        644,
+        649,
+        227,
+        216,
+        37,
+        0,
+        1089
+      ],
+      [
+        447,
+        448,
+        444,
+        888,
+        898,
+        1095,
+        1089,
+        0
+      ]
+    ],
+    "estimated": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62
+    ]
+  }
+}

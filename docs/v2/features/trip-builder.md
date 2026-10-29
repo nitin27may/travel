@@ -328,6 +328,39 @@ arrival and departure days are placed at the first and last bases. Spare days go
 are offered as "spare day: suggestions near A" (the engine proposes the top unpicked candidates within the radius, never
 adds them silently).
 
+**Built (TB-E2, 28 Oct 2026, engine `tb-e2.0`): several bases chosen by the visitor.** When the build carries two or more
+`bases` that are candidate towns, those are the plan's bases, in the visitor's order (TB-E3 adds the p-median choice and the
+gateway order); with none or one, the engine is K = 1 exactly as TB-E1 built it. In `core/src/plan/bases.ts` and `moves.ts`,
+numbers in `BUILDER_BASES`:
+
+- **Assignment.** Each pick goes to the base nearest to it in one-way drive (ties by the visitor's order). A pick beyond the
+  day-trip radius of every base is `TB_TOO_FAR` with "Too far from your bases: 7 h 35 ≈ from Ottawa, the nearest", the fix a
+  town near it, and the nearest base says "1 of your picks is beyond the day-trip reach of every base". A kept stop (locked,
+  placed, from our trip) stays on its day, on the base that day belongs to.
+- **Nights.** The visitor's nights first, in order; the open bases share the rest by demand (as above: visits plus round
+  trips, plus half a day per move day that touches the base), largest remainder, with the floor of 2 (1, then 0, when the
+  nights cannot give every open base 2). With no open base, spare nights go to the base with the highest demand. The shares
+  always sum to the plan's nights. A base the nights do not reach stays in `bases` with 0 nights and "No nights at X", and
+  has no days.
+- **Days and move days.** Base 1 sleeps its nights in a row, then base 2, and so on. Day 1 is the arrival at base 1 (from the
+  start, the airport, or base 1 itself), the last day the departure from the last base. The day after a base's last night is
+  a **move day**: `move: true`, `base` is the base moved to, the scheduler's `transfer` day (check-in at the next base). A
+  move day sits only between two consecutive bases. Its reasons say "Move from Banff to Jasper: 5 h 05 ≈ of driving"; a move
+  over the day's driving (`driveDayMin`, else the pace's) adds `W_DRIVE_LIMIT` (Check) and "break the drive"; a move longer
+  than the whole day at the party's pace adds `W_DRIVE_LIMIT` and "add a base between" and leaves the day empty; no road at
+  all is `W_NO_ROUTE` (Fix). The move day is never dropped. On a move day with no stop, `returnMin` is the move itself.
+- **Packing.** A day belongs to the base slept at after it (the last day to the last base), and each base's days are packed
+  with its own picks; a move day takes picks of the base it moves into, within what is left of the day after the move and
+  of `driveDayMin` after it. "Add N days" reruns the same layout with 1 to 3 more nights, so the fix is true: when the extra
+  nights would go to an open base and not to the full one, the honest fix is Drop.
+- **Why, per base.** "Base 2: Jasper, 4 nights, 5 of your 11 picks within 52 min ≈", then "You chose this town for n
+  nights" when pinned, the out-of-reach count, the drive from the start (near mode, first base), and the lodging signal.
+- **Contract.** No schema change: `PlanBuild` keeps its shape (`bases[].nights` may be 0; `days[].move` was already there).
+  Goldens `rockies-two-base`, `roadtrip-three-base` and `infeasible-move` pin it; the K = 1 goldens differ only in the engine
+  line.
+- **Not yet (TB-E3):** the base order by gateway, the p-median choice of K, "on a move day, the picks within 30 min of the
+  line go first" (4.6 step 2), and a fix "Add a night at X".
+
 ### 4.6 Stage 4: packing and ordering days
 
 For each base, with its D days and assigned picks:
@@ -795,4 +828,6 @@ pnpm --dir web budget:report
   separate and independent: ten isolation rules, nine extension points, bundle sequencing, reviewer greps, QI1 to QI3.
   Supersedes the `store.ts` `plan*` methods (now `PlanService`) and the `doc_kind` column (now a `plan_draft` table).
   Checklist for current work: [build/builder-forward-compat.md](../build/builder-forward-compat.md). BACKLOG 15.343.
+- 2026-10-28: TB-E2 built (Opus 5.5): 4.5 "Built (TB-E2)" records several bases chosen by the visitor, nights by demand and
+  move days as built; no schema change. BACKLOG TB-E2.
 - 2026-10-27: TB-FLOW (travel-planner, Opus): amendment note at the top; QB decisions recorded in section 11; the end-to-end flow, editor and copy journey in [FLOW.md](../design/trip-builder/FLOW.md); location metadata in [trip-builder-location-metadata.md](trip-builder-location-metadata.md). BACKLOG 15.353.

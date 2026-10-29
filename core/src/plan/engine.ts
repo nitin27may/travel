@@ -1,5 +1,5 @@
-// The trip builder engine, v1 (trip-builder.md 4.2 to 4.11; FLOW TF7, TF8, TF11; task TB-E1): one base or none (K = 1), the first
-// slice FS-1. Pure, synchronous and deterministic: the same EngineInput gives the same PlanBuild, byte for byte (no clock, no random
+// The trip builder engine (trip-builder.md 4.2 to 4.11; FLOW TF7, TF8, TF11; tasks TB-E1, TB-E2): one base or none (K = 1, the first
+// slice FS-1), or the bases the visitor chose (TB-E2, below). Pure, synchronous and deterministic: the same EngineInput gives the same PlanBuild, byte for byte (no clock, no random
 // number, integer minutes, every sort ends on a ref). The build time (`builtAt`) is the caller's to add.
 //
 //   1 classify  each pick: not listed (TB_UNKNOWN), an area (a park, zone or range: the trip's area, never a stop, TB-PIN), no point
@@ -16,9 +16,15 @@
 //   7 explain   reasons from the numbers used (reasons.ts); the areas with their members or "Pick places inside X" (TB_AREA_EMPTY);
 //               the stops' matrix for the client re-flow (an area is never in it)
 //
+// Several bases (TB-E2, `buildMulti`): when the visitor chose two or more bases that are candidate towns, those are the plan's bases in
+// the visitor's order (bases.ts). Each free stop goes to the base nearest to it in drive; one beyond the radius of every base is
+// TB_TOO_FAR naming the nearest; the nights are the visitor's, the open ones shared out by demand (4.5); the days run base by base
+// with a move day (`move: true`, the scheduler's `transfer`) between two consecutive bases, a move over `driveDayMin` or over the
+// whole day flagged (moves.ts); each base's days are packed with its own stops. None or one base chosen: K = 1 exactly as before.
+//
 // Never reads the home point or the environment: the near-mode start arrives as a public point the service resolved from a hub, an
 // airport or a towns-layer town, and it is only ever passed to the model, never to a cache key, and never returned.
-import { BUILDER_AREA, BUILDER_ENGINE, BUILDER_PACK } from "../config/builder.ts";
+import { BUILDER_AREA, BUILDER_BASES, BUILDER_ENGINE, BUILDER_PACK } from "../config/builder.ts";
 import { PACE_RULES, dayCapMin, resolveDuration } from "../schedule/rules.ts";
 import { scheduleDay } from "../schedule/schedule.ts";
 import type { BaseRef, DayKind, DayTimeline, PlaceRef, Profile, ScheduleDayInput, ScheduleItem, StoredLeg } from "../schedule/types.ts";
@@ -27,6 +33,8 @@ import { PLAN_LIMITS, PLAN_WARNING_RE, type PlanAreaOut, type PlanBaseOut, type 
 import { GATEWAY, START, driveTable, placeNode, townNode, type DriveTable } from "./driveTable.ts";
 import type { EngineInput, EnginePlace, EnginePoint, EngineTown } from "./engineTypes.ts";
 import { inArea, isAreaPlace } from "./area.ts";
+import { nearestBase, resolveBases, shareNights, type ChosenBase } from "./bases.ts";
+import { edgeShareOf, moveCheck, routeFrame, type MultiDay } from "./moves.ts";
 import { packDays, type PackDay, type PackStop } from "./pack.ts";
 import * as R from "./reasons.ts";
 import { fitOf, profileOf, scorePlace, seasonOf } from "./score.ts";
@@ -159,6 +167,8 @@ export function buildPlan(input: EngineInput): PlanBuild {
   const areas = areaPicks.map((a) => ({ place: a, members: picked.filter((p) => inArea(p, a)).length }));
   const areaAnchors = areas.filter((a) => a.members === 0 && a.place.point).map((a) => ({ name: a.place.name, node: placeNode(a.place.ref) }));
 
+  const shared: Shared = { b, input, table, nights, areas, picked, misses };
+
   // ---- kept stops (TF11): locked, placed by the person, from our trip ----
   const kept = new Map<string, { day: number; rank: number; locked: boolean }>();
   for (const e of b.edits) {
@@ -171,6 +181,11 @@ export function buildPlan(input: EngineInput): PlanBuild {
 
   // ---- 2 base ----
   const towns = [...input.towns].sort((x, y) => cmp(x.id, y.id));
+  // TB-E2: two or more bases the visitor chose are the plan's bases, in their order; none or one stays K = 1 (below, as v1)
+  const chosen = nights >= 1 ? resolveBases(b.bases, towns) : [];
+  if (chosen.length >= 2) {
+    return buildMulti({ ...shared, profile, near, radius, points, stops, kept, towns, chosen, miss });
+  }
   const evalTown = (t: EngineTown): BaseEval => {
     const tn = townNode(t.id);
     let cost = 0;
@@ -300,8 +315,9 @@ export function buildPlan(input: EngineInput): PlanBuild {
   for (const d of packed.days) {
     const f = frame.find((x) => x.day === d.day)!;
     const places = d.refs.map((n) => byNode.get(n)!);
-    const tl = scheduleDay(dayInput(f, places, input, base?.town ?? null, nights, table), profile);
-    const out = dayOut(f, tl, places, kept, table, legsUsed, base?.town.id ?? null, nights);
+    const town = base?.town ?? null;
+    const tl = scheduleDay(dayInput(f, places, input, () => town, nights, table), profile);
+    const out = dayOut(f, tl, places, kept, table, legsUsed, nights >= 1 && f.day <= nights ? base?.town.id ?? null : null);
     days.push(out);
   }
 
@@ -331,6 +347,24 @@ export function buildPlan(input: EngineInput): PlanBuild {
     });
   }
 
+  return finishBuild(shared, days, bases, legsUsed, (d) => d.items.length === 0 && d.day !== 1 && d.day !== nDays);
+}
+
+/** What both paths (one base, several) share once the picks are classified. */
+interface Shared {
+  b: PlanBuildInput;
+  input: EngineInput;
+  table: DriveTable;
+  nights: number;
+  areas: readonly { place: EnginePlace; members: number }[];
+  picked: readonly EnginePlace[];
+  misses: ReadonlyMap<string, PlanMiss>;
+}
+
+/** Areas, Did not fit, spare days, the basis and the matrix: the same for one base or several. */
+function finishBuild(s: Shared, days: PlanDayOut[], bases: PlanBaseOut[], legsUsed: readonly boolean[], isSpare: (d: PlanDayOut) => boolean): PlanBuild {
+  const { b, input, table, nights, areas, picked, misses } = s;
+  const placedRefs = new Set(days.flatMap((d) => d.items.map((i) => i.ref)));
   const areasOut: PlanAreaOut[] = areas.map(({ place: a, members }) => {
     const inside = picked.filter((p) => inArea(p, a));
     return {
@@ -346,7 +380,7 @@ export function buildPlan(input: EngineInput): PlanBuild {
   const didNotFit = b.picks.flatMap((p) => (misses.has(p.ref) && !placedRefs.has(p.ref) ? [misses.get(p.ref)!] : []));
   const timeMisses = didNotFit.some((m) => m.code === "TB_TIME");
   // a day trip has no spare day; a longer plan's empty full days are offered as suggestions near the base, never filled (4.5)
-  const spareDays = timeMisses || nights === 0 ? 0 : days.filter((d) => d.items.length === 0 && d.day !== 1 && d.day !== nDays).length;
+  const spareDays = timeMisses || nights === 0 ? 0 : days.filter(isSpare).length;
   const basis = legsUsed.length === 0 ? "estimate" : legsUsed.every(Boolean) ? "routed" : legsUsed.some(Boolean) ? "mixed" : "estimate";
 
   return {
@@ -359,6 +393,196 @@ export function buildPlan(input: EngineInput): PlanBuild {
     spareDays,
     matrix: matrixOf(b, input, table),
   };
+}
+
+/** The multi-base path's inputs: the shared ones plus what classification produced. */
+interface MultiCtx extends Shared {
+  profile: Profile;
+  near: boolean;
+  radius: number;
+  points: ReadonlyMap<string, EnginePoint>;
+  stops: readonly Stop[];
+  kept: ReadonlyMap<string, { day: number; rank: number; locked: boolean }>;
+  towns: readonly EngineTown[];
+  chosen: readonly ChosenBase[];
+  miss: (ref: string, code: PlanMiss["code"], fix: PlanMiss["fix"], reasons: PlanReason[]) => void;
+}
+
+/** One layout of the stops over the bases for a number of nights: the shares, the route, the days and what each day takes. */
+interface Layout {
+  /** nights per chosen base, in the visitor's order */
+  nightsBy: number[];
+  /** indices into `chosen` of the bases with nights, in order */
+  route: number[];
+  frame: MultiDay[];
+  /** stop node to its route index (kept stops: the base of their day) */
+  owner: Map<string, number>;
+  /** stops beyond the reach of every base with nights, with the nearest base (an index into `chosen`) */
+  far: { stop: Stop; nearest: { index: number; min: number; routed: boolean } | null }[];
+  refsByDay: Map<number, string[]>;
+  unplaced: Set<string>;
+}
+
+/**
+ * Several bases chosen by the visitor (TB-E2; trip-builder 4.5, 4.6): each stop goes to the base nearest to it in drive, the nights
+ * are shared out by demand (bases.ts), the days run base by base with a move day between two consecutive bases (moves.ts), and each
+ * base's days are packed with its own stops (pack.ts). A stop beyond the day-trip radius of every base is TB_TOO_FAR, naming the
+ * nearest; "Add N days" reruns the same layout with 1 to 3 more nights.
+ */
+function buildMulti(c: MultiCtx): PlanBuild {
+  const { b, input, table, nights, profile, near, radius, stops, kept, towns, chosen, miss } = c;
+  const nDays = nights + 1;
+  const dayMin = Math.max(0, dayCapMin(profile) - BUILDER_PACK.mealAllowanceMin);
+  const drive = dayDriveMin(b);
+  const edgeShare = edgeShareOf(near);
+  const all = chosen.map((_, i) => i);
+  const visitOf = new Map(stops.map((s) => [s.place.ref, visitMinOf(s.place, profile)]));
+  const free = stops.filter((s) => !kept.has(s.place.ref));
+  const cost = (a: string, z: string): number | null => table.minutes(a, z);
+
+  // demand per chosen base (4.5), in minutes: its stops' visits and round trips, and half a day per move day that touches it
+  const demand = all.map(() => 0);
+  for (const s of free) {
+    const hit = nearestBase(s.node, chosen, all, table);
+    if (!hit || hit.min > radius) continue;
+    const back = table.minutes(s.node, chosen[hit.index]!.node) ?? hit.min;
+    demand[hit.index]! += visitOf.get(s.place.ref)! + hit.min + back;
+  }
+  const moveDemand = Math.round(BUILDER_BASES.moveDayDemandShare * dayMin);
+  all.forEach((i) => {
+    demand[i]! += moveDemand * (chosen.length === 1 ? 0 : i === 0 || i === chosen.length - 1 ? 1 : 2);
+  });
+
+  const outer = (first: boolean, route: readonly number[]): string =>
+    near && input.start ? START : !near && input.gateway ? GATEWAY : chosen[route[first ? 0 : route.length - 1]!]!.node;
+
+  const layout = (n: number): Layout => {
+    const nightsBy = shareNights(n, chosen.map((x) => x.nights), demand);
+    const route = all.filter((i) => nightsBy[i]! >= 1);
+    const frame = routeFrame({
+      route: route.map((i) => ({ node: chosen[i]!.node, nights: nightsBy[i]! })),
+      nights: n,
+      inNode: outer(true, route),
+      outNode: outer(false, route),
+      dayMin,
+      driveMin: drive,
+      edgeShare,
+      table,
+    });
+    const owner = new Map<string, number>();
+    const far: Layout["far"] = [];
+    for (const s of stops) {
+      const k = kept.get(s.place.ref);
+      if (k) {
+        owner.set(s.node, frame[k.day - 1]!.owner); // what the person placed stays on its day, however far (the day checks say so)
+        continue;
+      }
+      const hit = nearestBase(s.node, chosen, route, table);
+      if (!hit || hit.min > radius) {
+        far.push({ stop: s, nearest: hit ?? nearestBase(s.node, chosen, all, table) });
+        continue;
+      }
+      owner.set(s.node, route.indexOf(hit.index));
+    }
+    const refsByDay = new Map<number, string[]>();
+    const unplaced = new Set<string>();
+    route.forEach((ci, ri) => {
+      const days = frame.filter((d) => d.owner === ri);
+      const at = chosen[ci]!.town.point;
+      const mine = stops.filter((s) => owner.get(s.node) === ri);
+      const packStops: PackStop[] = mine.map((s) => {
+        const k = kept.get(s.place.ref);
+        return {
+          ref: s.node,
+          visitMin: visitOf.get(s.place.ref)!,
+          must: s.must,
+          score: s.score,
+          bearing: s.place.point ? bearingOf(at, s.place.point) : null,
+          ...(k ? { fixed: { day: k.day, rank: k.rank } } : {}),
+        };
+      });
+      const packed = packDays({ stops: packStops, days, cost });
+      for (const d of packed.days) refsByDay.set(d.day, d.refs);
+      for (const r of packed.unplaced) unplaced.add(r);
+    });
+    return { nightsBy, route, frame, owner, far, refsByDay, unplaced };
+  };
+
+  const L = layout(nights);
+  const inRoute = new Set(L.route.map((i) => chosen[i]!.town.id));
+
+  // ---- too far from every base: the nearest named, a town near it offered ----
+  const farOf = all.map(() => 0);
+  for (const { stop: s, nearest } of L.far) {
+    if (nearest) farOf[nearest.index]! += 1;
+    const alt = towns
+      .filter((t) => !inRoute.has(t.id))
+      .map((t) => ({ t, d: table.minutes(townNode(t.id), s.node) }))
+      .filter((x): x is { t: EngineTown; d: number } => x.d !== null && x.d <= radius)
+      .sort((x, y) => x.d - y.d || cmp(x.t.id, y.t.id))[0];
+    const fix: PlanMiss["fix"] = alt ? { kind: "add_base", town: alt.t.id } : { kind: "add_base" };
+    miss(s.place.ref, "TB_TOO_FAR", fix, [R.missTooFarBases(nearest?.min ?? null, nearest ? chosen[nearest.index]!.town.name : null, radius, nearest ? !nearest.routed : false)]);
+  }
+
+  // ---- time: the smallest "Add N days" that fits each left-out stop, by the same layout with more nights ----
+  if (L.unplaced.size) {
+    const fitsWith = new Map<string, number>();
+    for (let k = 1; k <= BUILDER_PACK.addDaysMax && fitsWith.size < L.unplaced.size; k++) {
+      if (nights + k > PLAN_LIMITS.nights || (near && nights + k > PLAN_LIMITS.nearNights)) break;
+      const more = layout(nights + k);
+      for (const n of L.unplaced) if (!fitsWith.has(n) && more.owner.has(n) && !more.unplaced.has(n)) fitsWith.set(n, k);
+    }
+    for (const s of stops) {
+      if (!L.unplaced.has(s.node)) continue;
+      const k = fitsWith.get(s.node) ?? null;
+      miss(s.place.ref, "TB_TIME", k === null ? { kind: "drop" } : { kind: "add_days", days: k }, [R.missTime(nDays, k, BUILDER_PACK.addDaysMax)]);
+    }
+  }
+
+  // ---- schedule ----
+  const byNode = new Map(stops.map((s) => [s.node, s.place]));
+  const townByNode = new Map(chosen.map((x) => [x.node, x.town]));
+  const townOf = (node: string): EngineTown | null => townByNode.get(node) ?? null;
+  const legsUsed: boolean[] = [];
+  const days: PlanDayOut[] = [];
+  for (const f of L.frame) {
+    const places = (L.refsByDay.get(f.day) ?? []).map((n) => byNode.get(n)!);
+    const tl = scheduleDay(dayInput(f, places, input, townOf, nights, table), profile);
+    const move = f.move
+      ? moveCheck({ fromName: townOf(f.from)!.name, toName: townOf(f.to)!.name, min: f.moveMin, routed: f.moveRouted, driveMin: drive, dayMin })
+      : null;
+    const sleeps = f.sleeps === null ? null : chosen[L.route[f.sleeps]!]!.town.id;
+    days.push(dayOut(f, tl, places, kept, table, legsUsed, sleeps, move));
+  }
+
+  // ---- explain: every chosen base, in the visitor's order ----
+  const ofPicks = stops.length;
+  const bases: PlanBaseOut[] = chosen.map((x, i) => {
+    const n = L.nightsBy[i]!;
+    if (n === 0) return { town: x.town.id, name: x.town.name, nights: 0, pinned: x.pinned, picks: 0, reasons: [R.baseNoNights(x.town.name, nights)] };
+    const ri = L.route.indexOf(i);
+    const mine = free.filter((s) => L.owner.get(s.node) === ri);
+    let maxMin = 0;
+    let est = false;
+    for (const s of mine) {
+      const cell = table.get(x.node, s.node);
+      maxMin = Math.max(maxMin, cell.min ?? 0);
+      if (!cell.routed) est = true;
+    }
+    const ownDays = new Set(L.frame.filter((d) => d.owner === ri).map((d) => d.day));
+    const placedHere = days.filter((d) => ownDays.has(d.day)).reduce((k, d) => k + d.items.length, 0);
+    const rs: (PlanReason | null)[] = [R.baseShare(ri + 1, x.town.name, n, mine.length, ofPicks, maxMin, est)];
+    if (x.pinned) rs.push(R.basePinned(n));
+    if (farOf[i]) rs.push(R.baseOutOfReach(farOf[i]!, radius));
+    if (ri === 0 && near && input.start) {
+      const s0 = table.get(START, x.node);
+      if (s0.min !== null) rs.push(R.baseFromStart(x.town.name, s0.min, !s0.routed));
+    }
+    rs.push(R.baseLodging(x.town.lodging ?? 0));
+    return { town: x.town.id, name: x.town.name, nights: n, pinned: x.pinned, picks: placedHere, reasons: R.capReasons(rs) };
+  });
+
+  return finishBuild(c, days, bases, legsUsed, (d) => d.items.length === 0 && !d.move && d.day !== 1 && d.day !== nDays);
 }
 
 /** The days of one base: their start and end nodes and budgets (4.5, 4.6). `hub` stands in for a missing base. */
@@ -396,26 +620,29 @@ function dayFrame(
 }
 
 const nameOfNode = (node: string, town: EngineTown | null): string => (node === START ? "your start" : node === GATEWAY ? "the airport" : town?.name ?? "your base");
+/** The town a node names, for the scheduler's base names and points (K = 1: the one base for every town node). */
+type TownOf = (node: string) => EngineTown | null;
 
 /** One day as the scheduler takes it, with the engine's drive figures as its stored legs. */
 function dayInput(
   f: PackDay & { kind: DayKind },
   places: readonly EnginePlace[],
   input: EngineInput,
-  town: EngineTown | null,
+  townOf: TownOf,
   nights: number,
   table: DriveTable,
 ): ScheduleDayInput {
   const b = input.build;
   const pointOf = (node: string): { lat: number; lon: number } | null => {
-    const p = node === START ? input.start : node === GATEWAY ? input.gateway : node.startsWith("t:") ? town?.point ?? null : null;
+    const p = node === START ? input.start : node === GATEWAY ? input.gateway : node.startsWith("t:") ? townOf(node)?.point ?? null : null;
     return p ? { lat: p.lat, lon: p.lon } : null;
   };
-  const ref = (node: string): BaseRef => ({ name: nameOfNode(node, town), placeSlug: null, point: pointOf(node) });
+  const ref = (node: string): BaseRef => ({ name: nameOfNode(node, townOf(node)), placeSlug: null, point: pointOf(node) });
   const stay = nights === 0 ? f.from : f.kind === "arrival" ? f.to : f.from;
   const base: BaseRef | null = stay === "v" ? null : ref(stay);
   const origin: PlaceRef | null = f.kind === "arrival" && f.from !== f.to && f.from !== "v" ? ref(f.from) : null;
-  const nextBase: BaseRef | null = f.kind === "departure" && f.to !== f.from && f.to !== "v" ? ref(f.to) : null;
+  // the departure's way out, or a move day's next base (TB-E2: the scheduler's `transfer` day ends with the check-in there)
+  const nextBase: BaseRef | null = (f.kind === "departure" || f.kind === "transfer") && f.to !== f.from && f.to !== "v" ? ref(f.to) : null;
   const items = places.map(itemOf);
   // stored legs between every pair the scheduler may drive on this day, from the drive table (routed or the model, ≈)
   const ends: { id: string; node: string }[] = [
@@ -464,8 +691,10 @@ function dayOut(
   kept: ReadonlyMap<string, { day: number; rank: number; locked: boolean }>,
   table: DriveTable,
   legsUsed: boolean[],
-  baseId: string | null,
-  nights: number,
+  /** the base slept at after this day (null on a day trip and the last day) */
+  sleeps: string | null,
+  /** a move day (TB-E2): its reasons and checks go first; with no stop on it, `returnMin` is the move itself */
+  move: { reasons: readonly PlanReason[]; warnings: readonly string[] } | null = null,
 ): PlanDayOut {
   const own = new Map(places.map((p) => [p.ref, p]));
   const entries = tl.entries.filter((e) => e.lane === "all" || e.lane === tl.lanes[0]);
@@ -504,10 +733,11 @@ function dayOut(
     items.push({ ref: p.ref, slug: p.slug, name: p.name, startMin: null, visitMin: 0, driveMin: null, basis: null, locked: kept.get(p.ref)?.locked ?? false });
   }
   afterLast.forEach((l) => legsUsed.push(l.routed));
-  const returnMin = items.length && afterLast.length ? Math.min(1440, afterLast.reduce((n, l) => n + l.min, 0)) : null;
-  const warnings = [...new Set(tl.warnings.map((w) => w.code as string).filter((c) => PLAN_WARNING_RE.test(c)))].slice(0, PLAN_LIMITS.warnings);
+  const drivesOn = items.length > 0 || (move !== null && move.warnings.every((w) => w !== "W_NO_ROUTE"));
+  const returnMin = drivesOn && afterLast.length ? Math.min(1440, afterLast.reduce((n, l) => n + l.min, 0)) : null;
+  const warnings = [...new Set([...tl.warnings.map((w) => w.code as string), ...(move?.warnings ?? [])].filter((c) => PLAN_WARNING_RE.test(c)))].slice(0, PLAN_LIMITS.warnings);
 
-  const rs: (PlanReason | null)[] = [];
+  const rs: (PlanReason | null)[] = [...(move?.reasons ?? [])];
   const keptHere = places.filter((p) => kept.get(p.ref)?.day === f.day).length;
   if (keptHere) rs.push(R.dayKept(keptHere));
   if (places.length >= 2) {
@@ -521,8 +751,7 @@ function dayOut(
   const driven = items.reduce((n, i) => n + (i.driveMin ?? 0), 0) + (returnMin ?? 0);
   if (items.length) rs.push(R.dayDriving(driven, items.some((i) => i.basis === "estimate")));
 
-  const sleeps = nights >= 1 && f.day <= nights ? baseId : null;
-  return { day: f.day, base: sleeps, move: false, items, returnMin, warnings, reasons: R.capReasons(rs) };
+  return { day: f.day, base: sleeps, move: move !== null, items, returnMin, warnings, reasons: R.capReasons(rs) };
 }
 
 /** The picks' drive matrix (4.10): every pick with a point that is not an area (TB-PIN), in the build's order; estimate cells listed. */

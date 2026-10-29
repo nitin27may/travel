@@ -66,6 +66,40 @@ export function missTime(days: number, addDays: number | null, tried: number): P
 export const missUnknown = (listed: boolean): PlanReason =>
   listed ? reason("no_location", { listed: 1 }, "We do not have a location for this yet") : reason("not_listed", { listed: 0 }, "This place is no longer in our list");
 
+// ---- several bases and move days (TB-E2) --------------------------------------------------------------------------------------------
+
+/** "Base 2: Jasper, 4 nights, 6 of your 9 picks within 40 min ≈" (the picks assigned to it, and the longest drive out to one). */
+export function baseShare(index: number, name: string, nights: number, n: number, of: number, maxMin: number, estimated: boolean): PlanReason {
+  const nn = `${nights} ${nights === 1 ? "night" : "nights"}`;
+  if (n === 0) return reason("base_share", { index, nights, n, of }, `Base ${index}: ${name}, ${nn}, none of your ${of} picks is closest to it`);
+  return reason("base_share", { index, nights, n, of, maxMin }, `Base ${index}: ${name}, ${nn}, ${n} of your ${of} picks within ${fmtMinutes(maxMin)}${approx(estimated)}`);
+}
+/** A base the visitor chose that the nights do not reach: it stays listed, with no days. */
+export const baseNoNights = (name: string, nights: number): PlanReason =>
+  reason("no_nights", { nights }, `No nights at ${name}: your other bases hold all ${nights} ${nights === 1 ? "night" : "nights"}`);
+/** Picks beyond the reach of every base, counted on the base nearest to them. */
+export const baseOutOfReach = (n: number, radiusMin: number): PlanReason =>
+  reason("out_of_reach", { n, radiusMin }, `${n} of your ${n === 1 ? "picks is" : "picks are"} beyond the day-trip reach of every base; this one is the nearest`);
+export function missTooFarBases(min: number | null, nearest: string | null, radiusMin: number, estimated: boolean): PlanReason {
+  if (min === null || nearest === null) return reason("no_road", { radiusMin }, "No road we know of reaches it from your bases");
+  return reason(
+    "too_far",
+    { min, radiusMin },
+    `Too far from your bases: ${fmtMinutes(min)}${approx(estimated)} from ${nearest}, the nearest, over your ${fmtMinutes(radiusMin)} each way`,
+  );
+}
+/** "Move from Banff to Jasper: 3 h 10 ≈ of driving" */
+export function dayMove(from: string, to: string, min: number, estimated: boolean): PlanReason {
+  return reason("move_day", { fromBase: from, toBase: to, min }, `Move from ${from} to ${to}: ${fmtMinutes(min)}${approx(estimated)} of driving`);
+}
+export function moveLong(min: number, limitMin: number, estimated: boolean): PlanReason {
+  return reason("long_move", { min, limitMin }, `The move is ${fmtMinutes(min)}${approx(estimated)}, over your ${fmtMinutes(limitMin)} of driving a day: break the drive`);
+}
+export function moveOverDay(min: number, dayMin: number, estimated: boolean): PlanReason {
+  return reason("move_over_day", { min, dayMin }, `The move is ${fmtMinutes(min)}${approx(estimated)}, longer than a whole day at your pace (${fmtMinutes(dayMin)}): add a base between`);
+}
+export const moveNoRoad = (from: string, to: string): PlanReason => reason("no_road_move", { fromBase: from, toBase: to }, `No road we know of from ${from} to ${to}`);
+
 // ---- area picks (TB-PIN) ------------------------------------------------------------------------------------------------------------
 
 /** "Algonquin Provincial Park is your area; its 4 trails are the stops" (the members among the picks, counted). */
