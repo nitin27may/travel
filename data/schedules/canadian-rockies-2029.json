@@ -144,6 +144,78 @@
      "basis": "plan",
      "estimate": true,
      "km": null
+    },
+    {
+     "from": "base",
+     "to": "bear-spray-groceries",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "estimate",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "bear-spray-groceries",
+     "to": "fenland-loop",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "estimate",
+     "estimate": true,
+     "km": 2
+    },
+    {
+     "from": "fenland-loop",
+     "to": "vermilion-lakes",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "estimate",
+     "estimate": true,
+     "km": 2
+    },
+    {
+     "from": "vermilion-lakes",
+     "to": "elk-rut",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "estimate",
+     "estimate": true,
+     "km": 3
+    },
+    {
+     "from": "elk-rut",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "estimate",
+     "estimate": true,
+     "km": 1
+    },
+    {
+     "from": "fenland-loop",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "estimate",
+     "estimate": true,
+     "km": 2
+    },
+    {
+     "from": "base",
+     "to": "vermilion-lakes",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "estimate",
+     "estimate": true,
+     "km": 3
+    },
+    {
+     "from": "base",
+     "to": "banff-gondola",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "estimate",
+     "estimate": true,
+     "km": 6
     }
    ]
   },
@@ -266,6 +338,42 @@
      "basis": "plan",
      "estimate": true,
      "km": null
+    },
+    {
+     "from": "base",
+     "to": "sunshine-meadows-citadel-pass",
+     "mode": "drive",
+     "minutes": 20,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "banff-gondola",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "estimate",
+     "estimate": true,
+     "km": 6
+    },
+    {
+     "from": "banff-gondola",
+     "to": "cave-and-basin",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "routed",
+     "estimate": false,
+     "km": 5.3
+    },
+    {
+     "from": "cave-and-basin",
+     "to": "banff-upper-hot-springs",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "estimate",
+     "estimate": true,
+     "km": 5
     }
    ]
   },
@@ -394,6 +502,15 @@
      "basis": "plan",
      "estimate": true,
      "km": null
+    },
+    {
+     "from": "bourgeau-lake",
+     "to": "next-base",
+     "mode": "drive",
+     "minutes": 35,
+     "basis": "routed",
+     "estimate": false,
+     "km": 44.2
     }
    ]
   },
@@ -588,6 +705,15 @@
      "basis": "plan",
      "estimate": true,
      "km": null
+    },
+    {
+     "from": "wilcox-pass",
+     "to": "next-base",
+     "mode": "drive",
+     "minutes": 95,
+     "basis": "estimate",
+     "estimate": true,
+     "km": 122
     }
    ]
   },
@@ -716,6 +842,24 @@
      "to": "base",
      "mode": "drive",
      "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "mary-schaffer-loop",
+     "to": "moose-lake-loop",
+     "mode": "walk",
+     "minutes": 9,
+     "basis": "routed",
+     "estimate": false,
+     "km": 0.7
+    },
+    {
+     "from": "moose-lake-loop",
+     "to": "pyramid-lake",
+     "mode": "drive",
+     "minutes": 70,
      "basis": "plan",
      "estimate": true,
      "km": null
@@ -1004,6 +1148,15 @@
      "basis": "plan",
      "estimate": true,
      "km": null
+    },
+    {
+     "from": "lake-annette-loop",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "estimate",
+     "estimate": true,
+     "km": 6
     }
    ]
   },
@@ -1184,6 +1337,15 @@
      "basis": "plan",
      "estimate": true,
      "km": null
+    },
+    {
+     "from": "parker-ridge",
+     "to": "next-base",
+     "mode": "drive",
+     "minutes": 110,
+     "basis": "estimate",
+     "estimate": true,
+     "km": 142
     }
    ]
   },
@@ -1358,6 +1520,15 @@
      "basis": "plan",
      "estimate": true,
      "km": null
+    },
+    {
+     "from": "emerald-lake-canoe",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 35,
+     "basis": "routed",
+     "estimate": false,
+     "km": 36.6
     }
    ],
    "source": "research/trips/canadian-rockies-sept-2029: legacy data/verify-adventures.json (Emerald Lake canoe: 10:00 to 16:45 daily, the page also says last rental 14:00, a conflict) and PLAN.md"
@@ -1731,6 +1902,24 @@
      "basis": "plan",
      "estimate": true,
      "km": null
+    },
+    {
+     "from": "base",
+     "to": "ha-ling-peak",
+     "mode": "drive",
+     "minutes": 80,
+     "basis": "routed",
+     "estimate": false,
+     "km": 89.3
+    },
+    {
+     "from": "ha-ling-peak",
+     "to": "next-base",
+     "mode": "drive",
+     "minutes": 60,
+     "basis": "routed",
+     "estimate": false,
+     "km": 63.2
     }
    ]
   },

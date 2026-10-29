@@ -199,6 +199,86 @@
     "basis": "plan",
     "estimate": true,
     "symmetric": true
+   },
+   {
+    "from": "base",
+    "to": "bear-spray-groceries",
+    "mode": "drive",
+    "minutes": 5,
+    "km": null,
+    "basis": "estimate",
+    "estimate": true,
+    "symmetric": true
+   },
+   {
+    "from": "bear-spray-groceries",
+    "to": "fenland-loop",
+    "mode": "drive",
+    "minutes": 5,
+    "km": 2,
+    "basis": "estimate",
+    "estimate": true,
+    "symmetric": true
+   },
+   {
+    "from": "fenland-loop",
+    "to": "vermilion-lakes",
+    "mode": "drive",
+    "minutes": 5,
+    "km": 2,
+    "basis": "estimate",
+    "estimate": true,
+    "symmetric": true
+   },
+   {
+    "from": "vermilion-lakes",
+    "to": "elk-rut",
+    "mode": "drive",
+    "minutes": 5,
+    "km": 3,
+    "basis": "estimate",
+    "estimate": true,
+    "symmetric": true
+   },
+   {
+    "from": "elk-rut",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 5,
+    "km": 1,
+    "basis": "estimate",
+    "estimate": true,
+    "symmetric": true
+   },
+   {
+    "from": "fenland-loop",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 5,
+    "km": 2,
+    "basis": "estimate",
+    "estimate": true,
+    "symmetric": true
+   },
+   {
+    "from": "base",
+    "to": "vermilion-lakes",
+    "mode": "drive",
+    "minutes": 5,
+    "km": 3,
+    "basis": "estimate",
+    "estimate": true,
+    "symmetric": true
+   },
+   {
+    "from": "base",
+    "to": "banff-gondola",
+    "mode": "drive",
+    "minutes": 10,
+    "km": 6,
+    "basis": "estimate",
+    "estimate": true,
+    "symmetric": true
    }
   ],
   "start": null,
@@ -540,6 +620,46 @@
     "basis": "plan",
     "estimate": true,
     "symmetric": true
+   },
+   {
+    "from": "base",
+    "to": "sunshine-meadows-citadel-pass",
+    "mode": "drive",
+    "minutes": 20,
+    "km": null,
+    "basis": "plan",
+    "estimate": true,
+    "symmetric": true
+   },
+   {
+    "from": "base",
+    "to": "banff-gondola",
+    "mode": "drive",
+    "minutes": 10,
+    "km": 6,
+    "basis": "estimate",
+    "estimate": true,
+    "symmetric": true
+   },
+   {
+    "from": "banff-gondola",
+    "to": "cave-and-basin",
+    "mode": "drive",
+    "minutes": 10,
+    "km": 5.3,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "cave-and-basin",
+    "to": "banff-upper-hot-springs",
+    "mode": "drive",
+    "minutes": 10,
+    "km": 5,
+    "basis": "estimate",
+    "estimate": true,
+    "symmetric": true
    }
   ],
   "start": null,
@@ -851,6 +971,16 @@
     "km": null,
     "basis": "plan",
     "estimate": true,
+    "symmetric": true
+   },
+   {
+    "from": "bourgeau-lake",
+    "to": "next-base",
+    "mode": "drive",
+    "minutes": 35,
+    "km": 44.2,
+    "basis": "routed",
+    "estimate": false,
     "symmetric": true
    }
   ],
@@ -1307,6 +1437,16 @@
     "basis": "plan",
     "estimate": true,
     "symmetric": true
+   },
+   {
+    "from": "wilcox-pass",
+    "to": "next-base",
+    "mode": "drive",
+    "minutes": 95,
+    "km": 122,
+    "basis": "estimate",
+    "estimate": true,
+    "symmetric": true
    }
   ],
   "start": {
@@ -1629,6 +1769,26 @@
     "to": "base",
     "mode": "drive",
     "minutes": 10,
+    "km": null,
+    "basis": "plan",
+    "estimate": true,
+    "symmetric": true
+   },
+   {
+    "from": "mary-schaffer-loop",
+    "to": "moose-lake-loop",
+    "mode": "walk",
+    "minutes": 9,
+    "km": 0.7,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "moose-lake-loop",
+    "to": "pyramid-lake",
+    "mode": "drive",
+    "minutes": 70,
     "km": null,
     "basis": "plan",
     "estimate": true,
@@ -2320,6 +2480,16 @@
     "basis": "plan",
     "estimate": true,
     "symmetric": true
+   },
+   {
+    "from": "lake-annette-loop",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 10,
+    "km": 6,
+    "basis": "estimate",
+    "estimate": true,
+    "symmetric": true
    }
   ],
   "start": null,
@@ -2752,6 +2922,16 @@
     "basis": "plan",
     "estimate": true,
     "symmetric": true
+   },
+   {
+    "from": "parker-ridge",
+    "to": "next-base",
+    "mode": "drive",
+    "minutes": 110,
+    "km": 142,
+    "basis": "estimate",
+    "estimate": true,
+    "symmetric": true
    }
   ],
   "start": {
@@ -3175,6 +3355,16 @@
     "km": null,
     "basis": "plan",
     "estimate": true,
+    "symmetric": true
+   },
+   {
+    "from": "emerald-lake-canoe",
+    "to": "base",
+    "mode": "drive",
+    "minutes": 35,
+    "km": 36.6,
+    "basis": "routed",
+    "estimate": false,
     "symmetric": true
    }
   ],
@@ -4107,6 +4297,26 @@
     "km": null,
     "basis": "plan",
     "estimate": true,
+    "symmetric": true
+   },
+   {
+    "from": "base",
+    "to": "ha-ling-peak",
+    "mode": "drive",
+    "minutes": 80,
+    "km": 89.3,
+    "basis": "routed",
+    "estimate": false,
+    "symmetric": true
+   },
+   {
+    "from": "ha-ling-peak",
+    "to": "next-base",
+    "mode": "drive",
+    "minutes": 60,
+    "km": 63.2,
+    "basis": "routed",
+    "estimate": false,
     "symmetric": true
    }
   ],

@@ -1,0 +1,137 @@
+{
+  "schema": "capture-run/1",
+  "run": "s2d-leg-2026-10-28-stored-legs",
+  "started": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "refs": [
+      "map/canadian-rockies-2029/14-B-3>14-B-4",
+      "map/canadian-rockies-2029/5-B-2>5-B-3",
+      "map/canadian-rockies-2029/5-B-5>5-B-2",
+      "map/canadian-rockies-2029/6-B-2>6-B-3",
+      "map/canadian-rockies-2029/6-B-4>6-B-2",
+      "map/canadian-rockies-2029/6-C-2>6-C-1",
+      "map/canadian-rockies-2029/7-B-1>7-B-2",
+      "map/canadian-rockies-2029/7-B-4>7-B-1",
+      "schedule/canadian-rockies-2029/day-2",
+      "schedule/canadian-rockies-2029/day-4",
+      "schedule/dolomites-2027/day-2"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "overpass-api.de",
+      "requests": 6,
+      "robots": "none",
+      "terms": "allowed",
+      "status": "partial"
+    },
+    {
+      "host": "www.banffjaspercollection.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "albertaparks.ca",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "parks.canada.ca",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "api.openrouteservice.org",
+      "requests": 0,
+      "robots": "none",
+      "terms": "allowed",
+      "status": "blocked"
+    }
+  ],
+  "results": [
+    {
+      "ref": "map/canadian-rockies-2029/14-B-3>14-B-4",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": "OSM ways 119123750 and 385652955 (Highway 40, Kananaskis Trail), read through Overpass 2026-10-29 01:27 UTC",
+      "host": "overpass-api.de",
+      "reason": "Class: road with a seasonal gate, not 'no road'. Ptarmigan Cirque to Wedge Pond runs over Highwood Pass on Highway 40, tagged access:conditional 'no @ Dec 01-Jun 14'; ORS took the long way round, over 5 times the straight line. Open in the trip's September window. Secondary: Wikipedia 'Highwood Pass' gives 1 Dec to 14 Jun; the current Alberta Parks trail reports (updated 2026-10-25) do not state the dates."
+    },
+    {
+      "ref": "map/canadian-rockies-2029/5-B-5>5-B-2",
+      "field": "transit",
+      "outcome": "filled",
+      "src": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/ (read 2026-10-28)",
+      "host": "www.banffjaspercollection.com",
+      "reason": "Class: ferry (boat). The stop pin is Spirit Island in Maligne Lake (52.66444, -117.53361); the operator's cruise is the way to its viewpoint. The operator states the cruise is closed for the 2026 season and reopens 28 May 2027 (a pattern for 2029)."
+    },
+    {
+      "ref": "map/canadian-rockies-2029/5-B-2>5-B-3",
+      "field": "transit",
+      "outcome": "filled",
+      "src": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/ (read 2026-10-28)",
+      "host": "www.banffjaspercollection.com",
+      "reason": "Class: ferry (boat), as 5-B-5>5-B-2: the Spirit Island end is reached by the cruise."
+    },
+    {
+      "ref": "map/canadian-rockies-2029/6-B-2>6-B-3",
+      "field": "point",
+      "outcome": "gap",
+      "reason": "Class: no road, because of the pin. The 'Mount Robson Visitor Centre viewpoint' point (53.11056, -119.15667) is the summit of Mount Robson, not the visitor centre on Highway 16. A point fix for S2D-PTS; the pair routes once the pin is the visitor centre."
+    },
+    {
+      "ref": "map/canadian-rockies-2029/6-B-4>6-B-2",
+      "field": "point",
+      "outcome": "gap",
+      "reason": "Class: no road, the same summit pin as 6-B-2>6-B-3 (S2D-PTS)."
+    },
+    {
+      "ref": "map/canadian-rockies-2029/6-C-2>6-C-1",
+      "field": "point",
+      "outcome": "gap",
+      "reason": "Class: no road, the same summit pin (S2D-PTS)."
+    },
+    {
+      "ref": "map/canadian-rockies-2029/7-B-4>7-B-1",
+      "field": "closures",
+      "outcome": "filled",
+      "src": "OSM ways 31177099, 31181460, 232706570, 1302534759 (Miette Road, highway=tertiary, no access tag), read through Overpass 2026-10-29",
+      "host": "overpass-api.de",
+      "reason": "Class: road. Miette Road is a public paved road to the hot springs with no access restriction in OSM today; the ORS 404 of 2026-10-25 is a routing-graph gap (the road has 2024-2025 way ids), not 'no road'. Re-ask ORS on the next run."
+    },
+    {
+      "ref": "map/canadian-rockies-2029/7-B-1>7-B-2",
+      "field": "closures",
+      "outcome": "filled",
+      "src": "OSM Miette Road ways as 7-B-4>7-B-1, read through Overpass 2026-10-29",
+      "host": "overpass-api.de",
+      "reason": "Class: road, the same Miette Road graph gap."
+    },
+    {
+      "ref": "schedule/canadian-rockies-2029/day-4",
+      "field": "best_time",
+      "outcome": "gap",
+      "reason": "Owner decision. Adults alone take Version A (Wilcox Pass); its 12:30 start is the split-day time that fits inside the family's Ice Explorer block, so with the 07:30 day start the adults wait 3 h 20 at the trailhead. Data is not wrong for the split; the fix is the builder's split-day start-time back-calculation (DATA-PLAN 2.4 DG-03 code half). Not changed."
+    },
+    {
+      "ref": "schedule/canadian-rockies-2029/day-2",
+      "field": "duration_min",
+      "outcome": "gap",
+      "reason": "S2D-TIME. 'Day 2 is 10 h 25 away from base' is true for the default family profile: 07:40 to 18:05 (Sunshine gondola 08:00 to 11:30, lunch, Minnewanka cruise, pick up the adults at the Sunshine car park at 15:30, Upper Hot Springs 2 h). The timeline also hides the drive back from Minnewanka to Sunshine (the rejoin pin draws no leg), so the real day is about 30 min longer. Owner decision; data not changed."
+    },
+    {
+      "ref": "schedule/dolomites-2027/day-2",
+      "field": "best_time",
+      "outcome": "gap",
+      "reason": "S2D-TIME. The plan does Braies at first light and Val Fiscalina at 14:00 with a middle of the day at San Candido; the scheduler drives Braies to Fiscalina at 07:45 and waits 5 h 05 there, because a back-to-base leg is only drawn before an evening stop (17:00 or later, timeline.ts doloLegs). The plan time is not wrong; the free-time row is a code behaviour. Owner decision; data not changed."
+    }
+  ]
+}

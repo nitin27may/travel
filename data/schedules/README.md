@@ -67,6 +67,14 @@ Leg endpoints are item ids plus three fixed names: `base` (where the day starts)
 day ends) and `origin` (the airport on an arrival day). A leg works in both directions unless a reverse row exists. `minutes: 0`
 means "the same site": no leg is drawn. A pair with no leg here falls back to the straight-line estimate, then a 10 minute local move.
 
+A leg's `basis` says where its minutes come from: `plan` (the plan's own figure), `matrix` (the plan's drive table), `routed` (an
+OpenRouteService value from a dated run, `estimate: false`) or `estimate` (the calibrated drive model of `core/src/drive`, rounded to
+5 minutes with a 5 minute floor like the scheduler's own estimate, `estimate: true`, shown with ≈). Each `routed` and `estimate` leg
+names its source, its points and its read date in the run note that added it (S2D-LEG:
+`research/runs/s2d-leg-2026-10-28-stored-legs.md`). Every consecutive stop pair of every version of a published day has a leg
+here; the fallbacks are for stops a visitor adds or moves. On a transfer day the base fallback sends a stop with no point back through
+the start base, which is how adults Day 4 of the Rockies once read "Drive to Jasper via Lake Louise", 5 h 20.
+
 Times are suggestions unless `confidence` is `fixed`. An authored time is `suggested` with source `plan` and is pinned: the
 scheduler bends the day around it. Sun-relative times are `anchored`.
 

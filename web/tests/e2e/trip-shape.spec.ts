@@ -29,7 +29,7 @@ test.describe('closed by default', () => {
     await page.goto(`${site.url}${ROCKIES}`);
     await expect(shape(page).getByRole('heading', { name: "The trip's shape" })).toBeVisible();
     await expect(shape(page).getByRole('list', { name: 'Where you sleep' }).getByRole('listitem')).toHaveCount(5);
-    await expect(shape(page).locator('.shape-count')).toHaveText('15 days · 4 long drive days · 6 days with a booking · 8 highlight days · 6 days with a warning', { useInnerText: true });
+    await expect(shape(page).locator('.shape-count')).toHaveText('15 days · 2 long drive days · 6 days with a booking · 8 highlight days · 6 days with a warning', { useInnerText: true }); // S2D-LEG: Days 1 and 5 drop under the line
     await expect(toggle(page)).toHaveText('Show all 15 days');
     await expect(toggle(page)).toHaveAttribute('aria-expanded', 'false');
     await expect(shape(page).locator('.shape-table')).toBeHidden();
@@ -59,7 +59,8 @@ test.describe('opening and closing', () => {
     await expect(table.locator('caption')).toContainText("The trip's shape, 15 days");
     await expect(table.getByRole('columnheader')).toHaveText(['Day', 'Base and plan', 'Driving', 'On foot', 'Notes']);
     expect(await days(page)).toEqual(Array.from({ length: 15 }, (_, i) => i + 1));
-    await expect(rows(page).first()).toContainText('Long drive');
+    await expect(rows(page).first()).not.toContainText('Long drive'); // Day 1 drives 2 h with its stored legs (S2D-LEG)
+    await expect(rows(page).nth(3)).toContainText('Long drive');
     await expect(rows(page).first()).toContainText('Book 1'); // the Discovery Pass is a pass now, not counted (PA-R-CA2)
     await expect(rows(page).nth(10)).toContainText('No driving');
     expect(await page.evaluate(() => document.activeElement?.classList.contains('shape-toggle'))).toBe(true);
@@ -71,9 +72,9 @@ test.describe('opening and closing', () => {
   test('a count phrase opens the days filtered to its days, "Show all days" clears it, and the open phrase closes it', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}`);
     await shape(page).locator('[data-phrase="longDrive"]').click();
-    expect(await days(page)).toEqual([1, 4, 5, 8]);
+    expect(await days(page)).toEqual([4, 8]);
     await expect(shape(page).locator('[data-phrase="longDrive"]')).toHaveAttribute('aria-expanded', 'true');
-    await expect(shape(page).locator('caption')).toContainText('4 long drive days of 15');
+    await expect(shape(page).locator('caption')).toContainText('2 long drive days of 15');
     await shape(page).locator('[data-phrase="warning"]').click();
     expect(await days(page)).toEqual([2, 4, 7, 10, 12, 13]);
     await shape(page).getByRole('button', { name: 'Show all days' }).click();
@@ -259,10 +260,10 @@ test.describe('phones', () => {
       expect(new Set(left).size).toBe(1);
       await expect(rows(page).first().locator('.shape-notes')).toContainText('1.9 km on foot');
       // S2: short phrases, no more than two rows of them
-      await expect(shape(page).locator('.shape-phrase')).toHaveText(['15 days', '4 long drives', '6 with a booking', '8 highlights', '6 warnings'], { useInnerText: true });
+      await expect(shape(page).locator('.shape-phrase')).toHaveText(['15 days', '2 long drives', '6 with a booking', '8 highlights', '6 warnings'], { useInnerText: true });
       const pills = await shape(page).locator('.shape-phrase').evaluateAll((els) => new Set(els.map((e) => Math.round(e.getBoundingClientRect().top))).size);
       expect(pills).toBeLessThanOrEqual(width === 320 ? 3 : 2);
-      await expect(rows(page).first()).toContainText('Long drive');
+      await expect(rows(page).nth(3)).toContainText('Long drive');
       // the ribbon keeps a name or a short one in every segment, none clipped
       const clipped = await shape(page).locator('.shape-seg').evaluateAll((els) => els.filter((e) => [...e.querySelectorAll<HTMLElement>('.shape-seg-n, .shape-seg-k')].some((c) => c.offsetParent && c.scrollWidth > c.clientWidth + 1)).length);
       expect(clipped).toBe(0);
@@ -279,7 +280,7 @@ test.describe('print and reduced motion', () => {
     await expect(shape(page).getByRole('table')).toBeVisible();
     await page.emulateMedia({ media: 'print' });
     await expect(shape(page).locator('.shape-ribbon')).toBeVisible();
-    await expect(shape(page).locator('.shape-print')).toContainText('15 days · 4 long drive days');
+    await expect(shape(page).locator('.shape-print')).toContainText('15 days · 2 long drive days');
     await expect(shape(page).locator('.shape-table')).toBeHidden();
     await expect(shape(page).locator('.shape-toggle')).toBeHidden();
   });

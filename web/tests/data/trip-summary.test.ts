@@ -112,12 +112,13 @@ describe('Summary: every trip', () => {
 describe("The trip's shape on the real timelines (spec 4.2)", () => {
   it('Rockies at the default party', () => {
     const sh = tripShapeFor(getTrip('canadian-rockies-2029')!, getPlace)!;
-    expect(sh.sets.longDrive).toEqual([1, 4, 5, 8]);
+    // S2D-LEG: Day 1 lost six fallback 10 minute moves inside Banff (2 h 30 to 2 h) and Day 5's Maligne trailhead hop is a 9 minute walk
+    expect(sh.sets.longDrive).toEqual([4, 8]);
     expect(sh.sets.booking).toEqual([1, 4, 5, 9, 10, 11]);
     expect(sh.sets.warning).toEqual([2, 4, 7, 10, 12, 13]);
     // the spec's table said 7 (no Day 5); Day 5's family version visits Maligne Lake and Spirit Island, a highlight
     expect(sh.sets.highlight).toEqual([3, 4, 5, 8, 9, 10, 11, 14]);
-    expect(sh.countLine).toBe('15 days · 4 long drive days · 6 days with a booking · 8 highlight days · 6 days with a warning');
+    expect(sh.countLine).toBe('15 days · 2 long drive days · 6 days with a booking · 8 highlight days · 6 days with a warning');
     expect(sh.ribbon.map((r) => [r.name, r.nights])).toEqual([['Banff', 2], ['Lake Louise village', 1], ['Jasper townsite', 4], ['Lake Louise village', 4], ['Kananaskis Village / Peter Lougheed PP', 3]]);
     expect(sh.tail).toEqual({ days: [15], label: 'Flight home' });
     expect(sh.rows[5]!.notes.map((n) => n.text)).toEqual(["Adults' hike"]);
@@ -140,10 +141,10 @@ describe('One drive figure (spec 4.7, finding I14)', () => {
       expect(Math.abs(trip.driveAvgMin! - mean), slug).toBeLessThanOrEqual(2.5);
     }
   });
-  it('the Rockies cover says about 2 h a day, not the seed 1 h 40', () => {
+  it('the Rockies cover says about 1 h 55 a day (stored legs, S2D-LEG), not the seed 1 h 40', () => {
     const trip = getTrip('canadian-rockies-2029')!;
-    expect(trip.schedule!.timelines.reduce((s, t) => s + t.totals.driveMin, 0)).toBe(1765);
-    expect(trip.driveAvgMin).toBe(120);
+    expect(trip.schedule!.timelines.reduce((s, t) => s + t.totals.driveMin, 0)).toBe(1725);
+    expect(trip.driveAvgMin).toBe(115);
     expect(getTrip('dolomites-2027')!.driveAvgMin).toBe(90);
   });
 });
