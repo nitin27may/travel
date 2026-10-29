@@ -18,7 +18,7 @@ export function showDay(n: number): void {
 
 /**
  * After a copy opens its page: the tab bar at its sticky line, so the Days under it are what the person sees, not the cover alone. The page
- * loads the copy's document after it paints, so this waits for the first day to exist (about 4 s at most) and gives up the moment the
+ * loads the copy's document after it paints, so this waits for the first day to exist (about 6 s at most) and gives up the moment the
  * person scrolls, taps or types, so it never fights them.
  */
 export function landOnDays(): () => void {
@@ -33,7 +33,8 @@ export function landOnDays(): () => void {
     if (!live) return;
     const bar = document.querySelector<HTMLElement>('.trip-tabbar');
     const day = document.querySelector('.tl-day');
-    if (bar && day && bar.getBoundingClientRect().height > 0) {
+    // the router keeps the old page on screen until the copy's page is ready: only the copy's own page counts
+    if (location.pathname.startsWith('/t/') && bar && day && bar.getBoundingClientRect().height > 0) {
       const head = document.querySelector<HTMLElement>('.site-header');
       const line = head ? Math.max(0, head.getBoundingClientRect().bottom) : 0;
       const by = bar.getBoundingClientRect().top - line;
@@ -41,7 +42,7 @@ export function landOnDays(): () => void {
       stop();
       return;
     }
-    if (++tries < 40) window.setTimeout(step, 100);
+    if (++tries < 60) window.setTimeout(step, 100);
     else stop();
   };
   step();

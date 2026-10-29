@@ -10,6 +10,8 @@ import { sampleDraft } from '../../../core/test/plan/helpers';
 // straight away in edit mode with the toast "Copied ... to My trips" and Undo (STEP2-P3; no done step). Run the spec with the same variable the
 // build had.
 const TRIP_EDIT = process.env.NEXT_PUBLIC_TRIP_EDIT === '1';
+// with `planBuilder` off (production at GO-2) /plan/ is a 404, so an unbuilt draft is no link (PR-010)
+const BUILDER = process.env.NEXT_PUBLIC_PLAN_BUILDER === '1';
 const OPEN_LINK = 'Open in Mine';
 const COPIES_KEY = 'travel.copies.local';
 const LEGACY_KEY = 'travel:v1:copy-drafts';
@@ -52,10 +54,15 @@ test.describe('one list for copies and plans', () => {
     await expect(page.getByRole('tab', { name: /My trips/ })).toContainText('4');
     const draft = page.locator(`.crow[data-copy-id="${DRAFT_ID}"]`);
     await expect(draft.locator('.crow-name')).toHaveText('Alps loop');
-    await expect(draft.locator('.crow-chip')).toHaveText('Draft · ready to build');
-    await expect(draft.locator('a.crow-link')).toHaveAttribute('href', new RegExp(`^/plan/?\\?draft=${DRAFT_ID}&s=4$`));
+    if (BUILDER) {
+      await expect(draft.locator('.crow-chip')).toHaveText('Draft · ready to build');
+      await expect(draft.locator('a.crow-link')).toHaveAttribute('href', new RegExp(`^/plan/?\\?draft=${DRAFT_ID}&s=4$`));
+    } else {
+      await expect(draft.locator('.crow-chip')).toHaveText('Draft · the planner is not open yet');
+      await expect(draft.locator('a.crow-link')).toHaveCount(0);
+    }
     await draft.getByRole('button', { name: 'Actions for Alps loop' }).click();
-    await expect(page.getByRole('menuitem')).toHaveText([/Continue/, /Remove/]);
+    await expect(page.getByRole('menuitem')).toHaveText(BUILDER ? [/Continue/, /Remove/] : [/Remove/]);
     await page.getByRole('menuitem', { name: 'Remove' }).click();
     await expect(page.locator('.crow')).toHaveCount(3);
     expect(await page.evaluate((k) => localStorage.getItem(k), PLANS_KEY)).toBeNull();

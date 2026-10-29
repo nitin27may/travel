@@ -56,7 +56,7 @@ function readItems() {
 }
 
 /** How long the list waits for the base points of trips it does not know yet, before it shows the order it has. */
-const WAIT_MS = 1800;
+const WAIT = 1800;
 
 export function TripPicker({ place, onClose }: Props) {
   const phone = usePhone();
@@ -70,7 +70,7 @@ export function TripPicker({ place, onClose }: Props) {
   useEffect(() => {
     if (!missing.length) return;
     let live = true;
-    const timer = window.setTimeout(() => live && setTimedOut(true), WAIT_MS);
+    const timer = window.setTimeout(() => live && setTimedOut(true), WAIT);
     void import('@/lib/client/data').then(({ loadExport }) =>
       Promise.all(
         missing.map((slug) =>

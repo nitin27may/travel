@@ -48,8 +48,9 @@
 .add-pin-note { margin: var(--s-1) 0 0; font: var(--t-small); color: var(--ink-2); }
 .add-far { display: grid; gap: var(--s-3); justify-items: start; }
 .add-far-line { margin: 0; font: var(--t-small); color: var(--ink); }
-.add-far-acts { display: flex; flex-wrap: wrap; gap: var(--s-2); width: 100%; }
-.add-far-acts .btn { min-height: var(--touch-min); }
+.add-far-acts { display: grid; gap: var(--s-2); width: 100%; }
+.add-far-acts .btn { min-height: var(--touch-min); width: 100%; justify-content: center; }
+@media (min-width: 640px) { .add-far-acts { grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); } }
 .add-dayrow { grid-template-columns: minmax(0, 1fr) auto; }
 .add-date { font: var(--t-meta); color: var(--muted); }
 .add-dayrow[data-current] .add-title { color: var(--muted); }

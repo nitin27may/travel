@@ -17,7 +17,7 @@
 .tpk-day { font: var(--t-meta); color: var(--muted); }
 .tpk-day[data-on] { color: var(--ink-2); }
 .tpk-row[data-far] .tpk-name { color: var(--ink-2); }
-.tpk-add { min-height: var(--touch-min); min-width: 64px; white-space: nowrap; justify-content: center; }
+.tpk-add { min-height: var(--touch-min); min-width: 7.5rem; white-space: nowrap; justify-content: center; }
 .tpk-more { border-top: 1px solid var(--line); }
 .tpk-more > li + li { border-top: 1px solid var(--line); }
 .tpk-plain { display: flex; align-items: center; justify-content: flex-start; gap: var(--s-2); width: 100%; min-height: var(--touch-min); padding: 0; border: 0; background: none; color: var(--ink); font: var(--t-body); text-decoration: none; cursor: pointer; }
