@@ -4,6 +4,9 @@ import { FAV_LOCAL_KEY, favItem } from '@travel/core/schema/favourites.ts';
 import { readFavourites } from '@travel/core/favourites/envelope.ts';
 import { hasNewItems } from '@/lib/mine/dot';
 import { COPIES_KEY, FAV_KEY, SEEN_KEY } from '@/lib/mine/keys';
+import { PLANS_KEY } from '@/lib/plan/keys';
+import { PLAN_DRAFTS_SCHEMA, readPlanDrafts } from '@travel/core/schema/plan-draft.ts';
+import { sampleDraft } from '../../../core/test/plan/helpers';
 
 // web/lib/mine/keys.ts copies the two storage keys as literals (the bar must not import Zod), and dot.ts reads two item fields by name.
 // This file is the guard: if core renames a key or a field, the dot would go dark without an error.
@@ -52,5 +55,33 @@ describe('Mine storage keys and fields stay pinned to core', () => {
       });
       expect(hasNewItems()).toBe(false);
     });
+
+  describe('hasNewItems on builder drafts', () => {
+    const drafts = (...items: ReturnType<typeof sampleDraft>[]) => JSON.stringify({ schema: PLAN_DRAFTS_SCHEMA, items });
+    const at = (created: string) => sampleDraft({ lastBuild: null, createdAt: created, updatedAt: '2026-10-25T00:00:00.000Z' });
+    afterEach(() => vi.unstubAllGlobals());
+
+    it('PLANS_KEY is read as a real drafts envelope', () => {
+      expect(readPlanDrafts(drafts(at('2026-10-20T10:00:00.000Z'))).ok).toBe(true);
+    });
+    it('counts a draft with no build, like a copy', () => {
+      stubStorage({ [PLANS_KEY]: drafts(at('2026-10-20T10:00:00.000Z')), [SEEN_KEY]: '2026-10-19T00:00:00.000Z' });
+      expect(hasNewItems()).toBe(true);
+      stubStorage({ [PLANS_KEY]: drafts(at('2026-10-20T10:00:00.000Z')), [SEEN_KEY]: '2026-10-21T00:00:00.000Z' });
+      expect(hasNewItems()).toBe(false);
+    });
+    it('ignores a built draft, and an edit (updatedAt) of an unbuilt one after Mine was seen', () => {
+      const built = sampleDraft({ createdAt: '2026-10-20T10:00:00.000Z', updatedAt: '2026-10-20T10:00:00.000Z' });
+      expect(built.lastBuild).not.toBeNull();
+      stubStorage({ [PLANS_KEY]: drafts(built), [SEEN_KEY]: '2026-10-19T00:00:00.000Z' });
+      expect(hasNewItems()).toBe(false);
+      stubStorage({ [PLANS_KEY]: drafts(at('2026-10-20T10:00:00.000Z')), [SEEN_KEY]: '2026-10-22T00:00:00.000Z' });
+      expect(hasNewItems()).toBe(false);
+    });
+    it('a damaged drafts value gives no dot', () => {
+      stubStorage({ [PLANS_KEY]: '{not json', [SEEN_KEY]: '2026-10-19T00:00:00.000Z' });
+      expect(hasNewItems()).toBe(false);
+    });
+  });
   });
 });
