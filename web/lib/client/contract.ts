@@ -133,7 +133,7 @@ export interface DataClient {
   planRegions(cc: string): Promise<PlanRegions | null>;
   /** The public hubs and airports the start picker lists (TB-W1): `GET /api/v1/plan/starts`. Names only, no point. Null and rejection as `planRegions`; empty lists while the reference files are absent. */
   planStarts(): Promise<PlanStarts | null>;
-  /** One page (40 at most) of ranked candidates: `GET /api/v1/plan/candidates`. Null and rejection as `planRegions`. The query carries no party, only a band. */
+  /** One page (40 at most) of ranked candidates: `GET /api/v1/plan/candidates` for a public query, a no-store POST when it names a start or a party band (RB-010). Null and rejection as `planRegions`. The query carries no party, only a band. */
   planCandidates(q: PlanCandidatesQuery, signal?: AbortSignal): Promise<PlanCandidatePage | null>;
   /**
    * Builds a plan: `POST /api/v1/plan/build`. The body holds the party and is sent over this call only (never a URL, never stored). Null

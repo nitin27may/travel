@@ -58,6 +58,10 @@ const post = (body: unknown, d = deps(), headers: Record<string, string> = {}) =
   handlePlan('build', new Request(`${BASE}/build/`, { method: 'POST', headers: { 'content-type': 'application/json', ...headers }, body: typeof body === 'string' ? body : JSON.stringify(body) }), {}, d);
 
 const tripQuery = (extra = '') => `/candidates/?m=trip&cc=CA&rg=CA/alberta${extra}`;
+/** RB-010: a candidates query with a start or a party band, as the POST body the DataClient sends. */
+const postQ = (q: unknown, d = deps(), headers: Record<string, string> = {}) =>
+  handlePlan('candidates', new Request(`${BASE}/candidates/`, { method: 'POST', headers: { 'content-type': 'application/json', ...headers }, body: typeof q === 'string' ? q : JSON.stringify(q) }), {}, d);
+const nearQ = (over: Record<string, unknown> = {}) => ({ mode: 'near', start: { kind: 'hub', id: 'calgary' }, driveLimitMin: 120, ...over });
 
 async function someCandidates(n = 6): Promise<{ ref: string; slug: string }[]> {
   const res = await get('candidates', tripQuery('&pageSize=40'));
@@ -155,7 +159,7 @@ describe('GET /api/v1/plan/regions/{cc}', () => {
 
 describe('GET /api/v1/plan/candidates', () => {
   it('trip mode: a page of at most 40 scored rows, sorted, within the gzip budget', async () => {
-    const res = await get('candidates', tripQuery('&mo=7&p=family-6'));
+    const res = await postQ({ mode: 'trip', cc: 'CA', regions: ['CA/alberta'], month: 7, party: 'family-6' });
     expect(res.status).toBe(200);
     const text = await res.text();
     const page = planCandidatePage.parse(JSON.parse(text));
@@ -177,14 +181,14 @@ describe('GET /api/v1/plan/candidates', () => {
   });
 
   it('near mode: rows within the drive limit of a public hub, and `near` around a pick', async () => {
-    const res = await get('candidates', '/candidates/?m=near&from=hub:calgary&r=120');
+    const res = await postQ(nearQ());
     expect(res.status).toBe(200);
     const page = planCandidatePage.parse(await res.json());
     expect(page.items.length).toBeGreaterThan(0);
     expect(page.items.every((r) => r.driveMin !== null && r.driveMin <= 120)).toBe(true);
     const pick = page.items[0]!;
     // the real JsonStore answers `near` (N2, store.ts A41): a strip of at most `limit` rows around the pick, never the pick itself
-    const strip = await get('candidates', `/candidates/?m=near&from=hub:calgary&r=120&near=${pick.slug}&limit=6`);
+    const strip = await postQ(nearQ({ near: pick.slug, limit: 6 }));
     const stripBody = await strip.json();
     expect(strip.status, JSON.stringify(stripBody.error)).toBe(200);
     const stripPage = planCandidatePage.parse(stripBody);
@@ -196,7 +200,7 @@ describe('GET /api/v1/plan/candidates', () => {
   it('a town start resolves to the public gazetteer point through near(city=) and answers like a hub start there (N2)', async () => {
     const town = await getStore().near({ city: 'ca-ab-calgary', r: 1 }, { page: 1, pageSize: 1 });
     expect(town.ok).toBe(true);
-    const res = await get('candidates', '/candidates/?m=near&from=town:ca-ab-calgary&r=120');
+    const res = await postQ(nearQ({ start: { kind: 'town', id: 'ca-ab-calgary' } }));
     const body = await res.json();
     expect(res.status, JSON.stringify(body.error)).toBe(200);
     const page = planCandidatePage.parse(body);
@@ -204,7 +208,7 @@ describe('GET /api/v1/plan/candidates', () => {
     expect(page.items.every((r) => r.driveMin !== null && r.driveMin <= 120)).toBe(true);
     // the start is never echoed in the answer (the detector's `from` rule)
     expect(JSON.stringify(body)).not.toContain('ca-ab-calgary');
-    const unknown = await get('candidates', '/candidates/?m=near&from=town:ca-ab-no-such-town&r=120');
+    const unknown = await postQ(nearQ({ start: { kind: 'town', id: 'ca-ab-no-such-town' } }));
     expect(unknown.status).toBe(501);
   });
 
@@ -236,7 +240,7 @@ describe('GET /api/v1/plan/candidates', () => {
   });
 
   it('a start no public file knows is not_available, never guessed', async () => {
-    const res = await get('candidates', '/candidates/?m=near&from=hub:nowhere&r=120');
+    const res = await postQ(nearQ({ start: { kind: 'hub', id: 'nowhere' } }));
     expect(res.status).toBe(501);
     expect((await res.json()).error.code).toBe('not_available');
   });
@@ -258,6 +262,39 @@ describe('GET /api/v1/plan/candidates', () => {
     await bad('cc=CA', 400, 'invalid_input');
     const big = await get('candidates', '/candidates/?m=trip&cc=CA&rg=CA/alberta&pageSize=41');
     expect((await big.json()).error.details).toEqual({ max: 40 });
+  });
+
+  it('RB-010: a start or a party band never rides in the address; the POST answers the same page, no-store, and only from this site', async () => {
+    // the GET refuses the private keys and near mode outright, before anything is read
+    for (const q of ['m=near&from=hub:calgary&r=120', 'm=trip&cc=CA&rg=CA/alberta&p=family-7', 'm=near&r=120']) {
+      const res = await get('candidates', `/candidates/?${q}`);
+      expect(res.status, q).toBe(400);
+      const body = await res.json();
+      expect(body.error.code).toBe('invalid_input');
+      expect(JSON.stringify(body)).not.toMatch(/calgary|family-7/);
+    }
+    // a public query is still a cacheable GET with an ETag
+    const pub = await get('candidates', tripQuery('&mo=7'));
+    expect(pub.status).toBe(200);
+    expect(pub.headers.get('cache-control')).toContain('max-age');
+    expect(pub.headers.get('etag')).toBeTruthy();
+    // the POST: same shape, never cached
+    const priv = await postQ({ mode: 'trip', cc: 'CA', regions: ['CA/alberta'], month: 7 });
+    expect(priv.status).toBe(200);
+    expect(priv.headers.get('cache-control')).toBe('no-store');
+    expect(priv.headers.get('etag')).toBeNull();
+    expect(planCandidatePage.parse(await priv.json()).items.map((r) => r.ref)).toEqual(planCandidatePage.parse(await pub.json()).items.map((r) => r.ref));
+    // refusals: not JSON (so a browser elsewhere needs a preflight we never answer), a query string beside the body, a body over the cap,
+    // a body off the contract (paths only, no values)
+    expect((await handlePlan('candidates', new Request(`${BASE}/candidates/`, { method: 'POST', headers: { 'content-type': 'text/plain' }, body: '{}' }), {}, deps())).status).toBe(400);
+    expect((await handlePlan('candidates', new Request(`${BASE}/candidates/?from=hub:calgary`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(nearQ()) }), {}, deps())).status).toBe(400);
+    const huge = await postQ(JSON.stringify({ pad: 'x'.repeat(PLAN_LIMITS.candidateBodyBytes + 10) }));
+    expect(huge.status).toBe(413);
+    expect((await huge.json()).error.details).toEqual({ max: PLAN_LIMITS.candidateBodyBytes });
+    const off = await postQ(nearQ({ start: { kind: 'hub', id: 'zz-planted-start' }, driveLimitMin: 125 }));
+    expect(off.status).toBe(400);
+    expect(await off.text()).not.toContain('zz-planted-start');
+    expect((await postQ('not json')).status).toBe(400);
   });
 
   it('decodes the URL keys of the contract', () => {
@@ -430,14 +467,25 @@ describe('DataClient plan methods', () => {
       expect(regions?.cc).toBe('CA');
       const page = await client.planCandidates(query);
       expect(page?.items.length).toBeGreaterThan(0);
-      expect(String(fetchMock.mock.calls[1]![0])).toBe('/api/v1/plan/candidates/?m=trip&cc=CA&rg=CA%2Falberta&mo=7&p=family-6&pageSize=10');
+      // RB-010: the party band rides in a no-store POST body, never the address
+      expect(String(fetchMock.mock.calls[1]![0])).toBe('/api/v1/plan/candidates/');
+      expect(fetchMock.mock.calls[1]![1]).toMatchObject({ method: 'POST', cache: 'no-store' });
+      expect(JSON.parse(String(fetchMock.mock.calls[1]![1]!.body))).toEqual(query);
+      // a near query too; a public query (no party, trip mode) is the cacheable GET
+      const near = await client.planCandidates({ mode: 'near', start: { kind: 'hub', id: 'calgary' }, driveLimitMin: 120, pageSize: 5 });
+      expect(near?.items.length).toBeGreaterThan(0);
+      expect(String(fetchMock.mock.calls[2]![0])).toBe('/api/v1/plan/candidates/');
+      const { party: _p, ...pub } = query;
+      await client.planCandidates(pub);
+      expect(String(fetchMock.mock.calls[3]![0])).toBe('/api/v1/plan/candidates/?m=trip&cc=CA&rg=CA%2Falberta&mo=7&pageSize=10');
+      for (const [u] of fetchMock.mock.calls) expect(String(u)).not.toMatch(/calgary|family-|from=|[?&]p=/);
       const picks = page!.items.slice(0, 4).map((r, i) => ({ ref: r.ref, must: i === 0 }));
       const built = await client.planBuild(buildBody(picks, { picks }));
       expect(built?.days.length).toBe(3);
-      const [, init] = fetchMock.mock.calls[2]!;
+      const [, init] = fetchMock.mock.calls[4]!;
       expect(init?.method).toBe('POST');
       // the party travels in the body only
-      expect(String(fetchMock.mock.calls[2]![0])).not.toContain('adults');
+      expect(String(fetchMock.mock.calls[4]![0])).not.toContain('adults');
     } finally {
       vi.unstubAllGlobals();
     }
