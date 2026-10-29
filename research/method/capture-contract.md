@@ -522,6 +522,11 @@ Every value is a `Val` (suitability 1.1): `{v, state, basis, src, read, quote, n
 
 `official` (the land manager's or operator's own page), `hours_rates`, `booking`, `conditions`, `status`, `timetable`, `terms`, `waiver`, `safety`, `accessibility`, `menu`, `tourism_board`, `osm`, `wikidata`, `wikipedia`, `wikivoyage`, `commons`, `webcam`, `map_sheet`, `gpx_download`, `track_source`, `trip_report`, `video`, and the link-only platforms `alltrails`, `komoot`, `gaia`, `outdooractive`, `wikiloc`, `trailforks`, `reseller`. `navigation` is generated at render time and never stored. `google-maps` leaves `LINK_KIND`.
 
+> **28 Oct 2026 (LOCTYPE):** Google Maps, Apple Maps, directions and the OSM link are generated at read time from the point,
+> the access point and `osm_ref`, never researched or stored; `map_sheet` (the land manager's map) and `gpx_download` with
+> `gpx_licence` are researched. Each kind in a type's `links.R` other than `official` will count as its own required key
+> (`links.<kind>`). Spec: [location-type-requirements.md](../../docs/v2/features/location-type-requirements.md) D3, D4.
+
 ### 3.5 Per-type deltas (the contract by category)
 
 Each row lists only what differs from 3.2 and 3.3. Suitability marks come from the profile in 2.2 and are not repeated. The link list is the type's checklist; `official` is always R. "Slot 3" is the at-rest deciding chip (applicability 5.1).
@@ -633,6 +638,13 @@ The tiers are the resolved marks of `data/vocab/types.json`, read by the one com
 | Stay | operator, booking URL, window | R | `run_by` N on the place and A on the lodging offer, `book_url` N, `window` A | R on `offer.lodging` for `run_by` and `window`; `book_url` A |
 
 Only one mark change is made with META-0: `geonames_id: R` on the `settlement` domain (brief step 1). Each proposal above changes what pages count as Usable, so it is one reviewed commit to `types.json` (then `capture.ts build`), decided by the owner or the design reviewer, not by a builder.
+
+> **Superseded in part, 28 Oct 2026 (LOCTYPE):** the Trail row's link proposal ("`links.R`: `official`, `osm`; AllTrails as
+> `R?`") is replaced by AllTrails R (filled, `found_in_search` or `searched_none`) and OSM through `osm_ref` R, each
+> promoted per family only after the family is filled (the ratchet). The `osm_ref`, `ext.trail.shape`, `ends_at` and
+> `offer.lodging` proposals above are adopted on the same ratchet. Spec:
+> [location-type-requirements.md](../../docs/v2/features/location-type-requirements.md) 4 and 5.4.
+
 
 #### 3.7.3 Validator codes and severity
 

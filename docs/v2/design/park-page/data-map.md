@@ -20,7 +20,7 @@ exempted, counts, summary, access, closures).
 | Summary line | `PlaceLookup.summary` | relevance `why` | relevance sidecar | exists where researched | |
 | Relevance badge | as today | `class_key` (`park/protected-area`), `draw` | relevance | class from PA-C | |
 | Completeness chip, gap block | as today | completeness engine | derived | exists | |
-| Directions target | `PlaceLookup.point` | `point` (main visitor centre) | capture | exists | |
+| Directions target | the park's access point (main entrance or visitor-centre record), else `PlaceLookup.point` | `access_points`, then `point`. **Refined 28 Oct 2026** by [location-type-requirements](../../features/location-type-requirements.md) D2: the park's own point keeps the role `centre` (the pin); Directions and the address go to the access point | capture | access points exist on some parks | LT-AP, LT-1 |
 | Plan a visit (shown or not) | `PlaceContext.members` count with points; capability `planBuilder` | derived | graph index | EG-Q; flag from TB-C | EG-Q, TB-C |
 | Plan a visit links | slug; country code for "Part of a longer trip" | slug registry; `PlaceContext.chain` country | | exists | PA-2 (`planVisitHref`) |
 | Banner: closed season (notice) | `EntryBlock.access.state` for the render date | `season`, suitability `access_season` | capture, suitability | `entryFor` returns `access` (exists) | PA-Q |
