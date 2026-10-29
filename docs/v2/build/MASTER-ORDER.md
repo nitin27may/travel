@@ -10,6 +10,14 @@
 > UXB-1 built and reviewed, UXB-1F in its worktree; the rest ride **bundle C**, first in its B1 queue, before R59-1 and
 > PHO-R ([trip-and-places-ux-fixes.md](../features/trip-and-places-ux-fixes.md) 12 and 13; PLAN R-260 to R-266).
 >
+> **28 Oct 2026 (MCP-PLAN): the MCP plan is build-ready and re-cut for the owner's decision of 27 Oct 2026 that there is no
+> public or anonymous MCP endpoint** ([mcp/README](../mcp/README.md) decision record; PLAN R-286 to R-291). v0.19 (MP1)
+> becomes "authenticated catalogue read" and carries identity (IDN-C, IDN-1), governance and the admin panel (GOV-*,
+> ADM-0, SCH-G) and the sign-in tasks that were in v0.20 (MCP-G, MCP-T, MCP-2, MCP-O, MCP-U); v0.20 (MP2) shrinks to the
+> user's own plans, read. Bundle H 83.5 → 131.5 h, H2 114.5 → 119 h, new bundle **L** (MP5, v1.3, 30 h) after K; program
+> 2,323.5 → **2,406 h**. Rows: section 0, 3.9 MP1 to MP5, 4.3 row 8, 4.4, 5.3, C21. Task detail:
+> [mcp/BUILD-READINESS.md](../mcp/BUILD-READINESS.md).
+>
 > **27 Oct 2026 (BUILDER-DEPS): the builder program is placed here.** Trip builder (TB-P1 to TB-P5), trip kinds and the
 > interest profile (TK), the driving time model (DT), sources (SRC), data coverage (DC) and My map (WM): 945 h in bundles
 > (963 h with 18 h later), 27 h absorbed by tasks already planned; program 2,295.5 h before PLAN-SYNC, 2,323.5 h after (park work 81 h, Trip Builder lane +22.5 h). New seat B3 (builder paths only) and
@@ -63,14 +71,15 @@ each added to bundle C on their own and none to the total ([alignment](alignment
 | E | v0.12 best time and overview; v0.13 Where to stay; v0.14 trips from data; **place context** (graph read model, EG); **parks P2** (park page, members); facts read model (API-P); **(27 Oct) v0.14a build a trip in a country (TB-P2, interest profile), v0.14b My map ties; DT wave 0 modifiers; gazetteer from Postgres (DC-SRV) and wave 0 data** | 247.5 | 14 | 260 | **521.5** | EG 15, PA 33, API-P 6; 27 Oct +299 (TB 40, TK 28, DT 16, WM 24, DC 191) | `plan_draft` |
 | F | v0.14.1 field slimming; v0.15 customise; v0.16 account sync; **(27 Oct) v0.16a suggested bases and getting there (TB-P3, TB-P4); interests and map follow the account; wave 1 at T0** | 190.25 | 0 | 112.5 | **302.75** | 27 Oct +201.5 (TB 75, TK 4, WM 18, DC 105) | `custom_draft`, `draft_cap`, `account_favourite`, `account_start`, `account_interests`, visit tables |
 | G | v0.17 more edits; v0.18 map search for stops; **parks P3** (plan a visit, camping); Internal: API for MCP (API-G, API-T, API-S, API-V, MTH-G, MTH-1); **(27 Oct) drive model wave 1, wave 1 T1 data, SRC-O** | 88 | 22.5 | 202 | **312.5** | PA 17, API 22.5; 27 Oct +197 (DT 28, DC 170, SRC-O 1, REQ-G0 and REQ-G −2) | none |
-| H | v0.19 public MCP (MP1); v0.20 private MCP, read (MP2). Two deploys; (27 Oct) `get_my_map` | 83.5 | 0 | 0 | **83.5** | +25; 27 Oct +2.5 | `mcp_access`, token tables |
-| H2 | v0.20a "Plan with your AI" (MP3, user writes, MCP Apps views); v0.20b "Research and admin" (MP4, staging, owner only). Two deploys. **Only if QX2 is yes**; (27 Oct) plans write `plan-draft/1` (UPL −5), TK-MCP, `mark_visited` | 114.5 | 0 | 0 | **114.5** | new; 27 Oct −0.5 | `user_place`, `research_stage` |
+| H | v0.19 authenticated catalogue read (MP1: sign-in for every call, identity, grants, tokens, Connected apps, the admin panel and locks); v0.20 my plans, read (MP2). Two deploys; (27 Oct) `get_my_map` | 131.5 | 0 | 0 | **131.5** | +25; 27 Oct +2.5; 28 Oct +48 | `account_status`, `mcp_governance`, `mcp_access`, token columns |
+| H2 | v0.20a "Plan with your AI" (MP3, user writes, MCP Apps views, profile tools); v0.20b "Research and admin" (MP4, staging, owner only). Two deploys. **Only if QX2 is yes** (the owner's "build all M1 to M5" of 27 Oct reads as yes; recorded answer pending); (27 Oct) plans write `plan-draft/1` (UPL −5), TK-MCP, `mark_visited` | 119 | 0 | 0 | **119** | new; 27 Oct −0.5; 28 Oct +4.5 | `user_place`, `research_stage` |
 | I | v0.21 domain and Email Phase 2, on the Q148 trigger | 29 or 42.5 | 0 | 0 | **29 or 42.5** | | mail tables |
 | J | v0.22 UI and UX audit and fixes; after H2 (covers the MCP views and the approval page); (27 Oct) builder polish TB-P5, learned suggestions, holidays | 84.5 | 0 | 2 | **86.5** | 27 Oct +16 | none |
 | K | v1.0 to v1.2 Postgres cutover, three seam flips | 19 | 0 | 0 | **19** | 27 Oct −4 (SRV-0 reuses DC-SRV) | none expected |
-| **All** (I at 29) | | **1,453.5** | **153.5** | **716.5** | **2,323.5** | **+370; 27 Oct +967.5** | |
+| L | v1.3 MCP toolkit and listings (MP5): tasks extension, `export_trip`, Agent Skills bundle, directory listings, researchers (QX13; builds on H2) | 30 | 0 | 0 | **30** | new 28 Oct | `mcp_task` |
+| **All** (I at 29) | | **1,536** | **153.5** | **716.5** | **2,406** | **+370; 27 Oct +967.5; 28 Oct +82.5** | |
 
-Without H2 (QX2 no) the total is 2,209 h (was 1,235.5 h before 27 Oct). Later, in no bundle: DT-W23 6, DT-X 4, SRC-G 7, CTRY-L 1 (18 h). If seat B3 is refused (Q-DEP1), TB-P2 moves to G and TB-P3, TB-P4 to a bundle G2 between G and H ([builder-dependency-map.md](builder-dependency-map.md) 6.3). Critical path: section 5.4 (B1, about 511 h left).
+Without H2 (QX2 no, and so without L, which builds on it) the total is 2,257 h (2,209 h before the 28 Oct MCP re-cut; 1,235.5 h before 27 Oct). Later, in no bundle: DT-W23 6, DT-X 4, SRC-G 7, CTRY-L 1 (18 h). If seat B3 is refused (Q-DEP1), TB-P2 moves to G and TB-P3, TB-P4 to a bundle G2 between G and H ([builder-dependency-map.md](builder-dependency-map.md) 6.3). Critical path: section 5.4 (B1, about 511 h left).
 
 ## 1. Decision in one paragraph
 
@@ -217,7 +226,7 @@ STY-P (B2, contract lane) stays in 3.5's order with STY-Ca; RIS-H moved from I (
 | R59-3C | (new) Base-change recompute as an operation with inverse (signed in) | 3 | Opus | TRIP-NAVIGATION-PLAN 3 | blocked: CUS-1 | v0.17 |
 | REQ-G-C | Geocode contract | 2 | Opus | requests 11 | blocked: REQ-G0 | v0.18 |
 | MCP-C | Remote contracts, levels vocabulary, annotations; **(26 Oct, R-252)** the tool-to-route table (each tool names the `/api/v1` store method or operation it shares) and the test that fails on any database import or SQL under `core/src/mcp/**` ([mcp/README](../mcp/README.md) 1.1). **Resized 26 Oct (ALIGN): 10 h, see 3.9 MP1** | 10 | Opus | MCP product packaging 4 | **blocked:** API-G, API-P, API-T, API-S, API-V, PM-G, AU-D (was "ready (core only)", tools-v1 F10) | v0.19 (H) |
-| MCP-G | Migration `mcp_access`, the level check; **(26 Oct, R-252)** the check is a shared server function outside `core/src/mcp/**`, called by the MCP transport | 6 | Opus | MCP 14.9 | blocked: MCP-C | v0.20 (H) |
+| MCP-G | Migration `mcp_access`, the level check; **(26 Oct, R-252)** the check is a shared server function outside `core/src/mcp/**`, called by the MCP transport. **(28 Oct) moves to v0.19: every call is signed in; `mcp_settings` moves to GOV-C** | 6 | Opus | MCP 14.9; [BUILD-READINESS](../mcp/BUILD-READINESS.md) 2.1 | blocked: MCP-C, GOV-C | v0.19 (H) |
 | (26 Oct, ALIGN) | **The new contract tasks** PRIV-TD, EG-C, EG-M, EG-Q, PA-C, PA-X, PA-Q, PA-3C, PM-C, PM-G, PM-F, API-P, API-G, API-T, API-S, API-V, MTH-G, UPL-C, STG-C are rows of **3.9**; their slots are in 4.3 | | | | | |
 | RIS-M | Migration `research_meta` | 6 | Opus | catalogue-intake 6 | ready on the child; production Q177 | v1.0 |
 
@@ -256,7 +265,7 @@ STY-P (B2, contract lane) stays in 3.5's order with STY-Ca; RIS-H moved from I (
 | NAV-3, NAV-E, NAV-R2, NAV-V2; FAV-2, FAV-2E; ORG-H | Signed-in Mine and sync; account default start | 14 + 15 + 4 | Sonnet, Opus | navigation 10; visitor 15; origin 13 | | blocked: NAV-D, FAV-D, Google (Q124) | v0.16 |
 | REQ-E UI, REQ-P, REQ-R2, REQ-V2; STY-2, STY-2V; R59-3 UI | More edits, own stops, base tweaks | 8 + 5 + 4 + 10 + 5 + 7 | Sonnet; Opus | `web/app/t/**` (never beside CUS-2) | requests 11; stays 15 | blocked: CUS-1, REQ-E-C, STY-2C, R59-3C | v0.17 |
 | REQ-S, REQ-L, REQ-R3, REQ-V3 | Map search tier, link and upgrade | 8 + 3 + 4 | Sonnet; Opus | requests 11 | | blocked: REQ-G | v0.18 |
-| MCP-U | Connected apps and access page | 10 | Sonnet | `web/app/account/connected-apps/**` | MCP 14.9 | blocked: MCP-O | v0.20 |
+| MCP-U | Connected apps and access page; `/mcp-help/` (28 Oct: v0.19, every client path with sign-in) | 10 | Sonnet | `web/app/account/connected-apps/**` | MCP 14.9 | blocked: MCP-O | v0.19 |
 | GLB2b | City outlines, home globe look | 25 | Sonnet, Opus ruling | globe files | EXECUTION-PLAN E12 | blocked: R1 item 7 (mock approval), CONS-3 | later |
 
 ### 3.7 Auth and mail (lane A, B2)
@@ -280,8 +289,8 @@ STY-P (B2, contract lane) stays in 3.5's order with STY-Ca; RIS-H moved from I (
 
 | Id | Task | h | Model | Status | Release |
 |---|---|---|---|---|---|
-| MCP-1, MCP-S1, ORG-MCP | Public endpoint, the public half of the security review (Q225), origin tools; **(26 Oct, R-252)** MCP-1 extends the no-database test to `web/app/mcp/**` and `web/lib/mcp/**`, and every public tool calls the `CatalogueStore` method of its `/api/v1` route through `respond()`; MCP-S1 checks the test. **Resized 26 Oct (ALIGN): MCP-1 8 h, MCP-S1 2.5 h; the full MP1 list is 3.9** | 8 + 2.5 + 1.5 | Sonnet, Opus | blocked: MCP-C | v0.19 (H) |
-| MCP-T, MCP-2, MCP-O, MCP-S, MCP-E; owner O-M2, O-M3, O-M6, O-M4 | Private MCP; **(26 Oct, R-252)** private writes call the app's operations (validation and RLS identical); MCP-T's token logic lives in the shared server layer, not `core/src/mcp/tokens/**`. **26 Oct (ALIGN): MCP-2 9 h, MCP-S 4 h; MP2 in 3.9** | 5 + 9 + 4 + 4 + 3 | Opus, Sonnet | blocked: MCP-G | v0.20 |
+| MCP-1, MCP-S1, ORG-MCP | **(28 Oct) superseded by 3.9 MP1: no public endpoint; MCP-1 is the catalogue tools on the authenticated `/mcp/` (6.5 h), MCP-S1 merges into MCP-S.** Public endpoint, the public half of the security review (Q225), origin tools; **(26 Oct, R-252)** MCP-1 extends the no-database test to `web/app/mcp/**` and `web/lib/mcp/**`, and every public tool calls the `CatalogueStore` method of its `/api/v1` route through `respond()`; MCP-S1 checks the test. **Resized 26 Oct (ALIGN): MCP-1 8 h, MCP-S1 2.5 h; the full MP1 list is 3.9** | 8 + 2.5 + 1.5 | Sonnet, Opus | blocked: MCP-C | v0.19 (H) |
+| MCP-T, MCP-2, MCP-O, MCP-S, MCP-E; owner O-M2, O-M3, O-M6, O-M4 | **(28 Oct) all move to v0.19 (3.9 MP1); MCP-2 is the single endpoint (6.5 h), its Mine reads become MCP-2R in v0.20.** Private MCP; **(26 Oct, R-252)** private writes call the app's operations (validation and RLS identical); MCP-T's token logic lives in the shared server layer, not `core/src/mcp/tokens/**`. **26 Oct (ALIGN): MCP-2 9 h, MCP-S 4 h; MP2 in 3.9** | 5 + 9 + 4 + 4 + 3 | Opus, Sonnet | blocked: MCP-G | v0.20 |
 | MCP-3, MCP-P, REQ-M | Research proposals, approvals, intake tools. **26 Oct (ALIGN): moved into bundle H2 (MP3, MP4 in 3.9) if QX2 is yes; MCP-3 10 h** | 10 + 8 + 6 | Opus, Sonnet | blocked: QX2 | H2 (v0.20a, v0.20b) |
 | R-14 | API/HYG loose ends: map each R-14 claim to a case on three runners; add only missing cases | 3 | Sonnet | ready | v0.6 |
 | ACC-1 | Accent folding in A16 (15.44), if the owner says yes | 3 | Opus | blocked: 15.44 | v0.6 |
@@ -350,11 +359,11 @@ or **blocked: <what>**. The MCP product's phases M1 to M5 are written **MP1 to M
 | API-T, API-S | `/api/v1/types`, `/api/v1/types/{id}`; `/api/v1/sun` | 3 + 1.5 | Sonnet | B2 | `web/app/api/v1/{types,sun}/**`, `core/src/catalogue/types.ts` | 3, 12 | blocked: API-G, PM-G, QM5 | G (Internal) |
 | API-V | `POST /api/v1/validate` over the core validators | 5 (Opus 2, Sonnet 3) | Opus, Sonnet | B2 | validate route, in-memory tree | [method](../mcp/product-method-and-discovery.md) 6.1 | blocked: API-G, QX9 | G (Internal) |
 | MTH-G, MTH-1 | Method remote edition (generator, privacy scan); method routes | 6 + 3 | Opus, Sonnet | B2 | generator, `/api/v1/method/**` | method 7 | blocked: PM-G, API-G, QX8 | G (Internal) |
-| **MP1** | Public MCP v0.19: AU-D 3, MCP-C 10, MCP-1 8, MCP-M 3, MCP-GR 2, ORG-MCP 1.5, MCP-PK 3, MCP-EV 6, MCP-S1 2.5, MCP-E1 1 | 40 | Opus (AU-D, MCP-C, MCP-S1, MCP-EV 2), Sonnet | B2 contracts; **B1** the Sonnet builds | `core/src/mcp/remote/**`, `web/app/mcp/**`, `web/lib/mcp/**` | [packaging](../mcp/product-packaging-and-phases.md) 4 | blocked: the G API tasks, PM-G, QX1, QX7, QM4, QM6, QM10 | H |
-| **MP2** | Private MCP v0.20, read: MCP-G 6, MCP-T 5, MCP-2 9, MCP-O 4, MCP-U 10, MCP-S 4, MCP-E 3 | 41 | Opus, Sonnet | B2; MCP-U and MCP-E in B1 | as 3.8 | packaging 4; auth 14.9 | blocked: MP1, CUS-C, NAV-D, FAV-D, QM8 | H |
-| **MP3** | v0.20a "Plan with your AI": UPL-C 6, UPL-1 8, MCP-W 10, MCP-P 8, MCP-UI 19, MCP-S3 4, MCP-EV2 3, MCP-E3 2 | 60 | Opus (UPL-C, MCP-W 3, MCP-P 3, MCP-S3), Sonnet | B2 contracts; B1 UPL-1, MCP-UI, MCP-P UI | `user-plan/1`, `user-place/1`, migration `user_place`, `/api/account/{plans,places}/**`, `web/mcp-views/**` | [staging](../mcp/product-staging-and-admin-writes.md) 1, [response](../mcp/product-response-format.md) 5 | blocked: QX2, QX5, QX6, Q-B2, Q-B3; MP2, TD-1, CUS-C, REQ-E-C, FAV-D, FBK-1 | H2 |
-| **MP4** | v0.20b "Research and admin": STG-C 6, STG-1 8, STG-P 7, MCP-3 10, REQ-M 6, MCP-A 6, MCP-P2 3, MCP-S4 6, MCP-EV3 2, MCP-E4 1 | 55 | Opus (STG-C, MCP-3 4, REQ-M 2, MCP-A 2, MCP-S4), Sonnet | B2 contracts; B1 STG-1, STG-P, MCP-P2 | `research-batch/1`, migration `research_stage`, admin routes, `core/bin/stage.ts` | staging 2 | blocked: QX2, QX3, QX4, QX11; MP3 shipped | H2 |
-| MP5 | Public research toolkit, directory listings, export over MCP | not sized | | | | packaging 3 | later (QX12, QM10) | after v1.0 |
+| **MP1** | **(28 Oct) Authenticated catalogue read v0.19** (no anonymous endpoint, owner 27 Oct): IDN-C 4, AU-D 3, MCP-C 10, GOV-C 6.5, SCH-G 3, MCP-G 6, MCP-T 5, GOV-1 4, MCP-2 6.5, MCP-1 6.5, MCP-M 3, MCP-GR 2, ORG-MCP 1.5, MCP-O 4, MCP-U 10, IDN-1 2, ADM-0 3, GOV-API1 4, GOV-API2 3, GOV-UI1 6, GOV-UI2 5.5, GOV-RV1 2.5, GOV-RV2 2, MCP-PK 3, MCP-EV 6.5, MCP-S 5, GOV-S 2.5, MCP-E 3.5 (was 40 h public read) | 123.5 | Opus 57, Sonnet 66.5 | B2 contracts and auth; **B1** the Sonnet builds and screens (about 40.5 h) | `core/src/access/**`, `core/src/mcp/**`, `web/app/mcp/**`, `web/lib/mcp/**`, `web/app/admin/**`, `web/app/api/admin/**`, `web/app/account/connected-apps/**`, `web/app/oauth/**` | [BUILD-READINESS](../mcp/BUILD-READINESS.md) 2.1 | blocked: the G API tasks, PM-G, EML-1, EML-Q, GSI-SEC, QX1, QX7, QX14, QX15, QX20, QM4, QM6, QM10 | H |
+| **MP2** | **(28 Oct) My plans, read v0.20:** MCP-2R 3, WM-M `get_my_map` 2.5, MCP-S2 1.5, MCP-E2 1 (was 41 h private read; the sign-in tasks moved to MP1) | 8 | Opus 1.5, Sonnet 6.5 | B1, R, V | `core/src/mcp/remote/me/**` | BUILD-READINESS 2.2 | blocked: MP1, FAV-D, FBK-2, WM-S, QM8 | H |
+| **MP3** | v0.20a "Plan with your AI": UPL-C 4, UPL-1 5, MCP-W 12.5, MCP-P 9, MCP-UI 19, TK-MCP 2, WM-M `mark_visited` 2.5, MCP-S3 4, MCP-EV2 3, MCP-E3 2 (28 Oct: profile tools and held changes) | 63 | Opus (UPL-C, MCP-W 3, MCP-P 3, MCP-S3), Sonnet | B2 contracts; B1 UPL-1, MCP-UI, MCP-P UI | `user-plan/1`, `user-place/1`, migration `user_place`, `/api/account/{plans,places}/**`, `web/mcp-views/**` | [staging](../mcp/product-staging-and-admin-writes.md) 1, [response](../mcp/product-response-format.md) 5 | blocked: QX2, QX5, QX6, Q-B2, Q-B3; MP2, TD-1, CUS-C, REQ-E-C, FAV-D, FBK-1 | H2 |
+| **MP4** | v0.20b "Research and admin": STG-C 6, STG-1 8.5, STG-P 7, MCP-3 10, REQ-M 6, MCP-A 6, MCP-P2 3.5, MCP-S4 6, MCP-EV3 2, MCP-E4 1 (28 Oct: held batches, staging entry in the panel) | 56 | Opus (STG-C, MCP-3 4, REQ-M 2, MCP-A 2, MCP-S4), Sonnet | B2 contracts; B1 STG-1, STG-P, MCP-P2 | `research-batch/1`, migration `research_stage`, admin routes, `core/bin/stage.ts` | staging 2 | blocked: QX2, QX3, QX4, QX11; MP3 shipped | H2 |
+| **MP5** | **(28 Oct) MCP toolkit and listings v1.3:** M5-T 7 (tasks extension, `mcp_task`), M5-X 3.5 (`export_trip`), M5-K 5 (Agent Skills bundle), M5-D 4 (directory listings), M5-R 4 (researchers), M5-S 3, M5-EV 2, M5-E 1.5 | 30 | Opus 8.5, Sonnet 21.5 | B2, B1, R, V | `core/src/mcp/remote/tasks/**`, `tools/mcp-skills/**`, `web/app/mcp-help/research/**` | BUILD-READINESS 2.5 | blocked: MP4 shipped, Q148 (listings), QX11, QX13 | **L** (after K) |
 
 ### 3.10 Added 27 Oct 2026: the builder program (BUILDER-DEPS)
 
@@ -472,7 +481,8 @@ while a contract task runs; each merges before the task that needs it starts. Bo
 | 5 | E | STY-P → STY-Ca → STY-E → **PA-Q** → **API-P** → TD-1 | PA-Q after EG-Q (same `store.ts`, `place.ts`); API-P after PA-Q and PM-F |
 | 6 | F | CUS-C (invite-only check inside, Q229b; after FA-D and the `plan_draft_signal` ruling) → NAV-D, FAV-D | FA-4 (field slimming) edits `properties.ts` after PM-C and STY-P |
 | 7 | G | STY-2C, REQ-E-C, R59-3C → **PA-3C** → REQ-G-C → **API-G** (alone in its stack) → **API-T, API-S, API-V, MTH-G** | MTH-1 (Sonnet) after MTH-G and API-G |
-| 8 | H | MCP-C → MCP-G | MCP-C needs AU-D's `expose.mcp` overrides |
+| 8 | H | **IDN-C** → MCP-C → **GOV-C**, **SCH-G** → MCP-G → MCP-T (all v0.19 since 28 Oct) | MCP-C needs AU-D's `expose.mcp` overrides; GOV-C needs the `ToolDef` type and IDN-C's lattice |
+| 8b | L | **M5-T** after STG-C | the task model reuses the staging validation |
 | 9 | H2 (if QX2) | **UPL-C** → **STG-C** | `user_place`, `research_stage` migrations |
 | 4b | D (27 Oct) | capture contract chain: PM-C (done) → **TK-C2 → DC-C → SRC-C** (with SRC-A's interfaces after) → STY-P (E) | B2; the store and API chain of row 4 runs between them, one task at a time |
 | 0 | now (27 Oct) | off-chain, new files only: **DT-C, TB-C files, TK-C files, WM-C files** | an Opus agent in seat B3; no 4.1 file; their shared lines are the hooks of row 4 |
@@ -497,7 +507,10 @@ wait for.
 | assigned at merge (MIG-N) | `draft_cap`, `account_favourite` | NAV-D, FAV-D | v0.16 |
 | (with v0.16) | `account_start` | ORG-H (if Q246) | v0.16 |
 | assigned at merge (MIG-N) | `relation_kinds` (relation CHECK follows `CAP_RELATION`; `entity.run_by`) (26 Oct, ALIGN) | EG-M | C: child in C's window, production at C's release before the step 9a sync (QG5) |
-| assigned at merge (MIG-N) | `mcp_access`, MCP-T token tables | MCP-G, MCP-T | v0.20 |
+| assigned at merge (MIG-N) | `account_status` (28 Oct) | IDN-C | v0.19 |
+| assigned at merge (MIG-N) | `mcp_governance` (28 Oct) | GOV-C | v0.19 |
+| assigned at merge (MIG-N) | `mcp_access`, MCP-T token columns (28 Oct: v0.19, was v0.20) | MCP-G, MCP-T | v0.19 |
+| assigned at merge (MIG-N) | `mcp_task` (28 Oct) | M5-T | v1.3 (L) |
 | assigned at merge (MIG-N) | `user_place` (and `plan_draft.kind`) (26 Oct, ALIGN) | UPL-C | H2 v0.20a (if QX2) |
 | assigned at merge (MIG-N) | `research_stage` (and decisions) (26 Oct, ALIGN) | STG-C | H2 v0.20b (if QX2) |
 | assigned at merge (MIG-N) | `research_meta` | RIS-M | **v0.5** (was v1.0; after `backup_reader` when both merge for v0.5; [CATALOGUE-EARLY](CATALOGUE-EARLY.md) 7) |
@@ -644,13 +657,14 @@ RELEASE-PLAN 0a.2; data tasks per bundle are in [DATA-PLAN.md](DATA-PLAN.md) 2.
 | **v0.18** [v0.14] | **G** | Search the map for a stop we do not have | REQ-G0 3, REQ-G-C 2, REQ-G 6, REQ-S 8, REQ-L 3, REQ-A 3, REQ-R3/V3 4 | 29 | none | unchanged |
 | (26 Oct; parks P3; API for MCP) | **G** | Plan a park visit and camping; Internal: endpoint table and guard, types, sun, validate, method routes | PA-N3 2, PA-3C 3, PA-3 8, PA-R-ON 4 (data), PA-R3/V3 4; API-G 4, API-T 3, API-S 1.5, API-V 5, MTH-G 6, MTH-1 3 | 43.5 | none | P3 needs customise (F) and own stops (v0.17); the API rows are MCP-C's prerequisites |
 | (before v0.19) | **H** | Delta audit narrowed to the MCP field list (the field tool on the v0.18 commit) | AU-D 3 | 3 | none | MCP-C publishes only kept fields (Q277) |
-| **v0.19** [v0.15] | **H** | Public MCP (MP1) | **(26 Oct, ALIGN)** MCP-C 10, MCP-1 8, MCP-M 3, MCP-GR 2, ORG-MCP 1.5, MCP-PK 3, MCP-EV 6, MCP-S1 2.5, MCP-E1 1 (AU-D 3 in the row above) | 37 | none | 21 public tools, `travel-view/1`, method resources ([packaging](../mcp/product-packaging-and-phases.md) 4) |
-| **v0.20** [v0.16] | **H** | Private MCP, read (MP2) | MCP-G 6, MCP-T 5, MCP-2 9, MCP-O 4, MCP-U 10, MCP-S 4, MCP-E 3 | 41 | `mcp_access`, token tables | (26 Oct) MCP-2 +1, MCP-S 4 as auth 14.9 |
-| **v0.20a** [new, 26 Oct] | **H2** (if QX2) | Plan with your AI: copy, customise, own plans with private places, favourites, requests; previews; MCP Apps views (MP3) | UPL-C 6, UPL-1 8, MCP-W 10, MCP-P 8, MCP-UI 19, MCP-S3 4, MCP-EV2 3, MCP-E3 2 | 60 | `user_place` | its own deploy and security review (QX2) |
-| **v0.20b** [new, 26 Oct] | **H2** (if QX2) | Research and admin: staged research batches approved on our site, work lists, intake tools (MP4), owner only (QX11) | STG-C 6, STG-1 8, STG-P 7, MCP-3 10, REQ-M 6, MCP-A 6, MCP-P2 3, MCP-S4 6, MCP-EV3 2, MCP-E4 1 | 55 | `research_stage` | after v0.20a ships; publish path per QX4 |
+| **v0.19** [v0.15] | **H** | **Authenticated catalogue read (MP1; 28 Oct: no anonymous endpoint)** | the MP1 list of 3.9 except AU-D (AU-D 3 in the row above) | 120.5 | `account_status`, `mcp_governance`, `mcp_access`, token columns | 22 tools to signed-in accounts (21 catalogue, `whoami`), `travel-view/1`, method resources, the admin panel ([BUILD-READINESS](../mcp/BUILD-READINESS.md) 2.1) |
+| **v0.20** [v0.16] | **H** | My plans, read (MP2) | MCP-2R 3, WM-M 2.5, MCP-S2 1.5, MCP-E2 1 | 8 | none | (28 Oct) the sign-in tasks moved to v0.19 |
+| **v0.20a** [new, 26 Oct] | **H2** (if QX2) | Plan with your AI: copy, customise, own plans with private places, favourites, requests; previews; MCP Apps views (MP3) | UPL-C 4, UPL-1 5, MCP-W 12.5, MCP-P 9, MCP-UI 19, TK-MCP 2, WM-M 2.5, MCP-S3 4, MCP-EV2 3, MCP-E3 2 (28 Oct) | 63 | `user_place` | its own deploy and security review (QX2) |
+| **v0.20b** [new, 26 Oct] | **H2** (if QX2) | Research and admin: staged research batches approved on our site, work lists, intake tools (MP4), owner only (QX11) | STG-C 6, STG-1 8.5, STG-P 7, MCP-3 10, REQ-M 6, MCP-A 6, MCP-P2 3.5, MCP-S4 6, MCP-EV3 2, MCP-E4 1 (28 Oct) | 56 | `research_stage` | after v0.20a ships; publish path per QX4 |
 | **v0.21** [v0.17] | **I** | Own domain and Email Phase 2 (on the Q148 trigger only; its number is taken when it ships) | as RELEASE-PLAN | 29 or 42.5 | mail tables | unchanged |
 | **v0.22** [new, audits; 26 Oct] | **J** | UI and UX audit and fixes, run once on the whole product just before the Postgres cutover | UA-0 5, AU-GU 0.5, UA-1 4, UA-P 3, UA-W 4.5, UA-A 0.5, UA-2 8, UA-3 6, UA-T 3, UA-D owner, UA-FX 24 (placeholder), UA-FX-R 10, UA-AF 2 | 70.5 | none | owner decision 26 Oct: the audit waits until everything is built; gate G-UI after v0.20 (and v0.21 if shipped; **after v0.20b too when QX2 is yes**, ALIGN); reads [UI-NOTES.md](UI-NOTES.md); v1.0 waits for its fixes |
 | **v1.0 to v1.2** | **K** | Postgres cutover, one seam per release, from a production catalogue loaded since v0.5 | SRV-0 21, R-9 2 | 23 (was 47: RIS-M, RIS-L, RIS-T, LOCAL-3, LOCAL-5 and the load moved to v0.5, CAT-Q to v0.10) | none expected | seams flip only after 4 clean weekly CAT-V runs and parity ([CATALOGUE-EARLY](CATALOGUE-EARLY.md) 6) |
+| **v1.3** [new, 28 Oct] | **L** | MCP toolkit and listings (MP5): tasks extension for long batches, `export_trip`, Agent Skills bundle, Claude and ChatGPT directory listings, invited researchers | M5-T 7, M5-X 3.5, M5-K 5, M5-D 4, M5-R 4, M5-S 3, M5-EV 2, M5-E 1.5 | 30 | `mcp_task` | after K (QX13); listings need the custom domain (Q148) |
 | **v0.11a** [27 Oct] | **D** | My map on this device, cities, share image (flag `worldMap`) | WM-DR 2, WM-C 5, WM-G 4, WM-1 14, WM-2 8.5, WM-R/V 3, WM-4 6, WM-5 6, WM-R2/V2 2.5 | 51 | none | world-map-scratch 5.1; B3 |
 | **v0.11b** [27 Oct] | **D** | Plan a day out or a short stay: FS-1 (TB-P1, flag `planBuilder`), drive model wave 0 core, kinds and activities | TB-P1 58; DT-C 4, DT-1a 5, DT-1b 3, DT-P0 5, DT-T0 3, DT-K 5, DT-L 3, DT-UI 1.5, DT-V 1.5; TK-N 4, TK-C 6, TK-V 4, TK-R5 3.5, TK-Ea 3, TK-W1a 5.5, TK-R1/V1 2.5 | 117.5 | `leg_cache_server_write` | the first slice on today's data (QB2, QB3); ships dark if late |
 | (27 Oct) | **D** (Internal) | Sources and the gazetteer pipeline | SRC-C 6, SRC-A 8, SRC-T 4, SRC-L 4, SRC-AU 2; DC-C 6, DC-L 2, DC-6 3, DC-1 15, DC-2 6, DC-3 5, DC-4 5 | 66 | none | no visitor change |
@@ -698,13 +712,13 @@ Sonnet builds to B1 (5.1).
 | 19 | F | NAV-3, FAV-2, NAV-E, FAV-2E, reviews | 27 | REQ-E-C, STY-2C, R59-3C | 8 | | |
 | 20 | G | REQ-E UI, REQ-P, STY-2, R59-3 UI, reviews | 39 | **PA-3C**, REQ-G0, REQ-G-C, REQ-G, REQ-A | 17 | **PA-R-ON** | 4 |
 | 21 | G | REQ-S, REQ-L, review; **PA-3** and review (PA-N3 by the reviewer) | 27 | **API-G** (alone in its stack), **API-T**, **API-S**, **API-V**, **MTH-G**, **MTH-1** | 22.5 | | |
-| 22 | H | after MCP-C: MCP-1, MCP-M, MCP-GR, ORG-MCP, MCP-PK, MCP-E1; MCP-U, MCP-E | 31.5 | **MCP-C**, MCP-EV; MCP-G, MCP-T, MCP-2, MCP-O (AU-D by the planner; MCP-S1, MCP-S by Opus reviewers) | 40 | | |
+| 22 | H | (28 Oct) after MCP-C and MCP-2: MCP-1, MCP-M, MCP-GR, ORG-MCP, MCP-U, ADM-0, GOV-UI1, GOV-UI2, MCP-PK; then MCP-2R, WM-M | 46 | **IDN-C**, **MCP-C**, **GOV-C**, SCH-G, GOV-1, MCP-G, MCP-T, MCP-2, MCP-O, IDN-1, GOV-API1, GOV-API2, MCP-EV (AU-D by the planner; MCP-S, GOV-S, MCP-S2 and the design reviews by Opus reviewers) | 64.5 | | |
 | 23 | H2 (if QX2) | UPL-1, MCP-UI, the MCP-P page; STG-1, STG-P, MCP-P2, MCP-E3, MCP-E4 | 53 | **UPL-C**, MCP-W, MCP-P contract, **STG-C**, MCP-3, REQ-M, MCP-A, MCP-EV2, MCP-EV3 (MCP-S3, MCP-S4 by Opus reviewers) | 52 | | |
 | 24 | J | UA-0 (just before v0.22), then the UA-FX lanes after UA-D | 29 | UA-1, UA-P, UA-W, UA-A, UA-2, UA-3, UA-T by the verifier, reviewers and planner; SRV-0 built beside | 29.5 | | |
 | 25 | K | | | R-9, SRV-0 seam flips | 23 | | |
 
-**Totals left:** B1 about **511 h** (A 3, C 128, D 56.5, E 91, F 53, G 66, H 31.5, H2 53, J 29); B2 about 430 h; the data
-seat about 185 h. Without H2, B1 about 458 h. **The one chain that can stall C:** the owner's QG answers, then RIS-H 3,
+**Totals left:** B1 about **525.5 h** (A 3, C 128, D 56.5, E 91, F 53, G 66, H 46, H2 53, J 29; 28 Oct: H was 31.5); B2 about 454.5 h (28 Oct: +24.5 in H); the data
+seat about 185 h. Without H2, B1 about 472.5 h. **The one chain that can stall C:** the owner's QG answers, then RIS-H 3,
 EG-C 6, EG-R0 1, EG-FX 2.5, EG-I 6, PA-C 6, PA-FX 3, PA-X 4, PA-D 3.5 (B2, 35 h) with PA-R-CA beside it, joining B1 at
 PA-W in row 6 (about 50 B1 hours into C). If the QG answers come later than about a week after row 2 starts, PA-W and
 the parks P1 rows ship dark under Q309's cut. LOCAL-4 and E2E-YML go in when the public repository exists; Email Phase 2
@@ -747,6 +761,7 @@ gates are B2's hooks and the bundle T3s, not B3's hours (about 290 h in all).
 | C17 | (26 Oct) Bundling findings: ACCT-PH-F dropped and ACCT-PH-RV narrowed (the interim item never deploys); B and H deploy in two steps on one commit (O-E1 before Google; Q225 public before private); C's data batches merge before PHO-R; D10 splits before REQ-RF; OVR-Ca one B2 row earlier; K flips one seam per redeploy | RELEASE-PLAN 0a.3 |
 | C18 | (26 Oct) Every pending research task gets a bundle and its hours count in that bundle: track fetcher TRK-1 and runs, trip records D10, trail relevance TRL-REL, offers OFR-1, store gaps STO-1, overview-trip stops OVT, the database cross-check DV-1 and DV-2 | owner follow-up 26 Oct; [DATA-PLAN.md](DATA-PLAN.md) |
 | C15 | (26 Oct) The catalogue load moves from v1.0 to v0.5 as Internal (CAT-1): LOCAL-3, RIS-M, RIS-L, RIS-T, LOCAL-5 and the new CAT-V in the data seat, CAT-Q before FBK-C; v1.0 keeps SRV-0 and R-9 | owner decision 26 Oct; [CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) |
+| C21 | (28 Oct, MCP-PLAN) The MCP plan build-ready and re-cut for the owner's decision of 27 Oct 2026 (no anonymous endpoint): H +48 h (v0.19 authenticated catalogue read 120.5 h plus AU-D 3; v0.20 my plans read 8 h), H2 +4.5 h, new bundle L 30 h (v1.3); all 2,406 h; contract order 4.3 row 8 and 8b; migrations `account_status`, `mcp_governance`, `mcp_task`; `mcp_access` moves to v0.19 | [mcp/BUILD-READINESS.md](../mcp/BUILD-READINESS.md) |
 | C20 | (27 Oct, BUILDER-DEPS) The builder program placed: D +234.5 h (FS-1 = TB-P1, kinds and activities, drive model wave 0 core, My map, sources and gazetteer pipeline), E +299 h, F +200.5 h, G +197 h, H +2.5, H2 −0.5, J +16, K −4; all 2,295.5 h; seat B3 and data seat 2; no bundle G2 unless B3 is refused; new hooks in 4.3, rows in 4.1 and 4.4 | [builder-dependency-map.md](builder-dependency-map.md) |
 | C19 | (26 Oct evening, ALIGN) Bundle hours rewritten (C 301.5 h, all 1,350.5 h); new bundle H2 if QX2; PRIV-TD in A; the 26 Oct contract tasks placed in one order (4.3); PM-G to the data seat, PM-F and lane X Sonnet builds to B1; MCP phases written MP1 to MP5 | [alignment-2026-10-26.md](alignment-2026-10-26.md) |
 
@@ -961,6 +976,7 @@ TEST-STRATEGY once TS-5 runs.
 
 | Date | Change |
 |---|---|
+| 2026-10-28 (MCP-PLAN) | Owner direction of 27 Oct 2026 (same login and roles; on the API; admin locks; M1 to M5 build-ready) and the owner's decision the same day (no anonymous MCP): header note; section 0 rows H, H2, new L, All (2,406 h; 2,257 h without H2 and L); 3.5 MCP-G, 3.6 MCP-U to v0.19; 3.8 notes; 3.9 MP1 to MP5 rewritten; 4.3 rows 8, 8b; 4.4 four rows; 5.3 v0.19, v0.20, v0.20a, v0.20b, new v1.3; C21. Owner decisions QX2, QX13 to QX20 open |
 | 2026-10-27 (PLAN-SYNC) | Park work 81 h (E +9.5, G -4), Trip Builder lane +22.5 h (D +21, F +1.5; TB-MD 6 h included, as FLOW counts it); section 0 rows D to G and All: 2,323.5 h; 2,209 h without H2 |
 | 2026-10-27 (BUILDER-DEPS) | Builder program placed ([builder-dependency-map.md](builder-dependency-map.md), R-279 reserved): header note; section 0 rows D to K, All (2,295.5 h; 2,209 h without H2) and the later line; new 3.10; 4.1 rows (detector, Mine and CopySheet orders; nine 27 Oct rows); 4.3 rows 0, 4 and 4b; 4.4 three rows; 4.6 five rows; 5.1 seat B3 and data seat 2; 5.3 eight rows; new 5.4a; C20. Owner decisions untouched |
 | 2026-10-26 (ALIGN, evening) | One ordering again ([alignment-2026-10-26.md](alignment-2026-10-26.md), R-256): section 0 bundle table rewritten (C 301.5 h; H 81 h; new H2 115 h if QX2; total 1,350.5 h); 3.0 merged-today table; 3.2 "H2 (housekeeping)"; 3.5 MCP-C blocked and resized; 3.8 MCP rows resized and pointed to 3.9; new 3.9 (PRIV-TD, UXB, EG, PA, PM, API, MTH, MP1 to MP5); 4.1 new hot spots; 4.3 the one contract order; 4.4 `relation_kinds`, `user_place`, `research_stage`; 4.5 budgets after A; 4.6 new owner gates; 5.1 seat changes; 5.3 new rows (v0.20a, v0.20b and the 26 Oct additions per bundle); 5.4 rewritten (B1 about 511 h left); C19; 7.3 points to the consolidated questions. Owner decisions untouched |
