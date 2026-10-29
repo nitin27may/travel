@@ -38,6 +38,26 @@ const CopySheet = dynamic(() => import('@/components/actions/CopySheet').then((m
 
 const FORMATS: ExportFormat[] = ['pdf', 'ics', 'gpx', 'kml', 'csv'];
 
+type HaveCopyView = typeof import('@/components/trips/edit/have-copy/HaveCopy').HaveCopy;
+
+/**
+ * "You have a copy of this trip · Open it" (patterns 3.7): one import() after hydration, the cover's row only, and only where `/t/<id>/`
+ * exists. The flag is written out (no import), so a build with `tripEdit` off drops the import and keeps today's start JS (EA12).
+ */
+// the hook is a conditional expression on the inlined flag, so a build with it off keeps `() => null` and drops the state, the effect and the import()
+const useHaveCopy: (row: React.RefObject<HTMLDivElement | null>, hasDays: boolean) => HaveCopyView | null =
+  process.env.NEXT_PUBLIC_TRIP_EDIT === '1'
+    ? (row, hasDays) => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks -- the branch is a build constant, never a runtime choice
+        const [View, setView] = useState<HaveCopyView | null>(null);
+        // eslint-disable-next-line react-hooks/rules-of-hooks -- as above
+        useEffect(() => {
+          if (hasDays && row.current?.closest('.trip-cover')) void import('@/components/trips/edit/have-copy/HaveCopy').then((m) => setView(() => m.HaveCopy));
+        }, [row, hasDays]);
+        return View;
+      }
+    : () => null;
+
 /** Copy to my trips, Export and Share. The three parts are L5's components; this only places them. The sheet takes the season window from the months. */
 export function TripActions({ slug, title, nights, days, url, hasDays, seasonMonths, cc, photo, className }: Props) {
   const [copying, setCopying] = useState(false);
@@ -48,6 +68,7 @@ export function TripActions({ slug, title, nights, days, url, hasDays, seasonMon
   useEffect(() => {
     if (row.current?.closest('.trip-cover')) void import('@/lib/favourites/heart').then((m) => setHeart(() => m.FavouriteHeart));
   }, []);
+  const HaveCopy = useHaveCopy(row, hasDays);
   return (
     <div ref={row} className={className ?? 'trip-actions'} data-print="hide">
       {hasDays ? (
@@ -61,6 +82,7 @@ export function TripActions({ slug, title, nights, days, url, hasDays, seasonMon
       <ExportMenu target={{ type: 'trip', slug }} formats={hasDays ? FORMATS : ['pdf']} label="Export trip" />
       <ShareButton url={url} title={title} />
       {Heart ? <Heart space="trip" slug={slug} name={title} /> : null}
+      {HaveCopy ? <HaveCopy slug={slug} /> : null}
       {hasDays && sheetEver ? <CopySheet trip={{ slug, title, nights, days, seasonMonths, cc, photo }} open={copying} onClose={() => setCopying(false)} onPrint={() => window.dispatchEvent(new CustomEvent('travel:print', { detail: { slug } }))} /> : null}
     </div>
   );

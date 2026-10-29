@@ -1,0 +1,4 @@
+/* The line sits in the cover's action row, on its own row, over the photo's scrim: the cover's ink, the link underlined (never colour alone). */
+.have-copy { flex-basis: 100%; margin: 0; font: var(--t-meta); color: var(--header-ink); }
+.have-copy a { color: inherit; text-decoration: underline; text-underline-offset: 3px; display: inline-flex; align-items: center; min-height: var(--touch-min); }
+.have-copy a:hover { text-decoration-thickness: 2px; }
