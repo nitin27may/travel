@@ -21,6 +21,19 @@ export const DRIVE_MODEL = {
    * monotonic minutes), so the spec's per-band values are read as values at the band centres.
    */
   bandKnots: [5, 20, 45, 105, 225],
+  /**
+   * W[band]: the share of a leg of that straight-line band driven at the motorway limit rather than the rural one, read along the band
+   * knots like R (a prior, 28 Oct 2026, review TB-R1 RB-008: a 190 km leg out of Toronto or Calgary is mostly 400-series or Trans-Canada;
+   * a leg under 20 km is all local road). Only where both ends' profiles give a motorway limit above the rural one; calibration then
+   * corrects each (country, terrain, band) cell as before
+   */
+  motorwayShare: [0, 0, 0.2, 0.5, 0.85],
+  /** the share of the motorway limit a car realises on the motorway part (ORS runs Edmonton to Calgary at 109 km/h on a 110 road) */
+  motorwayRealisation: 0.92,
+  /** terrains with no motorway: an end on one of them halves the share, two such ends cancel it (the Icefields Parkway, the passes) */
+  motorwayFreeTerrains: ["mountain", "alpine", "coastal-fjord"],
+  /** the share's factor by the number of ends on a motorway-free terrain (0, 1, 2) */
+  motorwayEndsFactor: [1, 0.5, 0],
   /** D[t]: road km per straight km by terrain, before the short-hop term */
   detourByTerrain: { flat: 1.2, rolling: 1.25, hilly: 1.3, mountain: 1.3, urban: 1.35, alpine: 1.6, "coastal-fjord": 1.7 },
   /** detour(t, d) = D[t] x (1 + shortHopExtra x e^(-d / shortHopScale)): shorter hops wind more */

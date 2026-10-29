@@ -27,6 +27,14 @@ const cc = z.string().regex(/^[A-Z]{2}$/, "ISO 3166-1 alpha-2, upper case");
 const sub = z.string().regex(/^[A-Z0-9]{1,3}$/, "the ISO 3166-2 suffix, upper case");
 const areaId = z.string().regex(/^[A-Z]{2}\/[A-Za-z0-9-]+\/[a-z0-9-]+$/, "an area id of the locations store (CC/region/slug)");
 const url = z.url({ protocol: /^https$/ });
+/**
+ * A box `[west, south, east, north]` in degrees (longitude positive east): a point that arrives with no subdivision or no area (a
+ * catalogue row, a hub, the trip builder's points) takes the subdivision and the area of the smallest box that holds it (model.ts
+ * `contextOf`; review TB-R1 RB-008). Authored, rounded to 0.1 degree; a point that names its own subdivision or area is never boxed.
+ */
+const box = z
+  .tuple([z.number().min(-180).max(180), z.number().min(-90).max(90), z.number().min(-180).max(180), z.number().min(-90).max(90)])
+  .refine(([w, s, e, n]) => w < e && s < n, "a box is [west, south, east, north] with west < east and south < north");
 
 /** Where a value was read: a URL, its title and the read date. */
 export const driveSource = z.strictObject({ url, title: z.string().min(3).max(200), read: isoDate });
@@ -69,6 +77,8 @@ export const profileRow = z.strictObject({
   version: z.number().int().min(1),
   read: isoDate,
   note: z.string().max(400).optional(),
+  /** a subdivision row's box, for a point with no subdivision (see `box`); absent: such a point never takes this row */
+  box: box.optional(),
 });
 
 export const profileFile = z.strictObject({
@@ -87,6 +97,8 @@ export const areaRow = z.strictObject({
   /** a winter factor for this area that overrides the country's (mountain areas 0.80, spec 4.4) */
   winterFactor: z.number().min(0.5).max(1).nullable(),
   note: z.string().min(3).max(300),
+  /** the area's box, for a point with no area (see `box`) */
+  box: box.optional(),
 });
 
 export const areasFile = z.strictObject({

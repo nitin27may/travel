@@ -1,6 +1,6 @@
 {
   "schema": "drive-profile/1",
-  "about": "Per-country and per-subdivision drive profiles for the L2 model (docs/v2/features/driving-time-model.md 5.1). Authored; seed rows for the countries with routed legs (CA, IT), DT-C 27 Oct 2026. Bump a row's version on any change.",
+  "about": "Per-country and per-subdivision drive profiles for the L2 model (docs/v2/features/driving-time-model.md 5.1). Authored; seed rows for the countries with routed legs (CA, IT), DT-C 27 Oct 2026. Bump a row's version on any change. A subdivision row's `box` ([west, south, east, north], 0.1 degree) gives a point that arrives with no subdivision its province (RB-008, 28 Oct 2026).",
   "licence": "Legal limits are facts, cited by value. The Canada rows cite the OpenStreetMap wiki (CC BY-SA 2.0) as read on 27 Oct 2026; the generated import (legal-speeds.json, DT-P0) stays a separate attributed file and is never merged here.",
   "rows": [
     {
@@ -55,9 +55,15 @@
       "winter": null,
       "borderDefaultMin": {},
       "ferryCheckinMin": null,
-      "version": 1,
+      "version": 2,
       "read": "2026-10-27",
-      "note": "Rural 100 on provincial highways; motorway 110 where posted. Park roads are lower (Bow Valley Parkway 60, unverified): the routers read OSM maxspeed, the model uses the area terrain."
+      "note": "Rural 100 on provincial highways; motorway 110 where posted. Park roads are lower (Bow Valley Parkway 60, unverified): the routers read OSM maxspeed, the model uses the area terrain.",
+      "box": [
+        -120.0,
+        49.0,
+        -110.0,
+        60.0
+      ]
     },
     {
       "cc": "CA",
@@ -82,9 +88,15 @@
       "winter": null,
       "borderDefaultMin": {},
       "ferryCheckinMin": null,
-      "version": 1,
+      "version": 2,
       "read": "2026-10-27",
-      "note": "Motorway limits are posted per highway, so the column is null."
+      "note": "Motorway limits are posted per highway, so the column is null.",
+      "box": [
+        -139.1,
+        48.3,
+        -114.0,
+        60.0
+      ]
     },
     {
       "cc": "CA",
@@ -109,9 +121,15 @@
       "winter": null,
       "borderDefaultMin": {},
       "ferryCheckinMin": null,
-      "version": 1,
+      "version": 2,
       "read": "2026-10-27",
-      "note": "Motorway 100 as posted on 400-series highways."
+      "note": "Motorway 100 as posted on 400-series highways.",
+      "box": [
+        -95.2,
+        41.6,
+        -74.3,
+        56.9
+      ]
     },
     {
       "cc": "CA",
@@ -136,8 +154,14 @@
       "winter": null,
       "borderDefaultMin": {},
       "ferryCheckinMin": null,
-      "version": 1,
-      "read": "2026-10-27"
+      "version": 2,
+      "read": "2026-10-27",
+      "box": [
+        -79.8,
+        45.0,
+        -57.1,
+        62.6
+      ]
     },
     {
       "cc": "IT",

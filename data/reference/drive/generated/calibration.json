@@ -118,7 +118,7 @@
         "factor": 1.009
       },
       "range": [
-        0.873,
+        0.88,
         1.505
       ]
     },
@@ -194,8 +194,8 @@
         "factor": 1.021
       },
       "range": [
-        0.875,
-        1.482
+        0.888,
+        1.489
       ]
     },
     {
@@ -245,70 +245,70 @@
     "prior": {
       "CA": {
         "n": 153,
-        "meanError": 0.161,
-        "medianBias": -0.028,
+        "meanError": 0.159,
+        "medianBias": -0.029,
         "p90Error": 0.375,
-        "within20": 0.706
+        "within20": 0.712
       },
       "IT": {
         "n": 33,
-        "meanError": 0.313,
-        "medianBias": -0.025,
+        "meanError": 0.306,
+        "medianBias": -0.029,
         "p90Error": 0.563,
-        "within20": 0.394
+        "within20": 0.424
       },
       "all": {
         "n": 186,
-        "meanError": 0.188,
-        "medianBias": -0.028,
+        "meanError": 0.185,
+        "medianBias": -0.029,
         "p90Error": 0.395,
-        "within20": 0.651
+        "within20": 0.661
       }
     },
     "calibrated": {
       "CA": {
         "n": 153,
-        "meanError": 0.161,
-        "medianBias": -0.003,
+        "meanError": 0.158,
+        "medianBias": -0.006,
         "p90Error": 0.359,
-        "within20": 0.712
+        "within20": 0.719
       },
       "IT": {
         "n": 33,
-        "meanError": 0.304,
-        "medianBias": 0,
+        "meanError": 0.297,
+        "medianBias": -0.029,
         "p90Error": 0.5,
-        "within20": 0.333
+        "within20": 0.364
       },
       "all": {
         "n": 186,
-        "meanError": 0.186,
-        "medianBias": -0.002,
+        "meanError": 0.183,
+        "medianBias": -0.008,
         "p90Error": 0.399,
-        "within20": 0.645
+        "within20": 0.656
       }
     },
     "leaveOneOut": {
       "CA": {
         "n": 153,
-        "meanError": 0.163,
-        "medianBias": -0.003,
+        "meanError": 0.16,
+        "medianBias": -0.006,
         "p90Error": 0.359,
-        "within20": 0.712
+        "within20": 0.719
       },
       "IT": {
         "n": 33,
-        "meanError": 0.312,
-        "medianBias": 0,
+        "meanError": 0.304,
+        "medianBias": -0.029,
         "p90Error": 0.5,
-        "within20": 0.333
+        "within20": 0.364
       },
       "all": {
         "n": 186,
-        "meanError": 0.189,
-        "medianBias": -0.002,
+        "meanError": 0.186,
+        "medianBias": -0.008,
         "p90Error": 0.405,
-        "within20": 0.645
+        "within20": 0.656
       }
     },
     "bands": {
@@ -321,24 +321,24 @@
       },
       "30-60": {
         "n": 23,
-        "meanError": 0.165,
+        "meanError": 0.166,
         "medianBias": -0.014,
         "p90Error": 0.31,
         "within20": 0.609
       },
       "60-150": {
         "n": 54,
-        "meanError": 0.111,
-        "medianBias": 0.001,
+        "meanError": 0.104,
+        "medianBias": -0.015,
         "p90Error": 0.241,
-        "within20": 0.833
+        "within20": 0.852
       },
       "gt150": {
         "n": 47,
-        "meanError": 0.137,
-        "medianBias": 0.018,
-        "p90Error": 0.301,
-        "within20": 0.745
+        "meanError": 0.131,
+        "medianBias": 0.014,
+        "p90Error": 0.3,
+        "within20": 0.766
       },
       "lt10": {
         "n": 29,
