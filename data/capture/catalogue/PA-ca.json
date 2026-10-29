@@ -1148,9 +1148,9 @@
       },
       "address": {
         "v": {
-          "kind": "nearest_road",
+          "kind": "postal",
           "lines": [
-            "Banff Avenue"
+            "224 Banff Avenue"
           ],
           "locality": "Banff",
           "postcode": "T1L 1B3"
@@ -1161,7 +1161,7 @@
           "src-0041"
         ],
         "read": "2026-10-28",
-        "note": "Nominatim reverse at the centre's point (LT-WHERE lookup, 2026-10-28); the house number is left out (run note). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+        "note": "Street and house number as read in LT-1 (its run note); not re-read on the centre's page. Postcode from Nominatim (LT-WHERE, 2026-10-28). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
       }
     },
     {
@@ -1259,9 +1259,9 @@
       },
       "address": {
         "v": {
-          "kind": "nearest_road",
+          "kind": "postal",
           "lines": [
-            "Connaught Drive"
+            "500 Connaught Drive"
           ],
           "locality": "Municipality of Jasper",
           "postcode": "T0E 1E0"
@@ -1272,7 +1272,7 @@
           "src-0041"
         ],
         "read": "2026-10-28",
-        "note": "Nominatim reverse at the centre's point (LT-WHERE lookup, 2026-10-28); the house number is left out (run note). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+        "note": "Street and house number as read in LT-1 (its run note); not re-read on the centre's page. Postcode from Nominatim (LT-WHERE, 2026-10-28). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
       }
     },
     {
@@ -1395,9 +1395,9 @@
       },
       "address": {
         "v": {
-          "kind": "nearest_road",
+          "kind": "postal",
           "lines": [
-            "Main Street East"
+            "7556 Main Street East"
           ],
           "locality": "Radium Hot Springs",
           "postcode": "V0A 1M0"
@@ -1409,7 +1409,7 @@
           "src-0041"
         ],
         "read": "2026-10-28",
-        "note": "Street from the Parks Canada services page, house number left out (run note); postcode from Nominatim (LT-WHERE, 2026-10-28). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+        "note": "Street and house number as read in LT-1 (its run note); not re-read on the centre's page. Postcode from Nominatim (LT-WHERE, 2026-10-28). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
       }
     },
     {
