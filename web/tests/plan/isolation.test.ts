@@ -32,8 +32,22 @@ const inside = (r: string, roots: readonly string[]) => roots.some((p) => r === 
  * the device (core/src/plan/ops.ts and sync.ts) and maps a device copy with core/src/plan/doc.ts. It is one lazy chunk, loaded by Mine
  * only with the `accountTrips` flag on and a person signed in; everything else in web/lib/mine/ and web/components/mine/ reaches it only
  * through that dynamic import and its types, and holds none of the document's rules.
+ *
+ * X-API (TB-API; trip-builder 15.1 ISO-1, ISO-5): the builder's server service, web/lib/server/planService.ts, runs the engine
+ * (core/src/plan/engine.ts, candidates.ts, driveTable.ts) over the public catalogue store and the leg service; its routes are
+ * web/app/api/v1/plan/** (builder paths). X2 (the DataClient section) spans data.ts and its two adapter files, contract.ts (types) and
+ * api.ts (the three fetch calls; static.ts needs no import: it answers null). None of them imports builder UI.
  */
-const EXTENSION_IMPORTERS = ['web/app/mine/MineShell.tsx', 'web/lib/client/data.ts', 'core/src/schema/api/index.ts', 'web/lib/server/plans.ts', 'web/lib/mine/sync.ts'];
+const EXTENSION_IMPORTERS = [
+  'web/app/mine/MineShell.tsx',
+  'web/lib/client/data.ts',
+  'web/lib/client/contract.ts',
+  'web/lib/client/api.ts',
+  'core/src/schema/api/index.ts',
+  'web/lib/server/plans.ts',
+  'web/lib/server/planService.ts',
+  'web/lib/mine/sync.ts',
+];
 
 /**
  * Folder extension points (Step 2, gap-analysis D12; STEP2-C1): every file under `root` may import the builder files in `targets`,

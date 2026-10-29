@@ -291,6 +291,9 @@ export const planMatrix = z.strictObject({
 /** The build answer: the outputs a draft keeps (plan-draft/1 `lastBuild`, without its time) plus the matrix. No polylines (Review). */
 export const planBuild = z.strictObject({ ...planOutputsShape, matrix: planMatrix });
 
+/** What `POST /api/v1/plan/build` answers (TB-API): the engine's build plus the time the service built it (a draft's `lastBuild.builtAt`). */
+export const planBuildAnswer = z.strictObject({ ...planBuild.shape, builtAt: z.iso.datetime() });
+
 /** The matrix's rules: square, one row and one column per ref, unique refs, estimate indices inside it. Paths only. */
 export function planMatrixRules(m: PlanMatrix): string[] {
   const n = m.refs.length;
@@ -299,6 +302,23 @@ export function planMatrixRules(m: PlanMatrix): string[] {
   if (m.minutes.length !== n || m.minutes.some((row) => row.length !== n)) out.push("$.matrix.minutes: one row and one column per ref");
   if (m.estimated.some((i) => i >= n * n)) out.push("$.matrix.estimated: an index inside the matrix");
   return out;
+}
+
+/** Where a request failed and which rule, never the value (a build body holds the party; a query holds a start): at most 20 entries. */
+export type PlanIssue = { path: string; code: string };
+export type PlanChecked<T> = { ok: true; data: T } | { ok: false; issues: PlanIssue[] };
+const issueList = (e: z.ZodError): PlanIssue[] =>
+  e.issues.slice(0, 20).map((i) => ({ path: `$${i.path.map((p) => (typeof p === "number" ? `[${p}]` : `.${String(p)}`)).join("")}`, code: i.code }));
+
+/** The one way to read a build body (the plan-draft rule: no bare `.parse` on a raw plan schema outside the contract files). */
+export function parsePlanBuildInput(x: unknown): PlanChecked<PlanBuildInput> {
+  const r = planBuildInput.safeParse(x);
+  return r.success ? { ok: true, data: r.data } : { ok: false, issues: issueList(r.error) };
+}
+/** The one way to read a decoded candidates query. */
+export function parsePlanCandidatesQuery(x: unknown): PlanChecked<PlanCandidatesQuery> {
+  const r = planCandidatesQuery.safeParse(x);
+  return r.success ? { ok: true, data: r.data } : { ok: false, issues: issueList(r.error) };
 }
 
 export type PlanApiError = z.infer<typeof planApiError>;
@@ -315,4 +335,5 @@ export type PlanParty = z.infer<typeof planParty>;
 export type PlanBuildInput = z.infer<typeof planBuildInput>;
 export type PlanMatrix = z.infer<typeof planMatrix>;
 export type PlanBuild = z.infer<typeof planBuild>;
+export type PlanBuildAnswer = z.infer<typeof planBuildAnswer>;
 export type PlanResult<T> = { ok: true; data: T; revision: string } | { ok: false; error: PlanApiError };

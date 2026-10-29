@@ -1,4 +1,5 @@
 import type { PlaceRow, ResolveRow, TripLegs } from '@travel/core/schema/api/index.ts';
+import type { PlanBuildAnswer, PlanBuildInput, PlanCandidatePage, PlanCandidatesQuery, PlanRegions } from '@travel/core/schema/api/plan.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import { filterRows, facetCounts, gapCounts, gapNotes, matchesRow, scopeTotal } from '@/lib/entities/filter';
 import { searchTexts } from '@/lib/search/fulltext';
@@ -16,6 +17,7 @@ import type { SearchManifest, SearchPartRef, SearchRecord, SearchResult } from '
 import type { Suggestion } from '@/lib/search/suggest';
 import type { TextIndex } from '@/lib/search/fulltext';
 import type { DataClient, GlobeLineFile, GlobeScope, ReportInput, ReportResult, SearchScope } from './contract';
+export type { PlanCallError } from './contract';
 import { getJson, staticClient } from './static';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { CountryFacts, GlobeCardFile, GlobeTree, LightPin } from '@/lib/globe/types';
@@ -733,3 +735,19 @@ export async function listPlaces(query: ListState, pageSize?: number): Promise<L
   return got;
 }
 
+// ---------------------------------------------------------------- TB-API: the trip builder (extension point X2; trip-builder.md 5)
+// Three calls on the adapter, nothing registered or cached here. Only the builder's own code imports them (web/tests/plan/isolation.test.ts),
+// so no public page starts with this code. Each resolves to null when the server has no builder (flag off, or the static build).
+
+/** The region groups and regions of one country, with counts of researched places. */
+export function planRegions(cc: string): Promise<PlanRegions | null> {
+  return client().planRegions(cc);
+}
+/** One page (40 at most) of ranked candidates for a trip-mode or near-mode query. The query holds no party and no point. */
+export function planCandidates(q: PlanCandidatesQuery, signal?: AbortSignal): Promise<PlanCandidatePage | null> {
+  return client().planCandidates(q, signal);
+}
+/** Builds a plan. The body holds the party and is sent to this call only. Rejects with a `PlanCallError` (`rate_limited` carries `retryAfterS`). */
+export function planBuild(input: PlanBuildInput, signal?: AbortSignal): Promise<PlanBuildAnswer | null> {
+  return client().planBuild(input, signal);
+}
