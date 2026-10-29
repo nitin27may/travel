@@ -12,7 +12,9 @@ import { writeSession } from '@/lib/storage/safe';
 import { removeById, undoRemove } from '@/lib/mine/copies';
 import type { WriteFailure } from '@/lib/mine/copies';
 import { PRINT_KEY } from '@/lib/mine/keys';
-import { groupRows, localToday, openHref, rowTitle } from '@/lib/mine/rows';
+import { localToday, openHref, rowTitle } from '@/lib/mine/rows';
+import { deviceRowId, groupDevice, isDraftRow } from '@/lib/mine/deviceList';
+import type { DeviceRow, DraftFacts, DraftRowModel } from '@/lib/mine/deviceList';
 import type { RowModel } from '@/lib/mine/rows';
 import { resolveListing } from '@/lib/mine/listing';
 import type { Listing } from '@/lib/mine/listing';
@@ -21,7 +23,9 @@ import { formatDate } from '@/lib/export/dates';
 import type { AccountSync, SyncSnapshot } from '@/lib/mine/sync';
 import { chipsBare, retryAnnouncement } from '@/lib/mine/chips';
 import type { RowChip } from '@/lib/mine/chips';
+import { PLAN_BUILDER_ON } from '@/lib/mine/flag';
 import { CopyRow } from './CopyRow';
+import { DraftRow } from './DraftRow';
 import './my-trips.css';
 
 // Change dates reopens the copy sheet, which stays out of the Mine chunk until it is asked for
@@ -29,6 +33,10 @@ const CopySheet = dynamic(() => import('@/components/actions/CopySheet').then((m
 
 interface Props {
   items: readonly CopyItem[];
+  /** The plans the builder keeps on this device (one list with the copies, STEP2-P2); a draft whose id is also a copy is not listed twice. */
+  drafts?: readonly DraftFacts[];
+  /** Removes a draft from the builder's list and gives back its Undo. Supplied by the shell, which alone may reach the builder's module. */
+  removeDraft?: (id: string) => Promise<{ ok: true; restore: () => boolean } | { ok: false }>;
   storage: StorageLike;
   /** Signed in: rows carry the "On this device" chip. */
   signedIn: boolean;
@@ -46,7 +54,7 @@ interface Props {
 const reduced = (): boolean => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /** The My trips panel (spec 5.2): Upcoming, No date (SW-008), Past (collapsed with its count), rows with the menu, Undo for Remove and Change dates. */
-export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }: Props) {
+export function MyTrips({ items, drafts = [], removeDraft, storage, signedIn, didNotFit, onChanged, acct }: Props) {
   const { toast } = useToast();
   const [today] = useState(() => localToday());
   const [listing, setListing] = useState<Map<string, Listing> | null>(null);
@@ -71,34 +79,38 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
   }, [slugKey]);
 
   const groups = useMemo(() => {
-    const g = groupRows(items, today);
-    const name = (r: RowModel): RowModel => {
+    const g = groupDevice(items, drafts, today);
+    const name = (r: DeviceRow): DeviceRow => {
+      if (isDraftRow(r)) return r;
       const l = listing?.get(r.item.slug);
       return l?.state === 'listed' && l.title && r.title !== r.item.title ? { ...r, title: l.title } : r;
     };
     return { upcoming: g.upcoming.map(name), nodate: g.nodate.map(name), past: g.past.map(name) };
-  }, [items, today, listing]);
+  }, [items, drafts, today, listing]);
   const flat = useMemo(() => [...groups.upcoming, ...groups.nodate, ...(pastOpen ? groups.past : [])], [groups, pastOpen]);
 
   // each row's sync state; with one state on every row that the card line already says, no row draws a chip (SF10)
+  // a builder draft lives on this device only (it is not an account row yet): its state is always "device"
+  const draftIds = useMemo(() => new Set(drafts.map((d) => d.id)), [drafts]);
   const stateOf = useCallback(
-    (id: string): RowChip => (acct ? (acct.deviceIds.has(id) ? 'device' : (acct.snap.rows[id]?.state ?? 'quiet')) : 'quiet'),
-    [acct],
+    (id: string): RowChip => (acct ? (acct.deviceIds.has(id) || (draftIds.has(id) && !acct.snap.rows[id]) ? 'device' : (acct.snap.rows[id]?.state ?? 'quiet')) : 'quiet'),
+    [acct, draftIds],
   );
-  const bare = useMemo(() => (acct ? chipsBare(items.map((i) => stateOf(i.id))) : false), [acct, items, stateOf]);
+  const allIds = useMemo(() => [...new Set([...items.map((i) => i.id), ...drafts.map((d) => d.id)])], [items, drafts]);
+  const bare = useMemo(() => (acct ? chipsBare(allIds.map(stateOf)) : false), [acct, allIds, stateOf]);
 
   // a row that becomes "Not synced" is said once, by name, in this list's polite region (SF11); syncing and the way back say nothing
   const [rowSaid, setRowSaid] = useState('');
   const seenStates = useRef<Map<string, RowChip> | null>(null);
   useEffect(() => {
     if (!acct) return;
-    const now = new Map(items.map((i) => [i.id, stateOf(i.id)] as const));
+    const now = new Map(allIds.map((id) => [id, stateOf(id)] as const));
     const before = seenStates.current;
     seenStates.current = now;
     if (!before) return;
-    const turned = groups.upcoming.concat(groups.nodate, groups.past).filter((r) => now.get(r.item.id) === 'retry' && before.get(r.item.id) !== 'retry');
+    const turned = groups.upcoming.concat(groups.nodate, groups.past).filter((r) => now.get(deviceRowId(r)) === 'retry' && before.get(deviceRowId(r)) !== 'retry');
     if (turned.length) setRowSaid(turned.map((r) => retryAnnouncement(r.title)).join(' '));
-  }, [acct, items, stateOf, groups]);
+  }, [acct, allIds, stateOf, groups]);
 
   // M5: one toast when the sign-in merge moved trips into the account; nothing when nothing moved
   const added = acct?.snap.merge?.added ?? 0;
@@ -157,7 +169,7 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
 
   const remove = useCallback(
     (r: RowModel) => {
-      const at = flat.findIndex((x) => x.item.id === r.item.id);
+      const at = flat.findIndex((x) => deviceRowId(x) === r.item.id);
       const next = flat[at + 1] ?? flat[at - 1] ?? null;
       setCollapsing(r.item.id);
       // a trip kept in the account is removed as a tombstone, with an Undo that restores it (edit-my-trip 4.5)
@@ -170,7 +182,7 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
               toast({ message: 'Could not remove that trip. Try again.' });
               return;
             }
-            focusNext.current = { id: next ? next.item.id : null };
+            focusNext.current = { id: next ? deviceRowId(next) : null };
             toast({
               message: `Removed ${r.title} from Mine`,
               actionLabel: 'Undo',
@@ -191,7 +203,7 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
             toast({ message: failMessage(res.reason) });
             return;
           }
-          focusNext.current = { id: next ? next.item.id : null };
+          focusNext.current = { id: next ? deviceRowId(next) : null };
           onChanged();
           toast({
             message: `Removed ${r.title} from Mine`,
@@ -212,6 +224,43 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps -- `putBack` is built from `acct` and `toast`, already listed
     [flat, onChanged, storage, toast, acct],
+  );
+
+  /** Remove for a builder draft: the same collapse, toast and Undo as a copy; the draft leaves `plan-drafts/1` (and returns on Undo). */
+  const removeOne = useCallback(
+    (r: DraftRowModel) => {
+      const at = flat.findIndex((x) => deviceRowId(x) === r.id);
+      const next = flat[at + 1] ?? flat[at - 1] ?? null;
+      setCollapsing(r.id);
+      setTimeout(
+        () => {
+          void (removeDraft ? removeDraft(r.id) : Promise.resolve({ ok: false as const })).then((res) => {
+            setCollapsing(null);
+            if (!res.ok) {
+              toast({ message: 'Could not remove that trip. Try again.' });
+              return;
+            }
+            focusNext.current = { id: next ? deviceRowId(next) : null };
+            onChanged();
+            toast({
+              message: `Removed ${r.title} from Mine`,
+              actionLabel: 'Undo',
+              onAction: () => {
+                if (res.restore()) {
+                  setRestored(r.id);
+                  focusNext.current = { id: r.id };
+                  onChanged();
+                } else {
+                  toast({ message: `Could not put ${r.title} back.` });
+                }
+              },
+            });
+          });
+        },
+        reduced() ? 0 : 200,
+      );
+    },
+    [flat, onChanged, removeDraft, toast],
   );
 
   const rowProps = (r: RowModel) => ({
@@ -272,7 +321,7 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
     </div>
   ) : null;
 
-  if (items.length === 0) {
+  if (items.length === 0 && drafts.length === 0) {
     return (
       <div ref={root}>
         {notices}
@@ -281,8 +330,9 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
           quiet
           glyph="layers"
           title="No trips yet"
-          why="Copy one of our trips. It stays here."
+          why={PLAN_BUILDER_ON ? 'Copy one of our trips or plan your own. It stays here.' : 'Copy one of our trips. It stays here.'}
           action={<ButtonLink href="/trips/" variant="primary">Browse trips</ButtonLink>}
+          secondary={PLAN_BUILDER_ON ? <ButtonLink href="/plan/">Plan your own trip</ButtonLink> : undefined}
         />
       </div>
     );
@@ -305,7 +355,11 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
           </h2>
           <ul className="mt-list">
             {groups.upcoming.map((r) => (
-              <CopyRow key={r.item.id} {...rowProps(r)} />
+              isDraftRow(r) ? (
+                <DraftRow key={r.id} row={r} collapsing={collapsing === r.id} restored={restored === r.id} sync={acct ? { state: stateOf(r.id), bare } : undefined} chip={signedIn && !acct} onRemove={removeOne} />
+              ) : (
+                <CopyRow key={r.item.id} {...rowProps(r)} />
+              )
             ))}
           </ul>
         </section>
@@ -318,7 +372,11 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
           </h2>
           <ul className="mt-list">
             {groups.nodate.map((r) => (
-              <CopyRow key={r.item.id} {...rowProps(r)} />
+              isDraftRow(r) ? (
+                <DraftRow key={r.id} row={r} collapsing={collapsing === r.id} restored={restored === r.id} sync={acct ? { state: stateOf(r.id), bare } : undefined} chip={signedIn && !acct} onRemove={removeOne} />
+              ) : (
+                <CopyRow key={r.item.id} {...rowProps(r)} />
+              )
             ))}
           </ul>
         </section>
@@ -334,7 +392,11 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged, acct }
           <div className="mt-fold" id="mt-past-list" data-open={pastOpen || undefined}>
             <ul className="mt-list" inert={!pastOpen || undefined}>
               {groups.past.map((r) => (
+                isDraftRow(r) ? (
+                <DraftRow key={r.id} row={r} collapsing={collapsing === r.id} restored={restored === r.id} sync={acct ? { state: stateOf(r.id), bare } : undefined} chip={signedIn && !acct} onRemove={removeOne} />
+              ) : (
                 <CopyRow key={r.item.id} {...rowProps(r)} />
+              )
               ))}
             </ul>
           </div>

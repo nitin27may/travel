@@ -11,6 +11,9 @@ import { markSeen } from '@/lib/mine/dot';
 import { ACCOUNT_TRIPS_ON } from '@/lib/mine/flag';
 import { CHANGED_EVENT } from '@/lib/mine/keys';
 import { useAccountTrips } from '@/lib/mine/useSync';
+import { deviceCount } from '@/lib/mine/deviceList';
+import type { DraftFacts } from '@/lib/mine/deviceList';
+import { PLANS_KEY } from '@/lib/plan/keys';
 import type { AccountSync, SyncSnapshot } from '@/lib/mine/sync';
 import { FAVOURITES_ON } from '@/lib/favourites/flag';
 import { HeartGlyph } from '@/lib/favourites/glyph';
@@ -26,6 +29,21 @@ const FavouritesPanel = dynamic(() => import('@/components/mine/FavouritesPanel'
 
 type Loaded = { overview: Overview; blocked: boolean; tab: MineTab; didNotFit: number };
 type Data = typeof import('@/lib/mine/data');
+
+/**
+ * The plans the builder keeps on this device (STEP2-P2): read only when the key holds something, so the plan document's schema never
+ * loads for a visitor with none. An unreadable list is left as it is and adds no rows (the copies list carries the error state).
+ */
+async function readDrafts(storage: StorageLike): Promise<DraftFacts[]> {
+  try {
+    if (storage.getItem(PLANS_KEY) === null) return [];
+    const m = await import('@/lib/plan/device');
+    const r = m.readDeviceDrafts(storage);
+    return r.ok ? r.items : [];
+  } catch {
+    return [];
+  }
+}
 // the core readers (and Zod) load after the shell paints, so the page's start chunk stays small
 const data = (): Promise<Data> => import('@/lib/mine/data');
 
@@ -63,6 +81,7 @@ export function MineShell({ signIn }: { signIn: boolean }) {
   const [snoozed, setSnoozed] = useState(false);
   const [moved, setMoved] = useState(false);
   const [d, setD] = useState<Data | null>(null);
+  const [drafts, setDrafts] = useState<DraftFacts[]>([]);
   const tabsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -78,6 +97,7 @@ export function MineShell({ signIn }: { signIn: boolean }) {
       setD(m);
       setState({ overview, blocked: probe.kind === 'memory', tab: asked ?? m.defaultTab(overview), didNotFit: mv.status === 'moved' ? mv.kept : 0 });
       markSeen();
+      void readDrafts(probe.storage).then((x) => live && setDrafts(x));
     });
     return () => {
       live = false;
@@ -87,7 +107,10 @@ export function MineShell({ signIn }: { signIn: boolean }) {
   // another tab changed a list: read again (the dot does the same)
   useEffect(() => {
     if (!d) return;
-    const on = () => setState((s) => (s ? { ...s, overview: d.readOverview(d.mineStorage().storage) } : s));
+    const on = () => {
+      setState((s) => (s ? { ...s, overview: d.readOverview(d.mineStorage().storage) } : s));
+      void readDrafts(d.mineStorage().storage).then(setDrafts);
+    };
     addEventListener('storage', on);
     return () => removeEventListener('storage', on);
   }, [d]);
@@ -116,14 +139,17 @@ export function MineShell({ signIn }: { signIn: boolean }) {
   const { region, announce } = useAnnouncer();
   const counts = useMemo(
     () => ({
-      trips: acct.snap ? mergedTrips(state?.overview.copies, acct.snap).items.length : state?.overview.copies.ok ? state.overview.copies.items.length : null,
+      trips: acct.snap ? deviceCount(mergedTrips(state?.overview.copies, acct.snap).items, drafts) : state?.overview.copies.ok ? deviceCount(state.overview.copies.items, drafts) : null,
       favourites: state?.overview.favourites.ok ? state.overview.favourites.items.length : null,
     }),
-    [state, acct.snap],
+    [state, acct.snap, drafts],
   );
 
   // a write in this tab (Remove, Undo, Change dates): read both lists again
-  const reread = () => setState((s) => (s && d ? { ...s, overview: d.readOverview(d.mineStorage().storage) } : s));
+  const reread = () => {
+    setState((s) => (s && d ? { ...s, overview: d.readOverview(d.mineStorage().storage) } : s));
+    if (d) void readDrafts(d.mineStorage().storage).then(setDrafts);
+  };
 
   // the merge of device copies writes the copies envelope in this tab, so the list is read again when it says so
   useEffect(() => {
@@ -190,7 +216,7 @@ export function MineShell({ signIn }: { signIn: boolean }) {
               />
             </div>
             <div role="tabpanel" id="mine-panel-trips" aria-labelledby="mine-tab-trips" hidden={state.tab !== 'trips'} className={moved ? 'mine-panel is-moved' : 'mine-panel'}>
-              <TripsPanel overview={state.overview} storage={d!.mineStorage().storage} signedIn={!!email} didNotFit={state.didNotFit} onChanged={reread} acct={acct} />
+              <TripsPanel overview={state.overview} storage={d!.mineStorage().storage} signedIn={!!email} didNotFit={state.didNotFit} onChanged={reread} acct={acct} drafts={drafts} />
             </div>
             <div role="tabpanel" id="mine-panel-favourites" aria-labelledby="mine-tab-favourites" hidden={state.tab !== 'favourites'} className={moved ? 'mine-panel is-moved' : 'mine-panel'}>
               <FavouritesTab overview={state.overview} storage={d!.mineStorage().storage} onChanged={reread} />
@@ -242,16 +268,17 @@ function accountNote(snap: SyncSnapshot | null, onDevice: number, waiting: numbe
 }
 
 /** My trips: the rows, groups and menu of the spec (5.2) are `MyTrips`; this decides between the error state and the list. */
-function TripsPanel({ overview, storage, signedIn, didNotFit, onChanged, acct }: { overview: Overview; storage: StorageLike; signedIn: boolean; didNotFit: number; onChanged: () => void; acct: Acct }) {
+function TripsPanel({ overview, storage, signedIn, didNotFit, onChanged, acct, drafts }: { overview: Overview; storage: StorageLike; signedIn: boolean; didNotFit: number; onChanged: () => void; acct: Acct; drafts: readonly DraftFacts[] }) {
+  const removeDraft = (id: string) => import('@/lib/plan/device').then((m) => m.removeDeviceDraft(storage, id));
   const c = overview.copies;
   if (acct.engine && acct.snap) {
     // the account answers for itself: a damaged device list is reported only when there is nothing else to show
     const { items, deviceIds } = mergedTrips(c, acct.snap);
     if (!c.ok && items.length === 0) return <Unreadable what="trips" reason={c.reason} />;
-    return <MyTrips items={items} storage={storage} signedIn={signedIn} didNotFit={didNotFit} onChanged={onChanged} acct={{ engine: acct.engine, snap: acct.snap, deviceIds }} />;
+    return <MyTrips items={items} storage={storage} signedIn={signedIn} didNotFit={didNotFit} onChanged={onChanged} drafts={drafts} removeDraft={removeDraft} acct={{ engine: acct.engine, snap: acct.snap, deviceIds }} />;
   }
   if (!c.ok) return <Unreadable what="trips" reason={c.reason} />;
-  return <MyTrips items={c.items} storage={storage} signedIn={signedIn} didNotFit={didNotFit} onChanged={onChanged} />;
+  return <MyTrips items={c.items} drafts={drafts} removeDraft={removeDraft} storage={storage} signedIn={signedIn} didNotFit={didNotFit} onChanged={onChanged} />;
 }
 
 /** Favourites: the filter row, rows and pager of the spec (5.3) are `FavouritesPanel`; this decides between the notice, the error state and the list. */

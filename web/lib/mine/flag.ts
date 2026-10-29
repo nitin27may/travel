@@ -12,3 +12,9 @@ export function accountTripsFlag(env: { signIn?: string; accountTrips?: string }
 }
 
 export const ACCOUNT_TRIPS_ON: boolean = accountTripsFlag();
+
+/**
+ * The `planBuilder` flag as Mine's empty state reads it ("Plan your own trip"). The `NEXT_PUBLIC_` name is written out so a Next build
+ * inlines it; off, the empty state says what it always said.
+ */
+export const PLAN_BUILDER_ON: boolean = process.env.NEXT_PUBLIC_PLAN_BUILDER === '1';

@@ -1,14 +1,16 @@
 import { readFileSync } from 'node:fs';
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
+import { sampleDraft } from '../../../core/test/plan/helpers';
 
 // NAV-2: My trips on the device and the copy sheet's saving (docs/v2/design/shell/mine-and-bar-spec.md 5.2, 7; briefs-bundle-A 7.9).
 // Seeds localStorage for what Mine shows; the copy flow itself runs on the real trip page.
 
-// With the build made under NEXT_PUBLIC_TRIP_EDIT=1 a copy opens at its own page /t/<id>/ and the copy sheet's link reads "Open your trip"
-// (STEP2-T1); run the spec with the same variable the build had.
+// With the build made under NEXT_PUBLIC_TRIP_EDIT=1 a copy opens at its own page /t/<id>/ (STEP2-T1), and Copy to my trips opens the new copy
+// straight away in edit mode with the toast "Copied ... to My trips" and Undo (STEP2-P3; no done step). Run the spec with the same variable the
+// build had.
 const TRIP_EDIT = process.env.NEXT_PUBLIC_TRIP_EDIT === '1';
-const OPEN_LINK = TRIP_EDIT ? 'Open your trip' : 'Open in Mine';
+const OPEN_LINK = 'Open in Mine';
 const COPIES_KEY = 'travel.copies.local';
 const LEGACY_KEY = 'travel:v1:copy-drafts';
 const MOVED_KEY = 'travel.copies.legacyMovedAt';
@@ -32,6 +34,55 @@ async function seed(page: Page, values: Record<string, string>) {
 }
 const stored = (page: Page) => page.evaluate((k) => localStorage.getItem(k), COPIES_KEY).then((t) => (t ? (JSON.parse(t) as { items: Seed[] }) : null));
 
+const PLANS_KEY = 'travel.plans.local';
+const DRAFT_ID = '2d9f6a3e-1b8c-4f2a-8e47-0a1b2c3d4e5f';
+const plans = (...items: unknown[]) => JSON.stringify({ schema: 'plan-drafts/1', items });
+
+// STEP2-P2: one Mine list for the copies and the plans the builder keeps on this device
+test.describe('one list for copies and plans', () => {
+  test('three copies and one draft list four rows once each; the draft carries its chip, and Remove has Undo', async ({ page, site }) => {
+    const copies = [
+      item(),
+      item({ id: ID2, slug: 'algonquin-muskoka-2026', title: 'Algonquin', start: '2027-09-01', children: [], profile: null, overrides: {} }),
+      item({ id: '8b3e2c74-0f2a-4d9a-9c73-4e5f6a7b8c9d', slug: 'vermont-fall-2026', title: 'Vermont', start: '2026-12-20' }),
+    ];
+    await seed(page, { [COPIES_KEY]: envelope(copies), [PLANS_KEY]: plans(sampleDraft({ id: DRAFT_ID, title: 'Alps loop', nights: 3, lastBuild: null })) });
+    await page.goto(`${site.url}/mine/`);
+    await expect(page.locator('.crow')).toHaveCount(4);
+    await expect(page.getByRole('tab', { name: /My trips/ })).toContainText('4');
+    const draft = page.locator(`.crow[data-copy-id="${DRAFT_ID}"]`);
+    await expect(draft.locator('.crow-name')).toHaveText('Alps loop');
+    await expect(draft.locator('.crow-chip')).toHaveText('Draft · ready to build');
+    await expect(draft.locator('a.crow-link')).toHaveAttribute('href', new RegExp(`^/plan/?\\?draft=${DRAFT_ID}&s=4$`));
+    await draft.getByRole('button', { name: 'Actions for Alps loop' }).click();
+    await expect(page.getByRole('menuitem')).toHaveText([/Continue/, /Remove/]);
+    await page.getByRole('menuitem', { name: 'Remove' }).click();
+    await expect(page.locator('.crow')).toHaveCount(3);
+    expect(await page.evaluate((k) => localStorage.getItem(k), PLANS_KEY)).toBeNull();
+    await page.getByRole('button', { name: 'Undo' }).click();
+    await expect(page.locator('.crow')).toHaveCount(4);
+    expect(JSON.parse((await page.evaluate((k) => localStorage.getItem(k), PLANS_KEY))!).items).toHaveLength(1);
+    // a reload lists the same four, once each
+    await page.reload();
+    await expect(page.locator('.crow')).toHaveCount(4);
+  });
+
+  test('a draft held under the copies key as well is listed once', async ({ page, site }) => {
+    await seed(page, { [COPIES_KEY]: envelope([item({ id: DRAFT_ID })]), [PLANS_KEY]: plans(sampleDraft({ id: DRAFT_ID, title: 'Alps loop', nights: 3, lastBuild: null })) });
+    await page.goto(`${site.url}/mine/`);
+    await expect(page.locator('.crow')).toHaveCount(1);
+    await expect(page.locator('.crow-name')).toHaveText('Dolomites');
+  });
+
+  test('the empty state says what it always said, and adds the builder only with planBuilder on', async ({ page, site }) => {
+    await page.goto(`${site.url}/mine/`);
+    await expect(page.getByRole('heading', { name: 'No trips yet' })).toBeVisible();
+    const builder = process.env.NEXT_PUBLIC_PLAN_BUILDER === '1';
+    await expect(page.getByText(builder ? 'Copy one of our trips or plan your own. It stays here.' : 'Copy one of our trips. It stays here.')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Plan your own trip' })).toHaveCount(builder ? 1 : 0);
+  });
+});
+
 test.describe('My trips rows', () => {
   test('three lines, the menu, and a link that opens the trip with the copy\'s choices', async ({ page, site }) => {
     await seed(page, { [COPIES_KEY]: envelope([item()]) });
@@ -43,7 +94,7 @@ test.describe('My trips rows', () => {
     await expect(row.locator('.crow-l3')).toHaveText('14 days · 2 adults, 1 child');
     await expect(page.getByRole('tab', { name: /My trips/ })).toContainText('1');
     await row.getByRole('button', { name: 'Actions for Dolomites' }).click();
-    await expect(page.getByRole('menuitem')).toHaveText([/Open/, /Add to calendar/, /Print/, /Change dates/, /Remove/]);
+    await expect(page.getByRole('menuitem')).toHaveText(TRIP_EDIT ? [/Open/, /Edit/, /Add to calendar/, /Print/, /Change dates/, /Remove/] : [/Open/, /Add to calendar/, /Print/, /Change dates/, /Remove/]);
     await page.keyboard.press('Escape');
     await row.locator('a.crow-link').click();
     if (TRIP_EDIT) await expect(page).toHaveURL(new RegExp(`/t/${ID1}/\\?view=day$`));
@@ -164,6 +215,18 @@ test.describe('the copy sheet saves into Mine', () => {
     await fill(sheet);
     await expect(sheet.locator('.copy-note')).toHaveText('Kept in this browser.'); // sign-in is off in this build
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
+    if (TRIP_EDIT) {
+      // STEP2-P3: no done step; the copy opens in edit mode on its days, with the toast and its Undo
+      await expect(page).toHaveURL(/\/t\/[0-9a-f-]{36}\/\?edit=1&view=day$/);
+      await expect(page.locator('.toast-region')).toContainText('Copied Dolomites to My trips');
+      await expect(page.locator('.toast-region').getByRole('button', { name: 'Undo' })).toBeVisible();
+      await page.goto(`${site.url}/mine/?show=trips`);
+      await page.reload();
+      await expect(page.locator('.crow')).toHaveCount(1);
+      await expect(page.locator('.crow-l3')).toContainText('2 adults, 1 child');
+      expect((await stored(page))!.items[0]).toMatchObject({ slug: 'dolomites-2027', adults: 2, children: [7] });
+      return;
+    }
     await expect(page.locator('.toast-region .toast')).toHaveCount(0); // the sheet is modal: no toast, Undo is in its footer
     await expect(sheet.getByRole('button', { name: 'Undo' })).toBeVisible();
     const open = sheet.getByRole('link', { name: OPEN_LINK });
@@ -173,10 +236,6 @@ test.describe('the copy sheet saves into Mine', () => {
     expect(order[0]).toBe(OPEN_LINK);
     expect(order[order.length - 1]).toBe('Done');
     await open.click();
-    if (TRIP_EDIT) {
-      await expect(page).toHaveURL(/\/t\/[0-9a-f-]{36}\//);
-      await page.goto(`${site.url}/mine/?show=trips`);
-    }
     await expect(page).toHaveURL(/\/mine\/\?show=trips$/);
     await page.reload();
     await expect(page.locator('.crow')).toHaveCount(1);
@@ -197,7 +256,8 @@ test.describe('the copy sheet saves into Mine', () => {
     await expect(sheet.getByRole('button', { name: 'Copy to my trips' })).toBeVisible();
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
     await sheet.getByRole('button', { name: 'Replace' }).click();
-    await expect(sheet.getByRole('link', { name: OPEN_LINK })).toBeVisible();
+    if (TRIP_EDIT) await expect(page).toHaveURL(/\/t\/[0-9a-f-]{36}\/\?edit=1&view=day$/);
+    else await expect(sheet.getByRole('link', { name: OPEN_LINK })).toBeVisible();
     const env = await stored(page);
     expect(env!.items).toHaveLength(1);
     expect(env!.items[0]!.start).not.toBe('2027-07-03');
@@ -235,7 +295,37 @@ test.describe('the copy sheet saves into Mine', () => {
     expect(readFileSync((await ics.path())!, 'utf8')).toContain('BEGIN:VCALENDAR');
   });
 
+  test('Undo in the toast removes the copy and returns to the public trip (tripEdit on)', async ({ page, site }) => {
+    test.skip(!TRIP_EDIT, 'the done step is the flag-off flow');
+    const sheet = await openSheet(page, site);
+    await fill(sheet, false);
+    await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
+    await expect(page).toHaveURL(/\/t\/[0-9a-f-]{36}\/\?edit=1&view=day$/);
+    await page.locator('.toast-region').getByRole('button', { name: 'Undo' }).click();
+    await expect(page).toHaveURL(/\/trips\/dolomites-2027\/$/);
+    expect(((await stored(page))?.items.length ?? 0)).toBe(0);
+  });
+
+  test('the public trip says "You have a copy of this trip · Open it" once the device holds one (tripEdit on), and not otherwise', async ({ page, site }) => {
+    test.skip(!TRIP_EDIT, 'the line and /t/ exist only with the flag on');
+    await page.goto(`${site.url}/trips/dolomites-2027/`, { waitUntil: 'domcontentloaded' });
+    await expect(page.getByRole('button', { name: 'Copy to my trips' }).first()).toBeVisible();
+    await expect(page.locator('.have-copy')).toHaveCount(0);
+    await seed(page, { [COPIES_KEY]: envelope([item()]) });
+    await page.goto(`${site.url}/trips/dolomites-2027/`, { waitUntil: 'domcontentloaded' });
+    const line = page.locator('.trip-cover .have-copy');
+    await expect(line).toHaveText('You have a copy of this trip · Open it');
+    await expect(line.getByRole('link', { name: 'Open it' })).toHaveAttribute('href', `/t/${ID1}/`);
+    await line.getByRole('link', { name: 'Open it' }).click();
+    await expect(page).toHaveURL(new RegExp(`/t/${ID1}/$`));
+    // another trip's copy does not count
+    await page.goto(`${site.url}/trips/algonquin-muskoka-2026/`, { waitUntil: 'domcontentloaded' });
+    await expect(page.getByRole('button', { name: 'Copy to my trips' }).first()).toBeVisible();
+    await expect(page.locator('.have-copy')).toHaveCount(0);
+  });
+
   test('Undo in the done step\'s footer removes the copy and returns to the form', async ({ page, site }) => {
+    test.skip(TRIP_EDIT, 'with tripEdit on the copy opens at once and Undo is in the toast (above)');
     const sheet = await openSheet(page, site);
     await fill(sheet, false);
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
@@ -330,7 +420,8 @@ test.describe('Remove focus, and Change dates', () => {
     await expect(sheet.getByTestId('copy-date')).toHaveText('No date yet');
     await expect(sheet.getByRole('button', { name: 'Copy to my trips' })).toBeEnabled();
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
-    await expect(sheet).toContainText('14 days · No date yet');
+    if (TRIP_EDIT) await expect(page).toHaveURL(/\/t\/[0-9a-f-]{36}\/\?edit=1&view=day$/);
+    else await expect(sheet).toContainText('14 days · No date yet');
     const env = await stored(page);
     expect(env).toMatchObject({ schema: 'copies/2', items: [{ slug: 'dolomites-2027', start: null }] });
     expect(['blue', 'orange', 'teal', 'sky', 'yellow', 'vermillion']).toContain(env!.items[0]!.identity);
@@ -394,8 +485,10 @@ test('privacy: no copy, party or start date reaches /api/v1 while copying and br
   const picked = (await sheet.locator('.copy-date-input').innerText()).trim();
   expect(picked).not.toBe('');
   await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
-  await sheet.getByRole('link', { name: OPEN_LINK }).click();
-  if (TRIP_EDIT) await page.goto(`${site.url}/mine/`);
+  if (TRIP_EDIT) {
+    await expect(page).toHaveURL(/\/t\/[0-9a-f-]{36}\//);
+    await page.goto(`${site.url}/mine/`);
+  } else await sheet.getByRole('link', { name: OPEN_LINK }).click();
   await expect(page.locator('.crow')).toHaveCount(1);
   await page.waitForLoadState('networkidle');
   const start = (await stored(page))!.items[0]!.start as string;
