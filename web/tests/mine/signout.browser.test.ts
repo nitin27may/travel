@@ -1,8 +1,12 @@
 import { mkdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { chromium, expect as be, type Browser, type Page } from '@playwright/test';
+import { chromium, expect as pwExpect, type Browser, type Page } from '@playwright/test';
 import { createViteServer } from 'vitest/node';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+// Conditions are waited for, not slept on; a cold dev server compiles each lazy chunk on first use, so under parallel load the first wait
+// outlasts Playwright's 5 s default. 20 s is the ceiling, not a delay: a met condition returns at once.
+const be = pwExpect.configure({ timeout: 20_000 });
 
 // The sign-out question (edit-my-trip 4.6) in a real browser: the real SignOutButton and SignOutConfirm mounted in the account header
 // with the flag on, the auth client answered by a fake /api/auth/*. Shots of the question at 320, 390 and 1440, light and dark, 2x go to
