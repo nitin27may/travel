@@ -11,6 +11,8 @@ import { useToast } from '@/components/ui/Toast';
 import { downloadGpx, downloadIcs, downloadTripCsv, loadExport } from '@/lib/export/client';
 import type { Generated } from '@/lib/export/client';
 import { addDays, checkWindow, formatDate, iso } from '@/lib/export/dates';
+import { basesOfExport, saveBases } from '@/lib/mine/bases';
+import { landOnDays } from '@/lib/mine/landing';
 import type { WriteFailure } from '@/lib/mine/copies';
 import { changeDates, moveLegacyOnce, partyText, saveCopy, undoChange, undoSave } from '@/lib/mine/copies';
 import { fallBackToMemory, mineStorage } from '@/lib/mine/storage';
@@ -234,6 +236,8 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
     if (r.kind === 'cap') return setProblem('cap');
     if (r.kind === 'failed') return setProblem(problemFor(r.reason));
     setHeld(probe.kind === 'local');
+    // the trip's base points are kept beside the copy, so the trip picker can put the nearest trip first without a document (PR-001)
+    if (data) saveBases(probe.storage, trip.slug, basesOfExport(data));
     setUndo({ item: r.item, replaced: r.replaced, replacedEdits: r.replacedEdits, storage: probe.storage });
     onSaved?.();
     // Step 2 (OQ7, patterns 3.7): with `tripEdit` on the copy opens the copy, in edit mode on its days, and the toast carries Undo (the sheet is
@@ -252,6 +256,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved, commit, onPri
         },
       });
       router.push(`/t/${item.id}/?edit=1&view=day`);
+      landOnDays();
       close();
       return;
     }
