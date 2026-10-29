@@ -7,6 +7,8 @@ import { distancePoints, fitOf, profileOfBand, scorePlace, seasonOf, themePoints
 import type { PlaceRow } from "../../src/schema/api/place.ts";
 import { planBuildInput, planCandidatePage, planCandidatesHttpQuery, planCandidatesQuery, type PlanCandidatesQuery } from "../../src/schema/api/plan.ts";
 import { EMPTY_DRIVE, ONT, ageLimited, mkBuild, mkPlace, mkRow } from "./engine-fixture.ts";
+import { StubStore } from "../../src/catalogue/stub/index.ts";
+import { haversineKm } from "../../src/geo/distance.ts";
 
 const near = (over: Partial<Extract<PlanCandidatesQuery, { mode: "near" }>> = {}): PlanCandidatesQuery => ({
   mode: "near",
@@ -191,6 +193,25 @@ describe("gatherCandidateRows reads the store, bounded", () => {
     const strip = await gatherCandidateRows(src, near({ near: "arrowhead" }), { centre: null, nearKm: 500 });
     expect(src.calls[1]).toMatchObject({ m: "near", q: { near: "place:arrowhead", r: 100 } });
     expect(strip.ok && Object.keys(strip.data[0]!)).not.toContain("distanceKm");
+  });
+
+  it("a pick's strip over a real near (StubStore, N2): every row within the clamped radius, nearest first, rows only", async () => {
+    const store = new StubStore();
+    const centre = await store.near({ near: "place:glacier-lake", r: 1 });
+    expect(centre.ok).toBe(true);
+    if (!centre.ok || centre.data.centre.lat === null || centre.data.centre.lon === null) return;
+    const at = { lat: centre.data.centre.lat, lon: centre.data.centre.lon };
+    const r = await gatherCandidateRows(store, near({ near: "glacier-lake" }), { centre: null, nearKm: 500 });
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.data.length).toBeGreaterThan(0);
+    const kms = r.data.map((row) => haversineKm(at, { lat: row.lat!, lon: row.lon! }));
+    for (const km of kms) expect(km).toBeLessThanOrEqual(100);
+    expect(kms).toEqual([...kms].sort((a, b) => a - b));
+    expect(Object.keys(r.data[0]!)).not.toContain("distanceKm");
+    // the store answers not_found for a pick that is not there, and the gathering passes it through
+    const gone = await gatherCandidateRows(store, near({ near: "no-such-place" }), { centre: null });
+    expect(!gone.ok && gone.error.code).toBe("not_found");
   });
 
   it("stops at BUILDER_SCAN.maxRows", async () => {

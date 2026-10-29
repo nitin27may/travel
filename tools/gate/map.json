@@ -157,7 +157,7 @@
                 "!web/tests/places/built-pages.test.ts", "!web/tests/places/tracks-markers.test.ts", "!web/tests/privacy.test.ts",
                 "!web/tests/shell/privacy-page.test.ts", "!web/tests/trips/timeline-outlinks.test.ts", "!web/tests/privacy/trip-status-built.test.ts", "!web/tests/no-hex.test.ts",
                 "!web/tests/api/revision-timing.test.ts", "!web/tests/search/budget.test.ts", "!web/tests/home/search.test.ts",
-                "!web/tests/search/split.test.ts"],
+                "!web/tests/search/split.test.ts", "!web/tests/api/near-timing.test.ts"],
       "steps": ["web test"]
     },
     "web.built": {
@@ -193,7 +193,7 @@
       "mac_only": "wall-clock thresholds: shared runners are noisy, so a red would be noise and a green would prove little",
       "inputs": ["web/lib/**", "web/public/search/**", "core/src/**", "data/**", "web/tests/**"],
       "tests": ["web/tests/api/revision-timing.test.ts", "web/tests/search/budget.test.ts", "web/tests/home/search.test.ts",
-                "web/tests/search/split.test.ts"],
+                "web/tests/search/split.test.ts", "web/tests/api/near-timing.test.ts"],
       "steps": ["web test"]
     },
     "web.serve": {

@@ -1,4 +1,4 @@
-import type { CardHits, CardQuery, CountQuery, FacetCounts, ParseInput, ParsedQuery, PlaceQuery, PlaceRow, ReportResult as ApiReportResult, SearchQuery, SearchResult as ApiSearchResult, GlobeCardFile as ApiGlobeCard, GlobeTree as ApiGlobeTree, LightPin as ApiLightPin, ExportFile, Paged, ResolveAnswer, ResolveRow, TripLegs as ApiTripLegs, TripPlanModel, UncheckedPage, UncheckedQuery } from '@travel/core/schema/api/index.ts';
+import type { CardHits, CardQuery, CountQuery, FacetCounts, NearPage, NearQuery, ParseInput, ParsedQuery, PlaceQuery, PlaceRow, ReportResult as ApiReportResult, SearchQuery, SearchResult as ApiSearchResult, GlobeCardFile as ApiGlobeCard, GlobeTree as ApiGlobeTree, LightPin as ApiLightPin, ExportFile, Paged, NearRow, ResolveAnswer, ResolveRow, TripLegs as ApiTripLegs, TripPlanModel, UncheckedPage, UncheckedQuery } from '@travel/core/schema/api/index.ts';
 import { reportLink, reportUrl } from '@/lib/config/product';
 import { defaultOrder } from '@/lib/entities/sort';
 import { SHARD_ROWS } from '@/lib/entities/shards';
@@ -43,6 +43,8 @@ export interface ApiCalls {
   tripPlanModel(slug: string): Promise<TripPlanModel | null>;
   /** resolveRefs (FAV-1W): one row per value, in order; null when the server answers not_available. */
   resolveRefs(refs: readonly string[]): Promise<ResolveAnswer | null>;
+  /** near (N2): one page around a centre; null when the server answers 501. Absent in a test's calls, where the adapter answers null. */
+  near?(q: NearQuery, page: { page?: number; pageSize?: number }, signal?: AbortSignal): Promise<NearPage | null>;
   /** The trip builder's calls (TB-API); absent in a test's calls, where the adapter then answers null. */
   plan?: PlanCalls;
 }
@@ -125,6 +127,8 @@ export function fetchCalls(): ApiCalls {
       return read('parse', at('/parse', p));
     },
     listPlaces: (q, page, signal) => read('listPlaces', at('/places', list(q, page)), signal ? { signal } : undefined),
+    // N2: the near read lives in its own chunk (./near), loaded on the first call, so no public page carries it
+    near: async (q, page, signal) => (await import('./near')).fetchNear(q, page, signal, { get: (url, sig) => fetch(url, sig ? { signal: sig } : undefined), at, check, list }),
     countPlaces: (q) => {
       const p = filters(q);
       if (q.parsed) {
@@ -437,6 +441,10 @@ export function createApiClient(calls: ApiCalls): DataClient {
       } catch {
         return null;
       }
+    },
+    async nearPage(q, page, pageSize, signal): Promise<{ items: NearRow[]; total: number; nextPage: number | null } | null> {
+      if (!calls.near) return null;
+      return (await import('./near')).nearPageOf(calls.near, q, page, pageSize, signal);
     },
     async reportProblem(input): Promise<ReportResult> {
       // reporting is off in the product settings until the feedback repo exists: nothing to ask the server then

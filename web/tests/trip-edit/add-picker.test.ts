@@ -332,22 +332,46 @@ describe('the reads are light (P8) and fall back without an API', () => {
     globalThis.fetch = real;
     vi.unstubAllEnvs();
   });
-  it('near asks for one page of one box, drops what is outside the circle and any park, and sorts nearest first', async () => {
-    // the data module's dev-time schema check wants whole PlaceRow rows; these are the picker's few fields
+  const row = (slug: string, kind: string, lat: number, lon: number) => ({ slug, name: slug, kind, kindLabel: kind, lat, lon, km: null, gain_m: null, area_name: '', kid_fit: 'unknown', kids_from: null, flags: [], season: [] });
+  const ROWS = [row('far-in-box', 'lake', 51.18 + 0.28, -115.57), row('near', 'lake', 51.19, -115.57), row('park', 'area', 51.181, -115.57), row('stay', 'stay', 51.181, -115.57)];
+  it('near asks the near API for one page round the rounded cell, re-measures from the exact base, drops parks and sorts nearest first (N2)', async () => {
+    // the data module's dev-time schema check wants whole rows; these are the picker's few fields
     vi.stubEnv('NODE_ENV', 'production');
     const calls: string[] = [];
-    const row = (slug: string, kind: string, lat: number, lon: number) => ({ slug, name: slug, kind, kindLabel: kind, lat, lon, km: null, gain_m: null, area_name: '', kid_fit: 'unknown', kids_from: null, flags: [], season: [] });
     globalThis.fetch = (async (u: string) => {
       calls.push(String(u));
-      return new Response(JSON.stringify({ items: [row('far-in-box', 'lake', 51.18 + 0.28, -115.57), row('near', 'lake', 51.19, -115.57), row('park', 'area', 51.181, -115.57), row('stay', 'stay', 51.181, -115.57)], nextPage: null }), { status: 200 });
+      return new Response(JSON.stringify({ items: ROWS, total: ROWS.length, page: 1, pageSize: PAGE_SIZE.list, nextPage: null }), { status: 200 });
     }) as typeof fetch;
-    const { nearPage } = await import('@/components/trips/edit/add/source');
-    const p = await nearPage({ lat: 51.18, lon: -115.57 }, 1);
+    const { nearPage, resetNearSource } = await import('@/components/trips/edit/add/source');
+    resetNearSource();
+    const p = await nearPage({ lat: 51.182345, lon: -115.571234 }, 1);
     expect(calls).toHaveLength(1);
-    expect(calls[0]).toMatch(/^\/api\/v1\/places\/\?/);
+    expect(calls[0]).toMatch(/^\/api\/v1\/near\/\?/);
     expect(calls[0]).toContain(`pageSize=${PAGE_SIZE.list}`);
-    expect(calls[0]).toContain('bbox=');
+    // the base leaves the device as the two-decimal cell only (store.ts A41)
+    expect(decodeURIComponent(calls[0]!)).toContain('near=point:51.18,-115.57');
+    expect(calls[0]).not.toContain('51.182');
+    expect(calls[0]).not.toContain('bbox=');
     expect(p!.rows.map((r) => r.slug)).toEqual(['near']);
+  });
+  it('a server without near (501) falls back to one box read, and the rest of the visit reads boxes', async () => {
+    vi.stubEnv('NODE_ENV', 'production');
+    const calls: string[] = [];
+    globalThis.fetch = (async (u: string) => {
+      calls.push(String(u));
+      if (String(u).startsWith('/api/v1/near/')) return new Response(JSON.stringify({ error: { code: 'not_available', message: 'x' } }), { status: 501 });
+      return new Response(JSON.stringify({ items: ROWS, nextPage: null }), { status: 200 });
+    }) as typeof fetch;
+    const { nearPage, resetNearSource } = await import('@/components/trips/edit/add/source');
+    resetNearSource();
+    const p = await nearPage({ lat: 51.18, lon: -115.57 }, 1);
+    expect(calls).toHaveLength(2);
+    expect(calls[1]).toMatch(/^\/api\/v1\/places\/\?/);
+    expect(calls[1]).toContain('bbox=');
+    expect(p!.rows.map((r) => r.slug)).toEqual(['near']);
+    await nearPage({ lat: 51.18, lon: -115.57 }, 1);
+    expect(calls).toHaveLength(3);
+    expect(calls[2]).toContain('bbox=');
   });
   it('a failed read is null, so the picker falls back to the lists the plan model carries', async () => {
     globalThis.fetch = (async () => new Response('nope', { status: 500 })) as typeof fetch;

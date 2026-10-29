@@ -8,6 +8,7 @@
 // error codes. The pieces that are the web app's today (the filter engine, the smart-search parser, the searcher, the export
 // builders) arrive as functions here and move into core with API-2.
 import type { TownRow } from "../../derive/townsData.ts";
+import type { DriveIndex } from "../../drive/model.ts";
 import type * as S from "../../schema/api/index.ts";
 import type { RevisionInputs } from "../revision.ts";
 import type { SlugRegistry } from "../slugs.ts";
@@ -112,6 +113,12 @@ export interface JsonSource {
    * source has none: `towns`, `city=` and the gazetteer then answer `not_available`. The store serves them exactly as given (store.ts A33).
    */
   towns?(): readonly TownRow[];
+
+  /**
+   * The drive model's data (data/reference/drive, indexed once), or absent: `near` then bands a distance with the timeline rule
+   * (`bandOf`) instead of the L2 model's minutes (store.ts A41). Both are estimates; neither puts minutes in a row (A35).
+   */
+  drive?(): DriveIndex;
 
   /** The feedback form's URL for a page path, or null when reporting is off. */
   reportLink(page: string): string | null;

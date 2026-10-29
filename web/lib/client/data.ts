@@ -1,4 +1,4 @@
-import type { PlaceRow, ResolveRow, TripLegs } from '@travel/core/schema/api/index.ts';
+import type { NearRow, PlaceRow, ResolveRow, TripLegs } from '@travel/core/schema/api/index.ts';
 import type { PlanBuildAnswer, PlanBuildInput, PlanCandidatePage, PlanCandidatesQuery, PlanRegions, PlanStarts } from '@travel/core/schema/api/plan.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import { filterRows, facetCounts, gapCounts, gapNotes, matchesRow, scopeTotal } from '@/lib/entities/filter';
@@ -16,7 +16,7 @@ import type { Chip, DidYouMean, ParseOptions, ParsedQuery, VocabFile } from '@/l
 import type { SearchManifest, SearchPartRef, SearchRecord, SearchResult } from '@/lib/search/types';
 import type { Suggestion } from '@/lib/search/suggest';
 import type { TextIndex } from '@/lib/search/fulltext';
-import type { DataClient, GlobeLineFile, GlobeScope, ReportInput, ReportResult, SearchScope } from './contract';
+import type { DataClient, GlobeLineFile, GlobeScope, NearRead, ReportInput, ReportResult, SearchScope } from './contract';
 export type { PlanCallError } from './contract';
 import { getJson, staticClient } from './static';
 import type { FacetCount } from '@/lib/entities/filter';
@@ -124,6 +124,11 @@ export function resolveRefs(refs: readonly string[]): Promise<ResolveRow[] | nul
 /** One page of light place rows for a box, words or slugs (the add picker, STEP2-E3). Null when the build has no places API or the read failed. */
 export function placesPage(q: { q?: string; bbox?: string; ids?: readonly string[] }, page: number, pageSize: number, signal?: AbortSignal): Promise<{ items: PlaceRow[]; nextPage: number | null } | null> {
   return client().placesPage(q, page, pageSize, signal);
+}
+
+/** One page of the places around a centre, nearest first (N2): a point is rounded to the near cell before it is sent. Null when the build has no near API or the read failed. */
+export function nearPage(q: NearRead, page: number, pageSize: number, signal?: AbortSignal): Promise<{ items: NearRow[]; total: number; nextPage: number | null } | null> {
+  return client().nearPage(q, page, pageSize, signal);
 }
 
 /** The area tree with counts. No pins. */

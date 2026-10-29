@@ -1,5 +1,7 @@
 import type { LegsSource } from '@travel/core/catalogue/json/legs.ts';
 import { hasTownsFiles, readTownsFiles } from '@travel/core/derive/townsData.ts';
+import { loadDriveData } from '@travel/core/drive/load.ts';
+import { indexDriveData } from '@travel/core/drive/model.ts';
 import type { CardMatches, JsonSource, SearchScope } from '@travel/core/catalogue/json/source.ts';
 import { readSlugRegistry } from '@/lib/public/places';
 import type { SlugRegistry } from '@travel/core/catalogue/slugs.ts';
@@ -186,5 +188,7 @@ export function createJsonSource(opts: ServerSourceOptions = {}): JsonSource {
     reportLink: (page) => reportLink(reportUrl, page),
     // the towns layer (META-2): data/reference/towns, verified against its manifest when first read, served exactly as the GeoNames dump has it
     ...(hasTownsFiles(root) ? { towns: lazy(() => readTownsFiles(root).rows) } : {}),
+    // the drive model's data (data/reference/drive, in the revision's `data` tree): near's drive bands (store.ts A41), read on first use
+    drive: lazy(() => indexDriveData(loadDriveData(root).data)),
   };
 }

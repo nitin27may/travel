@@ -14,6 +14,11 @@ export const API_LIMITS = {
   searchLimit: { default: 8, max: 50 },
   /** `near`: radius in km. Above `max` it is clamped to `max` and the answer says `clamped: true` (nearby spec 5.3: no "everything near nothing"). */
   nearRadius: { default: 25, areaDefault: 50, max: 100, presets: [10, 25, 50, 100] },
+  /**
+   * `near=point:<lat>,<lon>`: the most decimals a coordinate centre may carry (2, a cell of about 1.1 km). A finer point is
+   * `invalid_input`, so no URL, log line or cache key can hold a visitor's position more exactly than the cell (store.ts A41).
+   */
+  nearPoint: { decimals: 2 },
   /** `towns`: rows in one answer. More matches are cut at `max` and the answer says `truncated: true`. */
   towns: { max: 200 },
   /** `nearbyForPlace`: the "Around here" list (nearby spec 5.2): places within `radius` km, at most `list` of them; day trips up to `dayTrips` km are a count. */

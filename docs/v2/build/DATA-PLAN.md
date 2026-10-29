@@ -250,7 +250,7 @@ lost; it is not counted in the data hours.
 | DG-10 | **Booking text.** Book-ahead detail repeats words ("lottery ... lottery") and runs long; the card clamps it (SW-029) | summary "8 to book ahead" | SW-029 | **S2D-BOOK** (`data/trips/booking-refs.json`, `data/capture/catalogue/PA-ca.json`) | none | readable book-ahead card | Low |
 | DG-11 | **Place size budget.** Place-size median 1.2542 against 1.25 (about 300 bytes over), same with the flag off | `budget:report` (I14) | INT and VER reports | **S2D-SIZE**; Q290's re-baseline does not apply (not a required-tier fill) | none | headroom for every later fill that adds bytes (S2D-IND, S2D-SUIT) | Low, but first in order. Done on lt/SIZE: median 1.2050 of 1.25 |
 | DG-12 | **Road network for `W_NO_ROUTE`.** The warning has a level but no definition of "no road" | warning not built | LEG hand-back | data half in **S2D-LEG** (classify the unrouted pairs: lift, trail, ferry, no road); wide coverage is **DT-F0** and **DT-S0** (rows 52, 53, E) | the check in `core/src/checks/days.ts` (Sonnet 2 h, after S2D-LEG) | the `W_NO_ROUTE` warning | Low |
-| DG-13 | **Near API.** The near-places API answers `not_available` until N2; the picker reads `/api/v1/places/` pages | add picker | E3 hand-back gap 1 | **N2** (lane NB, code; BACKLOG 8.14 to 8.16); routed times later in N3 (8.13, ORS) | point the picker's one source file at N2 (Sonnet 0.5 h) | distance bands in the picker | Medium |
+| DG-13 | **Near API.** ~~The near-places API answers `not_available` until N2; the picker reads `/api/v1/places/` pages~~ **Closed 28 Oct 2026 (N2):** `GET /api/v1/near/` answers on JsonStore (place, area, town or two-decimal point centre; distance, bearing, drive band from the L2 model; store.ts A41); the add picker reads it (bbox read kept as the fallback), the builder's near strip and "Also within your driving" light up, and a town start resolves | add picker | E3 hand-back gap 1 | **N2** (lane NB, code; BACKLOG 8.14 to 8.16); routed times later in N3 (8.13, ORS) | done | distance bands in the picker | Closed |
 
 Owner-held items next to these (not data, listed once in [MASTER-ORDER](MASTER-ORDER.md) 7.3): the ORS key for TB-L
 (runtime legs for user-moved stops), the children cap 12 against 8, old title-only draft rows, the analytics beacon
@@ -282,7 +282,7 @@ real points, legs and the rainy-day chip instead of ≈ estimates and hidden chi
 | Dependency | Holds | Note |
 |---|---|---|
 | ORS key | S2D-LEG (offline `ORS_API_KEY`); TB-L runtime legs for user-moved stops (owner item) | the offline key exists; only the runtime key waits on the owner |
-| N2 (lane NB, code) | DG-13 | not data-seat work; N3 routed nearby times need ORS after N2 |
+| N2 (lane NB, code) | DG-13 (closed 28 Oct 2026) | not data-seat work; the near API is done; N3 routed nearby times need ORS |
 | EG-I, PA-R-CA | DG-05 | both already in window C (rows 47, 48) |
 | Licences | DG-08 (D5c, L3) | allowlist only: CC BY, CC BY-SA, CC0, public domain (DD-3) |
 | Commons one call at a time | D5c, L3 | one runner under `flock /tmp/travel-commons.lock`; never parallel agents |
@@ -562,6 +562,7 @@ merge.
 |---|---|
 | 2026-10-28 (LT-C) | Section 2.5: LT-C done on branch `lt/LTC` (contract, families, `gaps --family`, `gaps --promote`, phase-1 marks, basics layers and the drift report); budget unchanged. Next LT-WHERE, then LT-1 |
 | 2026-10-28 (LOCTYPE) | Banner; section 2.5: research requirements by location type (address, generated map links, required link kinds, nine families, the ratchet); rows 72 to 78 (LT-WHERE, LT-AP, LT-1 to LT-4, LT-RAT; 27 h, D 11 and E 16) and code tasks LT-C and LT-M (14 h, Infra). [features/location-type-requirements.md](../features/location-type-requirements.md); BACKLOG 15.391 |
+| 2026-10-28 (N2) | DG-13 closed: the near API answers (store.ts A41); BACKLOG 8.17 |
 | 2026-10-28 (S2-DATA) | Banner; section 2.4: DG-01 to DG-13 moved here from `design/step2/data-gaps-2026-10-28.md` (now a pointer), each mapped to an existing task or new rows 64 to 71 (S2D-SIZE, S2D-PTS, S2D-IND, S2D-LEG, S2D-SUIT, S2D-TIME, S2D-BOOK, S2D-VER; 18.5 h, bundle D), dependencies, and batches S2-A to S2-C. BACKLOG 15.390 |
 | 2026-10-27 (BUILDER-DEPS) | Banner; 2.1 rows 51 to 63 and the totals sentence; 2.2 seat 1 additions and data seat 2. [builder-dependency-map.md](builder-dependency-map.md) |
 | 2026-10-26 (ALIGN, evening) | Banner; rows 3, 10, 12, 15 marked done; rows 45 to 50 (UXB-W, EG-M, EG-D, PA-R-CA, PA-MUS, PA-R-ON); totals 194 h; 2.2 rewritten to MASTER-ORDER 5.4 (lane S at the head of C's window; D10 splits and D8-R facts pulled into C; PM-G built in this seat). [alignment-2026-10-26.md](alignment-2026-10-26.md) |

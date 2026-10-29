@@ -22,7 +22,9 @@ const through = {
   makeChanged: async () => new HandlerStore(await target.makeChanged!()),
   rowReads: undefined,
   plant: async (p: Parameters<NonNullable<typeof target.plant>>[0]) => new HandlerStore(await target.plant!(p)),
-  pending: Object.fromEntries([...CONTRACT_TABLES.near!, ...CONTRACT_TABLES.nearbyForPlace!].map((c) => [`${c.method}:${c.id}`, PHASE_E])),
+  pending: Object.fromEntries([...CONTRACT_TABLES.nearbyForPlace!].map((c) => [`${c.method}:${c.id}`, PHASE_E])),
+  // K4 counts the store's row reads (a FileStore spy, C7); over HTTP there is no spy, and contract-store.test.ts runs it on the store
+  notApplicable: { K4: 'rowReads is a store-side spy; K4 runs on the json store target (contract-store.test.ts)' },
 };
 runContractTargets([through], { handlerLayer: true });
 

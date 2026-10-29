@@ -238,6 +238,24 @@
 //     words in any other field, and an echo key holding words the request did not send, still fail closed; structured points and
 //     private keys are always read. So `GET /api/v1/search?q=<any town name>` answers 200 for every town alike, and "hotel ideas",
 //     "base camp: x", "100 Queen Street" or a typed coordinate pair near home answer 200 too (case K29, through respond()).
+// A41 Near (N2, 28 Oct 2026; DATA-PLAN DG-13). `near(q, page)` is one rule for every store (core/src/catalogue/near.ts):
+//     - Centres: `near=place:<slug>` (the place's exact point; a retired slug resolves through the registry; an approximate point is
+//       `not_found`), `near=area:<id>` (the mean of its exact points), `city=<town id>` (the gazetteer point; `city` wins, and a town
+//       centre is not also the city filter), or `near=point:<lat>,<lon>` (a coordinate cell). No centre is `invalid_scope` (K5);
+//       there is no default centre, so the household point can never be one.
+//     - Rows: every Places filter applies first; exact points only, nearest first by A17; approximate rows in scope are counted in
+//       `basis.excludedApprox` (A13); A1 paging with the true `total`; `r` clamps as in K3.
+//     - Bands: a walk under WALK_KM, else the drive band of the L2 drive model's minutes (core/src/drive modelDrive) when the source
+//       has the drive data (JsonSource.drive), else `bandOf`. Always `basis: "estimate"` with `minutes: null` (A35): routed minutes are
+//       N3 (MX). The centre's country is its own (place, town, area) or the row's (a point).
+//     - Privacy of a point centre: (1) the URL may carry at most API_LIMITS.nearPoint.decimals (2) decimals per coordinate, a cell of
+//       about 1.1 km; a finer point is `invalid_input`, so no access log, CDN cache key or ETag-bearing URL holds a position more exactly
+//       than the cell, and the store rounds again for a direct call. (2) The answer's centre is `{kind: "point", key: "point", name:
+//       "", lat: null, lon: null}`: never the coordinates. A body that echoed them would make respond()'s detector refuse (500) every
+//       cell near the household, an oracle for where it lives; without the echo the answer for a cell near home is like any other.
+//       (3) Nothing in near logs or stores a query; respond() logs only a blocked body's paths and its own failures, and neither holds
+//       the query point. The ApiAdapter rounds before it builds the URL and re-measures from the asker's own point on the device.
+//     - Parity: SQL may prefilter by box or `ST_DWithin` (with the cell slack) and must then call `rankNear` or reproduce it.
 //
 // ---- API-3c (23 Oct 2026, Opus): carried forward, NOT done here (review-API3-2026-10-23.md) ------------------------------------
 //
@@ -336,8 +354,8 @@ export interface CatalogueStore {
    * Places around a centre, nearest first. Needs a resolvable centre: no `near` and no `city` is `invalid_scope` (case K5); a token or
    * town that does not resolve is `not_found`, answered before any shard or row is read (case K4). `r` defaults to
    * API_LIMITS.nearRadius.default (25; 50 for an area centre) and is clamped to API_LIMITS.nearRadius.max (100) with `clamped: true`
-   * (case K3). Approximate points are excluded and counted in `basis` (case K17). Same paging and filter rules as listPlaces.
-   * `not_available` until phase E (N2).
+   * (case K3). Approximate points are excluded and counted in `basis` (case K17). Same paging and filter rules as listPlaces. A
+   * coordinate centre (`point:<lat>,<lon>`, two decimals at most) is measured from and never echoed (A41).
    */
   near(q: S.NearQuery, page?: S.ApiPage): Promise<Result<S.NearPage>>;
 

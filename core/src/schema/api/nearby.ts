@@ -1,8 +1,9 @@
-// Nearby, near mode and the towns layer (nearby-and-regions.md sections 4.2, 5.2, 5.3, 5.6). DEFINED here (API-1a), filled in phase E:
-// until META-2 builds the towns layer, `near`, `towns` and a `city=` query answer `not_available` (contract cases K3, K4, K5, K15,
-// K17 are pending with the task that fills them).
+// Nearby, near mode and the towns layer (nearby-and-regions.md sections 4.2, 5.2, 5.3, 5.6). DEFINED here (API-1a). `towns` and `city=`
+// answer from the towns layer (META-2); `near` is filled by N2 (store.ts A41: a place, area, town or rounded point centre); the
+// "Around here" block (`nearbyForPlace`) is still `not_available` on JsonStore until PLC2b.
 import { z } from "zod";
 import { apiPlaceRef, apiSlug, apiTownId, paged } from "./common.ts";
+import { API_LIMITS } from "./limits.ts";
 import { PLACE_KINDS, placeQuery, placeRow } from "./place.ts";
 
 /** Eight compass points, from the centre to the place (nearby spec 5.1). */
@@ -19,6 +20,18 @@ export const DRIVE_BASIS = ["estimate", "routed"] as const;
 export const NEAR_TOKEN_RE = /^(?:place:[a-z0-9]+(?:-[a-z0-9]+)*|area:[a-z0-9][a-z0-9/-]*)$/;
 export const nearToken = z.string().max(160).regex(NEAR_TOKEN_RE);
 
+/**
+ * A coordinate centre of `near` (N2, store.ts A41): `point:<lat>,<lon>` in degrees, longitude positive east, each with at most
+ * API_LIMITS.nearPoint.decimals decimals (a cell of about 1.1 km). A finer value, an exponent, a plus sign or a value out of range is
+ * `invalid_input`. Only `near` takes it: `towns` keeps the named centres.
+ */
+const D = API_LIMITS.nearPoint.decimals;
+// the range lives in the pattern (no `.refine`: a schema file must export to JSON Schema, test/subset.test.ts)
+const LAT = `-?(?:90(?:\\.0{1,${D}})?|[1-8]?\\d(?:\\.\\d{1,${D}})?)`;
+const LON = `-?(?:180(?:\\.0{1,${D}})?|(?:1[0-7]\\d|[1-9]?\\d)(?:\\.\\d{1,${D}})?)`;
+export const NEAR_POINT_RE = new RegExp(`^point:(${LAT}),(${LON})$`);
+export const nearPointToken = z.string().max(40).regex(NEAR_POINT_RE);
+
 /** How distances were measured, for the count line and the honesty chip (case K17). */
 export const nearBasis = z.strictObject({
   /** straight line between our own non-approximate points, never Google's (T5) */
@@ -27,10 +40,10 @@ export const nearBasis = z.strictObject({
   excludedApprox: z.int().min(0),
 });
 
-/** `NearQuery`: a centre (`near` token or `city` town id; `city` wins when both are set), a radius and any Places filter. */
+/** `NearQuery`: a centre (`near` token or point, or `city` town id; `city` wins when both are set), a radius and any Places filter. */
 export const nearQuery = z.strictObject({
   ...placeQuery.shape,
-  near: nearToken.optional(),
+  near: z.union([nearToken, nearPointToken]).optional(),
   city: apiTownId.optional(),
   /** km; the store clamps anything above API_LIMITS.nearRadius.max to the max and says `clamped: true` */
   r: z.number().positive().optional(),
@@ -48,8 +61,8 @@ export const nearRow = z.strictObject({
   minutes: z.number().min(0).nullable(),
 });
 
-/** The centre a near answer is measured from. */
-export const nearCentre = z.strictObject({
+/** The centre a near answer is measured from: a named place, area or town, with its public point. */
+export const nearNamedCentre = z.strictObject({
   kind: z.enum(["place", "area", "town"]),
   /** the token or town id that named it */
   key: z.string(),
@@ -57,6 +70,18 @@ export const nearCentre = z.strictObject({
   lat: z.number(),
   lon: z.number(),
 });
+/**
+ * A coordinate centre (`near=point:..`, store.ts A41). Its coordinates are never echoed: the asker knows them, and a body holding them
+ * would turn the privacy detector (which refuses a point near the household) into an oracle for where the household lives.
+ */
+export const nearPointCentre = z.strictObject({
+  kind: z.literal("point"),
+  key: z.literal("point"),
+  name: z.literal(""),
+  lat: z.null(),
+  lon: z.null(),
+});
+export const nearCentre = z.union([nearNamedCentre, nearPointCentre]);
 
 /** One page of a near answer, nearest first, with the radius actually used. */
 export const nearPage = z.strictObject({
@@ -147,6 +172,7 @@ export const nearbyBlock = z.strictObject({
 export type NearQuery = z.infer<typeof nearQuery>;
 export type NearRow = z.infer<typeof nearRow>;
 export type NearPage = z.infer<typeof nearPage>;
+export type NearNamedCentre = z.infer<typeof nearNamedCentre>;
 export type Town = z.infer<typeof town>;
 export type TownQuery = z.infer<typeof townQuery>;
 export type TownList = z.infer<typeof townList>;

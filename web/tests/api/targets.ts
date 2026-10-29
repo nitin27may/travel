@@ -22,7 +22,7 @@ import { registryIds } from '@/lib/server/sources';
 // same wrapper into web/lib/server/store.ts for the routes.
 const PLANT = { old: 'planted-old-slug', mergedKey: 'planted/merged-record', mergedSlug: 'planted-merged-slug', withdrawnKey: 'planted/withdrawn-record', withdrawnSlug: 'planted-withdrawn-slug', formerKey: 'planted/former-key', oldTrip: 'planted-old-trip', ambiguous: 'AB-AMBIG' };
 
-export const PHASE_E = 'phase E, N2 (nearby-and-regions.md section 7): near and nearbyForPlace answer not_available until then';
+export const PHASE_E = 'PLC2b (nearby-and-regions.md section 7): nearbyForPlace answers not_available until then (near is N2, store.ts A41)';
 
 export function plantedRegistry(src: JsonSource, a: string, b: string, trip: string): SlugRegistry {
   const reg = structuredClone(src.registry);
@@ -90,8 +90,8 @@ export function jsonTarget(): { target: ContractTarget; reads: () => number; sou
     ...(tie ? { sortKeyTie: [tie[0]!, tie[1]!] as [string, string] } : {}),
     region: { cc: 'CA', canonical: 'alberta', aliases: [alberta.name, 'AB', 'CA-AB', ...alberta.aliases.filter((x) => x !== PLANT.ambiguous && x !== 'alberta' && x !== 'AB' && x !== 'CA-AB' && x !== alberta.name).slice(0, 1)] },
     near: { token: `place:${a!.slug}`, unknown: 'place:no-such-place-anywhere' },
-    // the towns layer is the real one (META-2: data/reference/towns); near, globeCity and nearbyForPlace answer not_available until LST2c, GLB2b and PLC2b
-    town: { id: 'ca-ab-canmore', layer: true, notYet: ['near', 'globeCity', 'nearbyForPlace'] },
+    // the towns layer is the real one (META-2: data/reference/towns); near is N2's; globeCity and nearbyForPlace answer not_available until GLB2b and PLC2b
+    town: { id: 'ca-ab-canmore', layer: true, notYet: ['globeCity', 'nearbyForPlace'] },
     exportPlace: a!.slug,
     registryIds: registryIds(travelRoot()),
     featureId: base.globe.feature('abay') ? 'abay' : 'abay',

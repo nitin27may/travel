@@ -294,6 +294,8 @@ export const staticClient: DataClient = {
   resolveRefs: () => Promise.resolve(null),
   // placesPage (STEP2-E3): no places API in the static files
   placesPage: () => Promise.resolve(null),
+  // nearPage (N2): no near API in the static files
+  nearPage: () => Promise.resolve(null),
   // TB-API: the static files carry no builder (it needs the server): not available
   planRegions: () => Promise.resolve(null),
   planStarts: () => Promise.resolve(null),

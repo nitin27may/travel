@@ -1,5 +1,5 @@
-// near: K1 page size, K2 allowlist, K3 clamp, K4 unknown centre, K5 unscoped, K17 approximate points. Pending on JsonStore until
-// phase E (N2, nearby-and-regions.md section 7) fills the method.
+// near: K1 page size, K2 allowlist, K3 clamp, K4 unknown centre, K5 unscoped, K17 approximate points, and the point centre of A41
+// (near.point). Filled on JsonStore by N2 (store.ts A41).
 import { expect } from "vitest";
 import { API_LIMITS, PLACE_ROW_KEYS, nearPage } from "../../../src/schema/api/index.ts";
 import { expectError, expectOk, type ContractCase } from "./kit.ts";
@@ -82,6 +82,25 @@ export const nearCases: ContractCase[] = [
       expect(got.basis.distance).toBe("straight_line");
       // with no filter, every approximate place is in scope, so each is counted as left out
       expect(got.basis.excludedApprox).toBe(t.facts.approxSlugs.length);
+    },
+  },
+  {
+    id: "near.point",
+    title: "a coordinate cell centre answers like the place it stands on, never echoes its coordinates, and refuses a finer point (A41)",
+    method: "near",
+    async run(store, t) {
+      const named = expectOk(await store.near({ near: t.facts.near.token, r: 10 }));
+      if (named.centre.lat === null || named.centre.lon === null) throw new Error("a named centre carries its point");
+      const cell = `point:${named.centre.lat.toFixed(2)},${named.centre.lon.toFixed(2)}`;
+      const got = expectOk(await store.near({ near: cell, r: 10 }));
+      expect(nearPage.safeParse(got).success).toBe(true);
+      expect(got.centre).toEqual({ kind: "point", key: "point", name: "", lat: null, lon: null });
+      // the cell is at most about 0.8 km from the place, so the place itself is in the first rows
+      expect(got.items.slice(0, 5).map((r) => r.slug)).toContain(t.facts.placeSlug);
+      expect(JSON.stringify(got)).not.toContain(cell.slice("point:".length));
+      expectError(await store.near({ near: `point:${named.centre.lat.toFixed(3)},${named.centre.lon.toFixed(2)}` }), "invalid_input");
+      expectError(await store.near({ near: "point:91,0" }), "invalid_input");
+      expectError(await store.near({ near: "point:1e1,0" }), "invalid_input");
     },
   },
 ];

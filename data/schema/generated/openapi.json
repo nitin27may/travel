@@ -13397,37 +13397,72 @@
                       ]
                     },
                     "centre": {
-                      "type": "object",
-                      "properties": {
-                        "kind": {
-                          "type": "string",
-                          "enum": [
-                            "place",
-                            "area",
-                            "town"
-                          ]
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "type": "string",
+                              "enum": [
+                                "place",
+                                "area",
+                                "town"
+                              ]
+                            },
+                            "key": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "lat": {
+                              "type": "number"
+                            },
+                            "lon": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "key",
+                            "name",
+                            "lat",
+                            "lon"
+                          ],
+                          "additionalProperties": false
                         },
-                        "key": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "lat": {
-                          "type": "number"
-                        },
-                        "lon": {
-                          "type": "number"
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "type": "string",
+                              "const": "point"
+                            },
+                            "key": {
+                              "type": "string",
+                              "const": "point"
+                            },
+                            "name": {
+                              "type": "string",
+                              "const": ""
+                            },
+                            "lat": {
+                              "type": "null"
+                            },
+                            "lon": {
+                              "type": "null"
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "key",
+                            "name",
+                            "lat",
+                            "lon"
+                          ],
+                          "additionalProperties": false
                         }
-                      },
-                      "required": [
-                        "kind",
-                        "key",
-                        "name",
-                        "lat",
-                        "lon"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     "r": {
                       "type": "number",

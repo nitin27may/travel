@@ -6,7 +6,8 @@
 // evaluates only the facet keys it can read off a row. Any other key answers `not_available` (store.ts A21), never an ignored filter.
 import type { z } from "zod";
 import * as S from "../../schema/api/index.ts";
-import { compareByDistance, measure, within, type Measure } from "../distance.ts";
+import { compareByDistance, measure, within } from "../distance.ts";
+import { POINT_CENTRE, nearRadius, pointOfToken, rankNear } from "../near.ts";
 import { cardHitsOf } from "../cards.ts";
 import { buildTextIndex, cardText, queryTerms, searchTexts } from "../../search/bm25.ts";
 import { publicTownLayer, safeLine, type PublicGazetteer, type PublicTownsHolder } from "../../privacy/towns.ts";
@@ -321,7 +322,7 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
   }
 
   /** A near centre, resolved through indexes only (no row scan, case K4). */
-  private centre(near: string | undefined, city: string | undefined): Result<S.NearPage["centre"]> {
+  private centre(near: string | undefined, city: string | undefined): Result<S.NearNamedCentre> {
     if (city) {
       if (!this.layers.towns) return fail("not_available", "A town centre needs the towns layer, which is not built yet (META-2).");
       const t = this.data.towns.find((x) => x.id === city);
@@ -343,41 +344,30 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
     return ok({ kind: "area", key: near, name: inArea[0]!.row.area_name, lat, lon }, this.rev);
   }
 
-  /** The radius rule (case K3): default by centre kind, clamped to the max. */
-  private radius(r: number | undefined, kind: "place" | "area" | "town"): { r: number; clamped: boolean } {
-    const lim = S.API_LIMITS.nearRadius;
-    const asked = r ?? (kind === "area" ? lim.areaDefault : lim.default);
-    return asked > lim.max ? { r: lim.max, clamped: true } : { r: asked, clamped: false };
-  }
-
   async near(q: S.NearQuery, page?: S.ApiPage): Promise<Result<S.NearPage>> {
     const qi = check(S.nearQuery, q);
     if (!qi.ok) return qi;
     const pi = check(S.apiPage, page ?? {});
     if (!pi.ok) return pi;
     if (!this.layers.near) return fail("not_available", "Near mode lands in phase E (N2).");
-    const c = this.centre(qi.value.near, qi.value.city ?? qi.value.facets?.city?.[0]);
-    if (!c.ok) return c;
-    const centre = c.data;
-    const { r, clamped } = this.radius(qi.value.r, centre.kind);
+    // a coordinate cell (store.ts A41) is measured from and never echoed; every other centre resolves through the indexes
+    const city = qi.value.city ?? qi.value.facets?.city?.[0];
+    const point = city ? null : pointOfToken(qi.value.near);
+    let centre: S.NearPage["centre"];
+    let at: { lat: number; lon: number };
+    if (point) [centre, at] = [POINT_CENTRE, point];
+    else {
+      const c = this.centre(qi.value.near, city);
+      if (!c.ok) return c;
+      [centre, at] = [c.data, { lat: c.data.lat, lon: c.data.lon }];
+    }
+    const { r, clamped } = nearRadius(qi.value.r, centre.kind);
     const rows = this.filterRows(this.scanRows(), qi.value);
     if (!Array.isArray(rows)) return { ok: false, error: rows };
-    let excludedApprox = 0;
-    const hits: (S.NearRow & { m: Measure })[] = [];
-    for (const row of rows) {
-      if (row.lat === null || row.lon === null) continue;
-      if (row.approx) {
-        excludedApprox++;
-        continue;
-      }
-      const m = measure(centre, { lat: row.lat, lon: row.lon });
-      if (!within(m, r)) continue;
-      hits.push({ ...row, distanceKm: m.distanceKm, bearing: m.bearing, band: m.band, basis: "estimate", minutes: null, m });
-    }
-    hits.sort(compareByDistance);
-    const paged = this.page(hits.map(({ m: _m, ...row }) => row), pi.value);
+    const ranked = rankNear(rows, at, r);
+    const paged = this.page(ranked.rows, pi.value);
     if (!paged.ok) return paged;
-    return ok({ ...paged.data, centre, r, clamped, basis: { distance: "straight_line", excludedApprox } }, this.rev);
+    return ok({ ...paged.data, centre, r, clamped, basis: { distance: "straight_line", excludedApprox: ranked.excludedApprox } }, this.rev);
   }
 
   async towns(q: S.TownQuery): Promise<Result<S.TownList>> {
@@ -400,7 +390,7 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
     if (!v.near && !v.city) return fail("invalid_scope", "Towns need a centre (`near` or `city`) or a prefix with a country and a region.");
     const c = this.centre(v.near, v.city);
     if (!c.ok) return c;
-    const { r, clamped } = this.radius(v.r, c.data.kind);
+    const { r, clamped } = nearRadius(v.r, c.data.kind);
     const hits = this.data.towns
       .map((t) => ({ t, m: measure(c.data, t), name: t.name, ref: t.id }))
       .map((x) => ({ ...x, distanceKm: x.m.distanceKm }))

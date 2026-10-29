@@ -55,7 +55,8 @@ export const handlerCases: ContractCase[] = [
       expect(JSON.parse(bad.text).error.code).toBe("invalid_input");
       expect((await request("/api/v1/places/?pageSize=101")).status).toBe(413);
       expect((await request("/api/v1/places/no-such-place-anywhere/")).status).toBe(404);
-      expect((await request("/api/v1/near/?near=place:x")).status).toBe(501);
+      expect((await request("/api/v1/near/?near=place:no-such-place-anywhere")).status).toBe(404);
+      expect((await request("/api/v1/near/?near=point:51.123,-115.5")).status).toBe(400);
       expect(bad.headers.get("cache-control")).toBe("no-store");
     },
   },
