@@ -1073,6 +1073,33 @@
       }
     },
     {
+      "id": "s-654634dee6",
+      "url": "https://atlas.lmi.is/mapview?application=Vatnaj%C3%B6kuls%C3%BEj%C3%B3%C3%B0gar%C3%B0ur",
+      "title": "Vatnajökull National Park map viewer (Natural Science Institute and National Land Survey atlas)",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/skaftafell",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-41a104e991",
       "url": "https://auronzo.info/en/lake-antorno",
       "title": "Lake Antorno, under the Tre Cime: what to see and how to get there",
@@ -3255,6 +3282,33 @@
       }
     },
     {
+      "id": "s-8fd5845ed9",
+      "url": "https://domaineschamonix.montblancnaturalresort.com/fr/domaine/flegere",
+      "title": "Domaine de la Flégère",
+      "publisher": "Compagnie du Mont-Blanc",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-fr.json",
+          "ref": "place/la-flegere",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-545d0e701f",
       "url": "https://download.geonames.org/export/dump/cities1000.zip",
       "title": "GeoNames cities1000 (populated-place ids, via data/reference/towns)",
@@ -3287,6 +3341,64 @@
           "file": "data/capture/catalogue/BA-it.json",
           "ref": "place/verona",
           "field": "geonames_id"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-3b906e5505",
+      "url": "https://dreizinnenhuette.com",
+      "title": "Rifugio Locatelli (maintenance page with the 2027 opening)",
+      "publisher": "Dreizinnenhütte / Rifugio Locatelli",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0b9e034ecd",
+      "url": "https://eggental.com/en",
+      "title": "Eggental Tourismus",
+      "publisher": "Eggental Tourismus",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/nova-levante",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/nova-levante",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/nova-levante",
+          "field": "signals.designations"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -3882,6 +3994,68 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-0eec445004",
+      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift",
+      "title": "Flégère gondola and Index lift: practical information",
+      "publisher": "Office de Tourisme de la Vallée de Chamonix-Mont-Blanc",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-fr.json",
+          "ref": "part/place/la-flegere#les-praz-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-fr.json",
+          "ref": "place/la-flegere",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-fr.json",
+          "ref": "place/la-flegere",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-fr.json",
+          "ref": "place/la-flegere",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-fr.json",
+          "ref": "place/la-flegere",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-fr.json",
+          "ref": "place/la-flegere",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-fr.json",
+          "ref": "place/la-flegere",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-fr.json",
+          "ref": "place/la-flegere",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -6624,7 +6798,7 @@
     {
       "id": "s-c0abd0ff73",
       "url": "https://nominatim.openstreetmap.org/reverse",
-      "title": "Nominatim reverse lookups of the car park points (zoom 16 and 17)",
+      "title": "Nominatim reverse lookups of the access points (zoom 16 and 18)",
       "publisher": "OpenStreetMap contributors (ODbL)",
       "kind": "community",
       "first_read": "2026-10-28",
@@ -6643,6 +6817,16 @@
         {
           "file": "data/capture/canadian-rockies-2029/CS7.json",
           "ref": "part/place/lake-louise#parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/bentonite-hills#cow-dung-road-approx",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/long-dong-silver-spire#trailhead-lot",
           "field": "address"
         },
         {
@@ -6718,6 +6902,61 @@
         {
           "file": "data/capture/catalogue/LT1-ca.json",
           "ref": "part/place/yoho-valley#takakkaw-falls-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/perito-moreno-glacier#walkways-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-fr.json",
+          "ref": "part/place/la-flegere#les-praz-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-fr.json",
+          "ref": "place/vallorcine-railway-station",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/gljufrabui#seljalandsfoss-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/gufufoss#roadside-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/hafragilsfoss#parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/oxararfoss#p2-efri-vellir",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/strokkur#geysir-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "part/place/rifugio-fondovalle#val-fiscalina-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/collegiate-church-of-san-candido",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-us.json",
+          "ref": "place/capitol-reef-national-park-visitor-center",
           "field": "address"
         },
         {
@@ -6919,7 +7158,7 @@
     {
       "id": "s-af92053c73",
       "url": "https://overpass-api.de/api/interpreter",
-      "title": "OpenStreetMap elements by id and car parks, trailheads and roads near each place (Overpass)",
+      "title": "OpenStreetMap elements by id, car parks, stations and information points near each place (Overpass)",
       "publisher": "OpenStreetMap contributors (ODbL)",
       "kind": "community",
       "first_read": "2026-10-19",
@@ -6994,6 +7233,11 @@
           "file": "data/capture/catalogue/BA-it.json",
           "ref": "place/verona",
           "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/long-dong-silver-spire",
+          "field": "osm_ref"
         },
         {
           "file": "data/capture/catalogue/LT1-ca.json",
@@ -7221,6 +7465,216 @@
           "field": "osm_ref"
         },
         {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/cerro-castor#base-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/perito-moreno-glacier#walkways-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-fr.json",
+          "ref": "part/place/la-flegere#les-praz-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-fr.json",
+          "ref": "place/chamonix-mont-blanc",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-fr.json",
+          "ref": "place/vallorcine-railway-station",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/gljufrabui#seljalandsfoss-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/gufufoss#roadside-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/hafragilsfoss#parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/oxararfoss#p2-efri-vellir",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/skaftafell#skaftafellsstofa",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/skaftafell#skaftafellsstofa",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/strokkur#geysir-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/akureyri",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/gljufrabui",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/grindavik",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/grundarfjordur",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/gufufoss",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/hofn",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/kirkjubaejarklaustur",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/oxararfoss",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/reykjahlid",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/reykjavik",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/skogar",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/strokkur",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/varmahli",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/vik-i-myrdal",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "part/place/rifugio-fondovalle#val-fiscalina-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/castelrotto",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/collegiate-church-of-san-candido",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/dobbiaco-railway-station",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/nova-levante",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/san-cassiano",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/val-gardena",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-us.json",
+          "ref": "place/capitol-reef-national-park-visitor-center",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-us.json",
+          "ref": "place/salt-lake-city",
+          "field": "osm_ref"
+        },
+        {
           "file": "data/capture/catalogue/PA-ca.json",
           "ref": "part/place/banff-national-park#banff-visitor-centre",
           "field": "links"
@@ -7261,6 +7715,21 @@
           "field": "osm_ref"
         },
         {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli",
+          "field": "osm_ref"
+        },
+        {
           "file": "data/capture/dolomites-2027/migrated.json",
           "ref": "place/dolomites",
           "field": "osm_ref"
@@ -7289,6 +7758,51 @@
           "file": "data/suitability/catalogue/LT1-ca.json",
           "ref": "place/mount-blakiston",
           "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/gljufrabui",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/gljufrabui",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/gufufoss",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/gufufoss",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/oxararfoss",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/oxararfoss",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/strokkur",
+          "field": "suitability.walk_m"
         }
       ],
       "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
@@ -15568,12 +16082,432 @@
     {
       "id": "s-cb05864aee",
       "url": "https://query.wikidata.org/sparql",
-      "title": "Wikidata SPARQL: items with World Heritage ID (P757) 91, 93, 174, 394, 797, 830, 1237",
-      "publisher": "Wikimedia Foundation (Wikidata)",
+      "title": "Wikidata items of the LT-2 places (labels, P31, P625, P1566, P856, P402, P2044, P6375, P281)",
+      "publisher": "Wikidata (CC0)",
       "kind": "community",
       "first_read": "2026-10-25",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-fr.json",
+          "ref": "place/chamonix-mont-blanc",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-fr.json",
+          "ref": "place/chamonix-mont-blanc",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-fr.json",
+          "ref": "place/la-flegere",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/akureyri",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/akureyri",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/fossholl",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/gljufrabui",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/grindavik",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/grindavik",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/grundarfjordur",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/grundarfjordur",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/gufufoss",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/hofn",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/hofn",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/kirkjubaejarklaustur",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/kirkjubaejarklaustur",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/oxararfoss",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/reykjahlid",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/reykjahlid",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/reykjavik",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/reykjavik",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/skaftafell",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/skogar",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/strokkur",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/varmahli",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/varmahli",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/vik-i-myrdal",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/vik-i-myrdal",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/castelrotto",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/castelrotto",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/collegiate-church-of-san-candido",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/dobbiaco-railway-station",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/nova-levante",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/nova-levante",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/san-cassiano",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/san-cassiano",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/val-gardena",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/val-gardena",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-us.json",
+          "ref": "place/capitol-reef-national-park-visitor-center",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-us.json",
+          "ref": "place/salt-lake-city",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-us.json",
+          "ref": "place/salt-lake-city",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-fr.json",
+          "ref": "place/chamonix-mont-blanc",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-fr.json",
+          "ref": "place/la-flegere",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-fr.json",
+          "ref": "place/vallorcine-railway-station",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/akureyri",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/fossholl",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/gljufrabui",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/grindavik",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/grundarfjordur",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/gufufoss",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/hofn",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/kirkjubaejarklaustur",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/oxararfoss",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/reykjahlid",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/reykjavik",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/skaftafell",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/skogar",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/strokkur",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/varmahli",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/vik-i-myrdal",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/castelrotto",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/collegiate-church-of-san-candido",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/dobbiaco-railway-station",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/nova-levante",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/san-cassiano",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/val-gardena",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-us.json",
+          "ref": "place/capitol-reef-national-park-visitor-center",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-us.json",
+          "ref": "place/salt-lake-city",
+          "field": "wikidata"
+        },
         {
           "file": "data/relevance/catalogue/R9-it.json",
           "ref": "place/florence",
@@ -15603,11 +16537,43 @@
           "file": "data/relevance/catalogue/R9-it.json",
           "ref": "place/verona",
           "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "suitability.altitude_m"
         }
       ],
       "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
       "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
       "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-796abfe4d6",
+      "url": "https://reykjavik.is/en",
+      "title": "City of Reykjavík",
+      "publisher": "Reykjavíkurborg",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/reykjavik",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
@@ -15624,12 +16590,17 @@
       "publisher": "Rifugio Auronzo",
       "kind": "operator",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
         {
           "file": "data/capture/dolomites-2027/CS7.json",
           "ref": "offer/place/tre-cime-di-lavaredo-loop#rifugio-auronzo-lodging",
           "field": "links"
+        },
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
+          "field": "address"
         },
         {
           "file": "data/capture/dolomites-2027/CS7.json",
@@ -15647,6 +16618,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-19"
+      }
+    },
+    {
+      "id": "s-735b6b230a",
+      "url": "https://rifugioauronzo.it/prenota",
+      "title": "Rifugio Auronzo: prenota",
+      "publisher": "Rifugio Auronzo",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -15677,14 +16675,67 @@
       }
     },
     {
+      "id": "s-3c7b7ea7ce",
+      "url": "https://rifugiolavaredo.bukly.com/it",
+      "title": "Rifugio Lavaredo: booking engine",
+      "publisher": "Rifugio Lavaredo",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-8754b7ce78",
+      "url": "https://rifugiolavaredo.com",
+      "title": "Rifugio Lavaredo (home, prices and booking)",
+      "publisher": "Rifugio Lavaredo",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-12f5a88eab",
       "url": "https://rifugionuvolau.it",
       "title": "Rifugio Nuvolau",
       "publisher": "Rifugio Nuvolau",
       "kind": "operator",
       "first_read": "2026-10-19",
-      "last_read": "2026-10-19",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-nuvolau-and-averau",
+          "field": "address"
+        },
         {
           "file": "data/capture/dolomites-2027/CS7.json",
           "ref": "place/rifugio-nuvolau-and-averau",
@@ -16625,6 +17676,38 @@
       }
     },
     {
+      "id": "s-3da6d59d6d",
+      "url": "https://turismoushuaia.com",
+      "title": "Turismo Ushuaia",
+      "publisher": "Secretaría de Turismo de Ushuaia",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-2eda294688",
       "url": "https://turismoushuaia.com/actividad/laguna-esmeralda?lang=es_AR",
       "title": "Laguna Esmeralda",
@@ -16869,12 +17952,27 @@
     {
       "id": "s-8a96ff8869",
       "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area",
-      "title": "Geysir area",
-      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "title": "Geysir Area (protected natural monument)",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/strokkur",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/strokkur",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/strokkur",
+          "field": "signals.designations"
+        },
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
           "ref": "trip/iceland-ring-road-2027/sight:geysir",
@@ -16884,6 +17982,11 @@
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
           "ref": "trip/iceland-ring-road-2027/sight:geysir",
           "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/strokkur",
+          "field": "suitability.on_site_min"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -16899,14 +18002,66 @@
       }
     },
     {
+      "id": "s-15efd91347",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/about-the-area",
+      "title": "Geysir Area: about the area (rules)",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/strokkur",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/strokkur",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/strokkur",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-4f8d83ce12",
       "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service",
-      "title": "Geysir area: supervision and service",
-      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "title": "Geysir Area: supervision and service",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/strokkur#geysir-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/strokkur",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/strokkur",
+          "field": "suitability.access_season"
+        },
         {
           "file": "data/suitability/iceland-ring-road-2027/R4.json",
           "ref": "trip/iceland-ring-road-2027/sight:geysir",
@@ -16917,8 +18072,8 @@
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 730,
-        "fact_type": "grades_geography"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "ok",
@@ -17111,6 +18266,154 @@
       }
     },
     {
+      "id": "s-b0e3005452",
+      "url": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park",
+      "title": "Snæfellsjökull National Park",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c2f3376c1b",
+      "url": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq",
+      "title": "Snæfellsjökull National Park: FAQ",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-ec15f672f7",
+      "url": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/maps",
+      "title": "Snæfellsjökull National Park: maps",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-f4eade43df",
+      "url": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/the-glacier",
+      "title": "Snæfellsjökull National Park: the glacier",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "links"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/snaefellsjokull",
+          "field": "suitability.altitude_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-108514729b",
       "url": "https://viciouscycleandsnow.ca",
       "title": "Vicious Cycle and Snow",
@@ -17282,6 +18585,102 @@
         {
           "file": "data/relevance/catalogue/R9-us.json",
           "ref": "place/ouray",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-47b1f5d81c",
+      "url": "https://visitreykjavik.is",
+      "title": "Visit Reykjavík",
+      "publisher": "Visit Reykjavík (City of Reykjavík)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/reykjavik",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/reykjavik",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9c8c30c3e8",
+      "url": "https://visitvatnajokull.is",
+      "title": "Visit Vatnajökull",
+      "publisher": "Visit Vatnajökull (South-east Iceland tourism)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/hofn",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/hofn",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c8c0c0b11c",
+      "url": "https://visitvik.is",
+      "title": "Visit Vík",
+      "publisher": "Visit Vík",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/vik-i-myrdal",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/vik-i-myrdal",
           "field": "draw"
         }
       ],
@@ -18024,6 +19423,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-de900d1862",
+      "url": "https://www.akureyri.is",
+      "title": "Akureyrarbær",
+      "publisher": "Akureyrarbær",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/akureyri",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -19999,6 +21425,43 @@
       }
     },
     {
+      "id": "s-6a4c0f2c68",
+      "url": "https://www.altabadia.org/en",
+      "title": "Alta Badia",
+      "publisher": "Alta Badia Tourist Board",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/san-cassiano",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/san-cassiano",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/san-cassiano",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-a88ef96d93",
       "url": "https://www.altabadia.org/it/info/ristoranti/dettaglio/gastronomy/rifugio-scotoni",
       "title": "Rifugio Scotoni",
@@ -20133,6 +21596,100 @@
       }
     },
     {
+      "id": "s-6463d2429c",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares",
+      "title": "Parque Nacional Los Glaciares",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e8e2fcdc1d",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares/horarios-como-llegar-0",
+      "title": "Los Glaciares: horarios y cómo llegar",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/perito-moreno-glacier#walkways-parking",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/perito-moreno-glacier#walkways-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/perito-moreno-glacier#walkways-parking",
+          "field": "season"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-5b91debb2b",
       "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/senderos-del-parque-nacional-tierra-del-fuego",
       "title": "Senderos del Parque Nacional Tierra del Fuego | Argentina.gob.ar",
@@ -20153,6 +21710,33 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9a93674c10",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/tarifas",
+      "title": "Derechos de acceso a Parques Nacionales",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "access_cost"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "unchecked",
@@ -20349,6 +21933,58 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-bf327a8f4c",
+      "url": "https://www.argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf",
+      "title": "Mapa de pasarelas Glaciar Perito Moreno (2024)",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
       },
       "link": {
         "status": "unchecked",
@@ -22290,6 +23926,176 @@
       }
     },
     {
+      "id": "s-ad4db836eb",
+      "url": "https://www.cerrocastor.com/es_ar/home.html",
+      "title": "Cerro Castor",
+      "publisher": "Cerro Castor",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c7940a9cac",
+      "url": "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html",
+      "title": "Cerro Castor: horario y ubicación",
+      "publisher": "Cerro Castor",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/cerro-castor#base-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/cerro-castor#base-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "address"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-11e80370dc",
+      "url": "https://www.cerrocastor.com/es_ar/pases-esquiador.html",
+      "title": "Cerro Castor: pase esquiador",
+      "publisher": "Cerro Castor",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "window"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "suitability.age_band"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-b92eb0c96e",
+      "url": "https://www.chamonix.com",
+      "title": "Chamonix-Mont-Blanc tourist office",
+      "publisher": "Office de Tourisme de la Vallée de Chamonix-Mont-Blanc",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-fr.json",
+          "ref": "place/chamonix-mont-blanc",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-fr.json",
+          "ref": "place/chamonix-mont-blanc",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-1c992447b2",
+      "url": "https://www.chamonix.fr",
+      "title": "Ville de Chamonix-Mont-Blanc",
+      "publisher": "Commune de Chamonix-Mont-Blanc",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-fr.json",
+          "ref": "place/chamonix-mont-blanc",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-c2719e7407",
       "url": "https://www.chamonix.net/english/lift-systems/dates-times",
       "title": "Lift systems: dates and times 2026",
@@ -22644,6 +24450,60 @@
       }
     },
     {
+      "id": "s-b65c6794df",
+      "url": "https://www.comune.badia.bz.it/de",
+      "title": "Gemeinde Abtei / Comune di Badia",
+      "publisher": "Gemeinde Abtei",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/san-cassiano",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-d4007fa2aa",
+      "url": "https://www.comune.castelrotto.bz.it/de",
+      "title": "Gemeinde Kastelruth / Comune di Castelrotto",
+      "publisher": "Gemeinde Kastelruth",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/castelrotto",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-b2bbe1df64",
       "url": "https://www.comune.lavalle.bz.it/it",
       "title": "Comune di La Valle - Home",
@@ -22655,6 +24515,33 @@
         {
           "file": "data/capture/dolomites-2027/migrated.json",
           "ref": "place/la-val",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-6e00fb4885",
+      "url": "https://www.comune.novalevante.bz.it/it",
+      "title": "Comune di Nova Levante / Gemeinde Welschnofen",
+      "publisher": "Comune di Nova Levante",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/nova-levante",
           "field": "links"
         }
       ],
@@ -22962,6 +24849,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-a911c52a34",
+      "url": "https://www.dreizinnen.com/de/region/ferienorte/innichen",
+      "title": "Innichen / San Candido",
+      "publisher": "Tourismusverband Drei Zinnen Dolomites",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/collegiate-church-of-san-candido",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -23841,6 +25755,63 @@
       }
     },
     {
+      "id": "s-f43aa03aca",
+      "url": "https://www.east.is/en/place/gufufoss-waterfall",
+      "title": "Gufufoss waterfall",
+      "publisher": "Visit East Iceland (Austurbrú)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/gufufoss#roadside-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/gufufoss",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/gufufoss",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/gufufoss",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/gufufoss",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/gufufoss",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/gufufoss",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-ecbd93eb8a",
       "url": "https://www.ecnews.it/fiscale/viaggi-e-tempo-libero/escursione-del-lago-federa",
       "title": "Escursione del Lago Federa - EC News - Area fiscale",
@@ -23989,6 +25960,60 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-7116918627",
+      "url": "https://www.elchalten.gob.ar",
+      "title": "Comisión de Fomento de El Chaltén",
+      "publisher": "Comisión de Fomento de El Chaltén",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-3a0dc3847a",
+      "url": "https://www.elchalten.gob.ar/secretaria-de-turismo",
+      "title": "Secretaría de Turismo de El Chaltén",
+      "publisher": "Comisión de Fomento de El Chaltén",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -24848,6 +26873,65 @@
       }
     },
     {
+      "id": "s-adfb6fc112",
+      "url": "https://www.grindavik.is",
+      "title": "Grindavíkurbær",
+      "publisher": "Grindavíkurbær",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/grindavik",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/grindavik",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-7e25e86734",
+      "url": "https://www.grundarfjordur.is",
+      "title": "Grundarfjarðarbær",
+      "publisher": "Grundarfjarðarbær",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/grundarfjordur",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-63f1ec8edc",
       "url": "https://www.gulongxia.com",
       "title": "Gulong Gorge scenic area home page: opening hours, contact, address",
@@ -24907,6 +26991,38 @@
       }
     },
     {
+      "id": "s-6177deeb65",
+      "url": "https://www.haute-savoie-tourisme.org/53929-gare-sncf-vallorcine",
+      "title": "Gare SNCF de Vallorcine",
+      "publisher": "Haute-Savoie Tourisme (Savoie Mont Blanc Tourisme)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-fr.json",
+          "ref": "place/vallorcine-railway-station",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-fr.json",
+          "ref": "place/vallorcine-railway-station",
+          "field": "access_cost"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-e225000a3e",
       "url": "https://www.hertz.ca/rentacar/productservice/index.jsp?selectedRegion=Canada&targetPage=caonewayrentals.jsp",
       "title": "Hertz Canada",
@@ -24919,6 +27035,33 @@
           "file": "data/base-plans/canadian-rockies-2029.json",
           "ref": "base-plans/canadian-rockies-2029",
           "field": "strategies.requires"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-1cbfdea65f",
+      "url": "https://www.hornafjordur.is",
+      "title": "Sveitarfélagið Hornafjörður",
+      "publisher": "Sveitarfélagið Hornafjörður",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/hofn",
+          "field": "links"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -24983,6 +27126,33 @@
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
           "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-3a16523a73",
+      "url": "https://www.hvolsvollur.is",
+      "title": "Rangárþing eystra",
+      "publisher": "Rangárþing eystra",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/skogar",
+          "field": "links"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -25428,6 +27598,65 @@
       "recheck": {
         "cadence_days": 365,
         "fact_type": "general"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-23a5f2cb80",
+      "url": "https://www.klaustur.is",
+      "title": "Skaftárhreppur",
+      "publisher": "Skaftárhreppur",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/kirkjubaejarklaustur",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e71dde840d",
+      "url": "https://www.klaustur.is/visitklaustur/skoda-og-sja",
+      "title": "Visit Klaustur: sights",
+      "publisher": "Skaftárhreppur",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/kirkjubaejarklaustur",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/kirkjubaejarklaustur",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -26566,6 +28795,38 @@
           "file": "data/windows/canadian-rockies-2029.json",
           "ref": "windows/canadian-rockies-2029",
           "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-682cb56105",
+      "url": "https://www.northiceland.is/en",
+      "title": "Visit North Iceland",
+      "publisher": "Visit North Iceland (Markaðsstofa Norðurlands)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/fossholl",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/fossholl",
+          "field": "draw"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -27944,6 +30205,95 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-3810022281",
+      "url": "https://www.nps.gov/care/planyourvisit/fees.htm",
+      "title": "Fees & Passes, Capitol Reef National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-us.json",
+          "ref": "place/capitol-reef-national-park-visitor-center",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-us.json",
+          "ref": "place/capitol-reef-national-park-visitor-center",
+          "field": "price"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-us.json",
+          "ref": "place/capitol-reef-national-park-visitor-center",
+          "field": "access_cost"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-129f6e29ca",
+      "url": "https://www.nps.gov/care/planyourvisit/hours.htm",
+      "title": "Operating Hours & Seasons, Capitol Reef National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-us.json",
+          "ref": "place/capitol-reef-national-park-visitor-center",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-us.json",
+          "ref": "place/capitol-reef-national-park-visitor-center",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-us.json",
+          "ref": "place/capitol-reef-national-park-visitor-center",
+          "field": "season"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-us.json",
+          "ref": "place/capitol-reef-national-park-visitor-center",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-us.json",
+          "ref": "place/capitol-reef-national-park-visitor-center",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-us.json",
+          "ref": "place/capitol-reef-national-park-visitor-center",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -32058,7 +34408,7 @@
       "publisher": "Rifugio Averau",
       "kind": "operator",
       "first_read": "2026-10-19",
-      "last_read": "2026-10-19",
+      "last_read": "2026-10-28",
       "used_by": [
         {
           "file": "data/capture/dolomites-2027/CS7.json",
@@ -32201,7 +34551,39 @@
       "publisher": "Rifugio Scotoni",
       "kind": "operator",
       "first_read": "2026-10-19",
-      "last_read": "2026-10-19",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-scotoni",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-scotoni",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-cd6367d94e",
+      "url": "https://www.scotoni.it/it/camere-e-prezzi-in-alta-badia",
+      "title": "Rifugio Scotoni: camere e prezzi",
+      "publisher": "Rifugio Scotoni",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
       "used_by": [
         {
           "file": "data/capture/dolomites-2027/CS7.json",
@@ -32420,6 +34802,43 @@
       }
     },
     {
+      "id": "s-13c30ca312",
+      "url": "https://www.seiseralm.it/en/summer-holiday-south-tyrol.html",
+      "title": "Seiser Alm Marketing: summer holiday in South Tyrol",
+      "publisher": "Seiser Alm Marketing",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/castelrotto",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/castelrotto",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/castelrotto",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-941701af4a",
       "url": "https://www.seiseralm.it/media/08ba5643-e206-422e-a0f8-2529fe3b1edd/kinderwagentaugliche-wanderungen-de.pdf",
       "title": "Kinderwagentaugliche Wanderungen in der Dolomitenregion Seiser Alm (PDF)",
@@ -32512,6 +34931,33 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-8049454076",
+      "url": "https://www.skagafjordur.is",
+      "title": "Skagafjörður",
+      "publisher": "Sveitarfélagið Skagafjörður",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/varmahli",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -32782,6 +35228,33 @@
       }
     },
     {
+      "id": "s-deb05b42a8",
+      "url": "https://www.slc.gov",
+      "title": "Salt Lake City Corporation",
+      "publisher": "Salt Lake City Corporation",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-us.json",
+          "ref": "place/salt-lake-city",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-f5cce0cd7b",
       "url": "https://www.smn.gob.ar",
       "title": "Forecast: SMN Argentina (search for the town) (SMN Argentina)",
@@ -32848,6 +35321,110 @@
       "link": {
         "status": "redirect",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-b958fc4e08",
+      "url": "https://www.south.is/en",
+      "title": "Visit South Iceland",
+      "publisher": "Visit South Iceland (Markaðsstofa Suðurlands)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/skogar",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/skogar",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/vik-i-myrdal",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-cd91b31e7a",
+      "url": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall",
+      "title": "Visit South Iceland: the Seljaland falls and Gljúfrabúi",
+      "publisher": "Visit South Iceland (Markaðsstofa Suðurlands)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/gljufrabui#seljalandsfoss-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/gljufrabui",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/gljufrabui",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/gljufrabui",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/gljufrabui",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/gljufrabui",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/gljufrabui",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/gljufrabui",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/gljufrabui",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -33031,6 +35608,85 @@
       }
     },
     {
+      "id": "s-bda9eb3ec6",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoi90c79655dabf128bbb73c724b7aac2e6.dobbiaco-station.dobbiaco-nuova-neutoblach",
+      "title": "Dobbiaco station",
+      "publisher": "IDM Südtirol (suedtirol.info)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/dobbiaco-railway-station",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/dobbiaco-railway-station",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/dobbiaco-railway-station",
+          "field": "access_cost"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-41d8c166b5",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoib8f7d742e2a641d0aa2b1a2f0fd9d4e1.collegiate-church.prato-alla-drava-winnebach",
+      "title": "The Collegiate Church in San Candido",
+      "publisher": "IDM Südtirol (suedtirol.info)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/collegiate-church-of-san-candido",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/collegiate-church-of-san-candido",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/collegiate-church-of-san-candido",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-it.json",
+          "ref": "place/collegiate-church-of-san-candido",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-e9b030ee04",
       "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoice92ea18337e4724bbaf0b772f5b6b27.summer-walk-around-the-drei-zinnen-tre-cime-three-peaks.dobbiaco-vecchia-alttoblach",
       "title": "Summer-walk around the Drei Zinnen/Tre Cime (Three Peaks)",
@@ -33201,6 +35857,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-9e4bbb936a",
+      "url": "https://www.suedtirolmobil.info/en",
+      "title": "südtirolmobil: public transport timetables",
+      "publisher": "südtirolmobil (Autonomous Province of Bolzano)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/dobbiaco-railway-station",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -33500,6 +36183,137 @@
       }
     },
     {
+      "id": "s-84eee4e818",
+      "url": "https://www.talschlusshuette.com/en",
+      "title": "Talschlusshütte / Rifugio Fondovalle",
+      "publisher": "Talschlusshütte / Rifugio Fondovalle",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "season"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e4b4127e51",
+      "url": "https://www.talschlusshuette.com/en/arrival",
+      "title": "Talschlusshütte: how to reach the Fiscalina valley",
+      "publisher": "Talschlusshütte / Rifugio Fondovalle",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "part/place/rifugio-fondovalle#val-fiscalina-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "hours"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "access_cost"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-02e1e6993d",
+      "url": "https://www.talschlusshuette.com/en/rooms-prices",
+      "title": "Talschlusshütte: rooms and prices",
+      "publisher": "Talschlusshütte / Rifugio Fondovalle",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/rifugio-fondovalle",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-29f4cd1166",
       "url": "https://www.templesquare.org",
       "title": "Temple Square",
@@ -33685,14 +36499,103 @@
       }
     },
     {
+      "id": "s-c6c475fe9e",
+      "url": "https://www.thingeyjarsveit.is",
+      "title": "Þingeyjarsveit",
+      "publisher": "Þingeyjarsveit",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/fossholl",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/reykjahlid",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-206883c718",
+      "url": "https://www.thingvellir.is/en",
+      "title": "Þingvellir National Park",
+      "publisher": "Þingvellir National Park",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/oxararfoss",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/oxararfoss",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/oxararfoss",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/oxararfoss",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-1f3812c372",
       "url": "https://www.thingvellir.is/en/service/parking-service",
       "title": "Parking service",
       "publisher": "Thingvellir National Park",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/oxararfoss#p2-efri-vellir",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/oxararfoss#p2-efri-vellir",
+          "field": "price"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/oxararfoss",
+          "field": "access_cost"
+        },
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
           "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
@@ -33718,8 +36621,8 @@
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 180,
-        "fact_type": "seasons_closures"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "ok",
@@ -34050,6 +36953,33 @@
       }
     },
     {
+      "id": "s-a5b15f029e",
+      "url": "https://www.ushuaia.gob.ar",
+      "title": "Municipalidad de Ushuaia",
+      "publisher": "Municipalidad de Ushuaia",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-82c0b6bfe0",
       "url": "https://www.valais.ch/en/explore/activities/hiking/hikes/geological-hike-to-the-vieux-emosson-reservoir",
       "title": "Geological hike to the Vieux Emosson reservoir",
@@ -34079,6 +37009,58 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-3aa07a429f",
+      "url": "https://www.valgardena.it/en",
+      "title": "Val Gardena",
+      "publisher": "Val Gardena-Gröden Marketing",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-it.json",
+          "ref": "place/val-gardena",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/val-gardena",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-it.json",
+          "ref": "place/val-gardena",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-it.json",
+          "ref": "place/val-gardena",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-it.json",
+          "ref": "place/val-gardena",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-it.json",
+          "ref": "place/val-gardena",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -34240,12 +37222,32 @@
     {
       "id": "s-a308e2bb5d",
       "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
-      "title": "Dettifoss",
-      "publisher": "Vatnajokull National Park",
+      "title": "Dettifoss, Jökulsárgljúfur, Vatnajökull National Park",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-28",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "signals.designations"
+        },
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
           "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
@@ -34260,6 +37262,21 @@
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
           "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
           "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "suitability.on_site_min"
         },
         {
           "file": "data/suitability/iceland-ring-road-2027/R4.json",
@@ -34286,12 +37303,59 @@
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 180,
-        "fact_type": "seasons_closures"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-9d0ca98d34",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3",
+      "title": "Hafragil lowland (D3), Jökulsárgljúfur",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/hafragilsfoss#parking",
+          "field": "links"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "suitability.carrier_ok"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/hafragilsfoss",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -34347,6 +37411,63 @@
       }
     },
     {
+      "id": "s-be51a8b6bf",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell",
+      "title": "Skaftafell, Vatnajökull National Park",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/skaftafell",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/skaftafell",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/skaftafell",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/skaftafell",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/skaftafell",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/skaftafell",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-is.json",
+          "ref": "place/skaftafell",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-4364aadfa8",
       "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/destination-svartifoss",
       "title": "Destination Svartifoss",
@@ -34386,6 +37507,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-7b01c3d78b",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/skaftafellsstofa",
+      "title": "Skaftafellsstofa Visitor Centre",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "part/place/skaftafell#skaftafellsstofa",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "part/place/skaftafell#skaftafellsstofa",
+          "field": "access_cost"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -34540,6 +37693,33 @@
       }
     },
     {
+      "id": "s-f51a9963d7",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/frettir",
+      "title": "News, Vatnajökull National Park",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/skaftafell",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-a98cf3e731",
       "url": "https://www.vatnajokulsthjodgardur.is/en/news/landslide-by-dettifoss",
       "title": "Landslide by Dettifoss",
@@ -34673,6 +37853,97 @@
       }
     },
     {
+      "id": "s-48862be562",
+      "url": "https://www.vik.is/is",
+      "title": "Mýrdalshreppur",
+      "publisher": "Mýrdalshreppur",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/vik-i-myrdal",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-46e63e1318",
+      "url": "https://www.visitakureyri.is/en",
+      "title": "Visit Akureyri",
+      "publisher": "Visit Akureyri",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/akureyri",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/akureyri",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e9d7c57e70",
+      "url": "https://www.visitmyvatn.is",
+      "title": "Visit Mývatn",
+      "publisher": "Visit Mývatn",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/reykjahlid",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/reykjahlid",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-834e06b261",
       "url": "https://www.visitpageaz.com",
       "title": "Visit Page, Arizona",
@@ -34689,6 +37960,70 @@
         {
           "file": "data/relevance/catalogue/R9-us.json",
           "ref": "place/page",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e88d6fed28",
+      "url": "https://www.visitsaltlake.com",
+      "title": "Visit Salt Lake",
+      "publisher": "Visit Salt Lake",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-us.json",
+          "ref": "place/salt-lake-city",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-us.json",
+          "ref": "place/salt-lake-city",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-a39aee7099",
+      "url": "https://www.visitskagafjordur.is",
+      "title": "Visit Skagafjörður",
+      "publisher": "Visit Skagafjörður",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/varmahli",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/varmahli",
           "field": "draw"
         }
       ],
@@ -34984,6 +38319,38 @@
       "recheck": {
         "cadence_days": 180,
         "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-220564c9f5",
+      "url": "https://www.west.is/en",
+      "title": "Visit West Iceland",
+      "publisher": "Visit West Iceland (Markaðsstofa Vesturlands)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-is.json",
+          "ref": "place/grundarfjordur",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-is.json",
+          "ref": "place/grundarfjordur",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",

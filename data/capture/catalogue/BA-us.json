@@ -331,6 +331,26 @@
       "kind": "official",
       "read": "2026-10-25",
       "method": "read"
+    },
+    {
+      "id": "src-0037",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap elements by id near the LT-2 places (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0038",
+      "url": "https://nominatim.openstreetmap.org/reverse",
+      "title": "Nominatim reverse lookups of the LT-2 access points",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
     }
   ],
   "records": [
@@ -2026,6 +2046,23 @@
       "parks_for": [
         "place/bentonite-hills"
       ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Hartnet Road"
+          ],
+          "locality": "Wayne County",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0038"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup of the access point (LT-WHERE, 2026-10-28); the point itself is approximate and the locality is the county OSM gives, flagged. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
       "osm_ref": "node/3227293628",
       "links": [
         {
@@ -2054,6 +2091,16 @@
       "layer": "place",
       "name": "Long Dong Silver Spire",
       "area_id": "US/UT/hanksville",
+      "osm_ref": {
+        "v": "relation/21068996",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0037"
+        ],
+        "read": "2026-10-28",
+        "note": "the rock relation named Long Dong Silver (natural=bare_rock, tourism=attraction), 1 m from the stored point (the store's resolver took its point from this element)"
+      },
       "links": [
         {
           "kind": "official",
@@ -2089,6 +2136,23 @@
       "parks_for": [
         "place/long-dong-silver-spire"
       ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "SR 24"
+          ],
+          "locality": "Caineville",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0038"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest road from a Nominatim reverse lookup of the car park (LT-WHERE, 2026-10-28). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
       "osm_ref": "way/1535726923",
       "links": [
         {
@@ -2171,6 +2235,18 @@
       "parks_for": [
         "place/factory-butte"
       ],
+      "address": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Nominatim reverse at the butte (zoom 18, LT-WHERE 2026-10-28): no road within the answer",
+          "Nominatim reverse at the OHV area centre 38.44146,-110.91689 (zoom 16, 2026-10-28): the county only"
+        ],
+        "note": "No named road is mapped at the approximate access point; the BLM page names the Factory Butte area without a street."
+      },
       "osm_ref": "relation/13852886",
       "links": [
         {

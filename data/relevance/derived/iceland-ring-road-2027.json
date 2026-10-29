@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "iceland-ring-road-2027",
-  "as_of": "2026-10-25",
+  "as_of": "2026-10-29",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -81,9 +81,23 @@
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "place/reykjavik",
+            "km": 38.7,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/reykjavik",
+        "km": 38.7,
+        "draw": "national",
+        "same_class": true
+      },
       "pair_with": [],
       "pair_pending": [],
       "part_of": [],
@@ -126,7 +140,16 @@
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "place/oxararfoss",
+            "km": 49,
+            "draw": "national",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          }
+        ]
       },
       "far_pointer": {
         "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
@@ -162,7 +185,12 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [],
+      "warnings": [
+        {
+          "code": "W_REL_DISTINCTION",
+          "message": "distinction is unique but place/oxararfoss has the same class within 100 km"
+        }
+      ],
       "layer": "place"
     },
     {
@@ -188,7 +216,19 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "place/hafragilsfoss",
+          "km": 1.3,
+          "how": "walk",
+          "extra_min": 83,
+          "on_site_min": 45,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "pair_pending": [],
       "part_of": [],
       "plan_b": null,
@@ -229,8 +269,34 @@
       "detour_town": "Selfoss",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/strokkur",
+            "km": 0.1,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 3
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/strokkur",
+            "km": 0.1,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/reykjavik",
+            "km": 81.6,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
       "pair_with": [
@@ -275,7 +341,12 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [],
+      "warnings": [
+        {
+          "code": "W_REL_DISTINCTION",
+          "message": "distinction is unique but place/strokkur has the same class within 100 km"
+        }
+      ],
       "layer": "place"
     },
     {
@@ -505,7 +576,16 @@
       "detour_town": "Vik",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
+        "near": [
+          {
+            "ref": "place/gljufrabui",
+            "km": 0.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          }
+        ],
         "area": [
           {
             "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
@@ -514,6 +594,22 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/oxararfoss",
+            "km": 90.8,
+            "draw": "national",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/gljufrabui",
+            "km": 0.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
           }
         ]
       },
@@ -568,6 +664,14 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "place/gljufrabui",
+            "km": 25.5,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
           }
         ]
       },
@@ -663,8 +767,26 @@
       "detour_town": "Hofn",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/hofn",
+            "km": 0.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/hofn",
+            "km": 0.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
       "pair_with": [],
@@ -709,7 +831,16 @@
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "place/grindavik",
+            "km": 41.9,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": {
         "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
@@ -717,7 +848,19 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "place/reykjavik",
+          "km": 0.8,
+          "how": "walk",
+          "extra_min": 69,
+          "on_site_min": 45,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "pair_pending": [],
       "part_of": [],
       "plan_b": null,
@@ -763,7 +906,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "place/gufufoss",
+          "km": 3.3
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -809,6 +957,10 @@
       "far_pointer": null,
       "pair_with": [],
       "pair_pending": [
+        {
+          "ref": "place/snaefellsjokull",
+          "km": 8.6
+        },
         {
           "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
           "km": 8.6
@@ -860,6 +1012,10 @@
       "far_pointer": null,
       "pair_with": [],
       "pair_pending": [
+        {
+          "ref": "place/snaefellsjokull",
+          "km": 8.5
+        },
         {
           "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
           "km": 8.5
@@ -998,7 +1154,19 @@
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "place/oxararfoss",
+          "km": 0.6,
+          "how": "walk",
+          "extra_min": 57,
+          "on_site_min": 40,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "pair_pending": [],
       "part_of": [],
       "plan_b": null,
@@ -1282,7 +1450,9 @@
           "km": 8.5
         }
       ],
-      "part_of": [],
+      "part_of": [
+        "place/snaefellsjokull"
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1334,7 +1504,19 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "place/hafragilsfoss",
+          "km": 1.3,
+          "how": "walk",
+          "extra_min": 83,
+          "on_site_min": 45,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "pair_pending": [],
       "part_of": [],
       "plan_b": null,

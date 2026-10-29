@@ -1,0 +1,681 @@
+{
+  "schema": "capture/1",
+  "trip": "catalogue",
+  "lane": "LT2-ar",
+  "researched": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://query.wikidata.org/sparql",
+      "title": "Wikidata items of the LT-2 places (labels, P31, P625, P1566, P856, P402, P2044, P6375, P281)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap elements by id, car parks, stations and information points near each place (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://nominatim.openstreetmap.org/reverse",
+      "title": "Nominatim reverse lookups of the access points (zoom 16 and 18)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares",
+      "title": "Parque Nacional Los Glaciares",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares/horarios-como-llegar-0",
+      "title": "Los Glaciares: horarios y cómo llegar",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html",
+      "title": "Cerro Castor: horario y ubicación",
+      "publisher": "Cerro Castor",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.cerrocastor.com/es_ar/pases-esquiador.html",
+      "title": "Cerro Castor: pase esquiador",
+      "publisher": "Cerro Castor",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.cerrocastor.com/es_ar/home.html",
+      "title": "Cerro Castor",
+      "publisher": "Cerro Castor",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.ushuaia.gob.ar/",
+      "title": "Municipalidad de Ushuaia",
+      "publisher": "Municipalidad de Ushuaia",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://turismoushuaia.com/",
+      "title": "Turismo Ushuaia",
+      "publisher": "Secretaría de Turismo de Ushuaia",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.elchalten.gob.ar/",
+      "title": "Comisión de Fomento de El Chaltén",
+      "publisher": "Comisión de Fomento de El Chaltén",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.elchalten.gob.ar/secretaria-de-turismo/",
+      "title": "Secretaría de Turismo de El Chaltén",
+      "publisher": "Comisión de Fomento de El Chaltén",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/perito-moreno-glacier",
+      "type": "nature.landform.glacier_view",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Perito Moreno Glacier",
+      "area_id": "AR/Z/lago-argentino-department",
+      "osm_ref": {
+        "v": "relation/5944197",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the glacier multipolygon tagged with the store QID"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares",
+          "https://www.argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf"
+        ],
+        "note": "No best weeks are published; the park map says the ice-dam rupture cannot be predicted."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q367943",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Perito_Moreno_Glacier",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "part/place/perito-moreno-glacier#walkways-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Perito Moreno walkways car park (lower lot)",
+      "area_id": "AR/Z/lago-argentino-department",
+      "osm_ref": {
+        "v": "way/1259804791",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "unnamed public car park by the walkways (amenity=parking, fee=no, access=yes)"
+      },
+      "parks_for": [
+        "place/perito-moreno-glacier"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Paseo de la Costa"
+          ],
+          "locality": "Lago Argentino",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28); the locality is the department OSM gives (Lago Argentino), flagged. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares/horarios-como-llegar-0",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0005"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open",
+            "note": "the Mitre corridor to the glacier has set entry hours all year"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-28"
+      },
+      "hours": {
+        "v": {
+          "tz": "America/Argentina/Rio_Gallegos",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "08:00",
+              "close": "20:00",
+              "from": "09-01",
+              "to": "04-30"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "09:00",
+              "close": "18:00",
+              "from": "05-01",
+              "to": "08-31"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-28",
+        "note": "Entry 08:00 to 18:00 (summer, 1 Sep to 30 Apr) and 09:00 to 16:00 (winter, 1 May to 31 Aug); visitors may stay until 20:00 and 18:00. The periods hold the stay limits; last entry is 18:00 in summer and 16:00 in winter."
+      }
+    },
+    {
+      "ref": "place/cerro-castor",
+      "type": "snow.ski.ski_area.ski_resort",
+      "layer": "place",
+      "near_town": {
+        "v": "ar-v-ushuaia",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3833367, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 21.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Cerro Castor",
+      "area_id": "AR/V/ushuaia-department",
+      "osm_ref": {
+        "v": "way/934046989",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the winter-sports area named Cerro Castor (landuse=winter_sports); the store QID is on the base node 2643657602 (leisure=sports_centre) and on the peak node 4455152449 named Cerro Krund"
+      },
+      "address": {
+        "v": {
+          "kind": "postal",
+          "lines": [
+            "Ruta 3 km 26"
+          ],
+          "locality": "Ushuaia",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-28",
+        "note": "As the resort writes it (Ruta 3 km 26, Ushuaia, Tierra del Fuego); 26 km from the city on the paved RN 3."
+      },
+      "season": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html",
+          "https://www.cerrocastor.com/es_ar/home.html"
+        ],
+        "note": "The pages read give the daily hours of the winter season but no opening and closing dates."
+      },
+      "hours": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html"
+        ],
+        "note": "Lifts open at 10:00 (09:45 for ski-school pupils); shops, food and rental 09:00 to 18:00; no lift closing time is published."
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://www.cerrocastor.com/es_ar/pases-esquiador.html",
+          "https://www.cerrocastor.com/es_ar/pases-tarifas.html"
+        ],
+        "note": "Pass prices are shown only in the online shop, which was not read. Children 0 to 4 and seniors from 70 ski free (pass at the base ticket office)."
+      },
+      "window": {
+        "v": {
+          "rule": "anytime",
+          "fallback": "online (recommended), or at the base ticket office in the winter season and at the rental shop in Ushuaia"
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0009"
+        ],
+        "read": "2026-10-28"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.cerrocastor.com/es_ar/home.html",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0010"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q521811",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Cerro_Castor",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "part/place/cerro-castor#base-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ar-v-ushuaia",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3833367, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 21.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Cerro Castor base car park",
+      "area_id": "AR/V/ushuaia-department",
+      "osm_ref": {
+        "v": "way/905218501",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "unnamed car park beside the base (amenity=parking), 170 m from the base node"
+      },
+      "parks_for": [
+        "place/cerro-castor"
+      ],
+      "address": {
+        "v": {
+          "kind": "postal",
+          "lines": [
+            "Ruta 3 km 26"
+          ],
+          "locality": "Ushuaia",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-28",
+        "note": "As the resort writes it (Ruta 3 km 26, Ushuaia, Tierra del Fuego); 26 km from the city on the paved RN 3."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0008"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/ushuaia",
+      "type": "settlement.city",
+      "layer": "place",
+      "near_town": {
+        "v": "ar-v-ushuaia",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3833367, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Ushuaia",
+      "area_id": "AR/V/ushuaia-department",
+      "osm_ref": {
+        "v": "relation/11347693",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the city boundary tagged with the store QID and Wikidata's P402; the place node is node/198432092"
+      },
+      "geonames_id": {
+        "v": "3833367",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q44254 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.ushuaia.gob.ar/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0011"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://turismoushuaia.com/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0012"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q44254",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Ushuaia",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/el-chalten",
+      "type": "settlement.village",
+      "layer": "place",
+      "near_town": {
+        "v": "ar-z-el-chalten",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6690180, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "El Chaltén",
+      "area_id": "AR/Z/lago-argentino-department",
+      "osm_ref": {
+        "v": "relation/10312049",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the village boundary tagged with the store QID; the place node is node/255706152"
+      },
+      "geonames_id": {
+        "v": "6690180",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q1323978 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.elchalten.gob.ar/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0013"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.elchalten.gob.ar/secretaria-de-turismo/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0014"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1323978",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/El_Chalt%C3%A9n",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    }
+  ]
+}

@@ -1,0 +1,376 @@
+{
+  "schema": "capture/1",
+  "trip": "catalogue",
+  "lane": "LT2-fr",
+  "researched": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://query.wikidata.org/sparql",
+      "title": "Wikidata items of the LT-2 places (labels, P31, P625, P1566, P856, P402, P2044, P6375, P281)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap elements by id, car parks, stations and information points near each place (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://nominatim.openstreetmap.org/reverse",
+      "title": "Nominatim reverse lookups of the access points (zoom 16 and 18)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://domaineschamonix.montblancnaturalresort.com/fr/domaine/flegere",
+      "title": "Domaine de la Flégère",
+      "publisher": "Compagnie du Mont-Blanc",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift",
+      "title": "Flégère gondola and Index lift: practical information",
+      "publisher": "Office de Tourisme de la Vallée de Chamonix-Mont-Blanc",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.chamonix.fr/",
+      "title": "Ville de Chamonix-Mont-Blanc",
+      "publisher": "Commune de Chamonix-Mont-Blanc",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.chamonix.com/",
+      "title": "Chamonix-Mont-Blanc tourist office",
+      "publisher": "Office de Tourisme de la Vallée de Chamonix-Mont-Blanc",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.haute-savoie-tourisme.org/53929-gare-sncf-vallorcine",
+      "title": "Gare SNCF de Vallorcine",
+      "publisher": "Haute-Savoie Tourisme (Savoie Mont Blanc Tourisme)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/la-flegere",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 4.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "La Flégère",
+      "area_id": "FR/ARA/haute-savoie",
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift",
+          "https://domaineschamonix.montblancnaturalresort.com/fr/domaine/flegere"
+        ],
+        "note": "No best time of day is published; light was not computed because the view's direction is not given beyond 'facing south, looking onto Mont Blanc'."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://domaineschamonix.montblancnaturalresort.com/fr/domaine/flegere",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q3209029",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "part/place/la-flegere#les-praz-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 2.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Flégère gondola car park (Les Praz)",
+      "area_id": "FR/ARA/haute-savoie",
+      "osm_ref": {
+        "v": "way/758067054",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "unnamed public car park beside the Flégère valley station at Les Praz (amenity=parking, fee=no)"
+      },
+      "parks_for": [
+        "place/la-flegere"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Chemin Paul Simond"
+          ],
+          "locality": "Chamonix-Mont-Blanc",
+          "postcode": "74400"
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28), Les Praz de Chamonix. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0005"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "type": "access.transit.station",
+      "layer": "place",
+      "near_town": {
+        "v": "ch-vs-martigny-combe",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2659750, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 10.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Vallorcine station",
+      "area_id": "FR/ARA/haute-savoie",
+      "osm_ref": {
+        "v": "node/9543361428",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the station node tagged with the store QID (railway=station, operator SNCF Gares & Connexions)"
+      },
+      "parks_for": [
+        "trip/chamonix-mont-blanc-2028/town:vallorcine"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Place de la Gare"
+          ],
+          "locality": "Vallorcine",
+          "postcode": "74660"
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup of the station car park (LT-WHERE, 2026-10-28). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "on": "2026-10-28",
+          "query": "SNCF Gares & Connexions station page (garesetconnexions.sncf/fr/gares-services/vallorcine answered 403 on 2026-10-28); a TER Auvergne-Rhône-Alpes station page was not found by search",
+          "src": [
+            "src-0008"
+          ]
+        },
+        {
+          "kind": "timetable",
+          "url": "https://www.haute-savoie-tourisme.org/53929-gare-sncf-vallorcine",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0008"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Chamonix-Mont-Blanc",
+      "area_id": "FR/ARA/haute-savoie",
+      "osm_ref": {
+        "v": "relation/104836",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the commune boundary tagged with the store QID and Wikidata's P402; the place node is node/26696275"
+      },
+      "geonames_id": {
+        "v": "3027301",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q83236 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.chamonix.fr/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.chamonix.com/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0007"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q83236",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Chamonix",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    }
+  ]
+}

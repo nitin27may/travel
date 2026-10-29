@@ -1,0 +1,24 @@
+Tier: required · family town (settlement) · trip catalogue
+
+Per layer (EXECUTION-PLAN 6.4 columns; records answering each)
+layer         records area_id point osm_id wikidata official photos season where operator price duration window min_age
+place              42      42    42     40       42       40      0      0     0        0     0        0      0       0
+
+place: 42 record(s), 42 with the required tier complete
+  access_cost                          asked   42  answered   42  missing    0
+  class_key                            asked   42  answered   42  missing    0
+  distinction                          asked   42  answered   42  missing    0
+  draw                                 asked   42  answered   42  missing    0
+  easy_payoff                          asked   42  answered   42  missing    0
+  geonames_id                          asked   42  answered   42  missing    0
+  links                                asked   42  answered   42  missing    0
+  name                                 asked   42  answered   42  missing    0
+  signals                              asked   42  answered   42  missing    0
+  standing                             asked   42  answered   42  missing    0
+  stroller                             asked   42  answered   42  missing    0
+  summary                              asked   42  answered   42  missing    0
+  type                                 asked   42  answered   42  missing    0
+  weather                              asked   42  answered   42  missing    0
+  wheelchair                           asked   42  answered   42  missing    0
+  why                                  asked   42  answered   42  missing    0
+  wikidata                             asked   42  answered   42  missing    0

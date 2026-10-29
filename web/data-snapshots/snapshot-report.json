@@ -1,7 +1,7 @@
 {
   "schema": "snapshot-report/1",
   "note": "Dropped from the public view because it carries a calendar date. Rewrite each as a season, a day number or a rule.",
-  "count": 284,
+  "count": 319,
   "items": [
     {
       "where": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre wikidata note",
@@ -774,6 +774,11 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/akureyri wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Akureyri', P625 near OSM node/242107681; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/ashlar-ridge wikidata note",
       "text": "agent-checked 2026-10-28 (travel-researcher): label 'Ashlar Ridge', instance of ridge, P625 0.3 km from OSM peak node 2699282960; needs a person's check",
       "why": "agent or review-queue process note; never published"
@@ -839,8 +844,38 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/capitol-reef-national-park-visitor-center wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Capitol Reef National Park Visitor Center', NPS visitor center, P625 4 m from OSM relation 14504383; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/castelrotto wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Castelrotto', P625 near OSM Q377319; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/cerro-castor kid_note",
+      "text": "Children 0 to 4 ski free with a pass collected at the base ticket office (bring the child's ID); there is a ski school with a 'Castor Junior' programme and a skating rink at the base.",
+      "why": "describes the household party; no rewrite rule fits, so the sentence is dropped"
+    },
+    {
+      "where": "place/cerro-castor wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Cerro Castor', mountain and ski area, P625 0.8 km from OSM base node 2643657602; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/chamonix-mont-blanc wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Chamonix-Mont-Blanc', P625 near OSM node/26696275; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/chancellor-peak wikidata note",
       "text": "agent-checked 2026-10-28 (travel-researcher): label 'Chancellor Peak', instance of mountain, two P625 values 0.7 km apart, 0.1 km from OSM peak node 5613035260; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/collegiate-church-of-san-candido wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Collegiate church of Innichen' (coordinates match, the name differs by language), collegiate church, P625 3 m from OSM way 216694096; needs a person's check",
       "why": "agent or review-queue process note; never published"
     },
     {
@@ -854,8 +889,28 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/el-chalten wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'El Chaltén', P625 near OSM node/255706152; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/field wikidata note",
       "text": "agent-checked 2026-10-28 (travel-researcher): label 'Field', unincorporated community, P625 0.25 km from OSM village node 51970759; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/fossholl wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Fosshóll', P625 near OSM Q134328943; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/gljufrabui effort.drivers.distance_km note",
+      "text": "About 700 m each way from the paid car park (straight line between the OSM elements); our estimate.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/gljufrabui wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Gljufrafoss', waterfall, P625 within 130 m of OSM node 2534116947; needs a person's check",
       "why": "agent or review-queue process note; never published"
     },
     {
@@ -864,8 +919,38 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/grindavik wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Grindavík', P625 near OSM node/244149207; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/grundarfjordur wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Grundarfjörður', P625 near OSM node/126199675; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/gufufoss effort.drivers.distance_km note",
+      "text": "About 260 m each way from the roadside parking (straight line); our estimate.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/gufufoss wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Gufufoss', waterfall, two P625 values 0.3 km apart, within 0.4 km of OSM node 3101158567; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/hafragilsfoss wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Hafragilsfoss', waterfall, P625 within 50 m of OSM node 3050633634; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/highwood-pass wikidata note",
       "text": "agent-checked 2026-10-28 (travel-researcher): label 'Highwood Pass', instance of mountain pass, P625 0.4 km from OSM saddle node 1339315277; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/hofn wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Höfn', P625 near OSM node/249085731; needs a person's check",
       "why": "agent or review-queue process note; never published"
     },
     {
@@ -889,8 +974,18 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/kirkjubaejarklaustur wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Kirkjubæjarklaustur', P625 near OSM node/60472743; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/kootenay-national-park wikidata note",
       "text": "Agent-checked 2026-10-27; needs a person's check.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/la-flegere wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'La Flégère', lieu-dit, mountain, viewpoint and ski resort, P625 140 m from the OSM gondola top station; needs a person's check",
       "why": "agent or review-queue process note; never published"
     },
     {
@@ -1004,6 +1099,21 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/nova-levante wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Nova Levante', P625 near OSM Q433287; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/oxararfoss effort.drivers.distance_km note",
+      "text": "About 200 m each way from the P2 car park (straight line between the OSM elements); our estimate.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/oxararfoss wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Öxarárfoss', waterfall, P625 0 m from OSM node 312688011; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/paddys-flat wikidata note",
       "text": "agent-checked 2026-10-28 (travel-researcher): label \"Paddy's Flat\", instance of plain, P625 0.6 km from OSM locality node 12780122240; needs a person's check",
       "why": "agent or review-queue process note; never published"
@@ -1014,8 +1124,33 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/perito-moreno-glacier wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Perito Moreno Glacier', glacier, P625 on the ice 10 km inside OSM relation 5944197; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/pic-champlain wikidata note",
       "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Pic Champlain', instance of summit, P2044 346 m, P625 0.13 km from OSM peak node 1087473528; the QID is also the OSM wikidata tag; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/reykjahlid wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Reykjahlíð', P625 near OSM node/270961115; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/reykjavik wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Reykjavík', P625 near OSM node/2107832620; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/salt-lake-city wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Salt Lake City', P625 near OSM node/150935219; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/san-cassiano wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'San Cassiano', P625 near OSM node/223597157; needs a person's check",
       "why": "agent or review-queue process note; never published"
     },
     {
@@ -1024,8 +1159,28 @@
       "why": "household capture note (plan link, stay idea or address); never published"
     },
     {
+      "where": "place/skaftafell wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Skaftafell', lieu-dit, P625 43 m from the Skaftafellsstofa visitor centre (OSM way/200175906); needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/skogar wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Skógar', P625 near OSM node/1385855484; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/snaefellsjokull wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Snæfellsjökull', ice cap and volcano, P625 0.2 km from OSM relation 5443646; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/spray-valley-provincial-park wikidata note",
       "text": "agent-checked 2026-10-28 (travel-researcher): label 'Spray Valley Provincial Park', instance of provincial park, P625 2.8 km from the OSM boundary relation's nearest point; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/strokkur wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Strokkur', geyser, P625 2 m from OSM node 270943513; needs a person's check",
       "why": "agent or review-queue process note; never published"
     },
     {
@@ -1036,6 +1191,26 @@
     {
       "where": "place/upper-kananaskis-lake wikidata note",
       "text": "agent-checked 2026-10-28 (travel-researcher): label 'Upper Kananaskis Lake', instance of lake, P625 0.24 km from OSM relation 4011900; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/ushuaia wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Ushuaia', P625 near OSM node/198432092; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/val-gardena wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Val Gardena', valley, P625 2.8 km from the OSM ski-area relation and on the OSM valley line; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/varmahli wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Varmahlíð', P625 near OSM node/244149690; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/vik-i-myrdal wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Vík í Mýrdal', P625 near OSM node/59861511; needs a person's check",
       "why": "agent or review-queue process note; never published"
     },
     {

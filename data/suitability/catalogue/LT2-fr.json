@@ -1,0 +1,193 @@
+{
+  "schema": "suitability/1",
+  "trip": "catalogue",
+  "lane": "LT2-fr",
+  "researched": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0005",
+      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift",
+      "title": "Flégère gondola and Index lift: practical information",
+      "publisher": "Office de Tourisme de la Vallée de Chamonix-Mont-Blanc",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/la-flegere",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-28",
+          "note": "Reached by the gondola from Les Praz; the terrace is at the top station."
+        },
+        "kid_note": "The Flégère gondola from Les Praz rises to 1,877 m facing Mont Blanc; the Index chairlift above (2,595 m) and the Lac Blanc hike start here. Check the lift dates: closed from 14 September to 27 November 2026.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift"
+          ],
+          "note": "The tourist office describes access for reduced mobility, not stroller surfaces at the top."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-28",
+          "note": "Ramps (4%) beside the stairs at the car park, adapted desk and toilets, all cabins accessible (a few with fastening points); in summer a path at the top leads to the L'Adret restaurant; nothing adapted on the ski area in winter."
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            120
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for the terrace and a short walk; the Lac Blanc hike is longer.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "the mountain terrace and paths"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-28",
+          "note": "Our reading of an alpine lift station."
+        },
+        "walk_m": {
+          "v": 50,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-28",
+          "note": "From the car park to the valley station, then the gondola; the terrace is by the top station. Our estimate.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "09-14",
+              "to": "11-27",
+              "status": "closed",
+              "via": "lift",
+              "note": "autumn closure 2026"
+            },
+            {
+              "from": "11-28",
+              "to": "04-11",
+              "status": "open",
+              "via": "lift",
+              "note": "winter 2026-27, daily 08:50 to 16:45 until 5 February, then to 17:15"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-28",
+          "note": "The summer 2027 dates are not published yet.",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.chamonix.fr/",
+            "https://www.chamonix.com/"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.chamonix.fr/",
+            "https://www.chamonix.com/"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

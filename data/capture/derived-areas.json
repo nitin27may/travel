@@ -904,7 +904,7 @@
     "part/place/funbob-monte-baranci#place": {
       "area_id": "IT/trentino-alto-adige/bolzano",
       "via": "point",
-      "from": "locations store",
+      "from": "place/collegiate-church-of-san-candido",
       "km": 1.7,
       "rival_km": 9.2
     },
@@ -976,9 +976,9 @@
     "part/trip/iceland-ring-road-2027/activity:myvatn nature baths#place": {
       "area_id": "IS/northeast/thingeyjarsveit",
       "via": "point",
-      "from": "locations store",
-      "km": 3.2,
-      "rival_km": 30.4
+      "from": "place/reykjahlid",
+      "km": 3.1,
+      "rival_km": 30.3
     },
     "part/trip/iceland-ring-road-2027/sight:dettifoss#walk": {
       "area_id": "IS/northeast/vatnajokull-national-park",
@@ -1105,7 +1105,7 @@
     "place/dobbiaco": {
       "area_id": "IT/trentino-alto-adige/bolzano",
       "via": "point",
-      "from": "locations store",
+      "from": "place/dobbiaco-railway-station",
       "km": 1.2,
       "rival_km": 12.6
     },
@@ -1119,7 +1119,7 @@
     "place/lago-di-dobbiaco": {
       "area_id": "IT/trentino-alto-adige/bolzano",
       "via": "point",
-      "from": "locations store",
+      "from": "place/dobbiaco-railway-station",
       "km": 2.5,
       "rival_km": 9.9
     },
@@ -1189,8 +1189,8 @@
     "place/val-fiscalina": {
       "area_id": "IT/trentino-alto-adige/bolzano",
       "via": "point",
-      "from": "locations store",
-      "km": 1.7,
+      "from": "part/place/rifugio-fondovalle#val-fiscalina-parking",
+      "km": 0.1,
       "rival_km": 4.7
     },
     "place/vallunga": {
@@ -1245,8 +1245,8 @@
     "trip/chamonix-mont-blanc-2028/lift:montenvers train": {
       "area_id": "FR/ARA/haute-savoie",
       "via": "point",
-      "from": "locations store",
-      "km": 0.5,
+      "from": "place/chamonix-mont-blanc",
+      "km": 0.4,
       "rival_km": 17.8
     },
     "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks": {
@@ -1259,15 +1259,15 @@
     "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace": {
       "area_id": "FR/ARA/haute-savoie",
       "via": "point",
-      "from": "locations store",
-      "km": 4.2,
+      "from": "part/place/la-flegere#les-praz-parking",
+      "km": 3.3,
       "rival_km": 17
     },
     "trip/chamonix-mont-blanc-2028/town:chamonix market": {
       "area_id": "FR/ARA/haute-savoie",
       "via": "point",
-      "from": "locations store",
-      "km": 0.4,
+      "from": "place/chamonix-mont-blanc",
+      "km": 0.2,
       "rival_km": 17.6
     },
     "trip/chamonix-mont-blanc-2028/town:chamonix old town": {
@@ -1280,8 +1280,8 @@
     "trip/chamonix-mont-blanc-2028/town:les praz village": {
       "area_id": "FR/ARA/haute-savoie",
       "via": "point",
-      "from": "locations store",
-      "km": 2.3,
+      "from": "part/place/la-flegere#les-praz-parking",
+      "km": 0.2,
       "rival_km": 15.8
     },
     "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere": {
@@ -1308,30 +1308,30 @@
     "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields": {
       "area_id": "IS/southern-peninsula/grindavikurbaer",
       "via": "point",
-      "from": "locations store",
-      "km": 4.1,
-      "rival_km": 39.1
+      "from": "place/grindavik",
+      "km": 3.8,
+      "rival_km": 38.7
     },
     "trip/iceland-ring-road-2027/sight:dettifoss": {
       "area_id": "IS/northeast/vatnajokull-national-park",
       "via": "point",
-      "from": "locations store",
+      "from": "place/hafragilsfoss",
       "km": 1.3,
       "rival_km": 31
     },
     "trip/iceland-ring-road-2027/sight:geysir": {
       "area_id": "IS/south/blaskogabyggd",
       "via": "point",
-      "from": "locations store",
+      "from": "place/strokkur",
       "km": 0.1,
       "rival_km": 78.5
     },
     "trip/iceland-ring-road-2027/sight:glaumbaer turf farm": {
       "area_id": "IS/northwest/skagafjordur",
       "via": "point",
-      "from": "locations store",
-      "km": 7,
-      "rival_km": 65.5
+      "from": "place/varmahli",
+      "km": 6.9,
+      "rival_km": 65.3
     },
     "trip/iceland-ring-road-2027/sight:godafoss": {
       "area_id": "IS/northeast/thingeyjarsveit",
@@ -1352,13 +1352,13 @@
       "via": "point",
       "from": "locations store",
       "km": 3.8,
-      "rival_km": 28.4
+      "rival_km": 28.3
     },
     "trip/iceland-ring-road-2027/sight:seljalandsfoss": {
       "area_id": "IS/south/rangarthing-eystra",
       "via": "point",
-      "from": "locations store",
-      "km": 0.7,
+      "from": "part/place/gljufrabui#seljalandsfoss-parking",
+      "km": 0,
       "rival_km": 53.4
     },
     "trip/iceland-ring-road-2027/sight:skogafoss": {
@@ -1371,8 +1371,8 @@
     "trip/iceland-ring-road-2027/town:akureyri botanical garden": {
       "area_id": "IS/northeast/akureyrarbaer",
       "via": "point",
-      "from": "locations store",
-      "km": 1,
+      "from": "place/akureyri",
+      "km": 0.8,
       "rival_km": 25.4
     },
     "trip/iceland-ring-road-2027/town:hofn harbour": {
@@ -1392,9 +1392,9 @@
     "trip/iceland-ring-road-2027/town:seydisfjordur": {
       "area_id": "IS/east/mulathing",
       "via": "point",
-      "from": "locations store",
-      "km": 3.6,
-      "rival_km": 126.1
+      "from": "part/place/gufufoss#roadside-parking",
+      "km": 3,
+      "rival_km": 125.6
     },
     "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar": {
       "area_id": "IS/west/snaefellsbaer",
@@ -1415,14 +1415,14 @@
       "via": "point",
       "from": "locations store",
       "km": 5.2,
-      "rival_km": 56.9
+      "rival_km": 56.8
     },
     "trip/iceland-ring-road-2027/trail:skaftafell svartifoss": {
       "area_id": "IS/east/hornafjordur",
       "via": "point",
       "from": "locations store",
       "km": 0,
-      "rival_km": 60.6
+      "rival_km": 58.2
     },
     "trip/iceland-ring-road-2027/trail:thingvellir": {
       "area_id": "IS/south/blaskogabyggd",
@@ -1436,14 +1436,14 @@
       "via": "point",
       "from": "locations store",
       "km": 1.6,
-      "rival_km": 98.9
+      "rival_km": 96.7
     },
     "trip/iceland-ring-road-2027/viewpoint:jokulsarlon": {
       "area_id": "IS/east/hornafjordur",
       "via": "point",
       "from": "locations store",
       "km": 3,
-      "rival_km": 96.8
+      "rival_km": 94.6
     },
     "trip/iceland-ring-road-2027/viewpoint:kirkjufell": {
       "area_id": "IS/west/grundarfjardarbaer",
@@ -1457,7 +1457,7 @@
       "via": "point",
       "from": "locations store",
       "km": 3.1,
-      "rival_km": 25.7
+      "rival_km": 25.3
     },
     "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view": {
       "area_id": "IS/west/snaefellsbaer",
@@ -1485,7 +1485,7 @@
       "via": "point",
       "from": "locations store",
       "km": 0.5,
-      "rival_km": 579.5
+      "rival_km": 578.5
     },
     "trip/patagonia-2027/town:palermo and recoleta walk": {
       "area_id": "AR/C/buenos-aires",
@@ -1520,7 +1520,7 @@
       "via": "point",
       "from": "locations store",
       "km": 3.9,
-      "rival_km": 576.3
+      "rival_km": 575.5
     },
     "trip/patagonia-2027/trail:laguna capri": {
       "area_id": "AR/Z/lago-argentino-department",
@@ -1539,9 +1539,9 @@
     "trip/patagonia-2027/trail:laguna esmeralda": {
       "area_id": "AR/V/ushuaia-department",
       "via": "point",
-      "from": "locations store",
-      "km": 6.8,
-      "rival_km": 578.8
+      "from": "place/cerro-castor",
+      "km": 6.7,
+      "rival_km": 577.6
     },
     "trip/patagonia-2027/trail:mirador de las aguilas": {
       "area_id": "AR/Z/lago-argentino-department",
@@ -1551,7 +1551,7 @@
     "trip/patagonia-2027/trail:mirador de los condores": {
       "area_id": "AR/Z/lago-argentino-department",
       "via": "point",
-      "from": "locations store",
+      "from": "place/el-chalten",
       "km": 0.7,
       "rival_km": 682.5
     },
@@ -1567,20 +1567,20 @@
       "via": "point",
       "from": "locations store",
       "km": 8.1,
-      "rival_km": 575.2
+      "rival_km": 574.5
     },
     "trip/utah-five-parks/sight:fruita orchards": {
       "area_id": "US/UT/wayne-county",
       "via": "point",
-      "from": "locations store",
+      "from": "place/capitol-reef-national-park-visitor-center",
       "km": 1.6,
       "rival_km": 13.5
     },
     "trip/utah-five-parks/sight:temple square": {
       "area_id": "US/UT/salt-lake-county",
       "via": "point",
-      "from": "locations store",
-      "km": 2.4,
+      "from": "place/salt-lake-city",
+      "km": 1.3,
       "rival_km": 51.4
     },
     "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle": {
@@ -1600,7 +1600,7 @@
     "trip/utah-five-parks/trail:hickman bridge": {
       "area_id": "US/UT/wayne-county",
       "via": "point",
-      "from": "locations store",
+      "from": "place/capitol-reef-national-park-visitor-center",
       "km": 2.4,
       "rival_km": 12.2
     },

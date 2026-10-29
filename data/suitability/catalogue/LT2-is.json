@@ -1,0 +1,1604 @@
+{
+  "schema": "suitability/1",
+  "trip": "catalogue",
+  "lane": "LT2-is",
+  "researched": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0002",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap elements by id, car parks, stations and information points near each place (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell",
+      "title": "Skaftafell, Vatnajökull National Park",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+      "title": "Dettifoss, Jökulsárgljúfur, Vatnajökull National Park",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3",
+      "title": "Hafragil lowland (D3), Jökulsárgljúfur",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.thingvellir.is/en/",
+      "title": "Þingvellir National Park",
+      "publisher": "Þingvellir National Park",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall",
+      "title": "Visit South Iceland: the Seljaland falls and Gljúfrabúi",
+      "publisher": "Visit South Iceland (Markaðsstofa Suðurlands)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.east.is/en/place/gufufoss-waterfall",
+      "title": "Gufufoss waterfall",
+      "publisher": "Visit East Iceland (Austurbrú)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/",
+      "title": "Geysir Area (protected natural monument)",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/about-the-area/",
+      "title": "Geysir Area: about the area (rules)",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service/",
+      "title": "Geysir Area: supervision and service",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/the-glacier/",
+      "title": "Snæfellsjökull National Park: the glacier",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/",
+      "title": "Snæfellsjökull National Park: FAQ",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/skaftafell",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Short, easy trails start at the visitor centre: to the Svartifoss waterfall (about 2 hours return) and to the Skaftafellsjökull glacier tongue. Keep children off the glacier ice itself.",
+        "on_site_min": {
+          "v": [
+            60,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate: the visitor centre and a short walk, up to a day on the longer trails (the park lists 0.5 to 8 hour routes).",
+          "estimate": true
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "glacier",
+              "note": "Glacier tongues: do not walk on the ice without a guide"
+            },
+            {
+              "category": "wind",
+              "note": "Outside the summer months conditions change quickly"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-28",
+          "note": "The park page warns that conditions can change rapidly outside summer; the glacier note is our wording of the park's glacier guidance."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Route 1; weather and road conditions permitting"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-28",
+          "quote": "The region is accessible year-round, weather and road conditions permitting.",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-28",
+          "note": "The rim viewpoint is a short walk from the car park; the lowland trail below (D3) is steep, with a fixed rope, and not for young children."
+        },
+        "kid_note": "View the falls from the canyon rim, a few hundred metres from the car park. The D3 lowland trail down into the canyon is steep, has a fixed rope and a falling-rock risk, and the park says it is not for people afraid of heights.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-28",
+          "note": "A carrier suits the short rim walk; the D3 descent is not for carrying a child."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+            "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3"
+          ],
+          "note": "The rim path surface is not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+            "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3"
+          ],
+          "note": "No accessible route to the rim is described."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-28",
+              "tried": [
+                "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3"
+              ],
+              "note": "The length of the walk from the car park to the rim viewpoint is not published."
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            15,
+            45
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for the rim viewpoint.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "significant",
+            "fenced": null,
+            "where": "the canyon rim"
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-28",
+          "note": "The park warns of a steep, rocky slope and falling rocks on the lowland route; the rim is a cliff edge."
+        },
+        "walk_m": {
+          "v": 410,
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-28",
+          "note": "Straight line from the car park (way/658280966) to the OSM viewpoint node 2993677042; our estimate.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "limited",
+              "via": "road",
+              "note": "Route 864 is gravel; it closes when snow begins to fall in autumn and reopens in spring once the mud has dried (no fixed dates)"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "applies_to": "2026"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Steep rocky slope and falling rocks on the D3 lowland route"
+            },
+            {
+              "category": "road",
+              "note": "Gravel route 864, slow and closed with the autumn snow"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009",
+            "src-0008"
+          ],
+          "read": "2026-10-28"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 4,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/oxararfoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-28",
+          "note": "A short walk from the P2 car park below the falls."
+        },
+        "kid_note": "The falls drop into the Almannagjá rift a short walk above the P2 Efri-Vellir car park; keep children on the path along the gorge.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-28",
+          "note": "A short walk."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.thingvellir.is/en/",
+            "https://www.thingvellir.is/en/things-to-do/hiking-trails/"
+          ],
+          "note": "The path surface to the falls is not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.thingvellir.is/en/",
+            "https://www.thingvellir.is/en/service/parking-service/"
+          ],
+          "note": "No accessible route to the falls is described."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 0.4,
+              "state": "value",
+              "basis": "community",
+              "src": [
+                "src-0002"
+              ],
+              "read": "2026-10-28",
+              "note": "About 200 m each way from the P2 car park (straight line between the OSM elements); our estimate.",
+              "estimate": true
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            15,
+            40
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0010"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "the path beside the rift"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-28",
+          "note": "Our reading of the setting; no page describes railings."
+        },
+        "walk_m": {
+          "v": 210,
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-28",
+          "note": "Straight line from the P2 car park (way/169907450) to the waterfall node; the park says P2 is below Öxarárfoss.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.thingvellir.is/en/",
+            "https://www.thingvellir.is/en/service/parking-service/"
+          ],
+          "note": "No season for the P2 road is published; the parking service runs without a stated closing period."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 0.4,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/gljufrabui",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-28",
+          "note": "A walk along the cliff foot from the paid car park; the fall is inside a narrow canyon."
+        },
+        "kid_note": "The fall is partly hidden in a narrow canyon a short way north of the big Seljaland fall. Paths here are slippery and icy in winter, and the visitor board asks people to respect path closures.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-28",
+          "note": "A level walk along the cliff foot."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall"
+          ],
+          "note": "The path surface is not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall"
+          ],
+          "note": "No accessible route is described."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 1.4,
+              "state": "value",
+              "basis": "community",
+              "src": [
+                "src-0002"
+              ],
+              "read": "2026-10-28",
+              "note": "About 700 m each way from the paid car park (straight line between the OSM elements); our estimate.",
+              "estimate": true
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            20,
+            45
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "wet rock in the canyon"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-28",
+          "note": "Our reading: spray and ice make the canyon floor slippery."
+        },
+        "walk_m": {
+          "v": 690,
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-28",
+          "note": "Straight line from the car park (way/76051771) to the waterfall node; no car park is mapped closer.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Beside the Ring Road; in winter paths can be icy and may be closed"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-28",
+          "applies_to": "2026"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Slippery paths and falling ice near the cliffs in winter"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-28"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 1.4,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/gufufoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0013"
+          ],
+          "read": "2026-10-28",
+          "note": "Beside the road down to Seyðisfjörður."
+        },
+        "kid_note": "The falls sit right beside route 93 over Fjarðarheiði on the way down to Seyðisfjörður; watch for traffic at the roadside parking.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-28",
+          "note": "A roadside stop."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.east.is/en/place/gufufoss-waterfall"
+          ],
+          "note": "No path is described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.east.is/en/place/gufufoss-waterfall"
+          ],
+          "note": "No accessible viewpoint is described."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 0.5,
+              "state": "value",
+              "basis": "community",
+              "src": [
+                "src-0002"
+              ],
+              "read": "2026-10-28",
+              "note": "About 260 m each way from the roadside parking (straight line); our estimate.",
+              "estimate": true
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            10,
+            30
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0013"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for a roadside stop.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "the river bank"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-28",
+          "note": "Our reading of the setting."
+        },
+        "walk_m": {
+          "v": 260,
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-28",
+          "note": "Straight line from the parking (way/712989031) to the waterfall node.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Route 93 over the Fjarðarheiði mountain pass; check winter road conditions"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "read": "2026-10-28",
+          "quote": "The road over Fjarðaheiði lies next to the waterfall, and the access to it is very good.",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 0.5,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/strokkur",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0015"
+          ],
+          "read": "2026-10-28",
+          "note": "A walk on marked paths through the hot-spring area."
+        },
+        "kid_note": "Hold small hands: the pools and vents are boiling. Every visitor must stay on the marked walkways, and bathing or throwing anything into the springs is forbidden.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/about-the-area/",
+            "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service/"
+          ],
+          "note": "The walkway surface is not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/about-the-area/",
+            "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service/"
+          ],
+          "note": "No accessible route is described."
+        },
+        "on_site_min": {
+          "v": [
+            20,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0014"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate: a few eruptions and the walk through the area.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "partly",
+            "where": "boiling pools beside the walkways"
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "read": "2026-10-28",
+          "note": "The rules require visitors to keep to the marked walkways; the fencing is our reading."
+        },
+        "walk_m": {
+          "v": 430,
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-28",
+          "note": "Straight line from the public car park (way/194193955) to the geyser node.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Route 35; rangers patrol the area all year"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0016"
+          ],
+          "read": "2026-10-28",
+          "quote": "The area is patrolled all year round",
+          "applies_to": "2026"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "water",
+              "note": "Boiling water and hot ground: stay on the marked walkways"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "read": "2026-10-28"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-28",
+          "note": "Seen from the park road; going onto the glacier is a guided tour."
+        },
+        "kid_note": "Seen from Útnesvegur (route 574) through the national park; the park advises a guided tour for anyone who wants to go onto the glacier. No overnight stays inside the park.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/"
+          ],
+          "note": "No viewpoint for the glacier is described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/"
+          ],
+          "note": "No viewpoint for the glacier is described."
+        },
+        "on_site_min": {
+          "v": [
+            10,
+            30
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for a roadside look.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null,
+            "where": "the park road"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-28"
+        },
+        "walk_m": {
+          "v": 0,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-28",
+          "note": "Seen from the paved road through the park; the FAQ names roads 570 and F575 towards the glacier."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "The paved road through the park; roads 570 and F575 towards the glacier are not open all year"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-28",
+          "applies_to": "2026"
+        },
+        "altitude_m": {
+          "v": 1446,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018"
+          ],
+          "read": "2026-10-28",
+          "quote": "The Snæfellsjökull glacier is 1446m (4745 ft) above sea level.",
+          "note": "The page gives metres; 4745 ft is its own conversion (1446 m = 4744 ft)."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "glacier",
+              "note": "Glacier travel only with a tour company"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-28"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/reykjavik",
+      "kind": "town",
+      "subkind": "city",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://reykjavik.is/en",
+            "https://visitreykjavik.is/"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://reykjavik.is/en",
+            "https://visitreykjavik.is/"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/hofn",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.hornafjordur.is/",
+            "https://visitvatnajokull.is/"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.hornafjordur.is/",
+            "https://visitvatnajokull.is/"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/akureyri",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.akureyri.is/",
+            "https://www.visitakureyri.is/en"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.akureyri.is/",
+            "https://www.visitakureyri.is/en"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/fossholl",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.thingeyjarsveit.is/",
+            "https://www.northiceland.is/en"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.thingeyjarsveit.is/",
+            "https://www.northiceland.is/en"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/reykjahlid",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.thingeyjarsveit.is/",
+            "https://www.visitmyvatn.is/"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.thingeyjarsveit.is/",
+            "https://www.visitmyvatn.is/"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/varmahli",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.skagafjordur.is/",
+            "https://www.visitskagafjordur.is/"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.skagafjordur.is/",
+            "https://www.visitskagafjordur.is/"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/skogar",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.hvolsvollur.is/",
+            "https://www.south.is/en"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.hvolsvollur.is/",
+            "https://www.south.is/en"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.klaustur.is/",
+            "https://www.klaustur.is/visitklaustur/skoda-og-sja"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.klaustur.is/",
+            "https://www.klaustur.is/visitklaustur/skoda-og-sja"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.vik.is/is/",
+            "https://visitvik.is/"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.vik.is/is/",
+            "https://visitvik.is/"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/grindavik",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.grindavik.is/"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.grindavik.is/"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.grundarfjordur.is/",
+            "https://www.west.is/en"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.grundarfjordur.is/",
+            "https://www.west.is/en"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

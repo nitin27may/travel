@@ -1195,6 +1195,12 @@
       "coord_src": "osm",
       "point_source": "OSM node 9861910524 Cascate di Fanes (waterway=waterfall); Wikidata Q67370898 P625 46.594517,12.084188 is 70 m away and the belvedere the official route ends at (node 1398755045 'Punto panoramico Cascate di Fanes') 130 m; Cortina tourism https://cortina.dolomiti.org/it/escursioni/botanical-path-to-the-cascate-di-fanes-en; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
+    "part/place/cerro-castor#base-parking": {
+      "lat": -54.7245,
+      "lon": -68.01552,
+      "coord_src": "osm",
+      "point_source": "OSM way 905218501 unnamed car park beside the base (amenity=parking), 170 m from the base node; agent checked, needs a person's check"
+    },
     "part/place/columbia-river-gorge#beacon-rock-lot": {
       "lat": 45.62803,
       "lon": -122.02308,
@@ -1219,11 +1225,23 @@
       "coord_src": "osm",
       "point_source": "OSM node 1825738077 Haunold - Monte Baranci chairlift top station, where the Funbob run starts"
     },
+    "part/place/gljufrabui#seljalandsfoss-parking": {
+      "lat": 63.61546,
+      "lon": -19.99333,
+      "coord_src": "osm",
+      "point_source": "OSM way 76051771 named 'Seljalandsfoss' (amenity=parking, fee=yes); agent checked, needs a person's check"
+    },
     "part/place/grand-teton-national-park#moose-visitor-center-lot": {
       "lat": 43.65479,
       "lon": -110.71812,
       "coord_src": "osm",
       "point_source": "OSM way/1074969530 amenity=parking, 160 m north of the OSM Craig Thomas Discovery and Visitor Center (way/325323599)"
+    },
+    "part/place/gufufoss#roadside-parking": {
+      "lat": 65.24093,
+      "lon": -14.05247,
+      "coord_src": "osm",
+      "point_source": "OSM way 712989031 unnamed street-side parking on route 93 (amenity=parking, parking=street_side); agent checked, needs a person's check"
     },
     "part/place/gurudongmar-lake#road-end": {
       "lat": 28.01927,
@@ -1236,6 +1254,12 @@
       "lon": 107.05571,
       "coord_src": "osm",
       "point_source": "OSM node 12759133301 'Cang tau khach quoc te Ha Long' (amenity=ferry_terminal), the Bai Chay passenger port; vietnam.travel names Tuan Chau and Bai Chay as the cruise ports"
+    },
+    "part/place/hafragilsfoss#parking": {
+      "lat": 65.8361,
+      "lon": -16.39987,
+      "coord_src": "osm",
+      "point_source": "OSM way 658280966 named 'Hafragilsfoss' (amenity=parking, fee=no); agent checked, needs a person's check"
     },
     "part/place/havasupai-havasu-falls#hualapai-hilltop-lot": {
       "lat": 36.15925,
@@ -1278,6 +1302,12 @@
       "lon": -116.06937,
       "coord_src": "osm",
       "point_source": "OSM way/390022967 (Kootenay National Park Visitor Centre (Radium Hot Springs)), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+    },
+    "part/place/la-flegere#les-praz-parking": {
+      "lat": 45.94139,
+      "lon": 6.88559,
+      "coord_src": "osm",
+      "point_source": "OSM way 758067054 unnamed public car park beside the Flégère valley station at Les Praz (amenity=parking, fee=no); agent checked, needs a person's check"
     },
     "part/place/la-martre-lighthouse#parking": {
       "lat": 49.20665,
@@ -1471,11 +1501,23 @@
       "coord_src": "osm",
       "point_source": "OSM relation/17713933 amenity=parking, about 40 m from the OSM North Cascades National Park Visitor Center (way/184708189)"
     },
+    "part/place/oxararfoss#p2-efri-vellir": {
+      "lat": 64.265,
+      "lon": -21.11422,
+      "coord_src": "osm",
+      "point_source": "OSM way 169907450 named 'Oxararfoss P2 Fossplan' (amenity=parking, fee=yes); agent checked, needs a person's check"
+    },
     "part/place/paddys-flat#campground-parking": {
       "lat": 50.88099,
       "lon": -114.71052,
       "coord_src": "osm",
       "point_source": "OSM way/1380471053 named 'Paddy's Flat - Group Camping Area' (amenity=parking, paved); agent checked, needs a person's check"
+    },
+    "part/place/perito-moreno-glacier#walkways-parking": {
+      "lat": -50.46272,
+      "lon": -73.02405,
+      "coord_src": "osm",
+      "point_source": "OSM way 1259804791 unnamed public car park by the walkways (amenity=parking, fee=no, access=yes); agent checked, needs a person's check"
     },
     "part/place/pic-champlain#parking": {
       "lat": 48.3106,
@@ -1495,6 +1537,12 @@
       "coord_src": "osm",
       "point_source": "OSM way 42881996 Fussballplatz St. Sigmund (leisure=pitch), the sports ground of San Sigismondo with the pitches 1134655979 and 1134655980; Rafting Club Activ https://www.rafting-club-activ.com/en/contact/ gives 'Meeting point Rienz / Eisack: Sports zone St. Sigmund'"
     },
+    "part/place/rifugio-fondovalle#val-fiscalina-parking": {
+      "lat": 46.66739,
+      "lon": 12.35342,
+      "coord_src": "osm",
+      "point_source": "OSM way 98002215 unnamed paid car park at the road end in Val Fiscalina (amenity=parking, fee=yes, gravel); agent checked, needs a person's check"
+    },
     "part/place/sass-pordoi-and-piz-boe#payoff": {
       "lat": 46.50901,
       "lon": 11.82823,
@@ -1512,6 +1560,18 @@
       "lon": -116.05204,
       "coord_src": "osm",
       "point_source": "OSM way/222249120 (amenity=parking) on Highway 93 inside the canyon; agent checked, needs a person's check"
+    },
+    "part/place/skaftafell#skaftafellsstofa": {
+      "lat": 64.01667,
+      "lon": -16.96633,
+      "coord_src": "osm",
+      "point_source": "OSM way 200175906 Skaftafellsstofa (tourism=information, information=office); agent checked, needs a person's check"
+    },
+    "part/place/strokkur#geysir-parking": {
+      "lat": 64.30905,
+      "lon": -20.3035,
+      "coord_src": "osm",
+      "point_source": "OSM way 194193955 unnamed public car park at Geysir (amenity=parking, fee=yes, operator Parka); agent checked, needs a person's check"
     },
     "part/place/tre-cime-di-lavaredo-loop#auronzo-car-park": {
       "lat": 46.61356,
@@ -1777,6 +1837,12 @@
       "coord_src": "osm",
       "point_source": "snapshot trailhead of munkel osm_node 9812786780"
     },
+    "place/akureyri": {
+      "lat": 65.68264,
+      "lon": -18.0913,
+      "coord_src": "osm",
+      "point_source": "OSM node 242107681 Akureyri (place=city); agent checked, needs a person's check"
+    },
     "place/alpe-di-siusi": {
       "lat": 46.54236,
       "lon": 11.617,
@@ -1903,6 +1969,12 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata Q49152 P625,; a point on the peninsula"
     },
+    "place/capitol-reef-national-park-visitor-center": {
+      "lat": 38.29145,
+      "lon": -111.26204,
+      "coord_src": "osm",
+      "point_source": "OSM relation 14504383 Capitol Reef National Park Visitor Center (tourism=information), centre of the building; agent checked, needs a person's check"
+    },
     "place/capri": {
       "lat": 40.55,
       "lon": 14.23333,
@@ -1915,6 +1987,24 @@
       "coord_src": "osm",
       "point_source": "OSM node 470623991 Centro visitatori del parco (tourism=information, office), the Ampezzo Dolomites park information point by Ponte Felizon; Cortina tourism (the route page above): 'Start: Ufficio informazioni del Parco', path 10, 7 km return, +249 m. This beats the snapshot trailhead (OSM node 7920730765 at Pian de Loa), which is where the stored OSM track starts, 2 km along the route; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
+    "place/castelrotto": {
+      "lat": 46.56784,
+      "lon": 11.55968,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q377319 P625 (Kastelruth); agent checked, needs a person's check"
+    },
+    "place/cerro-castor": {
+      "lat": -54.72373,
+      "lon": -68.01782,
+      "coord_src": "osm",
+      "point_source": "OSM node 2643657602 Cerro Castor (leisure=sports_centre, sport=skiing), the base; agent checked, needs a person's check"
+    },
+    "place/chamonix-mont-blanc": {
+      "lat": 45.9231,
+      "lon": 6.87,
+      "coord_src": "osm",
+      "point_source": "OSM node 26696275 Chamonix-Mont-Blanc (place=town); agent checked, needs a person's check"
+    },
     "place/chancellor-peak": {
       "lat": 51.22317,
       "lon": -116.51097,
@@ -1926,6 +2016,12 @@
       "lon": 12.05397,
       "coord_src": "wikidata",
       "point_source": "Q933666 P625"
+    },
+    "place/collegiate-church-of-san-candido": {
+      "lat": 46.73289,
+      "lon": 12.28268,
+      "coord_src": "osm",
+      "point_source": "OSM way 216694096 Stiftskirche (amenity=place_of_worship, building=church), centre of the building; agent checked, needs a person's check"
     },
     "place/columbia-river-gorge": {
       "lat": 45.70472,
@@ -1957,6 +2053,12 @@
       "coord_src": "wikidata",
       "point_source": "Q380189 P625"
     },
+    "place/dobbiaco-railway-station": {
+      "lat": 46.7248,
+      "lon": 12.22546,
+      "coord_src": "osm",
+      "point_source": "OSM node 6738731097 Toblach - Dobbiaco (railway=station); agent checked, needs a person's check"
+    },
     "place/dolomites": {
       "lat": 46.61306,
       "lon": 12.16306,
@@ -1974,6 +2076,12 @@
       "lon": -107.88,
       "coord_src": "wikidata",
       "point_source": "Wikidata Q1012665 P625"
+    },
+    "place/el-chalten": {
+      "lat": -49.33196,
+      "lon": -72.88604,
+      "coord_src": "osm",
+      "point_source": "OSM node 255706152 El Chaltén (place=village); agent checked, needs a person's check"
     },
     "place/factory-butte": {
       "lat": 38.43694,
@@ -1999,11 +2107,23 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata P625 of Q2044 (43.77139, 11.25417)"
     },
+    "place/fossholl": {
+      "lat": 65.68565,
+      "lon": -17.53951,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q134328943 P625 (Fosshóll); agent checked, needs a person's check"
+    },
     "place/funbob-monte-baranci": {
       "lat": 46.725,
       "lon": 12.27,
       "coord_src": "prototype",
       "point_source": "snapshot place funbob (approximate)"
+    },
+    "place/gljufrabui": {
+      "lat": 63.62076,
+      "lon": -19.98634,
+      "coord_src": "osm",
+      "point_source": "OSM node 2534116947 Gljúfrabúi (waterway=waterfall); agent checked, needs a person's check"
     },
     "place/golden": {
       "lat": 51.29923,
@@ -2017,6 +2137,24 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata Q222695 P625,; a point inside the park, not an entrance"
     },
+    "place/grindavik": {
+      "lat": 63.84424,
+      "lon": -22.43175,
+      "coord_src": "osm",
+      "point_source": "OSM node 244149207 Grindavík (place=town); agent checked, needs a person's check"
+    },
+    "place/grundarfjordur": {
+      "lat": 64.92503,
+      "lon": -23.2593,
+      "coord_src": "osm",
+      "point_source": "OSM node 126199675 Grundarfjörður (place=town); it carries wikidata Q1019459, not the store's Q27014314; agent checked, needs a person's check"
+    },
+    "place/gufufoss": {
+      "lat": 65.23995,
+      "lon": -14.0575,
+      "coord_src": "osm",
+      "point_source": "OSM node 3101158567 Gufufoss (waterway=waterfall); agent checked, needs a person's check"
+    },
     "place/gurudongmar-lake": {
       "lat": 28.02,
       "lon": 88.71,
@@ -2028,6 +2166,12 @@
       "lon": 107.2,
       "coord_src": "wikidata",
       "point_source": "Wikidata Q190128 P625 (20.9, 107.2) at 1 arc-minute precision; the bay spans about 1,500 km2 (OSM relation 19465352)"
+    },
+    "place/hafragilsfoss": {
+      "lat": 65.8321,
+      "lon": -16.39997,
+      "coord_src": "osm",
+      "point_source": "OSM node 3050633634 Hafragilsfoss (waterway=waterfall); agent checked, needs a person's check"
     },
     "place/hanoi": {
       "lat": 21.0245,
@@ -2046,6 +2190,12 @@
       "lon": -114.9845,
       "coord_src": "osm",
       "point_source": "OSM node/1339315277 Highwood Pass (natural=saddle, ele 2206); agent checked, needs a person's check"
+    },
+    "place/hofn": {
+      "lat": 64.25326,
+      "lon": -15.20804,
+      "coord_src": "osm",
+      "point_source": "OSM node 249085731 Höfn (place=town); agent checked, needs a person's check"
     },
     "place/jasper": {
       "lat": 52.87523,
@@ -2083,11 +2233,23 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata Q995915 P625 (Kennecott townsite),; matches OSM node 654578203 Kennecott Mines National Historic Landmark. The trip itself starts at the operator's base in McCarthy (OSM place node 150916666, about 7 km away)."
     },
+    "place/kirkjubaejarklaustur": {
+      "lat": 63.79306,
+      "lon": -18.04186,
+      "coord_src": "osm",
+      "point_source": "OSM node 60472743 Kirkjubæjarklaustur (place=village); Wikidata's P625 is 3.2 km south-west; agent checked, needs a person's check"
+    },
     "place/kootenay-national-park": {
       "lat": 50.61959,
       "lon": -116.06937,
       "coord_src": "osm",
       "point_source": "OSM way/390022967, Kootenay National Park Visitor Centre (Radium Hot Springs): the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
+    },
+    "place/la-flegere": {
+      "lat": 45.9611,
+      "lon": 6.88559,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q3209029 P625 (La Flégère), 140 m from the gondola top station (OSM node 275376985, ele 1895); agent checked, needs a person's check"
     },
     "place/la-martre-lighthouse": {
       "lat": 49.20612,
@@ -2341,6 +2503,12 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata Q1163799 P625,; a point inside the park, not an entrance"
     },
+    "place/nova-levante": {
+      "lat": 46.43023,
+      "lon": 11.53895,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q433287 P625 (Welschnofen); agent checked, needs a person's check"
+    },
     "place/olympic-peninsula": {
       "lat": 47.79833,
       "lon": -123.61806,
@@ -2364,6 +2532,12 @@
       "lon": -107.672,
       "coord_src": "wikidata",
       "point_source": "Wikidata Q1759444 P625,; matches OSM node 151877085 Ouray (place=village)"
+    },
+    "place/oxararfoss": {
+      "lat": 64.26583,
+      "lon": -21.11805,
+      "coord_src": "osm",
+      "point_source": "OSM node 312688011 Öxarárfoss (waterway=waterfall); agent checked, needs a person's check"
     },
     "place/paddys-flat": {
       "lat": 50.87859,
@@ -2395,6 +2569,12 @@
       "coord_src": "wikidata",
       "point_source": "locations.json CA/QC/perce/perce-rock"
     },
+    "place/perito-moreno-glacier": {
+      "lat": -50.49322,
+      "lon": -73.12798,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q367943 P625 (Perito Moreno Glacier); agent checked, needs a person's check"
+    },
     "place/pic-champlain": {
       "lat": 48.32833,
       "lon": -68.83528,
@@ -2419,6 +2599,24 @@
       "coord_src": "prototype",
       "point_source": "snapshot place rafting (approximate)"
     },
+    "place/reykjahlid": {
+      "lat": 65.64156,
+      "lon": -16.91001,
+      "coord_src": "osm",
+      "point_source": "OSM node 270961115 Reykjahlíð (place=village); agent checked, needs a person's check"
+    },
+    "place/reykjavik": {
+      "lat": 64.14598,
+      "lon": -21.94224,
+      "coord_src": "osm",
+      "point_source": "OSM node 2107832620 Reykjavík (place=city); agent checked, needs a person's check"
+    },
+    "place/rifugio-fondovalle": {
+      "lat": 46.65138,
+      "lon": 12.35387,
+      "coord_src": "osm",
+      "point_source": "OSM way 96096595 Talschlusshütte Fischleintal - Rifugio Fondovalle (tourism=alpine_hut); agent checked, needs a person's check"
+    },
     "place/rifugio-nuvolau-and-averau": {
       "lat": 46.49524,
       "lon": 12.04573,
@@ -2437,11 +2635,23 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata P625 of Q220 (41.89306, 12.48278)"
     },
+    "place/salt-lake-city": {
+      "lat": 40.75962,
+      "lon": -111.8868,
+      "coord_src": "osm",
+      "point_source": "OSM node 150935219 Salt Lake City (place=city); agent checked, needs a person's check"
+    },
     "place/san-candido": {
       "lat": 46.73287,
       "lon": 12.27917,
       "coord_src": "wikidata",
       "point_source": "Q474782 P625"
+    },
+    "place/san-cassiano": {
+      "lat": 46.57114,
+      "lon": 11.93209,
+      "coord_src": "osm",
+      "point_source": "OSM node 223597157 San Ćiascian - St. Kassian - San Cassiano (place=village); agent checked, needs a person's check"
     },
     "place/san-vito-di-cadore": {
       "lat": 46.45897,
@@ -2497,6 +2707,24 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata Q22629068 P625 (Sinclair Canyon); agent checked, needs a person's check"
     },
+    "place/skaftafell": {
+      "lat": 64.01663,
+      "lon": -16.9672,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q3486103 P625 (Skaftafell); agent checked, needs a person's check"
+    },
+    "place/skogar": {
+      "lat": 63.52695,
+      "lon": -19.49443,
+      "coord_src": "osm",
+      "point_source": "OSM node 1385855484 Skógar (place=hamlet); agent checked, needs a person's check"
+    },
+    "place/snaefellsjokull": {
+      "lat": 64.80712,
+      "lon": -23.77623,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1315012 P625 (Snæfellsjökull); agent checked, needs a person's check"
+    },
     "place/sorrento-and-the-amalfi-coast": {
       "lat": 40.63333,
       "lon": 14.6,
@@ -2520,6 +2748,12 @@
       "lon": -72.68456,
       "coord_src": "wikidata",
       "point_source": "Wikidata Q550498 P625"
+    },
+    "place/strokkur": {
+      "lat": 64.3127,
+      "lon": -20.30077,
+      "coord_src": "osm",
+      "point_source": "OSM node 270943513 Strokkur (natural=geyser); agent checked, needs a person's check"
     },
     "place/tre-cime-di-lavaredo-loop": {
       "lat": 46.61203,
@@ -2545,17 +2779,41 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata Q7346507 P625 (Upper Kananaskis Lake); agent checked, needs a person's check"
     },
+    "place/ushuaia": {
+      "lat": -54.80731,
+      "lon": -68.30841,
+      "coord_src": "osm",
+      "point_source": "OSM node 198432092 Ushuaia (place=town); agent checked, needs a person's check"
+    },
     "place/val-fiscalina": {
       "lat": 46.66684,
       "lon": 12.35448,
       "coord_src": "osm",
       "point_source": "snapshot trailhead of fiscalina osm_node 12456211537"
     },
+    "place/val-gardena": {
+      "lat": 46.56,
+      "lon": 11.70472,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q384885 P625 (Val Gardena); agent checked, needs a person's check"
+    },
+    "place/vallorcine-railway-station": {
+      "lat": 46.03248,
+      "lon": 6.93267,
+      "coord_src": "osm",
+      "point_source": "OSM node 9543361428 Vallorcine (railway=station); agent checked, needs a person's check"
+    },
     "place/vallunga": {
       "lat": 46.56395,
       "lon": 11.77359,
       "coord_src": "osm",
       "point_source": "snapshot trailhead of vallunga osm_node 6635822140"
+    },
+    "place/varmahli": {
+      "lat": 65.55324,
+      "lon": -19.44748,
+      "coord_src": "osm",
+      "point_source": "OSM node 244149690 Varmahlíð (place=village); agent checked, needs a person's check"
     },
     "place/venice": {
       "lat": 45.43972,
@@ -2574,6 +2832,12 @@
       "lon": 11.81296,
       "coord_src": "osm",
       "point_source": "snapshot trailhead of viel-dal-pan osm_node 469726063"
+    },
+    "place/vik-i-myrdal": {
+      "lat": 63.41882,
+      "lon": -19.00547,
+      "coord_src": "osm",
+      "point_source": "OSM node 59861511 Vík (place=village); agent checked, needs a person's check"
     },
     "place/waterton-park": {
       "lat": 49.05092,

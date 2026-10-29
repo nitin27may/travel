@@ -1,0 +1,1013 @@
+{
+  "schema": "capture/1",
+  "trip": "catalogue",
+  "lane": "LT2-it",
+  "researched": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://query.wikidata.org/sparql",
+      "title": "Wikidata items of the LT-2 places (labels, P31, P625, P1566, P856, P402, P2044, P6375, P281)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap elements by id, car parks, stations and information points near each place (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://nominatim.openstreetmap.org/reverse",
+      "title": "Nominatim reverse lookups of the access points (zoom 16 and 18)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoib8f7d742e2a641d0aa2b1a2f0fd9d4e1.collegiate-church.prato-alla-drava-winnebach",
+      "title": "The Collegiate Church in San Candido",
+      "publisher": "IDM Südtirol (suedtirol.info)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.dreizinnen.com/de/region/ferienorte/innichen",
+      "title": "Innichen / San Candido",
+      "publisher": "Tourismusverband Drei Zinnen Dolomites",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoi90c79655dabf128bbb73c724b7aac2e6.dobbiaco-station.dobbiaco-nuova-neutoblach",
+      "title": "Dobbiaco station",
+      "publisher": "IDM Südtirol (suedtirol.info)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.suedtirolmobil.info/en/",
+      "title": "südtirolmobil: public transport timetables",
+      "publisher": "südtirolmobil (Autonomous Province of Bolzano)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.talschlusshuette.com/en/",
+      "title": "Talschlusshütte / Rifugio Fondovalle",
+      "publisher": "Talschlusshütte / Rifugio Fondovalle",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.talschlusshuette.com/en/rooms-prices/",
+      "title": "Talschlusshütte: rooms and prices",
+      "publisher": "Talschlusshütte / Rifugio Fondovalle",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.talschlusshuette.com/en/arrival/",
+      "title": "Talschlusshütte: how to reach the Fiscalina valley",
+      "publisher": "Talschlusshütte / Rifugio Fondovalle",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.valgardena.it/en/",
+      "title": "Val Gardena",
+      "publisher": "Val Gardena-Gröden Marketing",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.comune.castelrotto.bz.it/de",
+      "title": "Gemeinde Kastelruth / Comune di Castelrotto",
+      "publisher": "Gemeinde Kastelruth",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.seiseralm.it/en/summer-holiday-south-tyrol.html",
+      "title": "Seiser Alm Marketing: summer holiday in South Tyrol",
+      "publisher": "Seiser Alm Marketing",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.comune.novalevante.bz.it/it",
+      "title": "Comune di Nova Levante / Gemeinde Welschnofen",
+      "publisher": "Comune di Nova Levante",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://eggental.com/en",
+      "title": "Eggental Tourismus",
+      "publisher": "Eggental Tourismus",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://www.comune.badia.bz.it/de",
+      "title": "Gemeinde Abtei / Comune di Badia",
+      "publisher": "Gemeinde Abtei",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://www.altabadia.org/en/",
+      "title": "Alta Badia",
+      "publisher": "Alta Badia Tourist Board",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "type": "culture.heritage.religious_site",
+      "layer": "place",
+      "near_town": {
+        "v": "it-32-san-candido",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3168508, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Collegiate Church of San Candido",
+      "names": {
+        "de": "Stiftskirche Innichen",
+        "it": "Collegiata di San Candido"
+      },
+      "area_id": "IT/trentino-alto-adige/bolzano",
+      "osm_ref": {
+        "v": "way/216694096",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the church building tagged with the store QID (amenity=place_of_worship, name Stiftskirche)"
+      },
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Via dei Canonici"
+          ],
+          "locality": "San Candido",
+          "postcode": "39038"
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup of the church point (2026-10-28); the official page gives only the tourist board's address. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "season": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "the suedtirol.info church page (its 'Opening hours' block is empty)",
+          "https://www.dreizinnen.com/de/region/ferienorte/innichen"
+        ],
+        "note": "No opening season is published on the pages read."
+      },
+      "hours": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "the suedtirol.info church page (its 'Opening hours' block is empty)",
+          "https://www.dreizinnen.com/de/region/ferienorte/innichen"
+        ],
+        "note": "No opening hours are published on the pages read; the tourist board in Innichen is named for information."
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "the suedtirol.info church page",
+          "https://www.dreizinnen.com/de/region/ferienorte/innichen"
+        ],
+        "note": "No admission is stated."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoib8f7d742e2a641d0aa2b1a2f0fd9d4e1.collegiate-church.prato-alla-drava-winnebach",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.dreizinnen.com/de/region/ferienorte/innichen",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q549129",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "type": "access.transit.station",
+      "layer": "place",
+      "near_town": {
+        "v": "it-32-dobbiaco",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177571, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Dobbiaco station",
+      "names": {
+        "de": "Bahnhof Toblach"
+      },
+      "area_id": "IT/trentino-alto-adige/bolzano",
+      "osm_ref": {
+        "v": "node/6738731097",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the station node tagged with the store QID (railway=station)"
+      },
+      "parks_for": [
+        "place/dobbiaco",
+        "place/lago-di-dobbiaco"
+      ],
+      "address": {
+        "v": {
+          "kind": "postal",
+          "lines": [
+            "Via Dolomiti"
+          ],
+          "locality": "Dobbiaco",
+          "postcode": "39034"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-28",
+        "note": "As the official South Tyrol page writes it (Via Dolomiti/Dolomitenstr., 39034 Dobbiaco/Toblach); the house number is left out.",
+        "conflicts": [
+          {
+            "v": {
+              "kind": "postal",
+              "lines": [
+                "Via Stazione"
+              ],
+              "locality": "Dobbiaco",
+              "postcode": null
+            },
+            "basis": "community",
+            "src": [
+              "src-0001"
+            ],
+            "note": "Wikidata Q3969534 P6375 gives 'Via Stazione'"
+          }
+        ]
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoi90c79655dabf128bbb73c724b7aac2e6.dobbiaco-station.dobbiaco-nuova-neutoblach",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "timetable",
+          "url": "https://www.suedtirolmobil.info/en/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0007"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "type": "stay.mountain.hut",
+      "layer": "place",
+      "near_town": {
+        "v": "it-32-san-candido",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3168508, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 10.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Rifugio Fondovalle",
+      "names": {
+        "de": "Talschlusshütte"
+      },
+      "area_id": "IT/trentino-alto-adige/bolzano",
+      "osm_ref": {
+        "v": "way/96096595",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the hut building tagged with the store QID (tourism=alpine_hut, ele 1526)"
+      },
+      "address": {
+        "v": {
+          "kind": "postal",
+          "lines": [
+            "Via Val Fiscalina"
+          ],
+          "locality": "Sexten/Sesto",
+          "postcode": "39030"
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-28",
+        "note": "As the hut writes it (Via Val Fiscalina, 39030 Sexten/Sesto); the house number is left out. The hut is reached only on foot."
+      },
+      "season": {
+        "v": [
+          {
+            "from": "05-22",
+            "to": "10-20",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "opened 22 May 2026; summer season from mid May to about 20 October"
+          },
+          {
+            "from": "12-25",
+            "to": "03-28",
+            "status": "open",
+            "applies_to": "2027",
+            "note": "winter season from Christmas to Easter (Easter Sunday 2027 is 28 March); overnight stays in winter for groups of at least 10"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0008",
+          "src-0009"
+        ],
+        "read": "2026-10-28",
+        "note": "Closed from about 20 October to Christmas and from Easter to mid May."
+      },
+      "hours": {
+        "v": {
+          "tz": "Europe/Rome",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "11:00",
+              "close": "18:00",
+              "from": "05-22",
+              "to": "10-20"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "11:00",
+              "close": "16:00",
+              "from": "12-25",
+              "to": "03-28"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0008",
+          "src-0009"
+        ],
+        "read": "2026-10-28",
+        "note": "Kitchen hours; in the low season the hut takes Thursday off; longer hours for overnight guests; breakfast 07:00 to 09:00.",
+        "conflicts": [
+          {
+            "v": {
+              "tz": "Europe/Rome",
+              "periods": [
+                {
+                  "days": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7
+                  ],
+                  "open": "11:00",
+                  "close": "18:30",
+                  "from": "05-22",
+                  "to": "10-20"
+                }
+              ]
+            },
+            "basis": "operator_info",
+            "src": [
+              "src-0010"
+            ],
+            "note": "the arrival page gives the summer kitchen hours as 11:00 to 18:30"
+          }
+        ]
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 42,
+            "currency": "EUR",
+            "per": "person_night",
+            "applies_to": "2026",
+            "note": "overnight stay, tourist tax of EUR 2.50 included"
+          },
+          {
+            "amount": 50,
+            "currency": "EUR",
+            "per": "person_night",
+            "applies_to": "2026",
+            "note": "overnight stay with breakfast"
+          },
+          {
+            "amount": 80,
+            "currency": "EUR",
+            "per": "person_night",
+            "applies_to": "2026",
+            "note": "half board"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0009"
+        ],
+        "read": "2026-10-28",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.talschlusshuette.com/en/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0008"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://www.talschlusshuette.com/en/rooms-prices/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q113433241",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "part/place/rifugio-fondovalle#val-fiscalina-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "it-32-san-candido",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3168508, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 9.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Val Fiscalina car park (Fischleintal)",
+      "area_id": "IT/trentino-alto-adige/bolzano",
+      "osm_ref": {
+        "v": "way/98002215",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "unnamed paid car park at the road end in Val Fiscalina (amenity=parking, fee=yes, gravel)"
+      },
+      "parks_for": [
+        "place/rifugio-fondovalle",
+        "place/val-fiscalina"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Via Val Fiscalina"
+          ],
+          "locality": "Sesto",
+          "postcode": "39030"
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28). The hut names a paid car park about 2 km from the hut; this is the OSM car park at that distance, which a person should confirm. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.talschlusshuette.com/en/arrival/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0010"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/val-gardena",
+      "type": "nature.landform.valley",
+      "layer": "place",
+      "near_town": {
+        "v": "it-32-santa-cristina-valgardena",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3167680, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 2.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Val Gardena",
+      "names": {
+        "de": "Grödnertal",
+        "lld": "Gherdëina"
+      },
+      "area_id": "IT/trentino-alto-adige/bolzano",
+      "osm_ref": {
+        "v": "way/338449531",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the valley line (natural=valley) tagged with the store QID",
+        "conflicts": [
+          {
+            "v": "relation/10732928",
+            "basis": "community",
+            "src": [
+              "src-0001"
+            ],
+            "note": "Wikidata P402 names relation 10732928, which OSM tags as the Val Gardena ski area (tourism=winter_sports, wikidata Q60726811), not the valley"
+          }
+        ]
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://www.valgardena.it/en/"
+        ],
+        "note": "No best weeks are published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.valgardena.it/en/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0011"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q384885",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Val_Gardena",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/castelrotto",
+      "type": "settlement.village",
+      "layer": "place",
+      "near_town": {
+        "v": "it-32-castelrotto",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3179493, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Castelrotto",
+      "area_id": "IT/trentino-alto-adige/bolzano",
+      "osm_ref": {
+        "v": "relation/47234",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the comune boundary tagged with the store QID and Wikidata's P402"
+      },
+      "geonames_id": {
+        "v": "6535890",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q377319 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.comune.castelrotto.bz.it/de",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0012"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.seiseralm.it/en/summer-holiday-south-tyrol.html",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0013"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q377319",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Kastelruth",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/nova-levante",
+      "type": "settlement.village",
+      "layer": "place",
+      "near_town": {
+        "v": "it-32-nova-levante",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3172192, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Nova Levante",
+      "area_id": "IT/trentino-alto-adige/bolzano",
+      "osm_ref": {
+        "v": "relation/47164",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the comune boundary tagged with the store QID and Wikidata's P402"
+      },
+      "geonames_id": {
+        "v": "6535913",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q433287 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.comune.novalevante.bz.it/it",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0014"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://eggental.com/en",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0015"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q433287",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Welschnofen",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/san-cassiano",
+      "type": "settlement.village",
+      "layer": "place",
+      "near_town": {
+        "v": "it-32-la-valle-wengen",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6534567, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 9.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "San Cassiano",
+      "area_id": "IT/trentino-alto-adige/bolzano",
+      "osm_ref": {
+        "v": "node/223597157",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the village node tagged with the store QID"
+      },
+      "geonames_id": {
+        "v": "3168493",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q519474 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.comune.badia.bz.it/de",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0016"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.altabadia.org/en/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0017"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q519474",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    }
+  ]
+}

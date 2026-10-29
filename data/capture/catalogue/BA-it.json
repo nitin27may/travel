@@ -712,6 +712,12 @@
           ]
         },
         {
+          "kind": "tourism_board",
+          "state": "searched_none",
+          "on": "2026-10-28",
+          "query": "the City of Venice tourism portal https://www.veneziaunica.it/en (2026-10-28): the host answered with a bot-check page, not a readable page"
+        },
+        {
           "kind": "osm",
           "url": "https://www.openstreetmap.org/relation/44741",
           "state": "filled",

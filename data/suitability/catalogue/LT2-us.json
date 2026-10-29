@@ -1,0 +1,132 @@
+{
+  "schema": "suitability/1",
+  "trip": "catalogue",
+  "lane": "LT2-us",
+  "researched": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0004",
+      "url": "https://www.nps.gov/care/planyourvisit/hours.htm",
+      "title": "Operating Hours & Seasons, Capitol Reef National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "kind": "sight",
+      "subkind": "visitor_centre",
+      "suitability": {
+        "kid_note": "The park's visitor centre on SR 24 near Fruita; the Gifford House store and museum nearby is open March 14 to late November, 9:00 to 16:30.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.nps.gov/care/planyourvisit/hours.htm"
+          ],
+          "note": "No access details are given on the hours page."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.nps.gov/care/planyourvisit/hours.htm"
+          ],
+          "note": "No access details are given on the hours page."
+        },
+        "on_site_min": {
+          "v": [
+            20,
+            45
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for the exhibits and ranger desk.",
+          "estimate": true
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "kind": "town",
+      "subkind": "city",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.slc.gov/",
+            "https://www.visitsaltlake.com/"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.slc.gov/",
+            "https://www.visitsaltlake.com/"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

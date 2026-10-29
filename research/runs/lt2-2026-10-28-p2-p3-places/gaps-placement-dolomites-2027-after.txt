@@ -1,0 +1,6 @@
+Placement gaps: dolomites-2027
+records 76 · no area 2 · no point 0 · approximate 1 · no nearest town 0 · outside its area 0 · offers saying nowhere 0
+  part/place/rafting-on-the-rienza#place                       no area          role centre      hint: capture.ts derive-area (parent, then point); else a new area in the locations store
+  place/drava-cycle-path-to-lienz                              no area          role route_start hint: capture.ts derive-area (parent, then point); else a new area in the locations store
+
+all: records 76 · no area 2 · no point 0 · approximate 1 · no nearest town 0 (derived by META-2) · outside its area 0 · offers saying nowhere 0

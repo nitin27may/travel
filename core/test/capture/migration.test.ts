@@ -93,10 +93,11 @@ describe("the committed migration (counts)", () => {
   it("every operator names the publisher of an operator page behind a value, and keeps where it was taken from", () => {
     const ops = [...world.operators.values()];
     // the 10 operators the migration wrote must stay; research lanes add more (DATA-D4a: 13, so 23 on 25 Oct 2026; DATA-D2b-int adds the Gulong Gorge operator, so 24;
-    // PA-R-CA adds Alberta Parks and Roam Transit, so 26; LT-1 adds BC Parks, the National Park Service and the USDA Forest Service, so 29)
+    // PA-R-CA adds Alberta Parks and Roam Transit, so 26; LT-1 adds BC Parks, the National Park Service and the USDA Forest Service, so 29;
+    // LT-2 adds Vatnajökull National Park, so 30)
     const migrationOperators = ["operator/3-zinnen-dolomites-lift-operator", "operator/chinook-rafting", "operator/fairmont-chateau-lake-louise", "operator/hielo-y-aventura-s-a", "operator/hydra-river-guides", "operator/lagazuoi-s-p-a", "operator/lake-louise-ski-resort", "operator/pursuit-banff-jasper-collection", "operator/rafting-club-activ", "operator/wild-water-adventures"];
     for (const ref of migrationOperators) expect(world.operators.has(ref), ref).toBe(true);
-    expect(ops).toHaveLength(29);
+    expect(ops).toHaveLength(30);
     for (const o of ops) {
       expect(o.derived_from!.length, o.ref).toBeGreaterThan(0);
       expect(o.derived_from!.every((d) => d.publisher === o.name), o.ref).toBe(true);

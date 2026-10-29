@@ -1,0 +1,4 @@
+Placement gaps: catalogue
+records 203 · no area 0 · no point 0 · approximate 19 · no nearest town 0 · outside its area 0 · offers saying nowhere 0
+
+all: records 203 · no area 0 · no point 0 · approximate 19 · no nearest town 0 (derived by META-2) · outside its area 0 · offers saying nowhere 0

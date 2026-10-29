@@ -1,0 +1,287 @@
+{
+  "schema": "capture/1",
+  "trip": "catalogue",
+  "lane": "LT2-us",
+  "researched": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://query.wikidata.org/sparql",
+      "title": "Wikidata items of the LT-2 places (labels, P31, P625, P1566, P856, P402, P2044, P6375, P281)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap elements by id, car parks, stations and information points near each place (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://nominatim.openstreetmap.org/reverse",
+      "title": "Nominatim reverse lookups of the access points (zoom 16 and 18)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.nps.gov/care/planyourvisit/hours.htm",
+      "title": "Operating Hours & Seasons, Capitol Reef National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.nps.gov/care/planyourvisit/fees.htm",
+      "title": "Fees & Passes, Capitol Reef National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.slc.gov/",
+      "title": "Salt Lake City Corporation",
+      "publisher": "Salt Lake City Corporation",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.visitsaltlake.com/",
+      "title": "Visit Salt Lake",
+      "publisher": "Visit Salt Lake",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "type": "culture.heritage.visitor_centre",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Capitol Reef National Park Visitor Center",
+      "area_id": "US/UT/wayne-county",
+      "osm_ref": {
+        "v": "relation/14504383",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the visitor-centre building named Capitol Reef National Park Visitor Center (tourism=information, building=yes)"
+      },
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "SR 24"
+          ],
+          "locality": "Torrey",
+          "postcode": "84775"
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0003",
+          "src-0004"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest road from a Nominatim reverse lookup of the visitor-centre car park (LT-WHERE, 2026-10-28; OSM gives the county); the postal locality and ZIP are the park's mailing address on the NPS page. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open",
+            "note": "daily, except some major holidays"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-28",
+        "quote": "The visitor center is open daily, except for some major holidays.",
+        "applies_to": "2026"
+      },
+      "hours": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://www.nps.gov/care/planyourvisit/hours.htm"
+        ],
+        "note": "The NPS says hours vary by season and gives a phone line for them; OSM tags 08:00-12:00, 12:45-16:30 (not confirmed)."
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 20,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "the park entrance pass for a private vehicle (7 days); USD 10 per person, USD 15 per motorcycle"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-28",
+        "note": "The NPS says all visitors must have an entrance pass; the visitor centre has no separate fee (our reading).",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/care/planyourvisit/hours.htm",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "url": "https://www.nps.gov/care/planyourvisit/fees.htm",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q63993567",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "type": "settlement.city",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ut-salt-lake-city",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5780993, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Salt Lake City",
+      "area_id": "US/UT/salt-lake-county",
+      "osm_ref": {
+        "v": "relation/198770",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the city boundary tagged with the store QID and Wikidata's P402; the place node is node/150935219"
+      },
+      "geonames_id": {
+        "v": "5780993",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q23337 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.slc.gov/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.visitsaltlake.com/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0007"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q23337",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Salt_Lake_City",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    }
+  ]
+}
