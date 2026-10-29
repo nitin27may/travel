@@ -1,6 +1,6 @@
 # Location type requirements: what research each kind of place must carry
 
-Status: **spec, planned only** (28 Oct 2026, travel-planner, Opus 5.5, branch `docs/LOCTYPE` from `main` 3484b727). Docs
+Status: **spec; LT-C built 28 Oct 2026 (section 13)** (28 Oct 2026, travel-planner, Opus 5.5, branch `docs/LOCTYPE` from `main` 3484b727). Docs
 only: no registry, `types.json`, record or app code changed. BACKLOG 15.391; TODO row of 28 Oct 2026; tasks in
 [DATA-PLAN](../build/DATA-PLAN.md) 2.5 (LT-C, LT-M, LT-WHERE, LT-AP, LT-1 to LT-4, LT-RAT).
 
@@ -503,8 +503,23 @@ one writer at a time on `points.json`, `gap-budget.json` and the lane files.
 - Three Rockies park points differ by 15 to 29 km between the store and the record; do not "fix" the record to the store's
   centroid.
 
+## 13. As built (LT-C, 28 Oct 2026)
+
+Where the build differs from sections 5 and 9.1:
+
+| Item | As built | Why |
+|---|---|---|
+| Phase-1 `address` marks | A on `culture.museum`, `culture.heritage`, `culture.under`, `animals.see`, `water.thermal`, `water.swim`, `stay.*`, `food.*`, `access.start`, `access.park`, `access.transit`, `access.amenity`, the natural place categories (`nature.protected`, `nature.garden`, `nature.viewpoint`, `nature.summit`, `nature.landform`, `nature.wildlife`, `water.body`, `water.falls`) and the D2 door places outside 4.3 to 4.5 (`play.playground`, `play.amusement`, `snow.ski`); N on `settlement`. None on `nature.trail` and `nature.trek` | `address` lives on the place layer only, so a mark on a route-only category is refused by the matrix check K9; a trail's address is its trailhead's. The 5.4 table counts playgrounds, amusement parks and ski bases as door places, so they need the A mark before their promotion |
+| `pageTask: "LT-M"` on the registry row | the generated public contract (`data/schema/capture/<domain>.json`) leaves the `address` marks out until LT-M; the engine, `fields`, `gaps` and `research/types` count them | an A gap is drawn by the web's section loop as a closing word at rest ("Not checked yet: ..., address") on every place page, a new empty marker and new bytes, against 0 and the LT-M rule "never at rest". LT-M removes the key when it draws the address (one line in `properties.ts`) |
+| Per-kind link keys at landing | one type lists a kind other than `official` in `links.R`: `nature.trek.trek_stage.hut_stage` (`booking`); no record has that type, so no count moved (a test pins it) | finding 2b assumed every `links.R` is `["official"]` |
+| `access.pass` family | `park` (4.2 lists the requirement offers at the park) | the category holds lift passes and shuttle seats too; a later split is a one-key change |
+| ICS | `address` is the only property with `ics` in its exports (the override of 12 Gotchas); `core/src/export/ics.ts` is LT-M's | |
+| Validator | `core/src/validate/capture.ts` holds `address` and an `osm_ref` Val to the Val rules (a `searched_none` needs `on` and `tried`), and warns `W_CAP_NA_FIELD` for an address where the type never asks it (a town) | the brief's file list missed the validator |
+| Drift report | 0 places today: the three Rockies parks of 2 d2 differ by 15 to 29 km but their record role is `centre`, which D8 leaves out | |
+
 ## Change log
 
 | Date | Change |
 |---|---|
+| 2026-10-28 | LT-C built (Opus 5.5, branch `lt/LTC`): section 13 records where the build differs (phase-1 marks list, `pageTask`, the hut-stage link kind, `access.pass` family, validator). Status line unchanged otherwise |
 | 2026-10-28 | First version (travel-planner, Opus 5.5): verdicts (a) to (f), D1 to D8, nine families with required fields, the registry diff and the ratchet, the procedure per family, the plan for the 155 store places (LT-C, LT-M, LT-WHERE, LT-AP, LT-1 to LT-4, LT-RAT), product surfaces, Q-LT1 to Q-LT3. BACKLOG 15.391; DATA-PLAN 2.5 |

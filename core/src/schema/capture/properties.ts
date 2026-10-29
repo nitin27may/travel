@@ -126,6 +126,12 @@ export interface PropertyDef {
   deprecated?: string;
   /** the task a deferred property waits for (rubric DEFER): K3 lets a reserved row be required with no home */
   reserved?: string;
+  /**
+   * The UI task that first draws the property on a page. Until it lands, the generated public contract (data/schema/capture/<domain>.json)
+   * leaves the property's marks out, so its A gap never reaches a page as a closing word at rest; the engine, `fields`, `gaps` and
+   * research/types count it as usual. The UI task removes the key when it draws the value (address: LT-M, location-type-requirements 9.2).
+   */
+  pageTask?: string;
 }
 
 const GAP_DEFAULT = "Not recorded";
@@ -139,7 +145,7 @@ interface Row {
   privacy?: RegistryPrivacy;
   /** only the surfaces that differ from exposeOf's defaults */
   expose?: Partial<Expose>;
-  lanes?: SourceLane[]; deprecated?: string; reserved?: string;
+  lanes?: SourceLane[]; deprecated?: string; reserved?: string; pageTask?: string;
 }
 
 // ---- keep: the default for every property, derived from what the registry already says (spec 2, "How it is tested") ----
@@ -237,6 +243,7 @@ const def = (r: Row): PropertyDef => {
     section: r.section, display: r.display, base: r.base, ...(r.trigger ? { trigger: r.trigger } : {}),
     home: r.home ?? { in: "none" }, ...(r.homeByLayer ? { homeByLayer: r.homeByLayer } : {}), ...(r.filter ? { filter: r.filter } : {}), ...(r.layers ? { layers: r.layers } : {}),
     ...(r.lanes ? { lanes: r.lanes } : {}), ...(r.deprecated ? { deprecated: r.deprecated } : {}), ...(r.reserved ? { reserved: r.reserved } : {}),
+    ...(r.pageTask ? { pageTask: r.pageTask } : {}),
   };
   const withKeep = { ...p, keep: r.keep ?? keepOf(p), privacy: r.privacy ?? "public" };
   return { ...withKeep, expose: exposeOf(withKeep, r.expose) };
@@ -278,6 +285,10 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "area_id", group: "identity", label: "Area", value: "ref", section: "cover", display: ["rest", "card"], base: "R", home: cap("area_id") }),
   def({ key: "wikidata", group: "identity", label: "Wikidata", value: "qid", section: "sources", display: ["detail"], base: "R", gap: "Not linked to Wikidata yet", home: rel("wikidata") }),
   def({ key: "osm_ref", group: "identity", label: "OpenStreetMap", value: "text", section: "links", display: ["detail"], base: "A", gap: "Not linked to OpenStreetMap yet", home: cap("osm_ref") }),
+  // the address you drive to (location-type-requirements 5.1, D2, D7): door places carry their own, access points a postal or nearest-road
+  // one, natural places show the address of their Directions target. N in the base; types.json marks it per type (A in phase 1, promoted
+  // per family by the ratchet, 5.4). Never a list row (P8). ICS is the one override of "ics never": the dated copy's LOCATION (12 Gotchas)
+  def({ key: "address", group: "identity", label: "Address", value: "object", section: "access", display: ["rest"], base: "N", gap: "Address not recorded yet", home: cap("address"), layers: ["place"], lanes: ["O", "F", "D"], expose: { trip: ["day"], export: ["print", "csv", "ics"] }, pageTask: "LT-M" }),
   // Placement (3.7, META-0). The nearest town is derived from the towns layer (META-2); a researcher overrides it only with the town the
   // operator names. Offers and events inherit placement through at, on and starts_at, so these sit on places and routes only.
   // near_town is required where it can be derived (META-2): R? with the trigger `derived`, which holds when the towns layer exists and the
@@ -342,7 +353,7 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "passes", group: "relations", label: "Passes", value: "relation_list", section: "access", display: ["rest"], base: "N", home: cap("passes"), layers: ["route"] }),
   def({ key: "part_of", group: "relations", label: "Part of", value: "relation_list", section: "around", display: ["rest"], base: "A", trigger: "part_of_something", home: cap("part_of"), layers: ["place", "route", "event"] }),
   def({ key: "starts_at", group: "relations", label: "Starts at", value: "relation_list", section: "access", display: ["rest"], base: "N", gap: "Parking or stop not recorded", home: cap("starts_at"), layers: ["route", "offer"] }),
-  def({ key: "ends_at", group: "relations", label: "Ends at", value: "relation_list", section: "access", display: ["detail"], base: "N", home: cap("ends_at"), layers: ["route"] }),
+  def({ key: "ends_at", group: "relations", label: "Ends at", value: "relation_list", section: "access", display: ["detail"], base: "N", trigger: "point_to_point", home: cap("ends_at"), layers: ["route"] }),
   def({ key: "on", group: "relations", label: "On the route", value: "relation_list", section: "around", display: ["rest"], base: "N", home: cap("on"), layers: ["offer"] }),
   def({ key: "at", group: "relations", label: "At the place", value: "relation_list", section: "around", display: ["rest"], base: "N", home: cap("at"), layers: ["offer"] }),
   def({ key: "run_by", group: "relations", label: "Run by", value: "ref", section: "options", display: ["rest"], base: "N", gap: "Operator not recorded", home: cap("run_by"), layers: ["offer", "place"] }),
@@ -359,7 +370,7 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   // Route facts no suitability field holds
   def({ key: "geometry", group: "type_facts", label: "Track", value: "object", section: "activity", display: ["detail"], base: "N", gap: "Track not recorded yet", home: { in: "tracks", path: "data/tracks" }, layers: ["route"], lanes: ["D"] }),
   def({ key: "high_point_m", group: "type_facts", label: "High point", value: "number", unit: "m", section: "activity", display: ["detail"], base: "N", layers: ["route"] }),
-  def({ key: "gpx_licence", group: "type_facts", label: "Track licence", value: "text", section: "links", display: ["detail"], base: "N", layers: ["route"] }),
+  def({ key: "gpx_licence", group: "type_facts", label: "Track licence", value: "text", section: "links", display: ["detail"], base: "N", trigger: "gpx_offered", layers: ["route"] }),
   def({ key: "snow_free_window", group: "type_facts", label: "Snow-free window", value: "season_rows", section: "when", display: ["rest"], base: "N", layers: ["route"] }),
   def({ key: "turnaround_points", group: "type_facts", label: "Turnaround points", value: "object_list", section: "activity", display: ["detail"], base: "N", layers: ["route"] }),
 

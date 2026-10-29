@@ -5,6 +5,9 @@
 //                                                              the per-kind matrix of EXECUTION-PLAN 6.4 and each tier key asked, answered, missing
 //   gaps --budget --check | --write [--reason "<why>"] [--json]
 //                                                              the gap budget (data/capture/gap-budget.json): counts may only fall
+//   gaps --family <f> [--tier required|enrichment] [--trip <trip>] [--json]
+//                                                              the tier report of one research family (location-type-requirements 6.3)
+//   gaps --promote <key> --family <f> [--mark R|R?] [--json]   the ratchet gate (5.4): exits 1 when the promotion adds an unanswered key
 import { completeness } from "./engine.ts";
 import type { Completeness } from "./engine.ts";
 import { BUDGET_CODES, checkBudget, GAP_BUDGET_PATH, loadBudget, TIER_KEYS_COUNT, writeBudget } from "./gapBudget.ts";
@@ -15,6 +18,10 @@ import type { World } from "./records.ts";
 import { kindTiers, MATRIX_COLUMNS, MATRIX_ROWS, matrixCells, recordTier } from "./tiers.ts";
 import type { MatrixColumn, RecordTier } from "./tiers.ts";
 import type { CaptureRecord } from "../schema/capture/records.ts";
+import { CAP_FAMILY } from "../schema/capture/typesFile.ts";
+import { promotion, PromoteError } from "./promote.ts";
+import type { Promotion, PromoteMark } from "./promote.ts";
+import { categoriesOfFamily, familyOf, loadTypes, treeOf } from "./tree.ts";
 
 const arg = (argv: string[], name: string): string | null => {
   const at = argv.indexOf(name);
@@ -85,16 +92,20 @@ function printPlacement(rep: ReturnType<typeof placementReport>, out: (s: string
 // ------------------------------------------------------------------------------------------------------------------ tiers
 export interface TierReport {
   tier: "required" | "enrichment";
-  filter: { layer: string | null; type: string | null; trip: string | null };
+  filter: { layer: string | null; type: string | null; trip: string | null; family: string | null };
+  /** the categories of the family filter, empty without one */
+  categories: string[];
   /** EXECUTION-PLAN 6.4: per layer (trails split out), how many records answer each column */
   matrix: { row: string; cells: Record<MatrixColumn, number> }[];
   kinds: ReturnType<typeof kindTiers>;
   records: { ref: string; type: string; kind: string; missing: string[] }[];
 }
 
-export function tierReport(root: string, tier: "required" | "enrichment", filter: { layer?: string | null; type?: string | null; trip?: string | null } = {}, pw?: PlacementWorld): TierReport {
+export function tierReport(root: string, tier: "required" | "enrichment", filter: { layer?: string | null; type?: string | null; trip?: string | null; family?: string | null } = {}, pw?: PlacementWorld): TierReport {
   const p = pw ?? loadPlacement(root, loadWorld(root));
-  const recs = records(p.world, filter.trip ?? null).map((x) => x.rec).filter((r) => (!filter.layer || r.layer === filter.layer) && (!filter.type || r.type === filter.type || r.type.startsWith(`${filter.type}.`)));
+  const types = loadTypes(root);
+  const tree = treeOf(types);
+  const recs = records(p.world, filter.trip ?? null).map((x) => x.rec).filter((r) => (!filter.layer || r.layer === filter.layer) && (!filter.type || r.type === filter.type || r.type.startsWith(`${filter.type}.`)) && (!filter.family || familyOf(tree, r.type) === filter.family));
   const matrix = MATRIX_ROWS.map((row) => {
     const rs = recs.filter((r) => (row === "route:trails" ? r.layer === "route" && /^nature\.trail(\.|$)/.test(r.type) : r.layer === row));
     const cells = Object.fromEntries(MATRIX_COLUMNS.map((c) => [c, 0])) as Record<MatrixColumn, number>;
@@ -107,7 +118,8 @@ export function tierReport(root: string, tier: "required" | "enrichment", filter
   const tiers = recs.map((r) => recordTier(p.world, r.ref)).filter((t): t is RecordTier => t !== null);
   return {
     tier,
-    filter: { layer: filter.layer ?? null, type: filter.type ?? null, trip: filter.trip ?? null },
+    filter: { layer: filter.layer ?? null, type: filter.type ?? null, trip: filter.trip ?? null, family: filter.family ?? null },
+    categories: filter.family ? categoriesOfFamily(types, filter.family) : [],
     matrix,
     kinds: kindTiers(tiers, tier),
     records: tiers.map((t) => ({ ref: t.ref, type: t.type, kind: t.kind, missing: tier === "required" ? t.requiredMissing : t.enrichmentMissing })).filter((x) => x.missing.length > 0),
@@ -116,7 +128,7 @@ export function tierReport(root: string, tier: "required" | "enrichment", filter
 
 function printTier(rep: TierReport, out: (s: string) => void): void {
   const f = rep.filter;
-  out(`Tier: ${rep.tier}${f.layer ? ` · layer ${f.layer}` : ""}${f.type ? ` · type ${f.type}` : ""}${f.trip ? ` · trip ${f.trip}` : ""}`);
+  out(`Tier: ${rep.tier}${f.family ? ` · family ${f.family} (${rep.categories.join(", ")})` : ""}${f.layer ? ` · layer ${f.layer}` : ""}${f.type ? ` · type ${f.type}` : ""}${f.trip ? ` · trip ${f.trip}` : ""}`);
   out("");
   out(`Per layer (EXECUTION-PLAN 6.4 columns; records answering each)`);
   out(["layer".padEnd(13), ...MATRIX_COLUMNS.map((c) => c.padStart(Math.max(c.length, 4)))].join(" "));
@@ -126,6 +138,43 @@ function printTier(rep: TierReport, out: (s: string) => void): void {
     out(`${k.kind.replace("_", " ")}: ${k.records} record(s), ${k.complete} with the ${rep.tier} tier complete`);
     for (const s of k.keys) out(`  ${s.key.padEnd(36)} asked ${String(s.asked).padStart(4)}  answered ${String(s.answered).padStart(4)}  missing ${String(s.missing).padStart(4)}`);
   }
+}
+
+// ------------------------------------------------------------------------------------------------------------------ promote
+function printPromotion(p: Promotion, out: (s: string) => void): void {
+  out(`Promotion: ${p.key} to ${p.mark} on family ${p.family} (${p.categories.join(", ")})`);
+  out(`records of the family ${p.records} · records that would gain an unanswered required key ${p.rows.length} · keys added ${p.keysAdded}`);
+  out(`W_TIER_REQUIRED ${p.budget.records.now} -> ${p.budget.records.promoted} · W_TIER_REQUIRED.keys ${p.budget.keys.now} -> ${p.budget.keys.promoted}`);
+  for (const r of p.rows) out(`  ${r.ref.padEnd(64)} ${r.type.padEnd(34)} + ${r.added.join(", ")}`);
+  if (p.ok) out(`OK: the promotion adds no unanswered required key. Write it in data/vocab/types.json, run capture.ts build, then gaps --budget --check and --write in the same commit.`);
+  else out(`BLOCKED: the promotion would add ${p.keysAdded} unanswered required key(s). Fill each record first (a value, or searched_none with "on" and "tried"), then promote in the same commit; never raise the budget for a promotion (location-type-requirements 5.4).`);
+}
+
+function promoteCommand(argv: string[], root: string, out: (s: string) => void, err: (s: string) => void): number {
+  const key = arg(argv, "--promote");
+  const family = arg(argv, "--family");
+  const mark = (arg(argv, "--mark") ?? "R") as PromoteMark;
+  if (!key || key.startsWith("--") || !family) {
+    err(`gaps --promote needs a key and a family, for example: gaps --promote address --family stay (families: ${CAP_FAMILY.join(", ")}; a link kind is links.<kind>)`);
+    return 2;
+  }
+  if (mark !== "R" && mark !== "R?") {
+    err(`--mark is R or R?, not ${mark}`);
+    return 2;
+  }
+  let p: Promotion;
+  try {
+    p = promotion(loadWorld(root), loadTypes(root), key, family, mark);
+  } catch (e) {
+    if (e instanceof PromoteError) {
+      err(e.message);
+      return 2;
+    }
+    throw e;
+  }
+  if (argv.includes("--json")) out(JSON.stringify(p, null, 2));
+  else printPromotion(p, out);
+  return p.ok ? 0 : 1;
 }
 
 // ------------------------------------------------------------------------------------------------------------------ budget
@@ -175,19 +224,25 @@ export function gapsCommand(argv: string[], root: string, out: (s: string) => vo
     else printPlacement(rep, out);
     return 0;
   }
-  const tier = arg(argv, "--tier");
-  if (argv.includes("--tier")) {
+  if (argv.includes("--promote")) return promoteCommand(argv, root, out, err);
+  const family = arg(argv, "--family");
+  if (argv.includes("--family") && (!family || !(CAP_FAMILY as readonly string[]).includes(family))) {
+    err(`gaps --family needs one of ${CAP_FAMILY.join(", ")}, for example: gaps --family park --tier required`);
+    return 2;
+  }
+  const tier = arg(argv, "--tier") ?? (family ? "required" : null);
+  if (argv.includes("--tier") || family) {
     if (tier !== "required" && tier !== "enrichment") {
       err("gaps --tier needs required or enrichment, for example: gaps --tier required --layer route --type nature.trail --json");
       return 2;
     }
-    const rep = tierReport(root, tier, { layer: arg(argv, "--layer"), type: arg(argv, "--type"), trip });
+    const rep = tierReport(root, tier, { layer: arg(argv, "--layer"), type: arg(argv, "--type"), trip, family });
     if (json) out(JSON.stringify(rep, null, 2));
     else printTier(rep, out);
     return 0;
   }
   if (!trip) {
-    err("gaps needs --trip <trip>, --placement, --tier required|enrichment or --budget --check. Example: gaps --trip dolomites-2027");
+    err("gaps needs --trip <trip>, --placement, --tier required|enrichment, --family <f>, --promote <key> --family <f> or --budget --check. Example: gaps --trip dolomites-2027");
     return 2;
   }
   const level = (arg(argv, "--level") ?? "usable") as "usable" | "complete";

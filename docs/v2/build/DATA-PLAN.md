@@ -327,7 +327,7 @@ lost.
 
 | # | Id | What | h | Model | Blocked by | Owner decision needed | Bundle | Order |
 |---|---|---|---|---|---|---|---|---|
-| (code) | LT-C | Contract: `address` property and value, `osm_ref` as `Val`, per-kind link tier keys, two triggers, `family` on categories, `gaps --family`, `gaps --promote`, phase-1 marks, basics layers and the store-point drift report (spec 9.1) | 7 | Opus builder 6, Opus review 1 | not beside RIS-H or STY-P on `properties.ts`; one `types.json` writer | | D (Infra, B2 contract lane) | 1 |
+| (code) | LT-C | Contract: `address` property and value, `osm_ref` as `Val`, per-kind link tier keys, two triggers, `family` on categories, `gaps --family`, `gaps --promote`, phase-1 marks, basics layers and the store-point drift report (spec 9.1). **Done 28 Oct 2026** (branch `lt/LTC`, Opus 5.5): gap budget unchanged (W_TIER_REQUIRED 382, keys 3,659); the address marks stay out of the public contract until LT-M (`pageTask`) | 7 | Opus builder 6, Opus review 1 | not beside RIS-H or STY-P on `properties.ts`; one `types.json` writer | | D (Infra, B2 contract lane) | 1 |
 | 72 | LT-WHERE | `osm_ref` candidates and address proposals for the 155 store places in one run record (Wikidata, Overpass, Nominatim reverse; one runner each, cached) | 3 | Sonnet 2.5, Haiku check 0.5 | LT-C | | D | 2 |
 | 73 | LT-AP | Access-point records (`access.park`, `access.start`) with point and address for the 56 places with none, in batch order | 5.5 | Sonnet 5, Opus review 0.5 | LT-WHERE | | D 2, E 3.5 | with each batch |
 | 74 | LT-1 | P0 (8 trip-tied) and P1 (32 in CA/AB, CA/BC): 13 parks, 21 sights, 6 towns; 27 new records; promotions for the families it closes | 6 | Sonnet 4.5, Opus 1.5 | LT-WHERE; PA-R-CA for the 5 Rockies parks | Q-LT1 to Q-LT3 (recommended yes) | D | 3 |
@@ -560,6 +560,7 @@ merge.
 
 | Date | Change |
 |---|---|
+| 2026-10-28 (LT-C) | Section 2.5: LT-C done on branch `lt/LTC` (contract, families, `gaps --family`, `gaps --promote`, phase-1 marks, basics layers and the drift report); budget unchanged. Next LT-WHERE, then LT-1 |
 | 2026-10-28 (LOCTYPE) | Banner; section 2.5: research requirements by location type (address, generated map links, required link kinds, nine families, the ratchet); rows 72 to 78 (LT-WHERE, LT-AP, LT-1 to LT-4, LT-RAT; 27 h, D 11 and E 16) and code tasks LT-C and LT-M (14 h, Infra). [features/location-type-requirements.md](../features/location-type-requirements.md); BACKLOG 15.391 |
 | 2026-10-28 (S2-DATA) | Banner; section 2.4: DG-01 to DG-13 moved here from `design/step2/data-gaps-2026-10-28.md` (now a pointer), each mapped to an existing task or new rows 64 to 71 (S2D-SIZE, S2D-PTS, S2D-IND, S2D-LEG, S2D-SUIT, S2D-TIME, S2D-BOOK, S2D-VER; 18.5 h, bundle D), dependencies, and batches S2-A to S2-C. BACKLOG 15.390 |
 | 2026-10-27 (BUILDER-DEPS) | Banner; 2.1 rows 51 to 63 and the totals sentence; 2.2 seat 1 additions and data seat 2. [builder-dependency-map.md](builder-dependency-map.md) |

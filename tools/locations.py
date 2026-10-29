@@ -1267,6 +1267,24 @@ def ts_const(rel: str, name: str):
     return vals[0] if body.startswith('"') else tuple(vals)
 
 
+def ts_rule_number(rel: str, obj: str, key: str) -> float:
+    """A numeric key of an exported `as const` object of a core module (PLACEMENT_RULES.storeDriftKm), read from the source so the two
+    languages cannot drift."""
+    text = (CORE / rel).read_text(encoding="utf-8")
+    block = re.search(r"export const %s = \{(.*?)\} as const;" % re.escape(obj), text, re.S)
+    m = re.search(r"\b%s:\s*([0-9]+(?:\.[0-9]+)?)" % re.escape(key), block.group(1)) if block else None
+    if not m:
+        raise Fail(f"core/src/{rel} has no {obj}.{key}")
+    return float(m.group(1))
+
+
+def point_drift_km() -> float:
+    """W_LOC_POINT_DRIFT (location-type-requirements D8): once a store place has a capture record, the record's point is authoritative and
+    the store's lat/lon is the seed; a store point farther than this from the record's is listed for a person (report only, never a
+    fix: a park's record point is its `centre` pin and is left out, so a park centroid is never "corrected" to the store's)."""
+    return ts_rule_number("capture/placementBlock.ts", "PLACEMENT_RULES", "storeDriftKm")
+
+
 def tripless_lane() -> str:
     """The trip id of the trip-less capture lane (core/src/capture/lane.ts, DD-8). Never printed into a public file."""
     return ts_const("capture/lane.ts", "TRIPLESS_LANE")
@@ -1379,6 +1397,9 @@ ACTIVITY_KINDS = ("activity",)
 # "Any place reached by car" (DATA-LOC section 2): every kind but the ones with streets (town, city), the ones too big for one car park
 # (region), the road itself (drive) and the ones reached by boat (island).
 CAR_KINDS = tuple(k for k in KINDS if k not in ("town", "city", "region", "drive", "island"))
+PARK_KINDS = ("park",)
+TOWN_KINDS = ("town", "city")
+LINK_ANSWER_STATES = ("filled", "found_in_search", "searched_none")
 # The basics tier, one row per field: (layer, field, the kinds it is asked of or None for all, its homes in read order). A home is
 # (where, key): `store` a places column, `rel` / `suit` / `cap` a key of the place's sidecar record (dots go deeper), `ext` a key of
 # the suitability extension, `link` a capture link kind, `parks_for` a capture record that parks for the place, `offer` a key of an
@@ -1405,6 +1426,14 @@ BASICS = (
     ("booking", "booking", ACTIVITY_KINDS, (("rel", "access_cost"), ("offer", "window"))),
     ("booking", "price", ACTIVITY_KINDS, (("offer", "price"),)),
     ("booking", "operator", ACTIVITY_KINDS, (("offer", "run_by"),)),
+    # location-type-requirements 5.1, D2 (LT-C): the address you drive to, the place's own or its Directions target's (a car park
+    # that parks for it, the trailhead it starts at)
+    ("address", "address", CAR_KINDS, (("cap", "address"), ("access_address", ""))),
+    # the family link sets (4.1, 4.2, 4.9): a link of the kind filled, found in a search (link-only platforms), or a dated searched_none
+    ("type links", "alltrails", TRAIL_KINDS, (("link", "alltrails"),)),
+    ("type links", "conditions", PARK_KINDS, (("link", "conditions"),)),
+    ("type links", "park map", PARK_KINDS, (("link", "map_sheet"),)),
+    ("type links", "tourism board", TOWN_KINDS, (("link", "tourism_board"),)),
 )
 BASICS_LAYERS = tuple(dict.fromkeys(b[0] for b in BASICS))
 # The store columns a researcher may mark searched_none (field_meta), and the states field_meta knows.
@@ -1514,9 +1543,12 @@ def place_basics(p: dict, ref: str | None, side: dict) -> dict:
             elif where == "cap":
                 ok = _answered(_dig(cap, key))
             elif where == "link":
-                ok = any(l.get("kind") == key and l.get("state") in ("filled", "searched_none") for l in cap.get("links") or [])
+                ok = any(l.get("kind") == key and l.get("state") in LINK_ANSWER_STATES for l in cap.get("links") or [])
             elif where == "parks_for":
                 ok = bool(ref and side["parks"].get(ref))
+            elif where == "access_address":
+                via = [*(side["parks"].get(ref, []) if ref else []), *(cap.get("starts_at") or [])]
+                ok = any(_answered((side["refs"].get(a, {}).get("cap") or {}).get("address")) for a in via)
             elif where == "offer":
                 ok = any(_answered(o.get(key)) for o in offers)
             if ok:
@@ -1524,6 +1556,48 @@ def place_basics(p: dict, ref: str | None, side: dict) -> dict:
         if not ok:
             missing.setdefault(layer, []).append(field_name)
     return {"asked": asked, "missing": missing, "missing_count": sum(len(v) for v in missing.values()), "trip": s.get("trip")}
+
+
+def _default_role(cap: dict) -> str:
+    """The point role a record's type gives by default (core/src/capture/placementBlock.ts defaultPointRole, the place layer)."""
+    t, layer = cap.get("type") or "", cap.get("layer")
+    if layer in ("offer", "event"):
+        return "meeting"
+    if layer == "route":
+        return "trailhead" if re.match(r"^(nature\.(trail|trek)|mountain\.ferrata)(\.|$)", t) else "route_start"
+    for pattern, role in ((r"^nature\.summit(\.|$)", "summit"), (r"^access\.park(\.|$)", "parking"), (r"^access\.start(\.|$)", "trailhead"),
+                          (r"^(culture\.(museum|heritage|under)|play\.(amusement|adventure|farm)|animals\.(see|farm))(\.|$)", "entrance")):
+        if re.match(pattern, t):
+            return role
+    return "centre"
+
+
+def point_drift(data: dict, root: Path, refs: dict[str, str], side: dict) -> list[dict]:
+    """W_LOC_POINT_DRIFT: store places whose lat/lon is farther than the drift limit from their capture record's point, the record's role
+    not `centre`. The record wins (D8); the list is for a person to work, never written back by a tool. The limit is core's
+    PLACEMENT_RULES.storeDriftKm."""
+    def points(rel: str) -> dict:
+        f = root / rel
+        try:
+            return json.loads(f.read_text(encoding="utf-8")).get("points", {}) if f.is_file() else {}
+        except (OSError, ValueError):
+            return {}
+    merged = points("data/relevance/inputs/points.json")
+    authored = points("data/capture/points.json")
+    limit = point_drift_km()
+    out = []
+    for p in data["places"]:
+        ref = refs.get(p["id"])
+        pt = merged.get(ref) if ref else None
+        if p.get("lat") is None or p.get("lon") is None or not isinstance(pt, dict) or pt.get("lat") is None:
+            continue
+        cap = side["refs"].get(ref, {}).get("cap") or {}
+        role = (authored.get(ref) or {}).get("point_role") or _default_role(cap)
+        km = haversine_km(p["lat"], p["lon"], pt["lat"], pt["lon"])
+        if km > limit and role != "centre":
+            out.append({"code": "W_LOC_POINT_DRIFT", "id": p["id"], "ref": ref, "km": round(km, 1), "role": role,
+                        "store": [p["lat"], p["lon"]], "record": [pt["lat"], pt["lon"]]})
+    return sorted(out, key=lambda r: (-r["km"], r["id"]))
 
 
 def basics_report(data: dict, root: Path) -> dict:
@@ -1561,8 +1635,11 @@ def basics_report(data: dict, root: Path) -> dict:
     for layer in BASICS_LAYERS:
         asked = [r for r in rows if any(b[0] == layer and (b[2] is None or r["kind"] in b[2]) for b in BASICS)]
         layers[layer] = {"asked": len(asked), "missing": sum(1 for r in asked if r["missing"].get(layer))}
+    drift = point_drift(data, root, refs, side)
+    store["point_drift"] = len(drift)
     return {"schema": "locations-basics/1", "date": today(), "lane": lane, "store": store, "layers": layers,
-            "fields": [{"layer": l, "field": f, "kinds": list(k) if k else None} for l, f, k, _ in BASICS], "places": rows}
+            "fields": [{"layer": l, "field": f, "kinds": list(k) if k else None} for l, f, k, _ in BASICS], "places": rows,
+            "drift": drift}
 
 
 def cmd_basics(args) -> int:
@@ -1574,7 +1651,8 @@ def cmd_basics(args) -> int:
     print(f"Basics: {s['places']} places ({s['places'] - s['tied_to_a_trip']} tied to no trip, {s['tied_to_a_trip']} to one) · "
           f"point {s['with_point']} ({s['unconfirmed']} unconfirmed) · Wikidata {s['with_wikidata']} · image {s['with_image']} · "
           f"elevation {s['with_elevation']} · season months {s['with_season_months']} · "
-          f"trails with length {s['trails_with_length']} of {s['trails']} · with a capture record {s['with_capture_record']}")
+          f"trails with length {s['trails_with_length']} of {s['trails']} · with a capture record {s['with_capture_record']} · "
+          f"point drift {s['point_drift']}")
     print("Places missing each layer: " + " · ".join(f"{k} {v['missing']} of {v['asked']}" for k, v in rep["layers"].items()))
     print("")
     for r in rep["places"]:
@@ -1583,6 +1661,12 @@ def cmd_basics(args) -> int:
         miss = "; ".join(f"{k}: {', '.join(v)}" for k, v in r["missing"].items())
         print(f"{r['missing_count']:>3}/{r['asked']:<3} {r['id']:<58} {r['kind']:<10} {r['ref'] or '(no page ref yet)':<46} lane {r['lane']:<24} {miss}")
     done = sum(1 for r in rep["places"] if not r["missing_count"])
+    if rep["drift"]:
+        print("")
+        print(f"W_LOC_POINT_DRIFT: {len(rep['drift'])} store point(s) more than {point_drift_km():g} km from the record's point (the record wins; "
+              f"report only, centre points left out):")
+        for d in rep["drift"]:
+            print(f"  {d['km']:>6.1f} km  {d['id']:<58} {d['ref']:<46} role {d['role']}")
     print("")
     print(f"{done} of {s['places']} places have every basics field answered.")
     return 0

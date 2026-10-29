@@ -12,6 +12,7 @@ import { join } from "node:path";
 import { haversineM } from "../geo/distance.ts";
 import { discover } from "./files.ts";
 import { isObj, type Obj } from "./common.ts";
+import { osmRefOf } from "../schema/capture/records.ts";
 
 export interface DupeCandidate {
   a: string;
@@ -110,7 +111,8 @@ export function findDuplicates(root: string, opts: { trip?: string } = {}): Dupe
     }
     for (const [k, refs] of by) for (let i = 0; i < refs.length; i++) for (let j = i + 1; j < refs.length; j++) add(refs[i]!, refs[j]!, reason, k);
   };
-  group("osm_ref", (_r, rec) => (typeof rec.osm_ref === "string" ? rec.osm_ref : undefined));
+  // osm_ref is a bare id or a Val (LT-C); osmRefOf reads both
+  group("osm_ref", (_r, rec) => osmRefOf(rec) ?? undefined);
   group("wikidata", (ref) => qids.get(ref) ?? points.get(ref)?.element?.match(QID)?.[0]);
   group("osm_element", (ref) => {
     const e = points.get(ref)?.element;

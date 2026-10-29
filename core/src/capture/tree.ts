@@ -6,7 +6,8 @@ import { existsSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import defaultJson from "../../../data/vocab/types.json" with { type: "json" };
 import * as E from "../schema/enums.ts";
-import type { TypeNode, TypesFile } from "../schema/capture/typesFile.ts";
+import { CAP_FAMILY } from "../schema/capture/typesFile.ts";
+import type { CapFamily, TypeNode, TypesFile } from "../schema/capture/typesFile.ts";
 
 export const TYPES_PATH = "data/vocab/types.json";
 export const DEFAULT_TYPES = defaultJson as unknown as TypesFile;
@@ -107,6 +108,16 @@ export function categoryOf(tree: Tree, id: string): string {
   return id.split(".").slice(0, 2).join(".");
 }
 
+/** The research family of a node: the `family` of its category; null for an unknown id or a category without one. */
+export function familyOf(tree: Tree, id: string): CapFamily | null {
+  const cat = tree.byId.get(categoryOf(tree, id));
+  return (cat?.family as CapFamily | undefined) ?? null;
+}
+
+/** The category ids of a family, in file order. */
+export const categoriesOfFamily = (file: TypesFile, family: string): string[] =>
+  file.nodes.filter((n) => (n.level === "category" || (n.level === "domain" && n.category === true)) && n.family === family).map((n) => n.id);
+
 /**
  * Finds a node by id, label, alias, or an old `kind/subkind` / `kind` name (kinds.md aliases). A word claimed by more than one
  * node returns the first; callers that need the ambiguity ask `tree.words`.
@@ -177,6 +188,10 @@ export function checkTree(file: TypesFile, env: TreeCheckEnv): TreeIssue[] {
       }
     }
     if (n.category && n.level !== "domain") bad(n.id, "only a domain can be its own category");
+    // the research family (location-type-requirements 5.2): every category carries one, and only categories do
+    const isCategory = n.level === "category" || (n.level === "domain" && n.category === true);
+    if (isCategory && !n.family) bad(n.id, `category "${n.id}" has no "family"; give it one of ${CAP_FAMILY.join(", ")} (location-type-requirements 4)`);
+    if (!isCategory && n.family) bad(n.id, `"family" sits on categories only; "${n.id}" is a ${n.level}`);
     for (const [key, mark] of Object.entries(n.marks ?? {})) {
       const { layer, prop } = splitMarkKey(key);
       if (layer && !(E.CAP_LAYER as readonly string[]).includes(layer)) bad(n.id, `mark "${key}" names the unknown layer "${layer}"`);

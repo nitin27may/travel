@@ -106,6 +106,26 @@
   "api": "detail",
   "mcp": "public"
  },
+ "address": {
+  "privacy": "public",
+  "page": "rest",
+  "trip": [
+   "day"
+  ],
+  "list": [],
+  "export": [
+   "print",
+   "csv",
+   "ics"
+  ],
+  "api": "detail",
+  "mcp": "public",
+  "lanes": [
+   "O",
+   "F",
+   "D"
+  ]
+ },
  "near_town": {
   "privacy": "derived",
   "page": "no",

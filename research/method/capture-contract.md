@@ -527,6 +527,15 @@ Every value is a `Val` (suitability 1.1): `{v, state, basis, src, read, quote, n
 > `gpx_licence` are researched. Each kind in a type's `links.R` other than `official` will count as its own required key
 > (`links.<kind>`). Spec: [location-type-requirements.md](../../docs/v2/features/location-type-requirements.md) D3, D4.
 
+**Link kinds as tier keys (LT-C, 28 Oct 2026).** `official` keeps the `links` key. Every other kind in a type's resolved
+`links.R` is its own required key `links.<kind>` (`core/src/capture/engine.ts` `readLink`): a `filled` link answers it; a
+`found_in_search` link (the page found by a search, never fetched) answers a link-only kind (`alltrails`, `komoot`, `gaia`,
+`outdooractive`, `wikiloc`, `trailforks`, `reseller`) and is a soft answer for any other; a dated `searched_none` is a soft
+answer; no link of the kind is a gap. At landing only `nature.trek.trek_stage.hut_stage` lists a kind other than `official`
+in `links.R` (`booking`), and no record has that type, so no count moved. A family adds a kind to `links.R` only through the
+ratchet (3.7.2). `gpx_licence` is required (R?) only under the trigger `gpx_offered` (a filled `gpx_download` link), once a
+family marks it; a GPX file is never offered without a stated licence.
+
 ### 3.5 Per-type deltas (the contract by category)
 
 Each row lists only what differs from 3.2 and 3.3. Suitability marks come from the profile in 2.2 and are not repeated. The link list is the type's checklist; `official` is always R. "Slot 3" is the at-rest deciding chip (applicability 5.1).
@@ -593,10 +602,12 @@ Every place and route carries the block. Offers and events carry no point of the
 |---|---|---|---|
 | `area_id` | the record (`capture/1`) | R | `CC/REGION/area-slug`, an id of the areas (or, coarser, the regions) of `data/locations/locations.json`. Country and region are read from it, never stored again. Source order: the locations store, the trip, the parent through `part_of`, `at` or `starts_at`, then point-in-polygon (META-1) |
 | `point` | `data/capture/points.json` (`capture-points/1`), keyed by ref; read first, then `data/relevance/inputs/points.json` | R | `{lat, lon, coord_src, point_source}`; `coord_src` is `osm`, `wikidata`, `official` or `manual`. Never from Google (T5). Decision 3.37: the point stays in the sidecar keyed by ref. A route with no row of its own is placed by the point of its `starts_at` |
-| `point_role` | with the point | R (default by type) | `POINT_ROLE` in `core/src/schema/enums.ts`, defined once: `centre`, `trailhead`, `entrance`, `parking`, `meeting`, `summit`, `route_start`. A row without one reads as the default of its type: a trail or trek `trailhead`, any other route `route_start` (a lift's lower station), a summit `summit`, a car park `parking`, a start `trailhead`, a museum, heritage site, show cave, park or zoo `entrance`, anything else `centre`, an offer's own meeting point `meeting` |
+| `point_role` | with the point | R (default by type) | `POINT_ROLE` in `core/src/schema/enums.ts`, defined once: `centre`, `trailhead`, `entrance`, `parking`, `meeting`, `summit`, `route_start`. A row without one reads as the default of its type (`defaultPointRole` in `core/src/capture/placementBlock.ts`): a trail or trek `trailhead`, any other route `route_start` (a lift's lower station), a summit `summit`, a car park `parking`, a start `trailhead`, a museum, heritage site, show cave, amusement or adventure park, farm or zoo `entrance`, anything else `centre`, an offer's own meeting point `meeting`. **A park or protected area is `centre`** (its map pin; corrected 28 Oct 2026, LT-C: this row said `entrance`, the code never did): you arrive at a park through its access point, the main entrance or visitor-centre record (`parks_for`, `starts_at`, `serves`), and Directions go there (location-type-requirements D2) |
 | `approx`, `approx_note` | with the point | R when approximate | `approx: true` only for a centroid or a guess, and then `approx_note` says why and what would fix it. An approximate point counts for Where, never for a distance (T5); the API's detail point carries `pointRole` and `approx` (contract case K16) |
 | `near_town`, `near_town_km` | the record | R in the placement block; registry mark `R?` with the trigger `derived` (META-2) | Derived by META-2 from the towns layer: the nearest settlement of at least 1,000 people within 50 km of a non-approximate point, else the value `none_within_50km` (never a gap). Both are `Val`s with basis `our_inference` and a note naming the derive step. A researcher overrides them only with the town the operator names, with its source |
 | `geonames_id` | the record | A; R for `settlement.*` | GeoNames feature id as text (`"6177869"`), a `Val`, so `searched_none` is possible |
+| `osm_ref` | the record | A (R per family through the ratchet, 3.7.2) | `node/<n>`, `way/<n>` or `relation/<n>`: a bare string on every record written before 28 Oct 2026 (the migration ledger pins those) or a `Val` of the same id, so a dated `searched_none` can be stored. New writes use the `Val`; code reads both through `osmRefOf` (`core/src/schema/capture/records.ts`). The OSM link on the page is generated from it |
+| `address` | the record (`capture/1`, places only) | N in the base; A in phase 1 on door places, access points and natural places, N on towns; R per family through the ratchet | A `Val` of `{kind: postal \| nearest_road, lines: [1 to 3 lines as the source writes them], locality, postcode or null}`, so `searched_none` is possible. **It lives on the record you drive to** (location-type-requirements D2): a museum, stay, eatery, playground, amusement park, zoo, thermal pool, visitor centre or ski base carries its own postal address; a car park, trailhead, stop or dock a postal or a `nearest_road` address (shown as "Near ..."); a trail, lake, viewpoint, waterfall, summit, landform or park none of its own when an access point exists, because the page shows the address of the Directions target. Never the country or region (they come from `area_id`). **Sources, in order (D7):** the operator's or land manager's page (O, F); Wikidata P6375 and P281 (CC0); OSM `addr:*` on the `osm_ref` element; Nominatim reverse geocoding of the access point for a nearest-road address (single lookups, one a second, one runner, cached). OSM and Nominatim values carry licence `odbl`. Never Google, Apple, Bing, a booking site or a review site. Exposure: page (the Directions card, LT-M), trip day, print, CSV, ICS (the dated copy's `LOCATION`), API detail, public MCP; never a list row (P8). Until LT-M draws it, the registry row's `pageTask` keeps its marks out of the public contract files, so no page shows a closing word for it |
 
 **Town id (owner Q76).** `<cc>-<admin1>-<slug>`, for example `ca-on-whitby`, matching `^[a-z]{2}-[a-z0-9]+-[a-z0-9-]+$`. `<cc>` is the lower-case ISO 3166-1 alpha-2 code. `<admin1>` is the lower-case ISO 3166-2 subdivision suffix (`on`, `ab`, `bz`), **not** the GeoNames admin1 code (Ontario is `08` in `admin1CodesASCII`), so META-2 maps one to the other; a country with no ISO subdivision uses `00`. `<slug>` is the ASCII kebab of the GeoNames name.
 
@@ -645,6 +656,18 @@ Only one mark change is made with META-0: `geonames_id: R` on the `settlement` d
 > `offer.lodging` proposals above are adopted on the same ratchet. Spec:
 > [location-type-requirements.md](../../docs/v2/features/location-type-requirements.md) 4 and 5.4.
 
+**Families and the ratchet (LT-C, 28 Oct 2026).** Every category of `types.json` (and the `settlement` and `event` domains)
+carries a `family`: `trail`, `park`, `sight`, `stay`, `eat`, `activity`, `access`, `event` or `town` (a label, never a second
+checklist; the tree check fails a category without one, `E_CAP_TREE`). `node core/bin/capture.ts gaps --family <f>` is the tier
+report of the family's records; `fields` prints a type's family. A new property or link kind lands as **A** (it counts for
+Complete, never for Usable, so no gap count moves). A family batch fills it on every record of the family (a value or a dated
+`searched_none`), then promotes it in the same commit after `node core/bin/capture.ts gaps --promote <key> --family <f>`
+(`<key>` a property, or `links.<kind>`; `--mark R?` for a conditional mark) shows no unanswered key: the gate simulates the
+promotion on a copy of `types.json` (the mark on the family's categories, and every A of the key below them raised), reads every
+record through the same tier engine, lists what it would add and **exits 1 when it adds anything**. Never raise the budget with
+`--write --reason` for a promotion. Two new triggers wait for their marks: `point_to_point` on `ends_at` (the trail extension's
+shape is `point-to-point`, or the route starts and ends at different records) and `gpx_offered` on `gpx_licence`.
+
 
 #### 3.7.3 Validator codes and severity
 
@@ -667,6 +690,9 @@ node core/bin/capture.ts fields --type nature.trail.hike                 # the p
 node core/bin/capture.ts gaps --placement [--trip <trip>] [--json]        # per trip: records, no area, no point, approximate, no nearest town, outside its area; then each record with a hint
 node core/bin/capture.ts gaps --tier required|enrichment [--layer <l>] [--type <prefix>] [--trip <trip>] [--json]
                                                                           # the EXECUTION-PLAN 6.4 matrix, then per kind each tier key asked, answered, missing
+node core/bin/capture.ts gaps --family <f> [--tier required|enrichment] [--trip <trip>] [--json]
+                                                                          # the same report for one research family (3.7.2)
+node core/bin/capture.ts gaps --promote <key> --family <f> [--mark R|R?]  # the ratchet gate: exits 1 when the promotion adds an unanswered key
 node core/bin/capture.ts gaps --budget --check                            # check-all: fails when a count rose
 node core/bin/capture.ts gaps --budget --write [--reason "<why>"]         # lowers the counts; a rise needs a written reason, logged in `raised`
 ```

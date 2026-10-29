@@ -20,6 +20,10 @@ export const TRIGGERS = [
   "wildlife_area",
   /** the value is computed by a derive step that exists and has an input (near_town: the towns layer and a non-approximate point; META-2) */
   "derived",
+  /** a route with a distinct start and end: its shape is point-to-point, or it starts and ends at different records (ends_at; 3.7.2) */
+  "point_to_point",
+  /** a GPX download is offered: a filled `gpx_download` link (gpx_licence; never offer a file without a stated licence, D5) */
+  "gpx_offered",
   /** no condition is named: the mark is advisory */
   "conditional",
 ] as const;

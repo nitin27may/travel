@@ -8,7 +8,7 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 Records: place. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of, address.
 
 Suitability: R wheelchair; R when operated none; A kid_note, stroller, stroller_extent, accessible_toilet, baby_change, access_season.
 
@@ -18,7 +18,7 @@ Links: official; R? none; A menu, booking, osm.
 
 Records: place. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D. Rainy day: not indoor by type; a relevance weather of indoor on the record says yes.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of, address.
 
 Suitability: R wheelchair; R when operated none; A kid_note, stroller, stroller_extent, accessible_toilet, baby_change, access_season.
 
@@ -28,7 +28,7 @@ Links: official; R? none; A menu, booking, osm.
 
 Records: place, offer. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of, address.
 
 **offer (experience)**: R name, type, summary, season, hours, price, links, at, run_by, duration_min, activity_min, book_url; R? none; A names, transit, window, pairs_with, closures, photos, on, cancellation, included.
 
@@ -40,7 +40,7 @@ Links: official; R? none; A menu, booking, osm.
 
 Records: place. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of, address.
 
 Suitability: R wheelchair; R when operated none; A kid_note, stroller, stroller_extent, accessible_toilet, baby_change, access_season.
 
@@ -50,7 +50,7 @@ Links: official; R? none; A menu, booking, osm.
 
 Records: place. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of, address.
 
 Suitability: R wheelchair; R when operated none; A kid_note, stroller, stroller_extent, accessible_toilet, baby_change, access_season.
 
@@ -60,7 +60,7 @@ Links: official; R? none; A menu, booking, osm.
 
 Records: place. Suitability profile `eatery` (never). Effort: none, time is shown. Sources, in order: O T D. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, price, window, pairs_with, closures, photos, part_of, address.
 
 Suitability: R wheelchair; R when operated none; A kid_note, stroller, stroller_extent, accessible_toilet, baby_change, access_season.
 

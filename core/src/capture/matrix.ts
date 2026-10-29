@@ -321,7 +321,7 @@ export function buildMatrix(i: MatrixInputs, header: string, updated: string): M
       key: p.key, group: p.group, label: p.label, value: p.value, unit: p.unit ?? null, home: p.home, ...(p.homeByLayer ? { home_by_layer: p.homeByLayer } : {}),
       layers: p.layers ?? "all", required, types: n, lanes: p.lanes ?? "type", freshness: fresh.get(p.key) ?? "none", keep: p.keep, privacy: p.privacy, expose: p.expose,
       display: { levels: p.display, section: p.section, order, label: p.label, unit: p.unit ?? null, gap: p.gap, ...(p.filter ? { filter: p.filter.control, band: p.filter.band ?? null } : {}) },
-      ...(p.deprecated ? { deprecated: p.deprecated } : {}), ...(p.reserved ? { reserved: p.reserved } : {}),
+      ...(p.deprecated ? { deprecated: p.deprecated } : {}), ...(p.reserved ? { reserved: p.reserved } : {}), ...(p.pageTask ? { page_task: p.pageTask } : {}),
     } as Obj;
   });
 

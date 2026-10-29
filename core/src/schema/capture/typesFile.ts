@@ -13,6 +13,12 @@ const layer = z.enum(E.CAP_LAYER);
 const mark = z.enum(E.CAP_MARK);
 const linkKind = z.enum(E.CAP_LINK_KIND);
 const SOURCE_ORDER = ["O", "F", "T", "D", "C", "X"] as const;
+/**
+ * The nine research families (location-type-requirements 4, D1): a label on every category, never a second checklist. A family's
+ * done-definition is the union of its types' resolved marks; `capture.ts gaps --family <f>` counts it and `gaps --promote` gates it.
+ */
+export const CAP_FAMILY = ["trail", "park", "sight", "stay", "eat", "activity", "access", "event", "town"] as const;
+export type CapFamily = (typeof CAP_FAMILY)[number];
 
 export const typeNode = z.strictObject({
   id: z.string().regex(TYPE_ID_RE),
@@ -21,6 +27,8 @@ export const typeNode = z.strictObject({
   /** a domain that is also its own category (settlement, event), so there are 61 categories in 15 domains */
   category: z.boolean().optional(),
   label: z.string().min(1),
+  /** the research family of a category (and of a domain that is its own category); required there, refused elsewhere (tree check) */
+  family: z.enum(CAP_FAMILY).optional(),
   /** words people use, and old ids; they resolve to this node */
   aliases: z.array(z.string().min(1)).optional(),
   /** the (kind, subkind) pairs of suitability/1 that map to this node; the applicability file's `match` lists are generated from them */
