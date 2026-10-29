@@ -25,8 +25,9 @@ describe('the shape on the Canadian Rockies', () => {
   const model = buildShape(tm!.days, facts!, tm!.defaultTimelines, new Set());
 
   it('reads the count line of the spec at the plan as written', () => {
-    expect(model.countLine).toBe('15 days · 4 long drive days · 6 days with a booking · 8 highlight days · 6 days with a warning');
-    expect(model.sets.longDrive).toEqual([1, 4, 5, 8]);
+    expect(model.countLine).toBe('15 days · 2 long drive days · 6 days with a booking · 8 highlight days · 6 days with a warning');
+    // S2D-LEG: Days 1 and 5 drive under the long-drive line once their in-town and trailhead hops have stored legs
+    expect(model.sets.longDrive).toEqual([4, 8]);
     expect(model.sets.booking).toEqual([1, 4, 5, 9, 10, 11]); // Day 9: the Lake O'Hara lottery (PA-R-CA2)
     // the spec's 7 predates Day 5's Athabasca Falls reaching the trip-surface badge; web/tests/data/trip-summary.test.ts pins the same 8
     expect(model.sets.highlight).toEqual([3, 4, 5, 8, 9, 10, 11, 14]);
@@ -69,15 +70,15 @@ describe('the shape on the Canadian Rockies', () => {
     expect(html).not.toMatch(/The plan.s day|Worth the journey/);
     const day1 = html.slice(html.indexOf('data-day="1"'), html.indexOf('data-day="2"'));
     expect(text(day1)).toMatch(/Banff/);
-    expect(text(day1)).toMatch(/Long drive/);
+    expect(text(day1)).not.toMatch(/Long drive/);
     expect(text(day1)).toMatch(/Book 1/); // the rental car; the Discovery Pass is a pass now, never counted (PA-R-CA2)
-    expect(text(day1)).toMatch(/2 h 30/);
+    expect(text(day1)).toMatch(/sunset 2 h 1\.9 km/); // 1 h 30 from the airport and six short hops inside Banff (S2D-LEG)
   });
 
   it('a count phrase filters the table to those days and offers every day again', () => {
     const html = renderToStaticMarkup(<TripShapeRows model={model} timelines={tm!.defaultTimelines} filter="longDrive" onClear={() => undefined} onReady={() => undefined} />);
-    expect([...html.matchAll(/data-day="(\d+)"/g)].map((m) => Number(m[1]))).toEqual([1, 4, 5, 8]);
-    expect(html).toContain('4 long drive days of 15');
+    expect([...html.matchAll(/data-day="(\d+)"/g)].map((m) => Number(m[1]))).toEqual([4, 8]);
+    expect(html).toContain('2 long drive days of 15');
     expect(html).toContain('Show all days');
   });
 

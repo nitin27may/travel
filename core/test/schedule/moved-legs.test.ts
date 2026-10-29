@@ -131,18 +131,19 @@ describe("a Rockies stop moved to a day at another base", () => {
 
 describe("a stop with no point moved to a day at the same base (DG2F)", () => {
   // Emerald Lakeshore, Day 9 to Day 12 (both leave Lake Louise), with its map point taken away: it used to take the ladder's 10 minute
-  // local move each way. Now it is as far from the base as on its own day: Day 9 stores base to Natural Bridge 45 and on to the lakeshore 5.
+  // local move each way. Now it is as far from the base as on its own day: Day 9 stores the Emerald Lake canoe to the base 35 (routed,
+  // S2D-LEG) and the canoe to the lakeshore 0, shorter than base to Natural Bridge 45 and on to the lakeshore 5.
   const bare = withoutPoint(ROCKIES, "emerald-lakeshore");
   it("takes the shortest stored way from the base on its own day, marked ≈, and the way on to the next stop goes through the base", () => {
     const t = moved(bare, FAMILY, "emerald-lakeshore", 9, 12, undefined, { "9": "B" });
     sane(t);
     const inn = t.entries.find((e) => e.kind === "leg" && e.to?.name === "Emerald Lakeshore")!;
-    expect(inn.durationMin).toBe(50);
+    expect(inn.durationMin).toBe(35);
     expect(inn.leg?.basis).toBe("estimate");
     expect(inn.honesty).toContain("drive_estimated");
-    // on to the groceries in Canmore: back through the base (50) plus the plan's 60 from the base, never 10 minutes
+    // on to the groceries in Canmore: back through the base (35) plus the plan's 60 from the base, never 10 minutes
     const on = t.entries.find((e) => e.kind === "leg" && e.from?.name === "Emerald Lakeshore" && e.to?.name === "Groceries in Canmore")!;
-    expect(on.durationMin).toBe(110);
+    expect(on.durationMin).toBe(95);
     expect(on.honesty).toContain("drive_estimated");
   });
   it("with its point, a stop with no point on the new day reaches it through the base over the day's stored ways, never a straight 50 min", () => {

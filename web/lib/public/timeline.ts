@@ -54,7 +54,8 @@ export interface ScheduleDayFile {
   /** Overrides by record id, for items taken from the datasets. */
   items?: Record<string, ScheduleItemOverride>;
   split?: { optional?: boolean; rejoin: { time: string; place: string; afterItem: string | null } };
-  legs?: { from: string; to: string; minutes: number; mode?: StoredLeg['mode']; basis?: 'plan' | 'matrix'; estimate?: boolean; km?: number | null }[];
+  /** `routed`: an ORS value from a dated run; `estimate`: the calibrated drive model (core/src/drive), always ≈ (S2D-LEG, data/schedules/README.md). */
+  legs?: { from: string; to: string; minutes: number; mode?: StoredLeg['mode']; basis?: StoredLeg['basis']; estimate?: boolean; km?: number | null }[];
   /** Day 4 of the Dolomites: per-variant labels and audiences. */
   variants?: Partial<Record<'A' | 'B' | 'C', { label: string; audience: 'adults' | 'family' | 'easy' | 'any' }>>;
   /** For a departure day: be at the airport by this time. */
