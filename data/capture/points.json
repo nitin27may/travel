@@ -5514,6 +5514,98 @@
         "review_state": "agent_checked",
         "basis": "community"
       }
+    },
+    "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline": {
+      "lat": 53.129512,
+      "lon": -117.770092,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/1936529926",
+        "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/miette",
+        "read": "2026-10-28",
+        "quote": "OSM node 1936529926, the first vertex of Sulphur Skyline Trail (way 183274419) at the Miette Hot Springs drop-off loop; Parks Canada: trailhead at the Miette Hot Springs parking lot, the paved path leaves the drop-off loop"
+      },
+      "point_role": "trailhead",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "dg2-2026-10-28-stop-points",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass": {
+      "lat": 51.328143,
+      "lon": -116.181548,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/757469351",
+        "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/lakelouise",
+        "read": "2026-10-28",
+        "quote": "OSM node 757469351, the first vertex of Larch Valley Trail (way 733820877), 90 m south of the shuttle stop; Parks Canada: the trail starts just past Moraine Lake Lodge"
+      },
+      "point_role": "trailhead",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "dg2-2026-10-28-stop-points",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "trip/patagonia-2027/trail:mirador de los condores": {
+      "lat": -49.337375,
+      "lon": -72.881415,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/660024150",
+        "read": "2026-10-28",
+        "quote": "OSM node 660024150 (highway=trailhead, Mirador de los Condores Trailhead), the start of Sendero Mirador de los Condores (way 61900603); the record's starts_at names the same node"
+      },
+      "point_role": "trailhead",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "dg2-2026-10-28-stop-points",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "trip/patagonia-2027/trail:mirador de las aguilas": {
+      "lat": -49.337375,
+      "lon": -72.881415,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/660024150",
+        "read": "2026-10-28",
+        "quote": "OSM node 660024150 (highway=trailhead, Mirador de los Condores Trailhead): the Aguilas path branches off the Condores trail, so both start here; the record's starts_at names the same node"
+      },
+      "point_role": "trailhead",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "dg2-2026-10-28-stop-points",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "trip/patagonia-2027/trail:chorrillo del salto": {
+      "lat": -49.29985,
+      "lon": -72.90359,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/747061337",
+        "read": "2026-10-28",
+        "quote": "OSM way 747061337 (amenity=parking, Chorrillo del Salto, fee=no) centroid: the walk to the falls (node 1237892708, 570 m north-west) starts at this car park; no trailhead node is mapped within 1.5 km"
+      },
+      "point_role": "trailhead",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "dg2-2026-10-28-stop-points",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
     }
   }
 }
