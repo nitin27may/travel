@@ -330,9 +330,15 @@ export function createPlanService(deps: PlanServiceDeps): PlanService {
       const t = await store.towns({ near: `place:${p.slug}`, r: radiusKm });
       if (t.ok) t.data.items.forEach(add);
     }
+    // A chosen base is a candidate by its own public point: `towns({city})` lists the towns AROUND a town and leaves the town out (same as
+    // the town start, townPoint), so the point comes from `near({city})`'s centre. A town the gazetteer does not know is not a candidate and
+    // the engine leaves that base out (resolveBases); the id is never echoed. The population stays as the around-picks query read it, else
+    // null (the gazetteer's own figure is not on the centre; the engine uses it only to break ties).
     for (const base of b.bases) {
-      const t = await store.towns({ city: base.town, r: 1 });
-      if (t.ok) t.data.items.filter((x) => x.id === base.town).forEach(add);
+      if (found.has(base.town)) continue;
+      const n = await store.near({ city: base.town, r: 1 }, { page: 1, pageSize: 1 });
+      if (!n.ok || n.data.centre.kind !== 'town' || n.data.centre.lat === null || n.data.centre.lon === null) continue;
+      add({ id: base.town, name: n.data.centre.name, lat: n.data.centre.lat, lon: n.data.centre.lon, pop: null, cc: base.town.slice(0, 2) });
     }
     const pinned = new Set(b.bases.map((x) => x.town));
     return [...found.values()]

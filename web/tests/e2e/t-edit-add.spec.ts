@@ -59,9 +59,18 @@ test.describe('edit mode: the add picker', () => {
     const dlg = picker(page);
     const row = dlg.locator('.add-row').filter({ has: page.getByRole('button', { name: /^Add .* to Day 5$/ }) }).filter({ hasNotText: 'Day full' }).first();
     await expect(row).toBeVisible();
-    const name = (await row.locator('.add-title').textContent())!;
+    // The list re-sorts while the fit lines and the near page arrive, so the first fitting row changes under a lazy locator: wait until
+    // it has held still, then click that row by its name (a click on `row` could land on another place and raise another place's toast).
+    let name = '';
+    let still = 0;
+    await expect.poll(async () => {
+      const now = (await row.locator('.add-title').textContent().catch(() => null)) ?? '';
+      still = now && now === name ? still + 1 : 0;
+      name = now;
+      return still;
+    }, { intervals: [250], timeout: 15_000 }).toBeGreaterThanOrEqual(3);
     const same = dlg.locator('.add-row').filter({ has: page.locator('.add-title', { hasText: name }) }).first();
-    await row.getByRole('button', { name: /^Add / }).click();
+    await same.getByRole('button', { name: /^Add / }).click();
     await expect(page.locator('.toast', { hasText: `Added ${name} to Day 5` })).toBeVisible();
     await expect(same.getByText('Added', { exact: true })).toBeVisible();
     await expect(same.getByRole('button', { name: /^Undo adding/ })).toBeVisible();

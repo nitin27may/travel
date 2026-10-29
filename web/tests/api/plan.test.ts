@@ -216,6 +216,25 @@ describe('GET /api/v1/plan/candidates', () => {
     expect(planBuildAnswer.safeParse(body).success).toBe(true);
   });
 
+  it('bases given by town id resolve through near(city=), so a two-base build answers 2 bases with nights; an unknown town base is left out and never echoed (TEA)', async () => {
+    // `towns({city})` lists the towns AROUND a town and leaves the town out; both bases are towns the picks' own query may not list
+    for (const id of ['ca-ab-calgary', 'ca-ab-edmonton']) expect((await getStore().near({ city: id, r: 1 }, { page: 1, pageSize: 1 })).ok, id).toBe(true);
+    const picks = await someCandidates(4);
+    const two = [{ town: 'ca-ab-calgary', nights: 2, pinned: true }, { town: 'ca-ab-edmonton', nights: 2, pinned: true }];
+    const res = await post(buildBody(picks, { nights: 4, bases: two }));
+    const body = await res.json();
+    expect(res.status, JSON.stringify(body.error)).toBe(200);
+    const answer = planBuildAnswer.parse(body);
+    expect(answer.bases.map((x) => x.town)).toEqual(['ca-ab-calgary', 'ca-ab-edmonton']);
+    expect(answer.bases.map((x) => x.nights)).toEqual([2, 2]);
+    // an unknown town base is skipped: the known one is kept, the unknown id is not in the answer
+    const mixed = await post(buildBody(picks, { nights: 2, bases: [{ town: 'ca-ab-no-such-town', nights: 1, pinned: true }, { town: 'ca-ab-calgary', nights: 1, pinned: true }] }));
+    const mb = await mixed.json();
+    expect(mixed.status, JSON.stringify(mb.error)).toBe(200);
+    expect(JSON.stringify(mb)).not.toContain('no-such-town');
+    expect(planBuildAnswer.parse(mb).bases.map((x) => x.town)).not.toContain('ca-ab-no-such-town');
+  });
+
   it('a start no public file knows is not_available, never guessed', async () => {
     const res = await get('candidates', '/candidates/?m=near&from=hub:nowhere&r=120');
     expect(res.status).toBe(501);
