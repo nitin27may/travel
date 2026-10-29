@@ -25,6 +25,8 @@ export interface AddCandidate {
   /** Distance from the day's nearest placed stop or base, in km. */
   km: number | null;
   group: 'variant' | 'trip' | 'nearby';
+  /** Indoor or under cover, so the Rainy day chip keeps it (DG-01; the row flag `indoor`). Absent when not known to be: no bytes for a no. */
+  indoor?: true;
 }
 
 export interface TimelineDayModel {
@@ -98,6 +100,7 @@ function fromPlace(p: PublicPlaceCard, km: number): AddCandidate {
   return {
     key: p.slug, name: p.name, kind: k.kind, sub: k.sub, placeSlug: p.slug, point: p.point ? { lat: p.point.lat, lon: p.point.lon } : null, durationMin: null,
     durationRange: parseHoursRange(p.stats.hours), stats: hasStats ? { distanceKm: p.stats.distanceKm, gainM: p.stats.gainM } : null, label: p.kindLabel, km, group: 'nearby',
+    ...(p.bands.flags.includes('indoor') ? { indoor: true as const } : {}),
   };
 }
 

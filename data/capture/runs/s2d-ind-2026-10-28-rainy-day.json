@@ -1,0 +1,47 @@
+{
+  "schema": "capture-run/1",
+  "run": "s2d-ind-2026-10-28-rainy-day",
+  "started": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "types": ["ride.lift.gondola", "ride.lift.cable_car", "ride.lift.rack_railway", "water.thermal.hot_spring", "water.thermal.thermal_bath", "culture.museum.museum", "culture.heritage.historic_site", "settlement.town"],
+    "refs": [
+      "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
+      "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer",
+      "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+      "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+      "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
+      "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
+      "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+      "place/lagazuoi-cable-car-and-tunnels",
+      "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+      "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+      "trip/iceland-ring-road-2027/activity:myvatn nature baths",
+      "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
+      "trip/patagonia-2027/town:cafe and bookshops"
+    ]
+  },
+  "hosts": [],
+  "results": [
+    { "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola", "field": "indoor", "outcome": "gap", "reason": "Mixed type (ride.lift.gondola has no indoor_default): enclosed cabins and a summit building, but the visit is the outdoor view and boardwalk. Not indoor until a record-level value says so; owner review (DATA-PLAN 2.4, S2D-IND)." },
+    { "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram", "field": "indoor", "outcome": "gap", "reason": "Mixed type (gondola): the visit is the summit view and trail. Not indoor by rule; owner review." },
+    { "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola", "field": "indoor", "outcome": "gap", "reason": "Mixed type (gondola), open chairs on part of the lift. Not indoor by rule; owner review." },
+    { "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly", "field": "indoor", "outcome": "gap", "reason": "Mixed type (gondola). Not indoor by rule; owner review." },
+    { "ref": "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer", "field": "indoor", "outcome": "gap", "reason": "Mixed type (gondola and coaster). Not indoor by rule; owner review." },
+    { "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs", "field": "indoor", "outcome": "gap", "reason": "water.thermal.hot_spring has no indoor_default: outdoor pools, often soaked in the rain but not under a roof. Not indoor by rule; owner review (the brief listed hot springs as indoor, DATA-PLAN 2.4 as mixed; the plan's reading was kept)." },
+    { "ref": "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs", "field": "indoor", "outcome": "gap", "reason": "Hot spring, outdoor pools. Not indoor by rule; owner review." },
+    { "ref": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs", "field": "indoor", "outcome": "gap", "reason": "Hot spring, outdoor pools. Not indoor by rule; owner review." },
+    { "ref": "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs", "field": "indoor", "outcome": "gap", "reason": "Wild riverside hot spring: never indoor. No action unless the owner wants an explicit no." },
+    { "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin", "field": "indoor", "outcome": "gap", "reason": "Not a source conflict (no source was fetched): a type and judgement question. Typed culture.heritage.historic_site (no default), flagged indoor from its own relevance weather of indoor. The site has an indoor exhibit and cave, and outdoor boardwalks to the basin and marsh. Both readings are recorded here, neither chosen: owner review." },
+    { "ref": "place/lagazuoi-cable-car-and-tunnels", "field": "indoor", "outcome": "gap", "reason": "Mixed type (cable car); the tunnels are underground but are a mountain walk with exposure. Not indoor by rule; owner review." },
+    { "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi", "field": "indoor", "outcome": "gap", "reason": "Mixed type (cable car); the summit has indoor galleries and the Step into the Void, but the visit is the view. Not indoor by rule; owner review." },
+    { "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train", "field": "indoor", "outcome": "gap", "reason": "Mixed type (rack railway); the train is covered, the Mer de Glace cave beside it is flagged on its own record. Not indoor by rule; owner review." },
+    { "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths", "field": "indoor", "outcome": "gap", "reason": "water.thermal.thermal_bath was set mixed in this run because this record is an outdoor geothermal lagoon; an indoor thermal bath needs a record-level value. Not indoor by rule." },
+    { "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm", "field": "indoor", "outcome": "gap", "reason": "Not a source conflict (no source was fetched): a type and judgement question. Typed culture.museum.museum (indoor by type) and relevance weather indoor, but it is an open-air museum of turf houses (the visit walks between buildings). Possibly culture.museum.open_air_museum, which is not indoor by type. Both readings recorded; owner review." },
+    { "ref": "trip/patagonia-2027/town:cafe and bookshops", "field": "indoor", "outcome": "gap", "reason": "Typed settlement.town, flagged indoor from its relevance weather of indoor (a rainy-day plan of cafes in El Chalten). The type is the odd part, not the flag; a later typing pass may move it to food.eat.cafe. Owner review." }
+  ]
+}

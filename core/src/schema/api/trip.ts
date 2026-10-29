@@ -394,6 +394,8 @@ export const planAddCandidate = z.strictObject({
   label: z.string(),
   km: z.number().nullable(),
   group: z.enum(["variant", "trip", "nearby"]),
+  /** indoor or under cover (DG-01): present only when true */
+  indoor: z.literal(true).optional(),
 });
 
 /** One day of the timeline (`TimelineDayModel`): the scheduler's input for the day and the words around it. */

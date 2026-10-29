@@ -22,7 +22,7 @@ import { usePhone } from '../panel/useMatchMedia';
 import { Arrival } from './Arrival';
 import type { Fit } from './fit';
 import { PickRowView } from './PickRowView';
-import { anyRows, isRainy, buildSections, centreOf, daysByDistance, titleWords, withGhosts, type Chips, type Ghost, type GroupId, type PickRow } from './rows';
+import { anyRows, isRainy, rainyCandidates, buildSections, centreOf, daysByDistance, titleWords, withGhosts, type Chips, type Ghost, type GroupId, type PickRow } from './rows';
 import { apiAvailable, newTripHref } from './source';
 import { useDayView, useDebounced, useFitter, useNearRows, useRowsOf, useSearchRows } from './useAdd';
 
@@ -109,7 +109,8 @@ function DayPicker(p: PickerProps & { day: number }) {
   const maybeRows = useRowsOf(maybeSlugs);
   const searchBox = useRef<HTMLInputElement>(null);
   // Rainy day filters the catalogue's `indoor` flag; the chip is drawn only once some place on show carries it (no chip that narrows to nothing)
-  const rainyKnown = [...near.rows, ...search.rows, ...(maybeRows ?? [])].some((f) => isRainy(f));
+  // (with no API the near group is the model's own list, so its indoor bit counts instead)
+  const rainyKnown = [...near.rows, ...search.rows, ...(maybeRows ?? [])].some((f) => isRainy(f)) || (near.status !== 'ok' && rainyCandidates(model, day).length > 0);
 
   // `/` focuses the search field (edit-mode-spec 7.1)
   useEffect(() => {

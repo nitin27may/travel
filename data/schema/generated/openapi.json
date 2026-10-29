@@ -16794,6 +16794,10 @@
                                           "trip",
                                           "nearby"
                                         ]
+                                      },
+                                      "indoor": {
+                                        "type": "boolean",
+                                        "const": true
                                       }
                                     },
                                     "required": [

@@ -102,7 +102,7 @@ Links: official; R? none; A hours_rates, booking, conditions, status, osm, commo
 
 ### Aquatic centre (`water.swim.aquatic_centre`)
 
-Records: place, offer. Suitability profile `swim` (never, extension water). Effort: none, time is shown. Sources, in order: O F T D C.
+Records: place, offer. Suitability profile `swim` (never, extension water). Effort: none, time is shown. Sources, in order: O F T D C. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
 
 **place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
 
@@ -115,6 +115,30 @@ Links: official; R? none; A hours_rates, booking, conditions, status, osm, commo
 ## Hot springs and spas (`water.thermal`)
 
 Records: place, offer. Suitability profile `hot_spring` (always, extension water). Effort: none, time is shown. Sources, in order: O F T D C.
+
+**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
+
+**offer (ticket)**: R name, type, summary, season, hours, price, links, at; R? window (bookable); A names, best_window, best_time, transit, pairs_with, closures, photos, on, run_by, included.
+
+Suitability: R min_age, adult_required, age_band, kid_note, wheelchair, on_site_min, toilets, water_safety.water_temp_c, access_season, participation.pregnancy; R when operated none; A access_detail, accessible_toilet, accessible_parking, limited_capacity_note, food, change_rooms, showers, picnic, baby_change, water_safety.lifeguard, water_safety.entry, participation.wear, participation.medical, ext.water.clarity, ext.water.floats_required_under.
+
+Links: official; R? none; A hours_rates, booking, conditions, status, osm, commons, webcam.
+
+### Spa (`water.thermal.spa`)
+
+Records: place, offer. Suitability profile `hot_spring` (always, extension water). Effort: none, time is shown. Sources, in order: O F T D C. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
+
+**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
+
+**offer (ticket)**: R name, type, summary, season, hours, price, links, at; R? window (bookable); A names, best_window, best_time, transit, pairs_with, closures, photos, on, run_by, included.
+
+Suitability: R min_age, adult_required, age_band, kid_note, wheelchair, on_site_min, toilets, water_safety.water_temp_c, access_season, participation.pregnancy; R when operated none; A access_detail, accessible_toilet, accessible_parking, limited_capacity_note, food, change_rooms, showers, picnic, baby_change, water_safety.lifeguard, water_safety.entry, participation.wear, participation.medical, ext.water.clarity, ext.water.floats_required_under.
+
+Links: official; R? none; A hours_rates, booking, conditions, status, osm, commons, webcam.
+
+### Sauna (`water.thermal.sauna`)
+
+Records: place, offer. Suitability profile `hot_spring` (always, extension water). Effort: none, time is shown. Sources, in order: O F T D C. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
 
 **place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
 
