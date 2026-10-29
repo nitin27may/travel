@@ -6,6 +6,7 @@ import { DEFAULT_CHILD_AGE, type Party } from '@travel/core/trips/party.ts';
 import { asksDriveDay, newFlow, type FlowState, type Moves } from './flow';
 import { kindOfDraft } from './kinds';
 import { PLAN_DRAFT_SCHEMA_ID } from './keys';
+import { draftTitle } from '@/lib/trip-edit/title';
 
 /** The trip identity colours, in the order a new draft takes the next free one (FLOW TF19; tokens 4; `none` is never given). */
 export const IDENTITY_ORDER: readonly PlanIdentity[] = ['blue', 'orange', 'rose', 'teal', 'sky', 'yellow', 'vermillion'];
@@ -36,6 +37,15 @@ export const partyBand = (p: Party): string | undefined => {
   const y = youngestOf(p);
   return y === null ? undefined : `family-${Math.min(17, Math.max(0, y))}`;
 };
+
+/**
+ * The document with the party it was built with (RB-004). The build planned for this party, so the trip's page, its checks and a
+ * rebuild must too; reading the device party later would plan for whoever the device holds then. It is an age snapshot on this device
+ * (`party: "trip"`, the shape a copy's own party has), never a URL, a log or a server write.
+ */
+export function withParty(d: PlanDraft, p: Party): PlanDraft {
+  return { ...d, party: 'trip', travellers: { adults: p.adults, children: p.children.map((c) => c ?? DEFAULT_CHILD_AGE) } };
+}
 
 /** The document for the state, or null when it is not complete enough to be one (no kind, no start or country yet). */
 export function draftOf(s: FlowState, identity: PlanIdentity, last: PlanOutputs | null = null): PlanDraft | null {
@@ -125,17 +135,9 @@ export function draftStateWords(d: PlanDraft): string {
   return d.picks.length ? 'ready to build' : 'picking places';
 }
 
-/** A country's English name from its code, or the code (the browser knows the names; the document holds only the code). */
-export function countryName(cc: string): string {
-  try {
-    return new Intl.DisplayNames(['en'], { type: 'region' }).of(cc) ?? cc;
-  } catch {
-    return cc;
-  }
-}
+export { countryName } from '@/lib/trip-edit/title';
 
-/** The name a stored document goes by in lists: its own title, else the country or the kind of trip. */
-export function draftName(d: PlanDraft, kindLabel: string): string {
-  if (d.title) return d.title;
-  return d.where.mode === 'trip' ? countryName(d.where.cc) : kindLabel;
+/** The name a stored document goes by in lists: its own title, else the derived one (the towns it sleeps in, or its first picks, and the length). */
+export function draftName(d: PlanDraft): string {
+  return draftTitle(d);
 }

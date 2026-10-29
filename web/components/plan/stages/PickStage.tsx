@@ -14,6 +14,7 @@ import { MONTH_NAMES, plural, reachText, APPROX } from '@/lib/plan/format';
 import { candidateQuery } from '@/lib/plan/query';
 import { useCandidates } from '@/lib/plan/useCandidates';
 import { useRegions } from '@/lib/plan/useReference';
+import { useStay } from '@/lib/plan/useStay';
 import { AskUs } from '../AskUs';
 import { CandidateRow } from '../CandidateRow';
 import { ReachControl } from '../ReachControl';
@@ -34,7 +35,7 @@ const MONTH_OPTIONS = MONTH_NAMES.map((m, i) => ({ value: String(i + 1), label: 
 const MORE_OPTIONS = [{ value: 'stroller', label: 'Stroller friendly' }];
 
 const toPick = (r: PlanCandidateRow) => ({ ref: r.ref, slug: r.slug, name: r.name, must: false });
-const pickAction = (r: PlanCandidateRow, now: string) => ({ t: 'pick' as const, pick: toPick(r), visitMin: r.visitMin, now, area: r.region_name || null });
+const pickAction = (r: PlanCandidateRow, now: string) => ({ t: 'pick' as const, pick: toPick(r), visitMin: r.visitMin, now, area: r.region_name || null, town: r.kind === 'town', driveMin: r.driveMin });
 
 /** "Not for your party (3)" and "Closed in October (2)" (FLOW stage 3, scenario S9): the rows the list left out, behind a toggle, each with its reason. They cannot be picked. */
 function RemovedList({ kind, count, label, flow, party, youngest }: { kind: 'not_for_party' | 'closed'; count: number; label: string; flow: FlowState; party: StageProps['party']; youngest: number | null }) {
@@ -90,7 +91,7 @@ function NearStrip({ flow, party, dispatch, now, anchor, youngest }: StageProps 
       {open ? (
         <ul className="near-rows" role="list">
           {rows.map((r) => (
-            <CandidateRow key={r.ref} row={r} picked={false} youngest={youngest} from={short} onToggle={(row) => dispatch(pickAction(row, now()))} full={flow.picks.length >= PLAN_BUILDER_UI.maxPicks} />
+            <CandidateRow key={r.ref} row={r} picked={false} youngest={youngest} from={short} onToggle={(row) => dispatch({ ...pickAction(row, now()), driveMin: undefined })} full={flow.picks.length >= PLAN_BUILDER_UI.maxPicks} />
           ))}
         </ul>
       ) : null}
@@ -134,10 +135,21 @@ export function PickStage({ flow, dispatch, party, now, onTray, trayOpen }: Stag
         : '';
 
   const strip = latest ? <NearStrip key={latest.ref} flow={flow} dispatch={dispatch} party={party} now={now} anchor={{ slug: latest.slug, name: latest.name }} youngest={youngest} /> : null;
+  const stayHere = useStay(flow, dispatch, now);
+  // the drive on a row is from the start (near mode) or from the centre of the chosen areas (trip mode, where no start is asked): say which (RB-026)
+  const driveFrom = mode === 'near' ? (flow.startName ?? 'home') : 'the centre of your areas';
   const renderRows = (list: PlanCandidateRow[]) =>
     list.map((r) => (
       <Fragment key={r.ref}>
-        <CandidateRow row={r} picked={flow.picks.some((p) => p.ref === r.ref)} onToggle={toggle} youngest={youngest} full={full} />
+        <CandidateRow
+          row={r}
+          picked={flow.picks.some((p) => p.ref === r.ref)}
+          onToggle={toggle}
+          youngest={youngest}
+          full={full}
+          from={driveFrom}
+          stay={r.kind === 'town' && flow.nights >= 1 && flow.picks.some((p) => p.ref === r.ref) ? { on: stayHere.isOn(r.ref), busy: stayHere.busy === r.ref, failed: stayHere.failed === r.ref, onToggle: () => void stayHere.toggle(r) } : null}
+        />
         {latestRow && latestRow.ref === r.ref ? strip : null}
       </Fragment>
     ));
@@ -235,11 +247,11 @@ export function PickStage({ flow, dispatch, party, now, onTray, trayOpen }: Stag
       </div>
 
       <aside className="plan-tray-col" aria-label="Your picks">
-        <Tray flow={flow} dispatch={dispatch} now={now} />
+        <Tray flow={flow} dispatch={dispatch} now={now} stay={stayHere} />
       </aside>
 
       <SideSheet open={trayOpen} onOpenChange={onTray} title={`Your picks (${flow.picks.length})`} footer={<Button variant="primary" onClick={() => onTray(false)}>Done</Button>}>
-        <Tray flow={flow} dispatch={dispatch} now={now} bare />
+        <Tray flow={flow} dispatch={dispatch} now={now} bare stay={stayHere} />
       </SideSheet>
       <SideSheet open={reachOpen} onOpenChange={setReachOpen} title="How far to drive" footer={<Button variant="primary" onClick={() => setReachOpen(false)}>Done</Button>}>
         <ReachControl flow={flow} party={party} onChange={(min) => dispatch({ t: 'patch', patch: { driveLimitMin: min }, now: now() })} />

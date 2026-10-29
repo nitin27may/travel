@@ -62,6 +62,12 @@ export interface FlowState {
   baseInfo?: Record<string, BaseInfo>;
   /** the area's name of each pick by ref, for the tray's groups (TB-W2); screen state, absent in a state saved before */
   pickAreas?: Record<string, string>;
+  /** one-way drive minutes of each pick from the start or the middle of the chosen areas, from its candidate row (screen state; the estimate needs it) */
+  drive?: Record<string, number | null>;
+  /** the picks that are towns (RB-022: only a town can be a base), by ref; screen state, absent in a state saved before */
+  pickTowns?: Record<string, true>;
+  /** the base town (towns-layer id) a "Stay here" on a picked town chose, by the pick's ref; screen state */
+  stay?: Record<string, string>;
   filters: Filters;
   createdAt: string;
   updatedAt: string;
@@ -149,14 +155,20 @@ export interface DaysEstimate {
   nights: number;
 }
 
-export function estimateDays(s: Pick<FlowState, 'picks' | 'visit' | 'pace'>): DaysEstimate {
+/**
+ * The days the picks need: the time on site over a day's on-site minutes, or, when the places lie far from each other, the driving to them
+ * over a day's driving, whichever runs out first (RB-007). The drive is each pick's one-way minutes from the start or the middle of the
+ * chosen areas, which a day out shares between its places, so it is the figure that grows when picks are spread over two parks.
+ */
+export function estimateDays(s: Pick<FlowState, 'picks' | 'visit' | 'pace'> & { drive?: FlowState['drive'] }): DaysEstimate {
   const minutes = s.picks.reduce((n, p) => n + (s.visit[p.ref] ?? PLAN_UNKNOWN_VISIT_MIN), 0);
-  const days = Math.max(1, Math.ceil(minutes / PLAN_DAY_ON_SITE_MIN[s.pace]));
+  const driving = s.picks.reduce((n, p) => n + (s.drive?.[p.ref] ?? 0), 0);
+  const days = Math.max(1, Math.ceil(minutes / PLAN_DAY_ON_SITE_MIN[s.pace]), Math.ceil(driving / PLAN_BUILDER_UI.driveDay.defaultMin));
   return { days, nights: days - 1 };
 }
 
 /** Picks that nights below the estimate would leave out, roughly: the share of the days missing. */
-export function leftOutIfShort(s: Pick<FlowState, 'picks' | 'visit' | 'pace' | 'nights'>): number {
+export function leftOutIfShort(s: Pick<FlowState, 'picks' | 'visit' | 'pace' | 'nights'> & { drive?: FlowState['drive'] }): number {
   const est = estimateDays(s);
   if (s.nights + 1 >= est.days) return 0;
   return Math.max(1, Math.round(s.picks.length * (1 - (s.nights + 1) / est.days)));
@@ -173,7 +185,10 @@ export type FlowAction =
   | { t: 'country'; cc: string; name: string; now: string }
   | { t: 'region'; id: string; on: boolean; now: string }
   | { t: 'regions'; ids: string[]; now: string }
-  | { t: 'pick'; pick: PlanPick; visitMin: number | null; now: string; area?: string | null }
+  | { t: 'pick'; pick: PlanPick; visitMin: number | null; now: string; area?: string | null; town?: boolean; driveMin?: number | null }
+  /** "Stay here" on a picked town: the town becomes a base (RB-022), remembered against the pick so the toggle can undo it */
+  | { t: 'stay'; ref: string; town: string; info: BaseInfo; now: string }
+  | { t: 'unstay'; ref: string; now: string }
   /** nights, with the bases' nights cut to fit (a shorter trip takes nights back from the last bases) */
   | { t: 'nights'; nights: number; now: string }
   | { t: 'base-add'; town: string; info: BaseInfo; now: string }
@@ -229,7 +244,7 @@ export function flowReducer(s: FlowState, a: FlowAction): FlowState {
     }
     case 'country':
       // a different country drops the areas and the picks of the old one
-      return a.cc === s.cc ? s : touch(s, a.now, { cc: a.cc, ccName: a.name, regions: [], picks: [], visit: {}, bases: [], baseInfo: {}, pickAreas: {}, filters: { ...s.filters, areas: [] } });
+      return a.cc === s.cc ? s : touch(s, a.now, { cc: a.cc, ccName: a.name, regions: [], picks: [], visit: {}, bases: [], baseInfo: {}, pickAreas: {}, pickTowns: {}, stay: {}, filters: { ...s.filters, areas: [] } });
     case 'region':
       return touch(s, a.now, { regions: a.on ? [...new Set([...s.regions, a.id])] : s.regions.filter((r) => r !== a.id) });
     case 'regions': {
@@ -240,7 +255,27 @@ export function flowReducer(s: FlowState, a: FlowAction): FlowState {
     }
     case 'pick': {
       if (s.picks.some((p) => p.ref === a.pick.ref)) return s;
-      return touch(s, a.now, { picks: [...s.picks, a.pick], visit: { ...s.visit, [a.pick.ref]: a.visitMin }, ...(a.area ? { pickAreas: { ...s.pickAreas, [a.pick.ref]: a.area } } : {}) });
+      return touch(s, a.now, {
+        picks: [...s.picks, a.pick],
+        visit: { ...s.visit, [a.pick.ref]: a.visitMin },
+        ...(a.driveMin !== undefined ? { drive: { ...s.drive, [a.pick.ref]: a.driveMin } } : {}),
+        ...(a.area ? { pickAreas: { ...s.pickAreas, [a.pick.ref]: a.area } } : {}),
+        ...(a.town ? { pickTowns: { ...s.pickTowns, [a.pick.ref]: true as const } } : {}),
+      });
+    }
+    case 'stay': {
+      if (s.nights < 1) return s;
+      const bases = addBase(s.bases, a.town);
+      return touch(s, a.now, { bases, baseInfo: { ...s.baseInfo, [a.town]: a.info }, stay: { ...s.stay, [a.ref]: a.town } });
+    }
+    case 'unstay': {
+      const town = s.stay?.[a.ref];
+      if (!town) return s;
+      const { [a.ref]: _gone, ...stay } = s.stay ?? {};
+      void _gone;
+      const { [town]: _info, ...baseInfo } = s.baseInfo ?? {};
+      void _info;
+      return touch(s, a.now, { bases: removeBase(s.bases, town), baseInfo, stay });
     }
     case 'nights':
       return touch(s, a.now, { nights: a.nights, bases: clampBases(s.bases, a.nights) });
@@ -256,13 +291,22 @@ export function flowReducer(s: FlowState, a: FlowAction): FlowState {
     case 'base-nights':
       return touch(s, a.now, { bases: setBaseNights(s.bases, a.town, a.nights, s.nights) });
     case 'bases-auto':
-      return touch(s, a.now, { bases: [], baseInfo: {} });
+      return touch(s, a.now, { bases: [], baseInfo: {}, stay: {} });
     case 'unpick': {
       const { [a.ref]: _gone, ...visit } = s.visit;
       const { [a.ref]: _area, ...pickAreas } = s.pickAreas ?? {};
+      const { [a.ref]: _town, ...pickTowns } = s.pickTowns ?? {};
+      const { [a.ref]: _drive, ...drive } = s.drive ?? {};
+      void _drive;
       void _gone;
       void _area;
-      return touch(s, a.now, { picks: s.picks.filter((p) => p.ref !== a.ref), visit, pickAreas });
+      void _town;
+      // taking a town off the picks takes back the base it chose
+      const stayed = s.stay?.[a.ref];
+      const { [a.ref]: _stay, ...stay } = s.stay ?? {};
+      void _stay;
+      const bases = stayed ? removeBase(s.bases, stayed) : s.bases;
+      return touch(s, a.now, { picks: s.picks.filter((p) => p.ref !== a.ref), visit, drive, pickAreas, pickTowns, stay, bases });
     }
     case 'must':
       return touch(s, a.now, { picks: s.picks.map((p) => (p.ref === a.ref ? { ...p, must: !p.must } : p)) });

@@ -1,21 +1,24 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { PlanOrigin } from '@travel/core/schema/plan-draft.ts';
 import { Banner } from '@/components/ui/Banner';
 import { Button } from '@/components/ui/Button';
 import { SearchInput } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
+import { Icon } from '@/components/ui/Icon';
 import { SideSheet } from '@/components/ui/SideSheet';
 import { modeOf } from '@/lib/plan/flow';
 import { MONTH_NAMES, plural } from '@/lib/plan/format';
 import { kindDef, isShortKind } from '@/lib/plan/kinds';
+import { readLastFrom, writeLastFrom } from '@/lib/plan/lastFrom';
 import { candidateQuery } from '@/lib/plan/query';
 import { useCount } from '@/lib/plan/useCandidates';
 import type { PartyState } from '@/lib/plan/useParty';
 import { useStarts } from '@/lib/plan/useReference';
 import { monthOfDate, nextWeekend, whenKind, whenWords } from '@/lib/plan/when';
 import { PartyRow } from '../PartyRow';
+import { AirportPicker } from '../AirportPicker';
 import { AskUs } from '../AskUs';
 import { CountWords, ReachControl } from '../ReachControl';
 import { PLAN_BUILDER_UI } from '@/lib/config/product';
@@ -54,18 +57,21 @@ export function StartStage({ flow, dispatch, party, partyState, now }: StageProp
     const h = hubs.find((x) => `hub:${x.id}` === value);
     if (h) dispatch({ t: 'patch', patch: { start: { kind: 'hub', id: h.id }, startName: h.name }, now: now() });
   };
-  const pickAirport = (value: string) => {
-    if (!value) {
-      dispatch({ t: 'patch', patch: { origin: null, originName: null }, now: now() });
-      return;
-    }
-    const a = airports.find((x) => `iata:${x.iata}` === value);
-    if (a) dispatch({ t: 'patch', patch: { origin: { kind: 'airport', iata: a.iata }, originName: a.name }, now: now() });
-    else {
-      const h = hubs.find((x) => `hub:${x.id}` === value);
-      if (h) dispatch({ t: 'patch', patch: { origin: { kind: 'hub', id: h.id }, originName: h.name }, now: now() });
-    }
+  const pickAirport = (origin: PlanOrigin, name: string) => {
+    dispatch({ t: 'patch', patch: { origin, originName: name }, now: now() });
+    writeLastFrom(origin, name);
   };
+  // FLOW TF4: pre-filled with the last place you flew from on this device, once, when the list has it (RB-019). Clearing it stays cleared.
+  const prefilled = useRef(false);
+  useEffect(() => {
+    if (prefilled.current || mode !== 'trip' || starts.status !== 'ok' || flow.origin !== null) return;
+    prefilled.current = true;
+    const last = readLastFrom();
+    if (!last) return;
+    const known = last.origin.kind === 'airport' ? starts.data.airports.some((a) => a.iata === (last.origin as { iata: string }).iata) : last.origin.kind === 'hub' ? starts.data.hubs.some((h) => h.id === (last.origin as { id: string }).id) : false;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- an answer the person gave before, restored once the public list confirms it exists
+    if (known) dispatch({ t: 'patch', patch: { origin: last.origin, originName: last.name }, now: now() });
+  }, [mode, starts, flow.origin, dispatch, now]);
   const setWhen = (k: 'weekend' | 'month' | 'dates' | 'unsure') => {
     if (k === 'weekend') {
       const d = nextWeekend(new Date());
@@ -114,20 +120,16 @@ export function StartStage({ flow, dispatch, party, partyState, now }: StageProp
             )
           ) : allAirports.length || allHubs.length ? (
             <>
-              {searchable ? <SearchInput value={find} onChange={setFind} label="Find an airport" placeholder="Find an airport or city" status={want ? plural(matches, 'match', 'matches') : ''} /> : null}
-              <Select aria-labelledby="plan-from-l" value={hubValue(flow.origin)} onChange={(e) => pickAirport(e.target.value)}>
-                <option value="">{flow.kind === 'holiday' ? 'Decide later' : 'Not chosen yet'}</option>
-                {airports.map((a) => (
-                  <option key={a.iata} value={`iata:${a.iata}`}>
-                    {a.name} ({a.iata})
-                  </option>
-                ))}
-                {hubs.map((h) => (
-                  <option key={h.id} value={`hub:${h.id}`}>
-                    {h.name}
-                  </option>
-                ))}
-              </Select>
+              <AirportPicker
+                starts={starts.status === 'ok' ? starts.data : { hubs: [], airports: [] }}
+                value={flow.origin}
+                name={flow.originName}
+                last={readLastFrom()}
+                emptyWord={flow.kind === 'holiday' ? 'Decide later' : 'Not chosen yet'}
+                labelledBy="plan-from-l"
+                onPick={pickAirport}
+                onClear={() => dispatch({ t: 'patch', patch: { origin: null, originName: null }, now: now() })}
+              />
               <p className="plan-help">We use this for your flights. The airport you land at comes from where you go. We plan a hire car from the airport.</p>
             </>
           ) : (
@@ -148,9 +150,18 @@ export function StartStage({ flow, dispatch, party, partyState, now }: StageProp
                 Next weekend
               </button>
             ) : null}
-            <button type="button" className="plan-chip" aria-pressed={when === 'month'} onClick={() => setWhen('month')}>
-              {when === 'month' && flow.month ? `${MONTH_NAMES[flow.month - 1]} ▾` : 'A month ▾'}
-            </button>
+            <label className="plan-chip plan-chip-select" data-pressed={when === 'month' || undefined} aria-pressed={undefined}>
+              {when === 'month' && flow.month ? MONTH_NAMES[flow.month - 1] : 'A month'}
+              <Icon name="chevronDown" size={14} />
+              <select aria-label="Month" value={when === 'month' && flow.month ? String(flow.month) : ''} onChange={(e) => e.target.value && dispatch({ t: 'patch', patch: { month: Number(e.target.value), date: null }, now: now() })}>
+                {when === 'month' && flow.month ? null : <option value="">A month</option>}
+                {MONTH_NAMES.map((m, i) => (
+                  <option key={m} value={i + 1}>
+                    {m}
+                  </option>
+                ))}
+              </select>
+            </label>
             <button type="button" className="plan-chip" aria-pressed={when === 'dates'} onClick={() => setWhen('dates')}>
               {when === 'dates' ? whenWords(flow, today) : 'Dates…'}
             </button>
@@ -158,15 +169,6 @@ export function StartStage({ flow, dispatch, party, partyState, now }: StageProp
               Not sure yet
             </button>
           </div>
-          {when === 'month' ? (
-            <Select aria-label="Month" value={String(flow.month ?? '')} onChange={(e) => dispatch({ t: 'patch', patch: { month: Number(e.target.value), date: null }, now: now() })}>
-              {MONTH_NAMES.map((m, i) => (
-                <option key={m} value={i + 1}>
-                  {m}
-                </option>
-              ))}
-            </Select>
-          ) : null}
           {when === 'dates' || when === 'weekend' ? (
             <label className="plan-date">
               <span className="plan-help">Day 1</span>

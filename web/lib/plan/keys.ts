@@ -10,6 +10,8 @@ export const PLANS_LOCAL_KEY = 'travel.plans.local';
 export const PLANS_KEY = PLANS_LOCAL_KEY;
 /** The builder's own screen state (step, filters, the draft being asked); UI only, never a document; Mine never reads it. */
 export const PLANS_UI_KEY = 'travel.plans.ui';
+/** The airport or city the person last flew from in the builder (RB-019), a typed reference and its name; device only, never a URL or a request. */
+export const PLANS_FROM_KEY = 'travel.plans.from';
 /** Dispatched on `window` after the builder writes the list in this tab (the `storage` event covers other tabs). */
 export const PLANS_CHANGED_EVENT = 'travel:plans-changed';
 /** The schema words of the list and of a draft, as the core writes them (a unit test pins both). */

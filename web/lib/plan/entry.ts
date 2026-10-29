@@ -12,8 +12,12 @@ export interface Entry {
   place: string | null;
   /** a public trip to start from (X7 "Start from this trip"), as its slug */
   seed: string | null;
+  /** a draft on this device to open (Mine's "Continue", RB-021) and the stage to open it on; the id is a UUID v4 made on the device */
+  draft: string | null;
+  stage: 0 | 1 | 2 | 3 | 4 | null;
 }
 
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 export function parseEntry(search: string): Entry {
@@ -23,6 +27,8 @@ export function parseEntry(search: string): Entry {
   const cc = q.get('cc');
   const p = q.get('p');
   const seed = q.get('seed');
+  const d = q.get('draft');
+  const st = Number(q.get('s'));
   let kind: KindId | null = null;
   if (m === 'near') kind = !q.has('n') || !Number.isInteger(n) || n <= 0 ? 'day' : n <= 2 ? 'weekend' : n <= 4 ? 'long_weekend' : 'week_car';
   else if (m === 'trip') kind = 'week_air';
@@ -32,7 +38,9 @@ export function parseEntry(search: string): Entry {
     cc: m === 'trip' && cc && /^[A-Za-z]{2}$/.test(cc) ? cc.toUpperCase() : null,
     place: p && p.length <= 120 && SLUG.test(p) ? p : null,
     seed: seed && seed.length <= 120 && SLUG.test(seed) ? seed : null,
+    draft: d && UUID.test(d) ? d : null,
+    stage: q.has('s') && Number.isInteger(st) && st >= 0 && st <= 4 ? (st as 0 | 1 | 2 | 3 | 4) : null,
   };
 }
 
-export const hasEntry = (e: Entry): boolean => e.kind !== null || e.place !== null || e.seed !== null;
+export const hasEntry = (e: Entry): boolean => e.kind !== null || e.place !== null || e.seed !== null || e.draft !== null;

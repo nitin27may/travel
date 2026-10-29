@@ -53,6 +53,10 @@ export function DaysStage({ flow, dispatch, party, now }: StageProps) {
             <p className="plan-card-warn">
               {plural(flow.nights, 'night')} will leave about {plural(short, 'place')} out
             </p>
+          ) : flow.nights + 1 > est.days ? (
+            <p className="plan-help" data-testid="free-days">
+              {plural(flow.nights, 'night')} leaves about {plural(flow.nights + 1 - est.days, 'free day')} {APPROX}. You can add places, or take nights off.
+            </p>
           ) : null}
           <BaseEstimate flow={flow} />
         </div>

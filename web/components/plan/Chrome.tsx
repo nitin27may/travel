@@ -66,10 +66,12 @@ export function StepRail({ flow, onGoto, primary }: { flow: FlowState; onGoto: (
   const asked = askedStages(flow.kind);
   return (
     <div className="step-rail">
-      <div className="step-rail-name">
-        <p className="step-name">{flow.kind ? kindDef(flow.kind).label : 'Plan a trip'}</p>
-        <p className="step-sub">{subLine(flow, 'device')}</p>
-      </div>
+      {flow.kind ? (
+        <div className="step-rail-name">
+          <p className="step-name">{kindDef(flow.kind).label}</p>
+          <p className="step-sub">{subLine(flow, 'device')}</p>
+        </div>
+      ) : null}
       <nav aria-label="Steps" className="step-rail-nav">
         <ol>
           {([0, 1, 2, 3, 4] as Stage[]).map((st) => {
@@ -77,16 +79,15 @@ export function StepRail({ flow, onGoto, primary }: { flow: FlowState; onGoto: (
             const skipped = flow.kind !== null && !asked.includes(st);
             const current = st === flow.stage;
             const done = skipped || st < flow.stage;
-            const value = done ? valueOf(flow, st) : null;
+            // a step already visited that holds no answer says so (RB-029), so an empty start is not a blank
+            const value = done ? (valueOf(flow, st) ?? (skipped || st === 0 ? null : 'Not chosen')) : null;
             const body = (
               <>
                 <span className="rail-disc" aria-hidden="true">
                   {done ? <Icon name="check" size={12} strokeWidth={2.6} /> : st}
                 </span>
-                <span className="rail-label">
-                  {STAGE_SHORT[st]}
-                  {value ? <span className="rail-value">{value}</span> : null}
-                </span>
+                <span className="rail-name">{STAGE_SHORT[st]}</span>
+                <span className="rail-value">{value}</span>
               </>
             );
             return (

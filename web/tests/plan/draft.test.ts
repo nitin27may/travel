@@ -162,17 +162,22 @@ describe('the candidates query', () => {
 
 describe('ways in and the When chips', () => {
   it('reads only public keys from the link', () => {
-    expect(parseEntry('?m=near&n=0&p=moraine-lake')).toEqual({ kind: 'day', nights: 0, cc: null, place: 'moraine-lake', seed: null });
+    expect(parseEntry('?m=near&n=0&p=moraine-lake')).toEqual({ kind: 'day', nights: 0, cc: null, place: 'moraine-lake', seed: null, draft: null, stage: null });
     expect(parseEntry('?m=near&n=1&p=x')).toMatchObject({ kind: 'weekend', nights: 1 });
     expect(parseEntry('?m=near&n=2')).toMatchObject({ kind: 'weekend' });
-    expect(parseEntry('?m=trip&cc=ca&p=lake-louise')).toEqual({ kind: 'week_air', nights: null, cc: 'CA', place: 'lake-louise', seed: null });
-    expect(parseEntry('?p=Bad Slug!&cc=zzz')).toEqual({ kind: null, nights: null, cc: null, place: null, seed: null });
-    expect(parseEntry('?seed=canadian-rockies-2029')).toEqual({ kind: null, nights: null, cc: null, place: null, seed: 'canadian-rockies-2029' });
+    expect(parseEntry('?m=trip&cc=ca&p=lake-louise')).toEqual({ kind: 'week_air', nights: null, cc: 'CA', place: 'lake-louise', seed: null, draft: null, stage: null });
+    expect(parseEntry('?p=Bad Slug!&cc=zzz')).toEqual({ kind: null, nights: null, cc: null, place: null, seed: null, draft: null, stage: null });
+    expect(parseEntry('?seed=canadian-rockies-2029')).toEqual({ kind: null, nights: null, cc: null, place: null, seed: 'canadian-rockies-2029', draft: null, stage: null });
     expect(hasEntry(parseEntry('?seed=canadian-rockies-2029'))).toBe(true);
     // a seed is a public trip slug and nothing else
     expect(parseEntry('?seed=Bad Slug!').seed).toBeNull();
     expect(parseEntry(`?seed=${'a'.repeat(121)}`).seed).toBeNull();
-    expect(parseEntry('')).toEqual({ kind: null, nights: null, cc: null, place: null, seed: null });
+    expect(parseEntry('')).toEqual({ kind: null, nights: null, cc: null, place: null, seed: null, draft: null, stage: null });
+    // Mine's Continue (RB-021): a draft id and a stage, nothing else
+    const id = '6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b';
+    expect(parseEntry(`?draft=${id}&s=4`)).toMatchObject({ draft: id, stage: 4 });
+    expect(hasEntry(parseEntry(`?draft=${id}&s=4`))).toBe(true);
+    expect(parseEntry('?draft=not-an-id&s=9')).toMatchObject({ draft: null, stage: null });
   });
 
   it('next weekend is the coming Saturday', () => {

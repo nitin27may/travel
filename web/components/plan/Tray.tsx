@@ -1,6 +1,7 @@
 'use client';
 
 import type { Dispatch } from 'react';
+import type { useStay } from '@/lib/plan/useStay';
 import { Button } from '@/components/ui/Button';
 import { estimateDays, type FlowAction, type FlowState } from '@/lib/plan/flow';
 import { APPROX, plural } from '@/lib/plan/format';
@@ -30,7 +31,7 @@ export function trayGroups(flow: Pick<FlowState, 'picks' | 'pickAreas'>): { area
 }
 
 /** The tray (components 9.4): the picks, each with Must see and Remove. A column on desktop, a sheet's body on a phone. */
-export function Tray({ flow, dispatch, now, bare }: { flow: FlowState; dispatch: Dispatch<FlowAction>; now: () => string; bare?: boolean }) {
+export function Tray({ flow, dispatch, now, bare, stay }: { flow: FlowState; dispatch: Dispatch<FlowAction>; now: () => string; bare?: boolean; stay?: ReturnType<typeof useStay> }) {
   const words = trayWords(flow);
   return (
     <div className="tray">
@@ -52,7 +53,14 @@ export function Tray({ flow, dispatch, now, bare }: { flow: FlowState; dispatch:
               <ul className="tray-rows" role="list">
                 {g.picks.map((p) => (
                   <li key={p.ref} className="tray-row">
-                    <span className="tray-name">{p.name}</span>
+                    <span className="tray-name">
+                      {p.name}
+                      {stay && flow.pickTowns?.[p.ref] && flow.nights >= 1 ? (
+                        <button type="button" className="stay-btn tray-stay" aria-pressed={stay.isOn(p.ref)} disabled={stay.busy === p.ref} aria-label={`${stay.isOn(p.ref) ? 'Stop staying in' : 'Stay in'} ${p.name}`} onClick={() => void stay.toggle(p)}>
+                          {stay.isOn(p.ref) ? 'Staying here' : 'Stay here'}
+                        </button>
+                      ) : null}
+                    </span>
                     <button type="button" className="must-btn" aria-pressed={p.must} aria-label={`Must see ${p.name}`} onClick={() => dispatch({ t: 'must', ref: p.ref, now: now() })}>
                       Must see
                     </button>

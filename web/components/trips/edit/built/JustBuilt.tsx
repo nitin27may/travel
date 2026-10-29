@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { Icon } from '@/components/ui/Icon';
 import { useTripUrl } from '@/components/trips/useTripUrl';
 import { DEFAULT_TAB_STATE } from '@travel/core/trips/tabs.ts';
@@ -16,8 +17,22 @@ export function JustBuilt({ facts }: { facts: BuiltFacts }) {
   const { go } = useTripUrl();
   const toSummary = (hash: string) => () => go({ tab: DEFAULT_TAB_STATE, hash }, 'push');
   const parts = facts.line.split(' · ');
+  const line = useRef<HTMLParagraphElement>(null);
+  // RB-014: Build my days lands on the plan, not on the cover. The line goes under the sticky bars with Day 1 below it, and takes focus
+  // (without a second scroll), so a keyboard or screen-reader person starts at the plan. Once per page view; a jump to a day (#day-N) wins.
+  useEffect(() => {
+    const el = line.current;
+    if (!el) return;
+    const frame = requestAnimationFrame(() => {
+      const day = /^#day-\d+$/.test(window.location.hash) ? document.getElementById(window.location.hash.slice(1)) : null;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      (day ?? el).scrollIntoView({ block: 'start', behavior: reduced ? 'auto' : 'smooth' });
+      el.focus({ preventScroll: true });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
   return (
-    <p className="built-line own-changes-line" data-testid="just-built" data-print="hide" role="status">
+    <p ref={line} tabIndex={-1} className="built-line own-changes-line" data-testid="just-built" data-print="hide" role="status">
       <span className="built-kick"><Icon name="check" size={14} /> Just built</span>
       {parts.map((p) => {
         const target = /did not fit$/.test(p) ? toSummary('built-miss') : /to check$/.test(p) ? toSummary('wn-sum-h') : /to fix$/.test(p) ? jumpToFirstFix : null;
