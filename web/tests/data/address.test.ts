@@ -48,7 +48,7 @@ const driveRef = [...world.cap.keys()].find((ref) => {
 })!;
 
 describe('the address wording', () => {
-  it('a postal address as written, a nearest-road one as "Near <road>, <locality>"; the copy text drops "Near"', () => {
+  it('a postal address as written, a nearest-road one as "Near <road>, <locality>"; the bare words (the home-town check) drop "Near"', () => {
     expect(addressLine({ ...POSTAL, kind: 'postal' } as never)).toBe('224 Banff Avenue, Banff, T1L 1A3');
     expect(addressLine({ ...NEAR, kind: 'nearest_road' } as never)).toBe('Near Icefields Parkway, Lake Louise');
     expect(addressCopy(NEAR)).toBe('Icefields Parkway, Lake Louise');

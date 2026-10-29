@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { PlacePage } from '@/components/places/PlacePage';
 import { createPublicData } from '@/lib/public';
 import type { PublicPlace } from '@/lib/public/types';
-import type { PageAddress } from '@/lib/public/address';
+import { addressClipboard, type PageAddress } from '@/lib/public/address';
 
 // LT-M: the Directions card shows the address of its target, with a Copy button, and the OpenStreetMap and official-map buttons where the record
 // holds them. The place objects are patched in memory: no record in data/ holds an address yet.
@@ -37,7 +37,8 @@ describe('the Directions card: address (LT-M)', () => {
   it('a door place: the postal address under "To <place>", with a Copy address button that names the place', () => {
     const c = card(render(patch('athabasca-falls', { address: addr({ ref: own.sections!.ref, name: own.name }) })));
     expect(c).toContain('<span class="sr-only">Address: </span>224 Banff Avenue, Banff, T1L 1A3');
-    expect(c).toContain(`aria-label="Copy address of ${own.name}"`);
+    expect(c).toContain(`aria-label="Copy the address and map point of ${own.name}"`);
+    expect(c).toContain('Copy address and point');
     expect(c.indexOf('To <strong>')).toBeLessThan(c.indexOf('pl-addr'));
     expect(c.indexOf('pl-addr')).toBeLessThan(c.indexOf('pl-dir-links'));
     expect(c).not.toContain(`<strong>${own.name}: </strong>`);
@@ -45,6 +46,12 @@ describe('the Directions card: address (LT-M)', () => {
   it('a nearest-road address reads "Near <road>, <locality>"', () => {
     const c = card(render(patch('athabasca-falls', { address: addr({ ref: own.sections!.ref, name: own.name, kind: 'nearest_road', lines: ['Icefields Parkway'], locality: 'Jasper', postcode: null }) })));
     expect(c).toContain('Near Icefields Parkway, Jasper');
+  });
+  it('PR-013: Copy address copies the words as shown, "Near" kept, and the point the card goes to on a second line', () => {
+    const html = render(patch('athabasca-falls', { address: addr({ ref: own.sections!.ref, name: own.name, kind: 'nearest_road', lines: ['Icefields Parkway'], locality: 'Jasper', postcode: null }) }));
+    const text = addressClipboard({ kind: 'nearest_road', lines: ['Icefields Parkway'], locality: 'Jasper', postcode: null }, { lat: 52.66, lon: -117.88 });
+    expect(text).toBe('Near Icefields Parkway, Jasper\n52.66000, -117.88000');
+    expect(card(html)).toContain('Near Icefields Parkway, Jasper');
   });
   it('a natural place with no car park of its own shows the address of the access point the card goes to', () => {
     const dir = via.sections!.directions as { mode: 'drive'; ref: string; name: string };

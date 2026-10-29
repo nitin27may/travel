@@ -89,10 +89,12 @@
 .pl-side { display: grid; gap: var(--s-4); min-width: 0; }
 @media (min-width: 1000px) { .pl-side { position: sticky; top: calc(var(--header-h) + var(--s-4)); } }
 @media (max-width: 999px) {
-  /* phone and tablet: the map first, then the page, then directions, hazards and links */
+  /* phone and tablet: the map first, then Directions (the way in, with its address: P6, patterns 3.11 item 4; review STEP2-PRV PR-026),
+     then the page, then hazards and links. Matched by its heading so the page markup does not change */
   .pl-side { display: contents; }
   .pl-side > * { order: 10; }
   .pl-side > .pl-mapcard { order: -1; }
+  .pl-side > [aria-labelledby='h-dir'] { order: 0; }
   .pl-main { order: 5; }
 }
 

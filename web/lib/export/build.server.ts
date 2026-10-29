@@ -1,6 +1,6 @@
 import { getPlace, getTrip, placeSlugs, tripSlugs } from '@/lib/public';
 import type { PublicPlace, PublicTrip } from '@/lib/public';
-import { addressLine } from '@/lib/public/address';
+import { exportAddress } from '@/lib/public/address';
 import { absoluteUrl } from '@/lib/site';
 import { tripBookings, withStopBookings } from '@travel/core/export/bookings.ts';
 import { forTimeline } from '@travel/core/export/plan.ts';
@@ -71,7 +71,7 @@ export function buildTripExport(trip: PublicTrip, lookup: (slug: string) => Publ
           placeSlug: it.placeSlug,
           links: [...new Set(links)].slice(0, 4),
           point: place?.point ?? null,
-          ...(place?.sections?.address ? { address: addressLine(place.sections.address) } : {}),
+          ...(place?.sections?.address ? { address: exportAddress(place.sections.address, place.sections.ref ?? null) } : {}),
         });
         if (!place) continue;
         if (place.point) add({ key: place.slug, name: it.name, kind: it.kind, role: 'stop', day: day.n, note: it.note, url: placeUrl(place.slug), point: place.point });
