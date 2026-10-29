@@ -58,15 +58,17 @@ export function TableTools({ mode, onMode }: { mode: TableRowsMode; onMode: (m: 
   );
 }
 
-function Row({ r }: { r: TableRow }) {
-  const kindWhere = [r.kind, r.where].filter(Boolean).join(' · ');
+function Row({ r, where }: { r: TableRow; where: boolean }) {
+  const kindWhere = [r.kind, r.where || r.from].filter(Boolean).join(' · ');
   return (
     <tr className="dt-row" data-leg={r.leg || undefined} data-inside={r.inside || undefined} data-quiet={r.quiet || undefined}>
-      <th scope="row" className="dt-time num">
+      <td className="dt-time num">
         {r.time ? r.time : <><span aria-hidden="true">-</span><span className="sr-only">no time</span></>}
-      </th>
-      <td className="dt-what">
+      </td>
+      {/* the stop is the row's header: a screen reader says its name before each cell, not a clock time (PR-025) */}
+      <th scope="row" className="dt-what">
         <span className="dt-name">{r.href ? <a href={r.href}>{r.name}</a> : r.name}</span>
+        {r.from ? <span className="dt-from num">{r.from}</span> : null}
         <span className="dt-fold num">{kindWhere}</span>
         {r.notes.length || r.warns.length ? (
           <span className="dt-fold dt-fold-notes">
@@ -74,9 +76,9 @@ function Row({ r }: { r: TableRow }) {
             {r.warns.map((w) => <span key={w} className="dt-warn"><Icon name="warn" size={12} /> <Prose text={warnText(w)} /></span>)}
           </span>
         ) : null}
-      </td>
+      </th>
       <td className="dt-x dt-kind num">{r.kind}</td>
-      <td className="dt-x dt-where">{r.where}</td>
+      {where ? <td className="dt-x dt-where">{r.where}</td> : null}
       <td className="dt-takes num">{r.takes.split(' · ').map((t, i) => <span key={t} className={i === 0 ? 'dt-t' : 'dt-d'}>{t}</span>)}</td>
       <td className="dt-x dt-notes">
         {r.notes.map((n) => <span key={n}><Prose text={n} /></span>)}
@@ -110,6 +112,9 @@ export function DayTables({ days, timelines, areas, mode, editing, onList, onSho
     });
   }, [days, timelines, areas, mode, prefs.distance, prefs.elevation]);
 
+  // the Where column is the stop's own area; a trip whose stops have none known draws no empty column (print and every day keep the same columns)
+  const where = tables.some((t) => t.rows.some((r) => r.where));
+  const heads = where ? HEADS : HEADS.filter((h) => h.cls !== 'dt-c-where');
   return (
     <>
       {editing ? (
@@ -126,20 +131,20 @@ export function DayTables({ days, timelines, areas, mode, editing, onList, onSho
             <li key={d.n} id={`day-${d.n}`} className="tl-day dt-day" data-testid={`day-table-${d.n}`}>
               <table className="dt">
                 <caption className="dt-cap">
-                  <span className="dt-cap-sign">Day {String(d.n).padStart(2, '0')}</span>
+                  <span className="dt-cap-sign">Day {d.n}</span>
                   {' · '}
                   <span className="dt-cap-title">{title}</span>
-                  {[span, drive].filter(Boolean).map((t) => <span key={t} className="dt-cap-meta num">{' · '}{t}</span>)}
+                  {[d.base ? `base ${d.base}` : null, span, drive].filter(Boolean).map((t) => <span key={t} className="dt-cap-meta num">{' · '}{t}</span>)}
                 </caption>
                 <thead>
                   <tr>
-                    {HEADS.map((h) => <th key={h.label} scope="col" className={h.wide ? `dt-x ${h.cls}` : h.cls}>{h.label}</th>)}
+                    {heads.map((h) => <th key={h.label} scope="col" className={h.wide ? `dt-x ${h.cls}` : h.cls}>{h.label}</th>)}
                   </tr>
                 </thead>
                 <tbody>
-                  {rows.map((r) => <Row key={r.id} r={r} />)}
+                  {rows.map((r) => <Row key={r.id} r={r} where={where} />)}
                   {rows.length === 0 ? (
-                    <tr><td colSpan={HEADS.length} className="dt-empty">No stops are planned for this day yet.</td></tr>
+                    <tr><td colSpan={heads.length} className="dt-empty">No stops are planned for this day yet.</td></tr>
                   ) : null}
                 </tbody>
               </table>
