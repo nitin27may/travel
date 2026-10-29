@@ -62,6 +62,8 @@ export interface FlowState {
   baseInfo?: Record<string, BaseInfo>;
   /** the area's name of each pick by ref, for the tray's groups (TB-W2); screen state, absent in a state saved before */
   pickAreas?: Record<string, string>;
+  /** near mode: how many places the start and reach list, from stage 1's count (screen state; Next waits on it being above 0) */
+  reachTotal?: number | null;
   /** one-way drive minutes of each pick from the start or the middle of the chosen areas, from its candidate row (screen state; the estimate needs it) */
   drive?: Record<string, number | null>;
   /** the picks that are towns (RB-022: only a town can be a base), by ref; screen state, absent in a state saved before */
@@ -134,6 +136,8 @@ export function canAdvance(s: FlowState, opts: { startsAvailable?: boolean } = {
       return s.kind ? { ok: true, reason: null } : { ok: false, reason: 'Choose the kind of trip.' };
     case 1:
       if (modeOf(s) === 'near' && !s.start) return { ok: false, reason: opts.startsAvailable === false ? 'We cannot plan from a starting point yet.' : 'Choose where you start.' };
+      // nothing to pick from at this reach: say so and what to do, rather than letting Next lead to an empty list (RB-009)
+      if (modeOf(s) === 'near' && s.reachTotal === 0) return { ok: false, reason: 'No places within this drive yet. Drive further, or choose another start.' };
       return { ok: true, reason: null };
     case 2:
       if (modeOf(s) === 'trip') {

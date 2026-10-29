@@ -97,11 +97,11 @@ export function AirportPicker({
     return { rows: list.slice(0, SHOWN), total: all.length };
   }, [all, want, last, lastKey]);
 
-  useEffect(() => setActive(0), [want]);
   useEffect(() => {
     if (editing) input.current?.focus();
   }, [editing]);
 
+  const at = Math.min(active, Math.max(0, rows.length - 1));
   const choose = (o: Option) => {
     onPick(o.origin, o.name);
     setEditing(false);
@@ -113,13 +113,13 @@ export function AirportPicker({
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       setOpen(true);
-      setActive((i) => Math.min(rows.length - 1, i + 1));
+      setActive(Math.min(rows.length - 1, at + 1));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setActive((i) => Math.max(0, i - 1));
-    } else if (e.key === 'Enter' && open && rows[active]) {
+      setActive(Math.max(0, at - 1));
+    } else if (e.key === 'Enter' && open && rows[at]) {
       e.preventDefault();
-      choose(rows[active]!);
+      choose(rows[at]!);
     } else if (e.key === 'Escape') {
       e.preventDefault();
       setOpen(false);
@@ -158,13 +158,14 @@ export function AirportPicker({
           aria-expanded={open}
           aria-controls={listId}
           aria-autocomplete="list"
-          aria-activedescendant={open && rows[active] ? `${listId}-${active}` : undefined}
+          aria-activedescendant={open && rows[at] ? `${listId}-${at}` : undefined}
           autoComplete="off"
           spellCheck={false}
           placeholder="Find an airport or city"
           value={q}
           onChange={(e) => {
             setQ(e.target.value);
+            setActive(0);
             setOpen(true);
           }}
           onFocus={() => setOpen(true)}
@@ -181,9 +182,9 @@ export function AirportPicker({
               key={o.key}
               id={`${listId}-${i}`}
               role="option"
-              aria-selected={i === active}
+              aria-selected={i === at}
               className="plan-combo-opt"
-              data-active={i === active || undefined}
+              data-active={i === at || undefined}
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => choose(o)}
               onMouseMove={() => setActive(i)}

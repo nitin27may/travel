@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { Icon } from '@/components/ui/Icon';
 import { useTripUrl } from '@/components/trips/useTripUrl';
 import { DEFAULT_TAB_STATE } from '@travel/core/trips/tabs.ts';
+import { landing } from './useJustBuilt';
 import type { BuiltFacts } from '@/lib/trip-edit/built';
 import { jumpToFirstFix } from '../warnings/store';
 import './built.css';
@@ -22,8 +23,10 @@ export function JustBuilt({ facts }: { facts: BuiltFacts }) {
   // (without a second scroll), so a keyboard or screen-reader person starts at the plan. Once per page view; a jump to a day (#day-N) wins.
   useEffect(() => {
     const el = line.current;
-    if (!el) return;
+    if (!el || !landing.pending) return;
     const frame = requestAnimationFrame(() => {
+      if (!landing.pending) return;
+      landing.pending = false;
       const day = /^#day-\d+$/.test(window.location.hash) ? document.getElementById(window.location.hash.slice(1)) : null;
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       (day ?? el).scrollIntoView({ block: 'start', behavior: reduced ? 'auto' : 'smooth' });

@@ -17,6 +17,7 @@ import { useRegions } from '@/lib/plan/useReference';
 import { useStay } from '@/lib/plan/useStay';
 import { AskUs } from '../AskUs';
 import { CandidateRow } from '../CandidateRow';
+import { LongerDrive } from '../LongerDrive';
 import { ReachControl } from '../ReachControl';
 import { Tray } from '../Tray';
 import type { StageProps } from './types';
@@ -203,9 +204,9 @@ export function PickStage({ flow, dispatch, party, now, onTray, trayOpen }: Stag
           <div className="plan-empty" role="status">
             <p className="plan-unavailable-title">No places match{hasFilters ? ' these filters' : ''}</p>
             <p className="plan-help">
-              {hasFilters ? 'Clear a filter, or widen where you look.' : mode === 'near' ? `Nothing we have researched is within ${reachText(flow.driveLimitMin)} yet. Try a longer drive.` : 'We have not researched places in these areas yet.'}
+              {hasFilters ? 'Clear a filter, or widen where you look.' : mode === 'near' ? `Nothing we have researched is within ${reachText(flow.driveLimitMin)} yet.` : 'We have not researched places in these areas yet.'}
             </p>
-            <AskUs />
+            {!hasFilters && mode === 'near' ? <LongerDrive flow={flow} party={party} below={1} onChange={(min) => dispatch({ t: 'patch', patch: { driveLimitMin: min }, now: now() })} /> : <AskUs />}
           </div>
         ) : null}
 

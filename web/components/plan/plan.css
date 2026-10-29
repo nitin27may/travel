@@ -110,7 +110,9 @@ li[data-state='now'] .rail-disc { background: var(--ink); color: var(--surface);
 .plan-dl dd { font: var(--t-small); margin: 0; }
 
 /* RB-024: every control in the builder is 44 px tall; the small buttons of rows (Edit, Remove, Try again) are drawn at full size here, not only hit at it */
-.plan-flow .btn-sm { height: var(--touch-min); padding: 0 var(--s-3); font-size: 13px; }
+.plan-flow .btn, .action-bar .btn { min-height: var(--touch-min); }
+.plan-pills .pill-trigger { margin: -1px; height: calc(100% + 2px); }
+.plan-flow .btn-sm, .plan-party-edit .btn-sm, .tray .btn-sm { height: var(--touch-min); padding: 0 var(--s-3); font-size: 13px; }
 
 /* fields */
 .plan-field { display: grid; gap: var(--s-2); align-content: start; }

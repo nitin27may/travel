@@ -19,8 +19,8 @@ import { useStarts } from '@/lib/plan/useReference';
 import { monthOfDate, nextWeekend, whenKind, whenWords } from '@/lib/plan/when';
 import { PartyRow } from '../PartyRow';
 import { AirportPicker } from '../AirportPicker';
-import { AskUs } from '../AskUs';
 import { CountWords, ReachControl } from '../ReachControl';
+import { LongerDrive } from '../LongerDrive';
 import { PLAN_BUILDER_UI } from '@/lib/config/product';
 import type { StageProps } from './types';
 
@@ -37,6 +37,14 @@ export function StartStage({ flow, dispatch, party, partyState, now }: StageProp
   const today = useMemo(() => new Date(), []);
   const when = whenKind(flow, today);
   const count = useCount(mode === 'near' ? candidateQuery(flow, party, { strip: true, pageSize: 1 }) : null);
+
+  // Next waits on the reach holding a place (RB-009); stale counts are cleared while the next one loads
+  const total = count.status === 'ok' ? count.total : count.status === 'loading' || count.status === 'idle' ? undefined : null;
+  useEffect(() => {
+    if (mode !== 'near' || flow.reachTotal === total || (total === undefined && flow.reachTotal === undefined)) return;
+    dispatch({ t: 'patch', patch: { reachTotal: total ?? null }, now: now() });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed by the count
+  }, [mode, total]);
 
   const allHubs = starts.status === 'ok' ? starts.data.hubs : [];
   const allAirports = starts.status === 'ok' ? starts.data.airports : [];
@@ -69,7 +77,6 @@ export function StartStage({ flow, dispatch, party, partyState, now }: StageProp
     const last = readLastFrom();
     if (!last) return;
     const known = last.origin.kind === 'airport' ? starts.data.airports.some((a) => a.iata === (last.origin as { iata: string }).iata) : last.origin.kind === 'hub' ? starts.data.hubs.some((h) => h.id === (last.origin as { id: string }).id) : false;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- an answer the person gave before, restored once the public list confirms it exists
     if (known) dispatch({ t: 'patch', patch: { origin: last.origin, originName: last.name }, now: now() });
   }, [mode, starts, flow.origin, dispatch, now]);
   const setWhen = (k: 'weekend' | 'month' | 'dates' | 'unsure') => {
@@ -192,7 +199,7 @@ export function StartStage({ flow, dispatch, party, partyState, now }: StageProp
                 'Counting places…'
               )}
             </button>
-            {count.status === 'ok' && (count.total ?? 0) < PLAN_BUILDER_UI.thinCount ? <AskUs /> : null}
+            <LongerDrive flow={flow} party={party} below={PLAN_BUILDER_UI.thinCount} onChange={(min) => dispatch({ t: 'patch', patch: { driveLimitMin: min }, now: now() })} />
             <SideSheet open={reachOpen} onOpenChange={setReachOpen} title="How far to drive" footer={<Button variant="primary" onClick={() => setReachOpen(false)}>Done</Button>}>
               <ReachControl flow={flow} party={party} onChange={(min) => dispatch({ t: 'patch', patch: { driveLimitMin: min }, now: now() })} />
             </SideSheet>

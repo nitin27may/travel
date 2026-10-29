@@ -142,7 +142,6 @@ export function PlanFlow() {
       const saved = readFlow();
       dispatch({ t: 'load', state: saved ?? newFlow(id, nowIso()) });
     }
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- the saved draft is in the browser, so the first paint is the server's shell and this is the switch to the real one
     setReady(true);
   }, []);
 

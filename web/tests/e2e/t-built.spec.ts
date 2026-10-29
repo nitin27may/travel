@@ -26,6 +26,23 @@ test('Build my days lands on the trip: just-built line, Days in time order, buil
   await expect(page.getByTestId('just-built')).toContainText('Just built');
   await expect(page.locator('.tl-day-title').first()).toBeVisible();
   await expect(page.locator('.edit-tools')).toBeVisible();
+  // RB-004: the page plans for the party the build used, not the default one (the helper set 2 adults and a 7-year-old on the device)
+  await expect(page.getByTestId('party-line')).toContainText('2 adults');
+  await expect(page.getByTestId('party-line')).toContainText('1 child');
+  const kept = await docOf(page, id);
+  expect(kept.party).toBe('trip');
+  expect(kept.travellers).toEqual({ adults: 2, children: [7] });
+  // RB-015: a name from where it sleeps and how long, never the bare "Your trip"
+  await expect(page.locator('h1.trip-title')).toContainText(/^[A-Z].+, \d+ nights$/);
+  await expect(page.locator('h1.trip-title')).not.toHaveText('Your trip');
+  // RB-014: the landing shows the plan, not only the cover: the just-built line and Day 1 are on the first screen
+  await expect.poll(() => page.getByTestId('just-built').evaluate((el) => { const r = el.getBoundingClientRect(); return r.top >= 0 && r.bottom <= window.innerHeight; })).toBe(true);
+  await expect.poll(() => page.locator('li.tl-day').first().evaluate((el) => el.getBoundingClientRect().top < window.innerHeight)).toBe(true);
+  await expect(page.getByTestId('just-built')).toBeFocused();
+  // RB-016: a trip by air says how it starts and ends; no airport was chosen here, so it says that, with the way to add one
+  await expect(page.getByTestId('getting-in')).toContainText('Getting there');
+  await expect(page.getByTestId('getting-in')).toContainText('No departure airport');
+  await expect(page.getByTestId('getting-out')).toContainText('Getting home');
   // a day's stops run in time order
   const times = await page.evaluate(() =>
     [...document.querySelectorAll<HTMLElement>('li.tl-day')].map((d) => [...d.querySelectorAll('li.tl-entry[data-edit="stop"] .tl-time')].map((t) => (t.textContent ?? '').replace(/[^0-9:]/g, '')).filter(Boolean)),
@@ -74,10 +91,11 @@ test('Build my days lands on the trip: just-built line, Days in time order, buil
   await expect.poll(() => stops(page)).toEqual(after);
   await expect(page.getByTestId('just-built')).toHaveCount(0);
 
-  // 6 Mine lists it and opens it in read mode
+  // 6 Mine lists it by its name and opens it in read mode
   await page.goto(`${site.url}/mine/`);
   const open = page.locator(`a[href*="/t/${id}/"]`).first();
   await expect(open).toBeVisible({ timeout: 20_000 });
+  await expect(page.locator('.crow-name').first()).not.toHaveText('Your trip');
   await open.click();
   await expect(page).toHaveURL(new RegExp(`/t/${id}/`));
   await expect(page).not.toHaveURL(/edit=1/);

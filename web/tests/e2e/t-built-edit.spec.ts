@@ -102,8 +102,12 @@ test('a built trip edits like a copy: Keep on Day n, a kept move, re-flow, pace 
   await expect.poll(() => dayShown(page, keepName)).toBe(keepDay);
 
   // 6 any stop can be removed (here the kept one), and a place can be added to a day
-  await rowOf(page, keepName).locator('.tl-edit-trail button').click();
-  await page.getByRole('menuitem', { name: /^Remove from Day/ }).click();
+  // with a child on the trip the day checks arrive a moment after Undo and redraw the day, which closes a menu opened in that moment (RB-004 made
+  // built trips carry a party, so this is now the usual case): open it again until it stays
+  await expect(async () => {
+    await rowOf(page, keepName).locator('.tl-edit-trail button').click();
+    await page.getByRole('menuitem', { name: /^Remove from Day/ }).click({ timeout: 3000 });
+  }).toPass({ timeout: 30_000 });
   await expect(toast(page, `Removed ${keepName}`)).toBeVisible();
   await expect(rowOf(page, keepName)).toHaveCount(0);
   await page.locator('.tl-add-open').first().click();

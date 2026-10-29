@@ -41,3 +41,12 @@
 /* RB-014: the just-built line lands under the sticky bars; its focus is for the start of the plan, not a control, so no ring */
 .built-line { scroll-margin-top: calc(var(--sticky-h, 120px) + var(--s-3)); }
 .built-line:focus { outline: none; }
+
+/* RB-016: the getting-there line on the first and last day of a trip by air; the plain words of what the build holds, or what it lacks */
+.bday-gt { display: flex; gap: var(--s-2); align-items: flex-start; margin: 0; padding: var(--s-2) var(--s-3); border: 1px solid var(--line); border-radius: var(--r-3); background: var(--surface-2); font: var(--t-small); color: var(--ink); }
+.bday-gt > svg { flex: none; margin-top: 2px; color: var(--ink-2); }
+.bday-gt b { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); margin-right: var(--s-2); color: var(--muted); }
+.bday-gt[data-missing] { border-style: dashed; }
+
+/* RB-024: Remove on a left-out pick is a 44 px button, drawn at that size */
+.built-miss-row .btn-sm { height: var(--touch-min); padding: 0 var(--s-3); }

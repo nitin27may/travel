@@ -3,11 +3,10 @@
 // "Stay here" on a picked town (RB-022, FLOW TF6, R5): the town becomes a base. The base is a towns-layer id, so the first press asks the
 // public towns read for the town at the pick (one small read through the data boundary, P9; nothing of the person's goes with it).
 import { useCallback, useState, type Dispatch } from 'react';
+import { PLAN_BUILDER_UI } from '@/lib/config/product';
 import type { FlowAction, FlowState } from './flow';
 
 const norm = (s: string): string => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-/** A town the pick stands in is within this many km of it. */
-const SAME_PLACE_KM = 8;
 
 export type StayState = { busy: string | null; failed: string | null };
 
@@ -26,7 +25,7 @@ export function useStay(flow: FlowState, dispatch: Dispatch<FlowAction>, now: ()
       setState({ busy: pick.ref, failed: null });
       try {
         const { townsAround } = await import('@/lib/client/data');
-        const near = (await townsAround({ place: pick.slug, r: SAME_PLACE_KM })) ?? [];
+        const near = (await townsAround({ place: pick.slug, r: PLAN_BUILDER_UI.stayTownKm })) ?? [];
         const want = norm(pick.name);
         const town = near.find((t) => norm(t.name) === want) ?? [...near].sort((a, b) => (a.distanceKm ?? 1e9) - (b.distanceKm ?? 1e9))[0];
         if (!town) {

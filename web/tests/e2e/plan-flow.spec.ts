@@ -94,7 +94,9 @@ test('the air flow: country, areas, picks, days, then Build my days hands the tr
   const after = await page.evaluate(([l, u]) => ({ list: localStorage.getItem(l!), ui: localStorage.getItem(u!) }), [LIST_KEY, UI_KEY]);
   const doc = JSON.parse(after.list!).items[0];
   expect(doc.lastBuild.days.length).toBeGreaterThan(0);
-  expect(doc.party).toBe('device');
+  // RB-004: the document keeps the party the build used, as an age snapshot on this device; it is in no request address
+  expect(doc.party).toBe('trip');
+  expect(doc.travellers).toEqual({ adults: 2, children: [] });
   expect(after.ui).toBeNull();
   for (const u of seen) expect(u).not.toMatch(/adults|children|walkKm|10\.5|-140\.5/);
 });
@@ -107,7 +109,9 @@ test('a car weekend walks all the stages when a start is published', async ({ pa
   await page.goto(`${site.url}/plan/`);
   await page.getByRole('button', { name: /^Weekend/ }).click();
   await page.getByLabel('Starting from').selectOption(`hub:${list[0]!.id}`);
-  await page.getByRole('button', { name: /^A month/ }).click();
+  // RB-028: the month chip is one control, the native menu
+  await page.getByLabel('Month').selectOption('7');
+  await expect(page.locator('.plan-chip-select')).toContainText('July');
   await page.getByRole('button', { name: /Next: Pick/ }).filter({ visible: true }).click();
   await expect(page.locator('.cand').first()).toBeVisible({ timeout: 20_000 });
   await page.locator('.pick-btn').nth(0).click();
