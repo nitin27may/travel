@@ -22,9 +22,10 @@ export async function buildByAir(page: Page, site: { url: string }): Promise<str
   await page.locator('.region-row input[type="checkbox"]:not([disabled])').first().check({ force: true });
   await page.getByRole('button', { name: /Next: Pick/ }).filter({ visible: true }).click();
   await expect(page.locator('.cand').first()).toBeVisible({ timeout: 20_000 });
-  await page.locator('.pick-btn').nth(0).click();
-  await page.locator('.pick-btn').nth(1).click();
-  await page.locator('.pick-btn').nth(2).click();
+  // three places that are stops (not a town, and not a park the plan chooses stops in), so the build has days with more than one stop on them
+  const stops = page.locator('.plan-sec:has(#plan-places-h) .cand:not(:has-text("we choose its stops")) .pick-btn');
+  await expect(stops.nth(2)).toBeVisible();
+  for (const i of [0, 1, 2]) await stops.nth(i).click();
   await expect(page.locator('.pick-btn[aria-pressed="true"]')).toHaveCount(3);
   await page.getByRole('button', { name: /Next: Days/ }).filter({ visible: true }).click();
   await expect(page.getByRole('heading', { name: 'Days and driving' })).toBeVisible();

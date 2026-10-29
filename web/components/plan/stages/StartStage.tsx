@@ -4,10 +4,11 @@ import { useMemo, useState } from 'react';
 import type { PlanOrigin } from '@travel/core/schema/plan-draft.ts';
 import { Banner } from '@/components/ui/Banner';
 import { Button } from '@/components/ui/Button';
+import { SearchInput } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { SideSheet } from '@/components/ui/SideSheet';
 import { modeOf } from '@/lib/plan/flow';
-import { MONTH_NAMES } from '@/lib/plan/format';
+import { MONTH_NAMES, plural } from '@/lib/plan/format';
 import { kindDef, isShortKind } from '@/lib/plan/kinds';
 import { candidateQuery } from '@/lib/plan/query';
 import { useCount } from '@/lib/plan/useCandidates';
@@ -20,6 +21,8 @@ import { CountWords, ReachControl } from '../ReachControl';
 import { PLAN_BUILDER_UI } from '@/lib/config/product';
 import type { StageProps } from './types';
 
+const SEARCH_FROM = 12;
+const norm = (s: string): string => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 const hubValue = (o: PlanOrigin | null): string => (o?.kind === 'hub' ? `hub:${o.id}` : o?.kind === 'airport' ? `iata:${o.iata}` : '');
 
 /** Stage 1 (FLOW 4): from where, who, when. Each answer is pre-filled where it can be and Next works without the optional ones. */
@@ -32,8 +35,16 @@ export function StartStage({ flow, dispatch, party, partyState, now }: StageProp
   const when = whenKind(flow, today);
   const count = useCount(mode === 'near' ? candidateQuery(flow, party, { strip: true, pageSize: 1 }) : null);
 
-  const hubs = starts.status === 'ok' ? starts.data.hubs : [];
-  const airports = starts.status === 'ok' ? starts.data.airports : [];
+  const allHubs = starts.status === 'ok' ? starts.data.hubs : [];
+  const allAirports = starts.status === 'ok' ? starts.data.airports : [];
+  // town search (TB-W2): the lists are public and small, so the filter runs here over what the page already holds (P9: no new read)
+  const [find, setFind] = useState('');
+  const want = norm(find.trim());
+  const keepHub = hubValue(mode === 'near' ? flow.start : flow.origin);
+  const hubs = want ? allHubs.filter((h) => norm(`${h.name} ${h.cc ?? ''}`).includes(want) || `hub:${h.id}` === keepHub) : allHubs;
+  const airports = want ? allAirports.filter((a) => norm(`${a.name} ${a.iata} ${a.cc ?? ''}`).includes(want) || `iata:${a.iata}` === keepHub) : allAirports;
+  const searchable = (mode === 'near' ? allHubs.length : allHubs.length + allAirports.length) > SEARCH_FROM;
+  const matches = mode === 'near' ? hubs.length : hubs.length + airports.length;
 
   const pickHub = (value: string) => {
     if (!value) {
@@ -78,7 +89,9 @@ export function StartStage({ flow, dispatch, party, partyState, now }: StageProp
               We could not load the starting points.
             </Banner>
           ) : mode === 'near' ? (
-            hubs.length ? (
+            allHubs.length ? (
+              <>
+              {searchable ? <SearchInput value={find} onChange={setFind} label="Find a starting point" placeholder="Find a town or city" status={want ? plural(matches, 'match', 'matches') : ''} /> : null}
               <Select aria-labelledby="plan-from-l" value={hubValue(flow.start)} onChange={(e) => pickHub(e.target.value)}>
                 <option value="">Choose a starting point</option>
                 {hubs.map((h) => (
@@ -88,6 +101,8 @@ export function StartStage({ flow, dispatch, party, partyState, now }: StageProp
                   </option>
                 ))}
               </Select>
+              {want && !matches ? <p className="plan-help">No starting point matches “{find.trim()}”. We list the big cities we plan from.</p> : null}
+              </>
             ) : (
               <div className="plan-unavailable" role="status">
                 <p className="plan-unavailable-title">We cannot plan from a starting point yet</p>
@@ -97,8 +112,9 @@ export function StartStage({ flow, dispatch, party, partyState, now }: StageProp
                 </Button>
               </div>
             )
-          ) : airports.length || hubs.length ? (
+          ) : allAirports.length || allHubs.length ? (
             <>
+              {searchable ? <SearchInput value={find} onChange={setFind} label="Find an airport" placeholder="Find an airport or city" status={want ? plural(matches, 'match', 'matches') : ''} /> : null}
               <Select aria-labelledby="plan-from-l" value={hubValue(flow.origin)} onChange={(e) => pickAirport(e.target.value)}>
                 <option value="">{flow.kind === 'holiday' ? 'Decide later' : 'Not chosen yet'}</option>
                 {airports.map((a) => (
@@ -160,7 +176,7 @@ export function StartStage({ flow, dispatch, party, partyState, now }: StageProp
           <p className="plan-help">The month decides which places are open, how long the light lasts and what to book ahead.</p>
         </div>
 
-        {mode === 'near' && hubs.length && flow.start ? (
+        {mode === 'near' && allHubs.length && flow.start ? (
           <div className="plan-field">
             <button type="button" className="plan-count-btn" onClick={() => setReachOpen(true)} aria-haspopup="dialog">
               {count.status === 'ok' && count.total !== null ? (

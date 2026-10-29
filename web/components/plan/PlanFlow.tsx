@@ -30,6 +30,9 @@ const DaysStage = dynamic(() => import('./stages/DaysStage').then((m) => m.DaysS
 const EMPTY = newFlow('', '');
 const nowIso = (): string => new Date().toISOString();
 
+/** "Start from this trip" (X7): the public trip is read once, then the plan is the visitor's own. */
+type Seeding = { status: 'idle' } | { status: 'loading' } | { status: 'ok'; name: string | null; skipped: number } | { status: 'missing' | 'empty' | 'failed' };
+
 type Building = { status: 'idle' } | { status: 'building'; slow: boolean } | { status: 'failed'; message: string; code: string };
 
 /** The words of a build that did not finish (FLOW stage 5 states): the plan stays on the device either way. */
@@ -66,6 +69,7 @@ export function PlanFlow() {
   const [trayOpen, setTrayOpen] = useState(false);
   const [building, setBuilding] = useState<Building>({ status: 'idle' });
   const [saveNote, setSaveNote] = useState<string | null>(null);
+  const [seeding, setSeeding] = useState<Seeding>({ status: 'idle' });
   const [announce, setAnnounce] = useState('');
   const heading = useRef<HTMLHeadingElement>(null);
   const reasonId = useId();
@@ -78,7 +82,23 @@ export function PlanFlow() {
   useEffect(() => {
     const entry = parseEntry(window.location.search);
     const id = crypto.randomUUID();
-    if (hasEntry(entry)) {
+    if (entry.seed) {
+      // X7: a public trip's places, bases and nights become the first answers; the link is read once and stripped, like the other entries
+      const slug = entry.seed;
+      window.history.replaceState(window.history.state, '', window.location.pathname);
+      dispatch({ t: 'load', state: newFlow(id, nowIso()) });
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- the link is in the address, so the first paint is the server's shell and this starts the read it asks for
+      setSeeding({ status: 'loading' });
+      void import('@/lib/plan/seedLoad')
+        .then((m) => m.loadSeed(slug, id, nowIso()))
+        .then((r) => {
+          if (r.status === 'ok') {
+            dispatch({ t: 'load', state: r.seeded.state });
+            setSeeding({ status: 'ok', name: r.seeded.state.seedName ?? null, skipped: r.seeded.skipped });
+          } else setSeeding({ status: r.status });
+        })
+        .catch(() => setSeeding({ status: 'failed' }));
+    } else if (hasEntry(entry)) {
       const t = nowIso();
       let s = newFlow(id, t);
       if (entry.kind) {
@@ -254,8 +274,21 @@ export function PlanFlow() {
           </div>
         ) : null}
 
+        {seeding.status === 'ok' && flow.stage === 1 ? (
+          <Banner kind="notice">
+            Started from {seeding.name ?? 'our trip'}: its places{flow.bases.length ? ', towns' : ''} and nights are filled in{seeding.skipped ? ` (${plural(seeding.skipped, 'place')} of the trip are not in our list yet)` : ''}. Change anything. This plan is yours; the trip stays as it was.
+          </Banner>
+        ) : null}
+        {seeding.status === 'missing' || seeding.status === 'empty' || seeding.status === 'failed' ? (
+          <Banner kind="caution">{seeding.status === 'missing' ? 'We could not find that trip.' : seeding.status === 'empty' ? 'That trip has no places we can start from.' : 'We could not read that trip.'} Choose a kind of trip to start your own.</Banner>
+        ) : null}
+
         {!ready ? (
           <div className="plan-skeleton" aria-hidden="true" />
+        ) : seeding.status === 'loading' ? (
+          <div className="plan-card" role="status">
+            <p className="plan-card-line">Reading the trip…</p>
+          </div>
         ) : flow.stage === 0 ? (
           <KindStage {...stageProps} onResume={resume} />
         ) : flow.stage === 1 ? (

@@ -131,6 +131,11 @@ export function nearPage(q: NearRead, page: number, pageSize: number, signal?: A
   return client().nearPage(q, page, pageSize, signal);
 }
 
+/** The towns of the towns layer around a public place, nearest first (TB-W2: the builder's choice of bases). Its own chunk; null when this build has no towns API. */
+export async function townsAround(q: { place: string; r: number }, signal?: AbortSignal): Promise<import('@travel/core/schema/api/index.ts').Town[] | null> {
+  return (await import('./towns')).townsAround(q, signal);
+}
+
 /** The area tree with counts. No pins. */
 export function globeTree(): Promise<GlobeTree> {
   return client().globeTree();
