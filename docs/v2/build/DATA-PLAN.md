@@ -34,6 +34,11 @@ bundles and their rules are [RELEASE-PLAN](RELEASE-PLAN.md) 0a.
 > maps each to an existing task or one of eight new S2D tasks, and orders the next three data batches (S2-A to S2-C,
 > 18.5 h in seat 1's spare in windows C and D), and 2.4.5 indexes the other scattered data lists. BACKLOG 15.390.
 
+> **28 Oct 2026 (LOCTYPE, owner: "putting it based on location type"):** section 2.5 adds what each family of types must
+> carry (address, map links, trail and park links, type facts), the registry diff and its ratchet, and the plan for the 155
+> store places: rows 72 to 78 (27 h, D and E) plus code tasks LT-C and LT-M (14 h). Spec
+> [features/location-type-requirements.md](../features/location-type-requirements.md); BACKLOG 15.391.
+
 ## 0. Decision in one paragraph
 
 **One data seat runs a single ordered queue (section 2): the early half of the catalogue load first (bundle B's Internal,
@@ -309,6 +314,38 @@ work is owned by the rows named.
 | Account and Mine (MINE-T thumbnails) | photos on Favourites and copy rows | D5c, L3 (DG-08) |
 | BACKLOG rows with data work: TB-L (ORS key), suitability and relevance sidecars, photos and gallery, N2 | | TB-L: owner key (2.4.3); sidecars: S2D-SUIT, TRL-REL, D10 splits; photos: D5c, L3, PHO-R; gallery: TD-3 moves `gallery.json` into `data/trips/`; N2: lane NB (DG-13) |
 
+### 2.5 Requirements by location type (28 Oct 2026)
+
+**Source.** Owner request of 28 Oct 2026 (address, map links, trail links, the park schema, sight facts, "based on
+location type"). Spec: [features/location-type-requirements.md](../features/location-type-requirements.md); BACKLOG
+15.391. The capture contract already researches by type; this adds the address property, the rule that map links are
+generated and never stored, link kinds counted as required keys, nine families over the 324 types, and the ratchet that
+switches a new required field on per family only after that family is filled, so the gap budget never rises (spec 5.4).
+
+**The new tasks.** Data rows continue 2.1's numbering; code rows are builder work counted as Infra, listed so they are not
+lost.
+
+| # | Id | What | h | Model | Blocked by | Owner decision needed | Bundle | Order |
+|---|---|---|---|---|---|---|---|---|
+| (code) | LT-C | Contract: `address` property and value, `osm_ref` as `Val`, per-kind link tier keys, two triggers, `family` on categories, `gaps --family`, `gaps --promote`, phase-1 marks, basics layers and the store-point drift report (spec 9.1) | 7 | Opus builder 6, Opus review 1 | not beside RIS-H or STY-P on `properties.ts`; one `types.json` writer | | D (Infra, B2 contract lane) | 1 |
+| 72 | LT-WHERE | `osm_ref` candidates and address proposals for the 155 store places in one run record (Wikidata, Overpass, Nominatim reverse; one runner each, cached) | 3 | Sonnet 2.5, Haiku check 0.5 | LT-C | | D | 2 |
+| 73 | LT-AP | Access-point records (`access.park`, `access.start`) with point and address for the 56 places with none, in batch order | 5.5 | Sonnet 5, Opus review 0.5 | LT-WHERE | | D 2, E 3.5 | with each batch |
+| 74 | LT-1 | P0 (8 trip-tied) and P1 (32 in CA/AB, CA/BC): 13 parks, 21 sights, 6 towns; 27 new records; promotions for the families it closes | 6 | Sonnet 4.5, Opus 1.5 | LT-WHERE; PA-R-CA for the 5 Rockies parks | Q-LT1 to Q-LT3 (recommended yes) | D | 3 |
+| 75 | LT-2 | P2 and P3 (Utah, Dolomites, Iceland, Patagonia, Chamonix regions): 46 places, 38 new records | 4.5 | Sonnet 4, Opus 0.5 | LT-1 | | E | 4 |
+| 76 | LT-3 | P4 (CA/ON, CA/QC, US/VT, US/NH): 30 places with the 6 store trails and the trail promotion | 3.5 | Sonnet 3, Opus 0.5 | LT-2; TRK-1 for tracks | | E | 5 |
+| 77 | LT-4 | P5 (no trip region): 39 places | 3 | Sonnet 2.5, Opus 0.5 | LT-3 | | E | 6 |
+| 78 | LT-RAT | Promotions the batches left, the final `gaps --budget --write`, an Opus cross-family 10-value sample | 1.5 | Opus | LT-4 | | E | 7 |
+| (code) | LT-M | UI: address on the Directions card, OSM link from `osm_ref`, official map link, print address, ICS `LOCATION` and `GEO`, CSV column, API detail and MCP (spec 9.2) | 7 | Sonnet builder 5, Opus reviewer 1, Sonnet verifier 1 | LT-C; S2D-SIZE | | E (Infra) | after LT-1 |
+
+Totals: **27 h of data work** (D 11, E 16) in seat 1's spare (D has about 15.5 h left after S2-C; E about 34 h after the
+27 Oct additions); **14 h of code** (LT-C in D, LT-M in E). **First batch: LT-C, then LT-WHERE, then LT-1.**
+**Trade-off:** D's spare falls to about 4.5 h, so a slipped S2 batch lands in E; in return the Rockies places get addresses,
+access points and the park links before the park page (PA-2) and Step 2's Directions use them.
+
+**Dependencies.** Nominatim, Overpass, Wikidata and Commons one runner each (2.4.3 rules); the place-size budget (S2D-SIZE
+first, alone); one writer at a time on `points.json`, `gap-budget.json` and each lane file (not beside D10-RO on the
+Rockies files); ODbL values in the identity layer (Q-SRC1, open; spec D7 gives the fallback).
+
 ## 3. The load and verify pipeline (from CATALOGUE-EARLY, in order)
 
 Briefs and gates are [CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) 2 and 11; this list only orders them with the research
@@ -523,6 +560,7 @@ merge.
 
 | Date | Change |
 |---|---|
+| 2026-10-28 (LOCTYPE) | Banner; section 2.5: research requirements by location type (address, generated map links, required link kinds, nine families, the ratchet); rows 72 to 78 (LT-WHERE, LT-AP, LT-1 to LT-4, LT-RAT; 27 h, D 11 and E 16) and code tasks LT-C and LT-M (14 h, Infra). [features/location-type-requirements.md](../features/location-type-requirements.md); BACKLOG 15.391 |
 | 2026-10-28 (S2-DATA) | Banner; section 2.4: DG-01 to DG-13 moved here from `design/step2/data-gaps-2026-10-28.md` (now a pointer), each mapped to an existing task or new rows 64 to 71 (S2D-SIZE, S2D-PTS, S2D-IND, S2D-LEG, S2D-SUIT, S2D-TIME, S2D-BOOK, S2D-VER; 18.5 h, bundle D), dependencies, and batches S2-A to S2-C. BACKLOG 15.390 |
 | 2026-10-27 (BUILDER-DEPS) | Banner; 2.1 rows 51 to 63 and the totals sentence; 2.2 seat 1 additions and data seat 2. [builder-dependency-map.md](builder-dependency-map.md) |
 | 2026-10-26 (ALIGN, evening) | Banner; rows 3, 10, 12, 15 marked done; rows 45 to 50 (UXB-W, EG-M, EG-D, PA-R-CA, PA-MUS, PA-R-ON); totals 194 h; 2.2 rewritten to MASTER-ORDER 5.4 (lane S at the head of C's window; D10 splits and D8-R facts pulled into C; PM-G built in this seat). [alignment-2026-10-26.md](alignment-2026-10-26.md) |
