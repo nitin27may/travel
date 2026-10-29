@@ -15,6 +15,7 @@ import { publishTimeline } from '@/lib/export/timelineState';
 import { tripPageFamily } from '@/lib/map/family';
 import '@/styles/timeline.css';
 import '@/styles/trip-tabs.css';
+import '@/styles/day-tables.css';
 import { DayRow } from './DayRow';
 import { DEPTH_NOTICE } from './format';
 import { dayMapFromRoute, dayMapOf, entryKey, mapBus, pointLookup } from './mapPins';
@@ -29,6 +30,8 @@ import { TripPanel } from './tabs/TripPanel';
 import { followLink, useTripTabs } from './tabs/useTripTabs';
 import { useScrollSpy } from './timeline/useScrollSpy';
 import { useTimeline, type TimelineSource } from './timeline/useTimeline';
+import { useTableRows } from './timeline/useTableRows';
+import { useTimelineExtras } from './timeline/editSlots';
 import { useSwap } from './timeline/useSwap';
 import { useTripUrl } from './useTripUrl';
 
@@ -62,6 +65,18 @@ const PlanBar = dynamic(planBarChunk, {
 });
 // The trip's shape (UXB-3) is a lazy chunk that still renders on the server: its ribbon and count line are in the page's HTML, and its table is a
 // further chunk that loads on the first open (summary/TripShape.tsx).
+const tablesChunk = () => import('./timeline/DayTables');
+const DayTables = dynamic(() => tablesChunk().then((m) => m.DayTables), {
+  ssr: false,
+  loading: () => (
+    <p role="status" className="dt-loading">
+      Loading the tables
+    </p>
+  ),
+});
+const TableTools = dynamic(() => tablesChunk().then((m) => m.TableTools), { ssr: false });
+// the flag is written out here so a build with it off folds the hook away (the public page has no edit mode)
+const useEditing: () => boolean = process.env.NEXT_PUBLIC_TRIP_EDIT === '1' ? () => !!useTimelineExtras()?.edit : () => false;
 const TripShape = dynamic(() => import('./summary/TripShape').then((m) => m.TripShape));
 /** A tab took focus: its lazy chunk loads now, so the press that follows opens it at once (components 1.6). */
 const prefetchTab = (t: TripTab): void => {
@@ -180,8 +195,13 @@ function TimelinePlan({ slug, model: pageModel, depth, season, tabs, slots, shap
     },
     [url, tabApi.daysView],
   );
+  // the Table is a lazy chunk: an anchor waits until its tables are on screen, or it would scroll to the List's day that is about to be replaced
+  const asTable = onDays && tabApi.daysView === 'table';
+  const [tablesUp, setTablesUp] = useState(false);
+  if (!asTable && tablesUp) setTablesUp(false);
+  const viewReady = !asTable || tablesUp;
   const daySpy = useScrollSpy<number>({
-    enabled: onDays,
+    enabled: onDays && viewReady,
     itemSelector: 'li.tl-day',
     keyOf: (el) => dayOfHash(el.id),
     barSelector: '.tl-planbar',
@@ -230,7 +250,7 @@ function TimelinePlan({ slug, model: pageModel, depth, season, tabs, slots, shap
   const booted = useRef(false);
   const focusPending = tabApi.focusPending;
   useEffect(() => {
-    if (!onDays || !url.hash || ownHash.current === url.hash) return;
+    if (!onDays || !viewReady || !url.hash || ownHash.current === url.hash) return;
     // the first anchor (a shared link, a reload) lands at once; later ones glide
     const instant = !booted.current;
     booted.current = true;
@@ -240,13 +260,13 @@ function TimelinePlan({ slug, model: pageModel, depth, season, tabs, slots, shap
       goDay(el, dayOfHash(url.hash), instant);
       if (focusPending.current) {
         focusPending.current = false;
-        const h = el.querySelector<HTMLElement>('h2, h3') ?? el;
+        const h = el.querySelector<HTMLElement>('h2, h3, caption') ?? el;
         h.setAttribute('tabindex', '-1');
         h.focus({ preventScroll: true });
       }
     });
     return () => cancelAnimationFrame(frame);
-  }, [onDays, url.hash, goDay, focusPending]);
+  }, [onDays, viewReady, url.hash, goDay, focusPending]);
 
   // the copy sheet and the calendar file read the timeline the visitor is looking at
   useEffect(() => {
@@ -273,6 +293,32 @@ function TimelinePlan({ slug, model: pageModel, depth, season, tabs, slots, shap
   const sections = useMemo(
     () => model.sections.map((s) => ({ ...s, rows: s.rows.map((r) => ({ ...r, time: timeOfRow(r, r.days[0] ?? 0, shown) ?? r.time })) })),
     [model.sections, shown],
+  );
+  // Days as List or as Table (UXB-5): the same timelines, a view of the same question. The Table is a lazy chunk and read-only; the day in view stays in view.
+  const editing = useEditing();
+  const [rowsMode, setRowsMode] = useTableRows(slug, asTable);
+  const areas = useMemo(() => Object.fromEntries(sections.flatMap((s) => s.rows).filter((r) => r.placeSlug && r.area).map((r) => [r.placeSlug!, r.area!])), [sections]);
+  const keepDay = useRef<number | null>(null);
+  const restoreDay = useCallback(() => {
+    const n = keepDay.current;
+    keepDay.current = null;
+    if (n === null) return;
+    requestAnimationFrame(() => {
+      const el = document.getElementById(`day-${n}`);
+      if (el) goDay(el, n, true);
+    });
+  }, [goDay]);
+  useEffect(() => {
+    if (daysView === 'list') restoreDay();
+  }, [daysView, restoreDay]);
+  const hashNow = url.hash;
+  const setView = useCallback(
+    (v: 'list' | 'table') => {
+      if (v === daysView) return;
+      keepDay.current = current;
+      goUrl({ tab: { tab: 'days', daysView: v }, hash: dayOfHash(hashNow) === null ? undefined : hashNow }, 'push');
+    },
+    [daysView, goUrl, current, hashNow],
   );
   // the day list's side of the link to the map: numbers on the rows, "not on the map", and what a press on a number does
   const shownDay = paused ? null : mapDay;
@@ -352,6 +398,22 @@ function TimelinePlan({ slug, model: pageModel, depth, season, tabs, slots, shap
                   <Chip kind="honest">{DEPTH_NOTICE.summary}</Chip>
                 </p>
               ) : null}
+              <div className="tl-viewbar" data-print="hide">
+                <Segmented
+                  label="Days view"
+                  size="s"
+                  value={daysView}
+                  onChange={setView}
+                  segments={[
+                    { value: 'list', label: 'List', dataView: 'list' },
+                    { value: 'table', label: 'Table', dataView: 'table' },
+                  ]}
+                />
+                {asTable ? <TableTools mode={rowsMode} onMode={setRowsMode} /> : null}
+              </div>
+              {asTable ? (
+                <DayTables days={tlModel.days} timelines={shown} areas={areas} mode={rowsMode} editing={editing} onList={() => setView('list')} onShown={() => { setTablesUp(true); restoreDay(); }} />
+              ) : (
               <ol className="tl-days" data-swap={swap.phase} onMouseOver={(e) => hoverRow(e, true)} onMouseOut={(e) => hoverRow(e, false)} onFocus={(e) => hoverRow(e, true)} onBlur={(e) => hoverRow(e, false)}>
                 {tlModel.days.map((d, di) => {
                   const tl = shown.find((t) => t.day === d.n);
@@ -385,6 +447,7 @@ function TimelinePlan({ slug, model: pageModel, depth, season, tabs, slots, shap
                   );
                 })}
               </ol>
+              )}
             </TripPanel>
             {has('stops') && tabApi.seen.has('stops') ? (
               <TripPanel tab="stops" current={tab}>

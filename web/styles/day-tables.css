@@ -1,0 +1,86 @@
+/* The Days tab's Table view (UXB-5; components 4.6, uxb-components 6). Tokens only (tests/no-hex.test.ts). Loaded with the lazy table chunk, except the
+   view bar, which the Days panel draws from the start. */
+
+/* ---------- the bar above the days: List | Table, then the table's own tools ---------- */
+.tl-viewbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); margin: 0 0 var(--s-4); }
+.dt-tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); min-width: 0; }
+.dt-tools-label { font: var(--t-label); color: var(--muted); }
+@media (min-width: 640px) { .dt-tools { margin-left: auto; } }
+
+.dt-loading { margin: 0; padding: var(--s-6) 0; color: var(--muted); font: var(--t-meta); }
+
+/* edit mode (H10): the table stays read-only and says where editing works */
+.dt-edit { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); margin: 0 0 var(--s-4); padding: var(--s-3) var(--s-4); background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-3); font: var(--t-small); color: var(--ink); }
+
+/* ---------- one table per day, in the day card's frame (4.2's radius and line) ---------- */
+.dt-day { padding: 0; }
+.dt { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; font: var(--t-body); font-size: 15.5px; line-height: 1.3; color: var(--ink); }
+.dt-cap { padding: var(--s-4) var(--s-4) var(--s-3); text-align: left; font: var(--t-row); color: var(--ink); overflow-wrap: anywhere; }
+.dt-cap-sign { font: var(--t-sign-s); letter-spacing: var(--t-sign-s-tracking); text-transform: uppercase; color: var(--ink-2); }
+.dt-cap-meta { font: var(--t-meta); color: var(--muted); white-space: nowrap; }
+.dt thead th { padding: var(--s-2) var(--s-3); text-align: left; font: var(--t-label); color: var(--muted); background: var(--well); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); white-space: nowrap; }
+.dt thead th:first-child, .dt tbody th { padding-left: var(--s-4); }
+.dt th:last-child, .dt td:last-child { padding-right: var(--s-4); }
+.dt td, .dt tbody th { height: 44px; padding: 10px var(--s-3); vertical-align: top; text-align: left; border-bottom: 1px solid var(--line); }
+.dt tbody tr:last-child > * { border-bottom: 0; }
+.dt-time { white-space: nowrap; font: var(--t-time); color: var(--ink); }
+.dt-time span { font: inherit; }
+.dt-what { overflow-wrap: anywhere; min-width: 0; }
+.dt-name { display: block; }
+.dt-name a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 0.2em; }
+.dt-name a:hover { text-decoration-color: var(--ink); }
+.dt-name a:focus-visible { outline: var(--focus-ring); outline-offset: 2px; border-radius: var(--r-1); }
+/* Takes never wraps: "45 min" in two lines was the specimen's fault */
+.dt-takes { font: var(--t-mono); line-height: 1.35; }
+.dt-t, .dt-d { white-space: nowrap; }
+.dt-t, .dt-d { display: block; }
+.dt-d { color: var(--muted); }
+/* fixed layout: Time and Takes take what they need, What takes the rest (an unbreakable-friendly What cell would otherwise squeeze both) */
+.dt-c-time { width: 5.25rem; }
+.dt-c-takes { width: 5.75rem; }
+.dt-kind { white-space: nowrap; font: var(--t-meta); color: var(--ink-2); }
+.dt-where { color: var(--ink-2); overflow-wrap: anywhere; }
+.dt-notes { overflow-wrap: anywhere; min-width: 0; }
+.dt-notes > span, .dt-fold-notes > span { display: block; font: var(--t-small); color: var(--ink-2); }
+.dt-fold { display: block; margin-top: 2px; font: var(--t-meta); color: var(--muted); }
+.dt-fold-notes { margin-top: 2px; }
+.dt-warn { display: flex; gap: var(--s-1); align-items: flex-start; }
+.dt-warn svg { flex: none; margin-top: 3px; color: var(--warn); }
+.dt-notes > span.dt-warn, .dt-fold-notes > span.dt-warn { display: flex; }
+.dt-empty { padding: var(--s-4); color: var(--muted); font: var(--t-small); }
+.dt-day-warns { display: grid; gap: var(--s-1); margin: 0; padding: var(--s-3) var(--s-4) var(--s-4); list-style: none; border-top: 1px solid var(--line); font: var(--t-small); }
+
+/* drives and other legs: indented, quiet; a row inside another stop is indented the same */
+.dt-row[data-leg] > *, .dt-row[data-leg] .dt-name a { color: var(--muted); }
+.dt-row[data-leg] .dt-name, .dt-row[data-inside] .dt-name { padding-left: var(--s-4); }
+.dt-row[data-leg] .dt-fold, .dt-row[data-inside] .dt-fold { padding-left: var(--s-4); }
+
+/* phones: three columns (Time, What, Takes); kind, where and notes are folded into the What cell */
+.dt-x { display: none; }
+@media (min-width: 640px) {
+  .dt-x { display: table-cell; }
+  .dt-fold { display: none; }
+  .dt-c-time { width: 5.5rem; }
+  .dt-c-what { width: 24%; }
+  .dt-c-kind { width: 5rem; }
+  .dt-c-where { width: 15%; }
+  .dt-c-takes { width: 6.5rem; }
+  .dt-t, .dt-d { display: inline-block; }
+  .dt-d { margin-right: 0; }
+  .dt-kind, .dt-where, .dt-notes { vertical-align: top; }
+  .dt td, .dt tbody th { padding-top: 12px; padding-bottom: 12px; }
+  /* sticky head under the site header, the tab bar and the plan bar (4.6); phones have no sticky row, the caption names the columns */
+  .dt thead th { position: sticky; top: calc(var(--header-h) + var(--tabbar-sticky) + var(--spy-bar-h)); z-index: 1; }
+  .tl-day.dt-day { scroll-margin-top: calc(var(--spy-bar-h) + var(--tabbar-sticky)); }
+}
+
+@media print {
+  /* print uses the six columns, repeats the head on each page and keeps a day on one page when it fits */
+  .dt-x { display: table-cell; }
+  .dt-fold { display: none; }
+  .dt thead { display: table-header-group; }
+  .dt thead th { position: static; }
+  .dt tr { break-inside: avoid; }
+  .tl-day.dt-day { break-inside: avoid; page-break-before: auto; }
+  .dt-name a::after { content: none; }
+}
