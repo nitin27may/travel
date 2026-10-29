@@ -1,0 +1,60 @@
+== gaps --promote osm_ref --family park
+  part/place/banff-national-park#lake-louise-area                  nature.protected.zone              + osm_ref
+BLOCKED: the promotion would add 11 unanswered required key(s). Fill each record first (a value, or searched_none with "on" and "tried"), then promote in the same commit; never raise the budget for a promotion (location-type-requirements 5.4).
+exit 1
+== gaps --promote run_by --family park
+  trip/utah-five-parks/sight:goblin valley                         nature.protected.state_provincial_park + run_by
+BLOCKED: the promotion would add 17 unanswered required key(s). Fill each record first (a value, or searched_none with "on" and "tried"), then promote in the same commit; never raise the budget for a promotion (location-type-requirements 5.4).
+exit 1
+== gaps --promote links.conditions --family park
+  part/place/yoho-national-park#lake-ohara                         nature.protected.zone              + links.conditions
+BLOCKED: the promotion would add 29 unanswered required key(s). Fill each record first (a value, or searched_none with "on" and "tried"), then promote in the same commit; never raise the budget for a promotion (location-type-requirements 5.4).
+exit 1
+== gaps --promote links.map_sheet --family park
+  part/place/yoho-national-park#lake-ohara                         nature.protected.zone              + links.map_sheet
+BLOCKED: the promotion would add 29 unanswered required key(s). Fill each record first (a value, or searched_none with "on" and "tried"), then promote in the same commit; never raise the budget for a promotion (location-type-requirements 5.4).
+exit 1
+== gaps --promote address --family park
+  part/place/yoho-national-park#lake-ohara                         nature.protected.zone              + address
+BLOCKED: the promotion would add 32 unanswered required key(s). Fill each record first (a value, or searched_none with "on" and "tried"), then promote in the same commit; never raise the budget for a promotion (location-type-requirements 5.4).
+exit 1
+== gaps --promote osm_ref --family sight
+  part/trip/iceland-ring-road-2027/activity:myvatn nature baths#place water.thermal.thermal_bath         + osm_ref
+BLOCKED: the promotion would add 116 unanswered required key(s). Fill each record first (a value, or searched_none with "on" and "tried"), then promote in the same commit; never raise the budget for a promotion (location-type-requirements 5.4).
+exit 1
+== gaps --promote address --family sight
+  part/trip/iceland-ring-road-2027/activity:myvatn nature baths#place water.thermal.thermal_bath         + address
+BLOCKED: the promotion would add 187 unanswered required key(s). Fill each record first (a value, or searched_none with "on" and "tried"), then promote in the same commit; never raise the budget for a promotion (location-type-requirements 5.4).
+exit 1
+== gaps --promote osm_ref --family town
+  place/fossholl                                                   settlement.village                 + osm_ref
+BLOCKED: the promotion would add 29 unanswered required key(s). Fill each record first (a value, or searched_none with "on" and "tried"), then promote in the same commit; never raise the budget for a promotion (location-type-requirements 5.4).
+exit 1
+== gaps --promote links.tourism_board --family town
+  trip/vermont-fall-2026/town:peacham village                      settlement.town                    + links.tourism_board
+BLOCKED: the promotion would add 30 unanswered required key(s). Fill each record first (a value, or searched_none with "on" and "tried"), then promote in the same commit; never raise the budget for a promotion (location-type-requirements 5.4).
+exit 1
+== gaps --promote address --family access
+  part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop access.transit.transit_stop        + address
+BLOCKED: the promotion would add 66 unanswered required key(s). Fill each record first (a value, or searched_none with "on" and "tried"), then promote in the same commit; never raise the budget for a promotion (location-type-requirements 5.4).
+exit 1
+== gaps --promote osm_ref --family access
+  part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop access.transit.transit_stop        + osm_ref
+BLOCKED: the promotion would add 10 unanswered required key(s). Fill each record first (a value, or searched_none with "on" and "tried"), then promote in the same commit; never raise the budget for a promotion (location-type-requirements 5.4).
+exit 1
+== gaps --promote address --family stay
+W_TIER_REQUIRED 382 -> 382 · W_TIER_REQUIRED.keys 3657 -> 3657
+OK: the promotion adds no unanswered required key. Write it in data/vocab/types.json, run capture.ts build, then gaps --budget --check and --write in the same commit.
+exit 0
+== gaps --promote links.booking --family stay
+W_TIER_REQUIRED 382 -> 382 · W_TIER_REQUIRED.keys 3657 -> 3657
+OK: the promotion adds no unanswered required key. Write it in data/vocab/types.json, run capture.ts build, then gaps --budget --check and --write in the same commit.
+exit 0
+== gaps --promote osm_ref --family stay
+W_TIER_REQUIRED 382 -> 382 · W_TIER_REQUIRED.keys 3657 -> 3657
+OK: the promotion adds no unanswered required key. Write it in data/vocab/types.json, run capture.ts build, then gaps --budget --check and --write in the same commit.
+exit 0
+== gaps --promote osm_ref --family activity
+  part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre snow.ski.nordic_centre             + osm_ref
+BLOCKED: the promotion would add 10 unanswered required key(s). Fill each record first (a value, or searched_none with "on" and "tried"), then promote in the same commit; never raise the budget for a promotion (location-type-requirements 5.4).
+exit 1

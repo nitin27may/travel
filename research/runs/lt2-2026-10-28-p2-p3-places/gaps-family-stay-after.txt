@@ -1,0 +1,16 @@
+Tier: required · family stay (stay.room, stay.self, stay.mountain, stay.camp) · trip catalogue
+
+Per layer (EXECUTION-PLAN 6.4 columns; records answering each)
+layer         records area_id point osm_id wikidata official photos season where operator price duration window min_age
+place               1       1     1      1        1        1      0      1     0        0     1        0      0       0
+
+stay: 1 record(s), 1 with the required tier complete
+  access_cost                          asked    1  answered    1  missing    0
+  hours                                asked    1  answered    1  missing    0
+  links                                asked    1  answered    1  missing    0
+  name                                 asked    1  answered    1  missing    0
+  price                                asked    1  answered    1  missing    0
+  season                               asked    1  answered    1  missing    0
+  summary                              asked    1  answered    1  missing    0
+  type                                 asked    1  answered    1  missing    0
+  wheelchair                           asked    1  answered    1  missing    0

@@ -1,0 +1,5556 @@
+{
+  "schema": "capture-run/1",
+  "run": "lt2-2026-10-28-p2-p3-places",
+  "started": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "types": [
+      "access.amenity.visitor_info",
+      "access.park.parking",
+      "access.transit.station",
+      "culture.heritage.religious_site",
+      "culture.heritage.visitor_centre",
+      "nature.landform.geothermal.geyser",
+      "nature.landform.glacier_view",
+      "nature.landform.mountain",
+      "nature.landform.rock_formation",
+      "nature.landform.valley",
+      "nature.protected.national_park",
+      "nature.viewpoint.viewpoint",
+      "settlement.city",
+      "settlement.town",
+      "settlement.village",
+      "snow.ski.ski_area.ski_resort",
+      "stay.mountain.hut",
+      "water.falls.waterfall"
+    ],
+    "refs": [
+      "place/skaftafell",
+      "part/place/skaftafell#skaftafellsstofa",
+      "place/hafragilsfoss",
+      "part/place/hafragilsfoss#parking",
+      "place/oxararfoss",
+      "part/place/oxararfoss#p2-efri-vellir",
+      "place/gljufrabui",
+      "part/place/gljufrabui#seljalandsfoss-parking",
+      "place/gufufoss",
+      "part/place/gufufoss#roadside-parking",
+      "place/strokkur",
+      "part/place/strokkur#geysir-parking",
+      "place/snaefellsjokull",
+      "place/reykjavik",
+      "place/hofn",
+      "place/akureyri",
+      "place/fossholl",
+      "place/reykjahlid",
+      "place/varmahli",
+      "place/skogar",
+      "place/kirkjubaejarklaustur",
+      "place/vik-i-myrdal",
+      "place/grindavik",
+      "place/grundarfjordur",
+      "place/la-flegere",
+      "part/place/la-flegere#les-praz-parking",
+      "place/vallorcine-railway-station",
+      "place/chamonix-mont-blanc",
+      "place/collegiate-church-of-san-candido",
+      "place/dobbiaco-railway-station",
+      "place/rifugio-fondovalle",
+      "part/place/rifugio-fondovalle#val-fiscalina-parking",
+      "place/val-gardena",
+      "place/castelrotto",
+      "place/nova-levante",
+      "place/san-cassiano",
+      "place/capitol-reef-national-park-visitor-center",
+      "place/salt-lake-city",
+      "place/perito-moreno-glacier",
+      "part/place/perito-moreno-glacier#walkways-parking",
+      "place/cerro-castor",
+      "part/place/cerro-castor#base-parking",
+      "place/ushuaia",
+      "place/el-chalten",
+      "part/place/bentonite-hills#cow-dung-road-approx",
+      "place/long-dong-silver-spire",
+      "part/place/long-dong-silver-spire#trailhead-lot",
+      "part/place/factory-butte#ohv-area-approx",
+      "place/venice",
+      "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
+      "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo",
+      "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli",
+      "place/rifugio-nuvolau-and-averau",
+      "place/rifugio-scotoni",
+      "place/jokulsa-a-brei-amerkursandi",
+      "place/southern-fuegian-railway",
+      "place/dantercepies-gondola",
+      "place/calf-creek"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "atlas.lmi.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "domaineschamonix.montblancnaturalresort.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "elchalten.gob.ar",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "en.chamonix.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "en.wikipedia.org",
+      "requests": 25,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "natturuverndarstofnun.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "requests": 11,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "overpass-api.de",
+      "requests": 7,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "query.wikidata.org",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "reykjavik.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "rifugioauronzo.it",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "rifugiolavaredo.bukly.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "rifugionuvolau.it",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "turismoushuaia.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "ust.is",
+      "requests": 11,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "visitmyvatn.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "visitreykjavik.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "visitskagafjordur.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "visitvatnajokull.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "visitvik.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.akureyri.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.altabadia.org",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.argentina.gob.ar",
+      "requests": 6,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.cerrocastor.com",
+      "requests": 5,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.chamonix.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.chamonix.fr",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.comune.badia.bz.it",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.comune.castelrotto.bz.it",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.comune.novalevante.bz.it",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.dreizinnenhuette.com",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.east.is",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.eggental.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.elchalten.gob.ar",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.garesetconnexions.sncf",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "blocked"
+    },
+    {
+      "host": "www.grindavik.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.grundarfjordur.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.haute-savoie-tourisme.org",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.hornafjordur.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.hvolsvollur.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.innichen.it",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.klaustur.is",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.montblancnaturalresort.com",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.northiceland.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.nps.gov",
+      "requests": 3,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.pfarrei-innichen.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.rfi.it",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.rifugioaverau.it",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.rifugiolavaredo.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.scotoni.it",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.seiseralm.it",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.sesto.it",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.sii.bz.it",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.skagafjordur.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.slc.gov",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.south.is",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.suedtirol.info",
+      "requests": 3,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.talschlusshuette.com",
+      "requests": 3,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.thingeyjarsveit.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.thingvellir.is",
+      "requests": 6,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.ushuaia.gob.ar",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.valgardena.it",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.vatnajokulsthjodgardur.is",
+      "requests": 7,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.veneziaunica.it",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "blocked"
+    },
+    {
+      "host": "www.vik.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.visitakureyri.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.visitgrindavik.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.visitsaltlake.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.west.is",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.wikidata.org",
+      "requests": 32,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "place/skaftafell",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell",
+      "reason": "official"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q3486103",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/frettir",
+      "reason": "conditions"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://atlas.lmi.is/mapview/?application=Vatnaj%C3%B6kuls%C3%BEj%C3%B3%C3%B0gar%C3%B0ur",
+      "reason": "map_sheet"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "closures",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.vatnajokulsthjodgardur.is/en/frettir (news list, 2026-10-28)",
+        "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell"
+      ]
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/skaftafellsstofa",
+      "reason": "official"
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+      "reason": "official"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q1568140",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Hafragilsfoss",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+        "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3"
+      ]
+    },
+    {
+      "ref": "part/place/hafragilsfoss#parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3",
+      "reason": "official"
+    },
+    {
+      "ref": "part/place/hafragilsfoss#parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/hafragilsfoss#parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.thingvellir.is/en/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q307675",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/%C3%96xar%C3%A1rfoss",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.thingvellir.is/en/",
+        "https://www.thingvellir.is/en/education/nature/"
+      ]
+    },
+    {
+      "ref": "part/place/oxararfoss#p2-efri-vellir",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.thingvellir.is/en/service/parking-service/",
+      "reason": "official"
+    },
+    {
+      "ref": "part/place/oxararfoss#p2-efri-vellir",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/oxararfoss#p2-efri-vellir",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "part/place/oxararfoss#p2-efri-vellir",
+      "field": "price",
+      "outcome": "filled",
+      "src": "https://www.thingvellir.is/en/service/parking-service/"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall",
+      "reason": "official"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q5569999",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Glj%C3%BAfrafoss",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall"
+      ]
+    },
+    {
+      "ref": "part/place/gljufrabui#seljalandsfoss-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall",
+      "reason": "official"
+    },
+    {
+      "ref": "part/place/gljufrabui#seljalandsfoss-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/gljufrabui#seljalandsfoss-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.east.is/en/place/gufufoss-waterfall",
+      "reason": "official"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q2957354",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.east.is/en/place/gufufoss-waterfall"
+      ]
+    },
+    {
+      "ref": "part/place/gufufoss#roadside-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.east.is/en/place/gufufoss-waterfall",
+      "reason": "official"
+    },
+    {
+      "ref": "part/place/gufufoss#roadside-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/gufufoss#roadside-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q1128186",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Strokkur",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/strokkur#geysir-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service/",
+      "reason": "official"
+    },
+    {
+      "ref": "part/place/strokkur#geysir-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/strokkur#geysir-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/the-glacier/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q1315012",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Sn%C3%A6fellsj%C3%B6kull",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/maps/",
+      "reason": "map_sheet"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/",
+        "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/"
+      ]
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://reykjavik.is/en",
+      "reason": "official"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://visitreykjavik.is/",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q1764",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Reykjav%C3%ADk",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.hornafjordur.is/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://visitvatnajokull.is/",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q817118",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/H%C3%B6fn",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.akureyri.is/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.visitakureyri.is/en",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q29042",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Akureyri",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.thingeyjarsveit.is/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.northiceland.is/en",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q134328943",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "geonames_id",
+      "outcome": "searched_none",
+      "tried": [
+        "Wikidata Q134328943 P1566 (none)",
+        "the towns layer data/reference/towns (GeoNames cities1000: the place has under 1,000 people)"
+      ]
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.thingeyjarsveit.is/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.visitmyvatn.is/",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q1026867",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Reykjahl%C3%AD%C3%B0",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.skagafjordur.is/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.visitskagafjordur.is/",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q419691",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Varmahl%C3%AD%C3%B0",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.hvolsvollur.is/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.south.is/en",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q985810",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Sk%C3%B3gar",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "geonames_id",
+      "outcome": "searched_none",
+      "tried": [
+        "Wikidata Q985810 P1566 (none)",
+        "the towns layer data/reference/towns (GeoNames cities1000: the place has under 1,000 people)"
+      ]
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.klaustur.is/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.klaustur.is/visitklaustur/skoda-og-sja",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q1010183",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Kirkjub%C3%A6jarklaustur",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.vik.is/is/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://visitvik.is/",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q685369",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/V%C3%ADk_%C3%AD_M%C3%BDrdal",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.grindavik.is/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "links",
+      "outcome": "searched_none",
+      "tried": [
+        "Visit Grindavík (the link on grindavik.is, https://www.visitgrindavik.is, answered 404 on 2026-10-28)"
+      ],
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q472822",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Grindav%C3%ADk",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.grundarfjordur.is/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.west.is/en",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q27014314",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Grundarfj%C3%B6r%C3%B0ur",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "carrier_ok",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+        "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3"
+      ]
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+        "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3"
+      ]
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "effort.drivers.distance_km",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3"
+      ]
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": [
+        "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3",
+        "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss"
+      ]
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "carrier_ok",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.thingvellir.is/en/",
+        "https://www.thingvellir.is/en/things-to-do/hiking-trails/"
+      ]
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.thingvellir.is/en/",
+        "https://www.thingvellir.is/en/service/parking-service/"
+      ]
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "effort.drivers.distance_km",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": "https://www.thingvellir.is/en/"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "access_season",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.thingvellir.is/en/",
+        "https://www.thingvellir.is/en/service/parking-service/"
+      ]
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "carrier_ok",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall"
+      ]
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall"
+      ]
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "effort.drivers.distance_km",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": "https://www.east.is/en/place/gufufoss-waterfall"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "carrier_ok",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.east.is/en/place/gufufoss-waterfall"
+      ]
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.east.is/en/place/gufufoss-waterfall"
+      ]
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "effort.drivers.distance_km",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": "https://www.east.is/en/place/gufufoss-waterfall"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": "https://www.east.is/en/place/gufufoss-waterfall"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/about-the-area/"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/about-the-area/",
+        "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service/"
+      ]
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/about-the-area/",
+        "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service/"
+      ]
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/about-the-area/"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service/"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/about-the-area/"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/"
+      ]
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/"
+      ]
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/the-glacier/"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://reykjavik.is/en",
+        "https://visitreykjavik.is/"
+      ]
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://reykjavik.is/en",
+        "https://visitreykjavik.is/"
+      ]
+    },
+    {
+      "ref": "place/hofn",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.hornafjordur.is/",
+        "https://visitvatnajokull.is/"
+      ]
+    },
+    {
+      "ref": "place/hofn",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.hornafjordur.is/",
+        "https://visitvatnajokull.is/"
+      ]
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.akureyri.is/",
+        "https://www.visitakureyri.is/en"
+      ]
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.akureyri.is/",
+        "https://www.visitakureyri.is/en"
+      ]
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.thingeyjarsveit.is/",
+        "https://www.northiceland.is/en"
+      ]
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.thingeyjarsveit.is/",
+        "https://www.northiceland.is/en"
+      ]
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.thingeyjarsveit.is/",
+        "https://www.visitmyvatn.is/"
+      ]
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.thingeyjarsveit.is/",
+        "https://www.visitmyvatn.is/"
+      ]
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.skagafjordur.is/",
+        "https://www.visitskagafjordur.is/"
+      ]
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.skagafjordur.is/",
+        "https://www.visitskagafjordur.is/"
+      ]
+    },
+    {
+      "ref": "place/skogar",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.hvolsvollur.is/",
+        "https://www.south.is/en"
+      ]
+    },
+    {
+      "ref": "place/skogar",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.hvolsvollur.is/",
+        "https://www.south.is/en"
+      ]
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.klaustur.is/",
+        "https://www.klaustur.is/visitklaustur/skoda-og-sja"
+      ]
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.klaustur.is/",
+        "https://www.klaustur.is/visitklaustur/skoda-og-sja"
+      ]
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.vik.is/is/",
+        "https://visitvik.is/"
+      ]
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.vik.is/is/",
+        "https://visitvik.is/"
+      ]
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.grindavik.is/"
+      ]
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.grindavik.is/"
+      ]
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.grundarfjordur.is/",
+        "https://www.west.is/en"
+      ]
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.grundarfjordur.is/",
+        "https://www.west.is/en"
+      ]
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "tried": [
+        "Wikidata search 'Skaftafellsstofa' (2026-10-28): no item"
+      ]
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/skaftafellsstofa"
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the Skaftafellsstofa page (2026-10-28)"
+      ]
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.thingvellir.is/en/"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://www.thingvellir.is/en/service/parking-service/"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://www.thingvellir.is/en/"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall",
+        "https://ust.is/english/visiting-iceland/protected-areas/south/ (no listing)"
+      ]
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.east.is/en/place/gufufoss-waterfall"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://www.east.is/en/place/gufufoss-waterfall"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.east.is/en/place/gufufoss-waterfall"
+      ]
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service/"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://visitreykjavik.is/"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://reykjavik.is/en",
+        "https://visitreykjavik.is/"
+      ]
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/hofn",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://visitvatnajokull.is/"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.hornafjordur.is/",
+        "https://visitvatnajokull.is/"
+      ]
+    },
+    {
+      "ref": "place/hofn",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.visitakureyri.is/en"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.akureyri.is/",
+        "https://www.visitakureyri.is/en"
+      ]
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.northiceland.is/en"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.thingeyjarsveit.is/",
+        "https://www.northiceland.is/en"
+      ]
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.visitmyvatn.is/"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.thingeyjarsveit.is/",
+        "https://www.visitmyvatn.is/"
+      ]
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.visitskagafjordur.is/"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.skagafjordur.is/",
+        "https://www.visitskagafjordur.is/"
+      ]
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/skogar",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.south.is/en"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.hvolsvollur.is/",
+        "https://www.south.is/en"
+      ]
+    },
+    {
+      "ref": "place/skogar",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.klaustur.is/visitklaustur/skoda-og-sja"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.klaustur.is/",
+        "https://www.klaustur.is/visitklaustur/skoda-og-sja"
+      ]
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://visitvik.is/"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://www.south.is/en"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.grindavik.is/"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.grindavik.is/"
+      ]
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.west.is/en"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.grundarfjordur.is/",
+        "https://www.west.is/en"
+      ]
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://domaineschamonix.montblancnaturalresort.com/fr/domaine/flegere",
+      "reason": "official"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q3209029",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "best_time",
+      "outcome": "searched_none",
+      "tried": [
+        "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift",
+        "https://domaineschamonix.montblancnaturalresort.com/fr/domaine/flegere"
+      ]
+    },
+    {
+      "ref": "part/place/la-flegere#les-praz-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift",
+      "reason": "official"
+    },
+    {
+      "ref": "part/place/la-flegere#les-praz-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/la-flegere#les-praz-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "links",
+      "outcome": "searched_none",
+      "tried": [
+        "SNCF Gares & Connexions station page (garesetconnexions.sncf/fr/gares-services/vallorcine answered 403 on 2026-10-28); a TER Auvergne-Rhône-Alpes station page was not found by search"
+      ],
+      "reason": "official"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.haute-savoie-tourisme.org/53929-gare-sncf-vallorcine",
+      "reason": "timetable"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.chamonix.fr/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.chamonix.com/",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q83236",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Chamonix",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift"
+      ]
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "wheelchair",
+      "outcome": "filled",
+      "src": "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.chamonix.fr/",
+        "https://www.chamonix.com/"
+      ]
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.chamonix.fr/",
+        "https://www.chamonix.com/"
+      ]
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift",
+        "https://domaineschamonix.montblancnaturalresort.com/fr/domaine/flegere"
+      ]
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://www.haute-savoie-tourisme.org/53929-gare-sncf-vallorcine"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.haute-savoie-tourisme.org/53929-gare-sncf-vallorcine"
+      ]
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.chamonix.com/"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.chamonix.fr/",
+        "https://www.chamonix.com/"
+      ]
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoib8f7d742e2a641d0aa2b1a2f0fd9d4e1.collegiate-church.prato-alla-drava-winnebach",
+      "reason": "official"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.dreizinnen.com/de/region/ferienorte/innichen",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q549129",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "season",
+      "outcome": "searched_none",
+      "tried": [
+        "the suedtirol.info church page (its 'Opening hours' block is empty)",
+        "https://www.dreizinnen.com/de/region/ferienorte/innichen"
+      ]
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "hours",
+      "outcome": "searched_none",
+      "tried": [
+        "the suedtirol.info church page (its 'Opening hours' block is empty)",
+        "https://www.dreizinnen.com/de/region/ferienorte/innichen"
+      ]
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "price",
+      "outcome": "searched_none",
+      "tried": [
+        "the suedtirol.info church page",
+        "https://www.dreizinnen.com/de/region/ferienorte/innichen"
+      ]
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoi90c79655dabf128bbb73c724b7aac2e6.dobbiaco-station.dobbiaco-nuova-neutoblach",
+      "reason": "official"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.suedtirolmobil.info/en/",
+      "reason": "timetable"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "address",
+      "outcome": "conflict",
+      "src": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoi90c79655dabf128bbb73c724b7aac2e6.dobbiaco-station.dobbiaco-nuova-neutoblach",
+      "reason": "Wikidata Q3969534 P6375 gives 'Via Stazione'"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.talschlusshuette.com/en/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.talschlusshuette.com/en/rooms-prices/",
+      "reason": "booking"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q113433241",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://www.talschlusshuette.com/en/"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "season",
+      "outcome": "filled",
+      "src": [
+        "https://www.talschlusshuette.com/en/",
+        "https://www.talschlusshuette.com/en/rooms-prices/"
+      ]
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "hours",
+      "outcome": "conflict",
+      "src": [
+        "https://www.talschlusshuette.com/en/",
+        "https://www.talschlusshuette.com/en/rooms-prices/"
+      ],
+      "reason": "the arrival page gives the summer kitchen hours as 11:00 to 18:30"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "price",
+      "outcome": "filled",
+      "src": "https://www.talschlusshuette.com/en/rooms-prices/"
+    },
+    {
+      "ref": "part/place/rifugio-fondovalle#val-fiscalina-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.talschlusshuette.com/en/arrival/",
+      "reason": "official"
+    },
+    {
+      "ref": "part/place/rifugio-fondovalle#val-fiscalina-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/rifugio-fondovalle#val-fiscalina-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.valgardena.it/en/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q384885",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Val_Gardena",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "osm_ref",
+      "outcome": "conflict",
+      "src": "https://overpass-api.de/api/interpreter",
+      "reason": "Wikidata P402 names relation 10732928, which OSM tags as the Val Gardena ski area (tourism=winter_sports, wikidata Q60726811), not the valley"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.valgardena.it/en/"
+      ]
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.comune.castelrotto.bz.it/de",
+      "reason": "official"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.seiseralm.it/en/summer-holiday-south-tyrol.html",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q377319",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Kastelruth",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.comune.novalevante.bz.it/it",
+      "reason": "official"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://eggental.com/en",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q433287",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Welschnofen",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.comune.badia.bz.it/de",
+      "reason": "official"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.altabadia.org/en/",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q519474",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "the suedtirol.info church page",
+        "https://www.dreizinnen.com/de/region/ferienorte/innichen"
+      ]
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "the suedtirol.info church page",
+        "https://www.dreizinnen.com/de/region/ferienorte/innichen"
+      ]
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoib8f7d742e2a641d0aa2b1a2f0fd9d4e1.collegiate-church.prato-alla-drava-winnebach"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.talschlusshuette.com/en/rooms-prices/",
+        "https://www.talschlusshuette.com/en/arrival/"
+      ]
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.valgardena.it/en/"
+      ]
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.valgardena.it/en/"
+      ]
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": "https://www.valgardena.it/en/"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": "https://www.valgardena.it/en/"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": "https://www.valgardena.it/en/"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.comune.castelrotto.bz.it/de",
+        "https://www.seiseralm.it/en/summer-holiday-south-tyrol.html"
+      ]
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.comune.castelrotto.bz.it/de",
+        "https://www.seiseralm.it/en/summer-holiday-south-tyrol.html"
+      ]
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.comune.novalevante.bz.it/it",
+        "https://eggental.com/en"
+      ]
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.comune.novalevante.bz.it/it",
+        "https://eggental.com/en"
+      ]
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.comune.badia.bz.it/de",
+        "https://www.altabadia.org/en/"
+      ]
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.comune.badia.bz.it/de",
+        "https://www.altabadia.org/en/"
+      ]
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoib8f7d742e2a641d0aa2b1a2f0fd9d4e1.collegiate-church.prato-alla-drava-winnebach"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoib8f7d742e2a641d0aa2b1a2f0fd9d4e1.collegiate-church.prato-alla-drava-winnebach"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the suedtirol.info church page",
+        "https://www.dreizinnen.com/de/region/ferienorte/innichen"
+      ]
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoi90c79655dabf128bbb73c724b7aac2e6.dobbiaco-station.dobbiaco-nuova-neutoblach"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the suedtirol.info station page"
+      ]
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.talschlusshuette.com/en/"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://www.talschlusshuette.com/en/arrival/"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://www.talschlusshuette.com/en/"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.valgardena.it/en/"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://www.valgardena.it/en/"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.seiseralm.it/en/summer-holiday-south-tyrol.html"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://www.seiseralm.it/en/summer-holiday-south-tyrol.html"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://eggental.com/en"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://eggental.com/en"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.altabadia.org/en/"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://www.altabadia.org/en/"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/care/planyourvisit/hours.htm",
+      "reason": "official"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/care/planyourvisit/fees.htm",
+      "reason": "hours_rates"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q63993567",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse",
+        "https://www.nps.gov/care/planyourvisit/hours.htm"
+      ]
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "season",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/care/planyourvisit/hours.htm"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "hours",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.nps.gov/care/planyourvisit/hours.htm"
+      ]
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "price",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/care/planyourvisit/fees.htm"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.slc.gov/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.visitsaltlake.com/",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q23337",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Salt_Lake_City",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.nps.gov/care/planyourvisit/hours.htm"
+      ]
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.nps.gov/care/planyourvisit/hours.htm"
+      ]
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/care/planyourvisit/hours.htm"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.slc.gov/",
+        "https://www.visitsaltlake.com/"
+      ]
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.slc.gov/",
+        "https://www.visitsaltlake.com/"
+      ]
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/care/planyourvisit/hours.htm"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/care/planyourvisit/fees.htm"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/care/planyourvisit/hours.htm"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.visitsaltlake.com/"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.slc.gov/",
+        "https://www.visitsaltlake.com/"
+      ]
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares",
+      "reason": "official"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q367943",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Perito_Moreno_Glacier",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares",
+        "https://www.argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf"
+      ]
+    },
+    {
+      "ref": "part/place/perito-moreno-glacier#walkways-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares/horarios-como-llegar-0",
+      "reason": "official"
+    },
+    {
+      "ref": "part/place/perito-moreno-glacier#walkways-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/perito-moreno-glacier#walkways-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "part/place/perito-moreno-glacier#walkways-parking",
+      "field": "season",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares/horarios-como-llegar-0"
+    },
+    {
+      "ref": "part/place/perito-moreno-glacier#walkways-parking",
+      "field": "hours",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares/horarios-como-llegar-0"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.cerrocastor.com/es_ar/home.html",
+      "reason": "official"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q521811",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Cerro_Castor",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "season",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html",
+        "https://www.cerrocastor.com/es_ar/home.html"
+      ]
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "hours",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html"
+      ]
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "price",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.cerrocastor.com/es_ar/pases-esquiador.html",
+        "https://www.cerrocastor.com/es_ar/pases-tarifas.html"
+      ]
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "window",
+      "outcome": "filled",
+      "src": "https://www.cerrocastor.com/es_ar/pases-esquiador.html"
+    },
+    {
+      "ref": "part/place/cerro-castor#base-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html",
+      "reason": "official"
+    },
+    {
+      "ref": "part/place/cerro-castor#base-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/cerro-castor#base-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.ushuaia.gob.ar/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://turismoushuaia.com/",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q44254",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Ushuaia",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.elchalten.gob.ar/",
+      "reason": "official"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.elchalten.gob.ar/secretaria-de-turismo/",
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q1323978",
+      "reason": "wikidata"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/El_Chalt%C3%A9n",
+      "reason": "wikipedia"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "stroller",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "wheelchair",
+      "outcome": "filled",
+      "src": [
+        "https://www.argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf",
+        "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares/horarios-como-llegar-0"
+      ]
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares/horarios-como-llegar-0"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": "https://www.cerrocastor.com/es_ar/pases-esquiador.html"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "effort.source_grade",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.cerrocastor.com/es_ar/mapa-de-pistas.html"
+      ]
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.ushuaia.gob.ar/",
+        "https://turismoushuaia.com/"
+      ]
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.ushuaia.gob.ar/",
+        "https://turismoushuaia.com/"
+      ]
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.elchalten.gob.ar/",
+        "https://www.elchalten.gob.ar/secretaria-de-turismo/"
+      ]
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.elchalten.gob.ar/",
+        "https://www.elchalten.gob.ar/secretaria-de-turismo/"
+      ]
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/parquesnacionales/tarifas"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "https://www.cerrocastor.com/es_ar/pases-esquiador.html"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.cerrocastor.com/es_ar/home.html"
+      ]
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://turismoushuaia.com/"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.ushuaia.gob.ar/",
+        "https://turismoushuaia.com/"
+      ]
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://query.wikidata.org/sparql"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "draw",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares/horarios-como-llegar-0"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "standing",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "distinction",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "easy_payoff",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "weather",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference: the method is in the record's note"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares/horarios-como-llegar-0"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "part/place/bentonite-hills#cow-dung-road-approx",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "place/long-dong-silver-spire",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/long-dong-silver-spire#trailhead-lot",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "part/place/factory-butte#ohv-area-approx",
+      "field": "address",
+      "outcome": "searched_none",
+      "tried": [
+        "Nominatim reverse at the butte (zoom 18, LT-WHERE 2026-10-28): no road within the answer",
+        "Nominatim reverse at the OHV area centre 38.44146,-110.91689 (zoom 16, 2026-10-28): the county only"
+      ]
+    },
+    {
+      "ref": "place/venice",
+      "field": "links",
+      "outcome": "searched_none",
+      "tried": [
+        "the City of Venice tourism portal https://www.veneziaunica.it/en (2026-10-28): the host answered with a bot-check page, not a readable page"
+      ],
+      "reason": "tourism_board"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://rifugioauronzo.it/"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://rifugioauronzo.it/prenota/",
+      "reason": "booking"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo",
+      "field": "address",
+      "outcome": "searched_none",
+      "tried": [
+        "https://rifugiolavaredo.com/ (the only street address is the operating company's office in Auronzo di Cadore, not the hut)",
+        "Nominatim reverse at the hut point (2026-10-28): the nearest 'road' is the Passaporto via ferrata"
+      ]
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://rifugiolavaredo.bukly.com/it/",
+      "reason": "booking"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli",
+      "field": "address",
+      "outcome": "searched_none",
+      "tried": [
+        "https://dreizinnenhuette.com/ (site under maintenance: no address)",
+        "Nominatim reverse at the hut point (2026-10-28): the nearest 'road' is a First World War tunnel trail"
+      ]
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli",
+      "field": "links",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.dreizinnenhuette.com/booking/index_en.php answered 404 (2026-10-28); the maintenance page says the hut opens on 26 June 2027 and bookings for 2027 open in January by e-mail"
+      ],
+      "reason": "booking"
+    },
+    {
+      "ref": "place/rifugio-nuvolau-and-averau",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://rifugionuvolau.it/"
+    },
+    {
+      "ref": "place/rifugio-nuvolau-and-averau",
+      "field": "links",
+      "outcome": "searched_none",
+      "tried": [
+        "https://rifugionuvolau.it/ (2026-10-28): bookings for 2027 open from January 2027 on the website; no booking page yet. https://www.rifugioaverau.it/ shows a 'Prenota ora' button without a booking page link in the page."
+      ],
+      "reason": "booking"
+    },
+    {
+      "ref": "place/rifugio-scotoni",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://www.scotoni.it/it/"
+    },
+    {
+      "ref": "place/rifugio-scotoni",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.scotoni.it/it/camere-e-prezzi-in-alta-badia",
+      "reason": "booking"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q3486103"
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/200175906"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/3050633634"
+    },
+    {
+      "ref": "part/place/hafragilsfoss#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/658280966"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/312688011"
+    },
+    {
+      "ref": "part/place/oxararfoss#p2-efri-vellir",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/169907450"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/2534116947"
+    },
+    {
+      "ref": "part/place/gljufrabui#seljalandsfoss-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/76051771"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/3101158567"
+    },
+    {
+      "ref": "part/place/gufufoss#roadside-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/712989031"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/270943513"
+    },
+    {
+      "ref": "part/place/strokkur#geysir-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/194193955"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q1315012"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/2107832620"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/249085731"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/242107681"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q134328943"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/270961115"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/244149690"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/1385855484"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/60472743"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/59861511"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/244149207"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/126199675"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q3209029"
+    },
+    {
+      "ref": "part/place/la-flegere#les-praz-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/758067054"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/9543361428"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/26696275"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/216694096"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/6738731097"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/96096595"
+    },
+    {
+      "ref": "part/place/rifugio-fondovalle#val-fiscalina-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/98002215"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q384885"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q377319"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q433287"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/223597157"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap relation/14504383"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/150935219"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q367943"
+    },
+    {
+      "ref": "part/place/perito-moreno-glacier#walkways-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/1259804791"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/2643657602"
+    },
+    {
+      "ref": "part/place/cerro-castor#base-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/905218501"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/198432092"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/255706152"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "osm_ref",
+      "outcome": "searched_none",
+      "tried": [
+        "Overpass place=* within 3 km of 65.6856,-17.5395 (2026-10-28): only service roads named Fosshóll"
+      ],
+      "reason": "held back: a searched_none osm_ref waits for FIX2's test change"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "osm_ref",
+      "outcome": "searched_none",
+      "tried": [
+        "Overpass by name 'Skaftafell' and the store QID (2026-10-28): a bus stop, a campground and map boards; no area element"
+      ],
+      "reason": "held back: a searched_none osm_ref waits for FIX2's test change"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "wikidata",
+      "outcome": "conflict",
+      "reason": "the OSM town node carries Q1019459; the store holds Q27014314 (P625 and GeoNames agree with the store); both kept for a person",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/jokulsa-a-brei-amerkursandi",
+      "field": "type",
+      "outcome": "gap",
+      "reason": "a river (water.body.river) has the suitability profile 'river', which no legacy kind/subkind pair claims, so no valid suitability record can be written; held back for a builder decision"
+    },
+    {
+      "ref": "place/southern-fuegian-railway",
+      "field": "type",
+      "outcome": "gap",
+      "reason": "a ride.rail route needs geometry (a stored data/tracks file) at the required tier, and the track fetcher reads trails only; held back for TRK-1 or a builder decision"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf",
+      "reason": "read as a source; glacier_view lists no map_sheet link kind, so it is cited, not stored as a link (map_sheet)"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "osm_ref",
+      "outcome": "searched_none",
+      "tried": [
+        "Overpass by the store QID and the name 'La Flégère' within 3 km (2026-10-28): an information point, a refuge (Q120319187) and the gondola stations; no element is the place itself"
+      ],
+      "reason": "held back: a searched_none osm_ref waits for FIX2's test change"
+    },
+    {
+      "ref": "place/dantercepies-gondola",
+      "field": "type",
+      "outcome": "gap",
+      "reason": "a ride.lift route needs geometry (a stored data/tracks file) at the required tier, and the track fetcher reads trails only; held back for TRK-1 or a builder decision"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "address",
+      "outcome": "conflict",
+      "src": [
+        "https://www.suedtirol.info (Dobbiaco station page)"
+      ],
+      "reason": "the official page gives Via Dolomiti; Wikidata P6375 gives Via Stazione; both kept"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "hours",
+      "outcome": "conflict",
+      "src": [
+        "https://www.talschlusshuette.com/en/rooms-prices/",
+        "https://www.talschlusshuette.com/en/arrival/"
+      ],
+      "reason": "summer kitchen hours 11:00 to 18:00 on one page, to 18:30 on the other; both kept"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "osm_ref",
+      "outcome": "conflict",
+      "reason": "Wikidata P402 names the ski-area relation 10732928; the valley line way/338449531 carries the QID; the valley line is stored, P402 kept as a conflict",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/calf-creek",
+      "field": "type",
+      "outcome": "gap",
+      "reason": "a creek (water.body.creek) has the suitability profile 'river', which no legacy kind/subkind pair claims, so no valid suitability record can be written; held back for a builder decision"
+    }
+  ]
+}

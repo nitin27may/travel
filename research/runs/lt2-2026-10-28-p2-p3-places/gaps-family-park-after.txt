@@ -1,0 +1,41 @@
+Tier: required · family park (nature.protected, nature.garden, access.pass) · trip catalogue
+
+Per layer (EXECUTION-PLAN 6.4 columns; records answering each)
+layer         records area_id point osm_id wikidata official photos season where operator price duration window min_age
+place              18      18    18     15       16       18      0      0     0       10    11        0      2       0
+offer               8       0     0      0        0        8      0      8     7        8     8        0      8       0
+
+place: 18 record(s), 18 with the required tier complete
+  access_cost                          asked   18  answered   18  missing    0
+  access_points                        asked   18  answered   18  missing    0
+  access_season                        asked   18  answered   18  missing    0
+  class_key                            asked   18  answered   18  missing    0
+  closures                             asked    6  answered    6  missing    0
+  distinction                          asked   18  answered   18  missing    0
+  draw                                 asked   18  answered   18  missing    0
+  easy_payoff                          asked   18  answered   18  missing    0
+  hazards                              asked   18  answered   18  missing    0
+  kid_note                             asked   18  answered   18  missing    0
+  links                                asked   18  answered   18  missing    0
+  name                                 asked   18  answered   18  missing    0
+  on_site_min                          asked   18  answered   18  missing    0
+  price                                asked   11  answered   11  missing    0
+  signals                              asked   18  answered   18  missing    0
+  standing                             asked   18  answered   18  missing    0
+  summary                              asked   18  answered   18  missing    0
+  type                                 asked   18  answered   18  missing    0
+  weather                              asked   18  answered   18  missing    0
+  why                                  asked   18  answered   18  missing    0
+  wikidata                             asked   18  answered   18  missing    0
+  window                               asked    2  answered    2  missing    0
+
+offer: 8 record(s), 8 with the required tier complete
+  at                                   asked    8  answered    8  missing    0
+  entry                                asked    8  answered    8  missing    0
+  links                                asked    8  answered    8  missing    0
+  name                                 asked    8  answered    8  missing    0
+  price                                asked    8  answered    8  missing    0
+  season                               asked    8  answered    8  missing    0
+  summary                              asked    8  answered    8  missing    0
+  type                                 asked    8  answered    8  missing    0
+  window                               asked    8  answered    8  missing    0

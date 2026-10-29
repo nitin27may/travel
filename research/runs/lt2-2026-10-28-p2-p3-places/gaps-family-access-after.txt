@@ -1,0 +1,16 @@
+Tier: required · family access (access.start, access.park, access.transit, access.amenity) · trip catalogue
+
+Per layer (EXECUTION-PLAN 6.4 columns; records answering each)
+layer         records area_id point osm_id wikidata official photos season where operator price duration window min_age
+place              69      69    69     66        0       59      0      1     0        0     3        0      0       0
+
+place: 69 record(s), 69 with the required tier complete
+  access_cost                          asked   12  answered   12  missing    0
+  hours                                asked    1  answered    1  missing    0
+  links                                asked   69  answered   69  missing    0
+  name                                 asked   69  answered   69  missing    0
+  parks_for                            asked   69  answered   69  missing    0
+  price                                asked    3  answered    3  missing    0
+  season                               asked    1  answered    1  missing    0
+  summary                              asked   12  answered   12  missing    0
+  type                                 asked   69  answered   69  missing    0

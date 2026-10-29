@@ -1,0 +1,38 @@
+Tier: required · family sight (nature.summit, nature.viewpoint, nature.landform, nature.wildlife, water.body, water.falls, water.swim, water.thermal, animals.see, culture.museum, culture.heritage, culture.under) · trip catalogue
+
+Per layer (EXECUTION-PLAN 6.4 columns; records answering each)
+layer         records area_id point osm_id wikidata official photos season where operator price duration window min_age
+place              62      62    62     57       59       58      0      7     0        0    11        0      6       0
+
+place: 62 record(s), 62 with the required tier complete
+  access_cost                          asked   62  answered   62  missing    0
+  access_points                        asked   39  answered   39  missing    0
+  access_season                        asked   55  answered   55  missing    0
+  age_band                             asked   55  answered   55  missing    0
+  best_time                            asked   21  answered   21  missing    0
+  best_window                          asked    7  answered    7  missing    0
+  carrier_ok                           asked   10  answered   10  missing    0
+  class_key                            asked   62  answered   62  missing    0
+  distinction                          asked   62  answered   62  missing    0
+  draw                                 asked   62  answered   62  missing    0
+  easy_payoff                          asked   62  answered   62  missing    0
+  effort.drivers.distance_km           asked   10  answered   10  missing    0
+  exposure                             asked   42  answered   42  missing    0
+  hours                                asked    7  answered    7  missing    0
+  kid_note                             asked   62  answered   62  missing    0
+  links                                asked   62  answered   62  missing    0
+  name                                 asked   62  answered   62  missing    0
+  on_site_min                          asked   62  answered   62  missing    0
+  price                                asked   10  answered   10  missing    0
+  season                               asked    7  answered    7  missing    0
+  signals                              asked   62  answered   62  missing    0
+  standing                             asked   62  answered   62  missing    0
+  stroller                             asked   62  answered   62  missing    0
+  summary                              asked   62  answered   62  missing    0
+  type                                 asked   62  answered   62  missing    0
+  walk_m                               asked   55  answered   55  missing    0
+  weather                              asked   62  answered   62  missing    0
+  wheelchair                           asked   62  answered   62  missing    0
+  why                                  asked   62  answered   62  missing    0
+  wikidata                             asked   62  answered   62  missing    0
+  window                               asked    5  answered    5  missing    0
