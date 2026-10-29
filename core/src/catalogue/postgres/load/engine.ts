@@ -7,6 +7,8 @@
 //   - every statement goes through `run`, which calls assertSeedTable first: a private or unclassified table is refused before the
 //     driver is called (spec 6.2); deletes also call assertDeletable and never TRUNCATE;
 //   - a retired or kept table's rows are never deleted (contract onMissing), they are counted as retained;
+//   - on a scoped table (contract `scope`: leg_cache, shared with the server leg service) every read, update, delete and count carries
+//     `column = value`, and every seed row must carry the value, so a row another writer owns is never seen, changed or deleted;
 //   - the apply order is the contract's: inserts and updates top to bottom, deletes in DELETE_ORDER, the commit stamp last;
 //   - the transaction takes pg_try_advisory_xact_lock(SEED_ADVISORY_LOCK_KEY) and fails closed when it is held;
 //   - dry runs and verifies run in a read only transaction, so they cannot write whatever the code does.
@@ -49,12 +51,32 @@ export async function run<R extends QueryRow>(db: Db, table: string, sql: string
   return db.query<R>(sql, params);
 }
 
+// ---- scope ------------------------------------------------------------------------------------------------------------------------
+/** ` where "col" = $n` (or ` and t."col" = $n`) for a scoped table, with its parameter; nothing for a table the seed owns whole. */
+function scopeSql(data: TableData, n: number, joiner: "where" | "and", alias = ""): { sql: string; params: unknown[] } {
+  const scope = data.spec.scope;
+  if (!scope) return { sql: "", params: [] };
+  return { sql: ` ${joiner} ${alias}${q(scope.column)} = $${n}`, params: [scope.value] };
+}
+
+/** A scoped table's seed rows must write the scope column, with the scope value: the seed may only create rows it will own. */
+export function assertScoped(data: TableData): void {
+  const scope = data.spec.scope;
+  if (!scope) return;
+  if (!data.columns.some((c) => c.name === scope.column)) {
+    throw new SeedEngineError("E_SEED_SCOPE", `${data.spec.table}: a scoped table must write ${scope.column} (= '${scope.value}')`);
+  }
+  const bad = data.rows.filter((r) => r[scope.column] !== scope.value).length;
+  if (bad) throw new SeedEngineError("E_SEED_SCOPE", `${data.spec.table}: ${bad} seed row(s) without ${scope.column} = '${scope.value}'`);
+}
+
 // ---- hashing -----------------------------------------------------------------------------------------------------------------------
 const hashedRow = (data: TableData, row: Row): Row =>
   data.hashColumns ? Object.fromEntries(data.hashColumns.map((c) => [c, row[c]])) : row;
 
 /** record id -> content hash of the seed's rows. */
 export function seedMap(data: TableData): Map<string, string> {
+  assertScoped(data);
   const m = new Map<string, string>();
   for (const row of data.rows) {
     const id = rowId(data.spec, row);
@@ -66,13 +88,17 @@ export function seedMap(data: TableData): Map<string, string> {
 
 const selectList = (cols: readonly ColumnDef[]): string => cols.map((c) => `${c.read ?? q(c.name)} as ${q(c.name)}`).join(", ");
 
-/** record id -> hash of the target's rows, read over the columns the seed writes; null when the table does not exist. */
+/**
+ * record id -> hash of the target's rows, read over the columns the seed writes; null when the table does not exist. On a scoped table
+ * only the seed's own rows are read, so a row outside the scope is never planned (not even as a delete).
+ */
 export async function readTarget(db: Db, data: TableData): Promise<Map<string, TargetRow> | null> {
   const table = data.spec.table;
   const reg = await run<{ reg: string | null }>(db, table, `select to_regclass($1) as reg`, [`public.${table}`]);
   if (!reg.rows[0]?.reg) return null;
   const cols = data.hashColumns ? data.columns.filter((c) => data.hashColumns!.includes(c.name)) : data.columns;
-  const { rows } = await run<Row>(db, table, `select ${selectList(cols)} from ${q(table)}`);
+  const scope = scopeSql(data, 1, "where");
+  const { rows } = await run<Row>(db, table, `select ${selectList(cols)} from ${q(table)}${scope.sql}`, scope.params);
   const out = new Map<string, TargetRow>();
   for (const row of rows) out.set(rowId(data.spec, row), { hash: contentHash(data.spec, hashedRow(data, row)) });
   return out;
@@ -146,8 +172,9 @@ async function updateRows(db: Db, data: TableData, rows: readonly Row[]): Promis
   const set = data.columns.filter((c) => !data.key.includes(c.name));
   if (set.length === 0) return;
   const where = data.key.map((k) => `t.${q(k)} = x.${q(k)}`).join(" and ");
-  const sql = `update ${q(t)} t set ${set.map((c) => `${q(c.name)} = ${valueOf(c)}`).join(", ")} from ${recordset(data.columns)} where ${where}`;
-  for (const batch of chunks(rows)) await run(db, t, sql, [JSON.stringify(batch.map((r) => pick(r, data.columns)))]);
+  const scope = scopeSql(data, 2, "and", "t.");
+  const sql = `update ${q(t)} t set ${set.map((c) => `${q(c.name)} = ${valueOf(c)}`).join(", ")} from ${recordset(data.columns)} where ${where}${scope.sql}`;
+  for (const batch of chunks(rows)) await run(db, t, sql, [JSON.stringify(batch.map((r) => pick(r, data.columns))), ...scope.params]);
 }
 
 async function deleteRows(db: Db, data: TableData, keys: readonly Row[]): Promise<void> {
@@ -155,8 +182,9 @@ async function deleteRows(db: Db, data: TableData, keys: readonly Row[]): Promis
   assertDeletable(t);
   const cols = data.columns.filter((c) => data.key.includes(c.name));
   const where = data.key.map((k) => `t.${q(k)} = x.${q(k)}`).join(" and ");
-  const sql = `delete from ${q(t)} t using ${recordset(cols)} where ${where}`;
-  for (const batch of chunks(keys)) await run(db, t, sql, [JSON.stringify(batch)]);
+  const scope = scopeSql(data, 2, "and", "t.");
+  const sql = `delete from ${q(t)} t using ${recordset(cols)} where ${where}${scope.sql}`;
+  for (const batch of chunks(keys)) await run(db, t, sql, [JSON.stringify(batch), ...scope.params]);
 }
 
 /** Split a composite record id back into its key columns (a single-column key is the id itself). */
@@ -237,14 +265,18 @@ export async function readOnly<T>(db: Db, fn: () => Promise<T>): Promise<T> {
 }
 
 // ---- seed on an empty target -------------------------------------------------------------------------------------------------------
-/** `db:seed` is for an empty catalogue: the seed tables that exist and hold a row make it refuse (use db:sync). */
+/**
+ * `db:seed` is for an empty catalogue: the seed tables that exist and hold a row make it refuse (use db:sync). A scoped table counts its
+ * seed rows only: routed legs the server wrote do not make a catalogue non-empty.
+ */
 export async function nonEmptyTables(db: Db, built: readonly TableData[]): Promise<string[]> {
   const out: string[] = [];
   for (const data of built) {
     const t = data.spec.table;
     const reg = await run<{ reg: string | null }>(db, t, `select to_regclass($1) as reg`, [`public.${t}`]);
     if (!reg.rows[0]?.reg) continue;
-    const r = await run<{ n: number }>(db, t, `select count(*)::int as n from (select 1 from ${q(t)} limit 1) s`);
+    const scope = scopeSql(data, 1, "where");
+    const r = await run<{ n: number }>(db, t, `select count(*)::int as n from (select 1 from ${q(t)}${scope.sql} limit 1) s`, scope.params);
     if ((r.rows[0]?.n ?? 0) > 0) out.push(t);
   }
   return out;

@@ -10,12 +10,16 @@
 //   3. Retire, never delete: a row other tables point at (a user's saved place, a booking, a retired row's own references) is never
 //      deleted by a sync. `onMissing` says what happens to a target row the seed no longer has.
 //   4. Idempotent: the same commit gives the same rows and the same content hashes (./hash.ts); a second sync writes 0 rows.
-//   5. Stamped: every row the engine writes on a META_TABLES table carries meta.run_id and meta.imported_from (after the RowMeta
+//   5. Shared tables are scoped: on a table another writer also fills (leg_cache: the server leg service), `scope` names the column
+//      and value of the seed's own rows. The engine reads, updates, deletes and counts only those, so `onMissing` never reaches a row
+//      the seed did not write (SEEDC, 28 Oct 2026).
+//   6. Stamped: every row the engine writes on a META_TABLES table carries meta.run_id and meta.imported_from (after the RowMeta
 //      migration lands; until then the run is recorded as the catalogue_meta key SEED_COMMIT_KEY).
 import { META_TABLES } from "../schema/rowMeta.ts";
 
 /** Bump when a table, key, order or rule below changes meaning. The engine writes it into the run record. */
-export const SEED_CONTRACT_VERSION = 1;
+export const SEED_CONTRACT_VERSION = 2;
+// v2 (SEEDC, 28 Oct 2026): `scope`; leg_cache is scoped to origin = 'seed', so a sync never deletes a server-written leg.
 
 /** Which table family a seed table belongs to (spec 2.4, 6.5). */
 export const SEED_FAMILIES = [
@@ -28,7 +32,7 @@ export type SeedFamily = (typeof SEED_FAMILIES)[number];
  * How a table is kept in step with the seed.
  *   mirror       insert, update, and `onMissing` for rows the seed no longer has
  *   append_only  insert only; a row is never updated (its key is its content hash) and never removed (evidence history)
- *   cache        mirror, but the rows are a cache the engine may rebuild (stored legs)
+ *   cache        mirror, but the rows are a cache the engine may rebuild (stored legs); scoped when the server also writes the table
  *   derived      computed from the seed by the same core code JsonStore uses; written after every source table
  *   revision     the catalogue revision key-value rows, written last in the same transaction
  */
@@ -38,7 +42,7 @@ export type SeedMode = "mirror" | "append_only" | "cache" | "derived" | "revisio
  * What a sync does with a target row whose key the seed no longer has.
  *   retire  set `retire.column` to `retire.value`; the row stays, so every reference to it stays (saved_place cascades on delete)
  *   keep    leave the row as it is and count it as retained (no status column yet, or append-only history)
- *   delete  delete it (catalogue-owned rows nothing outside the seed points at)
+ *   delete  delete it (catalogue-owned rows nothing outside the seed points at); on a scoped table, only rows inside the scope
  */
 export type OnMissing = "retire" | "keep" | "delete";
 
@@ -85,8 +89,20 @@ export interface SeedTableSpec {
   setColumns?: readonly string[];
   /** geometry columns: hashed as WKT with SEED_COORD_DECIMALS (./hash.ts) */
   geometryColumns?: readonly string[];
+  /**
+   * The seed's own rows of a table it shares with another writer: `column = value`. The engine reads, updates, deletes and counts only
+   * rows that match, and every seed row must carry the value (E_SEED_SCOPE). `others` names the writer of the rest, for the plan.
+   */
+  scope?: SeedScope;
   /** a short note for the reader of the plan */
   note?: string;
+}
+
+export interface SeedScope {
+  column: string;
+  value: string;
+  /** who writes the rows outside the scope (never read, written or deleted by the seed) */
+  others: string;
 }
 
 // ---- inputs, named once ------------------------------------------------------------------------------------------------------------
@@ -169,7 +185,9 @@ export const SEED_TABLES: readonly SeedTableSpec[] = [
   { table: "change", family: "research", owner: "RIS-L", inputs: [CHANGESETS], key: ["id"], identity: "derived", mode: "mirror", onMissing: "delete", note: "id = derivedId('chg', [changeset id, index])" },
   { table: "research_gap", family: "research", owner: "RIS-L", inputs: [RUNS], key: ["id"], identity: "derived", mode: "mirror", onMissing: "delete", note: "id = derivedId('gap', [run id, ref, field])" },
   // cache and rules
-  { table: "leg_cache", family: "cache", owner: "STY-L", inputs: [{ glob: "data/schedules/legs/*.json", exclude: ["data/schedules/legs/*.unrouted.json"] }], key: ["from_cell", "to_cell", "mode"], identity: "composite", mode: "cache", onMissing: "delete" },
+  { table: "leg_cache", family: "cache", owner: "STY-L", inputs: [{ glob: "data/schedules/legs/*.json", exclude: ["data/schedules/legs/*.unrouted.json"] }], key: ["from_cell", "to_cell", "mode"], identity: "composite", mode: "cache", onMissing: "delete",
+    scope: { column: "origin", value: "seed", others: "the server leg service (TB-L, origin 'server'; pruned only by leg_cache_prune)" },
+    note: "scoped: the seed reads and deletes only origin = 'seed' rows (0014); a stored leg removed from the files is deleted, a routed server row never" },
   { table: "freshness_rule", family: "rules", owner: "RIS-L", inputs: [{ glob: "data/schema/freshness.json" }], key: ["field_prefix"], identity: "key", mode: "mirror", onMissing: "delete" },
   // projections (computed by the public-data code, never hand-loaded)
   { table: "place_row", family: "projection", owner: "RIS-L", inputs: [], key: ["slug"], identity: "slug", mode: "derived", onMissing: "delete", geometryColumns: ["point"] },
@@ -306,6 +324,9 @@ export const SEED_FORBIDDEN_KEYS: readonly string[] = [
 
 // ---- lookups -----------------------------------------------------------------------------------------------------------------------
 const BY_TABLE = new Map(SEED_TABLES.map((t) => [t.table, t]));
+
+/** The scope of a shared table, or undefined when the seed owns every row of it. */
+export const seedScope = (table: string): SeedScope | undefined => BY_TABLE.get(table)?.scope;
 
 /** The seed spec of a table, or undefined when the engine must not touch it. */
 export function seedSpec(table: string): SeedTableSpec | undefined {

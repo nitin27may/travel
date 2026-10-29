@@ -348,7 +348,7 @@ months, source, read }`. Authored by the research lane, validated by `drive.ts c
 | Keys | `r:<public alias>` for catalogue points (never a dated trip folder id, per [public-ref-aliases.md](public-ref-aliases.md)); `t:<geonameid>` for towns; `g:<geohash 6>` (about 1.2 × 0.6 km) for any other public point |
 | Visitor start | **never a key, never stored, never logged.** Routed from the exact point inside the request (one matrix row) and dropped; with the guard tripped, L2 from the exact point in memory (Q-DT4) |
 | Household | a cell within `HOME_RADIUS_KM` of home (`core/src/privacy/home.ts` `nearHome`) is refused for writing |
-| Columns added (additive migration, DT-L inside TB-L) | `profile` (`driving-car`), `engine` (`ors`, `osrm`), `engine_version`, `flags` (ferry, toll, unpaved, border), `hits`, `last_used` |
+| Columns added (additive migration, DT-L inside TB-L) | `profile` (`driving-car`), `engine` (`ors`, `osrm`), `engine_version`, `flags` (ferry, toll, unpaved, border), `hits`, `last_used`, `origin` (`seed` for stored legs the seed writes, `server` for routed rows; SEEDC 28 Oct 2026: a seed sync touches only `seed` rows, the prune only `server` rows) |
 | Life | 180 days from `computed_at`; pruned by `last_used`; size reported by CAT-V; budget 100 MB |
 | One engine per plan | a build uses cells of one engine; a different engine's row is re-asked, not mixed |
 | Geometry | only for directions fetched at Review (trip-builder 4.10), simplified to 30 m like the legs files |

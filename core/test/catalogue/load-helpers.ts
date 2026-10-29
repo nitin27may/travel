@@ -37,6 +37,12 @@ export const editJson = (fn: (doc: any) => void) => (text: string): string => {
 
 const unquote = (s: string): string => s.replace(/"/g, "");
 
+/** The ` and t."col" = $2` scope predicate of an update or delete, as a row filter (every row when there is none). */
+function scopeOf(where: string, params: readonly unknown[]): (r: Row) => boolean {
+  const m = /t\."(\w+)" = \$2/.exec(where);
+  return m ? (r) => r[m[1]!] === params[1] : () => true;
+}
+
 /** An in-memory stand-in for the target: rows are stored in the shape the engine reads them back in. */
 export class MemoryDb implements Db {
   tables = new Map<string, Row[]>();
@@ -87,10 +93,15 @@ export class MemoryDb implements Db {
       return { rows: [{ reg: this.missing.has(t) ? null : `public.${t}` }], rowCount: 1 };
     }
     if (sql.includes("from schema_migrations")) return { rows: loadMigrations().map((m) => ({ version: m.version })), rowCount: 0 };
-    let m = /^select count\(\*\)::int as n from \(select 1 from "(\w+)" limit 1\) s$/.exec(sql);
-    if (m) return { rows: [{ n: Math.min(1, this.rows(m[1]!).length) }], rowCount: 1 };
-    m = /^select .* from "(\w+)"$/.exec(sql);
-    if (m) return { rows: this.rows(m[1]!).map((r) => ({ ...r })), rowCount: this.rows(m[1]!).length };
+    // a scoped table (contract `scope`) adds ` where "col" = $1` to its reads and counts
+    const scoped = (t: string, col: string | undefined, value: unknown): Row[] => this.rows(t).filter((r) => col === undefined || r[col] === value);
+    let m = /^select count\(\*\)::int as n from \(select 1 from "(\w+)"(?: where "(\w+)" = \$1)? limit 1\) s$/.exec(sql);
+    if (m) return { rows: [{ n: Math.min(1, scoped(m[1]!, m[2], params[0]).length) }], rowCount: 1 };
+    m = /^select .* from "(\w+)"(?: where "(\w+)" = \$1)?$/.exec(sql);
+    if (m) {
+      const rows = scoped(m[1]!, m[2], params[0]);
+      return { rows: rows.map((r) => ({ ...r })), rowCount: rows.length };
+    }
 
     this.statements.push(sql);
     if (this.readOnly) throw new Error("cannot execute a write in a read-only transaction");
@@ -114,9 +125,10 @@ export class MemoryDb implements Db {
     if (m) {
       const t = m[1]!;
       const keys = [...m[3]!.matchAll(/t\."(\w+)" = x/g)].map((k) => k[1]!);
+      const inScope = scopeOf(m[3]!, params);
       const batch = JSON.parse(params[0] as string) as Row[];
       for (const b of batch) {
-        const at = this.rows(t).find((r) => keys.every((k) => r[k] === b[k]));
+        const at = this.rows(t).find((r) => inScope(r) && keys.every((k) => r[k] === b[k]));
         if (at) Object.assign(at, b);
       }
       return { rows: [], rowCount: batch.length };
@@ -125,8 +137,9 @@ export class MemoryDb implements Db {
     if (m) {
       const t = m[1]!;
       const keys = [...m[2]!.matchAll(/t\."(\w+)" = x/g)].map((k) => k[1]!);
+      const inScope = scopeOf(m[2]!, params);
       const batch = JSON.parse(params[0] as string) as Row[];
-      this.tables.set(t, this.rows(t).filter((r) => !batch.some((b) => keys.every((k) => r[k] === b[k]))));
+      this.tables.set(t, this.rows(t).filter((r) => !(inScope(r) && batch.some((b) => keys.every((k) => r[k] === b[k])))));
       return { rows: [], rowCount: batch.length };
     }
     throw new Error(`MemoryDb: unhandled statement ${unquote(sql).slice(0, 80)}`);
