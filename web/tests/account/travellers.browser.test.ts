@@ -6,9 +6,13 @@ import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import AxeBuilder from '@axe-core/playwright';
-import { chromium, expect as be, type Browser, type BrowserContext, type Page } from '@playwright/test';
+import { chromium, expect as pwExpect, type Browser, type BrowserContext, type Page } from '@playwright/test';
 import { createViteServer } from 'vitest/node';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+// Conditions are waited for, not slept on; a cold dev server compiles each lazy chunk on first use, so under parallel load the first wait
+// outlasts Playwright's 5 s default. 20 s is the ceiling, not a delay: a met condition returns at once.
+const be = pwExpect.configure({ timeout: 20_000 });
 
 const web = new URL('../../', import.meta.url);
 const styles = ['app/globals.css', 'app/themes.css', 'components/ui/ui.css', 'app/app.css', 'app/account.css']
@@ -415,7 +419,7 @@ describe('Setup card', () => {
   it('step 1 prefills the name; Continue saves a changed name and moves to step 2 (URL, focus on the heading, announcement)', async () => {
     const { page, context, calls } = await open({ mode: 'setup', name: 'Nitin' });
     try {
-      await be(page.getByText('Step 1 of 2')).toBeVisible();
+      await be(page.locator('.acct-setup-count', { hasText: 'Step 1 of 2' })).toBeVisible();
       await be(page.getByText('Two short steps. You can change both later.')).toBeVisible();
       await be(page.getByLabel('Your name')).toHaveValue('Nitin');
       await shot(page, 'setup-step1-1440-light');
@@ -443,20 +447,20 @@ describe('Setup card', () => {
       expect(calls.saveName).toEqual([]);
       await page.getByLabel('Your name').fill('Nitin');
       await page.getByRole('button', { name: 'Continue' }).click();
-      await be(page.getByText('Step 2 of 2')).toBeVisible();
+      await be(page.locator('.acct-setup-count', { hasText: 'Step 2 of 2' })).toBeVisible();
       expect(calls.saveName).toEqual([]);
       // Back is out of the action bar, beside the counter (SF9)
       await be(page.locator('.acct-editor-actions').getByRole('button', { name: 'Back' })).toHaveCount(0);
       await page.locator('.acct-setup-top').getByRole('button', { name: 'Back' }).click();
       await be(page.getByLabel('Your name')).toHaveValue('Nitin');
       await page.getByRole('button', { name: 'Skip', exact: true }).click();
-      await be(page.getByText('Step 2 of 2')).toBeVisible();
+      await be(page.locator('.acct-setup-count', { hasText: 'Step 2 of 2' })).toBeVisible();
     } finally { await context.close(); }
     const empty = await open({ mode: 'setup', name: '' });
     try {
       await be(empty.page.getByRole('button', { name: 'Continue' })).toBeEnabled();
       await empty.page.getByRole('button', { name: 'Continue' }).click();
-      await be(empty.page.getByText('Step 2 of 2')).toBeVisible();
+      await be(empty.page.locator('.acct-setup-count', { hasText: 'Step 2 of 2' })).toBeVisible();
       expect(empty.calls.saveName).toEqual([]);
     } finally { await empty.context.close(); }
   });
@@ -571,6 +575,8 @@ for (const width of [320, 390, 1440]) {
   for (const theme of ['light', 'dark'] as const) {
     describe(`states ${width} ${theme}`, () => {
       const axe = async (page: Page, label: string) => {
+        // axe reads the colour a button has right now; under load it can catch one mid-transition. Wait for the running animations and transitions to end.
+        await page.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished.catch(() => undefined))));
         const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
         expect(res.violations.map((v) => `${label}: ${v.id} ${v.nodes.map((n) => n.target.join(' ')).join(' | ')}`)).toEqual([]);
       };

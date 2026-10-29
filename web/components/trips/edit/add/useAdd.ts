@@ -47,8 +47,8 @@ export interface Paged {
   more: () => void;
 }
 
-/** Pages of rows from one read (`first` makes page 1, `later` the others). The key restarts it; a null `enabled` asks for nothing. */
-function usePaged(key: string | null, ask: (page: number, signal: AbortSignal) => Promise<Page | null>): Paged {
+/** Pages of rows from one read (`first` makes page 1, `later` the others). The key restarts it; a null key asks for nothing and reports `idle`. */
+function usePaged(key: string | null, ask: (page: number, signal: AbortSignal) => Promise<Page | null>, idle: Paged['status'] = 'ok'): Paged {
   const [state, setState] = useState<{ key: string | null; rows: Found[]; next: number | null; status: Paged['status']; busy: boolean }>({ key: null, rows: [], next: null, status: 'loading', busy: false });
   const askRef = useRef(ask);
   useEffect(() => {
@@ -77,11 +77,11 @@ function usePaged(key: string | null, ask: (page: number, signal: AbortSignal) =
     });
   }, [state, key]);
   const live = state.key === key && key !== null;
-  return { rows: live ? state.rows : [], next: live ? state.next : null, status: key === null ? 'ok' : live ? state.status : 'loading', busy: state.busy, more };
+  return { rows: live ? state.rows : [], next: live ? state.next : null, status: key === null ? idle : live ? state.status : 'loading', busy: state.busy, more };
 }
 
-/** The places round a point, nearest first within each page. */
-export const useNearRows = (centre: Point | null, k?: number): Paged => usePaged(centre && apiAvailable() ? `${centre.lat},${centre.lon},${k ?? ''}` : null, (page, signal) => (centre ? nearPage(centre, page, signal, k) : Promise.resolve(null)));
+/** The places round a point, nearest first within each page. With no API or no point it is `off` (not `ok` and empty), so the picker falls back to the plan model's own candidates. */
+export const useNearRows = (centre: Point | null, k?: number): Paged => usePaged(centre && apiAvailable() ? `${centre.lat},${centre.lon},${k ?? ''}` : null, (page, signal) => (centre ? nearPage(centre, page, signal, k) : Promise.resolve(null)), 'off');
 /** The catalogue's matches for the words (nothing for fewer than two letters). */
 export const useSearchRows = (q: string): Paged => {
   const words = q.trim();

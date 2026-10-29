@@ -133,7 +133,8 @@ describe('trail pages for every trail of a public trip', () => {
     expect(kinds).toContain('alltrails');
     expect(p.links.flatMap((g) => g.links).find((l) => l.kind === 'alltrails')?.linkOnly).toBe(true);
     expect(p.facts.find((f) => f.label === 'Distance')?.value).toBe('11.2 km');
-    expect(p.point).toBeNull();
+    // DG2 (28 Oct 2026) recorded a sourced trailhead point for this trail; the page may show a point only with its source and licence
+    expect(p.point === null || (!!p.point.pointSource && !!p.point.sourceLicence)).toBe(true);
   });
   it('carries no date, household value or link-only value on the new pages', () => {
     const DATE = /\b\d{4}-\d{2}-\d{2}\b|\b\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\b/;
