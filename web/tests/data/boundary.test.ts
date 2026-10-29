@@ -24,6 +24,7 @@ const NOT_CATALOGUE: Record<string, string> = {
   'lib/mine/sync.ts': "the signed-in My trips sync with /api/account/plans/ (EM-2; the person's own trips, same-origin, not catalogue data)",
   'app/account/ways-api.ts': 'the Ways to sign in section calling the same-origin auth proxy (GSI-WAYS; no catalogue data)',
   'lib/server/legs.ts': 'the server-side ORS matrix client of the leg service (TB-L; runs on the server only, public place points, never the browser, not catalogue data)',
+  'lib/client/towns.ts': 'the builder\'s towns-around lookup for bases and starts (TB-W2): lazy, public towns-layer reads through the places API, not catalogue lists',
   'components/auth/api.ts': 'the sign-in card posting to the same-origin auth proxy /api/auth/* (EML-1; no catalogue data)',
 };
 
