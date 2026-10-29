@@ -1,0 +1,2690 @@
+{
+  "schema": "capture-run/1",
+  "run": "lt-where-2026-10-28-osm-address",
+  "started": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "refs": [
+      "place/akureyri",
+      "place/arches-national-park",
+      "place/arrowhead-provincial-park",
+      "place/ashlar-ridge",
+      "place/athabasca-glacier",
+      "place/banff-national-park",
+      "place/barrier-lake",
+      "place/beauvais-lake",
+      "place/bentonite-hills",
+      "place/bonaventure-island",
+      "place/breckenridge",
+      "place/bryce-canyon-national-park",
+      "place/buenos-aires",
+      "place/burstall-lakes",
+      "place/calf-creek",
+      "place/canyon-des-portes-de-lenfer",
+      "place/canyon-sainte-anne",
+      "place/canyonlands-national-park",
+      "place/cap-bon-ami",
+      "place/cap-gaspe",
+      "place/cape-cod",
+      "place/capitol-reef-national-park-visitor-center",
+      "place/capri",
+      "place/castelrotto",
+      "place/cerro-castor",
+      "place/chamonix-mont-blanc",
+      "place/chancellor-peak",
+      "place/collegiate-church-of-san-candido",
+      "place/columbia-river-gorge",
+      "place/curly-phillips-boathouse",
+      "place/dantercepies-gondola",
+      "place/danville",
+      "place/dobbiaco-railway-station",
+      "place/dolomites",
+      "place/durango",
+      "place/dwight",
+      "place/east-burke",
+      "place/el-chalten",
+      "place/factory-butte",
+      "place/field",
+      "place/finger-lakes",
+      "place/florence",
+      "place/fossholl",
+      "place/gljufrabui",
+      "place/golden",
+      "place/grand-sault-waterfall",
+      "place/grand-teton-national-park",
+      "place/grindavik",
+      "place/grundarfjordur",
+      "place/gufufoss",
+      "place/gurudongmar-lake",
+      "place/ha-long-bay",
+      "place/hafragilsfoss",
+      "place/hanoi",
+      "place/havasupai-havasu-falls",
+      "place/highwood-pass",
+      "place/hofn",
+      "place/jasper",
+      "place/jasper-national-park",
+      "place/jokulsa-a-brei-amerkursandi",
+      "place/kananaskis-country",
+      "place/kananaskis-village",
+      "place/kanarra-falls",
+      "place/kennecott-river-rafting-wrangell-st-elias",
+      "place/kirkjubaejarklaustur",
+      "place/kootenay-national-park",
+      "place/la-crete-trail-mont-sainte-anne",
+      "place/la-flegere",
+      "place/la-martre-lighthouse",
+      "place/lac-aux-americains",
+      "place/lac-demosson",
+      "place/lake-chelan",
+      "place/lake-como",
+      "place/lake-louise",
+      "place/lake-of-two-rivers",
+      "place/lake-wenatchee",
+      "place/le-buton-lookout-le-massif-de-charlevoix",
+      "place/leavenworth",
+      "place/leperon",
+      "place/long-dong-silver-spire",
+      "place/maligne-lake",
+      "place/manitou-incline",
+      "place/milan",
+      "place/million-dollar-highway",
+      "place/mont-du-dome",
+      "place/mont-saddle-and-montagne-de-marbre-loop",
+      "place/mont-saint-alban",
+      "place/mont-saint-pierre",
+      "place/mont-xalibu",
+      "place/montgomery",
+      "place/montmorency-falls",
+      "place/monument-valley",
+      "place/morrisville",
+      "place/mount-baker-snoqualmie-national-forest",
+      "place/mount-baker-wilderness",
+      "place/mount-blakiston",
+      "place/mount-edith-cavell",
+      "place/mount-kerkeslin",
+      "place/mount-lawrence-grassi",
+      "place/mount-rainier-national-park",
+      "place/mount-robson",
+      "place/mount-robson-provincial-park",
+      "place/mount-st-helens",
+      "place/north-cascades-national-park",
+      "place/nova-levante",
+      "place/olympic-peninsula",
+      "place/ouray",
+      "place/oxararfoss",
+      "place/oxtongue-lake",
+      "place/paddys-flat",
+      "place/page",
+      "place/paris",
+      "place/perce-rock",
+      "place/perito-moreno-glacier",
+      "place/pic-champlain",
+      "place/provence",
+      "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+      "place/reykjahlid",
+      "place/reykjavik",
+      "place/rifugio-fondovalle",
+      "place/rome",
+      "place/salt-lake-city",
+      "place/san-cassiano",
+      "place/sapa",
+      "place/sentier-des-cimes-parc-national-du-mont-megantic",
+      "place/sentier-la-chute",
+      "place/sinclair-canyon",
+      "place/skaftafell",
+      "place/skogar",
+      "place/smugglers-notch-state-park",
+      "place/snaefellsjokull",
+      "place/sorrento-and-the-amalfi-coast",
+      "place/southern-fuegian-railway",
+      "place/spray-valley-provincial-park",
+      "place/stansbury-island",
+      "place/stowe",
+      "place/strokkur",
+      "place/trento",
+      "place/upper-elk-lake",
+      "place/upper-kananaskis-lake",
+      "place/ushuaia",
+      "place/val-gardena",
+      "place/vallorcine-railway-station",
+      "place/varmahli",
+      "place/venice",
+      "place/verona",
+      "place/vik-i-myrdal",
+      "place/waterton-park",
+      "place/watkins-glen-state-park",
+      "place/white-mountain-national-forest",
+      "place/whiteswan-lake",
+      "place/yellowstone-national-park",
+      "place/yoho-national-park",
+      "place/yoho-valley",
+      "place/zion-national-park"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "query.wikidata.org",
+      "requests": 2,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "www.wikidata.org",
+      "requests": 19,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "overpass-api.de",
+      "requests": 56,
+      "robots": "none",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "requests": 96,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "place/buenos-aires",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1486",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Buenos Aires'"
+    },
+    {
+      "ref": "place/buenos-aires",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/1224652",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q521811",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Cerro Castor'"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/4455152449",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: OSM element carries the store QID and fits the kind; but the element is named 'Cerro Krund', not the place's name"
+    },
+    {
+      "ref": "place/southern-fuegian-railway",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q115044",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Southern Fuegian Railway'"
+    },
+    {
+      "ref": "place/southern-fuegian-railway",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/1148316",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q44254",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Ushuaia'"
+    },
+    {
+      "ref": "place/ushuaia",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/11347693",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1323978",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'El Chaltén'"
+    },
+    {
+      "ref": "place/el-chalten",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/10312049",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q367943",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Perito Moreno Glacier'"
+    },
+    {
+      "ref": "place/perito-moreno-glacier",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/5944197",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/banff-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q41858",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Banff National Park'"
+    },
+    {
+      "ref": "place/banff-national-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/6365995",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/lake-louise",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1367398",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Lake Louise'"
+    },
+    {
+      "ref": "place/lake-louise",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/18238904",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q4877958",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Beauvais Lake'"
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/23260039",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 209 m from the store point"
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q22457126",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Ashlar Ridge'"
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate node/2699282960 'Ashlar Ridge' (exact name, fitting tags, 331 m from the store point; 2 rival(s) of the same type)"
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q391165",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Athabasca Glacier'"
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/19256027",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 349 m from the store point"
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q44664199",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Curly Phillips Boathouse'"
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "osm_ref",
+      "outcome": "searched_none",
+      "src": "osm:overpass",
+      "tried": [
+        "https://overpass-api.de/api/interpreter (wikidata=Q44664199, then name = 'Curly Phillips Boathouse' and its Wikidata labels, within 8 km of 52.72890,-117.63769; 2026-10-28)"
+      ]
+    },
+    {
+      "ref": "place/jasper",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q999429",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Jasper'"
+    },
+    {
+      "ref": "place/jasper",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/6282024",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/jasper-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q503429",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Jasper National Park'"
+    },
+    {
+      "ref": "place/jasper-national-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/6395738",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q429646",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Maligne Lake'"
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/5760911",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q510573",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Mount Edith Cavell'"
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/2698521553",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q6921646",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Mount Kerkeslin'"
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/2699165524",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q3214736",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Barrier Lake'"
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/328698965",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 1175 m from the store point"
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q22353518",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Burstall Lakes'"
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate way/303566618 'Burstall Lakes' (exact name, fitting tags, 192 m from the store point; 1 rival(s) of the same type)"
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q5760070",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Highwood Pass'"
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/1339315277",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/kananaskis-country",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q3373468",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Kananaskis Country'"
+    },
+    {
+      "ref": "place/kananaskis-country",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate node/8343945244 'Kananaskis Country' (name exact, tags do not fit the kind)"
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q6360620",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Kananaskis Village'"
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/283707361",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 22 m from the store point"
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q6921787",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Mount Lawrence Grassi'"
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/2684623546",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q22465470",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Paddy's Flat'"
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate node/12780122240 'Paddy's Flat' (exact name, fitting tags, 587 m from the store point; 1 rival(s) of the same type)"
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q3364735",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Spray Valley Provincial Park'"
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/6364994",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 2769 m from the store point"
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q7346507",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Upper Kananaskis Lake'"
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/4011900",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 237 m from the store point"
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q3321701",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Mount Blakiston'"
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/9005199647",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q7974475",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Waterton Park'"
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/9174974666",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/golden",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1020179",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Golden'"
+    },
+    {
+      "ref": "place/golden",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/2238685",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q22391422",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Upper Elk Lake'"
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/302530307",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 191 m from the store point"
+    },
+    {
+      "ref": "place/kootenay-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q903323",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Kootenay National Park'"
+    },
+    {
+      "ref": "place/kootenay-national-park",
+      "field": "osm_ref",
+      "outcome": "conflict",
+      "src": [
+        "osm:way/673733022",
+        "osm:relation/7707395 (record)"
+      ],
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; a person picks. OSM element carries the store QID and fits the kind; Wikidata P402 says relation/7707395: conflict to settle; the record's osm_ref relation/7707395 does not resolve in Overpass today (deleted or redacted?)"
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q22629068",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Sinclair Canyon'"
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/1137486801",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 147 m from the store point"
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1161258",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 1 m from the store point; label 'Mount Robson'"
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/2699332830",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1950710",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Mount Robson Provincial Park'"
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/2235398",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q22612582",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Whiteswan Lake'"
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/126512023",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 487 m from the store point"
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q22478655",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Chancellor Peak'"
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/5613035260",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 121 m from the store point"
+    },
+    {
+      "ref": "place/field",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q3071515",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Field'"
+    },
+    {
+      "ref": "place/field",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/51970759",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/yoho-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q828404",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Yoho National Park'"
+    },
+    {
+      "ref": "place/yoho-national-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/9368703",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q22649377",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Yoho Valley'"
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/1137461973",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 3387 m from the store point"
+    },
+    {
+      "ref": "place/lake-of-two-rivers",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q22542601",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 1 m from the store point; label 'Lake of Two Rivers'"
+    },
+    {
+      "ref": "place/lake-of-two-rivers",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/2212875",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/oxtongue-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q995211",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 1 m from the store point; label 'Oxtongue Lake'"
+    },
+    {
+      "ref": "place/oxtongue-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/3378744",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/arrowhead-provincial-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q4796180",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Arrowhead Provincial Park'"
+    },
+    {
+      "ref": "place/arrowhead-provincial-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/14401541",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/dwight",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1268459",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Dwight'"
+    },
+    {
+      "ref": "place/dwight",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate node/1485292613 'Dwight' (name exact, tags fit, element tagged Q1521274)"
+    },
+    {
+      "ref": "place/grand-sault-waterfall",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "src": "wikidata:search",
+      "tried": [
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Grand-Sault&language=en&limit=7&format=json (2026-10-28)",
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Grand-Sault&language=fr&limit=7&format=json (2026-10-28)",
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Chute+du+Grand-Sault&language=en&limit=7&format=json (2026-10-28)",
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Chute+du+Grand-Sault&language=fr&limit=7&format=json (2026-10-28)"
+      ]
+    },
+    {
+      "ref": "place/grand-sault-waterfall",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "reason": "no store point (location unconfirmed): no spatial search possible; find the place first"
+    },
+    {
+      "ref": "place/le-buton-lookout-le-massif-de-charlevoix",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q3224379",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Le Massif'"
+    },
+    {
+      "ref": "place/le-buton-lookout-le-massif-de-charlevoix",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/8027590",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: Wikidata P402 names this relation"
+    },
+    {
+      "ref": "place/canyon-sainte-anne",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q609933",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Canyon Sainte-Anne'"
+    },
+    {
+      "ref": "place/canyon-sainte-anne",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate node/2400357785 'Canyon Sainte-Anne' (name exact, tags do not fit the kind)"
+    },
+    {
+      "ref": "place/la-crete-trail-mont-sainte-anne",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "src": "wikidata:search",
+      "tried": [
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=La+Cr%C3%AAte+trail%2C+Mont-Sainte-Anne&language=en&limit=7&format=json (2026-10-28)",
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=La+Cr%C3%AAte+trail%2C+Mont-Sainte-Anne&language=fr&limit=7&format=json (2026-10-28)",
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Mont-Sainte-Anne+%28Beaupr%C3%A9%29%2C+summit+area&language=en&limit=7&format=json (2026-10-28)",
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Mont-Sainte-Anne+%28Beaupr%C3%A9%29%2C+summit+area&language=fr&limit=7&format=json (2026-10-28)"
+      ]
+    },
+    {
+      "ref": "place/la-crete-trail-mont-sainte-anne",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate way/200085534 'La Crête' (name exact, tags do not fit the kind; the element is a feature, not a route or path: the trail's own OSM route is still to find)"
+    },
+    {
+      "ref": "place/montmorency-falls",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1946396",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Montmorency Falls'"
+    },
+    {
+      "ref": "place/montmorency-falls",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/1199354691",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: the record's osm_ref node/1199354691 resolves: 'Chute Montmorency', name matches, tags fit"
+    },
+    {
+      "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q21428295",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Marble Mountain'"
+    },
+    {
+      "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate node/358221849 'Marble Mountain' (name exact, tags do not fit the kind; the element is a summit, not a route or path: the trail's own OSM route is still to find)"
+    },
+    {
+      "ref": "place/sentier-des-cimes-parc-national-du-mont-megantic",
+      "field": "wikidata",
+      "outcome": "gap",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID needs a person: P625 0 m from the store point; label 'Mont-Mégantic National Park', label match True"
+    },
+    {
+      "ref": "place/sentier-des-cimes-parc-national-du-mont-megantic",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate relation/4775777 'Parc national du Mont-Mégantic' (OSM element carries the store QID and is Wikidata's P402; the element is a park, not a route or path: the trail's own OSM route is still to find)"
+    },
+    {
+      "ref": "place/cap-bon-ami",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q112836599",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Cap-Bon-Ami'"
+    },
+    {
+      "ref": "place/cap-bon-ami",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/4337214696",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: the record's osm_ref node/4337214696 resolves: 'Cap Bon Ami', name matches, tags fit"
+    },
+    {
+      "ref": "place/cap-gaspe",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q112854948",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Cap-Gaspé'"
+    },
+    {
+      "ref": "place/cap-gaspe",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/1302243265",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: the record's osm_ref node/1302243265 resolves: 'Cap Gaspé', name matches, tags fit"
+    },
+    {
+      "ref": "place/mont-saint-alban",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q98108734",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Mont Saint-Alban'"
+    },
+    {
+      "ref": "place/mont-saint-alban",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/1305146822",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 630 m from the store point; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/sentier-la-chute",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q139862201",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Sentier La Chute'"
+    },
+    {
+      "ref": "place/sentier-la-chute",
+      "field": "osm_ref",
+      "outcome": "searched_none",
+      "src": "osm:overpass",
+      "tried": [
+        "https://overpass-api.de/api/interpreter (wikidata=Q139862201, then name = 'Sentier La Chute' and its Wikidata labels, within 5 km of 48.84296,-64.26511; 2026-10-28)"
+      ]
+    },
+    {
+      "ref": "place/la-martre-lighthouse",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q14826835",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'La Martre Lighthouse'"
+    },
+    {
+      "ref": "place/la-martre-lighthouse",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/317964466",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/mont-saint-pierre",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q3321623",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Mont-Saint-Pierre'"
+    },
+    {
+      "ref": "place/mont-saint-pierre",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/1304278570",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: the record's osm_ref node/1304278570 resolves: 'Mont-Saint-Pierre', name matches, tags fit; this run's search preferred relation/8240794 ('Mont-Saint-Pierre'), another element of the same place: a person picks the one the type wants (a boundary relation for a park or town)"
+    },
+    {
+      "ref": "place/lac-aux-americains",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q114635604",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Lac aux Américains'"
+    },
+    {
+      "ref": "place/lac-aux-americains",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/115356658",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 64 m from the store point; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/mont-xalibu",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q26999326",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Mont Xalibu'"
+    },
+    {
+      "ref": "place/mont-xalibu",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/3269806647",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 152 m from the store point; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/leperon",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "src": "wikidata:search",
+      "tried": [
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=L%27%C3%89peron&language=en&limit=7&format=json (2026-10-28)",
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=L%27%C3%89peron&language=fr&limit=7&format=json (2026-10-28)",
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=L%27%C3%89peron+trail%2C+Jacques-Cartier+park+%28approx.%29&language=en&limit=7&format=json (2026-10-28)",
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=L%27%C3%89peron+trail%2C+Jacques-Cartier+park+%28approx.%29&language=fr&limit=7&format=json (2026-10-28)"
+      ]
+    },
+    {
+      "ref": "place/leperon",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/629237590",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 4620 m from the store point"
+    },
+    {
+      "ref": "place/pic-champlain",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q549540",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Pic Champlain'"
+    },
+    {
+      "ref": "place/pic-champlain",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/1087473528",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/bonaventure-island",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q135228",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 26 m from the store point; label 'Bonaventure Island'"
+    },
+    {
+      "ref": "place/bonaventure-island",
+      "field": "osm_ref",
+      "outcome": "conflict",
+      "src": [
+        "osm:relation/6989318 (record)"
+      ],
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; a person picks. the record holds relation/6989318 ('Parc national de l'Île-Bonaventure-et-du-Rocher-Percé', tagged Q745054), which matches neither the QID nor the name: conflict"
+    },
+    {
+      "ref": "place/perce-rock",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q2466817",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Perce Rock'"
+    },
+    {
+      "ref": "place/perce-rock",
+      "field": "osm_ref",
+      "outcome": "searched_none",
+      "src": "osm:overpass",
+      "tried": [
+        "https://overpass-api.de/api/interpreter (wikidata=Q2466817, then name = 'Percé Rock' and its Wikidata labels, within 15 km of 48.52389,-64.19944; 2026-10-28)"
+      ]
+    },
+    {
+      "ref": "place/canyon-des-portes-de-lenfer",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q18610901",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Canyon des Portes de l'Enfer'"
+    },
+    {
+      "ref": "place/canyon-des-portes-de-lenfer",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/2535855281",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: the record's osm_ref node/2535855281 resolves: 'Canyon des Portes de I'Enfer', name matches, tags fit"
+    },
+    {
+      "ref": "place/mont-du-dome",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q62523385",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'None'"
+    },
+    {
+      "ref": "place/mont-du-dome",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate node/7878860685 'Mont du Dôme' (name exact, tags do not fit the kind; the element is a summit, not a route or path: the trail's own OSM route is still to find)"
+    },
+    {
+      "ref": "place/lac-demosson",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q23892375",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 1 m from the store point; label 'Lac d'Émosson'"
+    },
+    {
+      "ref": "place/lac-demosson",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/23852674",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "src": "wikidata:search",
+      "tried": [
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=QQ+Canyon+Racer+mountain+coaster%2C+Gulong+Gorge&language=en&limit=7&format=json (2026-10-28)",
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Gulong+Gorge&language=en&limit=7&format=json (2026-10-28)"
+      ]
+    },
+    {
+      "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+      "field": "osm_ref",
+      "outcome": "conflict",
+      "src": [
+        "osm:way/1424946284 (record)"
+      ],
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; a person picks. the record holds way/1424946284 ('峡道飞车'), which matches neither the QID nor the name: conflict"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q83236",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Chamonix-Mont-Blanc'"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/104836",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q3209029",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'La Flégère'"
+    },
+    {
+      "ref": "place/la-flegere",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate node/3722799505 'La Flégère' (name exact, tags do not fit the kind)"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1916822",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Vallorcine railway station'"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/9543361428",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/paris",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q90",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Paris'"
+    },
+    {
+      "ref": "place/paris",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/7444",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/provence",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q101081",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Provence'"
+    },
+    {
+      "ref": "place/provence",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate way/103370304 'Provence' (name exact, tags do not fit the kind)"
+    },
+    {
+      "ref": "place/gurudongmar-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q2264090",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Gurudongmar Lake'"
+    },
+    {
+      "ref": "place/gurudongmar-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/192611012",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1764",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Reykjavík'"
+    },
+    {
+      "ref": "place/reykjavik",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/2580605",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q817118",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Höfn'"
+    },
+    {
+      "ref": "place/hofn",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/249085731",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/jokulsa-a-brei-amerkursandi",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q16429849",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 189 m from the store point; label 'Jökulsá'"
+    },
+    {
+      "ref": "place/jokulsa-a-brei-amerkursandi",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/452281958",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q3486103",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Skaftafell'"
+    },
+    {
+      "ref": "place/skaftafell",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate node/765394359 'Skaftafell' (name exact, tags do not fit the kind)"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q2957354",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Gufufoss'"
+    },
+    {
+      "ref": "place/gufufoss",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/3101158567",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q29042",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Akureyri'"
+    },
+    {
+      "ref": "place/akureyri",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/56086",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: OSM element carries the store QID and fits the kind; but the element is named 'Akureyrarbær', not the place's name"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q134328943",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Fosshóll'"
+    },
+    {
+      "ref": "place/fossholl",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate way/200953060 'Fosshóll' (name exact, tags do not fit the kind)"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1026867",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Reykjahlíð'"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/270961115",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1568140",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Hafragilsfoss'"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/3050633634",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q419691",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Varmahlíð'"
+    },
+    {
+      "ref": "place/varmahli",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/244149690",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q307675",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Öxarárfoss'"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/312688011",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1128186",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Strokkur'"
+    },
+    {
+      "ref": "place/strokkur",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/270943513",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q685369",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 1 m from the store point; label 'Vík í Mýrdal'"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/59861511",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q5569999",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Gljufrafoss'"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/2534116947",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q985810",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Skógar'"
+    },
+    {
+      "ref": "place/skogar",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/1385855484",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1010183",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Kirkjubæjarklaustur'"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/60472743",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q472822",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Grindavík'"
+    },
+    {
+      "ref": "place/grindavik",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/244149207",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q27014314",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Grundarfjörður'"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate relation/2734243 'Grundarfjörður' (name exact, tags do not fit the kind)"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1315012",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Snæfellsjökull'"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/5443646",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/sorrento-and-the-amalfi-coast",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q212214",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Amalfi Coast'"
+    },
+    {
+      "ref": "place/sorrento-and-the-amalfi-coast",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/21469402",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/capri",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q173292",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Capri'"
+    },
+    {
+      "ref": "place/capri",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/2675353",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/rome",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q220",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 1 m from the store point; label 'Rome'"
+    },
+    {
+      "ref": "place/rome",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/41485",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/lake-como",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q15523",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Lake Como'"
+    },
+    {
+      "ref": "place/lake-como",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/541757",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/milan",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q490",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Milan'"
+    },
+    {
+      "ref": "place/milan",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/44915",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q377319",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 1 m from the store point; label 'Kastelruth'"
+    },
+    {
+      "ref": "place/castelrotto",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/47234",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q549129",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed_coord_only; P625 0 m from the store point; label 'Collegiate church of Innichen'"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/216694096",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/dantercepies-gondola",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q120751673",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 1 m from the store point; label 'Dantercëpies'"
+    },
+    {
+      "ref": "place/dantercepies-gondola",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/428982792",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q3969534",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Toblach/Dobbiaco railway station'"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/6738731097",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q433287",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Welschnofen'"
+    },
+    {
+      "ref": "place/nova-levante",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/47164",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q113433241",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed_coord_only; P625 0 m from the store point; label 'Talschlusshütte'"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/96096595",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q519474",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'San Ćiascian'"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/223597157",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q384885",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Val Gardena'"
+    },
+    {
+      "ref": "place/val-gardena",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/10732928",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: Wikidata P402 names this relation"
+    },
+    {
+      "ref": "place/trento",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q3376",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Trento'"
+    },
+    {
+      "ref": "place/trento",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/46663",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/florence",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q2044",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Florence'"
+    },
+    {
+      "ref": "place/florence",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/42602",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/dolomites",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1283",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 1 m from the store point; label 'Dolomites'"
+    },
+    {
+      "ref": "place/dolomites",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/2139488",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/venice",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q641",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Venice'"
+    },
+    {
+      "ref": "place/venice",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/44741",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/verona",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q2028",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Verona'"
+    },
+    {
+      "ref": "place/verona",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/44830",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q995915",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Kennecott'"
+    },
+    {
+      "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/654578203",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: the record's osm_ref node/654578203 resolves: 'Kennecott Mines National Historic Landmark', name matches, tags fit; this run's search preferred node/150919826 ('Kennicott'), another element of the same place: a person picks the one the type wants (a boundary relation for a park or town)"
+    },
+    {
+      "ref": "place/page",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q79940",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 251 m from the store point; label 'Page'"
+    },
+    {
+      "ref": "place/page",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/150978518",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: the record's osm_ref node/150978518 resolves: 'Page', carries the store QID, tags fit; this run's search preferred relation/8274663 ('Page'), another element of the same place: a person picks the one the type wants (a boundary relation for a park or town)"
+    },
+    {
+      "ref": "place/havasupai-havasu-falls",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q5683183",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Havasu Falls'"
+    },
+    {
+      "ref": "place/havasupai-havasu-falls",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/602137131",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/monument-valley",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q192017",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Monument Valley'"
+    },
+    {
+      "ref": "place/monument-valley",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/13286575650",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: the record's osm_ref node/13286575650 resolves: 'Monument Valley', name matches, tags fit; this run's search preferred way/1137789745 ('Sentinel Mesa'), another element of the same place: a person picks the one the type wants (a boundary relation for a park or town)"
+    },
+    {
+      "ref": "place/durango",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1012665",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Durango'"
+    },
+    {
+      "ref": "place/durango",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/112248",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/manitou-incline",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q6750238",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Manitou Incline'"
+    },
+    {
+      "ref": "place/manitou-incline",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/6458518",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: the record's osm_ref relation/6458518 resolves: 'The Incline', is Wikidata's P402, tags fit; this run's search preferred way/56228063 ('The Incline'), another element of the same place: a person picks the one the type wants (a boundary relation for a park or town)"
+    },
+    {
+      "ref": "place/million-dollar-highway",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q123916209",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Million Dollar Highway'"
+    },
+    {
+      "ref": "place/million-dollar-highway",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/172241464",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: the record's osm_ref way/172241464 resolves: 'Million Dollar Highway', name matches, tags fit; this run's search preferred way/1159247326 ('Million Dollar Highway'), another element of the same place: a person picks the one the type wants (a boundary relation for a park or town)"
+    },
+    {
+      "ref": "place/ouray",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1759444",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Ouray'"
+    },
+    {
+      "ref": "place/ouray",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/151877085",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/breckenridge",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q904354",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Breckenridge'"
+    },
+    {
+      "ref": "place/breckenridge",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/112177",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/cape-cod",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q49152",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 21967 m from the store point; label 'Cape Cod'"
+    },
+    {
+      "ref": "place/cape-cod",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/9241337",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/white-mountain-national-forest",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q2566939",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'White Mountain National Forest'"
+    },
+    {
+      "ref": "place/white-mountain-national-forest",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/331880",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/watkins-glen-state-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q7974703",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Watkins Glen State Park'"
+    },
+    {
+      "ref": "place/watkins-glen-state-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/6448362",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/finger-lakes",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1416994",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Finger Lakes'"
+    },
+    {
+      "ref": "place/finger-lakes",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/13090782",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/calf-creek",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q49873109",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Calf Creek'"
+    },
+    {
+      "ref": "place/calf-creek",
+      "field": "osm_ref",
+      "outcome": "searched_none",
+      "src": "osm:overpass",
+      "tried": [
+        "https://overpass-api.de/api/interpreter (wikidata=Q49873109, then name = 'Calf Creek' and its Wikidata labels, within 8 km of 37.77583,-111.41833; 2026-10-28)"
+      ]
+    },
+    {
+      "ref": "place/arches-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q223969",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Arches National Park'"
+    },
+    {
+      "ref": "place/arches-national-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/5868384",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/stansbury-island",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q7600177",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Stansbury Island'"
+    },
+    {
+      "ref": "place/stansbury-island",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/356674282",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: OSM element carries the store QID but its tags do not fit the kind; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/bentonite-hills",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "src": "wikidata:search",
+      "tried": [
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Bentonite+Hills&language=en&limit=7&format=json (2026-10-28)"
+      ]
+    },
+    {
+      "ref": "place/bentonite-hills",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/3227293628",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 0 m from the store point; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/factory-butte",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q20714583",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 1 m from the store point; label 'Factory Butte'"
+    },
+    {
+      "ref": "place/factory-butte",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/356672676",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/long-dong-silver-spire",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "src": "wikidata:search",
+      "tried": [
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Long+Dong+Silver+Spire&language=en&limit=7&format=json (2026-10-28)",
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Long+Dong+Silver&language=en&limit=7&format=json (2026-10-28)"
+      ]
+    },
+    {
+      "ref": "place/long-dong-silver-spire",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, low confidence, a person picks: candidate relation/21068996 'Long Dong Silver' (name exact, tags do not fit the kind)"
+    },
+    {
+      "ref": "place/kanarra-falls",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "src": "wikidata:search",
+      "tried": [
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Kanarra+Falls&language=en&limit=7&format=json (2026-10-28)"
+      ]
+    },
+    {
+      "ref": "place/kanarra-falls",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/1833434208",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: the record's osm_ref node/1833434208 resolves: 'Lower Kanarra Falls', name matches, tags fit"
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q219562",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Bryce Canyon National Park'"
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/4716641",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q23337",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Salt Lake City'"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/198770",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/canyonlands-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q541856",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Canyonlands National Park'"
+    },
+    {
+      "ref": "place/canyonlands-national-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/13624591",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/zion-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q205325",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Zion National Park'"
+    },
+    {
+      "ref": "place/zion-national-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/5758583",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q63993567",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 1 m from the store point; label 'Capitol Reef National Park Visitor Center'"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/14504383",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: exact name, fitting tags, 4 m from the store point"
+    },
+    {
+      "ref": "place/danville",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q5395781",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Danville'"
+    },
+    {
+      "ref": "place/danville",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/18310533",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/east-burke",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q2893875",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'East Burke'"
+    },
+    {
+      "ref": "place/east-burke",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/18310602",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/montgomery",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1946270",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Montgomery'"
+    },
+    {
+      "ref": "place/montgomery",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/8889974",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/morrisville",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q285464",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Morrisville'"
+    },
+    {
+      "ref": "place/morrisville",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/8893973",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402"
+    },
+    {
+      "ref": "place/smugglers-notch-state-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q7546619",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Smugglers' Notch State Park'"
+    },
+    {
+      "ref": "place/smugglers-notch-state-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/894654853",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence medium: OSM element carries the store QID and fits the kind; but the element is named 'Smuggler's Notch State Park', not the place's name"
+    },
+    {
+      "ref": "place/stowe",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q550498",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Stowe'"
+    },
+    {
+      "ref": "place/stowe",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/8890137",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/lake-wenatchee",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q7172855",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Lake Wenatchee'"
+    },
+    {
+      "ref": "place/lake-wenatchee",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/1014349",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/leavenworth",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1025813",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Leavenworth'"
+    },
+    {
+      "ref": "place/leavenworth",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/237799",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/columbia-river-gorge",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1112581",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Columbia River Gorge'"
+    },
+    {
+      "ref": "place/columbia-river-gorge",
+      "field": "osm_ref",
+      "outcome": "conflict",
+      "src": [
+        "osm:relation/10291225 (record)"
+      ],
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; a person picks. the record holds relation/10291225 ('Columbia River Gorge National Scenic Area', tagged Q35692371), which matches neither the QID nor the name: conflict"
+    },
+    {
+      "ref": "place/olympic-peninsula",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q780293",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Olympic Peninsula'"
+    },
+    {
+      "ref": "place/olympic-peninsula",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/11230583",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/mount-baker-snoqualmie-national-forest",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q3079176",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Mount Baker–Snoqualmie National Forest'"
+    },
+    {
+      "ref": "place/mount-baker-snoqualmie-national-forest",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/1399218",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/lake-chelan",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1115201",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Lake Chelan'"
+    },
+    {
+      "ref": "place/lake-chelan",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/446718",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/mount-baker-wilderness",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q3326014",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Mount Baker Wilderness'"
+    },
+    {
+      "ref": "place/mount-baker-wilderness",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/6116357",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/mount-st-helens",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q4675",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'None'"
+    },
+    {
+      "ref": "place/mount-st-helens",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:node/356546327",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and fits the kind; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/mount-rainier-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q944329",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Mount Rainier National Park'"
+    },
+    {
+      "ref": "place/mount-rainier-national-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/1399219",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/north-cascades-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1163799",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 1 m from the store point; label 'North Cascades National Park'"
+    },
+    {
+      "ref": "place/north-cascades-national-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/2421537",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/yellowstone-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q351",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Yellowstone National Park'"
+    },
+    {
+      "ref": "place/yellowstone-national-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/1453306",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/grand-teton-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q222695",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Grand Teton National Park'"
+    },
+    {
+      "ref": "place/grand-teton-national-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/1492555",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/hanoi",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1858",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Hanoi'"
+    },
+    {
+      "ref": "place/hanoi",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/1903516",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: OSM element carries the store QID and is Wikidata's P402; the record already holds this osm_ref"
+    },
+    {
+      "ref": "place/sapa",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q1000140",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 1 m from the store point; label 'Sa Pa'"
+    },
+    {
+      "ref": "place/sapa",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/12540572",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: the record's osm_ref relation/12540572 resolves: 'Phường Sa Pa', is Wikidata's P402, tags do not fit the kind; this run's search preferred relation/19428217 ('Phường Sa Pa'), another element of the same place: a person picks the one the type wants (a boundary relation for a park or town)"
+    },
+    {
+      "ref": "place/ha-long-bay",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "wikidata:Q190128",
+      "host": "query.wikidata.org",
+      "reason": "CHECK of the stored QID: confirmed; P625 0 m from the store point; label 'Ha Long Bay'"
+    },
+    {
+      "ref": "place/ha-long-bay",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/19465352",
+      "host": "overpass-api.de",
+      "reason": "PROPOSAL, not written; confidence high: the record's osm_ref relation/19465352 resolves: 'Ha Long Bay - Cat Ba Archipelago', name matches, tags fit; this run's search preferred node/2707025319 ('Vịnh Hạ Long'), another element of the same place: a person picks the one the type wants (a boundary relation for a park or town)"
+    }
+  ]
+}
