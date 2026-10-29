@@ -1081,6 +1081,18 @@
       "coord_src": "osm",
       "point_source": "OSM relation/17161840 amenity=parking fee=no, 60 m from the OSM Arches National Park Visitor Center (way/1246899184)"
     },
+    "part/place/ashlar-ridge#miette-parking": {
+      "lat": 53.13047,
+      "lon": -117.77148,
+      "coord_src": "osm",
+      "point_source": "OSM way/708096702 named 'Hiking Sulphur skyline trail' (amenity=parking) at Miette Hot Springs; agent checked, needs a person's check"
+    },
+    "part/place/athabasca-glacier#toe-parking": {
+      "lat": 52.21262,
+      "lon": -117.23292,
+      "coord_src": "osm",
+      "point_source": "OSM way/26751964 (amenity=parking, operator Parks Canada, fee=no, unpaved) at the end of the Glacier Road; agent checked, needs a person's check"
+    },
     "part/place/banff-national-park#banff-visitor-centre": {
       "lat": 51.17798,
       "lon": -115.57024,
@@ -1098,6 +1110,18 @@
       "lon": -116.17905,
       "coord_src": "osm",
       "point_source": "OSM node/1907734438 (Lake Louise Visitor Centre), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+    },
+    "part/place/barrier-lake#day-use": {
+      "lat": 51.02375,
+      "lon": -115.06133,
+      "coord_src": "osm",
+      "point_source": "OSM way/261038368 (amenity=parking, access=yes) at the Barrier Lake day use; agent checked, needs a person's check"
+    },
+    "part/place/beauvais-lake#beaver-creek-day-use": {
+      "lat": 49.41261,
+      "lon": -114.11273,
+      "coord_src": "osm",
+      "point_source": "OSM way/459886460 named 'Beaver Creek Day Use Parking' (operator Alberta Parks, capacity about 20, fee=no); agent checked, needs a person's check"
     },
     "part/place/bentonite-hills#cow-dung-road-approx": {
       "lat": 38.36167,
@@ -1122,6 +1146,12 @@
       "lon": 11.6159,
       "coord_src": "wikidata",
       "point_source": "Q2117539 P625"
+    },
+    "part/place/burstall-lakes#burstall-pass-parking": {
+      "lat": 50.7907,
+      "lon": -115.30359,
+      "coord_src": "osm",
+      "point_source": "OSM way/262485800 named 'Burstall Pass Parking' (amenity=parking, capacity 50); agent checked, needs a person's check"
     },
     "part/place/cadini-di-misurina-viewpoint#payoff": {
       "lat": 46.57928,
@@ -1212,6 +1242,12 @@
       "lon": -112.7092,
       "coord_src": "osm",
       "point_source": "OSM way/116860348 amenity=parking name 'Hualapai Hilltop', the trailhead for the Havasupai trail"
+    },
+    "part/place/highwood-pass#highwood-meadows": {
+      "lat": 50.59582,
+      "lon": -114.98514,
+      "coord_src": "osm",
+      "point_source": "OSM node/270025808 named 'Highwood Meadows' (amenity=parking); agent checked, needs a person's check"
     },
     "part/place/jasper-national-park#jasper-information-centre": {
       "lat": 52.87734,
@@ -1387,11 +1423,41 @@
       "coord_src": "osm",
       "point_source": "OSM way/96495723 amenity=parking fee=yes capacity=150 operator US Forest Service name 'Artist Point Trailhead'"
     },
+    "part/place/mount-blakiston#red-rock-canyon-parking": {
+      "lat": 49.13085,
+      "lon": -114.02595,
+      "coord_src": "osm",
+      "point_source": "OSM way/1059104807 (amenity=parking, access=yes, fee=no) at the end of the Red Rock Parkway; agent checked, needs a person's check"
+    },
+    "part/place/mount-edith-cavell#upper-lot": {
+      "lat": 52.68736,
+      "lon": -118.05564,
+      "coord_src": "osm",
+      "point_source": "OSM relation/20689592 named 'Mount Edith Cavell (upper lot)'; agent checked, needs a person's check"
+    },
+    "part/place/mount-kerkeslin#athabasca-falls-parking": {
+      "lat": 52.66587,
+      "lon": -117.88292,
+      "coord_src": "osm",
+      "point_source": "OSM way/307218808 named 'Athabasca Falls' (amenity=parking, fee=no, asphalt); agent checked, needs a person's check"
+    },
+    "part/place/mount-lawrence-grassi#grassi-lakes-parking": {
+      "lat": 51.08122,
+      "lon": -115.39447,
+      "coord_src": "osm",
+      "point_source": "OSM way/29234142 named 'Grassi Lakes Parking' (operator Alberta Parks, fee=yes); agent checked, needs a person's check"
+    },
     "part/place/mount-rainier-national-park#paradise-upper-lot": {
       "lat": 46.78571,
       "lon": -121.73557,
       "coord_src": "osm",
       "point_source": "OSM way/970437613 amenity=parking fee=no name 'Paradise Upper Parking Lot', about 100 m from the OSM Jackson Visitor Center (way/180649580)"
+    },
+    "part/place/mount-robson-provincial-park#welcome-centre": {
+      "lat": 53.03549,
+      "lon": -119.22904,
+      "coord_src": "osm",
+      "point_source": "OSM way/127274566 Mount Robson Visitor Centre (tourism=information, information=office); agent checked, needs a person's check"
     },
     "part/place/mount-st-helens#johnston-ridge-lot": {
       "lat": 46.2776,
@@ -1404,6 +1470,12 @@
       "lon": -121.26797,
       "coord_src": "osm",
       "point_source": "OSM relation/17713933 amenity=parking, about 40 m from the OSM North Cascades National Park Visitor Center (way/184708189)"
+    },
+    "part/place/paddys-flat#campground-parking": {
+      "lat": 50.88099,
+      "lon": -114.71052,
+      "coord_src": "osm",
+      "point_source": "OSM way/1380471053 named 'Paddy's Flat - Group Camping Area' (amenity=parking, paved); agent checked, needs a person's check"
     },
     "part/place/pic-champlain#parking": {
       "lat": 48.3106,
@@ -1434,6 +1506,12 @@
       "lon": 11.72579,
       "coord_src": "wikidata",
       "point_source": "Q2263528 P625"
+    },
+    "part/place/sinclair-canyon#pullout": {
+      "lat": 50.63314,
+      "lon": -116.05204,
+      "coord_src": "osm",
+      "point_source": "OSM way/222249120 (amenity=parking) on Highway 93 inside the canyon; agent checked, needs a person's check"
     },
     "part/place/tre-cime-di-lavaredo-loop#auronzo-car-park": {
       "lat": 46.61356,
@@ -1477,6 +1555,18 @@
       "coord_src": "wikidata",
       "point_source": "Q1257207 P625"
     },
+    "part/place/upper-elk-lake#elk-lakes-trailhead": {
+      "lat": 50.55102,
+      "lon": -115.07094,
+      "coord_src": "osm",
+      "point_source": "OSM way/102439897 (amenity=parking) at the end of the Elk River road; agent checked, needs a person's check"
+    },
+    "part/place/upper-kananaskis-lake#north-interlakes": {
+      "lat": 50.63157,
+      "lon": -115.13998,
+      "coord_src": "osm",
+      "point_source": "OSM node/269821248 named 'North Interlakes' (amenity=parking), between the Upper and Lower Kananaskis lakes; agent checked, needs a person's check"
+    },
     "part/place/watkins-glen-state-park#main-entrance-lot": {
       "lat": 42.37671,
       "lon": -76.87169,
@@ -1488,6 +1578,12 @@
       "lon": -71.5881,
       "coord_src": "osm",
       "point_source": "OSM relation/1649688 amenity=parking fee=yes name 'Lincoln Woods Trailhead Parking'"
+    },
+    "part/place/whiteswan-lake#home-basin": {
+      "lat": 50.15429,
+      "lon": -115.47327,
+      "coord_src": "osm",
+      "point_source": "OSM way/126512005 (amenity=parking) beside Home Basin Campground (operator EK Parks Ltd.); agent checked, needs a person's check"
     },
     "part/place/yellowstone-national-park#old-faithful-west-lot": {
       "lat": 44.45794,
@@ -1512,6 +1608,12 @@
       "lon": -116.49185,
       "coord_src": "osm",
       "point_source": "OSM way/492008964 (Yoho National Park Visitor Centre), tourism=information, information=office; centre of the way computed by Overpass where it is a way"
+    },
+    "part/place/yoho-valley#takakkaw-falls-parking": {
+      "lat": 51.49785,
+      "lon": -116.48369,
+      "coord_src": "osm",
+      "point_source": "OSM way/228173009 (amenity=parking, surface) at the end of the Yoho Valley Road; agent checked, needs a person's check"
     },
     "part/place/zion-national-park#visitor-center-lot": {
       "lat": 37.19934,
@@ -1687,11 +1789,35 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata Q223969 P625,; a point inside the park, not an entrance"
     },
+    "place/ashlar-ridge": {
+      "lat": 53.1742,
+      "lon": -117.8049,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q22457126 P625 (Ashlar Ridge); agent checked, needs a person's check"
+    },
+    "place/athabasca-glacier": {
+      "lat": 52.19083,
+      "lon": -117.25528,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q391165 P625 (Athabasca Glacier); agent checked, needs a person's check"
+    },
     "place/banff-national-park": {
       "lat": 51.17798,
       "lon": -115.57024,
       "coord_src": "osm",
       "point_source": "OSM way/430454020, Banff Visitor Centre: the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
+    },
+    "place/barrier-lake": {
+      "lat": 51.0272,
+      "lon": -115.066,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q3214736 P625 (Barrier Lake); agent checked, needs a person's check"
+    },
+    "place/beauvais-lake": {
+      "lat": 49.4086,
+      "lon": -114.1,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q4877958 P625 (Beauvais Lake); agent checked, needs a person's check"
     },
     "place/bentonite-hills": {
       "lat": 38.36167,
@@ -1728,6 +1854,12 @@
       "lon": 11.61718,
       "coord_src": "osm",
       "point_source": "snapshot trailhead of puflatsch osm_node 625195493"
+    },
+    "place/burstall-lakes": {
+      "lat": 50.78335,
+      "lon": -115.33533,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q22353518 P625 (Burstall Lakes); agent checked, needs a person's check"
     },
     "place/cadini-di-misurina-viewpoint": {
       "lat": 46.605,
@@ -1783,6 +1915,12 @@
       "coord_src": "osm",
       "point_source": "OSM node 470623991 Centro visitatori del parco (tourism=information, office), the Ampezzo Dolomites park information point by Ponte Felizon; Cortina tourism (the route page above): 'Start: Ufficio informazioni del Parco', path 10, 7 km return, +249 m. This beats the snapshot trailhead (OSM node 7920730765 at Pian de Loa), which is where the stored OSM track starts, 2 km along the route; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
+    "place/chancellor-peak": {
+      "lat": 51.22317,
+      "lon": -116.51097,
+      "coord_src": "osm",
+      "point_source": "OSM node/5613035260 Chancellor Peak (natural=peak, ele 3280); agent checked, needs a person's check"
+    },
     "place/cinque-torri": {
       "lat": 46.50925,
       "lon": 12.05397,
@@ -1806,6 +1944,12 @@
       "lon": 12.08554,
       "coord_src": "osm",
       "point_source": "snapshot trailhead of seekofel osm_node 2984514849"
+    },
+    "place/curly-phillips-boathouse": {
+      "lat": 52.7289,
+      "lon": -117.63769,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q44664199 P625 (Curly Phillips Boathouse); agent checked, needs a person's check"
     },
     "place/dobbiaco": {
       "lat": 46.73543,
@@ -1837,6 +1981,12 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata Q20714583 P625,; the butte, matches OSM node 356672676 Factory Butte (natural=peak)"
     },
+    "place/field": {
+      "lat": 51.39611,
+      "lon": -116.48915,
+      "coord_src": "osm",
+      "point_source": "OSM node/51970759 Field (place=village); agent checked, needs a person's check"
+    },
     "place/finger-lakes": {
       "lat": 42.66667,
       "lon": -76.83333,
@@ -1854,6 +2004,12 @@
       "lon": 12.27,
       "coord_src": "prototype",
       "point_source": "snapshot place funbob (approximate)"
+    },
+    "place/golden": {
+      "lat": 51.29923,
+      "lon": -116.96445,
+      "coord_src": "osm",
+      "point_source": "OSM node/51971610 Golden (place=town); agent checked, needs a person's check"
     },
     "place/grand-teton-national-park": {
       "lat": 43.83333,
@@ -1885,6 +2041,18 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata Q5683183 P625,; matches OSM node 602137131 Havasu Falls (attraction)"
     },
+    "place/highwood-pass": {
+      "lat": 50.59623,
+      "lon": -114.9845,
+      "coord_src": "osm",
+      "point_source": "OSM node/1339315277 Highwood Pass (natural=saddle, ele 2206); agent checked, needs a person's check"
+    },
+    "place/jasper": {
+      "lat": 52.87523,
+      "lon": -118.08243,
+      "coord_src": "osm",
+      "point_source": "OSM node/51971014 Jasper (place=town); agent checked, needs a person's check"
+    },
     "place/jasper-national-park": {
       "lat": 52.87734,
       "lon": -118.08083,
@@ -1896,6 +2064,12 @@
       "lon": -115.02277,
       "coord_src": "osm",
       "point_source": "OSM way/261038259, Kananaskis Visitor Information Centre (Barrier Lake): the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
+    },
+    "place/kananaskis-village": {
+      "lat": 50.9174,
+      "lon": -115.14712,
+      "coord_src": "osm",
+      "point_source": "OSM node/283707361 Kananaskis Village (place=town); agent checked, needs a person's check"
     },
     "place/kanarra-falls": {
       "lat": 37.5377,
@@ -2035,6 +2209,12 @@
       "coord_src": "osm",
       "point_source": "Store point from the Nominatim resolver (OpenStreetMap), run 2026-10-16; it lies about 1.3 km north of OSM way 1535726923 'Long Dong Silver Trailhead Parking', consistent with the BLM 1.6 mile round trip"
     },
+    "place/maligne-lake": {
+      "lat": 52.66444,
+      "lon": -117.53361,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q429646 P625 (Maligne Lake); agent checked, needs a person's check"
+    },
     "place/manitou-incline": {
       "lat": 38.8568,
       "lon": -104.932,
@@ -2107,11 +2287,47 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata Q3326014 P625,; a point inside the wilderness"
     },
+    "place/mount-blakiston": {
+      "lat": 49.09433,
+      "lon": -114.03473,
+      "coord_src": "osm",
+      "point_source": "OSM node/9005199647 Mount Blakiston (natural=peak, ele 2910); agent checked, needs a person's check"
+    },
+    "place/mount-edith-cavell": {
+      "lat": 52.66731,
+      "lon": -118.05719,
+      "coord_src": "osm",
+      "point_source": "OSM node/2698521553 Mount Edith Cavell (natural=peak, ele 3363); agent checked, needs a person's check"
+    },
+    "place/mount-kerkeslin": {
+      "lat": 52.64902,
+      "lon": -117.82684,
+      "coord_src": "osm",
+      "point_source": "OSM node/2699165524 Mount Kerkeslin (natural=peak, ele 2984); agent checked, needs a person's check"
+    },
+    "place/mount-lawrence-grassi": {
+      "lat": 51.0538,
+      "lon": -115.39092,
+      "coord_src": "osm",
+      "point_source": "OSM node/2684623546 Mount Lawrence Grassi (natural=peak, ele 2682); agent checked, needs a person's check"
+    },
     "place/mount-rainier-national-park": {
       "lat": 46.85,
       "lon": -121.75,
       "coord_src": "wikidata",
       "point_source": "Wikidata Q944329 P625,; a point on the mountain, not an entrance"
+    },
+    "place/mount-robson": {
+      "lat": 53.11036,
+      "lon": -119.15568,
+      "coord_src": "osm",
+      "point_source": "OSM node/2699332830 Mount Robson (natural=peak, ele 3954); agent checked, needs a person's check"
+    },
+    "place/mount-robson-provincial-park": {
+      "lat": 53.0339,
+      "lon": -119.232,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1950710 P625 (Mount Robson Provincial Park); agent checked, needs a person's check"
     },
     "place/mount-st-helens": {
       "lat": 46.20028,
@@ -2148,6 +2364,12 @@
       "lon": -107.672,
       "coord_src": "wikidata",
       "point_source": "Wikidata Q1759444 P625,; matches OSM node 151877085 Ouray (place=village)"
+    },
+    "place/paddys-flat": {
+      "lat": 50.87859,
+      "lon": -114.71374,
+      "coord_src": "osm",
+      "point_source": "OSM node/12780122240 Paddy's Flat (place=locality); agent checked, needs a person's check"
     },
     "place/page": {
       "lat": 36.91483,
@@ -2269,11 +2491,23 @@
       "coord_src": "wikidata",
       "point_source": "locations.json CA/QC/forillon-national-park/sentier-la-chute"
     },
+    "place/sinclair-canyon": {
+      "lat": 50.63327,
+      "lon": -116.05208,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q22629068 P625 (Sinclair Canyon); agent checked, needs a person's check"
+    },
     "place/sorrento-and-the-amalfi-coast": {
       "lat": 40.63333,
       "lon": 14.6,
       "coord_src": "wikidata",
       "point_source": "Wikidata P625 of Q212214 (40.63333, 14.6)"
+    },
+    "place/spray-valley-provincial-park": {
+      "lat": 50.89389,
+      "lon": -115.285,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q3364735 P625 (Spray Valley Provincial Park); agent checked, needs a person's check"
     },
     "place/stansbury-island": {
       "lat": 40.8297,
@@ -2298,6 +2532,18 @@
       "lon": 11.11667,
       "coord_src": "wikidata",
       "point_source": "Wikidata P625 of Q3376 (46.06667, 11.11667)"
+    },
+    "place/upper-elk-lake": {
+      "lat": 50.55222,
+      "lon": -115.10833,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q22391422 P625 (Upper Elk Lake); agent checked, needs a person's check"
+    },
+    "place/upper-kananaskis-lake": {
+      "lat": 50.6181,
+      "lon": -115.154,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q7346507 P625 (Upper Kananaskis Lake); agent checked, needs a person's check"
     },
     "place/val-fiscalina": {
       "lat": 46.66684,
@@ -2329,6 +2575,12 @@
       "coord_src": "osm",
       "point_source": "snapshot trailhead of viel-dal-pan osm_node 469726063"
     },
+    "place/waterton-park": {
+      "lat": 49.05092,
+      "lon": -113.90702,
+      "coord_src": "osm",
+      "point_source": "OSM node/9174974666 Waterton Park (place=hamlet); agent checked, needs a person's check"
+    },
     "place/watkins-glen-state-park": {
       "lat": 42.3771,
       "lon": -76.8717,
@@ -2341,6 +2593,12 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata Q2566939 P625,; a point inside the forest"
     },
+    "place/whiteswan-lake": {
+      "lat": 50.13972,
+      "lon": -115.48333,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q22612582 P625 (Whiteswan Lake); agent checked, needs a person's check"
+    },
     "place/yellowstone-national-park": {
       "lat": 44.6,
       "lon": -110.5,
@@ -2352,6 +2610,12 @@
       "lon": -116.49185,
       "coord_src": "osm",
       "point_source": "OSM way/492008964, Yoho National Park Visitor Centre: the park's main visitor centre (protected-area-entry 4.1, point at the main visitor centre); the official page gives its address"
+    },
+    "place/yoho-valley": {
+      "lat": 51.53328,
+      "lon": -116.51891,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q22649377 P625 (Yoho Valley); agent checked, needs a person's check"
     },
     "place/zion-national-park": {
       "lat": 37.20262,
