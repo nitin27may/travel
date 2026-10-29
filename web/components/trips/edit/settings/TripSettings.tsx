@@ -72,15 +72,16 @@ export function TripSettings(p: SettingsProps) {
   // a copy's first engine action meets the convert notice (STEP2-B3): `asked` is the section or Rebuild it was for; once the copy is converted `start` opens it
   const [asked, setAsked] = useState<Ask | null>(null);
   const [start, setStart] = useState<Ask | null>(null);
+  const [wasOpen, setWasOpen] = useState(p.open);
+  if (wasOpen !== p.open) {
+    setWasOpen(p.open);
+    if (!p.open) setAsked(null);
+  }
   useEffect(() => {
-    // a link on the Make it yours card asked for a section before this sheet opened
-    if (!p.open) {
-      setAsked(null);
-      return;
-    }
-    if (!copy) return;
+    // a link on the Make it yours card asked for a section before this sheet opened; the store is external, so the answer reaches state in a microtask
+    if (!p.open || !copy) return;
     const s = takeSection();
-    if (s) setAsked(s);
+    if (s) queueMicrotask(() => setAsked(s));
   }, [p.open, copy]);
   // a built trip's pace is staged until Apply (it needs a rebuild); a change to the document (an Apply, an Undo) clears it
   const [staged, setStaged] = useState<{ at: string; pace: Pace | null }>({ at: p.doc.updatedAt, pace: null });

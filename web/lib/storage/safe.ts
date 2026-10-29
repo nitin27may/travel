@@ -6,6 +6,8 @@
 export const readLocal = (k: string): string | null => { try { return window.localStorage.getItem(k); } catch { return null; } };
 export const writeLocal = (k: string, v: string): boolean => { try { window.localStorage.setItem(k, v); return true; } catch { return false; } };
 export const removeLocal = (k: string): boolean => { try { window.localStorage.removeItem(k); return true; } catch { return false; } };
+/** The Storage object itself, for readers that scan keys (the access sits in the try); null where site data is blocked. */
+export const localStore = (): Storage | null => { try { return window.localStorage; } catch { return null; } };
 export const readSession = (k: string): string | null => { try { return window.sessionStorage.getItem(k); } catch { return null; } };
 export const writeSession = (k: string, v: string): boolean => { try { window.sessionStorage.setItem(k, v); return true; } catch { return false; } };
 export const removeSession = (k: string): boolean => { try { window.sessionStorage.removeItem(k); return true; } catch { return false; } };

@@ -154,7 +154,8 @@ export function EditLayer(p: LayerProps) {
     if (!slug) return;
     u.searchParams.delete('add');
     window.history.replaceState(window.history.state, '', `${u.pathname}${u.search}${u.hash}`);
-    if (/^[a-z0-9][a-z0-9-]*$/.test(slug)) setPick({ day: null, slug });
+    // the address is an external source: its value reaches state in a microtask (not cancelled, so a StrictMode re-run, which no longer finds the key, still opens the picker)
+    if (/^[a-z0-9][a-z0-9-]*$/.test(slug)) queueMicrotask(() => setPick({ day: null, slug }));
   }, [on]);
 
   // Ctrl or Cmd+Z undoes, with Shift redoes (patterns 1.3), anywhere on the page but a field
@@ -305,13 +306,12 @@ export function EditLayer(p: LayerProps) {
 
   // Make it yours (components 9.11): on a new copy that has no changes yet, until it is dismissed; a first change counts as dismissing it
   const [seen, setSeen] = useState(() => isSeen(p.id));
+  if (copy && changes > 0 && !seen) setSeen(true);
   useEffect(() => {
-    if (copy && changes > 0 && !seen) {
-      markSeen(p.id);
-      setSeen(true);
-    }
-  }, [copy, changes, seen, p.id]);
-  const fresh = useMemo(() => copy && !seen && changes === 0 && Date.now() - Date.parse(doc.createdAt) < 2 * 86_400_000, [copy, seen, changes, doc.createdAt]);
+    if (copy && changes > 0) markSeen(p.id);
+  }, [copy, changes, p.id]);
+  const [openedAt] = useState(() => Date.now());
+  const fresh = useMemo(() => copy && !seen && changes === 0 && openedAt - Date.parse(doc.createdAt) < 2 * 86_400_000, [copy, seen, changes, doc.createdAt, openedAt]);
   const keepAsIs = useCallback(() => {
     markSeen(p.id);
     setSeen(true);

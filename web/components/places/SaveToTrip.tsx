@@ -58,8 +58,11 @@ export function SaveToTrip({ url, slug, formats, primary = false, edit }: { url:
     const host = document.createElement('div');
     host.className = 'pl-in-trips';
     row.after(host);
-    setLine(host);
+    // the portal target is a DOM node made here, so it reaches state in a microtask (an effect may not set state in its own body)
+    let on = true;
+    queueMicrotask(() => on && setLine(host));
     return () => {
+      on = false;
       host.remove();
       setLine(null);
     };
