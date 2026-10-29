@@ -33,6 +33,8 @@ export interface EditSlots {
   emptyDay?: (day: number, ctx: DayCtx) => ReactNode;
   /** Replaces the inline add panel of a day with the picker (E3): the node is the "Add a place to Day n" row. */
   addPicker?: (day: number) => ReactNode;
+  /** Above Day 1 on the Days tab: the Make it yours card on a new copy (STEP2-B3; components 9.11). */
+  beforeDays?: () => ReactNode;
 }
 export interface TimelineExtras {
   /** The marks of an entry, in words (at most two are shown). */

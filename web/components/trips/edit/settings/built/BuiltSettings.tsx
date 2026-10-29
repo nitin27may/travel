@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useReducer, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useReducer, useRef, useState, type ReactNode } from 'react';
 import type { Party } from '@travel/core/trips/party.ts';
 import { Banner } from '@/components/ui/Banner';
 import { Button } from '@/components/ui/Button';
@@ -25,6 +25,10 @@ export interface BuiltSettingsProps {
   onPace: (p: Pace | null) => void;
   /** applies operations as one undo step (the edit session's commit, or the document's save in read mode) */
   run: (ops: PlanOp[], label: string) => boolean;
+  /** a copy was just converted for this (STEP2-B3): the section it asked for opens, or Rebuild runs once. Null: nothing asked. */
+  start?: 'where' | 'days' | 'bases' | 'start' | 'rebuild' | null;
+  /** the request was taken up; the parent clears it so a later remount does not repeat it */
+  onStarted?: () => void;
 }
 
 const nowIso = (): string => new Date().toISOString();
@@ -33,9 +37,9 @@ const PACE_WORD: Record<Pace, string> = { relaxed: 'Relaxed', standard: 'Standar
 const hm = (min: number): string => (min >= 60 ? `${Math.floor(min / 60)} h${min % 60 ? ` ${String(min % 60).padStart(2, '0')}` : ''}` : `${min} min`);
 
 /** One section: its name and a one-line summary on a 44 px row; the builder's stage opens under it on the first press (P2, P1). */
-function Section({ id, title, summary, children }: { id: string; title: string; summary: string; children: () => ReactNode }) {
-  const [open, setOpen] = useState(false);
-  const [used, setUsed] = useState(false);
+function Section({ id, title, summary, asked, children }: { id: string; title: string; summary: string; asked?: boolean; children: () => ReactNode }) {
+  const [open, setOpen] = useState(!!asked);
+  const [used, setUsed] = useState(!!asked);
   return (
     <section className="bset-sec" aria-labelledby={`${id}-h`} data-open={open || undefined}>
       <h3 className="bset-h" id={`${id}-h`}>
@@ -58,7 +62,7 @@ function Section({ id, title, summary, children }: { id: string; title: string; 
  * 2 days longer, 1 base added") and what stays ("Rebuild 6 days · 3 kept and 2 added by you stay"); Apply runs them and the server
  * rebuild as one undo step. Loaded lazily with the sheet, and only for a built trip.
  */
-export default function BuiltSettings({ doc, pace, onPace, run }: BuiltSettingsProps) {
+export default function BuiltSettings({ doc, pace, onPace, run, start = null, onStarted }: BuiltSettingsProps) {
   const [flow, dispatch] = useReducer(flowReducer, doc, (d: PlanDraft) => ({ ...stateOfDraft(d), stage: 4 as const }));
   const [state, setState] = useState<{ status: 'idle' } | { status: 'building' } | { status: 'failed'; message: string }>({ status: 'idle' });
   const abort = useRef<AbortController | null>(null);
@@ -83,6 +87,15 @@ export default function BuiltSettings({ doc, pace, onPace, run }: BuiltSettingsP
       setState({ status: 'idle' });
     } else setState({ status: 'failed', message: r.message });
   };
+  // a conversion's own first action (edit-mode-spec 13.2: "then the engine action runs on the converted trip")
+  const started = useRef(false);
+  useEffect(() => {
+    if (!start || started.current) return;
+    started.current = true;
+    onStarted?.();
+    if (start === 'rebuild') void go();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- once, on the mount the conversion made
+  }, []);
   const discard = () => {
     dispatch({ t: 'load', state: { ...stateOfDraft(doc), stage: 4 } });
     onPace(null);
@@ -108,21 +121,21 @@ export default function BuiltSettings({ doc, pace, onPace, run }: BuiltSettingsP
     <div className="bset" role="group" aria-labelledby="bset-plan-h" data-testid="built-settings">
       <h3 id="bset-plan-h" className="field-label">The plan</h3>
       {mode === 'near' ? (
-        <Section id="bset-start" title="Where you start" summary={originWords(flow, 'near')}>
+        <Section id="bset-start" asked={start === 'start'} title="Where you start" summary={originWords(flow, 'near')}>
           {() => <StartSection flow={flow} dispatch={dispatch} now={nowIso} mode="near" />}
         </Section>
       ) : null}
-      <Section id="bset-where" title="Where" summary={whereWords}>
+      <Section id="bset-where" asked={start === 'where'} title="Where" summary={whereWords}>
         {() => <WhereStage {...stageProps} />}
       </Section>
-      <Section id="bset-days" title="Days and driving" summary={daysWords}>
+      <Section id="bset-days" asked={start === 'days'} title="Days and driving" summary={daysWords}>
         {() => <DaysStage {...stageProps} />}
       </Section>
-      <Section id="bset-bases" title="Bases" summary={basesWords(doc, flow)}>
+      <Section id="bset-bases" asked={start === 'bases'} title="Bases" summary={basesWords(doc, flow)}>
         {() => <BasesSection doc={doc} flow={flow} dispatch={send} now={nowIso} />}
       </Section>
       {mode === 'trip' ? (
-        <Section id="bset-gw" title="Getting there" summary={originWords(flow, 'trip')}>
+        <Section id="bset-gw" asked={start === 'start'} title="Getting there" summary={originWords(flow, 'trip')}>
           {() => <StartSection flow={flow} dispatch={dispatch} now={nowIso} mode="trip" />}
         </Section>
       ) : null}

@@ -76,6 +76,22 @@ export function findBuilt(storage: StorageLike, id: string): FindBuilt {
   return r.data.template ? { kind: 'missing' } : { kind: 'ok', doc: r.data };
 }
 
+/** The builder's list as items, or 'newer'; an absent or unreadable list is empty (STEP2-B3: `convertDevice.ts` moves a stored copy into it). */
+export function plansItems(storage: StorageLike): unknown[] | 'newer' {
+  const l = readList(storage);
+  return l === 'newer' ? 'newer' : (l?.items ?? []);
+}
+/** Writes the builder's list whole (an empty one removes the key); the reason when storage refuses. */
+export function putPlansItems(storage: StorageLike, items: unknown[]): { ok: true } | { ok: false; reason: 'full' | 'storage' } {
+  try {
+    if (items.length) storage.setItem(PLANS_LOCAL_KEY, JSON.stringify({ schema: PLAN_DRAFTS_SCHEMA, items }));
+    else storage.removeItem(PLANS_LOCAL_KEY);
+    return { ok: true };
+  } catch (e) {
+    return { ok: false, reason: (e as { name?: string } | null)?.name === 'QuotaExceededError' ? 'full' : 'storage' };
+  }
+}
+
 export type WriteBuilt = { ok: true } | { ok: false; reason: 'missing' | 'newer' | 'storage' | 'full' };
 
 /** Replaces the item with this id by `doc` (updatedAt set), in place. */

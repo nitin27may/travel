@@ -1,0 +1,32 @@
+/* Make it yours, the convert notice and the copy's plan section (STEP2-B3; components 9.11, 5.4; patterns 3.13). Tokens only (tests/no-hex.test.ts). */
+
+.myc { display: grid; gap: var(--s-2); margin: 0 0 var(--s-5); padding: 14px; border: 1px solid var(--accent); border-radius: 12px; background: var(--accent-soft); color: var(--ink); scroll-margin-top: calc(var(--header-h) + var(--s-4)); }
+.myc-h { width: fit-content; margin: 0; font: var(--t-title); font-weight: 600; color: var(--accent-text); }
+.myc-h:focus-visible { outline: var(--focus-ring); outline-offset: 2px; border-radius: var(--r-1); }
+.myc-text { margin: 0; font: var(--t-small); color: var(--ink); }
+.myc-links { display: flex; flex-wrap: wrap; gap: 0 var(--s-4); }
+.myc-link { min-height: var(--touch-min); padding: 0; border: 0; background: none; color: var(--accent-text); font: var(--t-mono); font-weight: 600; text-align: left; cursor: pointer; }
+.myc-link:hover { text-decoration: underline; }
+.myc-link:focus-visible { outline: var(--focus-ring); outline-offset: 2px; border-radius: var(--r-1); }
+.myc-keep { justify-self: start; padding-left: 0; }
+@media (min-width: 1024px) { .myc-link { min-height: 32px; } }
+@media (max-width: 639px) { .myc-links { flex-direction: column; } .myc-keep { min-height: var(--touch-min); } }
+
+/* the notice: a notice-kind banner (info-soft) with its two buttons under the words */
+.cvn { align-items: flex-start; }
+.cvn-main { display: grid; gap: var(--s-3); min-width: 0; flex: 1; }
+.cvn-text { margin: 0; font: var(--t-small); color: var(--ink); overflow-wrap: anywhere; }
+.cvn-actions { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+@media (max-width: 639px) { .cvn-actions .btn { min-height: var(--touch-min); flex: 1 1 8rem; } }
+
+/* a copy's Settings: the plan rows that convert it (same row shape as a built trip's) */
+.cpl { display: grid; gap: var(--s-2); }
+.cpl > .field-label { margin: 0; }
+.cpl-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.cpl-list li { border-bottom: 1px solid var(--line); }
+.cpl-row { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); width: 100%; min-height: var(--touch-min); padding: var(--s-2) 0; border: 0; background: none; color: var(--ink); font: var(--t-row); font-weight: 600; text-align: left; cursor: pointer; }
+.cpl-row > svg { color: var(--muted); flex: none; }
+.cpl-row:focus-visible { outline: var(--focus-ring); outline-offset: 2px; border-radius: var(--r-2); }
+.cpl-row[data-asked] { color: var(--accent-text); }
+.cpl-foot { display: flex; justify-content: flex-end; }
+@media (max-width: 639px) { .cpl-foot .btn { min-height: var(--touch-min); } }

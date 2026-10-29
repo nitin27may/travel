@@ -30,10 +30,14 @@ interface Props {
   onReset: () => void;
   /** a built trip: Rebuild opens Settings at its plan section, where the Apply line says what stays (STEP2-B2; README 5.2) */
   onRebuild?: () => void;
+  /** a copy: the card's choices stay a row of this menu once the card is dismissed (components 9.11) */
+  onMakeYours?: () => void;
+  /** a converted trip: Reset to our plan replaces it with a fresh copy of our trip; the value is our trip's name */
+  converted?: string;
 }
 
 /** The cover's `⋯` on your own trip (components 8.7 trip rows): Undo, Redo, Reset to our plan (copies), Print, then Remove from My trips last. */
-export function TripMenu({ id, slug, title, where, copy, changes, canUndo, canRedo, onUndo, onRedo, onReset, onRebuild }: Props) {
+export function TripMenu({ id, slug, title, where, copy, changes, canUndo, canRedo, onUndo, onRedo, onReset, onRebuild, onMakeYours, converted }: Props) {
   const [open, setOpen] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const { toast } = useToast();
@@ -58,7 +62,7 @@ export function TripMenu({ id, slug, title, where, copy, changes, canUndo, canRe
   return (
     <ActionPanel label="Trip actions" title="Trip actions" open={open} onOpenChange={close} triggerClassName="btn btn-icon edit-trip-more">
       {confirm ? (
-        <ResetConfirm changes={changes} onCancel={() => setConfirm(false)} onReset={act(onReset)} />
+        <ResetConfirm changes={changes} {...(converted !== undefined ? { ours: converted } : {})} onCancel={() => setConfirm(false)} onReset={act(onReset)} />
       ) : (
         <>
           <button type="button" role="menuitem" className="edit-row" disabled={!canUndo} onClick={act(onUndo)}>
@@ -69,6 +73,16 @@ export function TripMenu({ id, slug, title, where, copy, changes, canUndo, canRe
           </button>
           {copy && changes > 0 ? (
             <button type="button" role="menuitem" className="edit-row" onClick={() => (changes > PLAN_EDIT.resetConfirmOver ? setConfirm(true) : act(onReset)())}>
+              <Icon name="swap" size={16} /> <span>Reset to our plan</span>
+            </button>
+          ) : null}
+          {onMakeYours ? (
+            <button type="button" role="menuitem" className="edit-row" onClick={act(onMakeYours)}>
+              <Icon name="pencil" size={16} /> <span>Make it yours…</span>
+            </button>
+          ) : null}
+          {converted !== undefined ? (
+            <button type="button" role="menuitem" className="edit-row" onClick={() => setConfirm(true)}>
               <Icon name="swap" size={16} /> <span>Reset to our plan</span>
             </button>
           ) : null}

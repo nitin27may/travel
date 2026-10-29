@@ -37,6 +37,10 @@ import { SummaryChecks } from './warnings/WarnCount';
 import { Button } from '@/components/ui/Button';
 import { addDayOps, addedDayNumber, dayBookings, dayChanged, dayCount, dayNoteOf, dayNoteOps, droppedWords, dropDayOps, resetDayOps, versionOps, type DropHow } from './day/dayOps';
 import { useEditSession } from './useEditSession';
+import { fromTripName } from '@/lib/trip-edit/fromTrip';
+import { MakeItYoursCard } from './convert/MakeItYoursCard';
+import { askSection, isSeen, markSeen } from './convert/store';
+import { isConverted, resetOps } from './convert/reset';
 import { keepOps, mustOps } from '@/lib/trip-edit/built';
 import { BuiltDayMenu, type BuiltDayAct } from './built/BuiltDayMenu';
 import { BuiltDayStatus } from './built/BuiltDayStatus';
@@ -82,7 +86,7 @@ const typing = (t: EventTarget | null): boolean => t instanceof HTMLElement && (
 export function EditLayer(p: LayerProps) {
   const { doc, model, on } = p;
   const s = useEditSession(p.id, doc, p.save, TRIP_EDIT_UI.announceClearMs);
-  const { commit, undo, redo } = s;
+  const { commit, undo, redo, announce } = s;
   const [changesOpen, setChangesOpen] = useState(false);
   // the add picker: for a day (the add row), or for a place a page sent (`add=<slug>`, edit-mode-spec 7.4)
   const [pick, setPick] = useState<{ day: number | null; slug: string | null; swap?: SwapTarget } | null>(null);
@@ -286,9 +290,34 @@ export function EditLayer(p: LayerProps) {
     [doc, model],
   );
 
+  // a converted trip (STEP2-B3): Reset to our plan makes it a fresh copy of our trip again, in place
+  const converted = isConverted(doc);
   const resetAll = useCallback(() => {
-    commit([{ kind: 'reset', id: newOpId(), day: null } as PlanOp], 'Reset to our plan');
-  }, [commit]);
+    if (!converted) {
+      commit([{ kind: 'reset', id: newOpId(), day: null } as PlanOp], 'Reset to our plan');
+      return;
+    }
+    void resetOps(doc).then((ops) => {
+      if (!ops) announce('Could not reach our plan. Nothing was changed.');
+      else commit(ops, 'Reset to our plan');
+    });
+  }, [commit, converted, doc, announce]);
+
+  // Make it yours (components 9.11): on a new copy that has no changes yet, until it is dismissed; a first change counts as dismissing it
+  const [seen, setSeen] = useState(() => isSeen(p.id));
+  useEffect(() => {
+    if (copy && changes > 0 && !seen) {
+      markSeen(p.id);
+      setSeen(true);
+    }
+  }, [copy, changes, seen, p.id]);
+  const fresh = useMemo(() => copy && !seen && changes === 0 && Date.now() - Date.parse(doc.createdAt) < 2 * 86_400_000, [copy, seen, changes, doc.createdAt]);
+  const keepAsIs = useCallback(() => {
+    markSeen(p.id);
+    setSeen(true);
+    window.setTimeout(() => document.querySelector<HTMLElement>('#day-1 .tl-add-open')?.focus({ preventScroll: true }), 60);
+  }, [p.id]);
+  const ourName = p.ours?.title.replace(/,\s*\d+ nights?$/, '') ?? null;
   const onRow = useCallback(
     (r: ChangeRow) => {
       commit(r.ops, r.done);
@@ -300,6 +329,19 @@ export function EditLayer(p: LayerProps) {
   const published = useMemo<Published>(() => {
     const edit: EditSlots = {
       canEdit,
+      ...(fresh
+        ? {
+            beforeDays: () => (
+              <MakeItYoursCard
+                ours={ourName}
+                onPlaces={() => openPicker(1)}
+                onDriving={() => { askSection('days'); p.onSettings(); }}
+                onStart={() => { askSection('start'); p.onSettings(); }}
+                onKeep={keepAsIs}
+              />
+            ),
+          }
+        : {}),
       handle: (e) => <DragHandle entry={e} />,
       // the add picker serves both modes: a copy adds `addPlace`, a built trip `addPick` (lib/trip-edit/built.ts `addPlaceOp`)
       addPicker: (day: number) => <AddRow day={day} onOpen={openPicker} />,
@@ -372,9 +414,9 @@ export function EditLayer(p: LayerProps) {
       ),
       commit: (ops, label) => commit(ops, label),
       checks: <SummaryChecks />,
-      cover: <TripMenu id={p.id} slug={p.slug} title={p.title} where={p.where} copy={copy} changes={changes} canUndo={s.canUndo} canRedo={s.canRedo} onUndo={undo} onRedo={redo} onReset={resetAll} {...(copy ? {} : { onRebuild: p.onSettings })} />,
+      cover: <TripMenu id={p.id} slug={p.slug} title={p.title} where={p.where} copy={copy} changes={changes} canUndo={s.canUndo} canRedo={s.canRedo} onUndo={undo} onRedo={redo} onReset={resetAll} {...(copy ? { onMakeYours: () => { askSection(null); p.onSettings(); } } : { onRebuild: p.onSettings })} {...(converted ? { converted: ourName ?? fromTripName(doc.seed!) } : {})} />,
     };
-  }, [canEdit, openPicker, openSwap, doc, model, p.defaults, p.profile, p.start, p.bookings, dayAct, builtDayAct, addedFor, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, commit, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
+  }, [canEdit, openPicker, openSwap, doc, model, p.defaults, p.profile, p.start, p.bookings, dayAct, builtDayAct, addedFor, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, commit, fresh, ourName, keepAsIs, converted, doc.seed, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
   useEffect(() => {
     publish(published);
   }, [published, publish]);

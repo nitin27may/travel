@@ -4,10 +4,10 @@ import { Icon } from '@/components/ui/Icon';
 
 /**
  * The card's choices as links, for a copy while editing (components 9.11; edit-mode-spec 8): Change places opens the add picker on Day 1,
- * Your driving and pace goes to the Pace control in this sheet. "Where you start" converts the copy to your own trip first, which waits for
- * the builder's stages (STEP2-B2, B3), so it is not offered here yet.
+ * Your driving and pace goes to the Pace control in this sheet. "Where you start" asks the convert notice of the plan section (STEP2-B3):
+ * it makes the copy your own trip first.
  */
-export function MakeItYours({ onClose }: { onClose: () => void }) {
+export function MakeItYours({ onClose, onStart }: { onClose: () => void; onStart: () => void }) {
   return (
     <section className="own-set-yours" aria-labelledby="own-yours-h">
       <h3 id="own-yours-h" className="field-label">Make it yours</h3>
@@ -37,6 +37,12 @@ export function MakeItYours({ onClose }: { onClose: () => void }) {
             }}
           >
             <span>Your driving and pace</span>
+            <Icon name="chevronDown" size={16} />
+          </button>
+        </li>
+        <li>
+          <button type="button" className="own-set-link" onClick={onStart}>
+            <span>Where you start</span>
             <Icon name="chevronDown" size={16} />
           </button>
         </li>
