@@ -18,7 +18,7 @@ Links: official; R? none; A hours_rates, booking, accessibility.
 
 Records: place, offer. Suitability profile `sight` (never). Effort: none, time is shown. Sources, in order: O.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of, address.
 
 **offer (ticket)**: R name, type, summary, season, hours, price, links, at; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, on, run_by, included.
 
@@ -30,7 +30,7 @@ Links: official; R? none; A hours_rates, booking, accessibility.
 
 Records: place, offer. Suitability profile `sight` (never). Effort: none, time is shown. Sources, in order: O. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of, address.
 
 **offer (ticket)**: R name, type, summary, season, hours, price, links, at; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, on, run_by, included.
 

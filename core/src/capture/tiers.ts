@@ -3,12 +3,14 @@
 // searched_none with the date (a soft answer counts). Enrichment: the A marks, filled when sources allow. A gap is never a yes.
 //
 // The placement keys (area_id, point, near_town) are reported by the placement codes, so the tier check leaves them out.
-import { completeness, evalTrigger } from "./engine.ts";
+import { completeness, evalTrigger, linkKey, linkTierKinds } from "./engine.ts";
 import { ownPointOf, PLACEMENT_KEYS } from "./placementBlock.ts";
 import type { PlacementWorld } from "./placementBlock.ts";
 import type { World } from "./records.ts";
 import { resolveNode, suitMark } from "./resolve.ts";
+import { osmRefOf } from "../schema/capture/records.ts";
 import type { CaptureRecord } from "../schema/capture/records.ts";
+import type { TypesFile } from "../schema/capture/typesFile.ts";
 import { PROPERTY_BY_KEY } from "../schema/capture/properties.ts";
 
 /** The record kinds of EXECUTION-PLAN 6.2, decided from the layer and the type. */
@@ -35,13 +37,16 @@ export interface RecordTier {
   enrichmentMissing: string[];
 }
 
-/** The tier of one record: what it is asked and what it still lacks. null when the record or its type is unknown. */
-export function recordTier(world: World, ref: string): RecordTier | null {
-  const c = completeness(world, ref);
+/**
+ * The tier of one record: what it is asked and what it still lacks. null when the record or its type is unknown. `file` resolves the
+ * marks from another types file (the promotion gate, `gaps --promote`, simulates a promotion this way); absent: data/vocab/types.json.
+ */
+export function recordTier(world: World, ref: string, file?: TypesFile): RecordTier | null {
+  const c = completeness(world, ref, file);
   const capL = world.cap.get(ref);
   if (!c || !capL) return null;
   const cap = capL.rec;
-  const node = resolveNode(cap.type);
+  const node = resolveNode(cap.type, file);
   const rl = node?.layers[cap.layer];
   if (!node || !rl) return null;
   const suit = world.suit.get(ref)?.rec;
@@ -54,6 +59,8 @@ export function recordTier(world: World, ref: string): RecordTier | null {
     else if (m === "R?" && evalTrigger(world, PROPERTY_BY_KEY.get(k)?.trigger ?? "conditional", ref, node, cap.layer, cap, suit, rel) === true) required.push(k);
     else if (m === "A") enrichment.push(k);
   }
+  // per-kind link keys (location-type-requirements D4): links.R minus official, read by the same engine
+  for (const kind of linkTierKinds(node)) required.push(linkKey(kind));
   if (rl.carries_suitability && node.profile) {
     const operated = suit?.operated ?? (node.operated === "always" ? true : node.operated === "never" ? false : node.operated_default ?? false);
     for (const p of Object.keys(node.suitability)) {
@@ -93,7 +100,7 @@ export function matrixCells(pw: PlacementWorld, rec: CaptureRecord): Record<Matr
     records: true,
     area_id: !!rec.area_id,
     point: (rec.layer === "place" || rec.layer === "route") && !!ownPointOf(pw, rec.ref),
-    osm_id: !!rec.osm_ref,
+    osm_id: osmRefOf(rec) !== null,
     wikidata: filled("wikidata"),
     official: filled("official"),
     photos: (rec.photos?.length ?? 0) > 0,

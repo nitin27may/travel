@@ -29,12 +29,21 @@ const REPO_ROOT = fileURLToPath(new URL("../../../", import.meta.url));
 export interface Output { path: string; text: string }
 
 type Obj = Record<string, unknown>;
+/**
+ * The base marks the public contract carries: every mark except those of a property whose registry row names a `pageTask` (the UI task
+ * that first draws it). Until that task lands, an A gap of the property would reach every page as a closing word at rest, a new empty
+ * marker for a field nobody has started (location-type-requirements 0, P2). The engine, `fields`, `gaps` and research/types still read
+ * the full marks; only data/schema/capture/<domain>.json, which the web reads, leaves them out.
+ */
+const publicBase = (base: Record<string, string>): Record<string, string> =>
+  Object.fromEntries(Object.entries(base).filter(([k]) => !PROPERTY_BY_KEY.get(k)?.pageTask));
+
 /** The contract part of a resolved node: what two nodes must share to be the same contract. */
 function contractOf(n: ResolvedNode): Obj {
   const layers: Obj = {};
   for (const [l, rl] of Object.entries(n.layers)) {
     const base: Obj = {};
-    for (const [k, m] of Object.entries(rl!.base)) base[k] = m;
+    for (const [k, m] of Object.entries(publicBase(rl!.base))) base[k] = m;
     layers[l] = { offer_class: rl!.offer_class, carries_suitability: rl!.carries_suitability, base };
   }
   return { records: n.records, profile: n.profile, operated: n.operated, operated_default: n.operated_default, indoor_default: n.indoor_default, ext: n.ext, suitability: n.suitability, effort: n.effort, relevance_class: n.relevance_class, layers, links: n.links, sources: n.sources, display: n.display };
@@ -47,7 +56,7 @@ export function levelsOf(n: ResolvedNode, layer: keyof ResolvedNode["layers"]): 
   const draft: string[] = [];
   const usable: string[] = [];
   const complete: string[] = [];
-  for (const [k, m] of Object.entries(rl.base)) {
+  for (const [k, m] of Object.entries(publicBase(rl.base))) {
     const def = PROPERTY_BY_KEY.get(k);
     if (m === "R") {
       usable.push(k);
@@ -71,7 +80,7 @@ function nodeEntry(n: ResolvedNode, parent: ResolvedNode | null): Obj {
   if (parent && JSON.stringify(contractOf(n)) === JSON.stringify(contractOf(parent))) return { ...head, inherits: parent.id };
   const layers: Obj = {};
   for (const [l, rl] of Object.entries(n.layers)) {
-    layers[l] = { ...(rl!.offer_class ? { offer_class: rl!.offer_class } : {}), carries_suitability: rl!.carries_suitability, base: rl!.base, levels: levelsOf(n, l as never) };
+    layers[l] = { ...(rl!.offer_class ? { offer_class: rl!.offer_class } : {}), carries_suitability: rl!.carries_suitability, base: publicBase(rl!.base), levels: levelsOf(n, l as never) };
   }
   return {
     ...head,

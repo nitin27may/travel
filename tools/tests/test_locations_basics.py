@@ -272,3 +272,49 @@ def test_basics_report_reproduces_the_data_loc_counts_on_the_real_store(monkeypa
     assert s["with_wikidata"] >= 66 and s["with_image"] >= 62 and s["with_elevation"] >= 32 and s["with_season_months"] >= 24
     assert s["without_page_ref"] == 0
     assert {r["lane"] for r in rep["places"] if not r["has_record"] and not r["tied_trip"]} == {D.tripless_lane()}
+
+
+# ----------------------------------------------------------------------------- LT-C: address, type links, point drift
+def test_basics_address_is_the_place_s_own_or_its_directions_target_s(store):
+    """location-type-requirements D2: a natural place shows the address of the car park or trailhead it is reached from."""
+    lane = D.tripless_lane()
+    put(store, "data/locations/page-keys.json", {"keys": {"loc:CA/AB/banff-national-park/lake-louise": "place/lake-louise",
+                                                           "loc:CA/AB/banff-national-park/larch-valley": "place/larch-valley"}})
+    addr = {"v": {"kind": "postal", "lines": ["111 Lake Louise Dr"], "locality": "Lake Louise", "postcode": "T0L 1E0"},
+            "state": "value", "basis": "official_info", "src": ["src-0001"]}
+    put(store, f"data/capture/{lane}/BA.json", {"trip": lane, "records": [
+        {"ref": "place/lake-louise", "type": "water.body.lake", "layer": "place"},
+        {"ref": "part/place/lake-louise#parking", "type": "access.park.parking", "layer": "place", "parks_for": ["place/lake-louise"], "address": addr},
+        {"ref": "place/larch-valley", "type": "nature.trail.hike", "layer": "route", "starts_at": ["part/place/larch-valley#start"],
+         "links": [{"kind": "alltrails", "state": "found_in_search", "url": "https://www.alltrails.com/trail/x", "on": "2026-10-28"}]},
+        {"ref": "part/place/larch-valley#start", "type": "access.start.trailhead", "layer": "place"}]})
+    rep = D.basics_report(D.load(), store)
+    rows = {r["id"].rsplit("/", 1)[1]: r for r in rep["places"]}
+    assert "address" not in rows["lake-louise"]["missing"]                   # the car park's address answers it
+    assert rows["larch-valley"]["missing"]["address"] == ["address"]         # the trailhead has none yet
+    assert "type links" not in rows["larch-valley"]["missing"]               # a link-only platform found by a search answers it
+    assert rep["layers"]["address"] == {"asked": 2, "missing": 1}
+    assert {"layer": "type links", "field": "alltrails", "kinds": ["trail"]} in rep["fields"]
+
+
+def test_point_drift_lists_a_far_store_point_but_never_a_centre_pin(store, capsys):
+    """W_LOC_POINT_DRIFT (D8): report only, over PLACEMENT_RULES.storeDriftKm, the record's role not centre (a park's pin is never 'fixed')."""
+    lane = D.tripless_lane()
+    put(store, "data/locations/page-keys.json", {"keys": {"loc:CA/AB/banff-national-park/lake-louise": "place/lake-louise",
+                                                           "loc:CA/AB/banff-national-park/larch-valley": "place/larch-valley"}})
+    put(store, f"data/capture/{lane}/BA.json", {"trip": lane, "records": [
+        {"ref": "place/lake-louise", "type": "water.body.lake", "layer": "place"},
+        {"ref": "place/larch-valley", "type": "nature.trail.hike", "layer": "route"}]})
+    # Lake Louise's record point is 3.3 km away (role centre: left out); Larch Valley's trailhead is 5.6 km away (listed)
+    put(store, "data/relevance/inputs/points.json", {"points": {"place/lake-louise": {"lat": 51.44167, "lon": -116.22806},
+                                                                "place/larch-valley": {"lat": 51.37, "lon": -116.2}}})
+    store_before = (store / "data/locations/locations.json").read_bytes()
+    rep = D.basics_report(D.load(), store)
+    assert [(d["id"].rsplit("/", 1)[1], d["role"], d["code"]) for d in rep["drift"]] == [("larch-valley", "trailhead", "W_LOC_POINT_DRIFT")]
+    assert rep["drift"][0]["km"] > D.point_drift_km() and rep["store"]["point_drift"] == 1
+    assert D.point_drift_km() == 2.0   # PLACEMENT_RULES.storeDriftKm in core/src/capture/placementBlock.ts, read from the source
+    put(store, "data/capture/points.json", {"points": {"place/larch-valley": {"point_role": "centre"}}})
+    assert D.basics_report(D.load(), store)["drift"] == []                   # an authored centre role is left out too
+    assert run("basics", "--report") == 0
+    assert "point drift 0" in capsys.readouterr().out
+    assert (store / "data/locations/locations.json").read_bytes() == store_before   # a report never writes the store

@@ -60,7 +60,7 @@ const hostOf = (u: string): string => {
 const linkOnly = (u: string): string | null => LINK_ONLY_HOSTS.find(([re]) => re.test(hostOf(u)))?.[1] ?? null;
 
 /** The value keys a record may hold only where its type asks for them (W_CAP_NA_FIELD). */
-const HELD_VALUE_KEYS = ["season", "hours", "price", "window", "best_window", "best_time", "duration_min", "activity_min", "book_url", "check_in_out", "fills_by", "closures", "groceries"] as const;
+const HELD_VALUE_KEYS = ["season", "hours", "price", "window", "best_window", "best_time", "duration_min", "activity_min", "book_url", "check_in_out", "fills_by", "closures", "groceries", "address"] as const;
 
 /** The order of two closure dates of the same form (YYYY, YYYY-MM, YYYY-MM-DD or MM-DD); null when the forms differ. */
 const closureOrder = (from: string, to: string): number | null => {
@@ -546,7 +546,9 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
       if (a === r.ref) E_("E_CAP_REF", `${base}/aliases`, `alias "${a}" is the record's own ref.`);
     }
     // values: sources and states
-    const vals: [string, unknown][] = [["geonames_id", r.geonames_id], ["near_town", r.near_town], ["near_town_km", r.near_town_km], ["season", r.season], ["best_window", r.best_window], ["best_time", r.best_time], ["hours", r.hours], ["duration_min", r.duration_min], ["activity_min", r.activity_min], ["check_in_out", r.check_in_out], ["price", r.price], ["window", r.window], ["entry", r.entry], ["book_url", r.book_url], ["fills_by", r.fills_by], ["closures", r.closures], ["groceries", r.groceries]];
+    const vals: [string, unknown][] = [["geonames_id", r.geonames_id], ["near_town", r.near_town], ["near_town_km", r.near_town_km], ["season", r.season], ["best_window", r.best_window], ["best_time", r.best_time], ["hours", r.hours], ["duration_min", r.duration_min], ["activity_min", r.activity_min], ["check_in_out", r.check_in_out], ["price", r.price], ["window", r.window], ["entry", r.entry], ["book_url", r.book_url], ["fills_by", r.fills_by], ["closures", r.closures], ["groceries", r.groceries], ["address", r.address],
+      // osm_ref as a Val (LT-C); a bare id string carries no provenance of its own
+      ...(r.osm_ref && typeof r.osm_ref === "object" ? [["osm_ref", r.osm_ref] as [string, unknown]] : [])];
     for (const [k, v] of vals) {
       if (!v) continue;
       const x = v as { v: unknown; state: string; basis: string | null; src: string[]; on?: string; tried?: string[] };

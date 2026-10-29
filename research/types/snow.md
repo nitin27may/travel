@@ -8,7 +8,7 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 Records: place, route, offer. Suitability profile `snow` (always, extension snow). Effort: piste-eu, piste-at-ch, piste-na, piste-jp. Sources, in order: O T.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, window, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, window, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of, address.
 
 **route**: R name, type, point, area_id, summary, access_points, access_cost, price, window, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? near_town (derived), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
@@ -22,7 +22,7 @@ Links: official; R? none; A hours_rates, booking, status, webcam, map_sheet.
 
 Records: place. Suitability profile `snow` (always, extension snow). Effort: piste-eu, piste-at-ch, piste-na, piste-jp. Sources, in order: O T.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, window, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, window, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of, address.
 
 Suitability: R age_band, kid_note, effort.source_grade, altitude_m, access_season; R when operated none; A min_age, adult_required, solo, on_site_min, toilets, food, exposure, hazards, participation.kit_provided, participation.driver, ext.snow.ski_school_min_age, ext.snow.magic_carpet, ext.snow.lift_child_rules.
 
@@ -62,7 +62,7 @@ Links: official; R? none; A hours_rates, booking, status, webcam, map_sheet.
 
 Records: place. Suitability profile `snow` (always, extension snow). Effort: piste-eu, piste-at-ch, piste-na, piste-jp. Sources, in order: O T.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, window, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, window, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of, address.
 
 Suitability: R age_band, kid_note, effort.source_grade, altitude_m, access_season; R when operated none; A min_age, adult_required, solo, on_site_min, toilets, food, exposure, hazards, participation.kit_provided, participation.driver, ext.snow.ski_school_min_age, ext.snow.magic_carpet, ext.snow.lift_child_rules.
 

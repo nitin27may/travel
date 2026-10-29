@@ -27,6 +27,11 @@ export const PLACEMENT_RULES = {
   /** near_town: the nearest settlement of at least this many people within the radius, else NEAR_TOWN_NONE (META-2) */
   townRadiusKm: 50,
   townMinPopulation: 1000,
+  /**
+   * W_LOC_POINT_DRIFT (location-type-requirements D8, tools/locations.py basics --report): a locations-store point this far from its capture
+   * record's point is listed for a person; the record wins. Report only, never a budget code
+   */
+  storeDriftKm: 2,
 } as const;
 
 /** The keys the placement codes report; the tier check leaves them to those codes so nothing is counted twice. */

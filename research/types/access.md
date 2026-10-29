@@ -8,7 +8,7 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 Records: place. Suitability profile `access` (never). Effort: none, time is shown. Sources, in order: F D C.
 
-**place**: R name, type, point, area_id, links, parks_for; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, transit, pairs_with, part_of, serves.
+**place**: R name, type, point, area_id, links, parks_for; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, transit, pairs_with, part_of, serves, address.
 
 Suitability: R none; R when operated none; A accessible_parking, walk_m, limited_capacity_note, access_season, wheelchair, toilets, accessible_toilet, food, water, shade, altitude_m.
 
@@ -18,7 +18,7 @@ Links: official; R? booking; A status, webcam.
 
 Records: place, offer. Suitability profile `access` (never). Effort: none, time is shown. Sources, in order: F D C.
 
-**place**: R name, type, point, area_id, links, parks_for; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, transit, pairs_with, part_of, serves.
+**place**: R name, type, point, area_id, links, parks_for; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, transit, pairs_with, part_of, serves, address.
 
 **offer (access)**: R name, type, price, window, links, at; R? season (operates), hours (operates), closures (status_page); A names, transit, on, run_by, cancellation.
 
@@ -30,7 +30,7 @@ Links: official; R? booking; A status, webcam.
 
 Records: place. Suitability profile `access` (never). Effort: none, time is shown. Sources, in order: F D C.
 
-**place**: R name, type, point, area_id, summary, access_cost, links, parks_for; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, transit, pairs_with, part_of, serves.
+**place**: R name, type, point, area_id, summary, access_cost, links, parks_for; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, transit, pairs_with, part_of, serves, address.
 
 Suitability: R none; R when operated none; A accessible_parking, walk_m, limited_capacity_note, access_season, wheelchair, toilets, accessible_toilet, food, water, shade, altitude_m.
 
@@ -40,7 +40,7 @@ Links: official; R? booking; A status, webcam.
 
 Records: place. Suitability profile `amenity` (never). Effort: none, time is shown. Sources, in order: F D C.
 
-**place**: R name, type, point, area_id, summary, access_cost, links, parks_for; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, transit, pairs_with, part_of, serves.
+**place**: R name, type, point, area_id, summary, access_cost, links, parks_for; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, transit, pairs_with, part_of, serves, address.
 
 Suitability: R none; R when operated none; A wheelchair, access_detail, accessible_toilet, accessible_parking, toilets, water, access_season, limited_capacity_note.
 
@@ -50,7 +50,7 @@ Links: official; R? booking; A status, webcam.
 
 Records: place. Suitability profile `amenity` (never). Effort: none, time is shown. Sources, in order: F D C. Rainy day: indoor by type; a relevance weather of indoor on the record says yes.
 
-**place**: R name, type, point, area_id, summary, access_cost, links, parks_for; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, transit, pairs_with, part_of, serves.
+**place**: R name, type, point, area_id, summary, access_cost, links, parks_for; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, transit, pairs_with, part_of, serves, address.
 
 Suitability: R none; R when operated none; A wheelchair, access_detail, accessible_toilet, accessible_parking, toilets, water, access_season, limited_capacity_note.
 

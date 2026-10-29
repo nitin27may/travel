@@ -77,13 +77,14 @@ describe("exposeOf defaults (3.4)", () => {
     expect(ex("effort.drivers.distance_km").list).toEqual(["row:km", "facet"]);
     expect(ex("effort.drivers.gain_m").list).toEqual(["row:gain_m", "facet"]);
   });
-  it("export: print from the page level, csv for card, money and window, gpx for the map keys, ics never", () => {
+  it("export: print from the page level, csv for card, money and window, gpx for the map keys, ics never by default", () => {
     expect(ex("name").export).toEqual(["print", "csv", "gpx"]);
     expect(ex("price").export).toEqual(["print", "csv"]);
     expect(ex("deposit").export).toEqual(["csv"]);
     expect(ex("geometry").export).toEqual(["gpx"]);
     expect(ex("wikidata").export).toEqual([]);
-    expect(PROPERTIES.filter((p) => p.expose.export.includes("ics"))).toEqual([]);
+    // the default is never (public trips are dateless); address overrides it for the dated copy's LOCATION (location-type-requirements 12)
+    expect(PROPERTIES.filter((p) => p.expose.export.includes("ics")).map((p) => p.key)).toEqual(["address"]);
   });
   it("api and mcp: row, detail or none by home and list row; mcp follows the api except the ranking inputs and the track", () => {
     expect([ex("season").api, ex("season").mcp]).toEqual(["row", "public"]);

@@ -10,7 +10,7 @@ import { explain, resolveNode, suitMark } from "../src/capture/resolve.ts";
 import type { Layer, ResolvedNode } from "../src/capture/resolve.ts";
 import { completeness } from "../src/capture/engine.ts";
 import { loadWorld } from "../src/capture/records.ts";
-import { countsOf, loadTypes, resolveWord, treeOf } from "../src/capture/tree.ts";
+import { countsOf, familyOf, loadTypes, resolveWord, treeOf } from "../src/capture/tree.ts";
 import { TRIGGERS } from "../src/capture/triggers.ts";
 import { validateFile } from "../src/validate/index.ts";
 import { defaultPointRole, PLACEMENT_RULES } from "../src/capture/placementBlock.ts";
@@ -32,6 +32,12 @@ Commands:
                           the placement block per trip (area, point with its role, nearest town), then the records and a hint
   gaps --tier required|enrichment [--layer <l>] [--type <prefix>] [--trip <trip>] [--json]
                           the per-kind matrix (EXECUTION-PLAN 6.4 columns) and each tier key asked, answered and missing
+  gaps --family <f> [--tier required|enrichment] [--trip <trip>] [--json]
+                          the tier report of one research family (trail, park, sight, stay, eat, activity, access, event, town):
+                          the union of its categories (location-type-requirements 6.3)
+  gaps --promote <key> --family <f> [--mark R|R?] [--json]
+                          the ratchet gate (location-type-requirements 5.4): what promoting <key> (a property, or links.<kind>) to R
+                          on the family's categories would add to the required tier; exits 1 when it adds any unanswered key
   gaps --budget --check | --write [--reason "<why>"]
                           data/capture/gap-budget.json: --check exits 1 when a gap count rose (runs in tools/check-all.sh);
                           --write lowers the counts, and raises one only with a written reason
@@ -137,6 +143,7 @@ function printFields(rep: Record<string, unknown>): void {
   }
   out("");
   out(`${r.type}  ${r.label}`);
+  out(`family: ${String((rep as { family?: string | null }).family ?? "none")}`);
   out(`records: ${r.records.join(", ")}; suitability profile: ${r.profile ?? "none"} (${r.operated}${r.extension ? `, extension ${r.extension}` : ""}); effort scales: ${r.effort_scales.join(", ") || "none"}; sources in order: ${r.sources_in_order.join(" ") || "none"}${r.slot3 ? `; slot 3: ${r.slot3}` : ""}`);
   const line = (rows: FieldRow[]): string => rows.map((x) => `${x.key}${x.trigger ? ` [${x.trigger}]` : ""}`).join(", ") || "-";
   for (const [l, v] of Object.entries(r.layers)) {
@@ -165,6 +172,7 @@ function fields(argv: string[], root: string): number {
   }
   const ref = arg(argv, "--ref");
   const rep = fieldsReport(node, (arg(argv, "--layer") as Layer | null) ?? (ref ? (loadWorld(root).cap.get(ref)?.rec.layer ?? null) : null));
+  (rep as Record<string, unknown>).family = familyOf(treeOf(loadTypes(root)), id);
   if (ref) {
     const c = completeness(loadWorld(root), ref);
     if (c) (rep as Record<string, unknown>).record = { ref, level: c.level, missing: [...c.missingBase, ...c.missingSuitability, ...c.conditionalMissing], missing_applicable: c.missingApplicable, condition_unknown: c.conditionUnknown, soft: c.soft };

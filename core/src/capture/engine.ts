@@ -9,6 +9,7 @@ import type { CaptureRecord } from "../schema/capture/records.ts";
 import type { TypesFile } from "../schema/capture/typesFile.ts";
 import type { RelevanceRecord } from "../schema/relevance.ts";
 import type { SuitabilityRecord } from "../schema/suitability.ts";
+import { CAP_LINK_ONLY_KIND } from "../schema/enums.ts";
 import { answerOf, isOperated, loadApplicability } from "../suitability/applicability.ts";
 import type { Located, Profile } from "../suitability/applicability.ts";
 import { checkRecord } from "../suitability/level.ts";
@@ -87,10 +88,7 @@ export function readProperty(world: World, key: string, ref: string, cap: Captur
       if (cap.layer === "place" && typeUnder(cap.type, "nature.protected") && inc.offers_at.some((o) => typeUnder(world.cap.get(o)?.rec.type ?? "", "access.pass"))) return "firm";
       break;
     case "access_points": return (cap.starts_at?.length ?? 0) + inc.parks_for.length + inc.serves.length + inc.starts_here.length > 0 ? "firm" : "gap";
-    case "links": {
-      const l = (cap.links ?? []).filter((x) => x.kind === "official");
-      return l.some((x) => x.state === "filled") ? "firm" : l.length > 0 ? "soft" : "gap";
-    }
+    case "links": return readLink(cap, "official");
     case "photos": return (cap.photos?.length ?? 0) > 0 ? "firm" : "gap";
     case "transit": return inc.serves.length > 0 ? "firm" : "gap";
     case "geometry": {
@@ -123,6 +121,24 @@ export function readProperty(world: World, key: string, ref: string, cap: Captur
     return String(v).length > 0 ? "firm" : "gap";
   }
   return "gap";
+}
+
+/** The tier key of one required link kind other than `official` (location-type-requirements D4): `links.<kind>`. */
+export const LINK_KEY_PREFIX = "links.";
+export const linkKey = (kind: string): string => `${LINK_KEY_PREFIX}${kind}`;
+/** The link kinds of a resolved node that count as their own required key: links.R minus `official` (which keeps the `links` key). */
+export const linkTierKinds = (node: Pick<ResolvedNode, "links">): string[] => node.links.R.filter((k) => k !== "official");
+
+/**
+ * The state of one link kind on a record: `filled` is firm; `found_in_search` (a link-only platform found by a search, never fetched) is
+ * firm for a link-only kind and soft otherwise; a dated `searched_none` is soft (an answer, never a yes); no link of the kind is a gap.
+ */
+export function readLink(cap: Pick<CaptureRecord, "links">, kind: string): PState {
+  const l = (cap.links ?? []).filter((x) => x.kind === kind);
+  if (l.length === 0) return "gap";
+  if (l.some((x) => x.state === "filled")) return "firm";
+  if (l.some((x) => x.state === "found_in_search") && (CAP_LINK_ONLY_KIND as readonly string[]).includes(kind)) return "firm";
+  return "soft";
 }
 
 const SELLING = new Set(["experience", "rental", "ticket", "access"]);
@@ -164,6 +180,16 @@ export function evalTrigger(world: World, name: Trigger | string, ref: string, n
     case "wildlife_area": return suit?.ext?.kind === "wildlife" ? true : null;
     case "derived": return canDeriveNearTown(world, cap);
     case "weather_dependent": return suit?.suitability.participation?.weather_cancel ? true : null;
+    case "point_to_point": {
+      if (layer !== "route") return false;
+      const shape = suit?.ext?.kind === "trail" ? suit.ext.shape : undefined;
+      if (shape) return shape === "point-to-point";
+      const starts = cap.starts_at ?? [];
+      const ends = cap.ends_at ?? [];
+      if (starts.length > 0 && ends.length > 0) return ends.some((e) => !starts.includes(e));
+      return null;
+    }
+    case "gpx_offered": return (cap.links ?? []).some((l) => l.kind === "gpx_download" && l.state === "filled") ? true : (cap.links ?? []).some((l) => l.kind === "gpx_download") ? false : null;
     default: return null;
   }
 }
@@ -199,6 +225,14 @@ export function completeness(world: World, ref: string, file?: TypesFile): Compl
     } else if (mark === "A") {
       if (st === "gap") missingApplicable.push(key);
     }
+  }
+  // per-kind link keys (D4): each kind of links.R other than official is its own required key. At landing only the hut stage lists one
+  // (booking) and no record has that type, so no count moved; a family promotes kinds through the ratchet (5.4)
+  for (const kind of linkTierKinds(node)) {
+    const key = linkKey(kind);
+    const st = readLink(cap, kind);
+    if (st === "gap") missingBase.push(key);
+    else if (st === "soft") soft.push(key);
   }
   // present but not asked
   for (const [key, def] of [...(function* () { for (const k of ["season", "hours", "price", "window", "best_window", "best_time"]) yield [k, PROPERTY_BY_KEY.get(k)!] as const; })()]) {

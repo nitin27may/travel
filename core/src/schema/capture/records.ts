@@ -205,6 +205,40 @@ export const recurrence = z.strictObject({
   basis: z.enum(RECURRENCE_BASIS),
 });
 
+/**
+ * A street or nearest-road address (location-type-requirements 5.1, D2, D7): on the record you drive to (a door place, a car park, a
+ * trailhead, a stop). `lines` as the source writes them, without country or region (those come from area_id, capture contract 3.7.1);
+ * `locality` the postal locality, which may differ from near_town; `postcode` null where the country or the place has none. A
+ * `nearest_road` address comes from a reverse lookup of the point and is shown as "Near ...". Held in a Val, so searched_none is storable.
+ */
+export const ADDRESS_KIND = ["postal", "nearest_road"] as const;
+export const ADDRESS_LINE_MAX = 120;
+export const address = z.strictObject({
+  kind: z.enum(ADDRESS_KIND),
+  lines: z.array(z.string().min(1).max(ADDRESS_LINE_MAX)).min(1).max(3),
+  locality: z.string().min(1).max(80),
+  postcode: z.string().max(16).nullable(),
+});
+
+/** An OSM element id: node/<n>, way/<n> or relation/<n>. */
+export const OSM_REF_RE = /^(node|way|relation)\/\d+$/;
+/**
+ * `osm_ref` is a bare element id (every record written before LT-C; the migration ledger pins them) or a Val, so a dated searched_none
+ * can be stored (location-type-requirements 5.2). New writes use the Val; readers go through osmRefOf.
+ */
+export const osmRef = z.union([z.string().regex(OSM_REF_RE), val(z.string().regex(OSM_REF_RE))]);
+
+/** The element id of a record's `osm_ref`, whichever form it is stored in; null when absent or not a value. */
+export function osmRefOf(rec: { osm_ref?: unknown }): string | null {
+  const o = rec.osm_ref;
+  if (typeof o === "string") return o;
+  if (o && typeof o === "object" && (o as { state?: string }).state === "value") {
+    const v = (o as { v?: unknown }).v;
+    return typeof v === "string" ? v : null;
+  }
+  return null;
+}
+
 /** Where a record came from when the migration cut it out of another (SP1 to SP3). */
 export const origin = z.strictObject({ from: ref, reason: z.string().min(1) });
 
@@ -229,7 +263,9 @@ export const capRecord = z.strictObject({
   route_is_attraction: z.boolean().optional(),
   attraction_reason: z.string().min(1).optional(),
   area_id: z.string().min(1).optional(),
-  osm_ref: z.string().regex(/^(node|way|relation)\/\d+$/).optional(),
+  osm_ref: osmRef.optional(),
+  /** the address you drive to (location-type-requirements 5.1); places only (the registry's layers), never on a list row (P8) */
+  address: val(address).optional(),
   // placement (3.7, META-0): the nearest town is derived (META-2) and may be overridden by the town the operator names
   geonames_id: val(z.string().regex(GEONAMES_ID_RE)).optional(),
   near_town: val(nearTownValue).optional(),
