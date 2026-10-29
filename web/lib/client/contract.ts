@@ -1,5 +1,5 @@
 import type { PlaceRow, ResolveRow, TripLegs, TripPlanModel } from '@travel/core/schema/api/index.ts';
-import type { PlanBuildAnswer, PlanBuildInput, PlanCandidatePage, PlanCandidatesQuery, PlanErrorCode, PlanRegions } from '@travel/core/schema/api/plan.ts';
+import type { PlanBuildAnswer, PlanBuildInput, PlanCandidatePage, PlanCandidatesQuery, PlanErrorCode, PlanRegions, PlanStarts } from '@travel/core/schema/api/plan.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import type { EntityDescriptor, FacetParam, ListState } from '@/lib/entities/types';
 import type { GlobeCardFile, GlobeTree, LightPin } from '@/lib/globe/types';
@@ -111,6 +111,8 @@ export interface DataClient {
    * answers 501. Rejects with a `PlanCallError` for any other failure.
    */
   planRegions(cc: string): Promise<PlanRegions | null>;
+  /** The public hubs and airports the start picker lists (TB-W1): `GET /api/v1/plan/starts`. Names only, no point. Null and rejection as `planRegions`; empty lists while the reference files are absent. */
+  planStarts(): Promise<PlanStarts | null>;
   /** One page (40 at most) of ranked candidates: `GET /api/v1/plan/candidates`. Null and rejection as `planRegions`. The query carries no party, only a band. */
   planCandidates(q: PlanCandidatesQuery, signal?: AbortSignal): Promise<PlanCandidatePage | null>;
   /**

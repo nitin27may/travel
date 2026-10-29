@@ -35,7 +35,7 @@ import type { CatalogueStore } from '@travel/core/catalogue/store.ts';
 //   4. validation (a path and a code per issue, never a value: the body holds the party), the service, the answer parsed by its schema.
 // A build answers `no-store`. Logs hold the route name and a fixed code, never a body, a query, an IP or a point.
 
-export type PlanRoute = 'regions' | 'candidates' | 'build';
+export type PlanRoute = 'regions' | 'starts' | 'candidates' | 'build';
 
 export interface PlanRouteDeps {
   service: PlanService;
@@ -207,6 +207,10 @@ export async function handlePlan(name: PlanRoute, req: Request, params: Record<s
       if (!input.success) return failure('invalid_input', 'The country must be two capital letters.', { keys: ['cc'] });
       if ([...new URL(req.url).searchParams.keys()].length) return failure('invalid_input', 'This endpoint takes no query parameter.');
       return send(name, req, await deps.service.regions(input.data.cc), deps);
+    }
+    if (name === 'starts') {
+      if ([...new URL(req.url).searchParams.keys()].length) return failure('invalid_input', 'This endpoint takes no query parameter.');
+      return send(name, req, await deps.service.starts(), deps);
     }
     if (name === 'candidates') {
       const q = decodeCandidates(new URL(req.url).searchParams);

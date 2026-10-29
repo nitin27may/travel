@@ -1,5 +1,5 @@
 import type { PlaceRow, ResolveRow, TripLegs } from '@travel/core/schema/api/index.ts';
-import type { PlanBuildAnswer, PlanBuildInput, PlanCandidatePage, PlanCandidatesQuery, PlanRegions } from '@travel/core/schema/api/plan.ts';
+import type { PlanBuildAnswer, PlanBuildInput, PlanCandidatePage, PlanCandidatesQuery, PlanRegions, PlanStarts } from '@travel/core/schema/api/plan.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import { filterRows, facetCounts, gapCounts, gapNotes, matchesRow, scopeTotal } from '@/lib/entities/filter';
 import { searchTexts } from '@/lib/search/fulltext';
@@ -742,6 +742,10 @@ export async function listPlaces(query: ListState, pageSize?: number): Promise<L
 /** The region groups and regions of one country, with counts of researched places. */
 export function planRegions(cc: string): Promise<PlanRegions | null> {
   return client().planRegions(cc);
+}
+/** The public hubs and airports the start picker lists (names only). Null when this site has no builder endpoint. */
+export function planStarts(): Promise<PlanStarts | null> {
+  return client().planStarts();
 }
 /** One page (40 at most) of ranked candidates for a trip-mode or near-mode query. The query holds no party and no point. */
 export function planCandidates(q: PlanCandidatesQuery, signal?: AbortSignal): Promise<PlanCandidatePage | null> {

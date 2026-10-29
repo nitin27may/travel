@@ -1,7 +1,7 @@
 import { gzipSync } from 'node:zlib';
 import { describe, expect, it, vi } from 'vitest';
 import { createMemoryQuotaStore } from '@travel/core/quota/memory.ts';
-import { planBuildAnswer, planCandidatePage, planRegions, PLAN_LIMITS, type PlanBuildInput, type PlanCandidatesQuery } from '@travel/core/schema/api/plan.ts';
+import { planBuildAnswer, planCandidatePage, planRegions, planStarts, PLAN_LIMITS, type PlanBuildInput, type PlanCandidatesQuery } from '@travel/core/schema/api/plan.ts';
 import type { DriveEstimate, DrivePoint } from '@travel/core/drive/types.ts';
 import { createApiClient, fetchCalls } from '@/lib/client/api';
 import { staticClient } from '@/lib/client/static';
@@ -21,6 +21,7 @@ const CALGARY = { lat: 51.0447, lon: -114.0719, cc: 'CA' };
 const reference: PlanReference = {
   hub: (id) => (id === 'calgary' ? CALGARY : null),
   airport: () => null,
+  starts: () => ({ hubs: [{ id: 'calgary', name: 'Calgary', cc: 'CA' }], airports: [{ iata: 'YYC', name: 'Calgary International', cc: 'CA' }] }),
   groups: (cc) => (cc === 'CA' ? [{ id: 'ca-west', name: 'Western Canada', regions: ['alberta', 'british-columbia'] }, { id: 'ca-none', name: 'Nowhere', regions: ['nowhere-land'] }] : []),
 };
 
@@ -102,6 +103,26 @@ describe('the flag and the pause', () => {
     const res = await get('candidates', tripQuery(), {}, deps({ env: { PLAN_BUILDER_PAUSED: '1' } }));
     expect(res.status).toBe(503);
     expect((await res.json()).error.code).toBe('plan_paused');
+  });
+});
+
+describe('GET /api/v1/plan/starts', () => {
+  it('lists the public hubs and airports by name, with no point, cacheable', async () => {
+    const res = await get('starts', '/starts/');
+    expect(res.status).toBe(200);
+    expect(res.headers.get('cache-control')).toContain('max-age=60');
+    const body = planStarts.parse(await res.json());
+    expect(body.hubs).toEqual([{ id: 'calgary', name: 'Calgary', cc: 'CA' }]);
+    expect(body.airports[0]).toEqual({ iata: 'YYC', name: 'Calgary International', cc: 'CA' });
+    expect(JSON.stringify(body)).not.toMatch(/lat|lon/);
+  });
+
+  it('answers empty lists while the reference files are absent, and refuses a query string and a flag that is off', async () => {
+    const none = deps();
+    none.service = createPlanService({ store: getStore(), legs: null, reference: { hub: () => null, airport: () => null, groups: () => [] }, drive: defaultDrive, now: () => NOW });
+    expect(planStarts.parse(await (await get('starts', '/starts/', {}, none)).json())).toEqual({ hubs: [], airports: [] });
+    expect((await get('starts', '/starts/?x=1')).status).toBe(400);
+    expect((await get('starts', '/starts/', {}, deps({ env: { NEXT_PUBLIC_PLAN_BUILDER: '0' } }))).status).toBe(404);
   });
 });
 
@@ -351,7 +372,7 @@ describe('POST /api/v1/plan/build', () => {
   it('logs no body, query or point on a failure', async () => {
     const err = vi.spyOn(console, 'error').mockImplementation(() => undefined);
     const broken = deps();
-    broken.service = { regions: async () => { throw new Error('boom 51.0447,-114.0719'); }, candidates: async () => { throw new Error('boom'); }, build: async () => { throw new Error(`boom ${JSON.stringify(party)}`); } };
+    broken.service = { regions: async () => { throw new Error('boom 51.0447,-114.0719'); }, starts: async () => { throw new Error('boom'); }, candidates: async () => { throw new Error('boom'); }, build: async () => { throw new Error(`boom ${JSON.stringify(party)}`); } };
     const res = await post(buildBody([{ ref: 'place/x' }]), broken);
     expect(res.status).toBe(500);
     expect((await res.json()).error.code).toBe('internal');
@@ -367,7 +388,7 @@ describe('DataClient plan methods', () => {
   function serve(d: PlanRouteDeps) {
     return vi.fn(async (url: string | URL | Request, init?: RequestInit) => {
       const u = new URL(String(url), 'https://example.test');
-      const route: PlanRoute = u.pathname.startsWith('/api/v1/plan/regions') ? 'regions' : u.pathname.startsWith('/api/v1/plan/candidates') ? 'candidates' : 'build';
+      const route: PlanRoute = u.pathname.startsWith('/api/v1/plan/regions') ? 'regions' : u.pathname.startsWith('/api/v1/plan/starts') ? 'starts' : u.pathname.startsWith('/api/v1/plan/candidates') ? 'candidates' : 'build';
       const cc = /regions\/([^/]+)/.exec(u.pathname)?.[1];
       return handlePlan(route, new Request(u, init), cc ? { cc } : {}, d);
     });

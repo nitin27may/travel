@@ -296,6 +296,7 @@ export const staticClient: DataClient = {
   placesPage: () => Promise.resolve(null),
   // TB-API: the static files carry no builder (it needs the server): not available
   planRegions: () => Promise.resolve(null),
+  planStarts: () => Promise.resolve(null),
   planCandidates: () => Promise.resolve(null),
   planBuild: () => Promise.resolve(null),
 };
