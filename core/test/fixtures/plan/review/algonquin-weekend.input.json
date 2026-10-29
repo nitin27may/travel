@@ -1,0 +1,500 @@
+{
+ "name": "algonquin-weekend",
+ "build": {
+  "bases": [],
+  "edits": [],
+  "party": {
+   "adults": 2,
+   "children": [
+    7
+   ],
+   "walkKm": null
+  },
+  "where": {
+   "mode": "near",
+   "start": {
+    "kind": "hub",
+    "id": "toronto"
+   },
+   "driveLimitMin": 240
+  },
+  "nights": 2,
+  "pace": "standard",
+  "moves": "fewer",
+  "month": 7,
+  "origin": null,
+  "picks": [
+   {
+    "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+    "must": false
+   },
+   {
+    "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+    "must": false
+   },
+   {
+    "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
+    "must": false
+   },
+   {
+    "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+    "must": false
+   },
+   {
+    "ref": "place/oxtongue-lake",
+    "must": false
+   },
+   {
+    "ref": "place/lake-of-two-rivers",
+    "must": false
+   }
+  ]
+ },
+ "start": {
+  "lat": 43.67028,
+  "lon": -79.38667,
+  "cc": "CA"
+ },
+ "gateway": null,
+ "tz": "America/Toronto",
+ "towns": [
+  {
+   "id": "ca-on-orillia",
+   "name": "Orillia",
+   "point": {
+    "lat": 44.60868,
+    "lon": -79.42068,
+    "cc": "CA",
+    "population": 31166
+   },
+   "population": 31166,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-midland",
+   "name": "Midland",
+   "point": {
+    "lat": 44.7501,
+    "lon": -79.88296,
+    "cc": "CA",
+    "population": 24353
+   },
+   "population": 24353,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-huntsville",
+   "name": "Huntsville",
+   "point": {
+    "lat": 45.33341,
+    "lon": -79.21632,
+    "cc": "CA",
+    "population": 19816
+   },
+   "population": 19816,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-bracebridge",
+   "name": "Bracebridge",
+   "point": {
+    "lat": 45.03341,
+    "lon": -79.31633,
+    "cc": "CA",
+    "population": 16010
+   },
+   "population": 16010,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-gravenhurst",
+   "name": "Gravenhurst",
+   "point": {
+    "lat": 44.91681,
+    "lon": -79.36633,
+    "cc": "CA",
+    "population": 12312
+   },
+   "population": 12312,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-penetanguishene",
+   "name": "Penetanguishene",
+   "point": {
+    "lat": 44.7834,
+    "lon": -79.91637,
+    "cc": "CA",
+    "population": 10077
+   },
+   "population": 10077,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-united-townships-of-dysart-dudley-harcourt-guilford-harburn-bruton-havelock-eyre-and-clyde",
+   "name": "United Townships of Dysart, Dudley, Harcourt, Guilford, Harburn, Bruton, Havelock, Eyre and Clyde",
+   "point": {
+    "lat": 45.2,
+    "lon": -78.41667,
+    "cc": "CA",
+    "population": 7182
+   },
+   "population": 7182,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-parry-sound",
+   "name": "Parry Sound",
+   "point": {
+    "lat": 45.34732,
+    "lon": -80.03527,
+    "cc": "CA",
+    "population": 6321
+   },
+   "population": 6321,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-bancroft",
+   "name": "Bancroft",
+   "point": {
+    "lat": 45.05752,
+    "lon": -77.85702,
+    "cc": "CA",
+    "population": 4065
+   },
+   "population": 4065,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-callander",
+   "name": "Callander",
+   "point": {
+    "lat": 46.2168,
+    "lon": -79.36632,
+    "cc": "CA",
+    "population": 3964
+   },
+   "population": 3964,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-bobcaygeon",
+   "name": "Bobcaygeon",
+   "point": {
+    "lat": 44.5462,
+    "lon": -78.54203,
+    "cc": "CA",
+    "population": 3576
+   },
+   "population": 3576,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-beaverton",
+   "name": "Beaverton",
+   "point": {
+    "lat": 44.43342,
+    "lon": -79.1496,
+    "cc": "CA",
+    "population": 3347
+   },
+   "population": 3347,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-mattawa",
+   "name": "Mattawa",
+   "point": {
+    "lat": 46.31681,
+    "lon": -78.69957,
+    "cc": "CA",
+    "population": 1993
+   },
+   "population": 1993,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-fenelon-falls",
+   "name": "Fenelon Falls",
+   "point": {
+    "lat": 44.53342,
+    "lon": -78.74957,
+    "cc": "CA",
+    "population": 1915
+   },
+   "population": 1915,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-amigo-beach",
+   "name": "Amigo Beach",
+   "point": {
+    "lat": 44.6919,
+    "lon": -79.39317,
+    "cc": "CA",
+    "population": 1545
+   },
+   "population": 1545,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-powassan",
+   "name": "Powassan",
+   "point": {
+    "lat": 46.0334,
+    "lon": -79.34961,
+    "cc": "CA",
+    "population": 1243
+   },
+   "population": 1243,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-haliburton-village",
+   "name": "Haliburton Village",
+   "point": {
+    "lat": 45.04921,
+    "lon": -78.50854,
+    "cc": "CA",
+    "population": 1149
+   },
+   "population": 1149,
+   "lodging": null
+  },
+  {
+   "id": "ca-on-south-river",
+   "name": "South River",
+   "point": {
+    "lat": 45.8334,
+    "lon": -79.38293,
+    "cc": "CA",
+    "population": 1114
+   },
+   "population": 1114,
+   "lodging": null
+  }
+ ],
+ "places": [
+  {
+   "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+   "slug": "track-and-tower-trail",
+   "name": "Track and Tower Trail",
+   "kind": "trail",
+   "type": "nature.trail.hike",
+   "tags": [],
+   "point": {
+    "lat": 45.56001,
+    "lon": -78.57754,
+    "cc": "CA"
+   },
+   "region": "ontario",
+   "country": "CA",
+   "season": [],
+   "draw": "journey",
+   "complete": false,
+   "suitability": {
+    "minAge": 8,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": 180,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": true
+  },
+  {
+   "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+   "slug": "ragged-falls",
+   "name": "Ragged Falls",
+   "kind": "waterfall",
+   "type": "water.falls.waterfall",
+   "tags": [],
+   "point": {
+    "lat": 45.39167,
+    "lon": -78.90611,
+    "cc": "CA"
+   },
+   "region": "ontario",
+   "country": "CA",
+   "season": [],
+   "draw": "detour",
+   "complete": false,
+   "suitability": {
+    "minAge": 3,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
+   "slug": "dorset-lookout-tower",
+   "name": "Dorset lookout tower",
+   "kind": "viewpoint",
+   "type": "nature.viewpoint.viewpoint",
+   "tags": [],
+   "point": {
+    "lat": 45.25218,
+    "lon": -78.89325,
+    "cc": "CA"
+   },
+   "region": "ontario",
+   "country": "CA",
+   "season": [],
+   "draw": "detour",
+   "complete": false,
+   "suitability": {
+    "minAge": 4,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+   "slug": "solitaire-lake-trail",
+   "name": "Solitaire Lake Trail",
+   "kind": "trail",
+   "type": "nature.trail.hike",
+   "tags": [],
+   "point": {
+    "lat": 45.39183,
+    "lon": -79.00851,
+    "cc": "CA"
+   },
+   "region": "ontario",
+   "country": "CA",
+   "season": [],
+   "draw": null,
+   "complete": false,
+   "suitability": {
+    "minAge": 7,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": 180,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": true
+  },
+  {
+   "ref": "place/oxtongue-lake",
+   "slug": "oxtongue-lake",
+   "name": "Oxtongue Lake",
+   "kind": "lake",
+   "type": "water.body.lake",
+   "tags": [],
+   "point": {
+    "lat": 45.36783,
+    "lon": -78.92115,
+    "cc": "CA"
+   },
+   "region": "ontario",
+   "country": "CA",
+   "season": [],
+   "draw": null,
+   "complete": false,
+   "suitability": null,
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/lake-of-two-rivers",
+   "slug": "lake-of-two-rivers",
+   "name": "Lake of Two Rivers",
+   "kind": "lake",
+   "type": "water.body.lake",
+   "tags": [],
+   "point": {
+    "lat": 45.57833,
+    "lon": -78.47944,
+    "cc": "CA"
+   },
+   "region": "ontario",
+   "country": "CA",
+   "season": [],
+   "draw": null,
+   "complete": false,
+   "suitability": null,
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  }
+ ]
+}

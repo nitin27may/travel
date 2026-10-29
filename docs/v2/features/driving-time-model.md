@@ -220,6 +220,26 @@ Starting parameters (the measured prior, section 2.3; DT-K refits them):
 When the country has no profile row, L2 falls back to `V_rural` 80 and terrain `hilly`, and the confidence drops to
 `rough` (band only). The model is pure, deterministic and integer-rounded, like the rest of `core/` (trip-builder 4.11).
 
+**Built (RB-008, 28 Oct 2026; review TB-R1).** The builder's estimates ran 25 to 40% long (Calgary to Banff 125 min, Toronto to
+Dwight 217, a Toronto day trip with 0 places within 3 h). The cause was the points, not the factors: a catalogue row, a hub and an
+airport carry a country only, and a Canadian point with no province has no rural limit, so the model fell back to 80 km/h on hilly
+terrain. Two changes in `core/src/drive/model.ts`, numbers in `DRIVE_MODEL`:
+
+- **Context from boxes.** A point that arrives without a subdivision or an area (`undefined`; `null` means "known to be none" and is
+  never boxed) takes the area of the smallest area box that holds it, and the subdivision its area id names (`CA/AB/...`), else the
+  smallest subdivision box (`contextOf`). The boxes are authored, optional `box` fields (`[west, south, east, north]`, 0.1 degree) on
+  the subdivision rows of `countries.json` (CA-AB, BC, ON, QC) and every row of `areas.json`. On the golden set, bare points drive
+  within 2% of the authored ones.
+- **Motorway share.** `V(c, d) = (1 - W) × V_rural + W × V_motorway × Rm / R(d)`: a longer leg runs part of its way at the motorway
+  limit (`motorwayShare` 0, 0, 0.2, 0.5, 0.85 along the band knots; `motorwayRealisation` Rm 0.92), halved when one end is on a
+  motorway-free terrain (mountain, alpine, coastal-fjord) and none between two such ends. A prior; calibration refits each cell as
+  before (all pairs: calibrated mean error 18.3%, was 18.6%).
+
+Known pairs from bare points: YYC to Banff 105 min (ORS 102), to Canmore 91 (87), to Lake Louise 144 (139), to Jasper 301 (333),
+Edmonton to Calgary 187 (165, 13% long), Toronto to Dwight 160 (the review's about 160), Calgary to Banff 103 (the review's about 90; ORS from the
+airport 102). Pinned in `core/test/drive/context.test.ts`. Published days read stored legs and do not change. `golden-legs.json` was
+already stale against `pairs --check` before this change (area labels moved in the capture world); not regenerated here.
+
 ### 4.4 Modifiers on every layer
 
 | Modifier | Rule | Data | Applies to |

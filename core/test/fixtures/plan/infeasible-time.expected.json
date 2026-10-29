@@ -1,5 +1,5 @@
 {
-  "engine": "tb-e2.0",
+  "engine": "tb-e2.1",
   "basis": "estimate",
   "bases": [
     {
@@ -7,7 +7,7 @@
       "name": "Huntsville",
       "nights": 1,
       "pinned": false,
-      "picks": 2,
+      "picks": 8,
       "reasons": [
         {
           "code": "covers_picks",
@@ -51,28 +51,75 @@
       "move": false,
       "items": [
         {
-          "ref": "place/long-visit-4",
-          "slug": "long-visit-4",
-          "name": "Long Visit 4",
+          "ref": "place/long-visit-1",
+          "slug": "long-visit-1",
+          "name": "Long Visit 1",
           "startMin": 960,
           "visitMin": 240,
           "driveMin": 248,
           "basis": "estimate",
           "locked": false
+        },
+        {
+          "ref": "place/long-visit-2",
+          "slug": "long-visit-2",
+          "name": "Long Visit 2",
+          "startMin": 1205,
+          "visitMin": 240,
+          "driveMin": 5,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/long-visit-4",
+          "slug": "long-visit-4",
+          "name": "Long Visit 4",
+          "startMin": 1439,
+          "visitMin": 240,
+          "driveMin": 41,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/long-visit-6",
+          "slug": "long-visit-6",
+          "name": "Long Visit 6",
+          "startMin": 1439,
+          "visitMin": 240,
+          "driveMin": null,
+          "basis": null,
+          "locked": false
         }
       ],
-      "returnMin": 22,
+      "returnMin": null,
       "warnings": [
         "W_PACE",
         "W_DRIVE_LIMIT"
       ],
       "reasons": [
         {
+          "code": "over_pace",
+          "values": {
+            "n": 3,
+            "addDays": 3
+          },
+          "text": "Over your pace: 3 must-sees kept on this day; 3 more days give them room"
+        },
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Long Visit 1",
+            "b": "Long Visit 2",
+            "apartMin": 5
+          },
+          "text": "Long Visit 1 and Long Visit 2 are 5 min ≈ apart"
+        },
+        {
           "code": "day_drive",
           "values": {
-            "driveMin": 270
+            "driveMin": 294
           },
-          "text": "4 h 30 ≈ of driving"
+          "text": "4 h 54 ≈ of driving"
         }
       ]
     },
@@ -82,140 +129,80 @@
       "move": false,
       "items": [
         {
+          "ref": "place/long-visit-7",
+          "slug": "long-visit-7",
+          "name": "Long Visit 7",
+          "startMin": 525,
+          "visitMin": 240,
+          "driveMin": 24,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/long-visit-5",
+          "slug": "long-visit-5",
+          "name": "Long Visit 5",
+          "startMin": 815,
+          "visitMin": 240,
+          "driveMin": 9,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/long-visit-3",
+          "slug": "long-visit-3",
+          "name": "Long Visit 3",
+          "startMin": 1065,
+          "visitMin": 240,
+          "driveMin": 9,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
           "ref": "place/long-visit-0",
           "slug": "long-visit-0",
           "name": "Long Visit 0",
-          "startMin": 525,
+          "startMin": 1320,
           "visitMin": 240,
-          "driveMin": 22,
+          "driveMin": 12,
           "basis": "estimate",
           "locked": false
         }
       ],
       "returnMin": 227,
       "warnings": [
+        "W_PACE",
         "W_DRIVE_LIMIT"
       ],
       "reasons": [
         {
+          "code": "over_pace",
+          "values": {
+            "n": 3,
+            "addDays": 3
+          },
+          "text": "Over your pace: 3 must-sees kept on this day; 3 more days give them room"
+        },
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Long Visit 7",
+            "b": "Long Visit 5",
+            "apartMin": 9
+          },
+          "text": "Long Visit 7 and Long Visit 5 are 9 min ≈ apart"
+        },
+        {
           "code": "day_drive",
           "values": {
-            "driveMin": 249
+            "driveMin": 281
           },
-          "text": "4 h 09 ≈ of driving"
+          "text": "4 h 41 ≈ of driving"
         }
       ]
     }
   ],
   "didNotFit": [
-    {
-      "ref": "place/long-visit-1",
-      "code": "TB_TIME",
-      "fix": {
-        "kind": "add_days",
-        "days": 3
-      },
-      "reasons": [
-        {
-          "code": "no_room",
-          "values": {
-            "days": 2,
-            "addDays": 3
-          },
-          "text": "No room in your 2 days; 3 more days fit it"
-        }
-      ]
-    },
-    {
-      "ref": "place/long-visit-2",
-      "code": "TB_TIME",
-      "fix": {
-        "kind": "add_days",
-        "days": 1
-      },
-      "reasons": [
-        {
-          "code": "no_room",
-          "values": {
-            "days": 2,
-            "addDays": 1
-          },
-          "text": "No room in your 2 days; 1 more day fits it"
-        }
-      ]
-    },
-    {
-      "ref": "place/long-visit-3",
-      "code": "TB_TIME",
-      "fix": {
-        "kind": "add_days",
-        "days": 1
-      },
-      "reasons": [
-        {
-          "code": "no_room",
-          "values": {
-            "days": 2,
-            "addDays": 1
-          },
-          "text": "No room in your 2 days; 1 more day fits it"
-        }
-      ]
-    },
-    {
-      "ref": "place/long-visit-5",
-      "code": "TB_TIME",
-      "fix": {
-        "kind": "add_days",
-        "days": 2
-      },
-      "reasons": [
-        {
-          "code": "no_room",
-          "values": {
-            "days": 2,
-            "addDays": 2
-          },
-          "text": "No room in your 2 days; 2 more days fit it"
-        }
-      ]
-    },
-    {
-      "ref": "place/long-visit-6",
-      "code": "TB_TIME",
-      "fix": {
-        "kind": "add_days",
-        "days": 1
-      },
-      "reasons": [
-        {
-          "code": "no_room",
-          "values": {
-            "days": 2,
-            "addDays": 1
-          },
-          "text": "No room in your 2 days; 1 more day fits it"
-        }
-      ]
-    },
-    {
-      "ref": "place/long-visit-7",
-      "code": "TB_TIME",
-      "fix": {
-        "kind": "add_days",
-        "days": 3
-      },
-      "reasons": [
-        {
-          "code": "no_room",
-          "values": {
-            "days": 2,
-            "addDays": 3
-          },
-          "text": "No room in your 2 days; 3 more days fit it"
-        }
-      ]
-    },
     {
       "ref": "place/parliament-hill",
       "code": "TB_TOO_FAR",
@@ -228,9 +215,10 @@
           "code": "too_far",
           "values": {
             "min": 329,
-            "radiusMin": 120
+            "radiusMin": 120,
+            "dayDriveMin": 240
           },
-          "text": "Too far from your base: 5 h 29 ≈ from Huntsville, over your 2 h each way"
+          "text": "Too far from your base: 5 h 29 ≈ from Huntsville, over the 2 h each way your 4 h of driving a day allows"
         }
       ]
     }

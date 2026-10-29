@@ -157,7 +157,7 @@ describe("K = 1 or several", () => {
     expect(out.days.find((d) => d.day === lastOtt)!.items.find((i) => i.ref === "place/dorset-tower")).toMatchObject({ locked: true });
     expect(missOf(out, "place/dorset-tower")).toBeUndefined();
   });
-  it("Add N days is confirmed: a rebuild with those nights places the stop", () => {
+  it("Add N days is confirmed for musts over the pace (RB-005): kept on a day, and a rebuild with those nights gives them room", () => {
     const busy = [...TWO, "place/ragged-falls", "route/lake-of-two-rivers-trail"].map((r) => ({ ref: r, must: true }));
     const b = mkBuild(busy, {
       ...tripMode,
@@ -168,10 +168,16 @@ describe("K = 1 or several", () => {
       ],
     });
     const out = buildPlan(mkInput(b, { places: PLACES, towns: TOWNS }));
-    const m = out.didNotFit.find((x) => x.code === "TB_TIME" && x.fix?.kind === "add_days");
-    expect(m, JSON.stringify(out.didNotFit.map((x) => [x.ref, x.code, x.fix]))).toBeDefined();
-    const more = buildPlan(mkInput({ ...b, nights: b.nights + m!.fix!.days! }, { places: PLACES, towns: TOWNS }));
-    expect(placed(more)).toContain(m!.ref);
+    expect(out.didNotFit.filter((x) => x.code === "TB_TIME")).toEqual([]); // a must is never dropped
+    for (const r of busy) expect(placed(out)).toContain(r.ref);
+    const over = out.days.flatMap((d) => d.reasons).filter((r) => r.code === "over_pace");
+    expect(over.length, JSON.stringify(out.days.map((d) => d.reasons))).toBeGreaterThan(0);
+    // each over day names the days that give its musts room; the largest gives every one room
+    const k = Math.max(...over.map((r) => Number(r.values.addDays)));
+    expect(k).toBeGreaterThanOrEqual(1);
+    const more = buildPlan(mkInput({ ...b, nights: b.nights + k }, { places: PLACES, towns: TOWNS }));
+    for (const r of busy) expect(placed(more)).toContain(r.ref);
+    expect(more.days.flatMap((d) => d.reasons).filter((r) => r.code === "over_pace")).toEqual([]);
   });
   it("near mode with two bases starts and ends at the start; the first base says how far it is from it", () => {
     const b = mkBuild(TWO, { nights: 4, bases: [{ town: "ca-on-huntsville", nights: 2, pinned: true }, { town: "ca-on-ottawa", nights: 2, pinned: true }] });

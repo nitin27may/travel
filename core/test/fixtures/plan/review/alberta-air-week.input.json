@@ -1,0 +1,466 @@
+{
+ "name": "alberta-air-week",
+ "build": {
+  "bases": [],
+  "edits": [],
+  "party": {
+   "adults": 2,
+   "children": [
+    7
+   ],
+   "walkKm": null
+  },
+  "where": {
+   "mode": "trip",
+   "cc": "CA",
+   "regions": [
+    "CA/alberta"
+   ]
+  },
+  "nights": 7,
+  "pace": "standard",
+  "moves": "fewer",
+  "month": 7,
+  "origin": {
+   "kind": "airport",
+   "iata": "YYC"
+  },
+  "picks": [
+   {
+    "ref": "place/banff-national-park",
+    "must": false
+   },
+   {
+    "ref": "place/jasper-national-park",
+    "must": false
+   },
+   {
+    "ref": "part/legacy/canadian-rockies-2029/sights/johnston-canyon#walk",
+    "must": false
+   },
+   {
+    "ref": "place/lake-louise",
+    "must": false
+   },
+   {
+    "ref": "legacy/canadian-rockies-2029/sights/moraine-lake",
+    "must": false
+   },
+   {
+    "ref": "place/maligne-lake",
+    "must": false
+   },
+   {
+    "ref": "place/athabasca-glacier",
+    "must": false
+   }
+  ]
+ },
+ "start": null,
+ "gateway": {
+  "lat": 51.11882,
+  "lon": -114.00993,
+  "cc": "CA"
+ },
+ "tz": "America/Edmonton",
+ "towns": [
+  {
+   "id": "ca-ab-cochrane",
+   "name": "Cochrane",
+   "point": {
+    "lat": 51.18341,
+    "lon": -114.46871,
+    "cc": "CA",
+    "population": 32199
+   },
+   "population": 32199,
+   "lodging": null
+  },
+  {
+   "id": "ca-ab-canmore",
+   "name": "Canmore",
+   "point": {
+    "lat": 51.08335,
+    "lon": -115.35206,
+    "cc": "CA",
+    "population": 13992
+   },
+   "population": 13992,
+   "lodging": null
+  },
+  {
+   "id": "ca-ab-hinton",
+   "name": "Hinton",
+   "point": {
+    "lat": 53.40009,
+    "lon": -117.58567,
+    "cc": "CA",
+    "population": 9889
+   },
+   "population": 9889,
+   "lodging": null
+  },
+  {
+   "id": "ca-ab-banff",
+   "name": "Banff",
+   "point": {
+    "lat": 51.17622,
+    "lon": -115.56982,
+    "cc": "CA",
+    "population": 8305
+   },
+   "population": 8305,
+   "lodging": null
+  },
+  {
+   "id": "ca-ab-bearspaw",
+   "name": "Bearspaw",
+   "point": {
+    "lat": 51.13341,
+    "lon": -114.302,
+    "cc": "CA",
+    "population": 5567
+   },
+   "population": 5567,
+   "lodging": null
+  },
+  {
+   "id": "ca-bc-golden",
+   "name": "Golden",
+   "point": {
+    "lat": 51.29995,
+    "lon": -116.9689,
+    "cc": "CA",
+    "population": 4038
+   },
+   "population": 4038,
+   "lodging": null
+  },
+  {
+   "id": "ca-ab-jasper",
+   "name": "Jasper",
+   "point": {
+    "lat": 52.87946,
+    "lon": -118.08041,
+    "cc": "CA",
+    "population": 3948
+   },
+   "population": 3948,
+   "lodging": null
+  },
+  {
+   "id": "ca-ab-jasper-park-lodge",
+   "name": "Jasper Park Lodge",
+   "point": {
+    "lat": 52.88633,
+    "lon": -118.05625,
+    "cc": "CA",
+    "population": 3907
+   },
+   "population": 3907,
+   "lodging": null
+  },
+  {
+   "id": "ca-bc-invermere",
+   "name": "Invermere",
+   "point": {
+    "lat": 50.51666,
+    "lon": -116.03538,
+    "cc": "CA",
+    "population": 3391
+   },
+   "population": 3391,
+   "lodging": null
+  },
+  {
+   "id": "ca-ab-sundre",
+   "name": "Sundre",
+   "point": {
+    "lat": 51.8001,
+    "lon": -114.63532,
+    "cc": "CA",
+    "population": 2672
+   },
+   "population": 2672,
+   "lodging": null
+  },
+  {
+   "id": "ca-bc-radium-hot-springs",
+   "name": "Radium Hot Springs",
+   "point": {
+    "lat": 50.61667,
+    "lon": -116.06878,
+    "cc": "CA",
+    "population": 1339
+   },
+   "population": 1339,
+   "lodging": null
+  },
+  {
+   "id": "ca-bc-valemount",
+   "name": "Valemount",
+   "point": {
+    "lat": 52.83329,
+    "lon": -119.2525,
+    "cc": "CA",
+    "population": 1052
+   },
+   "population": 1052,
+   "lodging": null
+  }
+ ],
+ "places": [
+  {
+   "ref": "place/banff-national-park",
+   "slug": "banff-national-park",
+   "name": "Banff National Park",
+   "kind": "area",
+   "type": "nature.protected.national_park",
+   "tags": [],
+   "point": {
+    "lat": 51.16667,
+    "lon": -115.55,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [],
+   "draw": "journey",
+   "complete": true,
+   "suitability": null,
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/jasper-national-park",
+   "slug": "jasper-national-park",
+   "name": "Jasper National Park",
+   "kind": "area",
+   "type": "nature.protected.national_park",
+   "tags": [],
+   "point": {
+    "lat": 52.8,
+    "lon": -117.9,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [],
+   "draw": "journey",
+   "complete": true,
+   "suitability": null,
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-2029/sights/johnston-canyon#walk",
+   "slug": "johnston-canyon-walk",
+   "name": "Johnston Canyon walk",
+   "kind": "trail",
+   "type": "nature.trail.walk",
+   "tags": [],
+   "point": {
+    "lat": 51.25001,
+    "lon": -115.83543,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [],
+   "draw": "journey",
+   "complete": false,
+   "suitability": null,
+   "visitMin": 90,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": true
+  },
+  {
+   "ref": "place/lake-louise",
+   "slug": "lake-louise",
+   "name": "Lake Louise",
+   "kind": "lake",
+   "type": "water.body.lake",
+   "tags": [
+    "family",
+    "iconic"
+   ],
+   "point": {
+    "lat": 51.41167,
+    "lon": -116.22806,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [
+    6,
+    7,
+    8,
+    9
+   ],
+   "draw": "journey",
+   "complete": true,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "legacy/canadian-rockies-2029/sights/moraine-lake",
+   "slug": "moraine-lake",
+   "name": "Moraine Lake",
+   "kind": "lake",
+   "type": "water.body.lake",
+   "tags": [],
+   "point": {
+    "lat": 51.3225,
+    "lon": -116.18556,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [],
+   "draw": "journey",
+   "complete": false,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/maligne-lake",
+   "slug": "maligne-lake",
+   "name": "Maligne Lake",
+   "kind": "lake",
+   "type": "water.body.lake",
+   "tags": [],
+   "point": {
+    "lat": 52.66444,
+    "lon": -117.53361,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [],
+   "draw": "journey",
+   "complete": true,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/athabasca-glacier",
+   "slug": "athabasca-glacier",
+   "name": "Athabasca Glacier",
+   "kind": "sight",
+   "type": "nature.landform.glacier_view",
+   "tags": [],
+   "point": {
+    "lat": 52.19083,
+    "lon": -117.25528,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [],
+   "draw": "journey",
+   "complete": true,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  }
+ ]
+}

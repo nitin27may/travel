@@ -1,0 +1,473 @@
+{
+ "name": "weekend-all-musts",
+ "build": {
+  "bases": [],
+  "edits": [],
+  "party": {
+   "adults": 2,
+   "children": [
+    7
+   ],
+   "walkKm": null
+  },
+  "where": {
+   "mode": "near",
+   "start": {
+    "kind": "hub",
+    "id": "calgary"
+   },
+   "driveLimitMin": 180
+  },
+  "nights": 1,
+  "pace": "standard",
+  "moves": "fewer",
+  "month": 7,
+  "origin": null,
+  "picks": [
+   {
+    "ref": "legacy/canadian-rockies-2029/adventures/lake-louise-gondola",
+    "must": true
+   },
+   {
+    "ref": "legacy/canadian-rockies-2029/trails/larch-valley-sentinel-pass",
+    "must": true
+   },
+   {
+    "ref": "legacy/canadian-rockies-2029/trails/sunshine-meadows-citadel-pass",
+    "must": true
+   },
+   {
+    "ref": "legacy/canadian-rockies-2029/adventures/banff-gondola",
+    "must": true
+   },
+   {
+    "ref": "legacy/canadian-rockies-2029/sights/johnston-canyon",
+    "must": true
+   },
+   {
+    "ref": "place/lake-louise",
+    "must": true
+   },
+   {
+    "ref": "legacy/canadian-rockies-2029/sights/moraine-lake",
+    "must": true
+   }
+  ]
+ },
+ "start": {
+  "lat": 51.0475,
+  "lon": -114.0625,
+  "cc": "CA"
+ },
+ "gateway": null,
+ "tz": "America/Edmonton",
+ "towns": [
+  {
+   "id": "ca-ab-cochrane",
+   "name": "Cochrane",
+   "point": {
+    "lat": 51.18341,
+    "lon": -114.46871,
+    "cc": "CA",
+    "population": 32199
+   },
+   "population": 32199,
+   "lodging": null
+  },
+  {
+   "id": "ca-ab-canmore",
+   "name": "Canmore",
+   "point": {
+    "lat": 51.08335,
+    "lon": -115.35206,
+    "cc": "CA",
+    "population": 13992
+   },
+   "population": 13992,
+   "lodging": null
+  },
+  {
+   "id": "ca-ab-banff",
+   "name": "Banff",
+   "point": {
+    "lat": 51.17622,
+    "lon": -115.56982,
+    "cc": "CA",
+    "population": 8305
+   },
+   "population": 8305,
+   "lodging": null
+  },
+  {
+   "id": "ca-ab-bearspaw",
+   "name": "Bearspaw",
+   "point": {
+    "lat": 51.13341,
+    "lon": -114.302,
+    "cc": "CA",
+    "population": 5567
+   },
+   "population": 5567,
+   "lodging": null
+  },
+  {
+   "id": "ca-bc-golden",
+   "name": "Golden",
+   "point": {
+    "lat": 51.29995,
+    "lon": -116.9689,
+    "cc": "CA",
+    "population": 4038
+   },
+   "population": 4038,
+   "lodging": null
+  },
+  {
+   "id": "ca-bc-invermere",
+   "name": "Invermere",
+   "point": {
+    "lat": 50.51666,
+    "lon": -116.03538,
+    "cc": "CA",
+    "population": 3391
+   },
+   "population": 3391,
+   "lodging": null
+  },
+  {
+   "id": "ca-ab-sundre",
+   "name": "Sundre",
+   "point": {
+    "lat": 51.8001,
+    "lon": -114.63532,
+    "cc": "CA",
+    "population": 2672
+   },
+   "population": 2672,
+   "lodging": null
+  },
+  {
+   "id": "ca-bc-radium-hot-springs",
+   "name": "Radium Hot Springs",
+   "point": {
+    "lat": 50.61667,
+    "lon": -116.06878,
+    "cc": "CA",
+    "population": 1339
+   },
+   "population": 1339,
+   "lodging": null
+  }
+ ],
+ "places": [
+  {
+   "ref": "legacy/canadian-rockies-2029/trails/larch-valley-sentinel-pass",
+   "slug": "larch-valley-to-sentinel-pass",
+   "name": "Larch Valley to Sentinel Pass",
+   "kind": "trail",
+   "type": "nature.trail.hike",
+   "tags": [],
+   "point": {
+    "lat": 51.328143,
+    "lon": -116.181548,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [],
+   "draw": "journey",
+   "complete": false,
+   "suitability": {
+    "minAge": 10,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": 240,
+   "visitRange": null,
+   "distanceKm": 11.2,
+   "gainM": 750,
+   "needsDaylight": true
+  },
+  {
+   "ref": "legacy/canadian-rockies-2029/trails/sunshine-meadows-citadel-pass",
+   "slug": "sunshine-meadows-to-citadel-pass",
+   "name": "Sunshine Meadows to Citadel Pass",
+   "kind": "trail",
+   "type": "nature.trail.hike",
+   "tags": [],
+   "point": {
+    "lat": 51.11493,
+    "lon": -115.76374,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [],
+   "draw": "detour",
+   "complete": false,
+   "suitability": {
+    "minAge": 10,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": 240,
+   "visitRange": null,
+   "distanceKm": 10.2,
+   "gainM": 580,
+   "needsDaylight": true
+  },
+  {
+   "ref": "legacy/canadian-rockies-2029/adventures/lake-louise-gondola",
+   "slug": "lake-louise-summer-gondola",
+   "name": "Lake Louise Summer Gondola",
+   "kind": "lift",
+   "type": "ride.lift.gondola",
+   "tags": [],
+   "point": {
+    "lat": 51.44214,
+    "lon": -116.16119,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [],
+   "draw": null,
+   "complete": false,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "legacy/canadian-rockies-2029/adventures/banff-gondola",
+   "slug": "banff-gondola",
+   "name": "Banff Gondola",
+   "kind": "lift",
+   "type": "ride.lift.gondola",
+   "tags": [],
+   "point": {
+    "lat": 51.14785,
+    "lon": -115.55562,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [],
+   "draw": "detour",
+   "complete": false,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "legacy/canadian-rockies-2029/sights/johnston-canyon",
+   "slug": "johnston-canyon",
+   "name": "Johnston Canyon",
+   "kind": "waterfall",
+   "type": "nature.landform.canyon",
+   "tags": [],
+   "point": {
+    "lat": 51.25001,
+    "lon": -115.83543,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [],
+   "draw": "journey",
+   "complete": false,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "place/lake-louise",
+   "slug": "lake-louise",
+   "name": "Lake Louise",
+   "kind": "lake",
+   "type": "water.body.lake",
+   "tags": [
+    "family",
+    "iconic"
+   ],
+   "point": {
+    "lat": 51.41167,
+    "lon": -116.22806,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [
+    6,
+    7,
+    8,
+    9
+   ],
+   "draw": "journey",
+   "complete": true,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  },
+  {
+   "ref": "legacy/canadian-rockies-2029/sights/moraine-lake",
+   "slug": "moraine-lake",
+   "name": "Moraine Lake",
+   "kind": "lake",
+   "type": "water.body.lake",
+   "tags": [],
+   "point": {
+    "lat": 51.3225,
+    "lon": -116.18556,
+    "cc": "CA"
+   },
+   "region": "alberta",
+   "country": "CA",
+   "season": [],
+   "draw": "journey",
+   "complete": false,
+   "suitability": {
+    "minAge": 0,
+    "maxAge": null,
+    "minHeightCm": null,
+    "maxHeightCm": null,
+    "minWeightKg": null,
+    "maxWeightKg": null,
+    "rule": "advice",
+    "stroller": null,
+    "wheelchair": null,
+    "carrierOk": null,
+    "familyEffort": null,
+    "sourceGrade": null,
+    "childTime": null,
+    "adultTime": null,
+    "distanceKm": null,
+    "gainM": null,
+    "lossM": null,
+    "provenance": "row"
+   },
+   "visitMin": null,
+   "visitRange": null,
+   "distanceKm": null,
+   "gainM": null,
+   "needsDaylight": false
+  }
+ ]
+}

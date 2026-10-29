@@ -2,7 +2,8 @@
 // integer parts, so ties are exact; the caller sorts by total, then name, then ref.
 //
 //   draw      the relevance badge: worth the journey 40, worth a detour 25, local 10, unknown 15
-//   fit       the party against the suitability block: pass 30, unknown 10, fail removes the row ("Not for your party")
+//   fit       the party against the suitability block and, for a trail, the walk ceiling at the youngest's age: pass 30, unknown 10,
+//             fail 0; a failed RULE removes the row ("Not for your party"), failed advice ("Long for age 7: 11.2 km") keeps it with `why`
 //   season    the month against the season months: in 20, shoulder 8, unknown 8, closed removes the row ("Closed in July")
 //   theme     each matched interest 10, at most 20
 //   distance  the one-way drive from the centre: under 30 min 10, under 60 6, under 120 3
@@ -12,6 +13,7 @@
 // packer reads `fit` and `seasonState` and puts a failed pick in Did not fit with its reason (4.7).
 import { BUILDER_SCORE } from "../config/builder.ts";
 import { suitsProfile } from "../schedule/suitability.ts";
+import { walkCeiling } from "../schedule/rules.ts";
 import type { Pace, Profile } from "../schedule/types.ts";
 import type { PlanParty, PlanScore } from "../schema/api/plan.ts";
 import type { EnginePlace } from "./engineTypes.ts";
@@ -34,16 +36,38 @@ export function profileOfBand(band: string | undefined, pace: Pace = "standard")
   return { party: youngest === null ? "adults" : "family", youngest, pace, adults: 2, walkKm: null, split: false };
 }
 
-/** Whether a place suits the party, and why not in words with numbers. An adults party has no limit to check. */
-export function fitOf(place: Pick<EnginePlace, "suitability">, p: Profile): { state: FitState; why: string | null; basis: "rule" | "advice" | null } {
+/**
+ * The walk ceiling a trail fails for the party (review TB-R1 RB-012: "Fits 7" on an 11 km trail): its length or its climb over what we
+ * plan at the youngest's age (core/src/schedule/rules.ts `walkCeiling`, the same caps the day check W_CEILING reads), in words.
+ */
+function ceilingWhy(place: Partial<Pick<EnginePlace, "kind" | "distanceKm" | "gainM">>, p: Profile): string | null {
+  if (place.kind !== "trail" || p.youngest === null) return null;
+  const c = walkCeiling(p);
+  if (c.km !== null && place.distanceKm != null && place.distanceKm > c.km) return `Long for age ${p.youngest}: ${place.distanceKm} km; we plan walks up to ${c.km} km`;
+  if (c.gainM !== null && place.gainM != null && place.gainM > c.gainM) return `Steep for age ${p.youngest}: ${place.gainM} m of climb; we plan up to ${c.gainM} m`;
+  return null;
+}
+
+/**
+ * Whether a place suits the party, and why not in words with numbers. An adults party has no limit to check. A rule the party fails
+ * (an operator's age limit) is `fail` by `rule`; a trail over our walk ceiling for the youngest is `fail` by `advice` (it stays a
+ * candidate and a stop, the day check says so), never "Fits" (RB-012).
+ */
+export function fitOf(place: Pick<EnginePlace, "suitability"> & Partial<Pick<EnginePlace, "kind" | "distanceKm" | "gainM">>, p: Profile): { state: FitState; why: string | null; basis: "rule" | "advice" | null } {
   if (p.party !== "family" || p.youngest === null) return { state: "pass", why: null, basis: null };
   const s = place.suitability;
   const known = s !== null && (s.minAge !== null || s.maxAge !== null || s.rule !== null || s.stroller !== null || s.familyEffort !== null);
-  if (!s || !known) return { state: "unknown", why: null, basis: null };
-  const r = suitsProfile(s, p);
+  const r = s && known ? suitsProfile(s, p) : null;
+  if (s && r && !r.fits) {
+    const why = s.minAge !== null && p.youngest < s.minAge ? `Needs age ${s.minAge}; youngest is ${p.youngest}` : r.reason;
+    if (s.rule !== "advice") return { state: "fail", why, basis: "rule" };
+  }
+  const long = ceilingWhy(place, p);
+  if (long) return { state: "fail", why: long, basis: "advice" };
+  if (!r) return { state: "unknown", why: null, basis: null };
   if (r.fits) return { state: "pass", why: null, basis: null };
-  const why = s.minAge !== null && p.youngest < s.minAge ? `Needs age ${s.minAge}; youngest is ${p.youngest}` : r.reason;
-  return { state: "fail", why, basis: s.rule === "advice" ? "advice" : "rule" };
+  const why = s!.minAge !== null && p.youngest < s!.minAge ? `Needs age ${s!.minAge}; youngest is ${p.youngest}` : r.reason;
+  return { state: "fail", why, basis: "advice" };
 }
 
 /** The month against the season months: in, shoulder (a month next to a season month), unknown (no month or no season), closed. */
@@ -104,8 +128,9 @@ export function scorePlace(place: EnginePlace, ctx: ScoreContext): Scored {
     quality: place.complete ? BUILDER_SCORE.quality : 0,
   };
   const total = parts.draw + parts.fit + parts.season + parts.theme + parts.distance + parts.quality;
-  const list = season.state === "closed" ? "closed" : fit.state === "fail" ? "not_for_party" : "main";
-  const why = list === "closed" ? season.why : list === "not_for_party" ? fit.why : null;
+  // a rule the party fails takes the row off the main list; our advice (a walk over the age's ceiling) keeps it there, with its words
+  const list = season.state === "closed" ? "closed" : fit.state === "fail" && fit.basis !== "advice" ? "not_for_party" : "main";
+  const why = list === "closed" ? season.why : list === "not_for_party" || fit.state === "fail" ? fit.why : null;
   return { score: { ...parts, total }, fit: fit.state, fitBasis: fit.basis, seasonState: season.state, why, list };
 }
 

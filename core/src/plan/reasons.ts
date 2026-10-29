@@ -45,15 +45,37 @@ export function dayPair(a: string, b: string, apartMin: number, estimated: boole
 }
 export const dayKept = (n: number): PlanReason => reason("kept_items", { n }, `${n} ${n === 1 ? "place stays" : "places stay"} where you put ${n === 1 ? "it" : "them"}`);
 export const dayOrder = (stops: number): PlanReason => reason("shortest_order", { stops }, "Shortest drive order");
+/** Musts placed over the day's pace (RB-005: a must-see is never dropped): how many, and the days that would fit them. */
+export function dayOverPace(n: number, addDays: number | null, tried: number): PlanReason {
+  const what = `${n} ${n === 1 ? "must-see" : "must-sees"}`;
+  return addDays === null
+    ? reason("over_pace", { n, tried }, `Over your pace: ${what} kept on this day; even ${tried} more days would not give ${n === 1 ? "it" : "them"} room`)
+    : reason("over_pace", { n, addDays }, `Over your pace: ${what} kept on this day; ${addDays} more ${addDays === 1 ? "day gives" : "days give"} ${n === 1 ? "it" : "them"} room`);
+}
+/** Day 1 of a trip that flies in (RB-016): the drive from the airport to the base. */
+export function dayArrive(airport: string | null, town: string, min: number, estimated: boolean): PlanReason {
+  return reason("arrive", { min, ...(airport ? { airport } : {}) }, `Fly into ${airport ?? "the airport"}, then ${fmtMinutes(min)}${approx(estimated)} to ${town}`);
+}
+/** The last day of a trip that flies home (RB-016): the drive from the base to the airport. */
+export function dayDepart(airport: string | null, town: string, min: number, estimated: boolean): PlanReason {
+  return reason("depart", { min, ...(airport ? { airport } : {}) }, `${fmtMinutes(min)}${approx(estimated)} from ${town} to ${airport ?? "the airport"}, then fly home`);
+}
 
 // ---- did not fit (4.7) --------------------------------------------------------------------------------------------------------------
 
-export function missTooFar(min: number | null, baseName: string | null, radiusMin: number, estimated: boolean): PlanReason {
+/**
+ * The reach a pick is beyond, in the person's own words: the 2 h each way the 4 h of driving on a day out allows (TF7; review TB-R1
+ * section 7: "your 2 h" was a number the person never set); a day trip's reach is the one-way limit the person chose.
+ */
+const reachWords = (radiusMin: number, dayDriveMin: number | null): string =>
+  dayDriveMin === null ? `over your ${fmtMinutes(radiusMin)} each way` : `over the ${fmtMinutes(radiusMin)} each way your ${fmtMinutes(dayDriveMin)} of driving a day allows`;
+
+export function missTooFar(min: number | null, baseName: string | null, radiusMin: number, estimated: boolean, dayDriveMin: number | null = null): PlanReason {
   if (min === null) return reason("no_road", { radiusMin }, "No road we know of reaches it from your base");
   return reason(
     "too_far",
-    { min, radiusMin },
-    `Too far from your ${baseName ? "base" : "start"}: ${fmtMinutes(min)}${approx(estimated)} from ${baseName ?? "your start"}, over your ${fmtMinutes(radiusMin)} each way`,
+    { min, radiusMin, ...(dayDriveMin === null ? {} : { dayDriveMin }) },
+    `Too far from your ${baseName ? "base" : "start"}: ${fmtMinutes(min)}${approx(estimated)} from ${baseName ?? "your start"}, ${reachWords(radiusMin, dayDriveMin)}`,
   );
 }
 export const missClosed = (why: string, month: number): PlanReason => reason("closed", { month }, why);
@@ -80,14 +102,21 @@ export const baseNoNights = (name: string, nights: number): PlanReason =>
 /** Picks beyond the reach of every base, counted on the base nearest to them. */
 export const baseOutOfReach = (n: number, radiusMin: number): PlanReason =>
   reason("out_of_reach", { n, radiusMin }, `${n} of your ${n === 1 ? "picks is" : "picks are"} beyond the day-trip reach of every base; this one is the nearest`);
-export function missTooFarBases(min: number | null, nearest: string | null, radiusMin: number, estimated: boolean): PlanReason {
+export function missTooFarBases(min: number | null, nearest: string | null, radiusMin: number, estimated: boolean, dayDriveMin: number | null = null): PlanReason {
   if (min === null || nearest === null) return reason("no_road", { radiusMin }, "No road we know of reaches it from your bases");
   return reason(
     "too_far",
-    { min, radiusMin },
-    `Too far from your bases: ${fmtMinutes(min)}${approx(estimated)} from ${nearest}, the nearest, over your ${fmtMinutes(radiusMin)} each way`,
+    { min, radiusMin, ...(dayDriveMin === null ? {} : { dayDriveMin }) },
+    `Too far from your bases: ${fmtMinutes(min)}${approx(estimated)} from ${nearest}, the nearest, ${reachWords(radiusMin, dayDriveMin)}`,
   );
 }
+/** A base the plan added itself for a cluster of picks: how many are nearest to it, and the round trips it saves in all (RB-002). */
+export function baseAddedSaves(n: number, savedMin: number, estimated: boolean): PlanReason {
+  return reason("added_base_saves", { n, savedMin }, `Added: ${n} of your picks are nearer to it, ${fmtMinutes(savedMin)}${approx(estimated)} less driving in all`);
+}
+/** A base the plan added itself ("let the plan choose", RB-002): the far picks it brings within reach. */
+export const baseAdded = (n: number, from: string): PlanReason =>
+  reason("added_base", { n, fromBase: from }, `Added for ${n} of your picks beyond a day out from ${from}`);
 /** "Move from Banff to Jasper: 3 h 10 ≈ of driving" */
 export function dayMove(from: string, to: string, min: number, estimated: boolean): PlanReason {
   return reason("move_day", { fromBase: from, toBase: to, min }, `Move from ${from} to ${to}: ${fmtMinutes(min)}${approx(estimated)} of driving`);

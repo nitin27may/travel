@@ -267,15 +267,27 @@ describe("properties over 60 generated plans", () => {
         }
         if (d.returnMin !== null) expect(d.returnMin).toBeGreaterThanOrEqual(0);
       }
-      // a day the engine packed itself (nothing kept on it) stays within the day's cap
+      // a day the engine packed itself (nothing kept on it, no must over the pace) stays within the day's cap
       const keptDays = new Set(c.build.edits.map((e) => e.day));
       const cap = dayCapMin(profile);
       for (const d of out.days) {
         if (keptDays.has(d.day) || (c.build.where.mode === "near" && c.build.nights === 0)) continue;
+        if (d.reasons.some((r) => r.code === "over_pace")) {
+          expect(d.warnings).toContain("W_PACE"); // RB-005: a must kept over the pace is a Check on its day
+          continue;
+        }
         const load = d.items.reduce((n, i) => n + i.visitMin + (i.driveMin ?? 0), 0) + (d.returnMin ?? 0);
         // the packer holds visits and the driving beyond the way in or out within the cap; the way in or out itself is the trip's
         const edge = d.day === 1 || d.day === c.build.nights + 1 ? 2 * 480 : 0;
         expect(load).toBeLessThanOrEqual(cap + edge);
+      }
+      // a must is never left out without a fix (RB-005): placed, or Did not fit with the one fix its code allows
+      for (const p of c.build.picks.filter((x) => x.must)) {
+        const m = out.didNotFit.find((x) => x.ref === p.ref);
+        if (m) {
+          expect(m.code).not.toBe("TB_TIME");
+          expect(m.fix).not.toBeNull();
+        }
       }
       // locked stops keep their day
       for (const e of c.build.edits) for (const r of e.locked) if (onDays.includes(r)) expect(out.days.find((d) => d.day === e.day)!.items.map((i) => i.ref)).toContain(r);

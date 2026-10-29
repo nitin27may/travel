@@ -133,6 +133,9 @@ export interface DriveExplanation {
   /** the profile rows used (`CA-AB`, `IT`), or null when the country has none */
   profiles: string[] | null;
   ruralKmh: number;
+  /** the share of the leg read as motorway (0 to 1; RB-008) and the limit the speed starts from: rural plus that share of the gap */
+  motorwayShare: number;
+  limitKmh: number;
   detour: number;
   realisation: number;
   /** calibration factors applied (1 when the cell is uncalibrated) */

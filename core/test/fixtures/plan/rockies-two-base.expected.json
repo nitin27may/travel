@@ -1,5 +1,5 @@
 {
-  "engine": "tb-e2.0",
+  "engine": "tb-e2.1",
   "basis": "estimate",
   "bases": [
     {
@@ -7,7 +7,7 @@
       "name": "Banff",
       "nights": 3,
       "pinned": true,
-      "picks": 5,
+      "picks": 6,
       "reasons": [
         {
           "code": "base_share",
@@ -85,6 +85,14 @@
       "warnings": [],
       "reasons": [
         {
+          "code": "arrive",
+          "values": {
+            "min": 135,
+            "airport": "YYC"
+          },
+          "text": "Fly into YYC, then 2 h 15 ≈ to Banff"
+        },
+        {
           "code": "day_drive",
           "values": {
             "driveMin": 181
@@ -99,12 +107,22 @@
       "move": false,
       "items": [
         {
+          "ref": "place/lake-louise",
+          "slug": "lake-louise",
+          "name": "Lake Louise",
+          "startMin": 550,
+          "visitMin": 120,
+          "driveMin": 69,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
           "ref": "place/moraine-lake",
           "slug": "moraine-lake",
           "name": "Moraine Lake",
-          "startMin": 545,
+          "startMin": 735,
           "visitMin": 90,
-          "driveMin": 62,
+          "driveMin": 25,
           "basis": "estimate",
           "locked": false
         },
@@ -112,7 +130,7 @@
           "ref": "place/banff-gondola",
           "slug": "banff-gondola",
           "name": "Banff Gondola",
-          "startMin": 740,
+          "startMin": 890,
           "visitMin": 120,
           "driveMin": 63,
           "basis": "estimate",
@@ -125,18 +143,18 @@
         {
           "code": "close_pair",
           "values": {
-            "a": "Moraine Lake",
-            "b": "Banff Gondola",
-            "apartMin": 63
+            "a": "Lake Louise",
+            "b": "Moraine Lake",
+            "apartMin": 25
           },
-          "text": "Moraine Lake and Banff Gondola are 1 h 03 ≈ apart"
+          "text": "Lake Louise and Moraine Lake are 25 min ≈ apart"
         },
         {
           "code": "day_drive",
           "values": {
-            "driveMin": 137
+            "driveMin": 169
           },
-          "text": "2 h 17 ≈ of driving"
+          "text": "2 h 49 ≈ of driving"
         }
       ]
     },
@@ -146,44 +164,44 @@
       "move": false,
       "items": [
         {
-          "ref": "place/peyto-lake",
-          "slug": "peyto-lake",
-          "name": "Peyto Lake",
-          "startMin": 610,
-          "visitMin": 45,
-          "driveMin": 112,
+          "ref": "route/johnston-canyon",
+          "slug": "johnston-canyon",
+          "name": "Johnston Canyon",
+          "startMin": 525,
+          "visitMin": 205,
+          "driveMin": 45,
           "basis": "estimate",
           "locked": false
         },
         {
-          "ref": "place/lake-louise",
-          "slug": "lake-louise",
-          "name": "Lake Louise",
-          "startMin": 755,
-          "visitMin": 120,
-          "driveMin": 56,
+          "ref": "place/peyto-lake",
+          "slug": "peyto-lake",
+          "name": "Peyto Lake",
+          "startMin": 880,
+          "visitMin": 45,
+          "driveMin": 91,
           "basis": "estimate",
           "locked": false
         }
       ],
-      "returnMin": 69,
+      "returnMin": 112,
       "warnings": [],
       "reasons": [
         {
           "code": "close_pair",
           "values": {
-            "a": "Peyto Lake",
-            "b": "Lake Louise",
-            "apartMin": 56
+            "a": "Johnston Canyon",
+            "b": "Peyto Lake",
+            "apartMin": 91
           },
-          "text": "Peyto Lake and Lake Louise are 56 min ≈ apart"
+          "text": "Johnston Canyon and Peyto Lake are 1 h 31 ≈ apart"
         },
         {
           "code": "day_drive",
           "values": {
-            "driveMin": 237
+            "driveMin": 248
           },
-          "text": "3 h 57 ≈ of driving"
+          "text": "4 h 08 ≈ of driving"
         }
       ]
     },
@@ -191,8 +209,19 @@
       "day": 4,
       "base": "ca-ab-jasper",
       "move": true,
-      "items": [],
-      "returnMin": 305,
+      "items": [
+        {
+          "ref": "place/maligne-lake",
+          "slug": "maligne-lake",
+          "name": "Maligne Lake",
+          "startMin": 805,
+          "visitMin": 150,
+          "driveMin": 267,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 51,
       "warnings": [
         "W_DRIVE_LIMIT"
       ],
@@ -213,11 +242,65 @@
             "limitMin": 240
           },
           "text": "The move is 5 h 05 ≈, over your 4 h of driving a day: break the drive"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 318
+          },
+          "text": "5 h 18 ≈ of driving"
         }
       ]
     },
     {
       "day": 5,
+      "base": "ca-ab-jasper",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/jasper-skytram",
+          "slug": "jasper-skytram",
+          "name": "Jasper Skytram",
+          "startMin": 495,
+          "visitMin": 120,
+          "driveMin": 15,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/athabasca-falls",
+          "slug": "athabasca-falls",
+          "name": "Athabasca Falls",
+          "startMin": 655,
+          "visitMin": 45,
+          "driveMin": 39,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 43,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Jasper Skytram",
+            "b": "Athabasca Falls",
+            "apartMin": 39
+          },
+          "text": "Jasper Skytram and Athabasca Falls are 39 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 97
+          },
+          "text": "1 h 37 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 6,
       "base": "ca-ab-jasper",
       "move": false,
       "items": [
@@ -232,91 +315,34 @@
           "locked": false
         },
         {
-          "ref": "place/jasper-skytram",
-          "slug": "jasper-skytram",
-          "name": "Jasper Skytram",
-          "startMin": 655,
+          "ref": "place/miette-hot-springs",
+          "slug": "miette-hot-springs",
+          "name": "Miette Hot Springs",
+          "startMin": 730,
           "visitMin": 120,
-          "driveMin": 28,
+          "driveMin": 43,
           "basis": "estimate",
           "locked": false
         }
       ],
-      "returnMin": 15,
+      "returnMin": 52,
       "warnings": [],
       "reasons": [
         {
           "code": "close_pair",
           "values": {
             "a": "Maligne Canyon",
-            "b": "Jasper Skytram",
-            "apartMin": 28
+            "b": "Miette Hot Springs",
+            "apartMin": 43
           },
-          "text": "Maligne Canyon and Jasper Skytram are 28 min ≈ apart"
+          "text": "Maligne Canyon and Miette Hot Springs are 43 min ≈ apart"
         },
         {
           "code": "day_drive",
           "values": {
-            "driveMin": 64
+            "driveMin": 116
           },
-          "text": "1 h 04 ≈ of driving"
-        }
-      ]
-    },
-    {
-      "day": 6,
-      "base": "ca-ab-jasper",
-      "move": false,
-      "items": [
-        {
-          "ref": "place/miette-hot-springs",
-          "slug": "miette-hot-springs",
-          "name": "Miette Hot Springs",
-          "startMin": 535,
-          "visitMin": 120,
-          "driveMin": 52,
-          "basis": "estimate",
-          "locked": false
-        },
-        {
-          "ref": "place/maligne-lake",
-          "slug": "maligne-lake",
-          "name": "Maligne Lake",
-          "startMin": 760,
-          "visitMin": 150,
-          "driveMin": 62,
-          "basis": "estimate",
-          "locked": false
-        },
-        {
-          "ref": "place/athabasca-falls",
-          "slug": "athabasca-falls",
-          "name": "Athabasca Falls",
-          "startMin": 945,
-          "visitMin": 45,
-          "driveMin": 33,
-          "basis": "estimate",
-          "locked": false
-        }
-      ],
-      "returnMin": 43,
-      "warnings": [],
-      "reasons": [
-        {
-          "code": "close_pair",
-          "values": {
-            "a": "Maligne Lake",
-            "b": "Athabasca Falls",
-            "apartMin": 33
-          },
-          "text": "Maligne Lake and Athabasca Falls are 33 min ≈ apart"
-        },
-        {
-          "code": "day_drive",
-          "values": {
-            "driveMin": 190
-          },
-          "text": "3 h 10 ≈ of driving"
+          "text": "1 h 56 ≈ of driving"
         }
       ]
     },
@@ -334,33 +360,24 @@
       "base": null,
       "move": false,
       "items": [],
-      "returnMin": null,
+      "returnMin": 406,
       "warnings": [
         "W_DRIVE_LIMIT"
       ],
-      "reasons": []
-    }
-  ],
-  "didNotFit": [
-    {
-      "ref": "route/johnston-canyon",
-      "code": "TB_TIME",
-      "fix": {
-        "kind": "drop"
-      },
       "reasons": [
         {
-          "code": "no_room",
+          "code": "depart",
           "values": {
-            "days": 8,
-            "tried": 3
+            "min": 406,
+            "airport": "YYC"
           },
-          "text": "No room in your 8 days, and 3 more would not fit it either"
+          "text": "6 h 46 ≈ from Jasper to YYC, then fly home"
         }
       ]
     }
   ],
-  "spareDays": 0,
+  "didNotFit": [],
+  "spareDays": 1,
   "matrix": {
     "refs": [
       "place/lake-louise",

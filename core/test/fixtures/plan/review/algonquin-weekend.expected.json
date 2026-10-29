@@ -1,0 +1,272 @@
+{
+  "engine": "tb-e2.1",
+  "basis": "estimate",
+  "bases": [
+    {
+      "town": "ca-on-huntsville",
+      "name": "Huntsville",
+      "nights": 2,
+      "pinned": false,
+      "picks": 6,
+      "reasons": [
+        {
+          "code": "covers_picks",
+          "values": {
+            "n": 6,
+            "of": 6,
+            "avgMin": 45,
+            "maxMin": 67
+          },
+          "text": "Closest town to 6 of your 6 picks (avg 45 min ≈, longest 1 h 07 ≈)"
+        },
+        {
+          "code": "from_start",
+          "values": {
+            "min": 159
+          },
+          "text": "2 h 39 ≈ from your start to Huntsville"
+        },
+        {
+          "code": "next_best_base",
+          "values": {
+            "town": "United Townships of Dysart, Dudley, Harcourt, Guilford, Harburn, Bruton, Havelock, Eyre and Clyde",
+            "extraMin": 66
+          },
+          "text": "United Townships of Dysart, Dudley, Harcourt, Guilford, Harburn, Bruton, Havelock, Eyre and Clyde would add 1 h 06 ≈ of driving in all"
+        }
+      ]
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "base": "ca-on-huntsville",
+      "move": false,
+      "items": [
+        {
+          "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
+          "slug": "dorset-lookout-tower",
+          "name": "Dorset lookout tower",
+          "startMin": 890,
+          "visitMin": 30,
+          "driveMin": 197,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+          "slug": "ragged-falls",
+          "name": "Ragged Falls",
+          "startMin": 950,
+          "visitMin": 20,
+          "driveMin": 28,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/oxtongue-lake",
+          "slug": "oxtongue-lake",
+          "name": "Oxtongue Lake",
+          "startMin": 980,
+          "visitMin": 45,
+          "driveMin": 9,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 35,
+      "warnings": [
+        "W_DRIVE_LIMIT"
+      ],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Ragged Falls",
+            "b": "Oxtongue Lake",
+            "apartMin": 9
+          },
+          "text": "Ragged Falls and Oxtongue Lake are 9 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 269
+          },
+          "text": "4 h 29 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "base": "ca-on-huntsville",
+      "move": false,
+      "items": [
+        {
+          "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+          "slug": "track-and-tower-trail",
+          "name": "Track and Tower Trail",
+          "startMin": 555,
+          "visitMin": 290,
+          "driveMin": 71,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/lake-of-two-rivers",
+          "slug": "lake-of-two-rivers",
+          "name": "Lake of Two Rivers",
+          "startMin": 865,
+          "visitMin": 45,
+          "driveMin": 19,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 67,
+      "warnings": [
+        "W_FIT"
+      ],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Track and Tower Trail",
+            "b": "Lake of Two Rivers",
+            "apartMin": 19
+          },
+          "text": "Track and Tower Trail and Lake of Two Rivers are 19 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 157
+          },
+          "text": "2 h 37 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "base": null,
+      "move": false,
+      "items": [
+        {
+          "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+          "slug": "solitaire-lake-trail",
+          "name": "Solitaire Lake Trail",
+          "startMin": 540,
+          "visitMin": 290,
+          "driveMin": 40,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 165,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 205
+          },
+          "text": "3 h 25 ≈ of driving"
+        }
+      ]
+    }
+  ],
+  "didNotFit": [],
+  "spareDays": 0,
+  "matrix": {
+    "refs": [
+      "trip/algonquin-muskoka-2026/trail:track and tower trail",
+      "trip/algonquin-muskoka-2026/sight:ragged falls",
+      "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
+      "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+      "place/oxtongue-lake",
+      "place/lake-of-two-rivers"
+    ],
+    "minutes": [
+      [
+        0,
+        42,
+        49,
+        47,
+        44,
+        19
+      ],
+      [
+        42,
+        0,
+        28,
+        19,
+        9,
+        47
+      ],
+      [
+        49,
+        28,
+        0,
+        31,
+        26,
+        54
+      ],
+      [
+        47,
+        19,
+        31,
+        0,
+        18,
+        52
+      ],
+      [
+        44,
+        9,
+        26,
+        18,
+        0,
+        49
+      ],
+      [
+        19,
+        47,
+        54,
+        52,
+        49,
+        0
+      ]
+    ],
+    "estimated": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34
+    ]
+  }
+}

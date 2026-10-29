@@ -1,5 +1,5 @@
 {
-  "engine": "tb-e2.0",
+  "engine": "tb-e2.1",
   "basis": "estimate",
   "bases": [
     {
@@ -63,47 +63,27 @@
       "move": false,
       "items": [
         {
-          "ref": "route/hardwood-lookout-trail",
-          "slug": "hardwood-lookout-trail",
-          "name": "Hardwood Lookout Trail",
-          "startMin": 1000,
-          "visitMin": 45,
-          "driveMin": 289,
-          "basis": "estimate",
-          "locked": false
-        },
-        {
-          "ref": "route/lookout-trail",
-          "slug": "lookout-trail",
-          "name": "Lookout Trail",
-          "startMin": 1055,
+          "ref": "place/oxtongue-lake",
+          "slug": "oxtongue-lake",
+          "name": "Oxtongue Lake",
+          "startMin": 955,
           "visitMin": 60,
-          "driveMin": 6,
+          "driveMin": 247,
           "basis": "estimate",
           "locked": false
         }
       ],
-      "returnMin": 50,
+      "returnMin": 19,
       "warnings": [
-        "W_DAYLIGHT",
         "W_DRIVE_LIMIT"
       ],
       "reasons": [
         {
-          "code": "close_pair",
-          "values": {
-            "a": "Hardwood Lookout Trail",
-            "b": "Lookout Trail",
-            "apartMin": 6
-          },
-          "text": "Hardwood Lookout Trail and Lookout Trail are 6 min ≈ apart"
-        },
-        {
           "code": "day_drive",
           "values": {
-            "driveMin": 345
+            "driveMin": 266
           },
-          "text": "5 h 45 ≈ of driving"
+          "text": "4 h 26 ≈ of driving"
         }
       ]
     },
@@ -133,18 +113,30 @@
           "locked": false
         },
         {
-          "ref": "place/oxtongue-lake",
-          "slug": "oxtongue-lake",
-          "name": "Oxtongue Lake",
-          "startMin": 915,
+          "ref": "route/hardwood-lookout-trail",
+          "slug": "hardwood-lookout-trail",
+          "name": "Hardwood Lookout Trail",
+          "startMin": 890,
+          "visitMin": 45,
+          "driveMin": 27,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "route/lookout-trail",
+          "slug": "lookout-trail",
+          "name": "Lookout Trail",
+          "startMin": 945,
           "visitMin": 60,
-          "driveMin": 55,
+          "driveMin": 6,
           "basis": "estimate",
           "locked": false
         }
       ],
-      "returnMin": 19,
-      "warnings": [],
+      "returnMin": 50,
+      "warnings": [
+        "W_PACE"
+      ],
       "reasons": [
         {
           "code": "close_pair",
@@ -158,9 +150,9 @@
         {
           "code": "day_drive",
           "values": {
-            "driveMin": 149
+            "driveMin": 158
           },
-          "text": "2 h 29 ≈ of driving"
+          "text": "2 h 38 ≈ of driving"
         }
       ]
     },
@@ -169,7 +161,7 @@
       "base": null,
       "move": false,
       "items": [],
-      "returnMin": null,
+      "returnMin": 228,
       "warnings": [],
       "reasons": []
     }
