@@ -2,7 +2,7 @@ import { formatDate } from '@/lib/export/dates';
 import { TRIP_EDIT_ON } from '@/lib/trip-edit/flag';
 import { openTripHref } from '@/lib/trip-edit/keys';
 import type { CopyItem } from '@travel/core/schema/copies.ts';
-import { partyText } from './copies';
+import { partyText } from './party';
 import { countdown, editHref, groupRows, NO_DATE, rowTitle } from './rows';
 import type { Group, RowModel } from './rows';
 

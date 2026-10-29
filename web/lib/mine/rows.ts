@@ -1,9 +1,11 @@
-import { PLACEHOLDER_TITLE } from '@travel/core/schema/copies.ts';
 import type { CopyItem } from '@travel/core/schema/copies.ts';
 import { addDays, formatDate, parseIso } from '@/lib/export/dates';
 import { TRIP_EDIT_ON } from '@/lib/trip-edit/flag';
 import { openTripHref, tripHref } from '@/lib/trip-edit/keys';
-import { partyText } from './copies';
+import { partyText } from './party';
+
+/** core's PLACEHOLDER_TITLE; a plain copy so this module does not load the copies schema (Zod) at start. tests/mine pins them equal. */
+const PLACEHOLDER_TITLE = 'Trip';
 
 /**
  * The My trips rows' text, groups and Open link (NAV-2). Kept apart from `copies.ts` on purpose: the copy sheet (a lazy chunk of every
