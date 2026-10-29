@@ -149,7 +149,7 @@ export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, map
         <span className="tl-planbar-who">
           {kept ? (
             <>
-              <span className="tl-planbar-party" title={kept.shared ? undefined : partyText(kept)}>{kept.shared ? (kept.own ? 'Your copy' : 'Shared plan') : partyText(kept)}</span>
+              <span className="tl-planbar-party" title={kept.shared ? undefined : partyText(kept)}>{kept.shared ? (kept.own ? (kept.built ? 'Your trip' : 'Your copy') : 'Shared plan') : partyText(kept)}</span>
               {/* the separator is the pace's own first word, so it shrinks away with the pace and never trails a truncated party ("… ·", SW-006/B2) */}
               <span className="tl-planbar-pace">{' · '}{PACE_WORD[kept.pace]}</span>
             </>

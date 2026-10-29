@@ -49,7 +49,8 @@ function travellersFor(d: PlanDraft, p: Profile): { adults: number; children: nu
 
 /** The operation that sets who is going and the pace, with the profile that plans for them (set together, bug B1). Template documents only. */
 export function partyOps(d: PlanDraft, defaults: Profile, party: { adults: number; children: number[] }, pace: Profile['pace'], newId: () => string = newOpId): PlanOp[] {
-  if (!d.template) return [];
+  // a built trip keeps who is going in its document; the pace is an engine input (STEP2-B2: Apply, then a re-flow), so it is not set here
+  if (!d.template) return [{ kind: 'setParty', id: newId(), travellers: { adults: party.adults, children: [...party.children] } }];
   const was = profileOfDraft(d, defaults);
   const youngest = party.children.length ? Math.min(...party.children) : null;
   const profile = { party: youngest === null ? ('adults' as const) : ('family' as const), youngest, pace, adults: party.adults, walk: was.walkKm, split: was.split };

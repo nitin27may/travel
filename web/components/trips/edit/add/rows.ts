@@ -4,6 +4,7 @@ import { ADD_NEARBY_KM, ADD_PIN_FAR_KM, DRIVE_BAND_EDGES_MIN } from '@travel/cor
 import { estimateLeg } from '@travel/core/schedule/legs.ts';
 import type { Point, TimelineEntry } from '@travel/core/schedule/types.ts';
 import type { AddCandidate, TimelineModel } from '@/components/trips/timeline/model';
+import { missRows } from '@/lib/trip-edit/built';
 import { isRuleItem } from '@/lib/trip-edit/ruleRows';
 import { dayRef } from '@/lib/trip-edit/stopOps';
 import type { PlanDraft, PlanOp } from '@/lib/trip-edit/model';
@@ -16,7 +17,7 @@ export const isRainy = (f: Pick<Found, 'flags'>): boolean => f.flags.some((x) =>
 export const rainyCandidates = (m: TimelineModel, day: number): AddCandidate[] =>
   (m.addByDay[day] ?? []).map((k) => m.addables[k]).filter((c): c is AddCandidate => !!c && c.indoor === true && groupOn(m, day, c) === 'nearby');
 
-export type GroupId = 'versions' | 'removed' | 'maybe' | 'trip' | 'near' | 'search';
+export type GroupId = 'versions' | 'removed' | 'maybe' | 'picks' | 'trip' | 'near' | 'search';
 
 /** Where a place already stands on the trip. */
 export interface OnTrip {
@@ -235,6 +236,18 @@ function maybeRows(i: Inputs, needle: string): PickRow[] {
   return out;
 }
 
+/** A built trip's picks that are on no day (the build's Did not fit): one Add puts one on this day (`moveItem`, "Added by you" is not claimed: they are the person's own picks). */
+function pickRows(i: Inputs, needle: string): PickRow[] {
+  if (i.doc.template) return [];
+  return missRows(i.doc)
+    .filter((m) => matches(needle, m.name))
+    .map((m) => ({
+      key: `picks:${m.ref}`, slug: null, name: m.name, kind: 'sight', kindLabel: 'Your pick', cand: null, km: null, bearing: null, driveMin: null, here: false, on: null, far: false, farKm: null, found: null,
+      note: m.why,
+      back: { ops: (id: () => string) => [{ kind: 'moveItem', id: id(), ref: m.ref, toDay: i.day } as PlanOp], label: `Added ${m.name} to Day ${i.day}`, verb: 'Add' as const },
+    }));
+}
+
 const cap = (rows: PickRow[], n: number): { rows: PickRow[]; more: number } => ({ rows: rows.slice(0, n), more: Math.max(0, rows.length - n) });
 
 /**
@@ -264,6 +277,8 @@ export function buildSections(i: Inputs): Section[] {
   // 2 and 3. what the person took off this day, and the Maybe list
   push('removed', 'Removed from this day', removedRows(i, needle));
   push('maybe', 'Maybe', take(maybeRows(i, needle)));
+  // 4. a built trip's picks the build left off every day
+  push('picks', 'Your picks not on a day', pickRows(i, needle));
   // 5. the trip's own stops at this base on other days
   push('trip', 'Elsewhere on this trip, near here', take(cands('trip').map((c) => rowOfCandidate(c, i, 'trip')).filter(shown)));
   // 6. places with a page near the day's base: the catalogue's answer, else the plan model's own short list
@@ -280,9 +295,9 @@ export function buildSections(i: Inputs): Section[] {
   return out;
 }
 
-export const GROUP_ORDER: readonly GroupId[] = ['versions', 'removed', 'maybe', 'trip', 'near', 'search'];
+export const GROUP_ORDER: readonly GroupId[] = ['versions', 'removed', 'maybe', 'picks', 'trip', 'near', 'search'];
 const LABELS: Record<GroupId, string> = {
-  versions: 'From the other versions of this day', removed: 'Removed from this day', maybe: 'Maybe', trip: 'Elsewhere on this trip, near here',
+  versions: 'From the other versions of this day', removed: 'Removed from this day', maybe: 'Maybe', picks: 'Your picks not on a day', trip: 'Elsewhere on this trip, near here',
   near: `Within ${ADD_NEARBY_KM} km, with a place page`, search: 'Search results',
 };
 

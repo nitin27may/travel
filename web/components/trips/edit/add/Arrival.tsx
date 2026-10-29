@@ -13,6 +13,7 @@ import { PAGE_SIZE } from '@/lib/config/product';
 import { usePrefs } from '@/lib/format/prefs';
 import { formatDistance } from '@/lib/format/units';
 import { dayDate } from '@/lib/trip-edit/moveFit';
+import { addPlaceOp } from '@/lib/trip-edit/built';
 import { dayRef, movedWords, moveToDayOps, newOpId } from '@/lib/trip-edit/stopOps';
 import type { PlanOp } from '@/lib/trip-edit/model';
 import type { Fit, Fitter } from './fit';
@@ -99,7 +100,7 @@ function OnePlace({ place: f, fitter, p }: { place: Found; fitter: Fitter | null
       label = movedWords(on.entry, day);
     } else {
       if (!p.model.addables[f.slug]) p.register(cand);
-      ops = [{ kind: 'addPlace', id: newOpId(), day: dayRef(p.doc, day), ref: `place/${f.slug}` }];
+      ops = [addPlaceOp(p.doc, dayRef(p.doc, day), f.slug, f.name, newOpId())];
       label = `Added ${f.name} to Day ${day}`;
     }
     if (p.commit(ops, label)) setLast({ label, day });
@@ -187,7 +188,7 @@ function Park({ park, fitter, p }: { park: Found; fitter: Fitter | null; p: Pick
     if (!r.cand || !r.slug || x.day === null) return;
     if (!p.model.addables[r.slug]) p.register(r.cand);
     const label = `Added ${r.name} to Day ${x.day}`;
-    if (p.commit([{ kind: 'addPlace', id: newOpId(), day: dayRef(p.doc, x.day), ref: `place/${r.slug}` }], label)) setLast({ label });
+    if (p.commit([addPlaceOp(p.doc, dayRef(p.doc, x.day), r.slug, r.name, newOpId())], label)) setLast({ label });
   };
   return (
     <div className="add-picker">

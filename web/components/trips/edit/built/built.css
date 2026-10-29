@@ -1,0 +1,17 @@
+/* A built trip on the details page (STEP2-B1). Tokens only (tests/no-hex.test.ts); no green, no purple. */
+.built-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-1); }
+.built-kick { display: inline-flex; align-items: center; gap: var(--s-1); font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
+.built-line .own-link { min-height: 0; padding: 0; font: inherit; font-weight: 600; }
+.built-sum { display: grid; gap: var(--s-3); }
+.built-sum-line { margin: 0; font: var(--t-row); color: var(--ink); }
+.built-sum-checks { margin: 0; font: var(--t-small); color: var(--ink); }
+.built-sum-k { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); margin-right: var(--s-2); }
+.built-miss { display: grid; gap: var(--s-2); scroll-margin-top: calc(var(--sticky-h, 120px) + var(--s-4)); }
+.built-miss:focus { outline: none; }
+.built-miss-h { margin: 0; font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
+.built-miss-list { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--line); }
+.built-miss-row { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); padding: var(--s-3) 0; border-bottom: 1px solid var(--line); }
+.built-miss-text { display: grid; gap: var(--s-1); min-width: 0; }
+.built-miss-name { font: var(--t-row); font-weight: 600; color: var(--ink); }
+.built-miss-why { font: var(--t-small); color: var(--muted); }
+.built-miss-none { margin: 0; font: var(--t-small); color: var(--muted); }

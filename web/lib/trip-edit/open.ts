@@ -10,6 +10,7 @@ import { copyToPlanDraft, type PlanTripFacts } from '@travel/core/plan/doc.ts';
 import { COPIES_KEY, readCopies, updateCopies, type CopyItem, type StorageLike } from '@travel/core/schema/copies.ts';
 import type { PlanDraft } from '@travel/core/schema/plan-draft.ts';
 import { isTripId } from './keys';
+import { findBuilt, writeBuilt } from './built';
 import { storeDeviceEdits, withDeviceEdits } from './deviceEdits';
 
 /** The slice of the EM-2 engine this module uses (a test passes a fake). */
@@ -54,7 +55,12 @@ export function openTrip(id: string, deps: OpenDeps): OpenResult {
   const acct = deps.account?.view(id) ?? null;
   if (acct) return { kind: 'ok', doc: acct, where: 'account', copy: null };
   const found = findCopy(deps.storage, id);
-  if (found.kind !== 'ok') return found;
+  if (found.kind !== 'ok') {
+    // not a copy: a trip the builder made, kept in the plans list (STEP2-B1)
+    const built = findBuilt(deps.storage, id);
+    if (built.kind === 'ok') return { kind: 'ok', doc: built.doc, where: 'device', copy: null };
+    return found.kind === 'newer' || built.kind === 'newer' ? { kind: 'newer' } : { kind: 'missing' };
+  }
   const d = copyToPlanDraft(found.copy, { facts: deps.facts });
   if (!d.success) return { kind: 'missing' };
   return { kind: 'ok', doc: withDeviceEdits(deps.storage, id, d.data), where: 'device', copy: found.copy };
@@ -96,6 +102,11 @@ export function saveOps(id: string, ops: readonly PlanOp[], deps: OpenDeps): Sav
   }
   const applied = applyOps(open.doc, ops);
   if (applied.skipped.length) return { ok: false, reason: 'invalid' };
+  // a built trip is its document in the plans list; there is no copy item to carry the keys it cannot hold
+  if (!open.copy) {
+    const w = writeBuilt(deps.storage, applied.doc);
+    return w.ok ? { ok: true } : { ok: false, reason: w.reason === 'missing' ? 'missing' : w.reason };
+  }
   const copy = copyWithDraft(open.copy!, applied.doc);
   const w = updateCopies(deps.storage, (env) => ({ envelope: { ...env, items: env.items.map((c) => (c.id === id ? copy : c)) }, value: null }));
   if (w.ok) {

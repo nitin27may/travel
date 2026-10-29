@@ -15,6 +15,7 @@ import type { AddCandidate, TimelineModel } from '@/components/trips/timeline/mo
 import { PAGE_SIZE, TRIP_EDIT_UI } from '@/lib/config/product';
 import { usePrefs } from '@/lib/format/prefs';
 import { formatDistance } from '@/lib/format/units';
+import { addPlaceOp } from '@/lib/trip-edit/built';
 import { dayDate } from '@/lib/trip-edit/moveFit';
 import type { PlanDraft, PlanOp } from '@/lib/trip-edit/model';
 import { dayRef, movedWords, moveToDayOps, newOpId, removeOps, swapForOps, swappedForWords } from '@/lib/trip-edit/stopOps';
@@ -65,7 +66,7 @@ export function monthOf(start: string | null, day: number): number | null {
   return t.getUTCMonth() + 1;
 }
 
-const firstPages = (): Record<GroupId, number> => ({ versions: PAGE_SIZE.list, removed: PAGE_SIZE.list, maybe: PAGE_SIZE.list, trip: PAGE_SIZE.list, near: PAGE_SIZE.list, search: PAGE_SIZE.list });
+const firstPages = (): Record<GroupId, number> => ({ versions: PAGE_SIZE.list, removed: PAGE_SIZE.list, maybe: PAGE_SIZE.list, picks: PAGE_SIZE.list, trip: PAGE_SIZE.list, near: PAGE_SIZE.list, search: PAGE_SIZE.list });
 
 /** The sheet: a bottom sheet on a phone, the side sheet from 640 px. */
 export function AddPicker(p: PickerProps) {
@@ -192,7 +193,7 @@ function DayPicker(p: PickerProps & { day: number }) {
       label = swappedForWords(swap.entry, r.name);
     } else if (r.cand && r.slug) {
       if (!model.addables[r.slug]) register(r.cand);
-      ops = [{ kind: 'addPlace', id: newOpId(), day: dayRef(doc, day), ref: `place/${r.slug}` }];
+      ops = [addPlaceOp(doc, dayRef(doc, day), r.slug, r.name, newOpId())];
       label = `Added ${r.name} to Day ${day}`;
     } else return;
     if (swap && r.back) {

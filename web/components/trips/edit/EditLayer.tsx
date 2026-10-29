@@ -267,9 +267,10 @@ export function EditLayer(p: LayerProps) {
     const edit: EditSlots = {
       canEdit,
       handle: (e) => <DragHandle entry={e} />,
+      // the add picker serves both modes: a copy adds `addPlace`, a built trip `addPick` (lib/trip-edit/built.ts `addPlaceOp`)
+      addPicker: (day: number) => <AddRow day={day} onOpen={openPicker} />,
       ...(copy
         ? {
-            addPicker: (day: number) => <AddRow day={day} onOpen={openPicker} />,
             dayMenu: (n: number, ctx: DayCtx) => (
               <DayMenu
                 n={n}
@@ -347,7 +348,7 @@ export function EditLayer(p: LayerProps) {
         </Suspense>
       ) : null}
       {on ? <EditBar title={p.title} canUndo={s.canUndo} canRedo={s.canRedo} undoLabel={s.undoLabel} redoLabel={s.redoLabel} onUndo={undo} onRedo={redo} onSettings={p.onSettings} onDone={p.onDone} /> : null}
-      {pick && copy ? (
+      {pick ? (
         <Suspense fallback={null}>
           <AddPicker doc={doc} model={model} profile={p.profile} start={p.start} day={pick.day} slug={pick.slug} swap={pick.swap} onClose={closePicker} commit={commit} register={p.register} undo={undo} undoLabel={s.undoLabel} />
         </Suspense>
