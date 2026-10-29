@@ -3,7 +3,7 @@
 import type { PlanOutputs } from "../schema/plan-draft.ts";
 import { warnCounts } from "./warnings.ts";
 
-type Outputs = Pick<PlanOutputs, "basis" | "bases" | "days" | "didNotFit">;
+type Outputs = Pick<PlanOutputs, "basis" | "bases" | "days" | "didNotFit"> & Partial<Pick<PlanOutputs, "areas">>;
 
 export interface BuildChecks {
   days: number;
@@ -16,7 +16,7 @@ export interface BuildChecks {
   moves: number;
   /** true when any figure is a straight-line estimate (≈) */
   estimated: boolean;
-  /** day checks and did-not-fit codes at the shown levels (warnings.ts) */
+  /** day checks, did-not-fit codes and area checks (TB_AREA_EMPTY) at the shown levels (warnings.ts) */
   fix: number;
   check: number;
   didNotFit: number;
@@ -28,7 +28,8 @@ export function buildChecks(b: Outputs): BuildChecks {
   const drives = b.days.map(dayDrive);
   const driving = drives.filter((x) => x > 0);
   const total = drives.reduce((n, x) => n + x, 0);
-  const counts = warnCounts([...b.days.flatMap((d) => d.warnings), ...b.didNotFit.map((m) => m.code)]);
+  const areaCodes = (b.areas ?? []).flatMap((a) => (a.code ? [a.code] : []));
+  const counts = warnCounts([...b.days.flatMap((d) => d.warnings), ...b.didNotFit.map((m) => m.code), ...areaCodes]);
   return {
     days: b.days.length,
     driveTotalMin: total,

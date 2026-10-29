@@ -3,7 +3,7 @@
 // change to a weight or a cap is a change to this file only; core/test/plan/engine.test.ts pins the ones the spec states.
 
 /** The engine version a build carries (`lastBuild.engine`, PLAN_ENGINE_RE): bump it when a change moves a placement. */
-export const BUILDER_ENGINE = "tb-e1.1";
+export const BUILDER_ENGINE = "tb-e1.2";
 
 /** Stage 1, the candidate score (4.3). Integer points, so ties are exact. */
 export const BUILDER_SCORE = {
@@ -92,4 +92,28 @@ export const BUILDER_SCAN = {
   /** the near strip's default rows (FLOW TF6 and stage 4: one strip of 6, "Also within your driving" up to 12) */
   stripDefault: 6,
   stripMax: 12,
+} as const;
+
+/**
+ * Area picks (TB-PIN, BACKLOG 15.354; park-page README 7 R1): a pick that is a protected area, a zone, an area or a range, with no time
+ * on site from data, is the trip's AREA, never a stop with a visit time (core/src/plan/area.ts; with a data time it is a stop). Its members among the picks are the stops; with none, the base is drawn towards the area and the
+ * answer says "Pick places inside <area>" (TB_AREA_EMPTY).
+ */
+export const BUILDER_AREA = {
+  /** capture type ids (and the older list-row types) that make a pick an area, matched exactly */
+  types: ["protected-area", "national_park", "provincial_or_state_park", "zone", "area", "range"],
+  /** capture type id prefixes that make a pick an area: every protected area and its zones (`nature.protected.zone`) */
+  typePrefixes: ["nature.protected"],
+  /** place kinds that are always an area, whatever the type: the list row's `area` (park, region, valley, island) and `region` */
+  kinds: ["area", "region"],
+  /**
+   * Until EG-Q's `within` closure reaches the engine (EnginePlace.within), a pick counts as inside an area when its point lies this many
+   * km (straight line) from the area's point at most. A place that carries `within` is never measured: its list is the answer.
+   */
+  fallbackMemberKm: 30,
+  /**
+   * An area picked with nothing inside it stands for the stops not picked yet: the base objective adds this many round trips from the
+   * town into the area per day of the plan (a stop counts one round trip in all), so the base sits near the area, not near the start
+   */
+  emptyAreaTripsPerDay: 1,
 } as const;

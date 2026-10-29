@@ -365,6 +365,16 @@ times and day caps; the builder passes the party through.
 "Add N days" is computed, not guessed: the engine reruns with nights + 1, + 2 and + 3 and offers the smallest that fits
 every must pick, or says "Even 3 more days do not fit X: it is too far from your other picks."
 
+**Area picks (TB-PIN, BACKLOG 15.354, park-page R1).** A pick that is a protected area, a zone, an area or a range, with no
+time on site from data (`core/src/plan/area.ts`, numbers in `BUILDER_AREA`), is the trip's area: never a stop, never a
+Did not fit row, never in the picks matrix. The build answer lists it in `areas` (`plan-draft.ts` `planAreaOut`) with
+its members among the picks ("Algonquin Provincial Park is your area; its 4 trails are the stops"). With no pick inside
+it, the entry carries `TB_AREA_EMPTY` (level Check) and "Pick places inside Algonquin Provincial Park", and the base
+objective adds a round trip into the area per day, so the base sits near it. Members come from the place's `within`
+closure (EG-Q) when the service passes it; until then, a pick within 30 km of the area's point. Candidates for an area
+pick (`near=<park>`) are its members only. An area type with a data time on site (a state park walked as a gorge) stays
+a stop.
+
 ### 4.8 Lodging signal and base data we have or lack
 
 | Signal | Source | Have today | Use |

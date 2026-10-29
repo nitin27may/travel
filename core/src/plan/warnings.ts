@@ -1,5 +1,5 @@
 // Warning levels for edit mode (edit-mode-spec 11.1, Q-BE6; gap-analysis D3; task STEP2-C1). Every day-check code of
-// core/src/checks/codes.ts and every builder did-not-fit code (`TB_*`, plan-draft.ts PLAN_MISS_CODES) has exactly one level here, and
+// core/src/checks/codes.ts and every builder did-not-fit code (`TB_*`, plan-draft.ts PLAN_MISS_CODES) and area check (PLAN_AREA_CODES) has exactly one level here, and
 // the UI reads the level, never a code list of its own (STEP2-E5). core/test/plan/warnings.test.ts fails on a code with no level, so
 // a new check cannot reach a screen unclassified.
 //
@@ -12,7 +12,7 @@
 // Check when only OUR ADVICE fails. A caller that cannot tell gets Fix (P2: the safety reading wins). Warnings never block an edit;
 // estimates (≈) are never a warning. Pure constants: the browser loads this file through extension point X-S2.
 import { WARN_CODES, type WarnCode } from "../checks/codes.ts";
-import { PLAN_MISS_CODES } from "../schema/plan-draft.ts";
+import { PLAN_AREA_CODES, PLAN_MISS_CODES } from "../schema/plan-draft.ts";
 
 export const WARN_LEVELS = ["fix", "check", "hidden"] as const;
 export type WarnLevel = (typeof WARN_LEVELS)[number];
@@ -26,7 +26,8 @@ export type WarnLevelRule = WarnLevel | { rule: WarnLevel; advice: WarnLevel };
 export const PENDING_WARN_CODES = ["W_NO_ROUTE"] as const;
 
 type MissCode = (typeof PLAN_MISS_CODES)[number];
-type LevelledCode = WarnCode | (typeof PENDING_WARN_CODES)[number] | MissCode;
+type AreaCode = (typeof PLAN_AREA_CODES)[number];
+type LevelledCode = WarnCode | (typeof PENDING_WARN_CODES)[number] | MissCode | AreaCode;
 
 /** The one table (edit-mode-spec 11.1). */
 export const WARN_LEVEL = {
@@ -49,6 +50,7 @@ export const WARN_LEVEL = {
   TB_TIME: "check",
   TB_BOOKING: "check",
   TB_UNKNOWN: "check",
+  TB_AREA_EMPTY: "check",
   // ---- hidden: author data checks, and the fit gap shown as a chip
   W_ORDER: "hidden",
   W_LEG_MISSING: "hidden",

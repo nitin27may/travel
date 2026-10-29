@@ -2,27 +2,31 @@
 // slice FS-1. Pure, synchronous and deterministic: the same EngineInput gives the same PlanBuild, byte for byte (no clock, no random
 // number, integer minutes, every sort ends on a ref). The build time (`builtAt`) is the caller's to add.
 //
-//   1 classify  each pick: not listed or no point (TB_UNKNOWN), closed in the month (TB_CLOSED), not for the party (TB_FIT), or a stop
+//   1 classify  each pick: not listed (TB_UNKNOWN), an area (a park, zone or range: the trip's area, never a stop, TB-PIN), no point
+//               (TB_UNKNOWN), closed in the month (TB_CLOSED), not for the party (TB_FIT), or a stop
 //   2 base      nights >= 1: the pinned or accepted base when it is a candidate town, else the town that minimises the round trips to
 //               the picks (plus the drive from the start, near mode, or the gateway), a pick out of reach costing a few radii (more
-//               for a must), less the lodging signal; ties by population, then id. Nights 0: no base (near mode starts and ends at
+//               for a must), less the lodging signal; an area with no pick inside it costs a round trip into it each day, so
+//               the base is drawn towards it; ties by population, then id. Nights 0: no base (near mode starts and ends at
 //               the start; trip mode goes out from the best town)
 //   3 radius    a pick beyond the day-trip radius of the base (half the day's driving, capped) is TB_TOO_FAR with "Add a base near it"
 //   4 pack      pack.ts: kept stops first (locked, placed by the person, from our trip: TF11), then the musts, then by score
 //   5 time      a stop no day can take is TB_TIME, with the smallest "Add N days" that fits it (the engine reruns with 1 to 3 more)
 //   6 schedule  each day through `scheduleDay` (times, meals, sun, the day checks), with the engine's drive figures as its legs
-//   7 explain   reasons from the numbers used (reasons.ts); the picks matrix for the client re-flow
+//   7 explain   reasons from the numbers used (reasons.ts); the areas with their members or "Pick places inside X" (TB_AREA_EMPTY);
+//               the stops' matrix for the client re-flow (an area is never in it)
 //
 // Never reads the home point or the environment: the near-mode start arrives as a public point the service resolved from a hub, an
 // airport or a towns-layer town, and it is only ever passed to the model, never to a cache key, and never returned.
-import { BUILDER_ENGINE, BUILDER_PACK } from "../config/builder.ts";
+import { BUILDER_AREA, BUILDER_ENGINE, BUILDER_PACK } from "../config/builder.ts";
 import { PACE_RULES, dayCapMin, resolveDuration } from "../schedule/rules.ts";
 import { scheduleDay } from "../schedule/schedule.ts";
 import type { BaseRef, DayKind, DayTimeline, PlaceRef, Profile, ScheduleDayInput, ScheduleItem, StoredLeg } from "../schedule/types.ts";
 import type { PlanBuild, PlanBuildInput, PlanMatrix } from "../schema/api/plan.ts";
-import { PLAN_LIMITS, PLAN_WARNING_RE, type PlanBaseOut, type PlanDayOut, type PlanItemOut, type PlanMiss, type PlanReason } from "../schema/plan-draft.ts";
+import { PLAN_LIMITS, PLAN_WARNING_RE, type PlanAreaOut, type PlanBaseOut, type PlanDayOut, type PlanItemOut, type PlanMiss, type PlanReason } from "../schema/plan-draft.ts";
 import { GATEWAY, START, driveTable, placeNode, townNode, type DriveTable } from "./driveTable.ts";
 import type { EngineInput, EnginePlace, EnginePoint, EngineTown } from "./engineTypes.ts";
+import { inArea, isAreaPlace } from "./area.ts";
 import { packDays, type PackDay, type PackStop } from "./pack.ts";
 import * as R from "./reasons.ts";
 import { fitOf, profileOf, scorePlace, seasonOf } from "./score.ts";
@@ -117,10 +121,16 @@ export function buildPlan(input: EngineInput): PlanBuild {
     misses.set(ref, { ref, code, fix, reasons: R.capReasons(reasons) });
   };
   const stops: Stop[] = [];
+  /** area picks (TB-PIN): never a stop, never Did not fit, whatever their season or fit; their members are the stops */
+  const areaPicks: EnginePlace[] = [];
   for (const pick of b.picks) {
     const place = input.places.get(pick.ref);
     if (!place) {
       miss(pick.ref, "TB_UNKNOWN", { kind: "drop" }, [R.missUnknown(false)]);
+      continue;
+    }
+    if (isAreaPlace(place)) {
+      areaPicks.push(place);
       continue;
     }
     if (!place.point) {
@@ -140,6 +150,14 @@ export function buildPlan(input: EngineInput): PlanBuild {
     const s = scorePlace(place, { profile, month: b.month, interests: [], driveMin: null });
     stops.push({ place, must: pick.must, score: s.score.total, node: placeNode(place.ref) });
   }
+
+  // the picks inside each area (any pick we list that is not an area itself); an area with none pulls the base towards its point
+  const picked = b.picks.flatMap((p) => {
+    const pl = input.places.get(p.ref);
+    return pl && !isAreaPlace(pl) ? [pl] : [];
+  });
+  const areas = areaPicks.map((a) => ({ place: a, members: picked.filter((p) => inArea(p, a)).length }));
+  const areaAnchors = areas.filter((a) => a.members === 0 && a.place.point).map((a) => ({ name: a.place.name, node: placeNode(a.place.ref) }));
 
   // ---- kept stops (TF11): locked, placed by the person, from our trip ----
   const kept = new Map<string, { day: number; rank: number; locked: boolean }>();
@@ -176,6 +194,13 @@ export function buildPlan(input: EngineInput): PlanBuild {
         if (s.must) uncoveredMusts++;
       }
     }
+    // an area with no pick inside it stands for the stops not picked yet: a round trip into it on each day of the plan
+    for (const a of areaAnchors) {
+      const there = table.minutes(tn, a.node);
+      const back = table.minutes(a.node, tn);
+      const trip = there !== null && back !== null && there <= radius ? there + back : BUILDER_PACK.uncoveredRadii.must * radius;
+      cost += trip * BUILDER_AREA.emptyAreaTripsPerDay * nDays;
+    }
     const anchor = near ? START : input.gateway ? GATEWAY : null;
     if (anchor) {
       const there = table.minutes(anchor, tn);
@@ -188,7 +213,10 @@ export function buildPlan(input: EngineInput): PlanBuild {
   const better = (x: BaseEval, y: BaseEval): number => x.cost - y.cost || (y.town.population ?? 0) - (x.town.population ?? 0) || cmp(x.town.id, y.town.id);
   // prefilter: the towns that cover the most picks, ties by population then id (4.4)
   const shortlist = towns
-    .map((t) => ({ t, n: stops.filter((s) => (table.minutes(townNode(t.id), s.node) ?? Number.POSITIVE_INFINITY) <= radius).length }))
+    .map((t) => ({
+      t,
+      n: [...stops.map((s) => s.node), ...areaAnchors.map((a) => a.node)].filter((n) => (table.minutes(townNode(t.id), n) ?? Number.POSITIVE_INFINITY) <= radius).length,
+    }))
     .sort((x, y) => y.n - x.n || (y.t.population ?? 0) - (x.t.population ?? 0) || cmp(x.t.id, y.t.id))
     .slice(0, BUILDER_PACK.baseTowns)
     .map((x) => x.t);
@@ -283,7 +311,9 @@ export function buildPlan(input: EngineInput): PlanBuild {
   if (base && nights >= 1) {
     const rs: (PlanReason | null)[] = [];
     if (pinnedTown && chosenInput?.pinned) rs.push(R.basePinned(nights));
-    rs.push(R.baseCovers(base.covered, stops.length, base.avg, base.max, base.estimated));
+    const toArea = stops.length === 0 && areaAnchors[0] ? table.get(townNode(base.town.id), areaAnchors[0].node) : null;
+    if (toArea && toArea.min !== null) rs.push(R.baseNearArea(areaAnchors[0]!.name, toArea.min, !toArea.routed));
+    else rs.push(R.baseCovers(base.covered, stops.length, base.avg, base.max, base.estimated));
     if (near && input.start) {
       const c = table.get(START, townNode(base.town.id));
       if (c.min !== null) rs.push(R.baseFromStart(base.town.name, c.min, !c.routed));
@@ -301,13 +331,34 @@ export function buildPlan(input: EngineInput): PlanBuild {
     });
   }
 
+  const areasOut: PlanAreaOut[] = areas.map(({ place: a, members }) => {
+    const inside = picked.filter((p) => inArea(p, a));
+    return {
+      ref: a.ref,
+      slug: a.slug,
+      name: a.name,
+      members,
+      code: members === 0 ? "TB_AREA_EMPTY" : null,
+      reasons: [members === 0 ? R.areaEmpty(a.name) : R.areaPinned(a.name, members, inside.every((p) => p.kind === "trail"))],
+    };
+  });
+
   const didNotFit = b.picks.flatMap((p) => (misses.has(p.ref) && !placedRefs.has(p.ref) ? [misses.get(p.ref)!] : []));
   const timeMisses = didNotFit.some((m) => m.code === "TB_TIME");
   // a day trip has no spare day; a longer plan's empty full days are offered as suggestions near the base, never filled (4.5)
   const spareDays = timeMisses || nights === 0 ? 0 : days.filter((d) => d.items.length === 0 && d.day !== 1 && d.day !== nDays).length;
   const basis = legsUsed.length === 0 ? "estimate" : legsUsed.every(Boolean) ? "routed" : legsUsed.some(Boolean) ? "mixed" : "estimate";
 
-  return { engine: BUILDER_ENGINE, basis, bases, days, didNotFit, spareDays, matrix: matrixOf(b, input, table) };
+  return {
+    engine: BUILDER_ENGINE,
+    basis,
+    bases,
+    ...(areasOut.length ? { areas: areasOut } : {}),
+    days,
+    didNotFit,
+    spareDays,
+    matrix: matrixOf(b, input, table),
+  };
 }
 
 /** The days of one base: their start and end nodes and budgets (4.5, 4.6). `hub` stands in for a missing base. */
@@ -474,9 +525,15 @@ function dayOut(
   return { day: f.day, base: sleeps, move: false, items, returnMin, warnings, reasons: R.capReasons(rs) };
 }
 
-/** The picks' drive matrix (4.10): every pick with a point, in the build's order; estimate cells listed. */
+/** The picks' drive matrix (4.10): every pick with a point that is not an area (TB-PIN), in the build's order; estimate cells listed. */
 function matrixOf(b: PlanBuildInput, input: EngineInput, table: DriveTable): PlanMatrix {
-  const refs = b.picks.map((p) => p.ref).filter((r) => input.places.get(r)?.point).slice(0, PLAN_LIMITS.picks);
+  const refs = b.picks
+    .map((p) => p.ref)
+    .filter((r) => {
+      const p = input.places.get(r);
+      return !!p?.point && !isAreaPlace(p);
+    })
+    .slice(0, PLAN_LIMITS.picks);
   const n = refs.length;
   const minutes: number[][] = [];
   const estimated: number[] = [];

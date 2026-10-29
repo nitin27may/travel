@@ -52,6 +52,11 @@ export interface EnginePlace {
   distanceKm: number | null;
   gainM: number | null;
   needsDaylight: boolean;
+  /**
+   * The refs of the areas (protected areas, zones) the place sits inside: the `within` closure of EG-Q, when the service has it. Absent:
+   * not known, so the engine measures from the area's point (BUILDER_AREA.fallbackMemberKm). Present, even empty: the answer.
+   */
+  within?: readonly string[];
 }
 
 /** A candidate base: a towns-layer town (4.4). */

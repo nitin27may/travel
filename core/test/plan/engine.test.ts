@@ -75,7 +75,7 @@ describe("a K = 1 build", () => {
   });
 
   it("never reads the home point, the environment or a clock", () => {
-    for (const f of ["engine.ts", "score.ts", "candidates.ts", "pack.ts", "reasons.ts", "driveTable.ts", "summary.ts", "engineTypes.ts"]) {
+    for (const f of ["engine.ts", "score.ts", "candidates.ts", "pack.ts", "reasons.ts", "driveTable.ts", "summary.ts", "engineTypes.ts", "area.ts"]) {
       const src = readFileSync(new URL(`../../src/plan/${f}`, import.meta.url), "utf8");
       expect(src, f).not.toMatch(/from\s+["'][^"']*(?:privacy\/home|drive\/keys)|process\.env|Date\.now|new Date\(|Math\.random/);
     }

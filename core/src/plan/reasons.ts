@@ -65,3 +65,17 @@ export function missTime(days: number, addDays: number | null, tried: number): P
 }
 export const missUnknown = (listed: boolean): PlanReason =>
   listed ? reason("no_location", { listed: 1 }, "We do not have a location for this yet") : reason("not_listed", { listed: 0 }, "This place is no longer in our list");
+
+// ---- area picks (TB-PIN) ------------------------------------------------------------------------------------------------------------
+
+/** "Algonquin Provincial Park is your area; its 4 trails are the stops" (the members among the picks, counted). */
+export function areaPinned(area: string, members: number, allTrails: boolean): PlanReason {
+  const noun = allTrails ? (members === 1 ? "trail" : "trails") : members === 1 ? "place" : "places";
+  return reason("area_pinned", { area, n: members }, `${area} is your area; its ${members} ${noun} ${members === 1 ? "is a stop" : "are the stops"}`);
+}
+/** TB_AREA_EMPTY: the area is picked and nothing inside it is. */
+export const areaEmpty = (area: string): PlanReason => reason("pick_inside", { area }, `Pick places inside ${area}`);
+/** A base chosen for an area with no pick inside it yet: the drive from the town to the area's point. */
+export function baseNearArea(area: string, min: number, estimated: boolean): PlanReason {
+  return reason("near_area", { area, min }, `${fmtMinutes(min)}${approx(estimated)} from ${area}, your area`);
+}
