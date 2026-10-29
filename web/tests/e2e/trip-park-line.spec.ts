@@ -45,7 +45,7 @@ for (const vp of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
       const parks = view.locator('section[aria-label="Park entry"]');
       await expect(parks).toContainText('Entry not checked yet for Upper and Lower Kananaskis Lakes');
       await expect(view.locator('section[aria-label="To check"]')).toContainText('Lake Louise Lakeshore parking and Park and Ride');
-      await expect(view.locator('section[aria-label="Book ahead"]')).toContainText('then 2 days before Day 10 at 08:00 local (60% of seats)');
+      await expect(view.locator('section[aria-label="Book ahead"]')).toContainText('then 2 days before Day 10 at 08:00 (60%)');
       await expect(parks).toContainText('Banff National Park, days 1 to 4 and 10 to 11: entry fee each day, or the Parks Canada Discovery Pass covers it');
       // the park lines come first
       // (the print view is off screen until the browser prints, so it is read by selector, not by role)
