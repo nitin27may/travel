@@ -18,7 +18,12 @@ const fileOf = (c: GoldenCase): URL => new URL(`${c.name}.expected.json`, DIR);
 const serialise = (out: PlanBuild): string => `${JSON.stringify(out, null, 2)}\n`;
 const placed = (out: PlanBuild): string[] => out.days.flatMap((d) => d.items.map((i) => i.ref));
 const missOf = (out: PlanBuild, ref: string) => out.didNotFit.find((m) => m.ref === ref);
-const allReasons = (out: PlanBuild) => [...out.bases.flatMap((b) => b.reasons), ...out.days.flatMap((d) => d.reasons), ...out.didNotFit.flatMap((m) => m.reasons)];
+const allReasons = (out: PlanBuild) => [
+  ...out.bases.flatMap((b) => b.reasons),
+  ...(out.areas ?? []).flatMap((a) => a.reasons),
+  ...out.days.flatMap((d) => d.reasons),
+  ...out.didNotFit.flatMap((m) => m.reasons),
+];
 
 const UPDATE = process.env.GOLDEN_UPDATE === "1";
 if (UPDATE) mkdirSync(DIR, { recursive: true });
@@ -48,14 +53,16 @@ for (const c of GOLDENS) {
       expect(planMatrixRules(out.matrix)).toEqual([]);
     });
 
-    it("places every pick once, or lists it in Did not fit, never both", () => {
+    it("places every pick once, lists it in Did not fit, or pins it as an area: exactly one of the three", () => {
       const on = placed(out);
       const missed = out.didNotFit.map((m) => m.ref);
+      const areas = (out.areas ?? []).map((a) => a.ref);
       expect(new Set(on).size).toBe(on.length);
       expect(new Set(missed).size).toBe(missed.length);
       expect(on.filter((r) => missed.includes(r))).toEqual([]);
-      // a locked stop may sit on a day without being a pick; a pick is always one or the other
-      expect([...on, ...missed].filter((r) => b.picks.some((p) => p.ref === r)).sort()).toEqual(b.picks.map((p) => p.ref).sort());
+      expect(areas.filter((r) => on.includes(r) || missed.includes(r))).toEqual([]);
+      // a locked stop may sit on a day without being a pick; a pick is always one of the three
+      expect([...on, ...missed, ...areas].filter((r) => b.picks.some((p) => p.ref === r)).sort()).toEqual(b.picks.map((p) => p.ref).sort());
     });
 
     it("holds each day to its cap (a day with the way in or out may add one leg each)", () => {
@@ -144,10 +151,23 @@ describe("golden algonquin: trails are stops, the park is the area", () => {
       expect(i.driveMin).not.toBeNull();
     }
   });
-  // ENGINE GAP (TB-PIN R1, BACKLOG 15.354): TB-E1 has no notion of an area pick. A protected-area pick should be the trip's area, never a
-  // stop with a visit time. Today it is scheduled like a place (a 180 min visit on the last day). Flip to `it` when the engine pins it.
-  it.fails("the park pick is never a stop on a day (TB-PIN)", () => {
+  // TB-PIN (R1, BACKLOG 15.354): the protected-area pick is the trip's area, never a stop with a visit time, never Did not fit.
+  it("the park pick is never a stop on a day (TB-PIN)", () => {
     expect(placed(out)).not.toContain(ALGONQUIN_PARK);
+    expect(out.didNotFit.map((m) => m.ref)).not.toContain(ALGONQUIN_PARK);
+    expect(out.matrix.refs).not.toContain(ALGONQUIN_PARK);
+  });
+  it("the park is the area, and its four trails are the stops (Oxtongue Lake lies outside it)", () => {
+    expect(out.areas).toEqual([
+      {
+        ref: ALGONQUIN_PARK,
+        slug: "algonquin-provincial-park",
+        name: "Algonquin Provincial Park",
+        members: 4,
+        code: null,
+        reasons: [{ code: "area_pinned", values: { area: "Algonquin Provincial Park", n: 4 }, text: "Algonquin Provincial Park is your area; its 4 trails are the stops" }],
+      },
+    ]);
   });
 });
 
@@ -205,8 +225,7 @@ describe("golden infeasible: Did not fit lists exactly the unplaced, with reason
 });
 
 describe("minimal repros of engine gaps found while pinning the goldens", () => {
-  // see the hand-back of TB-G1; core/src/plan is not edited by this task
-  it.fails("an area pick (kind park, no visit time) is not given a visit time (TB-PIN)", () => {
+  it("an area pick (kind park, no visit time) is not given a visit time (TB-PIN)", () => {
     const park = mkPlace("place/some-park", 45.5, -78.4, { kind: "park", type: "protected-area", visitMin: null });
     const out = buildPlan(mkInput(mkBuild(["place/some-park", "place/arrowhead"]), { places: placesMap([park, mkPlace("place/arrowhead", 45.39, -79.21)]) }));
     expect(placed(out)).not.toContain("place/some-park");

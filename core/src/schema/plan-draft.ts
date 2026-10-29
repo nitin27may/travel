@@ -230,6 +230,8 @@ export const planDayEdit = z.strictObject({
 
 /** The honest "cannot fit" codes (4.7). */
 export const PLAN_MISS_CODES = ["TB_TOO_FAR", "TB_CLOSED", "TB_FIT", "TB_TIME", "TB_BOOKING", "TB_UNKNOWN"] as const;
+/** The area check (TB-PIN, BACKLOG 15.354): an area pick with no pick inside it ("Pick places inside Algonquin"). Never a Did not fit row. */
+export const PLAN_AREA_CODES = ["TB_AREA_EMPTY"] as const;
 /** The one fix offered with a left-out pick (4.7). `add_days` carries `days`; `swap` carries `ref`; `add_base` may carry `town`. */
 export const PLAN_FIX_KINDS = ["add_base", "drop", "change_month", "family_variant", "add_days", "swap", "ask_us"] as const;
 /** Where a drive figure comes from: a routed matrix cell, or the straight-line estimate shown with ≈ (4.10). */
@@ -306,12 +308,29 @@ export const planMiss = z.strictObject({
   reasons,
 });
 
+/**
+ * An area pick (TB-PIN, BACKLOG 15.354; park-page README 7 R1): a protected area, a zone, an area or a range the person picked. It pins
+ * the trip's area and is never a stop on a day nor a Did not fit row; the picks inside it are the stops. `code` is TB_AREA_EMPTY when no
+ * pick lies inside it yet (the reason says "Pick places inside <area>"), else null.
+ */
+export const planAreaOut = z.strictObject({
+  ref: planRef,
+  slug: planSlug,
+  name,
+  /** picks inside the area (its members among the picks: the stops it brings) */
+  members: z.int().min(0).max(PLAN_LIMITS.picks),
+  code: z.enum(PLAN_AREA_CODES).nullable(),
+  reasons,
+});
+
 /** What a build returns that a draft keeps (2.4: "the last build"). The picks matrix is not kept: it is fetched again on a rebuild. */
 export const planOutputsShape = {
   engine: z.string().regex(PLAN_ENGINE_RE),
   /** every leg routed, every leg estimated (≈), or both */
   basis: z.enum(["routed", "estimate", "mixed"]),
   bases: z.array(planBaseOut).max(PLAN_LIMITS.bases),
+  /** the area picks, in pick order; absent when the build has none (a build before TB-PIN never carries the key) */
+  areas: z.array(planAreaOut).max(PLAN_LIMITS.picks).optional(),
   days: z.array(planDayOut).max(PLAN_LIMITS.days),
   didNotFit: z.array(planMiss).max(PLAN_LIMITS.picks),
   /** days left over after every pick fitted: offered as suggestions near a base, never filled silently (4.5) */
@@ -531,6 +550,7 @@ export type PlanBaseOut = z.infer<typeof planBaseOut>;
 export type PlanItemOut = z.infer<typeof planItemOut>;
 export type PlanDayOut = z.infer<typeof planDayOut>;
 export type PlanMiss = z.infer<typeof planMiss>;
+export type PlanAreaOut = z.infer<typeof planAreaOut>;
 export type PlanOutputs = z.infer<typeof planOutputs>;
 export type PlanDraft = z.infer<typeof planDraft>;
 export type PlanDrafts = z.infer<typeof planDrafts>;

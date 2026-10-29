@@ -4,7 +4,8 @@
 //
 // Rules: trip mode lists the chosen regions of one country, measured from their centroid; near mode lists the reach around the start
 // (a box first, then the drive model keeps what is within the one-way limit), narrowed by travel regions when chosen; `near` lists the
-// surroundings of one pick, measured from it. Rows scoring removes ("Not for your party", "Closed in July") are their own lists, never
+// surroundings of one pick, measured from it; when that pick is an area (a park or a zone, TB-PIN), its members only (the `within`
+// closure a row carries through `enrich`, else the area's fallback radius, area.ts). Rows scoring removes ("Not for your party", "Closed in July") are their own lists, never
 // the default one, so suggestions obey fit and month (S9). A pick's strip never shows breadth-only records (`researched: false`, QB9).
 import { BUILDER_BADGES, BUILDER_DURATION_BAND_EDGES, BUILDER_SCAN, BUILDER_TIME_BAND_MIN } from "../config/builder.ts";
 import { RADIUS_CAP } from "../config/nearby.ts";
@@ -18,6 +19,7 @@ import { PLAN_LIMITS, type PlanCandidatePage, type PlanCandidateRow, type PlanCa
 import { PLACE_ROW_KEYS } from "../schema/api/place.ts";
 import { START, driveTable, placeNode } from "./driveTable.ts";
 import type { EnginePlace, EnginePoint, RoutedLegs } from "./engineTypes.ts";
+import { inArea, isAreaPlace } from "./area.ts";
 import { visitMinOf } from "./engine.ts";
 import { byScore, profileOfBand, scorePlace } from "./score.ts";
 
@@ -104,8 +106,11 @@ export function rankCandidates(rows: readonly PlaceRow[], q: PlanCandidatesQuery
   if (regions?.length) scoped = scoped.filter((r) => regions.some((id) => inRegion(r, id)));
   if (q.mode === "trip") scoped = scoped.filter((r) => r.country === q.cc);
   if (q.near) scoped = scoped.filter((r) => r.slug !== q.near && r.researched);
-  const places = scoped.map((r) => ({ row: r, place: placeFromRow(r, ctx.enrich?.(r) ?? {}) }));
+  let places = scoped.map((r) => ({ row: r, place: placeFromRow(r, ctx.enrich?.(r) ?? {}) }));
   const nearRow = q.near ? rows.find((r) => r.slug === q.near) : undefined;
+  // a pick that is an area lists what lies inside it (TB-PIN, R1: Discover pre-filtered to its `within` closure)
+  const nearArea = nearRow ? placeFromRow(nearRow, ctx.enrich?.(nearRow) ?? {}) : null;
+  if (nearArea && isAreaPlace(nearArea)) places = places.filter((p) => inArea(p.place, nearArea));
   const centre = ctx.centre ?? (nearRow ? placeFromRow(nearRow).point : null) ?? centroid(places.flatMap((p) => (p.place.point ? [p.place.point] : [])));
   const points = new Map<string, EnginePoint>(places.flatMap((p) => (p.place.point ? [[placeNode(p.place.ref), p.place.point] as [string, EnginePoint]] : [])));
   if (centre) points.set(START, centre);

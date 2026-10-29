@@ -7,12 +7,12 @@ a pinned file is a behaviour change: read it, then regenerate on purpose.
 | Fixture | File | What it shows |
 |---|---|---|
 | `quebec` | `quebec.ts` | Near mode from the Montreal hub, 2 nights, July, a party with a 7-year-old. One base (Levis, chosen on the drive from the start), a must placed, two age-limited picks as `TB_FIT` with the age |
-| `algonquin` | `algonquin.ts` | Toronto hub, 2 nights, October (the trails' shoulder month: open). Four trails as stops, the park pick marked as the area. **The engine does not pin the area yet (TB-PIN R1): the golden pins today's output and a test marked `it.fails` states the target** |
+| `algonquin` | `algonquin.ts` | Toronto hub, 2 nights, October (the trails' shoulder month: open). Four trails as stops; the park pick is the trip's area (TB-PIN R1): in `areas` with its 4 members, never on a day, never in Did not fit or the matrix. Oxtongue Lake (about 45 km from the park's point) is not a member |
 | `daytrip` | `daytrip.ts` | Nights 0, one day, no base, drive out and back from the Toronto hub; one pick beyond the one-way limit is `TB_TOO_FAR`; the start is never keyed (a start cell in the routed map changes nothing) |
 | `infeasible-time` | `infeasible.ts` | Nine must-sees in 2 days: `TB_TIME` with the smallest Add N days, `TB_TOO_FAR` with a town near it |
 | `infeasible-closed` | `infeasible.ts` | January: three summer places are `TB_CLOSED` with Change month; the winter places are planned |
 
-Every case also checks: each pick placed once or in Did not fit (never both, none lost); day caps; reasons carry numbers and any
+Every case also checks: each pick placed once, in Did not fit or pinned as an area (exactly one, none lost); day caps; reasons carry numbers and any
 estimated drive figure carries "≈"; two builds are equal, also with towns and places reordered; the answer holds no home point,
 start coordinate or coordinate-like number.
 

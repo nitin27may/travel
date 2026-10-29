@@ -3,7 +3,7 @@
 import { describe, expect, it } from "vitest";
 import { WARN_CODE_LIST } from "../../src/checks/codes.ts";
 import { isDayCheck, LEVELLED_CODES, PENDING_WARN_CODES, WARN_LEVEL, WARN_LEVELS, warnCounts, warnLevel } from "../../src/plan/warnings.ts";
-import { PLAN_MISS_CODES, PLAN_WARNING_RE } from "../../src/schema/plan-draft.ts";
+import { PLAN_AREA_CODES, PLAN_MISS_CODES, PLAN_WARNING_RE } from "../../src/schema/plan-draft.ts";
 
 describe("WARN_LEVEL", () => {
   it("gives every day-check code a level", () => {
@@ -13,8 +13,12 @@ describe("WARN_LEVEL", () => {
   it("gives every builder did-not-fit code a level", () => {
     expect(PLAN_MISS_CODES.filter((c) => !LEVELLED_CODES.includes(c))).toEqual([]);
   });
+  it("gives every builder area check a level (TB-PIN: Pick places inside the area is a Check)", () => {
+    expect(PLAN_AREA_CODES.filter((c) => !LEVELLED_CODES.includes(c))).toEqual([]);
+    expect(warnLevel("TB_AREA_EMPTY")).toBe("check");
+  });
   it("levels nothing else: each key is a day check, a builder code or a code specified ahead of its check", () => {
-    const known = new Set<string>([...WARN_CODE_LIST, ...PLAN_MISS_CODES, ...PENDING_WARN_CODES]);
+    const known = new Set<string>([...WARN_CODE_LIST, ...PLAN_MISS_CODES, ...PLAN_AREA_CODES, ...PENDING_WARN_CODES]);
     expect(LEVELLED_CODES.filter((c) => !known.has(c))).toEqual([]);
     for (const c of PENDING_WARN_CODES) expect(PLAN_WARNING_RE.test(c), c).toBe(true);
   });
