@@ -1,4 +1,4 @@
-import { partyShortText } from '@travel/core/trips/partyWords.ts';
+import { partyText } from './party';
 import {
   addCopy,
   COPIES_KEY,
@@ -145,9 +145,4 @@ export function undoChange(storage: StorageLike, before: CopyItem): boolean {
   return r.ok;
 }
 
-// ---- the party in words (the rows and the copy sheet's done step) ----
-
-/** "2 adults, 1 child": core's short party words, the one function for the rows, the sticky rail and the done step (SW-020). */
-export function partyText(c: Pick<CopyItem, 'adults' | 'children'>): string {
-  return partyShortText({ adults: c.adults, children: c.children });
-}
+export { partyText };
