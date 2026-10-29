@@ -48,6 +48,12 @@
 .add-pin-note { margin: var(--s-1) 0 0; font: var(--t-small); color: var(--ink-2); }
 .add-far { display: grid; gap: var(--s-3); justify-items: start; }
 .add-far-line { margin: 0; font: var(--t-small); color: var(--ink); }
+/* a park's members, by the base of the day nearest each (review STEP2-PRV PR-003) */
+.add-sub { display: grid; gap: var(--s-1); }
+.add-sub + .add-sub { margin-top: var(--s-3); }
+.add-subh { margin: 0; padding-top: var(--s-2); font: var(--t-small); font-weight: 600; color: var(--ink-2); }
+.add-back { justify-self: start; min-height: var(--touch-min); display: inline-flex; align-items: center; gap: var(--s-1); }
+.add-back:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
 .add-dayrow { grid-template-columns: minmax(0, 1fr) auto; }
 .add-date { font: var(--t-meta); color: var(--muted); }
 .add-dayrow[data-current] .add-title { color: var(--muted); }

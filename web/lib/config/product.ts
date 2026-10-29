@@ -70,6 +70,12 @@ export const TRIP_EDIT_UI = {
   focusSettleMs: 1500,
   /** the add picker searches this long after the last key (STEP2-E3) */
   addSearchMs: 250,
+  /** a park member still unscored this long after it is shown offers "Pick a day" instead of waiting (review STEP2-PRV PR-003) */
+  parkFitWaitMs: 4000,
+  /** an idle-time batch runs this long when the browser gives no idle estimate (a frame's share; add/stage.ts) */
+  idleSliceMs: 8,
+  /** the longest an idle callback waits on a busy page (the map loading) before it runs anyway */
+  idleTimeoutMs: 100,
 } as const;
 
 /**

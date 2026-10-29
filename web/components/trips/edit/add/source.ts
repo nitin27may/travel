@@ -8,6 +8,7 @@ import { ADD_NEARBY_KM, nearCellSlackKm } from '@travel/core/config/nearby.ts';
 import type { Point } from '@travel/core/schedule/types.ts';
 import { nearPage as nearRead, placesPage } from '@/lib/client/data';
 import { PAGE_SIZE } from '@/lib/config/product';
+import { isParkMember, memberQuery } from './members';
 import { bboxAround, isStop, kmBetween, type Found } from './place';
 
 /** The most slugs one `ids` read takes (core API_LIMITS.query.ids; a literal here so no API schema code loads with the picker). */
@@ -29,6 +30,7 @@ interface ApiRow {
   lon: number | null;
   km: number | null;
   gain_m: number | null;
+  area?: string;
   area_name: string;
   kid_fit: string;
   kids_from: number | null;
@@ -37,7 +39,7 @@ interface ApiRow {
 }
 export const foundOf = (r: ApiRow): Found => ({
   slug: r.slug, name: r.name, kind: r.kind, kindLabel: r.kindLabel, lat: r.lat, lon: r.lon, km: r.km, gainM: r.gain_m, area: r.area_name, kidFit: r.kid_fit, kidsFrom: r.kids_from ?? null,
-  flags: r.flags, season: r.season,
+  flags: r.flags, season: r.season, ...(r.area ? { areaSlug: r.area } : {}),
 });
 
 export const apiAvailable = (): boolean => process.env.NEXT_PUBLIC_DATA_ADAPTER !== 'static';
@@ -91,6 +93,28 @@ export async function rowsOf(slugs: readonly string[], signal?: AbortSignal): Pr
     const got = await read({ ids: slugs.slice(i, i + IDS_MAX) }, 1, Math.min(IDS_MAX, PAGE_SIZE.list * 2), signal);
     if (!got) return null;
     out.push(...got.items.map(foundOf));
+  }
+  return out;
+}
+
+/** The most pages of a park's member read (P8: a bounded read, 144 light rows at most; no park we hold has half that). */
+export const MEMBER_PAGES = 3;
+
+/**
+ * The places in a park (members.ts): the catalogue's matches for the park's name, a page at a time, kept only where the row's area or name
+ * is the park's. One bounded read by words, never a radius from the park's point (review STEP2-PRV PR-003). Null when the read failed or the
+ * build has no API.
+ */
+export async function parkMembers(park: Found, signal?: AbortSignal): Promise<Found[] | null> {
+  const q = memberQuery(park);
+  if (!q) return [];
+  const out: Found[] = [];
+  let page: number | null = 1;
+  for (let i = 0; i < MEMBER_PAGES && page !== null; i++) {
+    const got = await searchPage(q, page, signal);
+    if (!got) return null;
+    out.push(...got.rows.filter((f) => isParkMember(f, park) && !out.some((x) => x.slug === f.slug)));
+    page = got.next;
   }
   return out;
 }
