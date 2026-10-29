@@ -5682,6 +5682,798 @@
         "review_state": "agent_checked",
         "basis": "community"
       }
+    },
+    "place/ashlar-ridge": {
+      "lat": 53.1742,
+      "lon": -117.8049,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q22457126",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q22457126 P625 (Ashlar Ridge); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/ashlar-ridge#miette-parking": {
+      "lat": 53.13047,
+      "lon": -117.77148,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/708096702",
+        "read": "2026-10-28",
+        "quote": "OSM way/708096702 named 'Hiking Sulphur skyline trail' (amenity=parking) at Miette Hot Springs; agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/athabasca-glacier": {
+      "lat": 52.19083,
+      "lon": -117.25528,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q391165",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q391165 P625 (Athabasca Glacier); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/athabasca-glacier#toe-parking": {
+      "lat": 52.21262,
+      "lon": -117.23292,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/26751964",
+        "read": "2026-10-28",
+        "quote": "OSM way/26751964 (amenity=parking, operator Parks Canada, fee=no, unpaved) at the end of the Glacier Road; agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/curly-phillips-boathouse": {
+      "lat": 52.7289,
+      "lon": -117.63769,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q44664199",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q44664199 P625 (Curly Phillips Boathouse); agent checked, needs a person's check"
+      },
+      "point_role": "entrance",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/maligne-lake": {
+      "lat": 52.66444,
+      "lon": -117.53361,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q429646",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q429646 P625 (Maligne Lake); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/mount-edith-cavell": {
+      "lat": 52.66731,
+      "lon": -118.05719,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/2698521553",
+        "read": "2026-10-28",
+        "quote": "OSM node/2698521553 Mount Edith Cavell (natural=peak, ele 3363); agent checked, needs a person's check"
+      },
+      "point_role": "summit",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/mount-edith-cavell#upper-lot": {
+      "lat": 52.68736,
+      "lon": -118.05564,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "relation/20689592",
+        "read": "2026-10-28",
+        "quote": "OSM relation/20689592 named 'Mount Edith Cavell (upper lot)'; agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/mount-kerkeslin": {
+      "lat": 52.64902,
+      "lon": -117.82684,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/2699165524",
+        "read": "2026-10-28",
+        "quote": "OSM node/2699165524 Mount Kerkeslin (natural=peak, ele 2984); agent checked, needs a person's check"
+      },
+      "point_role": "summit",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/mount-kerkeslin#athabasca-falls-parking": {
+      "lat": 52.66587,
+      "lon": -117.88292,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/307218808",
+        "read": "2026-10-28",
+        "quote": "OSM way/307218808 named 'Athabasca Falls' (amenity=parking, fee=no, asphalt); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/jasper": {
+      "lat": 52.87523,
+      "lon": -118.08243,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/51971014",
+        "read": "2026-10-28",
+        "quote": "OSM node/51971014 Jasper (place=town); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/barrier-lake": {
+      "lat": 51.0272,
+      "lon": -115.066,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q3214736",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q3214736 P625 (Barrier Lake); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/barrier-lake#day-use": {
+      "lat": 51.02375,
+      "lon": -115.06133,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/261038368",
+        "read": "2026-10-28",
+        "quote": "OSM way/261038368 (amenity=parking, access=yes) at the Barrier Lake day use; agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/burstall-lakes": {
+      "lat": 50.78335,
+      "lon": -115.33533,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q22353518",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q22353518 P625 (Burstall Lakes); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/burstall-lakes#burstall-pass-parking": {
+      "lat": 50.7907,
+      "lon": -115.30359,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/262485800",
+        "read": "2026-10-28",
+        "quote": "OSM way/262485800 named 'Burstall Pass Parking' (amenity=parking, capacity 50); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/highwood-pass": {
+      "lat": 50.59623,
+      "lon": -114.9845,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/1339315277",
+        "read": "2026-10-28",
+        "quote": "OSM node/1339315277 Highwood Pass (natural=saddle, ele 2206); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/highwood-pass#highwood-meadows": {
+      "lat": 50.59582,
+      "lon": -114.98514,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/270025808",
+        "read": "2026-10-28",
+        "quote": "OSM node/270025808 named 'Highwood Meadows' (amenity=parking); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/kananaskis-village": {
+      "lat": 50.9174,
+      "lon": -115.14712,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/283707361",
+        "read": "2026-10-28",
+        "quote": "OSM node/283707361 Kananaskis Village (place=town); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/mount-lawrence-grassi": {
+      "lat": 51.0538,
+      "lon": -115.39092,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/2684623546",
+        "read": "2026-10-28",
+        "quote": "OSM node/2684623546 Mount Lawrence Grassi (natural=peak, ele 2682); agent checked, needs a person's check"
+      },
+      "point_role": "summit",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/mount-lawrence-grassi#grassi-lakes-parking": {
+      "lat": 51.08122,
+      "lon": -115.39447,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/29234142",
+        "read": "2026-10-28",
+        "quote": "OSM way/29234142 named 'Grassi Lakes Parking' (operator Alberta Parks, fee=yes); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/paddys-flat": {
+      "lat": 50.87859,
+      "lon": -114.71374,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/12780122240",
+        "read": "2026-10-28",
+        "quote": "OSM node/12780122240 Paddy's Flat (place=locality); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/paddys-flat#campground-parking": {
+      "lat": 50.88099,
+      "lon": -114.71052,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/1380471053",
+        "read": "2026-10-28",
+        "quote": "OSM way/1380471053 named 'Paddy's Flat - Group Camping Area' (amenity=parking, paved); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/spray-valley-provincial-park": {
+      "lat": 50.89389,
+      "lon": -115.285,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q3364735",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q3364735 P625 (Spray Valley Provincial Park); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/upper-kananaskis-lake": {
+      "lat": 50.6181,
+      "lon": -115.154,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q7346507",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q7346507 P625 (Upper Kananaskis Lake); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/upper-kananaskis-lake#north-interlakes": {
+      "lat": 50.63157,
+      "lon": -115.13998,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/269821248",
+        "read": "2026-10-28",
+        "quote": "OSM node/269821248 named 'North Interlakes' (amenity=parking), between the Upper and Lower Kananaskis lakes; agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/beauvais-lake": {
+      "lat": 49.4086,
+      "lon": -114.1,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q4877958",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q4877958 P625 (Beauvais Lake); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/beauvais-lake#beaver-creek-day-use": {
+      "lat": 49.41261,
+      "lon": -114.11273,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/459886460",
+        "read": "2026-10-28",
+        "quote": "OSM way/459886460 named 'Beaver Creek Day Use Parking' (operator Alberta Parks, capacity about 20, fee=no); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/mount-blakiston": {
+      "lat": 49.09433,
+      "lon": -114.03473,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/9005199647",
+        "read": "2026-10-28",
+        "quote": "OSM node/9005199647 Mount Blakiston (natural=peak, ele 2910); agent checked, needs a person's check"
+      },
+      "point_role": "summit",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/mount-blakiston#red-rock-canyon-parking": {
+      "lat": 49.13085,
+      "lon": -114.02595,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/1059104807",
+        "read": "2026-10-28",
+        "quote": "OSM way/1059104807 (amenity=parking, access=yes, fee=no) at the end of the Red Rock Parkway; agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/waterton-park": {
+      "lat": 49.05092,
+      "lon": -113.90702,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/9174974666",
+        "read": "2026-10-28",
+        "quote": "OSM node/9174974666 Waterton Park (place=hamlet); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/upper-elk-lake": {
+      "lat": 50.55222,
+      "lon": -115.10833,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q22391422",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q22391422 P625 (Upper Elk Lake); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/upper-elk-lake#elk-lakes-trailhead": {
+      "lat": 50.55102,
+      "lon": -115.07094,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/102439897",
+        "read": "2026-10-28",
+        "quote": "OSM way/102439897 (amenity=parking) at the end of the Elk River road; agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/whiteswan-lake": {
+      "lat": 50.13972,
+      "lon": -115.48333,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q22612582",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q22612582 P625 (Whiteswan Lake); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/whiteswan-lake#home-basin": {
+      "lat": 50.15429,
+      "lon": -115.47327,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/126512005",
+        "read": "2026-10-28",
+        "quote": "OSM way/126512005 (amenity=parking) beside Home Basin Campground (operator EK Parks Ltd.); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/sinclair-canyon": {
+      "lat": 50.63327,
+      "lon": -116.05208,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q22629068",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q22629068 P625 (Sinclair Canyon); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/sinclair-canyon#pullout": {
+      "lat": 50.63314,
+      "lon": -116.05204,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/222249120",
+        "read": "2026-10-28",
+        "quote": "OSM way/222249120 (amenity=parking) on Highway 93 inside the canyon; agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/mount-robson-provincial-park": {
+      "lat": 53.0339,
+      "lon": -119.232,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q1950710",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q1950710 P625 (Mount Robson Provincial Park); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/mount-robson": {
+      "lat": 53.11036,
+      "lon": -119.15568,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/2699332830",
+        "read": "2026-10-28",
+        "quote": "OSM node/2699332830 Mount Robson (natural=peak, ele 3954); agent checked, needs a person's check"
+      },
+      "point_role": "summit",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/mount-robson-provincial-park#welcome-centre": {
+      "lat": 53.03549,
+      "lon": -119.22904,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/127274566",
+        "read": "2026-10-28",
+        "quote": "OSM way/127274566 Mount Robson Visitor Centre (tourism=information, information=office); agent checked, needs a person's check"
+      },
+      "point_role": "entrance",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/chancellor-peak": {
+      "lat": 51.22317,
+      "lon": -116.51097,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/5613035260",
+        "read": "2026-10-28",
+        "quote": "OSM node/5613035260 Chancellor Peak (natural=peak, ele 3280); agent checked, needs a person's check"
+      },
+      "point_role": "summit",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/field": {
+      "lat": 51.39611,
+      "lon": -116.48915,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/51970759",
+        "read": "2026-10-28",
+        "quote": "OSM node/51970759 Field (place=village); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/yoho-valley": {
+      "lat": 51.53328,
+      "lon": -116.51891,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q22649377",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q22649377 P625 (Yoho Valley); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/yoho-valley#takakkaw-falls-parking": {
+      "lat": 51.49785,
+      "lon": -116.48369,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/228173009",
+        "read": "2026-10-28",
+        "quote": "OSM way/228173009 (amenity=parking, surface) at the end of the Yoho Valley Road; agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/golden": {
+      "lat": 51.29923,
+      "lon": -116.96445,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/51971610",
+        "read": "2026-10-28",
+        "quote": "OSM node/51971610 Golden (place=town); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
     }
   }
 }

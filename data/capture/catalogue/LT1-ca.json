@@ -1,0 +1,3616 @@
+{
+  "schema": "capture/1",
+  "trip": "catalogue",
+  "lane": "LT1-ca",
+  "researched": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/glacier-athabasca",
+      "title": "Columbia Icefield area and the Athabasca Glacier",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne",
+      "title": "Maligne Lake, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell",
+      "title": "Mount Edith Cavell, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/athabasca",
+      "title": "Athabasca Falls, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf",
+      "title": "Jasper National Park Day Hiking Guide 2026",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving",
+      "title": "Scenic drives, Waterton Lakes National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://parks.canada.ca/pn-np/ab/waterton/visit/cartes-maps/carte-parc-park-map",
+      "title": "Waterton Lakes National Park map",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+      "title": "Points of interest, Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/services",
+      "title": "Facilities and services, Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive",
+      "title": "Scenic drive, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/",
+      "title": "Upper Lake day use, Peter Lougheed Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/burstall-pass/",
+      "title": "Burstall Pass day use, Peter Lougheed Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/",
+      "title": "Highwood Meadows day use, Peter Lougheed Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/",
+      "title": "Barrier Lake day use, Bow Valley Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/day-use/beaver-creek/",
+      "title": "Beaver Creek day use, Beauvais Lake Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/",
+      "title": "Beauvais Lake Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat/",
+      "title": "Paddy's Flat campground, Elbow River Provincial Recreation Area",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/",
+      "title": "Grassi Lakes day use, Canmore Nordic Centre Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/",
+      "title": "Spray Valley Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/library/kananaskis-country-maps/",
+      "title": "Kananaskis Country maps",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/evan-thomas-pra/information-facilities/special-facilities/kananaskis-village",
+      "title": "Kananaskis Village, Evan-Thomas Provincial Recreation Area",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://bcparks.ca/mount-robson-park/",
+      "title": "Mount Robson Park",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://bcparks.ca/elk-lakes-park/",
+      "title": "Elk Lakes Park",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0037",
+      "url": "https://bcparks.ca/whiteswan-lake-park/",
+      "title": "Whiteswan Lake Park",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0038",
+      "url": "https://www.jasper-alberta.ca/",
+      "title": "Municipality of Jasper",
+      "publisher": "Municipality of Jasper",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0039",
+      "url": "https://www.jasper.travel/",
+      "title": "Jasper National Park official guide",
+      "publisher": "Tourism Jasper",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0040",
+      "url": "https://www.golden.ca/",
+      "title": "Town of Golden",
+      "publisher": "Town of Golden",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0041",
+      "url": "https://www.tourismgolden.com/",
+      "title": "Golden, BC: the official travel and tourism site",
+      "publisher": "Tourism Golden",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0042",
+      "url": "https://watertontourism.com/",
+      "title": "Waterton Lakes: visitor site",
+      "publisher": "Waterton Lakes (watertontourism.com)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0043",
+      "url": "https://www.field.ca/about/",
+      "title": "About Field, BC",
+      "publisher": "field.ca (community of Field)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0044",
+      "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/rentals/",
+      "title": "Maligne Lake boat rentals",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0057",
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities",
+      "title": "Wikidata entities of the 40 places (labels, P31, P625, P2044, P1566, P856, P402)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    },
+    {
+      "id": "src-0058",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap elements by id and car parks, trailheads and roads near each place (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    },
+    {
+      "id": "src-0059",
+      "url": "https://nominatim.openstreetmap.org/reverse",
+      "title": "Nominatim reverse lookups of the car park points (zoom 16 and 17)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    },
+    {
+      "id": "src-0061",
+      "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts",
+      "title": "English Wikipedia introductions of the Rockies places",
+      "publisher": "Wikipedia (CC BY-SA)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/ashlar-ridge",
+      "type": "nature.landform.mountain",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-hinton",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5975503, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 29,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Ashlar Ridge",
+      "area_id": "CA/AB/jasper-national-park",
+      "osm_ref": {
+        "v": "node/2699282960",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the peak node named Ashlar Ridge nearest the Wikidata point (331 m); two more nodes of the same name lie 1.9 and 2.7 km away along the ridge, so a person should confirm"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q22457126",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/ashlar-ridge#miette-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-hinton",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5975503, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 32.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Miette Hot Springs car park (Sulphur Skyline trailhead)",
+      "area_id": "CA/AB/jasper-national-park",
+      "osm_ref": {
+        "v": "way/708096702",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of named 'Hiking Sulphur skyline trail' (amenity=parking) at Miette Hot Springs"
+      },
+      "parks_for": [
+        "place/ashlar-ridge"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Miette Road"
+          ],
+          "locality": "Improvement District No. 12",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28); the locality is the district OSM gives. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "closures": {
+        "v": [
+          {
+            "from": "10-15",
+            "to": "05-15",
+            "status": "closed",
+            "why": "Miette Road closed to vehicles from mid-October to mid-May"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-28",
+        "quote": "Miette road closed to vehicles from mid October to mid May."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0006"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "type": "nature.landform.glacier_view",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Athabasca Glacier",
+      "area_id": "CA/AB/jasper-national-park",
+      "osm_ref": {
+        "v": "relation/19256027",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the glacier multipolygon named Athabasca Glacier (natural=glacier), 349 m from the store point"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Parks Canada Athabasca Glacier page",
+          "Jasper Day Hiking Guide 2026"
+        ],
+        "note": "No best weeks are published for the glacier view."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/glacier-athabasca",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q391165",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Athabasca_Glacier",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/athabasca-glacier#toe-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Toe of the Glacier car park (Glacier Road)",
+      "area_id": "CA/AB/jasper-national-park",
+      "osm_ref": {
+        "v": "way/26751964",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of (amenity=parking, operator Parks Canada, fee=no, unpaved) at the end of the Glacier Road"
+      },
+      "parks_for": [
+        "place/athabasca-glacier"
+      ],
+      "address": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Nominatim reverse at zoom 17 (a footpath) and 16 (Icefields Parkway, 739 m away)",
+          "Overpass: no named road within 400 m"
+        ],
+        "note": "The lot sits at the end of the unnamed gravel Glacier Road off Highway 93N, across from the Icefield Centre (hiking guide)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/glacier-athabasca",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "type": "culture.heritage.historic_site",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-jasper-park-lodge",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 33.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Curly Phillips Boathouse",
+      "area_id": "CA/AB/jasper-national-park",
+      "season": {
+        "v": [
+          {
+            "from": "05-28",
+            "to": "10-10",
+            "status": "open",
+            "applies_to": "2027",
+            "note": "the operator's 2027 Maligne Lake dates; closed for the rest of 2026"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0044"
+        ],
+        "read": "2026-10-28",
+        "quote": "We look forward to welcoming guests back from May 28 to October 10, 2027.",
+        "note": "The rentals page carries the Maligne Lake season; rentals run from the boathouse.",
+        "applies_to": "2027"
+      },
+      "hours": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "banffjaspercollection.com Maligne Lake rentals page (an 'Opening Hours' heading with no times)"
+        ],
+        "note": "Daily hours are not published."
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "person",
+            "applies_to": "2026",
+            "note": "no admission to see the boathouse; rentals are priced by the operator (canoe CAD 89 for 1 hour)"
+          }
+        ],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0044"
+        ],
+        "read": "2026-10-28",
+        "note": "The operator page sells rentals from the boathouse and names no admission; free to look at is our reading.",
+        "applies_to": "2026"
+      },
+      "address": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Wikidata Q44664199 (no P6375)",
+          "Overpass: no element for the boathouse",
+          "banffjaspercollection.com rentals page"
+        ],
+        "note": "The boathouse is at the end of Maligne Lake Road; its car park records the road."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/rentals/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0044"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q44664199",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/maligne-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-jasper-park-lodge",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 42.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Maligne Lake",
+      "area_id": "CA/AB/jasper-national-park",
+      "osm_ref": {
+        "v": "relation/5760911",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the lake multipolygon tagged with the store QID and Wikidata's P402"
+      },
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Parks Canada Maligne Lake page",
+          "Jasper Day Hiking Guide 2026"
+        ],
+        "note": "No page read gives a best time of day; light was not computed because the view's direction is not published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q429646",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Maligne_Lake",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "type": "nature.landform.mountain",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-jasper",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6354954, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 23.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mount Edith Cavell",
+      "area_id": "CA/AB/jasper-national-park",
+      "osm_ref": {
+        "v": "node/2698521553",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the peak node tagged with the store QID"
+      },
+      "closures": {
+        "v": [
+          {
+            "from": "2026-01-01",
+            "to": "2026-12-31",
+            "status": "closed",
+            "why": "Cavell Road closed for the whole 2026 season for assessment and rehabilitation"
+          },
+          {
+            "from": "11-01",
+            "to": "05-15",
+            "status": "closed",
+            "why": "Tonquin caribou winter closure: all access to Cavell Road prohibited"
+          }
+        ],
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28",
+        "quote": "Cavell Road and Maligne Canyon will remain closed for the 2026 season"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Parks Canada Mount Edith Cavell page",
+          "Jasper Day Hiking Guide 2026"
+        ],
+        "note": "No best weeks are published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q510573",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mount_Edith_Cavell",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/mount-edith-cavell#upper-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-jasper",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6354954, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 21.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mount Edith Cavell upper car park",
+      "area_id": "CA/AB/jasper-national-park",
+      "osm_ref": {
+        "v": "relation/20689592",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of named 'Mount Edith Cavell (upper lot)'"
+      },
+      "parks_for": [
+        "place/mount-edith-cavell"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Mount Edith Cavell Road"
+          ],
+          "locality": "Improvement District No. 12",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28); the locality is the district OSM gives. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "closures": {
+        "v": [
+          {
+            "from": "2026-01-01",
+            "to": "2026-12-31",
+            "status": "closed",
+            "why": "Cavell Road closed for the 2026 season"
+          }
+        ],
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28",
+        "quote": "Cavell Road and Maligne Canyon will remain closed for the 2026 season"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "type": "nature.landform.mountain",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-jasper-park-lodge",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 30.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mount Kerkeslin",
+      "area_id": "CA/AB/jasper-national-park",
+      "osm_ref": {
+        "v": "node/2699165524",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the peak node tagged with the store QID"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Parks Canada Athabasca Falls page",
+          "Jasper accessible facilities page"
+        ],
+        "note": "No best weeks are published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/athabasca",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q6921646",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mount_Kerkeslin",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/mount-kerkeslin#athabasca-falls-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-jasper-park-lodge",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 27.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Athabasca Falls car park",
+      "area_id": "CA/AB/jasper-national-park",
+      "osm_ref": {
+        "v": "way/307218808",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of named 'Athabasca Falls' (amenity=parking, fee=no, asphalt)"
+      },
+      "parks_for": [
+        "place/mount-kerkeslin"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Highway 93A"
+          ],
+          "locality": "Improvement District No. 12",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28); the locality is the district OSM gives. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/athabasca",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/jasper",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-jasper",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6354954, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Jasper",
+      "area_id": "CA/AB/jasper-national-park",
+      "osm_ref": {
+        "v": "relation/6282024",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the Municipality of Jasper boundary, tagged with the store QID and Wikidata's P402; the place node is node/51971014"
+      },
+      "geonames_id": {
+        "v": "6354954",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q999429 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.jasper-alberta.ca/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0038"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.jasper.travel/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0039"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q999429",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Jasper,_Alberta",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/barrier-lake",
+      "type": "water.body.pond_reservoir",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 20.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Barrier Lake",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "way/328698965",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the lake polygon named Barrier Lake (natural=water, water=lake)"
+      },
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Alberta Parks Barrier Lake day use page"
+        ],
+        "note": "No page read gives a best time of day; light was not computed because the view's direction is not published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0022"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q3214736",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Barrier_Lake_(Alberta)",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/barrier-lake#day-use",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 21.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Barrier Lake day-use car park",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "way/261038368",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of (amenity=parking, access=yes) at the Barrier Lake day use"
+      },
+      "parks_for": [
+        "place/barrier-lake"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Kananaskis Trail"
+          ],
+          "locality": "Kananaskis Village",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28); the locality is the district OSM gives. Highway 40; answer 253 m away; the district name is OSM's, not the village. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0022"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "type": "water.body.lake",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 33.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Burstall Lakes",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "way/303566618",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "one of the lake polygons named Burstall Lakes (natural=water), 192 m from the store point; a second polygon of the same name lies 706 m away"
+      },
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Alberta Parks Burstall Pass day use page"
+        ],
+        "note": "No page read gives a best time of day; light was not computed because the view's direction is not published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/burstall-pass/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0020"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q22353518",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/burstall-lakes#burstall-pass-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 32.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Burstall Pass day-use car park",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "way/262485800",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of named 'Burstall Pass Parking' (amenity=parking, capacity 50)"
+      },
+      "parks_for": [
+        "place/burstall-lakes"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Smith-Dorrien / Spray Lakes Trail"
+          ],
+          "locality": "Kananaskis Improvement District",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28); the locality is the district OSM gives. Highway 742. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/burstall-pass/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0020"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/highwood-pass",
+      "type": "nature.viewpoint.pullout",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-turner-valley",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6170469, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 49.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Highwood Pass",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "node/1339315277",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the saddle node (natural=saddle, mountain_pass=yes, ele 2206) tagged with the store QID"
+      },
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Alberta Parks Highwood Meadows day use page"
+        ],
+        "note": "No page read gives a best time of day; light was not computed because the view's direction is not published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0021"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q5760070",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Highwood_Pass",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/highwood-pass#highwood-meadows",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-turner-valley",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6170469, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 50,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Highwood Meadows day-use car park",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "node/270025808",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of named 'Highwood Meadows' (amenity=parking)"
+      },
+      "parks_for": [
+        "place/highwood-pass"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Kananaskis Trail"
+          ],
+          "locality": "Kananaskis Improvement District",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058",
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Named road within 400 m (Overpass) and district from Nominatim (2026-10-28). Highway 40; Nominatim gives a footway. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0021"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "type": "settlement.village",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 23.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Kananaskis Village",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "node/283707361",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the place node named Kananaskis Village (place=town), 22 m from the store point; it carries no wikidata tag"
+      },
+      "geonames_id": {
+        "v": "5989106",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q6360620 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/evan-thomas-pra/information-facilities/special-facilities/kananaskis-village",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0030"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q6360620",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Kananaskis_Village",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "state": "searched_none",
+          "on": "2026-10-28",
+          "query": "Kananaskis Village tourism board",
+          "src": [
+            "src-0030"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "type": "nature.landform.mountain",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 4.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mount Lawrence Grassi",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "node/2684623546",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the peak node tagged with the store QID"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Alberta Parks Grassi Lakes day use page"
+        ],
+        "note": "No best weeks are published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0026"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q6921787",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mount_Lawrence_Grassi",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/mount-lawrence-grassi#grassi-lakes-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Grassi Lakes day-use car park",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "way/29234142",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of named 'Grassi Lakes Parking' (operator Alberta Parks, fee=yes)"
+      },
+      "parks_for": [
+        "place/mount-lawrence-grassi"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Ken Richie Way"
+          ],
+          "locality": "Canmore",
+          "postcode": "T1W 2T6"
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup at street zoom (2026-10-28), 46 m from the lot. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0026"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/paddys-flat",
+      "type": "nature.landform.valley",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-cochrane",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5924618, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 38,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Paddy's Flat",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "node/12780122240",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the locality node named Paddy's Flat (place=locality), 587 m from the store point; a tourism=information node of the same name lies 1.7 km away"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Alberta Parks Paddy's Flat campground page"
+        ],
+        "note": "No best weeks are published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0025"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q22465470",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/paddys-flat#campground-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-cochrane",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5924618, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 37.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Paddy's Flat group camping car park",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "way/1380471053",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of named 'Paddy's Flat - Group Camping Area' (amenity=parking, paved)"
+      },
+      "parks_for": [
+        "place/paddys-flat"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Paddy's Flat Group Camping Area"
+          ],
+          "locality": "Kananaskis Improvement District",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28); the locality is the district OSM gives. The campground road, off Highway 66. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0025"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "type": "nature.protected.state_provincial_park",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 21.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Spray Valley Provincial Park",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "relation/6364994",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the protected-area boundary named Spray Valley Provincial Park (boundary=protected_area, protect_class 2); it carries no wikidata tag"
+      },
+      "run_by": "operator/alberta-parks",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0028"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q3364735",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://www.albertaparks.ca/media/6496043/2019-south-spray-plpp-map.pdf",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0029"
+          ]
+        },
+        {
+          "kind": "conditions",
+          "state": "searched_none",
+          "on": "2026-10-28",
+          "query": "Spray Valley Provincial Park advisories page (albertaparks.ca/parks/kananaskis/spray-valley-pp/advisories/ is an empty shell; advisories show on the park page)",
+          "src": [
+            "src-0028"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Spray_Valley_Provincial_Park",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Upper Kananaskis Lake",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "relation/4011900",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the lake multipolygon named Upper Kananaskis Lake (natural=water), 237 m from the store point; it carries no wikidata tag"
+      },
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Alberta Parks Upper Lake day use page"
+        ],
+        "note": "No page read gives a best time of day; light was not computed because the view's direction is not published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0019"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q7346507",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Upper_Kananaskis_Lake",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/upper-kananaskis-lake#north-interlakes",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "North Interlakes day-use car park",
+      "area_id": "CA/AB/kananaskis-country",
+      "osm_ref": {
+        "v": "node/269821248",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of named 'North Interlakes' (amenity=parking), between the Upper and Lower Kananaskis lakes"
+      },
+      "parks_for": [
+        "place/upper-kananaskis-lake"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "North Interlakes Loop Road"
+          ],
+          "locality": "Kananaskis Improvement District",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28); the locality is the district OSM gives. The named lot on the north shore. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0019"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-pincher-creek",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6104841, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 13.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Beauvais Lake",
+      "area_id": "CA/AB/beauvais-lake-provincial-park",
+      "osm_ref": {
+        "v": "way/23260039",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the lake polygon named Beauvais Lake (natural=water, water=lake), 209 m from the store point; it carries no wikidata tag"
+      },
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Alberta Parks Beauvais Lake park page",
+          "Beaver Creek day use page"
+        ],
+        "note": "No page read gives a best time of day; light was not computed because the view's direction is not published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0024"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q4877958",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Beauvais_Lake_(Alberta)",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/beauvais-lake#beaver-creek-day-use",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-pincher-creek",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6104841, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 14,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Beaver Creek day-use car park",
+      "area_id": "CA/AB/beauvais-lake-provincial-park",
+      "osm_ref": {
+        "v": "way/459886460",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of named 'Beaver Creek Day Use Parking' (operator Alberta Parks, capacity about 20, fee=no)"
+      },
+      "parks_for": [
+        "place/beauvais-lake"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Range Road 15"
+          ],
+          "locality": "Municipal District of Pincher Creek No. 9",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28); the locality is the district OSM gives. Street zoom; zoom 17 gives a snowshoe trail. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/day-use/beaver-creek/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0023"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "type": "nature.landform.mountain",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-pincher-creek",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6104841, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 43.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mount Blakiston",
+      "area_id": "CA/AB/waterton-lakes-national-park",
+      "osm_ref": {
+        "v": "node/9005199647",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the peak node tagged with the store QID"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Parks Canada Waterton scenic drives page"
+        ],
+        "note": "No best weeks are published; the page says June wildflowers are spectacular on the Red Rock Parkway."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q3321701",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mount_Blakiston",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/mount-blakiston#red-rock-canyon-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-pincher-creek",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6104841, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 39.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Red Rock Canyon car park",
+      "area_id": "CA/AB/waterton-lakes-national-park",
+      "osm_ref": {
+        "v": "way/1059104807",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of (amenity=parking, access=yes, fee=no) at the end of the Red Rock Parkway"
+      },
+      "parks_for": [
+        "place/mount-blakiston"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Red Rock Parkway"
+          ],
+          "locality": "Improvement District No. 04",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28); the locality is the district OSM gives. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0009"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/waterton-park",
+      "type": "settlement.village",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-cardston",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5916821, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 47,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Waterton Park",
+      "area_id": "CA/AB/waterton-lakes-national-park",
+      "osm_ref": {
+        "v": "node/9174974666",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the hamlet node tagged with the store QID"
+      },
+      "geonames_id": {
+        "v": "6176887",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q7974475 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/waterton/visit/cartes-maps/carte-parc-park-map",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0010"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://watertontourism.com/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0042"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q7974475",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Waterton_Park",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Upper Elk Lake",
+      "area_id": "CA/BC/elk-lakes-provincial-park",
+      "osm_ref": {
+        "v": "way/302530307",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the lake polygon named Upper Elk Lake (natural=water, water=lake), 191 m from the store point; it carries no wikidata tag"
+      },
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "BC Parks Elk Lakes Park page"
+        ],
+        "note": "No page read gives a best time of day; light was not computed because the view's direction is not published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://bcparks.ca/elk-lakes-park/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0036"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q22391422",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://nrs.objectstore.gov.bc.ca/kuwyyf/elk_lakes_park_map_22c0ae78df.pdf",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0036"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/upper-elk-lake#elk-lakes-trailhead",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Elk Lakes trailhead car park",
+      "area_id": "CA/BC/elk-lakes-provincial-park",
+      "osm_ref": {
+        "v": "way/102439897",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of (amenity=parking) at the end of the Elk River road"
+      },
+      "parks_for": [
+        "place/upper-elk-lake"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Elk River Forest Service Road"
+          ],
+          "locality": "Area A (Upper Flathead/Elk Valley)",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28); the locality is the district OSM gives. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://bcparks.ca/elk-lakes-park/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0036"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-elkford",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5947708, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 42.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Whiteswan Lake",
+      "area_id": "CA/BC/whiteswan-lake-provincial-park",
+      "osm_ref": {
+        "v": "way/126512023",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the lake polygon named Whiteswan Lake (natural=water, water=lake), 487 m from the store point; it carries no wikidata tag"
+      },
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "BC Parks Whiteswan Lake Park page"
+        ],
+        "note": "No page read gives a best time of day; light was not computed because the view's direction is not published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://bcparks.ca/whiteswan-lake-park/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0037"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q22612582",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://nrs.objectstore.gov.bc.ca/kuwyyf/whiteswan_lake_map_61fa249d8f.pdf",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0037"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/whiteswan-lake#home-basin",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-elkford",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5947708, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 42.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Home Basin car park",
+      "area_id": "CA/BC/whiteswan-lake-provincial-park",
+      "osm_ref": {
+        "v": "way/126512005",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of (amenity=parking) beside Home Basin Campground (operator EK Parks Ltd.)"
+      },
+      "parks_for": [
+        "place/whiteswan-lake"
+      ],
+      "address": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Nominatim reverse at zoom 16 and 17 (an unnamed road)",
+          "Overpass: no named road within 400 m"
+        ],
+        "note": "BC Parks names the access road, the Whiteswan Forest Service Road, but no address of the car park."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://bcparks.ca/whiteswan-lake-park/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0037"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "type": "nature.landform.gorge",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-radium-hot-springs",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6115713, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 2.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Sinclair Canyon",
+      "area_id": "CA/BC/kootenay-national-park",
+      "osm_ref": {
+        "v": "way/1137486801",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the gorge named Sinclair Canyon (natural=gorge), 147 m from the store point"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Parks Canada Kootenay scenic drive page",
+          "Kootenay points of interest page"
+        ],
+        "note": "No best weeks are published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0015"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q22629068",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/sinclair-canyon#pullout",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-radium-hot-springs",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6115713, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 2.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Sinclair Canyon pull-out",
+      "area_id": "CA/BC/kootenay-national-park",
+      "osm_ref": {
+        "v": "way/222249120",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of (amenity=parking) on Highway 93 inside the canyon"
+      },
+      "parks_for": [
+        "place/sinclair-canyon"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Banff-Windermere Parkway"
+          ],
+          "locality": "Area G (Forster Creek/Mount Assiniboine)",
+          "postcode": "V0A 1M0"
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28); the locality is the district OSM gives. Highway 93 South. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0015"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "type": "nature.protected.state_provincial_park",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-valemount",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6173031, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 22.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mount Robson Provincial Park",
+      "area_id": "CA/BC/mount-robson-provincial-park",
+      "osm_ref": {
+        "v": "relation/2235398",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the protected-area boundary tagged with the store QID and Wikidata's P402"
+      },
+      "run_by": "operator/bc-parks",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://bcparks.ca/mount-robson-park/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0034"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1950710",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://nrs.objectstore.gov.bc.ca/kuwyyf/mount_robson_park_map_8b6cadc7de.pdf",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0034"
+          ]
+        },
+        {
+          "kind": "conditions",
+          "state": "searched_none",
+          "on": "2026-10-28",
+          "query": "Mount Robson Park advisories (the park page loads them by script; bcparks.ca/active-advisories/ is the all-parks list)",
+          "src": [
+            "src-0034"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mount_Robson_Provincial_Park",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/mount-robson",
+      "type": "nature.landform.mountain",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-valemount",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6173031, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 31.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mount Robson",
+      "area_id": "CA/BC/mount-robson-provincial-park",
+      "osm_ref": {
+        "v": "node/2699332830",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the peak node tagged with the store QID (ele 3954)"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "BC Parks Mount Robson Park page"
+        ],
+        "note": "No best weeks are published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://bcparks.ca/mount-robson-park/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0034"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1161258",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mount_Robson",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+      "type": "access.amenity.visitor_info",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-valemount",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6173031, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 22.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mount Robson Welcome Centre",
+      "area_id": "CA/BC/mount-robson-provincial-park",
+      "osm_ref": {
+        "v": "way/127274566",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the information office named Mount Robson Visitor Centre (tourism=information, information=office)"
+      },
+      "parks_for": [
+        "place/mount-robson-provincial-park",
+        "place/mount-robson"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Viewpoint Road"
+          ],
+          "locality": "Area H (Robson Valley/Canoe)",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28); the locality is the district OSM gives. West entrance, Highway 16. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://bcparks.ca/mount-robson-park/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0034"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "type": "nature.landform.mountain",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-golden",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 33,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Chancellor Peak",
+      "area_id": "CA/BC/yoho-national-park",
+      "osm_ref": {
+        "v": "node/5613035260",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the peak node named Chancellor Peak (ele 3280), 121 m from the store point; it carries no wikidata tag"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Parks Canada Yoho points of interest page"
+        ],
+        "note": "No best weeks are published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0011"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q22478655",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Chancellor_Peak",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/field",
+      "type": "settlement.village",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-golden",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 35,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Field",
+      "area_id": "CA/BC/yoho-national-park",
+      "osm_ref": {
+        "v": "node/51970759",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the village node tagged with the store QID"
+      },
+      "geonames_id": {
+        "v": "5952555",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q3071515 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.field.ca/about/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0043"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q3071515",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Field,_British_Columbia",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "state": "searched_none",
+          "on": "2026-10-28",
+          "query": "Field BC tourism board",
+          "src": [
+            "src-0012"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/yoho-valley",
+      "type": "nature.landform.valley",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-golden",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 40.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Yoho Valley",
+      "area_id": "CA/BC/yoho-national-park",
+      "osm_ref": {
+        "v": "way/1137461973",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the valley way named Yoho Valley (natural=valley); its centre is 3.4 km from the store point, which is normal for a long valley"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Parks Canada Yoho points of interest page"
+        ],
+        "note": "No best weeks are published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0011"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q22649377",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://pcweb2.azureedge.net/-/media/pn-np/bc/yoho/WET4/pdf/maps/ynp-map-overview-2022.pdf",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0011"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "part/place/yoho-valley#takakkaw-falls-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-golden",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 40.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Takakkaw Falls car park",
+      "area_id": "CA/BC/yoho-national-park",
+      "osm_ref": {
+        "v": "way/228173009",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the car park element of (amenity=parking, surface) at the end of the Yoho Valley Road"
+      },
+      "parks_for": [
+        "place/yoho-valley"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Yoho Valley Road"
+          ],
+          "locality": "Area A (Kicking Horse/Kinbasket Lake)",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058",
+          "src-0059"
+        ],
+        "read": "2026-10-28",
+        "note": "Named road within 400 m (Overpass) and district from Nominatim (2026-10-28). Nominatim gives a track. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0011"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/golden",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-golden",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Golden",
+      "area_id": "CA/BC/columbia-shuswap-regional-district",
+      "osm_ref": {
+        "v": "relation/2238685",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0058"
+        ],
+        "read": "2026-10-28",
+        "note": "the Town of Golden boundary (admin_level 8) tagged with the store QID; the place node is node/51971610"
+      },
+      "geonames_id": {
+        "v": "5962582",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q1020179 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.golden.ca/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0040"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.tourismgolden.com/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0041"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1020179",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0057"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Golden,_British_Columbia",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    }
+  ]
+}

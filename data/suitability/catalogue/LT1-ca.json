@@ -1,0 +1,3130 @@
+{
+  "schema": "suitability/1",
+  "trip": "catalogue",
+  "lane": "LT1-ca",
+  "researched": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/glacier-athabasca",
+      "title": "Columbia Icefield area and the Athabasca Glacier",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne",
+      "title": "Maligne Lake, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell",
+      "title": "Mount Edith Cavell, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/athabasca",
+      "title": "Athabasca Falls, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf",
+      "title": "Jasper National Park Day Hiking Guide 2026",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible",
+      "title": "Accessible park facilities, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving",
+      "title": "Scenic drives, Waterton Lakes National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+      "title": "Points of interest, Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/services",
+      "title": "Facilities and services, Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive",
+      "title": "Scenic drive, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/services",
+      "title": "Facilities and services, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/",
+      "title": "Upper Lake day use, Peter Lougheed Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/burstall-pass/",
+      "title": "Burstall Pass day use, Peter Lougheed Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/",
+      "title": "Highwood Meadows day use, Peter Lougheed Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/",
+      "title": "Barrier Lake day use, Bow Valley Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/day-use/beaver-creek/",
+      "title": "Beaver Creek day use, Beauvais Lake Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat/",
+      "title": "Paddy's Flat campground, Elbow River Provincial Recreation Area",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/",
+      "title": "Grassi Lakes day use, Canmore Nordic Centre Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/information-facilities/day-use/wedge-pond/",
+      "title": "Wedge Pond day use, Spray Valley Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/",
+      "title": "Spray Valley Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://bcparks.ca/mount-robson-park/",
+      "title": "Mount Robson Park",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://bcparks.ca/elk-lakes-park/",
+      "title": "Elk Lakes Park",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0037",
+      "url": "https://bcparks.ca/whiteswan-lake-park/",
+      "title": "Whiteswan Lake Park",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0044",
+      "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/rentals/",
+      "title": "Maligne Lake boat rentals",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0057",
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities",
+      "title": "Wikidata entities of the 40 places (labels, P31, P625, P2044, P1566, P856, P402)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    },
+    {
+      "id": "src-0058",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap elements by id and car parks, trailheads and roads near each place (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    },
+    {
+      "id": "src-0061",
+      "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts",
+      "title": "English Wikipedia introductions of the Rockies places",
+      "publisher": "Wikipedia (CC BY-SA)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    },
+    {
+      "id": "src-0063",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+      "title": "Day hikes in Yoho National Park (row reused from lane R2a)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/ashlar-ridge",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "note": "The view of the ridge is the reward of the Sulphur Skyline trail: 8.8 km return with 700 m of climbing (Parks Canada). No source gives an age."
+        },
+        "kid_note": "Ashlar Ridge is seen, not climbed: the Sulphur Skyline trail from the Miette Hot Springs car park looks across to it after a steep 700 m climb. The road to Miette is closed from mid-October to mid-May.",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "note": "A steep mountain trail all the way to the top (Parks Canada)."
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "note": "A steep mountain trail; the accessible facilities page lists no access to the Sulphur Skyline."
+        },
+        "on_site_min": {
+          "v": [
+            240,
+            360
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "quote": "Sulphur Skyline 8.8 km return; elevation gain/loss: 700 m; 4-6 hrs"
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "the open summit of the Sulphur Skyline"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "note": "An alpine summit trail; no railings are described."
+        },
+        "walk_m": {
+          "v": 4400,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "quote": "Sulphur Skyline 8.8 km return",
+          "note": "Half of the 8.8 km return trail from the Miette Hot Springs parking lot to the viewpoint summit."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-15",
+              "to": "10-15",
+              "status": "open",
+              "via": "road",
+              "note": "Miette Road is closed to vehicles from mid-October to mid-May; the trail is usually snow free by late May"
+            },
+            {
+              "from": "10-16",
+              "to": "05-14",
+              "status": "closed",
+              "via": "road",
+              "note": "Miette Road closed to vehicles"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "quote": "Miette road closed to vehicles from mid October to mid May.",
+          "note": "Mid-month dates are our reading of 'mid October to mid May'.",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "strong-kid",
+        "accessibility": "none",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "note": "The Toe of the Athabasca Glacier trail is 1.8 km return with 60 m of climbing; no age limit to look at the glacier."
+        },
+        "kid_note": "Stay behind the barriers: Parks Canada warns that people have died in hidden crevasses. The short Toe of the Glacier trail starts at the end of the gravel Glacier Road across from the Icefield Centre.",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "note": "The lower lot is heavily rutted gravel and the trail crosses rock; the accessible facilities page names no accessible route to the toe."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "quote": "two designated accessible stalls (no side access aisle) in the heavily rutted, lower parking area",
+          "note": "The glacier can be seen from the lower parking area; the trail itself is not accessible."
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            90
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "quote": "Toe of the Athabasca Glacier 1.8 km return; elevation gain/loss: 60 m; 1 hr",
+          "note": "The upper bound is our margin for the view."
+        },
+        "exposure": {
+          "v": {
+            "level": "significant",
+            "fenced": "partly",
+            "where": "the glacier toe beyond the barriers: crevasses and collapsing ice"
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-28",
+          "quote": "Caution - The glacier is dangerous! For your safety do not cross the barriers."
+        },
+        "walk_m": {
+          "v": 900,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "quote": "Toe of the Athabasca Glacier 1.8 km return",
+          "note": "Half of the 1.8 km return trail from the trailhead lot."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Icefields Parkway: no seasonal closure stated; check road conditions in winter"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "note": "The hiking guide lists the trail without a season; the Glacier Road lot is reached from Highway 93N.",
+          "applies_to": "2026"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "glacier",
+              "note": "Hidden crevasses and collapsing ice at the toe; do not cross the barriers"
+            },
+            {
+              "category": "wind",
+              "note": "Strong winds come down from the glacier in the lower lot"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001",
+            "src-0008"
+          ],
+          "read": "2026-10-28"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "kind": "sight",
+      "subkind": "historic_site",
+      "suitability": {
+        "kid_note": "The 1928 boathouse stands on the shore beside the Maligne Lake car parks. Canoe and kayak rentals from it are not open to anyone under 18, and under-16s must be with a parent or guardian.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "note": "The first 300 m of the Mary Schäffer Loop along the shore near the boathouse are paved (accessible facilities page)."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "quote": "The first 300 m of the Mary Shäffer Loop is paved with gorgeous lake and mountain views.",
+          "note": "Accessible stalls and toilets at the lake; the public docks have a high step."
+        },
+        "on_site_min": {
+          "v": [
+            15,
+            120
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0044"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate: a look at the boathouse, or one to two hours with a rental.",
+          "estimate": true
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/maligne-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "note": "Lakeshore walks start at the car parks; the Mary Schäffer Loop is 2.9 km with no climbing."
+        },
+        "kid_note": "Spirit Island is 14 km up the lake with no road or trail: only tour boats and paddlers reach it. From the car parks the paved start of the Mary Schäffer Loop follows the shore.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "quote": "The first 300 m of the Mary Shäffer Loop is paved with gorgeous lake and mountain views."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "note": "Accessible stalls in the main and dock lots, an accessible toilet stall, 300 m of paved path; docks have a high step."
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            120
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "quote": "Mary Schäffer Loop 2.9 km loop; no elevation gain; 1-2 hrs"
+        },
+        "walk_m": {
+          "v": 50,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "note": "The trail starts at the first parking lot and goes down to the shore; 50 m is our estimate.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Maligne Lake Road; the Maligne Canyon area stays closed for 2026"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002",
+            "src-0003"
+          ],
+          "read": "2026-10-28",
+          "note": "The lake page describes year-round use (skiing in winter); Maligne Canyon, on the same road, is closed for 2026.",
+          "applies_to": "2026"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wildlife",
+              "note": "Moose and bears use the forest at the north end of the lake"
+            },
+            {
+              "category": "water",
+              "note": "Cold glacial water; Spirit Island is 14 km up the lake"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-28"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "note": "The north face is seen from the parking area; the paved Path of the Glacier climbs steeply for 800 m."
+        },
+        "kid_note": "Cavell Road is closed for all of 2026. When it is open, the north face and Angel Glacier are seen from the car park, and a steep paved path climbs 800 m to the meltwater lake. Vehicles over 25 feet are not allowed on the road.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "note": "The Path of the Glacier is paved but very steep for its first part."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "quote": "Nothing can prepare you for the awesome size and sheerness of the mountain’s north face as seen from the parking area.",
+          "note": "Accessible stalls in the upper lot; the paved trail is very steep."
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for the view and the Path of the Glacier; no time is published.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "moraine viewpoints below Angel Glacier"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "note": "Viewpoints on moraine; fencing is not described."
+        },
+        "walk_m": {
+          "v": 800,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "quote": "The paved Path of the Glacier Trail climbs very steeply from the parking area before leveling out 800 m up the trail"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "closed",
+              "via": "road",
+              "note": "Cavell Road closed for the 2026 season"
+            }
+          ],
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0003"
+          ],
+          "read": "2026-10-28",
+          "note": "Outside 2026 the road also closes 1 November to 15 May for caribou.",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "note": "Seen from the paved path at Athabasca Falls; no age limit."
+        },
+        "kid_note": "The mountain is the backdrop of Athabasca Falls: the paved path from the falls car park gives the view. Keep children behind the railings; the mist makes the rock slippery.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "note": "A paved path, though with steep and uneven sections and 14 steps to the bridge."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "quote": "A paved path provides a beautiful view of Mount Kerkeslin and the Athabasca River at the top of these thundering falls."
+        },
+        "on_site_min": {
+          "v": [
+            15,
+            45
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for the view from the falls path.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "fenced",
+            "where": "the falls viewpoints, behind railings"
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-28",
+          "quote": "For your own safety, do not cross the railings."
+        },
+        "walk_m": {
+          "v": 150,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "quote": "The 150 m path to the falls’ upper viewpoint has steep and uneven sections."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Athabasca Falls day-use area at the junction of Highways 93N and 93A"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/jasper",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "jasper-alberta.com home",
+            "Parks Canada Jasper accessible facilities page"
+          ],
+          "note": "No page describes the town's pavements."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "note": "Accessible parking downtown and behind the Information Centre, and two accessible public toilet buildings on Connaught Drive."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/barrier-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0022"
+          ],
+          "read": "2026-10-28",
+          "note": "A lakeside day-use area with picnicking and shoreline walks; no limit stated."
+        },
+        "kid_note": "The day-use area on the reservoir has picnic spots, a hand launch for canoes and a short hike to a lookout over the lake. It is open 1 May to 14 October; a Kananaskis Conservation Pass is needed to park.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Barrier Lake day use page"
+          ],
+          "note": "The page lists 'Accessible' among amenities but does not describe path surfaces."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0022"
+          ],
+          "read": "2026-10-28",
+          "note": "The day-use page lists 'Accessible' among its amenities without detail."
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0022"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for a picnic, a paddle or the lookout hike.",
+          "estimate": true
+        },
+        "walk_m": {
+          "v": 100,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0022"
+          ],
+          "read": "2026-10-28",
+          "note": "The day-use area is on the lakeshore; 100 m from the car park to the water is our estimate.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-01",
+              "to": "10-14",
+              "status": "open",
+              "via": "road",
+              "note": "Barrier Lake day use season"
+            },
+            {
+              "from": "10-15",
+              "to": "04-30",
+              "status": "closed",
+              "via": "road",
+              "note": "day use closed for the season"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0022"
+          ],
+          "read": "2026-10-28",
+          "quote": "Season: May 1 - Oct 14",
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0022"
+          ],
+          "read": "2026-10-28",
+          "note": "Pit or vault toilets at the day use."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "water",
+              "note": "A cold mountain reservoir; water-skiing is allowed but rare because of the cold"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0022"
+          ],
+          "read": "2026-10-28",
+          "note": "Swimming is listed among the day use's activities."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 5,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0020"
+          ],
+          "read": "2026-10-28",
+          "note": "A few kilometres of trail from the day use (Alberta Parks); no age is published."
+        },
+        "kid_note": "The lakes are a few kilometres up the Burstall Pass trail from the Burstall Pass day-use area on the Smith-Dorrien road. The day use has only pit toilets.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Burstall Pass day use page"
+          ],
+          "note": "The trail surface is not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Burstall Pass day use page"
+          ],
+          "note": "No accessibility information is published for the trail."
+        },
+        "on_site_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Burstall Pass day use page"
+          ],
+          "note": "No time to the lakes is published."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Burstall Pass day use page ('a few kilometers away from the day use area')"
+          ],
+          "note": "The distance is not given in metres."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Burstall Pass day use listed year-round; snowshoeing in winter"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0020"
+          ],
+          "read": "2026-10-28",
+          "quote": "Season: Year-round",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/highwood-pass",
+      "kind": "viewpoint",
+      "subkind": "pullout",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0021"
+          ],
+          "read": "2026-10-28",
+          "note": "Views from the parking lots; an interpretive trail starts there."
+        },
+        "kid_note": "The highest paved road in Canada, just over 2,200 m. Look from the Highwood Meadows car park or walk the short interpretive trail. Highway 40 over the pass is closed 1 December to 14 June.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Highwood Meadows day use page"
+          ],
+          "note": "The interpretive trail surface is not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Highwood Meadows day use page"
+          ],
+          "note": "No accessibility information is published."
+        },
+        "on_site_min": {
+          "v": [
+            20,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0021"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for the view and the interpretive trail.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null,
+            "where": "parking lots and a meadow trail"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0021"
+          ],
+          "read": "2026-10-28"
+        },
+        "walk_m": {
+          "v": 0,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0021"
+          ],
+          "read": "2026-10-28",
+          "quote": "Enjoy the views from the parking lots",
+          "note": "The view is from the car park."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-15",
+              "to": "11-30",
+              "status": "open",
+              "via": "road",
+              "note": "Highway 40 open over the pass"
+            },
+            {
+              "from": "12-01",
+              "to": "06-14",
+              "status": "closed",
+              "via": "road",
+              "note": "Highway 40 closed from Peter Lougheed Provincial Park to Highwood House"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0021"
+          ],
+          "read": "2026-10-28",
+          "quote": "Season: Jun 15 - Nov 30",
+          "applies_to": "2026"
+        },
+        "altitude_m": {
+          "v": 2206,
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0058"
+          ],
+          "read": "2026-10-28",
+          "note": "OSM ele on the saddle node; Alberta Parks says 'just over 2200 m'."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Kananaskis Village page"
+          ],
+          "note": "No page describes the village paths."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Kananaskis Village page"
+          ],
+          "note": "No accessibility information is published."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0026"
+          ],
+          "read": "2026-10-28",
+          "note": "Seen from the Grassi Lakes day use above Canmore; the summit is a scramble no source grades."
+        },
+        "kid_note": "The mountain rises over the Grassi Lakes day use above Canmore; the summit is not a family walk. The area is a wildlife corridor with bear warnings: stay on designated trails.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Grassi Lakes day use page"
+          ],
+          "note": "No surface is described for the view from the day use."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Grassi Lakes day use page"
+          ],
+          "note": "No accessibility information is published."
+        },
+        "on_site_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Grassi Lakes day use page"
+          ],
+          "note": "No visit time is published for the mountain view."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null,
+            "where": "the view from the day use"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0026"
+          ],
+          "read": "2026-10-28"
+        },
+        "walk_m": {
+          "v": 0,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0026"
+          ],
+          "read": "2026-10-28",
+          "note": "The mountain is seen from the day-use car park; the summit route is not part of this record."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Grassi Lakes day use listed year-round"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0026"
+          ],
+          "read": "2026-10-28",
+          "quote": "Season: Year-round",
+          "applies_to": "2026"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wildlife",
+              "note": "Bear warning in effect around the Canmore Nordic Centre since 10 June 2026"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0026"
+          ],
+          "read": "2026-10-28"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/paddys-flat",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0025"
+          ],
+          "read": "2026-10-28",
+          "note": "A riverside campground with interpretive trails; no limit stated."
+        },
+        "kid_note": "A treed flat on the Elbow River, 13.2 km west of Bragg Creek on Highway 66, with a campground of 96 sites and interpretive trails. The hand-pump water is not safe to drink; bring your own.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Paddy's Flat campground page"
+          ],
+          "note": "Trail surfaces are not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Paddy's Flat campground page"
+          ],
+          "note": "No accessibility information is published."
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0025"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for the river and the interpretive trail.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "the Elbow River banks"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0025"
+          ],
+          "read": "2026-10-28",
+          "note": "Several sites back on to the river."
+        },
+        "walk_m": {
+          "v": 100,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0025"
+          ],
+          "read": "2026-10-28",
+          "note": "The flat is the campground and its riverbank; 100 m is our estimate from the car park.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "04-30",
+              "to": "10-13",
+              "status": "open",
+              "via": "road",
+              "note": "campground season"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0025"
+          ],
+          "read": "2026-10-28",
+          "quote": "Season: Apr 30 - Oct 13",
+          "note": "Outside the season the campground is closed; Highway 66 itself closes west of Elbow Falls in winter.",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "The park runs along the Smith-Dorrien / Spray Lakes road between Canmore and Peter Lougheed park, with day-use areas such as Wedge Pond. A Kananaskis Conservation Pass is needed to park.",
+        "on_site_min": {
+          "v": [
+            120,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0028"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate: from one day-use stop to a full day on the road.",
+          "estimate": true
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wildlife",
+              "note": "Bears and cougars in Kananaskis; carry bear spray"
+            },
+            {
+              "category": "terrain",
+              "note": "Washed-out bridges and trail damage after high water in 2026 (Ribbon Creek reroute)"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0028",
+            "src-0027"
+          ],
+          "read": "2026-10-28"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Wedge Pond and other day uses listed year-round"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0027"
+          ],
+          "read": "2026-10-28",
+          "quote": "Season: Year-round",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-28",
+          "note": "A picnic shore and a trail around the lake; no limit stated."
+        },
+        "kid_note": "Picnic on the rocky shore at the day use; the Upper Lake trail circles the lake and the Rawson Lake trail starts here too. Paving work closes parts of the park roads in late October 2026.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Upper Lake day use page"
+          ],
+          "note": "Shore and trail surfaces are not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Upper Lake day use page"
+          ],
+          "note": "No accessibility information is published."
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate: a picnic, or part of the lake trail.",
+          "estimate": true
+        },
+        "walk_m": {
+          "v": 100,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-28",
+          "note": "The shore is next to the day use; 100 m is our estimate.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Upper Lake day use listed year-round"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-28",
+          "quote": "Season: Year-round",
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-28",
+          "note": "Pit or vault toilets at the day use."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-28",
+          "note": "Lakeshore picnic sites with play space; no limit stated."
+        },
+        "kid_note": "Beaver Creek day use is on the shore with a cook shelter, picnic tables and fire pits; osprey, geese and swans are often seen. Black and grizzly bears frequent the area: carry bear spray.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Beaver Creek day use page",
+            "Alberta Parks North Shore day use page"
+          ],
+          "note": "Path surfaces are not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Alberta Parks Beaver Creek day use page",
+            "Alberta Parks North Shore day use page"
+          ],
+          "note": "No accessibility information is published."
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for a picnic and a shore walk.",
+          "estimate": true
+        },
+        "walk_m": {
+          "v": 50,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-28",
+          "note": "The day use is 'located along the lakeshore'; 50 m is our estimate.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Beaver Creek day use listed year-round; water taps shut from 9 October 2026"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-28",
+          "quote": "Season: Year-round",
+          "applies_to": "2026"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wildlife",
+              "note": "Black and grizzly bears frequent the area"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-28"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-28",
+          "note": "Pit or vault toilets at the day use."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-28",
+          "note": "Seen from the parkways; no limit."
+        },
+        "kid_note": "The park's highest peak is seen from the Entrance Parkway and the Red Rock Parkway; the Red Rock Canyon car park at the end of the parkway sits at its foot. The parkway is open to cars from about May to late October.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Parks Canada Waterton scenic drives page"
+          ],
+          "note": "No path surface is described for the view."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Parks Canada Waterton scenic drives page"
+          ],
+          "note": "No accessibility information is published for the viewpoints."
+        },
+        "on_site_min": {
+          "v": [
+            15,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for roadside stops.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null,
+            "where": "roadside pull-offs"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-28"
+        },
+        "walk_m": {
+          "v": 0,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-28",
+          "quote": "The parkway offers dramatic views of Mt. Blakiston, the park’s highest peak",
+          "note": "The view is from the road."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-01",
+              "to": "10-25",
+              "status": "open",
+              "via": "road",
+              "note": "Red Rock Parkway open to vehicles typically May to late October"
+            },
+            {
+              "from": "10-26",
+              "to": "04-30",
+              "status": "limited",
+              "via": "trail",
+              "note": "pedestrian access year-round; the Entrance Parkway view stays open"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-28",
+          "quote": "Open seasonally to vehicles (typically May to late October)",
+          "note": "The day boundaries are our reading of 'typically May to late October'.",
+          "applies_to": "2026"
+        },
+        "altitude_m": {
+          "v": 2940,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-28",
+          "quote": "Mt. Blakiston, the park’s highest peak at 2,940 m (9,645 ft) above sea level",
+          "note": "9,645 ft = 2,940 m, both as the page states them.",
+          "conflicts": [
+            {
+              "v": 2910,
+              "basis": "community",
+              "src": [
+                "src-0057",
+                "src-0058"
+              ],
+              "note": "Wikidata P2044 and the OSM ele tag give 2910 m"
+            }
+          ]
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/waterton-park",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "watertontourism.com home",
+            "Parks Canada Waterton park map page"
+          ],
+          "note": "No page describes the townsite's paths."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "watertontourism.com home",
+            "Parks Canada Waterton park map page"
+          ],
+          "note": "No accessibility information was read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 5,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0036"
+          ],
+          "read": "2026-10-28",
+          "note": "BC Parks says some maintained trails suit all family members with some backcountry experience; no age is published."
+        },
+        "kid_note": "A wilderness park with no supplies: bring water and food. The closest lake to the trailhead lot is a 1 km walk; Upper Elk Lake lies beyond it on the developed trail. The access road from Elkford is about two hours of gravel with logging trucks.",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0036"
+          ],
+          "read": "2026-10-28",
+          "note": "A backcountry trail; biking is allowed only to the Lower Elk Lake campground."
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0036"
+          ],
+          "read": "2026-10-28",
+          "note": "A wilderness park without facilities for wheelchairs on the pages read."
+        },
+        "on_site_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "BC Parks Elk Lakes Park page"
+          ],
+          "note": "No visit time to Upper Elk Lake is published."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "BC Parks Elk Lakes Park page (1 km to the closest lake only)"
+          ],
+          "note": "The distance to Upper Elk Lake is not given on the page read."
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "BC Parks Elk Lakes Park page"
+          ],
+          "note": "No seasonal dates are published; BC says winter use is limited because the roads are not ploughed."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "remoteness",
+              "note": "No supplies, no public communications; logging trucks on the access road"
+            },
+            {
+              "category": "wildlife",
+              "note": "Bears: use the food caches"
+            },
+            {
+              "category": "cold",
+              "note": "Lightning storms with hail and snow are common in summer"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "read": "2026-10-28"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0037"
+          ],
+          "read": "2026-10-28",
+          "note": "Lakeside campgrounds and a beach at Home Basin; no limit stated."
+        },
+        "kid_note": "The lake is about 25 km up the gravel Whiteswan Forest Service Road from Highway 93/95; drive the canyon section (km 15 to 18) with care and give way to ore and logging trucks. Home Basin has an unmarked swimming area, with no lifeguard.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "BC Parks Whiteswan Lake Park page"
+          ],
+          "note": "Shore and trail surfaces are not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "BC Parks Whiteswan Lake Park page"
+          ],
+          "note": "No accessibility information is published."
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0037"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for a lakeside stop or a walk on the north shore trail.",
+          "estimate": true
+        },
+        "walk_m": {
+          "v": 100,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0037"
+          ],
+          "read": "2026-10-28",
+          "note": "Home Basin campground and beach are on the shore; 100 m is our estimate.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "BC Parks Whiteswan Lake Park page"
+          ],
+          "note": "No season is published on the page; the forest service road is used in winter for ice fishing."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "road",
+              "note": "Gravel access road with a canyon section and heavy trucks"
+            },
+            {
+              "category": "wind",
+              "note": "High winds can come up quickly on the lake"
+            },
+            {
+              "category": "remoteness",
+              "note": "No public phone or cell service in the park"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0037"
+          ],
+          "read": "2026-10-28"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "kind": "waterfall",
+      "subkind": "gorge",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0015"
+          ],
+          "read": "2026-10-28",
+          "note": "A gorge Highway 93 drives through; no limit."
+        },
+        "kid_note": "Highway 93 South runs through the narrow canyon at the park's south-west entrance, beside Radium Hot Springs pools. The Juniper / Sinclair trail gives a view from above (6 km return).",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0015"
+          ],
+          "read": "2026-10-28",
+          "note": "No rule against carriers on the Juniper / Sinclair trail was found."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Parks Canada Kootenay scenic drive page"
+          ],
+          "note": "The trail surface is not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Parks Canada Kootenay scenic drive page"
+          ],
+          "note": "No accessibility information is published for the canyon."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 6,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0015"
+              ],
+              "read": "2026-10-28",
+              "quote": "Get a bird's eye view of Sinclair Cayon on the 6 km return hike along the Juniper / Sinclair trail.",
+              "note": "The trail with the view from above; the canyon itself is seen from the road."
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            15,
+            150
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0015"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate: a roadside stop, or the 6 km Juniper / Sinclair trail.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "the highway through the canyon and the trail above it"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0015"
+          ],
+          "read": "2026-10-28",
+          "note": "Fencing is not described."
+        },
+        "walk_m": {
+          "v": 0,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0015"
+          ],
+          "read": "2026-10-28",
+          "note": "The canyon walls are beside the pull-out on the highway."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Highway 93 South maintained year-round by Parks Canada"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0016"
+          ],
+          "read": "2026-10-28",
+          "quote": "runs 94 km through the center of Kootenay National Park and is maintained by Parks Canada year-round",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 6,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Keep children close: BC Parks warns of cliffs, fast rivers and waterfalls. The Welcome Centre at the west entrance has the only cell service in the park; the 1 km Journey Through Time trail starts behind it.",
+        "on_site_min": {
+          "v": [
+            60,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0034"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate: a stop at the Welcome Centre view, or a day on the corridor walks.",
+          "estimate": true
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Slippery rocks, cliffs, fast rivers and waterfalls"
+            },
+            {
+              "category": "remoteness",
+              "note": "No cell service outside the Welcome Centre"
+            },
+            {
+              "category": "wildlife",
+              "note": "Elk, moose and deer defend their young in spring and are aggressive in the September to October rut"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0034"
+          ],
+          "read": "2026-10-28"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Highway 16 (Yellowhead) runs through the park all year; winter conditions apply"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0034"
+          ],
+          "read": "2026-10-28",
+          "note": "The page describes winter and summer use along the Highway 16 corridor.",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/mount-robson",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0034"
+          ],
+          "read": "2026-10-28",
+          "note": "Seen from the Welcome Centre and Highway 16; the climb is for highly experienced mountaineers only."
+        },
+        "kid_note": "The south face is seen from the Welcome Centre at the park's west entrance and from Highway 16. Climbing it is only for highly experienced mountaineers.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "BC Parks Mount Robson Park page"
+          ],
+          "note": "The Welcome Centre grounds are not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "BC Parks Mount Robson Park page"
+          ],
+          "note": "No accessibility information is published."
+        },
+        "on_site_min": {
+          "v": [
+            20,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0034"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for the view at the Welcome Centre.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null,
+            "where": "the Welcome Centre viewpoint"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0034"
+          ],
+          "read": "2026-10-28"
+        },
+        "walk_m": {
+          "v": 50,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0034"
+          ],
+          "read": "2026-10-28",
+          "note": "The view is from the Welcome Centre beside its car park; 50 m is our estimate.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "seen from Highway 16 in winter and summer"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0034"
+          ],
+          "read": "2026-10-28",
+          "quote": "Winter or summer, it offers some of the finest views in the Rocky Mountains.",
+          "applies_to": "2026"
+        },
+        "altitude_m": {
+          "v": 3954,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0034"
+          ],
+          "read": "2026-10-28",
+          "quote": "Standing at 3,954 m (12,972 ft)",
+          "note": "12,972 ft = 3,954 m, both as the page states them."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0061"
+          ],
+          "read": "2026-10-28",
+          "note": "Seen from the Trans-Canada Highway; no limit."
+        },
+        "kid_note": "A landmark of the lower Kicking Horse valley, seen from the Trans-Canada Highway between Golden and Field; watch for the scenic lookouts the park signs along the highway.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Parks Canada Yoho points of interest page",
+            "Yoho facilities and services page"
+          ],
+          "note": "No viewpoint for the peak is described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Parks Canada Yoho points of interest page",
+            "Yoho facilities and services page"
+          ],
+          "note": "No viewpoint for the peak is described."
+        },
+        "on_site_min": {
+          "v": [
+            5,
+            20
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0061"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for a roadside look.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null,
+            "where": "the highway"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0061"
+          ],
+          "read": "2026-10-28"
+        },
+        "walk_m": {
+          "v": 0,
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0061"
+          ],
+          "read": "2026-10-28",
+          "note": "Wikipedia (CC BY-SA, paraphrased): it can be seen from the Trans-Canada Highway midway between Golden and Field."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Trans-Canada Highway through Yoho"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-28",
+          "note": "Highway 1 runs through the park all year; lookouts are along it.",
+          "applies_to": "2026"
+        },
+        "altitude_m": {
+          "v": 3280,
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0058",
+            "src-0057"
+          ],
+          "read": "2026-10-28",
+          "note": "OSM ele and one of two Wikidata P2044 values.",
+          "conflicts": [
+            {
+              "v": 3266,
+              "basis": "community",
+              "src": [
+                "src-0057",
+                "src-0061"
+              ],
+              "note": "Wikipedia and the other Wikidata P2044 value give 3266 m"
+            }
+          ]
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/field",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "Parks Canada Yoho facilities and services page",
+            "field.ca about page"
+          ],
+          "note": "No page describes the village paths."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-28",
+          "quote": "Yoho National Park offers some wheelchair accessible services and facilities. Contact the Visitor Centre for details."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/yoho-valley",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-28",
+          "note": "Takakkaw Falls at the road's end is a flat, paved walk; no limit."
+        },
+        "kid_note": "The Yoho Valley Road climbs tight switchbacks (vehicles over 7 m must reverse; no trailers) to Takakkaw Falls, the gateway to Laughing Falls, Twin Falls and the Iceline. The road is closed mid-October to mid-June.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0063"
+          ],
+          "read": "2026-10-28",
+          "note": "The path from the Takakkaw Falls lot to the base of the falls is flat and paved (Yoho day hikes page, read 2026-10-18)."
+        },
+        "wheelchair": {
+          "v": "step_free",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0063"
+          ],
+          "read": "2026-10-28",
+          "note": "A flat, paved path to the base of Takakkaw Falls (Yoho day hikes page, read 2026-10-18)."
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate: the drive and Takakkaw Falls, up to a valley walk.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "switchbacks on the Yoho Valley Road and the spray zone of Takakkaw Falls"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-28"
+        },
+        "walk_m": {
+          "v": 900,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0063"
+          ],
+          "read": "2026-10-28",
+          "note": "0.9 km one way from the Takakkaw Falls lot to the falls (Yoho day hikes page, read 2026-10-18)."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-15",
+              "to": "10-15",
+              "status": "open",
+              "via": "road",
+              "note": "Yoho Valley Road open mid-June to mid-October to small vehicles and bicycles"
+            },
+            {
+              "from": "10-16",
+              "to": "06-14",
+              "status": "closed",
+              "via": "road",
+              "note": "road closed; skiing beyond the switchbacks needs avalanche training and gear"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-28",
+          "quote": "The Yoho Valley Road is closed seasonally from mid-October through mid-June.",
+          "note": "Mid-month dates are our reading.",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "step-free",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/golden",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "golden.ca home",
+            "tourismgolden.com home"
+          ],
+          "note": "No page describes the town's pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "golden.ca home",
+            "tourismgolden.com home"
+          ],
+          "note": "No accessibility information was read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

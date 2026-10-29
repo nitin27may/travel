@@ -1,0 +1,3247 @@
+{
+  "schema": "relevance/1",
+  "trip": "catalogue",
+  "lane": "LT1-ca",
+  "researched": "2026-10-28",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/glacier-athabasca",
+      "title": "Columbia Icefield area and the Athabasca Glacier",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne",
+      "title": "Maligne Lake, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell",
+      "title": "Mount Edith Cavell, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/athabasca",
+      "title": "Athabasca Falls, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf",
+      "title": "Jasper National Park Day Hiking Guide 2026",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible",
+      "title": "Accessible park facilities, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving",
+      "title": "Scenic drives, Waterton Lakes National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://parks.canada.ca/pn-np/ab/waterton/visit/cartes-maps/carte-parc-park-map",
+      "title": "Waterton Lakes National Park map",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+      "title": "Points of interest, Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/places",
+      "title": "Points of interest, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive",
+      "title": "Scenic drive, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/",
+      "title": "Upper Lake day use, Peter Lougheed Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/burstall-pass/",
+      "title": "Burstall Pass day use, Peter Lougheed Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/",
+      "title": "Highwood Meadows day use, Peter Lougheed Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/",
+      "title": "Barrier Lake day use, Bow Valley Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/",
+      "title": "Beauvais Lake Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat/",
+      "title": "Paddy's Flat campground, Elbow River Provincial Recreation Area",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/",
+      "title": "Grassi Lakes day use, Canmore Nordic Centre Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/",
+      "title": "Spray Valley Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/evan-thomas-pra/information-facilities/special-facilities/kananaskis-village",
+      "title": "Kananaskis Village, Evan-Thomas Provincial Recreation Area",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://bcparks.ca/mount-robson-park/",
+      "title": "Mount Robson Park",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://bcparks.ca/elk-lakes-park/",
+      "title": "Elk Lakes Park",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0037",
+      "url": "https://bcparks.ca/whiteswan-lake-park/",
+      "title": "Whiteswan Lake Park",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0039",
+      "url": "https://www.jasper.travel/",
+      "title": "Jasper National Park official guide",
+      "publisher": "Tourism Jasper",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0041",
+      "url": "https://www.tourismgolden.com/",
+      "title": "Golden, BC: the official travel and tourism site",
+      "publisher": "Tourism Golden",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0042",
+      "url": "https://watertontourism.com/",
+      "title": "Waterton Lakes: visitor site",
+      "publisher": "Waterton Lakes (watertontourism.com)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0044",
+      "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/rentals/",
+      "title": "Maligne Lake boat rentals",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0057",
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities",
+      "title": "Wikidata entities of the 40 places (labels, P31, P625, P2044, P1566, P856, P402)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    },
+    {
+      "id": "src-0061",
+      "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts",
+      "title": "English Wikipedia introductions of the Rockies places",
+      "publisher": "Wikipedia (CC BY-SA)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt1-2026-10-28-rockies-places"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/ashlar-ridge",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "wikidata": {
+        "v": "Q22457126",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Ashlar Ridge', instance of ridge, P625 0.3 km from OSM peak node 2699282960; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Canadian Rocky Mountain Parks World Heritage Site, Jasper National Park. Named among the views of the Sulphur Skyline trail in the park's hiking guide; no wider fame found."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of several ridges seen from the trail."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Many ridges of the Miette Range look alike."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Only the walkers who reach the summit see it well."
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A view from a summit needs a clear day."
+      },
+      "why": "A Miette Range ridge in Jasper, seen from the Sulphur Skyline trail above Miette Hot Springs.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "long_walk_in",
+            "note": "the view is from the Sulphur Skyline summit, 4.4 km and 700 m up"
+          },
+          {
+            "type": "seasonal_road",
+            "note": "Miette Road closed mid-October to mid-May"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-28"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q391165",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Athabasca Glacier', instance of glacier, P625 0.35 km from OSM relation 19256027; needs a person's check"
+      },
+      "class_key": "glacier/walk-on",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Canadian Rocky Mountain Parks World Heritage Site, Jasper National Park. Parks Canada calls it one of the world's most accessible glaciers, seen by millions."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The best-known glacier toe in the Rockies."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Few glaciers this large reach so close to a highway."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The view is from the lot or a 1.8 km return walk."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Wind and cloud often sit on the icefield."
+      },
+      "why": "The most visited glacier tongue of the Columbia Icefield, a short walk from the Icefields Parkway.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-28",
+        "note": "No access cost beyond the park entry or vehicle pass, which the park's requirement offers carry."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "easy_way": "Look from the lower Glacier Road lot",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "kind": "sight",
+      "subkind": "historic_site",
+      "wikidata": {
+        "v": "Q44664199",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Curly Phillips Boathouse', instance of boathouse, P625 at the north end of Maligne Lake; needs a person's check"
+      },
+      "class_key": "sight/heritage-site",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0044"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Canadian Rocky Mountain Parks World Heritage Site, Jasper National Park. The operator names its historic boathouse; Wikidata has the item, with no wider fame found."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A landmark of the Maligne Lake shore."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of the few historic outfitter buildings left in the park."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Beside the car parks."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A building on the shore."
+      },
+      "why": "The 1928 boathouse built by outfitter Curly Phillips at Maligne Lake; canoe rentals start here.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0044"
+        ],
+        "read": "2026-10-28",
+        "note": "No access cost beyond the park entry or vehicle pass, which the park's requirement offers carry."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/maligne-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q429646",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Maligne Lake', instance of lake, P625 0.6 km from OSM relation 5760911; needs a person's check"
+      },
+      "class_key": "lake/glacial-turquoise",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Canadian Rocky Mountain Parks World Heritage Site, Jasper National Park. Parks Canada calls the Spirit Island view one of the most popular pictures in the Canadian Rockies."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The park's largest lake."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The largest natural lake in the Canadian Rockies (Parks Canada)."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The shore is by the car park; Spirit Island needs a boat."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The colour and the peaks need sun."
+      },
+      "why": "The largest natural lake in the Canadian Rockies, 22 km long, with Spirit Island up the lake.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "boat_or_ferry",
+            "note": "Spirit Island only by tour boat or a non-motorized craft",
+            "capped": true
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "wikidata": {
+        "v": "Q510573",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Mount Edith Cavell', instance of mountain, P625 0.05 km from OSM peak node 2698521553; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Canadian Rocky Mountain Parks World Heritage Site, Jasper National Park. A headline sight on Parks Canada's Jasper points of interest."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The best-known north face in Jasper."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Few faces this size are seen from a parking area."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The face is seen from the car park."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Cloud hides the face often."
+      },
+      "why": "A 3,363 m peak whose north face and Angel Glacier rise over the end of Cavell Road; road closed in 2026.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "seasonal_road",
+            "note": "Cavell Road closed for 2026, and every 1 November to 15 May"
+          }
+        ],
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "wikidata": {
+        "v": "Q6921646",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Mount Kerkeslin', instance of mountain, P625 0.05 km from OSM peak node 2699165524; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Canadian Rocky Mountain Parks World Heritage Site, Jasper National Park. Known as the view behind Athabasca Falls rather than on its own."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A well-known backdrop."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of many large peaks along the parkway."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Seen from the falls path."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A mountain view needs a clear sky."
+      },
+      "why": "The 2,984 m highest peak of the Maligne Range, the backdrop of Athabasca Falls.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-28",
+        "note": "No access cost beyond the park entry or vehicle pass, which the park's requirement offers carry."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/jasper",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q999429",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Jasper', specialized municipality, P625 0.2 km from OSM place node 51971014; needs a person's check"
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0039"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Canadian Rocky Mountain Parks World Heritage Site, Jasper National Park. The only town in Jasper National Park, with its own tourism board."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The park's base."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Mountain towns of this kind are several in the Rockies."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Shops and indoor stops in any weather."
+      },
+      "why": "The townsite and service centre of Jasper National Park, on the Athabasca River.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town; the park entry pass applies."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/barrier-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q3214736",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Barrier Lake', instance of reservoir, P625 1.2 km from the centre of OSM way 328698965; needs a person's check"
+      },
+      "class_key": "lake/forest-paddle",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0022"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Bow Valley Provincial Park. A popular first stop on Highway 40; no wider fame found."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A well-used day-use lake."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of several reservoirs in the valley."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The shore is beside the car park."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Mountain views need a clear day."
+      },
+      "why": "A reservoir at the north end of Kananaskis Country with a lakeside day use, a boat launch and a lookout hike.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0022"
+        ],
+        "read": "2026-10-28",
+        "note": "A Kananaskis Conservation Pass is needed to park; the Kananaskis Country requirement offers carry it."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Bow Valley Provincial Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0022"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q22353518",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Burstall Lakes', P625 0.2 km from OSM way 303566618; needs a person's check"
+      },
+      "class_key": "lake/alpine-hike-in",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0020"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Peter Lougheed Provincial Park. The land manager (Alberta Parks) names them as a goal of the popular Burstall Pass hike."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A trail goal."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Small lakes like these are common in the range."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Only on foot."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Mountain views need a clear day."
+      },
+      "why": "Small lakes a few kilometres up the Burstall Pass trail off the Smith-Dorrien road in Kananaskis.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "long_walk_in",
+            "note": "a few kilometres on foot from the Burstall Pass day use"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0020"
+        ],
+        "read": "2026-10-28",
+        "note": "A Kananaskis Conservation Pass is needed to park; the Kananaskis Country requirement offers carry it."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Peter Lougheed Provincial Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0020"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/highwood-pass",
+      "kind": "viewpoint",
+      "subkind": "pullout",
+      "wikidata": {
+        "v": "Q5760070",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Highwood Pass', instance of mountain pass, P625 0.4 km from OSM saddle node 1339315277; needs a person's check"
+      },
+      "class_key": "drive/mountain-pass",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0021"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Peter Lougheed Provincial Park. The highest paved road in Canada (Alberta Parks)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The top of Canada's paved roads."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Its height is a national record."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The view is from the car park."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A high pass is best on a clear day."
+      },
+      "why": "Canada's highest paved road, just over 2,200 m, on Highway 40 in Peter Lougheed Provincial Park.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "seasonal_road",
+            "note": "Highway 40 over the pass closed 1 December to 14 June"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0021"
+        ],
+        "read": "2026-10-28",
+        "note": "A Kananaskis Conservation Pass is needed to park; the Kananaskis Country requirement offers carry it."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Peter Lougheed Provincial Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0021"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q6360620",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Kananaskis Village', unincorporated community, P625 0.02 km from OSM place node 283707361; needs a person's check"
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0030"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Evan-Thomas Provincial Recreation Area. Known as the summit venue (Wikipedia); Alberta Parks lists the village facilities."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The base of the Kananaskis valley."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A purpose-built resort village."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "You drive in."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Lodges and indoor stops in any weather."
+      },
+      "why": "A small resort village at the foot of Mount Kidd in Kananaskis; it hosted the G8 and G7 summits.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0030"
+        ],
+        "read": "2026-10-28",
+        "note": "A Kananaskis Conservation Pass is needed to park; the Kananaskis Country requirement offers carry it."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Evan-Thomas Provincial Recreation Area",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "wikidata": {
+        "v": "Q6921787",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Mount Lawrence Grassi', instance of mountain, P625 0.1 km from OSM peak node 2684623546; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0061"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Canmore Nordic Centre Provincial Park. A Canmore skyline peak; no wider fame found."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A familiar peak above town."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Its neighbour Ha Ling is the better-known summit."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Seen from the car park."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A mountain view needs a clear sky."
+      },
+      "why": "The highest peak of the massif above Canmore, named for the miner and guide who built the Grassi Lakes trail.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0026"
+        ],
+        "read": "2026-10-28",
+        "note": "A Kananaskis Conservation Pass is needed to park; the Kananaskis Country requirement offers carry it."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Canmore Nordic Centre Provincial Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0026"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/paddys-flat",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q22465470",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label \"Paddy's Flat\", instance of plain, P625 0.6 km from OSM locality node 12780122240; needs a person's check"
+      },
+      "class_key": "trail/riverside",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0025"
+        ],
+        "read": "2026-10-28",
+        "note": "An Alberta Parks campground in the Elbow River Provincial Recreation Area (land manager page); no wider fame found."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of several Elbow Valley sites."
+      },
+      "standing_scope": "Elbow Valley",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Common riverside terrain."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Beside the car park."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A riverside walk is better dry."
+      },
+      "why": "A treed flat on the Elbow River west of Bragg Creek with a campground and interpretive trails.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0025"
+        ],
+        "read": "2026-10-28",
+        "note": "A Kananaskis Conservation Pass is needed to park; the Kananaskis Country requirement offers carry it."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-28",
+          "note": "No designation of its own found on the pages read."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q3364735",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Spray Valley Provincial Park', instance of provincial park, P625 2.8 km from the OSM boundary relation's nearest point; needs a person's check"
+      },
+      "class_key": "park/protected-area",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0028"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (own): Spray Valley Provincial Park. One of the Kananaskis Country parks; no wider fame found."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A well-used Kananaskis park."
+      },
+      "standing_scope": "own",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of nine parks of the system."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Its day uses are beside the road."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Mountain views need a clear day."
+      },
+      "why": "A Kananaskis provincial park along the Spray Lakes road between Canmore and Peter Lougheed park.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0028"
+        ],
+        "read": "2026-10-28",
+        "note": "A Kananaskis Conservation Pass is needed to park; the Kananaskis Country requirement offers carry it."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Spray Valley Provincial Park",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0028"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q7346507",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Upper Kananaskis Lake', instance of lake, P625 0.24 km from OSM relation 4011900; needs a person's check"
+      },
+      "class_key": "lake/glacial-turquoise",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0019"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Peter Lougheed Provincial Park. Alberta Parks calls Upper Lake one of the most popular spots in the park."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A headline lake of Kananaskis."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Turquoise mountain lakes are many in the Rockies."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The shore is by the car park."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Colour and peaks need sun."
+      },
+      "why": "A mountain lake in Peter Lougheed Provincial Park with a picnic shore and a trail around it.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0019"
+        ],
+        "read": "2026-10-28",
+        "note": "A Kananaskis Conservation Pass is needed to park; the Kananaskis Country requirement offers carry it."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Peter Lougheed Provincial Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q4877958",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Beauvais Lake', instance of lake, P625 0.2 km from OSM way 23260039; needs a person's check"
+      },
+      "class_key": "lake/forest-paddle",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0024"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Beauvais Lake Provincial Park. A local park lake; no wider fame found."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The heart of its provincial park."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Foothill lakes like it are common."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The shore is by the car park."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A lake day is better dry."
+      },
+      "why": "A foothills lake south-west of Pincher Creek with lakeshore day uses, paddling, fishing and birdwatching.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No fee to use the day uses is stated on the pages read."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Beauvais Lake Provincial Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0024"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "wikidata": {
+        "v": "Q3321701",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Mount Blakiston', instance of mountain, P625 0.02 km from OSM peak node 9005199647; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0009"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Waterton Glacier International Peace Park World Heritage Site, Waterton Lakes National Park. Named by Parks Canada as the dramatic view of the Entrance Parkway."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The park's highest summit."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The high point of the park."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Seen from the road."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A mountain view needs a clear sky."
+      },
+      "why": "Waterton's highest peak, seen from the Entrance and Red Rock parkways in the Blakiston Valley.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "seasonal_road",
+            "note": "Red Rock Parkway open to vehicles typically May to late October"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0009"
+        ],
+        "read": "2026-10-28",
+        "note": "No access cost beyond the park entry or vehicle pass, which the park's requirement offers carry."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Waterton Glacier International Peace Park",
+              "id": "354",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Waterton Lakes National Park",
+              "scope": "parent",
+              "wikidata": "Q902778"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/waterton-park",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q7974475",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Waterton Park', hamlet, P625 0.5 km from OSM hamlet node 9174974666; needs a person's check"
+      },
+      "class_key": "town/lakeside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0042"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Waterton Glacier International Peace Park World Heritage Site, Waterton Lakes National Park. The only townsite in Waterton Lakes; its own visitor site promotes it."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The park's base."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A small lakeside townsite inside a national park."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "You drive in."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Shops and indoor stops in any weather."
+      },
+      "why": "The townsite of Waterton Lakes National Park on Upper Waterton Lake, at the end of Highway 5.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking to enter the townsite; the park entry pass applies."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Waterton Glacier International Peace Park",
+              "id": "354",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Waterton Lakes National Park",
+              "scope": "parent",
+              "wikidata": "Q902778"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0010"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q22391422",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Upper Elk Lake', instance of lake, P625 0.2 km from OSM way 302530307; needs a person's check"
+      },
+      "class_key": "lake/alpine-hike-in",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0036"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Elk Lakes Provincial Park. A backcountry lake; no wider fame found."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The park's main goal."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Glacial lakes like it are common in the range."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Only on foot."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Mountain views need a clear day."
+      },
+      "why": "The upper of the two Elk Lakes in a BC wilderness park west of the Alberta border, reached on foot.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "long_walk_in",
+            "note": "on foot from the Elk Lakes trailhead"
+          },
+          {
+            "type": "high_clearance_4wd",
+            "note": "about two hours of gravel road from Elkford; BC Parks does not state a 4WD need"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0036"
+        ],
+        "read": "2026-10-28"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Elk Lakes Provincial Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q22612582",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Whiteswan Lake', instance of lake, P625 0.5 km from OSM way 126512023; needs a person's check"
+      },
+      "class_key": "lake/forest-paddle",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0037"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Whiteswan Lake Provincial Park. BC Parks calls its fishery one of the best in the East Kootenay."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The park's main lake."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Its trout fishery stands out regionally."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The shore is by the campground."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A lake day is better dry."
+      },
+      "why": "A mountain lake in the East Kootenay with lakeside campgrounds, trophy trout and Lussier Hot Springs on its road.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "seasonal_road",
+            "note": "about 25 km of gravel forest service road; no closure dates published"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0037"
+        ],
+        "read": "2026-10-28"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Whiteswan Lake Provincial Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0037"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "kind": "waterfall",
+      "subkind": "gorge",
+      "wikidata": {
+        "v": "Q22629068",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Sinclair Canyon', instance of valley, P625 0.15 km from OSM gorge way 1137486801; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Canadian Rocky Mountain Parks World Heritage Site, Kootenay National Park. Listed among Kootenay's points of interest with the Redwall Fault."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A gateway landmark."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Few park entrances run through a canyon this narrow."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Seen from the road."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Seen from the car in any weather."
+      },
+      "why": "A narrow red-walled canyon at Kootenay's south-west gate, where Highway 93 meets Radium Hot Springs.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0015"
+        ],
+        "read": "2026-10-28",
+        "note": "No access cost beyond the park entry or vehicle pass, which the park's requirement offers carry."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Kootenay National Park",
+              "scope": "parent",
+              "wikidata": "Q903323"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q1950710",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Mount Robson Provincial Park', instance of provincial park, P625 inside OSM relation 2235398; needs a person's check"
+      },
+      "class_key": "park/protected-area",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0034"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (own): Mount Robson Provincial Park, Canadian Rocky Mountain Parks World Heritage Site. BC Parks calls it one of the province's most popular destinations."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "BC's flagship Rockies park."
+      },
+      "standing_scope": "own",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Part of the Canadian Rocky Mountain Parks World Heritage Site."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The Welcome Centre view is beside the highway."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Robson's summit is often in cloud."
+      },
+      "why": "BC's second-oldest park, around the highest peak of the Canadian Rockies, with the Berg Lake Trail.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0034"
+        ],
+        "read": "2026-10-28",
+        "note": "No day-use fee is stated; Berg Lake backcountry camping is reserved."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Mount Robson Provincial Park",
+              "scope": "own"
+            },
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0034"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/mount-robson",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "wikidata": {
+        "v": "Q1161258",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Mount Robson', instance of mountain, P625 0.07 km from OSM peak node 2699332830; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0034"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Canadian Rocky Mountain Parks World Heritage Site, Mount Robson Provincial Park. The highest point of the Canadian Rockies (BC Parks)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The top of the range."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The highest peak of the Canadian Rockies."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Seen from the Welcome Centre."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The summit is often in cloud."
+      },
+      "why": "The highest peak of the Canadian Rockies at 3,954 m, rising nearly 3,000 m over the Yellowhead Highway.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0034"
+        ],
+        "read": "2026-10-28",
+        "note": "No fee to see it from the Welcome Centre."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent"
+            },
+            {
+              "type": "provincial_or_state_park",
+              "name": "Mount Robson Provincial Park",
+              "scope": "parent",
+              "wikidata": "Q1950710"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0034"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      },
+      "unique_because": "the highest peak of the Canadian Rockies"
+    },
+    {
+      "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Wikidata search 'Mount Robson Visitor Centre' and 'Mount Robson Welcome Centre' (2026-10-28): no item"
+        ]
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A visitor centre, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The park's welcome centre."
+      },
+      "standing_scope": "the park it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of the park's facilities."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "An information centre."
+      },
+      "why": "The Welcome Centre at Mount Robson Park's west entrance, with the view of the mountain and the only cell service.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No fee to enter the centre is stated."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-28",
+          "note": "None of its own; it serves the park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "not applicable to a visitor centre"
+          ],
+          "note": "Not a fame candidate."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "wikidata": {
+        "v": "Q22478655",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Chancellor Peak', instance of mountain, two P625 values 0.7 km apart, 0.1 km from OSM peak node 5613035260; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0061"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Canadian Rocky Mountain Parks World Heritage Site, Yoho National Park. A roadside landmark (Wikipedia); Parks Canada does not list it as a point of interest."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A valley landmark."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Yoho has 28 peaks over 3,000 m (Parks Canada)."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Seen from the road."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A mountain view needs a clear sky."
+      },
+      "why": "A 3,266 m peak of the Ottertail Range, a landmark of the lower Kicking Horse valley in Yoho.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No access cost beyond the park entry or vehicle pass, which the park's requirement offers carry."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Yoho National Park",
+              "scope": "parent",
+              "wikidata": "Q828404"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/field",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q3071515",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Field', unincorporated community, P625 0.25 km from OSM village node 51970759; needs a person's check"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0011"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Canadian Rocky Mountain Parks World Heritage Site, Yoho National Park. Parks Canada lists it among Yoho's points of interest."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Yoho's only village."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A Canadian Pacific Railway village from the 1880s."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "You drive in."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Shops and indoor stops in any weather."
+      },
+      "why": "A railway village of about 200 people inside Yoho, with the park's visitor centre and guest houses.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking to enter the village; the park entry pass applies."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Yoho National Park",
+              "scope": "parent",
+              "wikidata": "Q828404"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/yoho-valley",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q22649377",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Yoho Valley', instance of valley, P625 3.4 km from the centre of OSM way 1137461973; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0011"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Canadian Rocky Mountain Parks World Heritage Site, Yoho National Park. Parks Canada names it among Yoho's top places, with one of Canada's highest waterfalls."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Yoho's best-known valley."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Takakkaw Falls is among the highest in Canada (Parks Canada)."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Takakkaw Falls is a short paved walk from the lot."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Waterfalls are fine in cloud; the peaks need sun."
+      },
+      "why": "The valley of Takakkaw Falls in Yoho, reached by a switchback road open mid-June to mid-October.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "seasonal_road",
+            "note": "Yoho Valley Road closed mid-October to mid-June; vehicles over 7 m must reverse, no trailers"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0011"
+        ],
+        "read": "2026-10-28",
+        "note": "No access cost beyond the park entry or vehicle pass, which the park's requirement offers carry."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Yoho National Park",
+              "scope": "parent",
+              "wikidata": "Q828404"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    },
+    {
+      "ref": "place/golden",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q1020179",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0057"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Golden', instance of town, P625 0.35 km from OSM place node 51971610; needs a person's check"
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0041"
+        ],
+        "read": "2026-10-28",
+        "note": "Promoted by its tourism board (Tourism Golden); no wider list found."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The service town west of Yoho."
+      },
+      "standing_scope": "Columbia Valley",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A mountain service town like several in the region."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Shops and indoor stops in any weather."
+      },
+      "why": "A town where the Kicking Horse meets the Columbia, the full-service base 58 km west of Field.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-28",
+          "note": "No designation of its own found on the pages read."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt1-2026-10-28-rockies-places"
+      }
+    }
+  ]
+}
