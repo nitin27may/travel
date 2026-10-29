@@ -1,7 +1,8 @@
 // The day scheduler (spec 2.9). Pure and deterministic: no I/O, no clock, no locale. It assigns times to the authored
 // order and never reorders it; only items the visitor adds are placed by the scheduler (cheapest insertion).
 import { fmtMin, toMin } from "../checks/time.ts";
-import { resolveLeg, samePlace, type LegEnd } from "./legs.ts";
+import { LATE_START_SLACK_MIN, MIDDAY_RETURN } from "../config/schedule.ts";
+import { find, resolveLeg, samePlace, type LegEnd } from "./legs.ts";
 import {
   breakEveryMin, COFFEE_GAP_MIN, DINNER_SETTLE_MIN, fmtHM, mealWindows, PACE_RULES, REST_THRESHOLD_MIN, resolveDuration, ROUND_MIN, rule, shownMin,
 } from "./rules.ts";
@@ -32,6 +33,8 @@ interface Ctx {
   items: Map<string, ScheduleItem>;
   /** Generated rows the person removed (STEP2-E1B), by id: drawn nowhere and, but for a rest (a wait for a set time), taking no time. */
   hidden: string[];
+  /** A split day's walkers' version scheduled on its own: the plan's day start was written for the other version. */
+  ownStart?: boolean;
 }
 
 interface Stop {
@@ -39,6 +42,8 @@ interface Stop {
   addedBy: "author" | "visitor";
   /** The shared pin where a split day rejoins: lane labels switch back to 'all' here. */
   isRejoin?: boolean;
+  /** The rejoin's place, as the plan names it. */
+  place?: string;
 }
 
 interface LaneResult {
@@ -115,6 +120,8 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     return entry;
   };
   const RL = (a: LegEnd, b: LegEnd): ResolvedLeg => resolveLeg(a, b, input.legs, ctx.base?.point ?? null);
+  /** A stored leg leads from here into the rejoin pin (its id, "<day>-together"): the party drives to it (S2D-SCHED cause 2). */
+  const joins = (s: Stop, at: LegEnd | null): boolean => !!s.isRejoin && o.isMain && input.legs.some((l) => l.to === s.item.id && at?.ids.includes(l.from));
   const ruleTime = (note: string | null = null): TimelineEntry["time"] => ({ confidence: "suggested", source: "rule", pinned: false, note });
   const ruleDur = (id: string, minutes: number): TimelineEntry["duration"] => ({ source: "rule", basis: `rule: ${rule(id).label} ${fmtHM(minutes)}` });
 
@@ -271,24 +278,16 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       }
       return null;
     };
-    const firstPin = stops.findIndex((s) => pinOf(s.item) !== null);
-    let startMin = pr.startMin;
-    let pinned = false;
-    let source: TimeSource = "rule";
-    let note: string | null = null;
-    if (input.start) {
-      startMin = m(input.start.time);
-      source = input.start.source;
-      pinned = true;
-    } else if (input.kind === "arrival") {
-      startMin = 10 * 60;
-      note = "Arrival time not set";
-    } else if (firstPin >= 0) {
+    const firstPin = stops.findIndex((s) => !(ctx.ownStart && s.isRejoin) && pinOf(s.item) !== null);
+    // the start worked back from the first set time: the drives and stops before it
+    let back: number | null = null;
+    if (firstPin >= 0) {
       let lead = 0;
       let at: LegEnd | null = startEnd;
       for (let i = 0; i <= firstPin; i++) {
         const it = stops[i]!.item;
-        const e = endOf(it);
+        // a rejoin no stored leg leads into is reached by the ladder's fallback, as before its place was known
+        const e = stops[i]!.isRejoin && !joins(stops[i]!, at) ? { ids: [], point: null } : endOf(it);
         if (at && !samePlace(at, e)) {
           const l = RL(at, e);
           lead += l.minutes;
@@ -297,7 +296,27 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
         if (i < firstPin) lead += resolveDuration(it, profile).minutes;
         at = e;
       }
-      startMin = Math.floor((pinOf(stops[firstPin]!.item)! - lead) / ROUND_MIN) * ROUND_MIN;
+      back = Math.floor((pinOf(stops[firstPin]!.item)! - lead) / ROUND_MIN) * ROUND_MIN;
+    }
+    let startMin = pr.startMin;
+    let pinned = false;
+    let source: TimeSource = "rule";
+    let note: string | null = null;
+    if (input.start) {
+      startMin = m(input.start.time);
+      source = input.start.source;
+      pinned = true;
+      // the plan's own start is the family's: the walkers' version on its own leaves later when it would wait long for its first set time
+      // (S2D-SCHED cause 4, adults Day 4 A); a start the person set or an operator's time stays, and no set time of a stop moves
+      if (ctx.ownStart && source === "plan" && back !== null && back - startMin > LATE_START_SLACK_MIN) {
+        startMin = back;
+        pinned = false;
+      }
+    } else if (input.kind === "arrival") {
+      startMin = 10 * 60;
+      note = "Arrival time not set";
+    } else if (back !== null) {
+      startMin = back;
       source = "plan";
       if (startMin < 360) {
         pinned = true;
@@ -344,12 +363,13 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     }
     ctx.items.set(it.id, it);
     before = it.id;
-    // the rejoin pin is a moment in the place the party already is: no leg
+    // the rejoin pin is a moment in the place the party already is, unless a stored leg leads from here into it: then the party drives
+    // there, and on from it by the stored leg out (S2D-SCHED cause 2, Rockies Day 2 B: Minnewanka back to the Sunshine car park)
     const stayHere = !it.point && !it.placeSlug && (it.kind === "break" || it.kind === "rest" || it.kind === "meal") && !input.legs.some((l) => l.from === it.id || l.to === it.id);
-    const target = (stop.isRejoin || stayHere) && loc ? loc : endOf(it);
+    const target = !joins(stop, loc) && (stop.isRejoin || stayHere) && loc ? loc : endOf(it);
+    const here: PlaceRef = stop.place ? { name: stop.place, placeSlug: null, point: null } : placeOf(it);
     const D = resolveDuration(it, profile);
     const duration = D.minutes;
-    if (stop.isRejoin) current = "all";
 
     // arrival day: to the stay first, then out again
     if (!checkedIn && o.resume === null && input.checkin !== "last") doCheckin(ctx.base, baseRef);
@@ -407,13 +427,35 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       if (leg.minutes === 0) leg = null; // a stored zero is "the same site"
     }
     if (leg) {
+      // a long wait for a set time is spent at the base when the base is a short drive away: back, lunch there when it falls in the wait,
+      // out again (S2D-SCHED cause 3)
+      if (gate !== null && !stop.isRejoin && checkedIn && ctx.base && (input.kind === "normal" || input.kind === "arrival") && !samePlace(loc!, ctx.base) && gate - t - leg.minutes > MIDDAY_RETURN.minWaitMin) {
+        // only over drives the data knows (a stored leg or two points), never the 10 minute local move of a stop with no point
+        const known = (a: LegEnd, c: LegEnd): ResolvedLeg | null => (find(input.legs, a.ids, c.ids) || (a.point && c.point) ? RL(a, c) : null);
+        const home = known(loc!, ctx.base);
+        const out = known(ctx.base, target);
+        if (home && out && home.mode === "drive" && out.mode === "drive" && Math.max(home.minutes, out.minutes) <= MIDDAY_RETURN.maxLegMin) {
+          addLeg(baseRef, home, `Back to ${baseRef?.name ?? "base"}`);
+          loc = ctx.base;
+          leg = out;
+          const leave = gate - out.minutes - 5;
+          const ls = Math.max(t, Math.min(Math.max(leave - 60, wins.lunch.from), wins.lunch.to));
+          if (!lunchDone && !ahead && leave - ls >= 30) {
+            addRest(ls - t, "at-base", "Rest at the base", baseRef);
+            addMeal("lunch", "sit-down", baseRef, leave - t);
+            lunchDone = true;
+          }
+        }
+      }
       const earliest = t + leg.minutes + (it.kind === "trail" && leg.mode === "drive" ? rule("park.walk-in").minutes : 0);
       const lead = gate !== null ? gate - earliest : 0;
       const atBase = ctx.base !== null && loc !== null && samePlace(loc, ctx.base);
       if (gate !== null && lead > 45 && lastKind !== "start" && atBase) addRest(lead - 5, "at-base", "Rest at the base", baseRef);
-      addLeg(placeOf(it), leg, `${leg.mode === "drive" ? "Drive" : leg.mode === "walk" ? "Walk" : leg.mode[0]!.toUpperCase() + leg.mode.slice(1)} to ${it.title}`);
+      addLeg(here, leg, `${leg.mode === "drive" ? "Drive" : leg.mode === "walk" ? "Walk" : leg.mode[0]!.toUpperCase() + leg.mode.slice(1)} to ${here.name}`);
       arrive = t;
     }
+    // the drive to the rejoin is still the party's own lane
+    if (stop.isRejoin) current = "all";
     if (afterFirstLeg === null && o.isMain) afterFirstLeg = arrive;
     // a car park walk-in after a real drive out to a trailhead, and for the lane that is already at the trailhead
     const byCar = (leg?.mode === "drive" && leg.minutes >= 30) || (o.resume !== null && si === 0);
@@ -438,7 +480,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       const gap = gateT - arrival;
       // the wait is spent at the car park, then the walk in: the walk ends at the gate
       if (gap > REST_THRESHOLD_MIN && !(stop.isRejoin && !o.isMain)) {
-        const place = leg ? placeOf(it) : lastPlace();
+        const place = leg ? here : lastPlace();
         if (gap >= COFFEE_GAP_MIN) addCoffee(place, gateT - walkIn);
         const left = gateT - walkIn - t;
         if (left > REST_THRESHOLD_MIN) addRest(left, "free-time", "Free time", place);
@@ -702,17 +744,18 @@ export function scheduleDay(input: ScheduleDayInput, profile: Profile, opts: Sch
   // dark-sky watching waits for a dark sky: when that is past the evening it follows the day instead of being scheduled in it
   const dark = stops.filter((s) => afterDark(s.item)).map((s) => s.item);
   stops = stops.filter((s) => !dark.includes(s.item));
-  for (const add of opts.added ?? []) stops = insertAdded(ctx, stops, add, profile);
-
   const rejoin = sel.parallel?.rejoin ?? sel.variant.rejoin ?? null;
   const splitDrawn = profile.split && sel.parallel !== null && rejoin !== null;
+  ctx.ownStart = sel.variant.relation === "parallel" && !splitDrawn;
+  for (const add of opts.added ?? []) stops = insertAdded(ctx, stops, add, profile);
+
   const mainLabel: Lane = splitDrawn ? (sel.variant.key === "main" ? "B" : (sel.variant.key as Lane)) : "all";
   // the wait for the other adult is part of the day whichever view is shown: a view switch must not change the plan (L3c I-1).
   // A version that carries no rejoin of its own (the easy day) has nothing to wait for unless the visitor asks for both lanes.
   if (sel.parallel && rejoin && (profile.split || sel.variant.rejoin)) {
     const idx = rejoin.afterItem ? stops.findIndex((s) => s.item.id === rejoin.afterItem) : -1;
     const at = idx >= 0 ? idx + 1 : stops.length;
-    stops = [...stops.slice(0, at), { item: rejoinItem(input.day, rejoin.place, rejoin.time), addedBy: "author", isRejoin: true }, ...stops.slice(at)];
+    stops = [...stops.slice(0, at), { item: rejoinItem(input.day, rejoin.place, rejoin.time), addedBy: "author", isRejoin: true, place: rejoin.place }, ...stops.slice(at)];
   }
   const main = runSqueezed(ctx, stops, "all", profile, { label: mainLabel, resume: null, isMain: true });
   let entries = main.entries;

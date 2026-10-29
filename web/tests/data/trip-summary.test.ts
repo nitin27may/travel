@@ -126,7 +126,8 @@ describe("The trip's shape on the real timelines (spec 4.2)", () => {
   });
   it('Dolomites at the default party', () => {
     const sh = tripShapeFor(getTrip('dolomites-2027')!, getPlace)!;
-    expect(sh.countLine).toBe('14 days · 2 long drive days · 3 days with a booking · 5 highlight days · 5 days with a warning');
+    // S2D-SCHED: Day 2 waits for its 14:00 Val Fiscalina at San Candido, not 5 h at the car park, so its day cap warning is gone
+    expect(sh.countLine).toBe('14 days · 2 long drive days · 3 days with a booking · 5 highlight days · 4 days with a warning');
     expect(sh.sets.booking).toEqual([2, 3, 12]);
   });
 });
@@ -141,10 +142,11 @@ describe('One drive figure (spec 4.7, finding I14)', () => {
       expect(Math.abs(trip.driveAvgMin! - mean), slug).toBeLessThanOrEqual(2.5);
     }
   });
-  it('the Rockies cover says about 1 h 55 a day (stored legs, S2D-LEG), not the seed 1 h 40', () => {
+  it('the Rockies cover says about 2 h a day (stored legs, S2D-LEG; the Day 2 rejoin drive, S2D-SCHED), not the seed 1 h 40', () => {
     const trip = getTrip('canadian-rockies-2029')!;
-    expect(trip.schedule!.timelines.reduce((s, t) => s + t.totals.driveMin, 0)).toBe(1725);
-    expect(trip.driveAvgMin).toBe(115);
+    // S2D-SCHED: Day 2 B drives from Minnewanka back to the Sunshine car park for the rejoin (35) and on to the hot springs (30), not 25
+    expect(trip.schedule!.timelines.reduce((s, t) => s + t.totals.driveMin, 0)).toBe(1765);
+    expect(trip.driveAvgMin).toBe(120);
     expect(getTrip('dolomites-2027')!.driveAvgMin).toBe(90);
   });
 });

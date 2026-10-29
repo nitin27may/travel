@@ -1,6 +1,7 @@
 // Leg resolution (spec 2.5): stored ORS, then the plan's minutes, then the base matrix, then a straight line scaled to a
 // road time (the prototype rule, ported from the retired prototype, tag archive/prototype-2026-10-22, src/lib/geo.ts), then a 10 minute local move.
 import { haversineM } from "../geo/distance.ts";
+import { TRANSFER_STOP_FLOOR_MIN } from "../config/schedule.ts";
 import { LOCAL_MOVE_MIN } from "./rules.ts";
 import type { Point, ResolvedLeg, StoredLeg } from "./types.ts";
 
@@ -24,7 +25,7 @@ export function estimateLeg(a: Point, b: Point): ResolvedLeg {
   return { mode: "drive", minutes: Math.max(5, Math.round(((road / speed) * 60 + 3) / 5) * 5), km: Math.round(road), basis: "estimate", estimate: true };
 }
 
-const find = (legs: StoredLeg[], from: string[], to: string[]): StoredLeg | null => {
+export const find = (legs: StoredLeg[], from: string[], to: string[]): StoredLeg | null => {
   for (const l of legs) if (from.includes(l.from) && to.includes(l.to)) return l;
   for (const l of legs) if (l.symmetric !== false && from.includes(l.to) && to.includes(l.from)) return l;
   return null;
@@ -41,7 +42,13 @@ export function resolveLeg(from: LegEnd, to: LegEnd, stored: StoredLeg[], hub: P
     // the other end is reached from the base by a stored leg: from a placed stop the way there is back through the base, not a copy of the way in
     const e = estimateLeg(known, hub);
     const toHub = find(stored, ["base"], (from.point ? to : from).ids);
-    return toHub?.minutes ? { ...e, mode: "drive", minutes: Math.round((e.minutes + toHub.minutes) / 5) * 5, km: null, via: true } : e;
+    if (!toHub?.minutes) return e;
+    // S2D-SCHED: the placed end is the next base (a transfer day). Its side of the day is that base, not the start base, and no stored way
+    // joins it to the stop, so the stop is taken to lie on the way: the drive between the bases less the way already driven, never back through
+    // the start base
+    const n = (from.point ? from : to).ids.includes("next-base");
+    const min = n ? Math.max(TRANSFER_STOP_FLOOR_MIN, e.minutes - toHub.minutes) : e.minutes + toHub.minutes;
+    return { ...e, mode: "drive", minutes: Math.round(min / 5) * 5, km: null, via: !n };
   }
   return { mode: "drive", minutes: LOCAL_MOVE_MIN, km: null, basis: "estimate", estimate: true };
 }

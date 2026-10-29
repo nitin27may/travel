@@ -288,6 +288,16 @@ The ceilings match the Rockies child notes. "Too long and steep for a 6 year old
    It is always ≈ with the "Drive time estimated" chip.
 5. **No coordinates at all, same area**: a 10 min "local move" leg, ≈. The entry says "time between stops not known".
 
+Between rungs 4 and 5, when one end has a point and the other has none but a stored leg from the start base (the hub rung): from a placed stop
+the way runs back through the base (the estimate to the base plus the stored leg, drawn "via <base>"). When the placed end is the **next base**
+on a transfer day, the stop is taken to lie on the way instead: the base-to-base estimate less the stored leg, at least
+`TRANSFER_STOP_FLOOR_MIN` (30), ≈ and never "via" (S2D-SCHED; adults Day 4 once read Wilcox Pass to Jasper as 5 h 20 "via Lake Louise").
+
+**The rejoin pin** of a split day is a moment where the party already is, unless a stored leg leads from the stop before it into its id
+(`<day>-together`): then the party's lane draws that drive, named for the rejoin's place ("Drive to Sunshine Village gondola base car park"), and
+the next leg starts from the pin by the stored leg out of it. The back-solved day start (2.9 step 4) counts the same leg. Rockies Day 2 B carries
+the two legs (Minnewanka back to the Sunshine car park 35, Sunshine to the Upper Hot Springs 30); no other day names its rejoin (S2D-SCHED).
+
 Breaks on long drives:
 - A drive over the break interval gets a `break` (`leg-stretch`, `fuel` or `coffee`) inside it. The interval is 90 min for a family with a youngest under 10, else 120 (`profile.break_every_min`).
 - The break lands at the leg's midpoint, or at a named town on the way when the plan names one.
@@ -304,6 +314,11 @@ Breaks on long drives:
 - **Buffers** (2.4) go between consecutive non-leg entries. The car park walk-in after a drive out to a trailhead is drawn as a `leg` (mode `walk`, "Walk to the start of ...", rule `park.walk-in`), not hidden in the trail's start (SW-022).
 - A **gap** of more than 10 min (`FREE_ROW_MIN`) before a pinned entry becomes a `rest` entry ("Free time by the lake"); the walk-in follows the rest and ends at the pin.
 - A gap of 10 min or less widens the buffer instead: the times on the rail add up to within 10 minutes.
+- **Midday return to the base** (`MIDDAY_RETURN` in `core/src/config/schedule.ts`): on a normal or arrival day (after check-in), a wait of more
+  than 120 min before a pinned stop (not the rejoin) is spent at the base when the drive back and the drive out are each at most 30 min and the
+  data knows both (a stored leg or two points; never the 10 minute local move): "Back to <base>", "Rest at the base", lunch at the base when its
+  window falls in the wait, then the leg out, timed to the pin. Otherwise the wait stays a Free time at the stop. Dolomites Day 2 (Braies at first
+  light, Val Fiscalina at 14:00) waits at San Candido, not 5 h at the Fiscalina car park (S2D-SCHED).
 
 ### 2.7 Opening hours, last rides and slots
 
@@ -326,7 +341,7 @@ Breaks on long drives:
 1. **Choose the variant** (3.3) and, on a split day, the parallel lane.
 2. **Resolve durations** per item with the ladder (2.2) and the multipliers (2.4). Record the source and basis text.
 3. **Lay pins**: operator slots and authored times become pinned entries. Sun anchors resolve to times at the reference date.
-4. **Set the day start**: the authored start; else back-solve from the first pinned entry (its time minus the legs and buffers before it); else the profile default. An early start before 06:00 is allowed only when it is pinned or anchored by the plan; otherwise `W_EARLY`.
+4. **Set the day start**: the authored start; else back-solve from the first pinned entry (its time minus the legs and buffers before it); else the profile default. An early start before 06:00 is allowed only when it is pinned or anchored by the plan; otherwise `W_EARLY`. The plan's authored start of a split day is the family's: when the walkers' version (relation `parallel`) is scheduled on its own (no second lane drawn) and the back-solved start, from its first pinned stop other than the rejoin, is more than `LATE_START_SLACK_MIN` (60) later, the day leaves at the back-solved time (adults Day 4 A: 11:10 for the 12:30 Wilcox Pass, not 07:30 and a 3 h 20 wait). A start the person set or an operator's time never moves, nor does any pinned stop (S2D-SCHED).
 5. **Forward pass** over the authored order:
    - the leg (2.5), with drive breaks;
    - a wait until the next pin or the opening time (a wait over 10 min becomes `rest`);
@@ -791,4 +806,5 @@ Sources checked on 18 Oct 2026:
 | Date | Change |
 |---|---|
 | 2026-10-18 | First version. Supersedes the per-day Track A · B · C segment (L3 step 9, patterns 3.4). |
+| 2026-10-28 | S2D-SCHED (the S2D-LEG report's four code causes): the hub rung never sends a transfer-day stop back through its start base (2.5); a rejoin pin a stored leg leads into draws that drive (2.5); a long wait near the base is spent at the base (2.6, `MIDDAY_RETURN`); the walkers' version on its own leaves when it needs to (2.9 step 4). Published days that change: Rockies Day 2 B (drive 1 h 30 to 2 h 10, ends 19:25), Dolomites Day 2 (back to San Candido for the midday, `S_DAY_CAP` gone); Rockies Day 4 A and Day 1 B change only for parties that pick them. Tests: `core/test/schedule/s2d-sched.test.ts`, `web/tests/trips/s2d-sched.test.ts` |
 | 2026-10-28 | SW-022 (S2-LEG): a wait over 10 min is a row (was 20); the car park walk-in is a walking leg; the day's drive total is the sum of the drawn legs. A stop moved to another day gets real legs (template.ts: point to point from `placePoint`, else the stored way from its own base plus the drive between the bases, else `MOVED_STOP_LEGS`), always ≈ |

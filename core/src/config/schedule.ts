@@ -18,3 +18,22 @@ export const MOVED_STOP_LEGS = {
   /** Neither the stop nor one of the two bases has a point: a conservative guess, always shown as an estimate (≈). */
   unknownMin: 60,
 } as const;
+
+/**
+ * A stop with no point on a transfer day, driven on to the next base, with only the stored way from the start base to it (legs.ts, the hub
+ * rung; S2D-SCHED cause 1). The stop is taken to lie on the way: the base-to-base estimate less that stored way, but never under this.
+ */
+export const TRANSFER_STOP_FLOOR_MIN = 30;
+
+/**
+ * The midday return to the base (S2D-SCHED cause 3, Dolomites Day 2): a wait longer than `minWaitMin` before a stop with a set time is spent at
+ * the base, with a leg back and a leg out again, when each of those drives is at most `maxLegMin`. Otherwise the wait stays a Free time at the stop.
+ */
+export const MIDDAY_RETURN = { minWaitMin: 120, maxLegMin: 30 } as const;
+
+/**
+ * The plan's own day start (a "Leave the base" time written for the plan's main version) is moved later when the version scheduled reaches its
+ * first set time with a wait longer than this (S2D-SCHED cause 4, adults Day 4 A waited 3 h 20 at Wilcox Pass). A start the person set, or an
+ * operator's time, never moves; no stop with a set time moves.
+ */
+export const LATE_START_SLACK_MIN = 60;
