@@ -305,6 +305,8 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `PRIVATE_TERMS_FILE` | web `tests/data/public-privacy.test.ts` | Path to the uncommitted list of real household strings the privacy guard looks for (one term per line). Unset, the git-ignored root `.private-terms` is used; neither present, the guard skips | no |
 | `CATALOGUE_STORE` | web, core (API-1) | Picks the server catalogue store (`json` now, a database later) | no |
 | `TRP2B2_SHOTS_DIR` | web `tests/e2e/trip-routes.shots.spec.ts` | Folder the opt-in TRP2b2 evidence screenshots are written to; unset, the spec skips | no |
+| `GOLDEN_UPDATE` | core `test/plan/golden.test.ts` | Set to `1` (script `golden:update`) to rewrite the pinned `core/test/fixtures/plan/*.expected.json` instead of comparing; unset, the test only compares | no |
+| `TB_TIMING` | core `test/plan/golden-timing.test.ts` | Set to `1` (script `golden:timing`) to run the opt-in 300 ms build-time budget; unset, the file skips | no |
 | `NEXT_PUBLIC_CF_BEACON_TOKEN` | web `app/layout.tsx` | Cloudflare Web Analytics token; no token, no beacon | yes |
 | `NEXT_PUBLIC_PLACE_MAP_FAMILY` | web `lib/map/family.ts` | Map family for place pages (`maplibre` default, `google-js` for the Google fixture) | yes |
 | `NEXT_PUBLIC_TRIP_MAP_FAMILY` | web `lib/map/family.ts` | Test override of the trip route map family. Unset, the trip map is Google when both the key and the Map ID are set, else MapLibre | yes |

@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "golden:update": "GOLDEN_UPDATE=1 vitest run test/plan/golden.test.ts",
+    "golden:timing": "TB_TIMING=1 vitest run test/plan/golden-timing.test.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.1",

@@ -1,0 +1,135 @@
+{
+  "engine": "tb-e1.1",
+  "basis": "estimate",
+  "bases": [],
+  "days": [
+    {
+      "day": 1,
+      "base": null,
+      "move": false,
+      "items": [
+        {
+          "ref": "place/rattlesnake-point",
+          "slug": "rattlesnake-point",
+          "name": "Rattlesnake Point",
+          "startMin": 550,
+          "visitMin": 90,
+          "driveMin": 67,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/st-jacobs-market",
+          "slug": "st-jacobs-market",
+          "name": "St Jacobs Market",
+          "startMin": 705,
+          "visitMin": 90,
+          "driveMin": 65,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/elora-gorge",
+          "slug": "elora-gorge",
+          "name": "Elora Gorge",
+          "startMin": 870,
+          "visitMin": 120,
+          "driveMin": 34,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 107,
+      "warnings": [
+        "W_PACE",
+        "W_DRIVE_LIMIT"
+      ],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "St Jacobs Market",
+            "b": "Elora Gorge",
+            "apartMin": 34
+          },
+          "text": "St Jacobs Market and Elora Gorge are 34 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 273
+          },
+          "text": "4 h 33 ≈ of driving"
+        }
+      ]
+    }
+  ],
+  "didNotFit": [
+    {
+      "ref": "place/bruce-peninsula-tobermory",
+      "code": "TB_TOO_FAR",
+      "fix": {
+        "kind": "add_base"
+      },
+      "reasons": [
+        {
+          "code": "too_far",
+          "values": {
+            "min": 304,
+            "radiusMin": 150
+          },
+          "text": "Too far from your start: 5 h 04 ≈ from your start, over your 2 h 30 each way"
+        }
+      ]
+    }
+  ],
+  "spareDays": 0,
+  "matrix": {
+    "refs": [
+      "place/elora-gorge",
+      "place/st-jacobs-market",
+      "place/rattlesnake-point",
+      "place/bruce-peninsula-tobermory"
+    ],
+    "minutes": [
+      [
+        0,
+        34,
+        59,
+        242
+      ],
+      [
+        34,
+        0,
+        65,
+        253
+      ],
+      [
+        59,
+        65,
+        0,
+        285
+      ],
+      [
+        242,
+        253,
+        285,
+        0
+      ]
+    ],
+    "estimated": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14
+    ]
+  }
+}

@@ -1,0 +1,427 @@
+{
+  "engine": "tb-e1.1",
+  "basis": "estimate",
+  "bases": [
+    {
+      "town": "ca-on-huntsville",
+      "name": "Huntsville",
+      "nights": 1,
+      "pinned": false,
+      "picks": 2,
+      "reasons": [
+        {
+          "code": "covers_picks",
+          "values": {
+            "n": 8,
+            "of": 9,
+            "avgMin": 23,
+            "maxMin": 24
+          },
+          "text": "Closest town to 8 of your 9 picks (avg 23 min ≈, longest 24 min ≈)"
+        },
+        {
+          "code": "from_start",
+          "values": {
+            "min": 226
+          },
+          "text": "3 h 46 ≈ from your start to Huntsville"
+        },
+        {
+          "code": "next_best_base",
+          "values": {
+            "town": "Dwight",
+            "extraMin": 37
+          },
+          "text": "Dwight would add 37 min ≈ of driving in all"
+        },
+        {
+          "code": "lodging",
+          "values": {
+            "cls": 2
+          },
+          "text": "Many places to stay listed on OpenStreetMap"
+        }
+      ]
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "base": "ca-on-huntsville",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/long-visit-4",
+          "slug": "long-visit-4",
+          "name": "Long Visit 4",
+          "startMin": 960,
+          "visitMin": 240,
+          "driveMin": 248,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 22,
+      "warnings": [
+        "W_PACE",
+        "W_DRIVE_LIMIT"
+      ],
+      "reasons": [
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 270
+          },
+          "text": "4 h 30 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "base": null,
+      "move": false,
+      "items": [
+        {
+          "ref": "place/long-visit-0",
+          "slug": "long-visit-0",
+          "name": "Long Visit 0",
+          "startMin": 525,
+          "visitMin": 240,
+          "driveMin": 22,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 227,
+      "warnings": [
+        "W_DRIVE_LIMIT"
+      ],
+      "reasons": [
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 249
+          },
+          "text": "4 h 09 ≈ of driving"
+        }
+      ]
+    }
+  ],
+  "didNotFit": [
+    {
+      "ref": "place/long-visit-1",
+      "code": "TB_TIME",
+      "fix": {
+        "kind": "add_days",
+        "days": 3
+      },
+      "reasons": [
+        {
+          "code": "no_room",
+          "values": {
+            "days": 2,
+            "addDays": 3
+          },
+          "text": "No room in your 2 days; 3 more days fit it"
+        }
+      ]
+    },
+    {
+      "ref": "place/long-visit-2",
+      "code": "TB_TIME",
+      "fix": {
+        "kind": "add_days",
+        "days": 1
+      },
+      "reasons": [
+        {
+          "code": "no_room",
+          "values": {
+            "days": 2,
+            "addDays": 1
+          },
+          "text": "No room in your 2 days; 1 more day fits it"
+        }
+      ]
+    },
+    {
+      "ref": "place/long-visit-3",
+      "code": "TB_TIME",
+      "fix": {
+        "kind": "add_days",
+        "days": 1
+      },
+      "reasons": [
+        {
+          "code": "no_room",
+          "values": {
+            "days": 2,
+            "addDays": 1
+          },
+          "text": "No room in your 2 days; 1 more day fits it"
+        }
+      ]
+    },
+    {
+      "ref": "place/long-visit-5",
+      "code": "TB_TIME",
+      "fix": {
+        "kind": "add_days",
+        "days": 2
+      },
+      "reasons": [
+        {
+          "code": "no_room",
+          "values": {
+            "days": 2,
+            "addDays": 2
+          },
+          "text": "No room in your 2 days; 2 more days fit it"
+        }
+      ]
+    },
+    {
+      "ref": "place/long-visit-6",
+      "code": "TB_TIME",
+      "fix": {
+        "kind": "add_days",
+        "days": 1
+      },
+      "reasons": [
+        {
+          "code": "no_room",
+          "values": {
+            "days": 2,
+            "addDays": 1
+          },
+          "text": "No room in your 2 days; 1 more day fits it"
+        }
+      ]
+    },
+    {
+      "ref": "place/long-visit-7",
+      "code": "TB_TIME",
+      "fix": {
+        "kind": "add_days",
+        "days": 3
+      },
+      "reasons": [
+        {
+          "code": "no_room",
+          "values": {
+            "days": 2,
+            "addDays": 3
+          },
+          "text": "No room in your 2 days; 3 more days fit it"
+        }
+      ]
+    },
+    {
+      "ref": "place/parliament-hill",
+      "code": "TB_TOO_FAR",
+      "fix": {
+        "kind": "add_base",
+        "town": "ca-on-ottawa"
+      },
+      "reasons": [
+        {
+          "code": "too_far",
+          "values": {
+            "min": 329,
+            "radiusMin": 120
+          },
+          "text": "Too far from your base: 5 h 29 ≈ from Huntsville, over your 2 h each way"
+        }
+      ]
+    }
+  ],
+  "spareDays": 0,
+  "matrix": {
+    "refs": [
+      "place/long-visit-0",
+      "place/long-visit-1",
+      "place/long-visit-2",
+      "place/long-visit-3",
+      "place/long-visit-4",
+      "place/long-visit-5",
+      "place/long-visit-6",
+      "place/long-visit-7",
+      "place/parliament-hill"
+    ],
+    "minutes": [
+      [
+        0,
+        5,
+        9,
+        12,
+        14,
+        17,
+        19,
+        21,
+        318
+      ],
+      [
+        5,
+        0,
+        5,
+        9,
+        12,
+        14,
+        17,
+        19,
+        318
+      ],
+      [
+        9,
+        5,
+        0,
+        5,
+        9,
+        12,
+        14,
+        17,
+        319
+      ],
+      [
+        12,
+        9,
+        5,
+        0,
+        5,
+        9,
+        12,
+        14,
+        319
+      ],
+      [
+        14,
+        12,
+        9,
+        5,
+        0,
+        5,
+        9,
+        12,
+        319
+      ],
+      [
+        17,
+        14,
+        12,
+        9,
+        5,
+        0,
+        5,
+        9,
+        320
+      ],
+      [
+        19,
+        17,
+        14,
+        12,
+        9,
+        5,
+        0,
+        5,
+        320
+      ],
+      [
+        21,
+        19,
+        17,
+        14,
+        12,
+        9,
+        5,
+        0,
+        321
+      ],
+      [
+        318,
+        318,
+        319,
+        319,
+        319,
+        320,
+        320,
+        321,
+        0
+      ]
+    ],
+    "estimated": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79
+    ]
+  }
+}
