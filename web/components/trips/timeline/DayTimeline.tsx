@@ -60,7 +60,7 @@ export function sunShort(light: string | null): string | null {
 }
 
 /** The word beside a last start the data gives: a lift has a last ride, a boat a last rental. */
-function lastStart(item: ScheduleItem | undefined): string | null {
+export function lastStart(item: ScheduleItem | undefined): string | null {
   const t = item?.window?.lastUp;
   if (!t) return null;
   return `${item?.sub === 'lift-ride' ? 'Last ride up' : item?.sub === 'boat' ? 'Last rental' : 'Last start'} ${t}`;
