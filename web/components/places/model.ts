@@ -272,6 +272,26 @@ export interface LinkTab {
   none: { label: string; checked: string }[];
 }
 
+/**
+ * What LinksTabs needs, and no more: the tabs travel in the page's payload, so a link carries label, url and `linkOnly` only when true
+ * (its `kind` is not drawn here), and a tab with nothing found leaves `none` out (DATA-PLAN 2.4, S2D-SIZE).
+ */
+export interface LeanTab {
+  id: string;
+  label: string;
+  links: { label: string; url: string; linkOnly?: boolean }[];
+  none?: { label: string; checked: string }[];
+}
+
+export function leanTabs(tabs: readonly LinkTab[]): LeanTab[] {
+  return tabs.map((t) => ({
+    id: t.id,
+    label: t.label,
+    links: t.links.map((l) => (l.linkOnly ? { label: l.label, url: l.url, linkOnly: true } : { label: l.label, url: l.url })),
+    ...(t.none.length ? { none: t.none } : {}),
+  }));
+}
+
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 /** "2026-10-18" -> "18 Oct 2026"; anything else is returned as written. */
 export function shortDate(iso: string): string {

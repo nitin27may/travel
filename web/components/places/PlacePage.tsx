@@ -30,7 +30,7 @@ import { TRIP_EDIT_ON } from '@/lib/trip-edit/flag';
 import { TrailExport } from './TrailExport';
 import { TrailMap } from './TrailMap';
 import { TrailProfile } from './TrailProfile';
-import { accessFacts, directionsTarget, publicProvenance, publicText, summaryOrKind, factByLabel, firstNumber, glanceFor, hutFacts, isUrl, lastRead, linkTabs, observed, phoneParts, pointAt, pointSourceInfo, routeLineInfo, seasonMonths } from './model';
+import { accessFacts, directionsTarget, publicProvenance, publicText, summaryOrKind, factByLabel, firstNumber, glanceFor, hutFacts, isUrl, lastRead, leanTabs, linkTabs, observed, phoneParts, pointAt, pointSourceInfo, routeLineInfo, seasonMonths } from './model';
 
 /* ---------- small pieces ---------- */
 
@@ -281,7 +281,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
     return seenFacts.has(key) ? false : (seenFacts.add(key), true);
   });
   const checked = lastRead(place.facts);
-  const tabs = linkTabs(place.links, place.linksNone);
+  const tabs = leanTabs(linkTabs(place.links, place.linksNone));
   const photos = place.photos.length ? place.photos : place.photo ? [place.photo] : [];
   const credits = photos.map((p) => ({ title: p.caption || p.file, author: p.author, licence: p.licence, licenceUrl: p.licenceUrl ?? undefined, sourceUrl: p.sourceUrl }));
   const suits: string[] = [];
