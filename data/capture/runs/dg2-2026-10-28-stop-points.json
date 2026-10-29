@@ -1,0 +1,123 @@
+{
+  "schema": "capture-run/1",
+  "run": "dg2-2026-10-28-stop-points",
+  "started": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "types": [
+      "nature.trail.hike",
+      "nature.trail.walk"
+    ],
+    "refs": [
+      "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+      "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+      "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+      "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+      "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+      "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+      "trip/patagonia-2027/trail:chorrillo del salto",
+      "trip/patagonia-2027/trail:mirador de las aguilas",
+      "trip/patagonia-2027/trail:mirador de los condores"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "overpass-api.de",
+      "requests": 5,
+      "robots": "none",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "parks.canada.ca",
+      "requests": 3,
+      "robots": "none",
+      "terms": "unknown",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+      "field": "point",
+      "outcome": "filled",
+      "src": [
+        "https://www.openstreetmap.org/node/1936529926"
+      ],
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "field": "point",
+      "outcome": "filled",
+      "src": [
+        "https://www.openstreetmap.org/node/757469351"
+      ],
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de los condores",
+      "field": "point",
+      "outcome": "filled",
+      "src": [
+        "https://www.openstreetmap.org/node/660024150"
+      ],
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+      "field": "point",
+      "outcome": "filled",
+      "src": [
+        "https://www.openstreetmap.org/node/660024150"
+      ],
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+      "field": "point",
+      "outcome": "filled",
+      "src": [
+        "https://www.openstreetmap.org/way/747061337"
+      ],
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+      "field": "point",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "the migration ledger (data/capture/migration-ledger.json, core/test/capture/migration.test.ts) pins the old derived relevance-input point on this ref; researched OSM node 2368078636 (51.495794, -116.480596), first vertex of Iceline Trail way 24829774; Parks Canada names the Takakkaw Falls parking lot"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+      "field": "point",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "the migration ledger (data/capture/migration-ledger.json, core/test/capture/migration.test.ts) pins the old derived relevance-input point on this ref; researched OSM node 269747928 (51.439381, -116.541492), first vertex of Emerald Lake Loop Trail way 436275405 at Emerald Lake Parking"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+      "field": "point",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "the migration ledger (data/capture/migration-ledger.json, core/test/capture/migration.test.ts) pins the old derived relevance-input point on this ref; researched OSM node 269752723 (51.416377, -116.216299), the lakefront start of the shore path (way 24830044)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+      "field": "point",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "the migration ledger (data/capture/migration-ledger.json, core/test/capture/migration.test.ts) pins the old derived relevance-input point on this ref; researched OSM node 269752450 (51.326643, -116.183438), the lodge end of Moraine Lake Shoreline way 317597559"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+      "field": "point",
+      "outcome": "gap",
+      "host": "overpass-api.de",
+      "reason": "researched OSM node 2383706255 (53.203884, -117.926217), highway=trailhead; not stored: it lies 10 km from every towns-layer anchor, and towns.py build re-dates near_town in 22 capture files; do it with the next towns refresh"
+    }
+  ]
+}

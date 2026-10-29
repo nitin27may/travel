@@ -626,10 +626,10 @@
       "point_source": "trailhead \"Lake Louise Lakeshore\" at place/lake-louise"
     },
     "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass": {
-      "lat": 51.3225,
-      "lon": -116.18556,
-      "coord_src": "wikidata",
-      "point_source": "trailhead \"Moraine Lake\" at legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+      "lat": 51.32814,
+      "lon": -116.18155,
+      "coord_src": "osm",
+      "point_source": "OSM node 757469351, the first vertex of Larch Valley Trail (way 733820877), 90 m south of the shuttle stop; Parks Canada: the trail starts just past Moraine Lake Lodge"
     },
     "legacy/canadian-rockies-sept-2029/trails/lillian-lake": {
       "lat": 50.86118,
@@ -758,10 +758,10 @@
       "point_source": "OSM way 1241750492 Skyline Trail (operator Parks Canada, ref 100), its first vertex where it leaves the Bald Hills Trail beside the Maligne Lake Parking lot (relation 21018594, 100 m); Parks Canada maligne page: park as for the Bald Hills Trail and take the trail 50 m to the right, 'This is the Skyline Trail'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline": {
-      "lat": 53.1299,
-      "lon": -117.771,
-      "coord_src": "wikidata",
-      "point_source": "trailhead \"Miette Hot Springs\" at legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs"
+      "lat": 53.12951,
+      "lon": -117.77009,
+      "coord_src": "osm",
+      "point_source": "OSM node 1936529926, the first vertex of Sulphur Skyline Trail (way 183274419) at the Miette Hot Springs drop-off loop; Parks Canada: trailhead at the Miette Hot Springs parking lot, the paved path leaves the drop-off loop"
     },
     "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog": {
       "lat": 50.90443,
@@ -2665,6 +2665,12 @@
       "coord_src": "wikidata",
       "point_source": "Q1323978 P625"
     },
+    "trip/patagonia-2027/trail:chorrillo del salto": {
+      "lat": -49.29985,
+      "lon": -72.90359,
+      "coord_src": "osm",
+      "point_source": "OSM way 747061337 (amenity=parking, Chorrillo del Salto, fee=no) centroid: the walk to the falls (node 1237892708, 570 m north-west) starts at this car park; no trailhead node is mapped within 1.5 km"
+    },
     "trip/patagonia-2027/trail:coastal path": {
       "lat": -54.84637,
       "lon": -68.48085,
@@ -2688,6 +2694,18 @@
       "lon": -68.12195,
       "coord_src": "osm",
       "point_source": "OSM way 567999991 (amenity=parking) beside Ruta Nacional 3 at the start of the Sendero Laguna Esmeralda ways and relation 8861474; the Ushuaia tourism office page https://turismoushuaia.com/actividad/laguna-esmeralda/ says the path starts 18 km from Ushuaia on RN 3, at a large car park beside the road; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+    },
+    "trip/patagonia-2027/trail:mirador de las aguilas": {
+      "lat": -49.33737,
+      "lon": -72.88141,
+      "coord_src": "osm",
+      "point_source": "OSM node 660024150 (highway=trailhead, Mirador de los Condores Trailhead): the Aguilas path branches off the Condores trail, so both start here; the record's starts_at names the same node"
+    },
+    "trip/patagonia-2027/trail:mirador de los condores": {
+      "lat": -49.33737,
+      "lon": -72.88141,
+      "coord_src": "osm",
+      "point_source": "OSM node 660024150 (highway=trailhead, Mirador de los Condores Trailhead), the start of Sendero Mirador de los Condores (way 61900603); the record's starts_at names the same node"
     },
     "trip/patagonia-2027/viewpoint:evening fitz roy glow": {
       "lat": -49.33141,

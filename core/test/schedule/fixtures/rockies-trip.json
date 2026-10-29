@@ -2007,7 +2007,11 @@
       "minAge": 13,
       "minAgeRule": "plan",
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 53.129512,
+       "lon": -117.770092
+      }
      }
     ],
     "rank": 3,
@@ -3514,7 +3518,11 @@
       "minAge": 13,
       "minAgeRule": "plan",
       "needsDaylight": true,
-      "honesty": []
+      "honesty": [],
+      "placePoint": {
+       "lat": 51.328143,
+       "lon": -116.181548
+      }
      }
     ],
     "rank": 3,
