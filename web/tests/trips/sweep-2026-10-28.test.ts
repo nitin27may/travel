@@ -21,7 +21,7 @@ describe('SW-003: numbered pins that overlap on screen draw as one pill', () => 
 });
 
 describe('SW-029: the book-ahead card holds one clause', () => {
-  const s = { flags: { days: true, counts: true, bookings: true }, nights: 14, counts: { stays: 5, trails: { count: 0, kmKnown: 0, km: 0 }, sights: 0, activities: 0, photos: 0, highlights: 0, bookings: { count: 8, dated: 4, earliest: { name: "Lake O'Hara day-use bus (lottery)", day: 9, rule: 'Lottery: apply usually in March; seats left after the draw until 15:30 the day before Day 9' } } } } as unknown as TripSummary;
+  const s = { flags: { days: true, counts: true, bookings: true }, nights: 14, counts: { stays: 5, trails: { count: 0, kmKnown: 0, km: 0 }, sights: 0, activities: 0, photos: 0, highlights: 0, bookings: { count: 8, dated: 4, earliest: { name: "Lake O'Hara day-use bus (lottery)", day: 9, rule: 'Lottery: apply usually in March; leftover seats until 15:30 the day before Day 9' } } } } as unknown as TripSummary;
   it('cuts the rule at its first semicolon and drops a lead word the name already says', () => {
     const card = countCards(s, { stops: true, bookings: true, photos: true }).find((c) => c.key === 'bookings')!;
     expect(card.sub).toBe("earliest: Lake O'Hara day-use bus (lottery), apply usually in March");

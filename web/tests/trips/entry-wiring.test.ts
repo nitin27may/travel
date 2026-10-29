@@ -111,14 +111,14 @@ describe('attachEntry: the Book ahead rows (6.3)', () => {
   it('the shuttle is one row per ridden day, the launch day then the rolling release, each with its own Day N', () => {
     const s = by('logistics:shuttle');
     expect(s.map((b) => [b.ref, b.kind, b.day, b.rule])).toEqual([
-      ['logistics:shuttle:d10', 'booking', 10, 'Opens on a launch day each year, usually in April, at 08:00 local; then 2 days before Day 10 at 08:00 local'],
-      ['logistics:shuttle:d11', 'booking', 11, 'Opens on a launch day each year, usually in April, at 08:00 local; then 2 days before Day 11 at 08:00 local'],
+      ['logistics:shuttle:d10', 'booking', 10, 'Opens on launch day, usually in April at 08:00 local; then 2 days before Day 10 at 08:00'],
+      ['logistics:shuttle:d11', 'booking', 11, 'Opens on launch day, usually in April at 08:00 local; then 2 days before Day 11 at 08:00'],
     ]);
     expect(s[0]!.name).toBe('Parks Canada Lake Louise / Moraine Lake shuttle');
   });
   it('the Roam batch, the Lake O\'Hara lottery and the Kananaskis pass say what their records say', () => {
-    expect(by('logistics:roam')[0]).toMatchObject({ kind: 'booking', rule: 'Opens in a monthly batch about 35 days before the month, at 09:00 local' });
-    expect(by('logistics:ohara')[0]).toMatchObject({ kind: 'booking', rule: 'Lottery: apply usually in March; seats left after the draw until 15:30 the day before Day 9' });
+    expect(by('logistics:roam')[0]).toMatchObject({ kind: 'booking', rule: 'Opens monthly, about 35 days before the month, at 09:00 local' });
+    expect(by('logistics:ohara')[0]).toMatchObject({ kind: 'booking', rule: 'Lottery: apply usually in March; leftover seats until 15:30 the day before Day 9' });
     expect(by('logistics:kananaskis-pass')[0]).toMatchObject({ kind: 'pass', rule: 'Buy by 23:59 on Day 12' });
   });
   it('lakeshore parking is a check; the rental car (no record) stays as it was', () => {

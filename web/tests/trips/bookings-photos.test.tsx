@@ -88,7 +88,7 @@ describe('the real trips', () => {
     expect(bookingCounts(r)).toMatchObject({ toBook: 8, pass: 2, check: 1, task: 0 });
     expect(r).toHaveLength(11);
     expect(t).toContain('8 to book ahead, 4 with a published opening date; also 2 passes, 1 check.');
-    expect(t).toContain('then 2 days before Day 10 at 08:00 local (60% of seats)');
+    expect(t).toContain('then 2 days before Day 10 at 08:00 (60%)');
     expect(t).toContain('Buy any time before Day 1');
     expect(t).toContain('Buy by 23:59 on Day 12');
     expect(t).toContain('Prices: not checked yet for the 8 bookings and 2 passes.');

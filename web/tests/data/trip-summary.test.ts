@@ -37,7 +37,7 @@ describe('Summary: Canadian Rockies (the test case)', () => {
       bases: 4, stays: 5, sights: 27, activities: 15, photos: 41, highlights: 13,
       trails: { count: 33, km: 183.3, kmKnown: 33, gainM: 8401, gainKnown: 33 },
       // PA-R-CA2: the shuttle (two ridden days), the Roam batch and the O'Hara lottery are dated; the lottery (March) opens first
-      bookings: { count: 8, dated: 4, earliest: { day: 9, rule: 'Lottery: apply usually in March; seats left after the draw until 15:30 the day before Day 9' } },
+      bookings: { count: 8, dated: 4, earliest: { day: 9, rule: 'Lottery: apply usually in March; leftover seats until 15:30 the day before Day 9' } },
     });
   });
   it('has 13 highlights with days, a route folded into its payoff, photos from the place or the gallery section that names it', () => {

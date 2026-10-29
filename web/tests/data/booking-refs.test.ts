@@ -60,7 +60,7 @@ describe('the Rockies rows on the real data', () => {
     // PA-R-CA: the launch day then the rolling release, valid one day, so one row per ridden day; the window says the 40% itself
     expect(shuttle.map((b) => [b.ref, b.day])).toEqual([['logistics:shuttle-moraine-lakelouise:d10', 10], ['logistics:shuttle-moraine-lakelouise:d11', 11]]);
     for (const [i, d] of [[0, 10], [1, 11]] as const) {
-      expect(shuttle[i]).toMatchObject({ kind: 'booking', rule: `Opens on a launch day each year, usually in April, at 08:00 local (40% of seats); then 2 days before Day ${d} at 08:00 local (60% of seats)`, note: null });
+      expect(shuttle[i]).toMatchObject({ kind: 'booking', rule: `Opens on launch day, usually in April at 08:00 local (40% of seats); then 2 days before Day ${d} at 08:00 (60%)`, note: null });
       expect(shuttle[i]!.link).toMatch(/^https:\/\/(?:reservation\.pc\.gc\.ca|parks\.canada\.ca)\//);
     }
     expect(rows.find((b) => b.ref === 'logistics:lakelouise-lakeshore-parking')).toMatchObject({ kind: 'check', day: 10 });
@@ -69,8 +69,8 @@ describe('the Rockies rows on the real data', () => {
     const by = (id: string) => rows.find((b) => b.ref === `logistics:${id}`)!;
     expect(by('pass-discovery')).toMatchObject({ kind: 'pass', rule: 'Buy any time before Day 1', day: 1 });
     expect(by('moraine-private-access')).toMatchObject({ kind: 'booking', day: 11 });
-    expect(by('moraine-private-access').rule).toMatch(/^Opens in a monthly batch about \d+ days before the month, at 09:00 local$/);
-    expect(by('lake-ohara-bus')).toMatchObject({ kind: 'booking', day: 9, rule: 'Lottery: apply usually in March; seats left after the draw until 15:30 the day before Day 9' });
+    expect(by('moraine-private-access').rule).toMatch(/^Opens monthly, about \d+ days before the month, at 09:00 local$/);
+    expect(by('lake-ohara-bus')).toMatchObject({ kind: 'booking', day: 9, rule: 'Lottery: apply usually in March; leftover seats until 15:30 the day before Day 9' });
     expect(by('kananaskis-pass')).toMatchObject({ kind: 'pass', rule: 'Buy by 23:59 on Day 12', day: 12 });
     expect(bookingCounts(rows)).toMatchObject({ toBook: 8, pass: 2, check: 1 });
   });
