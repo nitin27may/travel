@@ -275,4 +275,8 @@ The trip index, with each trip's state, dates, data paths and open items: [trips
   template validated in place fails. Validate a copy outside the repo ([formats/README.md](formats/README.md#validating-a-template)).
 - **2026 data is a pattern.** Plans for 2027 to 2029 use 2026 prices, timetables and season dates; `applies_to` says so.
 - **`capture.ts migrate` ran once and refuses to run again.** `data/capture/migration-ledger.json` pins every migrated value.
+  One exception, points only (DG2F, 28 Oct 2026): a pinned point that is a derivation (`trailhead "X" at <ref>`) may be replaced by
+  the record's own researched OSM point. Store the row in `data/capture/points.json`, run `node core/bin/capture.ts ledger-point
+  --ref <ref> --reason "<why>" --write` (it refuses a pin that is a fact, a row that is not OSM and a missing reason, and logs the
+  replacement in the ledger's `replaced`), then `relevance.ts points --build`. Never edit the ledger by hand.
 - **Commons 429s last.** One runner, a couple of seconds apart, a probe request before a long run.

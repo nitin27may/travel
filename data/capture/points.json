@@ -5606,6 +5606,82 @@
         "review_state": "agent_checked",
         "basis": "community"
       }
+    },
+    "legacy/canadian-rockies-sept-2029/trails/iceline-trail": {
+      "lat": 51.495794,
+      "lon": -116.480596,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/2368078636",
+        "url": "https://www.openstreetmap.org/node/2368078636",
+        "read": "2026-10-28",
+        "quote": "OSM node 2368078636, the first vertex of Iceline Trail (way 24829774) by Whiskey Jack Hostel; Parks Canada names the Takakkaw Falls parking lot, about 320 m north"
+      },
+      "point_role": "trailhead",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "dg2-2026-10-28-stop-points",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore": {
+      "lat": 51.439381,
+      "lon": -116.541492,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/269747928",
+        "url": "https://www.openstreetmap.org/node/269747928",
+        "read": "2026-10-28",
+        "quote": "OSM node 269747928, the first vertex of Emerald Lake Loop Trail (way 436275405) at Emerald Lake Parking (way 230454536); Parks Canada: Trailhead: Emerald Lake parking lot"
+      },
+      "point_role": "trailhead",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "dg2-2026-10-28-stop-points",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore": {
+      "lat": 51.416377,
+      "lon": -116.216299,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/269752723",
+        "url": "https://www.openstreetmap.org/node/269752723",
+        "read": "2026-10-28",
+        "quote": "OSM node 269752723, where the shore path (Plain of Six Glaciers Trail, way 24830044) starts on the lakefront below the Chateau"
+      },
+      "point_role": "trailhead",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "dg2-2026-10-28-stop-points",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore": {
+      "lat": 51.326643,
+      "lon": -116.183438,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/269752450",
+        "url": "https://www.openstreetmap.org/node/269752450",
+        "read": "2026-10-28",
+        "quote": "OSM node 269752450, the lodge end of Moraine Lake Shoreline (way 317597559); Parks Canada: the walk begins just beyond the lodge"
+      },
+      "point_role": "trailhead",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "dg2-2026-10-28-stop-points",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
     }
   }
 }

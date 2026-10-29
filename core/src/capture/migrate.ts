@@ -187,7 +187,15 @@ export function leavesOf(rec: Any): string[] {
  * new records and new leaves (gap-filling research) are allowed.
  */
 export interface LedgerPart { records: number; leaves: number; sha1: string; held?: string[] }
-export interface Ledger { schema: "capture-migration-ledger/1"; note: string; computed: string; suitability: LedgerPart; relevance: LedgerPart; /** the point of every ref in data/relevance/inputs/points.json before the migration: lat, lon */ points: Record<string, [number, number]> }
+export interface Ledger {
+  schema: "capture-migration-ledger/1"; note: string; computed: string; suitability: LedgerPart; relevance: LedgerPart;
+  /** the point of every ref in data/relevance/inputs/points.json before the migration: lat, lon */
+  points: Record<string, [number, number]>;
+  /** the pinned points replaced under the one exception (ledgerPoints.ts): a derived trailhead by the record's own OSM point */
+  replaced?: PointReplacement[];
+}
+/** One logged replacement of a pinned point (ledgerPoints.ts, `capture.ts ledger-point`). */
+export interface PointReplacement { ref: string; was: [number, number]; derived: string; now: [number, number]; element: string; on: string; reason: string }
 const sha1 = (xs: string[]): string => createHash("sha1").update([...xs].sort().join("\n")).digest("hex");
 export const leafHash = (leaf: string): string => createHash("sha1").update(leaf).digest("hex").slice(0, 12);
 const heldOf = (leaves: string[]): string[] => {

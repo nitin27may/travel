@@ -4,6 +4,7 @@ import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { DERIVED_TRAILHEAD, planPointReplacement, replacementProblem } from "../../src/capture/ledgerPoints.ts";
 import { LEDGER_PATH, displacedRelevance, laneLeaves, ledgerOf, leavesOf, lostLeaves, planMigration, removedSuitability, serializeLike } from "../../src/capture/migrate.ts";
 import type { Ledger, SplitsFile } from "../../src/capture/migrate.ts";
 import { loadWorld, sidecarFiles } from "../../src/capture/records.ts";
@@ -232,16 +233,31 @@ describe("no value lost, none changed", () => {
     for (const s of splits().flatMap((f) => f.splits)) if (s.how === "trail_payoff" && (s.place as { mode: string }).mode === "new") payoff.set(s.ref, (s.place as { ref: string }).ref);
     const plan = read<{ draw_moves: { from: string; to: string }[]; cs7_draw_moves?: { from: string; to: string }[] }>("data/capture/placement.json");
     for (const m of [...plan.draw_moves, ...(plan.cs7_draw_moves ?? [])]) payoff.set(m.from, m.to);
+    // the one exception (ledgerPoints.ts): a derived trailhead pin replaced by the record's own OSM point, logged in `replaced`
+    const replaced = new Set((ledger.replaced ?? []).map((r) => r.ref));
     let kept = 0;
     for (const [ref, [lat, lon]] of Object.entries(ledger.points)) {
       const here = points[ref];
       const there = payoff.has(ref) ? points[payoff.get(ref)!] : undefined;
-      const ok = (here && here.lat === lat && here.lon === lon) || (there && there.lat === lat && there.lon === lon);
+      const ok = (here && here.lat === lat && here.lon === lon) || (there && there.lat === lat && there.lon === lon) || replaced.has(ref);
       // a displaced judgement's point sat on the trail ref and is on the existing place now only when that place had it already
       if (ok) kept++;
       else expect(payoff.has(ref) ? "moved to a payoff place with no point" : "lost", ref).toBe("moved to a payoff place with no point");
     }
     expect(kept).toBeGreaterThanOrEqual(Object.keys(ledger.points).length - 10);
+  });
+  it("each replaced pin is logged with its reason, was a derived trailhead, and is the record's own OSM point in both points files", () => {
+    // DG2F (28 Oct 2026): Iceline, Emerald Lakeshore, Lake Louise Lakeshore and Moraine Lakeshore; points only, never a lane leaf
+    const list = ledger.replaced ?? [];
+    expect(list.map((r) => r.ref.split("/").pop()).sort()).toEqual(["emerald-lakeshore", "iceline-trail", "lake-louise-lakeshore", "moraine-lakeshore"]);
+    for (const r of list) {
+      expect(DERIVED_TRAILHEAD.test(r.derived), r.ref).toBe(true);
+      expect(r.element, r.ref).toMatch(/^(node|way|relation)\/\d+$/);
+      expect(r.reason.length, r.ref).toBeGreaterThan(12);
+      expect(replacementProblem(REPO, ledger, r), r.ref).toBeNull();
+    }
+    expect(new Set(list.map((r) => r.ref)).size).toBe(list.length);
+    expect(ledger.note).toContain("Points only");
   });
   it("leavesOf ignores identity and the computed flat copy, and sees every other leaf", () => {
     const a = leavesOf({ ref: "x", kind: "lake", subkind: "lake", flat: { suit_level: "draft" }, suitability: { age_band: { v: { from: 4, to: null }, state: "value" } }, hints: [] });
@@ -250,6 +266,44 @@ describe("no value lost, none changed", () => {
   it("serializeLike keeps a file's own escaping, so a lane file's diff shows only what moved", () => {
     expect(serializeLike('{"a": "\\u00e9"}', { a: "é" })).toBe('{\n  "a": "\\u00e9"\n}\n');
     expect(serializeLike('{"a": "x"}', { a: "é" })).toBe('{\n  "a": "é"\n}\n');
+  });
+});
+
+describe("the ledger's point exception on a fixture root (capture.ts ledger-point)", () => {
+  const REF = "place/trail-x";
+  const ledger = (pin: [number, number]): Ledger => ({ schema: "capture-migration-ledger/1", note: "n", computed: "2026-10-18", suitability: { records: 0, leaves: 0, sha1: "" }, relevance: { records: 0, leaves: 0, sha1: "" }, points: { [REF]: pin } });
+  const osmRow = { lat: 51.4, lon: -116.5, coord_src: "osm", point_src: { provider: "OpenStreetMap", element: "node/123", read: "2026-10-28" }, point_role: "trailhead" };
+  const root = (input: Record<string, unknown>, capture: Record<string, unknown> | null): string =>
+    scratchRoot({
+      "data/relevance/inputs/points.json": { schema: "relevance-points/1", towns: [], trips: {}, points: { [REF]: input } },
+      ...(capture ? { "data/capture/points.json": { schema: "capture-points/2", note: "n", points: { [REF]: capture } } } : {}),
+    });
+  const derived = { lat: 51.44, lon: -116.53, coord_src: "wikidata", point_source: 'trailhead "Lake X" at place/lake-x' };
+  const why = "the pin was the lake centre; the trail has its own OSM start";
+
+  it("replaces a derived trailhead by the record's own OSM point, and logs the pin, the derivation and the element", () => {
+    const r = planPointReplacement(root(derived, osmRow), ledger([51.44, -116.53]), REF, why, "2026-10-28");
+    expect(r).toMatchObject({ ref: REF, was: [51.44, -116.53], derived: derived.point_source, now: [51.4, -116.5], element: "node/123", on: "2026-10-28" });
+  });
+  it("refuses a pin that is a fact (not a derived trailhead), a replacement that is not OSM or is approximate, and a missing reason", () => {
+    const fact = { ...derived, point_source: "Q123 P625" };
+    expect(planPointReplacement(root(fact, osmRow), ledger([51.44, -116.53]), REF, why, "2026-10-28")).toMatch(/not a derived trailhead/);
+    const wd = { ...osmRow, coord_src: "wikidata", point_src: { provider: "Wikidata", element: "Q1", read: "2026-10-28" } };
+    expect(planPointReplacement(root(derived, wd), ledger([51.44, -116.53]), REF, why, "2026-10-28")).toMatch(/not an OpenStreetMap element/);
+    expect(planPointReplacement(root(derived, { ...osmRow, approx: true }), ledger([51.44, -116.53]), REF, why, "2026-10-28")).toMatch(/approximate/);
+    expect(planPointReplacement(root(derived, null), ledger([51.44, -116.53]), REF, why, "2026-10-28")).toMatch(/no row/);
+    expect(planPointReplacement(root(derived, osmRow), ledger([51.44, -116.53]), REF, "", "2026-10-28")).toMatch(/reason/);
+    expect(planPointReplacement(root(derived, osmRow), ledger([51.44, -116.53]), "place/other", why, "2026-10-28")).toMatch(/not pinned/);
+  });
+  it("a logged replacement stops holding when either points file moves away from it", () => {
+    const l = ledger([51.44, -116.53]);
+    const entry = planPointReplacement(root(derived, osmRow), l, REF, why, "2026-10-28");
+    if (typeof entry === "string") throw new Error(entry);
+    // before relevance.ts points --build the inputs still hold the derived pin
+    expect(replacementProblem(root(derived, osmRow), l, entry)).toMatch(/inputs point/);
+    const built = { lat: 51.4, lon: -116.5, coord_src: "osm", point_source: "OSM node 123" };
+    expect(replacementProblem(root(built, osmRow), l, entry)).toBeNull();
+    expect(replacementProblem(root(built, { ...osmRow, point_src: { ...osmRow.point_src, element: "node/999" } }), l, entry)).toMatch(/not the logged/);
   });
 });
 

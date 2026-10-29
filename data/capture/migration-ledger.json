@@ -1,6 +1,6 @@
 {
   "schema": "capture-migration-ledger/1",
-  "note": "The multiset of every value leaf of the suitability and relevance lane files, without ref, kind, subkind and the computed flat copy, taken before the capture migration (leaf hashes in `held`). The migration moves blocks between records and renames refs; afterwards every leaf here must still exist with the same value (new records and new leaves are allowed).",
+  "note": "The multiset of every value leaf of the suitability and relevance lane files, without ref, kind, subkind and the computed flat copy, taken before the capture migration (leaf hashes in `held`). The migration moves blocks between records and renames refs; afterwards every leaf here must still exist with the same value (new records and new leaves are allowed). Exception (DG2F, 28 Oct 2026): a pinned point that was a derived trailhead (`trailhead \"X\" at <ref>`) may be replaced by the record's own researched OpenStreetMap point in data/capture/points.json; each one is logged in `replaced` by `capture.ts ledger-point` (never by hand) and checked by core/test/capture/migration.test.ts. Points only.",
   "computed": "2026-10-18",
   "suitability": {
     "records": 503,
@@ -8612,5 +8612,67 @@
       44.5536,
       -72.7961
     ]
-  }
+  },
+  "replaced": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+      "was": [
+        51.49972,
+        -116.47278
+      ],
+      "derived": "trailhead \"Takakkaw Falls parking\" at legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+      "now": [
+        51.495794,
+        -116.480596
+      ],
+      "element": "node/2368078636",
+      "on": "2026-10-28",
+      "reason": "the pin was a derived trailhead at the destination's centre; the record's own OSM trailhead was researched in DG-02 (research/runs/dg2-2026-10-28-stop-points.md)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+      "was": [
+        51.444,
+        -116.531
+      ],
+      "derived": "trailhead \"Emerald Lake\" at legacy/canadian-rockies-sept-2029/sights/emerald-lake",
+      "now": [
+        51.439381,
+        -116.541492
+      ],
+      "element": "node/269747928",
+      "on": "2026-10-28",
+      "reason": "the pin was a derived trailhead at the destination's centre; the record's own OSM trailhead was researched in DG-02 (research/runs/dg2-2026-10-28-stop-points.md)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+      "was": [
+        51.41167,
+        -116.22806
+      ],
+      "derived": "trailhead \"Lake Louise Lakeshore\" at place/lake-louise",
+      "now": [
+        51.416377,
+        -116.216299
+      ],
+      "element": "node/269752723",
+      "on": "2026-10-28",
+      "reason": "the pin was a derived trailhead at the destination's centre; the record's own OSM trailhead was researched in DG-02 (research/runs/dg2-2026-10-28-stop-points.md)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+      "was": [
+        51.3225,
+        -116.18556
+      ],
+      "derived": "trailhead \"Moraine Lake\" at legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+      "now": [
+        51.326643,
+        -116.183438
+      ],
+      "element": "node/269752450",
+      "on": "2026-10-28",
+      "reason": "the pin was a derived trailhead at the destination's centre; the record's own OSM trailhead was researched in DG-02 (research/runs/dg2-2026-10-28-stop-points.md)"
+    }
+  ]
 }

@@ -205,12 +205,13 @@ const between = (a: Point, b: Point): { minutes: number; km: number | null } => 
 /**
  * The legs a day needs for a stop with no map point moved in from another day (STEP2-C2 gap). From the base: at another base, the drive
  * between the two bases plus the stored way from the stop's own base (or `MOVED_STOP_LEGS.nearOwnBaseMin` when the plan stores none, or
- * `unknownMin` when a base has no point); at the same base, the stored way (none: the ladder's local move, as before). To each of the
- * day's stops that has no point either, the way through the base. All `estimate` (≈). A stop with a point needs none: the ladder
- * estimates from the point. The home point is never read: only the two days' bases and stored legs.
+ * `unknownMin` when a base has no point); at the same base, the stored way the day already holds, else the shortest stored way from the
+ * base on the stop's own day (Emerald Lakeshore, Day 9 to Day 12: through Natural Bridge, 50 min), else `nearOwnBaseMin` (DG2F: never the
+ * ladder's 10 minute local move for a stop the plan reached by road). To each of the day's stops that has no point either, the way through
+ * the base. All `estimate` (≈). A stop with a point needs no base leg (the ladder estimates from the point), only the ways through the
+ * base to the day's stops that have none. The home point is never read: only the two days' bases and stored legs.
  */
 function movedLegs(to: ScheduleDayInput, from: ScheduleDayInput, it: ScheduleItem, others: ScheduleItem[]): StoredLeg[] {
-  if (it.point) return [];
   const ends = endsOf(it);
   const here = to.base?.point ?? null;
   const same = sameBase(to, from);
@@ -218,10 +219,14 @@ function movedLegs(to: ScheduleDayInput, from: ScheduleDayInput, it: ScheduleIte
   const atBase = (ids: string[], legs: StoredLeg[]): boolean => legs.some((l) => (ids.includes(l.from) && (l.to === "base" || l.to === "next-base")) || (ids.includes(l.to) && (l.from === "base" || l.from === "next-base")));
   // the stop's way from the base: what the day already holds (the same base's legs carried), else estimated here
   const fromBase = (ids: string[]): number | null => waysFromBases(to, ids).find(([w]) => w === "base")?.[2] ?? null;
-  let base = fromBase(ends);
-  if (base === null && !same && !atBase(ends, to.legs)) {
+  // a stop with a point: the ladder reaches it from the base point to point; the day's stops with no point are reached through the base
+  // over the day's stored ways (DG2F: the ladder's own fallback knows only a direct base leg, so Canmore to Emerald read 50 min)
+  let base = it.point ? (here ? round5(between(here, it.point).minutes) : null) : fromBase(ends);
+  if (!it.point && base === null && !atBase(ends, to.legs)) {
     let est: { minutes: number; km: number | null };
-    if (!here || !from.base?.point) est = { minutes: MOVED_STOP_LEGS.unknownMin, km: null };
+    // the same base: the stop is as far from it as on its own day (the shortest stored way there), else the configured near-base guess
+    if (same) est = waysFromBases(from, ends).filter(([w]) => w === "base").map(([, , minutes, km]) => ({ minutes, km }))[0] ?? { minutes: MOVED_STOP_LEGS.nearOwnBaseMin, km: null };
+    else if (!here || !from.base?.point) est = { minutes: MOVED_STOP_LEGS.unknownMin, km: null };
     else {
       const ways = waysFromBases(from, ends).flatMap(([, p, min, km]) => {
         if (!p) return [];

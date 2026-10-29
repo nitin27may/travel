@@ -64,7 +64,7 @@ export function readSlugRegistry(root: string): SlugRegistry {
 const pointRows = new Map<string, Map<string, PointRow>>();
 
 /**
- * Records the join holds back, with the reason on each row of join-deferred.json: three for the S13 size gate (a point adds the map card,
+ * Records the join holds back, with the reason on each row of join-deferred.json: seven for the S13 size gate (a point adds the map card,
  * the directions links and the export waypoint, about 3.7 kB, drawn twice; the median of the place pages sits at +24.97% against +25%, and
  * these pages would tip it or pass +50%), and one whose row is a car park, not the place. Keyed by capture ref, never by slug.
  */
@@ -79,7 +79,8 @@ export const JOIN_HELD_BACK: ReadonlySet<string> = new Set(deferred.rows.map((r)
  * A row marked `approx` never gives a page point (an approximate point counts for Where, never for a pin or a distance, T5), and a row
  * counts only when `ownPoint` accepts its source: the record's own OpenStreetMap node, way or relation, or its Wikidata P625. A derived
  * trailhead ("trailhead ... at <ref>"), a prototype guess and a locations copy are not the record's own point. The locations store itself
- * is step 0 of `buildPlaces`: a place that has a store row carries the store's point already. `JOIN_HELD_BACK` holds back four records.
+ * is step 0 of `buildPlaces`: a place that has a store row carries the store's point already. `JOIN_HELD_BACK` holds back eight records; the
+ * plan model (timeline.ts `recordPoint`) still reads the seven held for size, never the one held for its place.
  */
 export function joinPoint(root: string, ref: string, held: Point | null): Point | null {
   if (held || JOIN_HELD_BACK.has(ref)) return held;

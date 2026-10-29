@@ -357,3 +357,27 @@ Map data from OpenStreetMap, © OpenStreetMap contributors, ODbL 1.0.
 | 3 | main | 3-3 | Peacham village | visit | - | none: area: a town, village, street or drive |
 | 4 | main | 4-1 | Burke Mountain overlook | visit | burke-mountain-overlook | page point; not carried as placePoint (summary trip) |
 | 4 | main | 4-t2 | Drive home | transfer | - | none: logistics: transfer, meal, check-in or airport |
+
+## Update: DG2F (28 Oct 2026)
+
+Run note [../runs/dg2f-2026-10-28-ledger-points.md](../runs/dg2f-2026-10-28-ledger-points.md). Follow-ups 1, 2, 3 and 5 are done; 4 (Miette Mine
+Trail, towns refresh) and 6 (S13, DG-11) stay open.
+
+- Join gap: `withPoints` (web/lib/public/timeline.ts) falls back to the stop's own capture record point (`recordPoint`, the page join's
+  rule: OSM or Wikidata only, never a derived trailhead or an approximate row, never a row held back for its place). A row held back for
+  size feeds the plan model, never the page.
+- The four ledger-pinned trailheads are stored under the ledger's one point exception (`capture.ts ledger-point`).
+- Same-base moves: a stop with no point moved to a day at the same base takes its shortest stored way from the base on its own day, else
+  `MOVED_STOP_LEGS.nearOwnBaseMin`; a stop with a point reaches the day's unplaced stops through the base over the stored ways.
+
+| Trip | Stops | With a point (DG-02) | With a point now |
+|---|---|---|---|
+| canadian-rockies-2029 | 91 | 66 | 82 |
+| summary trips (6), carried as `placePoint` | 117 | 0 carried (70 page points) | 72 (the 70, plus Col des Montets and Thingvellir from their records) |
+
+The nine Rockies stops left: six logistics rows, the Sunshine Village gondola (no record), Miette Mine Trail (towns refresh), the Toe of
+the Athabasca Glacier (its row is the car park).
+
+Sample moves now (family profile): Moraine Lake D11 to D13 1 h 45 ≈ in, 1 h 15 + 1 h 10 ≈ on (unchanged); Larch Valley D11 to D13 1 h 45 ≈
+and 2 h 25 ≈, day 6 h 25 (unchanged); Sulphur Skyline D7 to D10 4 h 20 ≈ and 4 h 45 ≈, day 9 h 55 (unchanged); Emerald Lakeshore D9 to
+D12 50 min ≈ from Lake Louise (was 10 min) and 1 h 50 ≈ on to the Canmore groceries (was 10 min), day 3 h 45 driving (was 1 h 25).

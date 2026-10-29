@@ -22,6 +22,10 @@ const delta = (over: Partial<TemplateDelta>): TemplateDelta => ({ ...emptyTempla
 const legTo = (t: DayTimeline, title: string): TimelineEntry | undefined => t.entries.find((e) => e.kind === "leg" && e.to?.name === title && !/^Drive on to/.test(e.title));
 const moved = (days: ScheduleDayInput[], p: Profile, item: string, from: number, to: number, after?: string, overrides: Record<string, string> = {}): DayTimeline =>
   scheduleTemplate(days, delta({ overrides, moved: [{ op: "m1", day: from, item, toDay: to, ...(after ? { after } : {}) }] }), p).days.find((d) => d.ref === to)!.timeline;
+/** The days with one stop's map point taken away: the rungs below point to point, on a real stop (DG2F gave the cruises and canoes theirs). */
+const withoutPoint = (days: ScheduleDayInput[], id: string): ScheduleDayInput[] =>
+  days.map((d) => ({ ...d, variants: d.variants.map((v) => ({ ...v, items: v.items.map((i) => (i.id === id ? { ...i, placePoint: null } : i)) })) }));
+const NO_CANOE = withoutPoint(ROCKIES, "moraine-lake-canoe");
 const sane = (t: DayTimeline): void => {
   for (const e of t.entries) {
     expect(Number.isFinite(e.durationMin), `${e.id} minutes`).toBe(true);
@@ -53,8 +57,20 @@ describe("a Rockies stop moved to a day at another base", () => {
     expect(on.every((e) => e.honesty.includes("drive_estimated"))).toBe(true);
   });
 
-  it("a stop with no place page (the Moraine canoe) takes the stored way from its own base plus the drive between the bases", () => {
+  it("a stop with no place page takes its own capture record's point (the Moraine canoe's OSM node, DG2F): point to point, ≈", () => {
+    const canoe = ROCKIES[10]!.variants.flatMap((v) => v.items).find((i) => i.id === "moraine-lake-canoe")!;
+    expect(canoe.placeSlug).toBeNull();
+    expect(canoe.placePoint).toBeTruthy();
     const t = moved(ROCKIES, FAMILY, "moraine-lake-canoe", 11, 13, "kananaskis-lakes-day-use");
+    sane(t);
+    const leg = legTo(t, "Moraine Lake canoe")!;
+    expect(leg.leg?.basis).toBe("estimate");
+    expect(leg.honesty).toContain("drive_estimated");
+    expect(leg.durationMin).toBeGreaterThanOrEqual(60);
+  });
+
+  it("a stop with no point takes the stored way from its own base plus the drive between the bases", () => {
+    const t = moved(NO_CANOE, FAMILY, "moraine-lake-canoe", 11, 13, "kananaskis-lakes-day-use");
     sane(t);
     const leg = legTo(t, "Moraine Lake canoe")!;
     const between = estimateLeg(ROCKIES[12]!.base!.point!, ROCKIES[10]!.base!.point!).minutes;
@@ -69,9 +85,10 @@ describe("a Rockies stop moved to a day at another base", () => {
   it("a stop with no point and no stored way is near its own base: the drive between the bases plus the configured guess", () => {
     const stop = stopsOf({ input: ROCKIES[1]!, base: { variant: "B" }, edit: emptyDayEdit() }, ADULTS).find((s) => s.item.id === "lake-minnewanka-cruise");
     expect(stop).toBeTruthy();
-    const from = ROCKIES[1]!;
+    const bare = withoutPoint(ROCKIES, "lake-minnewanka-cruise");
+    const from = bare[1]!;
     const lone = { ...from, legs: from.legs.filter((l) => l.from !== "lake-minnewanka-cruise" && l.to !== "lake-minnewanka-cruise") };
-    const days = ROCKIES.map((d) => (d.day === 2 ? lone : d));
+    const days = bare.map((d) => (d.day === 2 ? lone : d));
     const t = moved(days, ADULTS, "lake-minnewanka-cruise", 2, 5, undefined, { "2": "B" });
     sane(t);
     const between = estimateLeg(ROCKIES[4]!.base!.point!, ROCKIES[1]!.base!.point!).minutes;
@@ -112,14 +129,64 @@ describe("a Rockies stop moved to a day at another base", () => {
   });
 });
 
+describe("a stop with no point moved to a day at the same base (DG2F)", () => {
+  // Emerald Lakeshore, Day 9 to Day 12 (both leave Lake Louise), with its map point taken away: it used to take the ladder's 10 minute
+  // local move each way. Now it is as far from the base as on its own day: Day 9 stores base to Natural Bridge 45 and on to the lakeshore 5.
+  const bare = withoutPoint(ROCKIES, "emerald-lakeshore");
+  it("takes the shortest stored way from the base on its own day, marked ≈, and the way on to the next stop goes through the base", () => {
+    const t = moved(bare, FAMILY, "emerald-lakeshore", 9, 12, undefined, { "9": "B" });
+    sane(t);
+    const inn = t.entries.find((e) => e.kind === "leg" && e.to?.name === "Emerald Lakeshore")!;
+    expect(inn.durationMin).toBe(50);
+    expect(inn.leg?.basis).toBe("estimate");
+    expect(inn.honesty).toContain("drive_estimated");
+    // on to the groceries in Canmore: back through the base (50) plus the plan's 60 from the base, never 10 minutes
+    const on = t.entries.find((e) => e.kind === "leg" && e.from?.name === "Emerald Lakeshore" && e.to?.name === "Groceries in Canmore")!;
+    expect(on.durationMin).toBe(110);
+    expect(on.honesty).toContain("drive_estimated");
+  });
+  it("with its point, a stop with no point on the new day reaches it through the base over the day's stored ways, never a straight 50 min", () => {
+    // Day 12 stores base 60 groceries 10 Grassi 10 Nordic Centre: the Nordic Centre is 80 min from Lake Louise, Emerald Lakeshore the estimate
+    const pt = ROCKIES[8]!.variants.flatMap((v) => v.items).find((i) => i.id === "emerald-lakeshore")!.placePoint!;
+    const s = scheduleTemplate(ROCKIES, delta({ overrides: { "9": "B" }, moved: [{ op: "m", day: 9, item: "emerald-lakeshore", toDay: 12, after: "canmore-nordic-centre" }] }), FAMILY);
+    const d = s.days.find((x) => x.ref === 12)!;
+    sane(d.timeline);
+    const via = d.input.legs.find((l) => l.from === "emerald-lakeshore" && l.to === "canmore-nordic-centre")!;
+    const base = Math.round(estimateLeg(ROCKIES[11]!.base!.point!, pt).minutes / 5) * 5;
+    expect(via).toMatchObject({ basis: "estimate", estimate: true, minutes: base + 80 });
+  });
+  it("with no stored way on its own day it is the configured near-base guess, never the 10 minute local move", () => {
+    const a = item("a", "visit", "Lakeshore", { durationMin: 60 });
+    const b = item("b", "visit", "Falls", { durationMin: 60 });
+    const lake = { name: "Lake", placeSlug: null, point: { lat: 51.42, lon: -116.18 } };
+    const d1 = day([variant("main", [a])], { day: 1, base: lake });
+    const d2 = day([variant("main", [b])], { day: 2, base: lake, legs: [{ from: "base", to: "b", mode: "drive", minutes: 20, km: null, basis: "plan", estimate: true }] });
+    const r = moveItem({ input: d1, base: {}, edit: emptyDayEdit() }, { input: d2, base: {}, edit: emptyDayEdit() }, ADULTS, "a", "start")!;
+    sane(r.to.timeline);
+    const inn = r.to.timeline.entries.find((e) => e.kind === "leg" && e.to?.name === "Lakeshore")!;
+    expect(inn.durationMin).toBe(MOVED_STOP_LEGS.nearOwnBaseMin);
+    expect(inn.honesty).toContain("drive_estimated");
+    expect(r.to.day.input.legs.find((l) => l.from === "a" && l.to === "b")!.minutes).toBe(MOVED_STOP_LEGS.nearOwnBaseMin + 20);
+  });
+  it("a stored base leg the stop brings from its own day still wins (the plan's road time from the same base)", () => {
+    const a = item("a", "visit", "Lakeshore", { durationMin: 60 });
+    const lake = { name: "Lake", placeSlug: null, point: { lat: 51.42, lon: -116.18 } };
+    const d1 = day([variant("main", [a])], { day: 1, base: lake, legs: [{ from: "base", to: "a", mode: "shuttle", minutes: 25, km: null, basis: "plan", estimate: true }] });
+    const d2 = day([variant("main", [])], { day: 2, base: lake });
+    const r = moveItem({ input: d1, base: {}, edit: emptyDayEdit() }, { input: d2, base: {}, edit: emptyDayEdit() }, ADULTS, "a", "start")!;
+    expect(r.to.day.input.legs.filter((l) => l.basis === "estimate")).toEqual([]);
+    expect(r.to.timeline.entries.find((e) => e.kind === "leg" && e.to?.name === "Lakeshore")!.durationMin).toBe(25);
+  });
+});
+
 describe("legs are symmetric where they should be", () => {
   it("the straight-line estimate is the same both ways", () => {
     const pts = ROCKIES.flatMap((d) => d.variants.flatMap((v) => v.items.flatMap((i) => (i.placePoint ? [i.placePoint] : [])))).slice(0, 25);
     for (const a of pts) for (const b of pts) expect(estimateLeg(a, b).minutes).toBe(estimateLeg(b, a).minutes);
   });
   it("an estimated base leg of a moved stop resolves the same both ways", () => {
-    const from: EditedDay = { input: ROCKIES[10]!, base: {}, edit: emptyDayEdit() };
-    const to: EditedDay = { input: ROCKIES[12]!, base: {}, edit: emptyDayEdit() };
+    const from: EditedDay = { input: NO_CANOE[10]!, base: {}, edit: emptyDayEdit() };
+    const to: EditedDay = { input: NO_CANOE[12]!, base: {}, edit: emptyDayEdit() };
     const r = moveItem(from, to, FAMILY, "moraine-lake-canoe", "start")!;
     const legs = r.to.day.input.legs.filter((l) => l.basis === "estimate");
     expect(legs.length).toBeGreaterThan(0);

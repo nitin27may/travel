@@ -11,8 +11,14 @@ import type {
   BaseRef, DayKind, DayVariant, ItemKind, Profile, ScheduleDayInput, ScheduleItem, StoredLeg, SunWindow, TimeSource,
 } from '@travel/core/schedule/types.ts';
 import { fmtMin } from '@travel/core/checks/time.ts';
+import { loadPoints, type PointRow } from '@travel/core/capture/placementBlock.ts';
+import { primaryRef } from '@travel/core/capture/records.ts';
 import { DropLog, undatedSentences } from './dateless';
+import deferred from './join-deferred.json';
 import { normName } from './places';
+import { ownPoint } from './seeds';
+import { PUBLIC_TRIP_FOLDER } from './slugs';
+import { publicWorld } from './world';
 import { dayKnow, noteBlock, noteLine, parseHoursRange, stripMarkers, type NoteBlock, type PrepareOpts } from './prose';
 import type { ProtoPlace, ProtoPubTrip, RockiesData, RockiesDay, Sources } from './sources';
 import type { DayItem, DayVariantInfo, PublicBase, PublicDay, TripSchedule } from './types';
@@ -231,6 +237,14 @@ function rockiesItem(id: string, R: RockiesData, where: string, log: DropLog): S
   return null;
 }
 
+/** The capture ref of a Rockies record id (`legacy/<the Rockies folder>/<trails|sights|adventures>/<id>`), or null for an inserted entry. */
+function rockiesRef(R: RockiesData, id: string): string | null {
+  for (const [dir, rows] of [['trails', R.trails], ['sights', R.sights], ['adventures', R.adventures]] as const) {
+    if (rows.some((r) => r.id === id)) return `legacy/${PUBLIC_TRIP_FOLDER['p-rockies']}/${dir}/${id}`;
+  }
+  return null;
+}
+
 const trackRecordIds = (t: { trail_ids?: string[]; sight_ids?: string[]; adventure_ids?: string[] } | null): string[] =>
   t ? [...(t.adventure_ids ?? []), ...(t.sight_ids ?? []), ...(t.trail_ids ?? [])] : [];
 
@@ -267,15 +281,44 @@ function rockiesVariant(
 }
 
 /**
- * Each stop that has a place page carries that page's map point as `placePoint` (a plain copy of lat and lon). The published day does not
- * read it (its legs are the plan's); a stop moved to another day takes it as its point, so its new legs are estimated point to point.
+ * The rows of join-deferred.json the plan model honours too: a row held back for `place:` (the point is not the place, like the toe walk's
+ * car park) stays out of the plan as well. A row held back for `size:` only keeps bytes off its place page; the plan model adds none there.
  */
-function withPoints(v: DayVariant, pointOf: TimelineArgs['pointOf']): DayVariant {
+const PLAN_HELD: ReadonlySet<string> = new Set(deferred.rows.filter((r) => r.why.startsWith('place:')).map((r) => r.ref));
+const planPointRows = new Map<string, Map<string, PointRow>>();
+
+/**
+ * A capture record's own public point (DG2F): the record's OpenStreetMap element or Wikidata P625, by its ref, its primary ref or an alias,
+ * read by the same rule as the place-page join (`ownPoint`: never a derived trailhead, a prototype guess or an approximate row). Null for
+ * a ref held back for its place, and for a record with no such point. It feeds `placePoint` only, never a page.
+ */
+export function recordPoint(root: string, ref: string | null | undefined): { lat: number; lon: number } | null {
+  if (!ref || PLAN_HELD.has(ref)) return null;
+  let rows = planPointRows.get(root);
+  if (!rows) planPointRows.set(root, (rows = loadPoints(root).points));
+  const world = publicWorld(root);
+  const primary = primaryRef(world, ref);
+  for (const r of [ref, primary, ...(world.cap.get(primary)?.rec.aliases ?? [])]) {
+    const row = rows.get(r);
+    if (!row || row.approx) continue;
+    const p = ownPoint(row);
+    if (p) return { lat: p.lat, lon: p.lon };
+  }
+  return null;
+}
+
+/**
+ * Each stop with a public point carries it as `placePoint` (a plain copy of lat and lon): its place page's map point, else its own capture
+ * record's point (`refOf`: the stop's record ref; a stop with no page link, like the Rockies cruises and canoes, or a page whose pin is
+ * held back for size). The published day does not read it (its legs are the plan's); a stop moved to another day takes it as its point,
+ * so its new legs are estimated point to point.
+ */
+function withPoints(v: DayVariant, pointOf: TimelineArgs['pointOf'], recordOf: (it: ScheduleItem) => { lat: number; lon: number } | null = () => null): DayVariant {
   if (!pointOf) return v;
   return {
     ...v,
     items: v.items.map((it) => {
-      const p = !it.point && it.placeSlug ? pointOf(it.placeSlug) : null;
+      const p = it.point ? null : ((it.placeSlug ? pointOf(it.placeSlug) : null) ?? recordOf(it));
       return p ? { ...it, placePoint: { lat: p.lat, lon: p.lon } } : it;
     }),
   };
@@ -349,6 +392,8 @@ export interface TimelineArgs {
    * Read into `ScheduleItem.placePoint` only: the published days schedule as before.
    */
   pointOf?: (slug: string) => { lat: number; lon: number } | null;
+  /** A place page's capture ref by slug, for the fallback to the record's own point when the page holds no pin (DG2F). */
+  refOfSlug?: (slug: string) => string | null;
   log: DropLog;
 }
 interface ProtoDay {
@@ -407,7 +452,7 @@ export function attachTimeline(a: TimelineArgs): TripSchedule | null {
       const variants = (['A', 'B', 'C'] as const)
         .map((k) => rockiesVariant(k, rd, file, dayFile, R, `${where} day ${rd.n}`, a.log, names, linkOf))
         .filter((v): v is DayVariant => v !== null)
-        .map((v) => withPoints(v, a.pointOf));
+        .map((v) => withPoints(v, a.pointOf, (it) => recordPoint(a.src.root, rockiesRef(R, it.id)) ?? recordPoint(a.src.root, it.placeSlug ? a.refOfSlug?.(it.placeSlug) : null)));
       const sun = sunLine(startBase?.point ?? null, tz, window);
       // the track notes: one lead line and grouped bullets per version
       const prep = (what: string): PrepareOpts => ({ sun: sun.range, scrub: (x) => undatedSentences(x, `${where} day ${rd.n} ${what}`, a.log), names });
@@ -584,9 +629,11 @@ function summaryInputs(a: TimelineArgs, window: SunWindow | null, tz: string, ou
     const nameBase = baseName ? { name: baseName, placeSlug: null, point: null } : null;
     const base: BaseRef | null = kind === 'transfer' && prevBase ? { name: prevBase, placeSlug: null, point: null } : nameBase;
     const next: BaseRef | null = kind === 'transfer' && baseName ? { name: baseName, placeSlug: null, point: null } : null;
+    // the stops' public points ride along for a stop moved in edit mode, as on the Rockies (DG2F); a blocks day draws no legs from them
+    const main = withPoints({ key: 'main', label: "The plan's day", audience: 'any', relation: 'alternative', rank: 2, items }, a.pointOf, (it) => recordPoint(a.src.root, it.placeSlug ? a.refOfSlug?.(it.placeSlug) : null));
     const input: ScheduleDayInput = {
       day: d.n, kind, tz, base, nextBase: next, sunPoint: null, sunWindow: window, blocks: true,
-      variants: [{ key: 'main', label: "The plan's day", audience: 'any', relation: 'alternative', rank: 2, items }],
+      variants: [main],
       legs: [], start: null, origin: null, homeBy: null, splitNote: null,
     };
     d.scheduleInput = input;

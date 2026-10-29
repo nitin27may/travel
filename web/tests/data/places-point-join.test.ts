@@ -3,12 +3,13 @@ import { JOIN_HELD_BACK } from '@/lib/public/places';
 import { realData } from './support';
 
 // META-1 (collision E1): a page whose capture record has its own point in a sidecar shows it, through the one `joinPoint` in places.ts.
-// 121 pages had no point at the META-0 baseline (21 Oct, 81 of them trails); the join finds 27 of them one; 4 are held back (JOIN_HELD_BACK).
+// 121 pages had no point at the META-0 baseline (21 Oct, 81 of them trails); the join finds 27 of them one; 8 are held back (JOIN_HELD_BACK).
 const d = realData();
 const places = d.internals.places;
 const pointOf = (slug: string) => places.find((p) => p.slug === slug)?.point ?? null;
 
-const DEFERRED = ['sarrail-ridge', 'col-des-montets', 'thingvellir', 'toe-of-athabasca-glacier'];
+// DG2F: the four lakeshore and Iceline trailheads are stored (their own OSM points) but held back from the page for S13; the plan model reads them
+const DEFERRED = ['sarrail-ridge', 'col-des-montets', 'thingvellir', 'toe-of-athabasca-glacier', 'emerald-lakeshore', 'lake-louise-lakeshore', 'iceline-trail', 'moraine-lakeshore'];
 const GAINED = [
   'bald-hills', 'delicate-arch-trail', 'devils-garden', 'fenland-loop', 'hickman-bridge', 'interlakes-trail-upper-and-lower-lake',
   'lago-federa-walk', 'lake-annette-loop', 'mary-schaffer-loop', 'mesa-arch', 'moose-lake-loop', 'paint-pots-walk', 'parker-ridge',
@@ -29,13 +30,14 @@ describe('the point join (places.ts joinPoint)', () => {
     expect(places.filter((p) => !p.point).length).toBe(30);
     expect(places.filter((p) => !p.point && p.kind === 'trail').length).toBe(20);
   });
-  it('holds back four records (three for the size gate, the Toe car park row), by capture ref, and nothing else', () => {
+  it('holds back eight records (seven for the size gate, the Toe car park row), by capture ref, and nothing else', () => {
     expect(JOIN_HELD_BACK.size).toBe(DEFERRED.length);
     for (const slug of DEFERRED) expect(pointOf(slug), slug).toBeNull();
   });
   it('never takes a derived trailhead or an approximate row as the record\'s own point', () => {
     // sidecar rows "trailhead ... at <ref>" are the place the trail starts from, not the trail's own coordinate
-    for (const slug of ['emerald-lakeshore', 'lake-louise-lakeshore', 'iceline-trail', 'moraine-lakeshore']) expect(pointOf(slug), slug).toBeNull();
+    // (the Miette Mine Trail still has one: its OSM trailhead waits for the next towns refresh)
+    expect(pointOf('miette-mine-trail')).toBeNull();
     // the Braies walk's track is not confirmed: its first vertex is an approximate row and gives no pin
     expect(pointOf('lago-di-braies-walk')).toBeNull();
   });
