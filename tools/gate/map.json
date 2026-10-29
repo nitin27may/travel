@@ -339,6 +339,8 @@
       "suites": ["web.fixture"], "e2e": ["auth-email*.spec.ts", "auth-google*.spec.ts", "shell-report.spec.ts"] },
     { "id": "web-trip-edit", "why": "a person's own trip page /t/<id>/ (Step 2): the document source, the shell and the flag",
       "paths": ["web/app/t/**", "web/lib/trip-edit/**", "web/components/trips/edit/**"], "suites": ["web.fixture"], "e2e": ["t-*.spec.ts", "trip-timeline.spec.ts", "party-bar.spec.ts", "mine-trips.spec.ts"] },
+    { "id": "web-plan", "why": "the trip builder /plan/ (TB-W1): its page, stages, device store and hand-off, behind NEXT_PUBLIC_PLAN_BUILDER with NEXT_PUBLIC_TRIP_EDIT",
+      "paths": ["web/app/plan/**", "web/components/plan/**", "web/lib/plan/**"], "suites": ["web.fixture"], "e2e": ["plan-flow.spec.ts"] },
     { "id": "web-mine", "why": "the Mine page, the bar item and the dot read the copies and favourites envelopes from storage",
       "paths": ["web/app/mine/**", "web/app/favourites/**", "web/lib/mine/**", "web/lib/plan/keys.ts", "web/lib/plan/device.ts", "web/lib/favourites/**", "web/components/mine/**"], "suites": ["web.fixture"], "e2e": ["mine-shell.spec.ts", "mine-trips.spec.ts", "mine-sync.spec.ts", "mine-sync.shots.spec.ts", "storage-blocked.spec.ts", "favourites.spec.ts"] },
     { "id": "web-api", "paths": ["web/app/api/**"],

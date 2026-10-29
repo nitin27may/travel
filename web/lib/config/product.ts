@@ -98,3 +98,42 @@ export const TITLE_LONG_CHARS = 26;
 
 /** SW-003: numbered stop pins that sit closer than this many screen pixels draw as one pill ("2 · 3") that fans out on hover or tap, as on the Google map. */
 export const MAP_PIN_NEAR_PX = 20;
+
+/**
+ * The trip builder's numbers (TB-W1; FLOW 4, 6; components 9). One home, so a unit test can pin them to the contract's caps
+ * (`PLAN_LIMITS` in core/src/schema/plan-draft.ts) without the builder's start chunk loading Zod.
+ */
+export const PLAN_BUILDER_UI = {
+  /** drafts the device list holds (= PLAN_LIMITS.drafts; EM-5 unifies it with the copies' cap) */
+  deviceDrafts: 10,
+  /** one draft as UTF-8 JSON (= PLAN_LIMITS.draftBytes) */
+  draftBytes: 16 * 1024,
+  /** autosave waits this long after the last change (FLOW 6) */
+  autosaveMs: 500,
+  /** picks one plan holds (= PLAN_LIMITS.picks) */
+  maxPicks: 40,
+  /** rows a candidate page asks for (= the API's page of 40) */
+  pageSize: 40,
+  /** the "near what you picked" strip (FLOW TF6), and "also within your driving" on stage 4 (FLOW stage 4) */
+  nearStrip: 6,
+  alsoWithin: 12,
+  /** the reach's choices on stage 2, minutes (FLOW stage 2: 1 to 8 h) and the one the pill steps in */
+  reachChoicesMin: [120, 180, 240, 360, 480],
+  /** the day-out driving choices on stage 4, minutes (FLOW TF7; the slider runs 60 to 480 in steps of 15) */
+  driveDayChoicesMin: [120, 180, 240, 360],
+  /** fewer than this many places in reach is a thin count (FLOW stage 1, F-Q1) */
+  thinCount: 5,
+  /** the day-out driving slider, minutes (= PLAN_LIMITS.driveDayMin), and where it starts when the person turns "Let the pace decide" off */
+  driveDay: { min: 60, max: 480, step: 15, defaultMin: 240 },
+  /** a build waits this long before the progress card says it is still working */
+  slowBuildMs: 4000,
+  /** the stage a day trip's reach starts at, by kind id (FLOW 2.1 "the kind's reach (2, 3, 4, 6 h)") */
+  reachByKindMin: { day: 120, weekend: 180, long_weekend: 240, week_car: 360 },
+  /** the nights each kind tile sets (FLOW stage 0 "Saved") */
+  nightsByKind: { day: 0, weekend: 2, long_weekend: 3, week_car: 7, week_air: 7, holiday: 14 },
+} as const;
+
+/** Minutes of time on site one day holds at each pace: the builder's "about N days" estimate (FLOW stage 3 and 4, shown with ≈). */
+export const PLAN_DAY_ON_SITE_MIN = { relaxed: 300, standard: 360, full: 420 } as const;
+/** A pick whose visit length is not known counts for this many minutes in that estimate. */
+export const PLAN_UNKNOWN_VISIT_MIN = 90;

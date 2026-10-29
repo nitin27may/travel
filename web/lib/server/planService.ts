@@ -21,6 +21,7 @@ import {
   planCandidatePage,
   planMatrixRules,
   planRegions,
+  planStarts,
   type PlanApiError,
   type PlanBuildAnswer,
   type PlanBuildInput,
@@ -30,6 +31,7 @@ import {
   type PlanRegionGroup,
   type PlanRegions,
   type PlanResult,
+  type PlanStarts,
 } from '@travel/core/schema/api/plan.ts';
 import type { PlanOrigin } from '@travel/core/schema/plan-draft.ts';
 import { travelRoot } from '@/lib/data/root';
@@ -84,11 +86,15 @@ export interface PlanReference {
   hub(id: string): PlanPoint | null;
   airport(iata: string): PlanPoint | null;
   groups(cc: string): readonly PlanGroupDef[];
+  /** the names of the hubs and airports, for the start picker (TB-W1); absent: none */
+  starts?(): PlanStarts;
 }
 
 export interface PlanService {
   /** `GET /api/v1/plan/regions/{cc}` */
   regions(cc: string): Promise<PlanResult<PlanRegions>>;
+  /** `GET /api/v1/plan/starts` */
+  starts(): Promise<PlanResult<PlanStarts>>;
   /** `GET /api/v1/plan/candidates` (the decoded query) */
   candidates(q: PlanCandidatesQuery): Promise<PlanResult<PlanCandidatePage>>;
   /** `POST /api/v1/plan/build` (the parsed body) */
@@ -149,6 +155,23 @@ export function fileReference(root: string = travelRoot()): PlanReference {
   return {
     hub: (id) => (hubs ??= load('hubs.json', 'hubs', 'id', (r) => (typeof r.id === 'string' ? r.id : null))).get(id) ?? null,
     airport: (iata) => (airports ??= load('airports.json', 'airports', 'iata', (r) => (typeof r.iata === 'string' ? r.iata.toUpperCase() : null))).get(iata) ?? null,
+    starts: () => {
+      const text = (r: Record<string, unknown>, ...keys: string[]): string | null => {
+        for (const k of keys) if (typeof r[k] === 'string' && r[k].trim()) return r[k].trim().slice(0, 120);
+        return null;
+      };
+      const cc = (r: Record<string, unknown>): string | null => (typeof r.cc === 'string' && /^[A-Za-z]{2}$/.test(r.cc) ? r.cc.toUpperCase() : null);
+      const hubs = rowsOf(readJson(path.join(dir, 'hubs.json')), 'hubs').flatMap((r) => {
+        const id = text(r, 'id');
+        return id && pointOf(r) ? [{ id, name: text(r, 'name', 'city', 'label') ?? id, cc: cc(r) }] : [];
+      });
+      const airports = rowsOf(readJson(path.join(dir, 'airports.json')), 'airports').flatMap((r) => {
+        const iata = text(r, 'iata')?.toUpperCase() ?? null;
+        return iata && pointOf(r) ? [{ iata, name: text(r, 'name', 'city', 'label') ?? iata, cc: cc(r) }] : [];
+      });
+      const byName = <T extends { name: string }>(a: T, b: T) => a.name.localeCompare(b.name);
+      return { hubs: hubs.sort(byName).slice(0, 300), airports: airports.sort(byName).slice(0, 600) };
+    },
     groups: (cc) => {
       if (!groups) {
         groups = new Map();
@@ -373,5 +396,10 @@ export function createPlanService(deps: PlanServiceDeps): PlanService {
     return ok(answer.data, await store.revision());
   }
 
-  return { regions, candidates, build };
+  async function starts(): Promise<PlanResult<PlanStarts>> {
+    const parsed = planStarts.safeParse(reference.starts ? reference.starts() : { hubs: [], airports: [] });
+    return parsed.success ? ok(parsed.data, await store.revision()) : err('internal', 'The answer could not be built.');
+  }
+
+  return { regions, starts, candidates, build };
 }

@@ -9,7 +9,7 @@ import { normalize } from '@/lib/search/normalize';
 import { GROUP_DEFAULT_LIMIT } from '@/lib/search/search';
 import { suggest as suggestFrom } from '@/lib/search/suggest';
 import type { SearchRecord, SearchResult } from '@/lib/search/types';
-import type { PlanBuildAnswer, PlanBuildInput, PlanCandidatePage, PlanCandidatesQuery, PlanRegions } from '@travel/core/schema/api/plan.ts';
+import type { PlanBuildAnswer, PlanBuildInput, PlanCandidatePage, PlanCandidatesQuery, PlanRegions, PlanStarts } from '@travel/core/schema/api/plan.ts';
 import { PlanCallError, RESOLVE_MAX_CLIENT, type DataClient, type GlobeLineFile, type ReportResult } from './contract';
 import { staticClient } from './static';
 
@@ -50,6 +50,7 @@ export interface ApiCalls {
 /** The three builder calls; each is null when the server has none (flag off: 404; 501). Any other failure throws a `PlanCallError`. */
 export interface PlanCalls {
   regions(cc: string): Promise<PlanRegions | null>;
+  starts(): Promise<PlanStarts | null>;
   candidates(q: PlanCandidatesQuery, signal?: AbortSignal): Promise<PlanCandidatePage | null>;
   build(input: PlanBuildInput, signal?: AbortSignal): Promise<PlanBuildAnswer | null>;
 }
@@ -198,7 +199,7 @@ function candidateParams(q: PlanCandidatesQuery): URLSearchParams {
 }
 
 /** A builder answer: null when there is no such endpoint (flag off, 404; 501), a `PlanCallError` for any other refusal, else the body (parsed with its schema in development). */
-async function planRead<T>(url: string, schema: 'regions' | 'candidates' | 'build', init?: RequestInit): Promise<T | null> {
+async function planRead<T>(url: string, schema: 'regions' | 'starts' | 'candidates' | 'build', init?: RequestInit): Promise<T | null> {
   const r = await fetch(url, init);
   if (r.status === 404 || r.status === 501) {
     await r.body?.cancel().catch(() => undefined);
@@ -218,7 +219,7 @@ async function planRead<T>(url: string, schema: 'regions' | 'candidates' | 'buil
   const data = (await r.json()) as T;
   if (process.env.NODE_ENV !== 'production') {
     const m = await import('@travel/core/schema/api/plan.ts');
-    (schema === 'regions' ? m.planRegions : schema === 'candidates' ? m.planCandidatePage : m.planBuildAnswer).parse(data);
+    (schema === 'regions' ? m.planRegions : schema === 'starts' ? m.planStarts : schema === 'candidates' ? m.planCandidatePage : m.planBuildAnswer).parse(data);
   }
   return data;
 }
@@ -226,6 +227,7 @@ async function planRead<T>(url: string, schema: 'regions' | 'candidates' | 'buil
 function planCalls(): PlanCalls {
   return {
     regions: (cc) => planRead<PlanRegions>(at(`/plan/regions/${seg(cc)}`), 'regions'),
+    starts: () => planRead<PlanStarts>(at('/plan/starts'), 'starts'),
     candidates: (q, signal) => planRead<PlanCandidatePage>(at('/plan/candidates', candidateParams(q)), 'candidates', signal ? { signal } : undefined),
     build: (input, signal) =>
       planRead<PlanBuildAnswer>(at('/plan/build'), 'build', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(input), cache: 'no-store', ...(signal ? { signal } : {}) }),
@@ -444,6 +446,7 @@ export function createApiClient(calls: ApiCalls): DataClient {
     },
     // TB-API: the builder's three calls; a test's calls without `plan`, like the static files, have none
     planRegions: async (cc) => (calls.plan ? calls.plan.regions(cc) : null),
+    planStarts: async () => (calls.plan ? calls.plan.starts() : null),
     planCandidates: async (q, signal) => (calls.plan ? calls.plan.candidates(q, signal) : null),
     planBuild: async (input, signal) => (calls.plan ? calls.plan.build(input, signal) : null),
     async shardRows(type, id, d, expected) {

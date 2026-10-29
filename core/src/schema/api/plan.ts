@@ -30,6 +30,8 @@ import {
   PLAN_LIMITS as DRAFT_LIMITS,
   PLAN_BASIS,
   PLAN_COUNTRY_RE,
+  PLAN_HUB_RE,
+  PLAN_IATA_RE,
   PLAN_MOVES,
   PLAN_ORIGIN_TOKEN_RE,
   PLAN_PACES,
@@ -123,6 +125,17 @@ export const planRegions = z.strictObject({
   /** researched places in the country */
   total: z.int().min(0),
 });
+
+// ---- GET /api/v1/plan/starts ------------------------------------------------------------------------------------------------------
+
+/**
+ * The public starting points the service can resolve (TB-W1): hubs for near mode and airports for "Fly from", from the public reference
+ * files, by name. No point is served (the service keeps those); a missing file is an empty list. Not household data: every row is a
+ * public place, the same for everyone, so the answer is cacheable.
+ */
+export const planHubOption = z.strictObject({ id: z.string().max(60).regex(PLAN_HUB_RE), name: z.string().min(1).max(120), cc: z.string().regex(PLAN_COUNTRY_RE).nullable() });
+export const planAirportOption = z.strictObject({ iata: z.string().regex(PLAN_IATA_RE), name: z.string().min(1).max(120), cc: z.string().regex(PLAN_COUNTRY_RE).nullable() });
+export const planStarts = z.strictObject({ hubs: z.array(planHubOption).max(300), airports: z.array(planAirportOption).max(600) });
 
 // ---- GET /api/v1/plan/candidates --------------------------------------------------------------------------------------------------
 
@@ -326,6 +339,9 @@ export type PlanRegionsInput = z.infer<typeof planRegionsInput>;
 export type PlanRegion = z.infer<typeof planRegion>;
 export type PlanRegionGroup = z.infer<typeof planRegionGroup>;
 export type PlanRegions = z.infer<typeof planRegions>;
+export type PlanStarts = z.infer<typeof planStarts>;
+export type PlanHubOption = z.infer<typeof planHubOption>;
+export type PlanAirportOption = z.infer<typeof planAirportOption>;
 export type PlanCandidatesQuery = z.infer<typeof planCandidatesQuery>;
 export type PlanCandidatesHttpQuery = z.infer<typeof planCandidatesHttpQuery>;
 export type PlanScore = z.infer<typeof planScore>;
