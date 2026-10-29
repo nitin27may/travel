@@ -128,7 +128,14 @@ export const PLAN_KEY = /travel\.plans\./;
 /** ISO-3: any device key literal; inside the builder each must be a `travel.plans.` key. */
 export const DEVICE_KEY = /['"`]travel\.[A-Za-z]/g;
 /** G3: another feature's envelope, key or table. */
-export const OTHER_ENVELOPE = /COPIES_KEY|FAV_KEY|TRIPUI_KEY|writeParty|plan_draft|trip-custom\/1/;
+export const OTHER_ENVELOPE = /COPIES_KEY|FAV_KEY|TRIPUI_KEY|plan_draft|trip-custom\/1/;
+/**
+ * X-P (TB-W1; FLOW stage 1 "Who": the party row with Edit; ACCT-P): the builder's party row edits the one device party (`travel.party`),
+ * the same store the trip page's party bar and the copy sheet write. It is not a builder envelope, so G3 no longer lists it; instead the
+ * writer may appear only in these two files (the hook that wraps it and the row that edits it).
+ */
+export const PARTY_WRITERS = ['web/lib/plan/useParty.ts'];
+export const WRITES_PARTY = /\bwriteParty\b/;
 /** G4: a bulk or graph file, or a fetch of its own (P8, P9: data reaches components only through lib/client/data.ts). */
 export const BULK_OR_FETCH = /data\/(?:capture|catalogue\/graph)|\bfetch\s*\(/;
 /** G5: a literal colour (ISO-8: colour only from themes.css tokens). */
@@ -198,6 +205,12 @@ describe('the trip builder stays inside its fence (15.4 G1 to G5)', () => {
 
   it('G3: the builder writes no other envelope or table', () => {
     expect(BUILDER.filter((s) => OTHER_ENVELOPE.test(s.text)).map((s) => s.rel)).toEqual([]);
+  });
+
+  it('X-P: the device party is written only by the builder\'s party hook', () => {
+    expect(BUILDER.filter((s) => WRITES_PARTY.test(s.text) && !PARTY_WRITERS.includes(s.rel)).map((s) => s.rel)).toEqual([]);
+    expect(WRITES_PARTY.test("import { writeParty } from '@/lib/storage/partyKey';")).toBe(true);
+    expect(OTHER_ENVELOPE.test("writeParty(p)")).toBe(false);
   });
 
   it('G4: builder client code loads no bulk or graph file and fetches nothing itself', () => {
