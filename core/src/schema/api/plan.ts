@@ -40,6 +40,7 @@ import {
   planOutputsShape,
   planRef,
   planRegionId,
+  planSlug,
   planWhere,
 } from "../plan-draft.ts";
 
@@ -139,6 +140,13 @@ const candidateCommon = {
   page: z.int().min(1).optional(),
   /** above PLAN_LIMITS.candidatePage.max is `too_large` */
   pageSize: z.int().min(1).optional(),
+  /**
+   * TB-C2 (FLOW stage 3 "Near what you picked", stage 4 "Also within your driving"): the public slug of a pick whose surroundings the
+   * rows list, measured from that place's point instead of the region centroid or the start (the engine reads `CatalogueStore.near`).
+   */
+  near: planSlug.optional(),
+  /** TB-C2: at most this many rows in one answer (a strip of 6, "Also within your driving" up to 12); absent: a page of `pageSize` */
+  limit: z.int().min(1).max(PLAN_LIMITS.candidatePage.max).optional(),
 };
 
 /**
@@ -151,6 +159,8 @@ export const planCandidatesQuery = z.discriminatedUnion("mode", [
     mode: z.literal("near"),
     start: planOrigin,
     driveLimitMin: z.int().min(DRAFT_LIMITS.driveLimitMin.min).max(DRAFT_LIMITS.driveLimitMin.max).multipleOf(DRAFT_LIMITS.driveLimitMin.step),
+    /** TB-C2 (FLOW TF5): travel regions that narrow the reach; absent: the whole reach. A region names its own country */
+    regions: z.array(planRegionId).min(1).max(DRAFT_LIMITS.regions).optional(),
     ...candidateCommon,
   }),
 ]);
@@ -175,6 +185,9 @@ export const planCandidatesHttpQuery = z.strictObject({
   list: str.optional(),
   page: str.optional(),
   pageSize: str.optional(),
+  /** TB-C2: the pick's public slug (`near`) and the row cap (`limit`) */
+  near: str.optional(),
+  limit: str.optional(),
 });
 
 /** Visit length bands for the tray's "about N days" (4.3). */
@@ -250,6 +263,8 @@ export const planBuildInput = z.strictObject({
   /** trip mode's Getting there; null when not chosen */
   origin: planOrigin.nullable(),
   party: planParty,
+  /** TB-C2 (FLOW TF7, stage 4): the draft's `driveDayMin`, the longest drive in one day; absent: the pace's limit */
+  driveDayMin: z.int().min(DRAFT_LIMITS.driveDayMin.min).max(DRAFT_LIMITS.driveDayMin.max).multipleOf(DRAFT_LIMITS.driveDayMin.step).optional(),
 });
 
 /**
