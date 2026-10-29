@@ -1,5 +1,12 @@
 # Remote MCP v1, derived from the API: tools, schemas, field lists, errors, privacy and tests
 
+> **28 Oct 2026, owner decision of 27 Oct 2026: no anonymous MCP** (README decision record, PLAN R-291). The "public
+> tools" of section 3 are served on the one authenticated endpoint `/mcp/` to signed-in accounts at the `catalogue` level;
+> section 4's tools move to `/mcp/` too (`whoami` in M1, the Mine reads in M2). Read "no sign-in", "public endpoint",
+> "a request with an `Authorization` header gets 400", `mcp:anon:*` and "the 61st anonymous call" as withdrawn: quotas are
+> per user (`mcp:catalogue:user` 300 an hour), and PR1 and PR3 hold for catalogue tools whoever calls. The authoritative
+> tool list is [tool-catalogue.md](tool-catalogue.md).
+>
 > **Layer 1 of the MCP product (26 Oct 2026, owner's second direction; [product.md](product.md)).** This page stays the
 > detailed spec of the read tools (projections, field lists, paging, error mapping, privacy, tests). Where the product pages
 > differ, they win: the catalogue set grows from 12 to 21 tools (`get_day`, `trip_bookings`, `get_format`, `get_example`,
@@ -98,7 +105,7 @@ flowchart LR
 | L6 | The local stdio server (`core/bin/mcp.ts`) stays as it is, owner-only, over files; no remote tool imports a stdio handler | existing MCP-C test |
 | L7 | One call to a tool is one endpoint call, except the declared composite `get_public_trip` with `origin` (two endpoints, both public) | contract table lists composites |
 
-## 3. Public tools (v0.19, bundle H, no sign-in)
+## 3. Catalogue tools (v0.19, bundle H; signed in since the owner's decision of 27 Oct 2026)
 
 Annotations for all: `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false`.
 Lowest level `catalogue` (auth 14.2). Every output carries `url` (the page) and, for detail tools, `revision` (the API's
@@ -130,7 +137,7 @@ Twelve tools. With the two graph tools (section 5) the public set is 14, under R
 - `near`: "Give a place slug, an area id or a town id from `find_towns`; coordinates are not accepted."
 - `get_public_trip`: "Public trips are templates: Day 1 to N, no dates. Booking rules are relative to Day N."
 
-## 4. Private tools (v0.20, bundle H, `/mcp/private/`)
+## 4. Tools on the user's own data (`whoami` v0.19, the rest v0.20; endpoint `/mcp/`)
 
 The private endpoint serves the 12 public tools plus the tools below. Each maps to an account route that the app itself
 uses; if the route has not shipped by the v0.19 commit, the tool does not ship (L1). Writes stay out of v0.20 (auth 14.3:
@@ -257,7 +264,7 @@ with `/api/v1/*`. Added here:
 | Cap | Value | On hit |
 |---|---|---|
 | Structured result size | 64 KB per tool result | `too_large` with `details.max` and a hint to narrow (fewer facets, a smaller page, no geometry) |
-| `trip_legs` with `geometry: true` | counts 3 against `mcp:anon:ip` | as quota |
+| `trip_legs` with `geometry: true` | counts 3 against `mcp:catalogue:user` | as quota |
 | Input text | the API's request-size caps (`API_LIMITS.query`) | `validation_failed` naming the field |
 | Upstream calls | none in the v1 public set (sun is local, legs are stored, airports are a file) | |
 
@@ -325,7 +332,7 @@ Each carries `schema_version` and the API `revision`. The planner-era resources 
 | Errors | each row of section 10: the HTTP status and the tool code come from the same table; moved slugs followed once | MCP-1 |
 | Caps | `pageSize: 26` refused; 64 KB cap; `near` with coordinates refused; `get_place` with two slugs refused | MCP-1 |
 | Privacy | planted household strings, `HOME_POINT` values, a private origin ref (`loc:`), `favouredAt`, `isDone` and `zone.home` in fixture data: refused or dropped (PR1 to PR5); the grep test (L5) | MCP-1, MCP-S1 |
-| Quotas | the 61st anonymous call in an hour refused; 20 parallel calls across a bucket edge | MCP-1 |
+| Quotas | the 301st catalogue call by one user in an hour refused; 20 parallel calls across a bucket edge | MCP-1 |
 | Graph | `get_related` and `place_needs` equal their routes for the four parks fixtures (PA-FX F1 to F4) | MCP-GR |
 | Private | cross-user (another user's draft is `not_found`); add-on matrix for `travellers`, `from`; `untrusted_text` for planted instructions | MCP-2, MCP-S |
 | Inspector and clients | MCP Inspector lists the tools on the preview and production URLs; Claude Code and claude.ai custom connector on the public endpoint | MCP-1, MCP-E |

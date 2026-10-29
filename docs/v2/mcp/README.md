@@ -1,5 +1,27 @@
 # MCP server: overview
 
+> **Owner decision record, 27 Oct 2026 (recorded 28 Oct; PLAN R-291 supersedes R-124): there is NO public or anonymous MCP
+> endpoint.** Every MCP call, read-only catalogue reads included, requires a signed-in account with the same Neon Managed
+> Better Auth identity as the web site. There is one remote endpoint, `https://travel-beta-tan.vercel.app/mcp/` (OAuth for
+> interactive clients, personal access tokens for headless ones); `/mcp/private/` is not used (QX15). The `catalogue` level
+> stays as the lowest signed-in level; `plans_read` and the rest are unchanged. Unauthenticated callers get only what
+> sign-in needs: the protected resource metadata, a minimal `server/discover` (versions, server name, `tools` capability, no
+> tool list) and a `401` pointing at the metadata, under a small per-IP limit and the WAF rule
+> ([identity-and-roles.md](identity-and-roles.md) 1.1). Quotas are per user. If a client cannot complete OAuth (ChatGPT
+> is the open case, QX16), it has no MCP access until it can; there is no public fallback. The local stdio server stays
+> owner-only. Phase M1 (v0.19) becomes "authenticated catalogue read" and carries the OAuth switch-on, grants, tokens,
+> consent, Connected apps and the admin panel; M2 (v0.20) is the user's own plans, read ([BUILD-READINESS.md](BUILD-READINESS.md)).
+> Every statement below about a public `/mcp/` with no sign-in, anonymous limits or two URLs is superseded by this record.
+
+> **The MCP plan made build-ready, 28 Oct 2026 (owner direction of 27 Oct: same login and roles as the web UI; built on the
+> API; lock any tool from an admin panel at any time; M1 to M5 planned in full).** New pages:
+> [identity-and-roles.md](identity-and-roles.md) (one identity, the lookup chain, effective capability, suspension, the
+> owner bootstrap, sign-up abuse), [tool-registry-and-admin-controls.md](tool-registry-and-admin-controls.md) (the registry
+> as data, locks at every scope with deny winning on the next call, the admin panel, panic and its runbook, audit and
+> undo), [tool-catalogue.md](tool-catalogue.md) (all 56 tools, M1 to M5, with schemas, routes and the schema pipeline; it
+> wins over the tool lists of the other pages) and [BUILD-READINESS.md](BUILD-READINESS.md) (every task, hours, owned
+> files, gates, owner steps; MCP program 322 h). Research: [mcp-best-practice-2026-10-27.md](../../../research/reports/mcp-best-practice-2026-10-27.md).
+
 Status: **draft** (17 Oct 2026). Builds on 03-mcp-and-research.md (the why) and 08-self-hosted.md (the
 deployment, now historical). **R-60 (Oct 2026):** the backend is Neon (Postgres, Managed Better Auth
 email/password, Realtime). The remote MCP endpoint, its hosting, and its OAuth provider are not
@@ -39,6 +61,10 @@ selected or built; everything below is the target design. This folder is the ref
 
 | Page | Contents |
 |---|---|
+| [identity-and-roles.md](identity-and-roles.md) | **one identity for the site and every AI app (28 Oct 2026):** the lookup chain from token to role, effective capability, the single endpoint and its unauthenticated handshake, per-user MCP access, sign-up abuse, suspension, deletion and export |
+| [tool-registry-and-admin-controls.md](tool-registry-and-admin-controls.md) | **locks and the admin panel (28 Oct 2026):** registry and policy, lock scopes and precedence, the per-call check, panic, audit, the `/admin/mcp/` screens and routes |
+| [tool-catalogue.md](tool-catalogue.md) | **every tool, M1 to M5 (28 Oct 2026):** 56 tools with level, annotations, route, schemas, caps, errors; the schema pipeline; wins over the lists below |
+| [BUILD-READINESS.md](BUILD-READINESS.md) | **build readiness (28 Oct 2026):** tasks per phase with hours, files, contracts, migrations, tiers, gates, owner steps, switches, rollback, definition of ready |
 | [product.md](product.md) | **the MCP as a product (26 Oct 2026):** vision, principles MX1 to MX10, R-252 extended, phases M1 to M5, owner questions QX1 to QX12; index of the `product-*` pages: [roles and tools](product-roles-and-tools.md), [method and discovery](product-method-and-discovery.md), [staging and admin writes](product-staging-and-admin-writes.md), [response format](product-response-format.md), [security](product-security.md), [testing and evals](product-testing-and-evals.md), [packaging and phases](product-packaging-and-phases.md) |
 | [tools-explore.md](tools-explore.md) | `search`, `get`, `area_guide`, `plan_drive`, `sun`, `weather` |
 | [tools-plan.md](tools-plan.md) | `list_trips`, `get_trip`, `create_trip`, `edit_trip`, `draft_days`, `check_trip`, `share` |
@@ -131,7 +157,7 @@ unless you allow it."). Tokens are revocable per client. Every operation records
 
 | Scope | Allows | Default for |
 |---|---|---|
-| `catalog:read` | search and read the published catalog, area guides, templates | everyone, also anonymous at low limits |
+| `catalog:read` | search and read the published catalog, area guides, templates | every signed-in account allowed MCP (no anonymous access since 27 Oct 2026) |
 | `trips:read` | read the user's trips (items, reservations without codes, tasks, budget) | signed-in users |
 | `trips:write` | create and change trips, reservations, tasks, budget, household preferences | signed-in users |
 | `reservations:read` | reveal confirmation codes, PNRs, ticket numbers | off; the user ticks it on the consent screen |
@@ -147,7 +173,7 @@ traveller label ("Child 1"), never the birth year.
 
 | Who | Limit |
 |---|---|
-| anonymous `catalog:read` | 60 calls per hour per IP |
+| unauthenticated (sign-in handshake only, since 27 Oct 2026) | 30 requests a minute per IP; no tools |
 | signed-in user | 600 calls per hour; 60 writes per minute |
 | research tokens | 2,000 calls per hour; `propose` at most 500 changes per changeset |
 | routing and weather inside tools | cached first; at most 200 uncached routing calls per user per day |

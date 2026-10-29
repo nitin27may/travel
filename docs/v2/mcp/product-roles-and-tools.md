@@ -1,5 +1,12 @@
 # MCP product: personas, roles and the tool catalogue
 
+> **28 Oct 2026:** [tool-catalogue.md](tool-catalogue.md) is now the authoritative tool list (56 tools, M1 to M5) and wins
+> over sections 3 and 4 here for names, levels, annotations and counts (`preview_trip_change` replaces `edit_my_trip` and
+> `preview_change`; `whoami` is at every level and ships in M1; the Mine reads use `/api/account/plans`). Owner decision of
+> 27 Oct 2026: **no anonymous MCP**; the "Visitor" persona is a signed-in account at the `catalogue` level and the
+> "Anonymous" role row below is withdrawn (README decision record, PLAN R-291). Roles and the lookup chain:
+> [identity-and-roles.md](identity-and-roles.md).
+
 Part of [product.md](product.md). Status: spec only, planned (26 Oct 2026). Every tool below names the route or operation
 it shares with the web app (MX1); inputs are the route's Zod input, tightened; outputs are projections of the route's
 answer in the response contract of [product-response-format.md](product-response-format.md). Read tools are specified in
@@ -10,7 +17,7 @@ and admin tools, and the role matrix.
 
 | Persona | Client | Goal | Phase |
 |---|---|---|---|
-| **Visitor** (no account) | ChatGPT, Claude, any MCP client, no sign-in | "Find family hikes near Lake Louise in September"; "show me the Dolomites trip, day 4"; "what do I need to book?" | M1 |
+| **Visitor** (signed in, `catalogue` level; no anonymous access since 27 Oct 2026) | ChatGPT, Claude, any MCP client, after sign-in | "Find family hikes near Lake Louise in September"; "show me the Dolomites trip, day 4"; "what do I need to book?" | M1 |
 | **Planner** (signed in) | the same clients, connected with OAuth | "Copy the Rockies trip for 5 September 2029, drop day 9, add a rest day"; "save these three lakes"; "suggest Bruce Peninsula to the site" | M2 read, M3 write |
 | **Self-researcher** (signed in) | Claude or ChatGPT with web access | "We are going to Newfoundland; research Gros Morne the way this site does and make it my plan" | M3 |
 | **Developer and power user** | Claude Code, Cursor, VS Code | the same tools plus discovery and validation in a scripted loop; later the research toolkit | M1 to M3 |
@@ -25,10 +32,10 @@ everyone per environment.
 
 | Role | Endpoint | Highest level | Add-ons available | Notes |
 |---|---|---|---|---|
-| Anonymous | `/mcp/` | `catalogue` | none | no `Authorization` header (a request with one gets 400) |
-| Signed-in user | `/mcp/private/` | `plans_write` | `codes` (later, planner), `people`, `removals` | default level `plans_read` (auth Q190); writes need the 14.4 confirmation on our site |
-| Researcher (invited) | `/mcp/private/` | `research` (plus the user's own levels) | none | later (QX11) |
-| Owner | `/mcp/private/` | `owner_admin` | all | bootstrapped by MCP-G's CLI from `OWNER_EMAIL` (auth 14.2a); `owner_admin` tokens 30 days at most |
+| ~~Anonymous~~ (withdrawn 27 Oct 2026) | none | none | none | unauthenticated callers get only the sign-in handshake (identity 1.1) |
+| Signed-in user | `/mcp/` | `plans_write` (from `catalogue` up) | `codes` (later, planner), `people`, `removals` | default level `plans_read` (auth Q190); writes need the 14.4 confirmation on our site |
+| Researcher (invited) | `/mcp/` | `research` (plus the user's own levels) | none | later (QX11) |
+| Owner | `/mcp/` | `owner_admin` | all | stored role `admin`; bootstrapped by IDN-C's CLI from `OWNER_EMAIL` (auth 14.2a); `owner_admin` tokens 30 days at most |
 
 ## 3. The tool matrix
 

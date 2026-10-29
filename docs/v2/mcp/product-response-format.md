@@ -229,7 +229,7 @@ date input request when the client declares support; otherwise it answers this p
 | Default structured size | 16 KB; hard cap 64 KB (`too_large` with a narrowing hint) |
 | Lists | 10 rows by default, 25 at most; `count` always present |
 | Drill-down | detail, day, map, bookings, facts are separate calls; summaries name the next call in `actions` |
-| Latency target | p95 under 800 ms for read tools on the public endpoint (served from `JsonStore` or the edge cache), under 2 s for writes |
+| Latency target | p95 under 800 ms for catalogue read tools (served from `JsonStore` or the edge cache), under 2 s for writes |
 | Caching | `tools/list`, `resources/list`, `resources/read` carry `ttlMs` and `cacheScope` (2026-07-28); public reads `ttlMs` 60,000, `cacheScope: "public"`; private `cacheScope: "private"` |
 | Order | `tools/list` in a deterministic order (2026-07-28 minor change 3) |
 

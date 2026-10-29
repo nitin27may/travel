@@ -25,6 +25,10 @@ it accepts writes from software that reads untrusted web pages. That combination
 > response; private writes run the app's operations inside `withUserTransaction`, so validation and RLS are identical; the
 > grant, token and quota checks are shared server functions. This narrows T7 and T12 below to one code path.
 
+> **28 Oct 2026, owner decision of 27 Oct 2026:** there is no public or anonymous endpoint; every remote call is signed in
+> on one endpoint `/mcp/` (README decision record, PLAN R-291). Threats T16 to T32 and the OWASP MCP Top 10 mapping are in
+> [product-security.md](product-security.md) 4 and 4a; identity in [identity-and-roles.md](identity-and-roles.md).
+
 ## Assets
 
 | Asset | Why it matters |

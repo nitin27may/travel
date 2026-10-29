@@ -3,101 +3,71 @@
 Part of [product.md](product.md). Status: spec only, planned (26 Oct 2026). Models per CLAUDE.md "Model by task complexity":
 shared contracts, privacy and security are Opus; well-specified builds are Sonnet; reviews are never below the writer.
 
+> **28 Oct 2026:** sections 1 to 4 rewritten for the owner's decision of 27 Oct 2026 (no anonymous endpoint; README
+> decision record, PLAN R-291) and the build-ready plan. The task-by-task table with owned files, gates and owner steps is
+> [BUILD-READINESS.md](BUILD-READINESS.md) 2; this page keeps the summary and must match it.
+
 ## 1. Endpoints
 
 | Endpoint | URL (until a custom domain, Q148) | Who |
 |---|---|---|
-| Public | `https://travel-beta-tan.vercel.app/mcp/` | anyone, no sign-in |
-| Private | `https://travel-beta-tan.vercel.app/mcp/private/` | signed-in users (OAuth or PAT) |
+| Remote MCP | `https://travel-beta-tan.vercel.app/mcp/` | signed-in accounts allowed MCP (OAuth or PAT); unauthenticated callers get only the sign-in handshake ([identity](identity-and-roles.md) 1.1) |
 | Local stdio | `node core/bin/mcp.ts` | the owner, in the repository (unchanged) |
 
 ## 2. Installation per client (verified in MCP-PK on the child branch, then MCP-E on production)
 
-| Client | Public | Private | Views | Notes |
-|---|---|---|---|---|
-| claude.ai, Claude Desktop, Claude mobile | Settings, Connectors, add custom connector, the public URL | the private URL; sign in with our account; consent page; pick the level on Connected apps | yes on web and desktop (MCP Apps) | one client id across surfaces (auth 14.10) |
-| ChatGPT | developer mode or the apps directory later; connector with the public URL | the private URL with OAuth, if CIMD works (security page 1; Q-B1) | yes (Apps SDK on MCP Apps); text-only fallback on Android | permission modes (always, before changes, important changes) map onto our annotations; destructive tools carry `destructiveHint` |
-| Claude Code | `claude mcp add --transport http travel https://travel-beta-tan.vercel.app/mcp/` | `claude mcp add --transport http travel-me https://travel-beta-tan.vercel.app/mcp/private/` (OAuth in the browser) or with `--header "Authorization: Bearer <PAT>"` from the keychain | no (terminal) | the `travel` plugin (M3) bundles the server entries and the three generated skills; `/mcp` to authenticate |
-| VS Code (Copilot), Cursor, Goose | `mcp.json` entry `{ "type": "http", "url": "https://travel-beta-tan.vercel.app/mcp/" }` | the private URL; OAuth where supported, else PAT | where the host supports MCP Apps | |
-| Any SDK script | Streamable HTTP, protocol 2026-07-28 with the 2025-11-25 fallback | PAT | no | `server/discover` answers versions and capabilities |
+Every path starts with signing in; there is no anonymous variant.
 
-A page `/mcp-help/` on the site (M3, inside MCP-U's scope) shows these steps with copy buttons; never a token on the page.
+| Client | How | Views | Notes |
+|---|---|---|---|
+| claude.ai, Claude Desktop, Claude mobile | Settings, Connectors, add custom connector, `https://travel-beta-tan.vercel.app/mcp/`; sign in with our account; consent page; pick the level on Connected apps | yes on web and desktop (MCP Apps) | one client id across surfaces (auth 14.10) |
+| ChatGPT | developer mode (the apps directory in M5) with the same URL and OAuth through CIMD (`https://chatgpt.com/oauth/client.json`) | yes (Apps SDK on MCP Apps); text-only fallback on Android | **only after MCP-PK proves Neon accepts ChatGPT's CIMD and the owner lists it (QX16); if it cannot, ChatGPT has no MCP access** (ChatGPT has no personal-token path for a user's own connector). Permission modes map onto our annotations |
+| Claude Code | `claude mcp add --transport http travel https://travel-beta-tan.vercel.app/mcp/` then `/mcp`, Authenticate (OAuth in the browser), or with `--header "Authorization: Bearer <PAT>"` from the keychain | no (terminal) | the `travel` plugin (M3) bundles the server entry and the three generated skills |
+| VS Code (Copilot), Cursor, Goose | `mcp.json` entry `{ "type": "http", "url": "https://travel-beta-tan.vercel.app/mcp/" }`; OAuth where it works against Neon (MCP-PK), else a PAT header | where the host supports MCP Apps | |
+| Any SDK script | Streamable HTTP, protocol 2026-07-28 with the 2025-11-25 fallback, PAT | no | `server/discover` answers versions and capabilities without a token; everything else needs one |
+
+A page `/mcp-help/` on the site (M1, inside MCP-U) shows these steps, each starting with "Sign in", with copy buttons; never
+a token on the page.
 
 ## 3. Phases
 
-| Phase | Label, bundle | Doors | Prerequisites (outside MCP) |
+| Phase | Label, bundle | What opens | Prerequisites (outside MCP) |
 |---|---|---|---|
-| M1 | v0.19, H | public: read, discovery, method, `validate`, structured payloads with view hints | PM-C, PM-G, PM-F (D); API-P, PA-Q (E); API-G, API-T, API-S, API-V, MTH-G, MTH-1 (G); ORG-A (C); EML-Q quotas |
-| M2 | v0.20, H | private read at `plans_read`; Connected apps | CUS-C (F) account drafts route; NAV-D, FAV-D (F); FBK (D) submissions list; EML-1 |
-| M3 | v0.20a, **H2** | user writes; previews and approvals; MCP Apps views; Claude Code plugin | UPL-C, UPL-1 (H2); REQ-E-C (G) for move, insert day, drop day; TD-1 (E) core trip schema; IMG-1 (A) photo renditions for views |
-| M4 | v0.20b, **H2** | staging and review (owner); intake tools | STG-C, STG-1, STG-P (H2); REQ-M; CAT-Q (D) for private Postgres reads of staging |
-| M5 | later (after v1.0, QX12) | public research toolkit (Agent Skills bundle), directory listings, the tasks extension for long batch validation, export over MCP (QM10) | none scheduled |
+| M1 | v0.19, H, **authenticated catalogue read** | the endpoint `/mcp/` behind OAuth and PATs at the `catalogue` level: 21 catalogue tools and `whoami`, discovery, method, `validate`; consent, Connected apps, the admin panel and locks; owner first, then accounts per QX20 | PM-C, PM-G, PM-F (D); API-P, PA-Q (E); API-G, API-T, API-S, API-V, MTH-G, MTH-1 (G); ORG-A (C); EML-Q quotas and Turnstile; **EML-1** (sign-in card hook, verified email); **GSI-SEC** (Google gate) |
+| M2 | v0.20, H, my plans read | five reads of the user's own plans, favourites, requests and map at `plans_read` | EM-1 (built), FAV-D, FBK-2, WM-S |
+| M3 | v0.20a, **H2** | user writes; previews and approvals; MCP Apps views; profile tools; Claude Code plugin | UPL-C, UPL-1 (H2); STEP2-C1, STEP2-C2, TB-SY, ACCT-P; FAV-D, FBK-1; IMG-1 |
+| M4 | v0.20b, **H2** | staging and review (owner); intake tools | STG-C, STG-1, STG-P (H2); REQ-M; CAT-Q |
+| M5 | v1.3, **bundle L** after K (QX13) | tasks extension, `export_trip`, Agent Skills bundle, directory listings, researchers | custom domain (Q148) for listings; M4 a month in use (QX11) |
 
-## 4. Tasks, hours, models, bundles
+## 4. Tasks, hours, models, bundles (summary; rows in BUILD-READINESS 2)
 
-| Id | Task | Model | h | Bundle | Depends on |
+| Phase | Tasks | Opus h | Sonnet h | Total h | Bundle |
 |---|---|---|---|---|---|
-| PM-C | Registry exposure contract ([property matrix](../features/property-display-matrix.md) 12) | Opus | 4 | D (I) | PA-C |
-| PM-G | Matrix generator and checks | Sonnet 4, Opus review 1 | 5 | D (I) | PM-C |
-| PM-F | Formatter to core | Sonnet 3, verifier 1 | 4 | D (I) | PM-C, UXB-7 |
-| API-P | Facts read model | Opus 2, Sonnet 4 | 6 | E | PM-F, PA-Q, UXB-C |
-| API-G | Endpoint table and guard in core | Opus | 4 | G (I) | quiet point |
-| API-T | Types routes | Sonnet | 3 | G (I) | PM-G, API-G |
-| API-S | Sun route | Sonnet | 1.5 | G (I) | API-G |
-| API-V | `POST /api/v1/validate` | Opus 2, Sonnet 3 | 5 | G (I) | API-G |
-| MTH-G | Method generator (remote edition, privacy scan) | Opus 2, Sonnet 4 | 6 | G (I) | PM-G |
-| MTH-1 | Method routes | Sonnet | 3 | G (I) | MTH-G, API-G |
-| **Prerequisites before H** | | | **41.5** | D 13, E 6, G 22.5 | |
-| AU-D | Delta audit, MCP field list as `expose.mcp` overrides | Opus | 3 | H | v0.18, PM-G |
-| MCP-C | Remote contract: tool-to-route table, schemas from the API, projections from the matrix, `travel-view/1`, error map, annotations, levels, grep test | Opus | 10 | H | API-G, API-P, API-T, API-S, API-V, PM-G, AU-D |
-| MCP-1 | Public endpoint, 21 catalogue tools | Sonnet | 8 | H | MCP-C, EML-Q |
-| MCP-M | Resources and prompts over MTH-1 and API-T | Sonnet | 3 | H | MCP-1, MTH-1 |
-| MCP-GR | Graph tools | Sonnet | 2 | H if the routes exist, else H2 | ENTITY routes, PA-Q |
-| ORG-MCP | Origin tools | Sonnet | 1.5 | H | ORG-A |
-| MCP-PK | Packaging spike: claude.ai, ChatGPT (CIMD), Claude Code, VS Code; plugin manifest | Sonnet | 3 | H | MCP-1 on the child |
-| MCP-EV | Eval harness, E1, E2 | Opus 2, Sonnet 4 | 6 | H | MCP-1 |
-| MCP-S1 | Security review, public half | Opus | 2.5 | H | MCP-1 |
-| MCP-E1 | Real clients, public | Sonnet | 1 | H | deploy |
-| **M1** | | | **40** | H (v0.19) | |
-| MCP-G, MCP-T, MCP-2, MCP-O, MCP-U, MCP-S, MCP-E | Private read (as auth 14.9; MCP-2 9 h) | Opus, Sonnet | 6 + 5 + 9 + 4 + 10 + 4 + 3 = 41 | H | as planned |
-| **M2** | | | **41** | H (v0.20) | |
-| UPL-C | `user-plan/1`, `user-place/1`, `user_place` migration | Opus | 6 | H2 | CUS-C, TD-1 |
-| UPL-1 | Plan and place routes, previews | Sonnet | 8 | H2 | UPL-C |
-| MCP-W | User write tools (copy, edit, create, places, favourites, requests, preview and apply) | Opus 3, Sonnet 7 | 10 | H2 | UPL-1, CUS-C, REQ-E-C, FAV-D, FBK-1 |
-| MCP-P | Pending changes and the approval page (exists as "later") | Opus 3, Sonnet 5 | 8 | H2 | MCP-W |
-| MCP-UI | Five MCP Apps views in `web/mcp-views/**`; design review; verifier | Sonnet 14, Opus 3, Sonnet 2 | 19 | H2 | MCP-W, IMG-1 |
-| MCP-S3 | Security review, writes and views | Opus | 4 | H2 | MCP-UI |
-| MCP-EV2 | Evals E3, E4, E7, E8 | Sonnet | 3 | H2 | MCP-W |
-| MCP-E3 | Real clients, writes and views | Sonnet | 2 | H2 | deploy |
-| **M3** | | | **60** | H2 (v0.20a) | |
-| STG-C | `research-batch/1`, `research_stage` migration | Opus | 6 | H2 | M3 shipped |
-| STG-1 | Staging and work-list routes | Sonnet | 8 | H2 | STG-C |
-| STG-P | `stage.ts export` with the validator chain | Sonnet 6, Opus review 1 | 7 | H2 | STG-1 |
-| MCP-3 | Research tools (`research_brief`, `work_list`, `stage_batch`, batches) (was 8 h, later) | Opus 4, Sonnet 6 | 10 | H2 | STG-1, MTH-1 |
-| REQ-M | Intake tools (exists, later) | Opus 2, Sonnet 4 | 6 | H2 | MCP-3 |
-| MCP-A | Review tools (`review_queue`, `diff_batch`, `decide_batch`, `coverage`) | Opus 2, Sonnet 4 | 6 | H2 | STG-1 |
-| MCP-P2 | Approval page for batches (2.4 of the staging page) | Sonnet | 3 | H2 | MCP-P, STG-1 |
-| MCP-S4 | Security review, staging and admin (external style) | Opus | 6 | H2 | MCP-A |
-| MCP-EV3 | Evals E5, E6, E7 | Sonnet | 2 | H2 | MCP-3 |
-| MCP-E4 | Real clients, owner | Sonnet | 1 | H2 | deploy |
-| **M4** | | | **55** | H2 (v0.20b) | |
-| **All** | | | **237.5** | | |
+| Prerequisites before H | PM-C 4, PM-G 5, PM-F 4, API-P 6, API-G 4, API-T 3, API-S 1.5, API-V 5, MTH-G 6, MTH-1 3 | 15 | 26.5 | **41.5** | D 13, E 6, G 22.5 |
+| M1 | IDN-C 4, AU-D 3, MCP-C 10, GOV-C 6.5, SCH-G 3, MCP-G 6, MCP-T 5, GOV-1 4, MCP-2 6.5, MCP-1 6.5, MCP-M 3, MCP-GR 2, ORG-MCP 1.5, MCP-O 4, MCP-U 10, IDN-1 2, ADM-0 3, GOV-API1 4, GOV-API2 3, GOV-UI1 6, GOV-UI2 5.5, GOV-RV1 2.5, GOV-RV2 2, MCP-PK 3, MCP-EV 6.5, MCP-S 5, GOV-S 2.5, MCP-E 3.5 | 57 | 66.5 | **123.5** | H (v0.19) |
+| M2 | MCP-2R 3, WM-M `get_my_map` 2.5, MCP-S2 1.5, MCP-E2 1 | 1.5 | 6.5 | **8** | H (v0.20) |
+| M3 | UPL-C 4, UPL-1 5, MCP-W 12.5, MCP-P 9, MCP-UI 19, TK-MCP 2, WM-M `mark_visited` 2.5, MCP-S3 4, MCP-EV2 3, MCP-E3 2 | 17.5 | 45.5 | **63** | H2 (v0.20a) |
+| M4 | STG-C 6, STG-1 8.5, STG-P 7, MCP-3 10, REQ-M 6, MCP-A 6, MCP-P2 3.5, MCP-S4 6, MCP-EV3 2, MCP-E4 1 | 21 | 35 | **56** | H2 (v0.20b) |
+| M5 | M5-T 7, M5-X 3.5, M5-K 5, M5-D 4, M5-R 4, M5-S 3, M5-EV 2, M5-E 1.5 | 8.5 | 21.5 | **30** | L (v1.3) |
+| **All** | | **120.5** | **201.5** | **322** | |
 
-**Models:** Opus about 100.5 h, Sonnet about 137 h. **Against the plan before 26 Oct:** the MCP had 56 h in H plus 22 h
-"later" (MCP-3, MCP-P, REQ-M), 78 h in all; now 237.5 h including the prerequisites, so **+159.5 h** (of which 36.5 h was
-reported this morning with the property matrix).
+**Against earlier totals:** 237.5 h on 26 Oct; 239.5 h after the 27 Oct builder changes (WM-M +2.5 in H, TK-MCP +2 and UPL
+−5 and `mark_visited` +2.5 in H2); now **322 h (+82.5)**: bundle H +48 h (47 h of new governance and identity work, +2 h for per-user access and signed-in
+evals, −1 h net from one endpoint and merged reviews; M1 grows by 83.5 h because most of the old M2 moves into it, and M2
+shrinks by 35.5 h), H2 +4.5 h, M5 +30 h. Line by line: BUILD-READINESS 0.
 
-**Bundle effects:** D +13 (Internal), E +6, G +22.5 (Internal), H 56 to 81 h, **H2 new, 115 h**. The train becomes A to H,
-H2, I, J, K: J (the UI and UX audit) now also covers the MCP Apps views and the approval page, so it follows H2; K (the
-Postgres cutover) follows J. B2 carries most of H2 (contracts, routes, MCP); B1 carries MCP-UI and the approval page's UI
-(about 30 h). The program total moves from 986 h to about 1,168 h.
+**Bundle effects:** H 83.5 → **131.5 h**, H2 114.5 → **119 h**, new **L 30 h** after K. The train becomes A to H, H2, I, J,
+K, L. B1 carries about 46 h of lane X in H (MCP-U and the panel screens move into M1). The program total moves from
+2,323.5 h to **2,406 h** (MASTER-ORDER 0).
 
 ## 5. What must land in the API before the MCP (contract order)
 
 The one-author order of MASTER-ORDER 4.3 gains, in this order: PA-C (C) → **PM-C** (D) → **PM-G**, **PM-F** (D) → PA-Q,
 **API-P** (E) → TD-1 (E) → CUS-C (F) → NAV-D, FAV-D (F) → REQ-E-C (G) → REQ-G-C (G) → **API-G** (G) → **API-T**, **API-S**,
-**API-V**, **MTH-G**, **MTH-1** (G) → MCP-C, MCP-G (H) → **UPL-C** (H2) → **STG-C** (H2). Two migrations join the list,
-slugs in branches and numbers at merge (MIG-N): `user_place` (UPL-C), `research_stage` (STG-C).
+**API-V**, **MTH-G**, **MTH-1** (G) → **IDN-C**, MCP-C → **GOV-C**, **SCH-G** → MCP-G → MCP-T (H, all M1) → **UPL-C** (H2) →
+**STG-C** (H2) → **M5-T** (L). Migrations, slugs in branches and numbers at merge (MIG-N): `account_status` (IDN-C),
+`mcp_governance` (GOV-C), `mcp_access` (MCP-G), the token columns (MCP-T), `user_place` (UPL-C), `research_stage` (STG-C),
+`mcp_task` (M5-T).
 
 ## 6. Dependency on the entity-graph spec
 
@@ -113,7 +83,7 @@ slugs in branches and numbers at merge (MIG-N): `user_place` (UPL-C), `research_
 
 | Existing | Where | Here | Resolution |
 |---|---|---|---|
-| "Task-shaped tools, about 25 in total" | README principle 1 | 21 at `catalogue`, up to 50 at `owner_admin` | levels filter `tools/list`; descriptions verb-first; Q196 already accepted about 38 |
+| "Task-shaped tools, about 25 in total" | README principle 1 | 22 at `catalogue`, up to 56 at `owner_admin` (tool-catalogue 1.1) | levels filter `tools/list`; descriptions verb-first; Q196 already accepted about 38 |
 | Bundle H is two deploys and the last MCP step before I, J, K | RELEASE-PLAN 0a, MASTER-ORDER 0 | H2 adds two more deploys after H | QX2 |
 | "Planner second" | product direction | user plans and private places through MCP before the planner (F01 to F17) | `user-plan/1` is the planner's first contract, built small and forward-compatible with TD-1; no planner UI is added |
 | "No new HTML" | PLAN 1, CLAUDE.md | MCP Apps views | built in `web/` with the design system and reviewed as UI (QX6) |
@@ -125,15 +95,36 @@ slugs in branches and numbers at merge (MIG-N): `user_place` (UPL-C), `research_
 | Sessions and `Mcp-Session-Id` | auth-and-sign-in.md sections 1 and 4 (protocol 2025-11-25 era) | 2026-07-28 removed sessions; previews and batches use server-minted handles | MCP-C pins 2026-07-28 with the 2025-11-25 fallback |
 | The UI and UX audit J right after H | AUDITS 2.3, RELEASE-PLAN | J after H2 | J covers the views; G-UI gate lists v0.20b |
 | PAT expiry 90 days in README 3 | README | 30 days default (Q163) | unchanged |
+| Public `/mcp/` with no sign-in (R-124, Q161, Q165) | auth 1, 4.2, 12; README; tools-v1 3 | **one authenticated `/mcp/`** | owner decision, 27 Oct 2026; PLAN R-291 supersedes R-124; Q161 and Q165 marked superseded |
+| M1 is anonymous read; MCP-G, MCP-T, MCP-2, MCP-O, MCP-U in M2 | this page 3 and 4 (26 Oct); MASTER-ORDER 3.9 MP1, MP2 | M1 is authenticated catalogue read and carries them | owner decision; BUILD-READINESS 2.1 |
+| "Defer the research toolkit and listings until after v1.0" (QX12) against "build all M1 to M5" (owner, 27 Oct) | product 6 | M5 planned in full with 30 h, scheduled after K as bundle L | QX13 |
+| H2 only if QX2 is yes | MASTER-ORDER 0 | H2 planned in full (owner: "build all M1 to M5") | QX2 still needs a recorded answer |
+| Admin role row "`owner`" | auth 14.2a | stored `admin` (schema 0002) | identity 2.1 |
+| `edit_my_trip`, `preview_change`, `user-plan/1` | product-roles 3, 4.3 | `preview_trip_change`, `apply_change`, `plan-draft/1` | tool-catalogue 1.2 |
 
 ## 8. Second list of owner questions (only those the spec cannot settle)
 
 | Q | Question | Recommended | Trade-off |
 |---|---|---|---|
-| Q-B1 | If ChatGPT cannot complete OAuth with client ID metadata documents and DCR stays off, give ChatGPT the public endpoint only until it can, rather than turning DCR on? | **Yes** | ChatGPT users cannot reach their Mine through MCP for a while |
+| Q-B1 | **Superseded by QX16 (28 Oct 2026):** the public-endpoint fallback no longer exists (owner, 27 Oct 2026). | | |
 | Q-B2 | The map view uses the globe's MapLibre tile source; if that source's terms forbid use inside a third-party frame, the map view ships without tiles (points and lines on a plain background) rather than adding a paid provider? | **Yes** | a plainer map in clients |
 | Q-B3 | Name the new feature labels v0.20a and v0.20b (no renumbering of v0.21 and v0.22)? | **Yes** | letters in labels, against renumbering two releases |
+
+### 8.1 Third list (28 Oct 2026, the build-ready plan; only what the specs cannot settle)
+
+| Q | Question | Recommended | Trade-off |
+|---|---|---|---|
+| QX2 (restated) | Record the answer to QX2 (bundle H2 with v0.20a and v0.20b). Your "build all phases M1 to M5" (27 Oct) reads as yes; the plan needs it written down | **Yes, record it** | J and K move about two bundles later, as QX2 said |
+| QX13 | M5 (tasks, export, Agent Skills bundle, directory listings, researchers; 30 h) as bundle **L, v1.3, after K**, rather than straight after H2? | **After K** | listings want the custom domain (Q148) and the Postgres cutover first; the toolkit reaches strangers later |
+| QX14 | v0.19 is now 123.5 h because every call needs sign-in. Ship it as one release opened in two switch-ons (you only, then other accounts after MCP-S), rather than splitting it into two releases? | **One release, two switch-ons** | one T3 and one review for a large bundle, against two smaller T3 runs (about 1 h more of verification) |
+| QX15 | The single endpoint path: `/mcp/` (recommended; the child plugin's resource changes once, O-M1b, and MCP-2 repeats the MCP-0 proof on it), or keep `/mcp/private/` (already proven by MCP-0)? | **`/mcp/`** | two minutes of console work and one re-check, against a URL that says "private" with nothing public beside it |
+| QX16 | ChatGPT: add its CIMD client id to the allow list after MCP-PK proves Neon accepts it; if it cannot complete OAuth, ChatGPT has **no MCP access** until it can (no public fallback; ChatGPT offers no token or header path for a user's own connector)? Alternatives noted: turning on DCR for ChatGPT (deprecated by the spec, opens registration to anyone, Q164), or a static-header connector (not offered by ChatGPT today) | **Yes, no fallback** | ChatGPT users may wait; Claude, Claude Code, VS Code and scripts with PATs are unaffected |
+| QX17 | Account tools over MCP: `get_my_profile` (travellers as labels; ages only with the `people` add-on) and `update_my_travellers` (`plans_write` + `people`)? | **Yes** | an AI app can change who travels; undoable, add-on off by default |
+| QX18 | A tool whose definition (description or schema) changed in a deploy is hidden from everyone but you until you accept it in the panel? | **Yes** | one click per wording change, against a silent "rug pull" |
+| QX19 | Keep the admin audit (every panel change, before and after) for one year, apart from the 30 days of call logs (Q167)? | **One year** | a small owner-only table holds a year of who changed what |
+| QX20 | Default for new accounts: MCP **allowed** once the email is verified and the account is **24 hours** old (you can switch any account off, or flip the default to off, at any time)? | **Yes** | a stranger with a verified inbox can read the catalogue through an AI app a day after sign-up (per-user quotas and a global cap bound it); the alternative is a click by you per family member |
 
 ## Change log
 
 - 26 Oct 2026: written (travel-planner, Opus 5.5).
+- 28 Oct 2026: sections 1 to 5 rewritten for the owner's decision of 27 Oct 2026 (no anonymous endpoint) and the build-ready plan; conflicts added; Q-B1 superseded by QX16; QX13 to QX20 (travel-planner, Opus 5.5).

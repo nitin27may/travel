@@ -1,5 +1,18 @@
 # MCP sign-in: how each of our MCP servers authenticates, with the current Neon and Vercel setup
 
+> **Owner decision, 27 Oct 2026 (recorded 28 Oct; PLAN R-291 supersedes R-124): there is no public or anonymous MCP
+> endpoint.** Every remote MCP call, catalogue reads included, needs a signed-in account with the same Neon identity as
+> the web site. There is **one** remote endpoint, `https://travel-beta-tan.vercel.app/mcp/`, which takes the place of both
+> `/mcp/` (no sign-in) and `/mcp/private/` on this page: read every `/mcp/private/` here as `/mcp/`, every "public endpoint"
+> or "(b) remote public, no sign-in" as withdrawn, `MCP_PUBLIC_ENABLED` and `MCP_PRIVATE_ENABLED` as the one `MCP_ENABLED`,
+> and `mcp:anon:*` buckets as per-user buckets plus `mcp:unauth:ip` for the sign-in handshake only. The `catalogue` level
+> stays as the lowest signed-in level. Who the caller is and the lookup chain: [identity-and-roles.md](identity-and-roles.md)
+> (one identity, 1.1 the unauthenticated handshake, 2.3 per-user MCP access and the default for new accounts, 2.4 sign-up
+> abuse). Locks and the admin panel: [tool-registry-and-admin-controls.md](tool-registry-and-admin-controls.md). Every tool:
+> [tool-catalogue.md](tool-catalogue.md). Tasks, hours and order (MCP-G, MCP-T, MCP-2, MCP-O, MCP-U now in M1):
+> [BUILD-READINESS.md](BUILD-READINESS.md), which supersedes 8 and 14.9 for hours and order. The local stdio server (a) is
+> unchanged and owner-only.
+
 > **26 Oct 2026 (planned; PLAN R-252; [README](README.md) 1.1):** MCP tools sit on the `/api/v1` store and operation
 > layer and never on the database. This moves MCP-T's token logic and MCP-G's level check out of `core/src/mcp/**` into
 > the shared server layer (for example `core/src/access/**`); the files listed in section 8 for them are superseded on
@@ -38,7 +51,7 @@ the EML-0 findings), [NEON-SETUP.md](../build/public-site/NEON-SETUP.md), [princ
 2. **Neon can be our OAuth server for MCP, proven on the child branch (MCP-0, section 13).** Neon Managed Better Auth has an `oauth_provider` plugin with MCP support (client ID metadata documents on, dynamic registration off). The owner enabled it on the child branch on 25 Oct; it is still **off on production**, and the CLI cannot switch it (console or API only). A real MCP client completed sign-in on our own pages through our proxy and called a tool with a verified JWT, and Neon accepts Claude's and Claude Code's own client documents. Conditions: the slash URL only, our own grant check as the revocation switch (Neon has no server-side token revoke), and the v2 MCP SDK for protocol 2026-07-28. It issues EdDSA JWT access tokens with `aud` set to our MCP URL, verifiable with the branch JWKS. It is a preview feature (conflicting wording, section 2.3), it has **fixed scopes only** (`openid profile email offline_access`) and **we must host the login and consent pages**.
 3. **So our own permissions cannot ride in OAuth scopes.** The resource server maps the verified user to `app_user.role` plus a per-client grant stored in our database, and every tool runs inside `withUserTransaction` (role `travel_app`, transaction-local `app.user_id`) so RLS is the second wall.
 4. **The browser session's JWT (`/api/auth/token`) must not be accepted by the MCP server:** its audience is not our MCP resource, and the MCP spec forbids accepting tokens issued for anything else.
-5. **Recommended path (unchanged after MCP-0):** public read-only remote MCP with no sign-in first; then Neon OAuth for claude.ai, Desktop and Claude Code (MCP-0 passed); personal access tokens for headless clients. Self-managed Better Auth (option B) is not needed.
+5. **Recommended path (after MCP-0; first clause withdrawn by the owner's decision of 27 Oct 2026, no anonymous endpoint):** ~~public read-only remote MCP with no sign-in first~~; Neon OAuth for claude.ai, Desktop and Claude Code (MCP-0 passed); personal access tokens for headless clients. Self-managed Better Auth (option B) is not needed.
 6. **Access is set per app on our site (section 14):** one named access level per connected app, read only by default, write levels behind a separate confirmation, checked on every call, changeable or revocable at any time on Account, Connected apps and access.
 
 ## 1. The three ways our MCP is used
@@ -56,7 +69,7 @@ Rules that follow:
 
 - **The stdio tool handlers are never mounted remotely.** `query_rows`, `list_due_bookings`, `list_backlog` and `get_trip` on `FileStore` return household fields and booking state. The public remote tools are a new set over `CatalogueStore` (P9: one data boundary, the same server store helper `/api/v1` uses), never the stdio handlers.
 - **If the stdio server ever needs private Postgres data**, it calls the remote private endpoint with a personal access token from the environment (`TRAVEL_PAT`). It never receives `DATABASE_URL` or any owner database credential.
-- **Two URLs, not one with lazy sign-in (Q161).** Neon allows one MCP resource per branch for self-onboarding clients, the public code path must not be able to import the private store, and a separate URL keeps the public endpoint's blast radius at zero. A signed-in user adds only the private connector, because it includes the public tools.
+- **Superseded 27 Oct 2026 (owner: one authenticated endpoint `/mcp/`).** ~~Two URLs, not one with lazy sign-in (Q161).~~ Neon allows one MCP resource per branch for self-onboarding clients, the public code path must not be able to import the private store, and a separate URL keeps the public endpoint's blast radius at zero. A signed-in user adds only the private connector, because it includes the public tools.
 
 ```mermaid
 flowchart LR
@@ -206,7 +219,7 @@ sequenceDiagram
   Note over O,S: Trust comes from the local process and the disk. Never exposed on a network port.
 ```
 
-### 4.2 (b) Remote public, no sign-in
+### 4.2 (b) Remote public, no sign-in (withdrawn 27 Oct 2026: no anonymous endpoint; kept as history)
 
 ```mermaid
 sequenceDiagram
@@ -370,8 +383,9 @@ Shared with the email plan's `quota_bucket` and `quota_take()` (EML-Q builds the
 
 | Bucket | Key | Limit | On hit |
 |---|---|---|---|
-| `mcp:anon:ip` | HMAC of the client IP (daily key) | 60 per hour, 300 per day | `rate_limited` |
-| `mcp:anon:global` | none | 3,000 per day | `rate_limited`, one owner alert a day |
+| `mcp:unauth:ip` (replaces `mcp:anon:ip`, 27 Oct 2026) | HMAC of the client IP (daily key) | 30 per minute, for the PRM, `server/discover` and `401` answers only | `429` |
+| `mcp:catalogue:user` (replaces anonymous catalogue use) | user id | 300 per hour on the 21 catalogue tools | `rate_limited` |
+| `mcp:global` (replaces `mcp:anon:global`) | none | 20,000 per day | `rate_limited`, one owner alert a day |
 | `mcp:user` | user id | 600 per hour | `rate_limited` |
 | `mcp:write:user` | user id | 60 per hour | `rate_limited` |
 | `mcp:propose:user` | user id | 500 changes per changeset, 5 changesets a day | `rate_limited` |
@@ -394,7 +408,7 @@ cut at the edge before a function runs. That uses Hobby's only rate-limit rule; 
 
 ### 6.6 Privacy on outputs
 
-- Public endpoint: the same allowlists and the `respond()` privacy detector as `/api/v1`, failing closed; no household data,
+- Catalogue tools (served signed in since 27 Oct 2026): the same allowlists and the `respond()` privacy detector as `/api/v1`, failing closed; no household data,
   no booking state, no wishlist saves (PRIV1), towns per the Q50 ruling. P8 holds: page caps, no unscoped near query, no
   bulk tool, exports stay per item.
 - Private endpoint: only the caller's rows; people and reservation classes stay off unless granted; the log deny-list from
@@ -545,11 +559,11 @@ Q190 to Q198 (access levels, allowed clients, lifetimes, production timing) are 
 | # | Question | Recommendation | Trade-off |
 |---|---|---|---|
 | Q160 | Use Neon's OAuth provider plugin (preview) as the MCP authorization server, after the MCP-0 spike on the child branch? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | A preview feature with fixed scopes; the alternative is a second auth service (reverses R-58 for one function) |
-| Q161 | Two URLs (public `/mcp/`, private `/mcp/private/`) rather than one URL with lazy sign-in? | **Two URLs** (ANSWERED 26 Oct 2026: yes, as recommended.) | The owner adds one connector (private) and the public one serves everyone else; lazy sign-in would be one connector for all, at the cost of mixing public and private code paths |
+| Q161 (**superseded 27 Oct 2026**: one authenticated `/mcp/`, R-291; path choice QX15) | Two URLs (public `/mcp/`, private `/mcp/private/`) rather than one URL with lazy sign-in? | **Two URLs** (ANSWERED 26 Oct 2026: yes, as recommended.) | The owner adds one connector (private) and the public one serves everyone else; lazy sign-in would be one connector for all, at the cost of mixing public and private code paths |
 | Q162 | Who may use the private endpoint at first? | **The owner only** until MCP-S passes; then invited users by role, regardless of open sign-up (ANSWERED 26 Oct 2026: yes, as recommended.) | Invited family members wait a few days longer |
 | Q163 | Personal access tokens: 30 days by default, 90 at most, never without expiry? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | Headless jobs must rotate a secret every 1 to 3 months |
 | Q164 | Keep Dynamic Client Registration off (CIMD only)? | **Yes**; switch on only for a named client that needs it (ANSWERED 26 Oct 2026: yes, as recommended.) | A client without CIMD cannot connect; Claude, Claude Code and current ChatGPT builds use CIMD or fall back to DCR, so check each new client |
-| Q165 | Public MCP open to anyone with no sign-in, at 60 calls an hour per IP? | **Yes** (R-1: the public product needs no login) (ANSWERED 26 Oct 2026: yes, as recommended.) | A scraper can read the catalogue at that pace; P8 caps and per-item exports still apply |
+| Q165 (**superseded 27 Oct 2026**: the owner removed anonymous MCP; R-291) | Public MCP open to anyone with no sign-in, at 60 calls an hour per IP? | **Yes** (R-1: the public product needs no login) (ANSWERED 26 Oct 2026: yes, as recommended.) | A scraper can read the catalogue at that pace; P8 caps and per-item exports still apply |
 | Q166 | When: MCP-0 and MCP-C when a seat frees, the build after the closure queue, R-59 and email Phase 1? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | Remote MCP waits about two weeks; the stdio server covers the owner meanwhile |
 | Q167 | Keep an MCP audit log (who, which client, which tool, result, duration; no arguments) for 30 days? | **Yes, 30 days**, then daily counts only (ANSWERED 26 Oct 2026: yes, as recommended.) | Less history for an incident older than a month |
 
@@ -761,8 +775,8 @@ The owner is the admin. The admin account is the one signed in with the verified
 
 Safety rules, because production does not yet require verified emails (EML-0, the takeover finding):
 1. **Match on a verified email only.** The admin role is granted when a sign-in has `emailVerified = true` for exactly this address. A password account for this address that was never verified gets no role, whatever the string says.
-2. **Store the role on the user id, not on the email string.** The first verified sign-in creates the `app_user` role row (`owner`) keyed by the user id (the token's `sub`). Every later check reads the row. Changing the email on the account does not move the role, and a new account with the same email string does not inherit it.
-3. **Bootstrap once, by a command, not by a request.** A CLI (`core/bin/` task in MCP-G) sets the owner role for the user whose verified email equals `OWNER_EMAIL`, writes an audit entry, and refuses a second owner unless `--add-owner` is passed. No request path can create an owner.
+2. **Store the role on the user id, not on the email string.** The first verified sign-in creates the `app_user` role row (stored value `admin`, shown as Owner; the schema has no `owner` value, [identity-and-roles.md](identity-and-roles.md) 2.1) keyed by the user id (the token's `sub`). Every later check reads the row. Changing the email on the account does not move the role, and a new account with the same email string does not inherit it.
+3. **Bootstrap once, by a command, not by a request.** A CLI (`core/bin/access.ts`, task IDN-C since 28 Oct 2026) sets the owner role for the user whose verified email equals `OWNER_EMAIL`, writes an audit entry, and refuses a second owner unless `--add-owner` is passed. No request path can create an owner.
 4. **Required before it matters:** required email verification on production (EML-1 flips it) and the Google gate (a Google sign-in links only to a verified account). Until then the `owner_admin` level stays off at the env ceiling.
 5. **The levels still go through consent and the grant check.** Having the role makes a level available to the owner's apps; each app still needs a grant, write levels still need the separate consent click, and publishing and merging still ask on the site.
 
@@ -1096,7 +1110,7 @@ sequenceDiagram
 | Setting | Production | Child branch and localhost |
 |---|---|---|
 | `MCP_PRIVATE_ENABLED` (env, kill switch) | `1` only after MCP-E passes; `0` turns every private call into `403` within one deploy (no database needed) | `1` |
-| `MCP_PUBLIC_ENABLED` (env) | `1` after MCP-1 and a production deploy | `1` |
+| `MCP_PUBLIC_ENABLED` (env; **withdrawn 27 Oct 2026**, one `MCP_ENABLED` replaces it and `MCP_PRIVATE_ENABLED`) | none | none |
 | `MCP_MAX_LEVEL` (env ceiling over the database setting) | `plans_read` until the planner's write tools pass MCP-S; then `owner_admin` | `owner_admin` |
 | Allow list | Claude and Claude Code ids only (14.7) | any `https` client id, plus the MCP Inspector, when `NEON_AUTH_BASE_URL` is the child's issuer |
 | Allow Localhost (Neon) | off before go-live (O-M5) | on |
@@ -1321,6 +1335,7 @@ The Claude Code recipe is in [client-recipes.md](client-recipes.md) section 0 ("
 
 | Date | Change |
 |---|---|
+| 2026-10-28 | Owner decision of 27 Oct 2026 recorded (no anonymous endpoint; one `/mcp/`); banner, 0 item 5, 1 rules, 4.2, 6.4 buckets, 6.6, 14.2a role value and CLI owner, 14.6.6, Q161 and Q165 superseded; identity, registry, catalogue and readiness pages linked (travel-planner, Opus 5.5) |
 | 2026-10-25 | First version (travel-planner, Opus): three uses, Neon OAuth provider finding, options A to D, flows, verification, capabilities over RLS, security, build order MCP-0 to MCP-3, owner steps O-M1 to O-M5, Q160 to Q167 |
 | 2026-10-25 | MCP-0 results (Opus 5.5, child branch): verdict yes with conditions; section 0 items 2 and 5, N1, N7, V3, 6.3 revocation, protocol packages and six gotchas updated; evidence in `research/runs/MCP-0-spike.md` |
 | 2026-10-25 | Section 14 (travel-planner, Opus), owner request on configurable access: six access levels and three add-ons over the capabilities of 5.1, the tool-to-level map with annotations and the read and write split, the grant tables and the per-call check in one transaction, the Connected apps and access page and the consent screen (S01 and S23 amended), the owner's global rules, the production switch-on checklist and rollback, MCP-G and MCP-U (MCP-P later), remaining work 51 h plus 16 h later; PLAN R-150 to R-156, BACKLOG 15.150 to 15.157, Q190 to Q198 |

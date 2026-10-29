@@ -10,13 +10,16 @@ need the planner; none of them runs today. Section 0 is how to connect now and a
 
 ## 0. Connecting a client (current setup)
 
+> **28 Oct 2026, owner decision of 27 Oct 2026:** there is no anonymous MCP. Every remote path below starts with signing
+> in, and there is one URL, `https://travel-beta-tan.vercel.app/mcp/` (README decision record; [identity-and-roles.md](identity-and-roles.md) 1.1).
+> The earlier "public remote, no sign-in" row and the `/mcp/private/` URL are withdrawn.
+
 | Surface | Works | How |
 |---|---|---|
-| Local stdio (owner) | **today** | Claude Code in the repo root loads `.mcp.json` (`node core/bin/mcp.ts`); no credential. Check with `/mcp` in Claude Code, or `npx @modelcontextprotocol/inspector node core/bin/mcp.ts` |
-| Public remote, no sign-in | after MCP-1 and a production deploy | Claude Code: `claude mcp add --transport http travel-public https://travel-beta-tan.vercel.app/mcp/`. claude.ai: Settings, Connectors, Add custom connector, the same URL, no authentication |
-| Private remote, OAuth | after MCP-O, O-M2 and MCP-E | claude.ai or Desktop: add a custom connector with `https://travel-beta-tan.vercel.app/mcp/private/` and leave the client id empty (Claude identifies itself with its metadata document); sign in on our page, choose what it may do, Allow. Claude Code: `claude mcp add --transport http travel https://travel-beta-tan.vercel.app/mcp/private/`, then `/mcp` and Authenticate (a loopback browser sign-in) |
-| Private remote, personal access token | after MCP-T and MCP-2 | create a token on `/account/` (Access tokens), store it in your shell's secret store as `TRAVEL_PAT`, then `claude mcp add --transport http travel https://travel-beta-tan.vercel.app/mcp/private/ --header "Authorization: Bearer $TRAVEL_PAT"`. Never paste the token into chat or commit it; in a shared `.mcp.json` use an environment reference, not the value (check that your Claude Code version expands `${TRAVEL_PAT}` in headers) |
-| Local development of the remote routes | MCP-0 onward | `npm run dev` in `web/`, child branch values only, `http://localhost:3000/mcp/` and `/mcp/private/`; the MCP Inspector at `http://localhost:6274` is on the origin allowlist |
+| Local stdio (owner) | **today** | Claude Code in the repo root loads `.mcp.json` (`node core/bin/mcp.ts`); no credential (owner's machine only, unchanged). Check with `/mcp` in Claude Code, or `npx @modelcontextprotocol/inspector node core/bin/mcp.ts` |
+| Remote, OAuth | after M1 (MCP-O, O-M2, MCP-E) | claude.ai or Desktop: Settings, Connectors, Add custom connector, `https://travel-beta-tan.vercel.app/mcp/`, client id empty (Claude identifies itself with its metadata document); sign in on our page (Continue with Google, an email code or a password), choose what it may do, Allow. Claude Code: `claude mcp add --transport http travel https://travel-beta-tan.vercel.app/mcp/`, then `/mcp` and Authenticate (a loopback browser sign-in). ChatGPT: developer mode, the same URL, sign in, only once the owner has listed ChatGPT (QX16); until then ChatGPT has no MCP access |
+| Remote, personal access token | after M1 (MCP-T) | sign in on the site, create a token on Account, Connected apps and access, store it in your shell's secret store as `TRAVEL_PAT`, then `claude mcp add --transport http travel https://travel-beta-tan.vercel.app/mcp/ --header "Authorization: Bearer $TRAVEL_PAT"`. Never paste the token into chat or commit it; in a shared `.mcp.json` use an environment reference, not the value (check that your Claude Code version expands `${TRAVEL_PAT}` in headers). VS Code and Cursor use the same header in `mcp.json` when their OAuth does not work against our server |
+| Local development of the remote route | MCP-0 onward | `npm run dev` in `web/`, child branch values only, `http://localhost:3000/mcp/` (the child's plugin resource after O-M1b); the MCP Inspector at `http://localhost:6274` is on the origin allowlist; sign in with a test account on `example.com` |
 
 Use the trailing slash in every URL above: the site redirects `/mcp` to `/mcp/`, and the OAuth resource must match the
 URL exactly. A Vercel preview URL does not work for MCP (Vercel Authentication blocks clients).
@@ -25,7 +28,7 @@ URL exactly. A Vercel preview URL does not work for MCP (Vercel Authentication b
 
 Claude Code, step by step:
 
-1. `claude mcp add --transport http travel https://travel-beta-tan.vercel.app/mcp/private/`
+1. `claude mcp add --transport http travel https://travel-beta-tan.vercel.app/mcp/`
 2. In Claude Code, `/mcp`, choose `travel`, Authenticate. The browser opens our sign-in page; sign in.
 3. The consent page names "Claude Code", shows a localhost caution, and offers **My plans, read** (selected) or **Public
    catalogue, read only**. Choose and press Allow.
