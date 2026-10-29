@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "chamonix-mont-blanc-2028",
-  "as_of": "2026-10-25",
+  "as_of": "2026-10-29",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -362,12 +362,30 @@
       "detour_town": "Argentiere",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/vallorcine-railway-station",
+            "km": 3.9,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/vallorcine-railway-station",
+            "km": 3.9,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": {
-        "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-        "km": 21.2,
+        "ref": "place/chamonix-mont-blanc",
+        "km": 16.8,
         "draw": "world",
         "same_class": false
       },
@@ -384,6 +402,10 @@
         {
           "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
           "km": 10
+        },
+        {
+          "ref": "place/la-flegere",
+          "km": 12.4
         }
       ],
       "part_of": [],
@@ -429,8 +451,8 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-        "km": 6,
+        "ref": "place/chamonix-mont-blanc",
+        "km": 4.1,
         "draw": "world",
         "same_class": false
       },
@@ -498,6 +520,14 @@
       "substitutes": {
         "near": [
           {
+            "ref": "place/chamonix-mont-blanc",
+            "km": 0.1,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
             "km": 0.4,
             "draw": "local",
@@ -523,6 +553,14 @@
           }
         ],
         "area": [
+          {
+            "ref": "place/chamonix-mont-blanc",
+            "km": 0.1,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
             "km": 0.4,
@@ -626,6 +664,14 @@
       "substitutes": {
         "near": [
           {
+            "ref": "place/chamonix-mont-blanc",
+            "km": 0.2,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
             "km": 0.4,
             "draw": "national",
@@ -651,6 +697,14 @@
           }
         ],
         "area": [
+          {
+            "ref": "place/chamonix-mont-blanc",
+            "km": 0.2,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
             "km": 0.4,
@@ -678,9 +732,9 @@
         ]
       },
       "far_pointer": {
-        "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-        "km": 0.4,
-        "draw": "national",
+        "ref": "place/chamonix-mont-blanc",
+        "km": 0.2,
+        "draw": "world",
         "same_class": true
       },
       "pair_with": [
@@ -759,6 +813,14 @@
       "substitutes": {
         "near": [
           {
+            "ref": "place/chamonix-mont-blanc",
+            "km": 2.1,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
             "km": 2.3,
             "draw": "national",
@@ -784,6 +846,14 @@
           }
         ],
         "area": [
+          {
+            "ref": "place/chamonix-mont-blanc",
+            "km": 2.1,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
             "km": 2.3,
@@ -811,9 +881,9 @@
         ]
       },
       "far_pointer": {
-        "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-        "km": 2.3,
-        "draw": "national",
+        "ref": "place/chamonix-mont-blanc",
+        "km": 2.1,
+        "draw": "world",
         "same_class": true
       },
       "pair_with": [],
@@ -884,6 +954,14 @@
       "substitutes": {
         "near": [
           {
+            "ref": "place/chamonix-mont-blanc",
+            "km": 13.3,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
             "km": 13.4,
             "draw": "national",
@@ -909,6 +987,14 @@
           }
         ],
         "area": [
+          {
+            "ref": "place/chamonix-mont-blanc",
+            "km": 13.3,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
             "km": 13.4,
@@ -936,9 +1022,9 @@
         ]
       },
       "far_pointer": {
-        "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-        "km": 13.4,
-        "draw": "national",
+        "ref": "place/chamonix-mont-blanc",
+        "km": 13.3,
+        "draw": "world",
         "same_class": true
       },
       "pair_with": [],
@@ -1023,8 +1109,8 @@
         ]
       },
       "far_pointer": {
-        "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-        "km": 16,
+        "ref": "place/chamonix-mont-blanc",
+        "km": 11.9,
         "draw": "world",
         "same_class": false
       },
@@ -1037,6 +1123,10 @@
         {
           "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
           "km": 5.6
+        },
+        {
+          "ref": "place/la-flegere",
+          "km": 7.6
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
@@ -1205,6 +1295,10 @@
         {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
           "km": 4
+        },
+        {
+          "ref": "place/la-flegere",
+          "km": 6.6
         },
         {
           "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",

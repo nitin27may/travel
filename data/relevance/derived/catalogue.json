@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "catalogue",
-  "as_of": "2026-10-28",
+  "as_of": "2026-10-29",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -2256,6 +2256,2521 @@
         "hidden_gem": false
       },
       "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/la-flegere",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "plan",
+      "detour_min": 6,
+      "detour_basis": "town",
+      "detour_town": "Les Praz",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "place/chamonix-mont-blanc",
+        "km": 4.4,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+          "km": 2.4
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 2.4
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 4.3
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 4.7
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "km": 6
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "km": 9.1
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "draw regional, standing good; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 14,
+      "detour_basis": "town",
+      "detour_town": "Argentiere",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
+            "km": 3.9,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
+            "km": 3.9,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+        "km": 6.5,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+          "km": 6.5
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 6.5
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 11.8
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "draw_suggested": "world",
+      "effective_draw": "world",
+      "access_load": "easy",
+      "detour_min": 6,
+      "detour_basis": "town",
+      "detour_town": "Les Praz",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+            "km": 0.1,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
+            "km": 0.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+            "km": 2.1,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+            "km": 13.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+            "km": 0.1,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
+            "km": 0.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+            "km": 2.1,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+            "km": 13.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 0.4,
+          "how": "walk",
+          "extra_min": 103,
+          "on_site_min": 90,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "km": 2
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 4.1
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+          "km": 6.7
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 6.7
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw world, standing top"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/skaftafell",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Skaftafell",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
+          "km": 1.3,
+          "how": "walk",
+          "extra_min": 69,
+          "on_site_min": 30,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [],
+      "part_of": [
+        "part/place/skaftafell#skaftafellsstofa"
+      ],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Skaftafell",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "place/skaftafell",
+        "km": 0,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [
+        {
+          "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
+          "km": 1.3,
+          "how": "walk",
+          "extra_min": 69,
+          "on_site_min": 30,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [],
+      "part_of": [
+        "place/skaftafell"
+      ],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 92,
+      "detour_basis": "town",
+      "detour_town": "Myvatn",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
+          "km": 1.3,
+          "how": "walk",
+          "extra_min": 113,
+          "on_site_min": 75,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 92 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/oxararfoss",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 92,
+      "detour_basis": "town",
+      "detour_town": "Selfoss",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+            "km": 90.8,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls",
+            "km": 49,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/gljufrabui",
+            "km": 90.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
+          "km": 0.6,
+          "how": "walk",
+          "extra_min": 62,
+          "on_site_min": 45,
+          "on_site_estimated": true,
+          "draw": "world",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing good, distinction common"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 92 min is over 30"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/gljufrabui",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 130,
+      "detour_basis": "town",
+      "detour_town": "Vik",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+            "km": 0.6,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+            "km": 0.6,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
+            "km": 25.5,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/oxararfoss",
+            "km": 90.6,
+            "draw": "national",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 3
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+        "km": 0.6,
+        "draw": "world",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 130 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/gufufoss",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 40,
+      "detour_basis": "town",
+      "detour_town": "Egilsstadir",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 40 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/strokkur",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 132,
+      "detour_basis": "town",
+      "detour_town": "Selfoss",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/iceland-ring-road-2027/sight:geysir",
+            "km": 0.1,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/iceland-ring-road-2027/sight:geysir",
+            "km": 0.1,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/reykjavik",
+            "km": 81.5,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 132 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "draw_suggested": "world",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 66,
+      "detour_basis": "town",
+      "detour_town": "Grundarfjordur",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
+          "km": 8.5
+        }
+      ],
+      "part_of": [
+        "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view"
+      ],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 66 min is over 30"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/reykjavik",
+      "draw_suggested": "world",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Reykjavik",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "trip/iceland-ring-road-2027/sight:geysir",
+            "km": 81.6,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/strokkur",
+            "km": 81.5,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 3
+          },
+          {
+            "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
+            "km": 38.7,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, but distinction common: an anchor needs unique or rare, or a world draw"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/hofn",
+      "draw_suggested": "national",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 2,
+      "detour_basis": "town",
+      "detour_town": "Hofn",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
+            "km": 0.6,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
+            "km": 0.6,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/akureyri",
+      "draw_suggested": "world",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Akureyri",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "place/fossholl",
+            "km": 25.3,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/varmahli",
+            "km": 63.9,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
+          "km": 0.8,
+          "how": "walk",
+          "extra_min": 100,
+          "on_site_min": 75,
+          "on_site_estimated": false,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing top"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Local favourite",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/fossholl",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 62,
+      "detour_basis": "town",
+      "detour_town": "Akureyri",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "place/akureyri",
+            "km": 25.3,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/varmahli",
+            "km": 88.8,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "trip/iceland-ring-road-2027/sight:godafoss",
+        "km": 0.6,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/sight:godafoss",
+          "km": 0.6,
+          "how": "walk",
+          "extra_min": 62,
+          "on_site_min": 45,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 62 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/reykjahlid",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 16,
+      "detour_basis": "town",
+      "detour_town": "Myvatn",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "trip/iceland-ring-road-2027/sight:namaskard",
+          "km": 3.9
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/varmahli",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 156,
+      "detour_basis": "town",
+      "detour_town": "Akureyri",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "place/akureyri",
+            "km": 63.9,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/fossholl",
+            "km": 88.8,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
+          "km": 6.9
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 156 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/skogar",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 66,
+      "detour_basis": "town",
+      "detour_town": "Vik",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "place/vik-i-myrdal",
+            "km": 27.1,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/kirkjubaejarklaustur",
+            "km": 77.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
+        "km": 1,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
+          "km": 1,
+          "how": "walk",
+          "extra_min": 105,
+          "on_site_min": 75,
+          "on_site_estimated": false,
+          "draw": "world",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 66 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 142,
+      "detour_basis": "town",
+      "detour_town": "Skaftafell",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "place/vik-i-myrdal",
+            "km": 63.2,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/skogar",
+            "km": 77.5,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
+        "km": 6.8,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
+          "km": 6.8
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (142)"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 142 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "draw_suggested": "national",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Vik",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "place/skogar",
+            "km": 27.1,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/kirkjubaejarklaustur",
+            "km": 63.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
+        "km": 3.3,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
+          "km": 3.3
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing top"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Local favourite",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/grindavik",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 44,
+      "detour_basis": "town",
+      "detour_town": "Keflavik",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "trip/iceland-ring-road-2027/town:reykjavik old harbour",
+            "km": 41.9,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/reykjavik",
+        "km": 41.2,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
+          "km": 3.8
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 44 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Grundarfjordur",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
+          "km": 3.5
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/monte-piana",
+            "km": 13.5,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "shuttle_only"
+            ],
+            "family_effort": 2
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/cinque-torri",
+            "km": 30.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/monte-piana",
+            "km": 13.5,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "shuttle_only"
+            ],
+            "family_effort": 2
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/tre-cime-di-lavaredo-loop",
+        "km": 13.5,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-landro",
+          "km": 12.1
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "worth_it",
+          "reason": "detour 0 min, draw regional"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": true,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 10,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "place/santa-maddalena-val-di-funes",
+            "km": 39.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "long_walk_in"
+            ],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/santa-maddalena-val-di-funes",
+        "km": 39.8,
+        "draw": "national",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/collegiate-church-of-san-candido",
+          "km": 4.5
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 10.6
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 12.2
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 26,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "place/tre-cime-di-lavaredo-loop",
+        "km": 6.2,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/val-fiscalina",
+          "km": 1.7
+        },
+        {
+          "ref": "place/tre-cime-di-lavaredo-loop",
+          "km": 6.2
+        },
+        {
+          "ref": "place/lago-dantorno",
+          "km": 9.2
+        },
+        {
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
+          "km": 9.5
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 9.6
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 9.6
+        },
+        {
+          "ref": "place/funbob-monte-baranci",
+          "km": 10.4
+        },
+        {
+          "ref": "place/collegiate-church-of-san-candido",
+          "km": 10.6
+        },
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 10.9
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/val-gardena",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 8,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/ortisei",
+            "km": 3,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/selva-di-val-gardena",
+            "km": 4.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/san-cassiano",
+            "km": 17.4,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/nova-levante",
+            "km": 19.2,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/santa-cristina",
+            "km": 0.8,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/cortina-dampezzo",
+            "km": 33.2,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/ortisei",
+            "km": 3,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/selva-di-val-gardena",
+            "km": 4.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/san-cassiano",
+            "km": 17.4,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/nova-levante",
+            "km": 19.2,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/santa-cristina",
+            "km": 0.8,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/san-vito-di-cadore",
+            "km": 40,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 35.5,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/place/seceda-ridge#payoff",
+          "km": 4.8
+        },
+        {
+          "ref": "place/vallunga",
+          "km": 5.3
+        },
+        {
+          "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+          "km": 6.8
+        },
+        {
+          "ref": "place/alpe-di-siusi",
+          "km": 7
+        },
+        {
+          "ref": "place/passo-gardena",
+          "km": 8.1
+        },
+        {
+          "ref": "place/santa-maddalena-val-di-funes",
+          "km": 8.8
+        },
+        {
+          "ref": "place/adolf-munkel-weg",
+          "km": 9.6
+        },
+        {
+          "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
+          "km": 11
+        },
+        {
+          "ref": "place/viel-dal-pan",
+          "km": 11.6
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/castelrotto",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 20,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/bolzano",
+            "km": 17.5,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/san-candido",
+            "km": 57.9,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/bolzano",
+            "km": 17.5,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/trento",
+            "km": 65.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/la-val",
+            "km": 29.6,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/dobbiaco",
+            "km": 54,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 46.4,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+          "km": 4.3
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/nova-levante",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 38,
+      "detour_basis": "town",
+      "detour_town": "Bolzano",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/ortisei",
+            "km": 19.1,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/val-gardena",
+            "km": 19.2,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/selva-di-val-gardena",
+            "km": 22,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/santa-cristina",
+            "km": 19.7,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/cortina-dampezzo",
+            "km": 47.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/ortisei",
+            "km": 19.1,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/val-gardena",
+            "km": 19.2,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/selva-di-val-gardena",
+            "km": 22,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/san-cassiano",
+            "km": 33.9,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/santa-cristina",
+            "km": 19.7,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/san-vito-di-cadore",
+            "km": 51.2,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-carezza",
+          "km": 3.6
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 38 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/san-cassiano",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 38,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/cortina-dampezzo",
+            "km": 16.1,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/val-gardena",
+            "km": 17.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/ortisei",
+            "km": 19.9,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/selva-di-val-gardena",
+            "km": 13.2,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/santa-cristina",
+            "km": 16.6,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/san-vito-di-cadore",
+            "km": 24.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/cortina-dampezzo",
+            "km": 16.1,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/val-gardena",
+            "km": 17.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/ortisei",
+            "km": 19.9,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/selva-di-val-gardena",
+            "km": 13.2,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/nova-levante",
+            "km": 33.9,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/santa-cristina",
+            "km": 16.6,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/san-vito-di-cadore",
+            "km": 24.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 18.3,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
+          "km": 8.2
+        },
+        {
+          "ref": "place/lago-di-limides",
+          "km": 9.6
+        },
+        {
+          "ref": "place/passo-gardena",
+          "km": 9.7
+        },
+        {
+          "ref": "place/cinque-torri",
+          "km": 11.6
+        },
+        {
+          "ref": "part/place/cascate-di-fanes#payoff",
+          "km": 11.8
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 38 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 34,
+      "detour_basis": "town",
+      "detour_town": "Torrey",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 34 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "draw_suggested": "world",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 2,
+      "detour_basis": "town",
+      "detour_town": "Salt Lake City",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/sight:temple square",
+            "km": 1.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "timed_entry"
+            ],
+            "family_effort": 1
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/sight:temple square",
+            "km": 1.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "timed_entry"
+            ],
+            "family_effort": 1
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, but distinction common: an anchor needs unique or rare, or a world draw"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
       "stale": [],
       "warnings": [],
       "layer": "place"
@@ -6387,6 +8902,14 @@
           {
             "ref": "place/bolzano",
             "km": 51.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/castelrotto",
+            "km": 65.3,
             "draw": "regional",
             "standing": "good",
             "access_cost": [],
