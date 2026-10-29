@@ -280,7 +280,11 @@ parts are integers so ties are exact and the order is reproducible.
 | Data quality | completeness tier (yes) | required tier 5, below it 0 |
 
 Rules: a gap is never a yes (an unknown never outranks a known pass on the same constraint); a pick the visitor made is
-never removed by scoring, only flagged; "Why this order?" lists the parts in words. Paged 40 rows at a time, sorted by
+never removed by scoring, only flagged; "Why this order?" lists the parts in words. **Built (RB-012, 28 Oct 2026):** the fit of a
+trail also reads the walk ceiling of the youngest's age (`walkCeiling`, the caps of the day check `W_CEILING`; the visitor's longest
+walk wins): over it the row is `fit: "fail"` by advice with `why` "Long for age 7: 11.2 km; we plan walks up to 6 km" (or "Steep
+for age 7: ..."), stays on the main list at 0 fit points, and is a stop with its day check; only a failed rule (an operator's age)
+moves a row to "Not for your party". The Fits chip reads `fit === "pass"`, so it no longer shows on such a trail. Paged 40 rows at a time, sorted by
 score then name then ref.
 
 **The "about N days" estimate** on the tray: Σ (visit duration from `resolveDuration`, or the type's rule) plus a drive
@@ -320,6 +324,20 @@ last (K ≤ 4, at most 24). Size: 40 towns × 40 picks; a few thousand cost eval
 (STY-E, stay-bases 9.4) for the comparison numbers and the messages, so the trip page's Where to stay and the builder say
 the same thing in the same words. Until STY-E is built (bundle E), P1 has only K = 1 and needs no evaluator.
 
+**Built (RB-002, 28 Oct 2026, engine `tb-e2.1`; review TB-R1): "let the plan choose".** With no base the visitor pinned
+(`bases[].pinned`, "Stay here") and fewer than two chosen, the engine starts from the K = 1 base and adds, greedily, the town
+that lowers the objective above most (`autoBases` in `engine.ts`, numbers in `BUILDER_BASES`): round trips from the nearest base
+that reaches a stop within the radius, a stop no base reaches costing `autoUncoveredMin` (720 min, a must 1,440: a pick the person
+made is worth more than a move), plus the route from the way in through the bases to the way out, plus `M × (K − 1)` with
+`moveCostMin` fewer 240, balanced 120, shorter 60, less the lodging signal. It stops when no town lowers the cost, when
+`K = floor(nights / autoNightsPerBase)` (fewer 3, balanced and shorter 2; at most 4), or when the move to a town is longer than a
+day at the party's pace. Towns within `autoTieMin` (20 min) of the best tie and the larger wins (Jasper, not Jasper Park Lodge).
+Bases run in the order that drives least from the way in to the way out; ties go to the shorter first day (land near the airport).
+The plan is then the several-base plan of 4.5 with every night open, and an added base says why: "Added for 2 of your picks beyond
+a day out from Banff" (`added_base`) or "Added: 5 of your picks are nearer to it, 6 h 40 ≈ less driving in all"
+(`added_base_saves`). One pinned base stays K = 1 and each far pick keeps its "Add a base near it" fix with the town. The full
+p-median with interchange (Teitz-Bart) and "other ways" stay TB-E3.
+
 ### 4.5 Stage 3: nights per base
 
 Demand of base b = Σ over its picks (visit duration + round-trip drive) ÷ the day cap, plus 0.5 for each move day that
@@ -358,10 +376,27 @@ numbers in `BUILDER_BASES`:
 - **Contract.** No schema change: `PlanBuild` keeps its shape (`bases[].nights` may be 0; `days[].move` was already there).
   Goldens `rockies-two-base`, `roadtrip-three-base` and `infeasible-move` pin it; the K = 1 goldens differ only in the engine
   line.
-- **Not yet (TB-E3):** the base order by gateway, the p-median choice of K, "on a move day, the picks within 30 min of the
-  line go first" (4.6 step 2), and a fix "Add a night at X".
+- **Not yet (TB-E3):** the base order by gateway for an open jaw (arrive at one airport, leave from another), the full p-median
+  with interchange and the "other ways" (4.4; the greedy "let the plan choose" of RB-002 is built), and a fix "Add a night at X".
+  A move day already takes the stops near its line (`lineDetourMin`, RB-001).
 
 ### 4.6 Stage 4: packing and ordering days
+
+**Built (RB-001 and RB-005, 28 Oct 2026, engine `tb-e2.1`; review TB-R1).** The first packer minimised driving only, so it piled a
+week's three stops on one day and left five empty. `core/src/plan/pack.ts` now fills the days **in order** from Day 1: each day
+takes up to its quota (`BUILDER_PACK.stopsPerDay` by pace: relaxed 1, standard 2, full 3, or more when the stops outnumber the days),
+a stop within `clusterMin` (30 min) of one already on the day may join it as one more (Lake Louise and Moraine Lake), every
+rotation of the bearing sweep is tried and the one that leaves out fewest musts, then fewest stops, then drives least wins.
+Relocations never pass a day's quota; swaps keep the counts; a "level" step moves a stop from a day holding more than the quota (and
+at least two) to an empty day; and among identical days the empty ones move to the end, so spare days are the last days of each
+base. A day with a way in, out or a move drives at most what is left of `driveDayMin` beyond that way, and at least
+`lineDetourMin` (30 min, a stop near the line: Athabasca Glacier on the Banff to Jasper move); a stop no day can take may still use
+an arrival or departure day's full `driveDayMin` (`softDriveCapMin`, the day checks then say it drives long), and relocations never
+pull a stop onto such a day. **A must-see is never left out** (FLOW TF11, 4c): one no day can take goes on the day it overloads
+least, the day carries `W_PACE` and "Over your pace: 2 must-sees kept on this day; 1 more day gives them room" (`over_pace`, the
+days confirmed by rerunning with 1 to 3 more nights), and it is never `TB_TIME`. An empty arrival or departure day still shows its
+drive (`returnMin`); a trip that flies in says "Fly into YYC, then 1 h 45 ≈ to Banff" (`arrive`) and "... then fly home"
+(`depart`).
 
 For each base, with its D days and assigned picks:
 
@@ -398,13 +433,21 @@ times and day caps; the builder passes the party through.
 "Add N days" is computed, not guessed: the engine reruns with nights + 1, + 2 and + 3 and offers the smallest that fits
 every must pick, or says "Even 3 more days do not fit X: it is too far from your other picks."
 
+**Did not fit and its fix (RB-013).** Every row carries its one fix in the answer (`didNotFit[].fix`, never null): `TB_TOO_FAR`
+`add_base` with the nearest town that reaches it when one does, `TB_TIME` `add_days` with the confirmed days (else `drop`),
+`TB_CLOSED` `change_month`, `TB_FIT` `drop`, `TB_UNKNOWN` `ask_us`. The words of a far pick name the person's own control: "Too far
+from your base: 3 h 29 ≈ from Banff, over the 2 h each way your 4 h of driving a day allows" (values `min`, `radiusMin`,
+`dayDriveMin`; a day trip keeps "over your 3 h each way"). Offering the fix as a button is the details page's (STEP2-B1, B2).
+
 **Area picks (TB-PIN, BACKLOG 15.354, park-page R1).** A pick that is a protected area, a zone, an area or a range, with no
 time on site from data (`core/src/plan/area.ts`, numbers in `BUILDER_AREA`), is the trip's area: never a stop, never a
 Did not fit row, never in the picks matrix. The build answer lists it in `areas` (`plan-draft.ts` `planAreaOut`) with
 its members among the picks ("Algonquin Provincial Park is your area; its 4 trails are the stops"). With no pick inside
 it, the entry carries `TB_AREA_EMPTY` (level Check) and "Pick places inside Algonquin Provincial Park", and the base
 objective adds a round trip into the area per day, so the base sits near it. Members come from the place's `within`
-closure (EG-Q) when the service passes it; until then, a pick within 30 km of the area's point. Candidates for an area
+closure (EG-Q) when the service passes it; until then, a pick within 30 km of the area's point (100 km for a national park,
+`BUILDER_AREA.fallbackMemberKmByType`: Jasper's Athabasca Glacier is 80 km from the park's point; RB-002). A pick of the list row's
+`area` kind whose type is a landform (`nature.landform.*`: Perce Rock, Bonaventure Island, a valley) is a stop, not an area. Candidates for an area
 pick (`near=<park>`) are its members only. An area type with a data time on site (a state park walked as a gorge) stays
 a stop.
 
@@ -461,6 +504,13 @@ users, the expected load is tens of matrix calls a day.
 | Day trip, 0 nights | two places within 2 h | no base step; drive both ways on the one day |
 | Infeasible | a must pick 400 km from the rest, 5 days | `TB_TOO_FAR` with "Add a base near it"; nothing else moves |
 
+- **The review's trips (RB-001 to RB-013, 28 Oct 2026):** `core/test/plan/review-trips.test.ts` over frozen real catalogue inputs
+  (`core/test/fixtures/plan/review/*.input.json`, the real drive model): Alberta a week by air (Banff 4, Jasper 3 added, both parks
+  areas with members, nothing left out), a week by car from Calgary, Italy 15 days (Cortina 7 and Ortisei 7), a Quebec family week
+  by air (Boischatel, Perce, Saint-Pascal: the Gaspe loop), Algonquin from Toronto, the all-must weekend (all seven kept, over the
+  pace) and a Toronto day trip (Muskoka within 3 h). Each holds: picks accounted once, no must dropped, every Did not fit with its
+  fix, no empty day while a pick is out for time, spare days last, no pile beside an empty day, each day within the pace's cap
+  unless it says it keeps a must over it.
 - **Property tests:** every pick ends on a day or in Did not fit (none lost); locked items never move; a rebuild never
   increases total drive for the same bases; adding a day never drops a pick that fitted before.
 - **Performance test:** 40 picks, 40 towns, 14 nights under 300 ms of engine time on the CI runner (excluding ORS).
@@ -831,3 +881,8 @@ pnpm --dir web budget:report
 - 2026-10-28: TB-E2 built (Opus 5.5): 4.5 "Built (TB-E2)" records several bases chosen by the visitor, nights by demand and
   move days as built; no schema change. BACKLOG TB-E2.
 - 2026-10-27: TB-FLOW (travel-planner, Opus): amendment note at the top; QB decisions recorded in section 11; the end-to-end flow, editor and copy journey in [FLOW.md](../design/trip-builder/FLOW.md); location metadata in [trip-builder-location-metadata.md](trip-builder-location-metadata.md). BACKLOG 15.353.
+- 2026-10-28: engine sections 4.4, 4.6, 4.7 and 4.11 updated for the review TB-R1 engine rows (lane RB-ENGB, travel-builder, Opus
+  5.5): the days fill in order with a quota by pace (RB-001), "let the plan choose" adds bases by the 4.4 objective (RB-002), a
+  must-see is kept over the pace and never dropped (RB-005), every Did not fit row carries its fix and the reach in the person's
+  words (RB-013), the candidate fit reads the walk ceiling (RB-012), and the drive model boxes bare points into their province and
+  area with a motorway share (RB-008, driving-time-model 4.3). Engine `tb-e2.1`.
