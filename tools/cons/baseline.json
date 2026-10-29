@@ -6,6 +6,10 @@
  ],
  "rules": {
   "api-host": {
+   "core/src/config/drive.ts": {
+    "count": 1,
+    "reason": "TB-L: the ORS matrix URL of the one runtime ORS client; moves to the endpoints module with CONS-3"
+   },
    "core/src/relevance/signals.ts": {
     "count": 2,
     "reason": "CONS-3: core/src/net/endpoints.ts and tools/net.py"
