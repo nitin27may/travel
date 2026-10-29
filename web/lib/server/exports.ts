@@ -27,6 +27,14 @@ function contractModel(model: TripExport | PlaceExport): ExportModel {
   return { ...model, waypoints, stops } as ExportModel;
 }
 
+/**
+ * The model without stop addresses, for the two text bodies (`csv`, `print`). The privacy net reads a text body whole and cannot tell a
+ * public place's street address from a household's (its street rule is the ES-012 rule and stays as it is), so the API's text files leave
+ * the address out; the `json` model carries it as a typed field (the net knows that shape) and the browser's own CSV, print and calendar
+ * are built from that model (LT-M).
+ */
+const withoutAddress = <T extends TripExport | PlaceExport>(d: T): T => (d.type === 'trip' ? ({ ...d, stops: d.stops.map(({ address: _a, ...s }) => (void _a, s)) } as T) : d);
+
 const geo = (d: TripExport | PlaceExport) => ({ title: d.title, url: d.url, waypoints: d.waypoints, lines: d.lines, skipped: d.skipped });
 
 /** A calendar with no events: a public trip has no dates and a place is not an event, so the file says what it is and holds nothing to import. */
@@ -52,10 +60,10 @@ export function exportFileOf(q: ExportQuery, lookup: { place(slug: string): Publ
   const body: Record<ExportQuery['format'], () => string> = {
     gpx: () => buildGpx(geo(model)).xml,
     kml: () => buildKml(geo(model)).xml,
-    csv: () => (model.type === 'trip' ? tripCsv(model) : placeCsv(model)),
+    csv: () => (model.type === 'trip' ? tripCsv(withoutAddress(model)) : placeCsv(model)),
     ics: () => emptyCalendar(model.title),
     json: () => JSON.stringify(contractModel(model)),
-    print: () => printText(contractModel(model), { area: place?.areaLabel ?? null }),
+    print: () => printText(contractModel(withoutAddress(model)), { area: place?.areaLabel ?? null }),
   };
   return { filename: `${q.slug}.${ext}`, mime, body: body[format](), source, skipped, approx };
 }

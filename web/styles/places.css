@@ -194,3 +194,8 @@
 .pl-payoff a { font-weight: 600; }
 .pl-profile figcaption [class*='chip'] { white-space: normal; max-width: 100%; text-align: left; }
 .pl-tab-gap { color: var(--muted); font-weight: 400; }
+
+/* LT-M: the address under "To <target>" in the Directions card, with its Copy button */
+.pl-addr { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-3); margin: 0; }
+.pl-addr-text { flex: 1 1 14rem; min-width: 0; font: var(--t-body); color: var(--ink); overflow-wrap: anywhere; }
+.pl-addr-copy { flex: none; }

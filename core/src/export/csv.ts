@@ -8,6 +8,9 @@
 // default profile through the same `forTimeline`; until BACKLOG 15.223a wires that (web/lib/server/exports.ts), the API's CSV writes the
 // plan's authored HH:MM.
 //
+// "Address" (LT-M): the address of the stop's place as the page words it, after Area; empty where none is stored, and on a booking row.
+// "Book ahead" stays the last column.
+//
 // Order (TRP-GL-C review F2): day, then `order`, never the clock inside the time text. `forTimeline` numbers the stops in the timeline's
 // order ("Morning" before "Afternoon", "07:30 PT" before "08:15 MT" when the timeline says so); the builder numbers the plan's authored
 // HH:MM chronologically.
@@ -22,7 +25,7 @@ import { CATEGORY_LABEL } from './publicTypes.ts';
 import type { Category } from './publicTypes.ts';
 import type { TripExport } from './types.ts';
 
-export const TRIP_CSV_HEADER = ['Day', 'Time', 'Name', 'Kind', 'Category', 'Area', 'Lat', 'Lon', 'Approximate', 'Links', 'Book ahead'];
+export const TRIP_CSV_HEADER = ['Day', 'Time', 'Name', 'Kind', 'Category', 'Area', 'Address', 'Lat', 'Lon', 'Approximate', 'Links', 'Book ahead'];
 
 type Cell = string | number | null | undefined;
 
@@ -32,10 +35,10 @@ export function tripCsv(trip: TripExport): string {
     .sort((a, b) => a.day - b.day || a.order - b.order)
     .map((s) => {
       const p = s.point && checkPoint(s.point).ok ? s.point : null;
-      const row: Cell[] = [s.day, s.time, s.name, s.kind, s.category ? CATEGORY_LABEL[s.category as Category] : '', s.area, p ? p.lat : '', p ? p.lon : '', p && approxNote(p) ? 'yes' : '', s.links.join(' '), s.bookAhead ?? ''];
+      const row: Cell[] = [s.day, s.time, s.name, s.kind, s.category ? CATEGORY_LABEL[s.category as Category] : '', s.area, s.address ?? '', p ? p.lat : '', p ? p.lon : '', p && approxNote(p) ? 'yes' : '', s.links.join(' '), s.bookAhead ?? ''];
       return { day: s.day, row };
     });
-  const bookings = trip.bookings.map((b) => ({ day: b.day, row: [b.day, '', b.name, b.kind, '', '', '', '', '', '', bookAheadText(b)] as Cell[] }));
+  const bookings = trip.bookings.map((b) => ({ day: b.day, row: [b.day, '', b.name, b.kind, '', '', '', '', '', '', '', bookAheadText(b)] as Cell[] }));
   const rows: Cell[][] = [];
   const days = [...new Set([...bookings.flatMap((b) => (b.day === null ? [] : [b.day])), ...stops.map((s) => s.day)])].sort((a, b) => a - b);
   for (const d of days) rows.push(...bookings.filter((b) => b.day === d).map((b) => b.row), ...stops.filter((s) => s.day === d).map((s) => s.row));

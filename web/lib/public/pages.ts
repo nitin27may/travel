@@ -73,6 +73,8 @@ function nameRefs(text: string, world: World): string {
   return out.replace(/(?:,\s*)+(?=,|$)/g, '').replace(/\s{2,}/g, ' ').replace(/,\s*([,.;])/g, '$1').replace(/:\s*$/, '').trim();
 }
 
+const isPageAddress = (v: unknown): boolean => !!v && typeof v === 'object' && !Array.isArray(v) && ((v as { kind?: unknown }).kind === 'postal' || (v as { kind?: unknown }).kind === 'nearest_road') && Array.isArray((v as { lines?: unknown }).lines);
+
 /** Fields that hold words for a visitor; the others (ids, keys, states, urls, raw values) are never reworded. */
 const WORDS_KEYS = new Set(['text', 'short', 'closing', 'warning', 'quote', 'note', 'why', 'gapWording', 'basisLabel', 'reason', 'label', 'name', 'title', 'scopeText', 'access', 'risk', 'honesty', 'judgement', 'summary', 'hint', 'tooltip']);
 
@@ -87,7 +89,12 @@ function deepScrub<T>(value: T, scrub: TextScrub, where: string, world: World): 
       v.forEach((x, i) => (v[i] = walk(x, key)));
     } else if (v && typeof v === 'object') {
       const o = v as Record<string, unknown>;
-      for (const k of Object.keys(o)) if (k !== 'ref' && k !== 'url') o[k] = walk(o[k], k);
+      for (const k of Object.keys(o)) {
+        // LT-M: a stored address is a street address by shape and the map sheet is a link; the text scrub would blank both (its street rule and its URL strip).
+        // The address was already read through the home-town and household-radius guards (address.ts readAddress), and the sheet is an https link
+        if (k === 'ref' || k === 'url' || k === 'mapSheet' || k === 'osmRef' || (k === 'address' && isPageAddress(o[k]))) continue;
+        o[k] = walk(o[k], k);
+      }
     }
     return v;
   };

@@ -288,7 +288,7 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   // the address you drive to (location-type-requirements 5.1, D2, D7): door places carry their own, access points a postal or nearest-road
   // one, natural places show the address of their Directions target. N in the base; types.json marks it per type (A in phase 1, promoted
   // per family by the ratchet, 5.4). Never a list row (P8). ICS is the one override of "ics never": the dated copy's LOCATION (12 Gotchas)
-  def({ key: "address", group: "identity", label: "Address", value: "object", section: "access", display: ["rest"], base: "N", gap: "Address not recorded yet", home: cap("address"), layers: ["place"], lanes: ["O", "F", "D"], expose: { trip: ["day"], export: ["print", "csv", "ics"] }, pageTask: "LT-M" }),
+  def({ key: "address", group: "identity", label: "Address", value: "object", section: "access", display: ["rest"], base: "N", gap: "Address not recorded yet", home: cap("address"), layers: ["place"], lanes: ["O", "F", "D"], expose: { trip: ["day"], export: ["print", "csv", "ics"] } }),
   // Placement (3.7, META-0). The nearest town is derived from the towns layer (META-2); a researcher overrides it only with the town the
   // operator names. Offers and events inherit placement through at, on and starts_at, so these sit on places and routes only.
   // near_town is required where it can be derived (META-2): R? with the trigger `derived`, which holds when the towns layer exists and the

@@ -63,6 +63,11 @@ export interface ExportStop {
    * 15.223b). Dateless: "Opens 30 days before Day 3; Non-refundable".
    */
   bookAhead?: string;
+  /**
+   * The address of the place's Directions target as the page words it (postal as written, a nearest-road one as "Near ..."), from the
+   * place's record. Absent when none is stored (LT-M). Print, the CSV `Address` column and the ICS `LOCATION` read it; nothing else does.
+   */
+  address?: string;
 }
 
 /**

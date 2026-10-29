@@ -21,7 +21,7 @@ test.describe('copy, export, share', () => {
     await page.getByRole('button', { name: 'Export', exact: true }).click();
     const [csv] = await Promise.all([page.waitForEvent('download'), page.getByRole('menuitem', { name: /^For a spreadsheet \(CSV\)/ }).click()]);
     expect(csv.suggestedFilename()).toBe('dolomites-2027.csv');
-    expect(readFileSync((await csv.path())!, 'utf8')).toContain('Day,Time,Name,Kind,Category,Area,Lat,Lon,Approximate,Links');
+    expect(readFileSync((await csv.path())!, 'utf8')).toContain('Day,Time,Name,Kind,Category,Area,Address,Lat,Lon,Approximate,Links');
   });
 
   test('the public trip menu offers no calendar download', async ({ page, site }) => {

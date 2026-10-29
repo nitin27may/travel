@@ -108,6 +108,11 @@ export const exportStop = z.strictObject({
    * names its place that day. Dateless. Named `bookAhead`, not `bookRule`, because it holds the note too (TRP-GL-C review F9).
    */
   bookAhead: z.string().min(1).optional(),
+  /**
+   * The address of the place's Directions target as the page says it ("224 Banff Avenue, Banff, T1L 1A3", or "Near Icefields Parkway,
+   * Lake Louise" for a nearest-road address). Absent when none is stored (LT-M). It is the only property that reaches the ICS `LOCATION`.
+   */
+  address: z.string().min(1).optional(),
 });
 
 /**

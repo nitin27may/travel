@@ -86,6 +86,7 @@ export function TripPrintView({ data, session = null, parkLines = [], own = null
                     {r.name}
                     {r.stop?.area ? `, ${r.stop.area}` : ''}
                     {r.duration ? ` · ${r.duration}` : ''}
+                    {r.stop?.address ? <span className="print-model-note print-model-addr">{r.stop.address}</span> : null}
                     {r.note ? <span className="print-model-note"> {r.note}</span> : null}
                     {r.mine ? <span className="print-model-note print-model-own-note">Your note: {r.mine}</span> : null}
                     {r.stop?.bookAhead ? <span className="print-model-note print-model-bookline">Book ahead: {r.stop.bookAhead}</span> : null}

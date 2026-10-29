@@ -155,12 +155,12 @@ describe("tripCsv: the 'Book ahead' column", () => {
   });
   it("one booking row at the head of its day, the stop's own window on its row, a dayless booking last, then the source line", () => {
     expect(lines.slice(1, -1)).toEqual([
-      "1,,Park pass,booking,,,,,,,Buy online before the first park gate.",
-      "3,,Toll road slot,booking,,,,,,,Opens 30 days before Day 3",
-      "3,~09:00,Loop,trail,Trails,,,,,,Opens 30 days before Day 3",
-      '5,,"Lift, 08:30 slot",booking,,,,,,,Opens 60 days ahead at 08:00; Non-refundable',
-      "5,08:30,Ridge,trail,Trails,,,,,,Opens 60 days ahead at 08:00; Non-refundable",
-      ",,Car hire,booking,,,,,,,Reserve with free cancellation.",
+      "1,,Park pass,booking,,,,,,,,Buy online before the first park gate.",
+      "3,,Toll road slot,booking,,,,,,,,Opens 30 days before Day 3",
+      "3,~09:00,Loop,trail,Trails,,,,,,,Opens 30 days before Day 3",
+      '5,,"Lift, 08:30 slot",booking,,,,,,,,Opens 60 days ahead at 08:00; Non-refundable',
+      "5,08:30,Ridge,trail,Trails,,,,,,,Opens 60 days ahead at 08:00; Non-refundable",
+      ",,Car hire,booking,,,,,,,,Reserve with free cancellation.",
     ]);
     expect(lines.at(-1)).toContain("Source: Trip Plans");
   });

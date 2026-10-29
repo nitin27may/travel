@@ -27,6 +27,16 @@ export function appleMapsUrl(at: LngLat, name?: string, mode: 'd' | 'w' = 'd'): 
   return `https://maps.apple.com/?${q.toString().replace(/%2C/g, ',')}`;
 }
 
+/** OpenStreetMap at the point: a marker and zoom 17, no key and no call. Generated at read time, never stored (location-type-requirements 5.2). */
+export function osmPointUrl(at: LngLat): string {
+  return `https://www.openstreetmap.org/?mlat=${c5(at.lat)}&mlon=${c5(at.lng)}#map=17/${c5(at.lat)}/${c5(at.lng)}`;
+}
+
+/** The OpenStreetMap page of a stored element id (`node/123`, `way/9`, `relation/4`), or null for anything else. A stored `osm` link stays valid beside it. */
+export function osmElementUrl(ref: string | null | undefined): string | null {
+  return ref && /^(?:node|way|relation)\/\d+$/.test(ref) ? `https://www.openstreetmap.org/${ref}` : null;
+}
+
 export function formatPoint(p: LngLat): string {
   return pair(p);
 }
