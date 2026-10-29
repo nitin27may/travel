@@ -1,0 +1,4368 @@
+{
+  "schema": "capture-run/1",
+  "run": "lt1-2026-10-28-rockies-places",
+  "started": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "types": [
+      "access.amenity.visitor_info",
+      "access.park.parking",
+      "culture.heritage.historic_site",
+      "nature.landform.glacier_view",
+      "nature.landform.gorge",
+      "nature.landform.mountain",
+      "nature.landform.valley",
+      "nature.protected.conservation_area",
+      "nature.protected.forest",
+      "nature.protected.national_park",
+      "nature.protected.nature_reserve",
+      "nature.protected.state_provincial_park",
+      "nature.viewpoint.pullout",
+      "settlement.town",
+      "settlement.village",
+      "water.body.lake",
+      "water.body.pond_reservoir"
+    ],
+    "refs": [
+      "place/ashlar-ridge",
+      "part/place/ashlar-ridge#miette-parking",
+      "place/athabasca-glacier",
+      "part/place/athabasca-glacier#toe-parking",
+      "place/curly-phillips-boathouse",
+      "place/maligne-lake",
+      "place/mount-edith-cavell",
+      "part/place/mount-edith-cavell#upper-lot",
+      "place/mount-kerkeslin",
+      "part/place/mount-kerkeslin#athabasca-falls-parking",
+      "place/jasper",
+      "place/barrier-lake",
+      "part/place/barrier-lake#day-use",
+      "place/burstall-lakes",
+      "part/place/burstall-lakes#burstall-pass-parking",
+      "place/highwood-pass",
+      "part/place/highwood-pass#highwood-meadows",
+      "place/kananaskis-village",
+      "place/mount-lawrence-grassi",
+      "part/place/mount-lawrence-grassi#grassi-lakes-parking",
+      "place/paddys-flat",
+      "part/place/paddys-flat#campground-parking",
+      "place/spray-valley-provincial-park",
+      "place/upper-kananaskis-lake",
+      "part/place/upper-kananaskis-lake#north-interlakes",
+      "place/beauvais-lake",
+      "part/place/beauvais-lake#beaver-creek-day-use",
+      "place/mount-blakiston",
+      "part/place/mount-blakiston#red-rock-canyon-parking",
+      "place/waterton-park",
+      "place/upper-elk-lake",
+      "part/place/upper-elk-lake#elk-lakes-trailhead",
+      "place/whiteswan-lake",
+      "part/place/whiteswan-lake#home-basin",
+      "place/sinclair-canyon",
+      "part/place/sinclair-canyon#pullout",
+      "place/mount-robson-provincial-park",
+      "place/mount-robson",
+      "part/place/mount-robson-provincial-park#welcome-centre",
+      "place/chancellor-peak",
+      "place/field",
+      "place/yoho-valley",
+      "part/place/yoho-valley#takakkaw-falls-parking",
+      "place/golden",
+      "place/banff-national-park",
+      "place/jasper-national-park",
+      "place/yoho-national-park",
+      "place/kootenay-national-park",
+      "place/kananaskis-country",
+      "part/place/banff-national-park#banff-visitor-centre",
+      "part/place/jasper-national-park#jasper-information-centre",
+      "part/place/kootenay-national-park#kootenay-visitor-centre",
+      "part/place/yoho-national-park#yoho-visitor-centre",
+      "part/place/kananaskis-country#kananaskis-visitor-centre",
+      "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking",
+      "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
+      "part/place/lake-louise#parking",
+      "place/lake-louise",
+      "place/dolomites",
+      "place/white-mountain-national-forest",
+      "part/place/bryce-canyon-national-park#visitor-center-lot",
+      "part/place/arches-national-park#visitor-center-lot",
+      "part/place/canyonlands-national-park#island-in-the-sky-lot",
+      "place/arches-national-park",
+      "place/bryce-canyon-national-park",
+      "place/canyonlands-national-park",
+      "place/zion-national-park"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "api.openstreetmap.org",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "bcparks.ca",
+      "requests": 8,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "en.wikipedia.org",
+      "requests": 21,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "field.ca",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "jasper-alberta.com",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "mywaterton.ca",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "requests": 31,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "nrs.objectstore.gov.bc.ca",
+      "requests": 3,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "overpass-api.de",
+      "requests": 7,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "parks.canada.ca",
+      "requests": 58,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "pcweb2.azureedge.net",
+      "requests": 7,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.albertaparks.ca",
+      "requests": 43,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.banffjaspercollection.com",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.dolomitiunesco.info",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.fs.usda.gov",
+      "requests": 6,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.golden.ca",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.jasper.travel",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.nps.gov",
+      "requests": 22,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.openstreetmap.org",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.tourismgolden.com",
+      "requests": 3,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.wikidata.org",
+      "requests": 30,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q22457126"
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails"
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q22457126"
+    },
+    {
+      "ref": "part/place/ashlar-ridge#miette-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/708096702"
+    },
+    {
+      "ref": "part/place/ashlar-ridge#miette-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/ashlar-ridge#miette-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse"
+      ]
+    },
+    {
+      "ref": "part/place/ashlar-ridge#miette-parking",
+      "field": "closures",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "part/place/ashlar-ridge#miette-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails"
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q391165"
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Athabasca Glacier page",
+        "Jasper Day Hiking Guide 2026"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/glacier-athabasca"
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q391165"
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Athabasca_Glacier"
+    },
+    {
+      "ref": "part/place/athabasca-glacier#toe-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/26751964"
+    },
+    {
+      "ref": "part/place/athabasca-glacier#toe-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/athabasca-glacier#toe-parking",
+      "field": "address",
+      "outcome": "searched_none",
+      "tried": [
+        "Nominatim reverse at zoom 17 (a footpath) and 16 (Icefields Parkway, 739 m away)",
+        "Overpass: no named road within 400 m"
+      ]
+    },
+    {
+      "ref": "part/place/athabasca-glacier#toe-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/glacier-athabasca"
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q44664199"
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "address",
+      "outcome": "searched_none",
+      "tried": [
+        "Wikidata Q44664199 (no P6375)",
+        "Overpass: no element for the boathouse",
+        "banffjaspercollection.com rentals page"
+      ]
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "season",
+      "outcome": "filled",
+      "src": [
+        "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/rentals/"
+      ]
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "hours",
+      "outcome": "searched_none",
+      "tried": [
+        "banffjaspercollection.com Maligne Lake rentals page (an 'Opening Hours' heading with no times)"
+      ]
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "price",
+      "outcome": "filled",
+      "src": [
+        "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/rentals/"
+      ]
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/rentals/"
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q44664199"
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q429646"
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "best_time",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Maligne Lake page",
+        "Jasper Day Hiking Guide 2026"
+      ]
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne"
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q429646"
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Maligne_Lake"
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/2698521553"
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "closures",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Mount Edith Cavell page",
+        "Jasper Day Hiking Guide 2026"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell"
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q510573"
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Mount_Edith_Cavell"
+    },
+    {
+      "ref": "part/place/mount-edith-cavell#upper-lot",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap relation/20689592"
+    },
+    {
+      "ref": "part/place/mount-edith-cavell#upper-lot",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/mount-edith-cavell#upper-lot",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse"
+      ]
+    },
+    {
+      "ref": "part/place/mount-edith-cavell#upper-lot",
+      "field": "closures",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell"
+      ]
+    },
+    {
+      "ref": "part/place/mount-edith-cavell#upper-lot",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell"
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/2699165524"
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Athabasca Falls page",
+        "Jasper accessible facilities page"
+      ]
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/athabasca"
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q6921646"
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Mount_Kerkeslin"
+    },
+    {
+      "ref": "part/place/mount-kerkeslin#athabasca-falls-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/307218808"
+    },
+    {
+      "ref": "part/place/mount-kerkeslin#athabasca-falls-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/mount-kerkeslin#athabasca-falls-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse"
+      ]
+    },
+    {
+      "ref": "part/place/mount-kerkeslin#athabasca-falls-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/athabasca"
+    },
+    {
+      "ref": "place/jasper",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/51971014"
+    },
+    {
+      "ref": "place/jasper",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/jasper",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/jasper",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.jasper-alberta.ca/"
+    },
+    {
+      "ref": "place/jasper",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.jasper.travel/"
+    },
+    {
+      "ref": "place/jasper",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q999429"
+    },
+    {
+      "ref": "place/jasper",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Jasper,_Alberta"
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q3214736"
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "best_time",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Barrier Lake day use page"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/"
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q3214736"
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Barrier_Lake_(Alberta)"
+    },
+    {
+      "ref": "part/place/barrier-lake#day-use",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/261038368"
+    },
+    {
+      "ref": "part/place/barrier-lake#day-use",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/barrier-lake#day-use",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse"
+      ]
+    },
+    {
+      "ref": "part/place/barrier-lake#day-use",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/"
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q22353518"
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "best_time",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Burstall Pass day use page"
+      ]
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/burstall-pass/"
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q22353518"
+    },
+    {
+      "ref": "part/place/burstall-lakes#burstall-pass-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/262485800"
+    },
+    {
+      "ref": "part/place/burstall-lakes#burstall-pass-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/burstall-lakes#burstall-pass-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse"
+      ]
+    },
+    {
+      "ref": "part/place/burstall-lakes#burstall-pass-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/burstall-pass/"
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/1339315277"
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "best_time",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Highwood Meadows day use page"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/"
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q5760070"
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Highwood_Pass"
+    },
+    {
+      "ref": "part/place/highwood-pass#highwood-meadows",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/270025808"
+    },
+    {
+      "ref": "part/place/highwood-pass#highwood-meadows",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/highwood-pass#highwood-meadows",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse",
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/highwood-pass#highwood-meadows",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/"
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/283707361"
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/evan-thomas-pra/information-facilities/special-facilities/kananaskis-village"
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q6360620"
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Kananaskis_Village"
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "links",
+      "outcome": "searched_none",
+      "tried": [
+        "Kananaskis Village tourism board"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/2684623546"
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Grassi Lakes day use page"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/"
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q6921787"
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Mount_Lawrence_Grassi"
+    },
+    {
+      "ref": "part/place/mount-lawrence-grassi#grassi-lakes-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/29234142"
+    },
+    {
+      "ref": "part/place/mount-lawrence-grassi#grassi-lakes-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/mount-lawrence-grassi#grassi-lakes-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse"
+      ]
+    },
+    {
+      "ref": "part/place/mount-lawrence-grassi#grassi-lakes-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/"
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/12780122240"
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Paddy's Flat campground page"
+      ]
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat/"
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q22465470"
+    },
+    {
+      "ref": "part/place/paddys-flat#campground-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/1380471053"
+    },
+    {
+      "ref": "part/place/paddys-flat#campground-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/paddys-flat#campground-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse"
+      ]
+    },
+    {
+      "ref": "part/place/paddys-flat#campground-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat/"
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q3364735"
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/"
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q3364735"
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/media/6496043/2019-south-spray-plpp-map.pdf"
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "links",
+      "outcome": "searched_none",
+      "tried": [
+        "Spray Valley Provincial Park advisories page (albertaparks.ca/parks/kananaskis/spray-valley-pp/advisories/ is an empty shell; advisories show on the park page)"
+      ]
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Spray_Valley_Provincial_Park"
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q7346507"
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "best_time",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Upper Lake day use page"
+      ]
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/"
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q7346507"
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Upper_Kananaskis_Lake"
+    },
+    {
+      "ref": "part/place/upper-kananaskis-lake#north-interlakes",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/269821248"
+    },
+    {
+      "ref": "part/place/upper-kananaskis-lake#north-interlakes",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/upper-kananaskis-lake#north-interlakes",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse"
+      ]
+    },
+    {
+      "ref": "part/place/upper-kananaskis-lake#north-interlakes",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/"
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q4877958"
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "best_time",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Beauvais Lake park page",
+        "Beaver Creek day use page"
+      ]
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/"
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q4877958"
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Beauvais_Lake_(Alberta)"
+    },
+    {
+      "ref": "part/place/beauvais-lake#beaver-creek-day-use",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/459886460"
+    },
+    {
+      "ref": "part/place/beauvais-lake#beaver-creek-day-use",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/beauvais-lake#beaver-creek-day-use",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse"
+      ]
+    },
+    {
+      "ref": "part/place/beauvais-lake#beaver-creek-day-use",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/day-use/beaver-creek/"
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/9005199647"
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Waterton scenic drives page"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving"
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q3321701"
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Mount_Blakiston"
+    },
+    {
+      "ref": "part/place/mount-blakiston#red-rock-canyon-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/1059104807"
+    },
+    {
+      "ref": "part/place/mount-blakiston#red-rock-canyon-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/mount-blakiston#red-rock-canyon-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse"
+      ]
+    },
+    {
+      "ref": "part/place/mount-blakiston#red-rock-canyon-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving"
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/9174974666"
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/waterton/visit/cartes-maps/carte-parc-park-map"
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://watertontourism.com/"
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q7974475"
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Waterton_Park"
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q22391422"
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "best_time",
+      "outcome": "searched_none",
+      "tried": [
+        "BC Parks Elk Lakes Park page"
+      ]
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://bcparks.ca/elk-lakes-park/"
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q22391422"
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://nrs.objectstore.gov.bc.ca/kuwyyf/elk_lakes_park_map_22c0ae78df.pdf"
+    },
+    {
+      "ref": "part/place/upper-elk-lake#elk-lakes-trailhead",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/102439897"
+    },
+    {
+      "ref": "part/place/upper-elk-lake#elk-lakes-trailhead",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/upper-elk-lake#elk-lakes-trailhead",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse"
+      ]
+    },
+    {
+      "ref": "part/place/upper-elk-lake#elk-lakes-trailhead",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://bcparks.ca/elk-lakes-park/"
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q22612582"
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "best_time",
+      "outcome": "searched_none",
+      "tried": [
+        "BC Parks Whiteswan Lake Park page"
+      ]
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://bcparks.ca/whiteswan-lake-park/"
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q22612582"
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://nrs.objectstore.gov.bc.ca/kuwyyf/whiteswan_lake_map_61fa249d8f.pdf"
+    },
+    {
+      "ref": "part/place/whiteswan-lake#home-basin",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/126512005"
+    },
+    {
+      "ref": "part/place/whiteswan-lake#home-basin",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/whiteswan-lake#home-basin",
+      "field": "address",
+      "outcome": "searched_none",
+      "tried": [
+        "Nominatim reverse at zoom 16 and 17 (an unnamed road)",
+        "Overpass: no named road within 400 m"
+      ]
+    },
+    {
+      "ref": "part/place/whiteswan-lake#home-basin",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://bcparks.ca/whiteswan-lake-park/"
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q22629068"
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Kootenay scenic drive page",
+        "Kootenay points of interest page"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive"
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q22629068"
+    },
+    {
+      "ref": "part/place/sinclair-canyon#pullout",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/222249120"
+    },
+    {
+      "ref": "part/place/sinclair-canyon#pullout",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/sinclair-canyon#pullout",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse"
+      ]
+    },
+    {
+      "ref": "part/place/sinclair-canyon#pullout",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive"
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q1950710"
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://bcparks.ca/mount-robson-park/"
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q1950710"
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://nrs.objectstore.gov.bc.ca/kuwyyf/mount_robson_park_map_8b6cadc7de.pdf"
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "links",
+      "outcome": "searched_none",
+      "tried": [
+        "Mount Robson Park advisories (the park page loads them by script; bcparks.ca/active-advisories/ is the all-parks list)"
+      ]
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Mount_Robson_Provincial_Park"
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/2699332830"
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "BC Parks Mount Robson Park page"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://bcparks.ca/mount-robson-park/"
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q1161258"
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Mount_Robson"
+    },
+    {
+      "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/127274566"
+    },
+    {
+      "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse"
+      ]
+    },
+    {
+      "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://bcparks.ca/mount-robson-park/"
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/5613035260"
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Yoho points of interest page"
+      ]
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/bc/yoho/activ/places"
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q22478655"
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Chancellor_Peak"
+    },
+    {
+      "ref": "place/field",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/51970759"
+    },
+    {
+      "ref": "place/field",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/field",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/field",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.field.ca/about/"
+    },
+    {
+      "ref": "place/field",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q3071515"
+    },
+    {
+      "ref": "place/field",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Field,_British_Columbia"
+    },
+    {
+      "ref": "place/field",
+      "field": "links",
+      "outcome": "searched_none",
+      "tried": [
+        "Field BC tourism board"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "point",
+      "outcome": "filled",
+      "src": "Wikidata Q22649377"
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "best_window",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Yoho points of interest page"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/bc/yoho/activ/places"
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q22649377"
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://pcweb2.azureedge.net/-/media/pn-np/bc/yoho/WET4/pdf/maps/ynp-map-overview-2022.pdf"
+    },
+    {
+      "ref": "part/place/yoho-valley#takakkaw-falls-parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap way/228173009"
+    },
+    {
+      "ref": "part/place/yoho-valley#takakkaw-falls-parking",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/yoho-valley#takakkaw-falls-parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": [
+        "https://nominatim.openstreetmap.org/reverse",
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "part/place/yoho-valley#takakkaw-falls-parking",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/bc/yoho/activ/places"
+    },
+    {
+      "ref": "place/golden",
+      "field": "point",
+      "outcome": "filled",
+      "src": "OpenStreetMap node/51971610"
+    },
+    {
+      "ref": "place/golden",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/golden",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/golden",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.golden.ca/"
+    },
+    {
+      "ref": "place/golden",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.tourismgolden.com/"
+    },
+    {
+      "ref": "place/golden",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/wiki/Q1020179"
+    },
+    {
+      "ref": "place/golden",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/wiki/Golden,_British_Columbia"
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "stroller",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "wheelchair",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "stroller",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "wheelchair",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/glacier-athabasca"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/glacier-athabasca",
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "stroller",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "wheelchair",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/rentals/"
+      ]
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "stroller",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "wheelchair",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell",
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne"
+      ]
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "stroller",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "wheelchair",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell"
+      ]
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "stroller",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "wheelchair",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/athabasca"
+      ]
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/jasper",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "jasper-alberta.com home",
+        "Parks Canada Jasper accessible facilities page"
+      ]
+    },
+    {
+      "ref": "place/jasper",
+      "field": "wheelchair",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Barrier Lake day use page"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "wheelchair",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "toilets",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/"
+      ]
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/burstall-pass/"
+      ]
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Burstall Pass day use page"
+      ]
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Burstall Pass day use page"
+      ]
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "on_site_min",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Burstall Pass day use page"
+      ]
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "walk_m",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Burstall Pass day use page ('a few kilometers away from the day use area')"
+      ]
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/burstall-pass/"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Highwood Meadows day use page"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Highwood Meadows day use page"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": [
+        "https://overpass-api.de/api/interpreter"
+      ]
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Kananaskis Village page"
+      ]
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Kananaskis Village page"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Grassi Lakes day use page"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Grassi Lakes day use page"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "on_site_min",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Grassi Lakes day use page"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/"
+      ]
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat/"
+      ]
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Paddy's Flat campground page"
+      ]
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Paddy's Flat campground page"
+      ]
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat/"
+      ]
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat/"
+      ]
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat/"
+      ]
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat/"
+      ]
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/"
+      ]
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/",
+        "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/information-facilities/day-use/wedge-pond/"
+      ]
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/information-facilities/day-use/wedge-pond/"
+      ]
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/"
+      ]
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Upper Lake day use page"
+      ]
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Upper Lake day use page"
+      ]
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/"
+      ]
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/"
+      ]
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/"
+      ]
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "toilets",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/"
+      ]
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/day-use/beaver-creek/"
+      ]
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Beaver Creek day use page",
+        "Alberta Parks North Shore day use page"
+      ]
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "Alberta Parks Beaver Creek day use page",
+        "Alberta Parks North Shore day use page"
+      ]
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/day-use/beaver-creek/"
+      ]
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/day-use/beaver-creek/"
+      ]
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/day-use/beaver-creek/"
+      ]
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/day-use/beaver-creek/"
+      ]
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "toilets",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/day-use/beaver-creek/"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Waterton scenic drives page"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Waterton scenic drives page"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "altitude_m",
+      "outcome": "conflict",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving"
+      ],
+      "reason": "Wikidata P2044 and the OSM ele tag give 2910 m"
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "watertontourism.com home",
+        "Parks Canada Waterton park map page"
+      ]
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "watertontourism.com home",
+        "Parks Canada Waterton park map page"
+      ]
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/elk-lakes-park/"
+      ]
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "stroller",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/elk-lakes-park/"
+      ]
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "wheelchair",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/elk-lakes-park/"
+      ]
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "on_site_min",
+      "outcome": "searched_none",
+      "tried": [
+        "BC Parks Elk Lakes Park page"
+      ]
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "walk_m",
+      "outcome": "searched_none",
+      "tried": [
+        "BC Parks Elk Lakes Park page (1 km to the closest lake only)"
+      ]
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "access_season",
+      "outcome": "searched_none",
+      "tried": [
+        "BC Parks Elk Lakes Park page"
+      ]
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/elk-lakes-park/"
+      ]
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/whiteswan-lake-park/"
+      ]
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "BC Parks Whiteswan Lake Park page"
+      ]
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "BC Parks Whiteswan Lake Park page"
+      ]
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/whiteswan-lake-park/"
+      ]
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/whiteswan-lake-park/"
+      ]
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "access_season",
+      "outcome": "searched_none",
+      "tried": [
+        "BC Parks Whiteswan Lake Park page"
+      ]
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/whiteswan-lake-park/"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "carrier_ok",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Kootenay scenic drive page"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Kootenay scenic drive page"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "effort.drivers.distance_km",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/kootenay/visit/services"
+      ]
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/mount-robson-park/"
+      ]
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "hazards",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/mount-robson-park/"
+      ]
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/mount-robson-park/"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/mount-robson-park/"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "BC Parks Mount Robson Park page"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "BC Parks Mount Robson Park page"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/mount-robson-park/"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/mount-robson-park/"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/mount-robson-park/"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/mount-robson-park/"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/mount-robson-park/"
+      ]
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://en.wikipedia.org/w/api.php?action=query&prop=extracts"
+      ]
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Yoho points of interest page",
+        "Yoho facilities and services page"
+      ]
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Yoho points of interest page",
+        "Yoho facilities and services page"
+      ]
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://en.wikipedia.org/w/api.php?action=query&prop=extracts"
+      ]
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": [
+        "https://en.wikipedia.org/w/api.php?action=query&prop=extracts"
+      ]
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://en.wikipedia.org/w/api.php?action=query&prop=extracts"
+      ]
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/visit/services"
+      ]
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "altitude_m",
+      "outcome": "conflict",
+      "src": [
+        "https://overpass-api.de/api/interpreter",
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ],
+      "reason": "Wikipedia and the other Wikidata P2044 value give 3266 m"
+    },
+    {
+      "ref": "place/field",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "Parks Canada Yoho facilities and services page",
+        "field.ca about page"
+      ]
+    },
+    {
+      "ref": "place/field",
+      "field": "wheelchair",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/visit/services"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "age_band",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/places"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "stroller",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "wheelchair",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "on_site_min",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/places"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "exposure",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/places"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "walk_m",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "access_season",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/places"
+      ]
+    },
+    {
+      "ref": "place/golden",
+      "field": "stroller",
+      "outcome": "searched_none",
+      "tried": [
+        "golden.ca home",
+        "tourismgolden.com home"
+      ]
+    },
+    {
+      "ref": "place/golden",
+      "field": "wheelchair",
+      "outcome": "searched_none",
+      "tried": [
+        "golden.ca home",
+        "tourismgolden.com home"
+      ]
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/ashlar-ridge",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/ete-summer/2026/Jasper_Hiking_Guide-EN-2026-web.pdf"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/glacier-athabasca"
+      ]
+    },
+    {
+      "ref": "place/athabasca-glacier",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/rentals/"
+      ]
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne"
+      ]
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne"
+      ]
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne"
+      ]
+    },
+    {
+      "ref": "place/maligne-lake",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/cavell"
+      ]
+    },
+    {
+      "ref": "place/mount-edith-cavell",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/athabasca"
+      ]
+    },
+    {
+      "ref": "place/mount-kerkeslin",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/jasper",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/jasper",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference (method in the record's note)"
+    },
+    {
+      "ref": "place/jasper",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+      ]
+    },
+    {
+      "ref": "place/jasper",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/barrier-lake/"
+      ]
+    },
+    {
+      "ref": "place/barrier-lake",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/burstall-pass/"
+      ]
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/burstall-pass/"
+      ]
+    },
+    {
+      "ref": "place/burstall-lakes",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/highwood-meadows/"
+      ]
+    },
+    {
+      "ref": "place/highwood-pass",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/evan-thomas-pra/information-facilities/special-facilities/kananaskis-village"
+      ]
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/evan-thomas-pra/information-facilities/special-facilities/kananaskis-village"
+      ]
+    },
+    {
+      "ref": "place/kananaskis-village",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/park-facilities/day-use/grassi-lakes/"
+      ]
+    },
+    {
+      "ref": "place/mount-lawrence-grassi",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/camping/paddy-s-flat/"
+      ]
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "our_inference (method in the record's note)"
+    },
+    {
+      "ref": "place/paddys-flat",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/"
+      ]
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/"
+      ]
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/"
+      ]
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/day-use/upper-lake/"
+      ]
+    },
+    {
+      "ref": "place/upper-kananaskis-lake",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference (method in the record's note)"
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/"
+      ]
+    },
+    {
+      "ref": "place/beauvais-lake",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving"
+      ]
+    },
+    {
+      "ref": "place/mount-blakiston",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference (method in the record's note)"
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/waterton/visit/cartes-maps/carte-parc-park-map"
+      ]
+    },
+    {
+      "ref": "place/waterton-park",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/elk-lakes-park/"
+      ]
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/elk-lakes-park/"
+      ]
+    },
+    {
+      "ref": "place/upper-elk-lake",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/whiteswan-lake-park/"
+      ]
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/whiteswan-lake-park/"
+      ]
+    },
+    {
+      "ref": "place/whiteswan-lake",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/kootenay/activ/route-drive"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/kootenay/activ/places"
+      ]
+    },
+    {
+      "ref": "place/sinclair-canyon",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/mount-robson-park/"
+      ]
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/mount-robson-park/"
+      ]
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/mount-robson-park/"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://bcparks.ca/mount-robson-park/"
+      ]
+    },
+    {
+      "ref": "place/mount-robson",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "tried": [
+        "Wikidata search 'Mount Robson Visitor Centre' and 'Mount Robson Welcome Centre' (2026-10-28): no item"
+      ]
+    },
+    {
+      "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference (method in the record's note)"
+    },
+    {
+      "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "our_inference (method in the record's note)"
+    },
+    {
+      "ref": "part/place/mount-robson-provincial-park#welcome-centre",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "not applicable to a visitor centre"
+      ]
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference (method in the record's note)"
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/places"
+      ]
+    },
+    {
+      "ref": "place/chancellor-peak",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/field",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/field",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference (method in the record's note)"
+    },
+    {
+      "ref": "place/field",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/places"
+      ]
+    },
+    {
+      "ref": "place/field",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/places"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "signals",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/places"
+      ]
+    },
+    {
+      "ref": "place/yoho-valley",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/golden",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "https://www.wikidata.org/w/api.php?action=wbgetentities"
+      ]
+    },
+    {
+      "ref": "place/golden",
+      "field": "access_cost",
+      "outcome": "filled",
+      "src": "our_inference (method in the record's note)"
+    },
+    {
+      "ref": "place/golden",
+      "field": "signals",
+      "outcome": "filled",
+      "src": "our_inference (method in the record's note)"
+    },
+    {
+      "ref": "place/golden",
+      "field": "signals",
+      "outcome": "searched_none",
+      "tried": [
+        "the pages read for this place (see sources): no top-list mention"
+      ]
+    },
+    {
+      "ref": "place/banff-national-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://pcweb2.azureedge.net/-/media/pn-np/ab/banff/WET4/visit/depliants-brochures/PDF/2026_VisitorGuideNEW_BNP_EN.pdf"
+    },
+    {
+      "ref": "place/jasper-national-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://pcweb2.azureedge.net/-/media/pn-np/ab/jasper/WET4/pdf/visit/depliants-brochures/2024-points-of-interest-jnp.pdf"
+    },
+    {
+      "ref": "place/yoho-national-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://pcweb2.azureedge.net/-/media/pn-np/bc/yoho/WET4/pdf/maps/ynp-map-overview-2022.pdf"
+    },
+    {
+      "ref": "place/kootenay-national-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://pcweb2.azureedge.net/-/media/pn-np/bc/kootenay/WET4/visit/visitor-guide-visiteur/2026/2026_KNP_PointsOfInterest_EN_PDF.pdf"
+    },
+    {
+      "ref": "place/kananaskis-country",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/library/kananaskis-country-maps/"
+    },
+    {
+      "ref": "part/place/banff-national-park#banff-visitor-centre",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "part/place/jasper-national-park#jasper-information-centre",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/bc/kootenay/visit/services"
+    },
+    {
+      "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/bc/yoho/visit/services"
+    },
+    {
+      "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/kananaskis-contacts/kananaskis-visitor-information-centre/"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking",
+      "field": "parks_for",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
+      "field": "parks_for",
+      "outcome": "filled",
+      "src": "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/information-facilities/day-use/wedge-pond/"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/lake-louise#parking",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/lake-louise",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/dolomites",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/dolomites",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.dolomitiunesco.info/"
+    },
+    {
+      "ref": "place/white-mountain-national-forest",
+      "field": "run_by",
+      "outcome": "filled",
+      "src": "https://www.fs.usda.gov/r09/whitemountain/alerts"
+    },
+    {
+      "ref": "place/white-mountain-national-forest",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.fs.usda.gov/r09/whitemountain/alerts"
+    },
+    {
+      "ref": "place/white-mountain-national-forest",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.fs.usda.gov/r09/whitemountain/maps-guides"
+    },
+    {
+      "ref": "place/white-mountain-national-forest",
+      "field": "closures",
+      "outcome": "filled",
+      "src": "https://www.fs.usda.gov/r09/whitemountain/alerts"
+    },
+    {
+      "ref": "part/place/bryce-canyon-national-park#visitor-center-lot",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/brca/planyourvisit/directions.htm"
+    },
+    {
+      "ref": "part/place/arches-national-park#visitor-center-lot",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "part/place/canyonlands-national-park#island-in-the-sky-lot",
+      "field": "address",
+      "outcome": "filled",
+      "src": "https://nominatim.openstreetmap.org/reverse"
+    },
+    {
+      "ref": "place/arches-national-park",
+      "field": "run_by",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/arch/planyourvisit/conditions.htm"
+    },
+    {
+      "ref": "place/arches-national-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/arch/planyourvisit/conditions.htm"
+    },
+    {
+      "ref": "place/arches-national-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/arch/planyourvisit/maps.htm"
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "field": "run_by",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/brca/planyourvisit/conditions.htm"
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/brca/planyourvisit/conditions.htm"
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/brca/planyourvisit/maps.htm"
+    },
+    {
+      "ref": "place/canyonlands-national-park",
+      "field": "run_by",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/cany/planyourvisit/conditions.htm"
+    },
+    {
+      "ref": "place/canyonlands-national-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/cany/planyourvisit/conditions.htm"
+    },
+    {
+      "ref": "place/canyonlands-national-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/cany/planyourvisit/maps.htm"
+    },
+    {
+      "ref": "place/canyonlands-national-park",
+      "field": "closures",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/cany/planyourvisit/conditions.htm"
+    },
+    {
+      "ref": "place/zion-national-park",
+      "field": "run_by",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/zion/planyourvisit/conditions.htm"
+    },
+    {
+      "ref": "place/zion-national-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/zion/planyourvisit/conditions.htm"
+    },
+    {
+      "ref": "place/zion-national-park",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.nps.gov/zion/planyourvisit/maps.htm"
+    },
+    {
+      "ref": "place/arches-national-park",
+      "field": "closures",
+      "outcome": "searched_none",
+      "tried": [
+        "arches-national-park conditions page on nps.gov (alerts load by script)"
+      ]
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "field": "closures",
+      "outcome": "searched_none",
+      "tried": [
+        "bryce-canyon-national-park conditions page on nps.gov (alerts load by script)"
+      ]
+    },
+    {
+      "ref": "place/zion-national-park",
+      "field": "closures",
+      "outcome": "searched_none",
+      "tried": [
+        "zion-national-park conditions page on nps.gov (alerts load by script)"
+      ]
+    },
+    {
+      "ref": "place/kootenay-national-park",
+      "field": "osm_ref",
+      "outcome": "conflict",
+      "src": [
+        "https://api.openstreetmap.org/api/0.6/relation/7707395/history",
+        "https://overpass-api.de/api/interpreter"
+      ],
+      "reason": "relation/7707395 (the record's and Wikidata P402) was deleted on 3 May 2026; way/673733022 now carries the boundary and the QID"
+    },
+    {
+      "ref": "place/kananaskis-country",
+      "field": "osm_ref",
+      "outcome": "searched_none",
+      "tried": [
+        "Overpass wikidata=Q3373468 and name 'Kananaskis Country' (LT-WHERE): only a tourism=information node"
+      ]
+    },
+    {
+      "ref": "place/curly-phillips-boathouse",
+      "field": "osm_ref",
+      "outcome": "searched_none",
+      "tried": [
+        "Overpass building=boathouse within 1.5 km",
+        "LT-WHERE QID tag and name search"
+      ]
+    },
+    {
+      "ref": "place/dolomites",
+      "field": "access_points",
+      "outcome": "gap",
+      "reason": "a serial World Heritage property of nine systems: no single entrance or visitor centre; needs an owner or planner decision"
+    },
+    {
+      "ref": "place/dolomites",
+      "field": "links",
+      "outcome": "searched_none",
+      "tried": [
+        "dolomitiunesco.info home"
+      ]
+    },
+    {
+      "ref": "place/dolomites",
+      "field": "links",
+      "outcome": "searched_none",
+      "tried": [
+        "dolomitiunesco.info home"
+      ]
+    },
+    {
+      "ref": "place/spray-valley-provincial-park",
+      "field": "links",
+      "outcome": "searched_none",
+      "tried": [
+        "albertaparks.ca/parks/kananaskis/spray-valley-pp/advisories/ (an empty page)"
+      ]
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "links",
+      "outcome": "searched_none",
+      "tried": [
+        "bcparks.ca/mount-robson-park/ (advisories load by script)",
+        "bcparks.ca/active-advisories/ (all parks)"
+      ]
+    },
+    {
+      "ref": "place/mount-robson-provincial-park",
+      "field": "covers_areas",
+      "outcome": "gap",
+      "reason": "held back: membership adds 'Entry not checked yet for Mount Robson Provincial Park' to the Rockies trip until a protected-area task reads BC Parks fees"
+    }
+  ]
+}

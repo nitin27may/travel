@@ -1,0 +1,126 @@
+Tier: required · family sight (nature.summit, nature.viewpoint, nature.landform, nature.wildlife, water.body, water.falls, water.swim, water.thermal, animals.see, culture.museum, culture.heritage, culture.under)
+
+Per layer (EXECUTION-PLAN 6.4 columns; records answering each)
+layer         records area_id point osm_id wikidata official photos season where operator price duration window min_age
+place             179     170   178     65       74       76     42      9     0        0    14        3      8       1
+route               2       2     2      0        0        2      0      0     0        0     0        0      0       0
+offer               6       0     0      0        0        5      2      1     6        5     4        2      2       1
+
+place: 179 record(s), 58 with the required tier complete
+  links                                asked  179  answered   96  missing   83
+  best_time                            asked   92  answered   28  missing   64
+  access_points                        asked  110  answered   52  missing   58
+  on_site_min                          asked  179  answered  124  missing   55
+  wheelchair                           asked  174  answered  119  missing   55
+  age_band                             asked  157  answered  105  missing   52
+  access_season                        asked  154  answered  103  missing   51
+  stroller                             asked  169  answered  119  missing   50
+  kid_note                             asked  179  answered  131  missing   48
+  walk_m                               asked  149  answered  102  missing   47
+  exposure                             asked   98  answered   65  missing   33
+  price                                asked   43  answered   13  missing   30
+  access_cost                          asked  179  answered  151  missing   28
+  class_key                            asked  179  answered  151  missing   28
+  distinction                          asked  179  answered  151  missing   28
+  draw                                 asked  179  answered  151  missing   28
+  easy_payoff                          asked  179  answered  151  missing   28
+  signals                              asked  179  answered  151  missing   28
+  standing                             asked  179  answered  151  missing   28
+  summary                              asked  179  answered  151  missing   28
+  weather                              asked  179  answered  151  missing   28
+  why                                  asked  179  answered  151  missing   28
+  hours                                asked   32  answered    8  missing   24
+  season                               asked   32  answered    9  missing   23
+  wikidata                             asked  169  answered  146  missing   23
+  best_window                          asked   25  answered    3  missing   22
+  effort.drivers.distance_km           asked   33  answered   18  missing   15
+  carrier_ok                           asked   34  answered   21  missing   13
+  adult_required                       asked    6  answered    1  missing    5
+  min_age                              asked    6  answered    1  missing    5
+  participation.pregnancy              asked    5  answered    0  missing    5
+  toilets                              asked    8  answered    3  missing    5
+  water_safety.water_temp_c            asked    5  answered    0  missing    5
+  window                               asked   12  answered    7  missing    5
+  hazards                              asked    8  answered    5  missing    3
+  water_safety.current_or_tide         asked    6  answered    3  missing    3
+  ext.cave.air_temp_c                  asked    1  answered    1  missing    0
+  ext.cave.carry_child                 asked    1  answered    1  missing    0
+  ext.cave.steps                       asked    1  answered    1  missing    0
+  ext.water.swimming                   asked    3  answered    3  missing    0
+  ext.wildlife.best_time               asked    2  answered    2  missing    0
+  ext.wildlife.min_distance_m          asked    2  answered    2  missing    0
+  name                                 asked  179  answered  179  missing    0
+  part_of                              asked    1  answered    1  missing    0
+  participation.wear                   asked    1  answered    1  missing    0
+  participation.weather_cancel         asked    1  answered    1  missing    0
+  type                                 asked  179  answered  179  missing    0
+  water_safety.entry                   asked    3  answered    3  missing    0
+  water_safety.lifeguard               asked    3  answered    3  missing    0
+
+other route: 2 record(s), 0 with the required tier complete
+  access_cost                          asked    2  answered    0  missing    2
+  access_points                        asked    2  answered    0  missing    2
+  access_season                        asked    2  answered    0  missing    2
+  age_band                             asked    2  answered    0  missing    2
+  best_time                            asked    2  answered    0  missing    2
+  class_key                            asked    2  answered    0  missing    2
+  distinction                          asked    2  answered    0  missing    2
+  draw                                 asked    2  answered    0  missing    2
+  easy_payoff                          asked    2  answered    0  missing    2
+  geometry                             asked    2  answered    0  missing    2
+  hazards                              asked    2  answered    0  missing    2
+  kid_note                             asked    2  answered    0  missing    2
+  on_site_min                          asked    2  answered    0  missing    2
+  signals                              asked    2  answered    0  missing    2
+  standing                             asked    2  answered    0  missing    2
+  starts_at                            asked    2  answered    0  missing    2
+  stroller                             asked    2  answered    0  missing    2
+  summary                              asked    2  answered    0  missing    2
+  walk_m                               asked    2  answered    0  missing    2
+  water_safety.current_or_tide         asked    2  answered    0  missing    2
+  weather                              asked    2  answered    0  missing    2
+  wheelchair                           asked    2  answered    0  missing    2
+  why                                  asked    2  answered    0  missing    2
+  wikidata                             asked    2  answered    0  missing    2
+  price                                asked    1  answered    0  missing    1
+  links                                asked    2  answered    2  missing    0
+  name                                 asked    2  answered    2  missing    0
+  type                                 asked    2  answered    2  missing    0
+
+offer: 6 record(s), 0 with the required tier complete
+  season                               asked    6  answered    1  missing    5
+  hours                                asked    6  answered    2  missing    4
+  access_season                        asked    6  answered    3  missing    3
+  age_band                             asked    6  answered    3  missing    3
+  kid_note                             asked    6  answered    3  missing    3
+  on_site_min                          asked    6  answered    3  missing    3
+  adult_required                       asked    5  answered    3  missing    2
+  participation.pregnancy              asked    5  answered    3  missing    2
+  price                                asked    6  answered    4  missing    2
+  summary                              asked    6  answered    4  missing    2
+  toilets                              asked    5  answered    3  missing    2
+  water_safety.water_temp_c            asked    5  answered    3  missing    2
+  wheelchair                           asked    5  answered    3  missing    2
+  activity_min                         asked    1  answered    0  missing    1
+  best_time                            asked    1  answered    0  missing    1
+  best_window                          asked    1  answered    0  missing    1
+  class_key                            asked    1  answered    0  missing    1
+  distinction                          asked    1  answered    0  missing    1
+  draw                                 asked    1  answered    0  missing    1
+  easy_payoff                          asked    1  answered    0  missing    1
+  ext.wildlife.best_time               asked    1  answered    0  missing    1
+  ext.wildlife.min_distance_m          asked    1  answered    0  missing    1
+  hazards                              asked    1  answered    0  missing    1
+  links                                asked    6  answered    5  missing    1
+  min_age                              asked    5  answered    4  missing    1
+  signals                              asked    1  answered    0  missing    1
+  standing                             asked    1  answered    0  missing    1
+  weather                              asked    1  answered    0  missing    1
+  why                                  asked    1  answered    0  missing    1
+  at                                   asked    6  answered    6  missing    0
+  book_url                             asked    1  answered    1  missing    0
+  duration_min                         asked    1  answered    1  missing    0
+  name                                 asked    6  answered    6  missing    0
+  run_by                               asked    1  answered    1  missing    0
+  type                                 asked    6  answered    6  missing    0
+  window                               asked    2  answered    2  missing    0
