@@ -39,36 +39,49 @@ function MoreGlyph() {
 export function DraftRow({ row, collapsing, restored, chip, sync, onRemove }: Props) {
   const { draft, title } = row;
   const entries: MenuEntry[] = [
-    { label: row.chip ? 'Continue' : 'Open', icon: 'arrow', href: row.href },
+    // with the builder off an unbuilt draft opens nowhere: Remove is all the menu holds (PR-010)
+    ...(row.href ? [{ label: row.chip ? 'Continue' : 'Open', icon: 'arrow' as const, href: row.href }] : []),
     ...(row.editHref ? [{ label: 'Edit', icon: 'pencil' as const, href: row.editHref }] : []),
-    { label: 'Remove', icon: 'close', destructive: true, separatorBefore: true, onSelect: () => onRemove(row) },
+    { label: 'Remove', icon: 'close', destructive: true, separatorBefore: !!(row.href || row.editHref), onSelect: () => onRemove(row) },
   ];
   const syncWords = sync && !sync.bare ? CHIP_WORDS[sync.state] : null;
   const words = row.chip ?? (sync ? syncWords : chip ? CHIP_WORDS.device : null);
   const ring = (draft.identity ?? slugIdentity(draft.slug ?? draft.id)) as IdentityKey;
   const dated = draft.start !== null;
-  const state = row.chip ? ', draft, ready to build' : sync ? CHIP_NAME[sync.state] : chip ? ', on this device' : '';
+  const state = row.href === null ? ', draft, the planner is not open yet' : row.chip ? ', draft, ready to build' : sync ? CHIP_NAME[sync.state] : chip ? ', on this device' : '';
+  const inner = (
+    <>
+      <MineThumb space="trip" slug={draft.slug ?? draft.id} off icon="route" area="photo" ring={ring} />
+      <span className="crow-name">{title}</span>
+      <span className="crow-l2">{row.when}</span>
+      <span className="crow-l3">{row.who}</span>
+      {row.label ? <span className="crow-from">{row.label}</span> : null}
+      {words ? (
+        <span className="chip crow-chip">
+          {words}
+        </span>
+      ) : null}
+    </>
+  );
   return (
     <li className="crow" data-copy-id={row.id} data-draft="" data-collapsing={collapsing || undefined} data-restored={restored || undefined}>
       <div className="crow-inner">
-        <Link
-          className="crow-link"
-          data-chip={words ? true : undefined}
-          data-from={row.label ? true : undefined}
-          href={row.href}
-          aria-label={`${title}, ${dated ? `from ${row.when.replace(' · ', ', ')}` : 'no date'}${row.who ? `, ${row.who.replace(' · ', ', ')}` : ''}${row.label ? `, ${row.label}` : ''}${state}`}
-        >
-          <MineThumb space="trip" slug={draft.slug ?? draft.id} off icon="route" area="photo" ring={ring} />
-          <span className="crow-name">{title}</span>
-          <span className="crow-l2">{row.when}</span>
-          <span className="crow-l3">{row.who}</span>
-          {row.label ? <span className="crow-from">{row.label}</span> : null}
-          {words ? (
-            <span className="chip crow-chip" aria-hidden="true">
-              {words}
-            </span>
-          ) : null}
-        </Link>
+        {row.href === null ? (
+          // not a link: the row says what it is and why nothing opens (the same anatomy as a trip no longer listed)
+          <div className="crow-link" data-chip={words ? true : undefined}
+            data-from={row.label ? true : undefined} role="group" aria-label={`${title}, ${dated ? `from ${row.when.replace(' · ', ', ')}` : 'no date'}${row.who ? `, ${row.who.replace(' · ', ', ')}` : ''}${row.label ? `, ${row.label}` : ''}${state}`}>
+            {inner}
+          </div>
+        ) : (
+          <Link
+            className="crow-link"
+            data-chip={words ? true : undefined}
+            data-from={row.label ? true : undefined}
+            href={row.href}
+          >
+            {inner}
+          </Link>
+        )}
         <div className="crow-act">
           <Menu align="end" triggerClassName="crow-menu-btn" triggerLabel={`Actions for ${title}`} trigger={<MoreGlyph />} entries={entries} />
         </div>

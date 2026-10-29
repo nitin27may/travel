@@ -30,12 +30,38 @@ describe('the trip picker rows', () => {
   });
 });
 
+describe('the picker puts the trip nearest the place first (PR-001)', () => {
+  const rockies: CopyItem = { ...other, added: [] };
+  const vermont: CopyItem = { ...base, id: '9a1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b', slug: 'vermont-2028', title: 'Vermont', start: '2026-11-01' };
+  const bases = { 'rockies-2029': [[-116.18, 51.42], [-117.08, 51.18]] as [number, number][], 'dolomites-2027': [[11.85, 46.54]] as [number, number][], 'vermont-2028': [[-72.58, 44.26]] as [number, number][] };
+  const moraine: [number, number] = [-116.18, 51.32];
+  it('sorts near trips by distance and says which are far', () => {
+    const rows = pickRows([vermont, base, rockies], 'moraine-lake', '2026-10-28', null, { at: moraine, bases });
+    expect(rows.map((r) => r.row.title)).toEqual(['Rockies', 'Vermont', 'Dolomites']);
+    expect(rows.map((r) => r.far)).toEqual([false, true, true]);
+    expect(rows[0]!.km).toBeLessThan(20);
+  });
+  it('puts a trip whose bases are not known between near and far, in Mine order, and is Mine order with no point', () => {
+    const unknown = { ...bases } as Record<string, [number, number][]>;
+    delete unknown['dolomites-2027'];
+    expect(pickRows([vermont, base, rockies], 'moraine-lake', '2026-10-28', null, { at: moraine, bases: unknown }).map((r) => r.row.title)).toEqual(['Rockies', 'Dolomites', 'Vermont']);
+    expect(pickRows([vermont, base, rockies], 'moraine-lake', '2026-10-28').map((r) => r.row.title)).toEqual(['Vermont', 'Rockies', 'Dolomites']);
+  });
+  it('carries the public plan day of the place for a trip', () => {
+    const rows = pickRows([rockies], 'moraine-lake', '2026-10-28', null, { at: moraine, bases, planDays: { 'rockies-2029': 11 } });
+    expect(rows[0]!.planDay).toBe(11);
+  });
+});
+
 describe('In your trips', () => {
+  it('reads the public plan day when the copy names none', () => {
+    expect(inYourTrips([base], 'moraine-lake', ['dolomites-2027'], null, { 'dolomites-2027': 11 })).toEqual([{ id: base.id, title: 'Dolomites', day: null, planDay: 11 }]);
+  });
   it('names an exact day first, then a copy of a public trip that uses the place (no day), and nothing else', () => {
     const lines = inYourTrips([base, other, undated], 'moraine-lake', ['dolomites-2027']);
     expect(lines).toEqual([
-      { id: other.id, title: 'Rockies', day: 5 },
-      { id: base.id, title: 'Dolomites', day: null },
+      { id: other.id, title: 'Rockies', day: 5, planDay: null },
+      { id: base.id, title: 'Dolomites', day: null, planDay: null },
     ]);
     expect(inYourTrips([undated], 'moraine-lake', ['dolomites-2027'])).toEqual([]);
   });

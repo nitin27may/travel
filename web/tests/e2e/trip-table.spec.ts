@@ -10,6 +10,8 @@ const DOLOMITES = '/trips/dolomites-2027/';
 
 const view = (page: Page) => page.getByRole('radiogroup', { name: 'Days view' });
 const tables = (page: Page) => page.locator('table.dt');
+/** Time cells whose content is wider than the cell, on every table of the page. */
+const timeOverflow = (page: Page) => page.evaluate(() => [...document.querySelectorAll<HTMLElement>('.dt-time')].filter((el) => el.scrollWidth > el.clientWidth + 1).length);
 const overflow = (page: Page) => page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
 
 test.describe('the List | Table switch', () => {
@@ -79,23 +81,26 @@ test.describe('the List | Table switch', () => {
 test.describe('the tables at 1440', () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 
-  test('real table semantics: a caption naming the day, six column headers, the time a row header, and the table list equals the days', async ({ page, site }) => {
+  test('real table semantics: a caption naming the day, six column headers, the stop the row header, and the table list equals the days', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}?view=table`);
     const n = await page.locator('li.tl-day').count();
     await expect(tables(page)).toHaveCount(n);
     const day4 = page.locator('#day-4 table');
-    await expect(day4.locator('caption')).toContainText(/^DAY 04|^Day 04/i);
+    await expect(day4.locator('caption')).toContainText(/^Day 4/i);
     await expect(day4.locator('caption')).toContainText('driving');
-    await expect(day4.locator('thead th[scope="col"]')).toHaveText(['Time', 'What', 'Kind', 'Where', 'Takes', 'Notes, book']);
-    await expect(day4.locator('thead th:visible')).toHaveCount(6);
+    const heads = await day4.locator('thead th[scope="col"]').allTextContents();
+    // the Where column is drawn only when some stop of the trip has an area of its own (PR-016)
+    expect(heads).toEqual(heads.length === 6 ? ['Time', 'What', 'Kind', 'Where', 'Takes', 'Notes, book'] : ['Time', 'What', 'Kind', 'Takes', 'Notes, book']);
+    await expect(day4.locator('thead th:visible')).toHaveCount(heads.length);
     const rows = day4.locator('tbody tr');
     expect(await rows.count()).toBeGreaterThan(3);
-    await expect(rows.first().locator('th[scope="row"]')).toHaveText(/^~?\d\d:\d\d|^about/);
+    await expect(rows.first().locator('td.dt-time')).toHaveText(/^~?\d\d:\d\d|^about/);
+    await expect(rows.first().locator('th[scope="row"]')).toHaveClass(/dt-what/);
     // every table has its day in the caption, in order
     const caps = await page.locator('table.dt caption').allTextContents();
-    caps.forEach((c, i) => expect(c.toLowerCase()).toContain(`day ${String(i + 1).padStart(2, '0')}`));
+    caps.forEach((c, i) => expect(c.toLowerCase()).toContain(`day ${i + 1} `));
     // the rows stand in time order
-    const times = await day4.locator('tbody th[scope="row"]').allTextContents();
+    const times = await day4.locator('tbody td.dt-time').allTextContents();
     const clock = times.map((t) => /(\d\d):(\d\d)/.exec(t)).filter(Boolean).map((m) => Number(m![1]) * 60 + Number(m![2]));
     expect(clock).toEqual([...clock].sort((a, b) => a - b));
   });
@@ -112,7 +117,7 @@ test.describe('the tables at 1440', () => {
 
   test('a stop links to its place page', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}?view=table`);
-    const link = page.locator('#day-4 tbody td.dt-what a').first();
+    const link = page.locator('#day-4 tbody th.dt-what a').first();
     await expect(link).toHaveAttribute('href', /^\/places\/[a-z0-9-]+\/$/);
   });
 
@@ -192,9 +197,8 @@ for (const width of [320, 390]) {
       // no row is shorter than a touch target, and a time never wraps
       const rows = await day4.locator('tbody tr').evaluateAll((trs) => trs.map((t) => t.getBoundingClientRect().height));
       expect(Math.min(...rows)).toBeGreaterThanOrEqual(43);
-      // a time stays on one line
-      expect(await day4.locator('tbody th').first().evaluate((el) => (el.firstChild as HTMLElement | null) && el.getClientRects().length)).toBe(1);
-      expect(await day4.locator('tbody th').first().evaluate((el) => getComputedStyle(el).whiteSpace)).toBe('nowrap');
+      // a time never reaches the stop's name (PR-004): "about 19:00" breaks at its space, and no Time cell overflows its column
+      expect(await timeOverflow(page)).toBe(0);
       // every day, not only Day 4: nothing pokes out of its card
       const out = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('.dt-day')].filter((li) => li.scrollWidth > li.clientWidth + 1).length);
       expect(out).toBe(0);
@@ -216,23 +220,57 @@ for (const width of [320, 390]) {
   });
 }
 
+test.describe('the Time column holds sun-anchored times (PR-004)', () => {
+  for (const width of [320, 390, 640, 768, 1024, 1440, 1760]) {
+    test(`no Time cell overflows at ${width}, and a word time stands over its clock`, async ({ page, site }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`${site.url}${ROCKIES}?view=table`);
+      await expect(tables(page).first()).toBeVisible();
+      expect(await timeOverflow(page)).toBe(0);
+      const word = page.locator('td.dt-time', { hasText: /^about / }).first();
+      await expect(word).toBeVisible();
+      const [t, n] = await word.evaluate((el) => [el.getBoundingClientRect().right, (el.parentElement!.querySelector('.dt-what') as HTMLElement).getBoundingClientRect().left]);
+      expect(t).toBeLessThanOrEqual(n + 1);
+    });
+  }
+});
+
+test.describe('the Table takes the whole content width (PR-015)', () => {
+  for (const width of [1440, 1760]) {
+    test(`at ${width} the table is as wide as the Days panel, and the map is behind the Map button`, async ({ page, site }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`${site.url}${ROCKIES}?view=table`);
+      await expect(tables(page).first()).toBeVisible();
+      const panel = (await page.locator('#trip-panel-days').boundingBox())!;
+      const table = (await page.locator('#day-4 table').boundingBox())!;
+      expect(table.width).toBeGreaterThan(panel.width - 4);
+      expect(table.width).toBeGreaterThan(900);
+      const map = page.locator('.tl-mapcol');
+      await expect(map).toBeHidden();
+      await page.getByRole('button', { name: 'Map', exact: true }).click();
+      await expect(map).toBeVisible();
+    });
+  }
+});
+
 test.describe('the tables at 768', () => {
   test.use({ viewport: { width: 768, height: 1024 } });
-  test('six columns, no sideways scroll', async ({ page, site }) => {
+  test('every column, no sideways scroll', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}?view=table`);
     await expect(tables(page).first()).toBeVisible();
-    await expect(page.locator('#day-4 thead th:visible')).toHaveCount(6);
+    // Where is drawn only when some stop has an area of its own: the Rockies' stops have none, so five columns
+    await expect(page.locator('#day-4 thead th:visible')).toHaveCount(5);
     expect(await overflow(page)).toBeLessThanOrEqual(0);
   });
 });
 
 test.describe('print', () => {
   test.use({ viewport: { width: 1280, height: 900 } });
-  test('prints the six columns, hides the switch and the tools, and keeps the List unchanged', async ({ page, site }) => {
+  test('prints every column, hides the switch and the tools, and keeps the List unchanged', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}?view=table`);
     await expect(tables(page).first()).toBeVisible();
     await page.emulateMedia({ media: 'print' });
-    await expect(page.locator('#day-4 thead th:visible')).toHaveCount(6);
+    await expect(page.locator('#day-4 thead th:visible')).toHaveCount(5);
     await expect(page.locator('.tl-viewbar')).toBeHidden();
     await expect(page.locator('.dt-fold').first()).toBeHidden();
     await page.emulateMedia({ media: 'screen' });

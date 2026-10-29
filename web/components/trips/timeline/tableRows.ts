@@ -18,8 +18,10 @@ export interface TableRow {
   href: string | null;
   /** The kind word ("trail", "drive", "meal"). */
   kind: string;
-  /** The area of the place, or for a leg where it starts from. */
+  /** The area of the place itself; empty when it is not known (never the day's base: a road-trip day's stops are not all at its base). */
   where: string;
+  /** For a leg, where it starts from ("from Banff"); the What cell says it under the name, so the Where column stays the stop's area. */
+  from: string;
   /** Duration, and for a drive its distance: "55 min · 42 km". */
   takes: string;
   /** Short facts and notes, each its own line in the cell. */
@@ -37,7 +39,7 @@ export interface TableRow {
 export interface RowContext {
   /** The place's area by place slug (the trip's own Stops rows). */
   areaOf: (slug: string) => string | null;
-  /** The base the day sleeps at: a stop with no area of its own says where it is from here ("area or base"). */
+  /** The base the day sleeps at: the caption names it ("base Jasper townsite"); a row never takes it as its own area. */
   base?: string | null;
   /** "42 km" or "26 mi", in the visitor's unit. */
   distance: (km: number) => string;
@@ -84,7 +86,7 @@ export function rowOf(e: TimelineEntry, tl: DayTimeline, cx: RowContext): TableR
   const slug = e.at?.placeSlug ?? null;
   // a leg's start is named only when it is a short place name; a long description of a trailhead is not a column value
   const from = e.from?.name ?? '';
-  const where = leg ? (from.length <= 36 ? from : '') : ((slug && cx.areaOf(slug)) || (PRINTED_KINDS.has(e.kind) ? (cx.base ?? '') : ''));
+  const where = leg ? '' : (slug && cx.areaOf(slug)) || '';
   const name = /^Drive on to /.test(e.title) ? 'Drive on' : e.title;
   return {
     id: e.id,
@@ -92,7 +94,8 @@ export function rowOf(e: TimelineEntry, tl: DayTimeline, cx: RowContext): TableR
     name,
     href: slug && !quiet ? `/places/${slug}/` : null,
     kind: kindWord(e),
-    where: leg && where ? `from ${where}` : where,
+    where,
+    from: leg && from && from.length <= 36 ? `from ${from}` : '',
     takes: takes.join(' · '),
     notes,
     warns: tl.warnings.filter((w) => w.entryId === e.id).map((w) => w.message),

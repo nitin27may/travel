@@ -17,7 +17,9 @@ describe('a My trips row', () => {
   it('is one link named with its date, countdown, length and party, and has a menu button named for the trip', () => {
     const h = html();
     expect(h).toMatch(/href="\/trips\/dolomites-2027\/?\?p=family-6&(?:amp;)?a=2&(?:amp;)?view=day&(?:amp;)?mine=1"/);
-    expect(h).toContain('aria-label="Dolomites, from Sat 3 Jul 2027, in 251 days, 14 days, 2 adults, 1 child"');
+    // the link is named by its visible text, in order, with no aria-label rewriting it (PR-023: voice control says what it sees)
+    expect(h).not.toMatch(/<a [^>]*aria-label/);
+    expect(h).toMatch(/crow-name">Dolomites<\/span><span class="crow-l2">Sat 3 Jul 2027 · in 251 days<\/span><span class="crow-l3">14 days · 2 adults, 1 child<\/span><\/a>/);
     expect(h).toContain('aria-label="Actions for Dolomites"');
     expect(h).not.toContain('On this device');
   });
@@ -45,7 +47,7 @@ describe('copies/2 rows', () => {
   it('an undated copy reads "No date" and its link says "no date", not "from"', () => {
     const h = renderToStaticMarkup(<ul><CopyRow row={rowModel({ ...item, start: null }, '2026-10-25')} {...props} /></ul>);
     expect(h).toContain('>No date<');
-    expect(h).toContain('aria-label="Dolomites, no date, 14 days, 2 adults, 1 child"');
+    expect(h).not.toMatch(/<a [^>]*aria-label/);
   });
   it('the thumbnail carries the copy\'s ring colour, its slug\'s when it has none, and no ring for a trip no longer listed', () => {
     const given = renderToStaticMarkup(<ul><CopyRow row={rowModel({ ...item, identity: 'teal' }, '2026-10-25')} {...props} /></ul>);

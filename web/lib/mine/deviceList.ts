@@ -2,6 +2,7 @@ import { formatDate } from '@/lib/export/dates';
 import { TRIP_EDIT_ON } from '@/lib/trip-edit/flag';
 import { openTripHref } from '@/lib/trip-edit/keys';
 import type { CopyItem } from '@travel/core/schema/copies.ts';
+import { PLAN_BUILDER_ON } from './flag';
 import { partyText } from './party';
 import { convertedLabel, countdown, editHref, groupRows, NO_DATE, rowTitle } from './rows';
 import type { Group, RowModel } from './rows';
@@ -29,12 +30,15 @@ export interface DraftFacts {
 
 /** The chip a draft with no build carries (gap-analysis 2.6; FLOW TF13). */
 export const DRAFT_CHIP = 'Draft · ready to build';
+/** The chip of a draft that leads nowhere: the builder is off in this build (`planBuilder`), so `/plan/` is not there to open (PR-010). */
+export const DRAFT_CLOSED_CHIP = 'Draft · the planner is not open yet';
 
 export interface DraftRowModel {
   draft: DraftFacts;
   id: string;
   title: string;
-  href: string;
+  /** where the row opens; null when nothing can: an unbuilt draft while the builder is off is no link (PR-010) */
+  href: string | null;
   /** the row menu's Edit: only for a built draft, and only with `tripEdit` on */
   editHref: string | null;
   when: string;
@@ -50,10 +54,12 @@ export type DeviceRow = RowModel | DraftRowModel;
 export const isDraftRow = (r: DeviceRow): r is DraftRowModel => 'draft' in r;
 export const deviceRowId = (r: DeviceRow): string => (isDraftRow(r) ? r.id : r.item.id);
 
-export function draftRow(d: DraftFacts, today: string): DraftRowModel {
+export function draftRow(d: DraftFacts, today: string, builder: boolean = PLAN_BUILDER_ON): DraftRowModel {
   const title = d.title ?? (d.slug ? rowTitle({ title: '', slug: d.slug }) : 'Your trip');
   // a built draft opens as a trip (read mode on its days); with no build, or with `tripEdit` off, the builder finishes it
   const opens = d.built && TRIP_EDIT_ON;
+  // the builder's page is a 404 with `planBuilder` off: a draft that only the builder can open is shown as it is, with no link
+  const href = opens ? openTripHref(d.id) : builder ? `/plan/?draft=${d.id}&s=4` : null;
   const party = d.adults !== null ? partyText({ adults: d.adults, children: d.children }) : '';
   const who = [d.days ? `${d.days} ${d.days === 1 ? 'day' : 'days'}` : '', party].filter(Boolean).join(' · ');
   const base = {
@@ -61,10 +67,10 @@ export function draftRow(d: DraftFacts, today: string): DraftRowModel {
     id: d.id,
     title,
     // the builder's address, written out: Mine may not import the builder (tests/mine/device-list.test.ts pins it to lib/plan/keys.ts `draftHref`)
-    href: opens ? openTripHref(d.id) : `/plan/?draft=${d.id}&s=4`,
+    href,
     editHref: opens ? editHref(d.id) : null,
     who,
-    chip: d.built ? null : DRAFT_CHIP,
+    chip: href === null ? DRAFT_CLOSED_CHIP : d.built ? null : DRAFT_CHIP,
     label: d.from ? convertedLabel(d.from) : null,
   };
   if (d.start === null) return { ...base, when: NO_DATE, group: 'nodate' };
@@ -80,14 +86,14 @@ const titleOf = (r: DeviceRow): string => r.title;
  * Every trip on the device once. A draft whose id is already a copy (or an account trip) is not listed again, so a device that holds
  * the same document under both keys shows one row. Upcoming soonest first, No date newest first, Past most recent first.
  */
-export function groupDevice(items: readonly CopyItem[], drafts: readonly DraftFacts[], today: string): { upcoming: DeviceRow[]; nodate: DeviceRow[]; past: DeviceRow[] } {
+export function groupDevice(items: readonly CopyItem[], drafts: readonly DraftFacts[], today: string, builder: boolean = PLAN_BUILDER_ON): { upcoming: DeviceRow[]; nodate: DeviceRow[]; past: DeviceRow[] } {
   const g = groupRows(items, today);
   const have = new Set(items.map((i) => i.id));
   const seen = new Set<string>();
   const extra = drafts.flatMap((d) => {
     if (have.has(d.id) || seen.has(d.id)) return [];
     seen.add(d.id);
-    return [draftRow(d, today)];
+    return [draftRow(d, today, builder)];
   });
   const part = (k: Group): DeviceRow[] => [...g[k], ...extra.filter((r) => r.group === k)];
   return {

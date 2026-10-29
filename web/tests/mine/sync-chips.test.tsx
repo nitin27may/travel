@@ -33,23 +33,22 @@ describe('a signed-in row', () => {
     const h = html('quiet');
     expect(h).not.toContain('crow-chip');
     expect(h).not.toContain('crow-retry');
-    expect(h).toContain(', in your account"');
+    expect(h).toContain('<span class="sr-only">, in your account</span></a>');
   });
   it('syncing: the chip with the small spinner inside the link; reduced motion stops the spin in the css', () => {
     const h = html('syncing');
     expect(h).toMatch(/<a [^>]*data-chip[^>]*>.*btn-spin crow-spin.*Syncing<\/span><\/a>/);
-    expect(h).toContain(', syncing"');
+    expect(h).not.toMatch(/<a [^>]*aria-label/);
   });
   it('offline: "Not synced yet" with a clock mark (never colour alone)', () => {
     const h = html('offline');
     expect(h).toMatch(/<a [^>]*data-chip[^>]*>.*<svg.*Not synced yet<\/span><\/a>/);
-    expect(h).toContain(', not synced yet, will sync when online"');
+    expect(h).not.toMatch(/<a [^>]*aria-label/);
     expect(h).not.toContain('crow-retry');
   });
   it('retry: a button beside the link (a button cannot sit in a link), with an icon and words, named for the trip', () => {
     const h = html('retry');
     expect(h).toMatch(/<button type="button" class="crow-retry" aria-label="Not synced\. Retry sending changes to Dolomites"[^>]*><span class="chip chip-caution"><svg.*Not synced · Retry<\/span><\/button>/);
-    expect(h).toContain(', not synced"');
     const link = /<a [^>]*>.*<\/a>/.exec(h)![0];
     expect(link).not.toContain('<button');
     expect(link).toContain('data-retry');
@@ -57,7 +56,7 @@ describe('a signed-in row', () => {
   it('device: "On this device", as today', () => {
     const h = html('device');
     expect(h).toContain('On this device');
-    expect(h).toContain(', on this device only"');
+    expect(h).not.toMatch(/<a [^>]*aria-label/);
   });
 });
 
@@ -66,7 +65,7 @@ describe('review ACCT-PR: bare chips (SF10) and the link-only row (MF1)', () => 
     const h = renderToStaticMarkup(<ul><CopyRow row={rowModel(item, '2026-10-25')} {...props} sync={{ state: 'device', bare: true }} /></ul>);
     expect(h).not.toContain('crow-chip');
     expect(h).not.toContain('data-chip');
-    expect(h).toContain(', on this device only"');
+    expect(h).toContain('<span class="sr-only">, on this device only</span></a>');
   });
   it('link only: no menu and no Remove; the note is a fourth line and part of the name', () => {
     const h = renderToStaticMarkup(<ul><CopyRow row={rowModel(item, '2026-10-25')} linkOnly note="Changed 24 Oct" /></ul>);
@@ -74,7 +73,6 @@ describe('review ACCT-PR: bare chips (SF10) and the link-only row (MF1)', () => 
     expect(h).not.toContain('Actions for');
     expect(h).toContain('data-link-only');
     expect(h).toMatch(/<a [^>]*data-chip[^>]*>.*<span class="crow-note">Changed 24 Oct<\/span><\/a>/);
-    expect(h).toContain(', Changed 24 Oct"');
     expect(h).toMatch(/href="\/trips\/dolomites-2027\/?\?p=family-6&amp;a=2&amp;view=day&amp;mine=1"/);
   });
 });

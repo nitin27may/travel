@@ -53,9 +53,6 @@ a.crow-link:focus-visible { outline: var(--focus-ring); outline-offset: -3px; }
   .mt-list { columns: 2; column-gap: var(--s-8); border-bottom: 1px solid var(--line); }
   .mt-list:has(> .crow:only-child) { columns: 1; }
   .crow { break-inside: avoid; border-top: 1px solid var(--line); border-bottom: 0; }
-  /* the count sits after the label: "Upcoming · 3" */
-  .mt-head:not(.mt-head-past) { justify-content: flex-start; gap: var(--s-2); }
-  .mt-head:not(.mt-head-past) .mt-count::before { content: '\00b7\00a0'; }
 }
 @media (prefers-reduced-motion: reduce) {
   .crow, .mt-fold, .mt-caret, .mt-fold > .mt-list { transition: none; }

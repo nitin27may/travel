@@ -8,10 +8,12 @@ import { Button } from '@/components/ui/Button';
 import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
 import { KindGlyph } from '@/components/ui/KindGlyph';
+import { useToast } from '@/components/ui/Toast';
 import type { AddCandidate } from '@/components/trips/timeline/model';
 import { PAGE_SIZE, TRIP_EDIT_UI } from '@/lib/config/product';
 import { usePrefs } from '@/lib/format/prefs';
 import { formatDistance } from '@/lib/format/units';
+import { showDay } from '@/lib/mine/landing';
 import { dayDate } from '@/lib/trip-edit/moveFit';
 import { addPlaceOp } from '@/lib/trip-edit/built';
 import { dayRef, movedWords, moveToDayOps, newOpId } from '@/lib/trip-edit/stopOps';
@@ -73,12 +75,23 @@ function Pinned({ f, children }: { f: Found; children?: React.ReactNode }) {
 
 function FarLine({ f, p }: { f: Found; p: PickerProps }) {
   const [prefs] = usePrefs();
+  const { toast } = useToast();
+  const [saved, setSaved] = useState(false);
   const km = farKmOf(f.lat !== null && f.lon !== null ? { lat: f.lat, lon: f.lon } : null, p.model);
   const href = newTripHref(f.slug);
+  // a far place can still be kept: the heart, with its own words and Undo (patterns 3.9); never a stop of this trip (ruling C5)
+  const keep = () => {
+    setSaved(true);
+    void import('@/components/trip-picker/heart').then((m) => m.saveWithoutTrip({ slug: f.slug, name: f.name }, toast));
+  };
   return (
     <div className="add-far">
-      <p className="add-far-line">{f.name} is {km !== null ? formatDistance(km, prefs.distance) : 'far'} from this trip&apos;s bases.</p>
-      {href ? <a className="btn" href={href}>Start a new trip with {f.name}</a> : null}
+      <p className="add-far-line">{f.name} is {km !== null ? formatDistance(km, prefs.distance) : 'far'} from this trip&apos;s bases, so it cannot go on one of its days.</p>
+      <div className="add-far-acts">
+        <a className="btn btn-primary" href={`/places/${f.slug}/`}>Back to {f.name}</a>
+        <Button disabled={saved} onClick={keep}>{saved ? 'Saved' : 'Save without a trip'}</Button>
+        {href ? <a className="btn" href={href}>Start a new trip with {f.name}</a> : null}
+      </div>
     </div>
   );
 }
@@ -95,6 +108,8 @@ function OnePlace({ place: f, fitter, p, back }: { place: Found; fitter: Fitter 
   const [limit, setLimit] = useState<number>(PAGE_SIZE.list);
   // the day a full day's row points to (review STEP2-PRV PR-003 (b)): the best one that is not full, never the full day itself
   const bestOpen = rows?.find((r) => r.fit.state !== 'full' && on?.day !== r.n)?.n ?? null;
+  // a place already on the trip leads with where it is; Move to a day is one press behind that (README ruling C5, PR-006)
+  const [moving, setMoving] = useState(false);
   const add = (day: number) => {
     if (!fitter) return;
     let ops: PlanOp[];
@@ -107,7 +122,10 @@ function OnePlace({ place: f, fitter, p, back }: { place: Found; fitter: Fitter 
       ops = [addPlaceOp(p.doc, dayRef(p.doc, day), f.slug, f.name, newOpId())];
       label = `Added ${f.name} to Day ${day}`;
     }
-    if (p.commit(ops, label)) setLast({ label, day });
+    if (p.commit(ops, label)) {
+      setLast({ label, day });
+      showDay(day);
+    }
   };
   return (
     <div className="add-picker">
@@ -121,7 +139,16 @@ function OnePlace({ place: f, fitter, p, back }: { place: Found; fitter: Fitter 
           </p>
         ) : null}
         {!far && !rows ? <p className="add-empty" role="status">Checking each day</p> : null}
-        {rows ? (
+        {on && !moving && !far ? (
+          <section className="add-group" aria-labelledby="add-h-on">
+            <h3 id="add-h-on" className="add-h">On Day {on.day} of this trip</h3>
+            <div className="add-far-acts">
+              <a className="btn btn-primary" href={`#day-${on.day}`} onClick={(e) => { e.preventDefault(); showDay(on.day); p.onClose(); }}>Open Day {on.day}</a>
+              <Button onClick={() => setMoving(true)}>Move to another day</Button>
+            </div>
+          </section>
+        ) : null}
+        {rows && !(on && !moving) ? (
           <section className="add-group" aria-labelledby="add-h-days">
             <h3 id="add-h-days" className="add-h">{on ? `On Day ${on.day} now. Move it to` : 'Add it to a day'}</h3>
             <ul className="add-list">
@@ -242,7 +269,10 @@ function Park({ park, fitter, p }: { park: Found; fitter: Fitter | null; p: Pick
     if (!r.cand || !r.slug) return;
     if (!p.model.addables[r.slug]) p.register(r.cand);
     const label = `Added ${r.name} to Day ${day}`;
-    if (p.commit([addPlaceOp(p.doc, dayRef(p.doc, day), r.slug, r.name, newOpId())], label)) setLast({ label });
+    if (p.commit([addPlaceOp(p.doc, dayRef(p.doc, day), r.slug, r.name, newOpId())], label)) {
+      setLast({ label });
+      showDay(day);
+    }
   };
 
   if (pick) {

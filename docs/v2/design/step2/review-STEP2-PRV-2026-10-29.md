@@ -35,6 +35,28 @@ was changed.
 
 Counts: 4 must-fix, 14 should-fix, 8 nice-to-have.
 
+## Fix status (STEP2-PRV-PRFA, 29 Oct 2026, branch `prv/PRFA`)
+
+Fixed with before and after shots in `PRV-PRFA-shots/`. PR-003, PR-011, PR-012, PR-013 and PR-026 belong to PRFB and the places template.
+
+| Row | Status | How |
+|---|---|---|
+| PR-001 | fixed | The picker ranks by the nearest base: near trips by distance, trips with no known points, then "Far from <place>" ones. Base points are a small device cache (`travel.copy-bases.local`, `web/lib/mine/bases.ts`), written when a copy is made and looked up once from the trip's public export for a copy made before; no change to `copies/2` |
+| PR-002 | fixed | A far row says "Open trip"; the add picker's far state offers Back to the place, Save without a trip, and the builder link when `planBuilder` is on |
+| PR-004 | fixed | A word time breaks at its space in a wider Time column; a Playwright check at 320 to 1760 |
+| PR-005 | fixed | `edit` is spread only with the flag on; 436 of 439 flag-off place pages lost the 24 B prop and none carries it |
+| PR-006 | fixed | "On Day 11 in this trip" and Open Day 11; the arrival leads with it and puts Move behind a button |
+| PR-007 | fixed | Title "Add to a trip", place name above the rows, full snap from three rows, no size buttons |
+| PR-008 | fixed | A copy lands with the Days under the sticky line; an add shows its day (`#day-N`) |
+| PR-009 | fixed | "No date yet" on the cover line, the Starts stat and the Summary; README 5.1 |
+| PR-010 | fixed | With `planBuilder` off an unbuilt draft is not a link, says "Draft · the planner is not open yet", and its menu is Remove |
+| PR-014 | fixed | 44 px |
+| PR-015 | fixed | From 1024 px the Table takes the full content width and the map is behind the Map button |
+| PR-016 | fixed | Where is the stop's own area, empty when unknown (the column is dropped when no stop has one); the base is in the caption |
+| PR-017 | fixed | Modal sheet plus a Tab wrap at both ends |
+| PR-018 | fixed | The cover kicker sits on a header-coloured pill (about 8:1 over white) on /t/ and on place covers |
+| PR-019 to PR-025 | fixed | Plan day in the "In your copy" line; a damaged store says so; a scrim on the side sheet; own icon for Change dates (Add to calendar uses the `event` glyph, no plus variant in the set); row names from visible text; group counts right at every width; the stop is the row header and the caption reads "Day 4" |
+
 ## How this was reviewed
 
 - **Builds.** Three production builds (`pnpm --dir web build`), each with `HOME_POINT_LAT=10.5 HOME_POINT_LON=-140.5` and no

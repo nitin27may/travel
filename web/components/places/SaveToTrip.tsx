@@ -18,6 +18,10 @@ export interface EditProps {
   /** a protected area or range: the picker offers its members, never the area itself */
   park: boolean;
   trips: string[];
+  /** the place's point, [lon, lat] to 0.01 degree: the picker puts the trip nearest it first (PR-001) */
+  at?: [number, number];
+  /** the day of the public plan that holds the place, by trip slug (PR-006) */
+  days?: Record<string, number>;
 }
 
 /**
@@ -73,8 +77,8 @@ export function SaveToTrip({ url, slug, formats, primary = false, edit }: { url:
       <Button variant="primary" className={primary ? 'pl-primary' : undefined} aria-expanded={open} aria-controls={id} onClick={() => setOpen((o) => !o)}>
         <Icon name="plus" size={15} /> Save to a trip
       </Button>
-      {picking && open ? <TripPickerLazy place={{ slug, name: placeName(slug), park: edit.park }} onClose={() => setOpen(false)} /> : null}
-      {picking && line ? createPortal(<InYourTripsLazy slug={slug} publicTrips={edit.trips} />, line) : null}
+      {picking && open ? <TripPickerLazy place={{ slug, name: placeName(slug), park: edit.park, at: edit.at, planDays: edit.days }} onClose={() => setOpen(false)} /> : null}
+      {picking && line ? createPortal(<InYourTripsLazy slug={slug} publicTrips={edit.trips} planDays={edit.days} />, line) : null}
       {!picking && open ? (
         <div id={id} className="pl-save-note" role="status">
           <p>Saving to a trip comes with the planner, which is not open yet. For now, copy the link or take the GPX.</p>

@@ -62,10 +62,10 @@ export function CopyRow({ row, unlisted, collapsing, restored, chip, sync, linkO
     ...(TRIP_EDIT_ON ? [{ label: 'Edit', icon: 'pencil' as const, href: editHref(item.id) }] : []),
     // an undated copy has nothing to put in a calendar: the entry stays, disabled, and says what unlocks it (SW-008; ExportMenu's words)
     dated
-      ? { label: 'Add to calendar', icon: 'calendar', onSelect: () => onCalendar?.(row) }
+      ? { label: 'Add to calendar', icon: 'event', onSelect: () => onCalendar?.(row) }
       : { label: 'Calendar: add dates first', icon: 'calendar', disabled: true },
     { label: 'Print', icon: 'print', onSelect: () => onPrint?.(row) },
-    { label: dated ? 'Change dates' : 'Add dates', icon: 'pencil', onSelect: () => onChangeDates?.(row) },
+    { label: dated ? 'Change dates' : 'Add dates', icon: 'calendar', onSelect: () => onChangeDates?.(row) },
     { label: 'Remove', icon: 'close', destructive: true, separatorBefore: true, onSelect: () => onRemove?.(row) },
   ];
   // the copy's own snapshot photo first; a copy made before photos were kept asks the trip's small card file as the row nears the screen
@@ -93,7 +93,6 @@ export function CopyRow({ row, unlisted, collapsing, restored, chip, sync, linkO
             data-chip={inLink || undefined}
             data-retry={retry || undefined}
             href={row.href}
-            aria-label={`${title}, ${dated ? `from ${row.when.replace(' · ', ', ')}` : 'no date'}${row.who ? `, ${row.who.replace(' · ', ', ')}` : ''}${sync ? CHIP_NAME[sync.state] : chip ? ', on this device' : ''}${note ? `, ${note}` : ''}`}
           >
             {photo}
             <span className="crow-name">{title}</span>
@@ -101,16 +100,18 @@ export function CopyRow({ row, unlisted, collapsing, restored, chip, sync, linkO
             <span className="crow-l3">{row.who}</span>
             {sync ? (
               syncWords !== null && sync.state !== 'retry' ? (
-                <span className="chip crow-chip" data-sync={sync.state} aria-hidden="true">
+                <span className="chip crow-chip" data-sync={sync.state}>
                   {sync.state === 'syncing' ? <span className="btn-spin crow-spin" /> : sync.state === 'offline' ? <Icon name="clock" size={12} /> : null}
                   {syncWords}
                 </span>
               ) : null
             ) : chip ? (
-              <span className="chip crow-chip" aria-hidden="true">On this device</span>
+              <span className="chip crow-chip">On this device</span>
             ) : note ? (
               <span className="crow-note">{note}</span>
             ) : null}
+            {/* a state the row draws no chip for is still part of its name, after the visible text (PR-023: the name starts with what is on screen) */}
+            {sync && syncWords === null ? <span className="sr-only">{CHIP_NAME[sync.state]}</span> : null}
           </Link>
         )}
         {retry && !unlisted ? (
