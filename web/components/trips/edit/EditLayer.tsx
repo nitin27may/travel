@@ -37,6 +37,10 @@ import { SummaryChecks } from './warnings/WarnCount';
 import { Button } from '@/components/ui/Button';
 import { addDayOps, addedDayNumber, dayBookings, dayChanged, dayCount, dayNoteOf, dayNoteOps, droppedWords, dropDayOps, resetDayOps, versionOps, type DropHow } from './day/dayOps';
 import { useEditSession } from './useEditSession';
+import { keepOps, mustOps } from '@/lib/trip-edit/built';
+import { BuiltDayMenu, type BuiltDayAct } from './built/BuiltDayMenu';
+import { BuiltDayStatus } from './built/BuiltDayStatus';
+import { addBuiltDayOps, builtDayCount, builtDayNoteOps, droppedBuiltWords, dropBuiltDayOps, moveBuiltDayOps, resetBuiltDay } from './built/dayOps';
 import './add/add.css';
 import './edit.css';
 
@@ -183,7 +187,14 @@ export function EditLayer(p: LayerProps) {
         if (commit(removeOps(doc, e), removedWords(e))) focusAfter({ next, day: e.day });
       },
       moveTo: (e: TimelineEntry, day: number, after: string | null) => {
-        if (commit(moveToDayOps(doc, e, day, after), movedWords(e, day))) focusAfter({ entry: `${day}:${e.id}` });
+        // a built stop the person moves is kept there (edit-mode-spec 5: "Moved Seceda to Day 4 · kept there · Undo")
+        if (commit(moveToDayOps(doc, e, day, after), `${movedWords(e, day)}${doc.template ? '' : ' · kept there'}`)) focusAfter({ entry: `${day}:${e.id}` });
+      },
+      keep: (e: TimelineEntry, on: boolean) => {
+        commit(keepOps(e.id, on, newOpId), on ? `Kept ${e.title} on Day ${e.day}` : `${e.title} can move on a rebuild`);
+      },
+      must: (e: TimelineEntry, on: boolean) => {
+        commit(mustOps(e.id, on, newOpId), on ? `${e.title} is a must see` : `${e.title} is no longer a must see`);
       },
       nudge: (e: TimelineEntry, dir: -1 | 1, dayEntries: readonly TimelineEntry[]) => {
         const ops = nudgeOps(doc, e, stopsOfDay(dayEntries), dir);
@@ -237,6 +248,29 @@ export function EditLayer(p: LayerProps) {
       version: (n: number, key: 'A' | 'B' | 'C' | null) => {
         const ops = versionOps(doc, n, key);
         if (ops) commit(ops, key ? `Day ${n} now uses version ${key}` : `Day ${n} is back to the version chosen for your settings`);
+      },
+    }),
+    [doc, commit, afterDays],
+  );
+  // a built trip's day actions (STEP2-B2; edit-mode-spec 6, 13.1 built column)
+  const builtDayAct = useMemo<BuiltDayAct>(
+    () => ({
+      add: (n) => {
+        if (commit(addBuiltDayOps(n, newOpId), `Added Day ${n + 1}`)) afterDays(`#day-${n + 1} .tl-add-open`);
+      },
+      drop: (n, how, stops) => {
+        if (commit(dropBuiltDayOps(n, how, newOpId), droppedBuiltWords(n, how, stops))) afterDays(`#day-${Math.max(1, n - 1)} .day-more`);
+      },
+      reset: (n) => {
+        const ops = resetBuiltDay(doc, n, newOpId);
+        if (ops) commit(ops, `Day ${n} is back to the built plan`);
+      },
+      note: (n, text) => {
+        commit(builtDayNoteOps(n, text, newOpId), text.trim() ? `Saved a note on Day ${n}` : `Removed the note on Day ${n}`);
+      },
+      move: (n, dir) => {
+        const ops = moveBuiltDayOps(doc, n, dir, newOpId);
+        if (ops && commit(ops, `Moved Day ${n} ${dir === -1 ? 'earlier' : 'later'}`)) afterDays(`#day-${n + dir} .day-more`);
       },
     }),
     [doc, commit, afterDays],
@@ -295,7 +329,16 @@ export function EditLayer(p: LayerProps) {
             graded: (w: { code: string; message: string }) => shownLevel(w) !== null,
             dayStatus: (n: number, ctx: DayCtx) => <DayStatus n={n} note={dayNoteOf(doc, n)} tl={ctx.tl} plan={{ doc, model, profile: p.profile, start: p.start }} canEdit={canEdit} act={{ moveTo: act.moveTo, remove: act.remove }} />,
           }
-        : {}),
+        : {
+            dayMenu: (n: number, ctx: DayCtx) => <BuiltDayMenu n={n} doc={doc} base={ctx.day.base ?? null} start={p.start} act={builtDayAct} />,
+            dayStatus: (n: number) => <BuiltDayStatus n={n} doc={doc} />,
+            emptyDay: (n: number) =>
+              builtDayCount(doc) > 1 ? (
+                <Button size="sm" variant="ghost" className="edit-drop-empty" onClick={() => builtDayAct.drop(n, { kind: 'remove' }, 0)}>
+                  Drop Day {n}
+                </Button>
+              ) : null,
+          }),
       trail: (e, dayEntries) => (
         <StopMenu
           entry={e}
@@ -305,7 +348,7 @@ export function EditLayer(p: LayerProps) {
           defaults={p.defaults}
           profile={p.profile}
           start={p.start}
-          act={{ remove: (x) => act.remove(x, dayEntries), moveTo: act.moveTo, nudge: (x, d) => act.nudge(x, d, dayEntries), maybe: act.maybe, note: act.note, swap: act.swap, ...(copy ? { swapNearby: openSwap } : {}) }}
+          act={{ remove: (x) => act.remove(x, dayEntries), moveTo: act.moveTo, nudge: (x, d) => act.nudge(x, d, dayEntries), maybe: act.maybe, note: act.note, swap: act.swap, ...(copy ? { swapNearby: openSwap } : { keep: act.keep, must: act.must }) }}
         />
       ),
     };
@@ -328,10 +371,10 @@ export function EditLayer(p: LayerProps) {
         />
       ),
       commit: (ops, label) => commit(ops, label),
-      checks: copy ? <SummaryChecks /> : null,
-      cover: <TripMenu id={p.id} slug={p.slug} title={p.title} where={p.where} copy={copy} changes={changes} canUndo={s.canUndo} canRedo={s.canRedo} onUndo={undo} onRedo={redo} onReset={resetAll} />,
+      checks: <SummaryChecks />,
+      cover: <TripMenu id={p.id} slug={p.slug} title={p.title} where={p.where} copy={copy} changes={changes} canUndo={s.canUndo} canRedo={s.canRedo} onUndo={undo} onRedo={redo} onReset={resetAll} {...(copy ? {} : { onRebuild: p.onSettings })} />,
     };
-  }, [canEdit, openPicker, openSwap, doc, model, p.defaults, p.profile, p.start, p.bookings, dayAct, addedFor, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, commit, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
+  }, [canEdit, openPicker, openSwap, doc, model, p.defaults, p.profile, p.start, p.bookings, dayAct, builtDayAct, addedFor, p.word, p.retry, p.onSettings, p.onDone, p.id, p.title, p.where, act, commit, s.canUndo, s.canRedo, s.undoLabel, s.redoLabel, undo, redo, copy, changes, resetAll]);
   useEffect(() => {
     publish(published);
   }, [published, publish]);

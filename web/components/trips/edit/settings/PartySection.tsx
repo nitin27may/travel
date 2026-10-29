@@ -15,21 +15,24 @@ const PACES = [
   { value: 'full', label: 'Full' },
 ] as const;
 
+export type Pace = Profile['pace'];
+
 interface Props {
   doc: PlanDraft;
   defaults: Profile;
   run: (ops: PlanOp[], label: string) => boolean;
+  /** A built trip's pace (STEP2-B2): staged, then applied with a rebuild by the plan section below; null is the trip's own */
+  pace?: { value: Pace | null; set: (p: Pace | null) => void };
 }
 
 /**
  * Who is going (the copy sheet's own Travellers block, so the two never differ) and Pace. A copy re-flows from our plan for the new party at
  * once and the days follow it unless the person chose a version (edit-mode-spec 9.3); the trip's party never changes `travel.party` (EM-B).
  */
-/** A built trip's pace changes the days, so it waits for Rebuild (STEP2-B2); the words say why, they do not hide the row. */
-const PACE_WAITS = 'Pace changes the days, so it waits for Rebuild. Not available yet.';
+/** A built trip's pace changes the days, so a change is staged and the plan section's Apply rebuilds them (STEP2-B2). */
+const PACE_REBUILDS = 'Pace changes the days: Apply under The plan rebuilds them.';
 
-export function PartySection({ doc, defaults, run }: Props) {
-  const built = !doc.template;
+export function PartySection({ doc, defaults, run, pace: built }: Props) {
   const profile = profileOfDraft(doc, defaults);
   const party = doc.travellers ?? { adults: profile.adults, children: profile.youngest === null ? [] : [profile.youngest] };
   const set = (next: { adults: number; children: number[] }, pace: Profile['pace'], label: string) => run(partyOps(doc, defaults, next, pace, newOpId), label);
@@ -49,11 +52,11 @@ export function PartySection({ doc, defaults, run }: Props) {
         <span className="field-label" id="own-pace-l">Pace</span>
         <Segmented
           label="Pace"
-          segments={PACES.map((s) => ({ ...s, ...(built ? { disabled: true, title: PACE_WAITS } : {}) }))}
-          value={profile.pace}
-          onChange={(pace) => set(party, pace, `Pace is now ${PACES.find((x) => x.value === pace)!.label}`)}
+          segments={[...PACES]}
+          value={built ? (built.value ?? profile.pace) : profile.pace}
+          onChange={(pace) => (built ? built.set(pace === doc.pace ? null : pace) : set(party, pace, `Pace is now ${PACES.find((x) => x.value === pace)!.label}`))}
         />
-        {built ? <p className="own-set-note" id="own-pace-why">{PACE_WAITS}</p> : null}
+        {built ? <p className="own-set-note" id="own-pace-why">{PACE_REBUILDS}</p> : null}
       </div>
     </>
   );

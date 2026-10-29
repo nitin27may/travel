@@ -15,14 +15,15 @@ import type { TripPageModel } from '@/components/trips/model';
 import { lengthLabel } from '@/components/trips/format';
 import { useToast } from '@/components/ui/Toast';
 import { formatDate } from '@/lib/export/dates';
-import { getOwn, publishOwn } from '@/lib/export/ownState';
+import { builtExportOf, getOwn, publishOwn } from '@/lib/export/ownState';
 import { getTimeline } from '@/lib/export/timelineState';
 import { mineStorage } from '@/lib/mine/storage';
 import { partyText } from '@travel/core/trips/partyWords.ts';
-import { builtFacts, missRows, placedBuild, type MissRow } from '@/lib/trip-edit/built';
+import { BUILT_KEY, BUILT_SHARE_TITLE, builtFacts, builtShareUrl, missRows, placedBuild, type MissRow } from '@/lib/trip-edit/built';
 import { newOpId } from '@/lib/trip-edit/stopOps';
 import { BuiltSummary } from '../built/BuiltSummary';
 import { JustBuilt } from '../built/JustBuilt';
+import { ReflowOffer } from '../built/ReflowOffer';
 import { useJustBuilt } from '../built/useJustBuilt';
 import { changeCount, changesLine, endOf, entryMarks, kickerWords } from '@/lib/trip-edit/marks';
 import { findCopy } from '@/lib/trip-edit/open';
@@ -162,18 +163,20 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
 
   // the export, the print and the Stops tab read the person's trip from here (STEP2-E6); the builder is its own chunk, fetched once the page is up
   useEffect(() => () => publishOwn(null), []);
+  // a built trip has no public slug: the page, the export and the print key it by BUILT_KEY, never by its private id (ES-008)
+  const key = slug ?? (doc && !doc.template ? BUILT_KEY : null);
   useEffect(() => {
-    if (!doc || !slug || !timelineModel) return;
+    if (!doc || !key || !timelineModel) return;
     let live = true;
     void import('@/lib/export/own').then((o) => {
       if (!live) return;
-      const ourTitle = plan?.ours?.name ?? words(slug);
+      const ourTitle = slug ? (plan?.ours?.name ?? words(slug)) : null;
       const profile = profileOfDraft(doc, { ...timelineModel.defaultProfile, adults: 2 });
       publishOwn(
         o.ownTripOf({
           doc,
-          slug,
-          title: doc.title ?? copyTitle ?? ourTitle,
+          slug: key,
+          title: doc.title ?? copyTitle ?? ourTitle ?? 'Your trip',
           ourTitle,
           party: doc.travellers ?? { adults: profile.adults, children: profile.youngest === null ? [] : [profile.youngest] },
           days: timelineModel.days,
@@ -184,7 +187,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
     return () => {
       live = false;
     };
-  }, [doc, slug, timelineModel, plan, copyTitle]);
+  }, [doc, slug, key, timelineModel, plan, copyTitle]);
 
   // the Stops tab's count from the person's days; a leaf reads the stores so a timeline publish does not re-render this page
   const [editedStops, setEditedStops] = useState<number | null>(null);
@@ -207,7 +210,8 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   const end = endOf(doc);
   const changes = changesLine(changeCount(doc));
   // the public trip's address, never this page's: `/t/<id>/` is private (review STEP2-ES ES-008)
-  const publicUrl = slug ? `${location.origin}/trips/${slug}/` : null;
+  // a built trip shares the builder's keys (public refs only, trip-builder 2.5; edit-mode-spec 14)
+  const publicUrl = slug ? `${location.origin}/trips/${slug}/` : builtShareUrl(doc, location.origin);
 
   const stops = editedStops ?? model.sections.reduce((n, s) => n + s.rows.length, 0);
   const photos = model.gallery.length >= PHOTOS_TAB_MIN ? model.gallery.length : 0;
@@ -216,14 +220,16 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   const available: TripTab[] = tripTabsFor({ days, stops, bookings: book.length, photos });
   const counts: Partial<Record<TripTab, number>> = { stops, photos, ...(toBook > 0 ? { bookings: toBook } : {}) };
 
+  // a built trip's export model is made on the device from its days (never fetched under its id)
+  const device = !doc.template ? builtExportOf({ id: BUILT_KEY, title, origin: location.origin, nights: doc.nights ?? Math.max(0, days - 1), days: model.days.map((d) => ({ n: d.n, title: d.title, base: d.base })) }) : undefined;
   const calendar = async () => {
-    if (!doc.start || !slug) return;
+    if (!doc.start || !key) return;
     try {
       const c = await import('@/lib/export/client');
-      const d = await c.loadExport('trip', slug);
+      const d = device ?? (await c.loadExport('trip', slug!));
       // the person's calendar is made from the timelines on the page (their removals, additions and notes), not from the published plan
-      const mine = getOwn(slug);
-      const sess = getTimeline(slug);
+      const mine = getOwn(key);
+      const sess = getTimeline(key);
       const o = mine && sess ? await import('@/lib/export/own') : null;
       const out = o && mine && sess ? o.downloadOwnIcs(d, sess, mine) : c.downloadIcs(d as Parameters<typeof c.downloadIcs>[0], doc.start);
       toast({ message: `Downloaded ${out.name} · ${out.summary}` });
@@ -242,6 +248,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
           <PartyLine doc={doc} api={ctx.api} defaults={defaults} title={title} ourTitle={ourTitle} where={state.where} save={save} edit={ctx.edit || settings} setEdit={(v) => { ctx.setEdit(v); setSettings(v); }} commit={edit.commit ?? undefined} days={ctx.model.days.length} bookings={bookingRows} />
           {changes && doc.template ? <ChangesLine text={changes} onShow={edit.showChanges} /> : null}
           {justBuilt && bf && !doc.template ? <JustBuilt facts={bf} /> : null}
+          {edit.editing && edit.commit && !doc.template ? <ReflowOffer doc={doc} party={party} commit={edit.commit} /> : null}
         </>
       ),
       // an account trip merged before copies/2 has no colour: its slug's, the ring Mine draws for it (SW-026)
@@ -277,10 +284,10 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
             {changes ? <span className="own-changes">{changes}</span> : null}
           </>
         }
-        actions={<OwnActions slug={slug} shareTitle={ourTitle ?? 'Trip'} url={publicUrl} onEdit={edit.start} onPrefetch={edit.prefetch} editing={edit.editing} loading={edit.loading} onDone={edit.done} tripMenu={edit.cover} onCalendar={doc.start && slug ? () => void calendar() : null} onAddDates={() => setSettings(true)} />}
+        actions={<OwnActions slug={slug} shareTitle={slug ? (ourTitle ?? 'Trip') : BUILT_SHARE_TITLE} url={publicUrl} device={device} onEdit={edit.start} onPrefetch={edit.prefetch} editing={edit.editing} loading={edit.loading} onDone={edit.done} tripMenu={edit.cover} onCalendar={doc.start && key ? () => void calendar() : null} onAddDates={() => setSettings(true)} />}
       />
       <TripPlan
-        slug={slug ?? id}
+        slug={key ?? BUILT_KEY}
         model={pageModel as unknown as TripPageModel}
         title={title}
         depth="full"
@@ -294,7 +301,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   };
 
   const layer = {
-    id, slug: slug ?? id, doc, save, title, ours: slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null,
+    id, slug: key ?? BUILT_KEY, doc, save, title, ours: slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null,
     model: (timelineModel ?? model.timeline) as unknown as TimelineModel, register, bookings: bookingRows, defaults, profile, start: doc.start ?? null, where: state.where, word: state.word, retry: state.retry, onSettings: openSettings,
   };
   return (

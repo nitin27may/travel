@@ -25,7 +25,7 @@ interface Props {
 export function menuKeys(e: KeyboardEvent<HTMLElement>): void {
   const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
   if (!keys.includes(e.key)) return;
-  const rows = [...e.currentTarget.querySelectorAll<HTMLElement>('[role="menuitem"]:not([disabled]),[role="menuitemradio"]:not([disabled])')];
+  const rows = [...e.currentTarget.querySelectorAll<HTMLElement>('[role="menuitem"]:not([disabled]),[role="menuitemradio"]:not([disabled]),[role="menuitemcheckbox"]:not([disabled])')];
   if (!rows.length) return;
   const i = rows.indexOf(document.activeElement as HTMLElement);
   const next = e.key === 'Home' ? 0 : e.key === 'End' ? rows.length - 1 : e.key === 'ArrowDown' ? (i + 1) % rows.length : (i - 1 + rows.length) % rows.length;

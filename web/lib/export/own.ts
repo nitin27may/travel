@@ -62,8 +62,9 @@ export function ownTripOf(a: {
     start: doc.start ?? null,
     gone: (slug) => gone.has(slug),
     goneName: (k) => goneNames.has(k),
-    noteOf: (e) => (copy ? (doc.template!.notes[noteKeyOf(doc, e)] ?? '') : ''),
-    dayNote: (n) => (copy ? (doc.template!.notes[dayNoteKey(doc, n)] ?? '') : ''),
+    // a built trip keeps its notes at the top level: a stop's under its ref, a day's under its number (STEP2-B2)
+    noteOf: (e) => (copy ? (doc.template!.notes[noteKeyOf(doc, e)] ?? '') : (doc.notes?.[e.id] ?? '')),
+    dayNote: (n) => (copy ? (doc.template!.notes[dayNoteKey(doc, n)] ?? '') : (doc.notes?.[String(n)] ?? '')),
     addable: a.addables,
   };
 }
