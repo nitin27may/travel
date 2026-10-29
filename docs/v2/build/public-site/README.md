@@ -338,7 +338,7 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `NEXT_PHASE` | web `lib/public/places.ts` | Set by Next; the build logs shell places once | no |
 | `NODE_ENV` | web | Set by Node and Next; dev-only branches | no |
 | `HOME` | web `scripts/embed-spike` | Home folder, for the spike's browser cache path | no |
-| `ORS_API_KEY` | web `scripts/legs-ors.mjs` | OpenRouteService key for route legs; scripts only, check-all fails if it reaches client output | no |
+| `ORS_API_KEY` | web `scripts/legs-ors.mjs`, `lib/server/legs.ts` | OpenRouteService key for route legs; scripts and the server leg service (TB-L) only, check-all fails if it reaches client output | no |
 | `COMMONS_CACHE` | web `scripts/commons-cache.mjs` | Folder for the Commons image cache (default `web/.og-cache`) | no |
 | `TRACKS_LOCKED` | web `scripts/tracks-osm.mjs` | Set by the script itself once it holds the Overpass lock | no |
 | `GLOBE_IMAGES_LOCKED` | web `scripts/globe-images.mjs` | Set by the script itself once it holds the Commons lock | no |

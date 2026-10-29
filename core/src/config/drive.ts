@@ -95,3 +95,29 @@ export const DRIVE_INPUTS = {
   runs: ["research/runs/DATA-D9R/ors-legs-2026-10-25.json"],
   profile: "driving-car",
 } as const;
+
+/**
+ * The server leg service (TB-L; spec 4.1 L1 and 5.6): the one runtime ORS client. The key is read from the environment variable named
+ * `keyEnv` (server only, never logged). ORS free tier: 500 matrix requests a day, 3,500 cells a request; the guard stops at
+ * `guardShare` of `dailyCap` so a build never meets the hard limit (the page below that: DT-X triggers at 5 trips of the guard a month).
+ */
+export const DRIVE_ROUTING = {
+  keyEnv: "ORS_API_KEY",
+  baseUrl: "https://api.openrouteservice.org/v2/matrix",
+  profile: "driving-car",
+  engine: "ors",
+  /** the ORS and OpenStreetMap line carried by every routed answer */
+  attribution: "Routing by openrouteservice.org. Map data (c) OpenStreetMap contributors, ODbL.",
+  /** hard cells in one matrix request (ORS limit) */
+  maxCells: 3500,
+  dailyCap: 500,
+  guardShare: 0.8,
+  /** quota bucket (core/src/quota): one global counter per UTC day */
+  quotaBucket: "ors:matrix",
+  quotaWindowS: 86400,
+  timeoutMs: 8000,
+  /** retries are off by default: a failed call falls back to the model at once */
+  retries: 0,
+  breaker: { failures: 3, openMs: 60_000 },
+  userAgent: "nks-travel-legs/1",
+} as const;
