@@ -525,9 +525,9 @@
     "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail": {
       "area_id": "CA/AB/jasper-national-park",
       "via": "point",
-      "from": "part/place/ashlar-ridge#miette-parking",
-      "km": 0.1,
-      "rival_km": 92.4
+      "from": "locations store",
+      "km": 8.7,
+      "rival_km": 82.6
     },
     "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop": {
       "area_id": "CA/AB/banff-national-park",

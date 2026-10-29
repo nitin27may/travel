@@ -6474,6 +6474,25 @@
         "review_state": "agent_checked",
         "basis": "community"
       }
+    },
+    "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail": {
+      "lat": 53.203884,
+      "lon": -117.926217,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/2383706255",
+        "url": "https://www.openstreetmap.org/node/2383706255",
+        "read": "2026-10-28",
+        "quote": "OSM node 2383706255, highway=trailhead \"Miette coal trail\", beside car park way 229826695; Parks Canada: \"On Miette Road, 200 m from the intersection with Highway 16\" (OSM puts the junction about 215 m away)"
+      },
+      "point_role": "trailhead",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "dg2-2026-10-28-stop-points",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
     }
   }
 }

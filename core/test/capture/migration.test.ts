@@ -247,9 +247,9 @@ describe("no value lost, none changed", () => {
     expect(kept).toBeGreaterThanOrEqual(Object.keys(ledger.points).length - 10);
   });
   it("each replaced pin is logged with its reason, was a derived trailhead, and is the record's own OSM point in both points files", () => {
-    // DG2F (28 Oct 2026): Iceline, Emerald Lakeshore, Lake Louise Lakeshore and Moraine Lakeshore; points only, never a lane leaf
+    // DG2F (28 Oct 2026): Iceline, Emerald Lakeshore, Lake Louise Lakeshore and Moraine Lakeshore, then Miette Mine Trail (FIX2, 28 Oct 2026, after the towns refresh); points only, never a lane leaf
     const list = ledger.replaced ?? [];
-    expect(list.map((r) => r.ref.split("/").pop()).sort()).toEqual(["emerald-lakeshore", "iceline-trail", "lake-louise-lakeshore", "moraine-lakeshore"]);
+    expect(list.map((r) => r.ref.split("/").pop()).sort()).toEqual(["emerald-lakeshore", "iceline-trail", "jasper-miette-mine-trail", "lake-louise-lakeshore", "moraine-lakeshore"]);
     for (const r of list) {
       expect(DERIVED_TRAILHEAD.test(r.derived), r.ref).toBe(true);
       expect(r.element, r.ref).toMatch(/^(node|way|relation)\/\d+$/);
