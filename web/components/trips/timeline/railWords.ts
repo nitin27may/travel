@@ -12,6 +12,8 @@ export interface RailParty {
   shared?: boolean;
   /** The shared plan is the owner's own copy, opened from Mine (EM-B). */
   own?: boolean;
+  /** The owner's own trip is one the builder made, not a copy: the rail says "Your trip" (STEP2-B1). */
+  built?: boolean;
 }
 
 /** Set by the rail's Edit just before it opens the editor, so the close returns focus there (review S5). */

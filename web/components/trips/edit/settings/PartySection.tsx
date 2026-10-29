@@ -25,7 +25,11 @@ interface Props {
  * Who is going (the copy sheet's own Travellers block, so the two never differ) and Pace. A copy re-flows from our plan for the new party at
  * once and the days follow it unless the person chose a version (edit-mode-spec 9.3); the trip's party never changes `travel.party` (EM-B).
  */
+/** A built trip's pace changes the days, so it waits for Rebuild (STEP2-B2); the words say why, they do not hide the row. */
+const PACE_WAITS = 'Pace changes the days, so it waits for Rebuild. Not available yet.';
+
 export function PartySection({ doc, defaults, run }: Props) {
+  const built = !doc.template;
   const profile = profileOfDraft(doc, defaults);
   const party = doc.travellers ?? { adults: profile.adults, children: profile.youngest === null ? [] : [profile.youngest] };
   const set = (next: { adults: number; children: number[] }, pace: Profile['pace'], label: string) => run(partyOps(doc, defaults, next, pace, newOpId), label);
@@ -43,7 +47,13 @@ export function PartySection({ doc, defaults, run }: Props) {
       </section>
       <div className="own-set-row" id="own-pace">
         <span className="field-label" id="own-pace-l">Pace</span>
-        <Segmented label="Pace" segments={[...PACES]} value={profile.pace} onChange={(pace) => set(party, pace, `Pace is now ${PACES.find((x) => x.value === pace)!.label}`)} />
+        <Segmented
+          label="Pace"
+          segments={PACES.map((s) => ({ ...s, ...(built ? { disabled: true, title: PACE_WAITS } : {}) }))}
+          value={profile.pace}
+          onChange={(pace) => set(party, pace, `Pace is now ${PACES.find((x) => x.value === pace)!.label}`)}
+        />
+        {built ? <p className="own-set-note" id="own-pace-why">{PACE_WAITS}</p> : null}
       </div>
     </>
   );

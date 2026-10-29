@@ -149,6 +149,8 @@ export function maybeOps(d: PlanDraft, e: StopEntry, newId: NewId = newOpId): Pl
 
 /** The key a stop's note lives under: `<day>:<item>` for a published stop, the entry's operation id for an added place. */
 export function noteKeyOf(d: PlanDraft, e: StopEntry): string {
+  // a built trip keeps a stop's note under its ref (top-level `notes`)
+  if (!d.template) return e.id;
   const t = target(d, e);
   return 'added' in t ? t.added : `${t.day}:${t.item}`;
 }
@@ -156,7 +158,7 @@ export function noteOps(d: PlanDraft, e: StopEntry, text: string, newId: NewId =
   const t = text.trim();
   return [{ kind: 'setNote', id: newId(), key: noteKeyOf(d, e), text: t === '' ? null : t }];
 }
-export const noteOf = (d: PlanDraft, e: StopEntry): string => (d.template ? (d.template.notes[noteKeyOf(d, e)] ?? '') : '');
+export const noteOf = (d: PlanDraft, e: StopEntry): string => (d.template ? (d.template.notes[noteKeyOf(d, e)] ?? '') : (d.notes?.[e.id] ?? ''));
 
 // ---- the words (README 5.2 toasts; polite announcements) ----
 export const removedWords = (e: StopEntry): string => `Removed ${rowName(e)} from Day ${e.day}`;

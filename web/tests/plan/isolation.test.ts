@@ -33,6 +33,10 @@ const inside = (r: string, roots: readonly string[]) => roots.some((p) => r === 
  * only with the `accountTrips` flag on and a person signed in; everything else in web/lib/mine/ and web/components/mine/ reaches it only
  * through that dynamic import and its types, and holds none of the document's rules.
  *
+ * X-B1 (STEP2-B1): web/lib/trip-edit/built.ts opens a trip the builder made from the device list of documents, so it imports the one file that
+ * names that key, web/lib/plan/keys.ts (G2), and nothing else of the builder beyond the X-S2 files. Every other file of web/lib/trip-edit/ stays
+ * barred from it.
+ *
  * X-API (TB-API; trip-builder 15.1 ISO-1, ISO-5): the builder's server service, web/lib/server/planService.ts, runs the engine
  * (core/src/plan/engine.ts, candidates.ts, driveTable.ts) over the public catalogue store and the leg service; its routes are
  * web/app/api/v1/plan/** (builder paths). X2 (the DataClient section) spans data.ts and its two adapter files, contract.ts (types) and
@@ -49,6 +53,7 @@ const EXTENSION_IMPORTERS = [
   'web/lib/mine/sync.ts',
   // the Mine dot counts unbuilt drafts: it reads the builder's device key by name (plain JSON, no schema), the X-point keys.ts only
   'web/lib/mine/dot.ts',
+  'web/lib/trip-edit/built.ts',
 ];
 
 /**
@@ -57,7 +62,7 @@ const EXTENSION_IMPORTERS = [
  *
  * X-S2 (edit-mode-spec; README gotcha 2): edit mode on the trip details page, web/lib/trip-edit/**, applies the document's operations,
  * syncs, maps copies, reads the plan model adapter and the warning levels, so it imports core/src/plan/ops.ts, sync.ts, doc.ts,
- * pageModel.ts (STEP2-M), warnings.ts and core/src/schema/plan-draft.ts. It is a lazy chunk loaded only on /t/<id>/; the public
+ * pageModel.ts (STEP2-M), warnings.ts, summary.ts (STEP2-B1: the just-built line's counts, one rule for the builder and the page) and core/src/schema/plan-draft.ts. It is a lazy chunk loaded only on /t/<id>/; the public
  * /trips/<slug>/ page never loads it (EA12, held by the budget report). Nothing of the builder's UI or API is reachable from it.
  *
  * X10 (FLOW TF9, re-pointed by Step 2 ruling R2): the details page's Settings sheet, web/components/trips/edit/settings/**, mounts the
@@ -67,7 +72,7 @@ export const EXTENSION_ROOTS: readonly { id: string; root: string; targets: read
   {
     id: 'X-S2',
     root: 'web/lib/trip-edit',
-    targets: ['core/src/plan/ops', 'core/src/plan/sync', 'core/src/plan/doc', 'core/src/plan/pageModel', 'core/src/plan/warnings', 'core/src/schema/plan-draft'],
+    targets: ['core/src/plan/ops', 'core/src/plan/sync', 'core/src/plan/doc', 'core/src/plan/pageModel', 'core/src/plan/warnings', 'core/src/plan/summary', 'core/src/schema/plan-draft'],
   },
   { id: 'X10', root: 'web/components/trips/edit/settings', targets: ['web/components/plan/stages'] },
 ];

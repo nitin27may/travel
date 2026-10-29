@@ -19,7 +19,11 @@ import { getOwn, publishOwn } from '@/lib/export/ownState';
 import { getTimeline } from '@/lib/export/timelineState';
 import { mineStorage } from '@/lib/mine/storage';
 import { partyText } from '@travel/core/trips/partyWords.ts';
-import { placedBuild } from '@/lib/trip-edit/built';
+import { builtFacts, missRows, placedBuild, type MissRow } from '@/lib/trip-edit/built';
+import { newOpId } from '@/lib/trip-edit/stopOps';
+import { BuiltSummary } from '../built/BuiltSummary';
+import { JustBuilt } from '../built/JustBuilt';
+import { useJustBuilt } from '../built/useJustBuilt';
 import { changeCount, changesLine, endOf, entryMarks, kickerWords } from '@/lib/trip-edit/marks';
 import { findCopy } from '@/lib/trip-edit/open';
 import { slugIdentity } from '@travel/core/schema/identity.ts';
@@ -90,6 +94,9 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
 
   // a built trip: its last build, placed by core's builtDays, named from the picks' resolve rows
   const placed = useMemo(() => (doc && !doc.template ? placedBuild(doc) : null), [doc]);
+  const bf = useMemo(() => (doc && !doc.template ? builtFacts(doc) : null), [doc]);
+  const misses = useMemo(() => (doc && !doc.template ? missRows(doc) : []), [doc]);
+  const justBuilt = useJustBuilt(!!placed && state.status === 'ok');
   const [builtRows, setBuiltRows] = useState<ResolveRow[] | null>(null);
   const pickRefs = doc && !doc.template ? doc.picks.map((p) => p.ref) : NO_PICKS;
   const pickKey = pickRefs.join(',');
@@ -234,6 +241,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
         <>
           <PartyLine doc={doc} api={ctx.api} defaults={defaults} title={title} ourTitle={ourTitle} where={state.where} save={save} edit={ctx.edit || settings} setEdit={(v) => { ctx.setEdit(v); setSettings(v); }} commit={edit.commit ?? undefined} days={ctx.model.days.length} bookings={bookingRows} />
           {changes && doc.template ? <ChangesLine text={changes} onShow={edit.showChanges} /> : null}
+          {justBuilt && bf && !doc.template ? <JustBuilt facts={bf} /> : null}
         </>
       ),
       // an account trip merged before copies/2 has no colour: its slug's, the ring Mine draws for it (SW-026)
@@ -242,7 +250,7 @@ export function TripShell({ id, signIn }: { id: string; signIn: boolean }) {
   };
 
   const slots = {
-    summaryTop: <><SummaryOwn start={doc.start ?? null} end={end} days={days} adults={party.adults} kids={party.children} pace={profile.pace} changes={changes} onShow={edit.showChanges} ours={slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null} />{edit.checks}</>,
+    summaryTop: <><SummaryOwn start={doc.start ?? null} end={end} days={days} adults={party.adults} kids={party.children} pace={profile.pace} changes={changes} onShow={edit.showChanges} ours={slug && plan?.ours ? { href: `/trips/${slug}/`, title: ourTitle ?? words(slug) } : null} />{bf ? <BuiltSummary facts={bf} misses={misses} onRemove={edit.commit ? (m: MissRow) => void edit.commit?.([{ kind: 'removePick', id: newOpId(), ref: m.ref }], `Removed ${m.name} from the trip`) : null} /> : null}{edit.checks}</>,
     summaryBottom: null,
     bookings: book.length ? <BookingsPanel bookings={book} /> : null,
     photos: photos ? <PhotosPanel photos={model.gallery} rows={model.sections.flatMap((s) => s.rows).map((r) => ({ name: r.name, placeSlug: r.placeSlug, days: r.days }))} /> : null,

@@ -50,7 +50,7 @@ export function PartyLine({ doc, api, defaults, title, ourTitle, where, save, ed
   // the sticky day bar says the same party in its own words
   const key = JSON.stringify([party, p.pace]);
   useEffect(() => {
-    setRailParty({ adults: party.adults, children: [...party.children], pace: p.pace, shared: true, own: true });
+    setRailParty({ adults: party.adults, children: [...party.children], pace: p.pace, shared: true, own: true, ...(doc.template ? {} : { built: true }) });
     return () => setRailParty(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- `key` stands for party and pace
   }, [key]);

@@ -31,7 +31,7 @@ const draft = (over = {}): PlanDraft => (copyToPlanDraft(copy({ slug: 'canadian-
 let n = 0;
 const id = () => `o-e3${++n}`;
 const found = (over: Partial<Found> = {}): Found => ({ slug: 'x', name: 'X', kind: 'lake', kindLabel: 'Lake', lat: 51.4, lon: -116.18, km: null, gainM: null, area: '', kidFit: 'unknown', kidsFrom: null, flags: [], season: [], ...over });
-const limit = { versions: 48, removed: 48, maybe: 48, trip: 48, near: 48, search: 48 };
+const limit = { versions: 48, removed: 48, maybe: 48, picks: 48, trip: 48, near: 48, search: 48 };
 const inputs = (model: TimelineModel, doc: PlanDraft, over: Partial<Inputs> = {}): Inputs => ({
   doc, model, day: 5, onTrip: new Map(), youngest: 10, near: null, q: '', search: null, chips: { rainy: false, kids: false, month: null }, maybe: [], limit, keep: new Set(), ...over,
 });
