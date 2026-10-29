@@ -68,13 +68,15 @@ describe('plan reference files over the store', () => {
     }
   });
 
-  it('a hub start answers in near mode, and an airport start too', async () => {
-    for (const from of ['hub:calgary', 'hub:venice', 'hub:reykjavik', 'iata:YYC']) {
-      const res = await get('candidates', `/candidates/?m=near&from=${from}&r=120`);
-      expect(res.status, from).toBe(200);
+  it('a hub start answers in near mode, and an airport start too (RB-010: the start rides in a POST body, never the address)', async () => {
+    const post = (start: { kind: string; id?: string; iata?: string }) =>
+      handlePlan('candidates', new Request('https://example.test/api/v1/plan/candidates/', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ mode: 'near', start, driveLimitMin: 120 }) }), {}, deps());
+    for (const start of [{ kind: 'hub', id: 'calgary' }, { kind: 'hub', id: 'venice' }, { kind: 'hub', id: 'reykjavik' }, { kind: 'airport', iata: 'YYC' }]) {
+      const res = await post(start);
+      expect(res.status, `${start.kind}:${start.id ?? start.iata}`).toBe(200);
       planCandidatePage.parse(await res.json());
     }
-    const none = await get('candidates', '/candidates/?m=near&from=hub:nowhere&r=120');
+    const none = await post({ kind: 'hub', id: 'nowhere' });
     expect(none.status).not.toBe(200);
   });
 });
