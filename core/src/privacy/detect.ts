@@ -44,6 +44,16 @@ export const STREET_ADDRESS = /(?<![\d:])\b\d{2,5}\s+[A-Z][\w'. -]{2,30}\s(?:Rd|
 export function isPlaceAddressObject(o: Record<string, unknown>): boolean {
   return (o.kind === "postal" || o.kind === "nearest_road") && Array.isArray(o.lines) && typeof o.locality === "string" && "postcode" in o && "ref" in o;
 }
+/**
+ * The same address as a capture record stores it (FIX2): `address` is a Val whose `v` is the typed object without the page model's `ref` and `name`.
+ * Only a Val with state "value" and a `v` of exactly that typed shape passes; the Val's other fields (note, src, conflicts) are still read in full.
+ */
+export function isCaptureAddressVal(o: Record<string, unknown>): boolean {
+  const v = o.v;
+  if (o.state !== "value" || !v || typeof v !== "object" || Array.isArray(v)) return false;
+  const a = v as Record<string, unknown>;
+  return (a.kind === "postal" || a.kind === "nearest_road") && Array.isArray(a.lines) && a.lines.every((l) => typeof l === "string") && typeof a.locality === "string" && "postcode" in a;
+}
 function isExportStopWithAddress(o: Record<string, unknown>): boolean {
   return typeof o.address === "string" && typeof o.placeSlug !== "undefined" && "durationMin" in o && "links" in o;
 }
@@ -423,6 +433,12 @@ export function privacyHits(body: unknown, limit = 20, opts: DetectOptions = {})
         if (k === "address" && (stopAddress || (y && typeof y === "object" && !Array.isArray(y) && isPlaceAddressObject(y as Record<string, unknown>)))) {
           const texts = typeof y === "string" ? [y] : [...((y as { lines: unknown[] }).lines), (y as { locality: string }).locality];
           if (texts.some((t) => typeof t === "string" && HOME_TOWN_RE.test(t))) hits.push({ where: `${at}.${k}`, why: "the home town" });
+          continue;
+        }
+        if (k === "address" && y && typeof y === "object" && !Array.isArray(y) && isCaptureAddressVal(y as Record<string, unknown>)) {
+          const v = (y as { v: { lines: string[]; locality: string } }).v;
+          if ([...v.lines, v.locality].some((t) => HOME_TOWN_RE.test(t))) hits.push({ where: `${at}.${k}.v`, why: "the home town" });
+          for (const [kk, yy] of Object.entries(y as Record<string, unknown>)) if (kk !== "v") walk(yy, `${at}.${k}.${kk}`, { key: kk, owners, labelOwners: own, city: false, echo: false, depth: c.depth });
           continue;
         }
         if (PRIVATE_KEYS.includes(k) || BIRTH_KEY.test(k) || (k === "status" && typeof y === "string" && STATUS_WORDS.includes(y))) hits.push({ where: `${at}.${k}`, why: "a private key" });

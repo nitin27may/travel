@@ -273,3 +273,27 @@ describe("a public place's address (LT-M)", () => {
     expect(privacyHits({ note: "224 Banff Avenue, Banff", address: postal })).not.toEqual([]);
   });
 });
+
+// FIX2: the same address as a capture record stores it, `address` a Val with a typed `v`. Narrow: state value, kind postal or nearest_road, string lines,
+// a locality and a postcode key; the home town is still refused, and the Val's note and sources are still read in full.
+describe("a public place's address as a capture Val (FIX2)", () => {
+  const v = { kind: "postal", lines: ["224 Banff Avenue"], locality: "Banff", postcode: "T1L 1A3" };
+  const val = (over: Record<string, unknown> = {}) => ({ v, state: "value", basis: "official_page", src: ["src-1"], read: "2026-10-28", ...over });
+  it("passes in a record", () => {
+    expect(privacyHits({ records: [{ ref: "part/place/x#centre", address: val() }] })).toEqual([]);
+    expect(privacyHits({ address: val({ v: { ...v, kind: "nearest_road", lines: ["500 Connaught Drive"] } }) })).toEqual([]);
+  });
+  it("still refuses the home town, in the lines or the locality", () => {
+    expect(privacyHits({ address: val({ v: { ...v, locality: "Whitby" } }) }).map((h) => h.why)).toEqual(["the home town"]);
+    expect(privacyHits({ address: val({ v: { ...v, lines: ["5 Main Street, Whitby"] } }) }).map((h) => h.why)).toContain("the home town");
+  });
+  it("is no loophole: other states, kinds, shapes and the Val's own text are read in full", () => {
+    expect(privacyHits({ address: val({ state: "searched_none" }) })).not.toEqual([]);
+    expect(privacyHits({ address: val({ v: { ...v, kind: "hq" } }) })).not.toEqual([]);
+    expect(privacyHits({ address: val({ v: { kind: v.kind, lines: v.lines, locality: v.locality } }) })).not.toEqual([]);
+    expect(privacyHits({ address: val({ v: { ...v, lines: ["224 Banff Avenue", 12] } }) })).not.toEqual([]);
+    expect(privacyHits({ address: val({ note: "also at 12 Vermilion Lakes Drive" }) })).not.toEqual([]);
+    expect(privacyHits({ other: val() })).not.toEqual([]);
+    expect(privacyHits({ address: "224 Banff Avenue" })).not.toEqual([]);
+  });
+});
