@@ -133,7 +133,7 @@ describe("candidates: scope and page cap", () => {
   it("40 rows a page", () => expect(PLAN_LIMITS.candidatePage).toEqual({ default: 40, max: 40 }));
   it("a row is a Places row (the P8 allowlist) plus the builder's ranking fields only", () => {
     const extra = PLAN_CANDIDATE_ROW_KEYS.filter((k) => !(PLACE_ROW_KEYS as readonly string[]).includes(k));
-    expect(extra.sort()).toEqual(["driveBasis", "driveMin", "durationBand", "fit", "score", "seasonState", "visitMin", "why"]);
+    expect(extra.sort()).toEqual(["driveBasis", "driveMin", "durationBand", "fit", "placeable", "pointBasis", "score", "seasonState", "townId", "visitMin", "why"]);
     expect(PLACE_ROW_KEYS.every((k) => (PLAN_CANDIDATE_ROW_KEYS as readonly string[]).includes(k))).toBe(true);
     expect(Object.keys(planCandidateRow.shape.score.shape)).toEqual(["draw", "fit", "season", "theme", "distance", "quality", "total"]);
   });

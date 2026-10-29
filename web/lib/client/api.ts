@@ -181,19 +181,17 @@ export function fetchCalls(): ApiCalls {
 
 // ---- the trip builder's calls (TB-API) -----------------------------------------------------------------------------------------------
 
+/** True when a candidates query carries a start (near mode) or a party band: it is sent as a POST body (RB-010), never as a URL. */
+export const isPrivateCandidates = (q: PlanCandidatesQuery): boolean => q.mode === 'near' || q.party !== undefined;
+
 /** A candidates query as the flat URL of api/plan.ts `planCandidatesHttpQuery` (the keys of trip-builder 2.5; written here so no schema code loads). */
-function candidateParams(q: PlanCandidatesQuery): URLSearchParams {
+function candidateParams(q: Extract<PlanCandidatesQuery, { mode: 'trip' }>): URLSearchParams {
+  // public queries only (isPrivateCandidates): no start and no party band ever reach an address
   const p = new URLSearchParams({ m: q.mode });
-  if (q.mode === 'trip') p.set('cc', q.cc);
-  else {
-    const s = q.start;
-    p.set('from', s.kind === 'airport' ? `iata:${s.iata}` : `${s.kind}:${s.id}`);
-    p.set('r', String(q.driveLimitMin));
-  }
+  p.set('cc', q.cc);
   if (q.regions?.length) p.set('rg', q.regions.join(','));
   for (const [k, v] of Object.entries(q.facets ?? {})) if (v.length) p.set(k, v.join(','));
   if (q.month) p.set('mo', String(q.month));
-  if (q.party) p.set('p', q.party);
   if (q.list && q.list !== 'main') p.set('list', q.list);
   if (q.page && q.page > 1) p.set('page', String(q.page));
   if (q.pageSize) p.set('pageSize', String(q.pageSize));
@@ -232,7 +230,11 @@ function planCalls(): PlanCalls {
   return {
     regions: (cc) => planRead<PlanRegions>(at(`/plan/regions/${seg(cc)}`), 'regions'),
     starts: () => planRead<PlanStarts>(at('/plan/starts'), 'starts'),
-    candidates: (q, signal) => planRead<PlanCandidatePage>(at('/plan/candidates', candidateParams(q)), 'candidates', signal ? { signal } : undefined),
+    // RB-010: a query that names a start or a party band goes in a POST body (no-store), never in the address; public queries stay a cacheable GET
+    candidates: (q, signal) =>
+      isPrivateCandidates(q) || q.mode !== 'trip'
+        ? planRead<PlanCandidatePage>(at('/plan/candidates'), 'candidates', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(q), cache: 'no-store', ...(signal ? { signal } : {}) })
+        : planRead<PlanCandidatePage>(at('/plan/candidates', candidateParams(q)), 'candidates', signal ? { signal } : undefined),
     build: (input, signal) =>
       planRead<PlanBuildAnswer>(at('/plan/build'), 'build', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(input), cache: 'no-store', ...(signal ? { signal } : {}) }),
   };

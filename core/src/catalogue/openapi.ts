@@ -120,12 +120,23 @@ export function buildOpenApi(): Json {
     get: {
       operationId: "planCandidates",
       summary: "planCandidates",
-      description: `One page (40 at most) of ranked candidates for trip mode (m=trip, cc, rg) or near mode (m=near, from=<hub:id|iata:XXX|town:id>, r=<one-way drive minutes>). Facets are the Places keys (pattern ${S.FACET_KEY_RE.source}); p is the party band (adults or family-<youngest>), never ages. Public, cached by the catalogue revision. Answers 404 when the planBuilder flag is off.`,
+      description: `One page (40 at most) of ranked candidates for a public trip-mode query (m=trip, cc, rg). Facets are the Places keys (pattern ${S.FACET_KEY_RE.source}). Public, cached by the catalogue revision. A query with a start (near mode) or a party band is private and goes in the POST body instead: this GET answers 400 for from, p or m=near. Every row is placeable by the build (removed.no_location counts the rows with no location yet). Answers 404 when the planBuilder flag is off.`,
       parameters: Object.keys(S.planCandidatesHttpQuery.shape).map((name) => ({ name, in: "query", required: false, schema: { type: "string" } })),
       responses: {
         "200": { description: "ok", headers: { ETag: { schema: { type: "string" } } }, content: { "application/json": { schema: schemaOf("PlanCandidatePage", S.planCandidatePage, components) } } },
         ...planErrors([400, 404, 413, 500, 501]),
         "304": { description: "If-None-Match matched the revision" },
+      },
+    },
+    post: {
+      operationId: "planCandidatesPrivate",
+      summary: "planCandidatesPrivate",
+      description: "The same page for a query that names a start (near mode: a hub, airport or town reference, never a point) or a party band (adults or family-<youngest>, never ages), sent as the JSON body so neither is in an address, a log or a cache (RB-010). JSON only; the response is no-store. Answers 404 when the planBuilder flag is off.",
+      parameters: [],
+      requestBody: { required: true, content: { "application/json": { schema: schemaOf("PlanCandidatesQuery", S.planCandidatesQuery, components) } } },
+      responses: {
+        "200": { description: "ok", content: { "application/json": { schema: schemaOf("PlanCandidatePage", S.planCandidatePage, components) } } },
+        ...planErrors([400, 404, 413, 500, 501]),
       },
     },
   };

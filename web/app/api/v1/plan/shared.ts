@@ -34,6 +34,9 @@ import type { CatalogueStore } from '@travel/core/catalogue/store.ts';
 //   3. a build: same origin, JSON content type, the per-IP hourly bucket, then the body read in pieces up to its byte cap;
 //   4. validation (a path and a code per issue, never a value: the body holds the party), the service, the answer parsed by its schema.
 // A build answers `no-store`. Logs hold the route name and a fixed code, never a body, a query, an IP or a point.
+// RB-010: `/candidates` is a GET only for public queries (trip mode, no party band): cacheable, with an ETag. A query that names a start
+// (near mode) or a party band is a POST with the decoded query as its JSON body (JSON only, at most candidateBodyBytes), answered
+// `no-store` with the same page shape; the GET refuses `from`, `p` and `m=near`.
 
 export type PlanRoute = 'regions' | 'starts' | 'candidates' | 'build';
 
@@ -86,6 +89,8 @@ async function boundedText(r: Request, max: number): Promise<string | null> {
 // ---- the candidates URL -------------------------------------------------------------------------------------------------------------
 
 const LIST_KEYS = new Set(['m', 'cc', 'rg', 'from', 'r', 'mo', 'p', 'list', 'page', 'pageSize', 'near', 'limit']);
+/** The candidates keys that are private (RB-010; trip-builder 7): the start and the party band. A GET carrying one is refused. */
+export const PRIVATE_CANDIDATE_KEYS = ['from', 'p'] as const;
 const INT = /^[0-9]{1,6}$/;
 
 /** The flat URL of api/plan.ts `planCandidatesHttpQuery` to the decoded query, or the keys that failed. Facet keys are `FACET_KEY_RE`; each value is a comma list. */
@@ -183,7 +188,7 @@ async function takeBuild(req: Request, deps: PlanRouteDeps): Promise<Response | 
 
 const matches = (header: string | null, etag: string): boolean => !!header && (header.trim() === '*' || header.split(',').some((t) => t.trim().replace(/^W\//, '') === etag));
 
-/** Send a service result: errors by code; data after the privacy detector, with an ETag for the cacheable two. */
+/** Send a service result: errors by code; data after the privacy detector, with an ETag for the cacheable ones (never a POST: no-store). */
 async function send<T>(name: PlanRoute, req: Request, result: PlanResult<T>, deps: PlanRouteDeps, rows?: ReadonlySet<string>): Promise<Response> {
   if (!result.ok) return failure(result.error.code, result.error.message, result.error.details);
   const data = result.data as unknown as Record<string, unknown>;
@@ -193,7 +198,7 @@ async function send<T>(name: PlanRoute, req: Request, result: PlanResult<T>, dep
     console.error(`plan ${name}: privacy detector blocked the answer`, stray ? `row key ${stray}` : JSON.stringify(hits.slice(0, 5)));
     return failure('internal', 'The response could not be served.');
   }
-  if (name === 'build') return json(200, data, { 'cache-control': NO_STORE });
+  if (name === 'build' || req.method === 'POST') return json(200, data, { 'cache-control': NO_STORE });
   const etag = `"${result.revision}"`;
   const headers = { 'cache-control': CACHE_DATA, etag };
   if (matches(req.headers.get('if-none-match'), etag)) return new Response(null, { status: 304, headers });
@@ -215,14 +220,34 @@ export async function handlePlan(name: PlanRoute, req: Request, params: Record<s
       if ([...new URL(req.url).searchParams.keys()].length) return failure('invalid_input', 'This endpoint takes no query parameter.');
       return send(name, req, await deps.service.starts(), deps);
     }
-    if (name === 'candidates') {
-      const q = decodeCandidates(new URL(req.url).searchParams);
+    if (name === 'candidates' && req.method !== 'POST') {
+      const params = new URL(req.url).searchParams;
+      // RB-010: a start (near mode) and a party band are private; they travel in a POST body, never in a URL a log or a cache keeps
+      const secret = PRIVATE_CANDIDATE_KEYS.filter((k) => params.has(k));
+      if (secret.length || params.get('m') === 'near') return failure('invalid_input', 'A query with a start or a party goes in a POST body, not the address.', { keys: secret.length ? secret : ['m'] });
+      const q = decodeCandidates(params);
       if (!q.ok) return failure(q.error.code, q.error.message, q.error.details);
       return send(name, req, await deps.service.candidates(q.query), deps, new Set<string>(PLAN_CANDIDATE_ROW_KEYS));
     }
-    // build
-    if (!sameOrigin(req)) return failure('invalid_input', 'Cross-site requests are not accepted.');
+    // the POSTs: candidates with a private query (RB-010) and build. Both take JSON only, so a browser on another site must pass a CORS
+    // preflight this route never answers. The candidates POST is a read like its GET (no quota, no cookie), so it skips the origin check
+    // the build's bucket needs.
     if (!(req.headers.get('content-type') ?? '').toLowerCase().startsWith('application/json')) return failure('invalid_input', 'The body must be JSON.');
+    if (name === 'candidates') {
+      if ([...new URL(req.url).searchParams.keys()].length) return failure('invalid_input', 'A candidates POST takes its query in the body only.');
+      const text = await boundedText(req, PLAN_LIMITS.candidateBodyBytes);
+      if (text === null) return failure('too_large', 'The request is too large.', { max: PLAN_LIMITS.candidateBodyBytes });
+      let body: unknown;
+      try {
+        body = JSON.parse(text);
+      } catch {
+        return failure('invalid_input', 'The body must be JSON.');
+      }
+      const parsed = parsePlanCandidatesQuery(body);
+      if (!parsed.ok) return failure('invalid_input', 'The request does not match the contract.', { issues: parsed.issues });
+      return send(name, req, await deps.service.candidates(parsed.data), deps, new Set<string>(PLAN_CANDIDATE_ROW_KEYS));
+    }
+    if (!sameOrigin(req)) return failure('invalid_input', 'Cross-site requests are not accepted.');
     const limited = await takeBuild(req, deps);
     if (limited) return limited;
     const text = await boundedText(req, PLAN_LIMITS.buildBodyBytes);

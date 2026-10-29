@@ -18036,7 +18036,7 @@
       "get": {
         "operationId": "planCandidates",
         "summary": "planCandidates",
-        "description": "One page (40 at most) of ranked candidates for trip mode (m=trip, cc, rg) or near mode (m=near, from=<hub:id|iata:XXX|town:id>, r=<one-way drive minutes>). Facets are the Places keys (pattern ^(?:country|region|area|city|kind|k|style|grade|kid|season|tag|trip|due|effort|stroller|length|around|perday|shape|drive|f\\.[a-z][a-z0-9_]*)$); p is the party band (adults or family-<youngest>), never ages. Public, cached by the catalogue revision. Answers 404 when the planBuilder flag is off.",
+        "description": "One page (40 at most) of ranked candidates for a public trip-mode query (m=trip, cc, rg). Facets are the Places keys (pattern ^(?:country|region|area|city|kind|k|style|grade|kid|season|tag|trip|due|effort|stroller|length|around|perday|shape|drive|f\\.[a-z][a-z0-9_]*)$). Public, cached by the catalogue revision. A query with a start (near mode) or a party band is private and goes in the POST body instead: this GET answers 400 for from, p or m=near. Every row is placeable by the build (removed.no_location counts the rows with no location yet). Answers 404 when the planBuilder flag is off.",
         "parameters": [
           {
             "name": "country",
@@ -18784,6 +18784,36 @@
                                 "type": "null"
                               }
                             ]
+                          },
+                          "placeable": {
+                            "type": "boolean"
+                          },
+                          "pointBasis": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "exact",
+                                  "town",
+                                  "access",
+                                  "part_of"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "townId": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "maxLength": 120
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
                           }
                         },
                         "required": [
@@ -18888,6 +18918,11 @@
                           "type": "integer",
                           "minimum": 0,
                           "maximum": 9007199254740991
+                        },
+                        "no_location": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         }
                       },
                       "required": [
@@ -18913,6 +18948,1000 @@
           },
           "304": {
             "description": "If-None-Match matched the revision"
+          },
+          "400": {
+            "description": "invalid_input or invalid_scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "too_large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "not_available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "planCandidatesPrivate",
+        "summary": "planCandidatesPrivate",
+        "description": "The same page for a query that names a start (near mode: a hub, airport or town reference, never a point) or a party band (adults or family-<youngest>, never ages), sent as the JSON body so neither is in an address, a log or a cache (RB-010). JSON only; the response is no-store. Answers 404 when the planBuilder flag is off.",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "mode": {
+                        "type": "string",
+                        "const": "trip"
+                      },
+                      "cc": {
+                        "type": "string",
+                        "pattern": "^[A-Z]{2}$"
+                      },
+                      "regions": {
+                        "minItems": 1,
+                        "maxItems": 20,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "maxLength": 48,
+                          "pattern": "^(?:[A-Z]{2}\\/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*|[a-z]{2}-[a-z0-9]+(?:-[a-z0-9]+)*)$"
+                        }
+                      },
+                      "facets": {
+                        "type": "object",
+                        "propertyNames": {
+                          "type": "string",
+                          "pattern": "^(?:country|region|area|city|kind|k|style|grade|kid|season|tag|trip|due|effort|stroller|length|around|perday|shape|drive|f\\.[a-z][a-z0-9_]*)$"
+                        },
+                        "additionalProperties": {
+                          "maxItems": 50,
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 120
+                          }
+                        }
+                      },
+                      "month": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 12
+                      },
+                      "party": {
+                        "type": "string",
+                        "pattern": "^(?:adults|family-(?:[0-9]|1[0-7]))$"
+                      },
+                      "list": {
+                        "type": "string",
+                        "enum": [
+                          "main",
+                          "not_for_party",
+                          "closed"
+                        ]
+                      },
+                      "page": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 9007199254740991
+                      },
+                      "pageSize": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 9007199254740991
+                      },
+                      "near": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 120,
+                        "allOf": [
+                          {
+                            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                          },
+                          {
+                            "pattern": "^(?![\\s\\S]*[a-zA-Z0-9]-(?:[jJ][aA][nN](?:[uU][aA][rR][yY])?|[fF][eE][bB](?:[rR][uU][aA][rR][yY])?|[mM][aA][rR](?:[cC][hH])?|[aA][pP][rR](?:[iI][lL])?|[mM][aA][yY]|[jJ][uU][nN][eE]?|[jJ][uU][lL][yY]?|[aA][uU][gG](?:[uU][sS][tT])?|[sS][eE][pP][tT]?(?:[eE][mM][bB][eE][rR])?|[oO][cC][tT](?:[oO][bB][eE][rR])?|[nN][oO][vV](?:[eE][mM][bB][eE][rR])?|[dD][eE][cC](?:[eE][mM][bB][eE][rR])?)(?:-(?:[jJ][aA][nN](?:[uU][aA][rR][yY])?|[fF][eE][bB](?:[rR][uU][aA][rR][yY])?|[mM][aA][rR](?:[cC][hH])?|[aA][pP][rR](?:[iI][lL])?|[mM][aA][yY]|[jJ][uU][nN][eE]?|[jJ][uU][lL][yY]?|[aA][uU][gG](?:[uU][sS][tT])?|[sS][eE][pP][tT]?(?:[eE][mM][bB][eE][rR])?|[oO][cC][tT](?:[oO][bB][eE][rR])?|[nN][oO][vV](?:[eE][mM][bB][eE][rR])?|[dD][eE][cC](?:[eE][mM][bB][eE][rR])?))?-(?:19|20)[0-9]{2}(?![0-9]))"
+                          }
+                        ]
+                      },
+                      "limit": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 40
+                      }
+                    },
+                    "required": [
+                      "mode",
+                      "cc",
+                      "regions"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "mode": {
+                        "type": "string",
+                        "const": "near"
+                      },
+                      "start": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "const": "hub"
+                              },
+                              "id": {
+                                "type": "string",
+                                "maxLength": 60,
+                                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                              }
+                            },
+                            "required": [
+                              "kind",
+                              "id"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "const": "airport"
+                              },
+                              "iata": {
+                                "type": "string",
+                                "pattern": "^[A-Z]{3}$"
+                              }
+                            },
+                            "required": [
+                              "kind",
+                              "iata"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "const": "town"
+                              },
+                              "id": {
+                                "type": "string",
+                                "maxLength": 120,
+                                "pattern": "^[a-z]{2}-[a-z0-9]+-[a-z0-9-]+$"
+                              }
+                            },
+                            "required": [
+                              "kind",
+                              "id"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      "driveLimitMin": {
+                        "type": "integer",
+                        "minimum": 30,
+                        "maximum": 480,
+                        "multipleOf": 15
+                      },
+                      "regions": {
+                        "minItems": 1,
+                        "maxItems": 20,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "maxLength": 48,
+                          "pattern": "^(?:[A-Z]{2}\\/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*|[a-z]{2}-[a-z0-9]+(?:-[a-z0-9]+)*)$"
+                        }
+                      },
+                      "facets": {
+                        "type": "object",
+                        "propertyNames": {
+                          "type": "string",
+                          "pattern": "^(?:country|region|area|city|kind|k|style|grade|kid|season|tag|trip|due|effort|stroller|length|around|perday|shape|drive|f\\.[a-z][a-z0-9_]*)$"
+                        },
+                        "additionalProperties": {
+                          "maxItems": 50,
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 120
+                          }
+                        }
+                      },
+                      "month": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 12
+                      },
+                      "party": {
+                        "type": "string",
+                        "pattern": "^(?:adults|family-(?:[0-9]|1[0-7]))$"
+                      },
+                      "list": {
+                        "type": "string",
+                        "enum": [
+                          "main",
+                          "not_for_party",
+                          "closed"
+                        ]
+                      },
+                      "page": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 9007199254740991
+                      },
+                      "pageSize": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 9007199254740991
+                      },
+                      "near": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 120,
+                        "allOf": [
+                          {
+                            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                          },
+                          {
+                            "pattern": "^(?![\\s\\S]*[a-zA-Z0-9]-(?:[jJ][aA][nN](?:[uU][aA][rR][yY])?|[fF][eE][bB](?:[rR][uU][aA][rR][yY])?|[mM][aA][rR](?:[cC][hH])?|[aA][pP][rR](?:[iI][lL])?|[mM][aA][yY]|[jJ][uU][nN][eE]?|[jJ][uU][lL][yY]?|[aA][uU][gG](?:[uU][sS][tT])?|[sS][eE][pP][tT]?(?:[eE][mM][bB][eE][rR])?|[oO][cC][tT](?:[oO][bB][eE][rR])?|[nN][oO][vV](?:[eE][mM][bB][eE][rR])?|[dD][eE][cC](?:[eE][mM][bB][eE][rR])?)(?:-(?:[jJ][aA][nN](?:[uU][aA][rR][yY])?|[fF][eE][bB](?:[rR][uU][aA][rR][yY])?|[mM][aA][rR](?:[cC][hH])?|[aA][pP][rR](?:[iI][lL])?|[mM][aA][yY]|[jJ][uU][nN][eE]?|[jJ][uU][lL][yY]?|[aA][uU][gG](?:[uU][sS][tT])?|[sS][eE][pP][tT]?(?:[eE][mM][bB][eE][rR])?|[oO][cC][tT](?:[oO][bB][eE][rR])?|[nN][oO][vV](?:[eE][mM][bB][eE][rR])?|[dD][eE][cC](?:[eE][mM][bB][eE][rR])?))?-(?:19|20)[0-9]{2}(?![0-9]))"
+                          }
+                        ]
+                      },
+                      "limit": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 40
+                      }
+                    },
+                    "required": [
+                      "mode",
+                      "start",
+                      "driveLimitMin"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 120,
+                            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                          },
+                          "slug": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 120,
+                            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "kind": {
+                            "type": "string",
+                            "enum": [
+                              "trail",
+                              "lake",
+                              "viewpoint",
+                              "waterfall",
+                              "sight",
+                              "town",
+                              "area",
+                              "activity",
+                              "lift",
+                              "stay",
+                              "eatery"
+                            ]
+                          },
+                          "kindLabel": {
+                            "type": "string"
+                          },
+                          "legacyKind": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "country": {
+                            "type": "string",
+                            "pattern": "^(?:[A-Z]{2})?$"
+                          },
+                          "country_name": {
+                            "type": "string"
+                          },
+                          "region": {
+                            "type": "string"
+                          },
+                          "region_name": {
+                            "type": "string"
+                          },
+                          "regionAliases": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "area": {
+                            "type": "string"
+                          },
+                          "area_name": {
+                            "type": "string"
+                          },
+                          "lat": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          },
+                          "lon": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          },
+                          "km": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          },
+                          "gain_m": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          },
+                          "elevation_m": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          },
+                          "season": {
+                            "type": "array",
+                            "items": {
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 12
+                            }
+                          },
+                          "kid_fit": {
+                            "type": "string"
+                          },
+                          "tags": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "label": {
+                                  "type": "string"
+                                },
+                                "kind": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "label",
+                                "kind"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "image": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "trips": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "slug": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 120,
+                                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                                },
+                                "title": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "slug",
+                                "title"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "honesty": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "enum": [
+                                    "estimate",
+                                    "not_known",
+                                    "sources_disagree",
+                                    "low_confidence",
+                                    "location_unconfirmed",
+                                    "unverified",
+                                    "no_source",
+                                    "dates_open",
+                                    "condensed",
+                                    "overview_only",
+                                    "drive_estimated",
+                                    "pattern_2026"
+                                  ]
+                                },
+                                "label": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "label"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "completeness": {
+                            "type": "object",
+                            "properties": {
+                              "level": {
+                                "type": "string",
+                                "enum": [
+                                  "draft",
+                                  "usable",
+                                  "complete"
+                                ]
+                              },
+                              "label": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "level",
+                              "label"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "statsState": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "verified",
+                                  "unverified"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "researched": {
+                            "type": "boolean"
+                          },
+                          "type": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "effort": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "kids_from": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          },
+                          "kids_basis": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "rule",
+                                  "advice"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "time_band": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "price_band": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "booking": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "flags": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "walk_band": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "shape": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "best_time": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "badge": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 160,
+                            "allOf": [
+                              {
+                                "pattern": "^(?![\\s\\S]*[a-zA-Z0-9]-(?:[jJ][aA][nN](?:[uU][aA][rR][yY])?|[fF][eE][bB](?:[rR][uU][aA][rR][yY])?|[mM][aA][rR](?:[cC][hH])?|[aA][pP][rR](?:[iI][lL])?|[mM][aA][yY]|[jJ][uU][nN][eE]?|[jJ][uU][lL][yY]?|[aA][uU][gG](?:[uU][sS][tT])?|[sS][eE][pP][tT]?(?:[eE][mM][bB][eE][rR])?|[oO][cC][tT](?:[oO][bB][eE][rR])?|[nN][oO][vV](?:[eE][mM][bB][eE][rR])?|[dD][eE][cC](?:[eE][mM][bB][eE][rR])?)(?:-(?:[jJ][aA][nN](?:[uU][aA][rR][yY])?|[fF][eE][bB](?:[rR][uU][aA][rR][yY])?|[mM][aA][rR](?:[cC][hH])?|[aA][pP][rR](?:[iI][lL])?|[mM][aA][yY]|[jJ][uU][nN][eE]?|[jJ][uU][lL][yY]?|[aA][uU][gG](?:[uU][sS][tT])?|[sS][eE][pP][tT]?(?:[eE][mM][bB][eE][rR])?|[oO][cC][tT](?:[oO][bB][eE][rR])?|[nN][oO][vV](?:[eE][mM][bB][eE][rR])?|[dD][eE][cC](?:[eE][mM][bB][eE][rR])?))?-(?:19|20)[0-9]{2}(?![0-9]))"
+                              },
+                              {
+                                "pattern": "^[a-z][a-z0-9-]*\\/."
+                              }
+                            ],
+                            "description": "Stable public id of a place: its capture ref (<layer>/...) with any dated folder replaced by its alias (public-ref-aliases 4), or place/<slug> for a page built from no capture record"
+                          },
+                          "approx": {
+                            "type": "boolean"
+                          },
+                          "nearTown": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "maxLength": 120,
+                                "pattern": "^[a-z]{2}-[a-z0-9]+-[a-z0-9-]+$"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "score": {
+                            "type": "object",
+                            "properties": {
+                              "draw": {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              "fit": {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              "season": {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              "theme": {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              "distance": {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              "quality": {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              "total": {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              }
+                            },
+                            "required": [
+                              "draw",
+                              "fit",
+                              "season",
+                              "theme",
+                              "distance",
+                              "quality",
+                              "total"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "visitMin": {
+                            "anyOf": [
+                              {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 1440
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "durationBand": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "lt1h",
+                                  "1to2h",
+                                  "2to4h",
+                                  "4to6h",
+                                  "full_day"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "driveMin": {
+                            "anyOf": [
+                              {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 9007199254740991
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "driveBasis": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "routed",
+                                  "estimate"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "fit": {
+                            "type": "string",
+                            "enum": [
+                              "pass",
+                              "unknown",
+                              "fail"
+                            ]
+                          },
+                          "seasonState": {
+                            "type": "string",
+                            "enum": [
+                              "in",
+                              "shoulder",
+                              "unknown",
+                              "closed"
+                            ]
+                          },
+                          "why": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "maxLength": 240
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "placeable": {
+                            "type": "boolean"
+                          },
+                          "pointBasis": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "exact",
+                                  "town",
+                                  "access",
+                                  "part_of"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "townId": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "maxLength": 120
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "slug",
+                          "name",
+                          "kind",
+                          "kindLabel",
+                          "legacyKind",
+                          "country",
+                          "country_name",
+                          "region",
+                          "region_name",
+                          "regionAliases",
+                          "area",
+                          "area_name",
+                          "lat",
+                          "lon",
+                          "km",
+                          "gain_m",
+                          "elevation_m",
+                          "season",
+                          "kid_fit",
+                          "tags",
+                          "image",
+                          "trips",
+                          "honesty",
+                          "completeness",
+                          "statsState",
+                          "researched",
+                          "type",
+                          "effort",
+                          "kids_from",
+                          "kids_basis",
+                          "time_band",
+                          "price_band",
+                          "booking",
+                          "flags",
+                          "walk_band",
+                          "shape",
+                          "best_time",
+                          "badge",
+                          "ref",
+                          "approx",
+                          "nearTown",
+                          "score",
+                          "visitMin",
+                          "durationBand",
+                          "driveMin",
+                          "driveBasis",
+                          "fit",
+                          "seasonState",
+                          "why"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "total": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "page": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 9007199254740991
+                    },
+                    "pageSize": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 9007199254740991
+                    },
+                    "nextPage": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 2,
+                          "maximum": 9007199254740991
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "list": {
+                      "type": "string",
+                      "enum": [
+                        "main",
+                        "not_for_party",
+                        "closed"
+                      ]
+                    },
+                    "removed": {
+                      "type": "object",
+                      "properties": {
+                        "not_for_party": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "closed": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "no_location": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "not_for_party",
+                        "closed"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "total",
+                    "page",
+                    "pageSize",
+                    "nextPage",
+                    "list",
+                    "removed"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
           },
           "400": {
             "description": "invalid_input or invalid_scope",

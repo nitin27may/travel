@@ -2,6 +2,7 @@
 //
 //   GET  /api/v1/plan/regions/{cc}   region groups and regions of one country, with counts of researched places   cacheable
 //   GET  /api/v1/plan/candidates     light rows scoped to regions or a drive band, 40 a page, with score parts     cacheable
+//   POST /api/v1/plan/candidates     the same query as a JSON body when it carries a start or a party band (RB-010) no-store
 //   POST /api/v1/plan/build          bases, nights, days, did-not-fit, reasons, the picks matrix                    no-store
 //
 // All three go through `respond()` and its privacy detector. Served by `PlanService` (the builder's own service, trip-builder 15.1 ISO-5; built by TB-API), which consumes the
@@ -16,8 +17,9 @@
 //
 // PRIVACY (7). The party (adults, children's ages, walk limit) is accepted in the build's POST body only: never a query parameter, never
 // echoed, never logged or cached. No response schema here has a key for the party, a household field, an origin or a coordinate of the
-// visitor's start: the detector's `from` rule and the party keys of hook X4 fail any body that tries. Candidate and region answers vary
-// only by public query keys, so they are cacheable for everyone.
+// visitor's start: the detector's `from` rule and the party keys of hook X4 fail any body that tries. Region answers and public candidate
+// queries vary only by public query keys, so they are cacheable for everyone. RB-010: a candidates query that names a start (near mode) or
+// a party band is private: it goes in a POST body (`no-store`), never a URL, and the GET refuses `from` and `p`.
 //
 // CAPS (P8, TB6). Result-size caps answer `too_large` with `details.max` (a page size above 40, a build over 40 picks, 22 days or 4
 // bases); request-size caps are `.max()` on the input and answer `invalid_input`. A build body above `buildBodyBytes` is `too_large`
@@ -57,6 +59,8 @@ export const PLAN_LIMITS = {
   buildGzipBytes: 48 * 1024,
   /** a candidate page, gzip (design README 6) */
   candidateGzipBytes: 12 * 1024,
+  /** the candidates POST body (RB-010: a query carrying a start or a party band), as bytes; above it is `too_large` before parsing */
+  candidateBodyBytes: 4 * 1024,
   /** builds an hour per IP (5) */
   buildsPerHour: 30,
   /** the picks matrix side: one row and one column per pick */
@@ -203,6 +207,21 @@ export const planCandidatesHttpQuery = z.strictObject({
   limit: str.optional(),
 });
 
+/**
+ * Where a candidate's point comes from (RB-003; the engine and the candidates read the SAME point, so a row offered with Pick is a row the
+ * build can place):
+ *   exact    the row's own exact point;
+ *   town     a town row placed at its towns-layer (gazetteer) town, which is also a base the engine can choose;
+ *   access   the place's own car park or trailhead from its detail (a licensed, exact access point: where the car stops);
+ *   part_of  a part with no point of its own (a lake's walk, a lift's tunnels) placed at the record it is part of, or a record with no point
+ *            placed at its own `#place` part (an activity at the mountain it runs on).
+ * `exact` also covers the record's own OpenStreetMap or Wikidata point that its page holds back for size (web join-deferred.json). An
+ * approximate pin never places a row (T5: an approximate point never counts for a distance). A row none of these places has no location
+ * yet: it is never offered (counted in `removed.no_location`).
+ */
+export const PLAN_POINT_BASES = ["exact", "town", "access", "part_of"] as const;
+export type PlanPointBasis = (typeof PLAN_POINT_BASES)[number];
+
 /** Visit length bands for the tray's "about N days" (4.3). */
 export const PLAN_DURATION_BANDS = ["lt1h", "1to2h", "2to4h", "4to6h", "full_day"] as const;
 
@@ -234,6 +253,15 @@ export const planCandidateRow = z.strictObject({
   seasonState: z.enum(["in", "shoulder", "unknown", "closed"]),
   /** the reason words of a `not_for_party` or `closed` row ("Needs age 12", "Closed in July"); null on the main list */
   why: z.string().max(240).nullable(),
+  /**
+   * RB-003: true when the build can place the row (it has a point by PLAN_POINT_BASES, or it is an area the build pins). A served row is
+   * always placeable: rows that are not are left out and counted in `removed.no_location`. Optional so older answers still parse.
+   */
+  placeable: z.boolean().optional(),
+  /** RB-003: where the row's point comes from; null for an area placed by its members */
+  pointBasis: z.enum(PLAN_POINT_BASES).nullable().optional(),
+  /** RB-003, RB-022: the towns-layer town id of a town row (public gazetteer id), the id a "Stay here" base writes; null otherwise */
+  townId: z.string().max(120).nullable().optional(),
 });
 /** The keys of a candidate row, in schema order: the row allowlist `respond()` checks. */
 export const PLAN_CANDIDATE_ROW_KEYS = Object.keys(planCandidateRow.shape) as (keyof typeof planCandidateRow.shape)[];
@@ -242,8 +270,11 @@ export const PLAN_CANDIDATE_ROW_KEYS = Object.keys(planCandidateRow.shape) as (k
 export const planCandidatePage = z.strictObject({
   ...paged(planCandidateRow).shape,
   list: z.enum(PLAN_CANDIDATE_LISTS),
-  /** rows the default list left out, per list, for the headings "Not for your party" and "Closed in <month>" */
-  removed: z.strictObject({ not_for_party: z.int().min(0), closed: z.int().min(0) }),
+  /**
+   * rows the default list left out, per list, for the headings "Not for your party" and "Closed in <month>"; `no_location` (RB-003): rows
+   * in scope we have no location for yet, never served on any list ("n places have no location yet", with Ask us)
+   */
+  removed: z.strictObject({ not_for_party: z.int().min(0), closed: z.int().min(0), no_location: z.int().min(0).optional() }),
 });
 
 // ---- POST /api/v1/plan/build ------------------------------------------------------------------------------------------------------

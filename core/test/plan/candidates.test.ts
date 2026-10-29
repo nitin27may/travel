@@ -2,7 +2,7 @@
 // page and row caps, the near reach, a pick's strip, and the store reads behind them.
 import { describe, expect, it } from "vitest";
 import { BUILDER_SCAN } from "../../src/config/builder.ts";
-import { durationBandOf, gatherCandidateRows, inRegion, interestsOf, placeFromRow, rankCandidates, type CandidateSource } from "../../src/plan/candidates.ts";
+import { durationBandOf, gatherCandidateRows, inRegion, interestsOf, isPlaceable, locateRow, matchTown, placeAt, placeFromRow, rankCandidates, TOWN_MATCH, type CandidateSource, type LocatedPoint } from "../../src/plan/candidates.ts";
 import { distancePoints, fitOf, profileOfBand, scorePlace, seasonOf, themePoints } from "../../src/plan/score.ts";
 import type { PlaceRow } from "../../src/schema/api/place.ts";
 import { planBuildInput, planCandidatePage, planCandidatesHttpQuery, planCandidatesQuery, type PlanCandidatesQuery } from "../../src/schema/api/plan.ts";
@@ -70,7 +70,8 @@ describe("rankCandidates", () => {
     expect(refs).not.toContain("place/quebec-thing");
     expect(refs).not.toContain("place/zipline-park");
     expect(refs).not.toContain("place/winter-rink");
-    expect(r.data.removed).toEqual({ not_for_party: 1, closed: 1 });
+    // near reach mode cannot say whether a row with no point is in reach, so it is not counted as having no location
+    expect(r.data.removed).toEqual({ not_for_party: 1, closed: 1, no_location: 0 });
     // sorted by score, then name, then ref
     const totals = r.data.items.map((i) => i.score.total);
     expect([...totals].sort((a, b) => b - a)).toEqual(totals);
@@ -97,7 +98,10 @@ describe("rankCandidates", () => {
     const refs = r.data.items.map((i) => i.ref);
     expect(refs).toContain("place/parliament-hill");
     expect(refs).not.toContain("place/quebec-thing");
-    expect(r.data.items.find((i) => i.ref === "place/no-point")).toMatchObject({ driveMin: null, driveBasis: null });
+    // RB-003: a row the build cannot place is never offered; it is counted
+    expect(refs).not.toContain("place/no-point");
+    expect(r.data.removed.no_location).toBe(1);
+    expect(r.data.items.every((i) => i.placeable === true && i.pointBasis === "exact" && i.townId === null)).toBe(true);
   });
 
   it("a pick's strip: around the pick, at most `limit` rows, never the pick itself or a breadth-only record (QB9)", () => {
@@ -134,6 +138,73 @@ describe("rankCandidates", () => {
     expect(inRegion(ROWS[0]!, "CA/ON")).toBe(true);
     expect(inRegion(ROWS[0]!, "CA/quebec")).toBe(false);
     expect(inRegion(ROWS[0]!, "ca-east")).toBe(true);
+  });
+});
+
+describe("where a row is placed (RB-003): one ladder for the candidates and the build", () => {
+  const pin = mkRow("place/pinned-lake", 46.69, 12.08, { approx: true, country: "IT", region: "south-tyrol" });
+  const bare = mkRow("part/place/pinned-lake#walk", null, null, { slug: "pinned-lake-walk", id: "pinned-lake-walk", country: "IT", region: "south-tyrol" });
+  const town = mkRow("place/ortisei", 46.57, 11.67, { approx: true, kind: "town", country: "IT", region: "south-tyrol" });
+
+  it("the ladder: a town at its gazetteer town, an exact point, the record's own point, a car park, the record a part is of; never a pin", () => {
+    expect(locateRow(mkRow("place/a", 45, -79))).toEqual({ point: { lat: 45, lon: -79, cc: "CA" }, basis: "exact" });
+    expect(locateRow(pin)).toBeNull(); // T5: an approximate point never counts for a distance
+    expect(locateRow(bare)).toBeNull();
+    expect(locateRow(pin, { record: { lat: 46.6946, lon: 12.0853, cc: null } })).toEqual({ point: { lat: 46.6946, lon: 12.0853, cc: "IT" }, basis: "exact" });
+    expect(locateRow(pin, { access: { lat: 46.7004, lon: 12.0847, cc: null } })?.basis).toBe("access");
+    const parent: LocatedPoint = { point: { lat: 46.7004, lon: 12.0847, cc: "IT" }, basis: "access" };
+    expect(locateRow(bare, { parent })).toEqual({ point: parent.point, basis: "part_of" });
+    expect(locateRow(town, { town: { id: "it-32-ortisei", point: { lat: 46.5747, lon: 11.6714, cc: "IT" } } })).toEqual({ point: { lat: 46.5747, lon: 11.6714, cc: "IT" }, basis: "town", townId: "it-32-ortisei" });
+    // an exact point beats a car park; a town's gazetteer point beats its own row
+    expect(locateRow(mkRow("place/a", 45, -79), { access: { lat: 1, lon: 1, cc: null } })?.basis).toBe("exact");
+  });
+
+  it("placeAt puts the engine place where the candidates offered it; an area with no point is still placeable (its members are the stops)", () => {
+    const at = locateRow(pin, { access: { lat: 46.7004, lon: 12.0847, cc: "IT" } });
+    expect(placeAt(pin, at)).toMatchObject({ point: { lat: 46.7004, lon: 12.0847 }, pointBasis: "access" });
+    expect(placeAt(pin, null).point).toBeNull();
+    expect(isPlaceable(placeAt(pin, null))).toBe(false);
+    expect(isPlaceable(placeAt(mkRow("place/park", null, null, { kind: "area", time_band: null }), null))).toBe(true);
+  });
+
+  it("the ranking offers what the locator places, and counts the rest", () => {
+    const rows = [pin, bare, town, mkRow("place/exact", 46.6, 12.1, { country: "IT", region: "south-tyrol" })];
+    const q: PlanCandidatesQuery = { mode: "trip", cc: "IT", regions: ["IT/south-tyrol"] };
+    const without = rankCandidates(rows, q, { centre: null, drive: EMPTY_DRIVE });
+    expect(without.ok && [without.data.items.map((i) => i.ref), without.data.removed.no_location]).toEqual([["place/exact"], 3]);
+    const located = new Map<string, LocatedPoint | null>([
+      ["place/pinned-lake", { point: { lat: 46.7004, lon: 12.0847, cc: "IT" }, basis: "access" }],
+      ["part/place/pinned-lake#walk", { point: { lat: 46.7004, lon: 12.0847, cc: "IT" }, basis: "part_of" }],
+      ["place/ortisei", { point: { lat: 46.5747, lon: 11.6714, cc: "IT" }, basis: "town", townId: "it-32-ortisei" }],
+    ]);
+    const r = rankCandidates(rows, q, { centre: null, drive: EMPTY_DRIVE, locate: (row) => located.get(row.ref) ?? locateRow(row) });
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.data.removed.no_location).toBe(0);
+    expect(r.data.items).toHaveLength(4);
+    expect(r.data.items.map((i) => [i.ref, i.placeable, i.driveMin !== null])).toEqual(r.data.items.map((i) => [i.ref, true, true]));
+    expect(r.data.items.find((i) => i.ref === "place/ortisei")).toMatchObject({ pointBasis: "town", townId: "it-32-ortisei" });
+    expect(planCandidatePage.safeParse(r.data).success).toBe(true);
+  });
+
+  it("matchTown: equal names near the pin, then first words, then first letters close by; without a pin only one equal name", () => {
+    const towns = [
+      { id: "it-32-selva", name: "Selva", lat: 46.5556, lon: 11.7612, cc: "it" },
+      { id: "it-32-santa-cristina-valgardena", name: "Santa Cristina Valgardena", lat: 46.5605, lon: 11.7208, cc: "it" },
+      { id: "it-32-la-valle-wengen", name: "La Valle - Wengen", lat: 46.6584, lon: 11.9285, cc: "it" },
+      { id: "it-32-ortisei", name: "Ortisei", lat: 46.5747, lon: 11.6714, cc: "it" },
+      { id: "fr-x-ortisei", name: "Ortisei", lat: 46.5747, lon: 11.6714, cc: "fr" },
+    ];
+    const r = (name: string, lat: number | null, lon: number | null) => matchTown({ name, country: "IT", lat, lon }, towns)?.id ?? null;
+    expect(r("Ortisei", 46.57, 11.67)).toBe("it-32-ortisei");
+    expect(r("Selva di Val Gardena", 46.5556, 11.7612)).toBe("it-32-selva");
+    expect(r("Santa Cristina", 46.5605, 11.7208)).toBe("it-32-santa-cristina-valgardena");
+    expect(r("La Val", 46.658, 11.929)).toBe("it-32-la-valle-wengen");
+    // too far for a loose match; a short name is never a letter prefix
+    expect(r("Selva di Val Gardena", 46.5556 + 0.2, 11.7612)).toBeNull();
+    expect(r("Orti", 46.57, 11.67)).toBeNull();
+    expect(r("Ortisei", null, null)).toBe("it-32-ortisei");
+    expect(r("Ortisei", 46.57 + (TOWN_MATCH.equalKm + 5) / 111, 11.67)).toBeNull();
   });
 });
 

@@ -104,9 +104,17 @@ test('a car weekend walks all the stages when a start is published', async ({ pa
   await needsBuilder(site, request);
   const list = await hubs(site, request);
   test.skip(list.length === 0, 'needs a published hub');
+  // RB-010: the start and the party band never ride in an address; the candidates go as a no-store POST body
+  const seen: string[] = [];
+  const answers: string[] = [];
+  page.on('request', (r) => seen.push(r.url()));
+  page.on('response', (r) => {
+    if (r.request().method() === 'POST' && r.url().includes('/api/v1/plan/candidates')) answers.push(r.headers()['cache-control'] ?? '');
+  });
+  const hub = list.find((h) => h.id === 'calgary') ?? list[0]!;
   await page.goto(`${site.url}/plan/`);
   await page.getByRole('button', { name: /^Weekend/ }).click();
-  await page.getByLabel('Starting from').selectOption(`hub:${list[0]!.id}`);
+  await page.getByLabel('Starting from').selectOption(`hub:${hub.id}`);
   await page.getByRole('button', { name: /^A month/ }).click();
   await page.getByRole('button', { name: /Next: Pick/ }).filter({ visible: true }).click();
   await expect(page.locator('.cand').first()).toBeVisible({ timeout: 20_000 });
@@ -116,6 +124,14 @@ test('a car weekend walks all the stages when a start is published', async ({ pa
   // Moves and day-out driving are not asked for a weekend (S1)
   await expect(page.getByText('Moves', { exact: true })).toHaveCount(0);
   await expect(page.getByText(/Driving on a day out/)).toHaveCount(0);
+
+  expect(answers.length).toBeGreaterThan(0);
+  for (const c of answers) expect(c).toBe('no-store');
+  const startRe = new RegExp(`from=|hub(:|%3A)${hub.id}\\b|[?&]p=|family-\\d|adults|children|10\\.5|-140\\.5`);
+  for (const u of seen) expect(u, u).not.toMatch(startRe);
+  // and no storage key names them (values may hold the draft's own start reference, which stays on this device)
+  const keys = await page.evaluate(() => [...Object.keys(localStorage), ...Object.keys(sessionStorage)]);
+  for (const k of keys) expect(k).not.toMatch(new RegExp(`${hub.id}|family-|hub:`));
 });
 
 for (const phone of [false, true]) {
