@@ -16,6 +16,9 @@ export const metadata = pageMetadata({
   path: '/',
 });
 
+// the builder's flag, as build-time constants (next.config.ts): off, the link below is not in the page. Written here, not imported: the builder's files are fenced.
+const PLAN_ON = process.env.NEXT_PUBLIC_PLAN_BUILDER === '1' && process.env.NEXT_PUBLIC_TRIP_EDIT === '1';
+
 const credit = (p: Photo): PhotoCredit => ({ title: p.caption || p.file, author: p.author, licence: p.licence, licenceUrl: p.licenceUrl ?? undefined, sourceUrl: p.sourceUrl });
 
 export default function Home() {
@@ -47,6 +50,12 @@ export default function Home() {
             <h2 id="home-trips-h" className="home-h2">Trips</h2>
             <Link href="/trips/">All {allTrips.length} trips &rarr;</Link>
           </div>
+          {/* X8 (FLOW 9): one plain link into the builder, only with the planBuilder flag on (a build-time constant, so off it is not in the page) */}
+          {PLAN_ON ? (
+            <p className="home-hint">
+              <Link href="/plan/">Plan your own trip &rarr;</Link>
+            </p>
+          ) : null}
           <ul className="home-cards">
             {trips.map((t, i) => (
               <li key={t.slug}>
