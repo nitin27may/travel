@@ -1,0 +1,246 @@
+{
+  "schema": "relevance/1",
+  "trip": "catalogue",
+  "lane": "LT2-us",
+  "researched": "2026-10-28",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://query.wikidata.org/sparql",
+      "title": "Wikidata items of the LT-2 places (labels, P31, P625, P1566, P856, P402, P2044, P6375, P281)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.nps.gov/care/planyourvisit/hours.htm",
+      "title": "Operating Hours & Seasons, Capitol Reef National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.nps.gov/care/planyourvisit/fees.htm",
+      "title": "Fees & Passes, Capitol Reef National Park",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.visitsaltlake.com/",
+      "title": "Visit Salt Lake",
+      "publisher": "Visit Salt Lake",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/capitol-reef-national-park-visitor-center",
+      "kind": "sight",
+      "subkind": "visitor_centre",
+      "wikidata": {
+        "v": "Q63993567",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Capitol Reef National Park Visitor Center', NPS visitor center, P625 4 m from OSM relation 14504383; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Capitol Reef National Park; the visitor centre itself is a service, not a draw."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The park's only visitor centre."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A park visitor centre."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "By the highway."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Indoor exhibits."
+      },
+      "why": "Capitol Reef's visitor centre on SR 24 near Fruita, for maps, ranger advice and the entrance pass.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-28",
+        "note": "No booking; the park entrance pass applies (see price)."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Capitol Reef National Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/salt-lake-city",
+      "kind": "town",
+      "subkind": "city",
+      "wikidata": {
+        "v": "Q23337",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Salt Lake City', P625 near OSM node/150935219; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0007"
+        ],
+        "read": "2026-10-28",
+        "note": "No designation; the tourism board's headline: the Wasatch peaks frame the city streets and four ski resorts lie 30 minutes from downtown."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Utah's capital and arrival city."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in the region."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Utah's capital and arrival city, between the Wasatch Range and the Great Salt Lake.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.slc.gov/",
+            "https://www.visitsaltlake.com/"
+          ],
+          "note": "No designation is named for the town."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    }
+  ]
+}

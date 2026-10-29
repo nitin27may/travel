@@ -1,0 +1,2100 @@
+{
+  "schema": "relevance/1",
+  "trip": "catalogue",
+  "lane": "LT2-is",
+  "researched": "2026-10-28",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://query.wikidata.org/sparql",
+      "title": "Wikidata items of the LT-2 places (labels, P31, P625, P1566, P856, P402, P2044, P6375, P281)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell",
+      "title": "Skaftafell, Vatnajökull National Park",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/skaftafellsstofa",
+      "title": "Skaftafellsstofa Visitor Centre",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+      "title": "Dettifoss, Jökulsárgljúfur, Vatnajökull National Park",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.thingvellir.is/en/",
+      "title": "Þingvellir National Park",
+      "publisher": "Þingvellir National Park",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.thingvellir.is/en/service/parking-service/",
+      "title": "Parking service, Þingvellir National Park",
+      "publisher": "Þingvellir National Park",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall",
+      "title": "Visit South Iceland: the Seljaland falls and Gljúfrabúi",
+      "publisher": "Visit South Iceland (Markaðsstofa Suðurlands)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.east.is/en/place/gufufoss-waterfall",
+      "title": "Gufufoss waterfall",
+      "publisher": "Visit East Iceland (Austurbrú)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/",
+      "title": "Geysir Area (protected natural monument)",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service/",
+      "title": "Geysir Area: supervision and service",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/",
+      "title": "Snæfellsjökull National Park",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/",
+      "title": "Snæfellsjökull National Park: FAQ",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://visitreykjavik.is/",
+      "title": "Visit Reykjavík",
+      "publisher": "Visit Reykjavík (City of Reykjavík)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://visitvatnajokull.is/",
+      "title": "Visit Vatnajökull",
+      "publisher": "Visit Vatnajökull (South-east Iceland tourism)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://www.visitakureyri.is/en",
+      "title": "Visit Akureyri",
+      "publisher": "Visit Akureyri",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://www.visitmyvatn.is/",
+      "title": "Visit Mývatn",
+      "publisher": "Visit Mývatn",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://www.northiceland.is/en",
+      "title": "Visit North Iceland",
+      "publisher": "Visit North Iceland (Markaðsstofa Norðurlands)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.visitskagafjordur.is/",
+      "title": "Visit Skagafjörður",
+      "publisher": "Visit Skagafjörður",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://www.south.is/en",
+      "title": "Visit South Iceland",
+      "publisher": "Visit South Iceland (Markaðsstofa Suðurlands)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0035",
+      "url": "https://www.klaustur.is/visitklaustur/skoda-og-sja",
+      "title": "Visit Klaustur: sights",
+      "publisher": "Skaftárhreppur",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0037",
+      "url": "https://visitvik.is/",
+      "title": "Visit Vík",
+      "publisher": "Visit Vík",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0038",
+      "url": "https://www.grindavik.is/",
+      "title": "Grindavíkurbær",
+      "publisher": "Grindavíkurbær",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0040",
+      "url": "https://www.west.is/en",
+      "title": "Visit West Iceland",
+      "publisher": "Visit West Iceland (Markaðsstofa Vesturlands)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/skaftafell",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q3486103",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Skaftafell', lieu-dit, P625 43 m from the Skaftafellsstofa visitor centre (OSM way/200175906); needs a person's check"
+      },
+      "class_key": "park/protected-area",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Vatnajökull National Park (since 2008), registered as a UNESCO World Heritage Site in 2019; a national park in its own right from 1967. The Wikidata signals under-score it because the item is a lieu-dit with few language editions."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The best-known area of the park's southern side."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Glacier tongues, Svartifoss and birch woods within short walks."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The visitor centre and the Svartifoss and glacier-tongue trails start at the car park."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The glaciers and peaks need clear weather."
+      },
+      "why": "Hiking hub of Vatnajökull National Park in Öræfi: Svartifoss, glacier tongues, Morsárdalur.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-28",
+        "note": "No booking or permit is named on the park page; OSM marks the car park as paid (fee=yes), which was not confirmed on a park fee page (the fee page URL returned 404)."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Vatnajökull National Park",
+              "scope": "parent"
+            },
+            {
+              "type": "unesco_whs",
+              "name": "Vatnajökull National Park: Dynamic Nature of Fire and Ice",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Wikidata search 'Skaftafellsstofa' (2026-10-28): no item"
+        ]
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A visitor centre, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The area's visitor centre."
+      },
+      "standing_scope": "the park area it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of the park's visitor centres."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "An indoor visitor centre."
+      },
+      "why": "Year-round visitor centre of Skaftafell, with rangers, information and the trailheads beside it.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-28",
+        "note": "No fee to enter the visitor centre is named."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the Skaftafellsstofa page (2026-10-28)"
+          ],
+          "note": "The visitor centre itself carries no designation."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": "Q1568140",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Hafragilsfoss', waterfall, P625 within 50 m of OSM node 3050633634; needs a person's check"
+      },
+      "class_key": "waterfall/roadside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Vatnajökull National Park. The park names it as the third of the Jökulsá á Fjöllum falls, below Selfoss and Dettifoss."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Overshadowed by Dettifoss upstream."
+      },
+      "standing_scope": "the Jökulsá á Fjöllum falls",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of a row of canyon falls."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Seen from the rim near the car park."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The canyon view needs visibility."
+      },
+      "why": "A 27 m fall of the Jökulsá á Fjöllum below Dettifoss, seen from the rim of Jökulsárgljúfur.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "seasonal_road",
+            "note": "Route 864 (gravel) closes with the first autumn snow"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-28"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Vatnajökull National Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/oxararfoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": "Q307675",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Öxarárfoss', waterfall, P625 0 m from OSM node 312688011; needs a person's check"
+      },
+      "class_key": "waterfall/roadside",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0010"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Þingvellir National Park."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The park's waterfall, beside the Almannagjá rift."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A modest fall in a famous setting."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A short walk from P2."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Best with light in the rift."
+      },
+      "why": "The Öxará falls into the Almannagjá rift inside Þingvellir National Park.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0011"
+        ],
+        "read": "2026-10-28",
+        "note": "No booking; the parking service fee applies at P2 (see the car park record)."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Þingvellir National Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0010"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/gljufrabui",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": "Q5569999",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Gljufrafoss', waterfall, P625 within 130 m of OSM node 2534116947; needs a person's check"
+      },
+      "class_key": "waterfall/roadside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0012"
+        ],
+        "read": "2026-10-28",
+        "note": "Visit South Iceland, the regional tourism board, names it beside the Seljaland fall as an interesting fall partly masked by its canyon."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The second fall of the Seljaland stop."
+      },
+      "standing_scope": "the Seljaland falls",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A fall hidden inside a narrow canyon."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A walk from the paid car park."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A spray-filled canyon in any weather."
+      },
+      "why": "A waterfall hidden in a narrow canyon on the Ring Road, under the Eyjafjallajökull slopes.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0012"
+        ],
+        "read": "2026-10-28",
+        "note": "No booking; the car park is paid (OSM fee=yes, amount not read)."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall",
+            "https://ust.is/english/visiting-iceland/protected-areas/south/ (no listing)"
+          ],
+          "note": "Not a listed protected area."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/gufufoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": "Q2957354",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Gufufoss', waterfall, two P625 values 0.3 km apart, within 0.4 km of OSM node 3101158567; needs a person's check"
+      },
+      "class_key": "waterfall/roadside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0013"
+        ],
+        "read": "2026-10-28",
+        "note": "Visit East Iceland, the regional tourism board, lists it among the sights of Seyðisfjörður."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The roadside fall on the way into Seyðisfjörður."
+      },
+      "standing_scope": "Seyðisfjörður",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of many falls on the Fjarðará."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Seen from the road."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Named for its spray; worth a stop in any weather."
+      },
+      "why": "A roadside waterfall named for its spray, on route 93 down into Seyðisfjörður.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0013"
+        ],
+        "read": "2026-10-28",
+        "note": "No booking or fee."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.east.is/en/place/gufufoss-waterfall"
+          ],
+          "note": "No designation is named."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/strokkur",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q1128186",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Strokkur', geyser, P625 2 m from OSM node 270943513; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): the Geysir Area natural monument (protected on 17 June 2020); the agency names Geysir and Strokkur as its best-known geysers."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The geyser that erupts for visitors (Geysir itself is mostly quiet)."
+      },
+      "standing_scope": "the Geysir area",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of few regularly erupting geysers anywhere."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A short walk from the car park."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Erupts in any weather."
+      },
+      "why": "The active geyser of the protected Geysir hot-spring area in Haukadalur.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0016"
+        ],
+        "read": "2026-10-28",
+        "note": "No booking; the car park is paid (OSM fee=yes, operator Parka), amount not read."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "natural_monument",
+              "name": "Geysir Area",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "wikidata": {
+        "v": "Q1315012",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Snæfellsjökull', ice cap and volcano, P625 0.2 km from OSM relation 5443646; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0017"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Snæfellsjökull National Park."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The park's namesake."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A glacier-capped active volcano on the coast."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Seen from the road."
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The summit is often in cloud."
+      },
+      "why": "The 1,446 m glacier-capped volcano at the tip of Snæfellsnes, in Snæfellsjökull National Park.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0019"
+        ],
+        "read": "2026-10-28",
+        "note": "The park is free to enter (FAQ)."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Snæfellsjökull National Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0017"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/reykjavik",
+      "kind": "town",
+      "subkind": "city",
+      "wikidata": {
+        "v": "Q1764",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Reykjavík', P625 near OSM node/2107832620; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0022"
+        ],
+        "read": "2026-10-28",
+        "note": "Its own tourism board or the regional board presents it. Although the Wikidata signals over-score it (a large article in many languages), its draw here is as a base."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The capital and the arrival city."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in Iceland."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Iceland's capital and main base, on Faxaflói bay.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://reykjavik.is/en",
+            "https://visitreykjavik.is/"
+          ],
+          "note": "No designation is named for the town."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/hofn",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q817118",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Höfn', P625 near OSM node/249085731; needs a person's check"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0024"
+        ],
+        "read": "2026-10-28",
+        "note": "Its own tourism board or the regional board presents it. Although the Wikidata signals over-score it (a large article in many languages), its draw here is as a base."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The only town of the south-east coast."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in Iceland."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Harbour town of south-east Iceland, the base for the Vatnajökull side of the ring road.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.hornafjordur.is/",
+            "https://visitvatnajokull.is/"
+          ],
+          "note": "No designation is named for the town."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/akureyri",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q29042",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Akureyri', P625 near OSM node/242107681; needs a person's check"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0026"
+        ],
+        "read": "2026-10-28",
+        "note": "Its own tourism board or the regional board presents it. Although the Wikidata signals over-score it (a large article in many languages), its draw here is as a base."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The capital of the north."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in Iceland."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "North Iceland's largest town, at the head of Eyjafjörður; the base for Mývatn and Goðafoss.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.akureyri.is/",
+            "https://www.visitakureyri.is/en"
+          ],
+          "note": "No designation is named for the town."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/fossholl",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q134328943",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Fosshóll', P625 near OSM Q134328943; needs a person's check"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0029"
+        ],
+        "read": "2026-10-28",
+        "note": "Its own tourism board or the regional board presents it."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A stop, not a town."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in Iceland."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "A hamlet with a guesthouse on the Ring Road beside Goðafoss.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.thingeyjarsveit.is/",
+            "https://www.northiceland.is/en"
+          ],
+          "note": "No designation is named for the town."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/reykjahlid",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q1026867",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Reykjahlíð', P625 near OSM node/270961115; needs a person's check"
+      },
+      "class_key": "town/lakeside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0028"
+        ],
+        "read": "2026-10-28",
+        "note": "Its own tourism board or the regional board presents it."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The Mývatn base."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in Iceland."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Village on the north shore of Mývatn, the base for the lake, the lava fields and the nature baths.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.thingeyjarsveit.is/",
+            "https://www.visitmyvatn.is/"
+          ],
+          "note": "No designation is named for the town."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/varmahli",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q419691",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Varmahlíð', P625 near OSM node/244149690; needs a person's check"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0031"
+        ],
+        "read": "2026-10-28",
+        "note": "Its own tourism board or the regional board presents it."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A Ring Road service stop."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in Iceland."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Service village of Skagafjörður at a Ring Road junction.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.skagafjordur.is/",
+            "https://www.visitskagafjordur.is/"
+          ],
+          "note": "No designation is named for the town."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/skogar",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q985810",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Skógar', P625 near OSM node/1385855484; needs a person's check"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0033"
+        ],
+        "read": "2026-10-28",
+        "note": "Its own tourism board or the regional board presents it."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Small, but the Skógafoss stop."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in Iceland."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Hamlet under Eyjafjallajökull, home of Skógafoss and the start of the Fimmvörðuháls trail.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.hvolsvollur.is/",
+            "https://www.south.is/en"
+          ],
+          "note": "No designation is named for the town."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q1010183",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Kirkjubæjarklaustur', P625 near OSM node/60472743; needs a person's check"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0035"
+        ],
+        "read": "2026-10-28",
+        "note": "Its own tourism board or the regional board presents it. Although the Wikidata signals over-score it (a large article in many languages), its draw here is as a base."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The services stop of the region."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in Iceland."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Village on the Ring Road between Vík and Skaftafell, the last services before the sands.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.klaustur.is/",
+            "https://www.klaustur.is/visitklaustur/skoda-og-sja"
+          ],
+          "note": "No designation is named for the town."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q685369",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Vík í Mýrdal', P625 near OSM node/59861511; needs a person's check"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0037"
+        ],
+        "read": "2026-10-28",
+        "note": "Its own tourism board or the regional board presents it. Although the Wikidata signals over-score it (a large article in many languages), its draw here is as a base."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The south coast's base."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in Iceland."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Iceland's southernmost village, by the black-sand beach and the Reynisdrangar sea stacks.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "official_highlight",
+              "name": "Katla UNESCO Global Geopark",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0033"
+          ],
+          "read": "2026-10-28",
+          "note": "Visit South Iceland: Mýrdalshreppur is one of the three municipalities of Katla Geopark."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/grindavik",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q472822",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Grindavík', P625 near OSM node/244149207; needs a person's check"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0038"
+        ],
+        "read": "2026-10-28",
+        "note": "No designation and no tourism board page (the Visit Grindavík link answered 404). The town site says Grindavík is at the civil-protection uncertainty level (óvissustig almannavarna) and welcomes visitors; evacuation sirens were tested on 28 Oct 2026."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Recovering after the eruptions."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in Iceland."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Fishing town on Reykjanes, under a civil-protection uncertainty level after the 2023 to 2025 eruptions.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.grindavik.is/"
+          ],
+          "note": "No designation is named for the town."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q27014314",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Grundarfjörður', P625 near OSM node/126199675; needs a person's check"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0040"
+        ],
+        "read": "2026-10-28",
+        "note": "Its own tourism board or the regional board presents it. Although the Wikidata signals over-score it (a large article in many languages), its draw here is as a base."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The Kirkjufell base."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in Iceland."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Fishing town on the north coast of Snæfellsnes, beside Kirkjufell mountain.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.grundarfjordur.is/",
+            "https://www.west.is/en"
+          ],
+          "note": "No designation is named for the town."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    }
+  ]
+}

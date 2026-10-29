@@ -1,0 +1,799 @@
+{
+  "schema": "relevance/1",
+  "trip": "catalogue",
+  "lane": "LT2-it",
+  "researched": "2026-10-28",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://query.wikidata.org/sparql",
+      "title": "Wikidata items of the LT-2 places (labels, P31, P625, P1566, P856, P402, P2044, P6375, P281)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoib8f7d742e2a641d0aa2b1a2f0fd9d4e1.collegiate-church.prato-alla-drava-winnebach",
+      "title": "The Collegiate Church in San Candido",
+      "publisher": "IDM Südtirol (suedtirol.info)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoi90c79655dabf128bbb73c724b7aac2e6.dobbiaco-station.dobbiaco-nuova-neutoblach",
+      "title": "Dobbiaco station",
+      "publisher": "IDM Südtirol (suedtirol.info)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.talschlusshuette.com/en/",
+      "title": "Talschlusshütte / Rifugio Fondovalle",
+      "publisher": "Talschlusshütte / Rifugio Fondovalle",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.talschlusshuette.com/en/arrival/",
+      "title": "Talschlusshütte: how to reach the Fiscalina valley",
+      "publisher": "Talschlusshütte / Rifugio Fondovalle",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.valgardena.it/en/",
+      "title": "Val Gardena",
+      "publisher": "Val Gardena-Gröden Marketing",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.seiseralm.it/en/summer-holiday-south-tyrol.html",
+      "title": "Seiser Alm Marketing: summer holiday in South Tyrol",
+      "publisher": "Seiser Alm Marketing",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://eggental.com/en",
+      "title": "Eggental Tourismus",
+      "publisher": "Eggental Tourismus",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://www.altabadia.org/en/",
+      "title": "Alta Badia",
+      "publisher": "Alta Badia Tourist Board",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "kind": "sight",
+      "subkind": "historic_site",
+      "wikidata": {
+        "v": "Q549129",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Collegiate church of Innichen' (coordinates match, the name differs by language), collegiate church, P625 3 m from OSM way 216694096; needs a person's check"
+      },
+      "class_key": "sight/heritage-site",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-28",
+        "note": "The official South Tyrol tourism page (a land-manager class headline) calls it one of the most beautiful Romanesque sacred buildings in the Eastern Alps."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The landmark of San Candido."
+      },
+      "standing_scope": "San Candido",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A rare intact Romanesque collegiate church."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "In the village centre."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "An indoor visit."
+      },
+      "why": "Romanesque collegiate church of about 1143 to 1280 in San Candido, with dome frescoes and a crypt.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-28",
+        "note": "No booking is named."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the suedtirol.info church page",
+            "https://www.dreizinnen.com/de/region/ferienorte/innichen"
+          ],
+          "note": "No listing is named on the pages read."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/dobbiaco-railway-station",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": "Q3969534",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Toblach/Dobbiaco railway station', railway station, P625 11 m from OSM node 6738731097; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A station, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The Val Pusteria station for Dobbiaco and its lake."
+      },
+      "standing_scope": "the Val Pusteria line",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A line station, opened in 1871 with Art Nouveau waiting rooms (the official page)."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Trains stop in the village."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A station."
+      },
+      "why": "Val Pusteria railway station of Dobbiaco, opened in 1871, with parking and bus links.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-28",
+        "note": "A ticket only; no booking to reach the station."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the suedtirol.info station page"
+          ],
+          "note": "No designation is named."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "kind": "stay",
+      "subkind": "hut",
+      "wikidata": {
+        "v": "Q113433241",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Talschlusshütte', mountain hut, P625 2 m from OSM way 96096595; needs a person's check"
+      },
+      "class_key": "trail/hut-to-hut",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): the Dolomites UNESCO World Heritage Site, at the edge of the Three Peaks Nature Park (the hut's own page)."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The hut at the head of Val Fiscalina."
+      },
+      "standing_scope": "Val Fiscalina",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of many huts in the Sexten Dolomites."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A flat walk from the car park."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A hut with a kitchen."
+      },
+      "why": "A walk-in hut at 1,548 m at the head of Val Fiscalina, with dorm rooms and a terrace under the Sexten Dolomites.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "long_walk_in",
+            "note": "reached only on foot, 20 to 30 minutes on a flat trail from the paid car park about 2 km away"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0010"
+        ],
+        "read": "2026-10-28"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "The Dolomites",
+              "scope": "parent"
+            },
+            {
+              "type": "provincial_or_state_park",
+              "name": "Three Peaks Nature Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/val-gardena",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q384885",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Val Gardena', valley, P625 2.8 km from the OSM ski-area relation and on the OSM valley line; needs a person's check"
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0011"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): the Dolomites UNESCO World Heritage Site; the tourism board calls it the valley of the Dolomites par excellence. Held at regional: a region-like setting whose draw is carried by the sights in it."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of the main Dolomite valleys."
+      },
+      "standing_scope": "the Dolomites",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A Ladin valley under the Sassolungo and the Sella."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "You drive into it."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The peaks need clear weather."
+      },
+      "why": "Ladin valley of Ortisei, Santa Cristina and Selva under the Sassolungo, with lifts to the Seceda and the Sella.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit for the valley."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "The Dolomites",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-28",
+          "note": "The tourism board places it in the UNESCO World Natural Heritage."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/castelrotto",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q377319",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Castelrotto', P625 near OSM Q377319; needs a person's check"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0013"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): the Dolomites UNESCO World Heritage Site around the Seiser Alm (its tourism board)."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The village below the Seiser Alm."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in the region."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Village below the Sciliar and the Seiser Alm (Alpe di Siusi), the gateway to the high pasture.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "The Dolomites",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/nova-levante",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q433287",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Nova Levante', P625 near OSM Q433287; needs a person's check"
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0015"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): the Dolomites UNESCO World Heritage Site of the Latemar and Rosengarten (its tourism board)."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The Eggental village for Carezza."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in the region."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Village in the Val d'Ega under the Latemar and the Catinaccio, near Lago di Carezza.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "The Dolomites",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/san-cassiano",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q519474",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'San Cassiano', P625 near OSM node/223597157; needs a person's check"
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0017"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): the Dolomites UNESCO World Heritage Site (the Alta Badia tourism board)."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "An Alta Badia village; the municipality is Badia."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in the region."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Ladin village of Alta Badia under the Lagazuoi and the Fanes group, in the comune of Badia.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "The Dolomites",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0017"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    }
+  ]
+}

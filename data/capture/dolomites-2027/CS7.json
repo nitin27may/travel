@@ -96,6 +96,97 @@
       "read": "2026-10-19",
       "method": "api",
       "run": "api-2026-10-19-cs7c-overpass"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap alpine huts near the Tre Cime huts (Overpass, LT-2)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://rifugioauronzo.it/",
+      "title": "Rifugio Auronzo (contact footer)",
+      "publisher": "Rifugio Auronzo",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://rifugioauronzo.it/prenota/",
+      "title": "Rifugio Auronzo: prenota",
+      "publisher": "Rifugio Auronzo",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://rifugiolavaredo.com/",
+      "title": "Rifugio Lavaredo (home, prices and booking)",
+      "publisher": "Rifugio Lavaredo",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://rifugiolavaredo.bukly.com/it/",
+      "title": "Rifugio Lavaredo: booking engine",
+      "publisher": "Rifugio Lavaredo",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://dreizinnenhuette.com/",
+      "title": "Rifugio Locatelli (maintenance page with the 2027 opening)",
+      "publisher": "Dreizinnenhütte / Rifugio Locatelli",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://rifugionuvolau.it/",
+      "title": "Rifugio Nuvolau (contact footer)",
+      "publisher": "Rifugio Nuvolau",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.rifugioaverau.it/",
+      "title": "Rifugio Averau (contact footer)",
+      "publisher": "Rifugio Averau",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.scotoni.it/it/",
+      "title": "Rifugio Scotoni (useful information)",
+      "publisher": "Rifugio Scotoni",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://www.scotoni.it/it/camere-e-prezzi-in-alta-badia",
+      "title": "Rifugio Scotoni: camere e prezzi",
+      "publisher": "Rifugio Scotoni",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
     }
   ],
   "records": [
@@ -203,6 +294,33 @@
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
       "area_id": "IT/veneto/belluno",
+      "osm_ref": {
+        "v": "way/186519265",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0012"
+        ],
+        "read": "2026-10-28",
+        "note": "the hut building tagged with the record's QID Q681466 (tourism=alpine_hut, ele 2333)"
+      },
+      "address": {
+        "v": {
+          "kind": "postal",
+          "lines": [
+            "Forcella Longeres"
+          ],
+          "locality": "Auronzo di Cadore",
+          "postcode": "32041"
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0013"
+        ],
+        "read": "2026-10-28",
+        "note": "As the hut writes it (Forcella Longeres, 32041 Auronzo di Cadore, BL); reached by the toll road from Misurina."
+      },
       "type": "stay.mountain.hut",
       "layer": "place",
       "near_town": {
@@ -244,6 +362,15 @@
           ]
         },
         {
+          "kind": "booking",
+          "url": "https://rifugioauronzo.it/prenota/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0014"
+          ]
+        },
+        {
           "kind": "wikidata",
           "url": "https://www.wikidata.org/wiki/Q681466",
           "state": "filled",
@@ -262,6 +389,28 @@
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo",
       "area_id": "IT/veneto/belluno",
+      "osm_ref": {
+        "v": "way/186519282",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0012"
+        ],
+        "read": "2026-10-28",
+        "note": "the hut building tagged with the record's QID Q3935531 (tourism=alpine_hut, ele 2345)"
+      },
+      "address": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://rifugiolavaredo.com/ (the only street address is the operating company's office in Auronzo di Cadore, not the hut)",
+          "Nominatim reverse at the hut point (2026-10-28): the nearest 'road' is the Passaporto via ferrata"
+        ],
+        "note": "No address of the hut itself; it is a 20-minute walk from the Rifugio Auronzo car park at the end of the toll road from Misurina."
+      },
       "type": "stay.mountain.hut",
       "layer": "place",
       "near_town": {
@@ -303,6 +452,15 @@
           ]
         },
         {
+          "kind": "booking",
+          "url": "https://rifugiolavaredo.bukly.com/it/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0016"
+          ]
+        },
+        {
           "kind": "wikidata",
           "url": "https://www.wikidata.org/wiki/Q3935531",
           "state": "filled",
@@ -321,6 +479,28 @@
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli",
       "area_id": "IT/veneto/belluno",
+      "osm_ref": {
+        "v": "way/84679331",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0012"
+        ],
+        "read": "2026-10-28",
+        "note": "the hut building tagged with the record's QID Q1258258 (tourism=alpine_hut, ele 2405)"
+      },
+      "address": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://dreizinnenhuette.com/ (site under maintenance: no address)",
+          "Nominatim reverse at the hut point (2026-10-28): the nearest 'road' is a First World War tunnel trail"
+        ],
+        "note": "No address of the hut itself; it is reached on foot from Val Fiscalina or from the Rifugio Auronzo car park."
+      },
       "type": "stay.mountain.hut",
       "layer": "place",
       "near_town": {
@@ -367,6 +547,12 @@
           "src": [
             "src-0002"
           ]
+        },
+        {
+          "kind": "booking",
+          "state": "searched_none",
+          "on": "2026-10-28",
+          "query": "https://www.dreizinnenhuette.com/booking/index_en.php answered 404 (2026-10-28); the maintenance page says the hut opens on 26 June 2027 and bookings for 2027 open in January by e-mail"
         },
         {
           "kind": "wikidata",
@@ -1181,6 +1367,23 @@
       },
       "name": "Rifugio Nuvolau and Averau",
       "osm_ref": "way/200226208",
+      "address": {
+        "v": {
+          "kind": "postal",
+          "lines": [
+            "Monte Nuvolau"
+          ],
+          "locality": "Cortina d'Ampezzo",
+          "postcode": "32043"
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0018"
+        ],
+        "read": "2026-10-28",
+        "note": "Rifugio Nuvolau as it writes it (Monte Nuvolau, 32043 Cortina d'Ampezzo BL); the record's point is the Nuvolau hut. Rifugio Averau gives Località Forcella Nuvolau, Colle Santa Lucia (BL)."
+      },
       "season": {
         "v": [
           {
@@ -1210,6 +1413,12 @@
           "src": [
             "src-0006"
           ]
+        },
+        {
+          "kind": "booking",
+          "state": "searched_none",
+          "on": "2026-10-28",
+          "query": "https://rifugionuvolau.it/ (2026-10-28): bookings for 2027 open from January 2027 on the website; no booking page yet. https://www.rifugioaverau.it/ shows a 'Prenota ora' button without a booking page link in the page."
         },
         {
           "kind": "official",
@@ -1259,6 +1468,23 @@
       "name": "Rifugio Scotoni",
       "area_id": "IT/trentino-alto-adige/bolzano",
       "osm_ref": "way/229003439",
+      "address": {
+        "v": {
+          "kind": "postal",
+          "lines": [
+            "Alpe Lagazuoi"
+          ],
+          "locality": "San Cassiano",
+          "postcode": "39036"
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0020"
+        ],
+        "read": "2026-10-28",
+        "note": "As the hut writes it (Alpe Lagazuoi, 39036 San Cassiano BZ); the house number is left out."
+      },
       "season": {
         "v": null,
         "state": "searched_none",
@@ -1279,6 +1505,15 @@
           "on": "2026-10-19",
           "src": [
             "src-0008"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://www.scotoni.it/it/camere-e-prezzi-in-alta-badia",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0021"
           ]
         },
         {

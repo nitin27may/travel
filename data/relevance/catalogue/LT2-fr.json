@@ -1,0 +1,343 @@
+{
+  "schema": "relevance/1",
+  "trip": "catalogue",
+  "lane": "LT2-fr",
+  "researched": "2026-10-28",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://query.wikidata.org/sparql",
+      "title": "Wikidata items of the LT-2 places (labels, P31, P625, P1566, P856, P402, P2044, P6375, P281)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift",
+      "title": "Flégère gondola and Index lift: practical information",
+      "publisher": "Office de Tourisme de la Vallée de Chamonix-Mont-Blanc",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.chamonix.com/",
+      "title": "Chamonix-Mont-Blanc tourist office",
+      "publisher": "Office de Tourisme de la Vallée de Chamonix-Mont-Blanc",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.haute-savoie-tourisme.org/53929-gare-sncf-vallorcine",
+      "title": "Gare SNCF de Vallorcine",
+      "publisher": "Haute-Savoie Tourisme (Savoie Mont Blanc Tourisme)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/la-flegere",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q3209029",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'La Flégère', lieu-dit, mountain, viewpoint and ski resort, P625 140 m from the OSM gondola top station; needs a person's check"
+      },
+      "class_key": "viewpoint/summit-panorama",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-28",
+        "note": "The tourist office (the tourism board) presents it as the departure for the classic hikes to the mountain lakes, facing Mont Blanc."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "One of the valley's lift-served balconies, with Brévent opposite."
+      },
+      "standing_scope": "the Chamonix valley",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The valley has several lift balconies."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The gondola arrives at the terrace."
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The point is the Mont Blanc view."
+      },
+      "why": "Lift-served balcony at 1,877 m facing Mont Blanc, the start of the hikes to Lac Blanc.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "lift_only",
+            "note": "Flégère gondola from Les Praz; adult return EUR 25, child return EUR 21.30, family pass EUR 77.60 (published fares)"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-28"
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://en.chamonix.com/activities/practical-information-about-the-lifts/flegere-gondola-and-index-lift",
+            "https://domaineschamonix.montblancnaturalresort.com/fr/domaine/flegere"
+          ],
+          "note": "No designation is named."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/vallorcine-railway-station",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": "Q1916822",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Vallorcine railway station', railway station, P625 3 m from OSM node 9543361428; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A station, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The village station of the Mont-Blanc Express."
+      },
+      "standing_scope": "the Mont-Blanc Express line",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A line station."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Trains stop in the village."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A station."
+      },
+      "why": "Last French stop of the Mont-Blanc Express, for Vallorcine and the Swiss border.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-28",
+        "note": "A train ticket only; no booking to reach the station."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.haute-savoie-tourisme.org/53929-gare-sncf-vallorcine"
+          ],
+          "note": "No designation is named."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/chamonix-mont-blanc",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q83236",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Chamonix-Mont-Blanc', P625 near OSM node/26696275; needs a person's check"
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0007"
+        ],
+        "read": "2026-10-28",
+        "note": "No designation applies; the tourism board's headline presents the resort at the foot of Mont Blanc, and the world tier is our judgement for the valley's lifts (Aiguille du Midi, Montenvers)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The valley's base."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in the region."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Mountain resort at the foot of Mont Blanc, with lifts to the Aiguille du Midi, Montenvers and the balconies.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.chamonix.fr/",
+            "https://www.chamonix.com/"
+          ],
+          "note": "No designation is named for the town."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    }
+  ]
+}

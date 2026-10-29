@@ -6474,6 +6474,690 @@
         "review_state": "agent_checked",
         "basis": "community"
       }
+    },
+    "place/skaftafell": {
+      "lat": 64.01663,
+      "lon": -16.9672,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q3486103",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q3486103 P625 (Skaftafell); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/skaftafell#skaftafellsstofa": {
+      "lat": 64.01667,
+      "lon": -16.96633,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/200175906",
+        "read": "2026-10-28",
+        "quote": "OSM way 200175906 Skaftafellsstofa (tourism=information, information=office); agent checked, needs a person's check"
+      },
+      "point_role": "entrance",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/hafragilsfoss": {
+      "lat": 65.8321,
+      "lon": -16.39997,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/3050633634",
+        "read": "2026-10-28",
+        "quote": "OSM node 3050633634 Hafragilsfoss (waterway=waterfall); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/hafragilsfoss#parking": {
+      "lat": 65.8361,
+      "lon": -16.39987,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/658280966",
+        "read": "2026-10-28",
+        "quote": "OSM way 658280966 named 'Hafragilsfoss' (amenity=parking, fee=no); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/oxararfoss": {
+      "lat": 64.26583,
+      "lon": -21.11805,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/312688011",
+        "read": "2026-10-28",
+        "quote": "OSM node 312688011 Öxarárfoss (waterway=waterfall); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/oxararfoss#p2-efri-vellir": {
+      "lat": 64.265,
+      "lon": -21.11422,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/169907450",
+        "read": "2026-10-28",
+        "quote": "OSM way 169907450 named 'Oxararfoss P2 Fossplan' (amenity=parking, fee=yes); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/gljufrabui": {
+      "lat": 63.62076,
+      "lon": -19.98634,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/2534116947",
+        "read": "2026-10-28",
+        "quote": "OSM node 2534116947 Gljúfrabúi (waterway=waterfall); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/gljufrabui#seljalandsfoss-parking": {
+      "lat": 63.61546,
+      "lon": -19.99333,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/76051771",
+        "read": "2026-10-28",
+        "quote": "OSM way 76051771 named 'Seljalandsfoss' (amenity=parking, fee=yes); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/gufufoss": {
+      "lat": 65.23995,
+      "lon": -14.0575,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/3101158567",
+        "read": "2026-10-28",
+        "quote": "OSM node 3101158567 Gufufoss (waterway=waterfall); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/gufufoss#roadside-parking": {
+      "lat": 65.24093,
+      "lon": -14.05247,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/712989031",
+        "read": "2026-10-28",
+        "quote": "OSM way 712989031 unnamed street-side parking on route 93 (amenity=parking, parking=street_side); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/strokkur": {
+      "lat": 64.3127,
+      "lon": -20.30077,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/270943513",
+        "read": "2026-10-28",
+        "quote": "OSM node 270943513 Strokkur (natural=geyser); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/strokkur#geysir-parking": {
+      "lat": 64.30905,
+      "lon": -20.3035,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/194193955",
+        "read": "2026-10-28",
+        "quote": "OSM way 194193955 unnamed public car park at Geysir (amenity=parking, fee=yes, operator Parka); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/snaefellsjokull": {
+      "lat": 64.80712,
+      "lon": -23.77623,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q1315012",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q1315012 P625 (Snæfellsjökull); agent checked, needs a person's check"
+      },
+      "point_role": "summit",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/reykjavik": {
+      "lat": 64.14598,
+      "lon": -21.94224,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/2107832620",
+        "read": "2026-10-28",
+        "quote": "OSM node 2107832620 Reykjavík (place=city); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/hofn": {
+      "lat": 64.25326,
+      "lon": -15.20804,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/249085731",
+        "read": "2026-10-28",
+        "quote": "OSM node 249085731 Höfn (place=town); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/akureyri": {
+      "lat": 65.68264,
+      "lon": -18.0913,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/242107681",
+        "read": "2026-10-28",
+        "quote": "OSM node 242107681 Akureyri (place=city); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/fossholl": {
+      "lat": 65.68565,
+      "lon": -17.53951,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q134328943",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q134328943 P625 (Fosshóll); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/reykjahlid": {
+      "lat": 65.64156,
+      "lon": -16.91001,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/270961115",
+        "read": "2026-10-28",
+        "quote": "OSM node 270961115 Reykjahlíð (place=village); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/varmahli": {
+      "lat": 65.55324,
+      "lon": -19.44748,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/244149690",
+        "read": "2026-10-28",
+        "quote": "OSM node 244149690 Varmahlíð (place=village); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/skogar": {
+      "lat": 63.52695,
+      "lon": -19.49443,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/1385855484",
+        "read": "2026-10-28",
+        "quote": "OSM node 1385855484 Skógar (place=hamlet); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/kirkjubaejarklaustur": {
+      "lat": 63.79306,
+      "lon": -18.04186,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/60472743",
+        "read": "2026-10-28",
+        "quote": "OSM node 60472743 Kirkjubæjarklaustur (place=village); Wikidata's P625 is 3.2 km south-west; agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/vik-i-myrdal": {
+      "lat": 63.41882,
+      "lon": -19.00547,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/59861511",
+        "read": "2026-10-28",
+        "quote": "OSM node 59861511 Vík (place=village); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/grindavik": {
+      "lat": 63.84424,
+      "lon": -22.43175,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/244149207",
+        "read": "2026-10-28",
+        "quote": "OSM node 244149207 Grindavík (place=town); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/grundarfjordur": {
+      "lat": 64.92503,
+      "lon": -23.2593,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/126199675",
+        "read": "2026-10-28",
+        "quote": "OSM node 126199675 Grundarfjörður (place=town); it carries wikidata Q1019459, not the store's Q27014314; agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/la-flegere": {
+      "lat": 45.9611,
+      "lon": 6.88559,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q3209029",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q3209029 P625 (La Flégère), 140 m from the gondola top station (OSM node 275376985, ele 1895); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/la-flegere#les-praz-parking": {
+      "lat": 45.94139,
+      "lon": 6.88559,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/758067054",
+        "read": "2026-10-28",
+        "quote": "OSM way 758067054 unnamed public car park beside the Flégère valley station at Les Praz (amenity=parking, fee=no); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/vallorcine-railway-station": {
+      "lat": 46.03248,
+      "lon": 6.93267,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/9543361428",
+        "read": "2026-10-28",
+        "quote": "OSM node 9543361428 Vallorcine (railway=station); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/chamonix-mont-blanc": {
+      "lat": 45.9231,
+      "lon": 6.87,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/26696275",
+        "read": "2026-10-28",
+        "quote": "OSM node 26696275 Chamonix-Mont-Blanc (place=town); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/collegiate-church-of-san-candido": {
+      "lat": 46.73289,
+      "lon": 12.28268,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/216694096",
+        "read": "2026-10-28",
+        "quote": "OSM way 216694096 Stiftskirche (amenity=place_of_worship, building=church), centre of the building; agent checked, needs a person's check"
+      },
+      "point_role": "entrance",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/dobbiaco-railway-station": {
+      "lat": 46.7248,
+      "lon": 12.22546,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/6738731097",
+        "read": "2026-10-28",
+        "quote": "OSM node 6738731097 Toblach - Dobbiaco (railway=station); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/rifugio-fondovalle": {
+      "lat": 46.65138,
+      "lon": 12.35387,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/96096595",
+        "read": "2026-10-28",
+        "quote": "OSM way 96096595 Talschlusshütte Fischleintal - Rifugio Fondovalle (tourism=alpine_hut); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/rifugio-fondovalle#val-fiscalina-parking": {
+      "lat": 46.66739,
+      "lon": 12.35342,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/98002215",
+        "read": "2026-10-28",
+        "quote": "OSM way 98002215 unnamed paid car park at the road end in Val Fiscalina (amenity=parking, fee=yes, gravel); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/val-gardena": {
+      "lat": 46.56,
+      "lon": 11.70472,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q384885",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q384885 P625 (Val Gardena); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/castelrotto": {
+      "lat": 46.56784,
+      "lon": 11.55968,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q377319",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q377319 P625 (Kastelruth); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/nova-levante": {
+      "lat": 46.43023,
+      "lon": 11.53895,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q433287",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q433287 P625 (Welschnofen); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/san-cassiano": {
+      "lat": 46.57114,
+      "lon": 11.93209,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/223597157",
+        "read": "2026-10-28",
+        "quote": "OSM node 223597157 San Ćiascian - St. Kassian - San Cassiano (place=village); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/capitol-reef-national-park-visitor-center": {
+      "lat": 38.29145,
+      "lon": -111.26204,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "relation/14504383",
+        "read": "2026-10-28",
+        "quote": "OSM relation 14504383 Capitol Reef National Park Visitor Center (tourism=information), centre of the building; agent checked, needs a person's check"
+      },
+      "point_role": "entrance",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/salt-lake-city": {
+      "lat": 40.75962,
+      "lon": -111.8868,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/150935219",
+        "read": "2026-10-28",
+        "quote": "OSM node 150935219 Salt Lake City (place=city); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
     }
   }
 }

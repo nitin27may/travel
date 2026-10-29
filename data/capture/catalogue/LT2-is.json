@@ -1,0 +1,2178 @@
+{
+  "schema": "capture/1",
+  "trip": "catalogue",
+  "lane": "LT2-is",
+  "researched": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://query.wikidata.org/sparql",
+      "title": "Wikidata items of the LT-2 places (labels, P31, P625, P1566, P856, P402, P2044, P6375, P281)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap elements by id, car parks, stations and information points near each place (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://nominatim.openstreetmap.org/reverse",
+      "title": "Nominatim reverse lookups of the access points (zoom 16 and 18)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell",
+      "title": "Skaftafell, Vatnajökull National Park",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/skaftafellsstofa",
+      "title": "Skaftafellsstofa Visitor Centre",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/frettir",
+      "title": "News, Vatnajökull National Park",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://atlas.lmi.is/mapview/?application=Vatnaj%C3%B6kuls%C3%BEj%C3%B3%C3%B0gar%C3%B0ur",
+      "title": "Vatnajökull National Park map viewer (Natural Science Institute and National Land Survey atlas)",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+      "title": "Dettifoss, Jökulsárgljúfur, Vatnajökull National Park",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3",
+      "title": "Hafragil lowland (D3), Jökulsárgljúfur",
+      "publisher": "Vatnajökull National Park (Nature Conservation Agency of Iceland)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.thingvellir.is/en/",
+      "title": "Þingvellir National Park",
+      "publisher": "Þingvellir National Park",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.thingvellir.is/en/service/parking-service/",
+      "title": "Parking service, Þingvellir National Park",
+      "publisher": "Þingvellir National Park",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall",
+      "title": "Visit South Iceland: the Seljaland falls and Gljúfrabúi",
+      "publisher": "Visit South Iceland (Markaðsstofa Suðurlands)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.east.is/en/place/gufufoss-waterfall",
+      "title": "Gufufoss waterfall",
+      "publisher": "Visit East Iceland (Austurbrú)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/",
+      "title": "Geysir Area (protected natural monument)",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service/",
+      "title": "Geysir Area: supervision and service",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/the-glacier/",
+      "title": "Snæfellsjökull National Park: the glacier",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/maps/",
+      "title": "Snæfellsjökull National Park: maps",
+      "publisher": "Environment Agency of Iceland and Nature Conservation Agency of Iceland",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://reykjavik.is/en",
+      "title": "City of Reykjavík",
+      "publisher": "Reykjavíkurborg",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://visitreykjavik.is/",
+      "title": "Visit Reykjavík",
+      "publisher": "Visit Reykjavík (City of Reykjavík)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://www.hornafjordur.is/",
+      "title": "Sveitarfélagið Hornafjörður",
+      "publisher": "Sveitarfélagið Hornafjörður",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://visitvatnajokull.is/",
+      "title": "Visit Vatnajökull",
+      "publisher": "Visit Vatnajökull (South-east Iceland tourism)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://www.akureyri.is/",
+      "title": "Akureyrarbær",
+      "publisher": "Akureyrarbær",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://www.visitakureyri.is/en",
+      "title": "Visit Akureyri",
+      "publisher": "Visit Akureyri",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://www.thingeyjarsveit.is/",
+      "title": "Þingeyjarsveit",
+      "publisher": "Þingeyjarsveit",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://www.visitmyvatn.is/",
+      "title": "Visit Mývatn",
+      "publisher": "Visit Mývatn",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://www.northiceland.is/en",
+      "title": "Visit North Iceland",
+      "publisher": "Visit North Iceland (Markaðsstofa Norðurlands)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.skagafjordur.is/",
+      "title": "Skagafjörður",
+      "publisher": "Sveitarfélagið Skagafjörður",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.visitskagafjordur.is/",
+      "title": "Visit Skagafjörður",
+      "publisher": "Visit Skagafjörður",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://www.hvolsvollur.is/",
+      "title": "Rangárþing eystra",
+      "publisher": "Rangárþing eystra",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://www.south.is/en",
+      "title": "Visit South Iceland",
+      "publisher": "Visit South Iceland (Markaðsstofa Suðurlands)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://www.klaustur.is/",
+      "title": "Skaftárhreppur",
+      "publisher": "Skaftárhreppur",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0035",
+      "url": "https://www.klaustur.is/visitklaustur/skoda-og-sja",
+      "title": "Visit Klaustur: sights",
+      "publisher": "Skaftárhreppur",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://www.vik.is/is/",
+      "title": "Mýrdalshreppur",
+      "publisher": "Mýrdalshreppur",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0037",
+      "url": "https://visitvik.is/",
+      "title": "Visit Vík",
+      "publisher": "Visit Vík",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0038",
+      "url": "https://www.grindavik.is/",
+      "title": "Grindavíkurbær",
+      "publisher": "Grindavíkurbær",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0039",
+      "url": "https://www.grundarfjordur.is/",
+      "title": "Grundarfjarðarbær",
+      "publisher": "Grundarfjarðarbær",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0040",
+      "url": "https://www.west.is/en",
+      "title": "Visit West Iceland",
+      "publisher": "Visit West Iceland (Markaðsstofa Vesturlands)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/skaftafell",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Skaftafell",
+      "area_id": "IS/east/hornafjordur",
+      "run_by": "operator/vatnajokull-national-park",
+      "closures": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://www.vatnajokulsthjodgardur.is/en/frettir (news list, 2026-10-28)",
+          "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell"
+        ],
+        "note": "No closure in Skaftafell is listed; the news list names a temporary closure of the main car park at Jökulsárlón (another area of the park) and the reopening of route S3."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q3486103",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "conditions",
+          "url": "https://www.vatnajokulsthjodgardur.is/en/frettir",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://atlas.lmi.is/mapview/?application=Vatnaj%C3%B6kuls%C3%BEj%C3%B3%C3%B0gar%C3%B0ur",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0007"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "part/place/skaftafell#skaftafellsstofa",
+      "type": "access.amenity.visitor_info",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Skaftafellsstofa Visitor Centre",
+      "area_id": "IS/east/hornafjordur",
+      "osm_ref": {
+        "v": "way/200175906",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the information office named Skaftafellsstofa (tourism=information, information=office, operator Vatnajökull National Park)"
+      },
+      "parks_for": [
+        "place/skaftafell"
+      ],
+      "address": {
+        "v": {
+          "kind": "postal",
+          "lines": [
+            "Skaftafell"
+          ],
+          "locality": "Öræfi",
+          "postcode": "785"
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "OSM addr:* tags on way/200175906 (addr:street Skaftafell, postcode 785, city Öraefi); the house number is left out. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/skaftafellsstofa",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0005"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/hafragilsfoss",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "near_town": {
+        "v": "is-6-laugar",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 8643948, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 46.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Hafragilsfoss",
+      "area_id": "IS/northeast/vatnajokull-national-park",
+      "osm_ref": {
+        "v": "node/3050633634",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the waterfall node tagged with the store QID"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+          "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3"
+        ],
+        "note": "No best weeks for the flow are published; the access road opens only after the spring mud dries."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0008"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1568140",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Hafragilsfoss",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "part/place/hafragilsfoss#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "is-6-laugar",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 8643948, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 46.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Hafragilsfoss car park",
+      "area_id": "IS/northeast/vatnajokull-national-park",
+      "osm_ref": {
+        "v": "way/658280966",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "named 'Hafragilsfoss' (amenity=parking, fee=no)"
+      },
+      "parks_for": [
+        "place/hafragilsfoss"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Hólsfjallavegur"
+          ],
+          "locality": "Norðurþing",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup at zoom 16 (2026-10-28): route 864; the locality is the municipality OSM gives. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/hafragilsundirlendi-d3",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0009"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/oxararfoss",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "near_town": {
+        "v": "is-8-hveragerdi",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3415761, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 29.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Öxarárfoss",
+      "area_id": "IS/south/blaskogabyggd",
+      "osm_ref": {
+        "v": "node/312688011",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the waterfall node tagged with the store QID"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://www.thingvellir.is/en/",
+          "https://www.thingvellir.is/en/education/nature/"
+        ],
+        "note": "No best weeks for the flow are published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.thingvellir.is/en/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0010"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q307675",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/%C3%96xar%C3%A1rfoss",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "part/place/oxararfoss#p2-efri-vellir",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "is-8-hveragerdi",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3415761, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 29.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "P2 Efri-Vellir car park (Öxarárfoss)",
+      "area_id": "IS/south/blaskogabyggd",
+      "osm_ref": {
+        "v": "way/169907450",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "named 'Oxararfoss P2 Fossplan' (amenity=parking, fee=yes)"
+      },
+      "parks_for": [
+        "place/oxararfoss"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Efrivallavegur"
+          ],
+          "locality": "Bláskógabyggð",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (LT-WHERE, 2026-10-28, confirmed against the car park element); the locality is the municipality OSM gives. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.thingvellir.is/en/service/parking-service/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0011"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 1000,
+            "currency": "ISK",
+            "per": "vehicle_day",
+            "applies_to": "2026",
+            "note": "category B, passenger car with 5 or fewer seats; valid for the day in the P1, P2 and P5 lots"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0011"
+        ],
+        "read": "2026-10-28",
+        "applies_to": "2026"
+      }
+    },
+    {
+      "ref": "place/gljufrabui",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "near_town": {
+        "v": "is-8-hvolsvoellur",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3415720, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 18.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Gljúfrabúi",
+      "area_id": "IS/south/rangarthing-eystra",
+      "osm_ref": {
+        "v": "node/2534116947",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the waterfall node tagged with the store QID"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall"
+        ],
+        "note": "No best weeks for the flow are published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0012"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q5569999",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Glj%C3%BAfrafoss",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "part/place/gljufrabui#seljalandsfoss-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "is-8-hvolsvoellur",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3415720, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 18.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Gljúfrabúi car park (the paid lot at Seljaland)",
+      "area_id": "IS/south/rangarthing-eystra",
+      "osm_ref": {
+        "v": "way/76051771",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "named 'Seljalandsfoss' (amenity=parking, fee=yes)"
+      },
+      "parks_for": [
+        "place/gljufrabui"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Route 1"
+          ],
+          "locality": "Rangárþing eystra",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest road from a Nominatim reverse lookup at zoom 16 (2026-10-28): OSM gives it by its number only (1, the Ring Road); the locality is the municipality OSM gives. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.south.is/en/destinations/nature/nature/seljalandsfoss-waterfall",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0012"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/gufufoss",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "near_town": {
+        "v": "is-7-egilsstadir",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2632132, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 16,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Gufufoss",
+      "area_id": "IS/east/mulathing",
+      "osm_ref": {
+        "v": "node/3101158567",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the waterfall node tagged with the store QID"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://www.east.is/en/place/gufufoss-waterfall"
+        ],
+        "note": "No best weeks for the flow are published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.east.is/en/place/gufufoss-waterfall",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0013"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q2957354",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "part/place/gufufoss#roadside-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "is-7-egilsstadir",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2632132, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 16.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Gufufoss roadside parking",
+      "area_id": "IS/east/mulathing",
+      "osm_ref": {
+        "v": "way/712989031",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "unnamed street-side parking on route 93 (amenity=parking, parking=street_side)"
+      },
+      "parks_for": [
+        "place/gufufoss"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Seyðisfjarðarvegur"
+          ],
+          "locality": "Seyðisfjörður",
+          "postcode": "710"
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (LT-WHERE, 2026-10-28; route 93). Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.east.is/en/place/gufufoss-waterfall",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0013"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/strokkur",
+      "type": "nature.landform.geothermal.geyser",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Strokkur",
+      "area_id": "IS/south/blaskogabyggd",
+      "osm_ref": {
+        "v": "node/270943513",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the geyser node tagged with the store QID"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0014"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1128186",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Strokkur",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "part/place/strokkur#geysir-parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Geysir car park (for Strokkur)",
+      "area_id": "IS/south/blaskogabyggd",
+      "osm_ref": {
+        "v": "way/194193955",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "unnamed public car park at Geysir (amenity=parking, fee=yes, operator Parka)"
+      },
+      "parks_for": [
+        "place/strokkur"
+      ],
+      "address": {
+        "v": {
+          "kind": "nearest_road",
+          "lines": [
+            "Biskupstungnabraut"
+          ],
+          "locality": "Bláskógabyggð",
+          "postcode": null
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-28",
+        "note": "Nearest named road from a Nominatim reverse lookup (2026-10-28; route 35); the locality is the municipality OSM gives. Licence odbl (OpenStreetMap contributors, R-ODbL-2)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0016"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/snaefellsjokull",
+      "type": "nature.landform.mountain",
+      "layer": "place",
+      "near_town": {
+        "v": "is-3-olafsvik",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3414079, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 10.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Snæfellsjökull",
+      "area_id": "IS/west/snaefellsbaer",
+      "osm_ref": {
+        "v": "relation/5443646",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the glacier multipolygon tagged with the store QID and Wikidata's P402"
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/",
+          "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/faq/"
+        ],
+        "note": "No best weeks are published; the two roads up towards the glacier are not open all year."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/the-glacier/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0018"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1315012",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Sn%C3%A6fellsj%C3%B6kull",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "map_sheet",
+          "url": "https://ust.is/english/visiting-iceland/snaefellsjokull-national-park/maps/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0020"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/reykjavik",
+      "type": "settlement.city",
+      "layer": "place",
+      "near_town": {
+        "v": "is-1-reykjavik",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3413829, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 2.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Reykjavík",
+      "area_id": "IS/capital-region/reykjavikurborg",
+      "osm_ref": {
+        "v": "relation/2580605",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the city boundary (Reykjavíkurborg) tagged with the store QID and Wikidata's P402; the place node is node/2107832620"
+      },
+      "geonames_id": {
+        "v": "3413829",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q1764 P1566, which lists two ids (3413829 and 3413831); the first is stored. GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://reykjavik.is/en",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0021"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://visitreykjavik.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0022"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1764",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Reykjav%C3%ADk",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/hofn",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "is-7-hoefn",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2630299, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Höfn",
+      "area_id": "IS/east/hornafjordur",
+      "osm_ref": {
+        "v": "node/249085731",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the town node tagged with the store QID"
+      },
+      "geonames_id": {
+        "v": "2630299",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q817118 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.hornafjordur.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0023"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://visitvatnajokull.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0024"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q817118",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/H%C3%B6fn",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/akureyri",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "is-6-akureyri",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2633274, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Akureyri",
+      "area_id": "IS/northeast/akureyrarbaer",
+      "osm_ref": {
+        "v": "node/242107681",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the place node tagged with the store QID; the municipality relation 56086 (Akureyrarbær) also takes in the islands of Hrísey and Grímsey"
+      },
+      "geonames_id": {
+        "v": "2633274",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q29042 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.akureyri.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0025"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.visitakureyri.is/en",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0026"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q29042",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Akureyri",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/fossholl",
+      "type": "settlement.village",
+      "layer": "place",
+      "near_town": {
+        "v": "is-6-laugar",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 8643948, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 8.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Fosshóll",
+      "area_id": "IS/northeast/thingeyjarsveit",
+      "geonames_id": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Wikidata Q134328943 P1566 (none)",
+          "the towns layer data/reference/towns (GeoNames cities1000: the place has under 1,000 people)"
+        ],
+        "note": "No GeoNames id was found without opening GeoNames itself."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.thingeyjarsveit.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0027"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.northiceland.is/en",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0029"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q134328943",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/reykjahlid",
+      "type": "settlement.village",
+      "layer": "place",
+      "near_town": {
+        "v": "is-6-laugar",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 8643948, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 23,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Reykjahlíð",
+      "area_id": "IS/northeast/thingeyjarsveit",
+      "osm_ref": {
+        "v": "node/270961115",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the village node tagged with the store QID"
+      },
+      "geonames_id": {
+        "v": "2627574",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q1026867 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.thingeyjarsveit.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0027"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.visitmyvatn.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0028"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1026867",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Reykjahl%C3%AD%C3%B0",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/varmahli",
+      "type": "settlement.village",
+      "layer": "place",
+      "near_town": {
+        "v": "is-5-saudarkrokur",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2627309, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 23.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Varmahlíð",
+      "area_id": "IS/northwest/skagafjordur",
+      "osm_ref": {
+        "v": "node/244149690",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the village node tagged with the store QID"
+      },
+      "geonames_id": {
+        "v": "7117225",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q419691 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.skagafjordur.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0030"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.visitskagafjordur.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0031"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q419691",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Varmahl%C3%AD%C3%B0",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/skogar",
+      "type": "settlement.village",
+      "layer": "place",
+      "near_town": {
+        "v": "is-8-vestmannaeyjar",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3412093, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 39.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Skógar",
+      "area_id": "IS/south/rangarthing-eystra",
+      "osm_ref": {
+        "v": "node/1385855484",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the hamlet node tagged with the store QID"
+      },
+      "geonames_id": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-28",
+        "tried": [
+          "Wikidata Q985810 P1566 (none)",
+          "the towns layer data/reference/towns (GeoNames cities1000: the place has under 1,000 people)"
+        ],
+        "note": "No GeoNames id was found without opening GeoNames itself."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.hvolsvollur.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0032"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.south.is/en",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0033"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q985810",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Sk%C3%B3gar",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/kirkjubaejarklaustur",
+      "type": "settlement.village",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Kirkjubæjarklaustur",
+      "area_id": "IS/south/skaftarhreppur",
+      "osm_ref": {
+        "v": "node/60472743",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the village node tagged with the store QID, 3.2 km from Wikidata's coarse P625"
+      },
+      "geonames_id": {
+        "v": "2629306",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q1010183 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.klaustur.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0034"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.klaustur.is/visitklaustur/skoda-og-sja",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0035"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1010183",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Kirkjub%C3%A6jarklaustur",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/vik-i-myrdal",
+      "type": "settlement.village",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-27)."
+      },
+      "name": "Vík í Mýrdal",
+      "area_id": "IS/south/myrdalshreppur",
+      "osm_ref": {
+        "v": "node/59861511",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the village node tagged with the store QID"
+      },
+      "geonames_id": {
+        "v": "2625252",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q685369 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.vik.is/is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0036"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://visitvik.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0037"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q685369",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/V%C3%ADk_%C3%AD_M%C3%BDrdal",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/grindavik",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "is-2-grindavik",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3416888, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 0.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Grindavík",
+      "area_id": "IS/southern-peninsula/grindavikurbaer",
+      "osm_ref": {
+        "v": "node/244149207",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the town node tagged with the store QID"
+      },
+      "geonames_id": {
+        "v": "3416888",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q472822 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.grindavik.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0038"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "state": "searched_none",
+          "on": "2026-10-28",
+          "query": "Visit Grindavík (the link on grindavik.is, https://www.visitgrindavik.is, answered 404 on 2026-10-28)",
+          "src": [
+            "src-0038"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q472822",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Grindav%C3%ADk",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/grundarfjordur",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "is-3-olafsvik",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3414079, cities1000 downloaded 2026-10-27."
+      },
+      "near_town_km": {
+        "v": 21.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-27",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Grundarfjörður",
+      "area_id": "IS/west/grundarfjardarbaer",
+      "osm_ref": {
+        "v": "node/126199675",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-28",
+        "note": "the town node (place=town, website grundarfjordur.is); it carries wikidata=Q1019459 while the store holds Q27014314 (flagged for a person)"
+      },
+      "geonames_id": {
+        "v": "3416839",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "GeoNames id from Wikidata Q27014314 P1566; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.grundarfjordur.is/",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0039"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.west.is/en",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0040"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q27014314",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Grundarfj%C3%B6r%C3%B0ur",
+          "state": "filled",
+          "on": "2026-10-28",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    }
+  ]
+}

@@ -249,15 +249,16 @@ describe("families (D1, 5.2)", () => {
 });
 
 describe("the ratchet gate: gaps --promote (5.4)", () => {
-  it("promoting address on stay counts the stay records without one and fails", () => {
-    const p = promotion(loadWorld(REPO), loadTypes(REPO), "address", "stay");
+  // LT-2 (28 Oct 2026) answered address on every stay record, so the real-data case moved to the access points, which still lack many
+  it("promoting address on access counts the access points without one and fails", () => {
+    const p = promotion(loadWorld(REPO), loadTypes(REPO), "address", "access");
     expect(p.ok).toBe(false);
     expect(p.keysAdded).toBeGreaterThan(0);
     expect(p.keysAdded).toBe(p.rows.length);
-    expect(p.rows.every((r) => r.type.startsWith("stay.") && r.layer === "place" && r.added.join() === "address")).toBe(true);
+    expect(p.rows.every((r) => r.type.startsWith("access.") && r.layer === "place" && r.added.join() === "address")).toBe(true);
     expect(p.budget.keys.promoted - p.budget.keys.now).toBe(p.keysAdded);
     const lines: string[] = [];
-    expect(gapsCommand(["gaps", "--promote", "address", "--family", "stay"], REPO, (s) => void lines.push(s), () => undefined)).toBe(1);
+    expect(gapsCommand(["gaps", "--promote", "address", "--family", "access"], REPO, (s) => void lines.push(s), () => undefined)).toBe(1);
     expect(lines.at(-1)).toMatch(/^BLOCKED: the promotion would add \d+ unanswered required key/);
   });
   it("a promotion whose records are all answered passes (exit 0); the simulation never edits the file it reads", () => {

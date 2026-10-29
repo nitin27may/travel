@@ -1,0 +1,392 @@
+{
+  "schema": "suitability/1",
+  "trip": "catalogue",
+  "lane": "LT2-it",
+  "researched": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0004",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoib8f7d742e2a641d0aa2b1a2f0fd9d4e1.collegiate-church.prato-alla-drava-winnebach",
+      "title": "The Collegiate Church in San Candido",
+      "publisher": "IDM Südtirol (suedtirol.info)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.valgardena.it/en/",
+      "title": "Val Gardena",
+      "publisher": "Val Gardena-Gröden Marketing",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/collegiate-church-of-san-candido",
+      "kind": "sight",
+      "subkind": "historic_site",
+      "suitability": {
+        "kid_note": "A Romanesque church in the centre of San Candido, with the dome frescoes, the crucifixion group and the crypt; a short indoor visit that pairs with the village and the Pusterbike path.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the suedtirol.info church page",
+            "https://www.dreizinnen.com/de/region/ferienorte/innichen"
+          ],
+          "note": "Step-free access is not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the suedtirol.info church page",
+            "https://www.dreizinnen.com/de/region/ferienorte/innichen"
+          ],
+          "note": "Step-free access is not described."
+        },
+        "on_site_min": {
+          "v": [
+            20,
+            45
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate for the church.",
+          "estimate": true
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/rifugio-fondovalle",
+      "kind": "stay",
+      "subkind": "hut",
+      "suitability": {
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.talschlusshuette.com/en/rooms-prices/",
+            "https://www.talschlusshuette.com/en/arrival/"
+          ],
+          "note": "No step-free access is described; the hut is reached only on foot (20 to 30 minutes on a flat trail)."
+        },
+        "kid_note": "Reached on foot only: a 20 to 30 minute flat walk from the paid car park in Val Fiscalina. Multi-bed rooms for 4, 6 or 10 people (no double rooms); a sun terrace and a playground."
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/val-gardena",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-28",
+          "note": "A valley you drive through (Ortisei, Santa Cristina, Selva); the walks are from its villages and lifts."
+        },
+        "kid_note": "The valley of Ortisei, Santa Cristina and Selva under the Sassolungo and the Sella; its lifts reach the Seceda, the Alpe di Siusi and Passo Gardena.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.valgardena.it/en/"
+          ],
+          "note": "No single route is described for the valley."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.valgardena.it/en/"
+          ],
+          "note": "No single route is described for the valley."
+        },
+        "on_site_min": {
+          "v": [
+            120,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-28",
+          "note": "Our estimate: a drive through with stops, up to a day.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null,
+            "where": "the valley road"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-28",
+          "note": "Our reading: the valley is seen from its road and villages."
+        },
+        "walk_m": {
+          "v": 0,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-28",
+          "note": "The valley road runs through it; our reading."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "the valley road from the Isarco valley; the passes above have their own seasons"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-28",
+          "note": "The tourist board describes summer and winter holidays in the valley; no road season is published."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/castelrotto",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.comune.castelrotto.bz.it/de",
+            "https://www.seiseralm.it/en/summer-holiday-south-tyrol.html"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.comune.castelrotto.bz.it/de",
+            "https://www.seiseralm.it/en/summer-holiday-south-tyrol.html"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/nova-levante",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.comune.novalevante.bz.it/it",
+            "https://eggental.com/en"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.comune.novalevante.bz.it/it",
+            "https://eggental.com/en"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/san-cassiano",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.comune.badia.bz.it/de",
+            "https://www.altabadia.org/en/"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.comune.badia.bz.it/de",
+            "https://www.altabadia.org/en/"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}
