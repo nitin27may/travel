@@ -53,6 +53,9 @@ export function detect(path: string | null, doc: unknown, root: string): DocInfo
     if (/(?:^|\/)data\/catalog\/backlog\.json$/.test(r)) return { family: "catalog", kind: "backlog" };
     if ((m = r.match(/(?:^|\/)data\/seasons\/([^/]+)\.json$/))) return { family: "sidecar", kind: "seasons", folder: m[1] };
     if (/(?:^|\/)data\/reference\/weather-links\.json$/.test(r)) return { family: "sidecar", kind: "weather-links" };
+    if (/(?:^|\/)data\/reference\/hubs\.json$/.test(r)) return { family: "sidecar", kind: "reference-hubs" };
+    if (/(?:^|\/)data\/reference\/airports\.json$/.test(r)) return { family: "sidecar", kind: "reference-airports" };
+    if (/(?:^|\/)data\/reference\/region-groups\.json$/.test(r)) return { family: "sidecar", kind: "region-groups" };
     if (/(?:^|\/)data\/vocab\/tags\.json$/.test(r)) return { family: "sidecar", kind: "vocab" };
     if (/(?:^|\/)data\/vocab\/types\.json$/.test(r)) return { family: "sidecar", kind: "capture-types" };
     if (/(?:^|\/)data\/capture\/operators\.json$/.test(r)) return { family: "sidecar", kind: "capture-operators" };
@@ -84,6 +87,9 @@ export function detect(path: string | null, doc: unknown, root: string): DocInfo
     if (doc.schema === "weather-links/1") return { family: "sidecar", kind: "weather-links" };
     if (doc.schema === "capture-changeset/1") return { family: "sidecar", kind: "capture-changeset" };
     if (doc.schema === "sources/1") return { family: "sidecar", kind: "sources" };
+    if (doc.schema === "reference-hubs/1") return { family: "sidecar", kind: "reference-hubs" };
+    if (doc.schema === "reference-airports/1") return { family: "sidecar", kind: "reference-airports" };
+    if (doc.schema === "region-groups/1") return { family: "sidecar", kind: "region-groups" };
     if ("trip" in doc && "profile" in doc) return { family: "trip" };
     if ("country" in doc && entityOfDoc(doc)) return { family: "catalog", entity: entityOfDoc(doc)! };
     if ("countries" in doc || "places" in doc || "regions" in doc) return { family: "locations" };
@@ -195,7 +201,7 @@ function walk(dir: string, out: string[]): void {
 export function allFiles(root: string): string[] {
   const all: string[] = [];
   for (const d of ["data/trips", "data/catalog", "data/locations", "data/suitability", "data/relevance", "data/capture", "data/seasons"]) walk(join(root, d), all);
-  for (const f of ["data/schema/freshness.json", "data/schema/difficulty-map.json", "data/schema/suitability-applicability.json", "data/vocab/tags.json", "data/vocab/types.json", "data/sources/registry.json", "data/reference/weather-links.json"]) if (existsSync(join(root, f))) all.push(join(root, f));
+  for (const f of ["data/schema/freshness.json", "data/schema/difficulty-map.json", "data/schema/suitability-applicability.json", "data/vocab/tags.json", "data/vocab/types.json", "data/sources/registry.json", "data/reference/weather-links.json", "data/reference/hubs.json", "data/reference/airports.json", "data/reference/region-groups.json"]) if (existsSync(join(root, f))) all.push(join(root, f));
   const keep = all.filter((p) => {
     const r = norm(relative(root, p));
     if (/\/trip\.json$/.test(r) || /\/routes\/[^/]+\.json$/.test(r)) return true;
@@ -208,6 +214,7 @@ export function allFiles(root: string): string[] {
     if (/^data\/capture\/(?!splits\/|runs\/|changesets\/)[^/]+\/[^/]+\.json$/.test(r) || /^data\/capture\/(?:runs|changesets)\/[^/]+\.json$/.test(r) || r === "data/capture/operators.json" || r === "data/capture/supersedes.json" || r === "data/vocab/types.json") return true;
     if (/^data\/seasons\/[^/]+\.json$/.test(r)) return true;
     if (r === "data/sources/registry.json" || r === "data/reference/weather-links.json") return true;
+    if (r === "data/reference/hubs.json" || r === "data/reference/airports.json" || r === "data/reference/region-groups.json") return true;
     if (r === "data/schema/freshness.json" || r === "data/schema/difficulty-map.json" || r === "data/schema/suitability-applicability.json" || r === "data/vocab/tags.json") return true;
     if (/^data\/locations\/(?:locations|[A-Z]{2})\.json$/.test(r)) return true;
     return false;

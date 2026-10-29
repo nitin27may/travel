@@ -1,0 +1,307 @@
+{
+ "schema": "region-groups/1",
+ "updated": "2026-10-28",
+ "run": "TB-RG",
+ "note": "Region groups for the trip builder's Regions step (QB7: authored once per country with our own labels; NUTS-1 for European countries, US census divisions, traveller groups for Canada and Argentina). `regions` are the catalogue's region facet slugs (PlanService reads them as CC/slug); `locations_regions` are the matching data/locations region ids. `places` is the count of researched places on `updated` (a snapshot: PlanService counts live from the store); a group is offered at PLAN_GROUP_MIN_PLACES = 5. Countries under 5 researched places (CN, IN, VN) have no group: their regions show ungrouped.",
+ "min_places": 5,
+ "groups": [
+  {
+   "id": "ca-west",
+   "cc": "CA",
+   "name": "Western Canada",
+   "basis": "traveller",
+   "basis_code": null,
+   "regions": [
+    "alberta",
+    "british-columbia"
+   ],
+   "locations_regions": [
+    "CA/AB",
+    "CA/BC"
+   ],
+   "places": 180,
+   "offered": true
+  },
+  {
+   "id": "ca-central",
+   "cc": "CA",
+   "name": "Ontario and Quebec",
+   "basis": "traveller",
+   "basis_code": null,
+   "regions": [
+    "ontario",
+    "quebec"
+   ],
+   "locations_regions": [
+    "CA/ON",
+    "CA/QC"
+   ],
+   "places": 30,
+   "offered": true
+  },
+  {
+   "id": "us-new-england",
+   "cc": "US",
+   "name": "New England",
+   "basis": "census-division",
+   "basis_code": "1",
+   "regions": [
+    "massachusetts",
+    "new-hampshire",
+    "vermont"
+   ],
+   "locations_regions": [
+    "US/MA",
+    "US/NH",
+    "US/VT"
+   ],
+   "places": 12,
+   "offered": true
+  },
+  {
+   "id": "us-mid-atlantic",
+   "cc": "US",
+   "name": "New York and the Mid-Atlantic",
+   "basis": "census-division",
+   "basis_code": "2",
+   "regions": [
+    "new-york"
+   ],
+   "locations_regions": [
+    "US/NY"
+   ],
+   "places": 2,
+   "offered": false
+  },
+  {
+   "id": "us-mountain",
+   "cc": "US",
+   "name": "The Mountain West",
+   "basis": "census-division",
+   "basis_code": "8",
+   "regions": [
+    "arizona",
+    "colorado",
+    "utah",
+    "wyoming"
+   ],
+   "locations_regions": [
+    "US/AZ",
+    "US/CO",
+    "US/UT",
+    "US/WY"
+   ],
+   "places": 44,
+   "offered": true
+  },
+  {
+   "id": "us-pacific",
+   "cc": "US",
+   "name": "The Pacific Northwest and Alaska",
+   "basis": "census-division",
+   "basis_code": "9",
+   "regions": [
+    "alaska",
+    "washington"
+   ],
+   "locations_regions": [
+    "US/AK",
+    "US/WA"
+   ],
+   "places": 11,
+   "offered": true
+  },
+  {
+   "id": "it-ne",
+   "cc": "IT",
+   "name": "Northern Italy, east",
+   "basis": "nuts-1",
+   "basis_code": "ITH",
+   "regions": [
+    "south-tyrol",
+    "trentino",
+    "trentino-alto-adige",
+    "veneto"
+   ],
+   "locations_regions": [
+    "IT/trentino-alto-adige",
+    "IT/veneto"
+   ],
+   "places": 63,
+   "offered": true
+  },
+  {
+   "id": "it-nw",
+   "cc": "IT",
+   "name": "Northern Italy, west",
+   "basis": "nuts-1",
+   "basis_code": "ITC",
+   "regions": [
+    "lombardy"
+   ],
+   "locations_regions": [
+    "IT/lombardy"
+   ],
+   "places": 2,
+   "offered": false
+  },
+  {
+   "id": "it-centre",
+   "cc": "IT",
+   "name": "Central Italy",
+   "basis": "nuts-1",
+   "basis_code": "ITI",
+   "regions": [
+    "lazio",
+    "tuscany"
+   ],
+   "locations_regions": [
+    "IT/lazio",
+    "IT/tuscany"
+   ],
+   "places": 2,
+   "offered": false
+  },
+  {
+   "id": "it-south",
+   "cc": "IT",
+   "name": "Southern Italy",
+   "basis": "nuts-1",
+   "basis_code": "ITF",
+   "regions": [
+    "campania"
+   ],
+   "locations_regions": [
+    "IT/campania"
+   ],
+   "places": 2,
+   "offered": false
+  },
+  {
+   "id": "fr-centre-east",
+   "cc": "FR",
+   "name": "The French Alps and the Rhône",
+   "basis": "nuts-1",
+   "basis_code": "FRK",
+   "regions": [
+    "auvergne-rhone-alpes"
+   ],
+   "locations_regions": [
+    "FR/ARA"
+   ],
+   "places": 15,
+   "offered": true
+  },
+  {
+   "id": "fr-paris",
+   "cc": "FR",
+   "name": "Paris and Île-de-France",
+   "basis": "nuts-1",
+   "basis_code": "FR1",
+   "regions": [
+    "ile-de-france"
+   ],
+   "locations_regions": [
+    "FR/ile-de-france"
+   ],
+   "places": 1,
+   "offered": false
+  },
+  {
+   "id": "fr-south-east",
+   "cc": "FR",
+   "name": "Provence and the Riviera",
+   "basis": "nuts-1",
+   "basis_code": "FRL",
+   "regions": [
+    "provence-alpes-cote-dazur"
+   ],
+   "locations_regions": [
+    "FR/provence-alpes-cote-d-azur"
+   ],
+   "places": 1,
+   "offered": false
+  },
+  {
+   "id": "is-all",
+   "cc": "IS",
+   "name": "Iceland",
+   "basis": "nuts-1",
+   "basis_code": "IS0",
+   "regions": [
+    "capital-region",
+    "east",
+    "north-iceland",
+    "northeast",
+    "northeast-iceland",
+    "northwest",
+    "northwest-iceland",
+    "south",
+    "south-iceland",
+    "southern-peninsula",
+    "southwest-iceland",
+    "west",
+    "west-iceland"
+   ],
+   "locations_regions": [
+    "IS/capital-region",
+    "IS/east",
+    "IS/northeast",
+    "IS/northwest",
+    "IS/south",
+    "IS/southern-peninsula",
+    "IS/west"
+   ],
+   "places": 44,
+   "offered": true
+  },
+  {
+   "id": "ar-patagonia",
+   "cc": "AR",
+   "name": "Southern Patagonia",
+   "basis": "traveller",
+   "basis_code": null,
+   "regions": [
+    "santa-cruz",
+    "tierra-del-fuego"
+   ],
+   "locations_regions": [
+    "AR/V",
+    "AR/Z"
+   ],
+   "places": 18,
+   "offered": true
+  },
+  {
+   "id": "ar-buenos-aires",
+   "cc": "AR",
+   "name": "Buenos Aires",
+   "basis": "traveller",
+   "basis_code": null,
+   "regions": [
+    "buenos-aires",
+    "buenos-aires-f-d"
+   ],
+   "locations_regions": [
+    "AR/C"
+   ],
+   "places": 2,
+   "offered": false
+  },
+  {
+   "id": "ch-all",
+   "cc": "CH",
+   "name": "Switzerland",
+   "basis": "nuts-1",
+   "basis_code": "CH0",
+   "regions": [
+    "valais"
+   ],
+   "locations_regions": [
+    "CH/VS"
+   ],
+   "places": 2,
+   "offered": false
+  }
+ ]
+}

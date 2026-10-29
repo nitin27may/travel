@@ -21,6 +21,7 @@ import { policy } from "./policy.ts";
 import { research_sidecar } from "./researchSidecar.ts";
 import { route_geometry } from "./routeGeometry.ts";
 import { relevance } from "./relevance.ts";
+import { reference_airports, reference_hubs, region_groups } from "./reference.ts";
 import { sources } from "./sources.ts";
 import { suitability } from "./suitability.ts";
 import { suitability_applicability } from "./suitabilityApplicability.ts";
@@ -38,7 +39,7 @@ export const CATALOG_TABLES: Table[] = [
   trails, activities, stays, eateries, offers, offer_prices, legs, area_guides, catalog_changes, backlog, catalogSources,
 ];
 
-export const DOCUMENT_TABLES: Table[] = [research_sidecar, route_geometry, policy, freshness, difficulty_map, suitability, suitability_applicability, relevance, sources, capture, capture_types, capture_operators, capture_run, capture_supersedes, capture_changeset];
+export const DOCUMENT_TABLES: Table[] = [research_sidecar, route_geometry, policy, freshness, difficulty_map, suitability, suitability_applicability, relevance, sources, capture, capture_types, capture_operators, capture_run, capture_supersedes, capture_changeset, reference_hubs, reference_airports, region_groups];
 
 const FAMILY_ORDER: Family[] = ["catalog", "locations", "sidecar", "trip"];
 

@@ -12,8 +12,9 @@ import { validateDifficultyMapRules } from "../suitability/mapRules.ts";
 import { validateLane } from "./lane.ts";
 import { validateCaptureChangeset } from "./changeset.ts";
 import { keepFindings } from "./keep.ts";
+import { validateReferenceRules } from "./reference.ts";
 
-export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability" | "suitability-applicability" | "relevance" | "sources" | "capture" | "capture-types" | "capture-operators" | "capture-run" | "capture-supersedes" | "capture-changeset";
+export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability" | "suitability-applicability" | "relevance" | "sources" | "capture" | "capture-types" | "capture-operators" | "capture-run" | "capture-supersedes" | "capture-changeset" | "reference-hubs" | "reference-airports" | "region-groups";
 
 const TABLE_OF: Record<DocumentKind, string> = {
   "research-sidecar": "research_sidecar",
@@ -31,6 +32,9 @@ const TABLE_OF: Record<DocumentKind, string> = {
   "capture-run": "capture_run",
   "capture-supersedes": "capture_supersedes",
   "capture-changeset": "capture_changeset",
+  "reference-hubs": "reference_hubs",
+  "reference-airports": "reference_airports",
+  "region-groups": "region_groups",
 };
 
 /** The families the keep rule and RowMeta check after their own validator (core/src/validate/keep.ts). */
@@ -93,6 +97,7 @@ export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): vo
   if (kind === "difficulty-map") validateDifficultyMapRules(doc, ctx);
   if (kind === "suitability-applicability") validateApplicabilityRules(doc, ctx);
   if (kind === "sources") validateSourcesRules(doc, ctx);
+  if (kind === "reference-hubs" || kind === "reference-airports" || kind === "region-groups") validateReferenceRules(doc, kind, ctx);
   if (kind === "route-geometry") {
     const n = polylineVertexCount(String(doc.polyline));
     const ts = doc.t_s as unknown[];

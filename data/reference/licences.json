@@ -1,6 +1,6 @@
 {
   "schema": "licences/1",
-  "updated": "2026-10-23",
+  "updated": "2026-10-28",
   "sources": [
     {
       "id": "osm",
@@ -24,7 +24,15 @@
       "url": "https://www.wikidata.org/wiki/Wikidata:Licensing",
       "licence": "CC0 1.0 (public domain dedication)",
       "attribution": "Coordinates and identifiers from Wikidata.",
-      "covers": "Place coordinates, elevations and identifiers resolved when a place is added."
+      "covers": "Place coordinates, elevations and identifiers resolved when a place is added, and the city-centre points of the trip builder's start hubs."
+    },
+    {
+      "id": "ourairports",
+      "name": "OurAirports",
+      "url": "https://ourairports.com/data/",
+      "licence": "Public domain",
+      "attribution": "Airport names, codes and positions from OurAirports (ourairports.com), released to the public domain.",
+      "covers": "The airports the trip builder offers as a start and as the airport to fly into."
     },
     {
       "id": "ogl-canada",
