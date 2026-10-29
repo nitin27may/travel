@@ -1,0 +1,268 @@
+{
+  "engine": "tb-e2.0",
+  "basis": "estimate",
+  "bases": [
+    {
+      "town": "ca-on-huntsville",
+      "name": "Huntsville",
+      "nights": 2,
+      "pinned": true,
+      "picks": 2,
+      "reasons": [
+        {
+          "code": "base_share",
+          "values": {
+            "index": 1,
+            "nights": 2,
+            "n": 2,
+            "of": 4,
+            "maxMin": 41
+          },
+          "text": "Base 1: Huntsville, 2 nights, 2 of your 4 picks within 41 min ≈"
+        },
+        {
+          "code": "pinned_base",
+          "values": {
+            "nights": 2
+          },
+          "text": "You chose this town for 2 nights"
+        },
+        {
+          "code": "lodging",
+          "values": {
+            "cls": 2
+          },
+          "text": "Many places to stay listed on OpenStreetMap"
+        }
+      ]
+    },
+    {
+      "town": "ca-on-thunder-bay",
+      "name": "Thunder Bay",
+      "nights": 2,
+      "pinned": true,
+      "picks": 2,
+      "reasons": [
+        {
+          "code": "base_share",
+          "values": {
+            "index": 2,
+            "nights": 2,
+            "n": 2,
+            "of": 4,
+            "maxMin": 46
+          },
+          "text": "Base 2: Thunder Bay, 2 nights, 2 of your 4 picks within 46 min ≈"
+        },
+        {
+          "code": "pinned_base",
+          "values": {
+            "nights": 2
+          },
+          "text": "You chose this town for 2 nights"
+        },
+        {
+          "code": "lodging",
+          "values": {
+            "cls": 3
+          },
+          "text": "Many places to stay listed on OpenStreetMap"
+        }
+      ]
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "base": "ca-on-huntsville",
+      "move": false,
+      "items": [
+        {
+          "ref": "place/ragged-falls",
+          "slug": "ragged-falls",
+          "name": "Ragged Falls",
+          "startMin": 720,
+          "visitMin": 40,
+          "driveMin": 41,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/arrowhead",
+          "slug": "arrowhead",
+          "name": "Arrowhead",
+          "startMin": 840,
+          "visitMin": 90,
+          "driveMin": 39,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 19,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Ragged Falls",
+            "b": "Arrowhead",
+            "apartMin": 39
+          },
+          "text": "Ragged Falls and Arrowhead are 39 min ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 99
+          },
+          "text": "1 h 39 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "base": "ca-on-huntsville",
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    },
+    {
+      "day": 3,
+      "base": "ca-on-thunder-bay",
+      "move": true,
+      "items": [],
+      "returnMin": 994,
+      "warnings": [
+        "W_PACE",
+        "W_DRIVE_LIMIT"
+      ],
+      "reasons": [
+        {
+          "code": "move_day",
+          "values": {
+            "fromBase": "Huntsville",
+            "toBase": "Thunder Bay",
+            "min": 994
+          },
+          "text": "Move from Huntsville to Thunder Bay: 16 h 34 ≈ of driving"
+        },
+        {
+          "code": "move_over_day",
+          "values": {
+            "min": 994,
+            "dayMin": 630
+          },
+          "text": "The move is 16 h 34 ≈, longer than a whole day at your pace (10 h 30): add a base between"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "base": "ca-on-thunder-bay",
+      "move": false,
+      "items": [
+        {
+          "ref": "route/top-of-the-giant-trail",
+          "slug": "top-of-the-giant-trail",
+          "name": "Top Of The Giant Trail",
+          "startMin": 540,
+          "visitMin": 300,
+          "driveMin": 56,
+          "basis": "estimate",
+          "locked": false
+        },
+        {
+          "ref": "place/kakabeka-falls",
+          "slug": "kakabeka-falls",
+          "name": "Kakabeka Falls",
+          "startMin": 915,
+          "visitMin": 60,
+          "driveMin": 75,
+          "basis": "estimate",
+          "locked": false
+        }
+      ],
+      "returnMin": 44,
+      "warnings": [],
+      "reasons": [
+        {
+          "code": "close_pair",
+          "values": {
+            "a": "Top Of The Giant Trail",
+            "b": "Kakabeka Falls",
+            "apartMin": 75
+          },
+          "text": "Top Of The Giant Trail and Kakabeka Falls are 1 h 15 ≈ apart"
+        },
+        {
+          "code": "day_drive",
+          "values": {
+            "driveMin": 175
+          },
+          "text": "2 h 55 ≈ of driving"
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "base": null,
+      "move": false,
+      "items": [],
+      "returnMin": null,
+      "warnings": [],
+      "reasons": []
+    }
+  ],
+  "didNotFit": [],
+  "spareDays": 1,
+  "matrix": {
+    "refs": [
+      "place/arrowhead",
+      "place/ragged-falls",
+      "place/kakabeka-falls",
+      "route/top-of-the-giant-trail"
+    ],
+    "minutes": [
+      [
+        0,
+        39,
+        1022,
+        958
+      ],
+      [
+        39,
+        0,
+        1047,
+        982
+      ],
+      [
+        1022,
+        1047,
+        0,
+        75
+      ],
+      [
+        958,
+        982,
+        75,
+        0
+      ]
+    ],
+    "estimated": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14
+    ]
+  }
+}

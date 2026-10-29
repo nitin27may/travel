@@ -11,6 +11,9 @@ a pinned file is a behaviour change: read it, then regenerate on purpose.
 | `daytrip` | `daytrip.ts` | Nights 0, one day, no base, drive out and back from the Toronto hub; one pick beyond the one-way limit is `TB_TOO_FAR`; the start is never keyed (a start cell in the routed map changes nothing) |
 | `infeasible-time` | `infeasible.ts` | Nine must-sees in 2 days: `TB_TIME` with the smallest Add N days, `TB_TOO_FAR` with a town near it |
 | `infeasible-closed` | `infeasible.ts` | January: three summer places are `TB_CLOSED` with Change month; the winter places are planned |
+| `rockies-two-base` | `rockies.ts` | TB-E2. Trip mode from Calgary airport, 7 nights in August: Banff pinned for 3, Jasper's nights open (4 by demand). Each pick on its nearer base's days, one move day (day 4) over the 4 h a day (Check), "Base 2: Jasper, 4 nights, ..." |
+| `roadtrip-three-base` | `roadtrip.ts` | TB-E2. No airport, 6 nights, `driveDayMin` 240: Ottawa 2, Quebec City 2, Tadoussac open (2). Moves on days 3 and 5; the Ottawa to Quebec City move is a long move (Check); Niagara Falls is `TB_TOO_FAR` from every base, naming Ottawa and offering St. Catharines |
+| `infeasible-move` | `infeasible-move.ts` | TB-E2. Huntsville 2 and Thunder Bay 2: the move is longer than a whole day; the move day stays, empty, with `W_DRIVE_LIMIT` and "add a base between"; both bases' picks are planned |
 
 Every case also checks: each pick placed once, in Did not fit or pinned as an area (exactly one, none lost); day caps; reasons carry numbers and any
 estimated drive figure carries "≈"; two builds are equal, also with towns and places reordered; the answer holds no home point,

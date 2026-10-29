@@ -3,7 +3,7 @@
 // change to a weight or a cap is a change to this file only; core/test/plan/engine.test.ts pins the ones the spec states.
 
 /** The engine version a build carries (`lastBuild.engine`, PLAN_ENGINE_RE): bump it when a change moves a placement. */
-export const BUILDER_ENGINE = "tb-e1.2";
+export const BUILDER_ENGINE = "tb-e2.0";
 
 /** Stage 1, the candidate score (4.3). Integer points, so ties are exact. */
 export const BUILDER_SCORE = {
@@ -79,6 +79,18 @@ export const BUILDER_PACK = {
   addDaysMax: 3,
   /** a trail with no time, no range and no length gets this many minutes, shown as an estimate */
   trailFallbackMin: 120,
+} as const;
+
+/**
+ * Several bases chosen by the visitor (TB-E2; trip-builder.md 4.5, 4.6): the visitor's bases in their order, nights shared by
+ * demand, a move day between two bases (core/src/plan/bases.ts, moves.ts). Two or more bases in the build turn this on; with none or
+ * one the engine is K = 1 as before.
+ */
+export const BUILDER_BASES = {
+  /** a base whose nights the visitor left open gets at least this many when the open nights allow it for every such base (4.5) */
+  nightsFloor: 2,
+  /** each move day that starts or ends at a base adds this share of a day to the base's demand (4.5 "plus 0.5 for each move day") */
+  moveDayDemandShare: 0.5,
 } as const;
 
 /** The candidate scan (P8: server side only, bounded). */

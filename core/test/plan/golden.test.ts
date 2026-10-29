@@ -8,7 +8,7 @@ import { buildPlan } from "../../src/plan/engine.ts";
 import { profileOf } from "../../src/plan/score.ts";
 import { dayCapMin } from "../../src/schedule/rules.ts";
 import { planBuild, planMatrixRules, type PlanBuild } from "../../src/schema/api/plan.ts";
-import { GOLDENS, algonquin, daytrip, infeasibleClosed, infeasibleTime, quebec, type GoldenCase } from "../fixtures/plan/index.ts";
+import { GOLDENS, algonquin, daytrip, infeasibleClosed, infeasibleMove, infeasibleTime, quebec, roadtrip, rockies, type GoldenCase } from "../fixtures/plan/index.ts";
 import { ALGONQUIN_PARK } from "../fixtures/plan/algonquin.ts";
 import { mkBuild, mkInput, mkPlace, placesMap } from "./engine-fixture.ts";
 
@@ -65,11 +65,11 @@ for (const c of GOLDENS) {
       expect([...on, ...missed, ...areas].filter((r) => b.picks.some((p) => p.ref === r)).sort()).toEqual(b.picks.map((p) => p.ref).sort());
     });
 
-    it("holds each day to its cap (a day with the way in or out may add one leg each)", () => {
+    it("holds each day to its cap (a day with the way in or out, or a move, may add one leg each)", () => {
       const cap = dayCapMin(profileOf(b.party, b.pace));
       for (const d of out.days) {
         const load = d.items.reduce((n, i) => n + i.visitMin + (i.driveMin ?? 0), 0) + (d.returnMin ?? 0);
-        const edge = d.day === 1 || d.day === b.nights + 1 ? 2 * 480 : 0;
+        const edge = d.day === 1 || d.day === b.nights + 1 || d.move ? 2 * 480 : 0;
         expect(load, `day ${d.day}`).toBeLessThanOrEqual(cap + edge);
         let last = -1;
         for (const i of d.items) {
@@ -229,5 +229,95 @@ describe("minimal repros of engine gaps found while pinning the goldens", () => 
     const park = mkPlace("place/some-park", 45.5, -78.4, { kind: "park", type: "protected-area", visitMin: null });
     const out = buildPlan(mkInput(mkBuild(["place/some-park", "place/arrowhead"]), { places: placesMap([park, mkPlace("place/arrowhead", 45.39, -79.21)]) }));
     expect(placed(out)).not.toContain("place/some-park");
+  });
+});
+
+// ---- TB-E2: several bases the visitor chose -------------------------------------------------------------------------------------
+
+const daysAt = (out: PlanBuild, town: string): number[] => out.days.filter((d) => d.base === town).map((d) => d.day);
+const dayOf = (out: PlanBuild, ref: string): number | undefined => out.days.find((d) => d.items.some((i) => i.ref === ref))?.day;
+const reasonOf = (rs: readonly { code: string; text: string }[], code: string) => rs.find((r) => r.code === code);
+
+describe("golden rockies-two-base: Banff pinned for 3 nights, Jasper's nights shared out, one move day", () => {
+  const out = buildPlan(rockies.input);
+  it("keeps the visitor's bases in their order, and the open nights go to Jasper (3 + 4 = 7)", () => {
+    expect(out.bases.map((x) => [x.town, x.nights, x.pinned])).toEqual([
+      ["ca-ab-banff", 3, true],
+      ["ca-ab-jasper", 4, false],
+    ]);
+    expect(out.bases.reduce((n, x) => n + x.nights, 0)).toBe(rockies.input.build.nights);
+  });
+  it("sleeps three nights at Banff, then moves on day 4 and sleeps four at Jasper; the last day flies home", () => {
+    expect(daysAt(out, "ca-ab-banff")).toEqual([1, 2, 3]);
+    expect(daysAt(out, "ca-ab-jasper")).toEqual([4, 5, 6, 7]);
+    expect(out.days.filter((d) => d.move).map((d) => d.day)).toEqual([4]);
+    expect(out.days.at(-1)!.base).toBeNull();
+  });
+  it("each pick sits on a day of the base nearest to it", () => {
+    for (const r of ["place/lake-louise", "place/moraine-lake", "place/banff-gondola", "place/lake-minnewanka", "place/peyto-lake"]) expect(dayOf(out, r), r).toBeLessThanOrEqual(3);
+    for (const r of ["route/maligne-canyon", "place/maligne-lake", "place/jasper-skytram", "place/miette-hot-springs", "place/athabasca-falls"]) expect(dayOf(out, r), r).toBeGreaterThanOrEqual(4);
+  });
+  it("says why per base: Base 2: Jasper, 4 nights, n of your picks within m", () => {
+    expect(out.bases[1]!.reasons[0]!.text).toMatch(/^Base 2: Jasper, 4 nights, 5 of your 11 picks within \d+ min ≈$/);
+    expect(out.bases[0]!.reasons.map((r) => r.code)).toEqual(["base_share", "pinned_base", "lodging"]);
+  });
+  it("the move day names the drive, and a move over the day's driving is a Check (W_DRIVE_LIMIT)", () => {
+    const move = out.days.find((d) => d.move)!;
+    expect(reasonOf(move.reasons, "move_day")!.text).toMatch(/^Move from Banff to Jasper: \d h \d\d ≈ of driving$/);
+    expect(reasonOf(move.reasons, "long_move")).toBeDefined();
+    expect(move.warnings).toContain("W_DRIVE_LIMIT");
+    expect(move.returnMin).toBeGreaterThan(240); // an empty move day carries the move as its drive
+  });
+  it("a Banff pick with no room left is TB_TIME, honestly: more nights would go to the open base, so Drop", () => {
+    expect(missOf(out, "route/johnston-canyon")).toMatchObject({ code: "TB_TIME", fix: { kind: "drop" } });
+  });
+});
+
+describe("golden roadtrip-three-base: three bases, a long move day, a pick beyond every base", () => {
+  const out = buildPlan(roadtrip.input);
+  it("2 + 2 + 2 nights, moves on days 3 and 5 only, each between two consecutive bases", () => {
+    expect(out.bases.map((x) => [x.town, x.nights])).toEqual([
+      ["ca-on-ottawa", 2],
+      ["ca-qc-quebec", 2],
+      ["ca-qc-tadoussac", 2],
+    ]);
+    expect(out.days.filter((d) => d.move).map((d) => [d.day, out.days[d.day - 2]!.base, d.base])).toEqual([
+      [3, "ca-on-ottawa", "ca-qc-quebec"],
+      [5, "ca-qc-quebec", "ca-qc-tadoussac"],
+    ]);
+  });
+  it("the Ottawa to Quebec City move is over the 4 h a day: a Check with the reason; the shorter move is not", () => {
+    const [long, short] = out.days.filter((d) => d.move);
+    expect(long!.warnings).toContain("W_DRIVE_LIMIT");
+    expect(reasonOf(long!.reasons, "long_move")!.text).toContain("over your 4 h of driving a day");
+    expect(reasonOf(short!.reasons, "long_move")).toBeUndefined();
+    expect(reasonOf(short!.reasons, "move_day")!.text).toMatch(/^Move from Quebec City to Tadoussac: /);
+  });
+  it("every must is placed, on its own base's days", () => {
+    expect(dayOf(out, "place/parliament-hill")).toBeLessThanOrEqual(2);
+    expect([3, 4]).toContain(dayOf(out, "place/old-quebec"));
+    expect(dayOf(out, "place/tadoussac-whale-watching")).toBeGreaterThanOrEqual(5);
+  });
+  it("Niagara Falls is TB_TOO_FAR from every base, naming the nearest (Ottawa) and a town near it; Ottawa counts it", () => {
+    expect(missOf(out, "place/niagara-falls")).toMatchObject({ code: "TB_TOO_FAR", fix: { kind: "add_base", town: "ca-on-st-catharines" } });
+    expect(missOf(out, "place/niagara-falls")!.reasons[0]!.text).toMatch(/^Too far from your bases: .* ≈ from Ottawa, the nearest, over your 2 h each way$/);
+    expect(reasonOf(out.bases[0]!.reasons, "out_of_reach")).toMatchObject({ values: { n: 1, radiusMin: 120 } });
+    expect(out.didNotFit.map((m) => m.ref)).toEqual(["place/niagara-falls"]);
+  });
+});
+
+describe("golden infeasible-move: a move longer than a whole day", () => {
+  const out = buildPlan(infeasibleMove.input);
+  const move = out.days.find((d) => d.move)!;
+  it("keeps the move day (never a silent drop), with nothing else on it, a Check and Add a base between", () => {
+    expect(move.day).toBe(3);
+    expect(move.items).toEqual([]);
+    expect(move.warnings).toContain("W_DRIVE_LIMIT");
+    expect(reasonOf(move.reasons, "move_over_day")!.text).toMatch(/longer than a whole day at your pace \(10 h 30\): add a base between$/);
+  });
+  it("each base's picks are still planned on its own days", () => {
+    expect(dayOf(out, "place/arrowhead")).toBeLessThanOrEqual(2);
+    expect(dayOf(out, "place/kakabeka-falls")).toBeGreaterThanOrEqual(4);
+    expect(out.didNotFit).toEqual([]);
   });
 });
