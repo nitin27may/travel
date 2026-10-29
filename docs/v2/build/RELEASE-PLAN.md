@@ -108,6 +108,7 @@ How the hours were counted, per bundle:
   DT-T0 3; infra SRC 24, DC pipeline 42. E: build TB 34, TK 19, DT 6, WM 24; infra DC-SRV 14; data TB-RG 6, TK 9, DT 10, DC-5 2,
   DC-RB 3, DC-W0 172. F: build TB 66, TK-SY 4, WM 18; data TB-BL 3.5, TB-D4 4, DC-W1 T0 105. G: data DT-W1 28, DC-W1 T1 170;
   build SRC-O 1, REQ-G0 −1, REQ-G −1. H: WM-M 2.5. H2: TK-MCP 2, WM-M 2.5, UPL −5. J: build TB-P5 8, TK 6; data TK-H 2. K: SRV-0 −4.
+- **29 Oct placement of the items still not started** (HANDOVER "Next, not started"; hours from DATA-PLAN 2.4, 2.5 and MASTER-ORDER 5.3, not re-added to the totals above). D: S2D-SUIT 4 (batch S2-C, right after D10-RO and D10-DO) and S2D-VER (0.5 data check plus the plan-model code half, Opus), LT-AP 2 of 5.5. E: LT-AP 3.5. F: TB-E3 12 and TB-E4 8 (both inside v0.16a). F, new package COPIES-KEY (BACKLOG 15.392): the physical move of `travel.copies.local` into `travel.plans.local`, with `DEVICE_EDITS_KEY`, ahead of account sync (v0.16). Not yet sized.
 - **26 Oct additions (ALIGN).** A: PRIV-TD 2.5 (build). C: UXB 67 (build 64; data UXB-W 3), EG 23 (build EG-C 6, EG-R0 1,
   EG-FX 2.5, EG-I 6, EG-DOC 2; data EG-M 2.5, EG-D 3), PA P1 31 (build PA-C 6, PA-FX 3, PA-X 4, PA-D 3.5, PA-W 4, PA-M 1.5,
   PA-R1/V1 3; data PA-R-CA 6). D: infra PM-C 4, PM-G 5, PM-F 4. E: EG-N 2, EG-Q 4, EG-W 6, EG-R/V 3; PA-N 3, PA-Q 2, PA-2 10,

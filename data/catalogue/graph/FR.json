@@ -5,6 +5,7 @@
  "nodes": {
   "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket": ["offer","ride.lift.cable_car",null,null],
   "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket": ["offer","ride.lift.rack_railway",null,null],
+  "part/place/la-flegere#les-praz-parking": ["place","access.park.parking","FR/ARA/haute-savoie",null],
   "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop": ["place","access.transit.transit_stop","FR/ARA/haute-savoie",null],
   "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#parking": ["place","access.park.parking","FR/ARA/haute-savoie",null],
   "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#step-into-the-void": ["place","culture.heritage.landmark","FR/ARA/haute-savoie","step-into-the-void"],
@@ -12,8 +13,11 @@
   "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top": ["place","access.transit.station","FR/ARA/haute-savoie",null],
   "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top": ["place","access.transit.station","FR/ARA/haute-savoie",null],
   "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff": ["place","water.body.lake","FR/ARA/haute-savoie","lac-blanc"],
+  "place/chamonix-mont-blanc": ["place","settlement.town","FR/ARA/haute-savoie","chamonix-mont-blanc"],
+  "place/la-flegere": ["place","nature.viewpoint.viewpoint","FR/ARA/haute-savoie","la-flegere"],
   "place/paris": ["place","settlement.city","FR/ile-de-france/grand-paris","paris"],
   "place/provence": ["place","settlement.district","FR/provence-alpes-cote-d-azur/alpes-de-haute-provence","provence"],
+  "place/vallorcine-railway-station": ["place","access.transit.station","FR/ARA/haute-savoie","vallorcine-railway-station"],
   "trip/chamonix-mont-blanc-2028/lake:lac des gaillands": ["place","water.body.lake","FR/ARA/haute-savoie","lac-des-gaillands"],
   "trip/chamonix-mont-blanc-2028/lift:aiguille du midi": ["route","ride.lift.cable_car","FR/ARA/haute-savoie","aiguille-du-midi"],
   "trip/chamonix-mont-blanc-2028/lift:montenvers train": ["route","ride.lift.rack_railway","FR/ARA/haute-savoie","montenvers-train"],
@@ -28,10 +32,12 @@
  "chain": {
   "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket": ["offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket","trip/chamonix-mont-blanc-2028/lift:aiguille du midi","part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top","part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit"],
   "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket": ["offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket","trip/chamonix-mont-blanc-2028/lift:montenvers train","part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top"],
+  "part/place/la-flegere#les-praz-parking": ["part/place/la-flegere#les-praz-parking","place/la-flegere"],
   "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop": ["part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop","trip/chamonix-mont-blanc-2028/lake:lac des gaillands"],
   "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#parking": ["part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#parking","trip/chamonix-mont-blanc-2028/lake:lac des gaillands"],
   "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#step-into-the-void": ["part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#step-into-the-void","part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit"],
   "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top": ["part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top","part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit"],
+  "place/vallorcine-railway-station": ["place/vallorcine-railway-station","trip/chamonix-mont-blanc-2028/town:vallorcine"],
   "trip/chamonix-mont-blanc-2028/lift:aiguille du midi": ["trip/chamonix-mont-blanc-2028/lift:aiguille du midi","part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top","part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit"],
   "trip/chamonix-mont-blanc-2028/lift:montenvers train": ["trip/chamonix-mont-blanc-2028/lift:montenvers train","part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top"],
   "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere": ["trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere","part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff"]
@@ -44,6 +50,7 @@
   "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top": {"reached_by":["trip/chamonix-mont-blanc-2028/lift:aiguille du midi"]},
   "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top": {"reached_by":["trip/chamonix-mont-blanc-2028/lift:montenvers train"]},
   "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff": {"reached_by":["trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere"]},
+  "place/la-flegere": {"access_points":["part/place/la-flegere#les-praz-parking"]},
   "trip/chamonix-mont-blanc-2028/lake:lac des gaillands": {"access_points":["part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop","part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#parking"]},
   "trip/chamonix-mont-blanc-2028/lift:aiguille du midi": {"offers_on":["offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket"]},
   "trip/chamonix-mont-blanc-2028/lift:montenvers train": {"offers_on":["offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket"]}

@@ -63,13 +63,15 @@
   "operator/roam-transit": {"operator_of":["offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass"]},
   "operator/sundog-tours": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour"]},
   "operator/usda-forest-service": {"operator_of":["place/white-mountain-national-forest"]},
+  "operator/vatnajokull-national-park": {"operator_of":["place/skaftafell"]},
   "operator/waterton-shoreline-cruise": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle","legacy/canadian-rockies-sept-2029/adventures/waterton-cruise"]},
   "operator/white-mountain-adventures": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/heli-hiking"]},
   "operator/wild-water-adventures": {"operator_of":["offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#wild-water"]},
   "operator/yamnuska-mountain-adventures": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble"]},
   "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base": {"starts_here":["offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#wild-water"]},
   "part/place/rafting-on-the-rienza#place": {"offers_at":["place/rafting-on-the-rienza"]},
-  "part/trip/patagonia-2027/lake:beagle channel boat#place": {"offers_at":["trip/patagonia-2027/lake:beagle channel boat"]}
+  "part/trip/patagonia-2027/lake:beagle channel boat#place": {"offers_at":["trip/patagonia-2027/lake:beagle channel boat"]},
+  "trip/chamonix-mont-blanc-2028/town:vallorcine": {"access_points":["place/vallorcine-railway-station"]}
  },
  "members": {},
  "members_all": {},

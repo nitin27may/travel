@@ -3,6 +3,8 @@
  "schema": "catalogue-graph-shard/1",
  "country": "AR",
  "nodes": {
+  "part/place/cerro-castor#base-parking": ["place","access.park.parking","AR/V/ushuaia-department",null],
+  "part/place/perito-moreno-glacier#walkways-parking": ["place","access.park.parking","AR/Z/lago-argentino-department",null],
   "part/trip/patagonia-2027/trail:chorrillo del salto#parking": ["place","access.park.parking","AR/Z/lago-argentino-department",null],
   "part/trip/patagonia-2027/trail:chorrillo del salto#payoff": ["place","water.falls.waterfall","AR/Z/lago-argentino-department",null],
   "part/trip/patagonia-2027/trail:laguna capri#payoff": ["place","water.body.lake","AR/Z/lago-argentino-department",null],
@@ -11,6 +13,10 @@
   "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff": ["place","nature.viewpoint.viewpoint","AR/Z/lago-argentino-department",null],
   "part/trip/patagonia-2027/trail:mirador de los condores#payoff": ["place","nature.viewpoint.viewpoint","AR/Z/lago-argentino-department",null],
   "part/trip/patagonia-2027/trail:mirador de los condores#trailhead": ["place","access.start.trailhead","AR/Z/lago-argentino-department",null],
+  "place/cerro-castor": ["place","snow.ski.ski_area.ski_resort","AR/V/ushuaia-department","cerro-castor"],
+  "place/el-chalten": ["place","settlement.village","AR/Z/lago-argentino-department","el-chalten"],
+  "place/perito-moreno-glacier": ["place","nature.landform.glacier_view","AR/Z/lago-argentino-department","perito-moreno-glacier"],
+  "place/ushuaia": ["place","settlement.city","AR/V/ushuaia-department","ushuaia"],
   "trip/patagonia-2027/activity:minitrekking on the glacier": ["offer","mountain.alpine.glacier_walk",null,null],
   "trip/patagonia-2027/sight:perito moreno walkways": ["place","culture.heritage.landmark","AR/Z/lago-argentino-department","perito-moreno-walkways"],
   "trip/patagonia-2027/town:cafe and bookshops": ["place","settlement.town","AR/C/buenos-aires",null],
@@ -29,6 +35,8 @@
   "trip/patagonia-2027/viewpoint:lapataia bay": ["place","nature.viewpoint.viewpoint","AR/V/ushuaia-department","lapataia-bay"]
  },
  "chain": {
+  "part/place/cerro-castor#base-parking": ["part/place/cerro-castor#base-parking","place/cerro-castor"],
+  "part/place/perito-moreno-glacier#walkways-parking": ["part/place/perito-moreno-glacier#walkways-parking","place/perito-moreno-glacier"],
   "part/trip/patagonia-2027/trail:chorrillo del salto#parking": ["part/trip/patagonia-2027/trail:chorrillo del salto#parking","trip/patagonia-2027/trail:chorrillo del salto","part/trip/patagonia-2027/trail:chorrillo del salto#payoff"],
   "trip/patagonia-2027/activity:minitrekking on the glacier": ["trip/patagonia-2027/activity:minitrekking on the glacier","trip/patagonia-2027/sight:perito moreno walkways"],
   "trip/patagonia-2027/trail:chorrillo del salto": ["trip/patagonia-2027/trail:chorrillo del salto","part/trip/patagonia-2027/trail:chorrillo del salto#parking","part/trip/patagonia-2027/trail:chorrillo del salto#payoff"],
@@ -48,6 +56,8 @@
   "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff": {"reached_by":["trip/patagonia-2027/trail:mirador de las aguilas"]},
   "part/trip/patagonia-2027/trail:mirador de los condores#payoff": {"reached_by":["trip/patagonia-2027/trail:mirador de los condores"]},
   "part/trip/patagonia-2027/trail:mirador de los condores#trailhead": {"starts_here":["trip/patagonia-2027/trail:mirador de las aguilas","trip/patagonia-2027/trail:mirador de los condores"]},
+  "place/cerro-castor": {"access_points":["part/place/cerro-castor#base-parking"]},
+  "place/perito-moreno-glacier": {"access_points":["part/place/perito-moreno-glacier#walkways-parking"]},
   "trip/patagonia-2027/sight:perito moreno walkways": {"offers_at":["trip/patagonia-2027/activity:minitrekking on the glacier"]},
   "trip/patagonia-2027/trail:chorrillo del salto": {"access_points":["part/trip/patagonia-2027/trail:chorrillo del salto#parking"]}
  },
