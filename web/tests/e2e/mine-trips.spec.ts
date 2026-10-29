@@ -220,7 +220,7 @@ test.describe('the copy sheet saves into Mine', () => {
     // SW-008: the date is optional; nothing is picked and the field says so
     await expect(sheet.getByTestId('copy-date')).toHaveText('No date yet');
     await fill(sheet);
-    await expect(sheet.locator('.copy-note')).toHaveText('Kept in this browser.'); // sign-in is off in this build
+    await expect(sheet.locator('#copy-foot-note')).toHaveText('Kept in this browser.'); // sign-in is off in this build
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
     if (TRIP_EDIT) {
       // STEP2-P3: no done step; the copy opens in edit mode on its days, with the toast and its Undo
@@ -257,7 +257,7 @@ test.describe('the copy sheet saves into Mine', () => {
     const sheet = await openSheet(page, site);
     await fill(sheet, false);
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
-    await expect(sheet.locator('.copy-note')).toContainText('You already have a copy from Sat 3 Jul 2027. Copy again to replace it.');
+    await expect(sheet.locator('#copy-foot-note')).toContainText('You already have a copy from Sat 3 Jul 2027. Copy again to replace it.');
     expect((await stored(page))!.items).toHaveLength(1);
     await sheet.getByRole('button', { name: 'Cancel' }).click();
     await expect(sheet.getByRole('button', { name: 'Copy to my trips' })).toBeVisible();
@@ -276,7 +276,7 @@ test.describe('the copy sheet saves into Mine', () => {
     const sheet = await openSheet(page, site);
     await fill(sheet, false);
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
-    await expect(sheet.locator('.copy-note')).toContainText('You have 20 trip copies on this device, the most we keep. Remove one to copy another.');
+    await expect(sheet.locator('#copy-foot-note')).toContainText('You have 20 trip copies on this device, the most we keep. Remove one to copy another.');
     expect((await stored(page))!.items).toHaveLength(20);
     // the primary is now the way out: Open Mine, with Cancel; no second press of Copy
     await expect(sheet.getByRole('link', { name: 'Open Mine' })).toHaveAttribute('href', '/mine/?show=trips');
@@ -355,7 +355,7 @@ test.describe('the copy sheet saves into Mine', () => {
     await fill(sheet, false);
     await page.evaluate(() => (window as unknown as { __arm: () => void }).__arm());
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
-    await expect(sheet.locator('.copy-note')).toHaveText('This browser is out of space for this site, so nothing was written. Take the files below.');
+    await expect(sheet.locator('#copy-foot-note')).toHaveText('This browser is out of space for this site, so nothing was written. Take the files below.');
   });
 
   test('Change dates offers Calendar, GPX and CSV only (Print is in the row menu), and an out-of-season date shows the caution', async ({ page, site }) => {

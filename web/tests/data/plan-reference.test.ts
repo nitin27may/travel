@@ -68,13 +68,21 @@ describe('plan reference files over the store', () => {
     }
   });
 
+  // RB-010: a start is private, so near mode is a POST with the query as its JSON body (the address refuses it)
+  const post = (start: unknown) =>
+    handlePlan('candidates', new Request('https://example.test/api/v1/plan/candidates/', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ mode: 'near', start, driveLimitMin: 120 }) }), {}, deps());
+
   it('a hub start answers in near mode, and an airport start too', async () => {
-    for (const from of ['hub:calgary', 'hub:venice', 'hub:reykjavik', 'iata:YYC']) {
-      const res = await get('candidates', `/candidates/?m=near&from=${from}&r=120`);
-      expect(res.status, from).toBe(200);
+    for (const [name, start] of [['hub:calgary', { kind: 'hub', id: 'calgary' }], ['hub:venice', { kind: 'hub', id: 'venice' }], ['hub:reykjavik', { kind: 'hub', id: 'reykjavik' }], ['iata:YYC', { kind: 'airport', iata: 'YYC' }]] as const) {
+      const res = await post(start);
+      expect(res.status, name).toBe(200);
       planCandidatePage.parse(await res.json());
     }
-    const none = await get('candidates', '/candidates/?m=near&from=hub:nowhere&r=120');
+    const none = await post({ kind: 'hub', id: 'nowhere' });
     expect(none.status).not.toBe(200);
+  });
+  it('a start in the address is refused, not read', async () => {
+    const res = await get('candidates', '/candidates/?m=near&from=hub:calgary&r=120');
+    expect(res.status).toBe(400);
   });
 });

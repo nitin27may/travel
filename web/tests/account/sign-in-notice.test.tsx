@@ -100,7 +100,8 @@ describe('the account page with a landing', () => {
     const h = await body('/mine/');
     const notice = h.slice(h.indexOf('account-landing'));
     expect(notice).not.toContain('nitin.test@gmail.com');
-    expect(h).toContain('Signed in as nitin.test@gmail.com');
+    // the address carries a <wbr/> after the local part so a narrow phone breaks it there, not inside a word
+    expect(h.replace(/<wbr\/>/g, '')).toContain('Signed in as nitin.test@gmail.com');
   });
 });
 

@@ -226,7 +226,7 @@ describe('My trips (review ACCT-PR MF1)', () => {
       await be(rows.nth(4)).toContainText('Dolomites hut to hut 5');
       const link = rows.first().locator('a.crow-link');
       expect(await link.getAttribute('href')).toMatch(/^\/trips\/dolomites-hut-to-hut\/\?p=family-7&a=2&view=day&mine=1$/);
-      await be(link).toHaveAccessibleName(/Dolomites hut to hut 1, from .*Changed 23 Oct/);
+      await be(link).toHaveAccessibleName(/^Dolomites hut to hut 1 .*Changed 23 Oct/); // PR-023: the name starts with what is on screen
       await be(page.getByRole('button', { name: /Actions for/ })).toHaveCount(0);
       for (const t of ['Rename', 'Delete', 'Remove', 'Saved']) await be(page.getByText(t, { exact: false })).toHaveCount(0);
       const all = page.getByRole('link', { name: 'See all in Mine' });
