@@ -348,7 +348,8 @@ describe('the data files (data/schedules)', () => {
     for (const id of Object.keys(file.titles ?? {})) if (!ids.has(id)) problems.push(`titles.${id}`);
     for (const [n, d] of Object.entries(file.days)) {
       const inserted = new Set<string>();
-      const used = new Set<string>(['base', 'next-base', 'origin']);
+      // a split day's rejoin pin is a leg end too: a stored leg into it draws the drive to the rejoin (S2D-SCHED, Rockies Day 2)
+      const used = new Set<string>(['base', 'next-base', 'origin', ...(d.split ? [`${n}-together`] : [])]);
       for (const list of Object.values(d.order ?? {})) {
         for (const e of list) {
           const id = typeof e === 'string' ? e : e.id;

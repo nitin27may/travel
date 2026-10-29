@@ -374,6 +374,24 @@
      "basis": "estimate",
      "estimate": true,
      "km": 5
+    },
+    {
+     "from": "lake-minnewanka-cruise",
+     "to": "2-together",
+     "mode": "drive",
+     "minutes": 35,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "2-together",
+     "to": "banff-upper-hot-springs",
+     "mode": "drive",
+     "minutes": 30,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
     }
    ]
   },
