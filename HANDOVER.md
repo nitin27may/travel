@@ -1,8 +1,58 @@
 # Handover: start here
 
-## Current handover: 25 Oct 2026 (evening), Vercel preview live, Phase 1 email and data research running
+## Current handover: 29 Oct 2026, Step 2 (one trip details page, edit mode) built; the trip builder first slice built; all dark behind flags
 
-**This section is the one current handover. Everything below the line is dated history; verify it against `git log` first.**
+**The newest section. The 25 Oct section below is history for email, data and hosting; read it for those. Verify everything against `git log` and `git worktree list`.** Kept up to date at each logical commit by the coordinator session (owner instruction, 29 Oct 2026).
+
+### Production and flags
+
+- **Live:** `https://travel-beta-tan.vercel.app`, last production deploy `cf3004c5` (release tag `release/BC-4`, deployment `travel-d9yeglfej`, 27 Oct). `main` is far ahead of it. **Nothing from Step 2 or the builder is deployed.** A production deploy needs the owner's exact words: "Yes, deploy <sha> to production now".
+- **Flags (all off in production):** `NEXT_PUBLIC_TRIP_EDIT` (the `/t/<id>/` page and edit mode), `NEXT_PUBLIC_PLAN_BUILDER` (needs `TRIP_EDIT`; `/plan/` and the plan routes), `NEXT_PUBLIC_ACCOUNT_TRIPS` (account sync), `PLAN_BUILDER_PAUSED` (runtime pause), `PLAN_ROUTING` (per request, server: lets builds call ORS; default off). Names only; values are never written down.
+- **Neon:** project `damp-queen-64719841`. Migrations 0012 and 0013 applied to production (27 Oct, restore branches `backup-pre-0012-0013-2026-10-27` and `restore-point-before-0012-0013` remain). **0014 (`leg_cache_server_write`) is written, amended for the seed scope (SEEDC), and NOT applied.** Steps and owner gos G1 to G4: `docs/v2/build/runbook-leg-cache-switch-on.md`. Never run a migration without the owner's go.
+- **Secrets:** `ORS_API_KEY` exists in Vercel (Preview and Production, names checked only). It is not in `~/.config/travel-secrets/`; a local data run needs the owner to copy that one variable there (command given in chat). Root `.env.local` holds production values: never copy it. Worktrees use `set -a; source ~/.config/travel-secrets/home-point.env; set +a` or the decoy `HOME_POINT_LAT=10.5 HOME_POINT_LON=-140.5`.
+
+### What is built (on `main`, behind flags)
+
+- **Step 2** (`docs/v2/design/step2/`: README, edit-mode-spec, build-plan, gap-analysis, reviews, sweep, verify, final-verify): `/t/<id>/` is ONE trip details page for copies and builder trips; edit mode is `?edit=1`. E1 shell and stop menu, E1B remove any row (rule rows hidden through `template.removed` `rule:<key>`), E2 drag and keyboard, E3 add picker, E4 day actions and Settings, E5 warnings (Fix and Check), E6 Stops tab, print, ICS/CSV/GPX/KML on the device, B1 built trips open on the same page (just-built line, Summary "How it was built"), B2 built edits (Keep on Day n, Must see, device re-flow, Settings from the builder's stages, Rebuild with undo), P1 Save to a trip, P2 one Mine list, P3 the copy lands in your trip, UXB-5 Table view. Reviews and fixes: sweep (SW-001..030), ERV (ER-001..026), ES security (ES-001..013), VER, INT, final-verify. Specs live in `web/tests/e2e/` (the `t-edit-*`, `t-built*`, `t-read`, `t-convert` and `plan-flow*` files).
+- **Builder first slice:** `/plan/` stages 0 to 4 (TB-W1, TB-W2: regions, shortlist, chosen bases, seed link), engine v1 K=1 (TB-E1), park picks as areas (TB-PIN), multi-base with move days (TB-E2), plan API `/api/v1/plan/{regions,candidates,build,starts}` (TB-API), near API `/api/v1/near/` and town starts (N2), server leg service with cache and ORS and quota (TB-L, `web/lib/server/legs.ts`), reference data `data/reference/{hubs,airports,region-groups}.json` (REF), golden fixtures (TB-G1). Hand-off: `web/lib/plan/handoff.ts` `handOffBuilt(draft)` writes `plan-drafts/1` under `travel.plans.local` and returns `/t/<id>/?edit=1&built=1`.
+- **Data and contracts:** location-type contract (LT-C: `address` property, `osm_ref` as a Val, per-kind link tiers, a `family` on every category, `gaps --family` and the `--promote` ratchet gate; spec `docs/v2/features/location-type-requirements.md`), address and map-link UI (LT-M, drawn when address data exists), 44 new records (LT-1), LT-WHERE proposals for the 155 master places (proposals only), rainy-day flag by place type (`core/src/capture/indoor.ts`), stop points and the ledger-point exception (DG-02, DG2F), stored legs and four scheduler fixes (S2D-LEG, S2D-SCHED), place-page size fix (S2D-SIZE), tighter booking text. The single data plan is `docs/v2/build/DATA-PLAN.md` (sections 2.4 and 2.5).
+- **MCP:** only the local stdio server (`core/bin/mcp.ts`) is built. The plan (authenticated `/mcp/` only, R-286 to R-291, `docs/v2/mcp/BUILD-READINESS.md`, about 322 h) was written by another session and merged as docs.
+
+### Running or open work (verify with `git worktree list` and `ListAgents`)
+
+| Work | Where | State |
+|---|---|---|
+| B3 conversion and Make it yours card | `S2-B3`, `step2/B3` | building |
+| TB-R1/V1 review of the builder first slice | `N2-R1`, `nxt2/R1` | reviewing |
+| PRV review of P1, P23, UXB-5, LT-M, Mine refactor | `N2-PRV`, `nxt2/PRV` | reviewing |
+| LT-2 fill of the next 46 places | `N2-LT2`, `nxt2/LT2` | researching |
+| Next, not started | | BRV and the full verify after B3; LT-AP access points; S2D-SUIT and S2D-VER; TB-E3 and E4; copies storage key move; MCP build; owner-gated switch-ons |
+
+### Owner decisions and actions waiting
+
+- Deploy go for the public-page fixes (`Yes, deploy <sha> to production now`), then flags: `tripEdit`, then `planBuilder`; account sync flag after the ES items; migration 0014 apply (runbook) and `PLAN_ROUTING`.
+- Real sign-in checks (EA10, EA11 second half) need credentials: steps in `docs/v2/design/step2/verify-STEP2-VER-2026-10-28.md`.
+- Analytics beacon single-page setting (ES-003 residual); the ORS local copy; Q322 to Q324 (assumed yes); Moraine lakeshore `part_of` question; housekeeping (stray Vercel project `deploy-cf3004c5`, old Neon restore branches, old title-only drafts).
+
+### Traps learned in this stretch
+
+- A hook blocks any Bash command containing the word for the publishing script, and any push to the main branch that carries a force flag (even an unrelated `rm` with that flag in the same line). Reword.
+- `sed -i` on macOS needs a suffix argument; use Python for edits.
+- `next dev` panics on this Mac (Turbopack `node:fs`): verify on production builds (`next build` then `next start`), with the decoy home point, a free port (never 4477 or 4311), and stop servers by PID. Playwright specs run one at a time. Use `vitest --project unit` for focused runs (without it a `next build` starts). The build POST route needs an https origin in production: the e2e servers run `NODE_ENV=test` and strip `Origin` (see `plan-flow.spec.ts`).
+- Fresh worktrees need `pnpm install --offline --frozen-lockfile` and sometimes `web/.og-cache` copied read-only from the main checkout; never symlink the main checkout's node_modules or `.env.local`.
+- Merging parallel branches conflicts in `docs/v2/build/public-site/BACKLOG.md` (append rows), `web/tests/plan/isolation.test.ts` (extension points) and `tools/gate/map.json`: keep both sides. `tools/tests/test_gate_map.py` replay fails when a merge changes a test without a rule that selects it: add the path to the rule.
+- Known red or flaky: `core/test/drive/keys.test.ts` home refusal and `web/tests/data/legs-home-radius.test.ts` need the real home point; `tests/api/images` and `adapters-renditions` need the photo cache.
+- Another session (MCP planning) also merges into `main` through the `mainwt` worktree: check `git status` for an in-progress merge before touching it.
+
+### Working agreement
+
+Coordinator (Sonnet) delegates by complexity (Haiku mechanical, Sonnet specified, Opus contracts, security, reviews; never Fable); every UI round ends with a design reviewer and a verifier; one package per worktree under `/Users/nks/workspace/travel-wt/`; merge into `mainwt` (branch `main`), run the focused checks (tsc, focused vitest, `check_map.py`, `tree_check.py --check`, `hardcode_scan.py --check`, gate tests), then push. Heavy checks run in CI. Update this section and BACKLOG at each logical commit.
+
+---
+
+## Previous handover: 25 Oct 2026 (evening), Vercel preview live, Phase 1 email and data research running
+
+**Dated 25 Oct; the section above is newer. Email, data and hosting facts here are still the reference; verify against `git log`.**
 
 ### Where things are
 
