@@ -1,7 +1,7 @@
 {
   "schema": "snapshot-report/1",
   "note": "Dropped from the public view because it carries a calendar date. Rewrite each as a season, a day number or a rule.",
-  "count": 314,
+  "count": 319,
   "items": [
     {
       "where": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre wikidata note",
@@ -854,6 +854,16 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/cerro-castor kid_note",
+      "text": "Children 0 to 4 ski free with a pass collected at the base ticket office (bring the child's ID); there is a ski school with a 'Castor Junior' programme and a skating rink at the base.",
+      "why": "describes the household party; no rewrite rule fits, so the sentence is dropped"
+    },
+    {
+      "where": "place/cerro-castor wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Cerro Castor', mountain and ski area, P625 0.8 km from OSM base node 2643657602; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/chamonix-mont-blanc wikidata note",
       "text": "agent-checked 2026-10-28 (travel-researcher): label 'Chamonix-Mont-Blanc', P625 near OSM node/26696275; needs a person's check",
       "why": "agent or review-queue process note; never published"
@@ -876,6 +886,11 @@
     {
       "where": "place/curly-phillips-boathouse wikidata note",
       "text": "agent-checked 2026-10-28 (travel-researcher): label 'Curly Phillips Boathouse', instance of boathouse, P625 at the north end of Maligne Lake; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/el-chalten wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'El Chaltén', P625 near OSM node/255706152; needs a person's check",
       "why": "agent or review-queue process note; never published"
     },
     {
@@ -1109,6 +1124,11 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/perito-moreno-glacier wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Perito Moreno Glacier', glacier, P625 on the ice 10 km inside OSM relation 5944197; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/pic-champlain wikidata note",
       "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Pic Champlain', instance of summit, P2044 346 m, P625 0.13 km from OSM peak node 1087473528; the QID is also the OSM wikidata tag; needs a person's check",
       "why": "agent or review-queue process note; never published"
@@ -1171,6 +1191,11 @@
     {
       "where": "place/upper-kananaskis-lake wikidata note",
       "text": "agent-checked 2026-10-28 (travel-researcher): label 'Upper Kananaskis Lake', instance of lake, P625 0.24 km from OSM relation 4011900; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/ushuaia wikidata note",
+      "text": "agent-checked 2026-10-28 (travel-researcher): label 'Ushuaia', P625 near OSM node/198432092; needs a person's check",
       "why": "agent or review-queue process note; never published"
     },
     {

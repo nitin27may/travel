@@ -1,0 +1,477 @@
+{
+  "schema": "relevance/1",
+  "trip": "catalogue",
+  "lane": "LT2-ar",
+  "researched": "2026-10-28",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://query.wikidata.org/sparql",
+      "title": "Wikidata items of the LT-2 places (labels, P31, P625, P1566, P856, P402, P2044, P6375, P281)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares",
+      "title": "Parque Nacional Los Glaciares",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares/horarios-como-llegar-0",
+      "title": "Los Glaciares: horarios y cómo llegar",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/tarifas",
+      "title": "Derechos de acceso a Parques Nacionales",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html",
+      "title": "Cerro Castor: horario y ubicación",
+      "publisher": "Cerro Castor",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.cerrocastor.com/es_ar/pases-esquiador.html",
+      "title": "Cerro Castor: pase esquiador",
+      "publisher": "Cerro Castor",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://turismoushuaia.com/",
+      "title": "Turismo Ushuaia",
+      "publisher": "Secretaría de Turismo de Ushuaia",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/perito-moreno-glacier",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q367943",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Perito Moreno Glacier', glacier, P625 on the ice 10 km inside OSM relation 5944197; needs a person's check"
+      },
+      "class_key": "glacier/walk-on",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): Los Glaciares National Park, a UNESCO World Heritage Site since 1981 (the park page)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The park's best-known glacier and its walkway system."
+      },
+      "standing_scope": "parent",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A glacier front seen face to face from walkways, with periodic ice-dam ruptures."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Walkways from the car park."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The ice front shows in cloud as well as sun."
+      },
+      "why": "A glacier front seen from railed walkways 80 km from El Calafate, in Los Glaciares National Park.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-28",
+        "note": "No booking. The park access fee is paid at the gate on RP 11: day pass 2026 ARS 50,000 (General), ARS 25,000 (Nacional), ARS 8,000 (provincial residents), ARS 15,000 (students)."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Los Glaciares National Park",
+              "scope": "parent"
+            },
+            {
+              "type": "unesco_whs",
+              "name": "Los Glaciares National Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-28"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/cerro-castor",
+      "kind": "activity",
+      "subkind": "ski",
+      "wikidata": {
+        "v": "Q521811",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Cerro Castor', mountain and ski area, P625 0.8 km from OSM base node 2643657602; needs a person's check"
+      },
+      "class_key": "snow/ski",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-28",
+        "note": "No designation; the operator presents it as the southernmost ski area, on the 54th parallel (its own page, a headline)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The ski area of Tierra del Fuego."
+      },
+      "standing_scope": "Tierra del Fuego",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A ski area at 54 degrees south."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Lifts from the base."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Snow sport; clear days for the views."
+      },
+      "why": "Ski area 26 km east of Ushuaia on the south-facing slopes of the Fuegian Andes.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0009"
+        ],
+        "read": "2026-10-28",
+        "note": "No permit; a lift pass is needed for the slopes (price not read)."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.cerrocastor.com/es_ar/home.html"
+          ],
+          "note": "No designation is named."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/ushuaia",
+      "kind": "town",
+      "subkind": "city",
+      "wikidata": {
+        "v": "Q44254",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'Ushuaia', P625 near OSM node/198432092; needs a person's check"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0012"
+        ],
+        "read": "2026-10-28",
+        "note": "The city's tourism board presents it as the base for the Beagle Channel and Tierra del Fuego National Park."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The base for Tierra del Fuego."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in the region."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Capital of Tierra del Fuego on the Beagle Channel, the base for the national park and the channel boats.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.ushuaia.gob.ar/",
+            "https://turismoushuaia.com/"
+          ],
+          "note": "No designation is named for the town."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    },
+    {
+      "ref": "place/el-chalten",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q1323978",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-28",
+        "note": "agent-checked 2026-10-28 (travel-researcher): label 'El Chaltén', P625 near OSM node/255706152; needs a person's check"
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-28",
+        "note": "Designation (parent): the northern zone of Los Glaciares National Park, whose trails start in the village (the national park page)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "The trekking base of the park's north."
+      },
+      "standing_scope": "the region",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Towns of this kind are several in the region."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "A town you drive into."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "Services and indoor stops in any weather."
+      },
+      "why": "Village at the foot of Fitz Roy; the trails of the northern zone of Los Glaciares start here.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-28",
+        "note": "No booking or permit to enter the town."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Los Glaciares National Park (Zona Norte)",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-28",
+          "note": "The park page: in the northern zone, access fees are charged and the services and trails start from El Chaltén."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      }
+    }
+  ]
+}

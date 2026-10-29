@@ -1485,7 +1485,7 @@
       "via": "point",
       "from": "locations store",
       "km": 0.5,
-      "rival_km": 579.5
+      "rival_km": 578.5
     },
     "trip/patagonia-2027/town:palermo and recoleta walk": {
       "area_id": "AR/C/buenos-aires",
@@ -1520,7 +1520,7 @@
       "via": "point",
       "from": "locations store",
       "km": 3.9,
-      "rival_km": 576.3
+      "rival_km": 575.5
     },
     "trip/patagonia-2027/trail:laguna capri": {
       "area_id": "AR/Z/lago-argentino-department",
@@ -1539,9 +1539,9 @@
     "trip/patagonia-2027/trail:laguna esmeralda": {
       "area_id": "AR/V/ushuaia-department",
       "via": "point",
-      "from": "locations store",
-      "km": 6.8,
-      "rival_km": 578.8
+      "from": "place/cerro-castor",
+      "km": 6.7,
+      "rival_km": 577.6
     },
     "trip/patagonia-2027/trail:mirador de las aguilas": {
       "area_id": "AR/Z/lago-argentino-department",
@@ -1551,7 +1551,7 @@
     "trip/patagonia-2027/trail:mirador de los condores": {
       "area_id": "AR/Z/lago-argentino-department",
       "via": "point",
-      "from": "locations store",
+      "from": "place/el-chalten",
       "km": 0.7,
       "rival_km": 682.5
     },
@@ -1567,7 +1567,7 @@
       "via": "point",
       "from": "locations store",
       "km": 8.1,
-      "rival_km": 575.2
+      "rival_km": 574.5
     },
     "trip/utah-five-parks/sight:fruita orchards": {
       "area_id": "US/UT/wayne-county",

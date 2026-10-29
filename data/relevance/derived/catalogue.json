@@ -2261,6 +2261,242 @@
       "layer": "place"
     },
     {
+      "ref": "place/perito-moreno-glacier",
+      "draw_suggested": "world",
+      "effective_draw": "world",
+      "access_load": "easy",
+      "detour_min": 156,
+      "detour_basis": "town",
+      "detour_town": "El Calafate",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [
+        "trip/patagonia-2027/sight:perito moreno walkways"
+      ],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw world, standing top"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 156 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/cerro-castor",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 50,
+      "detour_basis": "town",
+      "detour_town": "Ushuaia",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
+          "km": 8.1
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 50 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/ushuaia",
+      "draw_suggested": "world",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Ushuaia",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, but distinction common: an anchor needs unique or rare, or a world draw"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/el-chalten",
+      "draw_suggested": "national",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "El Chalten",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/patagonia-2027/town:village and cafes",
+            "km": 0.1,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/patagonia-2027/town:village and cafes",
+            "km": 0.1,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+          "km": 0.9,
+          "how": "walk",
+          "extra_min": 48,
+          "on_site_min": 20,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [
+        {
+          "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
+          "km": 2.3
+        },
+        {
+          "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
+          "km": 4.3
+        },
+        {
+          "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
+          "km": 4.7
+        },
+        {
+          "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+          "km": 9.6
+        }
+      ],
+      "part_of": [
+        "trip/patagonia-2027/viewpoint:evening fitz roy glow"
+      ],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, but distinction common: an anchor needs unique or rare, or a world draw"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
       "ref": "place/la-flegere",
       "draw_suggested": "local",
       "effective_draw": "regional",

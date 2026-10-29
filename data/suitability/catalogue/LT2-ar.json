@@ -1,0 +1,382 @@
+{
+  "schema": "suitability/1",
+  "trip": "catalogue",
+  "lane": "LT2-ar",
+  "researched": "2026-10-28",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://query.wikidata.org/sparql",
+      "title": "Wikidata items of the LT-2 places (labels, P31, P625, P1566, P856, P402, P2044, P6375, P281)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap elements by id, car parks, stations and information points near each place (Overpass)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-28",
+      "method": "api",
+      "run": "lt2-2026-10-28-p2-p3-places"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares/horarios-como-llegar-0",
+      "title": "Los Glaciares: horarios y cómo llegar",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf",
+      "title": "Mapa de pasarelas Glaciar Perito Moreno (2024)",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html",
+      "title": "Cerro Castor: horario y ubicación",
+      "publisher": "Cerro Castor",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.cerrocastor.com/es_ar/pases-esquiador.html",
+      "title": "Cerro Castor: pase esquiador",
+      "publisher": "Cerro Castor",
+      "kind": "operator",
+      "read": "2026-10-28",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/perito-moreno-glacier",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-28",
+          "note": "The walkways include a 565 m accessible trail graded very easy."
+        },
+        "kid_note": "The walkways face the glacier front across the Canal de los Témpanos; ice falls from the front without warning, so keep to the walkways and balconies. The accessible trail is 565 m (about 30 minutes); the lower trail (1,100 m) is graded challenging.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-28",
+          "note": "The map lists a 565 m accessible trail (Sendero Accesible), graded very easy."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007",
+            "src-0005"
+          ],
+          "read": "2026-10-28",
+          "note": "An accessible trail of 565 m; the upper car park is reserved for visitors with reduced mobility; the other trails have steps."
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            180
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-28",
+          "note": "The map's trail times run from 10 minutes to 2 hours; our range for a visit.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": "fenced",
+            "where": "the walkways and balconies"
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-28",
+          "note": "Railed walkways; our reading of the map."
+        },
+        "walk_m": {
+          "v": 820,
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-28",
+          "note": "Straight line from the lower car park (way/1259804791) to the main access of the walkways; a person should confirm whether a shuttle runs between them.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "RP 11 from El Calafate (80 km), with set entry hours"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-28",
+          "applies_to": "2026"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "glacier",
+              "note": "Ice falls from the glacier front; stay on the walkways"
+            },
+            {
+              "category": "water",
+              "note": "Waves from falling ice in the channel"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-28",
+          "note": "The map describes the rupture as impossible to predict and asks visitors to follow the park's recommendations; the wave note is our reading."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/cerro-castor",
+      "kind": "activity",
+      "subkind": "ski",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-28",
+          "note": "Pass categories run from infants (0 to 4, free) and children (5 to 11) to seniors (70 and over, free)."
+        },
+        "kid_note": "Children 0 to 4 ski free with a pass collected at the base ticket office (bring the child's ID); there is a ski school with a 'Castor Junior' programme and a skating rink at the base.",
+        "effort": {
+          "source_grade": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-28",
+            "tried": [
+              "https://www.cerrocastor.com/es_ar/mapa-de-pistas.html"
+            ],
+            "note": "The piste map is an image; no run counts by grade were read."
+          }
+        },
+        "altitude_m": {
+          "v": 1057,
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-28",
+          "note": "Wikidata Q521811 P2044 (the mountain); the base is far lower."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "RN 3, fully paved, 26 km from Ushuaia"
+            }
+          ],
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-28",
+          "applies_to": "2026"
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/ushuaia",
+      "kind": "town",
+      "subkind": "city",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.ushuaia.gob.ar/",
+            "https://turismoushuaia.com/"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.ushuaia.gob.ar/",
+            "https://turismoushuaia.com/"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/el-chalten",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.elchalten.gob.ar/",
+            "https://www.elchalten.gob.ar/secretaria-de-turismo/"
+          ],
+          "note": "No page describes the pavements."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-28",
+          "tried": [
+            "https://www.elchalten.gob.ar/",
+            "https://www.elchalten.gob.ar/secretaria-de-turismo/"
+          ],
+          "note": "No page describes step-free access in the town."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

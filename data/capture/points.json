@@ -7158,6 +7158,114 @@
         "review_state": "agent_checked",
         "basis": "community"
       }
+    },
+    "place/perito-moreno-glacier": {
+      "lat": -50.49322,
+      "lon": -73.12798,
+      "coord_src": "wikidata",
+      "point_src": {
+        "provider": "Wikidata",
+        "element": "Q367943",
+        "read": "2026-10-28",
+        "quote": "Wikidata Q367943 P625 (Perito Moreno Glacier); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/perito-moreno-glacier#walkways-parking": {
+      "lat": -50.46272,
+      "lon": -73.02405,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/1259804791",
+        "read": "2026-10-28",
+        "quote": "OSM way 1259804791 unnamed public car park by the walkways (amenity=parking, fee=no, access=yes); agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/cerro-castor": {
+      "lat": -54.72373,
+      "lon": -68.01782,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/2643657602",
+        "read": "2026-10-28",
+        "quote": "OSM node 2643657602 Cerro Castor (leisure=sports_centre, sport=skiing), the base; agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "part/place/cerro-castor#base-parking": {
+      "lat": -54.7245,
+      "lon": -68.01552,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "way/905218501",
+        "read": "2026-10-28",
+        "quote": "OSM way 905218501 unnamed car park beside the base (amenity=parking), 170 m from the base node; agent checked, needs a person's check"
+      },
+      "point_role": "parking",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/ushuaia": {
+      "lat": -54.80731,
+      "lon": -68.30841,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/198432092",
+        "read": "2026-10-28",
+        "quote": "OSM node 198432092 Ushuaia (place=town); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
+    },
+    "place/el-chalten": {
+      "lat": -49.33196,
+      "lon": -72.88604,
+      "coord_src": "osm",
+      "point_src": {
+        "provider": "OpenStreetMap",
+        "element": "node/255706152",
+        "read": "2026-10-28",
+        "quote": "OSM node 255706152 El Chaltén (place=village); agent checked, needs a person's check"
+      },
+      "point_role": "centre",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "lt2-2026-10-28-p2-p3-places",
+        "review_state": "agent_checked",
+        "basis": "community"
+      }
     }
   }
 }

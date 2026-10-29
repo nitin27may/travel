@@ -305,8 +305,8 @@
         ]
       },
       "far_pointer": {
-        "ref": "trip/patagonia-2027/town:village and cafes",
-        "km": 2.4,
+        "ref": "place/el-chalten",
+        "km": 2.3,
         "draw": "national",
         "same_class": false
       },
@@ -480,6 +480,7 @@
         }
       ],
       "part_of": [
+        "place/el-chalten",
         "trip/patagonia-2027/town:village and cafes"
       ],
       "plan_b": null,
@@ -524,7 +525,7 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "trip/patagonia-2027/sight:perito moreno walkways",
+        "ref": "place/perito-moreno-glacier",
         "km": 40.2,
         "draw": "world",
         "same_class": false
@@ -671,7 +672,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "place/cerro-castor",
+          "km": 8.1
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -811,7 +817,9 @@
       "far_pointer": null,
       "pair_with": [],
       "pair_pending": [],
-      "part_of": [],
+      "part_of": [
+        "place/perito-moreno-glacier"
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1144,7 +1152,12 @@
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/ushuaia",
+        "km": 0.6,
+        "draw": "national",
+        "same_class": false
+      },
       "pair_with": [],
       "pair_pending": [],
       "part_of": [],
@@ -1186,8 +1199,26 @@
       "detour_town": "El Chalten",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/el-chalten",
+            "km": 0.1,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/el-chalten",
+            "km": 0.1,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
       "pair_with": [
@@ -1536,8 +1567,8 @@
         ]
       },
       "far_pointer": {
-        "ref": "trip/patagonia-2027/town:village and cafes",
-        "km": 2.4,
+        "ref": "place/el-chalten",
+        "km": 2.3,
         "draw": "national",
         "same_class": false
       },
@@ -1677,7 +1708,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "place/cerro-castor",
+          "km": 8.1
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {

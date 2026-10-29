@@ -6905,6 +6905,11 @@
           "field": "address"
         },
         {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/perito-moreno-glacier#walkways-parking",
+          "field": "address"
+        },
+        {
           "file": "data/capture/catalogue/LT2-fr.json",
           "ref": "part/place/la-flegere#les-praz-parking",
           "field": "address"
@@ -7153,7 +7158,7 @@
     {
       "id": "s-af92053c73",
       "url": "https://overpass-api.de/api/interpreter",
-      "title": "OpenStreetMap elements by id and car parks, trailheads and roads near each place (Overpass)",
+      "title": "OpenStreetMap elements by id, car parks, stations and information points near each place (Overpass)",
       "publisher": "OpenStreetMap contributors (ODbL)",
       "kind": "community",
       "first_read": "2026-10-19",
@@ -7460,6 +7465,36 @@
           "field": "osm_ref"
         },
         {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/cerro-castor#base-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/perito-moreno-glacier#walkways-parking",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "osm_ref"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "osm_ref"
+        },
+        {
           "file": "data/capture/catalogue/LT2-fr.json",
           "ref": "part/place/la-flegere#les-praz-parking",
           "field": "osm_ref"
@@ -7723,6 +7758,11 @@
           "file": "data/suitability/catalogue/LT1-ca.json",
           "ref": "place/mount-blakiston",
           "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.walk_m"
         },
         {
           "file": "data/suitability/catalogue/LT2-is.json",
@@ -16049,6 +16089,36 @@
       "last_read": "2026-10-28",
       "used_by": [
         {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "links"
+        },
+        {
           "file": "data/capture/catalogue/LT2-fr.json",
           "ref": "place/chamonix-mont-blanc",
           "field": "geonames_id"
@@ -16269,6 +16339,26 @@
           "field": "links"
         },
         {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "wikidata"
+        },
+        {
           "file": "data/relevance/catalogue/LT2-fr.json",
           "ref": "place/chamonix-mont-blanc",
           "field": "wikidata"
@@ -16447,6 +16537,11 @@
           "file": "data/relevance/catalogue/R9-it.json",
           "ref": "place/verona",
           "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "suitability.altitude_m"
         }
       ],
       "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
@@ -17578,6 +17673,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-3da6d59d6d",
+      "url": "https://turismoushuaia.com",
+      "title": "Turismo Ushuaia",
+      "publisher": "Secretaría de Turismo de Ushuaia",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -21469,6 +21596,100 @@
       }
     },
     {
+      "id": "s-6463d2429c",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares",
+      "title": "Parque Nacional Los Glaciares",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e8e2fcdc1d",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares/horarios-como-llegar-0",
+      "title": "Los Glaciares: horarios y cómo llegar",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/perito-moreno-glacier#walkways-parking",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/perito-moreno-glacier#walkways-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/perito-moreno-glacier#walkways-parking",
+          "field": "season"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-5b91debb2b",
       "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/senderos-del-parque-nacional-tierra-del-fuego",
       "title": "Senderos del Parque Nacional Tierra del Fuego | Argentina.gob.ar",
@@ -21489,6 +21710,33 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9a93674c10",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/tarifas",
+      "title": "Derechos de acceso a Parques Nacionales",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "access_cost"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "unchecked",
@@ -21685,6 +21933,58 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-bf327a8f4c",
+      "url": "https://www.argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf",
+      "title": "Mapa de pasarelas Glaciar Perito Moreno (2024)",
+      "publisher": "Administración de Parques Nacionales (Argentina.gob.ar, CC BY 4.0)",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/perito-moreno-glacier",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
       },
       "link": {
         "status": "unchecked",
@@ -23626,6 +23926,117 @@
       }
     },
     {
+      "id": "s-ad4db836eb",
+      "url": "https://www.cerrocastor.com/es_ar/home.html",
+      "title": "Cerro Castor",
+      "publisher": "Cerro Castor",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c7940a9cac",
+      "url": "https://www.cerrocastor.com/es_ar/horario-y-ubicacion.html",
+      "title": "Cerro Castor: horario y ubicación",
+      "publisher": "Cerro Castor",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/cerro-castor#base-parking",
+          "field": "address"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "part/place/cerro-castor#base-parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "address"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-11e80370dc",
+      "url": "https://www.cerrocastor.com/es_ar/pases-esquiador.html",
+      "title": "Cerro Castor: pase esquiador",
+      "publisher": "Cerro Castor",
+      "kind": "operator",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "window"
+        },
+        {
+          "file": "data/relevance/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/LT2-ar.json",
+          "ref": "place/cerro-castor",
+          "field": "suitability.age_band"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-b92eb0c96e",
       "url": "https://www.chamonix.com",
       "title": "Chamonix-Mont-Blanc tourist office",
@@ -25549,6 +25960,60 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-7116918627",
+      "url": "https://www.elchalten.gob.ar",
+      "title": "Comisión de Fomento de El Chaltén",
+      "publisher": "Comisión de Fomento de El Chaltén",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-3a0dc3847a",
+      "url": "https://www.elchalten.gob.ar/secretaria-de-turismo",
+      "title": "Secretaría de Turismo de El Chaltén",
+      "publisher": "Comisión de Fomento de El Chaltén",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/el-chalten",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -36481,6 +36946,33 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-a5b15f029e",
+      "url": "https://www.ushuaia.gob.ar",
+      "title": "Municipalidad de Ushuaia",
+      "publisher": "Municipalidad de Ushuaia",
+      "kind": "official",
+      "first_read": "2026-10-28",
+      "last_read": "2026-10-28",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/LT2-ar.json",
+          "ref": "place/ushuaia",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
